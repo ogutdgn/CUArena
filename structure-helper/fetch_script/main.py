@@ -31,7 +31,7 @@ BASE_URL = "https://help.figma.com"
 API_BASE = f"{BASE_URL}/api/v2/help_center/en-us"
 CATEGORY_ID = "360002042553"  # Figma Design
 
-OUTPUT_DIR = Path("figma_docs")
+OUTPUT_DIR = Path(__file__).resolve().parent.parent / "figma_docs"
 PROGRESS_FILE = OUTPUT_DIR / "progress.json"
 ERROR_LOG = OUTPUT_DIR / "errors.log"
 INDEX_FILE = OUTPUT_DIR / "index.json"
