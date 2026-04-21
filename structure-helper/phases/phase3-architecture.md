@@ -39,10 +39,15 @@ This is a mock Figma for CUA testing. Key constraints:
 ## Input Files
 
 Read Phase 2 outputs (in `scope/` directory):
-- `tier-classification.md` — what features are in scope
-- `selected-workflows.md` — what workflows to support
+- `product-scope.md` — which of the four Figma products (Figma Design, Figma Draw, Dev Mode, Projects) are in scope
+- `tier-classification.md` — what features are in scope (with product tag)
+- `selected-workflows.md` — what workflows to support (cross-product ones flagged)
 - `fidelity-matrix.md` — how real each feature needs to be
 - `mock-ui-spec.md` — UI requirements
+
+If more than one product is in scope, your architecture must clarify how the
+products coexist in the mock (single shell with mode switch? separate views?
+shared state?). This is not optional — CUA behavior differs per product.
 
 ## Design Principles
 

@@ -1,18 +1,27 @@
-# Figma Design Documentation — AI Agent Guide
+# Figma Documentation — AI Agent Guide
 
 ## Purpose
 
-This is a scraped archive of Figma Design's help center (197 articles).
-The goal is to analyze Figma's features, workflows, and UI patterns to build
-a mock Figma application for CUA (Computer Use Agent) testing.
+This is a scraped archive of Figma's help center, organized by product. Four
+products are covered:
+
+- **Figma Design** — the main design tool
+- **Figma Draw** — illustration / vector drawing workflows
+- **Dev Mode** — handoff, inspect, code generation, Code Connect
+- **Projects** — sample projects / project organization content
+
+The goal is to analyze Figma's features, workflows, and UI patterns to build a
+mock Figma application for CUA (Computer Use Agent) testing.
 
 **You are working in phases.** The user will tell you which phase they are in.
-Read ONLY the relevant phase file from `structure-helper/phases/` — do not load all phases at once.
+Read ONLY the relevant phase file from `structure-helper/phases/` — do not load
+all phases at once.
 
 ## Phases
 
 | Phase | File | Goal |
 |-------|------|------|
+| 0 - Alignment | `structure-helper/phases/phase0-learn.md` | Architectural decisions log (top 3 locked, pending, tabled) |
 | 1 - Discovery | `structure-helper/phases/phase1-discovery.md` | Analyze features, workflows, dependencies |
 | 2 - Scope | `structure-helper/phases/phase2-scope.md` | Define what the mock app will include |
 | 3 - Architecture | `structure-helper/phases/phase3-architecture.md` | Technical design for the mock app |
@@ -25,19 +34,27 @@ Read ONLY the relevant phase file from `structure-helper/phases/` — do not loa
 ├── CLAUDE.md                    # This file
 └── structure-helper/
     ├── phases/                  # Phase-specific instructions
+    │   ├── phase0-learn.md
     │   ├── phase1-discovery.md
     │   ├── phase2-scope.md
     │   ├── phase3-architecture.md
     │   └── phase4-implementation.md
     ├── figma_docs/              # Scraped documentation corpus
-    │   ├── index.json           # 197 articles: id, title, slug, breadcrumb, labels (98KB)
-    │   ├── graph.json           # Link graph: 197 nodes, 914 edges, 428 external links (211KB)
+    │   ├── index.json           # All articles across all products: id, title, slug, product, breadcrumb, labels
+    │   ├── graph.json           # Link graph: nodes (with product), edges, external_links
     │   ├── progress.json        # Scraper state (ignore)
     │   └── articles/
-    │       └── <article-slug>/
-    │           ├── content.md      # Full article as markdown
-    │           ├── metadata.json   # URL, breadcrumb, images, videos, who_can_use, internal_links
-    │           └── images/         # Downloaded images (822 total)
+    │       ├── Figma Design/
+    │       │   └── <article-slug>/
+    │       │       ├── content.md      # Full article as markdown
+    │       │       ├── metadata.json   # URL, product, breadcrumb, images, videos, who_can_use, internal_links
+    │       │       └── images/         # Downloaded images
+    │       ├── Figma Draw/
+    │       │   └── <article-slug>/...
+    │       ├── Dev Mode/
+    │       │   └── <article-slug>/...
+    │       └── Projects/
+    │           └── <article-slug>/...
     └── fetch_script/            # Scraper source code
         ├── main.py
         ├── requirements.txt
@@ -48,58 +65,51 @@ Read ONLY the relevant phase file from `structure-helper/phases/` — do not loa
 
 **Token budget matters.** Follow this lookup order:
 
-1. **Start with `structure-helper/figma_docs/index.json`** — scan titles and breadcrumbs to find relevant articles.
-   Do NOT read all 197 articles. Find the 2-5 that matter for your current question.
+1. **Start with `structure-helper/figma_docs/index.json`** — scan titles,
+   breadcrumbs, and the `product` field to find relevant articles across all
+   four products. Do NOT read every article. Find the 2-5 that matter for
+   your current question.
 
-2. **Use `structure-helper/figma_docs/graph.json` for relationships** — find which articles link to each other.
-   The `edges` array has `{source, target, link_text}`.
-   The `external_links` array shows references outside this corpus.
+2. **Use `structure-helper/figma_docs/graph.json` for relationships** — find
+   which articles link to each other.
+   - `nodes[]` has `{id, title, product, breadcrumb_path}`
+   - `edges[]` has `{source, target, link_text}` — resolve target's product
+     via `nodes[target].product`
+   - `external_links[]` — references outside this corpus
 
-3. **Read specific `structure-helper/figma_docs/articles/<slug>/content.md` files** — only when you need the actual content.
-   Always read `metadata.json` first (smaller) to check if the article is relevant.
+3. **Read specific `structure-helper/figma_docs/articles/<Product>/<slug>/content.md`**
+   — only when you need the actual content. Always read `metadata.json` first
+   (smaller); its `internal_links[]` entries are pre-tagged with:
+   - `target_type`: `"article"` / `"section"` / `"external"`
+   - `target_id`: article_id or section_id (null for external)
+   - `target_product`: `"Figma Design"` / `"Figma Draw"` / `"Dev Mode"` /
+     `"Projects"` / `null`
 
 4. **Never read images** unless the user specifically asks about visual layout.
 
-## Corpus Overview
+## Products and Cross-Product References
 
-| Domain | Articles | Description |
-|--------|----------|-------------|
-| Create designs | 68 | Layers, frames, shapes, vectors, fills, strokes, effects, auto layout, constraints |
-| Build design systems | 41 | Components, variants, slots, variables, styles, libraries |
-| Create prototypes | 27 | Triggers, actions, animations, flows, state management, expressions |
-| Dev Mode | 19 | Inspect, code snippets, Code Connect, VS Code, handoff, branching |
-| Work together | 18 | Comments, branching, merge, review, cursor chat, spotlight |
-| Tour the interface | 15 | UI3 navigation, toolbar, sidebars, actions menu, AI tools, keyboard |
-| Import and export | 6 | Sketch import, export formats, copy between tools |
-| Figma Draw | 3 | Illustration tools, patterns, transforms |
+Articles frequently link across products (e.g. a Figma Design article linking
+to a Dev Mode article). Use the `target_product` field in each article's
+`internal_links[]` to see where a reference goes without opening the target
+file.
 
-## Graph Quick Reference
-
-**Most referenced articles (core concepts):**
-- Connect your prototype (21 incoming refs)
-- Play your prototypes (20)
-- Publish a library (16)
-- Guide to prototyping (16)
-- Guide to variables (16)
-- Guide to Dev Mode (15)
-
-**Most linking articles (hub/overview pages):**
-- Navigating UI3 (25 outgoing refs)
-- Right sidebar properties (24)
-- Guide to prototyping (19)
-- Guide to Dev Mode (18)
-
-**Strongest cross-domain connections:**
-- Tour the interface -> Create designs (44 links)
-- Create prototypes -> Create designs (27)
-- Build design systems -> Create designs (27)
-- Create designs -> Build design systems (23)
+When answering cross-product questions, prefer reading `index.json` +
+`graph.json` over loading multiple `content.md` files — the graph already
+carries per-node product info.
 
 ## Rules
 
-- When the user says "Phase N", read `structure-helper/phases/phaseN-*.md` for detailed instructions.
+- When the user says "Phase N", read `structure-helper/phases/phaseN-*.md` for
+  detailed instructions.
 - Do not guess article content — read the file.
-- Cite articles by title when referencing them.
-- If a question spans multiple domains, check `structure-helper/figma_docs/graph.json` edges to find related articles.
-- Prefer `metadata.json` over `content.md` when you only need links/breadcrumb/labels.
-- All article paths follow: `structure-helper/figma_docs/articles/<slug>/content.md` and `structure-helper/figma_docs/articles/<slug>/metadata.json`.
+- Cite articles by title and product (e.g. *"Guide to Dev Mode"* [Dev Mode]).
+- If a question spans multiple products, check `structure-helper/figma_docs/graph.json`
+  edges + node product tags to find related articles.
+- Prefer `metadata.json` over `content.md` when you only need
+  links/breadcrumb/labels/product.
+- Article paths follow:
+  `structure-helper/figma_docs/articles/<Product>/<slug>/content.md` and
+  `structure-helper/figma_docs/articles/<Product>/<slug>/metadata.json`.
+  The `<Product>` segment is one of: `Figma Design`, `Figma Draw`, `Dev Mode`,
+  `Projects`.

@@ -7,8 +7,12 @@ Phase 3 architecture documents.
 
 ## Context
 
-You are building a mock Figma Design interface for CUA (Computer Use Agent)
-testing. The CUA will see this app's screen and interact with it.
+You are building a mock Figma interface for CUA (Computer Use Agent) testing.
+The CUA will see this app's screen and interact with it.
+
+The scope may include one or more of the four products covered in the corpus:
+Figma Design, Figma Draw, Dev Mode, Projects. Phase 2's `product-scope.md`
+and Phase 3's architecture decide which are in — follow those.
 
 ## Objectives
 
@@ -29,8 +33,9 @@ Read Phase 3 outputs (in `architecture/` directory):
 - `test-scenarios.md` — what the app must support
 
 Also reference the original documentation when you need UI details:
-- `figma_docs/articles/<slug>/content.md` — exact button labels, menu items, panel sections
-- `figma_docs/articles/<slug>/images/` — screenshots of the real Figma UI
+- `figma_docs/articles/<Product>/<slug>/content.md` — exact button labels, menu items, panel sections. `<Product>` is one of `Figma Design`, `Figma Draw`, `Dev Mode`, `Projects`.
+- `figma_docs/articles/<Product>/<slug>/images/` — screenshots of the real Figma UI
+- `figma_docs/index.json` — resolve title + product → slug before opening a file
 
 ## Implementation Rules
 

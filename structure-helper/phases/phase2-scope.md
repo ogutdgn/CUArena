@@ -16,9 +16,18 @@ and performs actions (click, type, drag). The mock must:
 - Be deterministic (same action = same result every time)
 - NOT require real canvas rendering (vector math, GPU, etc.)
 
+The Phase 1 corpus covers four products (Figma Design, Figma Draw, Dev Mode,
+Projects). Scope decisions must explicitly pick **which products** the mock
+app covers. Default assumption: Figma Design is in, the others are
+candidates to include or defer.
+
 ## Objectives
 
-1. **Tier Classification** — Classify every feature from Phase 1 into:
+0. **Product Scope** — Decide which of the four products (Figma Design,
+   Figma Draw, Dev Mode, Projects) the mock app will cover. Record the
+   rationale per product (in / out / deferred).
+
+1. **Tier Classification** — Classify every in-scope feature from Phase 1 into:
    - **Tier 1 (Must Have)**: Core features that define the CUA test scenarios
    - **Tier 2 (Nice to Have)**: Features that add realism but aren't essential
    - **Tier 3 (Out of Scope)**: Features that require deep engineering with no CUA test value
@@ -63,7 +72,8 @@ Read these Phase 1 outputs (in `analysis/` directory):
 ## Output Format
 
 Save scope decisions to `scope/` directory:
-- `scope/tier-classification.md` — every feature with its tier and reasoning
-- `scope/selected-workflows.md` — the 10-20 workflows to implement
+- `scope/product-scope.md` — which of the four products are in / out / deferred, with rationale
+- `scope/tier-classification.md` — every feature with its tier, product, and reasoning
+- `scope/selected-workflows.md` — the 10-20 workflows to implement (mark cross-product ones)
 - `scope/fidelity-matrix.md` — visual/behavioral/data fidelity per feature
 - `scope/mock-ui-spec.md` — what the mock UI must contain (panels, menus, states)
