@@ -1,6 +1,6 @@
-structure-helper/figma_docs/*
-!structure-helper/figma_docs/README.md
-analysis/_partial/
+helper/figma_docs/*
+!helper/figma_docs/README.md
+helper/analysis/_partial/
 open-source-example/
 .DS_Store
 __pycache__/

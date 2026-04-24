@@ -6,7 +6,7 @@ This project builds a mock Figma Design application for Computer Use Agent (CUA)
 
 ```bash
 # 1. Generate the documentation corpus
-cd structure-helper/fetch_script
+cd helper/fetch_script
 pip install -r requirements.txt
 python3 main.py
 
@@ -24,8 +24,9 @@ python3 main.py
 .
 ├── CLAUDE.md                    # AI agent instructions (phase-based)
 ├── README.md                    # This file
-└── structure-helper/
+└── helper/
     ├── phases/                  # Phase-specific AI prompts
     ├── fetch_script/            # Documentation scraper (Python)
-    └── figma_docs/              # Generated after running fetch script
+    ├── figma_docs/              # Generated after running fetch script
+    └── analysis/                # Generated from documentations
 ```
