@@ -21,6 +21,8 @@ interface ActiveCreation {
   txId: string;
   vertices: VectorVertex[];
   segments: VectorSegment[];
+  // Stores outgoing handle vectors per vertex for segments not yet created.
+  pendingOutHandles: Record<number, { dx: number; dy: number }>;
   originWorld: Point;
   originLocal: Point;
   initialNetwork: VectorNetwork;
@@ -53,6 +55,16 @@ function reverseOpenNetwork(network: VectorNetwork): VectorNetwork {
       })),
     closed: network.closed,
   };
+}
+
+function buildPendingOutHandles(network: VectorNetwork): Record<number, { dx: number; dy: number }> {
+  const pending: Record<number, { dx: number; dy: number }> = {};
+  for (const seg of network.segments) {
+    if (seg.handleFrom && pending[seg.fromIndex] == null) {
+      pending[seg.fromIndex] = { dx: seg.handleFrom.dx, dy: seg.handleFrom.dy };
+    }
+  }
+  return pending;
 }
 
 function constrainPointAngle(from: Point, to: Point, enabled: boolean): Point {
@@ -243,6 +255,7 @@ function tryResumeFromSelectedEndpoint(world: Point): boolean {
     txId,
     vertices: workingNetwork.vertices.map((v) => ({ ...v })),
     segments: workingNetwork.segments.map((seg) => ({ ...seg })),
+    pendingOutHandles: buildPendingOutHandles(workingNetwork),
     originWorld,
     originLocal: { x: layer.x, y: layer.y },
     initialNetwork: cloneNetwork(workingNetwork),
@@ -370,6 +383,7 @@ export const penTool: ITool = {
         txId,
         vertices: [{ x: 0, y: 0, handleType: "corner" }],
         segments: [],
+        pendingOutHandles: {},
         originWorld: { x: world.x, y: world.y },
         originLocal,
         initialNetwork,
@@ -415,7 +429,9 @@ export const penTool: ITool = {
     creation.segments.push({
       fromIndex: prevIdx,
       toIndex: prevIdx + 1,
-      handleFrom: null,
+      handleFrom: creation.pendingOutHandles[prevIdx]
+        ? { ...creation.pendingOutHandles[prevIdx] }
+        : null,
       handleTo: null,
     });
     creation.dragHandleIndex = creation.vertices.length - 1;
@@ -457,9 +473,13 @@ export const penTool: ITool = {
         if (inSeg) {
           inSeg.handleTo = { dx: -outDx, dy: -outDy };
         }
-        // Alt/Option breaks mirror coupling when both handles exist.
-        if (outSeg && (!e.altKey || !inSeg)) {
-          outSeg.handleFrom = { dx: outDx, dy: outDy };
+        // Alt/Option breaks mirror coupling when both handles exist. Without
+        // Alt, remember outgoing handle for future segments from this vertex.
+        if (!e.altKey) {
+          if (outSeg) outSeg.handleFrom = { dx: outDx, dy: outDy };
+          creation.pendingOutHandles[idx] = { dx: outDx, dy: outDy };
+        } else {
+          if (!outSeg) delete creation.pendingOutHandles[idx];
         }
         syncStore(false);
         updatePreview(constrainedHandleWorld);
@@ -497,7 +517,9 @@ export const penTool: ITool = {
         creation.segments.push({
           fromIndex: 0,
           toIndex: 1,
-          handleFrom: null,
+          handleFrom: creation.pendingOutHandles[0]
+            ? { ...creation.pendingOutHandles[0] }
+            : null,
           handleTo: null,
         });
         syncStore(false);
