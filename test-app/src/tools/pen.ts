@@ -12,8 +12,10 @@ import type { Vector, VectorNetwork, VectorVertex, VectorSegment, Layer } from "
 import { worldOffsetOfLayer, worldToParentLocal } from "@/engine/coordinates";
 import { getPenVectorStyleDefaults } from "@/engine/styleDefaults";
 
-const CLOSE_HIT_PX = 8;
+const CLOSE_HIT_PX = 12;
+const SOFT_HIT_PX = 20;
 const DRAG_THRESHOLD = 3;
+const HANDLE_DRAG_INTENT_PX = 0.75;
 const ANGLE_STEP_DEG = 15;
 
 interface ActiveCreation {
@@ -35,6 +37,8 @@ interface ActiveCreation {
   canAppendFromTail: boolean;
   // Close-path click behavior is valid only during true append creation.
   allowCloseOnStart: boolean;
+  // Distinguish click-to-close from actual handle drag intent.
+  didHandleDrag: boolean;
 }
 
 let creation: ActiveCreation | null = null;
@@ -96,12 +100,17 @@ function vertexWorld(creationState: ActiveCreation, index: number): Point {
   };
 }
 
-function nearestVertexHit(creationState: ActiveCreation, world: Point, zoom: number): { index: number; distance: number } | null {
+function nearestVertexHit(
+  creationState: ActiveCreation,
+  world: Point,
+  zoom: number,
+  hitPx = CLOSE_HIT_PX,
+): { index: number; distance: number } | null {
   let best: { index: number; distance: number } | null = null;
   for (let i = 0; i < creationState.vertices.length; i++) {
     const vw = vertexWorld(creationState, i);
     const d = distScreen(vw, world, zoom);
-    if (d > CLOSE_HIT_PX) continue;
+    if (d > hitPx) continue;
     if (!best || d < best.distance) {
       best = { index: i, distance: d };
     }
@@ -114,13 +123,14 @@ function nearestVectorVertex(
   originWorld: Point,
   world: Point,
   zoom: number,
+  hitPx = CLOSE_HIT_PX,
 ): { index: number; distance: number } | null {
   let best: { index: number; distance: number } | null = null;
   for (let i = 0; i < layer.network.vertices.length; i++) {
     const v = layer.network.vertices[i];
     const vw = { x: originWorld.x + v.x, y: originWorld.y + v.y };
     const d = distScreen(vw, world, zoom);
-    if (d > CLOSE_HIT_PX) continue;
+    if (d > hitPx) continue;
     if (!best || d < best.distance) {
       best = { index: i, distance: d };
     }
@@ -278,7 +288,9 @@ function beginCreationFromExistingAnchor(world: Point): boolean {
   if (layer.network.vertices.length === 0) return false;
   const vp = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
   const originWorld = worldOffsetOfLayer(s, layer);
-  const hit = nearestVectorVertex(layer, originWorld, world, vp.zoom);
+  const hit =
+    nearestVectorVertex(layer, originWorld, world, vp.zoom, CLOSE_HIT_PX) ??
+    nearestVectorVertex(layer, originWorld, world, vp.zoom, SOFT_HIT_PX);
   if (!hit) return false;
 
   const originalNetwork = cloneNetwork(layer.network);
@@ -331,6 +343,7 @@ function beginCreationFromExistingAnchor(world: Point): boolean {
     closeCandidate: null,
     canAppendFromTail,
     allowCloseOnStart: canAppendFromTail,
+    didHandleDrag: false,
   };
   updatePreview(world);
   return true;
@@ -416,6 +429,7 @@ function beginNewCreation(world: Point): void {
     closeCandidate: null,
     canAppendFromTail: true,
     allowCloseOnStart: true,
+    didHandleDrag: false,
   };
   emitSemantic({
     name: "add_vector_point",
@@ -479,10 +493,15 @@ export const penTool: ITool = {
 
     // Subsequent click: hit existing vertex (edit handles / maybe close on click).
     const vp = useStore.getState().viewportByPage[useStore.getState().activePageId] ?? { x: 0, y: 0, zoom: 1 };
-    const hit = nearestVertexHit(creation, world, vp.zoom);
+    const hit =
+      nearestVertexHit(creation, world, vp.zoom, CLOSE_HIT_PX) ??
+      (!creation.canAppendFromTail
+        ? nearestVertexHit(creation, world, vp.zoom, SOFT_HIT_PX)
+        : null);
     if (hit) {
       creation.dragHandleIndex = hit.index;
       creation.dragHandleStart = world;
+      creation.didHandleDrag = false;
       // Click-on-start may close on pointerup; dragging that same point edits
       // handles and clears this candidate in onPointerMove.
       creation.closeCandidate =
@@ -525,6 +544,7 @@ export const penTool: ITool = {
     creation.dragHandleIndex = creation.vertices.length - 1;
     creation.dragHandleStart = constrainedWorld;
     creation.closeCandidate = null;
+    creation.didHandleDrag = false;
 
     syncStore(false);
     emitSemantic({
@@ -542,46 +562,48 @@ export const penTool: ITool = {
     if (creation.closeCandidate && creation.dragHandleStart) {
       const ddx = world.x - creation.closeCandidate.downWorld.x;
       const ddy = world.y - creation.closeCandidate.downWorld.y;
-      if (Math.hypot(ddx, ddy) >= DRAG_THRESHOLD) {
+      if (Math.hypot(ddx, ddy) >= HANDLE_DRAG_INTENT_PX) {
         creation.closeCandidate = null;
       }
     }
     if (creation.dragHandleIndex != null && creation.dragHandleStart) {
       const dx = world.x - creation.dragHandleStart.x;
       const dy = world.y - creation.dragHandleStart.y;
-      if (Math.hypot(dx, dy) >= DRAG_THRESHOLD) {
-        const idx = creation.dragHandleIndex;
-        const v = creation.vertices[idx];
-        const anchorWorld = {
-          x: creation.originWorld.x + v.x,
-          y: creation.originWorld.y + v.y,
-        };
-        const constrainedHandleWorld = constrainPointAngle(anchorWorld, world, e.shiftKey);
-        const outDx = constrainedHandleWorld.x - anchorWorld.x;
-        const outDy = constrainedHandleWorld.y - anchorWorld.y;
-        creation.vertices[idx] = {
-          ...v,
-          handleType: e.altKey ? "independent" : "mirror",
-        };
-        // Outgoing segment: from this vertex onward — set handleFrom on segment[idx]
-        const outSeg = creation.segments.find((s) => s.fromIndex === idx);
-        // Incoming segment: into this vertex — set handleTo (mirrored = -outDx,-outDy)
-        const inSeg = creation.segments.find((s) => s.toIndex === idx);
-        if (inSeg) {
-          inSeg.handleTo = { dx: -outDx, dy: -outDy };
-        }
-        // Alt/Option breaks mirror coupling when both handles exist. Without
-        // Alt, remember outgoing handle for future segments from this vertex.
-        if (!e.altKey) {
-          if (outSeg) outSeg.handleFrom = { dx: outDx, dy: outDy };
-          creation.pendingOutHandles[idx] = { dx: outDx, dy: outDy };
-        } else {
-          if (!outSeg) delete creation.pendingOutHandles[idx];
-        }
-        syncStore(false);
-        updatePreview(constrainedHandleWorld);
-        return;
+      if (Math.hypot(dx, dy) >= HANDLE_DRAG_INTENT_PX) {
+        creation.didHandleDrag = true;
+        creation.closeCandidate = null;
       }
+      const idx = creation.dragHandleIndex;
+      const v = creation.vertices[idx];
+      const anchorWorld = {
+        x: creation.originWorld.x + v.x,
+        y: creation.originWorld.y + v.y,
+      };
+      const constrainedHandleWorld = constrainPointAngle(anchorWorld, world, e.shiftKey);
+      const outDx = constrainedHandleWorld.x - anchorWorld.x;
+      const outDy = constrainedHandleWorld.y - anchorWorld.y;
+      creation.vertices[idx] = {
+        ...v,
+        handleType: e.altKey ? "independent" : "mirror",
+      };
+      // Outgoing segment: from this vertex onward — set handleFrom on segment[idx]
+      const outSeg = creation.segments.find((s) => s.fromIndex === idx);
+      // Incoming segment: into this vertex — set handleTo (mirrored = -outDx,-outDy)
+      const inSeg = creation.segments.find((s) => s.toIndex === idx);
+      if (inSeg) {
+        inSeg.handleTo = { dx: -outDx, dy: -outDy };
+      }
+      // Alt/Option breaks mirror coupling when both handles exist. Without
+      // Alt, remember outgoing handle for future segments from this vertex.
+      if (!e.altKey) {
+        if (outSeg) outSeg.handleFrom = { dx: outDx, dy: outDy };
+        creation.pendingOutHandles[idx] = { dx: outDx, dy: outDy };
+      } else {
+        if (!outSeg) delete creation.pendingOutHandles[idx];
+      }
+      syncStore(false);
+      updatePreview(constrainedHandleWorld);
+      return;
     }
     let previewWorld = world;
     if (e.shiftKey && creation.vertices.length > 0) {
@@ -601,7 +623,7 @@ export const penTool: ITool = {
     if (creation.closeCandidate && creation.dragHandleStart) {
       const ddx = world.x - creation.closeCandidate.downWorld.x;
       const ddy = world.y - creation.closeCandidate.downWorld.y;
-      if (Math.hypot(ddx, ddy) < DRAG_THRESHOLD) {
+      if (!creation.didHandleDrag && Math.hypot(ddx, ddy) < DRAG_THRESHOLD) {
         commitCreation(true);
         return;
       }
@@ -610,6 +632,7 @@ export const penTool: ITool = {
     creation.dragHandleIndex = null;
     creation.dragHandleStart = null;
     creation.closeCandidate = null;
+    creation.didHandleDrag = false;
     updatePreview(null);
   },
 

@@ -22,6 +22,7 @@ export function PenPreview() {
   if (!preview || !layer || !origin) return null;
 
   const sw = 1 / viewport.zoom;
+  const curveSw = 1.5 / viewport.zoom;
   const ox = origin.x;
   const oy = origin.y;
 
@@ -85,8 +86,7 @@ export function PenPreview() {
           d={activeIncoming.d}
           fill="none"
           stroke="var(--color-selection-blue)"
-          strokeWidth={sw}
-          strokeDasharray={`${4 / viewport.zoom} ${3 / viewport.zoom}`}
+          strokeWidth={curveSw}
         />
       )}
       {activeOutgoing && (
@@ -94,8 +94,7 @@ export function PenPreview() {
           d={activeOutgoing.d}
           fill="none"
           stroke="var(--color-selection-blue)"
-          strokeWidth={sw}
-          strokeDasharray={`${4 / viewport.zoom} ${3 / viewport.zoom}`}
+          strokeWidth={curveSw}
         />
       )}
       {/* Existing anchors as small squares */}
