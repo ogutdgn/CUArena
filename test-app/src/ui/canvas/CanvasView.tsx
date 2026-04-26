@@ -308,16 +308,66 @@ export function CanvasView() {
           />
         )}
         {dragPreview.kind === "create_shape" && (
-          <rect
-            x={(dragPreview.data as { x: number; y: number; w: number; h: number }).x}
-            y={(dragPreview.data as { x: number; y: number; w: number; h: number }).y}
-            width={(dragPreview.data as { x: number; y: number; w: number; h: number }).w}
-            height={(dragPreview.data as { x: number; y: number; w: number; h: number }).h}
-            fill="rgba(13,153,255,0.16)"
-            stroke="var(--color-selection-blue)"
-            strokeWidth={1 / viewport.zoom}
-            pointerEvents="none"
-          />
+          (() => {
+            const d = dragPreview.data as { x: number; y: number; w: number; h: number; shape?: string };
+            const fill = "rgba(13,153,255,0.16)";
+            const stroke = "var(--color-selection-blue)";
+            const sw = 1 / viewport.zoom;
+            if (d.shape === "ellipse") {
+              return (
+                <ellipse
+                  cx={d.x + d.w / 2}
+                  cy={d.y + d.h / 2}
+                  rx={d.w / 2}
+                  ry={d.h / 2}
+                  fill={fill}
+                  stroke={stroke}
+                  strokeWidth={sw}
+                  pointerEvents="none"
+                />
+              );
+            }
+            if (d.shape === "polygon") {
+              const sides = 3;
+              const cx = d.x + d.w / 2;
+              const cy = d.y + d.h / 2;
+              const rx = d.w / 2;
+              const ry = d.h / 2;
+              const pts: string[] = [];
+              for (let i = 0; i < sides; i++) {
+                const angle = -Math.PI / 2 + (i * 2 * Math.PI) / sides;
+                pts.push(`${cx + Math.cos(angle) * rx},${cy + Math.sin(angle) * ry}`);
+              }
+              return <polygon points={pts.join(" ")} fill={fill} stroke={stroke} strokeWidth={sw} pointerEvents="none" />;
+            }
+            if (d.shape === "star") {
+              const points = 5;
+              const inner = 0.5;
+              const cx = d.x + d.w / 2;
+              const cy = d.y + d.h / 2;
+              const rx = d.w / 2;
+              const ry = d.h / 2;
+              const pts: string[] = [];
+              for (let i = 0; i < points * 2; i++) {
+                const angle = -Math.PI / 2 + (i * Math.PI) / points;
+                const r = i % 2 === 0 ? 1 : inner;
+                pts.push(`${cx + Math.cos(angle) * rx * r},${cy + Math.sin(angle) * ry * r}`);
+              }
+              return <polygon points={pts.join(" ")} fill={fill} stroke={stroke} strokeWidth={sw} pointerEvents="none" />;
+            }
+            return (
+              <rect
+                x={d.x}
+                y={d.y}
+                width={d.w}
+                height={d.h}
+                fill={fill}
+                stroke={stroke}
+                strokeWidth={sw}
+                pointerEvents="none"
+              />
+            );
+          })()
         )}
       </g>
     </svg>

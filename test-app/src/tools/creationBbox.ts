@@ -58,7 +58,13 @@ export function makeCreationBboxTool(config: BboxToolConfig): ITool {
       if (state.kind === "active") {
         state = { ...state, currentWorld: world };
         useStore.setState((s) => {
-          s.dragPreview = { kind: "create_shape", data: rectFromPoints((state as Extract<State, { kind: "active" }>).downWorld, world) };
+          s.dragPreview = {
+            kind: "create_shape",
+            data: {
+              ...rectFromPoints((state as Extract<State, { kind: "active" }>).downWorld, world),
+              shape: config.toolId,
+            },
+          };
         });
       }
     },
