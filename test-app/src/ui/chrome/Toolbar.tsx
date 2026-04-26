@@ -1,6 +1,6 @@
 // Bottom-center floating toolbar. Source: ui-report.md §2.1.
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   MousePointer2,
   Hand,
@@ -39,6 +39,9 @@ type DropdownKey = "move-tools" | "region-tools" | "shape-tools" | "creation-too
 export function Toolbar() {
   const activeTool = useStore((s) => s.activeTool);
   const [openDropdown, setOpenDropdown] = useState<DropdownKey>(null);
+  const [lastShapeTool, setLastShapeTool] = useState<ToolId>("rectangle");
+  const [lastRegionTool, setLastRegionTool] = useState<ToolId>("frame");
+  const [lastCreationTool, setLastCreationTool] = useState<ToolId>("pen");
   const moveBtnRef = useRef<HTMLDivElement | null>(null);
   const regionBtnRef = useRef<HTMLDivElement | null>(null);
   const shapeBtnRef = useRef<HTMLDivElement | null>(null);
@@ -57,6 +60,25 @@ export function Toolbar() {
     });
     emitSemantic({ name: "tool_change", before, after, trigger });
   };
+
+  useEffect(() => {
+    if (
+      activeTool === "rectangle" ||
+      activeTool === "line" ||
+      activeTool === "arrow" ||
+      activeTool === "ellipse" ||
+      activeTool === "polygon" ||
+      activeTool === "star"
+    ) {
+      setLastShapeTool(activeTool);
+    }
+    if (activeTool === "frame" || activeTool === "section" || activeTool === "slice") {
+      setLastRegionTool(activeTool);
+    }
+    if (activeTool === "pen" || activeTool === "pencil") {
+      setLastCreationTool(activeTool);
+    }
+  }, [activeTool]);
 
   const moveItems: DropdownItem[] = [
     { id: "toolbar.move-tools.move", label: "Move", shortcut: "V", icon: <MousePointer2 size={14} />, onClick: () => setToolFromClick("move") },
@@ -159,7 +181,7 @@ export function Toolbar() {
           groupRef={regionBtnRef}
           icon={regionIcon}
           active={regionActive}
-          onIconClick={() => setToolFromClick("frame")}
+          onIconClick={() => setToolFromClick(lastRegionTool)}
           onChevronClick={() => setOpenDropdown(openDropdown === "region-tools" ? null : "region-tools")}
           title="Region tools"
           open={openDropdown === "region-tools"}
@@ -168,7 +190,7 @@ export function Toolbar() {
           groupRef={shapeBtnRef}
           icon={shapeIcon}
           active={shapeActive}
-          onIconClick={() => setToolFromClick("rectangle")}
+          onIconClick={() => setToolFromClick(lastShapeTool)}
           onChevronClick={() => setOpenDropdown(openDropdown === "shape-tools" ? null : "shape-tools")}
           title="Shape tools"
           open={openDropdown === "shape-tools"}
@@ -177,7 +199,7 @@ export function Toolbar() {
           groupRef={createBtnRef}
           icon={creationIcon}
           active={creationActive}
-          onIconClick={() => setToolFromClick(activeTool === "pencil" ? "pencil" : "pen")}
+          onIconClick={() => setToolFromClick(lastCreationTool)}
           onChevronClick={() => setOpenDropdown(openDropdown === "creation-tools" ? null : "creation-tools")}
           title="Pen / Pencil"
           open={openDropdown === "creation-tools"}
