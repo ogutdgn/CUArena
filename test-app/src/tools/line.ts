@@ -9,7 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Line, Arrow, Layer, Page } from "@/types/scene";
-import { worldToParentLocal } from "@/engine/coordinates";
+import { resolveCreationParentId, worldToParentLocal } from "@/engine/coordinates";
 
 const MIN_DRAG = 3;
 
@@ -128,9 +128,9 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
 
       const s = useStore.getState();
       const pageId = s.activePageId;
-      const parentId = s.focusContextByPage[pageId] ?? pageId;
       const p1 = state.downWorld;
       const p2 = constrainShift(p1, world, state.shift);
+      const parentId = resolveCreationParentId(s, { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 });
 
       const page = s.document.pages.find((p) => p.id === pageId);
       const ordinal = page ? countOf(page, config.isArrow ? "arrow" : "line") + 1 : 1;

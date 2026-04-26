@@ -7,7 +7,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { setSelection } from "./commands";
 import { uid } from "@/util/id";
 import type { Image as ImageLayer, Page } from "@/types/scene";
-import { worldToParentLocal } from "./coordinates";
+import { resolveCreationParentId, worldToParentLocal } from "./coordinates";
 
 interface PlacementHint {
   worldX?: number;
@@ -60,7 +60,7 @@ export async function placeImageFiles(
 
       const sNow = useStore.getState();
       const pageId = sNow.activePageId;
-      const parentId = sNow.focusContextByPage[pageId] ?? pageId;
+      const parentId = resolveCreationParentId(sNow, { x: baseX, y: baseY });
       const parent = sNow.nodesById[parentId];
       const childCount =
         parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)

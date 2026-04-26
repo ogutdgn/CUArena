@@ -67,3 +67,18 @@ export function localToWorld(state: AppState, parentId: string, local: XY): XY {
   const p = worldOffsetOfParent(state, parentId);
   return { x: local.x + p.x, y: local.y + p.y };
 }
+
+export function resolveCreationParentId(state: AppState, world: XY): string {
+  const pageId = state.activePageId;
+  const focusId = state.focusContextByPage[pageId] ?? null;
+  if (!focusId) return pageId;
+  const node = state.nodesById[focusId];
+  if (!node || (node as Page).type === "page") return pageId;
+  const layer = node as Layer;
+  if (layer.type !== "frame" && layer.type !== "section" && layer.type !== "group") return pageId;
+  const wr = worldRectOfLayer(state, layer);
+  if (world.x >= wr.x && world.x <= wr.x + wr.w && world.y >= wr.y && world.y <= wr.y + wr.h) {
+    return focusId;
+  }
+  return pageId;
+}
