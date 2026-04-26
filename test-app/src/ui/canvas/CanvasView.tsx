@@ -309,10 +309,36 @@ export function CanvasView() {
         )}
         {dragPreview.kind === "create_shape" && (
           (() => {
-            const d = dragPreview.data as { x: number; y: number; w: number; h: number; shape?: string };
+            const d = dragPreview.data as {
+              x: number;
+              y: number;
+              w: number;
+              h: number;
+              shape?: string;
+              x1?: number;
+              y1?: number;
+              x2?: number;
+              y2?: number;
+            };
             const fill = "rgba(13,153,255,0.16)";
             const stroke = "var(--color-selection-blue)";
             const sw = 1 / viewport.zoom;
+            if ((d.shape === "line" || d.shape === "arrow") && d.x1 != null && d.y1 != null && d.x2 != null && d.y2 != null) {
+              if (d.shape === "arrow") {
+                const markerId = `preview-arrow-${Math.round(d.x1)}-${Math.round(d.y1)}-${Math.round(d.x2)}-${Math.round(d.y2)}`;
+                return (
+                  <g pointerEvents="none">
+                    <defs>
+                      <marker id={markerId} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill={stroke} />
+                      </marker>
+                    </defs>
+                    <line x1={d.x1} y1={d.y1} x2={d.x2} y2={d.y2} stroke={stroke} strokeWidth={sw} markerEnd={`url(#${markerId})`} />
+                  </g>
+                );
+              }
+              return <line x1={d.x1} y1={d.y1} x2={d.x2} y2={d.y2} stroke={stroke} strokeWidth={sw} pointerEvents="none" />;
+            }
             if (d.shape === "ellipse") {
               return (
                 <ellipse

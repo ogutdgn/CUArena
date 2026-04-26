@@ -113,7 +113,17 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
         useStore.setState((s) => {
           s.dragPreview = {
             kind: "create_shape",
-            data: { x: minX, y: minY, w: Math.max(1, w), h: Math.max(1, h) },
+            data: {
+              shape: config.isArrow ? "arrow" : "line",
+              x1: state.downWorld.x,
+              y1: state.downWorld.y,
+              x2: p2.x,
+              y2: p2.y,
+              x: minX,
+              y: minY,
+              w: Math.max(1, w),
+              h: Math.max(1, h),
+            },
           };
         });
       }
