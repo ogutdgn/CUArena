@@ -1,6 +1,6 @@
 // In-place text editor overlay. Positioned over the text layer in screen coords.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useStore, selectActiveViewport } from "@/engine/store";
 import { commitText, snapshotText } from "@/engine/textCommands";
 import { emitSemantic } from "@/logger/semantic";
@@ -23,16 +23,19 @@ export function TextEditor() {
     fontWeight: number;
     fontSize: number;
   } | null>(null);
-  const [draft, setDraft] = useState("");
+  const draftRef = useRef("");
 
   useEffect(() => {
     if (editMode.kind !== "text" || !editMode.layerId) return;
     const snap = snapshotText(editMode.layerId);
     if (snap) {
       snapshotRef.current = snap;
-      setDraft(snap.content);
+      draftRef.current = snap.content;
     }
     requestAnimationFrame(() => {
+      if (ref.current) {
+        ref.current.textContent = draftRef.current;
+      }
       ref.current?.focus();
       // Move caret to end
       const el = ref.current;
@@ -62,7 +65,7 @@ export function TextEditor() {
     const layerId = (editMode as { layerId?: string }).layerId;
     if (!layerId || !snapshotRef.current || !layer) return;
     const after = {
-      content: draft,
+      content: draftRef.current,
       runs: layer.runs,
       fontFamily: layer.fontFamily,
       fontWeight: layer.fontWeight,
@@ -78,7 +81,7 @@ export function TextEditor() {
       suppressContentEditableWarning
       onInput={(e) => {
         const text = (e.currentTarget as HTMLDivElement).innerText;
-        setDraft(text);
+        draftRef.current = text;
         emitSemantic({
           name: "type_characters",
           layerId: editMode.layerId ?? "",
@@ -116,9 +119,7 @@ export function TextEditor() {
         cursor: "text",
         boxSizing: "content-box",
       }}
-    >
-      {draft}
-    </div>
+    />
   );
 }
 
