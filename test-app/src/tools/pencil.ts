@@ -72,9 +72,15 @@ export const pencilTool: ITool = {
       return;
     }
     const simplified = rdp(raw, SIMPLIFY_EPSILON);
+    const deduped: Point[] = [];
+    for (const p of simplified) {
+      const last = deduped[deduped.length - 1];
+      if (!last || Math.hypot(p.x - last.x, p.y - last.y) >= 0.5) deduped.push(p);
+    }
+    const points = deduped.length >= 2 ? deduped : raw.slice();
 
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-    for (const p of simplified) {
+    for (const p of points) {
       if (p.x < minX) minX = p.x;
       if (p.y < minY) minY = p.y;
       if (p.x > maxX) maxX = p.x;
@@ -82,7 +88,7 @@ export const pencilTool: ITool = {
     }
     const ox = minX;
     const oy = minY;
-    const verts = simplified.map((p) => ({ x: p.x - ox, y: p.y - oy, handleType: "corner" as const }));
+    const verts = points.map((p) => ({ x: p.x - ox, y: p.y - oy, handleType: "corner" as const }));
     const segs = [];
     for (let i = 0; i < verts.length - 1; i++) {
       segs.push({ fromIndex: i, toIndex: i + 1, handleFrom: null, handleTo: null });
@@ -134,7 +140,7 @@ export const pencilTool: ITool = {
     emitSemantic({
       name: "create_vector_with_pencil",
       layerId: layer.id,
-      pointCount: simplified.length,
+      pointCount: points.length,
     });
 
     // Revert tool
