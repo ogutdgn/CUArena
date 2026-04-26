@@ -17,7 +17,10 @@ export function SelectionOverlay() {
   const viewport = useStore((s) => selectActiveViewport(s));
   const bbox = useStore((s) => selectionBbox(s));
   const editMode = useStore((s) => s.editMode);
+  const activeTool = useStore((s) => s.activeTool);
   if (!bbox) return null;
+  // Pen mode should render anchor/handle previews only (no selection bbox).
+  if (activeTool === "pen") return null;
   // Suppress handles/rotate hits when in a sub-mode (vector edit / text edit /
   // pen creation) — bbox stroke alone is enough.
   const minimal = editMode.kind === "vector" || editMode.kind === "text" || editMode.kind === "pen_creation";

@@ -14,6 +14,9 @@ import type { ToolId } from "@/types/ops";
 
 function setTool(after: ToolId, trigger: "shortcut" | "toolbar_click" = "shortcut") {
   const before = useStore.getState().activeTool;
+  if (before === "pen" && after !== "pen") {
+    abortPenIfActive();
+  }
   if (before === after) return;
   dispatch({
     id: makeOpId(),
@@ -51,19 +54,23 @@ function onKeyDown(e: KeyboardEvent): void {
 
   // Tool shortcuts (no modifiers)
   if (!meta && !e.altKey) {
-    if (key === "v" || key === "escape") {
-      if (key === "escape") {
-        // If pen is creating a path, finish it first (open path).
-        abortPenIfActive();
-        deselectAll("escape");
-      }
+    if (key === "v") {
       setTool("move");
       return;
     }
-    if (key === "enter") {
-      abortPenIfActive();
-      // (enterGroup is also bound to Enter — the pen abort is a no-op when
-      // pen isn't active, so this is safe.)
+    if (key === "escape") {
+      // Esc should finish active pen creation without switching tools.
+      if (abortPenIfActive()) {
+        e.preventDefault();
+        return;
+      }
+      deselectAll("escape");
+      setTool("move");
+      return;
+    }
+    if (key === "enter" && abortPenIfActive()) {
+      e.preventDefault();
+      return;
     }
     if (key === "r") {
       setTool("rectangle");

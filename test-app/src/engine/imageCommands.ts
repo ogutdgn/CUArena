@@ -7,6 +7,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { setSelection } from "./commands";
 import { uid } from "@/util/id";
 import type { Image as ImageLayer, Page } from "@/types/scene";
+import { resolveCreationParentId, worldToParentLocal } from "./coordinates";
 
 interface PlacementHint {
   worldX?: number;
@@ -59,20 +60,27 @@ export async function placeImageFiles(
 
       const sNow = useStore.getState();
       const pageId = sNow.activePageId;
-      const parentId = sNow.focusContextByPage[pageId] ?? pageId;
-      const parent = sNow.nodesById[parentId];
-      const childCount =
-        parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-          ? ((parent as { children: unknown[] }).children).length
-          : 0;
+      const parentId = resolveCreationParentId(sNow, { x: baseX, y: baseY });
+      const pageParent = sNow.document.pages.find((p) => p.id === parentId);
+      const indexedParent = sNow.nodesById[parentId];
+      const childCount = pageParent
+        ? pageParent.children.length
+        : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+        ? ((indexedParent as { children: unknown[] }).children).length
+        : 0;
+      const worldPos = {
+        x: baseX - W / 2 + i * 12,
+        y: baseY - H / 2 + i * 12,
+      };
+      const localPos = worldToParentLocal(sNow, parentId, worldPos);
 
       const layer: ImageLayer = {
         id: uid("image"),
         type: "image",
         name: name.replace(/\.[a-z0-9]+$/i, "") || `Image ${i + 1}`,
         parentId,
-        x: baseX - W / 2 + i * 12,
-        y: baseY - H / 2 + i * 12,
+        x: localPos.x,
+        y: localPos.y,
         w: W,
         h: H,
         rotation: 0,

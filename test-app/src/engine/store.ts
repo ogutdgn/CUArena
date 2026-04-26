@@ -75,6 +75,7 @@ export interface AppState {
     layerId: string;
     cursor: { x: number; y: number } | null;
     handleDrag: { vertexIndex: number; outDx: number; outDy: number } | null;
+    appendPreviewFromTail: boolean;
   } | null;
   pencilPreview: { points: Array<{ x: number; y: number }> } | null;
   insertionCursor: { x: number; y: number } | null;

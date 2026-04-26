@@ -308,16 +308,106 @@ export function CanvasView() {
           />
         )}
         {dragPreview.kind === "create_shape" && (
-          <rect
-            x={(dragPreview.data as { x: number; y: number; w: number; h: number }).x}
-            y={(dragPreview.data as { x: number; y: number; w: number; h: number }).y}
-            width={(dragPreview.data as { x: number; y: number; w: number; h: number }).w}
-            height={(dragPreview.data as { x: number; y: number; w: number; h: number }).h}
-            fill="rgba(13,153,255,0.16)"
-            stroke="var(--color-selection-blue)"
-            strokeWidth={1 / viewport.zoom}
-            pointerEvents="none"
-          />
+          (() => {
+            const d = dragPreview.data as {
+              x: number;
+              y: number;
+              w: number;
+              h: number;
+              shape?: string;
+              x1?: number;
+              y1?: number;
+              x2?: number;
+              y2?: number;
+            };
+            const shape = d.shape ?? "rectangle";
+            const fill =
+              shape === "frame"
+                ? "rgba(235,235,235,1)"
+                : shape === "section"
+                ? "rgba(242,242,242,1)"
+                : shape === "slice" || shape === "line" || shape === "arrow"
+                ? "transparent"
+                : "rgba(217,217,217,1)";
+            const stroke =
+              shape === "line" || shape === "arrow"
+                ? "rgba(255,255,255,1)"
+                : shape === "slice"
+                ? "orange"
+                : "var(--color-selection-blue)";
+            const sw = 1 / viewport.zoom;
+            if ((d.shape === "line" || d.shape === "arrow") && d.x1 != null && d.y1 != null && d.x2 != null && d.y2 != null) {
+              if (d.shape === "arrow") {
+                const markerId = `preview-arrow-${Math.round(d.x1)}-${Math.round(d.y1)}-${Math.round(d.x2)}-${Math.round(d.y2)}`;
+                return (
+                  <g pointerEvents="none">
+                    <defs>
+                      <marker id={markerId} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill={stroke} />
+                      </marker>
+                    </defs>
+                    <line x1={d.x1} y1={d.y1} x2={d.x2} y2={d.y2} stroke={stroke} strokeWidth={sw} markerEnd={`url(#${markerId})`} />
+                  </g>
+                );
+              }
+              return <line x1={d.x1} y1={d.y1} x2={d.x2} y2={d.y2} stroke={stroke} strokeWidth={sw} pointerEvents="none" />;
+            }
+            if (d.shape === "ellipse") {
+              return (
+                <ellipse
+                  cx={d.x + d.w / 2}
+                  cy={d.y + d.h / 2}
+                  rx={d.w / 2}
+                  ry={d.h / 2}
+                  fill={fill}
+                  stroke={stroke}
+                  strokeWidth={sw}
+                  pointerEvents="none"
+                />
+              );
+            }
+            if (d.shape === "polygon") {
+              const sides = 3;
+              const cx = d.x + d.w / 2;
+              const cy = d.y + d.h / 2;
+              const rx = d.w / 2;
+              const ry = d.h / 2;
+              const pts: string[] = [];
+              for (let i = 0; i < sides; i++) {
+                const angle = -Math.PI / 2 + (i * 2 * Math.PI) / sides;
+                pts.push(`${cx + Math.cos(angle) * rx},${cy + Math.sin(angle) * ry}`);
+              }
+              return <polygon points={pts.join(" ")} fill={fill} stroke={stroke} strokeWidth={sw} pointerEvents="none" />;
+            }
+            if (d.shape === "star") {
+              const points = 5;
+              const inner = 0.5;
+              const cx = d.x + d.w / 2;
+              const cy = d.y + d.h / 2;
+              const rx = d.w / 2;
+              const ry = d.h / 2;
+              const pts: string[] = [];
+              for (let i = 0; i < points * 2; i++) {
+                const angle = -Math.PI / 2 + (i * Math.PI) / points;
+                const r = i % 2 === 0 ? 1 : inner;
+                pts.push(`${cx + Math.cos(angle) * rx * r},${cy + Math.sin(angle) * ry * r}`);
+              }
+              return <polygon points={pts.join(" ")} fill={fill} stroke={stroke} strokeWidth={sw} pointerEvents="none" />;
+            }
+            return (
+              <rect
+                x={d.x}
+                y={d.y}
+                width={d.w}
+                height={d.h}
+                fill={fill}
+                stroke={stroke}
+                strokeWidth={sw}
+                strokeDasharray={shape === "slice" ? `${4 / viewport.zoom} ${3 / viewport.zoom}` : undefined}
+                pointerEvents="none"
+              />
+            );
+          })()
         )}
       </g>
     </svg>

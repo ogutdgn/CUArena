@@ -9,6 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Line, Arrow, Layer, Page } from "@/types/scene";
+import { worldToParentLocal } from "@/engine/coordinates";
 
 const MIN_DRAG = 3;
 
@@ -25,10 +26,13 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
   let state: State = { kind: "idle" };
 
   function makeNode(p1: Point, p2: Point, parentId: string, ordinal: number): Line | Arrow {
-    const minX = Math.min(p1.x, p2.x);
-    const minY = Math.min(p1.y, p2.y);
-    const w = Math.abs(p2.x - p1.x);
-    const h = Math.abs(p2.y - p1.y);
+    const s = useStore.getState();
+    const localP1 = worldToParentLocal(s, parentId, p1);
+    const localP2 = worldToParentLocal(s, parentId, p2);
+    const minX = Math.min(localP1.x, localP2.x);
+    const minY = Math.min(localP1.y, localP2.y);
+    const w = Math.abs(localP2.x - localP1.x);
+    const h = Math.abs(localP2.y - localP1.y);
     const base: Pick<Layer, "id" | "parentId" | "x" | "y" | "w" | "h" | "rotation" | "scaleX" | "scaleY" | "visible" | "locked" | "opacity" | "constraints"> = {
       id: uid(config.isArrow ? "arrow" : "line"),
       parentId,
@@ -55,8 +59,8 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
         ...base,
         type: "arrow",
         name: `Arrow ${ordinal}`,
-        p1,
-        p2,
+        p1: { x: localP1.x - minX, y: localP1.y - minY },
+        p2: { x: localP2.x - minX, y: localP2.y - minY },
         strokes: [stroke],
         endCapStart: "none",
         endCapEnd: "arrow",
@@ -68,8 +72,8 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
       ...base,
       type: "line",
       name: `Line ${ordinal}`,
-      p1,
-      p2,
+      p1: { x: localP1.x - minX, y: localP1.y - minY },
+      p2: { x: localP2.x - minX, y: localP2.y - minY },
       strokes: [stroke],
       effects: [],
     };
@@ -109,7 +113,17 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
         useStore.setState((s) => {
           s.dragPreview = {
             kind: "create_shape",
-            data: { x: minX, y: minY, w: Math.max(1, w), h: Math.max(1, h) },
+            data: {
+              shape: config.isArrow ? "arrow" : "line",
+              x1: state.downWorld.x,
+              y1: state.downWorld.y,
+              x2: p2.x,
+              y2: p2.y,
+              x: minX,
+              y: minY,
+              w: Math.max(1, w),
+              h: Math.max(1, h),
+            },
           };
         });
       }
@@ -124,19 +138,21 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
 
       const s = useStore.getState();
       const pageId = s.activePageId;
-      const parentId = s.focusContextByPage[pageId] ?? pageId;
       const p1 = state.downWorld;
       const p2 = constrainShift(p1, world, state.shift);
+      const parentId = pageId;
 
       const page = s.document.pages.find((p) => p.id === pageId);
       const ordinal = page ? countOf(page, config.isArrow ? "arrow" : "line") + 1 : 1;
       const node = makeNode(p1, p2, parentId, ordinal);
 
-      const parent = s.nodesById[parentId];
-      const childCount =
-        parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-          ? ((parent as { children: unknown[] }).children).length
-          : 0;
+      const pageParent = s.document.pages.find((p) => p.id === parentId);
+      const indexedParent = s.nodesById[parentId];
+      const childCount = pageParent
+        ? pageParent.children.length
+        : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+        ? ((indexedParent as { children: unknown[] }).children).length
+        : 0;
 
       dispatch({
         id: makeOpId(),

@@ -26,6 +26,11 @@ export function groupSelection(trigger: "shortcut" | "context_menu" | "main_menu
 
   // Determine parent: the common parent of selected layers (slice 3 simple: use first layer's parent).
   const parentId = layers[0].parentId;
+  if (!layers.every((l) => l.parentId === parentId)) {
+    // Mixed-parent grouping is intentionally blocked until a proper common-ancestor
+    // reparent path exists.
+    return;
+  }
   const arr = findParentChildren(s, parentId);
   if (!arr) return;
 
@@ -201,6 +206,12 @@ export function reorderZ(direction: "front" | "back" | "forward" | "backward"): 
   const s = useStore.getState();
   const layers = getSelectedLayers(s);
   if (layers.length === 0) return;
+  const layerIds = layers.map((l) => l.id);
+  const beforeById = new Map<string, { parentId: string; index: number }>();
+  for (const l of layers) {
+    const arr = findParentChildren(s, l.parentId);
+    beforeById.set(l.id, { parentId: l.parentId, index: arr ? arr.findIndex((c) => c.id === l.id) : -1 });
+  }
 
   // Group by parent.
   const byParent = new Map<string, Layer[]>();
@@ -236,12 +247,20 @@ export function reorderZ(direction: "front" | "back" | "forward" | "backward"): 
     );
   }
   commitTransaction(txId);
+  const sAfter = useStore.getState();
+  const afterById = new Map<string, { parentId: string; index: number }>();
+  for (const id of layerIds) {
+    const node = sAfter.nodesById[id] as Layer | undefined;
+    if (!node || (node as unknown as Page).type === "page") continue;
+    const arr = findParentChildren(sAfter, node.parentId);
+    afterById.set(id, { parentId: node.parentId, index: arr ? arr.findIndex((c) => c.id === id) : -1 });
+  }
 
   emitSemantic({
     name: "reorder_layer",
-    layerIds: layers.map((l) => l.id),
-    before: [],
-    after: [],
+    layerIds,
+    before: layerIds.map((id) => beforeById.get(id) ?? { parentId: "", index: -1 }),
+    after: layerIds.map((id) => afterById.get(id) ?? { parentId: "", index: -1 }),
     trigger:
       direction === "front"
         ? "shortcut_cmd_alt_close_bracket"
@@ -250,6 +269,64 @@ export function reorderZ(direction: "front" | "back" | "forward" | "backward"): 
         : direction === "forward"
         ? "shortcut_cmd_close_bracket"
         : "shortcut_cmd_open_bracket",
+  });
+}
+
+export function reorderLayerInPanel(
+  draggedId: string,
+  targetId: string,
+  dropAboveTarget: boolean,
+): void {
+  if (draggedId === targetId) return;
+  const s = useStore.getState();
+  const dragged = s.nodesById[draggedId] as Layer | undefined;
+  const target = s.nodesById[targetId] as Layer | undefined;
+  if (!dragged || !target) return;
+  if ((dragged as unknown as Page).type === "page" || (target as unknown as Page).type === "page") return;
+  if (dragged.parentId !== target.parentId) return;
+
+  const parentId = dragged.parentId;
+  const parent = s.nodesById[parentId];
+  const arr =
+    (parent as Page | undefined)?.type === "page"
+      ? (parent as Page).children
+      : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+  if (!arr) return;
+
+  const beforeIndex = arr.findIndex((c) => c.id === draggedId);
+  const targetIndex = arr.findIndex((c) => c.id === targetId);
+  if (beforeIndex < 0 || targetIndex < 0) return;
+
+  const without = arr.filter((c) => c.id !== draggedId);
+  const targetPos = without.findIndex((c) => c.id === targetId);
+  if (targetPos < 0) return;
+  const toIndex = dropAboveTarget ? targetPos + 1 : targetPos;
+
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "reorder_z",
+    pageId: s.activePageId,
+    parentId,
+    ids: [draggedId],
+    toIndex,
+    before: [beforeIndex],
+  });
+
+  const afterState = useStore.getState();
+  const p2 = afterState.nodesById[parentId];
+  const arr2 =
+    (p2 as Page | undefined)?.type === "page"
+      ? (p2 as Page).children
+      : (p2 as (Layer & { children?: Layer[] }) | undefined)?.children;
+  const afterIndex = arr2 ? arr2.findIndex((c) => c.id === draggedId) : toIndex;
+
+  emitSemantic({
+    name: "reorder_layer",
+    layerIds: [draggedId],
+    before: [{ parentId, index: beforeIndex }],
+    after: [{ parentId, index: afterIndex }],
+    trigger: "panel_drag",
   });
 }
 

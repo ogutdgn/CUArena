@@ -12,6 +12,7 @@ import { uid } from "@/util/id";
 import type { Layer, Page } from "@/types/scene";
 import type { ToolId } from "@/types/ops";
 import type { SemanticEventInput } from "@/types/events";
+import { worldRectToParentLocal } from "@/engine/coordinates";
 
 const DEFAULT_SIZE = 100;
 const MIN_DRAG = 3;
@@ -57,7 +58,13 @@ export function makeCreationBboxTool(config: BboxToolConfig): ITool {
       if (state.kind === "active") {
         state = { ...state, currentWorld: world };
         useStore.setState((s) => {
-          s.dragPreview = { kind: "create_shape", data: rectFromPoints((state as Extract<State, { kind: "active" }>).downWorld, world) };
+          s.dragPreview = {
+            kind: "create_shape",
+            data: {
+              ...rectFromPoints((state as Extract<State, { kind: "active" }>).downWorld, world),
+              shape: config.toolId,
+            },
+          };
         });
       }
     },
@@ -66,7 +73,7 @@ export function makeCreationBboxTool(config: BboxToolConfig): ITool {
 
       const s = useStore.getState();
       const pageId = s.activePageId;
-      const parentId = s.focusContextByPage[pageId] ?? pageId;
+      const parentId = pageId;
 
       let bbox: Rect;
       let trigger: "shortcut" | "toolbar" | "click_default_size";
@@ -101,13 +108,16 @@ export function makeCreationBboxTool(config: BboxToolConfig): ITool {
 
       const page = s.document.pages.find((p) => p.id === pageId);
       const ordinal = page ? config.countOf(page) + 1 : 1;
-      const node = config.makeNode(bbox, parentId, ordinal);
+      const localBbox = worldRectToParentLocal(s, parentId, bbox);
+      const node = config.makeNode(localBbox, parentId, ordinal);
 
-      const parent = s.nodesById[parentId];
-      const childCount =
-        parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-          ? ((parent as { children: unknown[] }).children).length
-          : 0;
+      const pageParent = s.document.pages.find((p) => p.id === parentId);
+      const indexedParent = s.nodesById[parentId];
+      const childCount = pageParent
+        ? pageParent.children.length
+        : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+        ? ((indexedParent as { children: unknown[] }).children).length
+        : 0;
 
       dispatch({
         id: makeOpId(),
