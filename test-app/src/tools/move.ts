@@ -46,13 +46,16 @@ type State =
       startBbox: Rect;
       layerIds: string[];
       startTransforms: TransformMap;
+      startWorldTransforms: TransformMap;
       modifiers: { shift: boolean; alt: boolean };
     }
   | {
       kind: "active_layer_drag";
       layerIds: string[];
+      sourceLayerIds: string[];
       downWorld: Point;
       startTransforms: TransformMap;
+      startWorldTransforms: TransformMap;
       txId: string;
       isDuplicate: boolean;
       duplicatedIds: string[];
@@ -64,6 +67,7 @@ type State =
       startBbox: Rect;
       layerIds: string[];
       startTransforms: TransformMap;
+      startWorldTransforms: TransformMap;
       txId: string;
       modifiers: { shift: boolean; alt: boolean };
     }
@@ -153,7 +157,9 @@ export const moveTool: ITool = {
           .map((id) => s.nodesById[id])
           .filter((n): n is Layer => !!n && (n as Page).type !== "page") as Layer[];
         const startTransforms: TransformMap = {};
+        const startWorldTransforms: TransformMap = {};
         for (const l of layers) startTransforms[l.id] = transformOf(l);
+        for (const l of layers) startWorldTransforms[l.id] = worldTransformOf(s, l);
         state = {
           kind: "armed_handle",
           handleDir,
@@ -161,6 +167,7 @@ export const moveTool: ITool = {
           startBbox: { ...bbox },
           layerIds,
           startTransforms,
+          startWorldTransforms,
           modifiers: mods,
         };
         return;
@@ -301,7 +308,9 @@ export const moveTool: ITool = {
         .map((id) => s.nodesById[id])
         .filter((n): n is Layer => !!n && (n as Page).type !== "page") as Layer[];
       const startTransforms: TransformMap = {};
+      const startWorldTransforms: TransformMap = {};
       for (const l of layers) startTransforms[l.id] = transformOf(l);
+      for (const l of layers) startWorldTransforms[l.id] = worldTransformOf(s, l);
 
       const txId = openTransaction();
       let duplicatedIds: string[] = [];
@@ -312,15 +321,19 @@ export const moveTool: ITool = {
         setSelection(duplicatedIds, "implicit_after_duplicate");
         for (let i = 0; i < layers.length; i++) {
           startTransforms[duplicatedIds[i]] = startTransforms[layers[i].id];
+          startWorldTransforms[duplicatedIds[i]] = startWorldTransforms[layers[i].id];
           delete startTransforms[layers[i].id];
+          delete startWorldTransforms[layers[i].id];
         }
       }
 
       state = {
         kind: "active_layer_drag",
         layerIds: activeIds,
+        sourceLayerIds: layerIds,
         downWorld: state.downWorld,
         startTransforms,
+        startWorldTransforms,
         txId,
         isDuplicate: state.modifiers.alt,
         duplicatedIds,
@@ -341,6 +354,7 @@ export const moveTool: ITool = {
         startBbox: state.startBbox,
         layerIds: state.layerIds,
         startTransforms: state.startTransforms,
+        startWorldTransforms: state.startWorldTransforms,
         txId,
         modifiers: state.modifiers,
       };
@@ -424,7 +438,7 @@ export const moveTool: ITool = {
       // Compute moving group bbox at start
       let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
       for (const id of state.layerIds) {
-        const t = state.startTransforms[id];
+        const t = state.startWorldTransforms[id];
         if (!t) continue;
         if (t.x < minX) minX = t.x;
         if (t.y < minY) minY = t.y;
@@ -495,12 +509,33 @@ export const moveTool: ITool = {
       // Map each layer's transform proportionally with the bbox change.
       for (const id of state.layerIds) {
         const t = state.startTransforms[id];
+        const tWorld = state.startWorldTransforms[id];
         if (!t) continue;
-        const nx = state.startBbox.w === 0 ? newBbox.x : newBbox.x + ((t.x - state.startBbox.x) / state.startBbox.w) * newBbox.w;
-        const ny = state.startBbox.h === 0 ? newBbox.y : newBbox.y + ((t.y - state.startBbox.y) / state.startBbox.h) * newBbox.h;
+        if (!tWorld) continue;
+        const nxWorld =
+          state.startBbox.w === 0 ? newBbox.x : newBbox.x + ((tWorld.x - state.startBbox.x) / state.startBbox.w) * newBbox.w;
+        const nyWorld =
+          state.startBbox.h === 0 ? newBbox.y : newBbox.y + ((tWorld.y - state.startBbox.y) / state.startBbox.h) * newBbox.h;
         const nw = state.startBbox.w === 0 ? newBbox.w : (t.w / state.startBbox.w) * newBbox.w;
         const nh = state.startBbox.h === 0 ? newBbox.h : (t.h / state.startBbox.h) * newBbox.h;
-        after[id] = { ...t, x: nx, y: ny, w: Math.max(1, Math.abs(nw)), h: Math.max(1, Math.abs(nh)) };
+        const layerNow = useStore.getState().nodesById[id] as Layer | undefined;
+        if (!layerNow || (layerNow as Page).type === "page") continue;
+        const parent = useStore.getState().nodesById[layerNow.parentId];
+        const px =
+          parent && (parent as Page).type !== "page"
+            ? worldRectOfLayer(useStore.getState(), parent as Layer).x
+            : 0;
+        const py =
+          parent && (parent as Page).type !== "page"
+            ? worldRectOfLayer(useStore.getState(), parent as Layer).y
+            : 0;
+        after[id] = {
+          ...t,
+          x: nxWorld - px,
+          y: nyWorld - py,
+          w: Math.max(1, Math.abs(nw)),
+          h: Math.max(1, Math.abs(nh)),
+        };
       }
       dispatch(
         {
@@ -591,7 +626,7 @@ export const moveTool: ITool = {
       if (state.isDuplicate) {
         emitSemantic({
           name: "duplicate",
-          sourceLayerIds: Object.keys(state.startTransforms),
+          sourceLayerIds: state.sourceLayerIds,
           newLayerIds: state.duplicatedIds,
           offset: { dx, dy },
           trigger: "alt_drag",
@@ -688,6 +723,19 @@ function transformOf(l: Layer): TransformTuple {
     y: l.y,
     w: l.w,
     h: l.h,
+    rotation: l.rotation,
+    scaleX: l.scaleX,
+    scaleY: l.scaleY,
+  };
+}
+
+function worldTransformOf(s: ReturnType<typeof useStore.getState>, l: Layer): TransformTuple {
+  const wr = worldRectOfLayer(s, l);
+  return {
+    x: wr.x,
+    y: wr.y,
+    w: wr.w,
+    h: wr.h,
     rotation: l.rotation,
     scaleX: l.scaleX,
     scaleY: l.scaleY,
