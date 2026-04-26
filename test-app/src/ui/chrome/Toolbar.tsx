@@ -49,6 +49,20 @@ export function Toolbar() {
   const commentBtnRef = useRef<HTMLDivElement | null>(null);
 
   const setToolFromClick = (after: ToolId, trigger: "shortcut" | "toolbar_click" = "toolbar_click") => {
+    if (
+      after === "rectangle" ||
+      after === "ellipse" ||
+      after === "polygon" ||
+      after === "star" ||
+      after === "line" ||
+      after === "arrow"
+    ) {
+      setLastShapeTool(after);
+    } else if (after === "frame" || after === "section" || after === "slice") {
+      setLastRegionTool(after);
+    } else if (after === "pen" || after === "pencil") {
+      setLastCreationTool(after);
+    }
     const before = useStore.getState().activeTool;
     if (before === after) return;
     dispatch({

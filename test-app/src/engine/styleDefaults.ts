@@ -40,36 +40,46 @@ function fromSelection(state: AppState): VectorStyleDefaults | null {
   return null;
 }
 
+function ensureVisibleStroke(strokes: Stroke[], fallbackWeight: number): Stroke[] {
+  if (strokes.length > 0) return strokes;
+  return [
+    {
+      paint: { kind: "solid", color: { r: 1, g: 1, b: 1, a: 1 }, opacity: 1, visible: true },
+      weight: fallbackWeight,
+      alignment: "center",
+      dash: null,
+    },
+  ];
+}
+
 export function getPenVectorStyleDefaults(state: AppState): VectorStyleDefaults {
   const sel = fromSelection(state);
-  if (sel && sel.strokes.length > 0) return sel;
+  if (sel) {
+    return {
+      fills: sel.fills,
+      strokes: ensureVisibleStroke(sel.strokes, 1),
+      effects: sel.effects,
+    };
+  }
   return {
     fills: [],
-    strokes: [
-      {
-        paint: { kind: "solid", color: { r: 1, g: 1, b: 1, a: 1 }, opacity: 1, visible: true },
-        weight: 1,
-        alignment: "center",
-        dash: null,
-      },
-    ],
+    strokes: ensureVisibleStroke([], 1),
     effects: [],
   };
 }
 
 export function getPencilVectorStyleDefaults(state: AppState): VectorStyleDefaults {
   const sel = fromSelection(state);
-  if (sel && sel.strokes.length > 0) return sel;
+  if (sel) {
+    return {
+      fills: sel.fills,
+      strokes: ensureVisibleStroke(sel.strokes, 2),
+      effects: sel.effects,
+    };
+  }
   return {
     fills: [],
-    strokes: [
-      {
-        paint: { kind: "solid", color: { r: 1, g: 1, b: 1, a: 1 }, opacity: 1, visible: true },
-        weight: 2,
-        alignment: "center",
-        dash: null,
-      },
-    ],
+    strokes: ensureVisibleStroke([], 2),
     effects: [],
   };
 }
