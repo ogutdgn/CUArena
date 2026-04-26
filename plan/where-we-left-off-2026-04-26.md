@@ -27,12 +27,20 @@ These constraints are now reflected in the prioritized next queue below.
 ## 4) What is still missing (mapped to `extracted/features/*`)
 
 ## P0 (highest impact)
-1. Scale tool is still a stub
+1. Pen anchor-drag curve generation is still unreliable
+- Specs: `extracted/features/vector/use-pen-tool.md`, `extracted/features/vector/toggle-vector-handle.md`
+- User repro: click to place points, then click-drag an anchor; only bbox/existing lines are visible and no live curve/curve commit is observed.
+- Required acceptance:
+  - With Pen active, click-dragging an existing anchor always shows live handle + curve preview.
+  - Releasing pointer commits visible bezier curvature on affected segments.
+  - Close-path click behavior still works (click without drag on start anchor).
+
+2. Scale tool is still a stub
 - Spec: `extracted/features/transform/scale-with-scale-tool.md`
 - Current: tool registry maps `scale` to `noopTool`.
 - Impact: major transform parity gap (K tool visible but non-functional).
 
-2. Constraints are writable but not behaviorally enforced
+3. Constraints are writable but not behaviorally enforced
 - Spec: `extracted/features/properties/set-constraints.md`
 - Current: constraints can be set in panel, but no child reflow logic during parent frame resize.
 - Impact: core frame/layout behavior divergence from docs.
@@ -69,6 +77,16 @@ These constraints are now reflected in the prioritized next queue below.
 - Current: drag-drop/shortcut path works, toolbar image item remains visual-only.
 
 ## 5) Recommended next execution queue
+
+### Slice A0 (P0): Pen anchor-drag hotfix
+1. Harden anchor hit detection for pen handle drags (avoid silent miss paths).
+2. Separate click-to-close from drag-intent so handle drags never resolve as close-click.
+3. Ensure live curve previews are always visible during handle drag.
+
+Acceptance checks:
+- Existing-anchor drag reliably produces preview curves and committed bezier curves.
+- Start-anchor click without drag still closes path.
+- Start-anchor drag creates handles instead of accidentally closing.
 
 ### Slice A (P0): Transform parity
 1. Implement real Scale tool behavior (`K`) in tool registry + move/resize math path.
