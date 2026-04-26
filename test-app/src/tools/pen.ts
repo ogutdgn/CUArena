@@ -30,6 +30,11 @@ interface ActiveCreation {
   dragHandleIndex: number | null;
   dragHandleStart: Point | null;
   closeCandidate: { index: number; downWorld: Point } | null;
+  // Whether new points can be appended from the path tail while this
+  // pen session is active.
+  canAppendFromTail: boolean;
+  // Close-path click behavior is valid only during true append creation.
+  allowCloseOnStart: boolean;
 }
 
 let creation: ActiveCreation | null = null;
@@ -95,6 +100,25 @@ function nearestVertexHit(creationState: ActiveCreation, world: Point, zoom: num
   let best: { index: number; distance: number } | null = null;
   for (let i = 0; i < creationState.vertices.length; i++) {
     const vw = vertexWorld(creationState, i);
+    const d = distScreen(vw, world, zoom);
+    if (d > CLOSE_HIT_PX) continue;
+    if (!best || d < best.distance) {
+      best = { index: i, distance: d };
+    }
+  }
+  return best;
+}
+
+function nearestVectorVertex(
+  layer: Vector,
+  originWorld: Point,
+  world: Point,
+  zoom: number,
+): { index: number; distance: number } | null {
+  let best: { index: number; distance: number } | null = null;
+  for (let i = 0; i < layer.network.vertices.length; i++) {
+    const v = layer.network.vertices[i];
+    const vw = { x: originWorld.x + v.x, y: originWorld.y + v.y };
     const d = distScreen(vw, world, zoom);
     if (d > CLOSE_HIT_PX) continue;
     if (!best || d < best.distance) {
@@ -214,35 +238,56 @@ function updatePreview(world: Point | null) {
       : null;
   useStore.setState((s) => {
     s.penPreview = creation
-      ? { layerId: creation.layerId, cursor: world ? { x: world.x, y: world.y } : null, handleDrag }
+      ? {
+          layerId: creation.layerId,
+          cursor: world ? { x: world.x, y: world.y } : null,
+          handleDrag,
+          appendPreviewFromTail: creation.canAppendFromTail,
+        }
       : null;
   });
 }
 
-function tryResumeFromSelectedEndpoint(world: Point): boolean {
+function ensureCreationTargetExists(): boolean {
+  if (!creation) return false;
+  const s = useStore.getState();
+  const node = s.nodesById[creation.layerId];
+  if (node && (node as Vector).type === "vector") return true;
+  const before = s.editMode;
+  if (before.kind === "pen_creation") {
+    dispatch({
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_edit_mode",
+      before,
+      after: { kind: "none" },
+    });
+  }
+  creation = null;
+  clearPreview();
+  return false;
+}
+
+function beginCreationFromExistingAnchor(world: Point): boolean {
   const s = useStore.getState();
   const sel = s.selectionByPage[s.activePageId] ?? [];
   if (sel.length !== 1) return false;
   const node = s.nodesById[sel[0]];
   if (!node || (node as Vector).type !== "vector") return false;
   const layer = node as Vector;
-  if (layer.network.closed || layer.network.vertices.length < 2) return false;
+  if (layer.network.vertices.length === 0) return false;
   const vp = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
   const originWorld = worldOffsetOfLayer(s, layer);
-  const first = layer.network.vertices[0];
-  const last = layer.network.vertices[layer.network.vertices.length - 1];
-  const firstWorld = { x: originWorld.x + first.x, y: originWorld.y + first.y };
-  const lastWorld = { x: originWorld.x + last.x, y: originWorld.y + last.y };
-  const dFirst = distScreen(firstWorld, world, vp.zoom);
-  const dLast = distScreen(lastWorld, world, vp.zoom);
-  const minD = Math.min(dFirst, dLast);
-  if (minD > CLOSE_HIT_PX) return false;
+  const hit = nearestVectorVertex(layer, originWorld, world, vp.zoom);
+  if (!hit) return false;
 
   const originalNetwork = cloneNetwork(layer.network);
-  const resumeFromStart = dFirst <= dLast;
-  const workingNetwork = resumeFromStart
-    ? reverseOpenNetwork(originalNetwork)
-    : originalNetwork;
+  const endpointLast = originalNetwork.vertices.length - 1;
+  const hitIsEndpoint = !originalNetwork.closed && (hit.index === 0 || hit.index === endpointLast);
+  const reverse = hitIsEndpoint && hit.index === 0;
+  const workingNetwork = reverse ? reverseOpenNetwork(originalNetwork) : originalNetwork;
+  const resolvedHitIndex = reverse ? workingNetwork.vertices.length - 1 : hit.index;
+  const canAppendFromTail = hitIsEndpoint;
 
   const txId = openTransaction();
   const beforeMode = s.editMode;
@@ -257,7 +302,7 @@ function tryResumeFromSelectedEndpoint(world: Point): boolean {
     { transactionId: txId },
   );
 
-  if (resumeFromStart) {
+  if (reverse) {
     dispatch(
       {
         id: makeOpId(),
@@ -281,12 +326,104 @@ function tryResumeFromSelectedEndpoint(world: Point): boolean {
     originWorld,
     originLocal: { x: layer.x, y: layer.y },
     initialNetwork: cloneNetwork(workingNetwork),
-    dragHandleIndex: null,
-    dragHandleStart: null,
+    dragHandleIndex: resolvedHitIndex,
+    dragHandleStart: world,
     closeCandidate: null,
+    canAppendFromTail,
+    allowCloseOnStart: canAppendFromTail,
   };
   updatePreview(world);
   return true;
+}
+
+function beginNewCreation(world: Point): void {
+  const s = useStore.getState();
+  const pageId = s.activePageId;
+  const parentId = pageId;
+  const originLocal = worldToParentLocal(s, parentId, world);
+  const styleDefaults = getPenVectorStyleDefaults(s);
+  const initialNetwork: VectorNetwork = {
+    vertices: [{ x: 0, y: 0, handleType: "corner" }],
+    segments: [],
+    closed: false,
+  };
+  const layer: Vector = {
+    id: uid("vector"),
+    type: "vector",
+    name: "Vector",
+    parentId,
+    x: originLocal.x,
+    y: originLocal.y,
+    w: 1,
+    h: 1,
+    rotation: 0,
+    scaleX: 1,
+    scaleY: 1,
+    visible: true,
+    locked: false,
+    opacity: 1,
+    constraints: { horizontal: "left", vertical: "top" },
+    network: initialNetwork,
+    fills: styleDefaults.fills,
+    strokes: styleDefaults.strokes,
+    effects: styleDefaults.effects,
+  };
+
+  const pageParent = s.document.pages.find((p) => p.id === parentId);
+  const indexedParent = s.nodesById[parentId];
+  const childCount = pageParent
+    ? pageParent.children.length
+    : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+    ? ((indexedParent as { children: unknown[] }).children).length
+    : 0;
+  const txId = openTransaction();
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "create_node",
+      pageId,
+      parentId,
+      indexInParent: childCount,
+      node: layer,
+    },
+    { transactionId: txId },
+  );
+  setSelection([layer.id], "implicit_after_create");
+
+  const beforeMode = useStore.getState().editMode;
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_edit_mode",
+      before: beforeMode,
+      after: { kind: "pen_creation", layerId: layer.id },
+    },
+    { transactionId: txId },
+  );
+  creation = {
+    layerId: layer.id,
+    txId,
+    vertices: [{ x: 0, y: 0, handleType: "corner" }],
+    segments: [],
+    pendingOutHandles: {},
+    originWorld: { x: world.x, y: world.y },
+    originLocal,
+    initialNetwork,
+    dragHandleIndex: 0, // armed for first vertex's handle
+    dragHandleStart: world,
+    closeCandidate: null,
+    canAppendFromTail: true,
+    allowCloseOnStart: true,
+  };
+  emitSemantic({
+    name: "add_vector_point",
+    layerId: layer.id,
+    index: 0,
+    position: { x: 0, y: 0 },
+  });
+  updatePreview(world);
 }
 
 function clearPreview() {
@@ -332,95 +469,11 @@ function distScreen(a: Point, b: Point, zoom: number): number {
 
 export const penTool: ITool = {
   onPointerDown(world, e) {
-    const s = useStore.getState();
+    if (creation && !ensureCreationTargetExists()) return;
 
     if (!creation) {
-      if (tryResumeFromSelectedEndpoint(world)) return;
-      // First click: create empty vector layer at click point.
-      const pageId = s.activePageId;
-      const parentId = pageId;
-      const originLocal = worldToParentLocal(s, parentId, world);
-      const styleDefaults = getPenVectorStyleDefaults(s);
-      const initialNetwork: VectorNetwork = {
-        vertices: [{ x: 0, y: 0, handleType: "corner" }],
-        segments: [],
-        closed: false,
-      };
-      const layer: Vector = {
-        id: uid("vector"),
-        type: "vector",
-        name: "Vector",
-        parentId,
-        x: originLocal.x,
-        y: originLocal.y,
-        w: 1,
-        h: 1,
-        rotation: 0,
-        scaleX: 1,
-        scaleY: 1,
-        visible: true,
-        locked: false,
-        opacity: 1,
-        constraints: { horizontal: "left", vertical: "top" },
-        network: initialNetwork,
-        fills: styleDefaults.fills,
-        strokes: styleDefaults.strokes,
-        effects: styleDefaults.effects,
-      };
-
-      const pageParent = s.document.pages.find((p) => p.id === parentId);
-      const indexedParent = s.nodesById[parentId];
-      const childCount = pageParent
-        ? pageParent.children.length
-        : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
-        ? ((indexedParent as { children: unknown[] }).children).length
-        : 0;
-      const txId = openTransaction();
-      dispatch(
-        {
-          id: makeOpId(),
-          timestamp: performance.now(),
-          kind: "create_node",
-          pageId,
-          parentId,
-          indexInParent: childCount,
-          node: layer,
-        },
-        { transactionId: txId },
-      );
-      setSelection([layer.id], "implicit_after_create");
-
-      const beforeMode = useStore.getState().editMode;
-      dispatch(
-        {
-          id: makeOpId(),
-          timestamp: performance.now(),
-          kind: "set_edit_mode",
-          before: beforeMode,
-          after: { kind: "pen_creation", layerId: layer.id },
-        },
-        { transactionId: txId },
-      );
-      creation = {
-        layerId: layer.id,
-        txId,
-        vertices: [{ x: 0, y: 0, handleType: "corner" }],
-        segments: [],
-        pendingOutHandles: {},
-        originWorld: { x: world.x, y: world.y },
-        originLocal,
-        initialNetwork,
-        dragHandleIndex: 0, // armed for first vertex's handle
-        dragHandleStart: world,
-        closeCandidate: null,
-      };
-      emitSemantic({
-        name: "add_vector_point",
-        layerId: layer.id,
-        index: 0,
-        position: { x: 0, y: 0 },
-      });
-      updatePreview(world);
+      if (beginCreationFromExistingAnchor(world)) return;
+      beginNewCreation(world);
       return;
     }
 
@@ -433,10 +486,16 @@ export const penTool: ITool = {
       // Click-on-start may close on pointerup; dragging that same point edits
       // handles and clears this candidate in onPointerMove.
       creation.closeCandidate =
-        hit.index === 0 && creation.vertices.length >= 2
+        creation.allowCloseOnStart && hit.index === 0 && creation.vertices.length >= 2
           ? { index: 0, downWorld: world }
           : null;
       updatePreview(world);
+      return;
+    }
+
+    if (!creation.canAppendFromTail) {
+      commitCreation(false);
+      beginNewCreation(world);
       return;
     }
 
@@ -478,6 +537,7 @@ export const penTool: ITool = {
   },
 
   onPointerMove(world, e) {
+    if (creation && !ensureCreationTargetExists()) return;
     if (!creation) return;
     if (creation.closeCandidate && creation.dragHandleStart) {
       const ddx = world.x - creation.closeCandidate.downWorld.x;
@@ -536,6 +596,7 @@ export const penTool: ITool = {
   },
 
   onPointerUp(world, e) {
+    if (creation && !ensureCreationTargetExists()) return;
     if (!creation) return;
     if (creation.closeCandidate && creation.dragHandleStart) {
       const ddx = world.x - creation.closeCandidate.downWorld.x;

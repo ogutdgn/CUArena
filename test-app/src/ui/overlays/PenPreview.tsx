@@ -68,7 +68,7 @@ export function PenPreview() {
   return (
     <g pointerEvents="none">
       {/* Preview segment from last anchor to cursor */}
-      {lastWorld && preview.cursor && (
+      {preview.appendPreviewFromTail && lastWorld && preview.cursor && (
         <line
           x1={lastWorld.x}
           y1={lastWorld.y}
