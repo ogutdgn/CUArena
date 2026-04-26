@@ -329,11 +329,44 @@ export const penTool: ITool = {
     updatePreview(world);
   },
 
-  onPointerUp(_world, _e) {
+  onPointerUp(world, _e) {
     if (!creation) return;
+    if (creation.vertices.length === 1 && creation.dragHandleStart) {
+      const firstWorld = {
+        x: creation.originWorld.x + creation.vertices[0].x,
+        y: creation.originWorld.y + creation.vertices[0].y,
+      };
+      const dist = Math.hypot(world.x - firstWorld.x, world.y - firstWorld.y);
+      if (dist >= DRAG_THRESHOLD) {
+        const newVertex: VectorVertex = {
+          x: world.x - creation.originWorld.x,
+          y: world.y - creation.originWorld.y,
+          handleType: "corner",
+        };
+        creation.vertices.push(newVertex);
+        creation.segments.push({
+          fromIndex: 0,
+          toIndex: 1,
+          handleFrom: null,
+          handleTo: null,
+        });
+        syncStore(false);
+        emitSemantic({
+          name: "add_vector_point",
+          layerId: creation.layerId,
+          index: 1,
+          position: { x: newVertex.x, y: newVertex.y },
+        });
+        creation.dragHandleIndex = null;
+        creation.dragHandleStart = null;
+        updatePreview(world);
+        commitCreation(false);
+        return;
+      }
+    }
     creation.dragHandleIndex = null;
     creation.dragHandleStart = null;
-    updatePreview(_world);
+    updatePreview(world);
   },
 
   onAbort() {
