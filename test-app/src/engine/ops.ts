@@ -197,6 +197,27 @@ export function applySetTransform(state: AppState, op: SetTransformOp): void {
       layer.p1 = { x: layer.p1.x * sx, y: layer.p1.y * sy };
       layer.p2 = { x: layer.p2.x * sx, y: layer.p2.y * sy };
     }
+    if (layer.type === "vector") {
+      const sx = nextW / prevW;
+      const sy = nextH / prevH;
+      layer.network = {
+        ...layer.network,
+        vertices: layer.network.vertices.map((v) => ({
+          ...v,
+          x: v.x * sx,
+          y: v.y * sy,
+        })),
+        segments: layer.network.segments.map((seg) => ({
+          ...seg,
+          handleFrom: seg.handleFrom
+            ? { dx: seg.handleFrom.dx * sx, dy: seg.handleFrom.dy * sy }
+            : null,
+          handleTo: seg.handleTo
+            ? { dx: seg.handleTo.dx * sx, dy: seg.handleTo.dy * sy }
+            : null,
+        })),
+      };
+    }
     layer.x = t.x;
     layer.y = t.y;
     layer.w = nextW;
