@@ -320,8 +320,21 @@ export function CanvasView() {
               x2?: number;
               y2?: number;
             };
-            const fill = "rgba(13,153,255,0.16)";
-            const stroke = "var(--color-selection-blue)";
+            const shape = d.shape ?? "rectangle";
+            const fill =
+              shape === "frame"
+                ? "rgba(235,235,235,1)"
+                : shape === "section"
+                ? "rgba(242,242,242,1)"
+                : shape === "slice" || shape === "line" || shape === "arrow"
+                ? "transparent"
+                : "rgba(217,217,217,1)";
+            const stroke =
+              shape === "line" || shape === "arrow"
+                ? "rgba(255,255,255,1)"
+                : shape === "slice"
+                ? "orange"
+                : "var(--color-selection-blue)";
             const sw = 1 / viewport.zoom;
             if ((d.shape === "line" || d.shape === "arrow") && d.x1 != null && d.y1 != null && d.x2 != null && d.y2 != null) {
               if (d.shape === "arrow") {
@@ -390,6 +403,7 @@ export function CanvasView() {
                 fill={fill}
                 stroke={stroke}
                 strokeWidth={sw}
+                strokeDasharray={shape === "slice" ? `${4 / viewport.zoom} ${3 / viewport.zoom}` : undefined}
                 pointerEvents="none"
               />
             );
