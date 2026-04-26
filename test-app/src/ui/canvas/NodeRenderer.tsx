@@ -246,7 +246,7 @@ function LineEl({ layer }: { layer: Extract<Layer, { type: "line" }> }) {
   const stroke = sa.stroke === "none" ? "white" : sa.stroke;
   const sw = Math.max(1, sa.strokeWidth || 1);
   return (
-    <g data-id={layer.id} opacity={layer.opacity}>
+    <g transform={commonTransform(layer)} data-id={layer.id} opacity={layer.opacity}>
       <line x1={layer.p1.x} y1={layer.p1.y} x2={layer.p2.x} y2={layer.p2.y} stroke={stroke} strokeWidth={sw} />
     </g>
   );
@@ -259,7 +259,7 @@ function ArrowEl({ layer }: { layer: Extract<Layer, { type: "arrow" }> }) {
   const markerId = `arrow-end-${layer.id}`;
   const startMarkerId = `arrow-start-${layer.id}`;
   return (
-    <g data-id={layer.id} opacity={layer.opacity}>
+    <g transform={commonTransform(layer)} data-id={layer.id} opacity={layer.opacity}>
       <defs>
         {layer.endCapEnd === "arrow" && (
           <marker id={markerId} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">

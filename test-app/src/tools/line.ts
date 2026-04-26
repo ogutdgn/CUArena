@@ -9,6 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Line, Arrow, Layer, Page } from "@/types/scene";
+import { worldToParentLocal } from "@/engine/coordinates";
 
 const MIN_DRAG = 3;
 
@@ -25,10 +26,13 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
   let state: State = { kind: "idle" };
 
   function makeNode(p1: Point, p2: Point, parentId: string, ordinal: number): Line | Arrow {
-    const minX = Math.min(p1.x, p2.x);
-    const minY = Math.min(p1.y, p2.y);
-    const w = Math.abs(p2.x - p1.x);
-    const h = Math.abs(p2.y - p1.y);
+    const s = useStore.getState();
+    const localP1 = worldToParentLocal(s, parentId, p1);
+    const localP2 = worldToParentLocal(s, parentId, p2);
+    const minX = Math.min(localP1.x, localP2.x);
+    const minY = Math.min(localP1.y, localP2.y);
+    const w = Math.abs(localP2.x - localP1.x);
+    const h = Math.abs(localP2.y - localP1.y);
     const base: Pick<Layer, "id" | "parentId" | "x" | "y" | "w" | "h" | "rotation" | "scaleX" | "scaleY" | "visible" | "locked" | "opacity" | "constraints"> = {
       id: uid(config.isArrow ? "arrow" : "line"),
       parentId,
@@ -55,8 +59,8 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
         ...base,
         type: "arrow",
         name: `Arrow ${ordinal}`,
-        p1,
-        p2,
+        p1: { x: localP1.x - minX, y: localP1.y - minY },
+        p2: { x: localP2.x - minX, y: localP2.y - minY },
         strokes: [stroke],
         endCapStart: "none",
         endCapEnd: "arrow",
@@ -68,8 +72,8 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
       ...base,
       type: "line",
       name: `Line ${ordinal}`,
-      p1,
-      p2,
+      p1: { x: localP1.x - minX, y: localP1.y - minY },
+      p2: { x: localP2.x - minX, y: localP2.y - minY },
       strokes: [stroke],
       effects: [],
     };
