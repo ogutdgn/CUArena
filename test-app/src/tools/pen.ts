@@ -105,26 +105,63 @@ function syncStore(closed: boolean) {
 
   const node = s.nodesById[creation.layerId] as Layer | undefined;
   if (node) {
-    const before = { x: node.x, y: node.y, w: node.w, h: node.h, rotation: node.rotation, scaleX: node.scaleX, scaleY: node.scaleY };
+    const nextX = creation.originLocal.x + minX;
+    const nextY = creation.originLocal.y + minY;
     const w = Math.max(1, maxX - minX);
     const h = Math.max(1, maxY - minY);
+
+    // Keep pen-creation geometry stable: network is already normalized above,
+    // so update bounds via property ops instead of set_transform (which scales
+    // vector networks for resize gestures).
     dispatch(
       {
         id: makeOpId(),
         timestamp: performance.now(),
-        kind: "set_transform",
+        kind: "set_property",
         pageId: s.activePageId,
         ids: [creation.layerId],
-        before: { [creation.layerId]: before },
-        after: {
-          [creation.layerId]: {
-            ...before,
-            x: creation.originLocal.x + minX,
-            y: creation.originLocal.y + minY,
-            w,
-            h,
-          },
-        },
+        path: "x",
+        before: { [creation.layerId]: node.x },
+        after: { [creation.layerId]: nextX },
+      },
+      { transactionId: creation.txId },
+    );
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_property",
+        pageId: s.activePageId,
+        ids: [creation.layerId],
+        path: "y",
+        before: { [creation.layerId]: node.y },
+        after: { [creation.layerId]: nextY },
+      },
+      { transactionId: creation.txId },
+    );
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_property",
+        pageId: s.activePageId,
+        ids: [creation.layerId],
+        path: "w",
+        before: { [creation.layerId]: node.w },
+        after: { [creation.layerId]: w },
+      },
+      { transactionId: creation.txId },
+    );
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_property",
+        pageId: s.activePageId,
+        ids: [creation.layerId],
+        path: "h",
+        before: { [creation.layerId]: node.h },
+        after: { [creation.layerId]: h },
       },
       { transactionId: creation.txId },
     );
@@ -429,7 +466,16 @@ export const penTool: ITool = {
         return;
       }
     }
-    updatePreview(world);
+    let previewWorld = world;
+    if (e.shiftKey && creation.vertices.length > 0) {
+      const last = creation.vertices[creation.vertices.length - 1];
+      const lastWorld = {
+        x: creation.originWorld.x + last.x,
+        y: creation.originWorld.y + last.y,
+      };
+      previewWorld = constrainPointAngle(lastWorld, world, true);
+    }
+    updatePreview(previewWorld);
   },
 
   onPointerUp(world, e) {
