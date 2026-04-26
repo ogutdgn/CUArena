@@ -10,6 +10,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork } from "@/types/scene";
 import { worldToParentLocal } from "@/engine/coordinates";
+import { getPencilVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const SIMPLIFY_EPSILON = 1.5;
 
@@ -91,6 +92,7 @@ export const pencilTool: ITool = {
     const s = useStore.getState();
     const pageId = s.activePageId;
     const parentId = s.focusContextByPage[pageId] ?? pageId;
+    const styleDefaults = getPencilVectorStyleDefaults(s);
     const localOrigin = worldToParentLocal(s, parentId, { x: ox, y: oy });
     const parent = s.nodesById[parentId];
     const childCount =
@@ -114,16 +116,9 @@ export const pencilTool: ITool = {
       opacity: 1,
       constraints: { horizontal: "left", vertical: "top" },
       network,
-      fills: [],
-      strokes: [
-        {
-          paint: { kind: "solid", color: { r: 1, g: 1, b: 1, a: 1 }, opacity: 1, visible: true },
-          weight: 2,
-          alignment: "center",
-          dash: null,
-        },
-      ],
-      effects: [],
+      fills: styleDefaults.fills,
+      strokes: styleDefaults.strokes,
+      effects: styleDefaults.effects,
     };
 
     dispatch({
@@ -140,7 +135,7 @@ export const pencilTool: ITool = {
       name: "create_vector_with_pencil",
       layerId: layer.id,
       pointCount: simplified.length,
-    } as never);
+    });
 
     // Revert tool
     const beforeTool = useStore.getState().activeTool;

@@ -10,6 +10,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork, VectorVertex, VectorSegment, Layer } from "@/types/scene";
 import { worldToParentLocal } from "@/engine/coordinates";
+import { getPenVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const CLOSE_HIT_PX = 8;
 const DRAG_THRESHOLD = 3;
@@ -117,7 +118,7 @@ function commitCreation(closed: boolean) {
     layerId: creation.layerId,
     closed,
     pointCount: creation.vertices.length,
-  } as never);
+  });
 
   const before = useStore.getState().editMode;
   if (before.kind === "pen_creation") {
@@ -159,6 +160,7 @@ export const penTool: ITool = {
       const pageId = s.activePageId;
       const parentId = s.focusContextByPage[pageId] ?? pageId;
       const originLocal = worldToParentLocal(s, parentId, world);
+      const styleDefaults = getPenVectorStyleDefaults(s);
       const initialNetwork: VectorNetwork = {
         vertices: [{ x: 0, y: 0, handleType: "corner" }],
         segments: [],
@@ -181,16 +183,9 @@ export const penTool: ITool = {
         opacity: 1,
         constraints: { horizontal: "left", vertical: "top" },
         network: initialNetwork,
-        fills: [],
-        strokes: [
-          {
-            paint: { kind: "solid", color: { r: 1, g: 1, b: 1, a: 1 }, opacity: 1, visible: true },
-            weight: 1,
-            alignment: "center",
-            dash: null,
-          },
-        ],
-        effects: [],
+        fills: styleDefaults.fills,
+        strokes: styleDefaults.strokes,
+        effects: styleDefaults.effects,
       };
 
       const parent = s.nodesById[parentId];
