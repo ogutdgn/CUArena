@@ -4,7 +4,7 @@
 import type { ITool } from "./types";
 import type { Point } from "@/util/geometry";
 import { useStore } from "@/engine/store";
-import { dispatch, makeOpId, openTransaction, commitTransaction } from "@/engine/dispatch";
+import { dispatch, makeOpId, openTransaction, commitTransaction, abortTransaction } from "@/engine/dispatch";
 import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
@@ -32,19 +32,22 @@ let creation: ActiveCreation | null = null;
 
 function syncStore(closed: boolean) {
   if (!creation) return;
-  const after: VectorNetwork = {
-    vertices: creation.vertices.slice(),
-    segments: creation.segments.slice(),
-    closed,
-  };
+  if (creation.vertices.length === 0) return;
   // Update bbox
-  let minX = 0, minY = 0, maxX = 0, maxY = 0;
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   for (const v of creation.vertices) {
     if (v.x < minX) minX = v.x;
     if (v.y < minY) minY = v.y;
     if (v.x > maxX) maxX = v.x;
     if (v.y > maxY) maxY = v.y;
   }
+  const shiftX = -minX;
+  const shiftY = -minY;
+  const after: VectorNetwork = {
+    vertices: creation.vertices.map((v) => ({ ...v, x: v.x + shiftX, y: v.y + shiftY })),
+    segments: creation.segments.slice(),
+    closed,
+  };
   const s = useStore.getState();
 
   dispatch(
@@ -111,6 +114,24 @@ function clearPreview() {
 
 function commitCreation(closed: boolean) {
   if (!creation) return;
+  if (creation.vertices.length < 2) {
+    abortTransaction(creation.txId);
+    const beforeTool = useStore.getState().activeTool;
+    if (beforeTool !== "move") {
+      dispatch({
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_tool",
+        before: beforeTool,
+        after: "move",
+      });
+      emitSemantic({ name: "tool_change", before: beforeTool, after: "move", trigger: "auto_revert_after_create" });
+    }
+    creation = null;
+    clearPreview();
+    return;
+  }
+
   syncStore(closed);
   commitTransaction(creation.txId);
   emitSemantic({
