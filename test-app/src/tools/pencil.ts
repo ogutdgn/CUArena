@@ -9,7 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork } from "@/types/scene";
-import { resolveCreationParentId, worldToParentLocal } from "@/engine/coordinates";
+import { worldToParentLocal } from "@/engine/coordinates";
 import { getPencilVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const SIMPLIFY_EPSILON = 1.5;
@@ -91,7 +91,7 @@ export const pencilTool: ITool = {
 
     const s = useStore.getState();
     const pageId = s.activePageId;
-    const parentId = resolveCreationParentId(s, { x: ox, y: oy });
+    const parentId = pageId;
     const styleDefaults = getPencilVectorStyleDefaults(s);
     const localOrigin = worldToParentLocal(s, parentId, { x: ox, y: oy });
     const parent = s.nodesById[parentId];
