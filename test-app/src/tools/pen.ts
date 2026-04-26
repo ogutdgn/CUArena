@@ -17,6 +17,26 @@ const SOFT_HIT_PX = 20;
 const DRAG_THRESHOLD = 3;
 const HANDLE_DRAG_INTENT_PX = 0.75;
 const ANGLE_STEP_DEG = 15;
+const PEN_DEBUG_ENABLED = true;
+
+let lastPenMoveLogTs = 0;
+
+function penDebug(event: string, payload?: Record<string, unknown>) {
+  if (!PEN_DEBUG_ENABLED) return;
+  if (payload) {
+    console.debug(`[pen-debug] ${event}`, payload);
+    return;
+  }
+  console.debug(`[pen-debug] ${event}`);
+}
+
+function penDebugMove(event: string, payload?: Record<string, unknown>) {
+  if (!PEN_DEBUG_ENABLED) return;
+  const now = performance.now();
+  if (now - lastPenMoveLogTs < 120) return;
+  lastPenMoveLogTs = now;
+  penDebug(event, payload);
+}
 
 interface ActiveCreation {
   layerId: string;
@@ -263,6 +283,10 @@ function ensureCreationTargetExists(): boolean {
   const s = useStore.getState();
   const node = s.nodesById[creation.layerId];
   if (node && (node as Vector).type === "vector") return true;
+  penDebug("creation-target-missing", {
+    layerId: creation.layerId,
+    editMode: s.editMode.kind,
+  });
   const before = s.editMode;
   if (before.kind === "pen_creation") {
     dispatch({
@@ -345,6 +369,14 @@ function beginCreationFromExistingAnchor(world: Point): boolean {
     allowCloseOnStart: canAppendFromTail,
     didHandleDrag: false,
   };
+  penDebug("resume-from-anchor", {
+    layerId: layer.id,
+    hitIndex: hit.index,
+    hitDistancePx: hit.distance,
+    hitIsEndpoint,
+    reverse,
+    canAppendFromTail,
+  });
   updatePreview(world);
   return true;
 }
@@ -431,6 +463,11 @@ function beginNewCreation(world: Point): void {
     allowCloseOnStart: true,
     didHandleDrag: false,
   };
+  penDebug("begin-new-creation", {
+    layerId: layer.id,
+    x: world.x,
+    y: world.y,
+  });
   emitSemantic({
     name: "add_vector_point",
     layerId: layer.id,
@@ -508,11 +545,21 @@ export const penTool: ITool = {
         creation.allowCloseOnStart && hit.index === 0 && creation.vertices.length >= 2
           ? { index: 0, downWorld: world }
           : null;
+      penDebug("anchor-hit", {
+        layerId: creation.layerId,
+        index: hit.index,
+        distancePx: hit.distance,
+        allowCloseOnStart: creation.allowCloseOnStart,
+        closeCandidate: !!creation.closeCandidate,
+      });
       updatePreview(world);
       return;
     }
 
     if (!creation.canAppendFromTail) {
+      penDebug("non-tail-session-new-click", {
+        layerId: creation.layerId,
+      });
       commitCreation(false);
       beginNewCreation(world);
       return;
@@ -546,6 +593,14 @@ export const penTool: ITool = {
     creation.closeCandidate = null;
     creation.didHandleDrag = false;
 
+    penDebug("append-vertex", {
+      layerId: creation.layerId,
+      index: creation.vertices.length - 1,
+      x: newVertex.x,
+      y: newVertex.y,
+      fromIndex: prevIdx,
+      shift: e.shiftKey,
+    });
     syncStore(false);
     emitSemantic({
       name: "add_vector_point",
@@ -564,6 +619,11 @@ export const penTool: ITool = {
       const ddy = world.y - creation.closeCandidate.downWorld.y;
       if (Math.hypot(ddx, ddy) >= HANDLE_DRAG_INTENT_PX) {
         creation.closeCandidate = null;
+        penDebug("close-candidate-cleared-on-drag", {
+          layerId: creation.layerId,
+          ddx,
+          ddy,
+        });
       }
     }
     if (creation.dragHandleIndex != null && creation.dragHandleStart) {
@@ -601,6 +661,17 @@ export const penTool: ITool = {
       } else {
         if (!outSeg) delete creation.pendingOutHandles[idx];
       }
+      penDebugMove("handle-drag", {
+        layerId: creation.layerId,
+        index: idx,
+        outDx,
+        outDy,
+        hasIncomingSegment: !!inSeg,
+        hasOutgoingSegment: !!outSeg,
+        didHandleDrag: creation.didHandleDrag,
+        shift: e.shiftKey,
+        alt: e.altKey,
+      });
       syncStore(false);
       updatePreview(constrainedHandleWorld);
       return;
@@ -624,10 +695,20 @@ export const penTool: ITool = {
       const ddx = world.x - creation.closeCandidate.downWorld.x;
       const ddy = world.y - creation.closeCandidate.downWorld.y;
       if (!creation.didHandleDrag && Math.hypot(ddx, ddy) < DRAG_THRESHOLD) {
+        penDebug("close-on-pointerup", {
+          layerId: creation.layerId,
+          ddx,
+          ddy,
+        });
         commitCreation(true);
         return;
       }
     }
+    penDebug("pointerup-reset-handle-drag", {
+      layerId: creation.layerId,
+      didHandleDrag: creation.didHandleDrag,
+      hadCloseCandidate: !!creation.closeCandidate,
+    });
     void e;
     creation.dragHandleIndex = null;
     creation.dragHandleStart = null;
