@@ -127,16 +127,28 @@ export function Toolbar() {
 
   const moveIcon =
     activeTool === "hand" ? <Hand size={16} /> : activeTool === "scale" ? <Maximize2 size={16} /> : <MousePointer2 size={16} />;
+  const regionToolForIcon = regionActive ? activeTool : lastRegionTool;
+  const shapeToolForIcon = shapeActive ? activeTool : lastShapeTool;
+  const creationToolForIcon = creationActive ? activeTool : lastCreationTool;
   const regionIcon =
-    activeTool === "section" ? <LayoutTemplate size={16} /> : activeTool === "slice" ? <Crop size={16} /> : <Frame size={16} />;
+    regionToolForIcon === "section"
+      ? <LayoutTemplate size={16} />
+      : regionToolForIcon === "slice"
+      ? <Crop size={16} />
+      : <Frame size={16} />;
   const shapeIcon =
-    activeTool === "ellipse" ? <Circle size={16} /> :
-    activeTool === "polygon" ? <Hexagon size={16} /> :
-    activeTool === "star" ? <Star size={16} /> :
-    activeTool === "line" ? <Minus size={16} /> :
-    activeTool === "arrow" ? <ArrowRight size={16} /> :
-    <Square size={16} />;
-  const creationIcon = activeTool === "pencil" ? <Pencil size={16} /> : <Pen size={16} />;
+    shapeToolForIcon === "ellipse"
+      ? <Circle size={16} />
+      : shapeToolForIcon === "polygon"
+      ? <Hexagon size={16} />
+      : shapeToolForIcon === "star"
+      ? <Star size={16} />
+      : shapeToolForIcon === "line"
+      ? <Minus size={16} />
+      : shapeToolForIcon === "arrow"
+      ? <ArrowRight size={16} />
+      : <Square size={16} />;
+  const creationIcon = creationToolForIcon === "pencil" ? <Pencil size={16} /> : <Pen size={16} />;
 
   function dropdownAnchor(ref: React.RefObject<HTMLDivElement | null>) {
     if (!ref.current) return null;
