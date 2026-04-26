@@ -646,28 +646,28 @@ export const penTool: ITool = {
         ...v,
         handleType: e.altKey ? "independent" : "mirror",
       };
-      // Outgoing segment: from this vertex onward — set handleFrom on segment[idx]
-      const outSeg = creation.segments.find((s) => s.fromIndex === idx);
-      // Incoming segment: into this vertex — set handleTo (mirrored = -outDx,-outDy)
-      const inSeg = creation.segments.find((s) => s.toIndex === idx);
-      if (inSeg) {
-        inSeg.handleTo = { dx: -outDx, dy: -outDy };
+      // Segments may be frozen by Immer after syncStore — replace by index with
+      // new objects rather than mutating in place.
+      const inSegIdx = creation.segments.findIndex((s) => s.toIndex === idx);
+      const outSegIdx = creation.segments.findIndex((s) => s.fromIndex === idx);
+      if (inSegIdx !== -1) {
+        creation.segments[inSegIdx] = { ...creation.segments[inSegIdx], handleTo: { dx: -outDx, dy: -outDy } };
       }
-      // Alt/Option breaks mirror coupling when both handles exist. Without
-      // Alt, remember outgoing handle for future segments from this vertex.
       if (!e.altKey) {
-        if (outSeg) outSeg.handleFrom = { dx: outDx, dy: outDy };
+        if (outSegIdx !== -1) {
+          creation.segments[outSegIdx] = { ...creation.segments[outSegIdx], handleFrom: { dx: outDx, dy: outDy } };
+        }
         creation.pendingOutHandles[idx] = { dx: outDx, dy: outDy };
       } else {
-        if (!outSeg) delete creation.pendingOutHandles[idx];
+        if (outSegIdx === -1) delete creation.pendingOutHandles[idx];
       }
       penDebugMove("handle-drag", {
         layerId: creation.layerId,
         index: idx,
         outDx,
         outDy,
-        hasIncomingSegment: !!inSeg,
-        hasOutgoingSegment: !!outSeg,
+        hasIncomingSegment: inSegIdx !== -1,
+        hasOutgoingSegment: outSegIdx !== -1,
         didHandleDrag: creation.didHandleDrag,
         shift: e.shiftKey,
         alt: e.altKey,
