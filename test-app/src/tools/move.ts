@@ -22,6 +22,7 @@ import { uid } from "@/util/id";
 import type { TransformMap, TransformTuple } from "@/types/ops";
 import type { Layer, Page } from "@/types/scene";
 import type { HandleDir, RotateCorner } from "@/ui/overlays/SelectionOverlay";
+import { worldRectOfLayer } from "@/engine/coordinates";
 
 const DRAG_THRESHOLD = 3;
 
@@ -45,13 +46,16 @@ type State =
       startBbox: Rect;
       layerIds: string[];
       startTransforms: TransformMap;
+      startWorldTransforms: TransformMap;
       modifiers: { shift: boolean; alt: boolean };
     }
   | {
       kind: "active_layer_drag";
       layerIds: string[];
+      sourceLayerIds: string[];
       downWorld: Point;
       startTransforms: TransformMap;
+      startWorldTransforms: TransformMap;
       txId: string;
       isDuplicate: boolean;
       duplicatedIds: string[];
@@ -63,6 +67,7 @@ type State =
       startBbox: Rect;
       layerIds: string[];
       startTransforms: TransformMap;
+      startWorldTransforms: TransformMap;
       txId: string;
       modifiers: { shift: boolean; alt: boolean };
     }
@@ -152,7 +157,9 @@ export const moveTool: ITool = {
           .map((id) => s.nodesById[id])
           .filter((n): n is Layer => !!n && (n as Page).type !== "page") as Layer[];
         const startTransforms: TransformMap = {};
+        const startWorldTransforms: TransformMap = {};
         for (const l of layers) startTransforms[l.id] = transformOf(l);
+        for (const l of layers) startWorldTransforms[l.id] = worldTransformOf(s, l);
         state = {
           kind: "armed_handle",
           handleDir,
@@ -160,6 +167,7 @@ export const moveTool: ITool = {
           startBbox: { ...bbox },
           layerIds,
           startTransforms,
+          startWorldTransforms,
           modifiers: mods,
         };
         return;
@@ -300,7 +308,9 @@ export const moveTool: ITool = {
         .map((id) => s.nodesById[id])
         .filter((n): n is Layer => !!n && (n as Page).type !== "page") as Layer[];
       const startTransforms: TransformMap = {};
+      const startWorldTransforms: TransformMap = {};
       for (const l of layers) startTransforms[l.id] = transformOf(l);
+      for (const l of layers) startWorldTransforms[l.id] = worldTransformOf(s, l);
 
       const txId = openTransaction();
       let duplicatedIds: string[] = [];
@@ -311,15 +321,19 @@ export const moveTool: ITool = {
         setSelection(duplicatedIds, "implicit_after_duplicate");
         for (let i = 0; i < layers.length; i++) {
           startTransforms[duplicatedIds[i]] = startTransforms[layers[i].id];
+          startWorldTransforms[duplicatedIds[i]] = startWorldTransforms[layers[i].id];
           delete startTransforms[layers[i].id];
+          delete startWorldTransforms[layers[i].id];
         }
       }
 
       state = {
         kind: "active_layer_drag",
         layerIds: activeIds,
+        sourceLayerIds: layerIds,
         downWorld: state.downWorld,
         startTransforms,
+        startWorldTransforms,
         txId,
         isDuplicate: state.modifiers.alt,
         duplicatedIds,
@@ -340,6 +354,7 @@ export const moveTool: ITool = {
         startBbox: state.startBbox,
         layerIds: state.layerIds,
         startTransforms: state.startTransforms,
+        startWorldTransforms: state.startWorldTransforms,
         txId,
         modifiers: state.modifiers,
       };
@@ -423,7 +438,7 @@ export const moveTool: ITool = {
       // Compute moving group bbox at start
       let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
       for (const id of state.layerIds) {
-        const t = state.startTransforms[id];
+        const t = state.startWorldTransforms[id];
         if (!t) continue;
         if (t.x < minX) minX = t.x;
         if (t.y < minY) minY = t.y;
@@ -442,7 +457,8 @@ export const moveTool: ITool = {
           for (const l of arr) {
             if (movingSet.has(l.id)) continue;
             if (!l.visible) continue;
-            candidates.push({ x: l.x, y: l.y, w: l.w, h: l.h });
+            const wr = worldRectOfLayer(sLive, l);
+            candidates.push({ x: wr.x, y: wr.y, w: wr.w, h: wr.h });
             if (l.type === "frame" || l.type === "section" || l.type === "group") collect(l.children);
           }
         };
@@ -493,12 +509,33 @@ export const moveTool: ITool = {
       // Map each layer's transform proportionally with the bbox change.
       for (const id of state.layerIds) {
         const t = state.startTransforms[id];
+        const tWorld = state.startWorldTransforms[id];
         if (!t) continue;
-        const nx = state.startBbox.w === 0 ? newBbox.x : newBbox.x + ((t.x - state.startBbox.x) / state.startBbox.w) * newBbox.w;
-        const ny = state.startBbox.h === 0 ? newBbox.y : newBbox.y + ((t.y - state.startBbox.y) / state.startBbox.h) * newBbox.h;
+        if (!tWorld) continue;
+        const nxWorld =
+          state.startBbox.w === 0 ? newBbox.x : newBbox.x + ((tWorld.x - state.startBbox.x) / state.startBbox.w) * newBbox.w;
+        const nyWorld =
+          state.startBbox.h === 0 ? newBbox.y : newBbox.y + ((tWorld.y - state.startBbox.y) / state.startBbox.h) * newBbox.h;
         const nw = state.startBbox.w === 0 ? newBbox.w : (t.w / state.startBbox.w) * newBbox.w;
         const nh = state.startBbox.h === 0 ? newBbox.h : (t.h / state.startBbox.h) * newBbox.h;
-        after[id] = { ...t, x: nx, y: ny, w: Math.max(1, Math.abs(nw)), h: Math.max(1, Math.abs(nh)) };
+        const layerNow = useStore.getState().nodesById[id] as Layer | undefined;
+        if (!layerNow || (layerNow as Page).type === "page") continue;
+        const parent = useStore.getState().nodesById[layerNow.parentId];
+        const px =
+          parent && (parent as Page).type !== "page"
+            ? worldRectOfLayer(useStore.getState(), parent as Layer).x
+            : 0;
+        const py =
+          parent && (parent as Page).type !== "page"
+            ? worldRectOfLayer(useStore.getState(), parent as Layer).y
+            : 0;
+        after[id] = {
+          ...t,
+          x: nxWorld - px,
+          y: nyWorld - py,
+          w: Math.max(1, Math.abs(nw)),
+          h: Math.max(1, Math.abs(nh)),
+        };
       }
       dispatch(
         {
@@ -589,7 +626,7 @@ export const moveTool: ITool = {
       if (state.isDuplicate) {
         emitSemantic({
           name: "duplicate",
-          sourceLayerIds: Object.keys(state.startTransforms),
+          sourceLayerIds: state.sourceLayerIds,
           newLayerIds: state.duplicatedIds,
           offset: { dx, dy },
           trigger: "alt_drag",
@@ -627,7 +664,7 @@ export const moveTool: ITool = {
         after,
         handle: state.handleDir,
         trigger: "drag",
-        modifiers: { shift: state.modifiers.alt /* placeholder */, alt: state.modifiers.alt },
+        modifiers: { shift: state.modifiers.shift, alt: state.modifiers.alt },
       });
       state = { kind: "idle" };
       return;
@@ -646,7 +683,8 @@ export const moveTool: ITool = {
       const hits: string[] = [];
       walkLayers(page.children, (l) => {
         if (l.locked || !l.visible) return;
-        if (rectIntersects(box, { x: l.x, y: l.y, w: l.w, h: l.h })) hits.push(l.id);
+        const wr = worldRectOfLayer(useStore.getState(), l);
+        if (rectIntersects(box, { x: wr.x, y: wr.y, w: wr.w, h: wr.h })) hits.push(l.id);
       });
       const s2 = useStore.getState();
       const before = s2.selectionByPage[s2.activePageId] ?? [];
@@ -691,6 +729,19 @@ function transformOf(l: Layer): TransformTuple {
   };
 }
 
+function worldTransformOf(s: ReturnType<typeof useStore.getState>, l: Layer): TransformTuple {
+  const wr = worldRectOfLayer(s, l);
+  return {
+    x: wr.x,
+    y: wr.y,
+    w: wr.w,
+    h: wr.h,
+    rotation: l.rotation,
+    scaleX: l.scaleX,
+    scaleY: l.scaleY,
+  };
+}
+
 function walkLayers(layers: Layer[], visit: (l: Layer) => void) {
   for (const l of layers) {
     visit(l);
@@ -704,13 +755,12 @@ function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Laye
   const newIds: string[] = [];
   for (const source of sources) {
     const clone = JSON.parse(JSON.stringify(source)) as Layer;
-    clone.id = uid(clone.type);
-    clone.parentId = source.parentId;
-    const parent = s.nodesById[source.parentId];
-    const arr =
-      (parent as Page | undefined)?.type === "page"
-        ? (parent as Page).children
-        : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+    reseedCloneIds(clone, source.parentId);
+    const pageParent = s.document.pages.find((p) => p.id === source.parentId);
+    const indexedParent = s.nodesById[source.parentId];
+    const arr = pageParent
+      ? pageParent.children
+      : (indexedParent as (Layer & { children?: Layer[] }) | undefined)?.children;
     if (!arr) continue;
     const idx = arr.findIndex((c) => c.id === source.id);
     dispatch({
@@ -725,6 +775,16 @@ function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Laye
     newIds.push(clone.id);
   }
   return newIds;
+}
+
+function reseedCloneIds(layer: Layer, parentId: string): void {
+  layer.id = uid(layer.type);
+  layer.parentId = parentId;
+  if (layer.type === "frame" || layer.type === "section" || layer.type === "group") {
+    for (const c of layer.children) {
+      reseedCloneIds(c, layer.id);
+    }
+  }
 }
 
 // Compute new bbox given a handle drag.

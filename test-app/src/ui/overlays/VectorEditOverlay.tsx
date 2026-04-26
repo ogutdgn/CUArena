@@ -6,6 +6,7 @@ import { useStore, selectActiveViewport } from "@/engine/store";
 import { dispatch, makeOpId, openTransaction, commitTransaction } from "@/engine/dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import type { Vector, VectorNetwork } from "@/types/scene";
+import { worldOffsetOfLayer } from "@/engine/coordinates";
 
 const ANCHOR_PX = 8;
 const SEG_HIT_PX = 8;
@@ -19,15 +20,21 @@ export function VectorEditOverlay() {
     return n && (n as Vector).type === "vector" ? (n as Vector) : null;
   });
   const selected = useStore((s) => s.vectorEditSelected);
+  const origin = useStore((s) => {
+    if (s.editMode.kind !== "vector" || !s.editMode.layerId) return null;
+    const n = s.nodesById[s.editMode.layerId];
+    if (!n || (n as Vector).type !== "vector") return null;
+    return worldOffsetOfLayer(s, n as Vector);
+  });
   const [drag, setDrag] = useState<{ index: number; before: VectorNetwork; txId: string } | null>(null);
 
-  if (editMode.kind !== "vector" || !layer) return null;
+  if (editMode.kind !== "vector" || !layer || !origin) return null;
 
   const anchorSize = ANCHOR_PX / viewport.zoom;
   const segHit = SEG_HIT_PX / viewport.zoom;
   const sw = 1 / viewport.zoom;
-  const ox = layer.x;
-  const oy = layer.y;
+  const ox = origin.x;
+  const oy = origin.y;
 
   function selectAnchor(i: number) {
     useStore.setState((s) => { s.vectorEditSelected = i; });

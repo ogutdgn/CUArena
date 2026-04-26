@@ -7,6 +7,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { setSelection } from "./commands";
 import { uid } from "@/util/id";
 import type { Text as TextLayer, Page, Layer } from "@/types/scene";
+import { resolveCreationParentId, worldToParentLocal } from "./coordinates";
 
 interface TextSnapshot {
   content: string;
@@ -19,12 +20,15 @@ interface TextSnapshot {
 export function createTextAt(world: { x: number; y: number }, mode: "auto_width" | "fixed", widthHint?: number, heightHint?: number): string | null {
   const s = useStore.getState();
   const pageId = s.activePageId;
-  const parentId = s.focusContextByPage[pageId] ?? pageId;
-  const parent = s.nodesById[parentId];
-  const childCount =
-    parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-      ? ((parent as { children: unknown[] }).children).length
-      : 0;
+  const parentId = resolveCreationParentId(s, world);
+  const local = worldToParentLocal(s, parentId, world);
+  const pageParent = s.document.pages.find((p) => p.id === parentId);
+  const indexedParent = s.nodesById[parentId];
+  const childCount = pageParent
+    ? pageParent.children.length
+    : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+    ? ((indexedParent as { children: unknown[] }).children).length
+    : 0;
   const w = mode === "fixed" ? widthHint ?? 200 : 100;
   const h = mode === "fixed" ? heightHint ?? 24 : 24;
   const layer: TextLayer = {
@@ -32,8 +36,8 @@ export function createTextAt(world: { x: number; y: number }, mode: "auto_width"
     type: "text",
     name: "Text",
     parentId,
-    x: world.x,
-    y: world.y,
+    x: local.x,
+    y: local.y,
     w,
     h,
     rotation: 0,

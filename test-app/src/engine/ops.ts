@@ -29,8 +29,46 @@ import type { AppState } from "./store";
 import type { Layer, Page } from "@/types/scene";
 import { isContainer } from "@/types/scene";
 
+function findNodeInLayers(layers: Layer[], id: string): Layer | null {
+  for (const l of layers) {
+    if (l.id === id) return l;
+    if (isContainer(l)) {
+      const hit = findNodeInLayers(l.children, id);
+      if (hit) return hit;
+    }
+  }
+  return null;
+}
+
+function findNodeInDocument(state: AppState, id: string): Layer | Page | null {
+  for (const p of state.document.pages) {
+    if (p.id === id) return p;
+    const hit = findNodeInLayers(p.children, id);
+    if (hit) return hit;
+  }
+  return null;
+}
+
+function reindexNodes(state: AppState): void {
+  const next: Record<string, Layer | Page> = {};
+  for (const p of state.document.pages) {
+    next[p.id] = p;
+    const stack = [...p.children];
+    while (stack.length > 0) {
+      const cur = stack.pop()!;
+      next[cur.id] = cur;
+      if (isContainer(cur)) {
+        for (let i = cur.children.length - 1; i >= 0; i--) {
+          stack.push(cur.children[i]);
+        }
+      }
+    }
+  }
+  state.nodesById = next;
+}
+
 function getChildren(state: AppState, parentId: string): Layer[] | null {
-  const node = state.nodesById[parentId];
+  const node = findNodeInDocument(state, parentId);
   if (!node) return null;
   if ((node as Page).type === "page") return (node as Page).children;
   if (isContainer(node as Layer)) return (node as Layer & { children: Layer[] }).children;
@@ -57,20 +95,22 @@ function walkIndex(state: AppState, layer: Layer) {
   }
 }
 
+function collectLayerIds(layer: Layer, out: Set<string>) {
+  out.add(layer.id);
+  if (isContainer(layer)) {
+    for (const c of layer.children) collectLayerIds(c, out);
+  }
+}
+
 function removeFromTree(state: AppState, id: string): {
   node: Layer;
   parentId: string;
   indexInParent: number;
 } | null {
-  const found = state.nodesById[id];
+  const found = findNodeInDocument(state, id);
   if (!found || (found as Page).type === "page") return null;
   const layer = found as Layer;
-  const parent = state.nodesById[layer.parentId];
-  if (!parent) return null;
-  const children =
-    (parent as Page).type === "page"
-      ? (parent as Page).children
-      : (parent as Layer & { children?: Layer[] }).children;
+  const children = getChildren(state, layer.parentId);
   if (!children) return null;
   const idx = indexById(children, id);
   if (idx === -1) return null;
@@ -98,15 +138,10 @@ export function applyCreateNode(state: AppState, op: CreateNodeOp): void {
 export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
   const sorted = [...op.ids]
     .map((id) => {
-      const n = state.nodesById[id];
+      const n = findNodeInDocument(state, id);
       if (!n || (n as Page).type === "page") return null;
       const layer = n as Layer;
-      const parent = state.nodesById[layer.parentId];
-      if (!parent) return null;
-      const children =
-        (parent as Page).type === "page"
-          ? (parent as Page).children
-          : (parent as Layer & { children?: Layer[] }).children;
+      const children = getChildren(state, layer.parentId);
       if (!children) return null;
       return { id, idx: indexById(children, id) };
     })
@@ -119,11 +154,25 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
     if (removed) snapshot.unshift(removed);
   }
   op.snapshot = snapshot;
+
+  // Clean stale selection/focus references if deleted ids were selected/focused.
+  const removedIds = new Set<string>();
+  for (const s of snapshot) collectLayerIds(s.node, removedIds);
+
+  for (const pageId of Object.keys(state.selectionByPage)) {
+    const sel = state.selectionByPage[pageId] ?? [];
+    const next = sel.filter((id) => !removedIds.has(id));
+    if (next.length !== sel.length) state.selectionByPage[pageId] = next;
+  }
+  for (const pageId of Object.keys(state.focusContextByPage)) {
+    const fc = state.focusContextByPage[pageId];
+    if (fc && removedIds.has(fc)) state.focusContextByPage[pageId] = null;
+  }
 }
 
 export function applySetProperty(state: AppState, op: SetPropertyOp): void {
   for (const id of op.ids) {
-    const node = state.nodesById[id];
+    const node = findNodeInDocument(state, id);
     if (!node) continue;
     const after = op.after[id];
     if (after === undefined) continue;
@@ -133,15 +182,46 @@ export function applySetProperty(state: AppState, op: SetPropertyOp): void {
 
 export function applySetTransform(state: AppState, op: SetTransformOp): void {
   for (const id of op.ids) {
-    const node = state.nodesById[id];
+    const node = findNodeInDocument(state, id);
     if (!node || (node as Page).type === "page") continue;
     const t = op.after[id];
     if (!t) continue;
     const layer = node as Layer;
+    const prevW = Math.max(1, layer.w);
+    const prevH = Math.max(1, layer.h);
+    const nextW = Math.max(1, t.w);
+    const nextH = Math.max(1, t.h);
+    if (layer.type === "line" || layer.type === "arrow") {
+      const sx = nextW / prevW;
+      const sy = nextH / prevH;
+      layer.p1 = { x: layer.p1.x * sx, y: layer.p1.y * sy };
+      layer.p2 = { x: layer.p2.x * sx, y: layer.p2.y * sy };
+    }
+    if (layer.type === "vector") {
+      const sx = nextW / prevW;
+      const sy = nextH / prevH;
+      layer.network = {
+        ...layer.network,
+        vertices: layer.network.vertices.map((v) => ({
+          ...v,
+          x: v.x * sx,
+          y: v.y * sy,
+        })),
+        segments: layer.network.segments.map((seg) => ({
+          ...seg,
+          handleFrom: seg.handleFrom
+            ? { dx: seg.handleFrom.dx * sx, dy: seg.handleFrom.dy * sy }
+            : null,
+          handleTo: seg.handleTo
+            ? { dx: seg.handleTo.dx * sx, dy: seg.handleTo.dy * sy }
+            : null,
+        })),
+      };
+    }
     layer.x = t.x;
     layer.y = t.y;
-    layer.w = t.w;
-    layer.h = t.h;
+    layer.w = nextW;
+    layer.h = nextH;
     layer.rotation = t.rotation;
     layer.scaleX = t.scaleX;
     layer.scaleY = t.scaleY;
@@ -171,13 +251,9 @@ export function applySetClipboard(state: AppState, op: SetClipboardOp): void {
 export function applyReparent(state: AppState, op: ReparentOp): void {
   // Apply moves in order. For each, remove from current parent, insert into new.
   for (const m of op.moves) {
-    const layer = state.nodesById[m.id] as Layer | undefined;
+    const layer = findNodeInDocument(state, m.id) as Layer | undefined;
     if (!layer || (layer as unknown as Page).type === "page") continue;
-    const fromParent = state.nodesById[m.fromParentId];
-    const fromArr =
-      (fromParent as Page | undefined)?.type === "page"
-        ? (fromParent as Page).children
-        : (fromParent as (Layer & { children?: Layer[] }) | undefined)?.children;
+    const fromArr = getChildren(state, m.fromParentId);
     if (!fromArr) continue;
     const idx = fromArr.findIndex((c) => c.id === m.id);
     if (idx === -1) continue;
@@ -187,11 +263,7 @@ export function applyReparent(state: AppState, op: ReparentOp): void {
 }
 
 export function applyReorderZ(state: AppState, op: ReorderZOp): void {
-  const parent = state.nodesById[op.parentId];
-  const arr =
-    (parent as Page | undefined)?.type === "page"
-      ? (parent as Page).children
-      : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+  const arr = getChildren(state, op.parentId);
   if (!arr) return;
   // Pull out the listed ids preserving their relative order.
   const items = op.ids
@@ -250,7 +322,7 @@ export function applySwitchPage(state: AppState, op: SwitchPageOp): void {
 }
 
 export function applyMutateTextRuns(state: AppState, op: MutateTextRunsOp): void {
-  const node = state.nodesById[op.layerId];
+  const node = findNodeInDocument(state, op.layerId);
   if (!node) return;
   const t = node as unknown as Record<string, unknown>;
   t.content = op.after.content;
@@ -261,7 +333,7 @@ export function applyMutateTextRuns(state: AppState, op: MutateTextRunsOp): void
 }
 
 export function applyMutateVectorNetwork(state: AppState, op: MutateVectorNetworkOp): void {
-  const node = state.nodesById[op.layerId];
+  const node = findNodeInDocument(state, op.layerId);
   if (!node) return;
   (node as unknown as Record<string, unknown>).network = op.after;
 }
@@ -334,11 +406,7 @@ export function applyInverse(state: AppState, op: Op): void {
     }
     case "reorder_z": {
       // Restore original positions one at a time.
-      const parent = state.nodesById[op.parentId];
-      const arr =
-        (parent as Page | undefined)?.type === "page"
-          ? (parent as Page).children
-          : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+      const arr = getChildren(state, op.parentId);
       if (!arr) break;
       const items = op.ids
         .map((id) => arr.find((c) => c.id === id))
@@ -395,6 +463,7 @@ export function applyInverse(state: AppState, op: Op): void {
       break;
     }
   }
+  reindexNodes(state);
 }
 
 // ---- apply dispatch ----
@@ -460,6 +529,7 @@ export function applyOp(state: AppState, op: Op): void {
       throw new Error(`applyOp: unimplemented op kind "${u.kind ?? "unknown"}"`);
     }
   }
+  reindexNodes(state);
 }
 
 // ---- path helpers ----

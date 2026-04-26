@@ -5,11 +5,19 @@ import { useStore } from "./store";
 import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { pushToast } from "@/ui/overlays/Toasts";
-import type { Layer, Page } from "@/types/scene";
+import type { Layer } from "@/types/scene";
 import type { ClipboardPayload } from "@/types/ops";
 import { uid } from "@/util/id";
 import { isContainer } from "@/types/scene";
 import { getActivePage, getSelectedLayers, selectionBbox } from "./selectors";
+
+function parentChildren(state: ReturnType<typeof useStore.getState>, parentId: string): Layer[] | null {
+  const page = state.document.pages.find((p) => p.id === parentId);
+  if (page) return page.children;
+  const node = state.nodesById[parentId];
+  if (!node) return null;
+  return (node as (Layer & { children?: Layer[] })).children ?? null;
+}
 
 function deepCloneLayer(layer: Layer): Layer {
   // Structured-clone for our plain-data layers (no Blobs in slice 0).
@@ -104,12 +112,8 @@ export function pasteFromClipboard(
   });
 
   // Insert each at end of parent's children
-  const parent = state.nodesById[targetParentId];
-  const parentChildren =
-    (parent as Page | undefined)?.type === "page"
-      ? (parent as Page).children
-      : (parent as (Layer & { children?: Layer[] }) | undefined)?.children ?? [];
-  let insertIdx = parentChildren.length;
+  const parentChildrenArr = parentChildren(state, targetParentId) ?? [];
+  let insertIdx = parentChildrenArr.length;
 
   const newIds: string[] = [];
   for (const layer of newLayers) {
@@ -155,11 +159,7 @@ export function duplicateSelection(): void {
     clone.x += offset.dx;
     clone.y += offset.dy;
     // Insert just after the source in its parent's children
-    const parent = state.nodesById[source.parentId];
-    const arr =
-      (parent as Page | undefined)?.type === "page"
-        ? (parent as Page).children
-        : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+    const arr = parentChildren(state, source.parentId);
     if (!arr) continue;
     const idx = arr.findIndex((c) => c.id === source.id);
     dispatch({

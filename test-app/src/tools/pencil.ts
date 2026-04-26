@@ -9,6 +9,8 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork } from "@/types/scene";
+import { worldToParentLocal } from "@/engine/coordinates";
+import { getPencilVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const SIMPLIFY_EPSILON = 1.5;
 
@@ -70,9 +72,15 @@ export const pencilTool: ITool = {
       return;
     }
     const simplified = rdp(raw, SIMPLIFY_EPSILON);
+    const deduped: Point[] = [];
+    for (const p of simplified) {
+      const last = deduped[deduped.length - 1];
+      if (!last || Math.hypot(p.x - last.x, p.y - last.y) >= 0.5) deduped.push(p);
+    }
+    const points = deduped.length >= 2 ? deduped : raw.slice();
 
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-    for (const p of simplified) {
+    for (const p of points) {
       if (p.x < minX) minX = p.x;
       if (p.y < minY) minY = p.y;
       if (p.x > maxX) maxX = p.x;
@@ -80,7 +88,7 @@ export const pencilTool: ITool = {
     }
     const ox = minX;
     const oy = minY;
-    const verts = simplified.map((p) => ({ x: p.x - ox, y: p.y - oy, handleType: "corner" as const }));
+    const verts = points.map((p) => ({ x: p.x - ox, y: p.y - oy, handleType: "corner" as const }));
     const segs = [];
     for (let i = 0; i < verts.length - 1; i++) {
       segs.push({ fromIndex: i, toIndex: i + 1, handleFrom: null, handleTo: null });
@@ -89,19 +97,23 @@ export const pencilTool: ITool = {
 
     const s = useStore.getState();
     const pageId = s.activePageId;
-    const parentId = s.focusContextByPage[pageId] ?? pageId;
-    const parent = s.nodesById[parentId];
-    const childCount =
-      parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-        ? ((parent as { children: unknown[] }).children).length
-        : 0;
+    const parentId = pageId;
+    const styleDefaults = getPencilVectorStyleDefaults(s);
+    const localOrigin = worldToParentLocal(s, parentId, { x: ox, y: oy });
+    const pageParent = s.document.pages.find((p) => p.id === parentId);
+    const indexedParent = s.nodesById[parentId];
+    const childCount = pageParent
+      ? pageParent.children.length
+      : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+      ? ((indexedParent as { children: unknown[] }).children).length
+      : 0;
     const layer: Vector = {
       id: uid("vector"),
       type: "vector",
       name: "Pencil stroke",
       parentId,
-      x: ox,
-      y: oy,
+      x: localOrigin.x,
+      y: localOrigin.y,
       w: Math.max(1, maxX - minX),
       h: Math.max(1, maxY - minY),
       rotation: 0,
@@ -112,16 +124,9 @@ export const pencilTool: ITool = {
       opacity: 1,
       constraints: { horizontal: "left", vertical: "top" },
       network,
-      fills: [],
-      strokes: [
-        {
-          paint: { kind: "solid", color: { r: 1, g: 1, b: 1, a: 1 }, opacity: 1, visible: true },
-          weight: 2,
-          alignment: "center",
-          dash: null,
-        },
-      ],
-      effects: [],
+      fills: styleDefaults.fills,
+      strokes: styleDefaults.strokes,
+      effects: styleDefaults.effects,
     };
 
     dispatch({
@@ -137,8 +142,8 @@ export const pencilTool: ITool = {
     emitSemantic({
       name: "create_vector_with_pencil",
       layerId: layer.id,
-      pointCount: simplified.length,
-    } as never);
+      pointCount: points.length,
+    });
 
     // Revert tool
     const beforeTool = useStore.getState().activeTool;

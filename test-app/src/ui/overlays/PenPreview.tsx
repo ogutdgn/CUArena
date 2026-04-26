@@ -3,20 +3,28 @@
 
 import { useStore, selectActiveViewport } from "@/engine/store";
 import type { Vector } from "@/types/scene";
+import { worldOffsetOfLayer } from "@/engine/coordinates";
 
 export function PenPreview() {
   const preview = useStore((s) => s.penPreview);
   const viewport = useStore((s) => selectActiveViewport(s));
+  const origin = useStore((s) => {
+    if (!s.penPreview) return null;
+    const n = s.nodesById[s.penPreview.layerId];
+    if (!n || (n as Vector).type !== "vector") return null;
+    return worldOffsetOfLayer(s, n as Vector);
+  });
   const layer = useStore((s) => {
     if (!s.penPreview) return null;
     const n = s.nodesById[s.penPreview.layerId];
     return n && (n as Vector).type === "vector" ? (n as Vector) : null;
   });
-  if (!preview || !layer) return null;
+  if (!preview || !layer || !origin) return null;
 
   const sw = 1 / viewport.zoom;
-  const ox = layer.x;
-  const oy = layer.y;
+  const curveSw = 1.5 / viewport.zoom;
+  const ox = origin.x;
+  const oy = origin.y;
 
   const lastVertex = layer.network.vertices[layer.network.vertices.length - 1];
   const lastWorld = lastVertex ? { x: ox + lastVertex.x, y: oy + lastVertex.y } : null;
@@ -25,11 +33,43 @@ export function PenPreview() {
   const first = layer.network.vertices[0];
   const firstWorld = first ? { x: ox + first.x, y: oy + first.y } : null;
   const closeHitR = 6 / viewport.zoom;
+  const activeIncoming = (() => {
+    if (!preview.handleDrag) return null;
+    const idx = preview.handleDrag.vertexIndex;
+    const seg = layer.network.segments.find((s) => s.toIndex === idx);
+    if (!seg) return null;
+    const a = layer.network.vertices[seg.fromIndex];
+    const b = layer.network.vertices[seg.toIndex];
+    if (!a || !b) return null;
+    const cp1x = ox + a.x + (seg.handleFrom?.dx ?? 0);
+    const cp1y = oy + a.y + (seg.handleFrom?.dy ?? 0);
+    const cp2x = ox + b.x - preview.handleDrag.outDx;
+    const cp2y = oy + b.y - preview.handleDrag.outDy;
+    return {
+      d: `M ${ox + a.x} ${oy + a.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${ox + b.x} ${oy + b.y}`,
+    };
+  })();
+  const activeOutgoing = (() => {
+    if (!preview.handleDrag) return null;
+    const idx = preview.handleDrag.vertexIndex;
+    const seg = layer.network.segments.find((s) => s.fromIndex === idx);
+    if (!seg) return null;
+    const a = layer.network.vertices[seg.fromIndex];
+    const b = layer.network.vertices[seg.toIndex];
+    if (!a || !b) return null;
+    const cp1x = ox + a.x + preview.handleDrag.outDx;
+    const cp1y = oy + a.y + preview.handleDrag.outDy;
+    const cp2x = ox + b.x + (seg.handleTo?.dx ?? 0);
+    const cp2y = oy + b.y + (seg.handleTo?.dy ?? 0);
+    return {
+      d: `M ${ox + a.x} ${oy + a.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${ox + b.x} ${oy + b.y}`,
+    };
+  })();
 
   return (
     <g pointerEvents="none">
       {/* Preview segment from last anchor to cursor */}
-      {lastWorld && preview.cursor && (
+      {preview.appendPreviewFromTail && lastWorld && preview.cursor && (
         <line
           x1={lastWorld.x}
           y1={lastWorld.y}
@@ -38,6 +78,23 @@ export function PenPreview() {
           stroke="var(--color-selection-blue)"
           strokeWidth={sw}
           strokeDasharray={`${4 / viewport.zoom} ${3 / viewport.zoom}`}
+        />
+      )}
+      {/* Live curve preview for incoming segment while dragging a point handle */}
+      {activeIncoming && (
+        <path
+          d={activeIncoming.d}
+          fill="none"
+          stroke="var(--color-selection-blue)"
+          strokeWidth={curveSw}
+        />
+      )}
+      {activeOutgoing && (
+        <path
+          d={activeOutgoing.d}
+          fill="none"
+          stroke="var(--color-selection-blue)"
+          strokeWidth={curveSw}
         />
       )}
       {/* Existing anchors as small squares */}

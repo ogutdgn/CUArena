@@ -5,7 +5,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "@/engine/store";
 import { setSelection } from "@/engine/commands";
-import { renameLayer } from "@/engine/hierarchyCommands";
+import { renameLayer, reorderLayerInPanel } from "@/engine/hierarchyCommands";
 import { setVisibility, setLocked } from "@/engine/propertyCommands";
 import {
   Square,
@@ -35,6 +35,8 @@ export function LayersTree() {
   const focusContextId = useStore((s) => s.focusContextByPage[s.activePageId] ?? null);
   const renamingLayerId = useStore((s) => s.renamingLayerId);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [draggingId, setDraggingId] = useState<string | null>(null);
+  const [dropHint, setDropHint] = useState<{ targetId: string; above: boolean } | null>(null);
 
   if (!page) return null;
   const layers = page.children;
@@ -47,6 +49,13 @@ export function LayersTree() {
   }
 
   const ordered = [...layers].reverse();
+  function onDrop(targetId: string, above: boolean) {
+    if (!draggingId) return;
+    reorderLayerInPanel(draggingId, targetId, above);
+    setDraggingId(null);
+    setDropHint(null);
+  }
+
   return (
     <div style={{ padding: "4px 0" }}>
       {ordered.map((l) => (
@@ -59,6 +68,15 @@ export function LayersTree() {
           expanded={expanded}
           setExpanded={setExpanded}
           renamingLayerId={renamingLayerId}
+          draggingId={draggingId}
+          dropHint={dropHint}
+          onDragStart={setDraggingId}
+          onDragHover={(targetId, above) => setDropHint({ targetId, above })}
+          onDrop={onDrop}
+          onDragEnd={() => {
+            setDraggingId(null);
+            setDropHint(null);
+          }}
         />
       ))}
     </div>
@@ -73,6 +91,12 @@ function Subtree({
   expanded,
   setExpanded,
   renamingLayerId,
+  draggingId,
+  dropHint,
+  onDragStart,
+  onDragHover,
+  onDrop,
+  onDragEnd,
 }: {
   layer: Layer;
   depth: number;
@@ -81,6 +105,12 @@ function Subtree({
   expanded: Set<string>;
   setExpanded: React.Dispatch<React.SetStateAction<Set<string>>>;
   renamingLayerId: string | null;
+  draggingId: string | null;
+  dropHint: { targetId: string; above: boolean } | null;
+  onDragStart: (id: string | null) => void;
+  onDragHover: (targetId: string, above: boolean) => void;
+  onDrop: (targetId: string, above: boolean) => void;
+  onDragEnd: () => void;
 }) {
   const isContainer = layer.type === "frame" || layer.type === "section" || layer.type === "group";
   const isOpen = expanded.has(layer.id) || focusContextId === layer.id;
@@ -94,6 +124,12 @@ function Subtree({
         isContainer={isContainer}
         isOpen={isOpen}
         forceRenaming={renamingLayerId === layer.id}
+        draggingId={draggingId}
+        dropHint={dropHint}
+        onDragStart={onDragStart}
+        onDragHover={onDragHover}
+        onDrop={onDrop}
+        onDragEnd={onDragEnd}
         onToggle={() => {
           setExpanded((prev) => {
             const next = new Set(prev);
@@ -115,6 +151,12 @@ function Subtree({
               expanded={expanded}
               setExpanded={setExpanded}
               renamingLayerId={renamingLayerId}
+              draggingId={draggingId}
+              dropHint={dropHint}
+              onDragStart={onDragStart}
+              onDragHover={onDragHover}
+              onDrop={onDrop}
+              onDragEnd={onDragEnd}
             />
           ))}
         </>
@@ -132,6 +174,12 @@ function Row({
   isOpen,
   onToggle,
   forceRenaming,
+  draggingId,
+  dropHint,
+  onDragStart,
+  onDragHover,
+  onDrop,
+  onDragEnd,
 }: {
   layer: Layer;
   depth: number;
@@ -141,11 +189,18 @@ function Row({
   isOpen: boolean;
   onToggle: () => void;
   forceRenaming?: boolean;
+  draggingId: string | null;
+  dropHint: { targetId: string; above: boolean } | null;
+  onDragStart: (id: string | null) => void;
+  onDragHover: (targetId: string, above: boolean) => void;
+  onDrop: (targetId: string, above: boolean) => void;
+  onDragEnd: () => void;
 }) {
   const [hover, setHover] = useState(false);
   const [renamingLocal, setRenamingLocal] = useState(false);
   const renaming = renamingLocal || !!forceRenaming;
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const isDropTarget = dropHint?.targetId === layer.id;
 
   useEffect(() => {
     if (renaming && inputRef.current) {
@@ -195,8 +250,32 @@ function Row({
   return (
     <button
       data-id={`layer-row.${layer.id}`}
+      draggable
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onDragStart={(e) => {
+        e.stopPropagation();
+        onDragStart(layer.id);
+        try {
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", layer.id);
+        } catch {
+          // noop
+        }
+      }}
+      onDragOver={(e) => {
+        if (!draggingId || draggingId === layer.id) return;
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        onDragHover(layer.id, e.clientY < rect.top + rect.height / 2);
+      }}
+      onDrop={(e) => {
+        if (!draggingId || draggingId === layer.id) return;
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        onDrop(layer.id, e.clientY < rect.top + rect.height / 2);
+      }}
+      onDragEnd={() => onDragEnd()}
       onClick={(e) => {
         if (e.shiftKey) {
           const cur = useStore.getState().selectionByPage[useStore.getState().activePageId] ?? [];
@@ -230,6 +309,8 @@ function Row({
         color: "var(--color-text-primary)",
         background: selected ? "var(--color-bg-row-active)" : isFocusContext ? "rgba(13,153,255,0.06)" : "transparent",
         fontSize: "var(--fs-sm)",
+        borderTop: isDropTarget && dropHint?.above ? "1px solid var(--color-selection-blue)" : "1px solid transparent",
+        borderBottom: isDropTarget && !dropHint?.above ? "1px solid var(--color-selection-blue)" : "1px solid transparent",
       }}
     >
       {/* Indent guide lines for depth > 0 */}
