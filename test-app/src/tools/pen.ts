@@ -14,6 +14,7 @@ import { getPenVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const CLOSE_HIT_PX = 8;
 const DRAG_THRESHOLD = 3;
+const ANGLE_STEP_DEG = 15;
 
 interface ActiveCreation {
   layerId: string;
@@ -29,6 +30,45 @@ interface ActiveCreation {
 }
 
 let creation: ActiveCreation | null = null;
+
+function cloneNetwork(network: VectorNetwork): VectorNetwork {
+  return {
+    vertices: network.vertices.map((v) => ({ ...v })),
+    segments: network.segments.map((seg) => ({ ...seg })),
+    closed: network.closed,
+  };
+}
+
+function reverseOpenNetwork(network: VectorNetwork): VectorNetwork {
+  const n = network.vertices.length;
+  return {
+    vertices: [...network.vertices].reverse().map((v) => ({ ...v })),
+    segments: [...network.segments]
+      .reverse()
+      .map((seg) => ({
+        fromIndex: n - 1 - seg.toIndex,
+        toIndex: n - 1 - seg.fromIndex,
+        handleFrom: seg.handleTo ? { ...seg.handleTo } : null,
+        handleTo: seg.handleFrom ? { ...seg.handleFrom } : null,
+      })),
+    closed: network.closed,
+  };
+}
+
+function constrainPointAngle(from: Point, to: Point, enabled: boolean): Point {
+  if (!enabled) return to;
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const len = Math.hypot(dx, dy);
+  if (len === 0) return to;
+  const step = (ANGLE_STEP_DEG * Math.PI) / 180;
+  const angle = Math.atan2(dy, dx);
+  const snapped = Math.round(angle / step) * step;
+  return {
+    x: from.x + Math.cos(snapped) * len,
+    y: from.y + Math.sin(snapped) * len,
+  };
+}
 
 function syncStore(closed: boolean) {
   if (!creation) return;
@@ -118,9 +158,20 @@ function tryResumeFromSelectedEndpoint(world: Point): boolean {
   if (layer.network.closed || layer.network.vertices.length < 2) return false;
   const vp = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
   const originWorld = worldOffsetOfLayer(s, layer);
+  const first = layer.network.vertices[0];
   const last = layer.network.vertices[layer.network.vertices.length - 1];
+  const firstWorld = { x: originWorld.x + first.x, y: originWorld.y + first.y };
   const lastWorld = { x: originWorld.x + last.x, y: originWorld.y + last.y };
-  if (distScreen(lastWorld, world, vp.zoom) > CLOSE_HIT_PX) return false;
+  const dFirst = distScreen(firstWorld, world, vp.zoom);
+  const dLast = distScreen(lastWorld, world, vp.zoom);
+  const minD = Math.min(dFirst, dLast);
+  if (minD > CLOSE_HIT_PX) return false;
+
+  const originalNetwork = cloneNetwork(layer.network);
+  const resumeFromStart = dFirst <= dLast;
+  const workingNetwork = resumeFromStart
+    ? reverseOpenNetwork(originalNetwork)
+    : originalNetwork;
 
   const txId = openTransaction();
   const beforeMode = s.editMode;
@@ -135,18 +186,29 @@ function tryResumeFromSelectedEndpoint(world: Point): boolean {
     { transactionId: txId },
   );
 
+  if (resumeFromStart) {
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "mutate_vector_network",
+        pageId: s.activePageId,
+        layerId: layer.id,
+        before: originalNetwork,
+        after: workingNetwork,
+      },
+      { transactionId: txId },
+    );
+  }
+
   creation = {
     layerId: layer.id,
     txId,
-    vertices: layer.network.vertices.map((v) => ({ ...v })),
-    segments: layer.network.segments.map((seg) => ({ ...seg })),
+    vertices: workingNetwork.vertices.map((v) => ({ ...v })),
+    segments: workingNetwork.segments.map((seg) => ({ ...seg })),
     originWorld,
     originLocal: { x: layer.x, y: layer.y },
-    initialNetwork: {
-      vertices: layer.network.vertices.map((v) => ({ ...v })),
-      segments: layer.network.segments.map((seg) => ({ ...seg })),
-      closed: layer.network.closed,
-    },
+    initialNetwork: cloneNetwork(workingNetwork),
     dragHandleIndex: null,
     dragHandleStart: null,
   };
@@ -196,7 +258,7 @@ function distScreen(a: Point, b: Point, zoom: number): number {
 }
 
 export const penTool: ITool = {
-  onPointerDown(world, _e) {
+  onPointerDown(world, e) {
     const s = useStore.getState();
 
     if (!creation) {
@@ -299,9 +361,16 @@ export const penTool: ITool = {
     }
 
     // Add new vertex
+    const prev = creation.vertices[creation.vertices.length - 1];
+    const prevWorld = {
+      x: creation.originWorld.x + prev.x,
+      y: creation.originWorld.y + prev.y,
+    };
+    const constrainedWorld = constrainPointAngle(prevWorld, world, e.shiftKey);
+
     const newVertex: VectorVertex = {
-      x: world.x - creation.originWorld.x,
-      y: world.y - creation.originWorld.y,
+      x: constrainedWorld.x - creation.originWorld.x,
+      y: constrainedWorld.y - creation.originWorld.y,
       handleType: "corner",
     };
     const prevIdx = creation.vertices.length - 1;
@@ -313,7 +382,7 @@ export const penTool: ITool = {
       handleTo: null,
     });
     creation.dragHandleIndex = creation.vertices.length - 1;
-    creation.dragHandleStart = world;
+    creation.dragHandleStart = constrainedWorld;
 
     syncStore(false);
     emitSemantic({
@@ -322,49 +391,60 @@ export const penTool: ITool = {
       index: creation.vertices.length - 1,
       position: { x: newVertex.x, y: newVertex.y },
     });
-    updatePreview(world);
+    updatePreview(constrainedWorld);
   },
 
-  onPointerMove(world, _e) {
+  onPointerMove(world, e) {
     if (!creation) return;
     if (creation.dragHandleIndex != null && creation.dragHandleStart) {
       const dx = world.x - creation.dragHandleStart.x;
       const dy = world.y - creation.dragHandleStart.y;
       if (Math.hypot(dx, dy) >= DRAG_THRESHOLD) {
-        // Update handle on the active vertex (mirror).
         const idx = creation.dragHandleIndex;
         const v = creation.vertices[idx];
-        const outDx = world.x - (creation.originWorld.x + v.x);
-        const outDy = world.y - (creation.originWorld.y + v.y);
-        creation.vertices[idx] = { ...v, handleType: "mirror" };
+        const anchorWorld = {
+          x: creation.originWorld.x + v.x,
+          y: creation.originWorld.y + v.y,
+        };
+        const constrainedHandleWorld = constrainPointAngle(anchorWorld, world, e.shiftKey);
+        const outDx = constrainedHandleWorld.x - anchorWorld.x;
+        const outDy = constrainedHandleWorld.y - anchorWorld.y;
+        creation.vertices[idx] = {
+          ...v,
+          handleType: e.altKey ? "independent" : "mirror",
+        };
         // Outgoing segment: from this vertex onward — set handleFrom on segment[idx]
         const outSeg = creation.segments.find((s) => s.fromIndex === idx);
-        if (outSeg) {
-          outSeg.handleFrom = { dx: outDx, dy: outDy };
-        }
         // Incoming segment: into this vertex — set handleTo (mirrored = -outDx,-outDy)
         const inSeg = creation.segments.find((s) => s.toIndex === idx);
         if (inSeg) {
           inSeg.handleTo = { dx: -outDx, dy: -outDy };
         }
+        // Alt/Option breaks mirror coupling when both handles exist.
+        if (outSeg && (!e.altKey || !inSeg)) {
+          outSeg.handleFrom = { dx: outDx, dy: outDy };
+        }
         syncStore(false);
+        updatePreview(constrainedHandleWorld);
+        return;
       }
     }
     updatePreview(world);
   },
 
-  onPointerUp(world, _e) {
+  onPointerUp(world, e) {
     if (!creation) return;
     if (creation.vertices.length === 1 && creation.dragHandleStart) {
       const firstWorld = {
         x: creation.originWorld.x + creation.vertices[0].x,
         y: creation.originWorld.y + creation.vertices[0].y,
       };
-      const dist = Math.hypot(world.x - firstWorld.x, world.y - firstWorld.y);
+      const constrainedWorld = constrainPointAngle(firstWorld, world, e.shiftKey);
+      const dist = Math.hypot(constrainedWorld.x - firstWorld.x, constrainedWorld.y - firstWorld.y);
       if (dist >= DRAG_THRESHOLD) {
         const newVertex: VectorVertex = {
-          x: world.x - creation.originWorld.x,
-          y: world.y - creation.originWorld.y,
+          x: constrainedWorld.x - creation.originWorld.x,
+          y: constrainedWorld.y - creation.originWorld.y,
           handleType: "corner",
         };
         creation.vertices.push(newVertex);
@@ -383,7 +463,7 @@ export const penTool: ITool = {
         });
         creation.dragHandleIndex = null;
         creation.dragHandleStart = null;
-        updatePreview(world);
+        updatePreview(constrainedWorld);
         return;
       }
     }
@@ -397,6 +477,8 @@ export const penTool: ITool = {
   },
 };
 
-export function abortPenIfActive() {
-  if (creation) commitCreation(false);
+export function abortPenIfActive(): boolean {
+  if (!creation) return false;
+  commitCreation(false);
+  return true;
 }
