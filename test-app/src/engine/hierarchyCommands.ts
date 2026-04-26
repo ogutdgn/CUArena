@@ -26,6 +26,11 @@ export function groupSelection(trigger: "shortcut" | "context_menu" | "main_menu
 
   // Determine parent: the common parent of selected layers (slice 3 simple: use first layer's parent).
   const parentId = layers[0].parentId;
+  if (!layers.every((l) => l.parentId === parentId)) {
+    // Mixed-parent grouping is intentionally blocked until a proper common-ancestor
+    // reparent path exists.
+    return;
+  }
   const arr = findParentChildren(s, parentId);
   if (!arr) return;
 
