@@ -1,0 +1,182 @@
+// Flip horizontal/vertical, zoom-to-* commands.
+
+import { useStore } from "./store";
+import { dispatch, makeOpId } from "./dispatch";
+import { emitSemantic } from "@/logger/semantic";
+import { getActivePage, getSelectedLayers, selectionBbox } from "./selectors";
+import type { TransformMap } from "@/types/ops";
+
+export function flipSelection(axis: "horizontal" | "vertical", trigger: "shortcut" | "context_menu" | "main_menu") {
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s);
+  if (layers.length === 0) return;
+  const before: TransformMap = {};
+  const after: TransformMap = {};
+  for (const l of layers) {
+    const t = { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY };
+    before[l.id] = t;
+    after[l.id] = {
+      ...t,
+      scaleX: axis === "horizontal" ? ((-t.scaleX) as 1 | -1) : t.scaleX,
+      scaleY: axis === "vertical" ? ((-t.scaleY) as 1 | -1) : t.scaleY,
+    };
+  }
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_transform",
+    pageId: s.activePageId,
+    ids: layers.map((l) => l.id),
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "flip_layer",
+    layerIds: layers.map((l) => l.id),
+    axis,
+    trigger,
+  });
+}
+
+function svgSize(): { width: number; height: number } {
+  const el = document.querySelector(".canvas-svg") as SVGSVGElement | null;
+  if (!el) return { width: window.innerWidth, height: window.innerHeight };
+  const r = el.getBoundingClientRect();
+  return { width: r.width, height: r.height };
+}
+
+export function zoomToFit(trigger: "keyboard" | "dropdown_entry" | "initial_load") {
+  const s = useStore.getState();
+  const page = getActivePage(s);
+  if (!page) return;
+  if (page.children.length === 0) {
+    emitSemantic({ name: "zoom_to_fit", contentBounds: null, trigger });
+    return;
+  }
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (const l of page.children) {
+    if (l.x < minX) minX = l.x;
+    if (l.y < minY) minY = l.y;
+    if (l.x + l.w > maxX) maxX = l.x + l.w;
+    if (l.y + l.h > maxY) maxY = l.y + l.h;
+  }
+  const bounds = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+  applyZoomToBounds(bounds);
+  emitSemantic({ name: "zoom_to_fit", contentBounds: bounds, trigger });
+}
+
+export function zoomToSelection(trigger: "keyboard" | "dropdown_entry") {
+  const s = useStore.getState();
+  const bounds = selectionBbox(s);
+  if (!bounds) return;
+  applyZoomToBounds(bounds);
+  emitSemantic({
+    name: "zoom_to_selection",
+    selectionBounds: bounds,
+    layerIds: s.selectionByPage[s.activePageId] ?? [],
+    trigger,
+  });
+}
+
+export function zoomBy(factor: number, trigger: "keyboard" | "scroll" | "input_field" | "dropdown_entry") {
+  const s = useStore.getState();
+  const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
+  const { width, height } = svgSize();
+  const centerWorld = { x: cur.x + width / 2 / cur.zoom, y: cur.y + height / 2 / cur.zoom };
+  const newZoom = Math.max(0.05, Math.min(32, cur.zoom * factor));
+  if (newZoom === cur.zoom) return;
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_viewport",
+      pageId: s.activePageId,
+      before: cur,
+      after: {
+        x: centerWorld.x - width / 2 / newZoom,
+        y: centerWorld.y - height / 2 / newZoom,
+        zoom: newZoom,
+      },
+    },
+    { skipUndo: true },
+  );
+  emitSemantic({
+    name: "zoom_canvas",
+    before: cur.zoom,
+    after: newZoom,
+    anchor: centerWorld,
+    trigger,
+  });
+}
+
+export function zoomToCustom(zoomPct: number, trigger: "input_field") {
+  const z = Math.max(5, Math.min(3200, zoomPct)) / 100;
+  const s = useStore.getState();
+  const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
+  const { width, height } = svgSize();
+  const centerWorld = { x: cur.x + width / 2 / cur.zoom, y: cur.y + height / 2 / cur.zoom };
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_viewport",
+      pageId: s.activePageId,
+      before: cur,
+      after: {
+        x: centerWorld.x - width / 2 / z,
+        y: centerWorld.y - height / 2 / z,
+        zoom: z,
+      },
+    },
+    { skipUndo: true },
+  );
+  emitSemantic({ name: "zoom_canvas", before: cur.zoom, after: z, anchor: centerWorld, trigger });
+}
+
+export function zoomTo100(trigger: "keyboard" | "input_field") {
+  const s = useStore.getState();
+  const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
+  // Anchor on viewport center
+  const { width, height } = svgSize();
+  const centerWorld = { x: cur.x + width / 2 / cur.zoom, y: cur.y + height / 2 / cur.zoom };
+  const newZoom = 1;
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_viewport",
+      pageId: s.activePageId,
+      before: cur,
+      after: { x: centerWorld.x - width / 2 / newZoom, y: centerWorld.y - height / 2 / newZoom, zoom: newZoom },
+    },
+    { skipUndo: true },
+  );
+  emitSemantic({ name: "zoom_to_100", trigger });
+}
+
+function applyZoomToBounds(bounds: { x: number; y: number; w: number; h: number }) {
+  const s = useStore.getState();
+  const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
+  const { width, height } = svgSize();
+  const padding = 80;
+  const zw = (width - padding * 2) / Math.max(1, bounds.w);
+  const zh = (height - padding * 2) / Math.max(1, bounds.h);
+  const newZoom = Math.max(0.05, Math.min(8, Math.min(zw, zh)));
+  const cxW = bounds.x + bounds.w / 2;
+  const cyW = bounds.y + bounds.h / 2;
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_viewport",
+      pageId: s.activePageId,
+      before: cur,
+      after: {
+        x: cxW - width / 2 / newZoom,
+        y: cyW - height / 2 / newZoom,
+        zoom: newZoom,
+      },
+    },
+    { skipUndo: true },
+  );
+}

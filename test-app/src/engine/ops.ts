@@ -1,0 +1,489 @@
+// Op apply + inverse. Slice 0 implements the subset listed in ARCHITECTURE.md §9;
+// other op kinds throw at apply time so the surface is explicit.
+// Source: .analysis/engine-report.md §2.
+//
+// Designed to mutate Immer drafts — `state.nodesById` is a Record (not Map),
+// `children` arrays mutate in place, etc.
+
+import type {
+  Op,
+  CreateNodeOp,
+  DeleteNodesOp,
+  SetPropertyOp,
+  SetTransformOp,
+  SetSelectionOp,
+  SetViewportOp,
+  SetToolOp,
+  SetEditModeOp,
+  SetClipboardOp,
+  ReparentOp,
+  ReorderZOp,
+  SetFocusContextOp,
+  CreatePageOp,
+  DeletePageOp,
+  SwitchPageOp,
+  MutateTextRunsOp,
+  MutateVectorNetworkOp,
+} from "@/types/ops";
+import type { AppState } from "./store";
+import type { Layer, Page } from "@/types/scene";
+import { isContainer } from "@/types/scene";
+
+function getChildren(state: AppState, parentId: string): Layer[] | null {
+  const node = state.nodesById[parentId];
+  if (!node) return null;
+  if ((node as Page).type === "page") return (node as Page).children;
+  if (isContainer(node as Layer)) return (node as Layer & { children: Layer[] }).children;
+  return null;
+}
+
+function indexById(arr: { id: string }[], id: string): number {
+  return arr.findIndex((n) => n.id === id);
+}
+
+function walkUnindex(state: AppState, layer: Layer) {
+  if (isContainer(layer)) {
+    for (const c of layer.children) {
+      delete state.nodesById[c.id];
+      walkUnindex(state, c);
+    }
+  }
+}
+
+function walkIndex(state: AppState, layer: Layer) {
+  state.nodesById[layer.id] = layer;
+  if (isContainer(layer)) {
+    for (const c of layer.children) walkIndex(state, c);
+  }
+}
+
+function removeFromTree(state: AppState, id: string): {
+  node: Layer;
+  parentId: string;
+  indexInParent: number;
+} | null {
+  const found = state.nodesById[id];
+  if (!found || (found as Page).type === "page") return null;
+  const layer = found as Layer;
+  const parent = state.nodesById[layer.parentId];
+  if (!parent) return null;
+  const children =
+    (parent as Page).type === "page"
+      ? (parent as Page).children
+      : (parent as Layer & { children?: Layer[] }).children;
+  if (!children) return null;
+  const idx = indexById(children, id);
+  if (idx === -1) return null;
+  children.splice(idx, 1);
+  delete state.nodesById[id];
+  if (isContainer(layer)) walkUnindex(state, layer);
+  return { node: layer, parentId: layer.parentId, indexInParent: idx };
+}
+
+function insertIntoTree(state: AppState, layer: Layer, parentId: string, index: number) {
+  const children = getChildren(state, parentId);
+  if (!children) throw new Error(`insertIntoTree: parent ${parentId} has no children`);
+  const safeIndex = Math.max(0, Math.min(children.length, index));
+  layer.parentId = parentId;
+  children.splice(safeIndex, 0, layer);
+  walkIndex(state, layer);
+}
+
+// ---- apply ----
+
+export function applyCreateNode(state: AppState, op: CreateNodeOp): void {
+  insertIntoTree(state, op.node, op.parentId, op.indexInParent);
+}
+
+export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
+  const sorted = [...op.ids]
+    .map((id) => {
+      const n = state.nodesById[id];
+      if (!n || (n as Page).type === "page") return null;
+      const layer = n as Layer;
+      const parent = state.nodesById[layer.parentId];
+      if (!parent) return null;
+      const children =
+        (parent as Page).type === "page"
+          ? (parent as Page).children
+          : (parent as Layer & { children?: Layer[] }).children;
+      if (!children) return null;
+      return { id, idx: indexById(children, id) };
+    })
+    .filter((v): v is { id: string; idx: number } => !!v)
+    .sort((a, b) => b.idx - a.idx);
+
+  const snapshot: Array<{ node: Layer; parentId: string; indexInParent: number }> = [];
+  for (const { id } of sorted) {
+    const removed = removeFromTree(state, id);
+    if (removed) snapshot.unshift(removed);
+  }
+  op.snapshot = snapshot;
+}
+
+export function applySetProperty(state: AppState, op: SetPropertyOp): void {
+  for (const id of op.ids) {
+    const node = state.nodesById[id];
+    if (!node) continue;
+    const after = op.after[id];
+    if (after === undefined) continue;
+    setByPath(node as unknown as Record<string, unknown>, op.path, after);
+  }
+}
+
+export function applySetTransform(state: AppState, op: SetTransformOp): void {
+  for (const id of op.ids) {
+    const node = state.nodesById[id];
+    if (!node || (node as Page).type === "page") continue;
+    const t = op.after[id];
+    if (!t) continue;
+    const layer = node as Layer;
+    layer.x = t.x;
+    layer.y = t.y;
+    layer.w = t.w;
+    layer.h = t.h;
+    layer.rotation = t.rotation;
+    layer.scaleX = t.scaleX;
+    layer.scaleY = t.scaleY;
+  }
+}
+
+export function applySetSelection(state: AppState, op: SetSelectionOp): void {
+  state.selectionByPage[op.pageId] = [...op.after];
+}
+
+export function applySetViewport(state: AppState, op: SetViewportOp): void {
+  state.viewportByPage[op.pageId] = { ...op.after };
+}
+
+export function applySetTool(state: AppState, op: SetToolOp): void {
+  state.activeTool = op.after;
+}
+
+export function applySetEditMode(state: AppState, op: SetEditModeOp): void {
+  state.editMode = { ...op.after };
+}
+
+export function applySetClipboard(state: AppState, op: SetClipboardOp): void {
+  state.clipboard = op.after ? { ...op.after } : null;
+}
+
+export function applyReparent(state: AppState, op: ReparentOp): void {
+  // Apply moves in order. For each, remove from current parent, insert into new.
+  for (const m of op.moves) {
+    const layer = state.nodesById[m.id] as Layer | undefined;
+    if (!layer || (layer as unknown as Page).type === "page") continue;
+    const fromParent = state.nodesById[m.fromParentId];
+    const fromArr =
+      (fromParent as Page | undefined)?.type === "page"
+        ? (fromParent as Page).children
+        : (fromParent as (Layer & { children?: Layer[] }) | undefined)?.children;
+    if (!fromArr) continue;
+    const idx = fromArr.findIndex((c) => c.id === m.id);
+    if (idx === -1) continue;
+    fromArr.splice(idx, 1);
+    insertIntoTree(state, layer, m.toParentId, m.toIndex);
+  }
+}
+
+export function applyReorderZ(state: AppState, op: ReorderZOp): void {
+  const parent = state.nodesById[op.parentId];
+  const arr =
+    (parent as Page | undefined)?.type === "page"
+      ? (parent as Page).children
+      : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+  if (!arr) return;
+  // Pull out the listed ids preserving their relative order.
+  const items = op.ids
+    .map((id) => arr.find((c) => c.id === id))
+    .filter((c): c is Layer => !!c);
+  for (const it of items) {
+    const i = arr.indexOf(it);
+    if (i !== -1) arr.splice(i, 1);
+  }
+  const target = Math.max(0, Math.min(arr.length, op.toIndex));
+  arr.splice(target, 0, ...items);
+}
+
+export function applySetFocusContext(state: AppState, op: SetFocusContextOp): void {
+  state.focusContextByPage[op.pageId] = op.after;
+}
+
+export function applyCreatePage(state: AppState, op: CreatePageOp): void {
+  const safe = Math.max(0, Math.min(state.document.pages.length, op.pageIndex));
+  state.document.pages.splice(safe, 0, op.page);
+  state.nodesById[op.page.id] = op.page;
+  for (const c of op.page.children) {
+    state.nodesById[c.id] = c;
+    if (c.type === "frame" || c.type === "section" || c.type === "group") {
+      walkIndex(state, c);
+    }
+  }
+  if (!state.viewportByPage[op.page.id]) state.viewportByPage[op.page.id] = { x: 0, y: 0, zoom: 1 };
+  if (!state.selectionByPage[op.page.id]) state.selectionByPage[op.page.id] = [];
+  if (!(op.page.id in state.focusContextByPage)) state.focusContextByPage[op.page.id] = null;
+}
+
+export function applyDeletePage(state: AppState, op: DeletePageOp): void {
+  if (state.document.pages.length <= 1) return; // last page protected
+  const idx = state.document.pages.findIndex((p) => p.id === op.pageId);
+  if (idx === -1) return;
+  const page = state.document.pages[idx];
+  state.document.pages.splice(idx, 1);
+  // Unindex nodes
+  delete state.nodesById[page.id];
+  for (const c of page.children) {
+    delete state.nodesById[c.id];
+    if (c.type === "frame" || c.type === "section" || c.type === "group") walkUnindex(state, c);
+  }
+  delete state.viewportByPage[page.id];
+  delete state.selectionByPage[page.id];
+  delete state.focusContextByPage[page.id];
+  if (state.activePageId === op.pageId) {
+    const fallback = state.document.pages[Math.max(0, idx - 1)] ?? state.document.pages[0];
+    state.activePageId = fallback.id;
+  }
+}
+
+export function applySwitchPage(state: AppState, op: SwitchPageOp): void {
+  state.activePageId = op.after.pageId;
+}
+
+export function applyMutateTextRuns(state: AppState, op: MutateTextRunsOp): void {
+  const node = state.nodesById[op.layerId];
+  if (!node) return;
+  const t = node as unknown as Record<string, unknown>;
+  t.content = op.after.content;
+  t.runs = op.after.runs;
+  t.fontFamily = op.after.fontFamily;
+  t.fontWeight = op.after.fontWeight;
+  t.fontSize = op.after.fontSize;
+}
+
+export function applyMutateVectorNetwork(state: AppState, op: MutateVectorNetworkOp): void {
+  const node = state.nodesById[op.layerId];
+  if (!node) return;
+  (node as unknown as Record<string, unknown>).network = op.after;
+}
+
+// ---- inverse ----
+
+export function applyInverse(state: AppState, op: Op): void {
+  switch (op.kind) {
+    case "create_node":
+      applyDeleteNodes(state, {
+        id: op.id + ":inv",
+        timestamp: Date.now(),
+        kind: "delete_nodes",
+        pageId: op.pageId,
+        ids: [op.node.id],
+      });
+      break;
+    case "delete_nodes":
+      if (op.snapshot) {
+        for (const s of op.snapshot) {
+          insertIntoTree(state, s.node, s.parentId, s.indexInParent);
+        }
+      }
+      break;
+    case "set_property":
+      for (const id of op.ids) {
+        const node = state.nodesById[id];
+        if (!node) continue;
+        const before = op.before[id];
+        if (before === undefined) continue;
+        setByPath(node as unknown as Record<string, unknown>, op.path, before);
+      }
+      break;
+    case "set_transform":
+      applySetTransform(state, {
+        ...op,
+        after: op.before,
+        before: op.after,
+      });
+      break;
+    case "set_selection":
+      state.selectionByPage[op.pageId] = [...op.before];
+      break;
+    case "set_viewport":
+      state.viewportByPage[op.pageId] = { ...op.before };
+      break;
+    case "set_tool":
+      state.activeTool = op.before;
+      break;
+    case "set_edit_mode":
+      state.editMode = { ...op.before };
+      break;
+    case "set_clipboard":
+      state.clipboard = op.before ? { ...op.before } : null;
+      break;
+    case "reparent": {
+      // Reverse each move
+      const reverse: ReparentOp = {
+        ...op,
+        moves: [...op.moves].reverse().map((m) => ({
+          id: m.id,
+          fromParentId: m.toParentId,
+          fromIndex: m.toIndex,
+          toParentId: m.fromParentId,
+          toIndex: m.fromIndex,
+        })),
+      };
+      applyReparent(state, reverse);
+      break;
+    }
+    case "reorder_z": {
+      // Restore original positions one at a time.
+      const parent = state.nodesById[op.parentId];
+      const arr =
+        (parent as Page | undefined)?.type === "page"
+          ? (parent as Page).children
+          : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+      if (!arr) break;
+      const items = op.ids
+        .map((id) => arr.find((c) => c.id === id))
+        .filter((c): c is Layer => !!c);
+      for (const it of items) {
+        const i = arr.indexOf(it);
+        if (i !== -1) arr.splice(i, 1);
+      }
+      // Re-insert each at its before index, smallest first, respecting shifts.
+      const restore = items
+        .map((it, i) => ({ it, idx: op.before[i] }))
+        .sort((a, b) => a.idx - b.idx);
+      for (const { it, idx } of restore) {
+        const target = Math.max(0, Math.min(arr.length, idx));
+        arr.splice(target, 0, it);
+      }
+      break;
+    }
+    case "set_focus_context":
+      state.focusContextByPage[op.pageId] = op.before;
+      break;
+    case "create_page":
+      applyDeletePage(state, {
+        id: op.id + ":inv",
+        timestamp: Date.now(),
+        kind: "delete_page",
+        pageId: op.page.id,
+        before: { pageIndex: op.pageIndex, page: op.page, wasActive: false, fallbackPageId: null },
+      });
+      break;
+    case "delete_page":
+      applyCreatePage(state, {
+        id: op.id + ":inv",
+        timestamp: Date.now(),
+        kind: "create_page",
+        pageIndex: op.before.pageIndex,
+        page: op.before.page,
+      });
+      if (op.before.wasActive) state.activePageId = op.before.page.id;
+      break;
+    case "switch_page":
+      state.activePageId = op.before.pageId;
+      break;
+    case "mutate_text_runs":
+      applyMutateTextRuns(state, { ...op, before: op.after, after: op.before });
+      break;
+    case "mutate_vector_network":
+      applyMutateVectorNetwork(state, { ...op, before: op.after, after: op.before });
+      break;
+    default: {
+      // Slice-deferred ops (scale_uniform, mutate_text_runs, mutate_vector_network)
+      // — no inverse implementation yet.
+      void op;
+      break;
+    }
+  }
+}
+
+// ---- apply dispatch ----
+
+export function applyOp(state: AppState, op: Op): void {
+  switch (op.kind) {
+    case "create_node":
+      applyCreateNode(state, op);
+      break;
+    case "delete_nodes":
+      applyDeleteNodes(state, op);
+      break;
+    case "set_property":
+      applySetProperty(state, op);
+      break;
+    case "set_transform":
+      applySetTransform(state, op);
+      break;
+    case "set_selection":
+      applySetSelection(state, op);
+      break;
+    case "set_viewport":
+      applySetViewport(state, op);
+      break;
+    case "set_tool":
+      applySetTool(state, op);
+      break;
+    case "set_edit_mode":
+      applySetEditMode(state, op);
+      break;
+    case "set_clipboard":
+      applySetClipboard(state, op);
+      break;
+    case "reparent":
+      applyReparent(state, op);
+      break;
+    case "reorder_z":
+      applyReorderZ(state, op);
+      break;
+    case "set_focus_context":
+      applySetFocusContext(state, op);
+      break;
+    case "create_page":
+      applyCreatePage(state, op);
+      break;
+    case "delete_page":
+      applyDeletePage(state, op);
+      break;
+    case "switch_page":
+      applySwitchPage(state, op);
+      break;
+    case "mutate_text_runs":
+      applyMutateTextRuns(state, op);
+      break;
+    case "mutate_vector_network":
+      applyMutateVectorNetwork(state, op);
+      break;
+    default: {
+      // Op union is exhaustively covered above; this branch is unreachable in
+      // well-typed code. Throwing a non-typed error keeps it surfaced if a new
+      // op kind is added without an apply handler.
+      const u = op as { kind?: string };
+      throw new Error(`applyOp: unimplemented op kind "${u.kind ?? "unknown"}"`);
+    }
+  }
+}
+
+// ---- path helpers ----
+
+function setByPath(target: Record<string, unknown>, path: string, value: unknown): void {
+  if (path === "") return;
+  const parts = path.split("/");
+  let cur: Record<string, unknown> = target;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const k = parts[i];
+    const next = cur[k];
+    if (next == null || typeof next !== "object") return;
+    cur = next as Record<string, unknown>;
+  }
+  cur[parts[parts.length - 1]] = value;
+}
+
+export function getByPath(target: Record<string, unknown>, path: string): unknown {
+  if (path === "") return target;
+  const parts = path.split("/");
+  let cur: unknown = target;
+  for (const k of parts) {
+    if (cur == null || typeof cur !== "object") return undefined;
+    cur = (cur as Record<string, unknown>)[k];
+  }
+  return cur;
+}

@@ -1,0 +1,325 @@
+// SVG canvas root. Owns viewport (pan/zoom) and routes pointer events to the
+// active tool. Renders the active page's layer tree + selection overlay + marquee.
+
+import { useRef } from "react";
+import { useStore } from "@/engine/store";
+import { dispatch, makeOpId } from "@/engine/dispatch";
+import { getActivePage, hitTest, selectionBbox } from "@/engine/selectors";
+import { setSelection } from "@/engine/commands";
+import { getActiveTool } from "@/tools";
+import { NodeRenderer } from "./NodeRenderer";
+import { emitSemantic } from "@/logger/semantic";
+import { SelectionOverlay } from "@/ui/overlays/SelectionOverlay";
+import { VectorEditOverlay } from "@/ui/overlays/VectorEditOverlay";
+import { HoverOutline } from "@/ui/overlays/HoverOutline";
+import { PenPreview } from "@/ui/overlays/PenPreview";
+import { PencilPreview } from "@/ui/overlays/PencilPreview";
+import { InsertionCrosshair } from "@/ui/overlays/InsertionCrosshair";
+import { RotateReadout } from "@/ui/overlays/RotateReadout";
+import { placeImageFiles } from "@/engine/imageCommands";
+
+const MIN_ZOOM = 0.05;
+const MAX_ZOOM = 32;
+
+export function CanvasView() {
+  const ref = useRef<SVGSVGElement | null>(null);
+  const activeTool = useStore((s) => s.activeTool);
+  const viewport = useStore((s) => s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 });
+  const page = useStore((s) => getActivePage(s));
+  const dragPreview = useStore((s) => s.dragPreview);
+  const snapLines = useStore((s) => s.snapLines);
+  const snapMeasures = useStore((s) => s.snapMeasures);
+  // selectionBbox subscription is consumed by SelectionOverlay, not here.
+  void selectionBbox;
+  const pageBg = page
+    ? `rgba(${Math.round(page.backgroundColor.r * 255)}, ${Math.round(page.backgroundColor.g * 255)}, ${Math.round(page.backgroundColor.b * 255)}, ${page.backgroundColor.a})`
+    : "white";
+
+  function clientToWorld(clientX: number, clientY: number): { x: number; y: number } {
+    const el = ref.current;
+    if (!el) return { x: 0, y: 0 };
+    const rect = el.getBoundingClientRect();
+    const sx = clientX - rect.left;
+    const sy = clientY - rect.top;
+    return {
+      x: sx / viewport.zoom + viewport.x,
+      y: sy / viewport.zoom + viewport.y,
+    };
+  }
+
+  function effectiveTool(): typeof activeTool {
+    return useStore.getState().spaceDown ? "hand" : activeTool;
+  }
+
+  function onPointerDown(e: React.PointerEvent<SVGSVGElement>) {
+    if (e.button !== 0) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    const world = clientToWorld(e.clientX, e.clientY);
+    getActiveTool(effectiveTool()).onPointerDown?.(world, e.nativeEvent);
+  }
+  function onPointerMove(e: React.PointerEvent<SVGSVGElement>) {
+    const world = clientToWorld(e.clientX, e.clientY);
+    getActiveTool(effectiveTool()).onPointerMove?.(world, e.nativeEvent);
+    useStore.setState((s) => {
+      s.cursorWorld = world;
+      s.insertionCursor = world;
+    });
+  }
+  function onPointerUp(e: React.PointerEvent<SVGSVGElement>) {
+    const world = clientToWorld(e.clientX, e.clientY);
+    getActiveTool(effectiveTool()).onPointerUp?.(world, e.nativeEvent);
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  }
+
+  function onWheel(e: React.WheelEvent<SVGSVGElement>) {
+    const s = useStore.getState();
+    const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
+    const isZoom = e.ctrlKey || e.metaKey;
+    if (isZoom) {
+      const rect = (ref.current as SVGSVGElement).getBoundingClientRect();
+      const sx = e.clientX - rect.left;
+      const sy = e.clientY - rect.top;
+      const cursorWorld = { x: sx / cur.zoom + cur.x, y: sy / cur.zoom + cur.y };
+      const factor = Math.exp(-e.deltaY * 0.0015);
+      const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, cur.zoom * factor));
+      const newViewport = {
+        x: cursorWorld.x - sx / newZoom,
+        y: cursorWorld.y - sy / newZoom,
+        zoom: newZoom,
+      };
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_viewport",
+          pageId: s.activePageId,
+          before: cur,
+          after: newViewport,
+        },
+        { skipUndo: true },
+      );
+      emitSemantic({
+        name: "zoom_canvas",
+        before: cur.zoom,
+        after: newZoom,
+        anchor: cursorWorld,
+        trigger: "scroll",
+      });
+    } else {
+      const factor = 1 / cur.zoom;
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_viewport",
+          pageId: s.activePageId,
+          before: cur,
+          after: { ...cur, x: cur.x + e.deltaX * factor, y: cur.y + e.deltaY * factor },
+        },
+        { skipUndo: true },
+      );
+    }
+  }
+
+  function onContextMenu(e: React.MouseEvent<SVGSVGElement>) {
+    e.preventDefault();
+    // If right-clicking on a layer that isn't selected, select it first.
+    const world = clientToWorld(e.clientX, e.clientY);
+    const sNow = useStore.getState();
+    const hit = hitTest(sNow, world.x, world.y);
+    if (hit) {
+      const cur = sNow.selectionByPage[sNow.activePageId] ?? [];
+      if (!cur.includes(hit.id)) {
+        setSelection([hit.id], "click_select");
+      }
+    }
+    useStore.setState((s) => {
+      s.contextMenu = { x: e.clientX, y: e.clientY };
+    });
+  }
+
+  function onDragOver(e: React.DragEvent<SVGSVGElement>) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+  }
+  function onDrop(e: React.DragEvent<SVGSVGElement>) {
+    e.preventDefault();
+    const files = Array.from(e.dataTransfer.files).filter((f) => f.type.startsWith("image/"));
+    if (files.length === 0) return;
+    const world = clientToWorld(e.clientX, e.clientY);
+    placeImageFiles(files, "drag_drop", { worldX: world.x, worldY: world.y });
+  }
+
+  const hoveredId = useStore((s) => s.hoveredNodeId);
+  const spaceDown = useStore((s) => s.spaceDown);
+  const cursor = spaceDown
+    ? "grab"
+    : activeTool === "hand"
+      ? "grab"
+      : activeTool === "rectangle" ||
+        activeTool === "ellipse" ||
+        activeTool === "polygon" ||
+        activeTool === "star" ||
+        activeTool === "line" ||
+        activeTool === "arrow" ||
+        activeTool === "frame" ||
+        activeTool === "section" ||
+        activeTool === "slice"
+      ? "crosshair"
+      : activeTool === "text"
+      ? "text"
+      : activeTool === "pen" || activeTool === "pencil"
+      ? "crosshair"
+      : activeTool === "move" && hoveredId
+      ? "move"
+      : "default";
+
+  return (
+    <svg
+      ref={ref}
+      className="canvas-svg"
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        cursor,
+        touchAction: "none",
+        userSelect: "none",
+      }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+      onWheel={onWheel}
+      onContextMenu={onContextMenu}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+    >
+      {/* Backdrop — captures pointer events on empty canvas areas. */}
+      <rect
+        data-id="canvas-backdrop"
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        fill={pageBg}
+        opacity={1}
+      />
+
+      {/* World-space group. With zoom=1 and viewport=(0,0), this is identity. */}
+      <g transform={`matrix(${viewport.zoom} 0 0 ${viewport.zoom} ${-viewport.x * viewport.zoom} ${-viewport.y * viewport.zoom})`}>
+        {page && page.children.map((l) => <NodeRenderer key={l.id} layer={l} />)}
+
+        <HoverOutline />
+        <SelectionOverlay />
+        <VectorEditOverlay />
+        <PenPreview />
+        <PencilPreview />
+        <InsertionCrosshair />
+        <RotateReadout />
+
+        {snapLines.map((l, i) =>
+          l.axis === "x" ? (
+            <line
+              key={i}
+              x1={l.x}
+              y1={l.yMin}
+              x2={l.x}
+              y2={l.yMax}
+              stroke="#FF3B82"
+              strokeWidth={1 / viewport.zoom}
+              pointerEvents="none"
+            />
+          ) : (
+            <line
+              key={i}
+              x1={l.xMin}
+              y1={l.y}
+              x2={l.xMax}
+              y2={l.y}
+              stroke="#FF3B82"
+              strokeWidth={1 / viewport.zoom}
+              pointerEvents="none"
+            />
+          ),
+        )}
+        {snapMeasures.map((m, i) => {
+          const fontSize = 11 / viewport.zoom;
+          const padX = 4 / viewport.zoom;
+          const padY = 2 / viewport.zoom;
+          const text = String(Math.round(m.value));
+          const charW = 6.5 / viewport.zoom;
+          const w = text.length * charW + padX * 2;
+          const h = fontSize + padY * 2;
+          const cx = (m.x1 + m.x2) / 2;
+          const cy = (m.y1 + m.y2) / 2;
+          const offset = m.axis === "y" ? 8 / viewport.zoom : 0;
+          const tickLen = 4 / viewport.zoom;
+          return (
+            <g key={`m${i}`} pointerEvents="none">
+              <line x1={m.x1} y1={m.y1} x2={m.x2} y2={m.y2} stroke="#FF3B82" strokeWidth={1 / viewport.zoom} />
+              {m.axis === "y" && (
+                <>
+                  <line x1={m.x1 - tickLen} y1={m.y1} x2={m.x1 + tickLen} y2={m.y1} stroke="#FF3B82" strokeWidth={1 / viewport.zoom} />
+                  <line x1={m.x2 - tickLen} y1={m.y2} x2={m.x2 + tickLen} y2={m.y2} stroke="#FF3B82" strokeWidth={1 / viewport.zoom} />
+                </>
+              )}
+              {m.axis === "x" && (
+                <>
+                  <line x1={m.x1} y1={m.y1 - tickLen} x2={m.x1} y2={m.y1 + tickLen} stroke="#FF3B82" strokeWidth={1 / viewport.zoom} />
+                  <line x1={m.x2} y1={m.y2 - tickLen} x2={m.x2} y2={m.y2 + tickLen} stroke="#FF3B82" strokeWidth={1 / viewport.zoom} />
+                </>
+              )}
+              <rect
+                x={cx + offset - w / 2}
+                y={cy - h / 2}
+                width={w}
+                height={h}
+                fill="#FF3B82"
+                rx={2 / viewport.zoom}
+              />
+              <text
+                x={cx + offset}
+                y={cy + fontSize / 3}
+                fill="white"
+                fontSize={fontSize}
+                textAnchor="middle"
+                style={{ fontFamily: "var(--font-family)", fontWeight: 500 }}
+              >
+                {text}
+              </text>
+            </g>
+          );
+        })}
+
+        {dragPreview.kind === "marquee" && (
+          <rect
+            x={(dragPreview.data as { x: number; y: number; w: number; h: number }).x}
+            y={(dragPreview.data as { x: number; y: number; w: number; h: number }).y}
+            width={(dragPreview.data as { x: number; y: number; w: number; h: number }).w}
+            height={(dragPreview.data as { x: number; y: number; w: number; h: number }).h}
+            fill="rgba(13,153,255,0.08)"
+            stroke="var(--color-selection-blue)"
+            strokeWidth={1 / viewport.zoom}
+            pointerEvents="none"
+          />
+        )}
+        {dragPreview.kind === "create_shape" && (
+          <rect
+            x={(dragPreview.data as { x: number; y: number; w: number; h: number }).x}
+            y={(dragPreview.data as { x: number; y: number; w: number; h: number }).y}
+            width={(dragPreview.data as { x: number; y: number; w: number; h: number }).w}
+            height={(dragPreview.data as { x: number; y: number; w: number; h: number }).h}
+            fill="rgba(13,153,255,0.16)"
+            stroke="var(--color-selection-blue)"
+            strokeWidth={1 / viewport.zoom}
+            pointerEvents="none"
+          />
+        )}
+      </g>
+    </svg>
+  );
+}
