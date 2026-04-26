@@ -29,6 +29,7 @@ interface ActiveCreation {
   // Currently dragging out a handle for the vertex at this index
   dragHandleIndex: number | null;
   dragHandleStart: Point | null;
+  closeCandidate: { index: number; downWorld: Point } | null;
 }
 
 let creation: ActiveCreation | null = null;
@@ -261,6 +262,7 @@ function tryResumeFromSelectedEndpoint(world: Point): boolean {
     initialNetwork: cloneNetwork(workingNetwork),
     dragHandleIndex: null,
     dragHandleStart: null,
+    closeCandidate: null,
   };
   updatePreview(world);
   return true;
@@ -389,6 +391,7 @@ export const penTool: ITool = {
         initialNetwork,
         dragHandleIndex: 0, // armed for first vertex's handle
         dragHandleStart: world,
+        closeCandidate: null,
       };
       emitSemantic({
         name: "add_vector_point",
@@ -400,28 +403,37 @@ export const penTool: ITool = {
       return;
     }
 
-    // Subsequent click: close-path test on starting vertex
+    // Subsequent click: close-path test on start/endpoints.
     const vp = useStore.getState().viewportByPage[useStore.getState().activePageId] ?? { x: 0, y: 0, zoom: 1 };
+    const lastIdx = creation.vertices.length - 1;
     const startWorld = {
       x: creation.originWorld.x + creation.vertices[0].x,
       y: creation.originWorld.y + creation.vertices[0].y,
     };
-    if (creation.vertices.length >= 2 && distScreen(startWorld, world, vp.zoom) < CLOSE_HIT_PX) {
-      commitCreation(true);
-      return;
-    }
-
-    // Clicking/dragging the current endpoint should adjust that anchor's
-    // handles, not create a duplicate zero-length segment.
-    const lastIdx = creation.vertices.length - 1;
     const last = creation.vertices[lastIdx];
     const lastWorld = {
       x: creation.originWorld.x + last.x,
       y: creation.originWorld.y + last.y,
     };
-    if (distScreen(lastWorld, world, vp.zoom) < CLOSE_HIT_PX) {
+    const startHit = creation.vertices.length >= 2 && distScreen(startWorld, world, vp.zoom) < CLOSE_HIT_PX;
+    const lastHit = distScreen(lastWorld, world, vp.zoom) < CLOSE_HIT_PX;
+
+    // Click-on-start should close on pointerup; drag should edit that point's
+    // handles instead of immediately closing.
+    if (startHit) {
+      creation.dragHandleIndex = 0;
+      creation.dragHandleStart = world;
+      creation.closeCandidate = { index: 0, downWorld: world };
+      updatePreview(world);
+      return;
+    }
+
+    // Clicking/dragging the current endpoint should adjust that anchor's
+    // handles, not create a duplicate zero-length segment.
+    if (lastHit) {
       creation.dragHandleIndex = lastIdx;
       creation.dragHandleStart = world;
+      creation.closeCandidate = null;
       updatePreview(world);
       return;
     }
@@ -451,6 +463,7 @@ export const penTool: ITool = {
     });
     creation.dragHandleIndex = creation.vertices.length - 1;
     creation.dragHandleStart = constrainedWorld;
+    creation.closeCandidate = null;
 
     syncStore(false);
     emitSemantic({
@@ -464,6 +477,13 @@ export const penTool: ITool = {
 
   onPointerMove(world, e) {
     if (!creation) return;
+    if (creation.closeCandidate && creation.dragHandleStart) {
+      const ddx = world.x - creation.closeCandidate.downWorld.x;
+      const ddy = world.y - creation.closeCandidate.downWorld.y;
+      if (Math.hypot(ddx, ddy) >= DRAG_THRESHOLD) {
+        creation.closeCandidate = null;
+      }
+    }
     if (creation.dragHandleIndex != null && creation.dragHandleStart) {
       const dx = world.x - creation.dragHandleStart.x;
       const dy = world.y - creation.dragHandleStart.y;
@@ -515,10 +535,18 @@ export const penTool: ITool = {
 
   onPointerUp(world, e) {
     if (!creation) return;
-    void world;
+    if (creation.closeCandidate && creation.dragHandleStart) {
+      const ddx = world.x - creation.closeCandidate.downWorld.x;
+      const ddy = world.y - creation.closeCandidate.downWorld.y;
+      if (Math.hypot(ddx, ddy) < DRAG_THRESHOLD) {
+        commitCreation(true);
+        return;
+      }
+    }
     void e;
     creation.dragHandleIndex = null;
     creation.dragHandleStart = null;
+    creation.closeCandidate = null;
     updatePreview(null);
   },
 
