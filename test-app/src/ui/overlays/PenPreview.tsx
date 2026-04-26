@@ -32,6 +32,22 @@ export function PenPreview() {
   const first = layer.network.vertices[0];
   const firstWorld = first ? { x: ox + first.x, y: oy + first.y } : null;
   const closeHitR = 6 / viewport.zoom;
+  const activeIncoming = (() => {
+    if (!preview.handleDrag) return null;
+    const idx = preview.handleDrag.vertexIndex;
+    const seg = layer.network.segments.find((s) => s.toIndex === idx);
+    if (!seg) return null;
+    const a = layer.network.vertices[seg.fromIndex];
+    const b = layer.network.vertices[seg.toIndex];
+    if (!a || !b) return null;
+    const cp1x = ox + a.x + (seg.handleFrom?.dx ?? 0);
+    const cp1y = oy + a.y + (seg.handleFrom?.dy ?? 0);
+    const cp2x = ox + b.x - preview.handleDrag.outDx;
+    const cp2y = oy + b.y - preview.handleDrag.outDy;
+    return {
+      d: `M ${ox + a.x} ${oy + a.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${ox + b.x} ${oy + b.y}`,
+    };
+  })();
 
   return (
     <g pointerEvents="none">
@@ -42,6 +58,16 @@ export function PenPreview() {
           y1={lastWorld.y}
           x2={preview.cursor.x}
           y2={preview.cursor.y}
+          stroke="var(--color-selection-blue)"
+          strokeWidth={sw}
+          strokeDasharray={`${4 / viewport.zoom} ${3 / viewport.zoom}`}
+        />
+      )}
+      {/* Live curve preview for incoming segment while dragging a point handle */}
+      {activeIncoming && (
+        <path
+          d={activeIncoming.d}
+          fill="none"
           stroke="var(--color-selection-blue)"
           strokeWidth={sw}
           strokeDasharray={`${4 / viewport.zoom} ${3 / viewport.zoom}`}

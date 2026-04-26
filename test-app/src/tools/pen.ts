@@ -411,6 +411,21 @@ export const penTool: ITool = {
       return;
     }
 
+    // Clicking/dragging the current endpoint should adjust that anchor's
+    // handles, not create a duplicate zero-length segment.
+    const lastIdx = creation.vertices.length - 1;
+    const last = creation.vertices[lastIdx];
+    const lastWorld = {
+      x: creation.originWorld.x + last.x,
+      y: creation.originWorld.y + last.y,
+    };
+    if (distScreen(lastWorld, world, vp.zoom) < CLOSE_HIT_PX) {
+      creation.dragHandleIndex = lastIdx;
+      creation.dragHandleStart = world;
+      updatePreview(world);
+      return;
+    }
+
     // Add new vertex
     const prev = creation.vertices[creation.vertices.length - 1];
     const prevWorld = {
@@ -500,44 +515,11 @@ export const penTool: ITool = {
 
   onPointerUp(world, e) {
     if (!creation) return;
-    if (creation.vertices.length === 1 && creation.dragHandleStart) {
-      const firstWorld = {
-        x: creation.originWorld.x + creation.vertices[0].x,
-        y: creation.originWorld.y + creation.vertices[0].y,
-      };
-      const constrainedWorld = constrainPointAngle(firstWorld, world, e.shiftKey);
-      const dist = Math.hypot(constrainedWorld.x - firstWorld.x, constrainedWorld.y - firstWorld.y);
-      if (dist >= DRAG_THRESHOLD) {
-        const newVertex: VectorVertex = {
-          x: constrainedWorld.x - creation.originWorld.x,
-          y: constrainedWorld.y - creation.originWorld.y,
-          handleType: "corner",
-        };
-        creation.vertices.push(newVertex);
-        creation.segments.push({
-          fromIndex: 0,
-          toIndex: 1,
-          handleFrom: creation.pendingOutHandles[0]
-            ? { ...creation.pendingOutHandles[0] }
-            : null,
-          handleTo: null,
-        });
-        syncStore(false);
-        emitSemantic({
-          name: "add_vector_point",
-          layerId: creation.layerId,
-          index: 1,
-          position: { x: newVertex.x, y: newVertex.y },
-        });
-        creation.dragHandleIndex = null;
-        creation.dragHandleStart = null;
-        updatePreview(constrainedWorld);
-        return;
-      }
-    }
+    void world;
+    void e;
     creation.dragHandleIndex = null;
     creation.dragHandleStart = null;
-    updatePreview(world);
+    updatePreview(null);
   },
 
   onAbort() {
