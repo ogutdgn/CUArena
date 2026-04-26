@@ -17,6 +17,18 @@ function setTool(after: ToolId, trigger: "shortcut" | "toolbar_click" = "shortcu
   if (before === "pen" && after !== "pen") {
     abortPenIfActive();
   }
+  if (after === "pen") {
+    const editMode = useStore.getState().editMode;
+    if (editMode.kind === "vector") {
+      dispatch({
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_edit_mode",
+        before: editMode,
+        after: { kind: "none" },
+      });
+    }
+  }
   if (before === after) return;
   dispatch({
     id: makeOpId(),
