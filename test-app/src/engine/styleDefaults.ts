@@ -41,7 +41,14 @@ function fromSelection(state: AppState): VectorStyleDefaults | null {
 }
 
 function ensureVisibleStroke(strokes: Stroke[], fallbackWeight: number): Stroke[] {
-  if (strokes.length > 0) return strokes;
+  const hasRenderableStroke = strokes.some((s) => {
+    if (s.weight <= 0) return false;
+    if (!s.paint.visible || s.paint.opacity <= 0) return false;
+    if (s.paint.kind !== "solid") return false;
+    if (s.paint.color.a <= 0) return false;
+    return true;
+  });
+  if (hasRenderableStroke) return strokes;
   return [
     {
       paint: { kind: "solid", color: { r: 1, g: 1, b: 1, a: 1 }, opacity: 1, visible: true },
