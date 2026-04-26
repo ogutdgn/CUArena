@@ -57,6 +57,13 @@ function walkIndex(state: AppState, layer: Layer) {
   }
 }
 
+function collectLayerIds(layer: Layer, out: Set<string>) {
+  out.add(layer.id);
+  if (isContainer(layer)) {
+    for (const c of layer.children) collectLayerIds(c, out);
+  }
+}
+
 function removeFromTree(state: AppState, id: string): {
   node: Layer;
   parentId: string;
@@ -119,6 +126,20 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
     if (removed) snapshot.unshift(removed);
   }
   op.snapshot = snapshot;
+
+  // Clean stale selection/focus references if deleted ids were selected/focused.
+  const removedIds = new Set<string>();
+  for (const s of snapshot) collectLayerIds(s.node, removedIds);
+
+  for (const pageId of Object.keys(state.selectionByPage)) {
+    const sel = state.selectionByPage[pageId] ?? [];
+    const next = sel.filter((id) => !removedIds.has(id));
+    if (next.length !== sel.length) state.selectionByPage[pageId] = next;
+  }
+  for (const pageId of Object.keys(state.focusContextByPage)) {
+    const fc = state.focusContextByPage[pageId];
+    if (fc && removedIds.has(fc)) state.focusContextByPage[pageId] = null;
+  }
 }
 
 export function applySetProperty(state: AppState, op: SetPropertyOp): void {
@@ -138,10 +159,20 @@ export function applySetTransform(state: AppState, op: SetTransformOp): void {
     const t = op.after[id];
     if (!t) continue;
     const layer = node as Layer;
+    const prevW = Math.max(1, layer.w);
+    const prevH = Math.max(1, layer.h);
+    const nextW = Math.max(1, t.w);
+    const nextH = Math.max(1, t.h);
+    if (layer.type === "line" || layer.type === "arrow") {
+      const sx = nextW / prevW;
+      const sy = nextH / prevH;
+      layer.p1 = { x: layer.p1.x * sx, y: layer.p1.y * sy };
+      layer.p2 = { x: layer.p2.x * sx, y: layer.p2.y * sy };
+    }
     layer.x = t.x;
     layer.y = t.y;
-    layer.w = t.w;
-    layer.h = t.h;
+    layer.w = nextW;
+    layer.h = nextH;
     layer.rotation = t.rotation;
     layer.scaleX = t.scaleX;
     layer.scaleY = t.scaleY;

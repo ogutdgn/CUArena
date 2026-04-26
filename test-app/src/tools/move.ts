@@ -22,6 +22,7 @@ import { uid } from "@/util/id";
 import type { TransformMap, TransformTuple } from "@/types/ops";
 import type { Layer, Page } from "@/types/scene";
 import type { HandleDir, RotateCorner } from "@/ui/overlays/SelectionOverlay";
+import { worldRectOfLayer } from "@/engine/coordinates";
 
 const DRAG_THRESHOLD = 3;
 
@@ -442,7 +443,8 @@ export const moveTool: ITool = {
           for (const l of arr) {
             if (movingSet.has(l.id)) continue;
             if (!l.visible) continue;
-            candidates.push({ x: l.x, y: l.y, w: l.w, h: l.h });
+            const wr = worldRectOfLayer(sLive, l);
+            candidates.push({ x: wr.x, y: wr.y, w: wr.w, h: wr.h });
             if (l.type === "frame" || l.type === "section" || l.type === "group") collect(l.children);
           }
         };
@@ -627,7 +629,7 @@ export const moveTool: ITool = {
         after,
         handle: state.handleDir,
         trigger: "drag",
-        modifiers: { shift: state.modifiers.alt /* placeholder */, alt: state.modifiers.alt },
+        modifiers: { shift: state.modifiers.shift, alt: state.modifiers.alt },
       });
       state = { kind: "idle" };
       return;
@@ -646,7 +648,8 @@ export const moveTool: ITool = {
       const hits: string[] = [];
       walkLayers(page.children, (l) => {
         if (l.locked || !l.visible) return;
-        if (rectIntersects(box, { x: l.x, y: l.y, w: l.w, h: l.h })) hits.push(l.id);
+        const wr = worldRectOfLayer(useStore.getState(), l);
+        if (rectIntersects(box, { x: wr.x, y: wr.y, w: wr.w, h: wr.h })) hits.push(l.id);
       });
       const s2 = useStore.getState();
       const before = s2.selectionByPage[s2.activePageId] ?? [];
@@ -704,8 +707,7 @@ function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Laye
   const newIds: string[] = [];
   for (const source of sources) {
     const clone = JSON.parse(JSON.stringify(source)) as Layer;
-    clone.id = uid(clone.type);
-    clone.parentId = source.parentId;
+    reseedCloneIds(clone, source.parentId);
     const parent = s.nodesById[source.parentId];
     const arr =
       (parent as Page | undefined)?.type === "page"
@@ -725,6 +727,16 @@ function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Laye
     newIds.push(clone.id);
   }
   return newIds;
+}
+
+function reseedCloneIds(layer: Layer, parentId: string): void {
+  layer.id = uid(layer.type);
+  layer.parentId = parentId;
+  if (layer.type === "frame" || layer.type === "section" || layer.type === "group") {
+    for (const c of layer.children) {
+      reseedCloneIds(c, layer.id);
+    }
+  }
 }
 
 // Compute new bbox given a handle drag.
