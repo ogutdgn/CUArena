@@ -33,6 +33,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { noopClick } from "./noopClick";
 import { ToolbarDropdown, type DropdownItem } from "./ToolbarDropdown";
 import type { ToolId } from "@/types/ops";
+import { abortPenIfActive } from "@/tools/pen";
 
 type DropdownKey = "move-tools" | "region-tools" | "shape-tools" | "creation-tools" | "comment-tools" | null;
 
@@ -64,6 +65,9 @@ export function Toolbar() {
       setLastCreationTool(after);
     }
     const before = useStore.getState().activeTool;
+    if (before === "pen" && after !== "pen") {
+      abortPenIfActive();
+    }
     if (before === after) return;
     dispatch({
       id: makeOpId(),

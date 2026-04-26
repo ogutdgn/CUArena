@@ -14,6 +14,9 @@ import type { ToolId } from "@/types/ops";
 
 function setTool(after: ToolId, trigger: "shortcut" | "toolbar_click" = "shortcut") {
   const before = useStore.getState().activeTool;
+  if (before === "pen" && after !== "pen") {
+    abortPenIfActive();
+  }
   if (before === after) return;
   dispatch({
     id: makeOpId(),
