@@ -9,7 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork, VectorVertex, VectorSegment, Layer } from "@/types/scene";
-import { worldToParentLocal } from "@/engine/coordinates";
+import { worldOffsetOfLayer, worldToParentLocal } from "@/engine/coordinates";
 import { getPenVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const CLOSE_HIT_PX = 8;
@@ -108,6 +108,52 @@ function updatePreview(world: Point | null) {
   });
 }
 
+function tryResumeFromSelectedEndpoint(world: Point): boolean {
+  const s = useStore.getState();
+  const sel = s.selectionByPage[s.activePageId] ?? [];
+  if (sel.length !== 1) return false;
+  const node = s.nodesById[sel[0]];
+  if (!node || (node as Vector).type !== "vector") return false;
+  const layer = node as Vector;
+  if (layer.network.closed || layer.network.vertices.length < 2) return false;
+  const vp = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
+  const originWorld = worldOffsetOfLayer(s, layer);
+  const last = layer.network.vertices[layer.network.vertices.length - 1];
+  const lastWorld = { x: originWorld.x + last.x, y: originWorld.y + last.y };
+  if (distScreen(lastWorld, world, vp.zoom) > CLOSE_HIT_PX) return false;
+
+  const txId = openTransaction();
+  const beforeMode = s.editMode;
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_edit_mode",
+      before: beforeMode,
+      after: { kind: "pen_creation", layerId: layer.id },
+    },
+    { transactionId: txId },
+  );
+
+  creation = {
+    layerId: layer.id,
+    txId,
+    vertices: layer.network.vertices.map((v) => ({ ...v })),
+    segments: layer.network.segments.map((seg) => ({ ...seg })),
+    originWorld,
+    originLocal: { x: layer.x, y: layer.y },
+    initialNetwork: {
+      vertices: layer.network.vertices.map((v) => ({ ...v })),
+      segments: layer.network.segments.map((seg) => ({ ...seg })),
+      closed: layer.network.closed,
+    },
+    dragHandleIndex: null,
+    dragHandleStart: null,
+  };
+  updatePreview(world);
+  return true;
+}
+
 function clearPreview() {
   useStore.setState((s) => { s.penPreview = null; });
 }
@@ -116,17 +162,6 @@ function commitCreation(closed: boolean) {
   if (!creation) return;
   if (creation.vertices.length < 2) {
     abortTransaction(creation.txId);
-    const beforeTool = useStore.getState().activeTool;
-    if (beforeTool !== "move") {
-      dispatch({
-        id: makeOpId(),
-        timestamp: performance.now(),
-        kind: "set_tool",
-        before: beforeTool,
-        after: "move",
-      });
-      emitSemantic({ name: "tool_change", before: beforeTool, after: "move", trigger: "auto_revert_after_create" });
-    }
     creation = null;
     clearPreview();
     return;
@@ -152,18 +187,6 @@ function commitCreation(closed: boolean) {
     });
   }
 
-  const beforeTool = useStore.getState().activeTool;
-  if (beforeTool !== "move") {
-    dispatch({
-      id: makeOpId(),
-      timestamp: performance.now(),
-      kind: "set_tool",
-      before: beforeTool,
-      after: "move",
-    });
-    emitSemantic({ name: "tool_change", before: beforeTool, after: "move", trigger: "auto_revert_after_create" });
-  }
-
   creation = null;
   clearPreview();
 }
@@ -177,6 +200,7 @@ export const penTool: ITool = {
     const s = useStore.getState();
 
     if (!creation) {
+      if (tryResumeFromSelectedEndpoint(world)) return;
       // First click: create empty vector layer at click point.
       const pageId = s.activePageId;
       const parentId = pageId;
@@ -360,7 +384,6 @@ export const penTool: ITool = {
         creation.dragHandleIndex = null;
         creation.dragHandleStart = null;
         updatePreview(world);
-        commitCreation(false);
         return;
       }
     }
