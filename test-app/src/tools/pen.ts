@@ -9,6 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork, VectorVertex, VectorSegment, Layer } from "@/types/scene";
+import { worldToParentLocal } from "@/engine/coordinates";
 
 const CLOSE_HIT_PX = 8;
 const DRAG_THRESHOLD = 3;
@@ -18,7 +19,8 @@ interface ActiveCreation {
   txId: string;
   vertices: VectorVertex[];
   segments: VectorSegment[];
-  origin: Point;
+  originWorld: Point;
+  originLocal: Point;
   initialNetwork: VectorNetwork;
   // Currently dragging out a handle for the vertex at this index
   dragHandleIndex: number | null;
@@ -70,7 +72,15 @@ function syncStore(closed: boolean) {
         pageId: s.activePageId,
         ids: [creation.layerId],
         before: { [creation.layerId]: before },
-        after: { [creation.layerId]: { ...before, x: creation.origin.x + minX, y: creation.origin.y + minY, w, h } },
+        after: {
+          [creation.layerId]: {
+            ...before,
+            x: creation.originLocal.x + minX,
+            y: creation.originLocal.y + minY,
+            w,
+            h,
+          },
+        },
       },
       { transactionId: creation.txId },
     );
@@ -83,8 +93,8 @@ function updatePreview(world: Point | null) {
     creation.dragHandleIndex != null && creation.dragHandleStart && world
       ? {
           vertexIndex: creation.dragHandleIndex,
-          outDx: world.x - (creation.origin.x + creation.vertices[creation.dragHandleIndex].x),
-          outDy: world.y - (creation.origin.y + creation.vertices[creation.dragHandleIndex].y),
+          outDx: world.x - (creation.originWorld.x + creation.vertices[creation.dragHandleIndex].x),
+          outDy: world.y - (creation.originWorld.y + creation.vertices[creation.dragHandleIndex].y),
         }
       : null;
   useStore.setState((s) => {
@@ -148,6 +158,7 @@ export const penTool: ITool = {
       // First click: create empty vector layer at click point.
       const pageId = s.activePageId;
       const parentId = s.focusContextByPage[pageId] ?? pageId;
+      const originLocal = worldToParentLocal(s, parentId, world);
       const initialNetwork: VectorNetwork = {
         vertices: [{ x: 0, y: 0, handleType: "corner" }],
         segments: [],
@@ -158,8 +169,8 @@ export const penTool: ITool = {
         type: "vector",
         name: "Vector",
         parentId,
-        x: world.x,
-        y: world.y,
+        x: originLocal.x,
+        y: originLocal.y,
         w: 1,
         h: 1,
         rotation: 0,
@@ -218,7 +229,8 @@ export const penTool: ITool = {
         txId,
         vertices: [{ x: 0, y: 0, handleType: "corner" }],
         segments: [],
-        origin: { x: world.x, y: world.y },
+        originWorld: { x: world.x, y: world.y },
+        originLocal,
         initialNetwork,
         dragHandleIndex: 0, // armed for first vertex's handle
         dragHandleStart: world,
@@ -235,7 +247,10 @@ export const penTool: ITool = {
 
     // Subsequent click: close-path test on starting vertex
     const vp = useStore.getState().viewportByPage[useStore.getState().activePageId] ?? { x: 0, y: 0, zoom: 1 };
-    const startWorld = { x: creation.origin.x + creation.vertices[0].x, y: creation.origin.y + creation.vertices[0].y };
+    const startWorld = {
+      x: creation.originWorld.x + creation.vertices[0].x,
+      y: creation.originWorld.y + creation.vertices[0].y,
+    };
     if (creation.vertices.length >= 2 && distScreen(startWorld, world, vp.zoom) < CLOSE_HIT_PX) {
       commitCreation(true);
       return;
@@ -243,8 +258,8 @@ export const penTool: ITool = {
 
     // Add new vertex
     const newVertex: VectorVertex = {
-      x: world.x - creation.origin.x,
-      y: world.y - creation.origin.y,
+      x: world.x - creation.originWorld.x,
+      y: world.y - creation.originWorld.y,
       handleType: "corner",
     };
     const prevIdx = creation.vertices.length - 1;
@@ -277,8 +292,8 @@ export const penTool: ITool = {
         // Update handle on the active vertex (mirror).
         const idx = creation.dragHandleIndex;
         const v = creation.vertices[idx];
-        const outDx = world.x - (creation.origin.x + v.x);
-        const outDy = world.y - (creation.origin.y + v.y);
+        const outDx = world.x - (creation.originWorld.x + v.x);
+        const outDy = world.y - (creation.originWorld.y + v.y);
         creation.vertices[idx] = { ...v, handleType: "mirror" };
         // Outgoing segment: from this vertex onward — set handleFrom on segment[idx]
         const outSeg = creation.segments.find((s) => s.fromIndex === idx);

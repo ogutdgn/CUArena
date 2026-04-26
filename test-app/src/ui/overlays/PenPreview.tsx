@@ -3,20 +3,27 @@
 
 import { useStore, selectActiveViewport } from "@/engine/store";
 import type { Vector } from "@/types/scene";
+import { worldOffsetOfLayer } from "@/engine/coordinates";
 
 export function PenPreview() {
   const preview = useStore((s) => s.penPreview);
   const viewport = useStore((s) => selectActiveViewport(s));
+  const origin = useStore((s) => {
+    if (!s.penPreview) return null;
+    const n = s.nodesById[s.penPreview.layerId];
+    if (!n || (n as Vector).type !== "vector") return null;
+    return worldOffsetOfLayer(s, n as Vector);
+  });
   const layer = useStore((s) => {
     if (!s.penPreview) return null;
     const n = s.nodesById[s.penPreview.layerId];
     return n && (n as Vector).type === "vector" ? (n as Vector) : null;
   });
-  if (!preview || !layer) return null;
+  if (!preview || !layer || !origin) return null;
 
   const sw = 1 / viewport.zoom;
-  const ox = layer.x;
-  const oy = layer.y;
+  const ox = origin.x;
+  const oy = origin.y;
 
   const lastVertex = layer.network.vertices[layer.network.vertices.length - 1];
   const lastWorld = lastVertex ? { x: ox + lastVertex.x, y: oy + lastVertex.y } : null;

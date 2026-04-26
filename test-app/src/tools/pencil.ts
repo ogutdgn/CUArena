@@ -9,6 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork } from "@/types/scene";
+import { worldToParentLocal } from "@/engine/coordinates";
 
 const SIMPLIFY_EPSILON = 1.5;
 
@@ -90,6 +91,7 @@ export const pencilTool: ITool = {
     const s = useStore.getState();
     const pageId = s.activePageId;
     const parentId = s.focusContextByPage[pageId] ?? pageId;
+    const localOrigin = worldToParentLocal(s, parentId, { x: ox, y: oy });
     const parent = s.nodesById[parentId];
     const childCount =
       parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
@@ -100,8 +102,8 @@ export const pencilTool: ITool = {
       type: "vector",
       name: "Pencil stroke",
       parentId,
-      x: ox,
-      y: oy,
+      x: localOrigin.x,
+      y: localOrigin.y,
       w: Math.max(1, maxX - minX),
       h: Math.max(1, maxY - minY),
       rotation: 0,
