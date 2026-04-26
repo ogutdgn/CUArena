@@ -29,15 +29,48 @@ import type { AppState } from "./store";
 import type { Layer, Page } from "@/types/scene";
 import { isContainer } from "@/types/scene";
 
-function getPage(state: AppState, id: string): Page | null {
-  return state.document.pages.find((p) => p.id === id) ?? null;
+function findNodeInLayers(layers: Layer[], id: string): Layer | null {
+  for (const l of layers) {
+    if (l.id === id) return l;
+    if (isContainer(l)) {
+      const hit = findNodeInLayers(l.children, id);
+      if (hit) return hit;
+    }
+  }
+  return null;
+}
+
+function findNodeInDocument(state: AppState, id: string): Layer | Page | null {
+  for (const p of state.document.pages) {
+    if (p.id === id) return p;
+    const hit = findNodeInLayers(p.children, id);
+    if (hit) return hit;
+  }
+  return null;
+}
+
+function reindexNodes(state: AppState): void {
+  const next: Record<string, Layer | Page> = {};
+  for (const p of state.document.pages) {
+    next[p.id] = p;
+    const stack = [...p.children];
+    while (stack.length > 0) {
+      const cur = stack.pop()!;
+      next[cur.id] = cur;
+      if (isContainer(cur)) {
+        for (let i = cur.children.length - 1; i >= 0; i--) {
+          stack.push(cur.children[i]);
+        }
+      }
+    }
+  }
+  state.nodesById = next;
 }
 
 function getChildren(state: AppState, parentId: string): Layer[] | null {
-  const page = getPage(state, parentId);
-  if (page) return page.children;
-  const node = state.nodesById[parentId];
+  const node = findNodeInDocument(state, parentId);
   if (!node) return null;
+  if ((node as Page).type === "page") return (node as Page).children;
   if (isContainer(node as Layer)) return (node as Layer & { children: Layer[] }).children;
   return null;
 }
@@ -74,7 +107,7 @@ function removeFromTree(state: AppState, id: string): {
   parentId: string;
   indexInParent: number;
 } | null {
-  const found = state.nodesById[id];
+  const found = findNodeInDocument(state, id);
   if (!found || (found as Page).type === "page") return null;
   const layer = found as Layer;
   const children = getChildren(state, layer.parentId);
@@ -105,7 +138,7 @@ export function applyCreateNode(state: AppState, op: CreateNodeOp): void {
 export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
   const sorted = [...op.ids]
     .map((id) => {
-      const n = state.nodesById[id];
+      const n = findNodeInDocument(state, id);
       if (!n || (n as Page).type === "page") return null;
       const layer = n as Layer;
       const children = getChildren(state, layer.parentId);
@@ -139,7 +172,7 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
 
 export function applySetProperty(state: AppState, op: SetPropertyOp): void {
   for (const id of op.ids) {
-    const node = state.nodesById[id];
+    const node = findNodeInDocument(state, id);
     if (!node) continue;
     const after = op.after[id];
     if (after === undefined) continue;
@@ -149,7 +182,7 @@ export function applySetProperty(state: AppState, op: SetPropertyOp): void {
 
 export function applySetTransform(state: AppState, op: SetTransformOp): void {
   for (const id of op.ids) {
-    const node = state.nodesById[id];
+    const node = findNodeInDocument(state, id);
     if (!node || (node as Page).type === "page") continue;
     const t = op.after[id];
     if (!t) continue;
@@ -197,7 +230,7 @@ export function applySetClipboard(state: AppState, op: SetClipboardOp): void {
 export function applyReparent(state: AppState, op: ReparentOp): void {
   // Apply moves in order. For each, remove from current parent, insert into new.
   for (const m of op.moves) {
-    const layer = state.nodesById[m.id] as Layer | undefined;
+    const layer = findNodeInDocument(state, m.id) as Layer | undefined;
     if (!layer || (layer as unknown as Page).type === "page") continue;
     const fromArr = getChildren(state, m.fromParentId);
     if (!fromArr) continue;
@@ -268,7 +301,7 @@ export function applySwitchPage(state: AppState, op: SwitchPageOp): void {
 }
 
 export function applyMutateTextRuns(state: AppState, op: MutateTextRunsOp): void {
-  const node = state.nodesById[op.layerId];
+  const node = findNodeInDocument(state, op.layerId);
   if (!node) return;
   const t = node as unknown as Record<string, unknown>;
   t.content = op.after.content;
@@ -279,7 +312,7 @@ export function applyMutateTextRuns(state: AppState, op: MutateTextRunsOp): void
 }
 
 export function applyMutateVectorNetwork(state: AppState, op: MutateVectorNetworkOp): void {
-  const node = state.nodesById[op.layerId];
+  const node = findNodeInDocument(state, op.layerId);
   if (!node) return;
   (node as unknown as Record<string, unknown>).network = op.after;
 }
@@ -409,6 +442,7 @@ export function applyInverse(state: AppState, op: Op): void {
       break;
     }
   }
+  reindexNodes(state);
 }
 
 // ---- apply dispatch ----
@@ -474,6 +508,7 @@ export function applyOp(state: AppState, op: Op): void {
       throw new Error(`applyOp: unimplemented op kind "${u.kind ?? "unknown"}"`);
     }
   }
+  reindexNodes(state);
 }
 
 // ---- path helpers ----

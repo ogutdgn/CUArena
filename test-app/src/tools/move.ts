@@ -756,11 +756,11 @@ function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Laye
   for (const source of sources) {
     const clone = JSON.parse(JSON.stringify(source)) as Layer;
     reseedCloneIds(clone, source.parentId);
-    const parent = s.nodesById[source.parentId];
-    const arr =
-      (parent as Page | undefined)?.type === "page"
-        ? (parent as Page).children
-        : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+    const pageParent = s.document.pages.find((p) => p.id === source.parentId);
+    const indexedParent = s.nodesById[source.parentId];
+    const arr = pageParent
+      ? pageParent.children
+      : (indexedParent as (Layer & { children?: Layer[] }) | undefined)?.children;
     if (!arr) continue;
     const idx = arr.findIndex((c) => c.id === source.id);
     dispatch({
