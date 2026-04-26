@@ -87,6 +87,7 @@ Acceptance checks:
 - Existing-anchor drag reliably produces preview curves and committed bezier curves.
 - Start-anchor click without drag still closes path.
 - Start-anchor drag creates handles instead of accidentally closing.
+- Console shows `[pen-debug]` lifecycle logs for anchor hit, handle drag vectors, and close-vs-drag resolution while validating this bug.
 
 ### Slice A (P0): Transform parity
 1. Implement real Scale tool behavior (`K`) in tool registry + move/resize math path.
