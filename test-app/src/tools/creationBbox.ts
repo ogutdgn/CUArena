@@ -12,6 +12,7 @@ import { uid } from "@/util/id";
 import type { Layer, Page } from "@/types/scene";
 import type { ToolId } from "@/types/ops";
 import type { SemanticEventInput } from "@/types/events";
+import { worldRectToParentLocal } from "@/engine/coordinates";
 
 const DEFAULT_SIZE = 100;
 const MIN_DRAG = 3;
@@ -101,7 +102,8 @@ export function makeCreationBboxTool(config: BboxToolConfig): ITool {
 
       const page = s.document.pages.find((p) => p.id === pageId);
       const ordinal = page ? config.countOf(page) + 1 : 1;
-      const node = config.makeNode(bbox, parentId, ordinal);
+      const localBbox = worldRectToParentLocal(s, parentId, bbox);
+      const node = config.makeNode(localBbox, parentId, ordinal);
 
       const parent = s.nodesById[parentId];
       const childCount =

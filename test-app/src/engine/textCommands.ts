@@ -7,6 +7,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { setSelection } from "./commands";
 import { uid } from "@/util/id";
 import type { Text as TextLayer, Page, Layer } from "@/types/scene";
+import { worldToParentLocal } from "./coordinates";
 
 interface TextSnapshot {
   content: string;
@@ -20,6 +21,7 @@ export function createTextAt(world: { x: number; y: number }, mode: "auto_width"
   const s = useStore.getState();
   const pageId = s.activePageId;
   const parentId = s.focusContextByPage[pageId] ?? pageId;
+  const local = worldToParentLocal(s, parentId, world);
   const parent = s.nodesById[parentId];
   const childCount =
     parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
@@ -32,8 +34,8 @@ export function createTextAt(world: { x: number; y: number }, mode: "auto_width"
     type: "text",
     name: "Text",
     parentId,
-    x: world.x,
-    y: world.y,
+    x: local.x,
+    y: local.y,
     w,
     h,
     rotation: 0,
