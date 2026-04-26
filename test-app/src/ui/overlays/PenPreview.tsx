@@ -48,6 +48,22 @@ export function PenPreview() {
       d: `M ${ox + a.x} ${oy + a.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${ox + b.x} ${oy + b.y}`,
     };
   })();
+  const activeOutgoing = (() => {
+    if (!preview.handleDrag) return null;
+    const idx = preview.handleDrag.vertexIndex;
+    const seg = layer.network.segments.find((s) => s.fromIndex === idx);
+    if (!seg) return null;
+    const a = layer.network.vertices[seg.fromIndex];
+    const b = layer.network.vertices[seg.toIndex];
+    if (!a || !b) return null;
+    const cp1x = ox + a.x + preview.handleDrag.outDx;
+    const cp1y = oy + a.y + preview.handleDrag.outDy;
+    const cp2x = ox + b.x + (seg.handleTo?.dx ?? 0);
+    const cp2y = oy + b.y + (seg.handleTo?.dy ?? 0);
+    return {
+      d: `M ${ox + a.x} ${oy + a.y} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${ox + b.x} ${oy + b.y}`,
+    };
+  })();
 
   return (
     <g pointerEvents="none">
@@ -67,6 +83,15 @@ export function PenPreview() {
       {activeIncoming && (
         <path
           d={activeIncoming.d}
+          fill="none"
+          stroke="var(--color-selection-blue)"
+          strokeWidth={sw}
+          strokeDasharray={`${4 / viewport.zoom} ${3 / viewport.zoom}`}
+        />
+      )}
+      {activeOutgoing && (
+        <path
+          d={activeOutgoing.d}
           fill="none"
           stroke="var(--color-selection-blue)"
           strokeWidth={sw}

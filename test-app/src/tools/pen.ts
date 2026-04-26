@@ -83,6 +83,27 @@ function constrainPointAngle(from: Point, to: Point, enabled: boolean): Point {
   };
 }
 
+function vertexWorld(creationState: ActiveCreation, index: number): Point {
+  const v = creationState.vertices[index];
+  return {
+    x: creationState.originWorld.x + v.x,
+    y: creationState.originWorld.y + v.y,
+  };
+}
+
+function nearestVertexHit(creationState: ActiveCreation, world: Point, zoom: number): { index: number; distance: number } | null {
+  let best: { index: number; distance: number } | null = null;
+  for (let i = 0; i < creationState.vertices.length; i++) {
+    const vw = vertexWorld(creationState, i);
+    const d = distScreen(vw, world, zoom);
+    if (d > CLOSE_HIT_PX) continue;
+    if (!best || d < best.distance) {
+      best = { index: i, distance: d };
+    }
+  }
+  return best;
+}
+
 function syncStore(closed: boolean) {
   if (!creation) return;
   if (creation.vertices.length === 0) return;
@@ -403,37 +424,18 @@ export const penTool: ITool = {
       return;
     }
 
-    // Subsequent click: close-path test on start/endpoints.
+    // Subsequent click: hit existing vertex (edit handles / maybe close on click).
     const vp = useStore.getState().viewportByPage[useStore.getState().activePageId] ?? { x: 0, y: 0, zoom: 1 };
-    const lastIdx = creation.vertices.length - 1;
-    const startWorld = {
-      x: creation.originWorld.x + creation.vertices[0].x,
-      y: creation.originWorld.y + creation.vertices[0].y,
-    };
-    const last = creation.vertices[lastIdx];
-    const lastWorld = {
-      x: creation.originWorld.x + last.x,
-      y: creation.originWorld.y + last.y,
-    };
-    const startHit = creation.vertices.length >= 2 && distScreen(startWorld, world, vp.zoom) < CLOSE_HIT_PX;
-    const lastHit = distScreen(lastWorld, world, vp.zoom) < CLOSE_HIT_PX;
-
-    // Click-on-start should close on pointerup; drag should edit that point's
-    // handles instead of immediately closing.
-    if (startHit) {
-      creation.dragHandleIndex = 0;
+    const hit = nearestVertexHit(creation, world, vp.zoom);
+    if (hit) {
+      creation.dragHandleIndex = hit.index;
       creation.dragHandleStart = world;
-      creation.closeCandidate = { index: 0, downWorld: world };
-      updatePreview(world);
-      return;
-    }
-
-    // Clicking/dragging the current endpoint should adjust that anchor's
-    // handles, not create a duplicate zero-length segment.
-    if (lastHit) {
-      creation.dragHandleIndex = lastIdx;
-      creation.dragHandleStart = world;
-      creation.closeCandidate = null;
+      // Click-on-start may close on pointerup; dragging that same point edits
+      // handles and clears this candidate in onPointerMove.
+      creation.closeCandidate =
+        hit.index === 0 && creation.vertices.length >= 2
+          ? { index: 0, downWorld: world }
+          : null;
       updatePreview(world);
       return;
     }
