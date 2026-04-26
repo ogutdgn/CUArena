@@ -61,11 +61,13 @@ export async function placeImageFiles(
       const sNow = useStore.getState();
       const pageId = sNow.activePageId;
       const parentId = resolveCreationParentId(sNow, { x: baseX, y: baseY });
-      const parent = sNow.nodesById[parentId];
-      const childCount =
-        parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-          ? ((parent as { children: unknown[] }).children).length
-          : 0;
+      const pageParent = sNow.document.pages.find((p) => p.id === parentId);
+      const indexedParent = sNow.nodesById[parentId];
+      const childCount = pageParent
+        ? pageParent.children.length
+        : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+        ? ((indexedParent as { children: unknown[] }).children).length
+        : 0;
       const worldPos = {
         x: baseX - W / 2 + i * 12,
         y: baseY - H / 2 + i * 12,

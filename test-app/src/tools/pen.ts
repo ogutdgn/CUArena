@@ -209,11 +209,13 @@ export const penTool: ITool = {
         effects: styleDefaults.effects,
       };
 
-      const parent = s.nodesById[parentId];
-      const childCount =
-        parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-          ? ((parent as { children: unknown[] }).children).length
-          : 0;
+      const pageParent = s.document.pages.find((p) => p.id === parentId);
+      const indexedParent = s.nodesById[parentId];
+      const childCount = pageParent
+        ? pageParent.children.length
+        : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+        ? ((indexedParent as { children: unknown[] }).children).length
+        : 0;
       const txId = openTransaction();
       dispatch(
         {

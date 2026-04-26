@@ -22,11 +22,13 @@ export function createTextAt(world: { x: number; y: number }, mode: "auto_width"
   const pageId = s.activePageId;
   const parentId = resolveCreationParentId(s, world);
   const local = worldToParentLocal(s, parentId, world);
-  const parent = s.nodesById[parentId];
-  const childCount =
-    parent && "children" in parent && Array.isArray((parent as { children?: unknown[] }).children)
-      ? ((parent as { children: unknown[] }).children).length
-      : 0;
+  const pageParent = s.document.pages.find((p) => p.id === parentId);
+  const indexedParent = s.nodesById[parentId];
+  const childCount = pageParent
+    ? pageParent.children.length
+    : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
+    ? ((indexedParent as { children: unknown[] }).children).length
+    : 0;
   const w = mode === "fixed" ? widthHint ?? 200 : 100;
   const h = mode === "fixed" ? heightHint ?? 24 : 24;
   const layer: TextLayer = {

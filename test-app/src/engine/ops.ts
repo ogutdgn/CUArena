@@ -29,10 +29,15 @@ import type { AppState } from "./store";
 import type { Layer, Page } from "@/types/scene";
 import { isContainer } from "@/types/scene";
 
+function getPage(state: AppState, id: string): Page | null {
+  return state.document.pages.find((p) => p.id === id) ?? null;
+}
+
 function getChildren(state: AppState, parentId: string): Layer[] | null {
+  const page = getPage(state, parentId);
+  if (page) return page.children;
   const node = state.nodesById[parentId];
   if (!node) return null;
-  if ((node as Page).type === "page") return (node as Page).children;
   if (isContainer(node as Layer)) return (node as Layer & { children: Layer[] }).children;
   return null;
 }
@@ -72,12 +77,7 @@ function removeFromTree(state: AppState, id: string): {
   const found = state.nodesById[id];
   if (!found || (found as Page).type === "page") return null;
   const layer = found as Layer;
-  const parent = state.nodesById[layer.parentId];
-  if (!parent) return null;
-  const children =
-    (parent as Page).type === "page"
-      ? (parent as Page).children
-      : (parent as Layer & { children?: Layer[] }).children;
+  const children = getChildren(state, layer.parentId);
   if (!children) return null;
   const idx = indexById(children, id);
   if (idx === -1) return null;
@@ -108,12 +108,7 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
       const n = state.nodesById[id];
       if (!n || (n as Page).type === "page") return null;
       const layer = n as Layer;
-      const parent = state.nodesById[layer.parentId];
-      if (!parent) return null;
-      const children =
-        (parent as Page).type === "page"
-          ? (parent as Page).children
-          : (parent as Layer & { children?: Layer[] }).children;
+      const children = getChildren(state, layer.parentId);
       if (!children) return null;
       return { id, idx: indexById(children, id) };
     })
@@ -204,11 +199,7 @@ export function applyReparent(state: AppState, op: ReparentOp): void {
   for (const m of op.moves) {
     const layer = state.nodesById[m.id] as Layer | undefined;
     if (!layer || (layer as unknown as Page).type === "page") continue;
-    const fromParent = state.nodesById[m.fromParentId];
-    const fromArr =
-      (fromParent as Page | undefined)?.type === "page"
-        ? (fromParent as Page).children
-        : (fromParent as (Layer & { children?: Layer[] }) | undefined)?.children;
+    const fromArr = getChildren(state, m.fromParentId);
     if (!fromArr) continue;
     const idx = fromArr.findIndex((c) => c.id === m.id);
     if (idx === -1) continue;
@@ -218,11 +209,7 @@ export function applyReparent(state: AppState, op: ReparentOp): void {
 }
 
 export function applyReorderZ(state: AppState, op: ReorderZOp): void {
-  const parent = state.nodesById[op.parentId];
-  const arr =
-    (parent as Page | undefined)?.type === "page"
-      ? (parent as Page).children
-      : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+  const arr = getChildren(state, op.parentId);
   if (!arr) return;
   // Pull out the listed ids preserving their relative order.
   const items = op.ids
@@ -365,11 +352,7 @@ export function applyInverse(state: AppState, op: Op): void {
     }
     case "reorder_z": {
       // Restore original positions one at a time.
-      const parent = state.nodesById[op.parentId];
-      const arr =
-        (parent as Page | undefined)?.type === "page"
-          ? (parent as Page).children
-          : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
+      const arr = getChildren(state, op.parentId);
       if (!arr) break;
       const items = op.ids
         .map((id) => arr.find((c) => c.id === id))
