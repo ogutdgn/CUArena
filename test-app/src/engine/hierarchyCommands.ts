@@ -275,7 +275,7 @@ export function reorderZ(direction: "front" | "back" | "forward" | "backward"): 
 export function reorderLayerInPanel(
   draggedId: string,
   targetId: string,
-  dropAboveTarget: boolean,
+  dropPosition: "above" | "inside" | "below",
 ): void {
   if (draggedId === targetId) return;
   const s = useStore.getState();
@@ -283,49 +283,81 @@ export function reorderLayerInPanel(
   const target = s.nodesById[targetId] as Layer | undefined;
   if (!dragged || !target) return;
   if ((dragged as unknown as Page).type === "page" || (target as unknown as Page).type === "page") return;
-  if (dragged.parentId !== target.parentId) return;
 
-  const parentId = dragged.parentId;
-  const parent = s.nodesById[parentId];
-  const arr =
-    (parent as Page | undefined)?.type === "page"
-      ? (parent as Page).children
-      : (parent as (Layer & { children?: Layer[] }) | undefined)?.children;
-  if (!arr) return;
+  // Prevent cycles: cannot move a layer into/around one of its descendants.
+  let cur: Layer | Page | undefined = target;
+  while (cur && (cur as Page).type !== "page") {
+    if ((cur as Layer).id === draggedId) return;
+    cur = s.nodesById[(cur as Layer).parentId] as Layer | Page | undefined;
+  }
 
-  const beforeIndex = arr.findIndex((c) => c.id === draggedId);
-  const targetIndex = arr.findIndex((c) => c.id === targetId);
-  if (beforeIndex < 0 || targetIndex < 0) return;
+  const fromParentId = dragged.parentId;
+  const fromArr = findParentChildren(s, fromParentId);
+  if (!fromArr) return;
+  const fromIndex = fromArr.findIndex((c) => c.id === draggedId);
+  if (fromIndex < 0) return;
 
-  const without = arr.filter((c) => c.id !== draggedId);
-  const targetPos = without.findIndex((c) => c.id === targetId);
-  if (targetPos < 0) return;
-  const toIndex = dropAboveTarget ? targetPos + 1 : targetPos;
+  let toParentId = target.parentId;
+  let toIndex = -1;
+  const canContain = target.type === "frame" || target.type === "section" || target.type === "group";
+  if (dropPosition === "inside" && canContain) {
+    toParentId = target.id;
+    const toArr = findParentChildren(s, toParentId);
+    if (!toArr) return;
+    toIndex = toArr.length;
+  } else {
+    const toArr = findParentChildren(s, target.parentId);
+    if (!toArr) return;
+    const targetIndex = toArr.findIndex((c) => c.id === targetId);
+    if (targetIndex < 0) return;
+    // Layers panel is reversed (top visually = larger array index).
+    toIndex = dropPosition === "above" ? targetIndex + 1 : targetIndex;
+  }
 
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "reorder_z",
-    pageId: s.activePageId,
-    parentId,
-    ids: [draggedId],
-    toIndex,
-    before: [beforeIndex],
-  });
+  if (fromParentId === toParentId) {
+    let adjustedToIndex = toIndex;
+    if (fromIndex < adjustedToIndex) adjustedToIndex -= 1;
+    if (adjustedToIndex === fromIndex) return;
+    dispatch({
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "reorder_z",
+      pageId: s.activePageId,
+      parentId: fromParentId,
+      ids: [draggedId],
+      toIndex: adjustedToIndex,
+      before: [fromIndex],
+    });
+  } else {
+    dispatch({
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "reparent",
+      pageId: s.activePageId,
+      moves: [
+        {
+          id: draggedId,
+          fromParentId,
+          fromIndex,
+          toParentId,
+          toIndex,
+        },
+      ],
+    });
+  }
 
   const afterState = useStore.getState();
-  const p2 = afterState.nodesById[parentId];
-  const arr2 =
-    (p2 as Page | undefined)?.type === "page"
-      ? (p2 as Page).children
-      : (p2 as (Layer & { children?: Layer[] }) | undefined)?.children;
-  const afterIndex = arr2 ? arr2.findIndex((c) => c.id === draggedId) : toIndex;
+  const moved = afterState.nodesById[draggedId] as Layer | undefined;
+  if (!moved) return;
+  const afterParentId = moved.parentId;
+  const arr2 = findParentChildren(afterState, afterParentId);
+  const afterIndex = arr2 ? arr2.findIndex((c) => c.id === draggedId) : -1;
 
   emitSemantic({
     name: "reorder_layer",
     layerIds: [draggedId],
-    before: [{ parentId, index: beforeIndex }],
-    after: [{ parentId, index: afterIndex }],
+    before: [{ parentId: fromParentId, index: fromIndex }],
+    after: [{ parentId: afterParentId, index: afterIndex }],
     trigger: "panel_drag",
   });
 }
