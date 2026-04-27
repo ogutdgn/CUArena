@@ -85,7 +85,6 @@ export interface AppState {
   openDropdown: string | null;
   openModal: string | null;
   toasts: ToastEntry[];
-  showLogger: boolean;
   uiHidden: boolean;
 
   undoStack: UndoEntry[];
@@ -163,7 +162,6 @@ const initialState: AppState = {
   openDropdown: null,
   openModal: null,
   toasts: [],
-  showLogger: false,
   uiHidden: false,
 
   undoStack: [],

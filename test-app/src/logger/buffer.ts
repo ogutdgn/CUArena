@@ -1,9 +1,10 @@
-// Bounded ring buffer for raw events; unbounded list for semantic events.
+// Bounded ring buffers for raw + semantic events.
 // Source: .analysis/engine-report.md §3.7, §6.6.
 
 import type { RawEvent, SemanticEvent } from "@/types/events";
 
-const RAW_CAPACITY = 10000;
+const RAW_CAPACITY = 500_000;
+const SEMANTIC_CAPACITY = 10_000;
 
 class RingBuffer<T> {
   private buf: T[] = [];
@@ -42,8 +43,7 @@ class RingBuffer<T> {
 
 class LoggerStore {
   rawEvents = new RingBuffer<RawEvent>(RAW_CAPACITY);
-  semanticEvents: SemanticEvent[] = [];
-  // Pub-sub for the dev panel
+  semanticEvents = new RingBuffer<SemanticEvent>(SEMANTIC_CAPACITY);
   private listeners = new Set<() => void>();
 
   pushRaw(e: RawEvent): void {
@@ -58,7 +58,9 @@ class LoggerStore {
 
   subscribe(fn: () => void): () => void {
     this.listeners.add(fn);
-    return () => this.listeners.delete(fn);
+    return () => {
+      this.listeners.delete(fn);
+    };
   }
 
   private notify(): void {
@@ -67,10 +69,11 @@ class LoggerStore {
 
   clear(): void {
     this.rawEvents.clear();
-    this.semanticEvents = [];
+    this.semanticEvents.clear();
     this.notify();
   }
 }
 
 export const logger = new LoggerStore();
 export const RAW_BUFFER_CAPACITY = RAW_CAPACITY;
+export const SEMANTIC_BUFFER_CAPACITY = SEMANTIC_CAPACITY;
