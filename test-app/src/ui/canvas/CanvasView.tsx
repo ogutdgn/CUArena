@@ -12,6 +12,7 @@ import { emitSemantic } from "@/logger/semantic";
 import { SelectionOverlay } from "@/ui/overlays/SelectionOverlay";
 import { VectorEditOverlay } from "@/ui/overlays/VectorEditOverlay";
 import { HoverOutline } from "@/ui/overlays/HoverOutline";
+import { ParentBoundsOverlay } from "@/ui/overlays/ParentBoundsOverlay";
 import { PenPreview } from "@/ui/overlays/PenPreview";
 import { PencilPreview } from "@/ui/overlays/PencilPreview";
 import { InsertionCrosshair } from "@/ui/overlays/InsertionCrosshair";
@@ -214,6 +215,7 @@ export function CanvasView() {
         {page && page.children.map((l) => <NodeRenderer key={l.id} layer={l} />)}
 
         <HoverOutline />
+        <ParentBoundsOverlay />
         <SelectionOverlay />
         <VectorEditOverlay />
         <PenPreview />
