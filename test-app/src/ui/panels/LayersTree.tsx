@@ -29,6 +29,8 @@ import {
 } from "lucide-react";
 import type { Layer } from "@/types/scene";
 
+type DropPosition = "above" | "inside" | "below";
+
 export function LayersTree() {
   const page = useStore((s) => s.document.pages.find((p) => p.id === s.activePageId));
   const selection = useStore((s) => s.selectionByPage[s.activePageId] ?? []);
@@ -36,7 +38,7 @@ export function LayersTree() {
   const renamingLayerId = useStore((s) => s.renamingLayerId);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [draggingId, setDraggingId] = useState<string | null>(null);
-  const [dropHint, setDropHint] = useState<{ targetId: string; above: boolean } | null>(null);
+  const [dropHint, setDropHint] = useState<{ targetId: string; position: DropPosition } | null>(null);
 
   if (!page) return null;
   const layers = page.children;
@@ -49,9 +51,9 @@ export function LayersTree() {
   }
 
   const ordered = [...layers].reverse();
-  function onDrop(targetId: string, above: boolean) {
+  function onDrop(targetId: string, position: DropPosition) {
     if (!draggingId) return;
-    reorderLayerInPanel(draggingId, targetId, above);
+    reorderLayerInPanel(draggingId, targetId, position);
     setDraggingId(null);
     setDropHint(null);
   }
@@ -71,7 +73,7 @@ export function LayersTree() {
           draggingId={draggingId}
           dropHint={dropHint}
           onDragStart={setDraggingId}
-          onDragHover={(targetId, above) => setDropHint({ targetId, above })}
+          onDragHover={(targetId, position) => setDropHint({ targetId, position })}
           onDrop={onDrop}
           onDragEnd={() => {
             setDraggingId(null);
@@ -106,10 +108,10 @@ function Subtree({
   setExpanded: React.Dispatch<React.SetStateAction<Set<string>>>;
   renamingLayerId: string | null;
   draggingId: string | null;
-  dropHint: { targetId: string; above: boolean } | null;
+  dropHint: { targetId: string; position: DropPosition } | null;
   onDragStart: (id: string | null) => void;
-  onDragHover: (targetId: string, above: boolean) => void;
-  onDrop: (targetId: string, above: boolean) => void;
+  onDragHover: (targetId: string, position: DropPosition) => void;
+  onDrop: (targetId: string, position: DropPosition) => void;
   onDragEnd: () => void;
 }) {
   const isContainer = layer.type === "frame" || layer.type === "section" || layer.type === "group";
@@ -190,10 +192,10 @@ function Row({
   onToggle: () => void;
   forceRenaming?: boolean;
   draggingId: string | null;
-  dropHint: { targetId: string; above: boolean } | null;
+  dropHint: { targetId: string; position: DropPosition } | null;
   onDragStart: (id: string | null) => void;
-  onDragHover: (targetId: string, above: boolean) => void;
-  onDrop: (targetId: string, above: boolean) => void;
+  onDragHover: (targetId: string, position: DropPosition) => void;
+  onDrop: (targetId: string, position: DropPosition) => void;
   onDragEnd: () => void;
 }) {
   const [hover, setHover] = useState(false);
@@ -201,6 +203,7 @@ function Row({
   const renaming = renamingLocal || !!forceRenaming;
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isDropTarget = dropHint?.targetId === layer.id;
+  const dropPosition = isDropTarget ? dropHint?.position ?? null : null;
 
   useEffect(() => {
     if (renaming && inputRef.current) {
@@ -267,13 +270,13 @@ function Row({
         if (!draggingId || draggingId === layer.id) return;
         e.preventDefault();
         const rect = e.currentTarget.getBoundingClientRect();
-        onDragHover(layer.id, e.clientY < rect.top + rect.height / 2);
+        onDragHover(layer.id, resolveDropPosition(rect, e.clientY, isContainer));
       }}
       onDrop={(e) => {
         if (!draggingId || draggingId === layer.id) return;
         e.preventDefault();
         const rect = e.currentTarget.getBoundingClientRect();
-        onDrop(layer.id, e.clientY < rect.top + rect.height / 2);
+        onDrop(layer.id, resolveDropPosition(rect, e.clientY, isContainer));
       }}
       onDragEnd={() => onDragEnd()}
       onClick={(e) => {
@@ -309,8 +312,9 @@ function Row({
         color: "var(--color-text-primary)",
         background: selected ? "var(--color-bg-row-active)" : isFocusContext ? "rgba(13,153,255,0.06)" : "transparent",
         fontSize: "var(--fs-sm)",
-        borderTop: isDropTarget && dropHint?.above ? "1px solid var(--color-selection-blue)" : "1px solid transparent",
-        borderBottom: isDropTarget && !dropHint?.above ? "1px solid var(--color-selection-blue)" : "1px solid transparent",
+        borderTop: dropPosition === "above" ? "1px solid var(--color-selection-blue)" : "1px solid transparent",
+        borderBottom: dropPosition === "below" ? "1px solid var(--color-selection-blue)" : "1px solid transparent",
+        boxShadow: dropPosition === "inside" ? "inset 0 0 0 1px var(--color-selection-blue)" : "none",
       }}
     >
       {/* Indent guide lines for depth > 0 */}
@@ -375,6 +379,13 @@ function Row({
       )}
     </button>
   );
+}
+
+function resolveDropPosition(rect: DOMRect, clientY: number, canDropInside: boolean): DropPosition {
+  const y = clientY - rect.top;
+  const ratio = rect.height > 0 ? y / rect.height : 0;
+  if (canDropInside && ratio >= 0.3 && ratio <= 0.7) return "inside";
+  return ratio < 0.5 ? "above" : "below";
 }
 
 function LayerIcon({ layer }: { layer: Layer }) {
