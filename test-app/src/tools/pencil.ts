@@ -9,7 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork } from "@/types/scene";
-import { worldToParentLocal } from "@/engine/coordinates";
+import { resolveCreationParentId, worldToParentLocal } from "@/engine/coordinates";
 import { getPencilVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const SIMPLIFY_EPSILON = 1.5;
@@ -63,7 +63,7 @@ export const pencilTool: ITool = {
       s.pencilPreview = { points: raw.slice() };
     });
   },
-  onPointerUp(_world, _e) {
+  onPointerUp(world, _e) {
     if (!drawing) return;
     drawing = false;
     if (raw.length < 2) {
@@ -97,7 +97,7 @@ export const pencilTool: ITool = {
 
     const s = useStore.getState();
     const pageId = s.activePageId;
-    const parentId = pageId;
+    const parentId = resolveCreationParentId(s, world);
     const styleDefaults = getPencilVectorStyleDefaults(s);
     const localOrigin = worldToParentLocal(s, parentId, { x: ox, y: oy });
     const pageParent = s.document.pages.find((p) => p.id === parentId);

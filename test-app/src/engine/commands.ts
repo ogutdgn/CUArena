@@ -5,7 +5,7 @@ import { useStore } from "./store";
 import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { pushToast } from "@/ui/overlays/Toasts";
-import type { Layer } from "@/types/scene";
+import type { Layer, Page } from "@/types/scene";
 import type { ClipboardPayload } from "@/types/ops";
 import { uid } from "@/util/id";
 import { isContainer } from "@/types/scene";
@@ -225,12 +225,25 @@ export function selectAll(): void {
   const page = getActivePage(state);
   if (!page) return;
   const ids: string[] = [];
-  function walk(layers: Layer[]) {
-    for (const l of layers) {
-      if (!l.locked) ids.push(l.id);
+  let scope: "page" | "parent_group" | "parent_frame" = "page";
+  const focusId = state.focusContextByPage[state.activePageId] ?? null;
+  let roots: Layer[] = page.children;
+  if (focusId) {
+    const node = state.nodesById[focusId];
+    if (node && (node as Page).type !== "page" && isContainer(node as Layer)) {
+      const container = node as Layer;
+      roots = container.children;
+      scope = container.type === "frame" ? "parent_frame" : "parent_group";
     }
   }
-  walk(page.children);
+  function walk(layers: Layer[]) {
+    for (const l of layers) {
+      if (l.locked || !l.visible) continue;
+      ids.push(l.id);
+      if (isContainer(l)) walk(l.children);
+    }
+  }
+  walk(roots);
   const before = state.selectionByPage[state.activePageId] ?? [];
   dispatch({
     id: makeOpId(),
@@ -240,7 +253,7 @@ export function selectAll(): void {
     before,
     after: ids,
   });
-  emitSemantic({ name: "select_all", scope: "page", layerIds: ids });
+  emitSemantic({ name: "select_all", scope, layerIds: ids });
   emitSemantic({
     name: "selection_change",
     before,

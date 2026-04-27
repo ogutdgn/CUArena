@@ -21,7 +21,7 @@ const DRAG_THRESHOLD = 3;
 type State =
   | { kind: "idle" }
   | { kind: "armed_layer"; layerId: string; downWorld: { x: number; y: number }; shift: boolean }
-  | { kind: "armed_box"; downWorld: { x: number; y: number }; shift: boolean }
+  | { kind: "armed_box"; downWorld: { x: number; y: number }; shift: boolean; scopeContainerId: string | null }
   | {
       kind: "armed_handle";
       handleDir: HandleDir;
@@ -48,6 +48,7 @@ type State =
       downWorld: { x: number; y: number };
       currentWorld: { x: number; y: number };
       shift: boolean;
+      scopeContainerId: string | null;
     };
 
 let state: State = { kind: "idle" };
@@ -256,8 +257,39 @@ export const scaleTool: ITool = {
       return;
     }
 
+    // Empty canvas with focus context:
+    // click outside exits context; click inside keeps scoped selection.
+    const fc = s.focusContextByPage[s.activePageId] ?? null;
+    let scopeContainerId: string | null = fc;
+    if (fc != null) {
+      const focusNode = s.nodesById[fc] as Layer | undefined;
+      if (focusNode && (focusNode.type === "group" || focusNode.type === "frame" || focusNode.type === "section")) {
+        const wr = worldRectOfLayer(s, focusNode);
+        const inside =
+          world.x >= wr.x &&
+          world.x <= wr.x + wr.w &&
+          world.y >= wr.y &&
+          world.y <= wr.y + wr.h;
+        if (!inside) {
+          dispatch({
+            id: makeOpId(),
+            timestamp: performance.now(),
+            kind: "set_focus_context",
+            pageId: s.activePageId,
+            before: fc,
+            after: null,
+          });
+          emitSemantic({ name: "exit_group", groupId: fc });
+          state = { kind: "idle" };
+          return;
+        }
+      } else {
+        scopeContainerId = null;
+      }
+    }
+
     // Empty canvas → arm box-select
-    state = { kind: "armed_box", downWorld: world, shift: e.shiftKey };
+    state = { kind: "armed_box", downWorld: world, shift: e.shiftKey, scopeContainerId };
   },
 
   onPointerMove(world, e) {
@@ -332,7 +364,13 @@ export const scaleTool: ITool = {
       const dx = world.x - state.downWorld.x;
       const dy = world.y - state.downWorld.y;
       if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
-      state = { kind: "active_box_drag", downWorld: state.downWorld, currentWorld: world, shift: state.shift };
+      state = {
+        kind: "active_box_drag",
+        downWorld: state.downWorld,
+        currentWorld: world,
+        shift: state.shift,
+        scopeContainerId: state.scopeContainerId,
+      };
       useStore.setState((s) => {
         s.dragPreview = {
           kind: "marquee",
@@ -403,7 +441,14 @@ export const scaleTool: ITool = {
       }
       const box: Rect = rectFromPoints(state.downWorld, state.currentWorld);
       const hits: string[] = [];
-      walkLayers(page.children, (l) => {
+      let roots = page.children;
+      if (state.scopeContainerId) {
+        const scope = useStore.getState().nodesById[state.scopeContainerId] as Layer | undefined;
+        if (scope && (scope.type === "frame" || scope.type === "section" || scope.type === "group")) {
+          roots = scope.children;
+        }
+      }
+      walkLayers(roots, (l) => {
         if (l.locked || !l.visible) return;
         const wr = worldRectOfLayer(useStore.getState(), l);
         if (rectIntersects(box, { x: wr.x, y: wr.y, w: wr.w, h: wr.h })) hits.push(l.id);

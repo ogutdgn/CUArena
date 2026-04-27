@@ -9,7 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork, VectorVertex, VectorSegment, Layer } from "@/types/scene";
-import { worldOffsetOfLayer, worldToParentLocal } from "@/engine/coordinates";
+import { resolveCreationParentId, worldOffsetOfLayer, worldToParentLocal } from "@/engine/coordinates";
 import { getPenVectorStyleDefaults } from "@/engine/styleDefaults";
 
 const CLOSE_HIT_PX = 12;
@@ -384,7 +384,7 @@ function beginCreationFromExistingAnchor(world: Point): boolean {
 function beginNewCreation(world: Point): void {
   const s = useStore.getState();
   const pageId = s.activePageId;
-  const parentId = pageId;
+  const parentId = resolveCreationParentId(s, world);
   const originLocal = worldToParentLocal(s, parentId, world);
   const styleDefaults = getPenVectorStyleDefaults(s);
   const initialNetwork: VectorNetwork = {
