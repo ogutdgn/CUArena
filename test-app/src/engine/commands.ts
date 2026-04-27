@@ -236,14 +236,10 @@ export function selectAll(): void {
       scope = container.type === "frame" ? "parent_frame" : "parent_group";
     }
   }
-  function walk(layers: Layer[]) {
-    for (const l of layers) {
-      if (l.locked || !l.visible) continue;
-      ids.push(l.id);
-      if (isContainer(l)) walk(l.children);
-    }
+  for (const l of roots) {
+    if (l.locked || !l.visible) continue;
+    ids.push(l.id);
   }
-  walk(roots);
   const before = state.selectionByPage[state.activePageId] ?? [];
   dispatch({
     id: makeOpId(),
