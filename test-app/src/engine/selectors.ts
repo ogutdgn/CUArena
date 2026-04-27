@@ -3,7 +3,8 @@
 import type { AppState } from "./store";
 import type { Layer, Page } from "@/types/scene";
 import type { Rect } from "@/util/geometry";
-import { worldRectOfLayer } from "./coordinates";
+import { worldOffsetOfLayer, worldRectOfLayer } from "./coordinates";
+import { isContainer } from "@/types/scene";
 
 export function getActivePage(s: AppState): Page | null {
   return s.document.pages.find((p) => p.id === s.activePageId) ?? null;
@@ -43,6 +44,15 @@ export function selectionBbox(s: AppState): Rect | null {
 export function hitTest(s: AppState, x: number, y: number): Layer | null {
   const page = getActivePage(s);
   if (!page) return null;
+  const focusId = s.focusContextByPage[s.activePageId] ?? null;
+  if (focusId) {
+    const node = s.nodesById[focusId];
+    if (node && (node as Page).type !== "page" && isContainer(node as Layer)) {
+      const scope = node as Layer;
+      const origin = worldOffsetOfLayer(s, scope);
+      return hitTestArr(scope.children, x, y, origin.x, origin.y);
+    }
+  }
   return hitTestArr(page.children, x, y, 0, 0);
 }
 

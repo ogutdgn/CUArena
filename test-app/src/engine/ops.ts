@@ -180,6 +180,128 @@ export function applySetProperty(state: AppState, op: SetPropertyOp): void {
   }
 }
 
+function applyLayerTransform(
+  layer: Layer,
+  t: { x: number; y: number; w: number; h: number; rotation: number; scaleX: 1 | -1; scaleY: 1 | -1 },
+): void {
+  const prevW = Math.max(1, layer.w);
+  const prevH = Math.max(1, layer.h);
+  const nextW = Math.max(1, t.w);
+  const nextH = Math.max(1, t.h);
+
+  if (layer.type === "line" || layer.type === "arrow") {
+    const sx = nextW / prevW;
+    const sy = nextH / prevH;
+    layer.p1 = { x: layer.p1.x * sx, y: layer.p1.y * sy };
+    layer.p2 = { x: layer.p2.x * sx, y: layer.p2.y * sy };
+  }
+  if (layer.type === "vector") {
+    const sx = nextW / prevW;
+    const sy = nextH / prevH;
+    layer.network = {
+      ...layer.network,
+      vertices: layer.network.vertices.map((v) => ({
+        ...v,
+        x: v.x * sx,
+        y: v.y * sy,
+      })),
+      segments: layer.network.segments.map((seg) => ({
+        ...seg,
+        handleFrom: seg.handleFrom
+          ? { dx: seg.handleFrom.dx * sx, dy: seg.handleFrom.dy * sy }
+          : null,
+        handleTo: seg.handleTo
+          ? { dx: seg.handleTo.dx * sx, dy: seg.handleTo.dy * sy }
+          : null,
+      })),
+    };
+  }
+  layer.x = t.x;
+  layer.y = t.y;
+  layer.w = nextW;
+  layer.h = nextH;
+  layer.rotation = t.rotation;
+  layer.scaleX = t.scaleX;
+  layer.scaleY = t.scaleY;
+}
+
+function applyConstrainedAxis(
+  pos: number,
+  size: number,
+  prevSize: number,
+  nextSize: number,
+  mode: "left" | "right" | "center" | "stretch" | "scale" | "top" | "bottom",
+): { pos: number; size: number } {
+  const safePrev = Math.max(1, prevSize);
+  const rightOrBottom = safePrev - (pos + size);
+  switch (mode) {
+    case "left":
+    case "top":
+      return { pos, size };
+    case "right":
+    case "bottom":
+      return { pos: nextSize - rightOrBottom - size, size };
+    case "center": {
+      const centerOffset = pos + size / 2 - safePrev / 2;
+      return { pos: nextSize / 2 + centerOffset - size / 2, size };
+    }
+    case "stretch": {
+      const stretched = Math.max(1, nextSize - pos - rightOrBottom);
+      return { pos, size: stretched };
+    }
+    case "scale": {
+      const f = nextSize / safePrev;
+      return { pos: pos * f, size: Math.max(1, size * f) };
+    }
+    default:
+      return { pos, size };
+  }
+}
+
+function reflowFrameChildren(
+  frame: Extract<Layer, { type: "frame" }>,
+  prevW: number,
+  prevH: number,
+): void {
+  const nextW = Math.max(1, frame.w);
+  const nextH = Math.max(1, frame.h);
+  for (const child of frame.children) {
+    const h = applyConstrainedAxis(
+      child.x,
+      child.w,
+      prevW,
+      nextW,
+      child.constraints.horizontal,
+    );
+    const v = applyConstrainedAxis(
+      child.y,
+      child.h,
+      prevH,
+      nextH,
+      child.constraints.vertical,
+    );
+
+    const childPrevW = Math.max(1, child.w);
+    const childPrevH = Math.max(1, child.h);
+    applyLayerTransform(child, {
+      x: h.pos,
+      y: v.pos,
+      w: h.size,
+      h: v.size,
+      rotation: child.rotation,
+      scaleX: child.scaleX,
+      scaleY: child.scaleY,
+    });
+    if (child.type === "frame") {
+      const childNextW = Math.max(1, child.w);
+      const childNextH = Math.max(1, child.h);
+      if (childPrevW !== childNextW || childPrevH !== childNextH) {
+        reflowFrameChildren(child, childPrevW, childPrevH);
+      }
+    }
+  }
+}
+
 export function applySetTransform(state: AppState, op: SetTransformOp): void {
   for (const id of op.ids) {
     const node = findNodeInDocument(state, id);
@@ -189,42 +311,14 @@ export function applySetTransform(state: AppState, op: SetTransformOp): void {
     const layer = node as Layer;
     const prevW = Math.max(1, layer.w);
     const prevH = Math.max(1, layer.h);
-    const nextW = Math.max(1, t.w);
-    const nextH = Math.max(1, t.h);
-    if (layer.type === "line" || layer.type === "arrow") {
-      const sx = nextW / prevW;
-      const sy = nextH / prevH;
-      layer.p1 = { x: layer.p1.x * sx, y: layer.p1.y * sy };
-      layer.p2 = { x: layer.p2.x * sx, y: layer.p2.y * sy };
+    applyLayerTransform(layer, t);
+    if (layer.type === "frame") {
+      const nextW = Math.max(1, layer.w);
+      const nextH = Math.max(1, layer.h);
+      if (prevW !== nextW || prevH !== nextH) {
+        reflowFrameChildren(layer, prevW, prevH);
+      }
     }
-    if (layer.type === "vector") {
-      const sx = nextW / prevW;
-      const sy = nextH / prevH;
-      layer.network = {
-        ...layer.network,
-        vertices: layer.network.vertices.map((v) => ({
-          ...v,
-          x: v.x * sx,
-          y: v.y * sy,
-        })),
-        segments: layer.network.segments.map((seg) => ({
-          ...seg,
-          handleFrom: seg.handleFrom
-            ? { dx: seg.handleFrom.dx * sx, dy: seg.handleFrom.dy * sy }
-            : null,
-          handleTo: seg.handleTo
-            ? { dx: seg.handleTo.dx * sx, dy: seg.handleTo.dy * sy }
-            : null,
-        })),
-      };
-    }
-    layer.x = t.x;
-    layer.y = t.y;
-    layer.w = nextW;
-    layer.h = nextH;
-    layer.rotation = t.rotation;
-    layer.scaleX = t.scaleX;
-    layer.scaleY = t.scaleY;
   }
 }
 
