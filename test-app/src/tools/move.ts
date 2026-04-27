@@ -283,13 +283,15 @@ export const moveTool: ITool = {
           world.y >= wr.y &&
           world.y <= wr.y + wr.h;
         if (!inside) {
+          const parentId = focusNode.parentId;
+          const upOne = parentId && parentId !== s.activePageId ? parentId : null;
           dispatch({
             id: makeOpId(),
             timestamp: performance.now(),
             kind: "set_focus_context",
             pageId: s.activePageId,
             before: fc,
-            after: null,
+            after: upOne,
           });
           emitSemantic({ name: "exit_group", groupId: fc });
           state = { kind: "idle" };
