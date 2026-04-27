@@ -504,9 +504,17 @@ export const moveTool: ITool = {
 
       const after: TransformMap = {};
       for (const id of state.layerIds) {
-        const t = state.startTransforms[id];
-        if (!t) continue;
-        after[id] = { ...t, x: t.x + snapped.dx, y: t.y + snapped.dy };
+        const tLocal = state.startTransforms[id];
+        const tWorld = state.startWorldTransforms[id];
+        if (!tLocal || !tWorld) continue;
+        const liveLayer = sLive.nodesById[id] as Layer | undefined;
+        if (!liveLayer || (liveLayer as Page).type === "page") continue;
+        const p = worldOffsetOfParent(sLive, liveLayer.parentId);
+        after[id] = {
+          ...tLocal,
+          x: tWorld.x + snapped.dx - p.x,
+          y: tWorld.y + snapped.dy - p.y,
+        };
       }
       dispatch(
         {
@@ -525,6 +533,9 @@ export const moveTool: ITool = {
         s.snapLines = snapped.lines;
         s.snapMeasures = snapped.measures;
       });
+      // Re-evaluate nesting continuously while dragging so crossing the
+      // overlap threshold reparents before pointer-up.
+      applyFrameNestingByOverlap(state, state.txId);
       return;
     }
 
