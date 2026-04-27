@@ -8,7 +8,6 @@ import { LeftPanel } from "@/ui/chrome/LeftPanel";
 import { RightPanel } from "@/ui/chrome/RightPanel";
 import { LeftRail } from "@/ui/chrome/LeftRail";
 import { CanvasView } from "@/ui/canvas/CanvasView";
-import { LoggerPanel } from "@/ui/panels/LoggerPanel";
 import { TextEditor } from "@/ui/overlays/TextEditor";
 import { ContextMenu } from "@/ui/overlays/ContextMenu";
 import { RenameModal } from "@/ui/overlays/RenameModal";
@@ -17,7 +16,6 @@ import { ActionBar } from "@/ui/overlays/ActionBar";
 import { installKeymap, uninstallKeymap } from "@/util/keymap";
 
 export function App() {
-  const showLogger = useStore((s) => s.showLogger);
   const uiHidden = useStore((s) => s.uiHidden);
   const contextMenu = useStore((s) => s.contextMenu);
 
@@ -47,7 +45,6 @@ export function App() {
         {!uiHidden && <Toolbar />}
       </div>
       {!uiHidden && <RightPanel />}
-      {showLogger && <LoggerPanel />}
       <TextEditor />
       <RenameModal />
       <Toasts />

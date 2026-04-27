@@ -132,10 +132,6 @@ function onKeyDown(e: KeyboardEvent): void {
       enterGroup();
       return;
     }
-    if (key === "`") {
-      useStore.setState({ showLogger: !useStore.getState().showLogger });
-      return;
-    }
     if (e.shiftKey && key === "s") {
       e.preventDefault();
       setTool("section");
