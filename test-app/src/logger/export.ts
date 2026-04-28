@@ -8,7 +8,7 @@ export interface LogExport {
   sessionId: string;
   exportedAt: number;
   raw: ReturnType<typeof logger.rawEvents.toArray>;
-  semantic: typeof logger.semanticEvents;
+  semantic: ReturnType<typeof logger.semanticEvents.toArray>;
 }
 
 export function exportLog(): LogExport {
@@ -18,7 +18,7 @@ export function exportLog(): LogExport {
     sessionId: state.sessionId,
     exportedAt: Date.now(),
     raw: logger.rawEvents.toArray(),
-    semantic: logger.semanticEvents,
+    semantic: logger.semanticEvents.toArray(),
   };
 }
 

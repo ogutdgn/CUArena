@@ -12,7 +12,7 @@ import { uid } from "@/util/id";
 import type { Layer, Page } from "@/types/scene";
 import type { ToolId } from "@/types/ops";
 import type { SemanticEventInput } from "@/types/events";
-import { worldRectToParentLocal } from "@/engine/coordinates";
+import { resolveCreationParentId, worldRectToParentLocal } from "@/engine/coordinates";
 
 const DEFAULT_SIZE = 100;
 const MIN_DRAG = 3;
@@ -73,7 +73,8 @@ export function makeCreationBboxTool(config: BboxToolConfig): ITool {
 
       const s = useStore.getState();
       const pageId = s.activePageId;
-      const parentId = pageId;
+      const creationPoint = state.kind === "armed" ? state.downWorld : world;
+      const parentId = resolveCreationParentId(s, creationPoint);
 
       let bbox: Rect;
       let trigger: "shortcut" | "toolbar" | "click_default_size";

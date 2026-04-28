@@ -21,12 +21,14 @@ export function LeftPanel() {
         flexDirection: "column",
         minWidth: 200,
         maxWidth: 480,
+        minHeight: 0,
+        overflow: "hidden",
       }}
     >
       <FileNameRow />
       <TabsRow />
       <PagesSection />
-      <div className="scroll-y" style={{ flex: 1 }}>
+      <div className="scroll-y" style={{ flex: 1, minHeight: 0 }}>
         <LayersTree />
       </div>
     </aside>

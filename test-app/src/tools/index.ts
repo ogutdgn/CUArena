@@ -15,6 +15,7 @@ import { sliceTool } from "./slice";
 import { textTool } from "./text";
 import { penTool } from "./pen";
 import { pencilTool } from "./pencil";
+import { scaleTool } from "./scale";
 
 const noopTool: ITool = {};
 
@@ -33,8 +34,7 @@ export const TOOLS: Record<ToolId, ITool> = {
   text: textTool,
   pen: penTool,
   pencil: pencilTool,
-  // Stubs:
-  scale: noopTool,
+  scale: scaleTool,
   image_place: noopTool,
   comment_stub: noopTool,
   actions_menu_stub: noopTool,

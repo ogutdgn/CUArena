@@ -13,6 +13,7 @@ const SEG_HIT_PX = 8;
 
 export function VectorEditOverlay() {
   const editMode = useStore((s) => s.editMode);
+  const activeTool = useStore((s) => s.activeTool);
   const viewport = useStore((s) => selectActiveViewport(s));
   const layer = useStore((s) => {
     if (s.editMode.kind !== "vector" || !s.editMode.layerId) return null;
@@ -28,7 +29,7 @@ export function VectorEditOverlay() {
   });
   const [drag, setDrag] = useState<{ index: number; before: VectorNetwork; txId: string } | null>(null);
 
-  if (editMode.kind !== "vector" || !layer || !origin) return null;
+  if (editMode.kind !== "vector" || !layer || !origin || activeTool === "pen") return null;
 
   const anchorSize = ANCHOR_PX / viewport.zoom;
   const segHit = SEG_HIT_PX / viewport.zoom;
