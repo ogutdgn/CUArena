@@ -1,7 +1,6 @@
 helper/figma_docs/*
 !helper/figma_docs/README.md
-helper/analysis/_partial/
-open-source-example/
+helper/open-source-example/
 .DS_Store
 __pycache__/
 *.pyc

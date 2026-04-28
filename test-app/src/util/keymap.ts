@@ -17,6 +17,18 @@ function setTool(after: ToolId, trigger: "shortcut" | "toolbar_click" = "shortcu
   if (before === "pen" && after !== "pen") {
     abortPenIfActive();
   }
+  if (after === "pen") {
+    const editMode = useStore.getState().editMode;
+    if (editMode.kind === "vector") {
+      dispatch({
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_edit_mode",
+        before: editMode,
+        after: { kind: "none" },
+      });
+    }
+  }
   if (before === after) return;
   dispatch({
     id: makeOpId(),
@@ -62,6 +74,23 @@ function onKeyDown(e: KeyboardEvent): void {
       // Esc should finish active pen creation without switching tools.
       if (abortPenIfActive()) {
         e.preventDefault();
+        return;
+      }
+      const s = useStore.getState();
+      const editMode = s.editMode;
+      if (editMode.kind === "vector" || editMode.kind === "pen_creation") {
+        dispatch({
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_edit_mode",
+          before: editMode,
+          after: { kind: "none" },
+        });
+        emitSemantic({ name: "mode_change", before: editMode.kind, after: "none" });
+        return;
+      }
+      if ((s.focusContextByPage[s.activePageId] ?? null) != null) {
+        exitGroup();
         return;
       }
       deselectAll("escape");
@@ -117,11 +146,8 @@ function onKeyDown(e: KeyboardEvent): void {
     }
     if (key === "enter") {
       e.preventDefault();
-      enterGroup();
-      return;
-    }
-    if (key === "`") {
-      useStore.setState({ showLogger: !useStore.getState().showLogger });
+      if (e.shiftKey) exitGroup();
+      else enterGroup();
       return;
     }
     if (e.shiftKey && key === "s") {
@@ -129,25 +155,6 @@ function onKeyDown(e: KeyboardEvent): void {
       setTool("section");
       return;
     }
-  }
-
-  if (!meta && !e.altKey && key === "escape") {
-    // If in a sub-mode (text/vector/pen_creation), exit it. Else exit group.
-    const editMode = useStore.getState().editMode;
-    if (editMode.kind === "vector" || editMode.kind === "pen_creation") {
-      const before = editMode;
-      dispatch({
-        id: makeOpId(),
-        timestamp: performance.now(),
-        kind: "set_edit_mode",
-        before,
-        after: { kind: "none" },
-      });
-      emitSemantic({ name: "mode_change", before: before.kind, after: "none" });
-      return;
-    }
-    exitGroup();
-    return;
   }
 
   // Cmd/Ctrl combos

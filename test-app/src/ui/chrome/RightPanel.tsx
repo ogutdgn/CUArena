@@ -32,12 +32,14 @@ export function RightPanel() {
         flexDirection: "column",
         minWidth: 200,
         maxWidth: 400,
+        minHeight: 0,
+        overflow: "hidden",
       }}
     >
       <Header />
       <Tabs />
       <SubHeader hasSelection={selection.length > 0} />
-      <div className="scroll-y" style={{ flex: 1 }}>
+      <div className="scroll-y" style={{ flex: 1, minHeight: 0 }}>
         {selection.length === 0 ? (
           <PageSection />
         ) : (

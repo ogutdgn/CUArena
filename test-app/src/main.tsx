@@ -8,8 +8,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { installRawCapture } from "@/logger/raw";
+import { installPersist } from "@/logger/persist";
 import { emitSemantic } from "@/logger/semantic";
 
+installPersist();
 installRawCapture();
 emitSemantic({
   name: "session_start",

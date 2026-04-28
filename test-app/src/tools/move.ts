@@ -22,7 +22,7 @@ import { uid } from "@/util/id";
 import type { TransformMap, TransformTuple } from "@/types/ops";
 import type { Layer, Page } from "@/types/scene";
 import type { HandleDir, RotateCorner } from "@/ui/overlays/SelectionOverlay";
-import { worldRectOfLayer } from "@/engine/coordinates";
+import { worldOffsetOfParent, worldRectOfLayer } from "@/engine/coordinates";
 
 const DRAG_THRESHOLD = 3;
 
@@ -38,6 +38,7 @@ type State =
       kind: "armed_box";
       downWorld: Point;
       modifiers: { shift: boolean };
+      scopeContainerId: string | null;
     }
   | {
       kind: "armed_handle";
@@ -76,6 +77,7 @@ type State =
       downWorld: Point;
       currentWorld: Point;
       modifiers: { shift: boolean };
+      scopeContainerId: string | null;
     }
   | {
       kind: "armed_rotate";
@@ -267,22 +269,46 @@ export const moveTool: ITool = {
       return;
     }
 
-    // 4b) Empty canvas with focus context → exit group focus.
+    // 4b) Empty canvas with focus context.
+    // Clicking outside the active scope exits it; clicking inside keeps scope.
     const fc = s.focusContextByPage[s.activePageId] ?? null;
+    let scopeContainerId: string | null = fc;
     if (fc != null) {
-      dispatch({
-        id: makeOpId(),
-        timestamp: performance.now(),
-        kind: "set_focus_context",
-        pageId: s.activePageId,
-        before: fc,
-        after: null,
-      });
-      emitSemantic({ name: "exit_group", groupId: fc });
+      const focusNode = s.nodesById[fc] as Layer | undefined;
+      if (focusNode && (focusNode.type === "group" || focusNode.type === "frame" || focusNode.type === "section")) {
+        const wr = worldRectOfLayer(s, focusNode);
+        const inside =
+          world.x >= wr.x &&
+          world.x <= wr.x + wr.w &&
+          world.y >= wr.y &&
+          world.y <= wr.y + wr.h;
+        if (!inside) {
+          const parentId = focusNode.parentId;
+          const upOne = parentId && parentId !== s.activePageId ? parentId : null;
+          dispatch({
+            id: makeOpId(),
+            timestamp: performance.now(),
+            kind: "set_focus_context",
+            pageId: s.activePageId,
+            before: fc,
+            after: upOne,
+          });
+          emitSemantic({ name: "exit_group", groupId: fc });
+          state = { kind: "idle" };
+          return;
+        }
+      } else {
+        scopeContainerId = null;
+      }
     }
 
     // 5) Empty canvas → arm box-select
-    state = { kind: "armed_box", downWorld: world, modifiers: { shift: e.shiftKey } };
+    state = {
+      kind: "armed_box",
+      downWorld: world,
+      modifiers: { shift: e.shiftKey },
+      scopeContainerId,
+    };
   },
 
   onPointerMove(world, e) {
@@ -424,6 +450,7 @@ export const moveTool: ITool = {
         downWorld: state.downWorld,
         currentWorld: world,
         modifiers: state.modifiers,
+        scopeContainerId: state.scopeContainerId,
       };
       useStore.setState((s) => {
         s.dragPreview = { kind: "marquee", data: rectFromPoints((state as Extract<State, { kind: "active_box_drag" }>).downWorld, world) };
@@ -477,9 +504,17 @@ export const moveTool: ITool = {
 
       const after: TransformMap = {};
       for (const id of state.layerIds) {
-        const t = state.startTransforms[id];
-        if (!t) continue;
-        after[id] = { ...t, x: t.x + snapped.dx, y: t.y + snapped.dy };
+        const tLocal = state.startTransforms[id];
+        const tWorld = state.startWorldTransforms[id];
+        if (!tLocal || !tWorld) continue;
+        const liveLayer = sLive.nodesById[id] as Layer | undefined;
+        if (!liveLayer || (liveLayer as Page).type === "page") continue;
+        const p = worldOffsetOfParent(sLive, liveLayer.parentId);
+        after[id] = {
+          ...tLocal,
+          x: tWorld.x + snapped.dx - p.x,
+          y: tWorld.y + snapped.dy - p.y,
+        };
       }
       dispatch(
         {
@@ -498,6 +533,9 @@ export const moveTool: ITool = {
         s.snapLines = snapped.lines;
         s.snapMeasures = snapped.measures;
       });
+      // Re-evaluate nesting continuously while dragging so crossing the
+      // overlap threshold reparents before pointer-up.
+      applyFrameNestingByOverlap(state, state.txId);
       return;
     }
 
@@ -604,6 +642,7 @@ export const moveTool: ITool = {
     }
 
     if (state.kind === "active_layer_drag") {
+      applyFrameNestingByOverlap(state, state.txId);
       commitTransaction(state.txId);
       // Read final transforms post-snap from the live state.
       const live = useStore.getState();
@@ -611,13 +650,14 @@ export const moveTool: ITool = {
       const afterPos: Record<string, { x: number; y: number }> = {};
       let dx = 0, dy = 0;
       for (const id of state.layerIds) {
-        const t = state.startTransforms[id];
+        const t = state.startWorldTransforms[id];
         const cur = live.nodesById[id] as Layer | undefined;
         if (!t || !cur) continue;
         beforePos[id] = { x: t.x, y: t.y };
-        afterPos[id] = { x: cur.x, y: cur.y };
-        dx = cur.x - t.x;
-        dy = cur.y - t.y;
+        const wr = worldRectOfLayer(live, cur);
+        afterPos[id] = { x: wr.x, y: wr.y };
+        dx = wr.x - t.x;
+        dy = wr.y - t.y;
       }
       useStore.setState((s) => {
         s.snapLines = [];
@@ -681,7 +721,14 @@ export const moveTool: ITool = {
       }
       const box: Rect = rectFromPoints(state.downWorld, state.currentWorld);
       const hits: string[] = [];
-      walkLayers(page.children, (l) => {
+      let roots = page.children;
+      if (state.scopeContainerId) {
+        const scope = useStore.getState().nodesById[state.scopeContainerId] as Layer | undefined;
+        if (scope && (scope.type === "frame" || scope.type === "section" || scope.type === "group")) {
+          roots = scope.children;
+        }
+      }
+      walkLayers(roots, (l) => {
         if (l.locked || !l.visible) return;
         const wr = worldRectOfLayer(useStore.getState(), l);
         if (rectIntersects(box, { x: wr.x, y: wr.y, w: wr.w, h: wr.h })) hits.push(l.id);
@@ -749,6 +796,176 @@ function walkLayers(layers: Layer[], visit: (l: Layer) => void) {
       walkLayers(l.children, visit);
     }
   }
+}
+
+function applyFrameNestingByOverlap(
+  drag: Extract<State, { kind: "active_layer_drag" }>,
+  txId: string,
+): void {
+  const s = useStore.getState();
+  const page = getActivePage(s);
+  if (!page) return;
+
+  const movedSet = new Set(drag.layerIds);
+  const movedRoots = drag.layerIds.filter((id) => {
+    let cur = s.nodesById[id] as Layer | undefined;
+    while (cur && (cur as Page).type !== "page") {
+      const parent = s.nodesById[cur.parentId] as Layer | Page | undefined;
+      if (!parent || (parent as Page).type === "page") break;
+      if (movedSet.has((parent as Layer).id)) return false;
+      cur = parent as Layer;
+    }
+    return true;
+  });
+
+  const frames: Layer[] = [];
+  walkLayers(page.children, (l) => {
+    if (l.type === "frame") frames.push(l);
+  });
+
+  for (const id of movedRoots) {
+    const now = useStore.getState();
+    const layer = now.nodesById[id] as Layer | undefined;
+    if (!layer || (layer as Page).type === "page") continue;
+
+    const wr = worldRectOfLayer(now, layer);
+    const area = Math.max(1, wr.w * wr.h);
+
+    const currentParent = now.nodesById[layer.parentId] as Layer | Page | undefined;
+    const currentFrameParent =
+      currentParent &&
+      (currentParent as Page).type !== "page" &&
+      (currentParent as Layer).type === "frame"
+        ? (currentParent as Layer)
+        : null;
+    const currentOverlap =
+      currentFrameParent != null
+        ? overlapRatio(wr, worldRectOfLayer(now, currentFrameParent), area)
+        : 0;
+
+    let bestFrameId: string | null = null;
+    let bestDepth = -1;
+    let bestRatio = 0;
+
+    for (const frame of frames) {
+      const frameNow = now.nodesById[frame.id] as Layer | undefined;
+      if (!frameNow || frameNow.type !== "frame") continue;
+      if (!frameNow.visible) continue;
+      if (frameNow.id === id) continue;
+      if (isAncestor(now, id, frameNow.id)) continue; // don't move into own descendant
+      if (movedSet.has(frameNow.id)) continue; // don't move into simultaneously moved frame
+
+      const ratio = overlapRatio(wr, worldRectOfLayer(now, frameNow), area);
+      if (ratio < 0.5) continue;
+      const depth = depthOf(now, frameNow.id);
+      if (depth > bestDepth || (depth === bestDepth && ratio > bestRatio)) {
+        bestDepth = depth;
+        bestRatio = ratio;
+        bestFrameId = frameNow.id;
+      }
+    }
+
+    let toParentId = layer.parentId;
+    if (bestFrameId) {
+      toParentId = bestFrameId;
+    } else if (currentFrameParent && currentOverlap < 0.5) {
+      toParentId = currentFrameParent.parentId;
+    }
+    if (toParentId === layer.parentId) continue;
+
+    const fromArr = childrenOf(now, layer.parentId);
+    const toArr = childrenOf(now, toParentId);
+    if (!fromArr || !toArr) continue;
+    const fromIndex = fromArr.findIndex((c) => c.id === id);
+    if (fromIndex < 0) continue;
+
+    // Keep frame ejection visually near the source frame; otherwise append.
+    let toIndex = toArr.length;
+    if (currentFrameParent && toParentId === currentFrameParent.parentId) {
+      const frameIndex = toArr.findIndex((c) => c.id === currentFrameParent.id);
+      if (frameIndex >= 0) toIndex = frameIndex + 1;
+    }
+
+    const before = transformOf(layer);
+    const parentWorld = worldOffsetOfParent(now, toParentId);
+    const after = {
+      ...before,
+      x: wr.x - parentWorld.x,
+      y: wr.y - parentWorld.y,
+    };
+
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "reparent",
+        pageId: now.activePageId,
+        moves: [{ id, fromParentId: layer.parentId, fromIndex, toParentId, toIndex }],
+      },
+      { transactionId: txId },
+    );
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_transform",
+        pageId: now.activePageId,
+        ids: [id],
+        before: { [id]: before },
+        after: { [id]: after },
+      },
+      { transactionId: txId },
+    );
+  }
+}
+
+function childrenOf(s: ReturnType<typeof useStore.getState>, parentId: string): Layer[] | null {
+  const p = s.nodesById[parentId] as Layer | Page | undefined;
+  if (!p) return null;
+  if ((p as Page).type === "page") return (p as Page).children;
+  if ("children" in (p as object)) {
+    return ((p as Layer & { children?: Layer[] }).children ?? null);
+  }
+  return null;
+}
+
+function overlapRatio(
+  a: { x: number; y: number; w: number; h: number },
+  b: { x: number; y: number; w: number; h: number },
+  aArea: number,
+): number {
+  const x1 = Math.max(a.x, b.x);
+  const y1 = Math.max(a.y, b.y);
+  const x2 = Math.min(a.x + a.w, b.x + b.w);
+  const y2 = Math.min(a.y + a.h, b.y + b.h);
+  const w = Math.max(0, x2 - x1);
+  const h = Math.max(0, y2 - y1);
+  return (w * h) / Math.max(1, aArea);
+}
+
+function depthOf(s: ReturnType<typeof useStore.getState>, id: string): number {
+  let d = 0;
+  let cur = s.nodesById[id] as Layer | Page | undefined;
+  while (cur && (cur as Page).type !== "page") {
+    const parent = s.nodesById[(cur as Layer).parentId] as Layer | Page | undefined;
+    if (!parent || (parent as Page).type === "page") break;
+    d += 1;
+    cur = parent;
+  }
+  return d;
+}
+
+function isAncestor(
+  s: ReturnType<typeof useStore.getState>,
+  ancestorId: string,
+  nodeId: string,
+): boolean {
+  let cur = s.nodesById[nodeId] as Layer | Page | undefined;
+  while (cur && (cur as Page).type !== "page") {
+    if ((cur as Layer).id === ancestorId) return true;
+    cur = s.nodesById[(cur as Layer).parentId] as Layer | Page | undefined;
+  }
+  return false;
 }
 
 function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Layer[]): string[] {
