@@ -64,6 +64,16 @@ function onKeyDown(e: KeyboardEvent): void {
   const meta = e.metaKey || e.ctrlKey;
   const key = e.key.toLowerCase();
 
+  // Shift+E — toggle Design/Prototype tab
+  if (e.shiftKey && !meta && !e.altKey && key === "e") {
+    const before = useStore.getState().activeRightTab;
+    const after = before === "design" ? "prototype" : "design";
+    useStore.setState((s) => { s.activeRightTab = after; });
+    emitSemantic({ name: "prototype_tab_switch", before, after, trigger: "shortcut_shift_e" });
+    e.preventDefault();
+    return;
+  }
+
   // Tool shortcuts (no modifiers)
   if (!meta && !e.altKey) {
     if (key === "v") {
