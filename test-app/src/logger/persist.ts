@@ -1,11 +1,15 @@
-// Mirrors the in-memory ring buffers to sessionStorage on a 250ms throttle.
-// Keys: `${YYYY-MM-DD}_raw_${sessionId}_data` and `${YYYY-MM-DD}_semantic_${sessionId}_data`.
+// Mirrors the in-memory ring buffers + the current document snapshot to
+// sessionStorage on a 250ms throttle. Three keys per session:
+//   `${YYYY-MM-DD}_raw_${sessionId}_data`
+//   `${YYYY-MM-DD}_semantic_${sessionId}_data`
+//   `${YYYY-MM-DD}_outcome_${sessionId}_data`
 
 import { logger } from "./buffer";
 import { useStore } from "@/engine/store";
+import { buildOutcomeSnapshot } from "./outcome";
 
 const FLUSH_INTERVAL_MS = 250;
-const LOG_STREAM_MARKERS = ["_raw_", "_semantic_"] as const;
+const LOG_STREAM_MARKERS = ["_raw_", "_semantic_", "_outcome_"] as const;
 const LOG_KEY_TAIL = "_data";
 
 let installed = false;
@@ -13,6 +17,7 @@ let dirty = false;
 let timer: ReturnType<typeof setTimeout> | null = null;
 let rawKey = "";
 let semanticKey = "";
+let outcomeKey = "";
 
 function ymd(d: Date): string {
   const y = d.getFullYear();
@@ -28,6 +33,7 @@ function flush(): void {
   try {
     sessionStorage.setItem(rawKey, JSON.stringify(logger.rawEvents.toArray()));
     sessionStorage.setItem(semanticKey, JSON.stringify(logger.semanticEvents.toArray()));
+    sessionStorage.setItem(outcomeKey, JSON.stringify(buildOutcomeSnapshot()));
   } catch {
     // Quota exceeded or storage unavailable: drop this flush silently.
     // Ring-buffer caps keep the next attempt the same size, so it'll keep failing
@@ -82,11 +88,14 @@ export function installPersist(): void {
   const date = ymd(new Date());
   rawKey = `${date}_raw_${sessionId}_data`;
   semanticKey = `${date}_semantic_${sessionId}_data`;
+  outcomeKey = `${date}_outcome_${sessionId}_data`;
 
-  // Seed empty arrays so the keys exist immediately.
+  // Seed each key so they exist immediately. Outcome gets the initial document
+  // state, raw + semantic start as empty arrays.
   try {
     sessionStorage.setItem(rawKey, "[]");
     sessionStorage.setItem(semanticKey, "[]");
+    sessionStorage.setItem(outcomeKey, JSON.stringify(buildOutcomeSnapshot()));
   } catch {
     // ignore
   }
