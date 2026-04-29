@@ -531,6 +531,31 @@ export type SemanticEvent =
       direction: "prev" | "next";
       fromIndex: number;
       toIndex: number;
+    })
+  | (SemanticEventBase & {
+      name: "create_prototype_connection";
+      connectionId: string;
+      sourceLayerId: string;
+      trigger: string;
+      action: string;
+    })
+  | (SemanticEventBase & {
+      name: "delete_prototype_connection";
+      connectionId: string;
+      sourceLayerId: string;
+    })
+  | (SemanticEventBase & {
+      name: "update_prototype_connection";
+      connectionId: string;
+      field: "trigger" | "action" | "destinationFrameId" | "animation" | "url";
+      before: string | null;
+      after: string | null;
+    })
+  | (SemanticEventBase & {
+      name: "navigate_prototype_connection";
+      connectionId: string;
+      sourceLayerId: string;
+      destinationFrameId: string;
     });
 
 export type SemanticEventName = SemanticEvent["name"];
