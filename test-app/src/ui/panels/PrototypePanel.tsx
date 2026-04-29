@@ -3,10 +3,25 @@ import { useStore } from "@/engine/store";
 import { getActivePage, getSelectedLayers } from "@/engine/selectors";
 import { uid } from "@/util/id";
 import { PROTOTYPE_DEVICES, findDevice } from "@/util/prototypeDevices";
-import { noopClick } from "@/ui/chrome/noopClick";
-import type { Frame, PrototypeFlow, ScrollBehavior, ScrollPosition } from "@/types/scene";
-import { ChevronDown, Plus, Minus, Monitor } from "lucide-react";
+import type { Frame, PrototypeFlow, PrototypeConnection, PrototypeTrigger, ScrollBehavior, ScrollPosition } from "@/types/scene";
+import { ChevronDown, Plus, Minus, Monitor, SlidersHorizontal } from "lucide-react";
 import { emitSemantic } from "@/logger/semantic";
+import { InteractionModal } from "@/ui/overlays/InteractionModal";
+
+// Short display labels for interaction rows (matches Figma's compact format)
+const TRIGGER_SHORT: Record<PrototypeTrigger, string> = {
+  none: "None",
+  on_tap: "Tap",
+  on_drag: "Drag",
+  while_hovering: "Hover",
+  while_pressing: "Press",
+  key_gamepad: "Key",
+  mouse_enter: "Enter",
+  mouse_leave: "Leave",
+  touch_down: "Touch ↓",
+  touch_up: "Touch ↑",
+  after_delay: "Delay",
+};
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -29,7 +44,6 @@ export function PrototypePanel() {
   // Remove flows whose frame was deleted — do it as a side effect after render
   const orphanIds = allFlows.filter((f) => !frameIds.has(f.frameId)).map((f) => f.id);
   if (orphanIds.length > 0) {
-    // Queue cleanup after current render cycle
     Promise.resolve().then(() => {
       useStore.setState((s) => {
         const p = s.document.pages.find((pg) => pg.id === page.id);
@@ -42,6 +56,8 @@ export function PrototypePanel() {
 
   const flows = allFlows.filter((f) => frameIds.has(f.frameId));
   const settings = page.prototypeSettings ?? { device: null, backgroundColor: { r: 0.055, g: 0.051, b: 0.051, a: 1 } };
+  const allConnections = page.prototypeConnections ?? [];
+  const topFrames = page.children.filter((c) => c.type === "frame") as Frame[];
 
   if (selection.length === 0) {
     return <NoSelectionPanel flows={flows} settings={settings} pageId={page.id} />;
@@ -51,10 +67,10 @@ export function PrototypePanel() {
   const isTopLevelFrame = layer.type === "frame" && layer.parentId === page.id;
 
   if (isTopLevelFrame) {
-    return <FramePanel frame={layer as Frame} flows={flows} pageId={page.id} />;
+    return <FramePanel frame={layer as Frame} flows={flows} connections={allConnections} topFrames={topFrames} pageId={page.id} />;
   }
 
-  return <ItemPanel layer={layer} />;
+  return <ItemPanel layer={layer} connections={allConnections} topFrames={topFrames} pageId={page.id} />;
 }
 
 // ─── no-selection: prototype settings ─────────────────────────────────────────
@@ -338,13 +354,19 @@ function FlowListItem({ flow, pageId }: { flow: PrototypeFlow; pageId: string })
 function FramePanel({
   frame,
   flows,
+  connections,
+  topFrames,
   pageId,
 }: {
   frame: Frame;
   flows: PrototypeFlow[];
+  connections: PrototypeConnection[];
+  topFrames: Frame[];
   pageId: string;
 }) {
+  const [modalConn, setModalConn] = useState<PrototypeConnection | "new" | null>(null);
   const frameFlow = flows.find((f) => f.frameId === frame.id);
+  const layerConns = connections.filter((c) => c.sourceLayerId === frame.id);
 
   function addFlow() {
     const p = useStore.getState().document.pages.find((pg) => pg.id === pageId);
@@ -382,6 +404,17 @@ function FramePanel({
     emitSemantic({ name: "rename_prototype_flow", flowId: frameFlow.id, before, after: newName });
   }
 
+  function deleteConnection(id: string) {
+    const conn = connections.find((c) => c.id === id);
+    if (!conn) return;
+    useStore.setState((s) => {
+      const p = s.document.pages.find((pg) => pg.id === pageId);
+      if (!p?.prototypeConnections) return;
+      p.prototypeConnections = p.prototypeConnections.filter((c) => c.id !== id);
+    });
+    emitSemantic({ name: "delete_prototype_connection", connectionId: id, sourceLayerId: conn.sourceLayerId });
+  }
+
   const overflow: ScrollBehavior = frame.overflowScrolling ?? "none";
 
   function setOverflow(v: ScrollBehavior) {
@@ -394,72 +427,97 @@ function FramePanel({
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      {/* Flow starting point */}
-      <Section
-        label="Flow starting point"
-        action={
-          frameFlow ? (
-            <button onClick={removeFlow} style={iconBtnStyle}>
-              <Minus size={12} />
-            </button>
-          ) : (
-            <button onClick={addFlow} style={iconBtnStyle}>
-              <Plus size={12} />
-            </button>
-          )
-        }
-      >
-        {frameFlow && (
-          <FlowRow
-            flow={frameFlow}
-            frameName={frame.name}
-            allFrames={[frame]}
-            onRename={renameFlow}
-          />
-        )}
-      </Section>
-
-      {/* Interactions */}
-      <Section
-        label="Interactions"
-        action={
-          <button onClick={(e) => noopClick("prototype.interactions.add", e)} style={iconBtnStyle}>
-            <Plus size={12} />
-          </button>
-        }
-      />
-
-      {/* Scroll behavior */}
-      <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
-        <div style={{ fontSize: "var(--fs-sm)", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 8 }}>
-          Scroll behavior
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-secondary)", flex: 1 }}>Overflow</span>
-          <SelectDropdown
-            value={overflow}
-            options={[
-              { value: "none", label: "No scrolling" },
-              { value: "horizontal", label: "Horizontal scrolling" },
-              { value: "vertical", label: "Vertical scrolling" },
-              { value: "both", label: "Horizontal and vertical" },
-            ]}
-            onChange={(v) => setOverflow(v as ScrollBehavior)}
-          />
-        </div>
-      </div>
-
-      {/* Show prototype settings */}
-      <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
-        <button
-          onClick={() => useStore.setState((s) => { s.selectionByPage[s.activePageId] = []; })}
-          style={fullBtnStyle}
+    <>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {/* Flow starting point */}
+        <Section
+          label="Flow starting point"
+          action={
+            frameFlow ? (
+              <button onClick={removeFlow} style={iconBtnStyle}>
+                <Minus size={12} />
+              </button>
+            ) : (
+              <button onClick={addFlow} style={iconBtnStyle}>
+                <Plus size={12} />
+              </button>
+            )
+          }
         >
-          Show prototype settings
-        </button>
+          {frameFlow && (
+            <FlowRow
+              flow={frameFlow}
+              frameName={frame.name}
+              allFrames={[frame]}
+              onRename={renameFlow}
+            />
+          )}
+        </Section>
+
+        {/* Interactions */}
+        <Section
+          label="Interactions"
+          action={
+            <div style={{ display: "flex", gap: 2 }}>
+              <button style={iconBtnStyle} title="Interaction settings"><SlidersHorizontal size={12} /></button>
+              <button onClick={() => setModalConn("new")} style={iconBtnStyle}><Plus size={12} /></button>
+            </div>
+          }
+        >
+          {layerConns.map((conn) => (
+            <InteractionRow
+              key={conn.id}
+              connection={conn}
+              topFrames={topFrames}
+              onEdit={() => setModalConn(conn)}
+              onDelete={() => deleteConnection(conn.id)}
+            />
+          ))}
+        </Section>
+
+        {/* Scroll behavior */}
+        <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
+          <div style={{ fontSize: "var(--fs-sm)", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 8 }}>
+            Scroll behavior
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-secondary)", flex: 1 }}>Overflow</span>
+            <SelectDropdown
+              value={overflow}
+              options={[
+                { value: "none", label: "No scrolling" },
+                { value: "horizontal", label: "Horizontal scrolling" },
+                { value: "vertical", label: "Vertical scrolling" },
+                { value: "both", label: "Horizontal and vertical" },
+              ]}
+              onChange={(v) => setOverflow(v as ScrollBehavior)}
+            />
+          </div>
+        </div>
+
+        {/* Show prototype settings */}
+        <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
+          <button
+            onClick={() => useStore.setState((s) => { s.selectionByPage[s.activePageId] = []; })}
+            style={fullBtnStyle}
+          >
+            Show prototype settings
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* Interaction modal */}
+      {modalConn !== null && (
+        <InteractionModal
+          connection={modalConn === "new" ? null : modalConn}
+          sourceLayerId={frame.id}
+          pageId={pageId}
+          frames={topFrames}
+          onClose={() => setModalConn(null)}
+          onDelete={deleteConnection}
+        />
+      )}
+    </>
   );
 }
 
@@ -541,8 +599,15 @@ function FlowRow({
 
 // ─── item inside frame selected ───────────────────────────────────────────────
 
-function ItemPanel({ layer }: { layer: import("@/types/scene").Layer }) {
+function ItemPanel({ layer, connections, topFrames, pageId }: {
+  layer: import("@/types/scene").Layer;
+  connections: PrototypeConnection[];
+  topFrames: Frame[];
+  pageId: string;
+}) {
+  const [modalConn, setModalConn] = useState<PrototypeConnection | "new" | null>(null);
   const pos: ScrollPosition = layer.scrollPosition ?? "scroll_with_parent";
+  const layerConns = connections.filter((c) => c.sourceLayerId === layer.id);
 
   function setPos(v: ScrollPosition) {
     const before = layer.scrollPosition ?? "scroll_with_parent";
@@ -555,47 +620,137 @@ function ItemPanel({ layer }: { layer: import("@/types/scene").Layer }) {
     emitSemantic({ name: "set_scroll_position", layerId: layer.id, before, after: v });
   }
 
+  function deleteConnection(id: string) {
+    const conn = connections.find((c) => c.id === id);
+    if (!conn) return;
+    useStore.setState((s) => {
+      const p = s.document.pages.find((pg) => pg.id === pageId);
+      if (!p?.prototypeConnections) return;
+      p.prototypeConnections = p.prototypeConnections.filter((c) => c.id !== id);
+    });
+    emitSemantic({ name: "delete_prototype_connection", connectionId: id, sourceLayerId: conn.sourceLayerId });
+  }
+
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      {/* Interactions */}
-      <Section
-        label="Interactions"
-        action={
-          <button onClick={(e) => noopClick("prototype.interactions.add", e)} style={iconBtnStyle}>
-            <Plus size={12} />
-          </button>
-        }
-      />
-
-      {/* Scroll behavior */}
-      <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
-        <div style={{ fontSize: "var(--fs-sm)", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 8 }}>
-          Scroll behavior
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-secondary)", flex: 1 }}>Position</span>
-          <SelectDropdown
-            value={pos}
-            options={[
-              { value: "scroll_with_parent", label: "Scroll with parent" },
-              { value: "fixed", label: "Fixed (stay in place)" },
-              { value: "sticky", label: "Sticky (stop at top edge)" },
-            ]}
-            onChange={(v) => setPos(v as ScrollPosition)}
-          />
-        </div>
-      </div>
-
-      {/* Show prototype settings */}
-      <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
-        <button
-          onClick={() => useStore.setState((s) => { s.selectionByPage[s.activePageId] = []; })}
-          style={fullBtnStyle}
+    <>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {/* Interactions */}
+        <Section
+          label="Interactions"
+          action={
+            <div style={{ display: "flex", gap: 2 }}>
+              <button style={iconBtnStyle} title="Interaction settings"><SlidersHorizontal size={12} /></button>
+              <button onClick={() => setModalConn("new")} style={iconBtnStyle}><Plus size={12} /></button>
+            </div>
+          }
         >
-          Show prototype settings
-        </button>
+          {layerConns.map((conn) => (
+            <InteractionRow
+              key={conn.id}
+              connection={conn}
+              topFrames={topFrames}
+              onEdit={() => setModalConn(conn)}
+              onDelete={() => deleteConnection(conn.id)}
+            />
+          ))}
+        </Section>
+
+        {/* Scroll behavior */}
+        <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
+          <div style={{ fontSize: "var(--fs-sm)", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 8 }}>
+            Scroll behavior
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-secondary)", flex: 1 }}>Position</span>
+            <SelectDropdown
+              value={pos}
+              options={[
+                { value: "scroll_with_parent", label: "Scroll with parent" },
+                { value: "fixed", label: "Fixed (stay in place)" },
+                { value: "sticky", label: "Sticky (stop at top edge)" },
+              ]}
+              onChange={(v) => setPos(v as ScrollPosition)}
+            />
+          </div>
+        </div>
+
+        {/* Show prototype settings */}
+        <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
+          <button
+            onClick={() => useStore.setState((s) => { s.selectionByPage[s.activePageId] = []; })}
+            style={fullBtnStyle}
+          >
+            Show prototype settings
+          </button>
+        </div>
       </div>
-    </div>
+
+      {modalConn !== null && (
+        <InteractionModal
+          connection={modalConn === "new" ? null : modalConn}
+          sourceLayerId={layer.id}
+          pageId={pageId}
+          frames={topFrames}
+          onClose={() => setModalConn(null)}
+          onDelete={deleteConnection}
+        />
+      )}
+    </>
+  );
+}
+
+// ─── interaction row ──────────────────────────────────────────────────────────
+
+function InteractionRow({
+  connection,
+  topFrames,
+  onEdit,
+}: {
+  connection: PrototypeConnection;
+  topFrames: Frame[];
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
+  const shortTrigger = TRIGGER_SHORT[connection.trigger] ?? connection.trigger;
+  const hasDestination = !!connection.destinationFrameId && connection.action !== "none" && connection.action !== "back";
+  const destName = connection.destinationFrameId
+    ? (topFrames.find((f) => f.id === connection.destinationFrameId)?.name ?? "Frame")
+    : null;
+
+  const midIcon = hasDestination ? "→" : "⊘";
+  const rightLabel = destName ?? "None";
+
+  return (
+    <button
+      onClick={onEdit}
+      style={{
+        width: "100%",
+        height: 32,
+        background: "var(--color-bg-input)",
+        border: "1px solid var(--color-border)",
+        borderRadius: 6,
+        display: "grid",
+        gridTemplateColumns: "1fr auto 1fr",
+        alignItems: "center",
+        padding: "0 10px",
+        gap: 6,
+        marginTop: 6,
+        textAlign: "left",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--color-border-strong)")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--color-border)")}
+    >
+      <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-primary)", fontWeight: 500 }}>
+        {shortTrigger}
+      </span>
+      <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-muted)", userSelect: "none" }}>
+        {midIcon}
+      </span>
+      <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-secondary)", textAlign: "right", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+        {rightLabel}
+      </span>
+    </button>
   );
 }
 

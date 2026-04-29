@@ -2,6 +2,7 @@
 
 import { logger } from "./buffer";
 import { useStore } from "@/engine/store";
+import { buildOutcomeSnapshot, type OutcomeSnapshot } from "./outcome";
 
 export interface LogExport {
   schemaVersion: number;
@@ -9,6 +10,7 @@ export interface LogExport {
   exportedAt: number;
   raw: ReturnType<typeof logger.rawEvents.toArray>;
   semantic: ReturnType<typeof logger.semanticEvents.toArray>;
+  outcome: OutcomeSnapshot;
 }
 
 export function exportLog(): LogExport {
@@ -19,6 +21,7 @@ export function exportLog(): LogExport {
     exportedAt: Date.now(),
     raw: logger.rawEvents.toArray(),
     semantic: logger.semanticEvents.toArray(),
+    outcome: buildOutcomeSnapshot(),
   };
 }
 

@@ -1,13 +1,13 @@
 // Draggable prototype preview window — floating over the canvas.
 
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import { useStore } from "@/engine/store";
 import { getActivePage } from "@/engine/selectors";
 import { NodeRenderer } from "@/ui/canvas/NodeRenderer";
 import { findDevice } from "@/util/prototypeDevices";
 import { emitSemantic } from "@/logger/semantic";
 import { X, ChevronLeft, ChevronRight, RotateCcw, SlidersHorizontal, ExternalLink } from "lucide-react";
-import type { Frame } from "@/types/scene";
+import type { Frame, PrototypeConnection } from "@/types/scene";
 
 const TOOLBAR_H = 40;
 const CONTENT_W = 360;
@@ -16,20 +16,27 @@ const CONTENT_H = 480;
 export function PrototypePreview() {
   const preview = useStore((s) => s.prototypePreview);
   const page = useStore((s) => getActivePage(s));
+  // overrideFrameId is set when a connection-based navigation fires in the preview
+  const [overrideFrameId, setOverrideFrameId] = useState<string | null>(null);
 
   if (!preview || !page) return null;
 
   const flows = page.prototypeFlows ?? [];
   const topFrames = page.children.filter((c) => c.type === "frame") as Frame[];
+  const connections = page.prototypeConnections ?? [];
 
-  // Use flows if defined, otherwise fall back to all top-level frames
   const useFlows = flows.length > 0;
   const count = useFlows ? flows.length : topFrames.length;
   const flowIndex = Math.max(0, Math.min(preview.flowIndex, Math.max(0, count - 1)));
 
-  const frame: Frame | undefined = useFlows
+  const indexedFrame: Frame | undefined = useFlows
     ? (page.children.find((c) => c.id === flows[flowIndex]?.frameId) as Frame | undefined)
     : topFrames[flowIndex];
+
+  // Connection navigation overrides the index-based frame
+  const frame: Frame | undefined = overrideFrameId
+    ? (page.children.find((c) => c.id === overrideFrameId) as Frame | undefined) ?? indexedFrame
+    : indexedFrame;
 
   const settings = page.prototypeSettings ?? { device: null, backgroundColor: { r: 0.055, g: 0.051, b: 0.051, a: 1 } };
   const device = findDevice(settings.device);
@@ -39,14 +46,29 @@ export function PrototypePreview() {
     emitSemantic({ name: "close_prototype_preview", trigger: "close_button" });
   }
   function prev() {
+    setOverrideFrameId(null);
     const to = Math.max(0, flowIndex - 1);
     useStore.setState((s) => { if (s.prototypePreview) s.prototypePreview.flowIndex = to; });
     emitSemantic({ name: "navigate_prototype_preview", direction: "prev", fromIndex: flowIndex, toIndex: to });
   }
   function next() {
+    setOverrideFrameId(null);
     const to = Math.min(count - 1, flowIndex + 1);
     useStore.setState((s) => { if (s.prototypePreview) s.prototypePreview.flowIndex = to; });
     emitSemantic({ name: "navigate_prototype_preview", direction: "next", fromIndex: flowIndex, toIndex: to });
+  }
+  function restart() {
+    setOverrideFrameId(null);
+    useStore.setState((s) => { if (s.prototypePreview) s.prototypePreview.flowIndex = 0; });
+  }
+
+  function onLayerTap(layerId: string) {
+    const conn = connections.find(
+      (c) => c.sourceLayerId === layerId && c.trigger === "on_tap" && c.action === "navigate_to" && c.destinationFrameId
+    );
+    if (!conn?.destinationFrameId) return;
+    setOverrideFrameId(conn.destinationFrameId);
+    emitSemantic({ name: "navigate_prototype_connection", connectionId: conn.id, sourceLayerId: layerId, destinationFrameId: conn.destinationFrameId });
   }
 
   return (
@@ -74,9 +96,9 @@ export function PrototypePreview() {
             cursor: "grab",
           }}
         >
-          <ToolBtn disabled={flowIndex === 0} onClick={prev}><ChevronLeft size={16} /></ToolBtn>
-          <ToolBtn disabled={flowIndex === count - 1} onClick={next}><ChevronRight size={16} /></ToolBtn>
-          <ToolBtn onClick={() => {}}><RotateCcw size={14} /></ToolBtn>
+          <ToolBtn disabled={flowIndex === 0 && !overrideFrameId} onClick={prev}><ChevronLeft size={16} /></ToolBtn>
+          <ToolBtn disabled={flowIndex === count - 1 && !overrideFrameId} onClick={next}><ChevronRight size={16} /></ToolBtn>
+          <ToolBtn onClick={restart}><RotateCcw size={14} /></ToolBtn>
           <span style={{ flex: 1 }} />
           <ToolBtn onClick={() => {}}><SlidersHorizontal size={14} /></ToolBtn>
           <ToolBtn onClick={() => {}}><ExternalLink size={14} /></ToolBtn>
@@ -99,9 +121,9 @@ export function PrototypePreview() {
         >
           {frame ? (
             device ? (
-              <DeviceFrame device={device} frame={frame} />
+              <DeviceFrame device={device} frame={frame} connections={connections} onLayerTap={onLayerTap} />
             ) : (
-              <NoDeviceFrame frame={frame} />
+              <NoDeviceFrame frame={frame} connections={connections} onLayerTap={onLayerTap} />
             )
           ) : (
             <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 13 }}>
@@ -116,7 +138,13 @@ export function PrototypePreview() {
 
 // ─── frame renderers ──────────────────────────────────────────────────────────
 
-function NoDeviceFrame({ frame }: { frame: Frame }) {
+type FrameRendererProps = {
+  frame: Frame;
+  connections: PrototypeConnection[];
+  onLayerTap: (layerId: string) => void;
+};
+
+function NoDeviceFrame({ frame, connections, onLayerTap }: FrameRendererProps) {
   const maxW = CONTENT_W - 32;
   const maxH = CONTENT_H - 32;
   const scale = Math.min(maxW / frame.w, maxH / frame.h, 1);
@@ -126,13 +154,13 @@ function NoDeviceFrame({ frame }: { frame: Frame }) {
   return (
     <svg width={displayW} height={displayH} style={{ display: "block" }}>
       <g transform={`scale(${scale})`}>
-        <FrameContent frame={frame} />
+        <FrameContent frame={frame} connections={connections} onLayerTap={onLayerTap} />
       </g>
     </svg>
   );
 }
 
-function DeviceFrame({ device, frame }: { device: ReturnType<typeof findDevice>; frame: Frame }) {
+function DeviceFrame({ device, frame, connections, onLayerTap }: { device: ReturnType<typeof findDevice> } & FrameRendererProps) {
   if (!device) return null;
 
   const maxW = CONTENT_W - 24;
@@ -141,12 +169,12 @@ function DeviceFrame({ device, frame }: { device: ReturnType<typeof findDevice>;
   const deviceW = device.w * deviceScale;
   const deviceH = device.h * deviceScale;
 
-  if (device.kind === "phone") return <IPhoneFrame deviceW={deviceW} deviceH={deviceH} frame={frame} />;
-  if (device.kind === "tablet") return <IPadFrame deviceW={deviceW} deviceH={deviceH} frame={frame} />;
-  return <DesktopFrame deviceW={deviceW} deviceH={deviceH} frame={frame} />;
+  if (device.kind === "phone") return <IPhoneFrame deviceW={deviceW} deviceH={deviceH} frame={frame} connections={connections} onLayerTap={onLayerTap} />;
+  if (device.kind === "tablet") return <IPadFrame deviceW={deviceW} deviceH={deviceH} frame={frame} connections={connections} onLayerTap={onLayerTap} />;
+  return <DesktopFrame deviceW={deviceW} deviceH={deviceH} frame={frame} connections={connections} onLayerTap={onLayerTap} />;
 }
 
-function IPhoneFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: number; frame: Frame }) {
+function IPhoneFrame({ deviceW, deviceH, frame, connections, onLayerTap }: { deviceW: number; deviceH: number } & FrameRendererProps) {
   // iPhone 17-style: edge-to-edge screen, thin bezels, dynamic island on screen
   const shellRadius = deviceW * 0.145;
   const bezelX = deviceW * 0.034;
@@ -199,7 +227,7 @@ function IPhoneFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: nu
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
         <svg width={frameDisplayW} height={frameDisplayH} style={{ display: "block" }}>
-          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} /></g>
+          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} connections={connections} onLayerTap={onLayerTap} /></g>
         </svg>
 
         {/* Dynamic island — floats above content */}
@@ -221,7 +249,7 @@ function IPhoneFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: nu
   );
 }
 
-function IPadFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: number; frame: Frame }) {
+function IPadFrame({ deviceW, deviceH, frame, connections, onLayerTap }: { deviceW: number; deviceH: number } & FrameRendererProps) {
   const shellRadius = deviceW * 0.06;
   const bezelX = deviceW * 0.05;
   const bezelY = deviceH * 0.04;
@@ -255,7 +283,7 @@ function IPadFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: numb
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
         <svg width={frameDisplayW} height={frameDisplayH} style={{ display: "block" }}>
-          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} /></g>
+          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} connections={connections} onLayerTap={onLayerTap} /></g>
         </svg>
         {/* Face ID capsule */}
         <div style={{
@@ -269,7 +297,7 @@ function IPadFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: numb
   );
 }
 
-function DesktopFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: number; frame: Frame }) {
+function DesktopFrame({ deviceW, deviceH, frame, connections, onLayerTap }: { deviceW: number; deviceH: number } & FrameRendererProps) {
   const shellRadius = deviceW * 0.015;
   const bezelX = deviceW * 0.025;
   const bezelY = deviceH * 0.025;
@@ -307,7 +335,7 @@ function DesktopFrame({ deviceW, deviceH, frame }: { deviceW: number; deviceH: n
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
         <svg width={frameDisplayW} height={frameDisplayH} style={{ display: "block" }}>
-          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} /></g>
+          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} connections={connections} onLayerTap={onLayerTap} /></g>
         </svg>
       </div>
     </div>
@@ -325,7 +353,13 @@ function SpeakerDots({ cx, cy, count, spacing, r }: { cx: number; cy: number; co
   );
 }
 
-function FrameContent({ frame }: { frame: Frame }) {
+function FrameContent({ frame, connections, onLayerTap }: FrameRendererProps) {
+  const tapConnIds = new Set(
+    connections
+      .filter((c) => c.trigger === "on_tap" && c.action === "navigate_to" && c.destinationFrameId)
+      .map((c) => c.sourceLayerId)
+  );
+
   return (
     <g>
       {/* Frame background */}
@@ -341,8 +375,26 @@ function FrameContent({ frame }: { frame: Frame }) {
       {frame.children.map((child) => (
         <g key={child.id} transform={`translate(${child.x} ${child.y})`}>
           <NodeRenderer layer={{ ...child, x: 0, y: 0 }} />
+          {/* Clickable overlay for tap interactions */}
+          {tapConnIds.has(child.id) && (
+            <rect
+              x={0} y={0} width={child.w} height={child.h}
+              fill="transparent"
+              style={{ cursor: "pointer" }}
+              onClick={() => onLayerTap(child.id)}
+            />
+          )}
         </g>
       ))}
+      {/* Frame itself may have a tap connection */}
+      {tapConnIds.has(frame.id) && (
+        <rect
+          x={0} y={0} width={frame.w} height={frame.h}
+          fill="transparent"
+          style={{ cursor: "pointer" }}
+          onClick={() => onLayerTap(frame.id)}
+        />
+      )}
     </g>
   );
 }

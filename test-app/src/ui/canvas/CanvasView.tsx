@@ -18,6 +18,7 @@ import { PencilPreview } from "@/ui/overlays/PencilPreview";
 import { InsertionCrosshair } from "@/ui/overlays/InsertionCrosshair";
 import { RotateReadout } from "@/ui/overlays/RotateReadout";
 import { FlowBadges } from "@/ui/overlays/FlowBadges";
+import { ConnectionArrows } from "@/ui/overlays/ConnectionArrows";
 import { placeImageFiles } from "@/engine/imageCommands";
 
 const MIN_ZOOM = 0.05;
@@ -224,6 +225,7 @@ export function CanvasView() {
         <InsertionCrosshair />
         <RotateReadout />
         <FlowBadges />
+        <ConnectionArrows />
 
         {snapLines.map((l, i) =>
           l.axis === "x" ? (
