@@ -6,6 +6,7 @@ import { getSelectedLayers } from "@/engine/selectors";
 import { zoomToCustom, zoomToFit, zoomTo100, zoomToSelection } from "@/engine/transformCommands";
 import { Play, Share2, ChevronDown } from "lucide-react";
 import { noopClick } from "./noopClick";
+import { emitSemantic } from "@/logger/semantic";
 import { PageSection } from "@/ui/panels/PageSection";
 import { PositionSection } from "@/ui/panels/PositionSection";
 import { LayoutSection } from "@/ui/panels/LayoutSection";
@@ -16,9 +17,26 @@ import { StrokeSection } from "@/ui/panels/StrokeSection";
 import { EffectsSection } from "@/ui/panels/EffectsSection";
 import { ExportSection } from "@/ui/panels/ExportSection";
 import { AlignmentRow } from "@/ui/panels/AlignmentRow";
+import { PrototypePanel } from "@/ui/panels/PrototypePanel";
 
 export function RightPanel() {
   const selection = useStore((s) => getSelectedLayers(s));
+  const activeTab = useStore((s) => s.activeRightTab);
+
+  function openPreview() {
+    const wasOpen = !!useStore.getState().prototypePreview;
+    useStore.setState((st) => {
+      if (st.prototypePreview) {
+        st.prototypePreview = null;
+      } else {
+        st.prototypePreview = { pos: { x: 120, y: 80 }, flowIndex: 0 };
+      }
+    });
+    emitSemantic(wasOpen
+      ? { name: "close_prototype_preview", trigger: "play_button_toggle" }
+      : { name: "open_prototype_preview", trigger: "play_button" }
+    );
+  }
 
   return (
     <aside
@@ -36,11 +54,13 @@ export function RightPanel() {
         overflow: "hidden",
       }}
     >
-      <Header />
+      <Header onPresent={openPreview} />
       <Tabs />
-      <SubHeader hasSelection={selection.length > 0} />
+      {activeTab === "design" && <SubHeader hasSelection={selection.length > 0} />}
       <div className="scroll-y" style={{ flex: 1, minHeight: 0 }}>
-        {selection.length === 0 ? (
+        {activeTab === "prototype" ? (
+          <PrototypePanel />
+        ) : selection.length === 0 ? (
           <PageSection />
         ) : (
           <>
@@ -60,7 +80,7 @@ export function RightPanel() {
   );
 }
 
-function Header() {
+function Header({ onPresent }: { onPresent: () => void }) {
   return (
     <div
       style={{
@@ -75,7 +95,24 @@ function Header() {
       <ZoomControl />
       <span style={{ flex: 1 }} />
       <ChromeIconButton id="right-panel.avatar.self" label="A" tooltip="Multiplayer — not implemented" />
-      <ChromeIconButton id="right-panel.present" icon={<Play size={14} />} tooltip="Present — not implemented" />
+      <button
+        data-id="right-panel.present"
+        onClick={onPresent}
+        title="Preview prototype"
+        style={{
+          width: 24,
+          height: 24,
+          borderRadius: 12,
+          background: "transparent",
+          color: "var(--color-text-secondary)",
+          display: "grid",
+          placeItems: "center",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-bg-row-hover)")}
+        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+      >
+        <Play size={14} />
+      </button>
       <button
         data-id="right-panel.share"
         onClick={(e) => noopClick("right-panel.share", e)}
@@ -278,6 +315,15 @@ function ChromeIconButton({
 }
 
 function Tabs() {
+  const activeTab = useStore((s) => s.activeRightTab);
+
+  function switchTab(tab: "design" | "prototype") {
+    const before = useStore.getState().activeRightTab;
+    if (before === tab) return;
+    useStore.setState((s) => { s.activeRightTab = tab; });
+    emitSemantic({ name: "prototype_tab_switch", before, after: tab, trigger: "tab_click" });
+  }
+
   return (
     <div
       style={{
@@ -288,27 +334,17 @@ function Tabs() {
         padding: "0 4px",
       }}
     >
-      <Tab id="right-panel.tab.design" label="Design" active />
-      <Tab id="right-panel.tab.prototype" label="Prototype" active={false} visualOnly />
+      <Tab id="right-panel.tab.design" label="Design" active={activeTab === "design"} onClick={() => switchTab("design")} />
+      <Tab id="right-panel.tab.prototype" label="Prototype" active={activeTab === "prototype"} onClick={() => switchTab("prototype")} />
     </div>
   );
 }
 
-function Tab({
-  id,
-  label,
-  active,
-  visualOnly,
-}: {
-  id: string;
-  label: string;
-  active: boolean;
-  visualOnly?: boolean;
-}) {
+function Tab({ id, label, active, onClick }: { id: string; label: string; active: boolean; onClick: () => void }) {
   return (
     <button
       data-id={id}
-      onClick={(e) => visualOnly && noopClick(id, e)}
+      onClick={onClick}
       style={{
         flex: 1,
         position: "relative",

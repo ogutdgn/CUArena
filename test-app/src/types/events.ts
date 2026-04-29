@@ -476,6 +476,61 @@ export type SemanticEvent =
     })
   | (SemanticEventBase & {
       name: "session_end";
+    })
+  // ---- Prototype events ----
+  | (SemanticEventBase & {
+      name: "prototype_tab_switch";
+      before: "design" | "prototype";
+      after: "design" | "prototype";
+      trigger: "tab_click" | "shortcut_shift_e";
+    })
+  | (SemanticEventBase & {
+      name: "add_prototype_flow";
+      flowId: string;
+      flowName: string;
+      frameId: string;
+    })
+  | (SemanticEventBase & {
+      name: "remove_prototype_flow";
+      flowId: string;
+      frameId: string;
+    })
+  | (SemanticEventBase & {
+      name: "rename_prototype_flow";
+      flowId: string;
+      before: string;
+      after: string;
+    })
+  | (SemanticEventBase & {
+      name: "set_prototype_device";
+      before: string | null;
+      after: string | null;
+    })
+  | (SemanticEventBase & {
+      name: "set_overflow_scrolling";
+      layerId: string;
+      before: string;
+      after: string;
+    })
+  | (SemanticEventBase & {
+      name: "set_scroll_position";
+      layerId: string;
+      before: string;
+      after: string;
+    })
+  | (SemanticEventBase & {
+      name: "open_prototype_preview";
+      trigger: "play_button";
+    })
+  | (SemanticEventBase & {
+      name: "close_prototype_preview";
+      trigger: "close_button" | "play_button_toggle";
+    })
+  | (SemanticEventBase & {
+      name: "navigate_prototype_preview";
+      direction: "prev" | "next";
+      fromIndex: number;
+      toIndex: number;
     });
 
 export type SemanticEventName = SemanticEvent["name"];

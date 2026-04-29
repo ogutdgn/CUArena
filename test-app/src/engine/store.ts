@@ -87,6 +87,9 @@ export interface AppState {
   toasts: ToastEntry[];
   uiHidden: boolean;
 
+  activeRightTab: "design" | "prototype";
+  prototypePreview: { pos: { x: number; y: number }; flowIndex: number } | null;
+
   undoStack: UndoEntry[];
   redoStack: UndoEntry[];
 
@@ -95,7 +98,6 @@ export interface AppState {
 
 function createDefaultPage(): Page {
   const id = uid("page");
-  // Match Figma dark-theme canvas — #1E1E1E.
   const bg: Color = { r: 0.118, g: 0.118, b: 0.118, a: 1 };
   return {
     id,
@@ -103,6 +105,8 @@ function createDefaultPage(): Page {
     name: "Page 1",
     backgroundColor: bg,
     children: [],
+    prototypeSettings: { device: null, backgroundColor: { r: 0.055, g: 0.051, b: 0.051, a: 1 } },
+    prototypeFlows: [],
   };
 }
 
@@ -163,6 +167,9 @@ const initialState: AppState = {
   openModal: null,
   toasts: [],
   uiHidden: false,
+
+  activeRightTab: "design",
+  prototypePreview: null,
 
   undoStack: [],
   redoStack: [],

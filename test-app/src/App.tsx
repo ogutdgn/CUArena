@@ -13,6 +13,7 @@ import { ContextMenu } from "@/ui/overlays/ContextMenu";
 import { RenameModal } from "@/ui/overlays/RenameModal";
 import { Toasts } from "@/ui/overlays/Toasts";
 import { ActionBar } from "@/ui/overlays/ActionBar";
+import { PrototypePreview } from "@/ui/overlays/PrototypePreview";
 import { installKeymap, uninstallKeymap } from "@/util/keymap";
 
 export function App() {
@@ -49,6 +50,7 @@ export function App() {
       <RenameModal />
       <Toasts />
       <ActionBar />
+      <PrototypePreview />
       {contextMenu && (
         <ContextMenu
           x={contextMenu.x}
