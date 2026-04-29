@@ -204,9 +204,22 @@ function onKeyDown(e: KeyboardEvent): void {
       redo();
       return;
     }
-    if (key === "\\") {
+    if (key === "\\" && !e.altKey) {
       e.preventDefault();
       useStore.setState({ uiHidden: !useStore.getState().uiHidden });
+      return;
+    }
+    if (key === "\\" && e.altKey) {
+      e.preventDefault();
+      const wasOpen = !!useStore.getState().prototypePreview;
+      useStore.setState((s) => {
+        if (s.prototypePreview) s.prototypePreview = null;
+        else s.prototypePreview = { pos: { x: 120, y: 80 }, flowIndex: 0 };
+      });
+      emitSemantic(wasOpen
+        ? { name: "close_prototype_preview", trigger: "close_button" }
+        : { name: "open_prototype_preview", trigger: "play_button" }
+      );
       return;
     }
     if (key === "k" && e.shiftKey) {
