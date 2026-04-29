@@ -12,12 +12,15 @@ export function HoverOutline() {
   const dragKind = useStore((s) => s.dragPreview.kind);
   const viewport = useStore((s) => selectActiveViewport(s));
   const layer = useStore((s) => (id ? (s.nodesById[id] as Layer | Page | undefined) : undefined));
+  const activeRightTab = useStore((s) => s.activeRightTab);
 
   if (!id || !layer) return null;
   if ((layer as Page).type === "page") return null;
   if (selection.includes(id)) return null;
   if (dragKind != null) return null;
   if (activeTool !== "move") return null;
+  // In prototype mode, suppress hover outline — connection dot handles hover UX.
+  if (activeRightTab === "prototype") return null;
 
   const l = layer as Layer;
   const sw = 1.5 / viewport.zoom;

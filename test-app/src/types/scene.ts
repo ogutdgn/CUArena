@@ -22,6 +22,53 @@ export interface PrototypeSettings {
   backgroundColor: Color;
 }
 
+export type PrototypeTrigger =
+  | "none"
+  | "on_tap"
+  | "on_drag"
+  | "while_hovering"
+  | "while_pressing"
+  | "key_gamepad"
+  | "mouse_enter"
+  | "mouse_leave"
+  | "touch_down"
+  | "touch_up"
+  | "after_delay";
+
+export type PrototypeAction =
+  | "none"
+  | "navigate_to"
+  | "change_to"
+  | "back"
+  | "scroll_to"
+  | "open_link"
+  | "set_variable"
+  | "set_variable_mode"
+  | "conditional"
+  | "open_overlay"
+  | "swap_overlay"
+  | "close_overlay";
+
+export type PrototypeAnimation =
+  | "instant"
+  | "dissolve"
+  | "smart_animate"
+  | "move_in"
+  | "move_out"
+  | "push"
+  | "slide_in"
+  | "slide_out";
+
+export interface PrototypeConnection {
+  id: string;
+  sourceLayerId: string;
+  trigger: PrototypeTrigger;
+  action: PrototypeAction;
+  destinationFrameId?: string;
+  animation?: PrototypeAnimation;
+  url?: string;
+}
+
 export type PaintKind = "solid" | "image" | "gradient" | "pattern" | "video";
 
 export interface SolidPaint {
@@ -274,6 +321,7 @@ export interface Page {
   children: Layer[];
   prototypeSettings?: PrototypeSettings;
   prototypeFlows?: PrototypeFlow[];
+  prototypeConnections?: PrototypeConnection[];
 }
 
 export interface DocumentNode {
