@@ -27,12 +27,12 @@ How:
 - Correlate outcome entries with semantic/raw IDs for replay/debug.
 - Export all three streams together (`raw`, `semantic`, `outcome`).
 Main files:
-- [raw.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/logger/raw.ts)
-- [semantic.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/logger/semantic.ts)
-- [buffer.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/logger/buffer.ts)
-- [dispatch.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/engine/dispatch.ts)
-- [export.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/logger/export.ts)
-- [events.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/types/events.ts)
+- [raw.ts](figma-mock/test-app/src/logger/raw.ts)
+- [semantic.ts](figma-mock/test-app/src/logger/semantic.ts)
+- [buffer.ts](figma-mock/test-app/src/logger/buffer.ts)
+- [dispatch.ts](figma-mock/test-app/src/engine/dispatch.ts)
+- [export.ts](figma-mock/test-app/src/logger/export.ts)
+- [events.ts](figma-mock/test-app/src/types/events.ts)
 
 **Wave 2: Robustness / Unsupported Buttons**
 
@@ -44,12 +44,12 @@ How:
 - Fix rename UX paths (layers/pages/context/menu/modal) so names always editable.
 - Harden right-panel and fill panel scrolling behavior.
 Main files:
-- [noopClick.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/ui/chrome/noopClick.ts)
-- [Toasts.tsx](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/ui/overlays/Toasts.tsx)
-- [RightPanel.tsx](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/ui/chrome/RightPanel.tsx)
-- [global.css](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/theme/global.css)
-- [LayersTree.tsx](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/ui/panels/LayersTree.tsx)
-- [LeftPanel.tsx](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/ui/chrome/LeftPanel.tsx)
+- [noopClick.ts](figma-mock/test-app/src/ui/chrome/noopClick.ts)
+- [Toasts.tsx](figma-mock/test-app/src/ui/overlays/Toasts.tsx)
+- [RightPanel.tsx](figma-mock/test-app/src/ui/chrome/RightPanel.tsx)
+- [global.css](figma-mock/test-app/src/theme/global.css)
+- [LayersTree.tsx](figma-mock/test-app/src/ui/panels/LayersTree.tsx)
+- [LeftPanel.tsx](figma-mock/test-app/src/ui/chrome/LeftPanel.tsx)
 
 ---
 
@@ -63,10 +63,10 @@ How:
 - Fill previews in rows; persistent recent-color history.
 - Right-side palette/library mock for reusable colors.
 Main files:
-- [FillSection.tsx](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/ui/panels/FillSection.tsx)
-- [ColorPicker.tsx](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/ui/overlays/ColorPicker.tsx)
-- [propertyCommands.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/engine/propertyCommands.ts)
-- [scene.ts](/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-app/src/types/scene.ts)
+- [FillSection.tsx](figma-mock/test-app/src/ui/panels/FillSection.tsx)
+- [ColorPicker.tsx](figma-mock/test-app/src/ui/overlays/ColorPicker.tsx)
+- [propertyCommands.ts](figma-mock/test-app/src/engine/propertyCommands.ts)
+- [scene.ts](figma-mock/test-app/src/types/scene.ts)
 
 **Wave 4: Vector/Shape/Transform Finishing**
 
