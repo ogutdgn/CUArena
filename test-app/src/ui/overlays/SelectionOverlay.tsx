@@ -18,7 +18,10 @@ export function SelectionOverlay() {
   const bbox = useStore((s) => selectionBbox(s));
   const editMode = useStore((s) => s.editMode);
   const activeTool = useStore((s) => s.activeTool);
+  const activeRightTab = useStore((s) => s.activeRightTab);
   if (!bbox) return null;
+  // In prototype mode, hide resize handles — connection dots take over.
+  if (activeRightTab === "prototype") return null;
   // Pen mode should render anchor/handle previews only (no selection bbox).
   if (activeTool === "pen") return null;
   // Suppress handles/rotate hits when in a sub-mode (vector edit / text edit /
