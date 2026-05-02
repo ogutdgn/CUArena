@@ -181,8 +181,8 @@ Common `event_name` values: `create_rectangle` `create_ellipse` `create_polygon`
 ```bash
 cd test-verifier
 .venv/bin/python run.py --task house_task --log logs/house_sample.json
-.venv/bin/python run.py --task house_task --log logs/x.json --output scores/result.json
 ```
+Score is automatically saved to `scores/<task_id>_<timestamp>.json` on every run.
 
 ## Setup
 ```bash

@@ -1,43 +1,121 @@
 # Project Overview
 
-## Purpose
+This repo contains two sub-projects that work together as a CUA (Computer Use Agent) evaluation system:
 
-Build a **pixel-accurate mock of Figma Design** with a defined subset of editing functionality and a comprehensive **action logger**. The mock is the editor-facing piece of a larger CUA (Computer Use Agent) testing system; only the Mock App + logger are in scope for this repo.
+| Sub-project | Language | Purpose |
+|---|---|---|
+| `test-app/` | TypeScript + React | Figma mock — the environment CUA agents interact with |
+| `test-verifier/` | Python | Verifier framework — scores agent runs against task rubrics |
 
-The customer has provided the concrete feature list to deliver, so the project is past the "deciding what to build" phase and into focused implementation.
+---
 
-## What to build (current source of truth)
+## How the two projects connect
 
-- [`feature-checklist.md`](feature-checklist.md) — the customer-provided feature list. Tick items here as they ship.
-- [`execution-map.md`](execution-map.md) — the wave-by-wave implementation order, with main files touched per step.
+```
+CUA agent interacts with test-app
+        ↓
+test-app produces a log: figma-mock-log-<sessionId>.json
+  └── raw[]      — every DOM input event
+  └── semantic[] — every meaningful operation (create, move, fill, ...)
+  └── outcome{}  — full document snapshot + shapeCounts at session end
+        ↓
+test-verifier reads that log and scores it
+  └── checks outcome.document  → did the right shapes end up on canvas?
+  └── checks semantic[]        → how many turns did it take?
+  └── produces final_score = base_score × efficiency_multiplier
+```
 
-## Session workflow (mandatory)
+**The log format is the contract between the two projects.** Any change to outcome.document schema or semantic event fields in test-app must be reflected in the verifier check primitives.
 
-Both `feature-checklist.md` and `execution-map.md` must be refreshed every session.
+---
 
-- **At session start:** before any implementation, discuss with the user which features will be tackled this session, then update `execution-map.md` so it reflects the plan (priorities, current wave/step, what's in-flight vs. deferred).
-- **At session end:** before closing, apply the session's outcomes to both files:
-  - In `feature-checklist.md`, tick newly-shipped items (`[x]`).
-  - In `execution-map.md`:
-    - Add a new dated entry at the **top** (the **Session log** section) with the session date and a concise list of what shipped that session — this is the project's running record of which session delivered what.
-    - In session-log entries, do **not** label items by Wave number (e.g. "Wave 1 shipped: ...") — describe what shipped directly. Wave numbers in the lower plan are not stable across sessions (see renumber rule below).
-    - In the lower section (waves / steps), **delete** items that are now fully done. Do **not** annotate them with "Done" or keep them around — the session log is the only place finished work is preserved. Trim sub-bullets the same way when only part of a step ships.
-    - **Renumber the lower plan from Wave 1** after deletions: the lower section must always start at Wave 1. When the previous Wave 1 finishes, what was Wave 2 becomes the new Wave 1, Wave 3 becomes 2, and so on. Step numbers restart from 1 the same way.
+## Feature → Check relationship
 
-These two files are the project's living state; do not let them drift from reality.
+Every feature implemented in test-app has a corresponding check primitive in test-verifier. When a feature ships in test-app, the verifier can check for its outcome:
 
-## Code lives in `test-app/`
+| test-app feature | test-verifier check |
+|---|---|
+| Rectangle, ellipse, polygon... | `ShapeCount`, `ShapeCountAtLeast` |
+| Polygon sides, star points | `PolygonSidesEquals`, `StarPointsEquals` |
+| Fill color | `SolidColorEquals`, `FillTypeIs` |
+| Stroke | `StrokeExists`, `StrokeWeightEquals` |
+| Drop shadow / layer blur | `DropShadowExists`, `LayerBlurExists` |
+| Opacity | `OpacityEquals` |
+| Corner radius | `CornerRadiusEquals` |
+| Layer alignment | `LayersAligned`, `LayersSymmetricX` |
+| Frame nesting | `LayerInsideFrame`, `LayerContains` |
+| Z-order | `ZOrderIsFirst`, `ZOrderIsLast` |
+| Text content | `TextContent`, `FontSizeEquals` |
+| Image fill | `ImageFillExists` |
+| Multiple pages | `PageCount`, `LayerOnPage` |
 
-The actual application (Vite + React + TS) lives under `test-app/`. For architecture (engine, scene graph, ops, logger, UI shell), see [`test-app/ARCHITECTURE.md`](test-app/ARCHITECTURE.md).
+When a new feature is checked off in `feature-checklist.md`:
+1. Check if any `planned` tasks in `test-verifier/task-docs/tasks.csv` now become `in_scope`.
+2. Check if new check primitives are needed in `test-verifier/verifier/checks/`.
 
-## Reference material — read these first
+---
 
-Three reference docs under `helper/` are the **entry points** to the corpus. Each describes its slice and points back into `helper/figma_docs/`, `helper/analysis/`, `helper/extracted/` as needed.
+## Document map
 
-- [`helper/00-overview.md`](helper/00-overview.md) — project scope, principles, **how-to-use workflows** (§7a) for implementation agents. Start here.
-- [`helper/01-ui-schema-extraction.md`](helper/01-ui-schema-extraction.md) — UI schema reference (regions, state matrix, color picker, context menu, etc.).
-- [`helper/02-feature-research.md`](helper/02-feature-research.md) — feature spec reference (~250 specs across 34 categories).
+```
+project-documents/
+├── app-docs/
+│   ├── feature-checklist.md     ← customer feature list; tick [x] as features ship
+│   ├── execution-map.md         ← wave-by-wave plan + session log (update every session)
+│   ├── architecture.md          ← test-app tech overview (stack, ops, state, folder layout)
+│   └── logging-documentation.md ← full log schema reference (raw/semantic/outcome fields)
+│
+└── verifier-docs/
+    ├── verifier-documentation.md ← verifier design: scoring model, check catalog, rubrics
+    └── verifier-writer.md        ← instructions for AI agents writing task/<id>.py scripts
+```
 
-These three docs are sufficient to know which file under `helper/figma_docs/`, `helper/analysis/`, or `helper/extracted/` to read for any task. Do not read the corpus blind — go through `helper/00-overview.md §7a` workflows first.
+**helper/** — reference corpus for Figma feature specs (read via `helper/00-overview.md §7a`).  
+Do not read `helper/` blind — go through the overview first.
 
-`helper/open-source-example/open-pencil/` is also available as an OpenPencil (open-source Figma-compatible editor) reference. Useful patterns: SceneGraph emitter, inverse-op undo, Figma-HTML clipboard, hit-testing, snap-guides.
+---
+
+## Session workflow (mandatory — test-app development)
+
+Both `project-documents/app-docs/feature-checklist.md` and `project-documents/app-docs/execution-map.md` must be refreshed every session.
+
+**At session start:** discuss which features will be tackled, then update `execution-map.md` to reflect the plan.
+
+**At session end:**
+- Tick newly-shipped items in `feature-checklist.md`.
+- In `execution-map.md`:
+  - Add a dated entry at the **top** of the Session log with what shipped.
+  - In session-log entries, describe what shipped directly — do not label by Wave number.
+  - **Delete** completed items from the lower plan. Do not annotate as "Done" — the session log is the record.
+  - **Renumber waves from Wave 1** after deletions.
+- If a new feature shipped, check whether any `planned` task in `tasks.csv` is now `in_scope` and whether new check primitives are needed.
+
+---
+
+## Working on test-app
+
+Code lives in `test-app/`. Architecture: `project-documents/app-docs/architecture.md`.
+
+Reference material for Figma feature specs:
+- `helper/00-overview.md` — start here (§7a has agent workflows)
+- `helper/01-ui-schema-extraction.md` — UI regions, state matrix, color picker
+- `helper/02-feature-research.md` — ~250 feature specs across 34 categories
+
+---
+
+## Working on test-verifier
+
+Code lives in `test-verifier/`. Setup and usage: `test-verifier/README.md`.
+
+To write a new task verifier script: read `project-documents/verifier-docs/verifier-writer.md` — it has the full check catalog and rules.
+
+Log export from test-app (dev mode only):
+```javascript
+__exportLog()   // downloads figma-mock-log-<sessionId>.json
+```
+
+Run a verifier:
+```bash
+cd test-verifier
+.venv/bin/python run.py --task house_task --log logs/house_sample.json
+```
