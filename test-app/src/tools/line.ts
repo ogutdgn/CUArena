@@ -104,19 +104,20 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
         state = { kind: "active", downWorld: state.downWorld, currentWorld: world, shift: state.shift };
       }
       if (state.kind === "active") {
+        const downWorld = state.downWorld;
         state = { ...state, currentWorld: world };
-        const p2 = constrainShift(state.downWorld, world, state.shift);
-        const minX = Math.min(state.downWorld.x, p2.x);
-        const minY = Math.min(state.downWorld.y, p2.y);
-        const w = Math.abs(p2.x - state.downWorld.x);
-        const h = Math.abs(p2.y - state.downWorld.y);
+        const p2 = constrainShift(downWorld, world, state.shift);
+        const minX = Math.min(downWorld.x, p2.x);
+        const minY = Math.min(downWorld.y, p2.y);
+        const w = Math.abs(p2.x - downWorld.x);
+        const h = Math.abs(p2.y - downWorld.y);
         useStore.setState((s) => {
           s.dragPreview = {
             kind: "create_shape",
             data: {
               shape: config.isArrow ? "arrow" : "line",
-              x1: state.downWorld.x,
-              y1: state.downWorld.y,
+              x1: downWorld.x,
+              y1: downWorld.y,
               x2: p2.x,
               y2: p2.y,
               x: minX,
