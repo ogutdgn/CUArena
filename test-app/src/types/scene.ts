@@ -66,6 +66,7 @@ export interface PrototypeConnection {
   action: PrototypeAction;
   destinationFrameId?: string;
   animation?: PrototypeAnimation;
+  delayMs?: number;
   url?: string;
 }
 
