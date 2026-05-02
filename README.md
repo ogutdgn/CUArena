@@ -1,12 +1,19 @@
-# Figma Mock for CUA Testing
+# Figma Mock — CUA Evaluation System
 
-A pixel-accurate mock of **Figma Design** with a comprehensive action logger, built as the editor-facing piece of a Computer Use Agent (CUA) testing system. The CUA interacts with the app via screen pixels — clicking buttons, reading labels, and verifying state changes — and the logger captures both raw input events and semantic user-intent events so trajectories can be replayed and asserted against.
+A pixel-accurate mock of **Figma Design** paired with a **CUA verifier framework**. Together they form the evaluation environment for Computer Use Agent testing: the agent interacts with the mock app, and the verifier scores the outcome.
 
-Only the Mock App + logger are in scope for this repo. Upstream pieces (CUA model, adapter, bridge) and downstream pieces (test harness, trajectory assertions) live elsewhere.
+## Two sub-projects
+
+| Sub-project | Language | Purpose |
+|---|---|---|
+| [`test-app/`](test-app/) | TypeScript + React (Vite) | The Figma mock — what the CUA sees and interacts with |
+| [`test-verifier/`](test-verifier/) | Python | Verifier framework — reads logs, runs rubrics, produces scores |
+
+They are connected by a single log file the app exports after each session. See **How they connect** below.
+
+---
 
 ## Run the app
-
-The application is a Vite + React + TypeScript SPA under [`test-app/`](test-app/).
 
 ```bash
 cd test-app
@@ -16,46 +23,84 @@ npm run typecheck  # tsc -b --noEmit
 npm run build      # production build
 ```
 
-For architecture (engine, scene graph, ops pipeline, logger, UI shell), see [`test-app/ARCHITECTURE.md`](test-app/ARCHITECTURE.md).
+Export a log after interacting (dev mode only — browser console):
+```javascript
+__exportLog()   // downloads figma-mock-log-<sessionId>.json
+```
 
-## Source of truth for what to build
+---
 
-- [`feature-checklist.md`](feature-checklist.md) — the customer-provided feature list (33 items) plus three priority slices on top (Prototype, Right-sidebar parity, text-range). Tick items as they ship.
-- [`execution-map.md`](execution-map.md) — the wave-by-wave implementation order. Top of the file is a per-session log of what shipped; below is only the pending work, always renumbered to start from Wave 1.
-
-The session workflow that keeps these two files honest is documented in [`CLAUDE.md`](CLAUDE.md) under **Session workflow (mandatory)**.
-
-## Reference material
-
-Documentation corpus and synthesized analysis live under [`helper/`](helper/). Three entry-point docs are sufficient for almost every task:
-
-- [`helper/00-overview.md`](helper/00-overview.md) — project scope, principles, how-to-use workflows.
-- [`helper/01-ui-schema-extraction.md`](helper/01-ui-schema-extraction.md) — UI schema (regions, state matrix, color picker, context menu, etc.).
-- [`helper/02-feature-research.md`](helper/02-feature-research.md) — ~250 feature specs across 34 categories.
-
-`helper/figma_docs/` (216 scraped Figma help articles) and `helper/analysis/` (synthesized cross-cutting analysis) are reachable from those entry-point docs — don't read them blind.
-
-[`open-source-example/open-pencil/`](open-source-example/open-pencil/) is an open-source Figma-compatible editor kept around as a reference for SceneGraph emitter patterns, inverse-op undo, Figma-HTML clipboard, hit-testing, and snap-guides.
-
-## Regenerating the corpus
-
-The scraped Figma docs already live in `helper/figma_docs/`. If you ever need to rebuild them from scratch:
+## Run the verifier
 
 ```bash
-cd helper/fetch_script
-pip install -r requirements.txt
-python3 main.py
+cd test-verifier
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python run.py --task house_task --log logs/house_sample.json
 ```
+
+Score is auto-saved to `test-verifier/scores/<task_id>_<timestamp>.json`.
+
+---
+
+## How they connect
+
+```
+CUA agent interacts with test-app
+        ↓
+test-app exports: figma-mock-log-<sessionId>.json
+  { raw[], semantic[], outcome{} }
+        ↓
+test-verifier reads the log
+  checks outcome.document → did the right shapes end up on canvas?
+  checks semantic[]       → how many turns did it take?
+        ↓
+scores/<task_id>_<timestamp>.json
+```
+
+---
+
+## Documentation
+
+```
+project-documents/
+├── app-docs/
+│   ├── feature-checklist.md      ← customer feature list; tick [x] as features ship
+│   ├── execution-map.md          ← session log (top) + pending waves (bottom)
+│   ├── architecture.md           ← test-app stack, ops, state buckets, folder layout
+│   └── logging-documentation.md  ← full log schema (raw/semantic/outcome fields)
+└── verifier-docs/
+    ├── verifier-documentation.md  ← scoring model, check catalog, rubrics, CLI
+    └── verifier-writer.md         ← instructions for writing task/<id>.py verifier scripts
+```
+
+AI agent instructions (session workflow, reference map, feature↔check relationship): [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md)
+
+---
+
+## Reference material (Figma feature specs)
+
+[`helper/`](helper/) holds the documentation corpus. Three entry points cover almost every task:
+
+- [`helper/00-overview.md`](helper/00-overview.md) — project scope, principles, agent workflows (§7a)
+- [`helper/01-ui-schema-extraction.md`](helper/01-ui-schema-extraction.md) — UI regions, state matrix, color picker
+- [`helper/02-feature-research.md`](helper/02-feature-research.md) — ~250 feature specs across 34 categories
+
+Do not read `helper/figma_docs/` or `helper/analysis/` directly — navigate through the entry points above.
+
+---
 
 ## Project structure
 
 ```
 .
-├── CLAUDE.md              # AI agent instructions (session workflow + reference map)
-├── README.md              # This file
-├── feature-checklist.md   # Customer feature list + priority slices
-├── execution-map.md       # Session log (top) + pending waves (bottom)
-├── test-app/              # The mock app — Vite + React + TS
-├── helper/                # Documentation corpus + analysis + extracted feature specs
-└── open-source-example/   # OpenPencil reference editor (read-only)
+├── CLAUDE.md                 # AI agent instructions
+├── AGENTS.md                 # Same — for non-Claude AI agents
+├── README.md                 # This file
+├── project-documents/        # All documentation
+│   ├── app-docs/             # test-app docs
+│   └── verifier-docs/        # test-verifier docs
+├── test-app/                 # Figma mock (Vite + React + TS)
+├── test-verifier/            # Verifier framework (Python)
+└── helper/                   # Figma feature spec corpus + analysis
 ```

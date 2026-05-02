@@ -10,9 +10,14 @@ import { App } from "./App";
 import { installRawCapture } from "@/logger/raw";
 import { installPersist } from "@/logger/persist";
 import { emitSemantic } from "@/logger/semantic";
+import { downloadLogAsJson } from "@/logger/export";
 
 installPersist();
 installRawCapture();
+
+if (import.meta.env.DEV) {
+  (window as any).__exportLog = downloadLogAsJson;
+}
 emitSemantic({
   name: "session_start",
   userAgent: navigator.userAgent,
