@@ -1,0 +1,137 @@
+from dataclasses import dataclass
+from verifier.types import CheckResult
+from verifier.math_utils import find_layers_by_type, find_all_layers
+
+
+@dataclass
+class LayerInsideFrame:
+    """At least one layer of layer_type is a direct child of a frame."""
+    layer_type: str
+
+    def run(self, log: dict) -> CheckResult:
+        frames = find_layers_by_type(log["outcome"]["document"], "frame")
+        for frame in frames:
+            if any(c.get("type") == self.layer_type for c in frame.get("children", [])):
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} found inside a frame")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"No {self.layer_type} found as direct child of a frame")
+
+
+@dataclass
+class ChildCount:
+    """At least one parent_type layer has exactly `equals` children."""
+    parent_type: str
+    equals: int
+
+    def run(self, log: dict) -> CheckResult:
+        parents = find_layers_by_type(log["outcome"]["document"], self.parent_type)
+        for p in parents:
+            count = len(p.get("children", []))
+            if count == self.equals:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.parent_type} has {self.equals} children")
+        got = [len(p.get("children", [])) for p in parents]
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.parent_type} with {self.equals} children (found: {got})",
+        )
+
+
+@dataclass
+class ChildCountAtLeast:
+    """At least one parent_type layer has at least `minimum` children."""
+    parent_type: str
+    minimum: int
+
+    def run(self, log: dict) -> CheckResult:
+        parents = find_layers_by_type(log["outcome"]["document"], self.parent_type)
+        for p in parents:
+            if len(p.get("children", [])) >= self.minimum:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.parent_type} has ≥{self.minimum} children")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"No {self.parent_type} with ≥{self.minimum} children")
+
+
+@dataclass
+class IsGrouped:
+    """At least one layer of layer_type is a direct child of a group."""
+    layer_type: str
+
+    def run(self, log: dict) -> CheckResult:
+        groups = find_layers_by_type(log["outcome"]["document"], "group")
+        for g in groups:
+            if any(c.get("type") == self.layer_type for c in g.get("children", [])):
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} found inside a group")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"No {self.layer_type} found inside a group")
+
+
+@dataclass
+class ZOrderIsFirst:
+    """At least one layer of layer_type is at the front (last in its parent's children)."""
+    layer_type: str
+
+    def _check_nodes(self, nodes: list[dict]) -> bool:
+        if nodes and nodes[-1].get("type") == self.layer_type:
+            return True
+        for node in nodes:
+            if "children" in node and self._check_nodes(node["children"]):
+                return True
+        return False
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        found = False
+        for page in doc.get("pages", []):
+            if self._check_nodes(page.get("children", [])):
+                found = True
+                break
+        return CheckResult(
+            passed=found, score=1.0 if found else 0.0, max_score=1.0,
+            message=f"{self.layer_type} is at front (z-order first)" if found
+                    else f"No {self.layer_type} found at front",
+        )
+
+
+@dataclass
+class ZOrderIsLast:
+    """At least one layer of layer_type is at the back (first in its parent's children)."""
+    layer_type: str
+
+    def _check_nodes(self, nodes: list[dict]) -> bool:
+        if nodes and nodes[0].get("type") == self.layer_type:
+            return True
+        for node in nodes:
+            if "children" in node and self._check_nodes(node["children"]):
+                return True
+        return False
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        found = False
+        for page in doc.get("pages", []):
+            if self._check_nodes(page.get("children", [])):
+                found = True
+                break
+        return CheckResult(
+            passed=found, score=1.0 if found else 0.0, max_score=1.0,
+            message=f"{self.layer_type} is at back (z-order last)" if found
+                    else f"No {self.layer_type} found at back",
+        )
+
+
+@dataclass
+class LayerTotalCount:
+    """Total layer count across all pages equals `equals`."""
+    equals: int
+
+    def run(self, log: dict) -> CheckResult:
+        count = len(find_all_layers(log["outcome"]["document"]))
+        passed = count == self.equals
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"Total layers: expected {self.equals}, got {count}",
+        )
