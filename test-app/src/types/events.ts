@@ -547,7 +547,7 @@ export type SemanticEvent =
   | (SemanticEventBase & {
       name: "update_prototype_connection";
       connectionId: string;
-      field: "trigger" | "action" | "destinationFrameId" | "animation" | "url";
+      field: "trigger" | "action" | "destinationFrameId" | "animation" | "delayMs" | "url";
       before: string | null;
       after: string | null;
     })
