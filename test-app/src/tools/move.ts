@@ -508,7 +508,7 @@ export const moveTool: ITool = {
         const tWorld = state.startWorldTransforms[id];
         if (!tLocal || !tWorld) continue;
         const liveLayer = sLive.nodesById[id] as Layer | undefined;
-        if (!liveLayer || (liveLayer as Page).type === "page") continue;
+        if (!liveLayer || (liveLayer as unknown as Page).type === "page") continue;
         const p = worldOffsetOfParent(sLive, liveLayer.parentId);
         after[id] = {
           ...tLocal,
@@ -557,14 +557,14 @@ export const moveTool: ITool = {
         const nw = state.startBbox.w === 0 ? newBbox.w : (t.w / state.startBbox.w) * newBbox.w;
         const nh = state.startBbox.h === 0 ? newBbox.h : (t.h / state.startBbox.h) * newBbox.h;
         const layerNow = useStore.getState().nodesById[id] as Layer | undefined;
-        if (!layerNow || (layerNow as Page).type === "page") continue;
+        if (!layerNow || (layerNow as unknown as Page).type === "page") continue;
         const parent = useStore.getState().nodesById[layerNow.parentId];
         const px =
-          parent && (parent as Page).type !== "page"
+          parent && (parent as unknown as Page).type !== "page"
             ? worldRectOfLayer(useStore.getState(), parent as Layer).x
             : 0;
         const py =
-          parent && (parent as Page).type !== "page"
+          parent && (parent as unknown as Page).type !== "page"
             ? worldRectOfLayer(useStore.getState(), parent as Layer).y
             : 0;
         after[id] = {
@@ -809,9 +809,9 @@ function applyFrameNestingByOverlap(
   const movedSet = new Set(drag.layerIds);
   const movedRoots = drag.layerIds.filter((id) => {
     let cur = s.nodesById[id] as Layer | undefined;
-    while (cur && (cur as Page).type !== "page") {
+    while (cur && (cur as unknown as Page).type !== "page") {
       const parent = s.nodesById[cur.parentId] as Layer | Page | undefined;
-      if (!parent || (parent as Page).type === "page") break;
+      if (!parent || (parent as unknown as Page).type === "page") break;
       if (movedSet.has((parent as Layer).id)) return false;
       cur = parent as Layer;
     }
@@ -826,7 +826,7 @@ function applyFrameNestingByOverlap(
   for (const id of movedRoots) {
     const now = useStore.getState();
     const layer = now.nodesById[id] as Layer | undefined;
-    if (!layer || (layer as Page).type === "page") continue;
+    if (!layer || (layer as unknown as Page).type === "page") continue;
 
     const wr = worldRectOfLayer(now, layer);
     const area = Math.max(1, wr.w * wr.h);
@@ -946,9 +946,9 @@ function overlapRatio(
 function depthOf(s: ReturnType<typeof useStore.getState>, id: string): number {
   let d = 0;
   let cur = s.nodesById[id] as Layer | Page | undefined;
-  while (cur && (cur as Page).type !== "page") {
+  while (cur && (cur as unknown as Page).type !== "page") {
     const parent = s.nodesById[(cur as Layer).parentId] as Layer | Page | undefined;
-    if (!parent || (parent as Page).type === "page") break;
+    if (!parent || (parent as unknown as Page).type === "page") break;
     d += 1;
     cur = parent;
   }
@@ -961,7 +961,7 @@ function isAncestor(
   nodeId: string,
 ): boolean {
   let cur = s.nodesById[nodeId] as Layer | Page | undefined;
-  while (cur && (cur as Page).type !== "page") {
+  while (cur && (cur as unknown as Page).type !== "page") {
     if ((cur as Layer).id === ancestorId) return true;
     cur = s.nodesById[(cur as Layer).parentId] as Layer | Page | undefined;
   }
