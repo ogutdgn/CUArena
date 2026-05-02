@@ -129,7 +129,9 @@ test-verifier/
 │   │   ├── property_checks.py
 │   │   ├── text_checks.py
 │   │   ├── effect_checks.py
-│   │   └── structure_checks.py
+│   │   ├── structure_checks.py
+│   │   ├── page_checks.py
+│   │   └── event_checks.py
 │   │
 │   └── rubrics/                   ← rubric containers (node layer)
 │       ├── fundamentals.py
@@ -139,6 +141,8 @@ test-verifier/
 │       ├── property.py
 │       ├── effect.py
 │       ├── structure.py
+│       ├── page.py
+│       ├── event.py
 │       └── efficiency.py
 │
 ├── tasks/                         ← one file per task (Claude Code writes these)
@@ -231,8 +235,11 @@ All checks live in `verifier/checks/`. Each check exposes a single method:
 | `DistanceBetween` | `type_a, type_b, expected_px, tolerance=5.0` | distance between nearest pair of layers |
 | `LayerContains` | `outer_type, inner_type` | at least one inner_type layer is inside an outer_type layer |
 | `LayersDistributed` | `layer_type, axis, tolerance=5.0` | layers are evenly spaced on axis |
+| `LayersSameDimensions` | `layer_type, tolerance=2.0` | all layers of type have equal w and h as each other |
+| `LayerEdgesAligned` | `type_a, edge_a, type_b, edge_b, tolerance=5.0` | an edge of type_a aligns with an edge of type_b |
 
 `axis` options: `"x"` `"y"` `"center_x"` `"center_y"`
+`edge` options: `"top"` `"bottom"` `"left"` `"right"` `"center_x"` `"center_y"`
 
 ### fill_checks.py
 
@@ -303,6 +310,26 @@ All checks live in `verifier/checks/`. Each check exposes a single method:
 | `ZOrderIsLast` | `layer_type` | at least one layer is at the back (first in children array) |
 | `LayerTotalCount` | `equals` | total layer count across all pages |
 
+### page_checks.py
+
+| Class | Arguments | What it checks |
+|---|---|---|
+| `PageCount` | `equals` | document has exactly N pages |
+| `PageCountAtLeast` | `minimum` | document has at least N pages |
+| `LayerOnPage` | `layer_type, page_index` | layer of type exists on page at index (0-based) |
+| `ActivePageIs` | `page_name` | active page at session end has this name |
+
+### event_checks.py — reads `semantic[]`, not `outcome`
+
+| Class | Arguments | What it checks |
+|---|---|---|
+| `EventTypeUsed` | `event_name` | semantic event was emitted at least once |
+| `EventTypeCount` | `event_name, equals` | emitted exactly N times |
+| `EventTypeCountAtLeast` | `event_name, minimum` | emitted at least N times |
+| `AlignToolUsed` | — | `align_layers` event was used |
+| `UndoUsed` | — | `undo` event was used |
+| `ToolUsed` | `tool_id` | `tool_change` to given tool id occurred |
+
 ---
 
 ## 8. Rubric Types
@@ -318,6 +345,8 @@ All rubrics live in `verifier/rubrics/`. Each scores **0 .. 0.5** with partial c
 | `PropertyRubric` | property_checks |
 | `EffectRubric` | effect_checks |
 | `StructureRubric` | structure_checks |
+| `PageRubric` | page_checks |
+| `EventRubric` | event_checks |
 | `EfficiencyRubric` | reads `semantic[]` — returns multiplier, not a rubric score |
 
 `EfficiencyRubric` is special: it does not produce a `RubricResult`. It produces an
@@ -372,12 +401,11 @@ task = Task(
 ## 10. CLI Runner (`run.py`)
 
 ```bash
-# Run a verifier against a log file
 python run.py --task house_task --log logs/house_sample.json
-
-# Save result as JSON
-python run.py --task house_task --log logs/house_sample.json --output scores/house_result.json
 ```
+
+Score JSON is automatically saved to `scores/<task_id>_<timestamp>.json` on every run.
+Full JSON is also printed to stdout after the human-readable summary.
 
 Output format:
 
