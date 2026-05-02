@@ -92,8 +92,9 @@ export function PrototypePreview() {
 
   useEffect(() => {
     if (!frame) return;
+    const currentFrame = frame;
     function onKeyDown() {
-      activateConnection(frame.id, "key_gamepad");
+      activateConnection(currentFrame.id, "key_gamepad");
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);

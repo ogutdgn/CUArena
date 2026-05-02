@@ -261,9 +261,10 @@ export function ConnectionArrows() {
 
   function deleteConnection(id: string) {
     const conn = connections.find((c) => c.id === id);
-    if (!conn) return;
+    if (!conn || !page) return;
+    const pageId = page.id;
     useStore.setState((s) => {
-      const p = s.document.pages.find((pg) => pg.id === page.id);
+      const p = s.document.pages.find((pg) => pg.id === pageId);
       if (!p?.prototypeConnections) return;
       p.prototypeConnections = p.prototypeConnections.filter((c) => c.id !== id);
     });

@@ -1,7 +1,7 @@
 // Derived selectors over store state. Pure functions over AppState.
 
 import type { AppState } from "./store";
-import type { Layer, Page } from "@/types/scene";
+import type { Layer, Page, ContainerLayer } from "@/types/scene";
 import type { Rect } from "@/util/geometry";
 import { worldOffsetOfLayer, worldRectOfLayer } from "./coordinates";
 import { isContainer } from "@/types/scene";
@@ -48,7 +48,7 @@ export function hitTest(s: AppState, x: number, y: number): Layer | null {
   if (focusId) {
     const node = s.nodesById[focusId];
     if (node && (node as Page).type !== "page" && isContainer(node as Layer)) {
-      const scope = node as Layer;
+      const scope = node as ContainerLayer;
       const origin = worldOffsetOfLayer(s, scope);
       return hitTestArr(scope.children, x, y, origin.x, origin.y);
     }

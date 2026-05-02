@@ -5,7 +5,7 @@ import { useStore } from "./store";
 import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { pushToast } from "@/ui/overlays/Toasts";
-import type { Layer, Page } from "@/types/scene";
+import type { Layer, Page, ContainerLayer } from "@/types/scene";
 import type { ClipboardPayload } from "@/types/ops";
 import { uid } from "@/util/id";
 import { isContainer } from "@/types/scene";
@@ -231,7 +231,7 @@ export function selectAll(): void {
   if (focusId) {
     const node = state.nodesById[focusId];
     if (node && (node as Page).type !== "page" && isContainer(node as Layer)) {
-      const container = node as Layer;
+      const container = node as ContainerLayer;
       roots = container.children;
       scope = container.type === "frame" ? "parent_frame" : "parent_group";
     }
