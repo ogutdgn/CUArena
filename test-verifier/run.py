@@ -4,7 +4,6 @@ Verifier CLI.
 
 Usage:
   python run.py --task house_task --log logs/house_sample.json
-  python run.py --task house_task --log logs/house_sample.json --output scores/result.json
 """
 
 import argparse
@@ -12,9 +11,13 @@ import dataclasses
 import importlib
 import json
 import sys
+from datetime import datetime
+from pathlib import Path
 
 from verifier.loader import load_log
 from verifier.types import TaskResult
+
+SCORES_DIR = Path(__file__).parent / "scores"
 
 
 def run_task(task_name: str, log_path: str) -> TaskResult:
@@ -43,6 +46,15 @@ def run_task(task_name: str, log_path: str) -> TaskResult:
     )
 
 
+def save_result(result: TaskResult) -> Path:
+    SCORES_DIR.mkdir(exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_path = SCORES_DIR / f"{result.task_id}_{timestamp}.json"
+    with open(out_path, "w") as f:
+        json.dump(dataclasses.asdict(result), f, indent=2)
+    return out_path
+
+
 def print_result(result: TaskResult) -> None:
     max_base = sum(r.max_score for r in result.rubrics)
     print(f"\nTask : {result.task_id}")
@@ -63,18 +75,17 @@ def print_result(result: TaskResult) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run a task verifier against a log file.")
-    parser.add_argument("--task",   required=True, help="Task module name (e.g. house_task)")
-    parser.add_argument("--log",    required=True, help="Path to log JSON file")
-    parser.add_argument("--output", help="Write result JSON to this path")
+    parser.add_argument("--task", required=True, help="Task module name (e.g. house_task)")
+    parser.add_argument("--log",  required=True, help="Path to log JSON file")
     args = parser.parse_args()
 
     result = run_task(args.task, args.log)
     print_result(result)
 
-    if args.output:
-        with open(args.output, "w") as f:
-            json.dump(dataclasses.asdict(result), f, indent=2)
-        print(f"Result saved → {args.output}")
+    print(json.dumps(dataclasses.asdict(result), indent=2))
+
+    out_path = save_result(result)
+    print(f"\nResult saved → {out_path}")
 
 
 if __name__ == "__main__":
