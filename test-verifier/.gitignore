@@ -1,0 +1,5 @@
+.venv/
+scores/*.json
+logs/figma-mock-log-*.json
+__pycache__/
+*.pyc
