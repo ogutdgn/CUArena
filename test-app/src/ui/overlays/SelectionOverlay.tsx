@@ -20,8 +20,6 @@ export function SelectionOverlay() {
   const activeTool = useStore((s) => s.activeTool);
   const activeRightTab = useStore((s) => s.activeRightTab);
   if (!bbox) return null;
-  // In prototype mode, hide resize handles — connection dots take over.
-  if (activeRightTab === "prototype") return null;
   // Pen mode should render anchor/handle previews only (no selection bbox).
   if (activeTool === "pen") return null;
   // Suppress handles/rotate hits when in a sub-mode (vector edit / text edit /
@@ -46,6 +44,7 @@ export function SelectionOverlay() {
   const sw = 1 / viewport.zoom;
   const handle = HANDLE_SIZE_PX / viewport.zoom;
   const hitExtra = HANDLE_HIT_PADDING_PX / viewport.zoom;
+  const handles = activeRightTab === "prototype" ? cornerHandlePositions(bbox) : handlePositions(bbox);
 
   const rotateRing = ROTATE_RING_PX / viewport.zoom;
   return (
@@ -65,7 +64,7 @@ export function SelectionOverlay() {
         pointerEvents="none"
       />
       <WHLabel bbox={bbox} zoom={viewport.zoom} />
-      {handlePositions(bbox).map((p) => (
+      {handles.map((p) => (
         <Handle
           key={p.dir}
           dir={p.dir}
@@ -172,6 +171,15 @@ export function handlePositions(b: Rect): Array<{ dir: HandleDir; x: number; y: 
     { dir: "s", x: cx, y: b.y + b.h },
     { dir: "sw", x: b.x, y: b.y + b.h },
     { dir: "w", x: b.x, y: cy },
+  ];
+}
+
+function cornerHandlePositions(b: Rect): Array<{ dir: HandleDir; x: number; y: number }> {
+  return [
+    { dir: "nw", x: b.x, y: b.y },
+    { dir: "ne", x: b.x + b.w, y: b.y },
+    { dir: "se", x: b.x + b.w, y: b.y + b.h },
+    { dir: "sw", x: b.x, y: b.y + b.h },
   ];
 }
 
