@@ -1,0 +1,591 @@
+"Difficulty","Thorough Description","Simplified Prompt","Time (minutes)","Step-by-step"
+"Easy","Use the Frame tool from the toolbar and select the MacBook Air preset (1280x832) from the right-panel preset list. Inside the frame, build a simple house: draw a rectangle for the body, add a triangle roof on top spanning the body width with a small overhang on each side, place a small chimney rectangle on the roof, add a front door rectangle on the body, and include 2 small square windows on either side of the door. Apply a different fill color to the body, roof, door, and windows.","Build a simple house inside a MacBook Air frame with a body, triangle roof, chimney, door, and 2 windows.",10,"1. Click Frame tool in toolbar
+2. In right panel, click MacBook Air preset
+3. Click Rectangle tool
+4. Drag inside frame to draw house body
+5. Click fill swatch, drag color picker to body color, click outside picker
+6. Click Polygon tool
+7. Drag above body to draw triangle roof
+8. Click fill swatch, pick roof color, click outside picker
+9. Click Rectangle tool
+10. Drag to draw chimney rectangle on roof
+11. Click fill swatch, pick chimney color, click outside picker
+12. Click Rectangle tool
+13. Drag to draw door on body
+14. Click fill swatch, pick door color, click outside picker
+15. Click Rectangle tool
+16. Drag to draw left window
+17. Click fill swatch, pick window color, click outside picker
+18. Right-click window, click Duplicate
+19. Drag duplicate to right side of door for second window"
+"Easy","Create an 800x400 frame. Draw a single rectangle covering the entire frame. In the fill panel, switch from Solid to Linear gradient and rotate the gradient direction to vertical (90 degrees). Add three additional gradient stops to bring the total to five. From top to bottom, set the colors to deep purple, pink, orange, yellow, and pale yellow.","Make a sunset sky as a single rectangle filled with a 5-stop vertical linear gradient from purple at top to pale yellow at bottom.",12,"1. Click Frame tool, drag to make 800x400 frame
+2. Click Rectangle tool
+3. Drag inside frame to fill it with rectangle
+4. Click fill swatch in right panel
+5. Click fill type dropdown, click Linear
+6. Drag gradient angle handle on canvas to vertical (90 degrees)
+7. Click on gradient bar to add 3rd stop
+8. Click on gradient bar to add 4th stop
+9. Click on gradient bar to add 5th stop
+10. Click first stop, drag picker to deep purple, click outside
+11. Click second stop, drag picker to pink, click outside
+12. Click third stop, drag picker to orange, click outside
+13. Click fourth stop, drag picker to yellow, click outside
+14. Click fifth stop, drag picker to pale yellow, click outside"
+"Easy","Create a 600x600 frame with a dark navy fill. Draw a 300px circle centered in the frame. Apply a Radial gradient fill: bright cyan at the center fading to a translucent edge. Drag the on-canvas radial gradient handles to offset the bright center toward the upper-left.","Make a glowing cyan orb on a dark navy background using a radial gradient with the bright spot offset toward the upper-left.",10,"1. Click Frame tool, drag to make 600x600 frame
+2. Click frame, click fill swatch, drag picker to dark navy, click outside
+3. Click Ellipse tool
+4. Drag inside frame to make 300px circle
+5. Click fill swatch in right panel
+6. Click fill type dropdown, click Radial
+7. Click center stop, drag picker to bright cyan, click outside
+8. Click outer stop, drag picker color and reduce opacity slider, click outside
+9. On canvas, drag radial gradient center handle toward upper-left"
+"Easy","Create a 400x400 frame. Draw a 300px circle centered in the frame. Apply an Angular gradient fill. Add at least 6 color stops cycling through the rainbow: red, yellow, green, cyan, blue, magenta, and back to red. Drag the stops around the angular gradient ring on canvas to space them evenly.","Make a rainbow color wheel using an angular gradient on a circle with at least 6 stops.",10,"1. Click Frame tool, drag to make 400x400 frame
+2. Click Ellipse tool
+3. Drag inside frame to make 300px circle
+4. Click fill swatch
+5. Click fill type dropdown, click Angular
+6. Click on gradient ring on canvas to add 3rd stop
+7. Click ring to add 4th stop
+8. Click ring to add 5th stop
+9. Click ring to add 6th stop
+10. Click stop 1, drag picker to red
+11. Click stop 2, drag picker to yellow
+12. Click stop 3, drag picker to green
+13. Click stop 4, drag picker to cyan
+14. Click stop 5, drag picker to blue
+15. Click stop 6, drag picker to magenta"
+"Easy","Draw two overlapping circles (each about 120px) side by side so they overlap by ~40%. Below them, draw a downward-pointing triangle whose top edge aligns with the bottom edges of the circles. Marquee-select all three shapes and click the Boolean Union button to merge them into a heart. Apply a red fill.","Make a red heart by unioning two overlapping circles with a downward triangle below them.",10,"1. Click Ellipse tool
+2. Drag to make first ~120px circle
+3. Click Ellipse tool
+4. Drag to make second ~120px circle adjacent and overlapping
+5. Click Polygon tool
+6. Drag below circles to make downward-pointing triangle
+7. Drag marquee to select all 3 shapes
+8. Click Boolean operations dropdown in toolbar
+9. Click Union
+10. Click fill swatch, drag picker to red, click outside"
+"Easy","Use the Polygon tool to draw two pentagons of the same size. Rotate one of them by 36 degrees. Position them concentrically so they overlap. Marquee-select both and click Boolean Exclude to keep only the non-overlapping regions, creating a 10-point star pattern. Apply a gold fill.","Make a 10-point gold star pattern by excluding two overlapping pentagons rotated against each other.",12,"1. Click Polygon tool
+2. Drag to make first pentagon
+3. Right-click pentagon, click Duplicate
+4. Drag duplicate on top of original
+5. Scrub rotation field in right panel to 36 degrees
+6. Drag marquee to select both pentagons
+7. Click Boolean operations dropdown
+8. Click Exclude
+9. Click fill swatch, drag picker to gold, click outside"
+"Easy","Create an 800x400 frame. Use the Pen tool to click sequentially: ground level on the left, up to a peak, down into a valley, up to a second peak, then back to ground level on the right. Close the path along the bottom and apply a dark gray fill. Then draw one more smaller mountain path in front in a slightly lighter shade.","Make a layered gray mountain range using two overlapping pen-tool paths in different shades.",12,"1. Click Frame tool, drag for 800x400 frame
+2. Click Pen tool
+3. Click anchor at left ground level
+4. Click anchor at first peak
+5. Click anchor at valley
+6. Click anchor at second peak
+7. Click anchor at right ground level
+8. Click starting anchor to close path
+9. Press Escape to commit
+10. Click fill swatch, drag picker to dark gray, click outside
+11. Click Pen tool
+12. Click anchors to draw smaller front mountain
+13. Click starting anchor to close
+14. Press Escape
+15. Click fill swatch, drag picker to lighter gray, click outside"
+"Easy","Create a 1000x300 frame. Use the Pen tool to draw a smooth horizontal wave: at each anchor, click and drag to set Bezier handles, creating 2 peaks and 3 troughs. Apply a 4px blue stroke with rounded caps. Duplicate the path, shift down, and recolor in a different shade of blue.","Make two layered water waves drawn with smooth Bezier curves in different blue shades.",15,"1. Click Frame tool, drag for 1000x300 frame
+2. Click Pen tool
+3. Click and drag at first anchor (sets handles)
+4. Click and drag at second anchor (peak)
+5. Click and drag at third anchor (trough)
+6. Click and drag at fourth anchor (peak)
+7. Click and drag at fifth anchor (final)
+8. Press Escape to commit
+9. Click stroke + in right panel
+10. Click stroke color swatch, drag picker to blue, click outside
+11. Scrub stroke weight to 4
+12. Click cap dropdown, click Round
+13. Right-click path, click Duplicate
+14. Drag duplicate down slightly
+15. Click stroke color, drag picker to different blue, click outside"
+"Easy","Draw 4 squares of 120x120 in a row with consistent spacing. Fill each a different color via the color picker. For each, click the style icon next to fill swatch and save the fill as a color style. Then draw a second row of 4 squares directly below; click each saved style swatch to apply.","Make a brand palette: 4 colored squares saved as color styles, then a second row of 4 squares applying those styles.",12,"1. Click Rectangle tool, drag for 1st 120x120 square
+2. Click fill swatch, drag picker to color 1, click outside
+3. Click style icon next to fill swatch
+4. Click Create style in popup
+5. Right-click square, Duplicate, drag right
+6. Click fill swatch, drag picker to color 2
+7. Click style icon, click Create style
+8. Repeat duplicate + recolor + save style for squares 3 and 4
+9. Marquee select all 4 squares
+10. Right-click, Duplicate
+11. Drag duplicate row directly below original row
+12. Click first duplicate, click fill swatch, click first saved style swatch in styles list
+13. Click 2nd duplicate, click fill, click 2nd style swatch
+14. Click 3rd duplicate, apply 3rd style
+15. Click 4th duplicate, apply 4th style"
+"Easy","Drag a photo onto the canvas. Draw a circle on top of part of the photo. Right-click the circle and choose Use as mask. Double-click the masked image to reposition the photo within the mask.","Make a circular avatar by masking a photo with a circle and centering the subject within the mask.",10,"1. Drag photo file from Finder onto canvas
+2. Click Ellipse tool
+3. Drag to draw circle on top of photo
+4. Right-click circle
+5. Click Use as mask in context menu
+6. Double-click masked image to enter edit mode
+7. Drag image to reposition subject within mask"
+"Easy","Draw a 240x56 rectangle with corner radius 28. Fill light gray (#F3F4F6). Add an Inner Shadow effect: Y offset 2, blur 4, opacity 10%.","Make a light gray pill-shaped button that looks pressed using an inner shadow.",8,"1. Click Rectangle tool
+2. Drag to make 240x56 rectangle
+3. Scrub corner radius field to 28
+4. Click fill swatch, drag picker to light gray, click outside
+5. Click effects + in right panel
+6. Click effect type dropdown
+7. Click Inner Shadow
+8. Scrub Y offset to 2
+9. Scrub blur to 4
+10. Scrub opacity to 10"
+"Easy","Draw a 320x200 white rectangle with rounded corners. Add a Drop Shadow (Y=8, blur 24, opacity ~12%). Save the shadow as an effect style. Draw 2 more white cards of the same size next to it; apply the saved effect style to each.","Make three white rounded cards in a row that share one saved drop-shadow effect style.",12,"1. Click Rectangle tool
+2. Drag to make 320x200 rectangle
+3. Scrub corner radius to ~16
+4. Click fill swatch, drag picker to white, click outside
+5. Click effects + in right panel
+6. Scrub Y offset to 8
+7. Scrub blur to 24
+8. Scrub opacity to 12
+9. Click effect style icon next to effect
+10. Click Create style
+11. Right-click card, Duplicate, drag to the right
+12. Click effect style swatch in styles list to apply
+13. Right-click, Duplicate, drag right
+14. Click effect style swatch to apply"
+"Easy","Create a 600x600 dark navy frame. Draw two equal circles (~200px), offset one right so they overlap ~70%. Marquee-select both and click Boolean Subtract to make a crescent. Apply pale yellow fill. Add 6 small white circles as stars scattered across the sky.","Make a night sky with a pale yellow crescent moon (via subtract) and 6 small white stars.",10,"1. Click Frame tool, drag for 600x600 frame
+2. Click frame, click fill swatch, drag picker to dark navy
+3. Click Ellipse tool, drag for first ~200px circle
+4. Click Ellipse tool, drag for second ~200px circle offset right
+5. Drag marquee around both circles
+6. Click Boolean operations dropdown
+7. Click Subtract
+8. Click fill swatch, drag picker to pale yellow
+9. Click Ellipse tool, drag for small star circle
+10. Click fill swatch, drag picker to white
+11. Right-click star, Duplicate, drag to new position
+12. Repeat duplicate + position 4 more times for 6 stars total"
+"Easy","Draw 4 concentric circles (240px, 180px, 120px, 60px). Use alignment buttons to perfectly center them. Alternate fills outermost-to-center: red, white, red, white. Add 4px black stroke to each.","Make a dartboard target with 4 concentric red and white circles, perfectly centered, each with a 4px black stroke.",10,"1. Click Ellipse tool, drag to make 240px circle
+2. Click fill swatch, drag picker to red, click outside
+3. Click stroke + in right panel
+4. Click stroke color, drag picker to black
+5. Scrub stroke weight to 4
+6. Right-click circle, Duplicate
+7. Scrub width and height to 180
+8. Click fill, drag picker to white
+9. Right-click, Duplicate, scrub size to 120, fill red
+10. Right-click, Duplicate, scrub size to 60, fill white
+11. Drag marquee around all 4 circles
+12. Click Align horizontal centers
+13. Click Align vertical centers"
+"Easy","Draw 4 overlapping circles of varying sizes forming a fluffy cloud silhouette. Marquee-select all and click Boolean Union. Apply white fill and 1px light gray stroke.","Make a fluffy cloud shape by unioning 4 overlapping circles, with white fill and a thin gray stroke.",8,"1. Click Ellipse tool, drag to make 1st circle
+2. Click Ellipse tool, drag to make 2nd circle overlapping
+3. Click Ellipse tool, drag to make 3rd circle
+4. Click Ellipse tool, drag to make 4th circle
+5. Drag marquee around all 4 circles
+6. Click Boolean operations dropdown
+7. Click Union
+8. Click fill swatch, drag picker to white, click outside
+9. Click stroke +, drag picker to light gray, scrub weight to 1"
+"Easy","Draw a rounded rectangle (~240x120, radius 16) for the bubble body. Below, draw a small triangle pointing down-left, slightly overlapping. Marquee-select both and click Boolean Union. Apply light gray fill and 2px dark gray stroke.","Make a chat-style speech bubble by unioning a rounded rectangle and a small triangle tail.",10,"1. Click Rectangle tool
+2. Drag to make ~240x120 rectangle
+3. Scrub corner radius to 16
+4. Click Polygon tool
+5. Drag to make small triangle below-left of rectangle
+6. Drag triangle so its top overlaps bottom-left of rectangle
+7. Drag marquee around both
+8. Click Boolean operations dropdown
+9. Click Union
+10. Click fill swatch, drag picker to light gray
+11. Click stroke +, drag picker to dark gray, scrub weight to 2"
+"Easy","Draw a 200px circle with purple fill. Draw a triangle inside pointing right, ~80px tall. Use alignment buttons to center the triangle inside the circle. Marquee-select both and click Boolean Subtract.","Make a purple play button by subtracting a centered right-pointing triangle from a circle.",10,"1. Click Ellipse tool, drag to make 200x200 circle
+2. Click fill swatch, drag picker to purple, click outside
+3. Click Polygon tool, drag to make triangle
+4. Scrub rotation to make triangle point right
+5. Drag triangle inside circle
+6. Drag marquee around both
+7. Click Align horizontal centers
+8. Click Align vertical centers
+9. Click Boolean operations dropdown
+10. Click Subtract"
+"Easy","Draw a 240px pink circle. Draw a smaller 100px circle on top, perfectly centered with alignment buttons. Marquee both and click Boolean Subtract to make a donut. Add 5 small ellipse sprinkles in various colors at different angles.","Make a pink donut by subtracting a centered small circle from a large one, then add 5 colorful sprinkle ellipses.",12,"1. Click Ellipse tool, drag to make 240x240 circle
+2. Click fill swatch, drag picker to pink
+3. Click Ellipse tool, drag to make 100x100 circle on top
+4. Drag marquee around both
+5. Click Align horizontal centers
+6. Click Align vertical centers
+7. Click Boolean operations dropdown
+8. Click Subtract
+9. Click Ellipse tool, drag for small sprinkle ellipse
+10. Click fill swatch, drag picker to color 1
+11. Scrub rotation to angle 1
+12. Right-click, Duplicate, drag, recolor color 2, rotate
+13. Repeat 3 more times for 5 sprinkles total"
+"Medium","Draw a 200x160 rectangle with corner radius 12 and dark gray fill. Above the body, use the Pen tool to draw a U-shaped shackle path. Apply a 14px stroke with rounded caps. Add a small black keyhole circle in the center of the body.","Make a padlock icon with a rounded rectangle body, a U-shaped shackle drawn with the Pen tool, and a keyhole circle.",15,"1. Click Rectangle tool
+2. Drag to make 200x160 rectangle
+3. Scrub corner radius to 12
+4. Click fill swatch, drag picker to dark gray
+5. Click Pen tool
+6. Click anchor at left vertical position
+7. Click anchor straight up
+8. Click and drag at top center to create curved arc
+9. Click anchor straight down on right
+10. Click anchor at right vertical position
+11. Press Escape to commit
+12. Click stroke + in right panel
+13. Scrub stroke weight to 14
+14. Click cap dropdown, click Round
+15. Click Ellipse tool
+16. Drag small circle in center of body
+17. Click fill swatch, drag picker to black"
+"Easy","Create an 800x600 dark navy frame. Draw a 300px magenta circle in the center. Add Layer Blur strength 80. Duplicate the circle, change fill to cyan, offset position so it partially overlaps, and place behind the magenta in the layers panel.","Make an ambient glow backdrop using two overlapping blurred circles in magenta and cyan on a dark navy frame.",12,"1. Click Frame tool, drag to make 800x600 frame
+2. Click frame fill, drag picker to dark navy
+3. Click Ellipse tool, drag for 300px circle in center
+4. Click fill swatch, drag picker to magenta
+5. Click effects + in right panel
+6. Click effect type dropdown, click Layer blur
+7. Scrub blur amount to 80
+8. Right-click circle, click Duplicate
+9. Click fill swatch on duplicate, drag picker to cyan
+10. Drag cyan duplicate to overlap magenta
+11. In layers panel, drag cyan layer below magenta layer"
+"Medium","Draw 3 vertical button rectangles (240x48 each) with different fill colors. Marquee-select all and convert to vertical auto-layout. Set gap 16, padding 24, both axes Hug contents. Drag in the layers panel to reorder.","Make a vertical stack of three colored buttons in an auto-layout frame with 16px gap and 24px padding.",18,"1. Click Rectangle tool, drag for 1st 240x48 button
+2. Click fill swatch, pick color 1
+3. Right-click, Duplicate, drag below
+4. Click fill, pick color 2
+5. Right-click, Duplicate, drag below
+6. Click fill, pick color 3
+7. Drag marquee around all 3
+8. Click auto-layout + in right panel
+9. Click direction toggle to vertical
+10. Scrub gap field to 16
+11. Scrub padding field to 24
+12. Click width dropdown, click Hug contents
+13. Click height dropdown, click Hug contents
+14. In layers panel, drag a button up or down to verify reorder"
+"Easy","Draw 4 rounded rectangles (radius 999, height 32) with varying widths and pastel fills. Add a small placeholder dot inside each. Marquee all and convert to horizontal auto-layout with gap 8, hug both axes.","Make a horizontal row of 4 pastel pill-shaped tags using horizontal auto-layout with 8px gap.",15,"1. Click Rectangle tool, drag for 1st pill (~80x32)
+2. Scrub corner radius to 999
+3. Click fill, pick pastel color 1
+4. Click Ellipse tool, drag small dot inside pill
+5. Right-click pill group, Duplicate, drag right, change fill
+6. Repeat 2 more times for 4 pills total
+7. Drag marquee around all 4 pills
+8. Click auto-layout +
+9. Click direction toggle to horizontal
+10. Scrub gap to 8
+11. Click width dropdown, Hug contents
+12. Click height dropdown, Hug contents"
+"Medium","Create a 1440x900 outer frame. Draw a 240x900 dark gray rectangle on the left (sidebar). Set sidebar constraints to Left horizontal, Top + Bottom vertical. Drag the parent frame's corner to resize to 1920x1080. The sidebar should stretch full height.","Make a left sidebar that stretches vertically when the parent frame is resized, using Left + Top+Bottom constraints.",22,"1. Click Frame tool, drag to make 1440x900 outer frame
+2. Click Rectangle tool, drag inside frame on left for 240x900 sidebar
+3. Click fill, drag picker to dark gray
+4. With sidebar selected, click constraints horizontal dropdown in right panel
+5. Click Left
+6. Click constraints vertical dropdown
+7. Click Top and bottom
+8. Click outer frame to select
+9. Drag bottom-right corner handle of frame to resize toward 1920x1080"
+"Medium","Create a 1440x900 parent frame. Draw a 480x320 white rounded rectangle modal with drop shadow. Center it horizontally and vertically. Set constraints Center+Center. Resize parent to 1920x1080 to verify the modal stays centered.","Make a centered modal with a drop shadow that stays centered when its parent frame is resized.",20,"1. Click Frame tool, drag for 1440x900 parent frame
+2. Click Rectangle tool, drag inside for 480x320 modal
+3. Scrub corner radius to ~16
+4. Click fill, drag picker to white
+5. Click effects +, configure drop shadow
+6. Drag marquee around parent + modal (or select modal and frame)
+7. Click Align horizontal centers
+8. Click Align vertical centers
+9. Select modal, click constraints horizontal, click Center
+10. Click constraints vertical, click Center
+11. Click parent frame, drag corner handle to resize to 1920x1080"
+"Easy","Build a button: 160x40 rounded rectangle with purple fill, small white circle icon on the left, and a centered placeholder rectangle (label). Marquee-select and right-click Create component. Drag two instances from the Assets panel onto the canvas.","Make a purple button as a reusable component and place two instances of it on the canvas.",15,"1. Click Rectangle tool, drag to make 160x40 rectangle
+2. Scrub corner radius to ~8
+3. Click fill, drag picker to purple
+4. Click Ellipse tool, drag small white circle on left
+5. Click Rectangle tool, drag thin centered rectangle for label placeholder
+6. Drag marquee around all 3 layers
+7. Right-click selection
+8. Click Create component
+9. Click Assets panel icon in left panel
+10. Drag component from Assets panel to canvas
+11. Drag component again to place second instance"
+"Medium","Open the variables panel. Create a collection. Add a Color variable set to #6366F1. Draw a 320x200 rectangle. Right-click its fill and Apply variable. Then change the variable's value to #4F46E5 and verify the rectangle updates.","Make a purple card whose fill comes from a color variable, then change the variable's value to update the card.",20,"1. Click variables panel icon in right panel
+2. Click Create collection
+3. Click Create variable button, click Color type
+4. Click variable value swatch
+5. Drag picker to #6366F1, click outside
+6. Close variables panel
+7. Click Rectangle tool, drag for 320x200 rectangle
+8. Scrub corner radius to 16
+9. Right-click fill swatch in right panel
+10. Click Apply variable
+11. Click the variable from list
+12. Reopen variables panel
+13. Click variable value swatch
+14. Drag picker to #4F46E5, click outside"
+"Medium","Create a 400x400 light gray (#E0E5EC) frame. Inside, draw a 200x200 rounded rectangle (radius 20) with the same fill. Add 2 drop shadows: one with offset (-8, -8) white (highlight), one with offset (8, 8) darker gray #A3B1C6 (shadow). Center an icon shape on top.","Make a soft neumorphic button using paired drop shadows on a matching gray background.",22,"1. Click Frame tool, drag for 400x400 frame
+2. Click frame fill, drag picker to #E0E5EC
+3. Click Rectangle tool, drag inside frame for 200x200 rectangle
+4. Scrub corner radius to 20
+5. Click fill swatch, drag picker to same #E0E5EC
+6. Click effects + in right panel
+7. Scrub X offset to -8
+8. Scrub Y offset to -8
+9. Click shadow color, drag picker to white
+10. Click effects + again for second shadow
+11. Scrub X offset to 8
+12. Scrub Y offset to 8
+13. Click shadow color, drag picker to #A3B1C6
+14. Click any shape tool, draw small placeholder icon
+15. Marquee icon and button, click Align horizontal centers
+16. Click Align vertical centers"
+"Medium","Drag a photo onto the canvas. Open the fill panel and click the image preview. Adjust contrast +20, saturation +30, exposure -10.","Make an edited version of a photo by adjusting contrast +20, saturation +30, and exposure -10 in the image fill panel.",25,"1. Drag photo file from Finder onto canvas
+2. Click photo to select
+3. Click fill swatch in right panel
+4. Click image preview thumbnail
+5. Drag contrast slider to +20
+6. Drag saturation slider to +30
+7. Drag exposure slider to -10
+8. Click outside picker to commit"
+"Easy","Create a 400x400 off-white frame. Draw one 60px circle with a brand color. Duplicate to make 4 total circles in a rough 2x2 layout. Marquee select and click Tidy up to align them in a clean grid.","Make a 2x2 polka dot grid by duplicating one circle 3 times and using Tidy up to align them.",10,"1. Click Frame tool, drag for 400x400 frame
+2. Click frame fill, drag picker to off-white
+3. Click Ellipse tool, drag for 60px circle
+4. Click fill, pick brand color
+5. Right-click, Duplicate, drag to new position
+6. Right-click, Duplicate, drag to new position
+7. Right-click, Duplicate, drag to new position
+8. Drag marquee around all 4 circles
+9. Click Tidy up button (appears in selection corner)"
+"Easy","Create a 600x600 frame. Draw a 60x600 deep blue stripe. Duplicate adjacent until you have 6 stripes. Recolor every other stripe cream so they alternate.","Make a vertical stripe wallpaper by duplicating one rectangle 5 times to fill the frame, alternating two colors.",10,"1. Click Frame tool, drag for 600x600 frame
+2. Click Rectangle tool, drag 60x600 vertical stripe
+3. Click fill, drag picker to deep blue
+4. Right-click, Duplicate, drag adjacent right
+5. Right-click, Duplicate, drag adjacent
+6. Right-click, Duplicate, drag adjacent
+7. Right-click, Duplicate, drag adjacent
+8. Right-click, Duplicate, drag adjacent (6 stripes total)
+9. Click 2nd stripe, click fill, drag picker to cream
+10. Click 4th stripe, click fill, drag picker to cream
+11. Click 6th stripe, click fill, drag picker to cream"
+"Medium","Create a 500x500 frame. Draw a 100px yellow circle in the center. Draw one thin tall triangle above the circle. Set the rotation pivot to the circle's center. Duplicate and rotate the triangle 45 degrees. Repeat until 8 rays surround the circle.","Make a sun with 8 evenly rotated triangle rays around a central yellow circle.",15,"1. Click Frame tool, drag for 500x500 frame
+2. Click Ellipse tool, drag for 100px circle in center
+3. Click fill, drag picker to yellow
+4. Click Polygon tool, drag thin tall triangle above circle
+5. Set rotation pivot indicator to circle's center
+6. Right-click triangle, click Duplicate
+7. Scrub rotation field to +45
+8. Right-click, Duplicate, scrub rotation to +90
+9. Right-click, Duplicate, scrub rotation to +135
+10. Right-click, Duplicate, scrub rotation to +180
+11. Right-click, Duplicate, scrub rotation to +225
+12. Right-click, Duplicate, scrub rotation to +270
+13. Right-click, Duplicate, scrub rotation to +315"
+"Medium","Create a 400x400 frame. Draw a triangle pointing toward the upper-right corner. Apply a fill. Duplicate and rotate 90 degrees. Repeat for 4 triangles meeting at center. Alternate fills between two colors. Add a small center circle.","Make a 4-blade pinwheel with rotated triangles around a small center circle, alternating two colors.",15,"1. Click Frame tool, drag for 400x400 frame
+2. Click Polygon tool, drag triangle pointing upper-right
+3. Click fill, pick color 1
+4. Right-click, Duplicate
+5. Scrub rotation to +90
+6. Click fill, pick color 2
+7. Right-click, Duplicate, scrub rotation to +180
+8. Click fill, pick color 1
+9. Right-click, Duplicate, scrub rotation to +270
+10. Click fill, pick color 2
+11. Drag triangles so points meet at center
+12. Click Ellipse tool, draw small circle at center as pivot"
+"Medium","Draw a 300px teal circle. Draw a thin pie-slice triangle from center extending to the edge with a coral fill. Duplicate the triangle, set pivot to circle center, rotate to a different angle. Repeat for 3 wedges layered on the base.","Make a 4-section pie chart by drawing a base circle and overlaying 3 rotated triangle wedges in different colors.",22,"1. Click Ellipse tool, drag for 300x300 circle
+2. Click fill, drag picker to teal
+3. Click Polygon tool, drag thin pie-slice triangle from center to edge
+4. Click fill, drag picker to coral
+5. Set rotation pivot to circle's center
+6. Right-click triangle, Duplicate
+7. Scrub rotation to angle 1
+8. Click fill, drag picker to gold
+9. Right-click, Duplicate, scrub rotation to angle 2
+10. Click fill, drag picker to lavender
+11. Right-click, Duplicate, scrub rotation to angle 3"
+"Medium","Create a 400x400 navy frame. Use the Line tool to draw one vertical white line through center. Add 2 short diagonal branches off the upper portion. Group these. Duplicate the branch group and rotate 60 degrees. Repeat to make 6 branches.","Make a 6-fold symmetric white snowflake on a navy background by duplicating one branch and rotating it 60 degrees five times.",18,"1. Click Frame tool, drag for 400x400 frame
+2. Click frame fill, drag picker to navy
+3. Click Line tool, drag vertical line through center
+4. Click stroke color, drag picker to white
+5. Click Line tool, drag short diagonal line off upper portion
+6. Click Line tool, drag second diagonal line off upper portion
+7. Drag marquee around the branch lines
+8. Right-click, click Group selection
+9. Set rotation pivot to frame center
+10. Right-click branch, Duplicate, scrub rotation to 60
+11. Right-click, Duplicate, scrub rotation to 120
+12. Right-click, Duplicate, scrub rotation to 180
+13. Right-click, Duplicate, scrub rotation to 240
+14. Right-click, Duplicate, scrub rotation to 300"
+"Medium","Create a 500x400 frame. Use the Polygon tool with 6 sides for a hexagon. Apply yellow fill and 1px black stroke. Duplicate and tile in a honeycomb pattern (3 columns x 2 rows, offset).","Make a 3x2 honeycomb pattern by duplicating one yellow hexagon and arranging the copies in a tiled layout.",18,"1. Click Frame tool, drag for 500x400 frame
+2. Click Polygon tool
+3. Scrub sides field in right panel to 6
+4. Drag to make hexagon ~100px wide
+5. Click fill, drag picker to yellow
+6. Click stroke +, drag picker to black, scrub weight to 1
+7. Right-click, Duplicate, drag adjacent (offset row tiling)
+8. Right-click, Duplicate, drag adjacent
+9. Right-click, Duplicate, drag to second row offset
+10. Right-click, Duplicate, drag adjacent
+11. Right-click, Duplicate, drag adjacent for 6 hexagons total"
+"Medium","Draw a 300x340 white rectangle, rotate ~5 degrees, add drop shadow. Inside near the top, place a 260x260 image-fill rectangle leaving thicker bottom margin. Add a placeholder shape in the bottom margin.","Make a slightly tilted polaroid photo frame with a drop shadow, image-fill area on top, and a thicker bottom caption margin.",18,"1. Click Rectangle tool, drag for 300x340 rectangle
+2. Click fill, drag picker to white
+3. Scrub rotation to 5 degrees
+4. Click effects +, configure drop shadow
+5. Click Rectangle tool, drag 260x260 inside upper portion of polaroid
+6. Drag photo file from Finder onto this rectangle
+7. Click any shape tool, draw small placeholder shape in bottom margin"
+"Easy","Draw a 200x200 yellow square (#FFEB99), rotate ~3 degrees. Add drop shadow Y=4 blur=8 opacity=20%. Use Pen tool to draw a small triangular fold on top-right in darker yellow. Add 3 thin horizontal placeholder lines.","Make a tilted yellow sticky note with a drop shadow, a folded corner, and 3 horizontal note lines.",12,"1. Click Rectangle tool, drag 200x200 square
+2. Click fill, drag picker to #FFEB99
+3. Scrub rotation to 3 degrees
+4. Click effects +, drop shadow
+5. Scrub Y to 4
+6. Scrub blur to 8
+7. Scrub opacity to 20
+8. Click Pen tool
+9. Click anchors to draw small triangle on top-right corner
+10. Press Escape
+11. Click fill, drag picker to darker yellow
+12. Click Line tool, drag thin horizontal line
+13. Right-click line, Duplicate, drag below
+14. Right-click, Duplicate, drag below"
+"Easy","Draw a 200x80 rounded rectangle (radius 8) with gray stroke, no fill (battery body). Attach a 12x32 rectangle on the right (terminal). Inside, draw 3 colored bars (rectangles) in green/yellow/red.","Make a battery indicator with a rounded rectangle body, a terminal bump on the right, and 3 inner level bars.",12,"1. Click Rectangle tool, drag 200x80 rectangle
+2. Scrub corner radius to 8
+3. Click fill swatch, click X to remove fill
+4. Click stroke +, drag picker to gray
+5. Click Rectangle tool, drag 12x32 rectangle on right side of body
+6. Click Rectangle tool, drag small bar inside body
+7. Click fill, drag picker to green
+8. Right-click, Duplicate, drag right
+9. Click fill, drag picker to yellow
+10. Right-click, Duplicate, drag right
+11. Click fill, drag picker to red"
+"Medium","Create a 200x200 frame. Use the Pen tool to draw 3 concentric arc paths above a center point. Apply a 6px navy stroke with rounded caps. Add a small filled navy circle at the bottom-center.","Make a wifi signal icon with 3 concentric arcs drawn with the Pen tool above a small filled dot.",18,"1. Click Frame tool, drag for 200x200 frame
+2. Click Pen tool
+3. Click and drag at 1st anchor for arc
+4. Click and drag at 2nd anchor (top of arc)
+5. Click and drag at 3rd anchor end
+6. Press Escape
+7. Click stroke + in right panel
+8. Scrub stroke weight to 6
+9. Click stroke color, drag picker to navy
+10. Click cap dropdown, click Round
+11. Right-click arc, Duplicate
+12. Scrub size larger, drag above
+13. Right-click, Duplicate, scrub size larger, drag above
+14. Click Ellipse tool, drag small filled circle at bottom-center
+15. Click fill, drag picker to navy"
+"Easy","Draw a 51x31 rounded rectangle (radius 999), green fill (#34C759). Inside, draw a 27x27 white circle 2px from the right edge. Add a small drop shadow on the circle.","Make an iOS-style green toggle switch with a white circular thumb on the right.",12,"1. Click Rectangle tool, drag 51x31 rectangle
+2. Scrub corner radius to 999
+3. Click fill, drag picker to #34C759
+4. Click Ellipse tool, drag 27x27 circle
+5. Click fill, drag picker to white
+6. Drag circle to position 2px from right edge of pill
+7. Click effects +, configure small drop shadow"
+"Medium","Draw a 320x48 rounded rectangle (radius 24) with light gray fill. Add a magnifying glass icon on the left: 16px stroked circle plus a small diagonal line at the lower-right. Add 2 small placeholder dots inside the bar.","Make a search bar with a rounded rectangle, a magnifying-glass icon on the left, and placeholder dots inside.",20,"1. Click Rectangle tool, drag 320x48 rectangle
+2. Scrub corner radius to 24
+3. Click fill, drag picker to light gray
+4. Click Ellipse tool, drag 16x16 circle
+5. Click fill swatch, click X to remove fill
+6. Click stroke +, scrub weight to 2
+7. Drag circle to left side of bar
+8. Click Line tool, drag short diagonal line at bottom-right of circle (handle)
+9. Click Ellipse tool, drag small dot inside bar to right of icon
+10. Right-click dot, Duplicate, drag right"
+"Medium","Use the Pen tool to draw a bell silhouette: inverted U with flat bottom and a small clapper circle below. Apply yellow-gold fill. Add a 16x16 red circle with 2px white stroke at the upper-right as the badge.","Make a yellow-gold bell icon drawn with the Pen tool with a small red unread badge in the upper-right.",20,"1. Click Pen tool
+2. Click anchors to draw inverted U bell shape
+3. Click anchors for flat bottom edges
+4. Click starting anchor to close path
+5. Press Escape
+6. Click fill swatch, drag picker to yellow-gold
+7. Click Ellipse tool, drag small clapper circle below bell
+8. Click fill, drag picker to yellow-gold
+9. Click Ellipse tool, drag 16x16 circle on upper-right of bell
+10. Click fill, drag picker to red
+11. Click stroke +, drag picker to white, scrub weight to 2"
+"Medium","Draw a 240x240 sand-colored circle. Draw a thin red triangle pointing up (N) from center to circle edge. Duplicate and rotate to make E, S, W as gray triangles. Add a 24px gold center circle.","Make a compass rose with 4 triangle points (N red, others gray) inside a sand circle with a gold center pivot.",18,"1. Click Ellipse tool, drag 240x240 circle
+2. Click fill, drag picker to sand color
+3. Click Polygon tool, drag thin triangle pointing up from center
+4. Click fill, drag picker to red
+5. Set rotation pivot to circle's center
+6. Right-click, Duplicate, scrub rotation to 90
+7. Click fill, drag picker to gray
+8. Right-click, Duplicate, scrub rotation to 180
+9. Click fill, drag picker to gray
+10. Right-click, Duplicate, scrub rotation to 270
+11. Click fill, drag picker to gray
+12. Click Ellipse tool, drag 24px center circle
+13. Click fill, drag picker to gold"
+"Easy","Draw a 64x64 circle with an image fill. Draw a smaller 16x16 green (#10B981) circle with a 2px white stroke. Position it at the bottom-right of the avatar overlapping the edge.","Make an avatar (image-filled circle) with a small green online-status badge at the bottom-right.",12,"1. Click Ellipse tool, drag 64x64 circle
+2. Click fill swatch
+3. Click fill type dropdown, click Image
+4. Click Choose image, pick photo file
+5. Click Ellipse tool, drag 16x16 circle
+6. Click fill, drag picker to #10B981
+7. Click stroke +, drag picker to white, scrub weight to 2
+8. Drag green circle to bottom-right of avatar overlapping edge"
+"Easy","Use the Star tool with 8 points to draw a deep blue star. Draw a smaller yellow circle on top, perfectly centered using alignment buttons.","Make a layered emblem with a deep blue 8-point star and a centered yellow circle on top.",10,"1. Click Star tool
+2. Scrub points field in right panel to 8
+3. Drag to create 8-point star
+4. Click fill, drag picker to deep blue
+5. Click Ellipse tool, drag smaller circle on top of star
+6. Click fill, drag picker to yellow
+7. Drag marquee around both
+8. Click Align horizontal centers
+9. Click Align vertical centers"
+"Medium","Draw 8 thin vertical rectangles (8px wide) of varying heights from 20-100px in a row. Marquee select and convert to horizontal auto-layout with gap 4. Apply a horizontal gradient or graduated fills across the bars.","Make an 8-bar audio waveform with varying heights using horizontal auto-layout and a graduated color across the bars.",15,"1. Click Rectangle tool, drag 8x40 vertical bar
+2. Right-click, Duplicate, drag right
+3. Scrub height to different value
+4. Right-click, Duplicate, drag right, scrub height
+5. Repeat 5 more times for 8 bars total with varying heights
+6. Drag marquee around all 8 bars
+7. Click auto-layout +
+8. Click direction toggle to horizontal
+9. Scrub gap to 4
+10. Click each bar, click fill, drag picker for graduated color"
+"Medium","Use the Star tool with 16 points and inner radius ~70%. Apply warm orange fill. Add a smaller cream circle perfectly centered on top.","Make a sunburst-style stamp badge with a 16-point star outer shape and a smaller centered cream circle.",18,"1. Click Star tool
+2. Scrub points field to 16
+3. Drag to create star
+4. Scrub inner radius field to 70
+5. Click fill, drag picker to warm orange
+6. Click Ellipse tool, drag smaller circle on top
+7. Click fill, drag picker to cream
+8. Drag marquee around both
+9. Click Align horizontal centers
+10. Click Align vertical centers"
+"Medium","Create a 400x400 navy frame. Use the Line tool to draw 6 lines from the center radiating outward, evenly spaced (60 degrees apart). Use the Polygon tool (6 sides) for 3 concentric stroked hexagons connecting the spokes.","Make a white spiderweb on a navy frame with 6 radial lines and 3 concentric hexagonal connectors.",18,"1. Click Frame tool, drag for 400x400 frame
+2. Click frame fill, drag picker to navy
+3. Click Line tool, drag from center to edge
+4. Click stroke color, drag picker to white
+5. Set rotation pivot to center
+6. Right-click line, Duplicate, scrub rotation to 60
+7. Right-click, Duplicate, scrub rotation to 120
+8. Right-click, Duplicate, scrub rotation to 180
+9. Right-click, Duplicate, scrub rotation to 240
+10. Right-click, Duplicate, scrub rotation to 300
+11. Click Polygon tool, scrub sides to 6
+12. Drag for hexagon at frame center
+13. Click fill swatch, click X to remove fill
+14. Click stroke +, drag picker to white
+15. Right-click hexagon, Duplicate, scrub size larger
+16. Right-click, Duplicate, scrub size even larger"
+"Medium","Use the Pen tool to draw a smooth S-curve (~600x200) with Bezier handles. Apply 12px stroke with rounded caps and a custom dash pattern. Right-click and choose Outline stroke. Apply a horizontal linear gradient (gold to bronze).","Make a metallic gold ribbon by drawing an S-curve, outlining a thick dashed stroke, and filling the result with a gradient.",25,"1. Click Pen tool
+2. Click and drag at 1st anchor for S-curve
+3. Click and drag at 2nd anchor
+4. Click and drag at 3rd anchor
+5. Press Escape
+6. Click stroke + in right panel
+7. Scrub stroke weight to 12
+8. Click cap dropdown, click Round
+9. Click stroke style dropdown, click Custom
+10. Configure dash pattern values
+11. Right-click path
+12. Click Outline stroke
+13. Click fill swatch
+14. Click fill type dropdown, click Linear gradient
+15. Click first stop, drag picker to gold
+16. Click second stop, drag picker to bronze"
+"Medium","Place a photo on the canvas. Use the Star tool to draw a 5-pointed star (or Polygon for hexagon) over part of the photo. Right-click the shape and choose Use as mask. Add a 4px white stroke around the masked region.","Make a stylized album cover by masking a photo with a star or hexagon shape and adding a 4px white border.",22,"1. Drag photo file from Finder onto canvas
+2. Click Star tool (or Polygon tool)
+3. Scrub points to 5 (or sides to 6)
+4. Drag to draw shape over photo
+5. Right-click shape
+6. Click Use as mask
+7. Click stroke +
+8. Scrub stroke weight to 4
+9. Click stroke color, drag picker to white"
