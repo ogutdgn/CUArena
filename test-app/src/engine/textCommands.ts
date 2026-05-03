@@ -71,7 +71,6 @@ export function createTextAt(world: { x: number; y: number }, mode: "auto_width"
     indexInParent: childCount,
     node: layer,
   });
-  setSelection([layer.id], "implicit_after_create");
   emitSemantic({
     name: "create_text",
     layerId: layer.id,
@@ -83,6 +82,7 @@ export function createTextAt(world: { x: number; y: number }, mode: "auto_width"
     resizingMode: mode,
     trigger: "shortcut_T",
   });
+  setSelection([layer.id], "implicit_after_create");
   enterTextEdit(layer.id);
   return layer.id;
 }

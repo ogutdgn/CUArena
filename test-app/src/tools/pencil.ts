@@ -138,12 +138,12 @@ export const pencilTool: ITool = {
       indexInParent: childCount,
       node: layer,
     });
-    setSelection([layer.id], "implicit_after_create");
     emitSemantic({
       name: "create_vector_with_pencil",
       layerId: layer.id,
       pointCount: points.length,
     });
+    setSelection([layer.id], "implicit_after_create");
 
     // Revert tool
     const beforeTool = useStore.getState().activeTool;
