@@ -1,18 +1,21 @@
 """
-Task 22 — Horizontal tag pill row.
+Task 22 — Tag pill row (in-scope replacement, no auto-layout).
 
-# BLOCKED: requires auto-layout horizontal mode + corner radius 999.
+4 same-size rounded rectangles (radius 999) placed manually side-by-side
+in a horizontal row, each filled a different pastel color.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.color import ColorRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCount
-from verifier.checks.fill_checks import FillTypeIs
-from verifier.checks.event_checks import ToolUsed, EventTypeCount
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersSameDimensions, LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -28,23 +31,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_22_tag_pills",
-    description="4 pastel pill rectangles (radius 999) with placeholder dots, in a horizontal auto-layout.",
+    description="4 same-size rounded rectangles (radius 999) in a horizontal row, different pastel fills.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCount("rectangle", equals=4),
-            ShapeCount("ellipse",   equals=4),
-        ]), max_score=0.34),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=3.0),
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=5.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
-            ToolUsed("ellipse"),
             EventTypeCount("create_rectangle", equals=4),
-            EventTypeCount("create_ellipse",   equals=4),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=20),
 )

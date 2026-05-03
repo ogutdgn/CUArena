@@ -1,18 +1,20 @@
 """
-Task 18 — Donut via Subtract + sprinkles.
+Task 18 — Eye icon (in-scope replacement, no boolean).
 
-# BLOCKED: requires boolean Subtract. Sprinkle ellipses can be checked already.
+3 nested ellipses sharing a center: outer (white sclera), middle (colored iris), inner (black pupil).
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.color import ColorRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCountAtLeast
-from verifier.checks.fill_checks import FillTypeIs
-from verifier.checks.event_checks import ToolUsed, EventTypeCountAtLeast
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -28,20 +30,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_18_donut",
-    description="Pink donut (large circle minus small) + 5 sprinkle ellipses in different colors at different angles.",
+    description="3 nested ellipses (sclera, iris, pupil) sharing a center.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("ellipse", minimum=7),  # 2 for donut + 5 sprinkles
-        ]), max_score=0.34),
+            ShapeCount("ellipse", equals=3),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersAligned(layer_type="ellipse", axis="center_x", tolerance=3.0),
+            LayersAligned(layer_type="ellipse", axis="center_y", tolerance=3.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("ellipse", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("ellipse"),
-            EventTypeCountAtLeast("create_ellipse", minimum=7),
-        ]), max_score=0.33),
+            EventTypeCount("create_ellipse", equals=3),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=24),
+    efficiency=EfficiencyRubric(target_turns=15),
 )

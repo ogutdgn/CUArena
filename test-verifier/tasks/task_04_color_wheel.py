@@ -1,16 +1,20 @@
 """
-Task 04 — Rainbow color wheel.
+Task 04 — Color hexagon ring (in-scope replacement).
 
-# BLOCKED: requires angular (conic) gradient fill emission. Once implemented,
-# add ColorRubric checking FillTypeIs(kind="gradient_angular") and ≥6 stops.
+6 squares arranged in a hexagonal ring, each filled a different rainbow color
+(red, yellow, green, cyan, blue, magenta).
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
-from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersSameDimensions
+from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -27,18 +31,24 @@ class WeightedRubric:
 
 task = Task(
     id="task_04_color_wheel",
-    description="400x400 frame containing 1 circle with angular (conic) gradient cycling through 6 rainbow colors.",
+    description="6 same-size squares arranged in a hexagonal ring, each filled a different rainbow color.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("frame", minimum=1),
-            ShapeCount("ellipse", equals=1),
-        ]), max_score=0.5),
+            ShapeCount("rectangle", equals=6),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=3.0),
+        ]), max_score=0.25),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("rectangle", kind="solid"),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
-            ToolUsed("frame"),
-            ToolUsed("ellipse"),
-            EventTypeCount("create_ellipse", equals=1),
-        ]), max_score=0.5),
+            ToolUsed("rectangle"),
+            EventTypeCount("create_rectangle", equals=6),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=20),
+    efficiency=EfficiencyRubric(target_turns=24),
 )

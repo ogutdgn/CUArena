@@ -1,14 +1,20 @@
 """
-Task 17 — Play button via Subtract.
+Task 17 — Hourglass shape (in-scope replacement, no boolean).
 
-# BLOCKED: requires boolean Subtract operation.
+2 triangles point-to-point at the center + 2 horizontal rectangle caps (top and bottom).
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.event_checks import ToolUsed, EventTypeCount
+from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -24,14 +30,29 @@ class WeightedRubric:
 
 task = Task(
     id="task_17_play_button",
-    description="Purple circle minus a centered right-pointing triangle = circular play button.",
+    description="2 triangles point-to-point + 2 horizontal rectangle caps top and bottom.",
     rubrics=[
+        WeightedRubric(FundamentalsRubric([
+            ShapeCount("polygon",   equals=2),
+            ShapeCount("rectangle", equals=2),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersAligned(layer_type="polygon",   axis="center_x", tolerance=5.0),
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=5.0),
+        ]), max_score=0.25),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("polygon",   kind="solid"),
+            FillTypeIs("rectangle", kind="solid"),
+        ]), max_score=0.25),
+
         WeightedRubric(EventRubric([
-            ToolUsed("ellipse"),
             ToolUsed("polygon"),
-            EventTypeCount("create_ellipse", equals=1),
-            EventTypeCount("create_polygon", equals=1),
-        ]), max_score=1.0),
+            ToolUsed("rectangle"),
+            EventTypeCount("create_polygon",   equals=2),
+            EventTypeCount("create_rectangle", equals=2),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )

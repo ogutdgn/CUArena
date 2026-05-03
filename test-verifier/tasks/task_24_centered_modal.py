@@ -1,18 +1,19 @@
 """
-Task 24 — Centered modal with constraints.
+Task 24 — Centered modal panel (in-scope replacement, no constraints).
 
-# BLOCKED: requires constraints (Center+Center) + drop shadow effects.
+1 outer frame + 1 white rounded rectangle visually centered inside it
+using alignment buttons (align_layers events).
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.color import ColorRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCount, ShapeCountAtLeast
-from verifier.checks.fill_checks import FillTypeIs
-from verifier.checks.event_checks import ToolUsed, EventTypeCount
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount, AlignToolUsed
 
 
 @dataclass
@@ -28,7 +29,7 @@ class WeightedRubric:
 
 task = Task(
     id="task_24_centered_modal",
-    description="1 outer frame + 1 white rounded modal rectangle with drop shadow, Center+Center constraints.",
+    description="Outer frame + white rounded rectangle centered inside it via align tool.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCountAtLeast("frame", minimum=1),
@@ -42,7 +43,8 @@ task = Task(
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
             EventTypeCount("create_rectangle", equals=1),
+            AlignToolUsed(),
         ]), max_score=0.33),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=20),
 )

@@ -1,8 +1,7 @@
 """
-Task 06 — 10-point gold star via Exclude.
+Task 06 — Asterisk burst (in-scope replacement).
 
-# BLOCKED: requires boolean Exclude operation to be emitted. Once implemented,
-# check that boolean_op event with op="exclude" appears in the log.
+8 lines radiating from a single center point at 45° intervals, gold stroke.
 """
 from dataclasses import dataclass
 from typing import Any
@@ -10,6 +9,7 @@ from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -26,12 +26,16 @@ class WeightedRubric:
 
 task = Task(
     id="task_06_gold_star_exclude",
-    description="Two pentagons (one rotated 36°) overlapping, boolean Exclude → 10-point star, gold fill.",
+    description="8 lines radiating from a center point at 45° intervals.",
     rubrics=[
+        WeightedRubric(FundamentalsRubric([
+            ShapeCount("line", equals=8),
+        ]), max_score=0.5),
+
         WeightedRubric(EventRubric([
-            ToolUsed("polygon"),
-            EventTypeCount("create_polygon", equals=2),
-        ]), max_score=1.0),
+            ToolUsed("line"),
+            EventTypeCount("create_line", equals=8),
+        ]), max_score=0.5),
     ],
-    efficiency=EfficiencyRubric(target_turns=22),
+    efficiency=EfficiencyRubric(target_turns=24),
 )

@@ -1,19 +1,21 @@
 """
-Task 21 — Vertical button stack with auto-layout.
+Task 21 — Vertical icon column (in-scope replacement, no auto-layout).
 
-# BLOCKED: requires auto-layout feature emission. Once implemented, check that
-# the parent container has auto-layout enabled with vertical direction, gap=16, padding=24.
+3 same-size rectangles stacked vertically, each a different color, manually placed
+with consistent gap between them and aligned on the same x center.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.color import ColorRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCount
-from verifier.checks.fill_checks import FillTypeIs
-from verifier.checks.event_checks import ToolUsed, EventTypeCount
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersSameDimensions, LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -29,20 +31,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_21_button_stack",
-    description="3 differently-colored 240x48 rectangles stacked vertically in an auto-layout frame.",
+    description="3 same-size rectangles stacked vertically, different colors, aligned on x.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCount("rectangle", equals=3),
-        ]), max_score=0.34),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=3.0),
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=5.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
             EventTypeCount("create_rectangle", equals=3),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=36),
+    efficiency=EfficiencyRubric(target_turns=18),
 )

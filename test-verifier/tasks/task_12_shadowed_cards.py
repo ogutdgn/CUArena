@@ -1,17 +1,19 @@
 """
-Task 12 — Three shadowed cards with shared effect style.
+Task 12 — Card row (in-scope replacement).
 
-# BLOCKED: requires drop shadow + effect styles features. Once implemented,
-# add DropShadowExists("rectangle") and verify ≥1 effect style applied to ≥3 cards.
+4 same-size rectangles arranged in a horizontal row with consistent spacing,
+all sharing the same y baseline.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersSameDimensions, LayersAligned
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -29,20 +31,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_12_shadowed_cards",
-    description="3 white rounded rectangles with the same drop-shadow effect style applied.",
+    description="4 same-size rectangles in a horizontal row, sharing the same y baseline.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCount("rectangle", equals=3),
-        ]), max_score=0.34),
+            ShapeCount("rectangle", equals=4),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=3.0),
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=5.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
-            EventTypeCount("create_rectangle", equals=3),
-        ]), max_score=0.33),
+            EventTypeCount("create_rectangle", equals=4),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=24),
+    efficiency=EfficiencyRubric(target_turns=18),
 )

@@ -1,16 +1,19 @@
 """
-Task 10 — Circular apple avatar via image mask.
+Task 10 — Concentric squares (in-scope replacement).
 
-# BLOCKED: requires image fill emission (image kind) + mask feature in outcome.document.
-# Once implemented, add ImageFillExists("ellipse") and a mask check.
+4 nested squares of decreasing size, alternating two colors, all sharing the same center.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -27,16 +30,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_10_apple_avatar",
-    description="Image dropped onto canvas + circle drawn over it + circle used as mask.",
+    description="4 nested squares of decreasing size, alternating two colors, sharing center.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCount("ellipse", equals=1),
-        ]), max_score=0.5),
+            ShapeCount("rectangle", equals=4),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=3.0),
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),
+        ]), max_score=0.25),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("rectangle", kind="solid"),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
-            ToolUsed("ellipse"),
-            EventTypeCount("create_ellipse", equals=1),
-        ]), max_score=0.5),
+            ToolUsed("rectangle"),
+            EventTypeCount("create_rectangle", equals=4),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=20),
+    efficiency=EfficiencyRubric(target_turns=18),
 )

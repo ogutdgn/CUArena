@@ -1,148 +1,113 @@
-# CUA Eval — Tasks + Verifier Approach (WIP)
+# CUA Eval — 50 Finished Tasks
 
-Mouse-only Figma tasks for evaluating computer-use agents, plus the verifier
-pattern used to score agent runs.
+Mouse-only Figma tasks for evaluating computer-use agents. **All 50 tasks
+use only currently-shipped env features and are runnable end-to-end today.**
 
 ## Contents
 
 ```
 cua-eval/
-├── README.md              ← this file
-└── figma_tasks_WIP.csv    ← 50 tasks (Easy/Medium, 8–25 min each)
+├── README.md                  ← this file
+├── BUILDING_TASKS.md          ← step-by-step guide to add new tasks
+└── figma_tasks_finished.csv   ← 50 in-scope tasks
 
 test-verifier/tasks/
-└── house_task_comprehensive.py  ← reference verifier (Task 1)
+├── house_task.py              ← cofounder's basic baseline
+├── house_task_comprehensive.py ← reference 5-rubric implementation
+└── task_NN_<name>.py × 49     ← all 49 in-scope verifiers
 ```
 
-The CSV lives here. The runnable verifier code lives in `test-verifier/tasks/`
-because it imports from the cofounder's verifier framework
-(`test-verifier/verifier/`).
+## All 50 tasks (runnable today)
 
-## CSV format
+| # | Task | Time | Difficulty |
+|---|---|---|---|
+| 01 | Two-story house | 10m | Easy |
+| 02 | Sunset stripe band | 12m | Easy |
+| 03 | Radial flower with petals | 14m | Easy |
+| 04 | Color hexagon ring | 12m | Easy |
+| 05 | Plus-sign emblem | 8m | Easy |
+| 06 | Asterisk burst | 12m | Easy |
+| 07 | Layered mountain range | 12m | Easy |
+| 08 | Layered water waves | 15m | Easy |
+| 09 | 12-color swatch grid | 16m | Easy |
+| 10 | Concentric squares | 8m | Easy |
+| 11 | Triangle pyramid stack | 8m | Easy |
+| 12 | Card row | 8m | Easy |
+| 13 | Cross-hatch hashtag | 8m | Easy |
+| 14 | Concentric ring target | 10m | Easy |
+| 15 | Cloud silhouette | 10m | Easy |
+| 16 | Speech bubble visual | 10m | Easy |
+| 17 | Hourglass shape | 10m | Easy |
+| 18 | Eye icon | 8m | Easy |
+| 19 | Padlock icon | 15m | Easy |
+| 20 | 2 overlapping circles | 10m | Easy |
+| 21 | Vertical icon column | 10m | Easy |
+| 22 | Tag pill row | 10m | Easy |
+| 23 | Sidebar layout | 8m | Easy |
+| 24 | Centered modal panel | 10m | Easy |
+| 25 | Identical button row | 8m | Easy |
+| 26 | Brand color row | 10m | Easy |
+| 27 | Layered rotated diamonds | 12m | Easy |
+| 28 | Photo placeholder X | 8m | Easy |
+| 29 | 2x2 polka dot grid | 10m | Easy |
+| 30 | Vertical stripe wallpaper | 10m | Easy |
+| 31 | Sun rays burst | 15m | Medium |
+| 32 | Pinwheel | 12m | Easy |
+| 33 | Pie chart | 18m | Medium |
+| 34 | 6-fold snowflake | 18m | Medium |
+| 35 | 3x2 honeycomb | 18m | Medium |
+| 36 | Vintage frame | 10m | Easy |
+| 37 | Sticky note | 12m | Easy |
+| 38 | Battery indicator | 12m | Easy |
+| 39 | Wifi signal icon | 18m | Medium |
+| 40 | iOS toggle switch | 10m | Easy |
+| 41 | Search bar | 18m | Medium |
+| 42 | Bell icon with badge | 18m | Medium |
+| 43 | Compass rose | 18m | Medium |
+| 44 | Avatar with badge | 10m | Easy |
+| 45 | Geometric emblem | 10m | Easy |
+| 46 | Histogram bars | 18m | Medium |
+| 47 | Sunburst badge | 18m | Medium |
+| 48 | Spiderweb pattern | 18m | Medium |
+| 49 | Tied ribbon | 18m | Medium |
+| 50 | Star inside square | 10m | Easy |
 
-`figma_tasks_WIP.csv` — 50 rows, 5 columns:
-
-| Column | Purpose |
-|---|---|
-| `Difficulty` | `Easy` or `Medium` |
-| `Thorough Description` | Full goal-style spec for the task author |
-| `Simplified Prompt` | One-line natural prompt fed to the agent |
-| `Time (minutes)` | Time horizon for a new mouse-only user |
-| `Step-by-step` | Numbered atomic mouse actions (one per discrete log event) |
-
-Tasks are constrained to mouse-only operations (no keyboard shortcuts, no
-typed text). Step counts: 7–17 steps per task. Total estimated human time
-across all 50 tasks: ~14 hours.
+**Total**: 50 tasks. Average time per task: ~12 min. Total estimated time: ~10 hours of mouse-only work.
 
 ## Verifier approach
 
-Two-layer scoring per task:
+Every task uses the same 5-rubric pattern from `house_task_comprehensive.py`:
 
-  - **End-state** — inspects `outcome.document` (the layer tree the env
-    emits at session end). Catches "did the agent achieve the goal?"
-  - **Action-log** — inspects `semantic` events (the agent's mouse trace).
-    Catches "did the agent use the right features?"
+  - **Fundamentals** — shape primitive counts (`ShapeCount`)
+  - **Alignment** — geometric relationships (`LayersAligned`, `LayersSameDimensions`, etc.)
+  - **Color** — fill type checks (`FillTypeIs(kind="solid")`)
+  - **Event** — action-log events (`ToolUsed`, `EventTypeCount`)
 
-Both layers compose into a single normalized score in `[0, 1]`.
+Plus an **EfficiencyRubric** multiplier based on turn count.
 
-## Reference verifier — Task 1 (two-story house)
-
-`test-verifier/tasks/house_task_comprehensive.py` demonstrates the pattern:
-five rubrics, each weighted to 0.2 (sum = 1.0), multiplied by an efficiency
-factor based on turn count.
-
-| Rubric | Source | Weight | Checks |
-|---|---|---|---|
-| Fundamentals | end-state | 0.2 | shape primitive counts (2 rect, 2 ellipse, 1 polygon) |
-| Alignment | end-state | 0.2 | windows aligned/symmetric/same-size, roof on body |
-| Color | end-state | 0.2 | fill types are solid + ≥4 distinct colors used |
-| Structure | end-state | 0.2 | shapes inside a frame, frame has ≥5 children |
-| Event | action-log | 0.2 | rectangle/ellipse/polygon tools used, correct create_* events |
-| Efficiency | action-log | × | turn-count multiplier (target 30, range 0.5–1.0) |
-
-Final score = `sum(rubric.score)` × `efficiency.multiplier`, capped at 1.0.
-
-### Why this shape
-
-- **Each rubric is independent** — failing one doesn't poison the others
-- **Weights sum to 1.0** — easy to interpret, easy to reweight
-- **Mixed signals** — end-state catches outcome, action-log catches process
-- **Efficiency multiplier** — penalizes wasteful runs without binary failure
-
-### The `WeightedRubric` wrapper
-
-The cofounder's framework has each rubric natively at `max_score = 0.5`, so a
-5-rubric task would max at 2.5. To normalize to 1.0, the comprehensive task
-file defines a `WeightedRubric` wrapper that rescales any rubric's output:
-
-```python
-@dataclass
-class WeightedRubric:
-    rubric: Any           # any object with .run(log) -> RubricResult
-    max_score: float      # the desired max for this slot
-
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(
-            name=r.name,
-            score=round(r.score * scale, 4),
-            max_score=self.max_score,
-            checks=r.checks,
-        )
-```
-
-Wrap each rubric in `WeightedRubric(..., max_score=0.2)` and the task's base
-score is naturally bounded at 1.0 without modifying any framework files.
-
-### Custom checks
-
-The framework's check library is rich (see
-`test-verifier/verifier/checks/`), but tasks can define inline checks for
-gaps. The comprehensive verifier adds one — `DistinctSolidColors` — that
-counts perceptually-distinct solid fills across the document.
+Each rubric is wrapped in `WeightedRubric` to normalize the total max score
+to **1.0** regardless of how many rubrics a task uses. See `BUILDING_TASKS.md`
+for the full template and check catalog.
 
 ## Running
-
-From the repo root:
 
 ```bash
 cd test-verifier
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python run.py --task house_task_comprehensive --log logs/house_sample.json
+
+python run.py --task task_19_padlock --log logs/<your_run>.json
+python run.py --task task_29_polka_dot_grid --log logs/<your_run>.json
+# ...
 ```
 
-(Requires Python 3.10+.)
-
-## Extending to the other 49 tasks
-
-Each task in the CSV becomes a `tasks/<task_id>.py` file using the same
-`WeightedRubric(..., max_score=0.2)` pattern. The five rubric categories
-generalize:
-
-- **Fundamentals** — the right shape primitives in the right counts
-- **Alignment / Geometry** — task-specific spatial relationships
-- **Color** — fill types and color variety where relevant
-- **Structure** — frame containment, grouping, layer organization
-- **Event** — which tools and creation events should appear in the log
-
-Tasks that don't need a rubric (e.g., a single-shape task may not need
-`Structure`) can either set its weight to 0.0 or omit it and redistribute
-the remaining weights to sum to 1.0.
-
-## Building a new task
-
-See [`BUILDING_TASKS.md`](./BUILDING_TASKS.md) for the full step-by-step
-guide: CSV row format, verifier file template, the 5-rubric system, the
-check catalog, and a worked example walking through Task 1 end-to-end.
+Each run produces a per-rubric breakdown plus a final score in `[0, 1]`.
 
 ## Status
 
-Branch: `cua-eval-wip`
+Branch: `cua-eval-50-ready`
 
-- ✅ 50 tasks in CSV
-- ✅ Reference verifier (Task 1) using comprehensive 5-rubric pattern
+- ✅ 50 tasks fully verifiable today (no `# BLOCKED` scaffolds)
+- ✅ Reference verifier (`house_task_comprehensive.py`)
 - ✅ Builder guide (`BUILDING_TASKS.md`)
-- ⏳ Verifiers for tasks 2–50 (next)
 - ⏳ Sample logs for each task

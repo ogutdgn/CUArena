@@ -1,18 +1,21 @@
 """
-Task 26 — Card with color variable applied.
+Task 26 — Brand color row (in-scope replacement, no variables).
 
-# BLOCKED: requires color variables feature (variable creation + application + value updates).
+5 same-size squares arranged in a horizontal row, each filled a different
+brand color (1 primary + 4 supports).
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.color import ColorRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCount
-from verifier.checks.fill_checks import FillTypeIs
-from verifier.checks.event_checks import ToolUsed, EventTypeCount
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersSameDimensions, LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -28,20 +31,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_26_color_variable_card",
-    description="320x200 rounded rectangle whose fill is bound to a color variable; variable value then changed.",
+    description="5 same-size squares in a horizontal row, each a different brand color.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCount("rectangle", equals=1),
-        ]), max_score=0.34),
+            ShapeCount("rectangle", equals=5),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=2.0),
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
-            EventTypeCount("create_rectangle", equals=1),
-        ]), max_score=0.33),
+            EventTypeCount("create_rectangle", equals=5),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=20),
 )

@@ -1,17 +1,20 @@
 """
-Task 02 — Sunset gradient sky.
+Task 02 — Sunset stripe band (in-scope replacement).
 
-# BLOCKED: requires linear gradient fill emission in outcome.document.
-# Once implemented, add ColorRubric with FillTypeIs(kind="gradient_linear")
-# and a custom check for ≥5 gradient stops.
+5 horizontal rectangle bands stacked top-to-bottom in sunset colors:
+deep purple → pink → orange → yellow → pale yellow.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
-from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersSameDimensions, LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -28,18 +31,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_02_sunset_gradient",
-    description="800x400 frame containing 1 rectangle filled with a 5-stop vertical linear gradient.",
+    description="5 horizontal rectangle bands in sunset colors (purple, pink, orange, yellow, pale yellow).",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("frame", minimum=1),
-            ShapeCount("rectangle", equals=1),
-        ]), max_score=0.5),
+            ShapeCount("rectangle", equals=5),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=3.0),
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=5.0),
+        ]), max_score=0.25),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("rectangle", kind="solid"),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
-            ToolUsed("frame"),
             ToolUsed("rectangle"),
-            EventTypeCount("create_rectangle", equals=1),
-        ]), max_score=0.5),
+            EventTypeCount("create_rectangle", equals=5),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=24),
 )
