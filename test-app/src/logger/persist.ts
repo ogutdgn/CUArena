@@ -18,6 +18,7 @@ let timer: ReturnType<typeof setTimeout> | null = null;
 let rawKey = "";
 let semanticKey = "";
 let outcomeKey = "";
+let _sessionId = "";
 
 function ymd(d: Date): string {
   const y = d.getFullYear();
@@ -30,14 +31,26 @@ function flush(): void {
   timer = null;
   if (!dirty) return;
   dirty = false;
+  const raw = logger.rawEvents.toArray();
+  const semantic = logger.semanticEvents.toArray();
+  const outcome = buildOutcomeSnapshot();
   try {
-    sessionStorage.setItem(rawKey, JSON.stringify(logger.rawEvents.toArray()));
-    sessionStorage.setItem(semanticKey, JSON.stringify(logger.semanticEvents.toArray()));
-    sessionStorage.setItem(outcomeKey, JSON.stringify(buildOutcomeSnapshot()));
+    sessionStorage.setItem(rawKey, JSON.stringify(raw));
+    sessionStorage.setItem(semanticKey, JSON.stringify(semantic));
+    sessionStorage.setItem(outcomeKey, JSON.stringify(outcome));
   } catch {
     // Quota exceeded or storage unavailable: drop this flush silently.
-    // Ring-buffer caps keep the next attempt the same size, so it'll keep failing
-    // — that's the deliberate behaviour for "storage full".
+  }
+  if (import.meta.env.DEV) {
+    const body = JSON.stringify({
+      schemaVersion: 1,
+      sessionId: _sessionId,
+      exportedAt: Date.now(),
+      raw,
+      semantic,
+      outcome,
+    });
+    fetch("/dev-log", { method: "POST", body, headers: { "Content-Type": "application/json" } }).catch(() => {});
   }
 }
 
@@ -84,11 +97,11 @@ export function installPersist(): void {
 
   clearPreviousLogs();
 
-  const sessionId = useStore.getState().sessionId;
+  _sessionId = useStore.getState().sessionId;
   const date = ymd(new Date());
-  rawKey = `${date}_raw_${sessionId}_data`;
-  semanticKey = `${date}_semantic_${sessionId}_data`;
-  outcomeKey = `${date}_outcome_${sessionId}_data`;
+  rawKey = `${date}_raw_${_sessionId}_data`;
+  semanticKey = `${date}_semantic_${_sessionId}_data`;
+  outcomeKey = `${date}_outcome_${_sessionId}_data`;
 
   // Seed each key so they exist immediately. Outcome gets the initial document
   // state, raw + semantic start as empty arrays.
