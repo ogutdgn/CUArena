@@ -1,17 +1,21 @@
 """
-Task 25 — Purple button as a reusable component.
+Task 25 — Identical button row (in-scope replacement, no components).
 
-# BLOCKED: requires components feature (create_component + place_instance events,
-# component/instance node types in outcome.document).
+3 identical 160x40 rectangles placed manually in a horizontal row,
+all the same fill color and dimensions.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCountAtLeast
-from verifier.checks.event_checks import ToolUsed, EventTypeCountAtLeast
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersSameDimensions, LayersAligned
+from verifier.checks.fill_checks   import AllSolidColorEquals, FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -27,19 +31,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_25_button_component",
-    description="Build a button (rectangle + ellipse + label rectangle), make it a component, place 2 instances.",
+    description="3 identical rectangles (same size, same color) placed in a horizontal row.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("rectangle", minimum=2),  # at least button body + label
-            ShapeCountAtLeast("ellipse", minimum=1),    # icon
-        ]), max_score=0.5),
+            ShapeCount("rectangle", equals=3),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=2.0),
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),
+        ]), max_score=0.25),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("rectangle", kind="solid"),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
-            ToolUsed("ellipse"),
-            EventTypeCountAtLeast("create_rectangle", minimum=2),
-            EventTypeCountAtLeast("create_ellipse", minimum=1),
-        ]), max_score=0.5),
+            EventTypeCount("create_rectangle", equals=3),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=15),
 )

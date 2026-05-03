@@ -1,15 +1,20 @@
 """
-Task 15 — Cloud shape via Union.
+Task 15 — Cloud silhouette (in-scope replacement, no boolean union).
 
-# BLOCKED: requires boolean Union operation. Once implemented, check that
-# boolean_op event with op="union" appears.
+4 overlapping ellipses of varying sizes, all the same white fill,
+arranged so their tops form a fluffy cloud silhouette.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.fill_checks   import AllSolidColorEquals
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -26,12 +31,26 @@ class WeightedRubric:
 
 task = Task(
     id="task_15_cloud_union",
-    description="4 overlapping ellipses unioned into a cloud silhouette, white fill, light gray stroke.",
+    description="4 overlapping white ellipses forming a cloud silhouette.",
     rubrics=[
+        WeightedRubric(FundamentalsRubric([
+            ShapeCount("ellipse", equals=4),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersAligned(layer_type="ellipse", axis="center_y", tolerance=20.0),
+        ]), max_score=0.25),
+
+        WeightedRubric(ColorRubric([
+            AllSolidColorEquals(layer_type="ellipse",
+                                expected_rgb={"r": 1.0, "g": 1.0, "b": 1.0},
+                                tolerance=0.1),
+        ]), max_score=0.25),
+
         WeightedRubric(EventRubric([
             ToolUsed("ellipse"),
             EventTypeCount("create_ellipse", equals=4),
-        ]), max_score=1.0),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=18),
+    efficiency=EfficiencyRubric(target_turns=14),
 )

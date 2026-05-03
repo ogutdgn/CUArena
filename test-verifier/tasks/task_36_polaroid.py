@@ -1,18 +1,21 @@
 """
-Task 36 — Polaroid photo frame.
+Task 36 — Vintage frame (in-scope replacement, no image fill).
 
-# BLOCKED: requires image fill + drop shadow effects.
+1 outer rectangle (the frame border) + 1 smaller inner rectangle (the artwork area)
+both sharing the same center.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.color import ColorRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCountAtLeast
-from verifier.checks.fill_checks import FillTypeIs
-from verifier.checks.event_checks import ToolUsed, EventTypeCountAtLeast
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -28,20 +31,25 @@ class WeightedRubric:
 
 task = Task(
     id="task_36_polaroid",
-    description="Tilted white rectangle with drop shadow + image-fill rectangle inside upper portion + caption placeholder.",
+    description="Outer rectangle frame + smaller inner rectangle artwork area, sharing center.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("rectangle", minimum=2),
-        ]), max_score=0.34),
+            ShapeCount("rectangle", equals=2),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=3.0),
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
-            EventTypeCountAtLeast("create_rectangle", minimum=2),
-        ]), max_score=0.33),
+            EventTypeCount("create_rectangle", equals=2),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=15),
 )

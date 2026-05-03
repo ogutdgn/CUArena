@@ -1,17 +1,19 @@
 """
-Task 11 — Pressed button (inner shadow).
+Task 11 — Triangle pyramid stack (in-scope replacement).
 
-# BLOCKED: requires inner shadow effect emission. Once implemented, add
-# InnerShadowExists("rectangle") check from effect_checks.
+3 triangles of decreasing size all centered together (largest at back, smallest at front),
+alternating two colors, forming a layered pyramid look.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import LayersAligned
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -29,20 +31,24 @@ class WeightedRubric:
 
 task = Task(
     id="task_11_pressed_button",
-    description="240x56 rounded rectangle (radius 28), light gray fill, inner shadow Y=2 blur=4 opacity=10%.",
+    description="3 triangles of decreasing size centered together, alternating two colors.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCount("rectangle", equals=1),
-        ]), max_score=0.34),
+            ShapeCount("polygon", equals=3),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayersAligned(layer_type="polygon", axis="center_x", tolerance=3.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
-            FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.33),
+            FillTypeIs("polygon", kind="solid"),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
-            ToolUsed("rectangle"),
-            EventTypeCount("create_rectangle", equals=1),
-        ]), max_score=0.33),
+            ToolUsed("polygon"),
+            EventTypeCount("create_polygon", equals=3),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=18),
 )

@@ -1,19 +1,19 @@
 """
-Task 46 — Audio waveform bars.
+Task 46 — Histogram bars (in-scope replacement, no auto-layout).
 
-# BLOCKED: requires auto-layout. Once implemented, verify that the parent
-# is auto-layout horizontal with gap=4 and 8 child rectangles of varying heights.
+8 thin vertical rectangles of varying heights, all solid-filled, placed manually
+side-by-side with consistent gap, all sharing a common bottom baseline.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.color import ColorRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCount
-from verifier.checks.fill_checks import FillTypeIs
-from verifier.checks.event_checks import ToolUsed, EventTypeCount
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -29,7 +29,7 @@ class WeightedRubric:
 
 task = Task(
     id="task_46_audio_waveform",
-    description="8 thin vertical rectangles of varying heights in a horizontal auto-layout with gap 4.",
+    description="8 vertical rectangles of varying heights placed side-by-side, sharing a bottom baseline.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCount("rectangle", equals=8),
@@ -44,5 +44,5 @@ task = Task(
             EventTypeCount("create_rectangle", equals=8),
         ]), max_score=0.33),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=24),
 )

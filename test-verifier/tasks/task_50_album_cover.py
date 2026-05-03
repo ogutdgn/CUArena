@@ -1,16 +1,21 @@
 """
-Task 50 — Album cover via shape mask.
+Task 50 — Star inside square (in-scope replacement, no image fill/mask).
 
-# BLOCKED: requires image fill + mask features.
+1 large square + 1 star (5-pointed) centered on top of the square,
+with contrasting solid colors.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCountAtLeast
-from verifier.checks.event_checks import ToolUsed
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount, StarPointsEquals
+from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -26,15 +31,29 @@ class WeightedRubric:
 
 task = Task(
     id="task_50_album_cover",
-    description="Photo on canvas + star or hexagon over it, used as mask, with 4px white border.",
+    description="1 large square + 1 5-point star centered on top, contrasting fills.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("star", minimum=1),  # or polygon — agent picks
-        ]), max_score=0.5),
+            ShapeCount("rectangle", equals=1),
+            ShapeCount("star",      equals=1),
+            StarPointsEquals(points=5),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            # Star and square share both centers
+        ]), max_score=0.25),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("rectangle", kind="solid"),
+            FillTypeIs("star",      kind="solid"),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
+            ToolUsed("rectangle"),
             ToolUsed("star"),
-        ]), max_score=0.5),
+            EventTypeCount("create_rectangle", equals=1),
+            EventTypeCount("create_star",      equals=1),
+        ]), max_score=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=15),
 )

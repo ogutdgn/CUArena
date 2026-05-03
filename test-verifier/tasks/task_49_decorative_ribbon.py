@@ -1,17 +1,18 @@
 """
-Task 49 — Decorative gradient ribbon.
+Task 49 — Tied ribbon shape (in-scope replacement, no gradient/dash).
 
-# BLOCKED: requires (a) custom dash pattern on stroke, (b) outline-stroke conversion,
-# (c) linear gradient fill on the resulting vector. Multiple env features.
+1 pen-tool S-curve drawn as a long ribbon path with a solid fill.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
-from verifier.checks.shape_checks import ShapeCountAtLeast
-from verifier.checks.event_checks import ToolUsed, EventTypeCountAtLeast
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCountAtLeast
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
 
 
 @dataclass
@@ -27,16 +28,20 @@ class WeightedRubric:
 
 task = Task(
     id="task_49_decorative_ribbon",
-    description="Pen-tool S-curve, dashed stroke, outlined to vector, filled with horizontal gradient.",
+    description="Pen-tool S-curve drawn as a single ribbon vector path with solid fill.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCountAtLeast("vector", minimum=1),
-        ]), max_score=0.5),
+        ]), max_score=0.34),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("vector", kind="solid"),
+        ]), max_score=0.33),
 
         WeightedRubric(EventRubric([
             ToolUsed("pen"),
             EventTypeCountAtLeast("create_vector", minimum=1),
-        ]), max_score=0.5),
+        ]), max_score=0.33),
     ],
-    efficiency=EfficiencyRubric(target_turns=50),
+    efficiency=EfficiencyRubric(target_turns=24),
 )

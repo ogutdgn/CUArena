@@ -1,14 +1,18 @@
 """
-Task 28 — Edited photo with adjustments.
+Task 28 — Photo placeholder mockup (in-scope replacement, no image fill).
 
-# BLOCKED: requires image fill emission + image adjustment events
-# (contrast, saturation, exposure sliders).
+1 large rectangle (placeholder) + 2 diagonal lines drawn from corner to corner forming an X-cross.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
-from verifier.rubrics.event import EventRubric
-from verifier.rubrics.efficiency import EfficiencyRubric
+from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
 @dataclass
@@ -24,9 +28,23 @@ class WeightedRubric:
 
 task = Task(
     id="task_28_edited_photo",
-    description="Photo dropped on canvas + image controls adjusted: contrast +20, saturation +30, exposure -10.",
+    description="Large rectangle placeholder + 2 diagonal lines crossing through it.",
     rubrics=[
-        # No checks possible until image fill + adjustment events are emitted
+        WeightedRubric(FundamentalsRubric([
+            ShapeCount("rectangle", equals=1),
+            ShapeCount("line",      equals=2),
+        ]), max_score=0.34),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("rectangle", kind="solid"),
+        ]), max_score=0.33),
+
+        WeightedRubric(EventRubric([
+            ToolUsed("rectangle"),
+            ToolUsed("line"),
+            EventTypeCount("create_rectangle", equals=1),
+            EventTypeCount("create_line",      equals=2),
+        ]), max_score=0.33),
     ],
-    efficiency=EfficiencyRubric(target_turns=20),
+    efficiency=EfficiencyRubric(target_turns=15),
 )

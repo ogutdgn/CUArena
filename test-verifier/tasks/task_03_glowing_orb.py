@@ -1,16 +1,19 @@
 """
-Task 03 — Glowing cyan orb.
+Task 03 — Radial flower with petals (in-scope replacement).
 
-# BLOCKED: requires radial gradient fill emission. Add ColorRubric with
-# FillTypeIs(kind="gradient_radial") once implemented.
+1 yellow center circle + 8 elliptical petals arranged radially around it,
+each petal a different color.
 """
 from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
-from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
+from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -27,18 +30,20 @@ class WeightedRubric:
 
 task = Task(
     id="task_03_glowing_orb",
-    description="600x600 dark navy frame containing 1 circle with radial gradient (cyan center → translucent edge).",
+    description="1 yellow center circle + 8 elliptical petals arranged radially around it.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("frame", minimum=1),
-            ShapeCount("ellipse", equals=1),
-        ]), max_score=0.5),
+            ShapeCount("ellipse", equals=9),
+        ]), max_score=0.34),
+
+        WeightedRubric(ColorRubric([
+            FillTypeIs("ellipse", kind="solid"),
+        ]), max_score=0.33),
 
         WeightedRubric(EventRubric([
-            ToolUsed("frame"),
             ToolUsed("ellipse"),
-            EventTypeCount("create_ellipse", equals=1),
-        ]), max_score=0.5),
+            EventTypeCount("create_ellipse", equals=9),
+        ]), max_score=0.33),
     ],
-    efficiency=EfficiencyRubric(target_turns=20),
+    efficiency=EfficiencyRubric(target_turns=30),
 )
