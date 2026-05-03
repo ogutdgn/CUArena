@@ -131,11 +131,18 @@ Tasks that don't need a rubric (e.g., a single-shape task may not need
 `Structure`) can either set its weight to 0.0 or omit it and redistribute
 the remaining weights to sum to 1.0.
 
+## Building a new task
+
+See [`BUILDING_TASKS.md`](./BUILDING_TASKS.md) for the full step-by-step
+guide: CSV row format, verifier file template, the 5-rubric system, the
+check catalog, and a worked example walking through Task 1 end-to-end.
+
 ## Status
 
 Branch: `cua-eval-wip`
 
 - ✅ 50 tasks in CSV
 - ✅ Reference verifier (Task 1) using comprehensive 5-rubric pattern
+- ✅ Builder guide (`BUILDING_TASKS.md`)
 - ⏳ Verifiers for tasks 2–50 (next)
 - ⏳ Sample logs for each task
