@@ -25,13 +25,10 @@ Vite dev server (:5173)
   │  GET /dev-log returns it as JSON
   │
   ▼
-scripts/export_log.py
+scripts/run_task.py <task>
   │  GET http://localhost:5173/dev-log
   │  Writes the log to test-verifier/logs/<task>_<timestamp>.json
-  │
-  ▼
-test-verifier/run.py --task <name> --log logs/<file>.json
-  │  Runs rubric checks against the log
+  │  Imports the matching tasks/<task>.py module and runs its rubrics
   │  Writes score to test-verifier/scores/<task>_<timestamp>.json
   │  Prints result to stdout
 ```
@@ -52,23 +49,32 @@ npm run dev
 Navigate to `http://localhost:5173` in any browser. Perform whatever actions the
 task requires. The log is updated automatically — no extra steps needed.
 
-### 3. Export the log
+### 3. Export and score in one command
 
 ```bash
-# From the repo root:
-python3 scripts/export_log.py --task house_task
+# Full pipeline: fetch the log, save it, run the matching task verifier, print score
+test-verifier/.venv/Scripts/python scripts/run_task.py task_01
 
-# Or from inside scripts/:
-python3 export_log.py --task house_task
+# Full module name also works
+test-verifier/.venv/Scripts/python scripts/run_task.py task_01_house_task_comprehensive
+
+# Just export the log, no scoring
+test-verifier/.venv/Scripts/python scripts/run_task.py export-log
+test-verifier/.venv/Scripts/python scripts/run_task.py export-log task_01
 ```
 
-The log lands in `test-verifier/logs/house_task_<timestamp>.json`.
+The log lands in `test-verifier/logs/<resolved-task>_<timestamp>.json` and the
+score in `test-verifier/scores/<resolved-task>_<timestamp>.json`.
 
-### 4. Run the verifier
+> Use the verifier venv's python (`test-verifier/.venv/Scripts/python` on
+> Windows, `test-verifier/.venv/bin/python` on Unix). The script imports the
+> verifier package directly and needs `pyyaml` available.
+
+### Manually running just the verifier
 
 ```bash
 cd test-verifier
-.venv/bin/python run.py --task house_task --log logs/house_task_<timestamp>.json
+.venv/Scripts/python run.py --task task_01_house_task_comprehensive --log logs/<file>.json
 ```
 
 ---
@@ -77,6 +83,6 @@ cd test-verifier
 
 | File | Purpose |
 |---|---|
-| `export_log.py` | Fetches the current log from the Vite relay and saves it to `test-verifier/logs/` |
-| `requirements.txt` | No external deps — `export_log.py` uses only the Python standard library |
+| `run_task.py` | Fetches the current log, saves it, and runs the matching task verifier. Subcommand `export-log` exports without scoring. |
+| `requirements.txt` | `pyyaml` — the script imports the verifier package, which reads `config.yaml`. |
 | `best-practices.md` | Architecture trade-offs and migration notes |
