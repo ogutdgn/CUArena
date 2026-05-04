@@ -225,6 +225,25 @@ def mutate_for_geometry(task, log) -> None:
             elif a and b and a[0] is not b[0]:
                 b[0]["x"] = a[0]["x"] + 10
                 b[0]["y"] = a[0]["y"] + 10
+        elif cname == "LayerEdgesAligned":
+            a_layers = by_type.get(c.type_a, [])
+            b_layers = by_type.get(c.type_b, [])
+            if a_layers and b_layers and a_layers[0] is not b_layers[0]:
+                a = a_layers[0]
+                b = b_layers[0]
+                if c.edge_b == "top":      target = b["y"]
+                elif c.edge_b == "bottom": target = b["y"] + b["h"]
+                elif c.edge_b == "left":   target = b["x"]
+                elif c.edge_b == "right":  target = b["x"] + b["w"]
+                elif c.edge_b == "center_x": target = b["x"] + b["w"] / 2
+                elif c.edge_b == "center_y": target = b["y"] + b["h"] / 2
+                else: continue
+                if c.edge_a == "top":      a["y"] = target
+                elif c.edge_a == "bottom": a["y"] = target - a["h"]
+                elif c.edge_a == "left":   a["x"] = target
+                elif c.edge_a == "right":  a["x"] = target - a["w"]
+                elif c.edge_a == "center_x": a["x"] = target - a["w"] / 2
+                elif c.edge_a == "center_y": a["y"] = target - a["h"] / 2
         elif cname == "LayerCenteredOnLayer":
             a_layers = by_type.get(c.type_a, [])
             b_layers = by_type.get(c.type_b, [])
