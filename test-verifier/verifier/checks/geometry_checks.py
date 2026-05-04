@@ -391,6 +391,36 @@ class LayerBoundsInside:
 
 
 @dataclass
+class LayersHaveAspectMix:
+    """Among layers of layer_type, at least `horizontal_count` are wider-than-tall
+    by `ratio` AND at least `vertical_count` are taller-than-wide by `ratio`.
+
+    Used when a design needs orientations to mix — e.g. a plus sign needs one
+    horizontal rectangle and one vertical rectangle (1+1 with ratio≈2)."""
+    layer_type: str
+    horizontal_count: int = 0
+    vertical_count: int = 0
+    ratio: float = 1.5
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        h_count, v_count = 0, 0
+        for l in layers:
+            w, h = l["w"], l["h"]
+            if w == 0 or h == 0:
+                continue
+            if w / h >= self.ratio:
+                h_count += 1
+            elif h / w >= self.ratio:
+                v_count += 1
+        passed = h_count >= self.horizontal_count and v_count >= self.vertical_count
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type}: {h_count} horizontal, {v_count} vertical (need ≥{self.horizontal_count}H, ≥{self.vertical_count}V at ratio≥{self.ratio})",
+        )
+
+
+@dataclass
 class LayerAspectRatioGreaterThan:
     """
     All layers of layer_type have an aspect ratio above the threshold.
