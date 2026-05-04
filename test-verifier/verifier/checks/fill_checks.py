@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from verifier.types import CheckResult
-from verifier.math_utils import find_layers_by_type, channel_distance
+from verifier.math_utils import find_layers_by_type, find_all_layers, channel_distance
 
 
 @dataclass
@@ -141,4 +141,36 @@ class FillOpacityEquals:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} with fill opacity {self.opacity}±{self.tolerance}",
+        )
+
+
+@dataclass
+class DistinctSolidColors:
+    """
+    Document contains at least `minimum` perceptually-distinct solid fills.
+
+    Walks all layers, dedupes solid fill colors by per-channel tolerance, and
+    asserts the count of distinct colors meets the threshold.
+    """
+    minimum: int
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        seen: list[tuple[float, float, float]] = []
+        for layer in find_all_layers(log["outcome"]["document"]):
+            for fill in layer.get("fills", []):
+                if fill.get("kind") != "solid":
+                    continue
+                c = fill.get("color", {})
+                rgb = (c.get("r", 0), c.get("g", 0), c.get("b", 0))
+                close = any(
+                    max(abs(rgb[0] - d[0]), abs(rgb[1] - d[1]), abs(rgb[2] - d[2])) <= self.tolerance
+                    for d in seen
+                )
+                if not close:
+                    seen.append(rgb)
+        passed = len(seen) >= self.minimum
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"distinct solid colors: expected ≥{self.minimum}, got {len(seen)}",
         )

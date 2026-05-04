@@ -1,8 +1,9 @@
 from __future__ import annotations
+import math
 from dataclasses import dataclass
 from verifier.types import CheckResult
 from verifier.math_utils import (
-    find_layers_by_type, layers_aligned, layers_symmetric_x, layer_center
+    find_layers_by_type, find_all_layers, layers_aligned, layers_symmetric_x, layer_center
 )
 
 
@@ -268,4 +269,303 @@ class LayersDistributed:
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"{self.layer_type} distribution on {self.axis}: gap variance {max_gap_diff:.1f}px (tolerance {self.tolerance}px)",
+        )
+
+
+@dataclass
+class LayersConcentric:
+    """All layers of layer_type share the same center point (x AND y) within tolerance."""
+    layer_type: str
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type} layers, found {len(layers)}")
+        x_passed, x_diff = layers_aligned(layers, "center_x", self.tolerance)
+        y_passed, y_diff = layers_aligned(layers, "center_y", self.tolerance)
+        passed = x_passed and y_passed
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} concentric: max diff x={x_diff:.1f}px y={y_diff:.1f}px (tolerance {self.tolerance}px)",
+        )
+
+
+@dataclass
+class LayersStacked:
+    """
+    Layers of layer_type are stacked along axis, with each adjacent edge separated by gap_px.
+
+    axis="y": sorted top-to-bottom; checks (next.top − prev.bottom) ≈ gap_px for each pair.
+    axis="x": sorted left-to-right; checks (next.left − prev.right) ≈ gap_px.
+
+    gap_px=0 forces flush stacking (no gap, no overlap).
+    gap_px>0 forces consistent positive spacing.
+    """
+    layer_type: str
+    axis: str            # "x" | "y"
+    gap_px: float = 0.0
+    tolerance: float = 4.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type} layers, found {len(layers)}")
+        if self.axis == "y":
+            sorted_layers = sorted(layers, key=lambda l: l["y"])
+            gaps = [sorted_layers[i + 1]["y"] - (sorted_layers[i]["y"] + sorted_layers[i]["h"])
+                    for i in range(len(sorted_layers) - 1)]
+        elif self.axis == "x":
+            sorted_layers = sorted(layers, key=lambda l: l["x"])
+            gaps = [sorted_layers[i + 1]["x"] - (sorted_layers[i]["x"] + sorted_layers[i]["w"])
+                    for i in range(len(sorted_layers) - 1)]
+        else:
+            raise ValueError(f"axis must be 'x' or 'y', got '{self.axis}'")
+        max_dev = max(abs(g - self.gap_px) for g in gaps)
+        passed = max_dev <= self.tolerance
+        gap_str = "flush" if self.gap_px == 0 else f"gap={self.gap_px}px"
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} stacked on {self.axis} ({gap_str}): max deviation {max_dev:.1f}px (tolerance {self.tolerance}px)",
+        )
+
+
+@dataclass
+class LayersOverlap:
+    """At least one (type_a, type_b) pair has overlapping bounding boxes."""
+    type_a: str
+    type_b: str
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        a_layers = find_layers_by_type(doc, self.type_a)
+        b_layers = find_layers_by_type(doc, self.type_b)
+        if not a_layers or not b_layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.type_a} and {self.type_b} layers")
+        for a in a_layers:
+            for b in b_layers:
+                if a is b:
+                    continue
+                if (a["x"] < b["x"] + b["w"] and a["x"] + a["w"] > b["x"]
+                        and a["y"] < b["y"] + b["h"] and a["y"] + a["h"] > b["y"]):
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.type_a} overlaps {self.type_b}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.type_a} overlaps any {self.type_b}",
+        )
+
+
+@dataclass
+class LayerBoundsInside:
+    """At least one inner_type's bbox fits entirely inside an outer_type's bbox."""
+    inner_type: str
+    outer_type: str
+    tolerance: float = 2.0       # tolerated overhang in px
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        inners = find_layers_by_type(doc, self.inner_type)
+        outers = find_layers_by_type(doc, self.outer_type)
+        if not inners or not outers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.inner_type} and {self.outer_type} layers")
+        for inner in inners:
+            for outer in outers:
+                if inner is outer:
+                    continue
+                t = self.tolerance
+                if (inner["x"] >= outer["x"] - t
+                        and inner["y"] >= outer["y"] - t
+                        and inner["x"] + inner["w"] <= outer["x"] + outer["w"] + t
+                        and inner["y"] + inner["h"] <= outer["y"] + outer["h"] + t):
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.inner_type} bounds fit inside {self.outer_type}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.inner_type} fits inside any {self.outer_type}",
+        )
+
+
+@dataclass
+class LayerAspectRatioGreaterThan:
+    """
+    All layers of layer_type have an aspect ratio above the threshold.
+
+    axis="horizontal": w/h ≥ ratio   (forces wider-than-tall, e.g. sunset bands)
+    axis="vertical":   h/w ≥ ratio   (forces taller-than-wide, e.g. sidebars, stripes)
+    """
+    layer_type: str
+    ratio: float
+    axis: str = "horizontal"       # "horizontal" | "vertical"
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = []
+        for l in layers:
+            w, h = l["w"], l["h"]
+            if w == 0 or h == 0:
+                failures.append(f"{l['id'][:8]}: zero dimension")
+                continue
+            actual = w / h if self.axis == "horizontal" else h / w
+            if actual < self.ratio:
+                failures.append(f"{l['id'][:8]}: ratio={actual:.2f} < {self.ratio}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} aspect ratio ≥ {self.ratio} ({self.axis})" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
+class RadialDistribution:
+    """
+    n layers of layer_type arranged at equal angular steps around their collective center.
+
+    Computes each layer's center, then its angle from the group's collective center,
+    and checks consecutive sorted angular gaps ≈ 360°/n.
+    """
+    layer_type: str
+    n: int
+    tolerance_deg: float = 10.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) != self.n:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need exactly {self.n} {self.layer_type} layers, found {len(layers)}")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        angles = sorted(
+            (math.degrees(math.atan2(l["y"] + l["h"] / 2 - cy, l["x"] + l["w"] / 2 - cx)) % 360)
+            for l in layers
+        )
+        gaps = [angles[i + 1] - angles[i] for i in range(len(angles) - 1)]
+        gaps.append(360 - angles[-1] + angles[0])
+        expected = 360 / self.n
+        max_dev = max(abs(g - expected) for g in gaps)
+        passed = max_dev <= self.tolerance_deg
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.n} {self.layer_type} radial: max gap deviation {max_dev:.1f}° (expected {expected:.1f}°, tolerance {self.tolerance_deg}°)",
+        )
+
+
+@dataclass
+class LayersEvenlyRotated:
+    """
+    n layers of layer_type have rotation values evenly stepped by step_deg.
+
+    Sorts the rotation property of each layer and checks consecutive differences ≈ step_deg.
+    Works for any starting angle (offset is allowed).
+    """
+    layer_type: str
+    n: int
+    step_deg: float
+    tolerance_deg: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) != self.n:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need exactly {self.n} {self.layer_type} layers, found {len(layers)}")
+        rotations = sorted((l.get("rotation", 0) % 360) for l in layers)
+        diffs = [rotations[i + 1] - rotations[i] for i in range(len(rotations) - 1)]
+        diffs.append(360 - rotations[-1] + rotations[0])
+        max_dev = max(abs(d - self.step_deg) for d in diffs)
+        passed = max_dev <= self.tolerance_deg
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} rotations stepped by {self.step_deg}°: max deviation {max_dev:.1f}° (tolerance {self.tolerance_deg}°)",
+        )
+
+
+@dataclass
+class LayersInGrid:
+    """
+    rows × cols layers of layer_type arranged on a regular grid lattice.
+
+    Algorithm:
+      1. Cluster layer centers into rows by Y (within tolerance).
+      2. Verify exactly `rows` clusters, each with `cols` items.
+      3. Sort each row by X; verify ith items across rows share a column (X within tolerance).
+    """
+    layer_type: str
+    rows: int
+    cols: int
+    tolerance: float = 8.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        expected = self.rows * self.cols
+        if len(layers) != expected:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need exactly {expected} {self.layer_type} layers, found {len(layers)}")
+        by_y = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+        row_groups: list[list[dict]] = []
+        for l in by_y:
+            cy = l["y"] + l["h"] / 2
+            placed = False
+            for g in row_groups:
+                if abs((g[0]["y"] + g[0]["h"] / 2) - cy) <= self.tolerance:
+                    g.append(l)
+                    placed = True
+                    break
+            if not placed:
+                row_groups.append([l])
+        if len(row_groups) != self.rows:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Found {len(row_groups)} row clusters, expected {self.rows}")
+        for i, g in enumerate(row_groups):
+            if len(g) != self.cols:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"Row {i} has {len(g)} items, expected {self.cols}")
+        rows_sorted = [sorted(g, key=lambda l: l["x"] + l["w"] / 2) for g in row_groups]
+        for col_idx in range(self.cols):
+            col_xs = [g[col_idx]["x"] + g[col_idx]["w"] / 2 for g in rows_sorted]
+            if max(col_xs) - min(col_xs) > self.tolerance:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"Column {col_idx} not aligned: spread {max(col_xs) - min(col_xs):.1f}px")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"{self.rows}x{self.cols} grid of {self.layer_type} confirmed",
+        )
+
+
+@dataclass
+class LayerCenteredInFrame:
+    """
+    At least one layer of layer_type is centered within its parent frame.
+
+    Walks all frames; for each direct child of the requested type, checks
+    its center matches the frame's geometric center within tolerance.
+    Note: layer x,y are in parent space (per scene.ts), so frame center is (w/2, h/2).
+    """
+    layer_type: str
+    tolerance: float = 8.0
+
+    def run(self, log: dict) -> CheckResult:
+        for parent in find_all_layers(log["outcome"]["document"]):
+            if parent.get("type") != "frame":
+                continue
+            for child in parent.get("children", []):
+                if child.get("type") != self.layer_type:
+                    continue
+                cx_child = child["x"] + child["w"] / 2
+                cy_child = child["y"] + child["h"] / 2
+                cx_frame = parent["w"] / 2
+                cy_frame = parent["h"] / 2
+                if abs(cx_child - cx_frame) <= self.tolerance and abs(cy_child - cy_frame) <= self.tolerance:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.layer_type} centered in frame")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} centered in any frame",
         )

@@ -83,6 +83,133 @@ def synth_layer(t, idx, x_base=100, y_base=100):
     return base
 
 
+def collect_layers_by_type(doc: dict) -> dict:
+    """Index every layer in the doc by type."""
+    out: dict = {}
+
+    def walk(nodes):
+        for n in nodes:
+            out.setdefault(n["type"], []).append(n)
+            if "children" in n:
+                walk(n["children"])
+
+    for page in doc.get("pages", []):
+        walk(page.get("children", []))
+    return out
+
+
+def mutate_for_geometry(task, log) -> None:
+    """
+    After perfect_log() builds layers in a default row, mutate them in-place
+    so the synthetic doc satisfies geometric primitives present in the task.
+
+    Order: aspect-ratio (sets size) → position (concentric/stacked/grid/radial/centered)
+           → rotation → cornerRadius → cross-type containment/overlap.
+    """
+    import math
+    doc = log["outcome"]["document"]
+
+    checks = []
+    for w in task.rubrics:
+        rubric = getattr(w, "rubric", w)
+        for c in getattr(rubric, "checks", []):
+            checks.append(c)
+
+    by_type = collect_layers_by_type(doc)
+
+    # Pass 1: aspect ratio (resize before positioning so stacking math uses final w/h)
+    for c in checks:
+        if type(c).__name__ == "LayerAspectRatioGreaterThan":
+            for l in by_type.get(c.layer_type, []):
+                if c.axis == "horizontal":
+                    l["w"] = max(l["w"], int(l["h"] * (c.ratio + 0.5)))
+                else:
+                    l["h"] = max(l["h"], int(l["w"] * (c.ratio + 0.5)))
+
+    # Pass 2: positioning (later mutations win for the same layer_type)
+    for c in checks:
+        cname = type(c).__name__
+        if cname == "LayersConcentric":
+            for i, l in enumerate(by_type.get(c.layer_type, [])):
+                size = max(40, 200 - i * 30)
+                l["w"] = l["h"] = size
+                l["x"] = 500 - size / 2
+                l["y"] = 500 - size / 2
+        elif cname == "LayersStacked":
+            layers = by_type.get(c.layer_type, [])
+            if c.axis == "y":
+                cur = 100
+                for l in layers:
+                    l["x"] = 100
+                    l["y"] = cur
+                    cur += l["h"] + c.gap_px
+            else:  # "x"
+                cur = 100
+                for l in layers:
+                    l["y"] = 100
+                    l["x"] = cur
+                    cur += l["w"] + c.gap_px
+        elif cname == "LayersInGrid":
+            layers = by_type.get(c.layer_type, [])
+            for i, l in enumerate(layers[: c.rows * c.cols]):
+                row = i // c.cols
+                col = i % c.cols
+                l["x"] = 100 + col * 120
+                l["y"] = 100 + row * 120
+        elif cname == "RadialDistribution":
+            layers = by_type.get(c.layer_type, [])
+            for i, l in enumerate(layers[: c.n]):
+                angle = (2 * math.pi * i) / c.n
+                l["x"] = 500 + 200 * math.cos(angle) - l["w"] / 2
+                l["y"] = 500 + 200 * math.sin(angle) - l["h"] / 2
+        elif cname == "LayerCenteredInFrame":
+            for parent in collect_layers_by_type(doc).get("frame", []):
+                for child in parent.get("children", []):
+                    if child.get("type") == c.layer_type:
+                        child["x"] = parent["w"] / 2 - child["w"] / 2
+                        child["y"] = parent["h"] / 2 - child["h"] / 2
+                        break
+                break
+
+    # Pass 3: rotation (independent)
+    for c in checks:
+        if type(c).__name__ == "LayersEvenlyRotated":
+            for i, l in enumerate(by_type.get(c.layer_type, [])):
+                l["rotation"] = i * c.step_deg
+
+    # Pass 4: corner radius
+    for c in checks:
+        if type(c).__name__ == "CornerRadiusAtLeast":
+            for l in by_type.get(c.layer_type, []):
+                l["cornerRadius"] = c.min_value
+
+    # Pass 5: containment/overlap (cross-type cases not already implied by positioning)
+    for c in checks:
+        cname = type(c).__name__
+        if cname == "LayerBoundsInside":
+            if c.inner_type == c.outer_type:
+                continue   # same-type containment usually satisfied by Concentric/Stacked
+            inners = by_type.get(c.inner_type, [])
+            outers = by_type.get(c.outer_type, [])
+            if inners and outers:
+                outer = outers[0]
+                inner = inners[0]
+                inner["w"] = min(inner["w"], max(20, outer["w"] - 20))
+                inner["h"] = min(inner["h"], max(20, outer["h"] - 20))
+                inner["x"] = outer["x"] + 10
+                inner["y"] = outer["y"] + 10
+        elif cname == "LayersOverlap":
+            a = by_type.get(c.type_a, [])
+            b = by_type.get(c.type_b, [])
+            if c.type_a == c.type_b:
+                if len(a) >= 2:
+                    a[1]["x"] = a[0]["x"] + 10
+                    a[1]["y"] = a[0]["y"] + 10
+            elif a and b and a[0] is not b[0]:
+                b[0]["x"] = a[0]["x"] + 10
+                b[0]["y"] = a[0]["y"] + 10
+
+
 def perfect_log(task) -> dict:
     """Build a synthetic outcome.document + semantic events that match expectations."""
     shapes, tools, events = collect_expected(task)
@@ -131,7 +258,7 @@ def perfect_log(task) -> dict:
     for stype, n in shapes.items():
         counts[stype] = n
 
-    return {
+    log = {
         "schemaVersion": 1,
         "sessionId": "qa_synthetic_perfect",
         "raw": [],
@@ -141,6 +268,8 @@ def perfect_log(task) -> dict:
             "document": document,
         }
     }
+    mutate_for_geometry(task, log)
+    return log
 
 
 def empty_log() -> dict:

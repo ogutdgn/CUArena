@@ -11,7 +11,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCountAtLeast
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
 from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
 
 
@@ -36,6 +36,7 @@ task = Task(
 
         WeightedRubric(ColorRubric([
             FillTypeIs("vector", kind="solid"),
+            DistinctSolidColors(minimum=2, tolerance=0.05),
         ]), max_score=0.33),
 
         WeightedRubric(EventRubric([

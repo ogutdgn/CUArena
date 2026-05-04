@@ -28,8 +28,7 @@ Run:
 from dataclasses import dataclass
 from typing import Any
 
-from verifier.types  import Task, CheckResult, RubricResult
-from verifier.math_utils import find_all_layers
+from verifier.types  import Task, RubricResult
 
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
@@ -40,9 +39,10 @@ from verifier.rubrics.efficiency   import EfficiencyRubric
 
 from verifier.checks.shape_checks    import ShapeCount
 from verifier.checks.geometry_checks import (
-    LayersAligned, LayersSymmetricX, LayersSameDimensions, LayerEdgesAligned
+    LayersAligned, LayersSymmetricX, LayersSameDimensions, LayerEdgesAligned,
+    LayerBoundsInside, LayersOverlap
 )
-from verifier.checks.fill_checks     import FillTypeIs
+from verifier.checks.fill_checks     import FillTypeIs, DistinctSolidColors
 from verifier.checks.structure_checks import LayerInsideFrame, ChildCountAtLeast
 from verifier.checks.event_checks    import ToolUsed, EventTypeCount
 
@@ -66,39 +66,6 @@ class WeightedRubric:
             score=round(r.score * scale, 4),
             max_score=self.max_score,
             checks=r.checks,
-        )
-
-
-# ─────────────────────────────────────────────────────────────
-# Custom check (not yet in the library) — distinct color variety
-# ─────────────────────────────────────────────────────────────
-
-@dataclass
-class DistinctSolidColors:
-    """Document contains at least `minimum` perceptually-distinct solid fills."""
-    minimum: int
-    tolerance: float = 0.05
-
-    def run(self, log: dict) -> CheckResult:
-        seen: list[tuple[float, float, float]] = []
-        for layer in find_all_layers(log["outcome"]["document"]):
-            for fill in layer.get("fills", []):
-                if fill.get("kind") != "solid":
-                    continue
-                c   = fill.get("color", {})
-                rgb = (c.get("r", 0), c.get("g", 0), c.get("b", 0))
-                close = any(
-                    max(abs(rgb[0] - d[0]), abs(rgb[1] - d[1]), abs(rgb[2] - d[2])) <= self.tolerance
-                    for d in seen
-                )
-                if not close:
-                    seen.append(rgb)
-        passed = len(seen) >= self.minimum
-        return CheckResult(
-            passed=passed,
-            score=1.0 if passed else 0.0,
-            max_score=1.0,
-            message=f"distinct solid colors: expected ≥{self.minimum}, got {len(seen)}",
         )
 
 
