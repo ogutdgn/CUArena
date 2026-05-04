@@ -13,7 +13,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersSameDimensions, RadialDistribution
+from verifier.checks.geometry_checks import LayersSameDimensions, RadialDistribution, LayerIsSquare
 from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -40,6 +40,7 @@ task = Task(
         WeightedRubric(AlignmentRubric([
             LayersSameDimensions(layer_type="rectangle", tolerance=3.0),
             RadialDistribution(layer_type="rectangle", n=6, tolerance_deg=15.0),
+            LayerIsSquare(layer_type="rectangle", tolerance=3.0),
         ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
