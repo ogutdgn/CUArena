@@ -3,7 +3,8 @@ import math
 from dataclasses import dataclass
 from verifier.types import CheckResult
 from verifier.math_utils import (
-    find_layers_by_type, find_all_layers, layers_aligned, layers_symmetric_x, layer_center
+    find_layers_by_type, find_all_layers, layers_aligned, layers_symmetric_x, layer_center,
+    polygon_vertices,
 )
 
 
@@ -212,6 +213,21 @@ class LayerEdgesAligned:
     tolerance: float = 5.0
 
     def _edge(self, layer: dict, edge: str) -> float:
+        # For polygons, use actual vertex coordinates instead of bounding box.
+        # The bounding box is ellipse-inscribed and can have significant empty
+        # space (e.g. a 3-sided triangle's bottom vertices sit at 3/4 of the
+        # bbox height, leaving ~25% empty at the bottom).
+        if layer.get("type") == "polygon":
+            verts = polygon_vertices(layer)
+            xs = [v[0] for v in verts]
+            ys = [v[1] for v in verts]
+            if edge == "top":      return min(ys)
+            if edge == "bottom":   return max(ys)
+            if edge == "left":     return min(xs)
+            if edge == "right":    return max(xs)
+            if edge == "center_x": return (min(xs) + max(xs)) / 2
+            if edge == "center_y": return (min(ys) + max(ys)) / 2
+            raise ValueError(f"Unknown edge '{edge}'")
         if edge == "top":      return layer["y"]
         if edge == "bottom":   return layer["y"] + layer["h"]
         if edge == "left":     return layer["x"]
@@ -242,6 +258,75 @@ class LayerEdgesAligned:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.type_a}.{self.edge_a} aligns with any {self.type_b}.{self.edge_b} (tolerance {self.tolerance}px)",
+        )
+
+
+@dataclass
+class PolygonCornersAligned:
+    """
+    The two bottom-most vertices of the polygon coincide with the top-left and
+    top-right corners of a matching rectangle — checked in 2D (both X and Y).
+
+    Uses Chebyshev distance: max(|Δx|, |Δy|) ≤ tolerance per corner pair.
+    Passes if at least one (polygon, rectangle) pair satisfies both corners.
+
+    Useful for: "roof base corners land exactly on house body top corners"
+    """
+    polygon_type: str = "polygon"
+    rect_type: str = "rectangle"
+    tolerance: float = 10.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        polygons = find_layers_by_type(doc, self.polygon_type)
+        rects    = find_layers_by_type(doc, self.rect_type)
+
+        if not polygons:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.polygon_type} found")
+        if not rects:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.rect_type} found")
+
+        for poly in polygons:
+            verts = polygon_vertices(poly)
+            if len(verts) < 2:
+                continue
+
+            # Bottom-most vertices = those at (or very near) the max Y
+            max_y = max(v[1] for v in verts)
+            bottom = sorted(
+                [v for v in verts if abs(v[1] - max_y) <= 1.0],
+                key=lambda v: v[0],
+            )
+            if len(bottom) < 2:
+                continue
+
+            poly_bl, poly_br = bottom[0], bottom[-1]   # left-most, right-most
+
+            for rect in rects:
+                rect_tl = (rect["x"],               rect["y"])
+                rect_tr = (rect["x"] + rect["w"],   rect["y"])
+
+                dist_bl = max(abs(poly_bl[0] - rect_tl[0]), abs(poly_bl[1] - rect_tl[1]))
+                dist_br = max(abs(poly_br[0] - rect_tr[0]), abs(poly_br[1] - rect_tr[1]))
+
+                if dist_bl <= self.tolerance and dist_br <= self.tolerance:
+                    return CheckResult(
+                        passed=True, score=1.0, max_score=1.0,
+                        message=(
+                            f"polygon base corners "
+                            f"({poly_bl[0]:.0f},{poly_bl[1]:.0f}) & ({poly_br[0]:.0f},{poly_br[1]:.0f}) "
+                            f"match rectangle top corners (tol {self.tolerance}px)"
+                        ),
+                    )
+
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=(
+                f"No polygon base corners align with any rectangle top corners "
+                f"(tolerance {self.tolerance}px)"
+            ),
         )
 
 

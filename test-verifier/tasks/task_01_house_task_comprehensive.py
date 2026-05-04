@@ -39,8 +39,8 @@ from verifier.rubrics.efficiency   import EfficiencyRubric
 
 from verifier.checks.shape_checks    import ShapeCount
 from verifier.checks.geometry_checks import (
-    LayersAligned, LayersSymmetricX, LayersSameDimensions, LayerEdgesAligned,
-    LayerBoundsInside, LayersOverlap, FrameSizeEquals,
+    LayersAligned, LayersSymmetricX, LayersSameDimensions,
+    LayerBoundsInside, LayersOverlap, FrameSizeEquals, PolygonCornersAligned,
 )
 from verifier.checks.fill_checks     import FillTypeIs, DistinctSolidColors
 from verifier.checks.structure_checks import LayerInsideFrame, ChildCountAtLeast
@@ -95,11 +95,7 @@ task = Task(
             LayersAligned(layer_type="ellipse", axis="center_y", tolerance=8.0),
             LayersSameDimensions(layer_type="ellipse", tolerance=3.0),
             LayersSymmetricX(layer_type="ellipse", tolerance=15.0),
-            LayerEdgesAligned(
-                type_a="polygon", edge_a="bottom",
-                type_b="rectangle", edge_b="top",
-                tolerance=10.0,
-            ),
+            PolygonCornersAligned(tolerance=10.0),
             LayerBoundsInside(inner_type="rectangle", outer_type="rectangle", tolerance=4.0),
             LayersOverlap(type_a="ellipse", type_b="rectangle"),
             FrameSizeEquals(width=1280, height=832, tolerance=10.0),
