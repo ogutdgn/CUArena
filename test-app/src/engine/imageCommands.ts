@@ -121,10 +121,10 @@ export async function placeImageFiles(
     }
   }
 
+  emitSemantic({ name: "place_image", layerIds: newIds, source, filenames });
   if (newIds.length > 0) {
     setSelection(newIds, "implicit_after_create");
   }
-  emitSemantic({ name: "place_image", layerIds: newIds, source, filenames });
 }
 
 export function openImageFilePicker(): void {

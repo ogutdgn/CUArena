@@ -165,7 +165,6 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
         node,
       });
 
-      setSelection([node.id], "implicit_after_create");
       if (config.isArrow) {
         emitSemantic({
           name: "create_arrow",
@@ -187,6 +186,7 @@ function makeLineLikeTool(config: LineToolConfig): ITool {
           trigger: "shortcut_L",
         });
       }
+      setSelection([node.id], "implicit_after_create");
 
       const beforeTool = useStore.getState().activeTool;
       if (beforeTool !== "move") {

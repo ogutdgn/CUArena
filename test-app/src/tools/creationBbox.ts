@@ -130,8 +130,8 @@ export function makeCreationBboxTool(config: BboxToolConfig): ITool {
         node,
       });
 
-      setSelection([node.id], "implicit_after_create");
       emitSemantic(config.emitOnCreate(node, bbox, parentId, state.modifiers, trigger));
+      setSelection([node.id], "implicit_after_create");
 
       const revert = config.revertToMove !== false;
       if (revert) {

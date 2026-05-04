@@ -101,13 +101,13 @@ export function groupSelection(trigger: "shortcut" | "context_menu" | "main_menu
   );
   commitTransaction(txId);
 
-  setSelection([group.id], "implicit_after_create");
   emitSemantic({
     name: "group_selection",
     layerIds: layers.map((l) => l.id),
     groupId: group.id,
     trigger,
   });
+  setSelection([group.id], "implicit_after_create");
 }
 
 export function ungroupSelection(trigger: "shortcut" | "context_menu" | "main_menu"): void {
@@ -158,12 +158,12 @@ export function ungroupSelection(trigger: "shortcut" | "context_menu" | "main_me
   }
   commitTransaction(txId);
 
-  setSelection(movedChildIds, "implicit_after_ungroup");
   emitSemantic({
     name: "ungroup",
     layerIds: layers.map((l) => l.id),
     trigger,
   });
+  setSelection(movedChildIds, "implicit_after_ungroup");
 }
 
 export function enterGroup(): void {

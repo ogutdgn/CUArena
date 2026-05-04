@@ -44,10 +44,11 @@ the Chrome DevTools Protocol.
 
 A Vite plugin (`devLogRelayPlugin` in `vite.config.ts`) adds a tiny in-memory
 HTTP relay at `POST/GET /dev-log`. `persist.ts` posts the log payload there on
-every flush (~250 ms). The export script does a plain HTTP GET.
+every flush (~250 ms). `scripts/run_task.py` does a plain HTTP GET, then
+imports the matching task module to score the log in-process.
 
 **Pros:**
-- Zero extra dependencies — pure stdlib `urllib`
+- Stdlib only for the export half (`urllib`); `pyyaml` for the verifier import
 - Developer uses normal Chrome, normal workflow
 - Relay is guarded by `apply: "serve"` and `import.meta.env.DEV` so it never
   ships in a production build
@@ -102,17 +103,18 @@ storage = page.evaluate("""() => {
 1. Revert `vite.config.ts` — remove `devLogRelayPlugin` and its import of `Plugin`
 2. Revert `persist.ts` — remove the `fetch("/dev-log", …)` block and `_sessionId`
 3. Restore `scripts/requirements.txt` to `playwright>=1.40.0`
-4. Restore the original `export_log.py` (it's in git history on the
-   `ogutdgn/vibe-fixes` branch pre-refactor)
+4. Replace `scripts/run_task.py` with a CDP-based exporter (the original
+   `export_log.py` is in git history on the `ogutdgn/vibe-fixes` branch
+   pre-refactor)
 
 ### From Option B → Option C (CUA harness)
 
 1. The Vite relay can stay (it does no harm in dev)
 2. In the CUA test harness, after agent completion:
    - Call `page.evaluate()` to dump sessionStorage (see snippet above)
-   - Call `reconstruct_log(storage)` (copy the function from `export_log.py`)
-   - Pass the log directly to the verifier, skipping `export_log.py` entirely
-3. `export_log.py` becomes dev-only tooling, not part of the automated pipeline
+   - Reconstruct the combined log object from the dumped streams
+   - Pass the log directly to the verifier, skipping `run_task.py` entirely
+3. `run_task.py` becomes dev-only tooling, not part of the automated pipeline
 
 ### Adding persistence to Option B (if server restarts are a concern)
 
