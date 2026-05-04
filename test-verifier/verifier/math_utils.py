@@ -63,9 +63,23 @@ def layers_symmetric_x(layers: list[dict], tolerance: float) -> tuple[bool, floa
     """
     Check that layers are symmetric around their collective horizontal center.
     Returns (passed, max_deviation_px).
+
+    n=2 special case: with only two layers, the original mirror check is vacuous
+    (the collective center IS their midpoint, so any two layers always pass).
+    For n=2 we instead require they are actual twins: same Y center AND same
+    dimensions, otherwise the symmetry claim is meaningless.
     """
     if len(layers) < 2:
         return False, 0.0
+
+    if len(layers) == 2:
+        a, b = layers
+        a_cy = a["y"] + a["h"] / 2
+        b_cy = b["y"] + b["h"] / 2
+        y_diff = abs(a_cy - b_cy)
+        size_diff = max(abs(a["w"] - b["w"]), abs(a["h"] - b["h"]))
+        worst = max(y_diff, size_diff)
+        return worst <= tolerance, worst
 
     centers = sorted([l["x"] + l["w"] / 2 for l in layers])
     collective_cx = sum(centers) / len(centers)

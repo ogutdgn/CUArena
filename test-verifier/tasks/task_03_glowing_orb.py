@@ -12,7 +12,6 @@ from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
-from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import RadialDistributionExcludeCentral
 from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors

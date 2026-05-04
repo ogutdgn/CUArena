@@ -119,12 +119,26 @@ def mutate_for_geometry(task, log) -> None:
 
     # Pass 1: aspect ratio (resize before positioning so stacking math uses final w/h)
     for c in checks:
-        if type(c).__name__ == "LayerAspectRatioGreaterThan":
+        cname = type(c).__name__
+        if cname == "LayerAspectRatioGreaterThan":
             for l in by_type.get(c.layer_type, []):
                 if c.axis == "horizontal":
                     l["w"] = max(l["w"], int(l["h"] * (c.ratio + 0.5)))
                 else:
                     l["h"] = max(l["h"], int(l["w"] * (c.ratio + 0.5)))
+        elif cname == "LayersHaveAspectMix":
+            layers = by_type.get(c.layer_type, [])
+            scale = c.ratio + 0.5
+            target_cx, target_cy = 500, 500
+            # First N → horizontal; next M → vertical; all centered on (target_cx, target_cy)
+            for l in layers[: c.horizontal_count]:
+                l["w"] = max(l["w"], int(l["h"] * scale))
+                l["x"] = target_cx - l["w"] / 2
+                l["y"] = target_cy - l["h"] / 2
+            for l in layers[c.horizontal_count : c.horizontal_count + c.vertical_count]:
+                l["h"] = max(l["h"], int(l["w"] * scale))
+                l["x"] = target_cx - l["w"] / 2
+                l["y"] = target_cy - l["h"] / 2
 
     # Pass 2: positioning (later mutations win for the same layer_type)
     for c in checks:
