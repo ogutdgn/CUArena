@@ -56,7 +56,7 @@ def task_number_from_name(task_name: str) -> str | None:
     return m.group(1) if m else None
 
 
-def run_task(task_name: str, log_path: str) -> TaskResult:
+def run_task(task_name: str, log_path: str | None) -> tuple[TaskResult, dict]:
     try:
         mod = importlib.import_module(f"tasks.{task_name}")
     except ModuleNotFoundError:
@@ -64,7 +64,14 @@ def run_task(task_name: str, log_path: str) -> TaskResult:
         sys.exit(1)
 
     task = mod.task
-    log = load_log(log_path)
+    if log_path:
+        log = load_log(log_path)
+        recorded_path = log_path
+    else:
+        # Default: synthetic perfect-log built by the QA harness
+        from qa_verifiers import perfect_log
+        log = perfect_log(task)
+        recorded_path = "<synthetic perfect log>"
 
     rubric_results = [r.run(log) for r in task.rubrics]
     efficiency = task.efficiency.run(log)
@@ -74,28 +81,32 @@ def run_task(task_name: str, log_path: str) -> TaskResult:
 
     return TaskResult(
         task_id=task.id,
-        log_path=log_path,
+        log_path=recorded_path,
         rubrics=rubric_results,
         base_score=base_score,
         efficiency=efficiency,
         final_score=final_score,
-    )
+    ), log
 
 
-def save_result(result: TaskResult, task_name: str, log_path: str) -> Path:
+def save_result(result: TaskResult, task_name: str, log_path: str | None, log_dict: dict) -> Path:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     nn = task_number_from_name(task_name)
     if nn and (DELIVERY_ROOT / f"task_{nn}").exists():
         run_dir = DELIVERY_ROOT / f"task_{nn}" / "output" / timestamp
         run_dir.mkdir(parents=True, exist_ok=True)
-        # Copy input log so the run is self-contained
-        try:
-            shutil.copy(log_path, run_dir / "log.json")
-        except (FileNotFoundError, shutil.SameFileError):
-            pass
-        # Single-line reward (final score)
+        # Save the log used (copy from disk if real, dump dict if synthetic)
+        if log_path and Path(log_path).exists():
+            try:
+                shutil.copy(log_path, run_dir / "log.json")
+            except shutil.SameFileError:
+                pass
+        else:
+            with open(run_dir / "log.json", "w") as f:
+                json.dump(log_dict, f, indent=2)
+        # Single-line reward
         (run_dir / "reward.txt").write_text(f"{result.final_score:.4f}\n")
-        # Full result (rubric breakdown, efficiency, etc.)
+        # Full result
         result_path = run_dir / "result.json"
         with open(result_path, "w") as f:
             json.dump(dataclasses.asdict(result), f, indent=2)
@@ -130,16 +141,17 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run a task verifier against a log file.")
     parser.add_argument("--task", required=True,
                         help="Task module name OR numeric prefix (01, 1, task_01)")
-    parser.add_argument("--log",  required=True, help="Path to log JSON file")
+    parser.add_argument("--log",  required=False, default=None,
+                        help="Path to log JSON file (default: synthetic perfect log)")
     args = parser.parse_args()
 
     task_name = resolve_task_name(args.task)
-    result = run_task(task_name, args.log)
+    result, log_dict = run_task(task_name, args.log)
     print_result(result)
 
     print(json.dumps(dataclasses.asdict(result), indent=2))
 
-    out_path = save_result(result, task_name, args.log)
+    out_path = save_result(result, task_name, args.log, log_dict)
     print(f"\nResult saved → {out_path}")
 
 
