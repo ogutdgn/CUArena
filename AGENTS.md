@@ -109,13 +109,46 @@ Code lives in `test-verifier/`. Setup and usage: `test-verifier/README.md`.
 
 To write a new task verifier script: read `project-documents/verifier-docs/verifier-writer.md` — it has the full check catalog and rules.
 
-Log export from test-app (dev mode only):
-```javascript
-__exportLog()   // downloads figma-mock-log-<sessionId>.json
-```
-
 Run a verifier:
 ```bash
 cd test-verifier
 .venv/bin/python run.py --task house_task --log logs/house_sample.json
 ```
+
+---
+
+## scripts/ — log export tooling
+
+The `scripts/` folder bridges test-app and test-verifier for the **human developer** workflow.
+
+```
+scripts/
+├── export_log.py      ← fetches the current session log and saves it to test-verifier/logs/
+├── requirements.txt   ← no external deps (pure stdlib)
+├── README.md          ← full flow diagram + step-by-step usage
+└── best-practices.md  ← three export approaches, trade-offs, migration guide
+```
+
+### How log export works
+
+The test-app (in dev mode) POSTs the full log to the Vite dev server at `POST /dev-log`
+on every flush (~250 ms). `export_log.py` retrieves it with a plain HTTP GET — no Chrome
+flags, no Playwright, no external dependencies.
+
+```bash
+# 1. Start the app
+cd test-app && npm run dev
+
+# 2. Do stuff in the browser at http://localhost:5173
+
+# 3. Export the log
+python3 scripts/export_log.py --task house_task
+# → saves to test-verifier/logs/house_task_<timestamp>.json
+```
+
+### For automated CUA / Docker
+
+The Vite relay is dev-only and not the right approach for automated runs. When a CUA agent
+controls the browser via Playwright, the test harness already has CDP access and should
+read sessionStorage directly via `page.evaluate()`. See `scripts/best-practices.md` for
+the full comparison and migration steps.
