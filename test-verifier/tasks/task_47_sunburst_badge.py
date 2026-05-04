@@ -12,7 +12,7 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount, StarPointsEquals, StarInnerRatioEquals
-from verifier.checks.geometry_checks import LayerCenteredOnLayer
+from verifier.checks.geometry_checks import LayerCenteredOnLayer, LayerIsCircular
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -41,6 +41,7 @@ task = Task(
 
         WeightedRubric(AlignmentRubric([
             LayerCenteredOnLayer(type_a="ellipse", type_b="star", tolerance=8.0),
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),
         ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([

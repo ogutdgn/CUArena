@@ -120,7 +120,10 @@ def mutate_for_geometry(task, log) -> None:
     # Pass 1: aspect ratio (resize before positioning so stacking math uses final w/h)
     for c in checks:
         cname = type(c).__name__
-        if cname == "LayerAspectRatioGreaterThan":
+        if cname == "LayerIsCircular":
+            for l in by_type.get(c.layer_type, []):
+                l["h"] = l["w"]
+        elif cname == "LayerAspectRatioGreaterThan":
             for l in by_type.get(c.layer_type, []):
                 if c.axis == "horizontal":
                     l["w"] = max(l["w"], int(l["h"] * (c.ratio + 0.5)))

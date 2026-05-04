@@ -7,10 +7,12 @@ from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCountAtLeast
+from verifier.checks.geometry_checks import LayerIsCircular
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
 
@@ -31,21 +33,25 @@ task = Task(
     description="Pen-tool bell silhouette + clapper circle + red badge on upper-right.",
     rubrics=[
         WeightedRubric(FundamentalsRubric([
-            ShapeCountAtLeast("vector",  minimum=1),  # bell
-            ShapeCountAtLeast("ellipse", minimum=2),  # clapper + badge
-        ]), max_score=0.34),
+            ShapeCountAtLeast("vector",  minimum=1),
+            ShapeCountAtLeast("ellipse", minimum=2),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("vector",  kind="solid"),
             FillTypeIs("ellipse", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("pen"),
             ToolUsed("ellipse"),
             EventTypeCountAtLeast("create_vector",  minimum=1),
             EventTypeCountAtLeast("create_ellipse", minimum=2),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=36),
 )

@@ -12,7 +12,7 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCountAtLeast
-from verifier.checks.geometry_checks import LayerBoundsInside, LayersOverlap
+from verifier.checks.geometry_checks import LayerBoundsInside, LayersOverlap, LayerIsCircular
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
 
@@ -41,6 +41,7 @@ task = Task(
         WeightedRubric(AlignmentRubric([
             LayerBoundsInside(inner_type="ellipse", outer_type="rectangle", tolerance=4.0),
             LayersOverlap(type_a="vector", type_b="rectangle"),
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),
         ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
