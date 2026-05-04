@@ -145,6 +145,70 @@ class FillOpacityEquals:
 
 
 @dataclass
+class LayersHaveColorOrder:
+    """Sorted layers of layer_type have fill colors matching expected_rgbs in order.
+    Sort axis 'x' or 'y' picks the linear direction in which colors progress."""
+    layer_type: str
+    expected_rgbs: list
+    sort_axis: str = "y"
+    tolerance: float = 0.15
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) != len(self.expected_rgbs):
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need exactly {len(self.expected_rgbs)} {self.layer_type}, found {len(layers)}")
+        if self.sort_axis == "y":
+            ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+        else:
+            ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
+        for i, l in enumerate(ordered):
+            fills = l.get("fills", [])
+            if not fills or fills[0].get("kind") != "solid":
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"layer {i} has no solid fill")
+            c = fills[0].get("color", {})
+            expected = self.expected_rgbs[i]
+            diff = max(abs(c.get(k, 0) - expected.get(k, 0)) for k in ("r", "g", "b"))
+            if diff > self.tolerance:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"layer {i}: color mismatch (diff={diff:.2f})")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"{self.layer_type} colors match expected sequence on {self.sort_axis}",
+        )
+
+
+@dataclass
+class CentermostLayerHasColor:
+    """Among layers of layer_type, the one closest to the layer-set centroid
+    has a solid fill matching expected_rgb. Used to verify a 'center' role."""
+    layer_type: str
+    expected_rgb: dict
+    tolerance: float = 0.15
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        center = min(layers, key=lambda l: ((l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2))
+        fills = center.get("fills", [])
+        if not fills or fills[0].get("kind") != "solid":
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Centermost {self.layer_type} has no solid fill")
+        c = fills[0].get("color", {})
+        diff = max(abs(c.get(k, 0) - self.expected_rgb.get(k, 0)) for k in ("r", "g", "b"))
+        passed = diff <= self.tolerance
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"centermost {self.layer_type} color diff {diff:.2f} (tol {self.tolerance})",
+        )
+
+
+@dataclass
 class LayerHasNoFill:
     """At least one layer of layer_type has no visible solid/image fills.
     Used for outline-only shapes (battery body, magnifier ring, stroked hexagons)."""

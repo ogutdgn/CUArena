@@ -16,7 +16,8 @@ from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import (
     LayersSameDimensions, LayersAligned, LayersStacked, LayerAspectRatioGreaterThan
 )
-from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
+from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors, LayersHaveColorOrder
+from verifier.checks.structure_checks import LayerInsideFrame
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -44,11 +45,24 @@ task = Task(
             LayersAligned(layer_type="rectangle", axis="center_x", tolerance=5.0),
             LayersStacked(layer_type="rectangle", axis="y", gap_px=0.0, tolerance=8.0),
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="horizontal"),
+            LayerInsideFrame("rectangle"),
         ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
             DistinctSolidColors(minimum=5, tolerance=0.05),
+            LayersHaveColorOrder(
+                layer_type="rectangle",
+                expected_rgbs=[
+                    {"r": 0.30, "g": 0.10, "b": 0.50},   # deep purple
+                    {"r": 1.00, "g": 0.50, "b": 0.70},   # pink
+                    {"r": 1.00, "g": 0.60, "b": 0.20},   # orange
+                    {"r": 1.00, "g": 0.90, "b": 0.20},   # yellow
+                    {"r": 1.00, "g": 1.00, "b": 0.70},   # pale yellow
+                ],
+                sort_axis="y",
+                tolerance=0.20,
+            ),
         ]), max_score=0.25),
 
         WeightedRubric(EventRubric([

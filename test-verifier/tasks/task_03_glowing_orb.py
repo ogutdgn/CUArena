@@ -14,7 +14,7 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import RadialDistributionExcludeCentral
-from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
+from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors, CentermostLayerHasColor
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -44,6 +44,9 @@ task = Task(
         WeightedRubric(ColorRubric([
             FillTypeIs("ellipse", kind="solid"),
             DistinctSolidColors(minimum=8, tolerance=0.05),
+            CentermostLayerHasColor(layer_type="ellipse",
+                                    expected_rgb={"r": 1.0, "g": 0.9, "b": 0.2},
+                                    tolerance=0.20),
         ]), max_score=0.25),
 
         WeightedRubric(EventRubric([

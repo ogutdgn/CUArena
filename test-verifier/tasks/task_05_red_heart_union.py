@@ -13,7 +13,7 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import LayersAligned, LayersHaveAspectMix
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import FillTypeIs, AllSolidColorEquals
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -45,6 +45,9 @@ task = Task(
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
+            AllSolidColorEquals(layer_type="rectangle",
+                                expected_rgb={"r": 1.0, "g": 0.1, "b": 0.1},
+                                tolerance=0.20),
         ]), max_score=0.25),
 
         WeightedRubric(EventRubric([

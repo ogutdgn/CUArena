@@ -39,7 +39,7 @@ task = Task(
 
         WeightedRubric(AlignmentRubric([
             LayersSameDimensions(layer_type="rectangle", tolerance=3.0),
-            RadialDistribution(layer_type="rectangle", n=6, tolerance_deg=15.0),
+            RadialDistribution(layer_type="rectangle", n=6, tolerance_deg=10.0),
             LayerIsSquare(layer_type="rectangle", tolerance=3.0),
         ]), max_score=0.25),
 
