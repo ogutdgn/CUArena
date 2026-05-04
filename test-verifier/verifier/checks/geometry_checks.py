@@ -391,6 +391,27 @@ class LayerBoundsInside:
 
 
 @dataclass
+class FrameSizeEquals:
+    """At least one frame in the document matches (width, height) within tolerance.
+    Used to enforce a specific preset like MacBook Air (1280x832)."""
+    width: float
+    height: float
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        for f in find_layers_by_type(log["outcome"]["document"], "frame"):
+            if abs(f["w"] - self.width) <= self.tolerance and abs(f["h"] - self.height) <= self.tolerance:
+                return CheckResult(
+                    passed=True, score=1.0, max_score=1.0,
+                    message=f"frame matches {self.width}×{self.height}",
+                )
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No frame at {self.width}×{self.height} (±{self.tolerance}px)",
+        )
+
+
+@dataclass
 class LayerIsCircular:
     """At least one layer of layer_type has w ≈ h within tolerance.
     Distinguishes a true circle from an oval/elongated ellipse."""

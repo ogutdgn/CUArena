@@ -205,6 +205,14 @@ def mutate_for_geometry(task, log) -> None:
         cname = type(c).__name__
         if cname == "LayerBoundsInside":
             if c.inner_type == c.outer_type:
+                layers = by_type.get(c.inner_type, [])
+                if len(layers) >= 2:
+                    outer = layers[0]
+                    inner = layers[1]
+                    inner["w"] = min(inner["w"], max(20, outer["w"] - 20))
+                    inner["h"] = min(inner["h"], max(20, outer["h"] - 20))
+                    inner["x"] = outer["x"] + 10
+                    inner["y"] = outer["y"] + 10
                 continue
             inners = by_type.get(c.inner_type, [])
             outers = by_type.get(c.outer_type, [])
@@ -220,11 +228,12 @@ def mutate_for_geometry(task, log) -> None:
             b = by_type.get(c.type_b, [])
             if c.type_a == c.type_b:
                 if len(a) >= 2:
-                    a[1]["x"] = a[0]["x"] + 10
-                    a[1]["y"] = a[0]["y"] + 10
+                    a[1]["x"] = a[0]["x"]
+                    a[1]["y"] = a[0]["y"]
             elif a and b and a[0] is not b[0]:
-                b[0]["x"] = a[0]["x"] + 10
-                b[0]["y"] = a[0]["y"] + 10
+                # move first type_a to overlap the first type_b (zero offset → identical bbox)
+                a[0]["x"] = b[0]["x"]
+                a[0]["y"] = b[0]["y"]
         elif cname == "LayerEdgesAligned":
             a_layers = by_type.get(c.type_a, [])
             b_layers = by_type.get(c.type_b, [])
@@ -368,6 +377,46 @@ def mutate_for_geometry(task, log) -> None:
             pages = doc.get("pages", [])
             if c.page_index < len(pages):
                 pages[c.page_index]["backgroundColor"] = dict(c.expected_rgb)
+
+    # Pass 6: fills + frame size (run last so explicit colors override per-idx synth variation)
+    for c in checks:
+        cname = type(c).__name__
+        if cname == "FrameSizeEquals":
+            frames = by_type.get("frame", [])
+            if frames:
+                frames[0]["w"] = c.width
+                frames[0]["h"] = c.height
+        elif cname == "LayersHaveColorOrder":
+            layers = by_type.get(c.layer_type, [])
+            if c.sort_axis == "y":
+                ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+            else:
+                ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
+            for i, l in enumerate(ordered[: len(c.expected_rgbs)]):
+                target = dict(c.expected_rgbs[i])
+                target.setdefault("a", 1.0)
+                l["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
+        elif cname == "SolidColorEquals":
+            layers = by_type.get(c.layer_type, [])
+            if layers:
+                target = dict(c.expected_rgb)
+                target.setdefault("a", 1.0)
+                layers[0]["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
+        elif cname == "AllSolidColorEquals":
+            target = dict(c.expected_rgb)
+            target.setdefault("a", 1.0)
+            for l in by_type.get(c.layer_type, []):
+                l["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
+        elif cname == "CentermostLayerHasColor":
+            layers = by_type.get(c.layer_type, [])
+            if not layers:
+                continue
+            cx_ = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+            cy_ = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+            center = min(layers, key=lambda l: ((l["x"] + l["w"] / 2 - cx_) ** 2 + (l["y"] + l["h"] / 2 - cy_) ** 2))
+            target = dict(c.expected_rgb)
+            target.setdefault("a", 1.0)
+            center["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
 
 
 def perfect_log(task) -> dict:
