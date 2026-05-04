@@ -10,8 +10,9 @@ from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast, PolygonSidesEquals
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import FillTypeIs, LayerHasNoFill
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount, EventTypeCountAtLeast
 
 
@@ -35,18 +36,22 @@ task = Task(
             ShapeCountAtLeast("line",    minimum=6),
             ShapeCount("polygon", equals=3),
             PolygonSidesEquals(sides=6),
-        ]), max_score=0.34),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayerHasNoFill(layer_type="polygon"),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("frame", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("line"),
             ToolUsed("polygon"),
             EventTypeCountAtLeast("create_line", minimum=6),
             EventTypeCount("create_polygon", equals=3),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=36),
 )

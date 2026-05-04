@@ -188,7 +188,7 @@ def mutate_for_geometry(task, log) -> None:
         cname = type(c).__name__
         if cname == "LayerBoundsInside":
             if c.inner_type == c.outer_type:
-                continue   # same-type containment usually satisfied by Concentric/Stacked
+                continue
             inners = by_type.get(c.inner_type, [])
             outers = by_type.get(c.outer_type, [])
             if inners and outers:
@@ -208,6 +208,130 @@ def mutate_for_geometry(task, log) -> None:
             elif a and b and a[0] is not b[0]:
                 b[0]["x"] = a[0]["x"] + 10
                 b[0]["y"] = a[0]["y"] + 10
+        elif cname == "LayerCenteredOnLayer":
+            a_layers = by_type.get(c.type_a, [])
+            b_layers = by_type.get(c.type_b, [])
+            if a_layers and b_layers and a_layers[0] is not b_layers[0]:
+                b = b_layers[0]
+                a = a_layers[0]
+                a["x"] = b["x"] + b["w"] / 2 - a["w"] / 2
+                a["y"] = b["y"] + b["h"] / 2 - a["h"] / 2
+        elif cname == "LayerOnTopOf":
+            a_layers = by_type.get(c.type_a, [])
+            b_layers = by_type.get(c.type_b, [])
+            if c.type_a == c.type_b and len(a_layers) >= 2:
+                # later-in-list = later in z-order; ensure overlap
+                a_layers[1]["x"] = a_layers[0]["x"] + 10
+                a_layers[1]["y"] = a_layers[0]["y"] + 10
+            elif a_layers and b_layers and a_layers[0] is not b_layers[0]:
+                b = b_layers[0]
+                a = a_layers[0]
+                a["x"] = b["x"] + 10
+                a["y"] = b["y"] + 10
+        elif cname == "LayerNextTo":
+            a_layers = by_type.get(c.type_a, [])
+            b_layers = by_type.get(c.type_b, [])
+            if a_layers and b_layers and a_layers[0] is not b_layers[0]:
+                b = b_layers[0]
+                a = a_layers[0]
+                if c.side == "above":
+                    a["x"] = b["x"]; a["y"] = b["y"] - a["h"]
+                elif c.side == "below":
+                    a["x"] = b["x"]; a["y"] = b["y"] + b["h"]
+                elif c.side == "left":
+                    a["x"] = b["x"] - a["w"]; a["y"] = b["y"]
+                elif c.side == "right":
+                    a["x"] = b["x"] + b["w"]; a["y"] = b["y"]
+        elif cname == "LayerWidthFraction":
+            for parent in by_type.get(c.parent_type, []):
+                children = parent.get("children", [])
+                target_w = parent.get("w", 800) * (c.min_frac + c.max_frac) / 2
+                for child in children:
+                    if child.get("type") == c.inner_type:
+                        child["w"] = target_w
+                        break
+        elif cname == "LayerHasNoFill":
+            for l in by_type.get(c.layer_type, []):
+                l["fills"] = []
+                break
+        elif cname == "SameColorAcrossTypes":
+            ref_color = None
+            for t in c.types:
+                ls = by_type.get(t, [])
+                if not ls:
+                    continue
+                fills = ls[0].get("fills", [])
+                if ref_color is None and fills:
+                    ref_color = fills[0].get("color")
+                elif ref_color is not None:
+                    if not fills:
+                        ls[0]["fills"] = [{"kind": "solid", "color": ref_color, "opacity": 1.0, "visible": True}]
+                    else:
+                        fills[0]["color"] = ref_color
+        elif cname == "LayersAlternatingColors":
+            layers = by_type.get(c.layer_type, [])
+            if c.sort_axis == "x":
+                ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
+            else:
+                ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+            cycle_colors = [{"r": 0.2 + 0.3 * k, "g": 0.5, "b": 0.8 - 0.2 * k, "a": 1.0}
+                            for k in range(c.n_colors)]
+            for i, l in enumerate(ordered):
+                target = cycle_colors[i % c.n_colors]
+                fills = l.get("fills", [])
+                if fills:
+                    fills[0]["color"] = target
+                else:
+                    l["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
+        elif cname == "OffsetGridLayout":
+            layers = by_type.get(c.layer_type, [])
+            for i, l in enumerate(layers[: c.rows * c.cols]):
+                row = i // c.cols
+                col = i % c.cols
+                x_offset = (l["w"] / 2) if row % 2 else 0
+                l["x"] = 100 + col * 120 + x_offset
+                l["y"] = 100 + row * 100
+        elif cname == "RadialDistributionExcludeCentral":
+            import math
+            layers = by_type.get(c.layer_type, [])
+            if len(layers) >= c.n + 1:
+                core = layers[0]
+                core["x"] = 500 - core["w"] / 2
+                core["y"] = 500 - core["h"] / 2
+                for i, l in enumerate(layers[1: c.n + 1]):
+                    angle = (2 * math.pi * i) / c.n
+                    l["x"] = 500 + 200 * math.cos(angle) - l["w"] / 2
+                    l["y"] = 500 + 200 * math.sin(angle) - l["h"] / 2
+        elif cname == "LinesOnDiagonal":
+            rects = by_type.get(c.rect_type, [])
+            lines = by_type.get(c.line_type, [])
+            if rects and len(lines) >= 2:
+                r = rects[0]
+                # Lines store p1/p2 in local space, with their own x/y offset
+                lines[0]["x"] = r["x"]; lines[0]["y"] = r["y"]
+                lines[0]["w"] = r["w"]; lines[0]["h"] = r["h"]
+                lines[0]["p1"] = {"x": 0, "y": 0}
+                lines[0]["p2"] = {"x": r["w"], "y": r["h"]}
+                lines[1]["x"] = r["x"]; lines[1]["y"] = r["y"]
+                lines[1]["w"] = r["w"]; lines[1]["h"] = r["h"]
+                lines[1]["p1"] = {"x": r["w"], "y": 0}
+                lines[1]["p2"] = {"x": 0, "y": r["h"]}
+        elif cname == "LayersHaveRotations":
+            layers = by_type.get(c.layer_type, [])
+            for i, l in enumerate(layers[: len(c.expected) * c.count_per]):
+                l["rotation"] = c.expected[i // c.count_per]
+        elif cname == "DistinctStrokeColors":
+            i = 0
+            for l in by_type.get("rectangle", []) + by_type.get("ellipse", []) + by_type.get("vector", []) + by_type.get("polygon", []) + by_type.get("line", []):
+                if i >= c.minimum:
+                    break
+                color = {"r": 0.1 + 0.15 * i, "g": 0.3, "b": 0.6, "a": 1.0}
+                l["strokes"] = [{"paint": {"kind": "solid", "color": color}, "weight": 2, "alignment": "center", "dash": None}]
+                i += 1
+        elif cname == "PageBackgroundColorEquals":
+            pages = doc.get("pages", [])
+            if c.page_index < len(pages):
+                pages[c.page_index]["backgroundColor"] = dict(c.expected_rgb)
 
 
 def perfect_log(task) -> dict:

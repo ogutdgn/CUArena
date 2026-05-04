@@ -7,9 +7,11 @@ from dataclasses import dataclass
 from typing import Any
 from verifier.types import Task, RubricResult
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment import AlignmentRubric
 from verifier.rubrics.event import EventRubric
 from verifier.rubrics.efficiency import EfficiencyRubric
 from verifier.checks.shape_checks import ShapeCount
+from verifier.checks.geometry_checks import LayersHaveRotations
 from verifier.checks.event_checks import ToolUsed, EventTypeCount
 
 
@@ -30,12 +32,16 @@ task = Task(
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCount("line", equals=4),
-        ]), max_score=0.5),
+        ]), max_score=0.34),
+
+        WeightedRubric(AlignmentRubric([
+            LayersHaveRotations(layer_type="line", expected=[0, 90], count_per=2, tolerance_deg=8.0),
+        ]), max_score=0.33),
 
         WeightedRubric(EventRubric([
             ToolUsed("line"),
             EventTypeCount("create_line", equals=4),
-        ]), max_score=0.5),
+        ]), max_score=0.33),
     ],
     efficiency=EfficiencyRubric(target_turns=14),
 )

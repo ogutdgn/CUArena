@@ -12,7 +12,9 @@ from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount
+from verifier.checks.geometry_checks import RadialDistributionExcludeCentral
 from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -34,17 +36,21 @@ task = Task(
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCount("ellipse", equals=9),
-        ]), max_score=0.34),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            RadialDistributionExcludeCentral(layer_type="ellipse", n=8, tolerance_deg=15.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("ellipse", kind="solid"),
             DistinctSolidColors(minimum=8, tolerance=0.05),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("ellipse"),
             EventTypeCount("create_ellipse", equals=9),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=30),
 )

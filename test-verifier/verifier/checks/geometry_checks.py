@@ -569,3 +569,376 @@ class LayerCenteredInFrame:
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} centered in any frame",
         )
+
+
+# ─────────────────────────────────────────────────────────────
+# CORE additions — cross-type spatial relationships
+# ─────────────────────────────────────────────────────────────
+
+
+def _bbox_overlap(a: dict, b: dict) -> bool:
+    return (a["x"] < b["x"] + b["w"] and a["x"] + a["w"] > b["x"]
+            and a["y"] < b["y"] + b["h"] and a["y"] + a["h"] > b["y"])
+
+
+def _document_ordinals(doc: dict) -> dict:
+    """Return {id(layer): ordinal} via DFS — later ordinal == higher in z-order."""
+    ordinals: dict = {}
+    counter = [0]
+
+    def walk(nodes):
+        for n in nodes:
+            ordinals[id(n)] = counter[0]
+            counter[0] += 1
+            if "children" in n:
+                walk(n["children"])
+
+    for page in doc.get("pages", []):
+        walk(page.get("children", []))
+    return ordinals
+
+
+@dataclass
+class LayerOnTopOf:
+    """At least one (type_a, type_b) pair where a is later in z-order than b
+    AND their bounding boxes overlap (a is visibly stacked on top of b)."""
+    type_a: str
+    type_b: str
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        ordinals = _document_ordinals(doc)
+        a_layers = find_layers_by_type(doc, self.type_a)
+        b_layers = find_layers_by_type(doc, self.type_b)
+        if not a_layers or not b_layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.type_a} and {self.type_b} layers")
+        for a in a_layers:
+            for b in b_layers:
+                if id(a) == id(b):
+                    continue
+                if _bbox_overlap(a, b) and ordinals[id(a)] > ordinals[id(b)]:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.type_a} on top of {self.type_b}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.type_a} stacked on top of any {self.type_b}",
+        )
+
+
+@dataclass
+class LayerCenteredOnLayer:
+    """At least one (type_a, type_b) cross-type pair shares a center within tolerance."""
+    type_a: str
+    type_b: str
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        a_layers = find_layers_by_type(doc, self.type_a)
+        b_layers = find_layers_by_type(doc, self.type_b)
+        if not a_layers or not b_layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.type_a} and {self.type_b} layers")
+        for a in a_layers:
+            for b in b_layers:
+                if id(a) == id(b):
+                    continue
+                acx, acy = a["x"] + a["w"] / 2, a["y"] + a["h"] / 2
+                bcx, bcy = b["x"] + b["w"] / 2, b["y"] + b["h"] / 2
+                if abs(acx - bcx) <= self.tolerance and abs(acy - bcy) <= self.tolerance:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.type_a} centered on {self.type_b}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.type_a} center matches any {self.type_b} center (tol {self.tolerance}px)",
+        )
+
+
+@dataclass
+class LayerNextTo:
+    """A's bbox sits on the requested side of B's bbox (edges touching ±tolerance,
+    plus overlap on the perpendicular axis so they're actually neighbors).
+
+    side: "above" | "below" | "left" | "right"
+    """
+    type_a: str
+    type_b: str
+    side: str
+    tolerance: float = 8.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        a_layers = find_layers_by_type(doc, self.type_a)
+        b_layers = find_layers_by_type(doc, self.type_b)
+        if not a_layers or not b_layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.type_a} and {self.type_b} layers")
+        t = self.tolerance
+        for a in a_layers:
+            for b in b_layers:
+                if id(a) == id(b):
+                    continue
+                horiz_overlap = a["x"] < b["x"] + b["w"] and a["x"] + a["w"] > b["x"]
+                vert_overlap = a["y"] < b["y"] + b["h"] and a["y"] + a["h"] > b["y"]
+                if self.side == "above":
+                    gap = b["y"] - (a["y"] + a["h"])
+                    if abs(gap) <= t and horiz_overlap:
+                        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                           message=f"{self.type_a} above {self.type_b}")
+                elif self.side == "below":
+                    gap = a["y"] - (b["y"] + b["h"])
+                    if abs(gap) <= t and horiz_overlap:
+                        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                           message=f"{self.type_a} below {self.type_b}")
+                elif self.side == "left":
+                    gap = b["x"] - (a["x"] + a["w"])
+                    if abs(gap) <= t and vert_overlap:
+                        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                           message=f"{self.type_a} left of {self.type_b}")
+                elif self.side == "right":
+                    gap = a["x"] - (b["x"] + b["w"])
+                    if abs(gap) <= t and vert_overlap:
+                        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                           message=f"{self.type_a} right of {self.type_b}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.type_a} sits {self.side} of any {self.type_b} (tol {t}px)",
+        )
+
+
+@dataclass
+class LayerWidthFraction:
+    """At least one inner_type child of a parent_type layer has width in
+    [min_frac, max_frac] × parent's width. Relative-size check."""
+    inner_type: str
+    parent_type: str
+    min_frac: float
+    max_frac: float
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        for parent in find_layers_by_type(doc, self.parent_type):
+            if not parent.get("w"):
+                continue
+            for child in parent.get("children", []):
+                if child.get("type") != self.inner_type:
+                    continue
+                frac = child["w"] / parent["w"]
+                if self.min_frac <= frac <= self.max_frac:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.inner_type} width = {frac:.2f} × {self.parent_type}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.inner_type} with width fraction in [{self.min_frac}, {self.max_frac}]",
+        )
+
+
+# ─────────────────────────────────────────────────────────────
+# EDGE additions
+# ─────────────────────────────────────────────────────────────
+
+
+@dataclass
+class LayersHaveRotations:
+    """Layers of layer_type collectively cover an expected set of rotation values
+    with `count_per` layers at each value (any global offset is fine).
+
+    e.g. expected=[0, 90], count_per=2 → exactly 2 layers near 0° and 2 near 90°.
+    """
+    layer_type: str
+    expected: list
+    count_per: int = 1
+    tolerance_deg: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) != len(self.expected) * self.count_per:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need exactly {len(self.expected) * self.count_per} {self.layer_type}, found {len(layers)}")
+        rotations = [(l.get("rotation", 0) % 360) for l in layers]
+        for expected_rot in self.expected:
+            target = expected_rot % 360
+            matched = sum(1 for r in rotations if abs(((r - target + 180) % 360) - 180) <= self.tolerance_deg)
+            if matched < self.count_per:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"Need {self.count_per} {self.layer_type} at {target}°, found {matched}")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"{self.layer_type} rotations match expected set {self.expected}",
+        )
+
+
+@dataclass
+class LayersAlternatingColors:
+    """Sorted layers of layer_type alternate between exactly `n_colors` distinct fills
+    in a periodic A,B,A,B... pattern (or A,B,C,A,B,C... for n_colors=3)."""
+    layer_type: str
+    n_colors: int
+    sort_axis: str = "x"        # "x" or "y" — direction along which we sort
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < self.n_colors * 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥{self.n_colors*2} {self.layer_type} layers, found {len(layers)}")
+        if self.sort_axis == "x":
+            ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
+        else:
+            ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+        # Capture first n_colors fill colors as the cycle
+        cycle: list = []
+        for l in ordered[: self.n_colors]:
+            fills = l.get("fills", [])
+            if not fills or fills[0].get("kind") != "solid":
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"{self.layer_type} missing solid fill in alternation cycle")
+            c = fills[0].get("color", {})
+            cycle.append((c.get("r", 0), c.get("g", 0), c.get("b", 0)))
+        # Check rest of layers cycle through these colors
+        for i, l in enumerate(ordered):
+            expected_rgb = cycle[i % self.n_colors]
+            fills = l.get("fills", [])
+            if not fills or fills[0].get("kind") != "solid":
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"Layer at index {i} has no solid fill")
+            c = fills[0].get("color", {})
+            actual = (c.get("r", 0), c.get("g", 0), c.get("b", 0))
+            if max(abs(a - b) for a, b in zip(actual, expected_rgb)) > self.tolerance:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"{self.layer_type} index {i}: color breaks {self.n_colors}-cycle")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"{self.layer_type} alternates {self.n_colors} colors in order on {self.sort_axis} axis",
+        )
+
+
+@dataclass
+class OffsetGridLayout:
+    """rows × cols layers of layer_type form an offset/honeycomb grid where
+    every other row is shifted by ~0.5 × cell-width."""
+    layer_type: str
+    rows: int
+    cols: int
+    tolerance: float = 12.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        expected = self.rows * self.cols
+        if len(layers) != expected:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need exactly {expected} {self.layer_type}, found {len(layers)}")
+        by_y = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+        row_groups: list = []
+        for l in by_y:
+            cy = l["y"] + l["h"] / 2
+            placed = False
+            for g in row_groups:
+                if abs((g[0]["y"] + g[0]["h"] / 2) - cy) <= self.tolerance:
+                    g.append(l)
+                    placed = True
+                    break
+            if not placed:
+                row_groups.append([l])
+        if len(row_groups) != self.rows:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Found {len(row_groups)} row clusters, expected {self.rows}")
+        for i, g in enumerate(row_groups):
+            if len(g) != self.cols:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"Row {i} has {len(g)} items, expected {self.cols}")
+        # Even rows align on column X; odd rows offset by ~half cell-width
+        rows_sorted = [sorted(g, key=lambda l: l["x"] + l["w"] / 2) for g in row_groups]
+        cell_w = rows_sorted[0][0]["w"]
+        even_xs = [g[0]["x"] for g in rows_sorted[::2]]
+        odd_xs = [g[0]["x"] for g in rows_sorted[1::2]]
+        if odd_xs:
+            offset = abs((odd_xs[0] - even_xs[0]) - cell_w / 2)
+            if offset > self.tolerance:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"Odd-row offset {offset:.1f}px ≠ half cell width ({cell_w/2:.1f}px)")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"{self.rows}x{self.cols} offset grid of {self.layer_type} confirmed",
+        )
+
+
+@dataclass
+class RadialDistributionExcludeCentral:
+    """n+1 layers of layer_type total: the most-central one is the 'core' (skipped),
+    the remaining n must be radially distributed at equal angular steps around it."""
+    layer_type: str
+    n: int
+    tolerance_deg: float = 12.0
+
+    def run(self, log: dict) -> CheckResult:
+        import math
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) != self.n + 1:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need exactly {self.n + 1} {self.layer_type}, found {len(layers)}")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        # The core is the layer closest to the centroid
+        core = min(layers, key=lambda l: ((l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2))
+        ring = [l for l in layers if l is not core]
+        # Recompute the centroid using the core (treat it as the radial center)
+        rcx = core["x"] + core["w"] / 2
+        rcy = core["y"] + core["h"] / 2
+        angles = sorted(
+            (math.degrees(math.atan2(l["y"] + l["h"] / 2 - rcy, l["x"] + l["w"] / 2 - rcx)) % 360)
+            for l in ring
+        )
+        gaps = [angles[i + 1] - angles[i] for i in range(len(angles) - 1)]
+        gaps.append(360 - angles[-1] + angles[0])
+        expected = 360 / self.n
+        max_dev = max(abs(g - expected) for g in gaps)
+        passed = max_dev <= self.tolerance_deg
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.n} {self.layer_type} radial around core: max gap deviation {max_dev:.1f}° (tolerance {self.tolerance_deg}°)",
+        )
+
+
+@dataclass
+class LinesOnDiagonal:
+    """Two lines run corner-to-corner across a rectangle (one TL→BR, one TR→BL),
+    forming an X. Uses Line.p1, p2 in absolute canvas coordinates."""
+    rect_type: str = "rectangle"
+    line_type: str = "line"
+    tolerance: float = 12.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        rects = find_layers_by_type(doc, self.rect_type)
+        lines = find_layers_by_type(doc, self.line_type)
+        if not rects or len(lines) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥1 {self.rect_type} and ≥2 {self.line_type}")
+        for r in rects:
+            tl = (r["x"], r["y"])
+            tr = (r["x"] + r["w"], r["y"])
+            bl = (r["x"], r["y"] + r["h"])
+            br = (r["x"] + r["w"], r["y"] + r["h"])
+            corners = {"tl-br": (tl, br), "tr-bl": (tr, bl)}
+            matched = set()
+            for line in lines:
+                p1 = (line.get("p1", {}).get("x", 0) + line["x"],
+                      line.get("p1", {}).get("y", 0) + line["y"])
+                p2 = (line.get("p2", {}).get("x", 0) + line["x"],
+                      line.get("p2", {}).get("y", 0) + line["y"])
+                for diag, (c1, c2) in corners.items():
+                    near_a = abs(p1[0] - c1[0]) < self.tolerance and abs(p1[1] - c1[1]) < self.tolerance \
+                             and abs(p2[0] - c2[0]) < self.tolerance and abs(p2[1] - c2[1]) < self.tolerance
+                    near_b = abs(p1[0] - c2[0]) < self.tolerance and abs(p1[1] - c2[1]) < self.tolerance \
+                             and abs(p2[0] - c1[0]) < self.tolerance and abs(p2[1] - c1[1]) < self.tolerance
+                    if near_a or near_b:
+                        matched.add(diag)
+            if len(matched) == 2:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"2 lines form X across {self.rect_type}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No 2 {self.line_type}s span the {self.rect_type} diagonals",
+        )

@@ -17,6 +17,7 @@ from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
 from verifier.checks.geometry_checks import LayersOverlap
 from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
+from verifier.checks.page_checks   import PageBackgroundColorEquals
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 
@@ -48,6 +49,7 @@ task = Task(
             FillTypeIs("ellipse", kind="solid"),
             FillTypeIs("frame",   kind="solid"),
             DistinctSolidColors(minimum=2, tolerance=0.05),
+            PageBackgroundColorEquals(expected_rgb={"r": 0.05, "g": 0.05, "b": 0.2}, tolerance=0.4),
         ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
