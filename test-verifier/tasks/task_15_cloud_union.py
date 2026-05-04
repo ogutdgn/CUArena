@@ -13,7 +13,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.geometry_checks import LayersAligned, LayersOverlap
 from verifier.checks.fill_checks   import AllSolidColorEquals
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -39,6 +39,7 @@ task = Task(
 
         WeightedRubric(AlignmentRubric([
             LayersAligned(layer_type="ellipse", axis="center_y", tolerance=20.0),
+            LayersOverlap(type_a="ellipse", type_b="ellipse"),
         ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([

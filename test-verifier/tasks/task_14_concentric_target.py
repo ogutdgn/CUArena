@@ -12,7 +12,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.geometry_checks import LayersConcentric, LayerBoundsInside
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -38,8 +38,8 @@ task = Task(
         ]), max_score=0.25),
 
         WeightedRubric(AlignmentRubric([
-            LayersAligned(layer_type="ellipse", axis="center_x", tolerance=2.0),
-            LayersAligned(layer_type="ellipse", axis="center_y", tolerance=2.0),
+            LayersConcentric(layer_type="ellipse", tolerance=2.0),
+            LayerBoundsInside(inner_type="ellipse", outer_type="ellipse", tolerance=2.0),
         ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([

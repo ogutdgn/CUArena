@@ -71,6 +71,28 @@ class CornerRadiusEquals:
 
 
 @dataclass
+class CornerRadiusAtLeast:
+    """At least one layer of layer_type has cornerRadius ≥ min_value."""
+    layer_type: str
+    min_value: float
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            cr = l.get("cornerRadius", 0)
+            if isinstance(cr, (int, float)) and cr >= self.min_value:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} cornerRadius {cr} ≥ {self.min_value}")
+            if isinstance(cr, list) and all(v >= self.min_value for v in cr):
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} cornerRadius {cr} ≥ {self.min_value}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with cornerRadius ≥ {self.min_value}",
+        )
+
+
+@dataclass
 class IsFlippedH:
     """At least one layer of layer_type is horizontally flipped (scaleX == -1)."""
     layer_type: str

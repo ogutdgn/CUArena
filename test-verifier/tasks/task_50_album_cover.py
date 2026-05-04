@@ -13,7 +13,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount, StarPointsEquals
-from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.geometry_checks import LayerBoundsInside
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -37,27 +37,23 @@ task = Task(
             ShapeCount("rectangle", equals=1),
             ShapeCount("star",      equals=1),
             StarPointsEquals(points=5),
-        ]), max_score=0.34),
+        ]), max_score=0.25),
 
         WeightedRubric(AlignmentRubric([
-            # Star centered inside the square: any geometric relation that
-            # forces co-centering would work; LayersAligned requires ≥2 of one type,
-            # so we use LayerEdgesAligned to require the star is within the square.
-            # If no good check applies, the synthetic-perfect QA flags this as a
-            # known-empty rubric (returns full score).
-        ]), max_score=0.0),  # zero weight removes contribution; redistribute below
+            LayerBoundsInside(inner_type="star", outer_type="rectangle", tolerance=4.0),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
             FillTypeIs("star",      kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
             ToolUsed("star"),
             EventTypeCount("create_rectangle", equals=1),
             EventTypeCount("create_star",      equals=1),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=15),
 )
