@@ -1,3 +1,46 @@
+import math as _math
+
+
+def polygon_vertices(layer: dict) -> list[tuple[float, float]]:
+    """
+    Compute actual vertex positions for a polygon layer in parent space.
+
+    Replicates NodeRenderer.tsx PolygonEl vertex formula:
+        angle = -π/2 + i * 2π/sides
+        x = cx + rx * cos(angle)
+        y = cy + ry * sin(angle)
+
+    Then applies scaleX/scaleY mirror flags and clockwise rotation around the
+    layer center, then converts to parent space via layer["x"], layer["y"].
+    """
+    sides = max(3, layer.get("sides", 3))
+    w, h = layer["w"], layer["h"]
+    cx, cy = w / 2, h / 2
+    rotation_rad = _math.radians(layer.get("rotation", 0))
+
+    vertices: list[tuple[float, float]] = []
+    for i in range(sides):
+        angle = -_math.pi / 2 + (i * 2 * _math.pi) / sides
+        lx = cx + (w / 2) * _math.cos(angle)
+        ly = cy + (h / 2) * _math.sin(angle)
+
+        # Mirror flags (-1 flips around center axis)
+        if layer.get("scaleX", 1) < 0:
+            lx = w - lx
+        if layer.get("scaleY", 1) < 0:
+            ly = h - ly
+
+        # Clockwise rotation in screen-space (Y-down) around center
+        if rotation_rad:
+            dx, dy = lx - cx, ly - cy
+            lx = cx + dx * _math.cos(rotation_rad) - dy * _math.sin(rotation_rad)
+            ly = cy + dx * _math.sin(rotation_rad) + dy * _math.cos(rotation_rad)
+
+        vertices.append((layer["x"] + lx, layer["y"] + ly))
+
+    return vertices
+
+
 def find_layers_by_type(document: dict, layer_type: str) -> list[dict]:
     """Recursively collect all layers matching layer_type across all pages."""
     results: list[dict] = []
