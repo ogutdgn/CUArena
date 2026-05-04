@@ -10,8 +10,9 @@ from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import FillTypeIs, LayerHasNoFill
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount, EventTypeCountAtLeast
 
 
@@ -32,13 +33,17 @@ task = Task(
     rubrics=[
         WeightedRubric(FundamentalsRubric([
             ShapeCount("rectangle",   equals=1),
-            ShapeCountAtLeast("ellipse", minimum=3),    # magnifier ring + 2 dots
-            ShapeCountAtLeast("line",    minimum=1),    # handle
-        ]), max_score=0.34),
+            ShapeCountAtLeast("ellipse", minimum=3),
+            ShapeCountAtLeast("line",    minimum=1),
+        ]), max_score=0.25),
+
+        WeightedRubric(AlignmentRubric([
+            LayerHasNoFill(layer_type="ellipse"),
+        ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
 
         WeightedRubric(EventRubric([
             ToolUsed("rectangle"),
@@ -47,7 +52,7 @@ task = Task(
             EventTypeCount("create_rectangle", equals=1),
             EventTypeCountAtLeast("create_ellipse", minimum=3),
             EventTypeCountAtLeast("create_line",    minimum=1),
-        ]), max_score=0.33),
+        ]), max_score=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=40),
 )

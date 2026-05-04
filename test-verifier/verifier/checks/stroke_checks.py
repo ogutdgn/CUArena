@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 from verifier.types import CheckResult
 from verifier.math_utils import find_layers_by_type, channel_distance
@@ -83,6 +84,36 @@ class StrokeAlignmentIs:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} with stroke alignment '{self.alignment}'",
+        )
+
+
+@dataclass
+class DistinctStrokeColors:
+    """At least `minimum` perceptually-distinct stroke colors across the document.
+    Parity with DistinctSolidColors, but for stroke paints."""
+    minimum: int
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        from verifier.math_utils import find_all_layers
+        seen: list = []
+        for layer in find_all_layers(log["outcome"]["document"]):
+            for stroke in layer.get("strokes", []):
+                paint = stroke.get("paint", {})
+                if paint.get("kind") != "solid":
+                    continue
+                c = paint.get("color", {})
+                rgb = (c.get("r", 0), c.get("g", 0), c.get("b", 0))
+                close = any(
+                    max(abs(rgb[0] - d[0]), abs(rgb[1] - d[1]), abs(rgb[2] - d[2])) <= self.tolerance
+                    for d in seen
+                )
+                if not close:
+                    seen.append(rgb)
+        passed = len(seen) >= self.minimum
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"distinct stroke colors: expected ≥{self.minimum}, got {len(seen)}",
         )
 
 

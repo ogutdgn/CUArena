@@ -145,6 +145,62 @@ class FillOpacityEquals:
 
 
 @dataclass
+class LayerHasNoFill:
+    """At least one layer of layer_type has no visible solid/image fills.
+    Used for outline-only shapes (battery body, magnifier ring, stroked hexagons)."""
+    layer_type: str
+
+    def run(self, log: dict) -> CheckResult:
+        for l in find_layers_by_type(log["outcome"]["document"], self.layer_type):
+            fills = l.get("fills", [])
+            if not fills:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} has no fill")
+            visible = [f for f in fills
+                       if f.get("kind") in ("solid", "image")
+                       and f.get("visible", True)
+                       and f.get("opacity", 1.0) > 0]
+            if not visible:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} has no visible fill")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"All {self.layer_type} layers have a visible fill",
+        )
+
+
+@dataclass
+class SameColorAcrossTypes:
+    """First-layer of each listed type all share the same solid fill color
+    (within tolerance). Used when a multi-shape design must read as one color."""
+    types: list
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        first_colors = []
+        for t in self.types:
+            layers = find_layers_by_type(log["outcome"]["document"], t)
+            if not layers:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"No {t} layer found")
+            fills = layers[0].get("fills", [])
+            if not fills or fills[0].get("kind") != "solid":
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"{t} has no solid fill to compare")
+            c = fills[0].get("color", {})
+            first_colors.append((c.get("r", 0), c.get("g", 0), c.get("b", 0)))
+        ref = first_colors[0]
+        for i, rgb in enumerate(first_colors[1:], start=1):
+            if max(abs(a - b) for a, b in zip(rgb, ref)) > self.tolerance:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"{self.types[i]} color differs from {self.types[0]}")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"All of {self.types} share the same fill color",
+        )
+
+
+@dataclass
 class DistinctSolidColors:
     """
     Document contains at least `minimum` perceptually-distinct solid fills.

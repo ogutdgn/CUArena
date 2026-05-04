@@ -56,6 +56,30 @@ class LayerOnPage:
 
 
 @dataclass
+class PageBackgroundColorEquals:
+    """Page at page_index has backgroundColor matching expected_rgb (within tolerance)."""
+    expected_rgb: dict
+    page_index: int = 0
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        pages = log["outcome"]["document"].get("pages", [])
+        if self.page_index >= len(pages):
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Page index {self.page_index} does not exist")
+        bg = pages[self.page_index].get("backgroundColor", {})
+        if not bg:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Page {self.page_index} has no backgroundColor")
+        diff = max(abs(bg.get(k, 0) - self.expected_rgb.get(k, 0)) for k in ("r", "g", "b"))
+        passed = diff <= self.tolerance
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"page {self.page_index} backgroundColor diff {diff:.3f} (tol {self.tolerance})",
+        )
+
+
+@dataclass
 class ActivePageIs:
     """The active page at session end matches `page_name`."""
     page_name: str

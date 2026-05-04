@@ -13,7 +13,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount, StarPointsEquals
-from verifier.checks.geometry_checks import LayerBoundsInside
+from verifier.checks.geometry_checks import LayerBoundsInside, LayerCenteredOnLayer
 from verifier.checks.fill_checks   import FillTypeIs
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -41,6 +41,7 @@ task = Task(
 
         WeightedRubric(AlignmentRubric([
             LayerBoundsInside(inner_type="star", outer_type="rectangle", tolerance=4.0),
+            LayerCenteredOnLayer(type_a="star", type_b="rectangle", tolerance=10.0),
         ]), max_score=0.25),
 
         WeightedRubric(ColorRubric([
