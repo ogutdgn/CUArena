@@ -40,7 +40,6 @@ from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks    import ShapeCount
 from verifier.checks.geometry_checks import (
     LayersAligned, LayersSymmetricX, LayersSameDimensions, LayerEdgesAligned,
-    LayerBoundsInside, LayersOverlap
 )
 from verifier.checks.fill_checks     import FillTypeIs, DistinctSolidColors
 from verifier.checks.structure_checks import LayerInsideFrame, ChildCountAtLeast
