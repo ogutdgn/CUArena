@@ -84,5 +84,5 @@ cd test-verifier
 | File | Purpose |
 |---|---|
 | `run_task.py` | Fetches the current log, saves it, and runs the matching task verifier. Subcommand `export-log` exports without scoring. |
-| `requirements.txt` | No extra deps for the script itself; relies on the verifier venv for `pyyaml`. |
+| `requirements.txt` | `pyyaml` — the script imports the verifier package, which reads `config.yaml`. |
 | `best-practices.md` | Architecture trade-offs and migration notes |
