@@ -412,6 +412,27 @@ class LayerIsCircular:
 
 
 @dataclass
+class LayerIsSquare:
+    """At least one layer of layer_type has w ≈ h within tolerance.
+    Distinguishes a true square from a wide/tall rectangle."""
+    layer_type: str
+    tolerance: float = 2.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            if l["w"] > 0 and l["h"] > 0 and abs(l["w"] - l["h"]) <= self.tolerance:
+                return CheckResult(
+                    passed=True, score=1.0, max_score=1.0,
+                    message=f"{self.layer_type} square: {l['w']}×{l['h']}",
+                )
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with w ≈ h (±{self.tolerance}px)",
+        )
+
+
+@dataclass
 class LayersHaveAspectMix:
     """Among layers of layer_type, at least `horizontal_count` are wider-than-tall
     by `ratio` AND at least `vertical_count` are taller-than-wide by `ratio`.
