@@ -1,10 +1,12 @@
-helper/figma_docs/*
-!helper/figma_docs/README.md
-helper/open-source-example/
+apps/figma/helper/figma_docs/*
+!apps/figma/helper/figma_docs/README.md
+apps/figma/helper/open-source-example/
 .DS_Store
 __pycache__/
 *.pyc
 venv/
 .venv/
-test-verifier/logs/*.json
-test-verifier/scores/*.json
+node_modules/
+apps/figma/verifier/logs/*.json
+!apps/figma/verifier/logs/house_sample.json
+apps/figma/verifier/scores/*.json
