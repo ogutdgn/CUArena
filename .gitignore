@@ -8,4 +8,5 @@ venv/
 .venv/
 node_modules/
 apps/figma/verifier/logs/*.json
+!apps/figma/verifier/logs/house_sample.json
 apps/figma/verifier/scores/*.json
