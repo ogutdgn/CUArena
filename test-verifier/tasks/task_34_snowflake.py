@@ -1,48 +1,46 @@
 """
-Task 34 — 6-fold symmetric snowflake (IN SCOPE).
+Task 34 — 4-fold symmetric snowflake (SIMPLIFIED Medium → Easy).
 
-Navy frame + 6 line-tool branches rotated 60° each around the center.
+Navy frame + 4 white line branches rotated 90° each around the center.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
-from verifier.checks.shape_checks  import ShapeCountAtLeast
-from verifier.checks.fill_checks   import FillTypeIs
-from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
+from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
+from verifier.checks.geometry_checks import LayersEvenlyRotated
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals
+from verifier.checks.stroke_checks import StrokeColorEquals
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+NAVY  = {"r": 0.05, "g": 0.10, "b": 0.45}
+WHITE = {"r": 1.0,  "g": 1.0,  "b": 1.0}
 
 task = Task(
     id="task_34_snowflake",
-    description="6-fold symmetric snowflake: 6 white line branches rotated 60° each on a navy frame.",
+    description="Navy frame + 4 white line branches rotated 90° apart for 4-fold symmetry.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCountAtLeast("frame", minimum=1),
-            ShapeCountAtLeast("line", minimum=6),
-        ]), max_score=0.34),
+            ShapeCount("line", equals=4),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        AlignmentRubric([
+            LayersEvenlyRotated(layer_type="line", n=4, step_deg=90.0, tolerance_deg=10.0),
+        ], weight=0.25),
+
+        ColorRubric([
             FillTypeIs("frame", kind="solid"),
-        ]), max_score=0.33),
+            SolidColorEquals(layer_type="frame", expected_rgb=NAVY, tolerance=0.30),
+            StrokeColorEquals(layer_type="line", expected_rgb=WHITE, tolerance=0.20),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("line"),
-            EventTypeCountAtLeast("create_line", minimum=6),
-        ]), max_score=0.33),
+            EventTypeCount("create_line", equals=4),
+        ], weight=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=35),
+    efficiency=EfficiencyRubric(target_turns=20),
 )

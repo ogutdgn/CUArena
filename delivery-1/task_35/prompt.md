@@ -1,18 +1,18 @@
-# Task 35 — Make a 3x2 honeycomb pattern of 6 yellow hexagons.
+# Task 35 — Make a 2x2 honeycomb pattern of 4 yellow hexagons.
 
-**Difficulty:** Medium  •  **Time horizon:** 18 min
+**Difficulty:** Easy  •  **Time horizon:** 10 min
 
 ## Thorough description
 
-Inside a frame, draw a single hexagon (Polygon tool, 6 sides) with yellow fill and thin black stroke. Right-click and duplicate, then arrange 6 hexagons in a 3x2 honeycomb tiling pattern with offset rows.
+Inside a frame, draw a single hexagon (Polygon tool, 6 sides) with yellow fill and a 1px black stroke. Duplicate it three times, arranging 4 hexagons in a 2×2 offset honeycomb tiling pattern.
 
 ## Simplified prompt
 
-> Make a 3x2 honeycomb pattern of 6 yellow hexagons.
+> Make a 2×2 honeycomb of 4 yellow hexagons (1px black stroke each).
 
 ## Step-by-step
 
-1. Click Frame tool. 2. Click Polygon tool, scrub sides to 6. 3. Drag the first hexagon, pick yellow. 4. Add a 1px black stroke. 5. Right-click then Duplicate, drag adjacent. 6. Repeat for 6 total in a honeycomb arrangement.
+1. Click Frame tool. 2. Click Polygon tool, scrub sides to 6. 3. Drag the first hexagon, pick yellow. 4. Add a 1px black stroke. 5. Right-click then Duplicate, drag adjacent. 6. Repeat for 4 total in a 2×2 offset arrangement.
 
 ## Verifier
 

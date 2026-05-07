@@ -1,59 +1,59 @@
 """
 Task 40 — iOS toggle switch (IN SCOPE).
 
-Green pill (rounded rectangle, radius 999) + white circle thumb (positioned right).
+Green pill (rounded rectangle, radius ≥24, ~#34C759) + white circle thumb
+positioned on the right with a small drop shadow.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.effect       import EffectRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayerBoundsInside
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.geometry_checks import LayerBoundsInside, LayerEdgesAligned
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals
+from verifier.checks.effect_checks import DropShadowExists
 from verifier.checks.property_checks import CornerRadiusAtLeast
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+GREEN = {"r": 0.20, "g": 0.78, "b": 0.35}
+WHITE = {"r": 1.0,  "g": 1.0,  "b": 1.0}
 
 task = Task(
     id="task_40_toggle_switch",
-    description="Green pill rectangle + white circle thumb positioned on the right.",
+    description="Green pill rectangle + white circle thumb on the right with a small drop shadow.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("rectangle", equals=1),
             ShapeCount("ellipse",   equals=1),
-        ]), max_score=0.25),
+        ], weight=0.2),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayerBoundsInside(inner_type="ellipse", outer_type="rectangle", tolerance=4.0),
             CornerRadiusAtLeast(layer_type="rectangle", min_value=24.0),
-        ]), max_score=0.25),
+            LayerEdgesAligned(type_a="ellipse", edge_a="right",
+                              type_b="rectangle", edge_b="right", tolerance=8.0),
+        ], weight=0.2),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
             FillTypeIs("ellipse",   kind="solid"),
-        ]), max_score=0.25),
+            SolidColorEquals(layer_type="rectangle", expected_rgb=GREEN, tolerance=0.20),
+            SolidColorEquals(layer_type="ellipse",   expected_rgb=WHITE, tolerance=0.10),
+        ], weight=0.2),
 
-        WeightedRubric(EventRubric([
+        EffectRubric([
+            DropShadowExists("ellipse"),
+        ], weight=0.2),
+
+        EventRubric([
             ToolUsed("rectangle"),
             ToolUsed("ellipse"),
             EventTypeCount("create_rectangle", equals=1),
             EventTypeCount("create_ellipse",   equals=1),
-        ]), max_score=0.25),
+        ], weight=0.2),
     ],
     efficiency=EfficiencyRubric(target_turns=18),
 )

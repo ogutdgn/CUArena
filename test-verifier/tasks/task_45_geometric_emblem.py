@@ -1,60 +1,52 @@
 """
 Task 45 — Layered geometric emblem (IN SCOPE).
 
-8-point deep blue star + smaller centered yellow circle on top.
+Deep-blue 8-point star + smaller centered yellow circle on top.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount, StarPointsEquals
-from verifier.checks.geometry_checks import LayerBoundsInside, LayerCenteredOnLayer, LayerIsCircular
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.geometry_checks import LayerBoundsInside, LayerCenteredOnLayer, LayerOnTopOf, LayerIsCircular
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+DEEP_BLUE = {"r": 0.10, "g": 0.20, "b": 0.60}
+YELLOW    = {"r": 1.0,  "g": 0.85, "b": 0.20}
 
 task = Task(
     id="task_45_geometric_emblem",
-    description="8-point blue star + smaller yellow circle perfectly centered on top.",
+    description="Deep-blue 8-point star + smaller yellow circle centered on top.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("star",    equals=1),
             StarPointsEquals(points=8),
             ShapeCount("ellipse", equals=1),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayerBoundsInside(inner_type="ellipse", outer_type="star", tolerance=4.0),
             LayerCenteredOnLayer(type_a="ellipse", type_b="star", tolerance=8.0),
+            LayerOnTopOf(type_a="ellipse", type_b="star"),
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("star",    kind="solid"),
             FillTypeIs("ellipse", kind="solid"),
-        ]), max_score=0.25),
+            SolidColorEquals(layer_type="star",    expected_rgb=DEEP_BLUE, tolerance=0.25),
+            SolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW,    tolerance=0.20),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("star"),
             ToolUsed("ellipse"),
             EventTypeCount("create_star",    equals=1),
             EventTypeCount("create_ellipse", equals=1),
-        ]), max_score=0.25),
+        ], weight=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )

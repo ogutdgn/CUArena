@@ -120,3 +120,51 @@ class IsFlippedV:
                                    message=f"{self.layer_type} is flipped vertically")
         return CheckResult(passed=False, score=0.0, max_score=1.0,
                            message=f"No {self.layer_type} flipped vertically")
+
+
+@dataclass
+class ConstraintHorizontalEquals:
+    """All layers of layer_type have constraints.horizontal == value.
+
+    Values: 'left' | 'right' | 'center' | 'stretch' | 'scale'
+    """
+    layer_type: str
+    value: str
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        wrong = [l for l in layers
+                 if (l.get("constraints") or {}).get("horizontal") != self.value]
+        passed = not wrong
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} have horizontal constraint '{self.value}'" if passed
+                    else f"{len(wrong)}/{len(layers)} {self.layer_type} have wrong horizontal constraint",
+        )
+
+
+@dataclass
+class ConstraintVerticalEquals:
+    """All layers of layer_type have constraints.vertical == value.
+
+    Values: 'top' | 'bottom' | 'center' | 'stretch' | 'scale' | 'top_bottom'
+    """
+    layer_type: str
+    value: str
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        wrong = [l for l in layers
+                 if (l.get("constraints") or {}).get("vertical") != self.value]
+        passed = not wrong
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} have vertical constraint '{self.value}'" if passed
+                    else f"{len(wrong)}/{len(layers)} {self.layer_type} have wrong vertical constraint",
+        )

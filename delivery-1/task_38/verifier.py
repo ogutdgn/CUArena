@@ -1,53 +1,45 @@
 """
 Task 38 — Battery indicator (IN SCOPE).
 
-Rounded outer rectangle (no fill, gray stroke) + small terminal rectangle on right
-+ 3 colored bar rectangles inside (green, yellow, red).
+Rounded outer body rectangle (gray stroke) + small terminal rectangle on right
++ 3 colored level-bar rectangles inside.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.fill_checks   import FillTypeIs, LayerHasNoFill
+from verifier.checks.geometry_checks import LayersAligned
+from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
+from verifier.checks.stroke_checks import StrokeExists
+from verifier.checks.property_checks import CornerRadiusAtLeast
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
-
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
 
 task = Task(
     id="task_38_battery_indicator",
-    description="Battery body + terminal + 3 colored bars (5 rectangles total).",
+    description="Battery body (rounded, gray stroke) + terminal + 3 colored bars (5 rectangles total).",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("rectangle", equals=5),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
-            LayerHasNoFill(layer_type="rectangle"),
-        ]), max_score=0.25),
+        AlignmentRubric([
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=40.0),
+            CornerRadiusAtLeast(layer_type="rectangle", min_value=4.0),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.25),
+            DistinctSolidColors(minimum=3, tolerance=0.10),
+            StrokeExists("rectangle"),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("rectangle"),
             EventTypeCount("create_rectangle", equals=5),
-        ]), max_score=0.25),
+        ], weight=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=24),
 )

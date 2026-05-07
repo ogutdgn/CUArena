@@ -1,11 +1,10 @@
 """
 Task 29 — Polka dot grid (IN SCOPE).
 
-Frame with off-white fill, 4 circles arranged in a 2x2 grid via duplicate + Tidy up.
+Off-white frame + 4 same-color circles in a 2×2 grid, aligned via Tidy up
+(align_layers / distribute_layers events).
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
@@ -13,44 +12,37 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
 from verifier.checks.geometry_checks import LayersSameDimensions, LayersInGrid, LayerIsCircular
-from verifier.checks.fill_checks   import FillTypeIs
-from verifier.checks.event_checks  import ToolUsed, EventTypeCount
+from verifier.checks.fill_checks   import FillTypeIs, LayersAllSameColor, SolidColorEquals
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount, AlignToolUsed
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+OFF_WHITE = {"r": 0.97, "g": 0.95, "b": 0.92}
 
 task = Task(
     id="task_29_polka_dot_grid",
-    description="2x2 polka-dot grid: 4 same-size circles with consistent spacing inside a frame.",
+    description="Off-white frame + 4 same-color circles in a 2×2 grid via Tidy up.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("ellipse", equals=4),
             ShapeCountAtLeast("frame", minimum=1),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayersSameDimensions(layer_type="ellipse", tolerance=2.0),
             LayersInGrid(layer_type="ellipse", rows=2, cols=2, tolerance=10.0),
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("ellipse", kind="solid"),
-        ]), max_score=0.25),
+            LayersAllSameColor(layer_type="ellipse", tolerance=0.05),
+            SolidColorEquals(layer_type="frame", expected_rgb=OFF_WHITE, tolerance=0.15),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("ellipse"),
             EventTypeCount("create_ellipse", equals=4),
-        ]), max_score=0.25),
+            AlignToolUsed(),
+        ], weight=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=20),
+    efficiency=EfficiencyRubric(target_turns=16),
 )

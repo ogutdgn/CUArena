@@ -520,14 +520,18 @@ class LayerAspectRatioGreaterThan:
 @dataclass
 class RadialDistribution:
     """
-    n layers of layer_type arranged at equal angular steps around their collective center.
+    n layers of layer_type arranged at equal angular steps around their collective
+    center, AND at approximately the same radius from that center.
 
     Computes each layer's center, then its angle from the group's collective center,
-    and checks consecutive sorted angular gaps ≈ 360°/n.
+    and checks: (a) consecutive sorted angular gaps ≈ 360°/n, AND (b) max/min radius
+    ratio ≤ 1 + radius_tolerance_frac. Without the radius check, a regular grid
+    would falsely pass as "radial".
     """
     layer_type: str
     n: int
     tolerance_deg: float = 10.0
+    radius_tolerance_frac: float = 0.25
 
     def run(self, log: dict) -> CheckResult:
         layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
@@ -544,10 +548,20 @@ class RadialDistribution:
         gaps.append(360 - angles[-1] + angles[0])
         expected = 360 / self.n
         max_dev = max(abs(g - expected) for g in gaps)
-        passed = max_dev <= self.tolerance_deg
+        # Radius uniformity
+        radii = [math.hypot(l["x"] + l["w"]/2 - cx, l["y"] + l["h"]/2 - cy) for l in layers]
+        if min(radii) <= 0.5:  # all on top of each other
+            radius_ok = False
+            radius_msg = "layers degenerate (zero radius)"
+        else:
+            ratio = max(radii) / min(radii)
+            radius_ok = ratio - 1 <= self.radius_tolerance_frac
+            radius_msg = f"radius ratio {ratio:.2f}"
+        passed = max_dev <= self.tolerance_deg and radius_ok
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
-            message=f"{self.n} {self.layer_type} radial: max gap deviation {max_dev:.1f}° (expected {expected:.1f}°, tolerance {self.tolerance_deg}°)",
+            message=f"{self.n} {self.layer_type} radial: angular dev {max_dev:.1f}° "
+                    f"(expected {expected:.1f}°, tol {self.tolerance_deg}°), {radius_msg}",
         )
 
 
@@ -889,6 +903,14 @@ class LayersAlternatingColors:
                                    message=f"{self.layer_type} missing solid fill in alternation cycle")
             c = fills[0].get("color", {})
             cycle.append((c.get("r", 0), c.get("g", 0), c.get("b", 0)))
+        # The cycle's colors must themselves be distinct — otherwise a uniform-fill
+        # set of layers would falsely satisfy the alternation pattern.
+        for i in range(len(cycle)):
+            for j in range(i+1, len(cycle)):
+                a, b = cycle[i], cycle[j]
+                if max(abs(a[k]-b[k]) for k in range(3)) <= self.tolerance:
+                    return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                       message=f"{self.layer_type} alternation cycle uses fewer than {self.n_colors} distinct colors")
         # Check rest of layers cycle through these colors
         for i, l in enumerate(ordered):
             expected_rgb = cycle[i % self.n_colors]
@@ -960,10 +982,12 @@ class OffsetGridLayout:
 @dataclass
 class RadialDistributionExcludeCentral:
     """n+1 layers of layer_type total: the most-central one is the 'core' (skipped),
-    the remaining n must be radially distributed at equal angular steps around it."""
+    the remaining n must be radially distributed at equal angular steps AND at
+    approximately the same radius from the core."""
     layer_type: str
     n: int
     tolerance_deg: float = 12.0
+    radius_tolerance_frac: float = 0.25
 
     def run(self, log: dict) -> CheckResult:
         import math
@@ -976,7 +1000,6 @@ class RadialDistributionExcludeCentral:
         # The core is the layer closest to the centroid
         core = min(layers, key=lambda l: ((l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2))
         ring = [l for l in layers if l is not core]
-        # Recompute the centroid using the core (treat it as the radial center)
         rcx = core["x"] + core["w"] / 2
         rcy = core["y"] + core["h"] / 2
         angles = sorted(
@@ -987,10 +1010,19 @@ class RadialDistributionExcludeCentral:
         gaps.append(360 - angles[-1] + angles[0])
         expected = 360 / self.n
         max_dev = max(abs(g - expected) for g in gaps)
-        passed = max_dev <= self.tolerance_deg
+        radii = [math.hypot(l["x"] + l["w"]/2 - rcx, l["y"] + l["h"]/2 - rcy) for l in ring]
+        if min(radii) <= 0.5:
+            radius_ok = False
+            radius_msg = "ring layers degenerate"
+        else:
+            ratio = max(radii) / min(radii)
+            radius_ok = ratio - 1 <= self.radius_tolerance_frac
+            radius_msg = f"radius ratio {ratio:.2f}"
+        passed = max_dev <= self.tolerance_deg and radius_ok
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
-            message=f"{self.n} {self.layer_type} radial around core: max gap deviation {max_dev:.1f}° (tolerance {self.tolerance_deg}°)",
+            message=f"{self.n} {self.layer_type} radial around core: gap dev {max_dev:.1f}° "
+                    f"(tol {self.tolerance_deg}°), {radius_msg}",
         )
 
 
@@ -1034,4 +1066,88 @@ class LinesOnDiagonal:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No 2 {self.line_type}s span the {self.rect_type} diagonals",
+        )
+
+
+@dataclass
+class LayersFlankLayer:
+    """Layers of `flanker_type` flank a `pivot_type` instance: at least one
+    flanker has center_x < pivot.center_x AND at least one has center_x >
+    pivot.center_x. Picks the pivot that satisfies the constraint if any.
+
+    Useful for "windows on either side of door" / "caps top and bottom of body".
+    """
+    flanker_type: str
+    pivot_type: str
+    axis: str = "x"               # "x" → flanks horizontally; "y" → vertically
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        flankers = find_layers_by_type(doc, self.flanker_type)
+        pivots = find_layers_by_type(doc, self.pivot_type)
+        if len(flankers) < 2 or not pivots:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"Need ≥2 {self.flanker_type} + ≥1 {self.pivot_type} (got "
+                        f"{len(flankers)}+{len(pivots)})",
+            )
+        for pivot in pivots:
+            if self.axis == "x":
+                p_center = pivot["x"] + pivot["w"] / 2
+                lower = sum(1 for f in flankers if f["x"] + f["w"] / 2 < p_center - self.tolerance)
+                upper = sum(1 for f in flankers if f["x"] + f["w"] / 2 > p_center + self.tolerance)
+            else:
+                p_center = pivot["y"] + pivot["h"] / 2
+                lower = sum(1 for f in flankers if f["y"] + f["h"] / 2 < p_center - self.tolerance)
+                upper = sum(1 for f in flankers if f["y"] + f["h"] / 2 > p_center + self.tolerance)
+            if lower >= 1 and upper >= 1:
+                return CheckResult(
+                    passed=True, score=1.0, max_score=1.0,
+                    message=f"{self.flanker_type} flanks {self.pivot_type} on {self.axis}",
+                )
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.pivot_type} is flanked by {self.flanker_type} on both sides ({self.axis})",
+        )
+
+
+@dataclass
+class LayersAllShareEdge:
+    """All layers of layer_type share the same coordinate on the given edge.
+
+    edge ∈ {"top", "bottom", "left", "right", "center_x", "center_y"}.
+    Useful for "5 bars share a bottom baseline" (LayerEdgesAligned only checks
+    that ≥1 pair matches, which is too weak for set-wide alignment).
+    """
+    layer_type: str
+    edge: str
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type}, got {len(layers)}")
+        coords = []
+        for l in layers:
+            if self.edge == "top":
+                coords.append(l["y"])
+            elif self.edge == "bottom":
+                coords.append(l["y"] + l["h"])
+            elif self.edge == "left":
+                coords.append(l["x"])
+            elif self.edge == "right":
+                coords.append(l["x"] + l["w"])
+            elif self.edge == "center_x":
+                coords.append(l["x"] + l["w"] / 2)
+            elif self.edge == "center_y":
+                coords.append(l["y"] + l["h"] / 2)
+            else:
+                raise ValueError(f"unknown edge: {self.edge}")
+        spread = max(coords) - min(coords)
+        passed = spread <= self.tolerance
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"all {self.layer_type}.{self.edge}: spread {spread:.1f}px (tol {self.tolerance}px)",
         )

@@ -1,57 +1,48 @@
 """
-Task 33 — 4-section pie chart (IN SCOPE).
+Task 33 — 3-section pie chart (SIMPLIFIED Medium → Easy).
 
-Base circle + 3 rotated triangle wedges layered on top in different colors.
+Teal base circle + 2 rotated triangle wedges layered on top in different colors.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayerIsCircular
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.geometry_checks import LayerIsCircular, LayerOnTopOf
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals, DistinctSolidColors
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+TEAL = {"r": 0.0, "g": 0.6, "b": 0.6}
 
 task = Task(
     id="task_33_pie_chart",
-    description="Stylized pie chart: 1 base circle + 3 rotated triangle wedges in different colors.",
+    description="Teal base circle + 2 colored triangle wedges layered on top.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("ellipse", equals=1),
-            ShapeCount("polygon", equals=3),
-        ]), max_score=0.25),
+            ShapeCount("polygon", equals=2),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),
-        ]), max_score=0.25),
+            LayerOnTopOf(type_a="polygon", type_b="ellipse"),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("ellipse", kind="solid"),
             FillTypeIs("polygon", kind="solid"),
-        ]), max_score=0.25),
+            SolidColorEquals(layer_type="ellipse", expected_rgb=TEAL, tolerance=0.25),
+            DistinctSolidColors(minimum=3, tolerance=0.10),  # teal + 2 wedge colors
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("ellipse"),
             ToolUsed("polygon"),
             EventTypeCount("create_ellipse", equals=1),
-            EventTypeCount("create_polygon", equals=3),
-        ]), max_score=0.25),
+            EventTypeCount("create_polygon", equals=2),
+        ], weight=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=40),
+    efficiency=EfficiencyRubric(target_turns=22),
 )

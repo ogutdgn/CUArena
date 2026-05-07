@@ -390,12 +390,23 @@ def mutate_for_geometry(task, log) -> None:
             layers = by_type.get(c.layer_type, [])
             if c.sort_axis == "y":
                 ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+            elif c.sort_axis == "size":
+                ordered = sorted(layers, key=lambda l: -(l["w"] * l["h"]))
             else:
                 ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
             for i, l in enumerate(ordered[: len(c.expected_rgbs)]):
                 target = dict(c.expected_rgbs[i])
                 target.setdefault("a", 1.0)
                 l["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
+        elif cname == "LayersAllSameColor":
+            layers = by_type.get(c.layer_type, [])
+            if layers:
+                fills = layers[0].get("fills") or [{"kind": "solid",
+                    "color": {"r": 0.5, "g": 0.5, "b": 0.5, "a": 1.0},
+                    "opacity": 1.0, "visible": True}]
+                ref = fills[0]["color"]
+                for l in layers:
+                    l["fills"] = [{"kind": "solid", "color": dict(ref), "opacity": 1.0, "visible": True}]
         elif cname == "SolidColorEquals":
             layers = by_type.get(c.layer_type, [])
             if layers:
@@ -417,6 +428,189 @@ def mutate_for_geometry(task, log) -> None:
             target = dict(c.expected_rgb)
             target.setdefault("a", 1.0)
             center["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
+
+    # Pass 7: visual properties (strokes, effects, layer-level scalars)
+    def _ensure_first(layers):
+        return layers[0] if layers else None
+
+    def _ensure_drop_shadow(layer):
+        for e in layer.setdefault("effects", []):
+            if e.get("kind") == "drop_shadow":
+                return e
+        e = {"kind": "drop_shadow", "x": 0, "y": 0, "blur": 4, "spread": 0,
+             "color": {"r": 0, "g": 0, "b": 0, "a": 0.25}, "visible": True}
+        layer["effects"].append(e)
+        return e
+
+    def _ensure_layer_blur(layer):
+        for e in layer.setdefault("effects", []):
+            if e.get("kind") == "layer_blur":
+                return e
+        e = {"kind": "layer_blur", "radius": 4, "visible": True}
+        layer["effects"].append(e)
+        return e
+
+    def _ensure_stroke(layer):
+        strokes = layer.setdefault("strokes", [])
+        if not strokes:
+            strokes.append({
+                "paint": {"kind": "solid",
+                          "color": {"r": 0, "g": 0, "b": 0, "a": 1.0}},
+                "weight": 1, "alignment": "center", "dash": None, "visible": True,
+            })
+        return strokes[0]
+
+    for c in checks:
+        cname = type(c).__name__
+
+        # Effects
+        if cname == "DropShadowExists":
+            for l in by_type.get(c.layer_type, []):
+                _ensure_drop_shadow(l)
+        elif cname == "DropShadowOffsetEquals":
+            l = _ensure_first(by_type.get(c.layer_type, []))
+            if l is not None:
+                e = _ensure_drop_shadow(l)
+                e["x"] = c.x
+                e["y"] = c.y
+        elif cname == "DropShadowBlurEquals":
+            l = _ensure_first(by_type.get(c.layer_type, []))
+            if l is not None:
+                e = _ensure_drop_shadow(l)
+                e["blur"] = c.blur
+        elif cname == "DropShadowSpreadEquals":
+            l = _ensure_first(by_type.get(c.layer_type, []))
+            if l is not None:
+                e = _ensure_drop_shadow(l)
+                e["spread"] = c.spread
+        elif cname == "EffectColorEquals":
+            l = _ensure_first(by_type.get(c.layer_type, []))
+            if l is not None:
+                e = _ensure_drop_shadow(l)
+                target = dict(c.expected_rgb)
+                target.setdefault("a", 1.0)
+                e["color"] = target
+        elif cname == "EffectCount":
+            for l in by_type.get(c.layer_type, []):
+                effects = l.setdefault("effects", [])
+                while len(effects) < c.equals:
+                    effects.append({"kind": "drop_shadow", "x": 0, "y": 0, "blur": 2,
+                                    "spread": 0, "color": {"r": 0, "g": 0, "b": 0, "a": 0.2},
+                                    "visible": True})
+                while len(effects) > c.equals:
+                    effects.pop()
+        elif cname == "LayerBlurExists":
+            for l in by_type.get(c.layer_type, []):
+                _ensure_layer_blur(l)
+        elif cname == "BlurRadiusEquals":
+            l = _ensure_first(by_type.get(c.layer_type, []))
+            if l is not None:
+                e = _ensure_layer_blur(l)
+                e["radius"] = c.radius
+
+        # Strokes
+        elif cname == "StrokeExists":
+            for l in by_type.get(c.layer_type, []):
+                _ensure_stroke(l)
+        elif cname == "StrokeWeightEquals":
+            for l in by_type.get(c.layer_type, []):
+                s = _ensure_stroke(l)
+                s["weight"] = c.weight
+        elif cname == "StrokeColorEquals":
+            for l in by_type.get(c.layer_type, []):
+                s = _ensure_stroke(l)
+                target = dict(c.expected_rgb)
+                target.setdefault("a", 1.0)
+                s["paint"] = {"kind": "solid", "color": target}
+        elif cname == "StrokeAlignmentIs":
+            for l in by_type.get(c.layer_type, []):
+                s = _ensure_stroke(l)
+                s["alignment"] = c.alignment
+        elif cname == "StrokeIsDashed":
+            for l in by_type.get(c.layer_type, []):
+                s = _ensure_stroke(l)
+                s["dash"] = {"dash": 6, "gap": 4}
+
+        # Property checks
+        elif cname == "OpacityEquals":
+            for l in by_type.get(c.layer_type, []):
+                l["opacity"] = c.opacity
+        elif cname == "VisibilityIs":
+            for l in by_type.get(c.layer_type, []):
+                l["visible"] = c.visible
+        elif cname == "CornerRadiusEquals":
+            for l in by_type.get(c.layer_type, []):
+                l["cornerRadius"] = c.radius
+        elif cname == "IsFlippedH":
+            for l in by_type.get(c.layer_type, []):
+                l["scaleX"] = -1
+        elif cname == "IsFlippedV":
+            for l in by_type.get(c.layer_type, []):
+                l["scaleY"] = -1
+        elif cname == "ConstraintHorizontalEquals":
+            for l in by_type.get(c.layer_type, []):
+                l.setdefault("constraints", {})["horizontal"] = c.value
+        elif cname == "ConstraintVerticalEquals":
+            for l in by_type.get(c.layer_type, []):
+                l.setdefault("constraints", {})["vertical"] = c.value
+        elif cname == "LayerRotationEquals":
+            for l in by_type.get(c.layer_type, []):
+                l["rotation"] = c.degrees
+
+        # Fill subtype
+        elif cname == "FillTypeIs" and c.kind == "image":
+            for l in by_type.get(c.layer_type, []):
+                l["fills"] = [{"kind": "image", "src": "synthetic.jpg",
+                               "fit": "cover", "rotation": 0,
+                               "opacity": 1.0, "visible": True}]
+        elif cname == "ImageFillExists":
+            for l in by_type.get(c.layer_type, []):
+                l["fills"] = [{"kind": "image", "src": "synthetic.jpg",
+                               "fit": "cover", "rotation": 0,
+                               "opacity": 1.0, "visible": True}]
+        elif cname == "FillOpacityEquals":
+            for l in by_type.get(c.layer_type, []):
+                fills = l.setdefault("fills", [{"kind": "solid",
+                    "color": {"r": 0.5, "g": 0.5, "b": 0.5, "a": 1.0},
+                    "opacity": 1.0, "visible": True}])
+                if c.fill_index < len(fills):
+                    fills[c.fill_index]["opacity"] = c.opacity
+        elif cname == "FillCount":
+            for l in by_type.get(c.layer_type, []):
+                fills = l.setdefault("fills", [])
+                base_color = (fills[0].get("color") if fills
+                              else {"r": 0.5, "g": 0.5, "b": 0.5, "a": 1.0})
+                while len(fills) < c.equals:
+                    fills.append({"kind": "solid", "color": dict(base_color),
+                                  "opacity": 1.0, "visible": True})
+                del fills[c.equals:]
+
+        # Text checks
+        elif cname == "TextContent":
+            for l in by_type.get("text", []):
+                l["content"] = c.expected
+        elif cname == "TextContains":
+            for l in by_type.get("text", []):
+                if c.substring not in l.get("content", ""):
+                    l["content"] = c.substring
+        elif cname == "FontSizeEquals":
+            for l in by_type.get("text", []):
+                l["fontSize"] = c.size
+        elif cname == "FontWeightEquals":
+            for l in by_type.get("text", []):
+                l["fontWeight"] = c.weight
+        elif cname == "TextAlignEquals":
+            for l in by_type.get("text", []):
+                l["hAlign"] = c.align
+        elif cname == "VerticalAlignEquals":
+            for l in by_type.get("text", []):
+                l["vAlign"] = c.align
+        elif cname == "LineHeightEquals":
+            for l in by_type.get("text", []):
+                l["lineHeight"] = {"type": "pixels", "value": c.value}
+        elif cname == "LetterSpacingEquals":
+            for l in by_type.get("text", []):
+                l["letterSpacing"] = {"type": "pixels", "value": c.value}
 
 
 def perfect_log(task) -> dict:

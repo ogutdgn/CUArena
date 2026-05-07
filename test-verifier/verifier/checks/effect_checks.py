@@ -78,3 +78,94 @@ class EffectColorEquals:
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} with shadow[{self.effect_index}] color {self.expected_rgb}",
         )
+
+
+@dataclass
+class DropShadowOffsetEquals:
+    """At least one layer of layer_type has a drop shadow with x,y offset matching expected."""
+    layer_type: str
+    x: float
+    y: float
+    effect_index: int = 0
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            shadows = _effects_of_kind(l, "drop_shadow")
+            if self.effect_index < len(shadows):
+                e = shadows[self.effect_index]
+                if (abs(e.get("x", 0) - self.x) <= self.tolerance
+                        and abs(e.get("y", 0) - self.y) <= self.tolerance):
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.layer_type} shadow offset ({e.get('x')},{e.get('y')}) ≈ ({self.x},{self.y})")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with shadow offset ≈ ({self.x},{self.y})",
+        )
+
+
+@dataclass
+class DropShadowBlurEquals:
+    """At least one layer of layer_type has a drop shadow with blur ≈ expected."""
+    layer_type: str
+    blur: float
+    effect_index: int = 0
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            shadows = _effects_of_kind(l, "drop_shadow")
+            if self.effect_index < len(shadows):
+                b = shadows[self.effect_index].get("blur", 0)
+                if abs(b - self.blur) <= self.tolerance:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.layer_type} shadow blur {b} ≈ {self.blur}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with shadow blur {self.blur}±{self.tolerance}",
+        )
+
+
+@dataclass
+class DropShadowSpreadEquals:
+    """At least one layer of layer_type has a drop shadow with spread ≈ expected."""
+    layer_type: str
+    spread: float
+    effect_index: int = 0
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            shadows = _effects_of_kind(l, "drop_shadow")
+            if self.effect_index < len(shadows):
+                s = shadows[self.effect_index].get("spread", 0)
+                if abs(s - self.spread) <= self.tolerance:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.layer_type} shadow spread {s} ≈ {self.spread}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with shadow spread {self.spread}±{self.tolerance}",
+        )
+
+
+@dataclass
+class EffectCount:
+    """All layers of layer_type have exactly N effects (any kind)."""
+    layer_type: str
+    equals: int
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        wrong = [l for l in layers if len(l.get("effects", [])) != self.equals]
+        passed = not wrong
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} have {self.equals} effects" if passed
+                    else f"{len(wrong)}/{len(layers)} {self.layer_type} have wrong effect count",
+        )

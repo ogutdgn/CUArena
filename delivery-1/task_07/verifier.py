@@ -1,48 +1,41 @@
 """
 Task 07 — Layered mountain range (IN SCOPE).
 
-Two pen-tool paths in different gray shades — closer mountain in front of farther one.
+Two pen-tool paths in different gray shades — closer mountain in front,
+overlapping the farther one.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCountAtLeast
+from verifier.checks.geometry_checks import LayersOverlap
 from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
 from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
-
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
 
 task = Task(
     id="task_07_mountain_range",
     description="Two overlapping pen-tool mountain paths in different gray shades.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCountAtLeast("vector", minimum=2),
-        ]), max_score=0.34),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        AlignmentRubric([
+            LayersOverlap(type_a="vector", type_b="vector"),
+        ], weight=0.25),
+
+        ColorRubric([
             FillTypeIs("vector", kind="solid"),
             DistinctSolidColors(minimum=2, tolerance=0.05),
-        ]), max_score=0.33),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("pen"),
             EventTypeCountAtLeast("create_vector", minimum=2),
-        ]), max_score=0.33),
+        ], weight=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=30),
 )

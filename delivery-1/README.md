@@ -74,23 +74,23 @@ The `<module_name>` column in the index below matches the filename in
 | 28 | Easy | 8 min | [Draw a photo-placeholder rectangle with two diagonal lines forming an X.](task_28/prompt.md) | `task_28_edited_photo` |
 | 29 | Easy | 10 min | [Draw a 2x2 polka dot grid using Tidy up to align 4 circles.](task_29/prompt.md) | `task_29_polka_dot_grid` |
 | 30 | Easy | 10 min | [Draw 6 alternating vertical stripes filling a 600x600 frame.](task_30/prompt.md) | `task_30_stripe_wallpaper` |
-| 31 | Medium | 15 min | [Draw a sun: yellow circle + 8 triangle rays rotated radially around it.](task_31/prompt.md) | `task_31_sun_rays` |
+| 31 | Easy | 10 min | [Draw a sun: yellow circle + 4 triangle rays rotated 90° apart around it.](task_31/prompt.md) | `task_31_sun_rays` |
 | 32 | Easy | 12 min | [Draw a pinwheel: 4 triangles + small center circle, alternating colors.](task_32/prompt.md) | `task_32_pinwheel` |
-| 33 | Medium | 18 min | [Draw a 4-section pie chart with a base circle and 3 colored wedge triangles.](task_33/prompt.md) | `task_33_pie_chart` |
-| 34 | Medium | 18 min | [Make a 6-fold symmetric snowflake by duplicating one branch group and rotating 60° five times.](task_34/prompt.md) | `task_34_snowflake` |
-| 35 | Medium | 18 min | [Make a 3x2 honeycomb pattern of 6 yellow hexagons.](task_35/prompt.md) | `task_35_honeycomb` |
+| 33 | Easy | 10 min | [Teal base circle + 2 colored wedge triangles layered on top.](task_33/prompt.md) | `task_33_pie_chart` |
+| 34 | Easy | 10 min | [4-fold symmetric snowflake on a navy frame (4 white lines rotated 90° apart).](task_34/prompt.md) | `task_34_snowflake` |
+| 35 | Easy | 10 min | [Make a 2×2 honeycomb pattern of 4 yellow hexagons.](task_35/prompt.md) | `task_35_honeycomb` |
 | 36 | Easy | 10 min | [Draw a vintage frame: outer rectangle + smaller inner rectangle, both centered.](task_36/prompt.md) | `task_36_polaroid` |
 | 37 | Easy | 12 min | [Draw a tilted yellow sticky note with a folded corner and 3 note lines.](task_37/prompt.md) | `task_37_sticky_note` |
 | 38 | Easy | 12 min | [Build a battery indicator with body, terminal, and 3 inner level bars.](task_38/prompt.md) | `task_38_battery_indicator` |
-| 39 | Medium | 18 min | [Build a wifi icon: 3 pen-tool arcs + small filled circle below.](task_39/prompt.md) | `task_39_wifi_icon` |
+| 39 | Easy | 12 min | [Build a wifi icon: 2 pen-tool arcs + small filled circle below.](task_39/prompt.md) | `task_39_wifi_icon` |
 | 40 | Easy | 10 min | [Build an iOS green toggle switch with a white circle thumb on the right.](task_40/prompt.md) | `task_40_toggle_switch` |
-| 41 | Medium | 18 min | [Build a search bar: rounded rectangle + magnifying-glass icon + 2 dots.](task_41/prompt.md) | `task_41_search_bar` |
-| 42 | Medium | 18 min | [Build a yellow-gold bell icon + small clapper + red badge.](task_42/prompt.md) | `task_42_bell_icon` |
-| 43 | Medium | 18 min | [Build a compass rose: sand circle + 4 N/E/S/W triangles + gold center.](task_43/prompt.md) | `task_43_compass_rose` |
+| 41 | Easy | 12 min | [Build a search bar: rounded rectangle + magnifying-glass icon + 1 dot.](task_41/prompt.md) | `task_41_search_bar` |
+| 42 | Easy | 12 min | [Build a yellow-gold bell icon + small clapper + red badge with white stroke.](task_42/prompt.md) | `task_42_bell_icon` |
+| 43 | Easy | 12 min | [Build a compass rose: sand circle + 4 cardinal-direction triangles + gold center.](task_43/prompt.md) | `task_43_compass_rose` |
 | 44 | Easy | 10 min | [Draw an avatar circle + a small status badge circle at bottom-right.](task_44/prompt.md) | `task_44_avatar_status` |
 | 45 | Easy | 10 min | [Build an emblem: 8-point blue star + smaller centered yellow circle.](task_45/prompt.md) | `task_45_geometric_emblem` |
-| 46 | Medium | 18 min | [Draw 8 vertical rectangles of varying heights sharing a bottom baseline.](task_46/prompt.md) | `task_46_audio_waveform` |
-| 47 | Medium | 18 min | [Build a sunburst stamp: 16-point star + smaller centered cream circle.](task_47/prompt.md) | `task_47_sunburst_badge` |
-| 48 | Medium | 18 min | [Make a white spiderweb on a navy frame: 6 radial lines + 3 concentric hexagons.](task_48/prompt.md) | `task_48_spiderweb` |
-| 49 | Medium | 18 min | [Draw a single S-curve ribbon using the Pen tool with a solid fill.](task_49/prompt.md) | `task_49_decorative_ribbon` |
+| 46 | Easy | 12 min | [Draw 5 vertical rectangles of varying heights sharing a bottom baseline.](task_46/prompt.md) | `task_46_audio_waveform` |
+| 47 | Easy | 12 min | [Build a sunburst stamp: 8-point star + smaller centered cream circle.](task_47/prompt.md) | `task_47_sunburst_badge` |
+| 48 | Easy | 12 min | [White spiderweb on a navy frame: 4 radial lines + 2 concentric hexagons.](task_48/prompt.md) | `task_48_spiderweb` |
+| 49 | Easy | 12 min | [Pen-tool S-curve with a thick dashed stroke as the ribbon.](task_49/prompt.md) | `task_49_decorative_ribbon` |
 | 50 | Easy | 10 min | [Draw a square with a centered 5-point star on top, contrasting colors.](task_50/prompt.md) | `task_50_album_cover` |

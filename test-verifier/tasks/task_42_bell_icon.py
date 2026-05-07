@@ -1,11 +1,10 @@
 """
-Task 42 — Notification bell with badge (IN SCOPE).
+Task 42 — Notification bell with badge (SIMPLIFIED Medium → Easy).
 
-Pen-tool bell silhouette (yellow-gold) + small clapper circle + red badge circle on upper-right.
+Pen-tool bell silhouette (yellow-gold) + small clapper circle + red badge with
+2px white stroke.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
@@ -13,45 +12,42 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCountAtLeast
 from verifier.checks.geometry_checks import LayerIsCircular
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals, DistinctSolidColors
+from verifier.checks.stroke_checks import StrokeExists, StrokeWeightEquals, StrokeColorEquals
 from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+GOLD  = {"r": 1.0, "g": 0.80, "b": 0.10}
+WHITE = {"r": 1.0, "g": 1.0,  "b": 1.0}
 
 task = Task(
     id="task_42_bell_icon",
-    description="Pen-tool bell silhouette + clapper circle + red badge on upper-right.",
+    description="Pen bell (yellow-gold) + clapper circle + red badge circle with 2px white stroke.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCountAtLeast("vector",  minimum=1),
             ShapeCountAtLeast("ellipse", minimum=2),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("vector",  kind="solid"),
             FillTypeIs("ellipse", kind="solid"),
-        ]), max_score=0.25),
+            SolidColorEquals(layer_type="vector", expected_rgb=GOLD, tolerance=0.25),
+            DistinctSolidColors(minimum=3, tolerance=0.10),  # gold + clapper + red badge
+            StrokeExists("ellipse"),
+            StrokeWeightEquals("ellipse", weight=2.0, tolerance=1.0),
+            StrokeColorEquals("ellipse", expected_rgb=WHITE, tolerance=0.20),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("pen"),
             ToolUsed("ellipse"),
             EventTypeCountAtLeast("create_vector",  minimum=1),
             EventTypeCountAtLeast("create_ellipse", minimum=2),
-        ]), max_score=0.25),
+        ], weight=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=36),
+    efficiency=EfficiencyRubric(target_turns=24),
 )

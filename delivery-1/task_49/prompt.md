@@ -1,18 +1,18 @@
-# Task 49 — Draw a single S-curve ribbon using the Pen tool with a solid fill.
+# Task 49 — Draw a single S-curve ribbon using the Pen tool with a thick dashed stroke.
 
-**Difficulty:** Medium  •  **Time horizon:** 18 min
+**Difficulty:** Easy  •  **Time horizon:** 12 min
 
 ## Thorough description
 
-Use the Pen tool to draw a long S-curve as a single continuous path with bezier handles at each anchor. Apply a solid fill (e.g., gold) to the resulting vector.
+Use the Pen tool to draw a long S-curve as a single continuous path with bezier handles at each anchor. Apply a thick (12px) dashed stroke to the resulting vector — this acts as the ribbon body.
 
 ## Simplified prompt
 
-> Draw a single S-curve ribbon using the Pen tool with a solid fill.
+> Pen-tool S-curve with a thick (12px) dashed stroke as the ribbon.
 
 ## Step-by-step
 
-1. Click Pen tool. 2. Click and drag at the first anchor for bezier handles. 3. Click and drag at the second anchor. 4. Click and drag at the third anchor. 5. Press Escape. 6. Pick a solid fill (e.g., gold).
+1. Click Pen tool. 2. Click and drag at the first anchor for bezier handles. 3. Click and drag at the second anchor. 4. Click and drag at the third anchor. 5. Press Escape. 6. Add a 12px stroke, pick the dashed style.
 
 ## Verifier
 

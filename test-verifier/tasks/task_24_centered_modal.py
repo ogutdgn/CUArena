@@ -1,58 +1,53 @@
 """
 Task 24 — Centered modal panel (in-scope replacement, no constraints).
 
-1 outer frame + 1 white rounded rectangle visually centered inside it
-using alignment buttons (align_layers events).
+Outer frame + white rounded rectangle visually centered inside it (via align)
+with a drop shadow.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.effect       import EffectRubric
 from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
 from verifier.checks.geometry_checks import LayerCenteredInFrame
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import FillTypeIs, AllSolidColorEquals
+from verifier.checks.effect_checks import DropShadowExists
 from verifier.checks.property_checks import CornerRadiusAtLeast
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount, AlignToolUsed
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+WHITE = {"r": 1.0, "g": 1.0, "b": 1.0}
 
 task = Task(
     id="task_24_centered_modal",
-    description="Outer frame + white rounded rectangle centered inside it via align tool.",
+    description="Outer frame + white rounded rectangle centered inside it via align tool, with a drop shadow.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCountAtLeast("frame", minimum=1),
             ShapeCount("rectangle", equals=1),
-        ]), max_score=0.25),
+        ], weight=0.2),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayerCenteredInFrame(layer_type="rectangle", tolerance=12.0),
             CornerRadiusAtLeast(layer_type="rectangle", min_value=8.0),
-        ]), max_score=0.25),
+        ], weight=0.2),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.25),
+            AllSolidColorEquals(layer_type="rectangle", expected_rgb=WHITE, tolerance=0.10),
+        ], weight=0.2),
 
-        WeightedRubric(EventRubric([
+        EffectRubric([
+            DropShadowExists("rectangle"),
+        ], weight=0.2),
+
+        EventRubric([
             ToolUsed("rectangle"),
             EventTypeCount("create_rectangle", equals=1),
             AlignToolUsed(),
-        ]), max_score=0.25),
+        ], weight=0.2),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )

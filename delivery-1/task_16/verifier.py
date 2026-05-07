@@ -1,12 +1,10 @@
 """
 Task 16 — Speech bubble visual (in-scope replacement, no boolean).
 
-1 rounded rectangle (bubble body) + 1 small triangle (tail) positioned
-at the bottom-left, both filled the same light gray color.
+Rounded rectangle (light gray) + small triangle tail (same fill), both with
+a 2px dark-gray stroke. Body and tail overlap to form a speech bubble.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
@@ -14,48 +12,43 @@ from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import LayersOverlap
-from verifier.checks.fill_checks   import FillTypeIs, SameColorAcrossTypes
+from verifier.checks.fill_checks   import AllSolidColorEquals, SameColorAcrossTypes
+from verifier.checks.stroke_checks import StrokeExists, StrokeWeightEquals, StrokeColorEquals
 from verifier.checks.property_checks import CornerRadiusAtLeast
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+LIGHT_GRAY = {"r": 0.85, "g": 0.85, "b": 0.85}
+DARK_GRAY  = {"r": 0.30, "g": 0.30, "b": 0.30}
 
 task = Task(
     id="task_16_speech_bubble",
-    description="Rounded rectangle bubble + small triangle tail positioned at bottom-left.",
+    description="Rounded rectangle bubble + small triangle tail, both light gray with 2px dark-gray stroke.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("rectangle", equals=1),
             ShapeCount("polygon",   equals=1),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayersOverlap(type_a="rectangle", type_b="polygon"),
             CornerRadiusAtLeast(layer_type="rectangle", min_value=8.0),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
-            FillTypeIs("rectangle", kind="solid"),
-            FillTypeIs("polygon",   kind="solid"),
-            SameColorAcrossTypes(types=["rectangle", "polygon"], tolerance=0.05),
-        ]), max_score=0.25),
+        ColorRubric([
+            AllSolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.20),
+            AllSolidColorEquals(layer_type="polygon",   expected_rgb=LIGHT_GRAY, tolerance=0.20),
+            SameColorAcrossTypes(types=["rectangle", "polygon"], tolerance=0.10),
+            StrokeExists("rectangle"),
+            StrokeWeightEquals("rectangle", weight=2.0, tolerance=1.0),
+            StrokeColorEquals("rectangle", expected_rgb=DARK_GRAY, tolerance=0.20),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("rectangle"),
             ToolUsed("polygon"),
             EventTypeCount("create_rectangle", equals=1),
             EventTypeCount("create_polygon",   equals=1),
-        ]), max_score=0.25),
+        ], weight=0.25),
     ],
     efficiency=EfficiencyRubric(target_turns=18),
 )

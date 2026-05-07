@@ -1,60 +1,54 @@
 """
 Task 37 — Yellow sticky note (IN SCOPE).
 
-Tilted yellow square + drop shadow + pen-tool corner fold + 3 horizontal lines.
-
-Note: drop shadow check assumes effects are emitted in outcome.document.
+Yellow square (rotated ~3°) + drop shadow + pen-tool corner fold + 3 horizontal lines.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
+from verifier.rubrics.effect       import EffectRubric
 from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
-from verifier.checks.geometry_checks import LayerBoundsInside
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.geometry_checks import LayerBoundsInside, LayerRotationEquals
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals
+from verifier.checks.effect_checks import DropShadowExists
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount, EventTypeCountAtLeast
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+YELLOW = {"r": 1.0, "g": 0.92, "b": 0.6}
 
 task = Task(
     id="task_37_sticky_note",
     description="Yellow square (rotated ~3°) + drop shadow + pen-tool fold + 3 horizontal lines.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("rectangle", equals=1),
             ShapeCountAtLeast("vector", minimum=1),
             ShapeCountAtLeast("line", minimum=3),
-        ]), max_score=0.25),
+        ], weight=0.2),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayerBoundsInside(inner_type="vector", outer_type="rectangle", tolerance=4.0),
-        ]), max_score=0.25),
+            LayerRotationEquals(layer_type="rectangle", degrees=3.0, tolerance=2.0),
+        ], weight=0.2),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.25),
+            SolidColorEquals(layer_type="rectangle", expected_rgb=YELLOW, tolerance=0.20),
+        ], weight=0.2),
 
-        WeightedRubric(EventRubric([
+        EffectRubric([
+            DropShadowExists("rectangle"),
+        ], weight=0.2),
+
+        EventRubric([
             ToolUsed("rectangle"),
             ToolUsed("pen"),
             ToolUsed("line"),
             EventTypeCount("create_rectangle", equals=1),
             EventTypeCountAtLeast("create_line", minimum=3),
-        ]), max_score=0.25),
+        ], weight=0.2),
     ],
-    efficiency=EfficiencyRubric(target_turns=24),
+    efficiency=EfficiencyRubric(target_turns=20),
 )

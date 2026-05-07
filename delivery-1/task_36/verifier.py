@@ -1,55 +1,51 @@
 """
-Task 36 — Vintage frame (in-scope replacement, no image fill).
+Task 36 — Tilted vintage frame (in-scope replacement, no image fill).
 
-1 outer rectangle (the frame border) + 1 smaller inner rectangle (the artwork area)
-both sharing the same center.
+Outer rectangle (white) tilted ~5°, with a drop shadow, plus a smaller inner
+artwork rectangle inside it. Both share x-center; inner shifted up so the
+bottom margin is thicker (caption area).
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
+from verifier.rubrics.effect       import EffectRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersConcentric, LayerBoundsInside
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.geometry_checks import LayerBoundsInside, LayerRotationEquals
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals
+from verifier.checks.effect_checks import DropShadowExists
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+WHITE = {"r": 1.0, "g": 1.0, "b": 1.0}
 
 task = Task(
     id="task_36_polaroid",
-    description="Outer rectangle frame + smaller inner rectangle artwork area, sharing center.",
+    description="2 rectangles (outer white, tilted ~5°, with drop shadow) + smaller inner artwork rect.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
+        FundamentalsRubric([
             ShapeCount("rectangle", equals=2),
-        ]), max_score=0.25),
+        ], weight=0.2),
 
-        WeightedRubric(AlignmentRubric([
-            LayersConcentric(layer_type="rectangle", tolerance=3.0),
-            LayerBoundsInside(inner_type="rectangle", outer_type="rectangle", tolerance=2.0),
-        ]), max_score=0.25),
+        AlignmentRubric([
+            LayerBoundsInside(inner_type="rectangle", outer_type="rectangle", tolerance=8.0),
+            LayerRotationEquals(layer_type="rectangle", degrees=5.0, tolerance=3.0),
+        ], weight=0.2),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.25),
+            SolidColorEquals(layer_type="rectangle", expected_rgb=WHITE, tolerance=0.15),
+        ], weight=0.2),
 
-        WeightedRubric(EventRubric([
+        EffectRubric([
+            DropShadowExists("rectangle"),
+        ], weight=0.2),
+
+        EventRubric([
             ToolUsed("rectangle"),
             EventTypeCount("create_rectangle", equals=2),
-        ]), max_score=0.25),
+        ], weight=0.2),
     ],
     efficiency=EfficiencyRubric(target_turns=15),
 )

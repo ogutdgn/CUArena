@@ -1,11 +1,10 @@
 """
-Task 35 — 3x2 honeycomb pattern (IN SCOPE).
+Task 35 — 2x2 honeycomb pattern (SIMPLIFIED Medium → Easy).
 
-6 yellow hexagons (polygon, 6 sides) arranged in honeycomb tiling with black strokes.
+4 yellow hexagons (polygon, 6 sides) arranged in a 2×2 offset honeycomb tiling,
+each with a 1px black stroke.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
@@ -13,43 +12,38 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount, PolygonSidesEquals
 from verifier.checks.geometry_checks import LayersSameDimensions, OffsetGridLayout
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import AllSolidColorEquals
+from verifier.checks.stroke_checks import StrokeExists, StrokeWeightEquals, StrokeColorEquals
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+YELLOW = {"r": 1.0, "g": 0.85, "b": 0.2}
+BLACK  = {"r": 0.0, "g": 0.0,  "b": 0.0}
 
 task = Task(
     id="task_35_honeycomb",
-    description="3x2 honeycomb of 6 yellow hexagons (6-sided polygons) tiled together.",
+    description="2×2 honeycomb of 4 yellow hexagons (6 sides each) with 1px black strokes.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
-            ShapeCount("polygon", equals=6),
+        FundamentalsRubric([
+            ShapeCount("polygon", equals=4),
             PolygonSidesEquals(sides=6),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
+        AlignmentRubric([
             LayersSameDimensions(layer_type="polygon", tolerance=2.0),
-            OffsetGridLayout(layer_type="polygon", rows=2, cols=3, tolerance=15.0),
-        ]), max_score=0.25),
+            OffsetGridLayout(layer_type="polygon", rows=2, cols=2, tolerance=15.0),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
-            FillTypeIs("polygon", kind="solid"),
-        ]), max_score=0.25),
+        ColorRubric([
+            AllSolidColorEquals(layer_type="polygon", expected_rgb=YELLOW, tolerance=0.20),
+            StrokeExists("polygon"),
+            StrokeWeightEquals("polygon", weight=1.0, tolerance=1.0),
+            StrokeColorEquals("polygon", expected_rgb=BLACK, tolerance=0.20),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("polygon"),
-            EventTypeCount("create_polygon", equals=6),
-        ]), max_score=0.25),
+            EventTypeCount("create_polygon", equals=4),
+        ], weight=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=20),
 )

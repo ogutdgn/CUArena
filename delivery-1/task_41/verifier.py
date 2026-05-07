@@ -1,60 +1,55 @@
 """
-Task 41 — Search bar (IN SCOPE).
+Task 41 — Search bar (SIMPLIFIED Medium → Easy).
 
-Rounded rectangle bar + magnifying glass icon (circle stroke + diagonal line) + 2 dot placeholders.
+320×48 rounded light-gray bar + magnifying-glass icon (small stroked circle +
+diagonal line) + 1 placeholder dot.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
-from verifier.checks.geometry_checks import LayerIsCircular
-from verifier.checks.fill_checks   import FillTypeIs, LayerHasNoFill
+from verifier.checks.geometry_checks import LayerIsCircular, LayerSizeEquals
+from verifier.checks.fill_checks   import FillTypeIs, SolidColorEquals
+from verifier.checks.stroke_checks import StrokeExists, StrokeWeightEquals
+from verifier.checks.property_checks import CornerRadiusAtLeast
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount, EventTypeCountAtLeast
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+LIGHT_GRAY = {"r": 0.95, "g": 0.95, "b": 0.95}
 
 task = Task(
     id="task_41_search_bar",
-    description="Rounded rectangle bar + magnifying-glass icon (circle + diagonal line) + 2 dot placeholders.",
+    description="320×48 rounded light-gray bar + small magnifier (stroked circle + line) + 1 dot.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
-            ShapeCount("rectangle",   equals=1),
-            ShapeCountAtLeast("ellipse", minimum=3),
-            ShapeCountAtLeast("line",    minimum=1),
-        ]), max_score=0.25),
+        FundamentalsRubric([
+            ShapeCount("rectangle", equals=1),
+            ShapeCountAtLeast("ellipse", minimum=2),
+            ShapeCountAtLeast("line", minimum=1),
+        ], weight=0.25),
 
-        WeightedRubric(AlignmentRubric([
-            LayerHasNoFill(layer_type="ellipse"),
+        AlignmentRubric([
+            LayerSizeEquals(layer_type="rectangle", width=320, height=48, tolerance=12.0),
+            CornerRadiusAtLeast(layer_type="rectangle", min_value=20.0),
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),
-        ]), max_score=0.25),
+        ], weight=0.25),
 
-        WeightedRubric(ColorRubric([
+        ColorRubric([
             FillTypeIs("rectangle", kind="solid"),
-        ]), max_score=0.25),
+            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.15),
+            StrokeExists("ellipse"),
+            StrokeWeightEquals("ellipse", weight=2.0, tolerance=1.0),
+        ], weight=0.25),
 
-        WeightedRubric(EventRubric([
+        EventRubric([
             ToolUsed("rectangle"),
             ToolUsed("ellipse"),
             ToolUsed("line"),
             EventTypeCount("create_rectangle", equals=1),
-            EventTypeCountAtLeast("create_ellipse", minimum=3),
-            EventTypeCountAtLeast("create_line",    minimum=1),
-        ]), max_score=0.25),
+            EventTypeCountAtLeast("create_ellipse", minimum=2),
+            EventTypeCountAtLeast("create_line", minimum=1),
+        ], weight=0.25),
     ],
-    efficiency=EfficiencyRubric(target_turns=40),
+    efficiency=EfficiencyRubric(target_turns=24),
 )

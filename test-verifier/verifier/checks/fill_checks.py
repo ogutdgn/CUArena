@@ -147,7 +147,8 @@ class FillOpacityEquals:
 @dataclass
 class LayersHaveColorOrder:
     """Sorted layers of layer_type have fill colors matching expected_rgbs in order.
-    Sort axis 'x' or 'y' picks the linear direction in which colors progress."""
+    sort_axis: 'x' or 'y' for linear direction; 'size' to sort largest→smallest
+    (useful for concentric layers where x/y all overlap)."""
     layer_type: str
     expected_rgbs: list
     sort_axis: str = "y"
@@ -160,6 +161,8 @@ class LayersHaveColorOrder:
                                message=f"Need exactly {len(self.expected_rgbs)} {self.layer_type}, found {len(layers)}")
         if self.sort_axis == "y":
             ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+        elif self.sort_axis == "size":
+            ordered = sorted(layers, key=lambda l: -(l["w"] * l["h"]))  # largest first
         else:
             ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
         for i, l in enumerate(ordered):
@@ -293,4 +296,35 @@ class DistinctSolidColors:
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"distinct solid colors: expected ≥{self.minimum}, got {len(seen)}",
+        )
+
+
+@dataclass
+class LayersAllSameColor:
+    """Every layer of layer_type shares the same solid fill color (uniformity, not specific RGB)."""
+    layer_type: str
+    fill_index: int = 0
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        ref = None
+        for i, l in enumerate(layers):
+            fills = l.get("fills", [])
+            if self.fill_index >= len(fills) or fills[self.fill_index].get("kind") != "solid":
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"{self.layer_type} #{i} missing solid fill at index {self.fill_index}")
+            c = fills[self.fill_index].get("color", {})
+            rgb = (c.get("r", 0), c.get("g", 0), c.get("b", 0))
+            if ref is None:
+                ref = rgb
+            elif max(abs(rgb[0] - ref[0]), abs(rgb[1] - ref[1]), abs(rgb[2] - ref[2])) > self.tolerance:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"{self.layer_type} #{i} fill differs from #0")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"All {len(layers)} {self.layer_type} share one color",
         )

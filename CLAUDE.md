@@ -66,8 +66,7 @@ project-documents/
 │   └── logging-documentation.md ← full log schema reference (raw/semantic/outcome fields)
 │
 └── verifier-docs/
-    ├── verifier-documentation.md ← verifier design: scoring model, check catalog, rubrics
-    └── verifier-writer.md        ← instructions for AI agents writing task/<id>.py scripts
+    └── verifier-documentation.md ← verifier design + check catalog + task-writing guide (single source of truth)
 ```
 
 **helper/** — reference corpus for Figma feature specs (read via `helper/00-overview.md §7a`).  
@@ -107,7 +106,7 @@ Reference material for Figma feature specs:
 
 Code lives in `test-verifier/`. Setup and usage: `test-verifier/README.md`.
 
-To write a new task verifier script: read `project-documents/verifier-docs/verifier-writer.md` — it has the full check catalog and rules.
+To write a new task verifier script: read `project-documents/verifier-docs/verifier-documentation.md` — §9 has the build flow (composition tree + new-task / extension flows), §8 has the full check catalog, §10 has rules + template.
 
 Run a verifier:
 ```bash
