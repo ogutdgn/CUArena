@@ -6,6 +6,7 @@ import { noopClick } from "./noopClick";
 import { LayersTree } from "@/ui/panels/LayersTree";
 import { useStore } from "@/engine/store";
 import { createPage, switchPage, renamePage, deletePage } from "@/engine/pageCommands";
+import { renameFile } from "@/engine/documentCommands";
 import type { Page } from "@/types/scene";
 
 export function LeftPanel() {
@@ -59,6 +60,17 @@ function LayersHeader() {
 }
 
 function FileNameRow() {
+  const fileName = useStore((s) => s.document.name);
+  const [editing, setEditing] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [editing]);
+
   return (
     <div
       style={{
@@ -70,26 +82,75 @@ function FileNameRow() {
         borderBottom: "1px solid var(--color-border)",
       }}
     >
-      <button
-        data-id="file-menu.open"
-        onClick={(e) => noopClick("file-menu.open", e)}
-        title="File menu — not implemented"
-        style={{
-          flex: 1,
-          height: 24,
-          borderRadius: "var(--radius-sm)",
-          color: "var(--color-text-primary)",
-          textAlign: "left",
-          padding: "0 8px",
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-          fontWeight: 500,
-        }}
-      >
-        Untitled
-        <ChevronDown size={12} style={{ marginLeft: "auto", color: "var(--color-text-secondary)" }} />
-      </button>
+      {editing ? (
+        <input
+          ref={inputRef}
+          data-id="file-name.input"
+          defaultValue={fileName}
+          onBlur={(e) => {
+            renameFile(e.currentTarget.value, "inline_edit");
+            setEditing(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+            else if (e.key === "Escape") setEditing(false);
+          }}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            flex: 1,
+            height: 24,
+            background: "var(--color-bg-input)",
+            color: "var(--color-text-primary)",
+            border: "1px solid var(--color-selection-blue)",
+            borderRadius: "var(--radius-sm)",
+            padding: "0 8px",
+            fontSize: "var(--fs-sm)",
+            fontWeight: 500,
+            outline: 0,
+          }}
+        />
+      ) : (
+        <>
+          <button
+            data-id="file-name.open-edit"
+            onClick={() => setEditing(true)}
+            title="Rename file"
+            style={{
+              flex: 1,
+              height: 24,
+              borderRadius: "var(--radius-sm)",
+              color: "var(--color-text-primary)",
+              textAlign: "left",
+              padding: "0 8px",
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              fontWeight: 500,
+              minWidth: 0,
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+            }}
+          >
+            <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{fileName}</span>
+          </button>
+          <button
+            data-id="file-menu.open"
+            onClick={(e) => noopClick("file-menu.open", e)}
+            title="File menu — not implemented"
+            style={{
+              width: 18,
+              height: 18,
+              borderRadius: 4,
+              display: "grid",
+              placeItems: "center",
+              color: "var(--color-text-secondary)",
+            }}
+          >
+            <ChevronDown size={12} />
+          </button>
+        </>
+      )}
     </div>
   );
 }

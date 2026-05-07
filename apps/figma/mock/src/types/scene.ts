@@ -332,6 +332,7 @@ export interface Page {
 export interface DocumentNode {
   id: string;
   schemaVersion: number;
+  name: string;
   pages: Page[];
 }
 
