@@ -482,7 +482,10 @@ export const moveTool: ITool = {
       for (const id of state.layerIds) {
         const t = state.startTransforms[id];
         if (!t) continue;
-        const newRot = t.rotation + deltaDeg;
+        // Normalize to [0, 360) on commit so the stored rotation matches
+        // what panel input + rotate-90° + the readout display. Without this
+        // a long drag could leave layer.rotation negative or > 360.
+        const newRot = (((t.rotation + deltaDeg) % 360) + 360) % 360;
         after[id] = { ...t, rotation: newRot };
         displayDeg = newRot;
       }
