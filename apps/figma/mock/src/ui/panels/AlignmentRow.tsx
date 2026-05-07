@@ -4,6 +4,7 @@ import {
   alignSelection,
   distributeSelection,
   getSingleSelectionAlignmentContainer,
+  tidySelection,
 } from "@/engine/alignmentCommands";
 import { noopClick } from "@/ui/chrome/noopClick";
 import {
@@ -56,7 +57,7 @@ export function AlignmentRow() {
       <Btn id="alignment.distribute-h" icon={<StretchHorizontal size={14} />} title="Distribute horizontally" disabled={!distrib} disabledHint=" — select 3+ layers" onClick={() => distributeSelection("horizontal")} />
       <Btn id="alignment.distribute-v" icon={<StretchVertical size={14} />} title="Distribute vertically" disabled={!distrib} disabledHint=" — select 3+ layers" onClick={() => distributeSelection("vertical")} />
       <span style={{ flex: 1 }} />
-      <Btn id="alignment.tidy-up" icon={<span style={{ fontSize: 11 }}>⊞</span>} title="Tidy up — not implemented" disabled visualOnly />
+      <Btn id="alignment.tidy-up" icon={<span style={{ fontSize: 11 }}>⊞</span>} title="Tidy up" disabled={layers.length < 2} disabledHint=" — select 2+ layers" onClick={() => tidySelection("panel_button")} />
     </div>
   );
 }
