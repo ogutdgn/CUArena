@@ -113,21 +113,29 @@ function Header({ onPresent }: { onPresent: () => void }) {
       >
         <Play size={14} />
       </button>
+      {/* Share — intentionally inactive in this mock. No click handler, no
+          toast: per Codex review, fully inert (aria-disabled + cursor:not-allowed)
+          gives the right semantics. Visual treatment uses neutral row-hover bg
+          + reduced opacity to read as "disabled" rather than primary action. */}
       <button
         data-id="right-panel.share"
-        onClick={(e) => noopClick("right-panel.share", e)}
-        title="Share — not implemented in this mock"
+        type="button"
+        disabled
+        aria-disabled="true"
+        title="Share — disabled in this mock"
         style={{
           height: 24,
           padding: "0 10px",
           borderRadius: 4,
-          background: "var(--color-selection-blue)",
-          color: "var(--color-text-on-accent)",
+          background: "var(--color-bg-row-hover)",
+          color: "var(--color-text-muted)",
           fontSize: "var(--fs-sm)",
           fontWeight: 600,
           display: "flex",
           alignItems: "center",
           gap: 4,
+          opacity: 0.6,
+          cursor: "not-allowed",
         }}
       >
         <Share2 size={12} />

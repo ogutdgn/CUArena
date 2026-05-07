@@ -37,6 +37,8 @@ export function CanvasView() {
   const pageBg = page
     ? `rgba(${Math.round(page.backgroundColor.r * 255)}, ${Math.round(page.backgroundColor.g * 255)}, ${Math.round(page.backgroundColor.b * 255)}, ${page.backgroundColor.a})`
     : "white";
+  const bgHidden = page?.backgroundHidden === true;
+  const checkerPatternId = "canvas-bg-checker";
 
   function clientToWorld(clientX: number, clientY: number): { x: number; y: number } {
     const el = ref.current;
@@ -201,14 +203,25 @@ export function CanvasView() {
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
-      {/* Backdrop — captures pointer events on empty canvas areas. */}
+      {/* Backdrop — captures pointer events on empty canvas areas. When the
+          page background is hidden (eye toggle in PageSection), render a small
+          checker pattern instead of the page color. */}
+      {bgHidden && (
+        <defs>
+          <pattern id={checkerPatternId} width={16} height={16} patternUnits="userSpaceOnUse">
+            <rect x={0} y={0} width={16} height={16} fill="#2a2a2a" />
+            <rect x={0} y={0} width={8} height={8} fill="#1e1e1e" />
+            <rect x={8} y={8} width={8} height={8} fill="#1e1e1e" />
+          </pattern>
+        </defs>
+      )}
       <rect
         data-id="canvas-backdrop"
         x="0"
         y="0"
         width="100%"
         height="100%"
-        fill={pageBg}
+        fill={bgHidden ? `url(#${checkerPatternId})` : pageBg}
         opacity={1}
       />
 

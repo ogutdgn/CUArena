@@ -265,6 +265,21 @@ export type SemanticEvent =
       targetPageId: string;
       before: { r: number; g: number; b: number; a: number };
       after: { r: number; g: number; b: number; a: number };
+      trigger?: "color_picker" | "hex_input";
+    })
+  | (SemanticEventBase & {
+      name: "set_page_background_opacity";
+      targetPageId: string;
+      before: number;
+      after: number;
+      trigger: "panel_input";
+    })
+  | (SemanticEventBase & {
+      name: "toggle_page_background_hidden";
+      targetPageId: string;
+      before: boolean;
+      after: boolean;
+      trigger: "panel_button";
     })
   | (SemanticEventBase & {
       name: "move_layer";

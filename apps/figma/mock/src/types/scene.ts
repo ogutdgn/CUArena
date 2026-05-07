@@ -319,6 +319,10 @@ export interface Page {
   type: "page";
   name: string;
   backgroundColor: Color;
+  // When true, the canvas backdrop renders a checker pattern instead of the
+  // background color. Independent of `backgroundColor.a` so toggling visibility
+  // doesn't destroy the alpha value.
+  backgroundHidden: boolean;
   children: Layer[];
   prototypeSettings?: PrototypeSettings;
   prototypeFlows?: PrototypeFlow[];
