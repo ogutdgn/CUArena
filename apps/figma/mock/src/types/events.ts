@@ -495,6 +495,27 @@ export type SemanticEvent =
       trigger: "inline_edit" | "file_menu";
     })
   | (SemanticEventBase & {
+      name: "set_polygon_sides";
+      layerIds: string[];
+      before: Record<string, number>;
+      after: Record<string, number>;
+      trigger: "panel_input";
+    })
+  | (SemanticEventBase & {
+      name: "set_star_points";
+      layerIds: string[];
+      before: Record<string, number>;
+      after: Record<string, number>;
+      trigger: "panel_input";
+    })
+  | (SemanticEventBase & {
+      name: "set_star_inner_ratio";
+      layerIds: string[];
+      before: Record<string, number>;
+      after: Record<string, number>;
+      trigger: "panel_input";
+    })
+  | (SemanticEventBase & {
       name: "delete_page";
       targetPageId: string;
       pageIndex: number;
