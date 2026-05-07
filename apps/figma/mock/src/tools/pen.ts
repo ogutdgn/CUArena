@@ -11,6 +11,7 @@ import { uid } from "@/util/id";
 import type { Vector, VectorNetwork, VectorVertex, VectorSegment, Layer } from "@/types/scene";
 import { resolveCreationParentId, worldOffsetOfLayer, worldToParentLocal } from "@/engine/coordinates";
 import { getPenVectorStyleDefaults } from "@/engine/styleDefaults";
+import { countByType } from "./creationBbox";
 
 const CLOSE_HIT_PX = 12;
 const SOFT_HIT_PX = 20;
@@ -392,10 +393,12 @@ function beginNewCreation(world: Point): void {
     segments: [],
     closed: false,
   };
+  const activePage = s.document.pages.find((p) => p.id === pageId);
+  const ordinal = activePage ? countByType(activePage, "vector") + 1 : 1;
   const layer: Vector = {
     id: uid("vector"),
     type: "vector",
-    name: "Vector",
+    name: `Vector ${ordinal}`,
     parentId,
     x: originLocal.x,
     y: originLocal.y,

@@ -11,6 +11,7 @@ import { uid } from "@/util/id";
 import type { Vector, VectorNetwork } from "@/types/scene";
 import { resolveCreationParentId, worldToParentLocal } from "@/engine/coordinates";
 import { getPencilVectorStyleDefaults } from "@/engine/styleDefaults";
+import { countByType } from "./creationBbox";
 
 const SIMPLIFY_EPSILON = 1.5;
 
@@ -107,10 +108,12 @@ export const pencilTool: ITool = {
       : indexedParent && "children" in indexedParent && Array.isArray((indexedParent as { children?: unknown[] }).children)
       ? ((indexedParent as { children: unknown[] }).children).length
       : 0;
+    const activePage = s.document.pages.find((p) => p.id === pageId);
+    const ordinal = activePage ? countByType(activePage, "vector") + 1 : 1;
     const layer: Vector = {
       id: uid("vector"),
       type: "vector",
-      name: "Pencil stroke",
+      name: `Vector ${ordinal}`,
       parentId,
       x: localOrigin.x,
       y: localOrigin.y,
