@@ -26,6 +26,18 @@ import { worldOffsetOfParent, worldRectOfLayer } from "@/engine/coordinates";
 
 const DRAG_THRESHOLD = 3;
 
+interface CandidateRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+interface FrameCacheEntry {
+  id: string;
+  rect: CandidateRect;
+}
+
 type State =
   | { kind: "idle" }
   | {
@@ -60,6 +72,13 @@ type State =
       txId: string;
       isDuplicate: boolean;
       duplicatedIds: string[];
+      // Cached at drag start. Sibling rects don't change during a drag (only
+      // the moving layer moves), and frames don't get added/removed mid-drag,
+      // so it's safe to populate once and reuse on every pointermove. Cuts
+      // the per-frame O(layers × frames) scan that previously caused the
+      // visible jitter (item #11).
+      candidatesCache: CandidateRect[];
+      framesCache: FrameCacheEntry[];
     }
   | {
       kind: "active_handle_drag";
@@ -100,6 +119,28 @@ type State =
     };
 
 let state: State = { kind: "idle" };
+
+// Throttle frame-nesting reparent checks to one per animation frame. Real
+// pointer events fire 60–120Hz; without this the overlap walk thrashes the
+// scene-graph and produces visible jitter.
+let pendingNestingRaf = 0;
+
+function scheduleNestingCheck(): void {
+  if (pendingNestingRaf !== 0) return;
+  pendingNestingRaf = requestAnimationFrame(() => {
+    pendingNestingRaf = 0;
+    if (state.kind === "active_layer_drag") {
+      applyFrameNestingByOverlap(state, state.txId);
+    }
+  });
+}
+
+function flushPendingNesting(): void {
+  if (pendingNestingRaf !== 0) {
+    cancelAnimationFrame(pendingNestingRaf);
+    pendingNestingRaf = 0;
+  }
+}
 
 function getHandleDirFromTarget(e: PointerEvent): HandleDir | null {
   const t = e.target as Element | null;
@@ -353,6 +394,27 @@ export const moveTool: ITool = {
         }
       }
 
+      // Snapshot siblings + frames once for this drag — see State type comment.
+      const liveAfterDup = useStore.getState();
+      const pageAfterDup = getActivePage(liveAfterDup);
+      const movingSet = new Set(activeIds);
+      const candidatesCache: CandidateRect[] = [];
+      const framesCache: FrameCacheEntry[] = [];
+      if (pageAfterDup) {
+        const collect = (arr: Layer[]) => {
+          for (const l of arr) {
+            if (movingSet.has(l.id)) continue;
+            if (!l.visible) continue;
+            const wr = worldRectOfLayer(liveAfterDup, l);
+            const rect = { x: wr.x, y: wr.y, w: wr.w, h: wr.h };
+            candidatesCache.push(rect);
+            if (l.type === "frame") framesCache.push({ id: l.id, rect });
+            if (l.type === "frame" || l.type === "section" || l.type === "group") collect(l.children);
+          }
+        };
+        collect(pageAfterDup.children);
+      }
+
       state = {
         kind: "active_layer_drag",
         layerIds: activeIds,
@@ -363,6 +425,8 @@ export const moveTool: ITool = {
         txId,
         isDuplicate: state.modifiers.alt,
         duplicatedIds,
+        candidatesCache,
+        framesCache,
       };
       this.onPointerMove?.(world, e);
       return;
@@ -474,23 +538,10 @@ export const moveTool: ITool = {
       }
       const movingBbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
 
-      // Collect sibling candidates: layers in active page not being dragged.
+      // Sibling candidates were snapshotted at drag start (see State type).
+      // Avoids the per-pointermove scene walk that produced visible jitter.
       const sLive = useStore.getState();
-      const page = getActivePage(sLive);
-      const candidates: { x: number; y: number; w: number; h: number }[] = [];
-      if (page) {
-        const movingSet = new Set(state.layerIds);
-        const collect = (arr: Layer[]) => {
-          for (const l of arr) {
-            if (movingSet.has(l.id)) continue;
-            if (!l.visible) continue;
-            const wr = worldRectOfLayer(sLive, l);
-            candidates.push({ x: wr.x, y: wr.y, w: wr.w, h: wr.h });
-            if (l.type === "frame" || l.type === "section" || l.type === "group") collect(l.children);
-          }
-        };
-        collect(page.children);
-      }
+      const candidates = state.candidatesCache;
 
       const zoom = (sLive.viewportByPage[sLive.activePageId] ?? { zoom: 1 }).zoom;
       // Skip snap when shift held (shift = constrain to axis; pure raw move).
@@ -533,9 +584,11 @@ export const moveTool: ITool = {
         s.snapLines = snapped.lines;
         s.snapMeasures = snapped.measures;
       });
-      // Re-evaluate nesting continuously while dragging so crossing the
-      // overlap threshold reparents before pointer-up.
-      applyFrameNestingByOverlap(state, state.txId);
+      // Re-evaluate nesting on the next animation frame so crossing the
+      // overlap threshold reparents before pointer-up. rAF coalesces high-rate
+      // pointer events to one check per paint frame; pointer-up forces a flush
+      // so the final classification still lands.
+      scheduleNestingCheck();
       return;
     }
 
@@ -642,6 +695,9 @@ export const moveTool: ITool = {
     }
 
     if (state.kind === "active_layer_drag") {
+      // Cancel any pending rAF nesting check and run it synchronously so the
+      // final classification fires regardless of throttle timing.
+      flushPendingNesting();
       applyFrameNestingByOverlap(state, state.txId);
       commitTransaction(state.txId);
       // Read final transforms post-snap from the live state.
@@ -818,10 +874,9 @@ function applyFrameNestingByOverlap(
     return true;
   });
 
-  const frames: Layer[] = [];
-  walkLayers(page.children, (l) => {
-    if (l.type === "frame") frames.push(l);
-  });
+  // Frame rects were cached at drag start and don't move during the drag, so
+  // skip the scene walk + per-frame world-rect computation.
+  const frames = drag.framesCache;
 
   for (const id of movedRoots) {
     const now = useStore.getState();
@@ -848,20 +903,17 @@ function applyFrameNestingByOverlap(
     let bestRatio = 0;
 
     for (const frame of frames) {
-      const frameNow = now.nodesById[frame.id] as Layer | undefined;
-      if (!frameNow || frameNow.type !== "frame") continue;
-      if (!frameNow.visible) continue;
-      if (frameNow.id === id) continue;
-      if (isAncestor(now, id, frameNow.id)) continue; // don't move into own descendant
-      if (movedSet.has(frameNow.id)) continue; // don't move into simultaneously moved frame
+      if (frame.id === id) continue;
+      if (isAncestor(now, id, frame.id)) continue; // don't move into own descendant
+      if (movedSet.has(frame.id)) continue; // don't move into simultaneously moved frame
 
-      const ratio = overlapRatio(wr, worldRectOfLayer(now, frameNow), area);
+      const ratio = overlapRatio(wr, frame.rect, area);
       if (ratio < 0.5) continue;
-      const depth = depthOf(now, frameNow.id);
+      const depth = depthOf(now, frame.id);
       if (depth > bestDepth || (depth === bestDepth && ratio > bestRatio)) {
         bestDepth = depth;
         bestRatio = ratio;
-        bestFrameId = frameNow.id;
+        bestFrameId = frame.id;
       }
     }
 
