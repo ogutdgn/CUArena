@@ -84,6 +84,16 @@ function pushUndoEntry(entry: UndoEntry): void {
     if (state.undoStack.length > UNDO_STACK_MAX) state.undoStack.shift();
     state.redoStack = [];
   });
+  // Item #15 diagnostic. Lets a live repro distinguish "stack empties at N"
+  // (entries consumed) from "many micro-entries flood the stack" (per-tick
+  // dispatches not batched into transactions). DEV-only so prod builds stay
+  // quiet.
+  if (import.meta.env.DEV) {
+    const ops = entry.ops.map((o) => o.kind).join(",");
+    console.debug(
+      `[undo] push id=${entry.id} ops=${ops} stack=${useStore.getState().undoStack.length}`,
+    );
+  }
 }
 
 export function dispatch(op: Op, opts: DispatchOptions = {}): void {
@@ -137,6 +147,11 @@ export function dispatch(op: Op, opts: DispatchOptions = {}): void {
 export function undo(): void {
   const state = useStore.getState();
   const entry = state.undoStack[state.undoStack.length - 1];
+  if (import.meta.env.DEV) {
+    console.debug(
+      `[undo] invoke stack=${state.undoStack.length} entry=${entry ? entry.id : "(empty)"}`,
+    );
+  }
   if (!entry) return;
   useStore.setState((s) => {
     for (let i = entry.ops.length - 1; i >= 0; i--) {

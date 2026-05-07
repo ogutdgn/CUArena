@@ -8,11 +8,19 @@ import { noopClick } from "@/ui/chrome/noopClick";
 export function ColorPicker({
   value,
   onChange,
+  onChangeStart,
+  onChangeEnd,
   onClose,
   anchor,
 }: {
   value: Color;
   onChange: (c: Color) => void;
+  // Drag-lifecycle hooks for callers that want to wrap continuous slider
+  // drags in a single undo transaction (item #15). Fires once per drag of any
+  // of the three sliders (SV plane, hue, alpha). Optional — callers without
+  // transactions can ignore them and keep the existing per-tick semantics.
+  onChangeStart?: () => void;
+  onChangeEnd?: () => void;
   onClose: () => void;
   anchor: { right: number; top: number };
 }) {
@@ -93,11 +101,19 @@ export function ColorPicker({
       </div>
 
       {/* SV plane */}
-      <SVPlane bg={svBgFromHue} hsv={hsv} onChange={(h) => { setHsv(h); commit(h, alpha); }} />
+      <SVPlane
+        bg={svBgFromHue}
+        hsv={hsv}
+        onDragStart={onChangeStart}
+        onDragEnd={onChangeEnd}
+        onChange={(h) => { setHsv(h); commit(h, alpha); }}
+      />
 
       {/* Hue slider */}
       <HueSlider
         hue={hsv.h}
+        onDragStart={onChangeStart}
+        onDragEnd={onChangeEnd}
         onChange={(h) => {
           const next = { ...hsv, h };
           setHsv(next);
@@ -109,6 +125,8 @@ export function ColorPicker({
       <AlphaSlider
         alpha={alpha}
         baseColor={hsvToRgb(hsv)}
+        onDragStart={onChangeStart}
+        onDragEnd={onChangeEnd}
         onChange={(a) => {
           setAlpha(a);
           commit(hsv, a);
@@ -195,7 +213,19 @@ function PickerTab({ id, label, active }: { id: string; label: string; active?: 
   );
 }
 
-function SVPlane({ bg, hsv, onChange }: { bg: string; hsv: { h: number; s: number; v: number }; onChange: (h: { h: number; s: number; v: number }) => void }) {
+function SVPlane({
+  bg,
+  hsv,
+  onChange,
+  onDragStart,
+  onDragEnd,
+}: {
+  bg: string;
+  hsv: { h: number; s: number; v: number };
+  onChange: (h: { h: number; s: number; v: number }) => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   function update(e: React.PointerEvent | PointerEvent) {
     if (!ref.current) return;
@@ -209,11 +239,14 @@ function SVPlane({ bg, hsv, onChange }: { bg: string; hsv: { h: number; s: numbe
       ref={ref}
       onPointerDown={(e) => {
         e.currentTarget.setPointerCapture(e.pointerId);
+        onDragStart?.();
         update(e.nativeEvent);
       }}
       onPointerMove={(e) => {
         if (e.buttons === 1) update(e.nativeEvent);
       }}
+      onPointerUp={() => onDragEnd?.()}
+      onPointerCancel={() => onDragEnd?.()}
       style={{
         position: "relative",
         height: 130,
@@ -240,7 +273,17 @@ function SVPlane({ bg, hsv, onChange }: { bg: string; hsv: { h: number; s: numbe
   );
 }
 
-function HueSlider({ hue, onChange }: { hue: number; onChange: (h: number) => void }) {
+function HueSlider({
+  hue,
+  onChange,
+  onDragStart,
+  onDragEnd,
+}: {
+  hue: number;
+  onChange: (h: number) => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   function update(e: PointerEvent) {
     if (!ref.current) return;
@@ -253,11 +296,14 @@ function HueSlider({ hue, onChange }: { hue: number; onChange: (h: number) => vo
       ref={ref}
       onPointerDown={(e) => {
         e.currentTarget.setPointerCapture(e.pointerId);
+        onDragStart?.();
         update(e.nativeEvent);
       }}
       onPointerMove={(e) => {
         if (e.buttons === 1) update(e.nativeEvent);
       }}
+      onPointerUp={() => onDragEnd?.()}
+      onPointerCancel={() => onDragEnd?.()}
       style={{
         position: "relative",
         height: 14,
@@ -286,7 +332,19 @@ function HueSlider({ hue, onChange }: { hue: number; onChange: (h: number) => vo
   );
 }
 
-function AlphaSlider({ alpha, baseColor, onChange }: { alpha: number; baseColor: { r: number; g: number; b: number }; onChange: (a: number) => void }) {
+function AlphaSlider({
+  alpha,
+  baseColor,
+  onChange,
+  onDragStart,
+  onDragEnd,
+}: {
+  alpha: number;
+  baseColor: { r: number; g: number; b: number };
+  onChange: (a: number) => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const css = `rgb(${Math.round(baseColor.r * 255)}, ${Math.round(baseColor.g * 255)}, ${Math.round(baseColor.b * 255)})`;
   function update(e: PointerEvent) {
@@ -300,11 +358,14 @@ function AlphaSlider({ alpha, baseColor, onChange }: { alpha: number; baseColor:
       ref={ref}
       onPointerDown={(e) => {
         e.currentTarget.setPointerCapture(e.pointerId);
+        onDragStart?.();
         update(e.nativeEvent);
       }}
       onPointerMove={(e) => {
         if (e.buttons === 1) update(e.nativeEvent);
       }}
+      onPointerUp={() => onDragEnd?.()}
+      onPointerCancel={() => onDragEnd?.()}
       style={{
         position: "relative",
         height: 14,

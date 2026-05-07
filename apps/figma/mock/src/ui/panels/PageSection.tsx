@@ -3,7 +3,7 @@ import { Section } from "./sectionShell";
 import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
 import { ColorPicker, colorToHex, parseHex } from "@/ui/overlays/ColorPicker";
-import { dispatch, makeOpId } from "@/engine/dispatch";
+import { dispatch, makeOpId, openTransaction, commitTransaction } from "@/engine/dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { Eye, EyeOff } from "lucide-react";
 import type { Color } from "@/types/scene";
@@ -21,6 +21,11 @@ export function PageSection() {
   // draft, which fires onBlur — set this flag so blur skips the commit. Using
   // a ref (not state) so it's read synchronously inside the same blur tick.
   const cancelHexRef = useRef(false);
+  // Color-picker drag transaction. Each pointerdown on a slider opens one,
+  // pointerup commits it. All onChange ticks in between dispatch with the
+  // same transactionId so the entire drag becomes a single undo entry. Avoids
+  // the per-tick flooding hypothesis from item #15.
+  const pickerTxRef = useRef<string | null>(null);
   if (!page) return null;
   const c = page.backgroundColor;
   const swatchBg = `rgba(${Math.round(c.r * 255)}, ${Math.round(c.g * 255)}, ${Math.round(c.b * 255)}, ${c.a})`;
@@ -30,16 +35,20 @@ export function PageSection() {
     if (!page) return;
     const before = page.backgroundColor;
     if (before.r === color.r && before.g === color.g && before.b === color.b && before.a === color.a) return;
-    dispatch({
-      id: makeOpId(),
-      timestamp: performance.now(),
-      kind: "set_property",
-      pageId: page.id,
-      ids: [page.id],
-      path: "backgroundColor",
-      before: { [page.id]: { ...before } },
-      after: { [page.id]: { ...color } },
-    });
+    const txId = pickerTxRef.current;
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_property",
+        pageId: page.id,
+        ids: [page.id],
+        path: "backgroundColor",
+        before: { [page.id]: { ...before } },
+        after: { [page.id]: { ...color } },
+      },
+      txId ? { transactionId: txId } : undefined,
+    );
     emitSemantic({
       name: "set_page_background",
       targetPageId: page.id,
@@ -47,6 +56,18 @@ export function PageSection() {
       after: color,
       trigger,
     });
+  }
+
+  function pickerDragStart() {
+    if (pickerTxRef.current != null) return;
+    pickerTxRef.current = openTransaction();
+  }
+
+  function pickerDragEnd() {
+    const id = pickerTxRef.current;
+    if (id == null) return;
+    pickerTxRef.current = null;
+    commitTransaction(id);
   }
 
   function commitOpacity(pct: number) {
@@ -190,7 +211,14 @@ export function PageSection() {
         <ColorPicker
           value={c}
           onChange={(color) => commitBg(color, "color_picker")}
-          onClose={() => setPickerAnchor(null)}
+          onChangeStart={pickerDragStart}
+          onChangeEnd={pickerDragEnd}
+          onClose={() => {
+            // If a drag was still open when the picker closes (rare — e.g.
+            // user clicks outside while holding), force-commit the txn.
+            pickerDragEnd();
+            setPickerAnchor(null);
+          }}
           anchor={pickerAnchor}
         />
       )}
