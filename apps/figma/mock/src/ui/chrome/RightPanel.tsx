@@ -11,6 +11,7 @@ import { PageSection } from "@/ui/panels/PageSection";
 import { PositionSection } from "@/ui/panels/PositionSection";
 import { LayoutSection } from "@/ui/panels/LayoutSection";
 import { AppearanceSection } from "@/ui/panels/AppearanceSection";
+import { ShapeOptionsSection } from "@/ui/panels/ShapeOptionsSection";
 import { TypographySection } from "@/ui/panels/TypographySection";
 import { FillSection } from "@/ui/panels/FillSection";
 import { StrokeSection } from "@/ui/panels/StrokeSection";
@@ -68,6 +69,7 @@ export function RightPanel() {
             <PositionSection />
             <LayoutSection />
             <AppearanceSection />
+            <ShapeOptionsSection />
             <TypographySection />
             <FillSection />
             <StrokeSection />

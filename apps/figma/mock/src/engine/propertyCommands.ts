@@ -542,6 +542,124 @@ export function setEffectColor(effectIndex: number, color: Color) {
   );
 }
 
+// Polygon sides count. Min 3 (geometric minimum for a polygon); max 60
+// mirrors Figma's documented Star cap — Figma doesn't publish a polygon cap,
+// 60 is a reasonable practical bound.
+export function setPolygonSides(value: number) {
+  const v = Math.max(3, Math.min(60, Math.round(value)));
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => l.type === "polygon");
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  const beforeN: Record<string, number> = {};
+  const afterN: Record<string, number> = {};
+  for (const l of layers) {
+    const cur = (l as { sides: number }).sides;
+    if (cur === v) continue;
+    before[l.id] = cur;
+    after[l.id] = v;
+    beforeN[l.id] = cur;
+    afterN[l.id] = v;
+  }
+  if (Object.keys(after).length === 0) return;
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_property",
+    pageId: s.activePageId,
+    ids: Object.keys(after),
+    path: "sides",
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "set_polygon_sides",
+    layerIds: Object.keys(after),
+    before: beforeN,
+    after: afterN,
+    trigger: "panel_input",
+  });
+}
+
+// Star point count. Figma hard cap: 3..60.
+export function setStarPoints(value: number) {
+  const v = Math.max(3, Math.min(60, Math.round(value)));
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => l.type === "star");
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  const beforeN: Record<string, number> = {};
+  const afterN: Record<string, number> = {};
+  for (const l of layers) {
+    const cur = (l as { points: number }).points;
+    if (cur === v) continue;
+    before[l.id] = cur;
+    after[l.id] = v;
+    beforeN[l.id] = cur;
+    afterN[l.id] = v;
+  }
+  if (Object.keys(after).length === 0) return;
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_property",
+    pageId: s.activePageId,
+    ids: Object.keys(after),
+    path: "points",
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "set_star_points",
+    layerIds: Object.keys(after),
+    before: beforeN,
+    after: afterN,
+    trigger: "panel_input",
+  });
+}
+
+// Star inner radius / "ratio". UI shows a percentage (0..100); store keeps 0..1.
+export function setStarInnerRatio(pct: number) {
+  const v = Math.max(0, Math.min(1, pct / 100));
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => l.type === "star");
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  const beforeN: Record<string, number> = {};
+  const afterN: Record<string, number> = {};
+  for (const l of layers) {
+    const cur = (l as { innerRatio: number }).innerRatio;
+    // Compare in displayed-percent space so a focus+blur on the same integer
+    // doesn't burn an undo entry.
+    if (Math.round(cur * 100) === Math.round(v * 100)) continue;
+    before[l.id] = cur;
+    after[l.id] = v;
+    beforeN[l.id] = cur;
+    afterN[l.id] = v;
+  }
+  if (Object.keys(after).length === 0) return;
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_property",
+    pageId: s.activePageId,
+    ids: Object.keys(after),
+    path: "innerRatio",
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "set_star_inner_ratio",
+    layerIds: Object.keys(after),
+    before: beforeN,
+    after: afterN,
+    trigger: "panel_input",
+  });
+}
+
 export function setStrokeColor(strokeIndex: number, color: Color) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => "strokes" in l);
