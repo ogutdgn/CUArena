@@ -1,5 +1,5 @@
 import type { AppState } from "./store";
-import type { Layer, Page } from "@/types/scene";
+import type { Layer, Page, VectorNetwork } from "@/types/scene";
 
 export interface XY {
   x: number;
@@ -93,6 +93,52 @@ export function resolveCreationParentId(state: AppState, world: XY): string {
     if (deep) return deep;
   }
   return pageId;
+}
+
+// Bezier-aware bounding box for a vector network. Without this helper, pen
+// creation only considers vertex coords — curves whose handles extend outside
+// the anchor hull get a bbox that's too small, which is what shows up in the
+// selection overlay for pen-drawn paths (#13). Conservative: uses handle
+// endpoints rather than full cubic-extrema (de Casteljau), which is fine for
+// the common case where curve protrusion is small relative to handle reach.
+export function computeVectorNetworkBounds(network: VectorNetwork): {
+  minX: number;
+  minY: number;
+  maxX: number;
+  maxY: number;
+} {
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const v of network.vertices) {
+    if (v.x < minX) minX = v.x;
+    if (v.y < minY) minY = v.y;
+    if (v.x > maxX) maxX = v.x;
+    if (v.y > maxY) maxY = v.y;
+  }
+  for (const seg of network.segments) {
+    const a = network.vertices[seg.fromIndex];
+    const b = network.vertices[seg.toIndex];
+    if (a && seg.handleFrom) {
+      const hx = a.x + seg.handleFrom.dx;
+      const hy = a.y + seg.handleFrom.dy;
+      if (hx < minX) minX = hx;
+      if (hy < minY) minY = hy;
+      if (hx > maxX) maxX = hx;
+      if (hy > maxY) maxY = hy;
+    }
+    if (b && seg.handleTo) {
+      const hx = b.x + seg.handleTo.dx;
+      const hy = b.y + seg.handleTo.dy;
+      if (hx < minX) minX = hx;
+      if (hy < minY) minY = hy;
+      if (hx > maxX) maxX = hx;
+      if (hy > maxY) maxY = hy;
+    }
+  }
+  if (!Number.isFinite(minX)) return { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+  return { minX, minY, maxX, maxY };
 }
 
 // Walks the layer tree top-down (z-order, last-in-array wins) and returns the
