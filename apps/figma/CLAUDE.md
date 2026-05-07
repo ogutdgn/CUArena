@@ -73,7 +73,7 @@ apps/figma/
 ├── app-docs/                     ALL documentation lives here
 │   ├── feature-checklist.md     ← customer feature list; tick [x] as features ship
 │   ├── execution-map.md         ← wave-by-wave plan + session log (update every session)
-│   ├── bugs-found.md            ← running list of bugs surfaced by audits (Codex/manual review)
+│   ├── mock_improvement_steps.md ← bug fixes + UI improvements + feature updates (single numbering, status-tracked)
 │   ├── mock-doc/                 mock-side technical docs
 │   │   ├── architecture.md      ← mock tech overview (stack, ops, state, folder layout)
 │   │   └── logging-documentation.md ← full log schema reference (raw/semantic/outcome fields)
