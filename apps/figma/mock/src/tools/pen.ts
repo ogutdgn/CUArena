@@ -9,7 +9,7 @@ import { setSelection } from "@/engine/commands";
 import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import type { Vector, VectorNetwork, VectorVertex, VectorSegment, Layer } from "@/types/scene";
-import { resolveCreationParentId, worldOffsetOfLayer, worldToParentLocal } from "@/engine/coordinates";
+import { resolveCreationParentId, worldOffsetOfLayer, worldToParentLocal, computeVectorNetworkBounds } from "@/engine/coordinates";
 import { getPenVectorStyleDefaults } from "@/engine/styleDefaults";
 import { countByType } from "./creationBbox";
 
@@ -162,14 +162,14 @@ function nearestVectorVertex(
 function syncStore(closed: boolean) {
   if (!creation) return;
   if (creation.vertices.length === 0) return;
-  // Update bbox
-  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  for (const v of creation.vertices) {
-    if (v.x < minX) minX = v.x;
-    if (v.y < minY) minY = v.y;
-    if (v.x > maxX) maxX = v.x;
-    if (v.y > maxY) maxY = v.y;
-  }
+  // Bezier-aware bounds: include handle reach so curves that extend past the
+  // vertex hull don't render with a clipped selection bbox (#13).
+  const provisional: VectorNetwork = {
+    vertices: creation.vertices.slice(),
+    segments: creation.segments.slice(),
+    closed,
+  };
+  const { minX, minY, maxX, maxY } = computeVectorNetworkBounds(provisional);
   const shiftX = -minX;
   const shiftY = -minY;
   const after: VectorNetwork = {
