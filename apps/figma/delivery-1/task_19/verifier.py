@@ -53,7 +53,7 @@ task = Task(
             ToolUsed("pen"),
             ToolUsed("ellipse"),
             EventTypeCountAtLeast("create_rectangle", minimum=1),
-            EventTypeCountAtLeast("create_vector", minimum=1),
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1),
             EventTypeCountAtLeast("create_ellipse", minimum=1),
         ]), max_score=0.25),
     ],

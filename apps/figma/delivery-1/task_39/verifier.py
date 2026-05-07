@@ -42,7 +42,7 @@ task = Task(
         WeightedRubric(EventRubric([
             ToolUsed("pen"),
             ToolUsed("ellipse"),
-            EventTypeCountAtLeast("create_vector", minimum=3),
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1),
             EventTypeCount("create_ellipse", equals=1),
         ]), max_score=0.33),
     ],
