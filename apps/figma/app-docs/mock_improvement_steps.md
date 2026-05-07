@@ -268,7 +268,9 @@ Each prompt should be re-read to confirm pen vs pencil before flipping; if any t
 
 Scope: hands-on bugs the user surfaced while running the mock, captured for the round on the `figma/ui-feature-bug` branch. Each entry's root-cause hypothesis is verified in code below; live repro is implied where the symptom needs runtime confirmation.
 
-#### 11. 🔴 P1 — Canvas layer drag is laggy and jumps left/right
+#### 11. ✅ P1 — Canvas layer drag is laggy and jumps left/right
+
+**Status:** Fixed in `9856e93` (2026-05-07). Frame-list and candidate sibling rects are now snapshotted once at drag start; the per-pointermove `applyFrameNestingByOverlap` walk is throttled via `requestAnimationFrame` so it fires at most once per paint frame, with a forced sync flush on pointer-up so the final classification still lands.
 
 **File(s):**
 - `apps/figma/mock/src/tools/move.ts` (`onPointerMove` / `active_layer_drag` branch, `applyFrameNestingByOverlap`)
@@ -284,7 +286,9 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 - Memoize candidate sibling rects (line 478-493) per drag — they don't change while dragging.
 - Verify snap line buffering doesn't allocate per move; `computeSnap` already returns arrays each call (low risk).
 
-#### 12. 🔴 P2 — Frame auto-parent on creation does not nest the new shape
+#### 12. ✅ P2 — Frame auto-parent on creation does not nest the new shape
+
+**Status:** Fixed in `e7acfb8` (2026-05-07). `resolveCreationParentId` now falls back to a depth-first walk for the topmost-z-order visible/unlocked frame|section|group whose world rect contains the cursor when no focus context applies. All creation tools route through this resolver, so the fix propagates uniformly.
 
 **File(s):**
 - `apps/figma/mock/src/tools/creationBbox.ts` (drag-create resolver — needs verification)
@@ -301,7 +305,9 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 - Skip locked / hidden frames.
 - Apply uniformly to all creation tools (rectangle, ellipse, polygon, star, frame, line, arrow, pen, pencil) — they all funnel through `resolveCreationParentId`.
 
-#### 13. 🔴 P2 — Pen-created vector shows wrong selection bounds
+#### 13. ✅ P2 — Pen-created vector shows wrong selection bounds
+
+**Status:** Fixed in `398b79c` (2026-05-07). New `computeVectorNetworkBounds` helper takes Bezier handle endpoints into the bbox math (conservative versus full cubic-extrema), and pen `syncStore` now uses it so curves whose handles extend past the vertex hull get the correct selection rect. Vector-edit-mode resize (#13 follow-up) does not yet re-normalize bounds — flagged as a known follow-up.
 
 **File(s):**
 - `apps/figma/mock/src/tools/pen.ts` `syncStore` (lines 161-256) — bbox tracking during creation.
@@ -321,7 +327,9 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 - After `mutate_vector_network` op applies, dispatch a follow-up set_property to re-tighten `(x, y, w, h)` (via the same approach as pen syncStore — translate vertices so min is 0).
 - Verify with task_07 (mountain range): after drawing a path then selecting it, bbox handles should sit on the visible curve extremes.
 
-#### 14. 🔴 P2 — Vector layers lack auto-numbered "Vector N" naming
+#### 14. ✅ P2 — Vector layers lack auto-numbered "Vector N" naming
+
+**Status:** Fixed in `d0f4fcc` (2026-05-07). Both pen and pencil now name new layers `Vector ${countByType(activePage, "vector") + 1}` using the existing helper. Tool attribution stays in the semantic event (`create_vector_with_pen` vs `create_vector_with_pencil`); the layer name no longer leaks "Pencil stroke" into the panel.
 
 **File(s):**
 - `apps/figma/mock/src/tools/pen.ts` line 398 — `name: "Vector"` (no ordinal).
@@ -337,7 +345,9 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 - Counting by type, not by "all layers", matches Figma's behavior (a fresh polygon among 5 vectors becomes "Polygon 1", not "Layer 6").
 - Verifier check: `TextContent` / `LayerName` checks in `delivery-1/` may rely on either name. Search `delivery-1/` for `"Vector"` and `"Pencil stroke"` literals; update verifier checks if any depend on the old name. Log to `delivery-1_updates.md`.
 
-#### 15. 🔴 P1 — Undo silently stops after a few presses (apparent ~5-entry limit)
+#### 15. 🟡 P1 — Undo silently stops after a few presses (apparent ~5-entry limit)
+
+**Status:** Mitigation shipped in `5b2f7e3` (2026-05-07). ColorPicker exposes onChangeStart/onChangeEnd hooks; PageSection wraps a hue/sat/alpha drag in a single `openTransaction` → many `set_property` ticks → `commitTransaction` so a drag becomes one undo entry. Adds DEV-only `console.debug` at `undo()` and `pushUndoEntry()` so a live repro can distinguish "stack actually empties" from "many micro-entries flood the stack." Other ColorPicker call sites (FillSection, StrokeSection, EffectsSection) keep the old per-tick behavior — wiring them through is a follow-up. Marked 🟡 (in-progress) until live repro confirms the fix or surfaces a different root cause.
 
 **File(s):**
 - `apps/figma/mock/src/engine/dispatch.ts` (`UNDO_STACK_MAX = 1000` on line 10 — limit is correct).
@@ -360,7 +370,9 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 - Add a short developer console log at undo() that prints `undoStack.length` so the user can confirm whether the stack is empty (entries were properly created but consumed) vs the stack never grew (entries weren't created).
 - Live repro session needed to disambiguate.
 
-#### 16. 🔴 P2 — Hover outline draws at canvas top-left for frame children
+#### 16. ✅ P2 — Hover outline draws at canvas top-left for frame children
+
+**Status:** Fixed in `e62093c` (2026-05-07). `HoverOutline` now reads the world-space rect via `worldRectOfLayer` (matching `selectionBbox`) instead of using local layer coords, so the outline tracks ancestor offsets for nested layers.
 
 **File(s):**
 - `apps/figma/mock/src/ui/overlays/HoverOutline.tsx` lines 25-37.
@@ -380,7 +392,9 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 
 ### 2026-05-07 — Right + Left sidebar polish (figma/ui-feature-bug)
 
-#### 17. 🔴 — Right sidebar (no-selection) Page section incomplete + Share button still active
+#### 17. 🟢 — Right sidebar (no-selection) Page section incomplete + Share button still active
+
+**Status:** Shipped in `4f43ba6` (2026-05-07). Page section split into swatch + hex input + opacity % + hide-eye toggle (with `Page.backgroundHidden` driving a checker-pattern backdrop on canvas when hidden). Local-styles + Export sections dropped per user request. Share is now `aria-disabled` with `cursor:not-allowed` and no click handler. New events: `set_page_background_opacity`, `toggle_page_background_hidden`. Existing `set_page_background` event keeps its name and gains an optional `trigger`.
 
 **File(s):**
 - `apps/figma/mock/src/ui/chrome/RightPanel.tsx` lines 60-77 (no-selection branch), 116-135 (Share button).
@@ -412,7 +426,9 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 
 **Verifier impact (delivery-1):** `Page.backgroundColor` is already part of `outcome.document`. Adding `backgroundHidden` extends the outcome shape — verifiers that use it can opt in via a new check primitive (`PageBackgroundHidden`). No existing verifier should break since they don't read the new field. Log to `delivery-1_updates.md` if any check primitives change.
 
-#### 18. 🔴 — Left sidebar lacks "Layers" section header
+#### 18. 🟢 — Left sidebar lacks "Layers" section header
+
+**Status:** Shipped in `e61028b` (2026-05-07). Added a `LayersHeader` row above `<LayersTree />` styled to match the Pages header. Real Figma omits this label; the deviation is intentional (user-requested) and noted in code.
 
 **File(s):**
 - `apps/figma/mock/src/ui/chrome/LeftPanel.tsx` lines 11-36 (root layout).
@@ -439,7 +455,9 @@ The far-left icon column (`LeftRail`) keeps its current inactive `noopClick` beh
 
 ### 2026-05-07 — File rename + Rotation panel + Shape geometry (figma/ui-feature-bug)
 
-#### 19. 🔴 — File rename (Untitled → editable inline)
+#### 19. 🟢 — File rename (Untitled → editable inline)
+
+**Status:** Shipped in `159a6e2` (2026-05-07). Single-click on the file name enters edit mode (Enter/blur commits, Escape cancels, empty trim falls back to "Untitled"). Backed by a new `SetDocumentNameOp` (separate from `set_property` because `DocumentNode` isn't in `nodesById`), added to `UNDOABLE_KINDS`, with apply/inverse handlers. Emits `rename_file` semantic event.
 
 **File(s):**
 - `apps/figma/mock/src/ui/chrome/LeftPanel.tsx` lines 38-72 (`FileNameRow`).
@@ -460,7 +478,9 @@ The far-left icon column (`LeftRail`) keeps its current inactive `noopClick` beh
 
 **Verifier impact:** New optional check primitive `FileNameEquals(expected: str)` for tasks that ask the user to rename. Don't add unless a delivery-1 task needs it; otherwise keep dormant.
 
-#### 20. 🔴 — Rotation panel (4 controls in Position section)
+#### 20. 🟢 — Rotation panel (4 controls in Position section)
+
+**Status:** Shipped in `3918f85` + `7feb73f` (2026-05-07). Position section gains a rotation row with degree input (`((value % 360) + 360) % 360` normalization at commit), Rotate-90° button (new `rotate90Selection` mirroring `flipSelection`, single transaction, one `rotate_layer` event with `panel_button` trigger), and Flip-H / Flip-V buttons reusing `flipSelection` with the new `panel_button` trigger value. Existing keyboard shortcuts (Shift+H/V) and drag-rotate path are unchanged.
 
 **File(s):**
 - `apps/figma/mock/src/ui/panels/PositionSection.tsx` (current panel — adds rotation row).
@@ -484,7 +504,9 @@ The far-left icon column (`LeftRail`) keeps its current inactive `noopClick` beh
 
 **Verifier impact:** Verifiers checking `rotation` property (e.g. a "draw a square rotated 45°" task) should still work. The rotate-90 button only adds to rotation, doesn't change geometry shape. Flip already exists. No verifier breakage expected.
 
-#### 21. 🔴 — Polygon/star sides count + line/arrow as 2-point geometry
+#### 21. 🟢 — Polygon/star sides count + line/arrow as 2-point geometry
+
+**Status:** Shipped across `7960353` (sub 21a, 21b) and `ec3cb2e` (sub 21c, 21d) (2026-05-07). 21a: Polygon `sides` editable via new ShapeOptionsSection (3..60). 21b: Star `points` (3..60) + `innerRatio` (% in UI, 0..1 stored) editable; StarEl renderer drops the legacy `[0.05, 0.95]` clamp so the panel and canvas agree. 21c: SelectionOverlay renders a line stroke + 2 endpoint markers on top of the bbox for single line/arrow selection (visual only — bbox handles stay until 21f ships proper endpoint-drag resize). 21d: hit-test uses point-to-segment distance for line/arrow with a stroke-weight + zoom-aware threshold so selection feels right at any zoom level. New events: `set_polygon_sides`, `set_star_points`, `set_star_inner_ratio`. **Sub-item 21f (line endpoint-drag resize) deferred** — needs a custom move-tool handle path; tracked as a separate follow-up.
 
 **File(s):**
 - `apps/figma/mock/src/types/scene.ts` `Polygon`, `Star`, `Line`, `Arrow` (lines 165-198). Possible `Line.height = 0` invariant.
