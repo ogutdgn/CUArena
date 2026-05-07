@@ -5,8 +5,16 @@ import { uid } from "@/util/id";
 import { PROTOTYPE_DEVICES, findDevice } from "@/util/prototypeDevices";
 import type { Frame, PrototypeFlow, PrototypeConnection, PrototypeTrigger, ScrollBehavior, ScrollPosition } from "@/types/scene";
 import { ChevronDown, Plus, Minus, Monitor, SlidersHorizontal } from "lucide-react";
-import { emitSemantic } from "@/logger/semantic";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
+import {
+  setPrototypeDevice,
+  addPrototypeFlow,
+  removePrototypeFlow,
+  renamePrototypeFlow,
+  deletePrototypeConnection,
+  setLayerOverflowScrolling,
+  setLayerScrollPosition,
+} from "@/engine/prototypeCommands";
 
 // Short display labels for interaction rows (matches Figma's compact format)
 const TRIGGER_SHORT: Record<PrototypeTrigger, string> = {
@@ -41,19 +49,11 @@ export function PrototypePanel() {
   const allFlows = page.prototypeFlows ?? [];
   const frameIds = new Set(page.children.map((c) => c.id));
 
-  // Remove flows whose frame was deleted — do it as a side effect after render
-  const orphanIds = allFlows.filter((f) => !frameIds.has(f.frameId)).map((f) => f.id);
-  if (orphanIds.length > 0) {
-    Promise.resolve().then(() => {
-      useStore.setState((s) => {
-        const p = s.document.pages.find((pg) => pg.id === page.id);
-        if (p?.prototypeFlows) {
-          p.prototypeFlows = p.prototypeFlows.filter((f) => !orphanIds.includes(f.id));
-        }
-      });
-    });
-  }
-
+  // Filter out flows for deleted frames at render time. We deliberately do NOT
+  // mutate the document here — if the parent delete is undone, the original
+  // flow is restored automatically because it was never removed from the
+  // document. (Prior implementations pruned during render via setState; that
+  // either broke React's render contract or destroyed flows undo-irreversibly.)
   const flows = allFlows.filter((f) => frameIds.has(f.frameId));
   const settings = page.prototypeSettings ?? { device: null, backgroundColor: { r: 0.055, g: 0.051, b: 0.051, a: 1 } };
   const allConnections = page.prototypeConnections ?? [];
@@ -99,14 +99,7 @@ function NoSelectionPanel({
 
   function setDevice(id: string | null) {
     setDeviceOpen(false);
-    const before = settings.device;
-    useStore.setState((s) => {
-      const p = s.document.pages.find((pg) => pg.id === pageId);
-      if (!p) return;
-      if (!p.prototypeSettings) p.prototypeSettings = { device: null, backgroundColor: { r: 0.055, g: 0.051, b: 0.051, a: 1 } };
-      p.prototypeSettings.device = id;
-    });
-    emitSemantic({ name: "set_prototype_device", before, after: id });
+    setPrototypeDevice(pageId, id);
   }
 
   return (
@@ -374,56 +367,27 @@ function FramePanel({
     const validFrameIds = new Set((p?.children ?? []).map((c) => c.id));
     const validCount = existing.filter((f) => validFrameIds.has(f.frameId)).length;
     const newFlow: PrototypeFlow = { id: uid("flow"), name: `Flow ${validCount + 1}`, frameId: frame.id };
-    useStore.setState((s) => {
-      const pg = s.document.pages.find((pg) => pg.id === pageId);
-      if (!pg) return;
-      if (!pg.prototypeFlows) pg.prototypeFlows = [];
-      pg.prototypeFlows.push(newFlow);
-    });
-    emitSemantic({ name: "add_prototype_flow", flowId: newFlow.id, flowName: newFlow.name, frameId: frame.id });
+    addPrototypeFlow(pageId, newFlow);
   }
 
   function removeFlow() {
     if (!frameFlow) return;
-    useStore.setState((s) => {
-      const p = s.document.pages.find((pg) => pg.id === pageId);
-      if (!p?.prototypeFlows) return;
-      p.prototypeFlows = p.prototypeFlows.filter((f) => f.id !== frameFlow.id);
-    });
-    emitSemantic({ name: "remove_prototype_flow", flowId: frameFlow.id, frameId: frame.id });
+    removePrototypeFlow(pageId, frameFlow.id);
   }
 
   function renameFlow(newName: string) {
     if (!frameFlow) return;
-    const before = frameFlow.name;
-    useStore.setState((s) => {
-      const p = s.document.pages.find((pg) => pg.id === pageId);
-      const f = p?.prototypeFlows?.find((fl) => fl.id === frameFlow.id);
-      if (f) f.name = newName;
-    });
-    emitSemantic({ name: "rename_prototype_flow", flowId: frameFlow.id, before, after: newName });
+    renamePrototypeFlow(pageId, frameFlow.id, newName);
   }
 
   function deleteConnection(id: string) {
-    const conn = connections.find((c) => c.id === id);
-    if (!conn) return;
-    useStore.setState((s) => {
-      const p = s.document.pages.find((pg) => pg.id === pageId);
-      if (!p?.prototypeConnections) return;
-      p.prototypeConnections = p.prototypeConnections.filter((c) => c.id !== id);
-    });
-    emitSemantic({ name: "delete_prototype_connection", connectionId: id, sourceLayerId: conn.sourceLayerId });
+    deletePrototypeConnection(pageId, id);
   }
 
   const overflow: ScrollBehavior = frame.overflowScrolling ?? "none";
 
   function setOverflow(v: ScrollBehavior) {
-    const before = frame.overflowScrolling ?? "none";
-    useStore.setState((s) => {
-      const node = s.nodesById[frame.id];
-      if (node && node.type === "frame") (node as Frame).overflowScrolling = v;
-    });
-    emitSemantic({ name: "set_overflow_scrolling", layerId: frame.id, before, after: v });
+    setLayerOverflowScrolling(pageId, frame.id, v);
   }
 
   return (
@@ -610,25 +574,11 @@ function ItemPanel({ layer, connections, topFrames, pageId }: {
   const layerConns = connections.filter((c) => c.sourceLayerId === layer.id);
 
   function setPos(v: ScrollPosition) {
-    const before = layer.scrollPosition ?? "scroll_with_parent";
-    useStore.setState((s) => {
-      const node = s.nodesById[layer.id];
-      if (node && (node as import("@/types/scene").Page).type !== "page") {
-        (node as import("@/types/scene").Layer).scrollPosition = v;
-      }
-    });
-    emitSemantic({ name: "set_scroll_position", layerId: layer.id, before, after: v });
+    setLayerScrollPosition(pageId, layer.id, v);
   }
 
   function deleteConnection(id: string) {
-    const conn = connections.find((c) => c.id === id);
-    if (!conn) return;
-    useStore.setState((s) => {
-      const p = s.document.pages.find((pg) => pg.id === pageId);
-      if (!p?.prototypeConnections) return;
-      p.prototypeConnections = p.prototypeConnections.filter((c) => c.id !== id);
-    });
-    emitSemantic({ name: "delete_prototype_connection", connectionId: id, sourceLayerId: conn.sourceLayerId });
+    deletePrototypeConnection(pageId, id);
   }
 
   return (

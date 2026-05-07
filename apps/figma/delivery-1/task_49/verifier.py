@@ -40,7 +40,7 @@ task = Task(
 
         WeightedRubric(EventRubric([
             ToolUsed("pen"),
-            EventTypeCountAtLeast("create_vector", minimum=1),
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1),
         ]), max_score=0.33),
     ],
     efficiency=EfficiencyRubric(target_turns=24),

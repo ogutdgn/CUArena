@@ -1,4 +1,6 @@
 // Editable numeric input with commit on Enter / blur. Supports "Mixed" placeholder.
+// Also supports Figma-style drag-scrub on the icon strip at the left edge: click
+// and drag horizontally to change the value (1px → step; Shift → 10×step).
 
 import { useEffect, useRef, useState } from "react";
 
@@ -21,7 +23,9 @@ export function NumericInput({
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
+  const [scrubbing, setScrubbing] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
+  const scrubStateRef = useRef<{ baseX: number; baseValue: number; lastV: number } | null>(null);
 
   // Sync incoming value when not editing.
   useEffect(() => {
@@ -41,6 +45,45 @@ export function NumericInput({
     setEditing(false);
   }
 
+  function clampValue(v: number): number {
+    if (typeof min === "number") v = Math.max(min, v);
+    if (typeof max === "number") v = Math.min(max, v);
+    return v;
+  }
+
+  function onScrubPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    if (typeof value !== "number") return; // No scrubbing on Mixed.
+    e.preventDefault();
+    e.stopPropagation();
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    scrubStateRef.current = { baseX: e.clientX, baseValue: value, lastV: value };
+    setScrubbing(true);
+  }
+
+  function onScrubPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    const s = scrubStateRef.current;
+    if (!s) return;
+    const factor = e.shiftKey ? 10 : 1;
+    const dx = e.clientX - s.baseX;
+    const next = clampValue(s.baseValue + dx * step * factor);
+    if (next === s.lastV) return;
+    s.lastV = next;
+    // Visual feedback only — show the running value in the input. Don't fire
+    // onCommit per pointermove or every move would push its own undo entry
+    // and inflate the verifier's semantic-event count for a single gesture.
+    setDraft(formatValue(next));
+  }
+
+  function onScrubPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    const s = scrubStateRef.current;
+    if (!s) return;
+    (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    scrubStateRef.current = null;
+    setScrubbing(false);
+    // Single onCommit per gesture; skip when no change.
+    if (s.lastV !== s.baseValue) onCommit(s.lastV);
+  }
+
   return (
     <div
       style={{
@@ -56,6 +99,22 @@ export function NumericInput({
         width,
       }}
     >
+      {/* Drag-scrub strip — narrow, leftmost, cursor ew-resize. Sits before the input
+          so click-to-edit on the input still works; the strip's pointerdown
+          stops propagation so it doesn't bubble into the input/focus path. */}
+      <div
+        onPointerDown={onScrubPointerDown}
+        onPointerMove={onScrubPointerMove}
+        onPointerUp={onScrubPointerUp}
+        style={{
+          width: 6,
+          height: 18,
+          flexShrink: 0,
+          cursor: scrubbing ? "ew-resize" : "ew-resize",
+          touchAction: "none",
+        }}
+        title="Drag to scrub"
+      />
       <input
         ref={ref}
         value={draft}

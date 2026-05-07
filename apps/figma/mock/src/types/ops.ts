@@ -68,6 +68,14 @@ export interface DeleteNodesOp extends OpBase {
   ids: string[];
   // Snapshot for inverse — populated on apply.
   snapshot?: Array<{ node: Layer; parentId: string; indexInParent: number }>;
+  // Per-page snapshot of prototype flows / connections that referenced any of
+  // the deleted ids (so they can be restored on undo). Populated on apply.
+  // `unknown[]` to keep this module flat; ops.ts narrows the types.
+  prototypeSnapshot?: Array<{
+    pageId: string;
+    flowsBefore?: unknown[];
+    connectionsBefore?: unknown[];
+  }>;
 }
 
 export interface SetPropertyOp extends OpBase {

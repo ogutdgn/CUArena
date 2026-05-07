@@ -45,6 +45,7 @@ class LoggerStore {
   rawEvents = new RingBuffer<RawEvent>(RAW_CAPACITY);
   semanticEvents = new RingBuffer<SemanticEvent>(SEMANTIC_CAPACITY);
   private listeners = new Set<() => void>();
+  private clearHooks = new Set<() => void>();
 
   pushRaw(e: RawEvent): void {
     this.rawEvents.push(e);
@@ -67,9 +68,20 @@ class LoggerStore {
     for (const fn of this.listeners) fn();
   }
 
+  // Register a callback invoked when buffers are cleared. Used by semantic.ts
+  // to reset its module-level lastEmittedRawId so a fresh session does not
+  // splice raw-event ids from the previous one.
+  onClear(fn: () => void): () => void {
+    this.clearHooks.add(fn);
+    return () => {
+      this.clearHooks.delete(fn);
+    };
+  }
+
   clear(): void {
     this.rawEvents.clear();
     this.semanticEvents.clear();
+    for (const fn of this.clearHooks) fn();
     this.notify();
   }
 }

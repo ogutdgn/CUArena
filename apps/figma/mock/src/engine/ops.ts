@@ -28,6 +28,7 @@ import type {
 import type { AppState } from "./store";
 import type { Layer, Page } from "@/types/scene";
 import { isContainer } from "@/types/scene";
+import { worldOffsetOfParent } from "./coordinates";
 
 function findNodeInLayers(layers: Layer[], id: string): Layer | null {
   for (const l of layers) {
@@ -168,6 +169,37 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
     const fc = state.focusContextByPage[pageId];
     if (fc && removedIds.has(fc)) state.focusContextByPage[pageId] = null;
   }
+
+  // Drop any prototype flows / connections that referenced deleted nodes, and
+  // snapshot the original arrays so undo restores them. Without this the
+  // exported `outcome.document` keeps stale flows / connections pointing at
+  // ids that no longer exist (visible to verifiers and replay tooling).
+  const protoSnap: NonNullable<DeleteNodesOp["prototypeSnapshot"]> = [];
+  for (const page of state.document.pages) {
+    let entry: { pageId: string; flowsBefore?: unknown[]; connectionsBefore?: unknown[] } | null = null;
+    if (page.prototypeFlows && page.prototypeFlows.length > 0) {
+      const filtered = page.prototypeFlows.filter((f) => !removedIds.has(f.frameId));
+      if (filtered.length !== page.prototypeFlows.length) {
+        entry = entry ?? { pageId: page.id };
+        entry.flowsBefore = [...page.prototypeFlows];
+        page.prototypeFlows = filtered;
+      }
+    }
+    if (page.prototypeConnections && page.prototypeConnections.length > 0) {
+      const filtered = page.prototypeConnections.filter(
+        (c) =>
+          !removedIds.has(c.sourceLayerId) &&
+          !(c.destinationFrameId && removedIds.has(c.destinationFrameId)),
+      );
+      if (filtered.length !== page.prototypeConnections.length) {
+        entry = entry ?? { pageId: page.id };
+        entry.connectionsBefore = [...page.prototypeConnections];
+        page.prototypeConnections = filtered;
+      }
+    }
+    if (entry) protoSnap.push(entry);
+  }
+  if (protoSnap.length > 0) op.prototypeSnapshot = protoSnap;
 }
 
 export function applySetProperty(state: AppState, op: SetPropertyOp): void {
@@ -343,7 +375,12 @@ export function applySetClipboard(state: AppState, op: SetClipboardOp): void {
 }
 
 export function applyReparent(state: AppState, op: ReparentOp): void {
-  // Apply moves in order. For each, remove from current parent, insert into new.
+  // Apply moves in order. For each, remove from current parent, insert into
+  // new — and re-express x/y from the OLD parent's coordinate space into the
+  // NEW parent's coordinate space so the layer's world position is preserved.
+  // Without this, grouping/ungrouping or any cross-parent reparent visually
+  // shifts layers (and corrupts geometry that verifiers read from
+  // `outcome.document`).
   for (const m of op.moves) {
     const layer = findNodeInDocument(state, m.id) as Layer | undefined;
     if (!layer || (layer as unknown as Page).type === "page") continue;
@@ -351,8 +388,17 @@ export function applyReparent(state: AppState, op: ReparentOp): void {
     if (!fromArr) continue;
     const idx = fromArr.findIndex((c) => c.id === m.id);
     if (idx === -1) continue;
+
+    const oldOffset = worldOffsetOfParent(state, m.fromParentId);
+    const worldX = layer.x + oldOffset.x;
+    const worldY = layer.y + oldOffset.y;
+
     fromArr.splice(idx, 1);
     insertIntoTree(state, layer, m.toParentId, m.toIndex);
+
+    const newOffset = worldOffsetOfParent(state, m.toParentId);
+    layer.x = worldX - newOffset.x;
+    layer.y = worldY - newOffset.y;
   }
 }
 
@@ -449,6 +495,18 @@ export function applyInverse(state: AppState, op: Op): void {
       if (op.snapshot) {
         for (const s of op.snapshot) {
           insertIntoTree(state, s.node, s.parentId, s.indexInParent);
+        }
+      }
+      if (op.prototypeSnapshot) {
+        for (const entry of op.prototypeSnapshot) {
+          const page = state.document.pages.find((p) => p.id === entry.pageId);
+          if (!page) continue;
+          if (entry.flowsBefore !== undefined) {
+            page.prototypeFlows = entry.flowsBefore as typeof page.prototypeFlows;
+          }
+          if (entry.connectionsBefore !== undefined) {
+            page.prototypeConnections = entry.connectionsBefore as typeof page.prototypeConnections;
+          }
         }
       }
       break;

@@ -1,6 +1,11 @@
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
-import { alignSelection, distributeSelection } from "@/engine/alignmentCommands";
+import {
+  alignSelection,
+  distributeSelection,
+  getSingleSelectionAlignmentContainer,
+  tidySelection,
+} from "@/engine/alignmentCommands";
 import { noopClick } from "@/ui/chrome/noopClick";
 import {
   AlignStartVertical,
@@ -14,10 +19,21 @@ import {
 } from "lucide-react";
 
 export function AlignmentRow() {
-  const layers = useStore((s) => getSelectedLayers(s));
+  const state = useStore((s) => s);
+  const layers = getSelectedLayers(state);
   if (layers.length === 0) return null;
-  const multi = layers.length >= 2;
+
+  // Align is enabled when 2+ layers are selected, OR when a single layer
+  // sits inside a non-page container (frame/group/section) — in which case
+  // alignment targets the container's bounds.
+  const singleContainer = getSingleSelectionAlignmentContainer(state, layers);
+  const canAlign = layers.length >= 2 || singleContainer !== null;
   const distrib = layers.length >= 3;
+  const alignDisabledHint = layers.length >= 2
+    ? undefined
+    : singleContainer
+    ? undefined
+    : " — select 2+ layers, or one layer inside a frame/group";
 
   return (
     <div
@@ -30,18 +46,18 @@ export function AlignmentRow() {
         borderBottom: "1px solid var(--color-border)",
       }}
     >
-      <Btn id="alignment.left" icon={<AlignStartVertical size={14} />} title="Align left" disabled={!multi} onClick={() => alignSelection("left")} />
-      <Btn id="alignment.center-x" icon={<AlignCenterVertical size={14} />} title="Align center horizontal" disabled={!multi} onClick={() => alignSelection("center-x")} />
-      <Btn id="alignment.right" icon={<AlignEndVertical size={14} />} title="Align right" disabled={!multi} onClick={() => alignSelection("right")} />
+      <Btn id="alignment.left" icon={<AlignStartVertical size={14} />} title="Align left" disabled={!canAlign} disabledHint={alignDisabledHint} onClick={() => alignSelection("left")} />
+      <Btn id="alignment.center-x" icon={<AlignCenterVertical size={14} />} title="Align center horizontal" disabled={!canAlign} disabledHint={alignDisabledHint} onClick={() => alignSelection("center-x")} />
+      <Btn id="alignment.right" icon={<AlignEndVertical size={14} />} title="Align right" disabled={!canAlign} disabledHint={alignDisabledHint} onClick={() => alignSelection("right")} />
       <Sep />
-      <Btn id="alignment.top" icon={<AlignStartHorizontal size={14} />} title="Align top" disabled={!multi} onClick={() => alignSelection("top")} />
-      <Btn id="alignment.center-y" icon={<AlignCenterHorizontal size={14} />} title="Align center vertical" disabled={!multi} onClick={() => alignSelection("center-y")} />
-      <Btn id="alignment.bottom" icon={<AlignEndHorizontal size={14} />} title="Align bottom" disabled={!multi} onClick={() => alignSelection("bottom")} />
+      <Btn id="alignment.top" icon={<AlignStartHorizontal size={14} />} title="Align top" disabled={!canAlign} disabledHint={alignDisabledHint} onClick={() => alignSelection("top")} />
+      <Btn id="alignment.center-y" icon={<AlignCenterHorizontal size={14} />} title="Align center vertical" disabled={!canAlign} disabledHint={alignDisabledHint} onClick={() => alignSelection("center-y")} />
+      <Btn id="alignment.bottom" icon={<AlignEndHorizontal size={14} />} title="Align bottom" disabled={!canAlign} disabledHint={alignDisabledHint} onClick={() => alignSelection("bottom")} />
       <Sep />
-      <Btn id="alignment.distribute-h" icon={<StretchHorizontal size={14} />} title="Distribute horizontally" disabled={!distrib} onClick={() => distributeSelection("horizontal")} />
-      <Btn id="alignment.distribute-v" icon={<StretchVertical size={14} />} title="Distribute vertically" disabled={!distrib} onClick={() => distributeSelection("vertical")} />
+      <Btn id="alignment.distribute-h" icon={<StretchHorizontal size={14} />} title="Distribute horizontally" disabled={!distrib} disabledHint=" — select 3+ layers" onClick={() => distributeSelection("horizontal")} />
+      <Btn id="alignment.distribute-v" icon={<StretchVertical size={14} />} title="Distribute vertically" disabled={!distrib} disabledHint=" — select 3+ layers" onClick={() => distributeSelection("vertical")} />
       <span style={{ flex: 1 }} />
-      <Btn id="alignment.tidy-up" icon={<span style={{ fontSize: 11 }}>⊞</span>} title="Tidy up — not implemented" disabled visualOnly />
+      <Btn id="alignment.tidy-up" icon={<span style={{ fontSize: 11 }}>⊞</span>} title="Tidy up" disabled={layers.length < 2} disabledHint=" — select 2+ layers" onClick={() => tidySelection("panel_button")} />
     </div>
   );
 }
@@ -55,6 +71,7 @@ function Btn({
   icon,
   title,
   disabled,
+  disabledHint,
   onClick,
   visualOnly,
 }: {
@@ -62,13 +79,14 @@ function Btn({
   icon: React.ReactNode;
   title: string;
   disabled?: boolean;
+  disabledHint?: string;
   onClick?: () => void;
   visualOnly?: boolean;
 }) {
   return (
     <button
       data-id={id}
-      title={disabled ? title + (visualOnly ? "" : " — select 2+ layers") : title}
+      title={disabled ? title + (visualOnly ? "" : (disabledHint ?? "")) : title}
       disabled={!!disabled}
       onClick={(e) => {
         if (visualOnly || disabled) {
