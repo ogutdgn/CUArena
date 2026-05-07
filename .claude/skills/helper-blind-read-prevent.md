@@ -1,6 +1,6 @@
 ---
 name: helper-blind-read-prevent
-description: Use before reading any file under apps/<app>/helper/. Enforces the "go through 00-overview.md first" rule so agents do not waste context on raw research material or miss critical scope/status flags.
+description: Use before reading any file under apps/<app>/app-docs/helper/. Enforces the "go through 00-overview.md first" rule so agents do not waste context on raw research material or miss critical scope/status flags.
 ---
 
 # Don't Read Helper Blind
@@ -9,7 +9,7 @@ description: Use before reading any file under apps/<app>/helper/. Enforces the 
 
 ## The rule
 
-Before reading any file under `apps/<app>/helper/` (other than `00-overview.md` itself), open `apps/<app>/helper/00-overview.md` first.
+Before reading any file under `apps/<app>/app-docs/helper/` (other than `00-overview.md` itself), open `apps/<app>/app-docs/helper/00-overview.md` first.
 
 ## Why
 
@@ -21,7 +21,7 @@ The helper corpus is large (figma's is hundreds of files). Reading it without th
 
 ## Procedure
 
-1. Read `apps/<app>/helper/00-overview.md` end to end (or at least §7 "artifact map" + §7a "workflows" + the question-routing table at the end of §7a).
+1. Read `apps/<app>/app-docs/helper/00-overview.md` end to end (or at least §7 "artifact map" + §7a "workflows" + the question-routing table at the end of §7a).
 2. Identify which workflow applies (implementing a feature, adding UI, handling a VO click, looking up a feature).
 3. Follow the workflow's prescribed file order.
 4. Only then open specific helper files.

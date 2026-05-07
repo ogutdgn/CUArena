@@ -33,13 +33,18 @@ __exportLog()   // downloads figma-mock-log-<sessionId>.json
 ## Run the verifier
 
 ```bash
-cd verifier
+# One-time setup (from apps/figma/)
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python run.py --task house_task --log logs/house_sample.json
+.venv/Scripts/pip install -r requirements.txt   # .venv/bin/pip on Unix
+
+# Score an existing log against any of the 50 delivery-1 tasks
+.venv/Scripts/python scripts/score_log.py --task 01 --log scripts/logs/house_sample.json
+
+# Or full pipeline: live log + score (requires mock running on :5173)
+.venv/Scripts/python scripts/run_task.py task_01
 ```
 
-Score is auto-saved to `verifier/scores/<task_id>_<timestamp>.json`.
+Score is auto-saved to `scripts/scores/<task>_<timestamp>.json`.
 
 ---
 
@@ -51,27 +56,35 @@ CUA agent interacts with mock
 mock exports: figma-mock-log-<sessionId>.json
   { raw[], semantic[], outcome{} }
         ↓
-verifier reads the log
+scripts/run_task.py loads delivery-1/task_NN/verifier.py + log
   checks outcome.document → did the right shapes end up on canvas?
   checks semantic[]       → how many turns did it take?
         ↓
-scores/<task_id>_<timestamp>.json
+scripts/scores/<task>_<timestamp>.json
 ```
 
 ---
 
 ## Documentation
 
+All docs now live under [`app-docs/`](app-docs/):
+
 ```
-apps/figma/
-├── app-docs/
-│   ├── feature-checklist.md      ← customer feature list; tick [x] as features ship
-│   ├── execution-map.md          ← session log (top) + pending waves (bottom)
-│   ├── architecture.md           ← mock stack, ops, state buckets, folder layout
+apps/figma/app-docs/
+├── feature-checklist.md      ← customer feature list; tick [x] as features ship
+├── execution-map.md          ← session log (top) + pending waves (bottom)
+├── bugs-found.md             ← running list of bugs surfaced by audits
+├── mock-doc/
+│   ├── architecture.md       ← mock stack, ops, state buckets, folder layout
 │   └── logging-documentation.md  ← full log schema (raw/semantic/outcome fields)
-└── verifier-docs/
-    ├── verifier-documentation.md  ← scoring model, check catalog, rubrics, CLI
-    └── verifier-writer.md         ← instructions for writing tasks/<id>.py verifier scripts
+├── verifier-doc/
+│   ├── verifier-documentation.md  ← scoring model, check catalog, rubrics, CLI
+│   ├── verifier-writer.md         ← instructions for writing per-task verifier.py scripts
+│   └── tasks.csv                  ← 50-task scope/status table
+├── scripts-doc/
+│   ├── README.md             ← scripts/ flow diagram + step-by-step usage
+│   └── best-practices.md     ← export-approach trade-offs + migration notes
+└── helper/                   ← Figma feature spec corpus (read 00-overview.md first)
 ```
 
 Agent instructions (session workflow, reference map, feature↔check relationship): [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md). Repo-root context: [`../../CLAUDE.md`](../../CLAUDE.md), [`../../overview/`](../../overview/).
@@ -80,13 +93,13 @@ Agent instructions (session workflow, reference map, feature↔check relationshi
 
 ## Reference material (Figma feature specs)
 
-[`helper/`](helper/) holds the documentation corpus. Three entry points cover almost every task:
+[`app-docs/helper/`](app-docs/helper/) holds the documentation corpus. Three entry points cover almost every task:
 
-- [`helper/00-overview.md`](helper/00-overview.md) — project scope, principles, agent workflows (§7a)
-- [`helper/01-ui-schema-extraction.md`](helper/01-ui-schema-extraction.md) — UI regions, state matrix, color picker
-- [`helper/02-feature-research.md`](helper/02-feature-research.md) — ~250 feature specs across 34 categories
+- [`app-docs/helper/00-overview.md`](app-docs/helper/00-overview.md) — project scope, principles, agent workflows (§7a)
+- [`app-docs/helper/01-ui-schema-extraction.md`](app-docs/helper/01-ui-schema-extraction.md) — UI regions, state matrix, color picker
+- [`app-docs/helper/02-feature-research.md`](app-docs/helper/02-feature-research.md) — ~250 feature specs across 34 categories
 
-Do not read `helper/figma_docs/` or `helper/analysis/` directly — navigate through the entry points above.
+Do not read `app-docs/helper/figma_docs/` or `app-docs/helper/analysis/` directly — navigate through the entry points above.
 
 ---
 
@@ -97,12 +110,12 @@ apps/figma/
 ├── CLAUDE.md                 # Agent guide for this app
 ├── AGENTS.md                 # Mirror of CLAUDE.md (Codex / other tooling)
 ├── README.md                 # This file
-├── app-docs/                 # mock-side docs (architecture, feature-checklist, logging)
-├── verifier-docs/            # verifier-side docs (rubrics, check catalog, writer guide)
+├── requirements.txt          # Python deps (pyyaml — verifier/config.py needs it)
+├── .venv/                    # Python venv (gitignored)
+├── app-docs/                 # ALL documentation (feature lists + mock-doc/ + verifier-doc/ + scripts-doc/ + helper/)
 ├── mock/                     # The figma mock (Vite + React + TS)
-├── verifier/                 # The verifier framework (Python)
-├── helper/                   # Figma feature spec corpus + analysis
-├── scripts/                  # Log export / pipeline scripts
-├── cua-eval/                 # 50-task CSV + builder guide
-└── delivery-1/               # Per-task delivery package (50 prompt+verifier folders)
+├── verifier/                 # The verifier framework — Python library only (checks, rubrics, types)
+├── delivery-1/               # 50-task source of truth (prompt.md + verifier.py per task)
+├── scripts/                  # CLI entry-points (run_task / score_log / qa_verifiers) + logs/scores output
+└── cua-eval/                 # 50-task CSV + builder guide
 ```

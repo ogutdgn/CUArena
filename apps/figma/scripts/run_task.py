@@ -4,58 +4,72 @@ run_task.py — Export the current session log and (optionally) run a verifier t
 
 Usage:
   python scripts/run_task.py task_01                            # full pipeline (export + score)
-  python scripts/run_task.py task_01_house_task_comprehensive   # full name also works
+  python scripts/run_task.py 1                                  # numeric prefix also works
   python scripts/run_task.py export-log                         # export only, no scoring
   python scripts/run_task.py export-log task_01                 # export only, prefix filename with task
 
-Requires the verifier's dependencies (pyyaml). The simplest way is to invoke
-this script with the verifier venv's python:
-  verifier/.venv/Scripts/python scripts/run_task.py task_01
+Loads task verifiers from delivery-1/task_NN/verifier.py (single source of truth).
+Saves logs to scripts/logs/, scores to scripts/scores/.
+
+Run with the verifier venv's python (it has pyyaml):
+  ../.venv/Scripts/python scripts/run_task.py task_01
 """
 
 import argparse
 import dataclasses
-import importlib
+import importlib.util
 import json
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
 from urllib.request import urlopen
 from urllib.error import URLError
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-TEST_VERIFIER = REPO_ROOT / "verifier"
-TASKS_DIR = TEST_VERIFIER / "tasks"
-LOGS_DIR = TEST_VERIFIER / "logs"
-SCORES_DIR = TEST_VERIFIER / "scores"
+APP_ROOT     = Path(__file__).resolve().parent.parent       # apps/figma/
+SCRIPTS_DIR  = Path(__file__).resolve().parent              # apps/figma/scripts/
+DELIVERY_DIR = APP_ROOT / "delivery-1"
+LOGS_DIR     = SCRIPTS_DIR / "logs"
+SCORES_DIR   = SCRIPTS_DIR / "scores"
 
-sys.path.insert(0, str(TEST_VERIFIER))
+# Make `from verifier... import ...` work inside delivery-1/task_NN/verifier.py
+sys.path.insert(0, str(APP_ROOT))
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 
-def list_task_modules() -> list[str]:
-    return sorted(p.stem for p in TASKS_DIR.glob("*.py") if p.stem != "__init__")
+def list_task_dirs() -> list[Path]:
+    return sorted(p for p in DELIVERY_DIR.glob("task_*") if (p / "verifier.py").is_file())
 
 
-def resolve_task(name: str) -> str:
-    modules = list_task_modules()
-    if not modules:
-        raise SystemExit(f"No task files found in {TASKS_DIR}")
+def resolve_task(name: str) -> Path:
+    """Accept full 'task_NN', short 'NN' / 'N'. Returns task dir under delivery-1/."""
+    dirs = list_task_dirs()
+    if not dirs:
+        raise SystemExit(f"No task verifiers found in {DELIVERY_DIR}")
 
-    if name in modules:
-        return name
+    if name.isdigit():
+        target = f"task_{name.zfill(2)}"
+    else:
+        target = name
 
-    prefix_matches = [m for m in modules if m.startswith(name + "_")]
-    if len(prefix_matches) == 1:
-        return prefix_matches[0]
-    if len(prefix_matches) > 1:
-        listing = "\n  ".join(prefix_matches)
-        raise SystemExit(f"Ambiguous task name '{name}'. Matches:\n  {listing}")
+    for d in dirs:
+        if d.name == target:
+            return d
 
-    listing = "\n  ".join(modules)
-    raise SystemExit(f"No task matching '{name}'. Available tasks:\n  {listing}")
+    listing = "\n  ".join(d.name for d in dirs)
+    raise SystemExit(f"No task matching '{name}'. Available:\n  {listing}")
+
+
+def load_task(task_dir: Path):
+    verifier_py = task_dir / "verifier.py"
+    spec = importlib.util.spec_from_file_location(f"delivery_{task_dir.name}", verifier_py)
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"Cannot load {verifier_py}")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.task
 
 
 def fetch_log(port: int) -> dict:
@@ -85,37 +99,48 @@ def save_log(log: dict, prefix: str) -> Path:
     return path
 
 
-def print_log_summary(log: dict, path: Path) -> None:
-    sem = len(log.get("semantic", []))
-    raw = len(log.get("raw", []))
+def print_log_details(log: dict, path: Path) -> None:
+    sem = log.get("semantic", []) or []
+    raw = log.get("raw", []) or []
+    outcome = log.get("outcome", {}) or {}
+    counts = (outcome.get("summary", {}) or {}).get("shapeCounts", {}) or {}
+
     print(f"\n✓ Log saved → {path}")
     print(f"  sessionId : {log.get('sessionId', '?')}")
-    print(f"  semantic  : {sem} events")
-    print(f"  raw       : {raw} events")
+    print(f"  raw       : {len(raw)} events")
+    print(f"  semantic  : {len(sem)} events")
+    if counts:
+        joined = ", ".join(f"{k}={v}" for k, v in sorted(counts.items()))
+        print(f"  shapes    : {joined}")
+    if sem:
+        head = sem[:8]
+        tail = sem[-5:] if len(sem) > 13 else []
+        print("  semantic head:")
+        for ev in head:
+            print(f"    • {_fmt_event(ev)}")
+        if tail:
+            print(f"    … (+{len(sem) - len(head) - len(tail)} more) …")
+            for ev in tail:
+                print(f"    • {_fmt_event(ev)}")
 
 
-def run_verifier(task_module: str, log_path: Path):
-    try:
-        import yaml  # noqa: F401
-    except ImportError:
-        venv_python = TEST_VERIFIER / ".venv" / "Scripts" / "python.exe"
-        print("\nMissing dependency 'pyyaml' (needed by the verifier).", file=sys.stderr)
-        print(f"Run this script with the verifier venv's python instead:", file=sys.stderr)
-        print(f"  {venv_python} scripts/run_task.py ...", file=sys.stderr)
-        sys.exit(1)
+def _fmt_event(ev: dict) -> str:
+    name = ev.get("name", "?")
+    extra = {k: v for k, v in ev.items() if k not in ("name", "timestamp", "ts")}
+    if extra:
+        return f"{name}  {json.dumps(extra, default=str)[:80]}"
+    return name
 
+
+def score_log(task, log_path: Path):
     from verifier.loader import load_log
+    from verifier.types import TaskResult
 
-    mod = importlib.import_module(f"tasks.{task_module}")
-    task = mod.task
     log = load_log(str(log_path))
-
     rubric_results = [r.run(log) for r in task.rubrics]
     efficiency = task.efficiency.run(log)
     base_score = round(sum(r.score for r in rubric_results), 4)
     final_score = round(base_score * efficiency.multiplier, 4)
-
-    from verifier.types import TaskResult
     return TaskResult(
         task_id=task.id,
         log_path=str(log_path),
@@ -144,43 +169,45 @@ def print_result(result) -> None:
     print()
 
 
-def save_result(result) -> Path:
+def save_result(result, task_dir: Path) -> Path:
     SCORES_DIR.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = SCORES_DIR / f"{result.task_id}_{ts}.json"
+    path = SCORES_DIR / f"{task_dir.name}_{ts}.json"
     with open(path, "w", encoding="utf-8") as f:
         json.dump(dataclasses.asdict(result), f, indent=2)
     return path
 
 
 def cmd_full_pipeline(task_input: str, port: int) -> None:
-    task_module = resolve_task(task_input)
-    if task_module != task_input:
-        print(f"Resolved '{task_input}' → {task_module}")
+    task_dir = resolve_task(task_input)
+    if task_dir.name != task_input:
+        print(f"Resolved '{task_input}' → {task_dir.name}")
+
+    task = load_task(task_dir)
 
     print(f"Fetching log from http://localhost:{port}/dev-log …")
     log = fetch_log(port)
-    log_path = save_log(log, task_module)
-    print_log_summary(log, log_path)
+    log_path = save_log(log, task_dir.name)
+    print_log_details(log, log_path)
 
-    result = run_verifier(task_module, log_path)
+    result = score_log(task, log_path)
     print_result(result)
-    score_path = save_result(result)
+    score_path = save_result(result, task_dir)
     print(f"Score saved → {score_path}")
 
 
 def cmd_export_only(task_input: str | None, port: int) -> None:
     prefix = "log"
     if task_input:
-        task_module = resolve_task(task_input)
-        if task_module != task_input:
-            print(f"Resolved '{task_input}' → {task_module}")
-        prefix = task_module
+        task_dir = resolve_task(task_input)
+        if task_dir.name != task_input:
+            print(f"Resolved '{task_input}' → {task_dir.name}")
+        prefix = task_dir.name
 
     print(f"Fetching log from http://localhost:{port}/dev-log …")
     log = fetch_log(port)
     log_path = save_log(log, prefix)
-    print_log_summary(log, log_path)
+    print_log_details(log, log_path)
 
 
 def main() -> None:
@@ -190,12 +217,12 @@ def main() -> None:
         epilog=(
             "Examples:\n"
             "  python scripts/run_task.py task_01\n"
-            "  python scripts/run_task.py task_01_house_task_comprehensive\n"
+            "  python scripts/run_task.py 1\n"
             "  python scripts/run_task.py export-log\n"
             "  python scripts/run_task.py export-log task_01"
         ),
     )
-    parser.add_argument("target", help="task name (e.g. 'task_01') or the literal 'export-log'")
+    parser.add_argument("target", help="task name (e.g. 'task_01' or '1') or the literal 'export-log'")
     parser.add_argument("task", nargs="?", help="optional task name after 'export-log' (used as filename prefix)")
     parser.add_argument("--port", type=int, default=5173, help="Vite dev server port (default 5173)")
     args = parser.parse_args()

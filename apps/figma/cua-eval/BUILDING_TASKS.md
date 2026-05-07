@@ -7,7 +7,8 @@ A complete task is two artifacts:
 | Artifact | Where it lives | Purpose |
 |---|---|---|
 | **CSV row** | `cua-eval/figma_tasks_WIP.csv` | Task spec: prompt the agent sees + step-by-step + time horizon |
-| **Verifier file** | `verifier/tasks/<task_name>.py` | Python file that scores agent runs |
+| **Verifier file** | `delivery-1/task_NN/verifier.py` | Python file that scores agent runs |
+| **Prompt file**   | `delivery-1/task_NN/prompt.md`   | Prompt + step-by-step the agent sees |
 
 The agent only ever sees the CSV's `Simplified Prompt` column. Everything else is for us: design context, time-budgeting, and verifier construction.
 
@@ -93,7 +94,7 @@ If you only need 4 rubrics, set each `max_score=0.25` instead of `0.20`. If 3 ru
 
 ## Step 4 — Write the verifier file
 
-Copy the template into `verifier/tasks/<task_name>.py`:
+Copy the template into `delivery-1/task_NN/verifier.py`:
 
 ```python
 """
@@ -193,7 +194,7 @@ Iterate:
 
 ## Check catalog
 
-What's available in `verifier/verifier/checks/`:
+What's available in `verifier/checks/`:
 
 ### Shape checks (`shape_checks.py`)
 - `ShapeCount(layer_type, equals)` — exact count of a shape type
@@ -269,7 +270,7 @@ class MyCustomCheck:
                            message="<human-readable result>")
 ```
 
-If the check is reusable across tasks, contribute it back to `verifier/verifier/checks/<category>.py` so the next task can import it.
+If the check is reusable across tasks, contribute it back to `verifier/checks/<category>.py` so the next task can import it.
 
 ---
 
@@ -292,9 +293,9 @@ If the check is reusable across tasks, contribute it back to `verifier/verifier/
 | Event | `ToolUsed(rectangle/ellipse/polygon)`, `EventTypeCount(create_rectangle, 2)`, etc. | Right tools used; right shapes created |
 | Efficiency | `target_turns=30` | 10-min task ≈ 30 turns |
 
-**File**: `verifier/tasks/house_task_comprehensive.py` (~70 lines, see file).
+**File**: `delivery-1/task_01/verifier.py` (~70 lines, see file).
 
-**Run**: `python run.py --task house_task_comprehensive --log logs/house_sample.json` → produces 5-rubric breakdown × efficiency multiplier in `[0, 1]`.
+**Run** (from `apps/figma/`): `.venv/Scripts/python scripts/score_log.py --task 01 --log scripts/logs/house_sample.json` → produces 5-rubric breakdown × efficiency multiplier in `[0, 1]`.
 
 ---
 
@@ -313,7 +314,7 @@ If the check is reusable across tasks, contribute it back to `verifier/verifier/
 
 ```bash
 # Add a CSV row, then:
-cp verifier/tasks/house_task_comprehensive.py verifier/tasks/<task_name>.py
+mkdir delivery-1/task_NN && cp delivery-1/task_01/verifier.py delivery-1/task_NN/verifier.py
 # edit imports, rubric contents, target_turns
 
 # Test:
