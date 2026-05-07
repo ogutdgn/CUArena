@@ -137,6 +137,7 @@ const initialPage = createDefaultPage();
 const initialDoc: DocumentNode = {
   id: uid("doc"),
   schemaVersion: 1,
+  name: "Untitled",
   pages: [initialPage],
 };
 

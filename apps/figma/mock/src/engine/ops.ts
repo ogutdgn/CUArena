@@ -16,6 +16,7 @@ import type {
   SetToolOp,
   SetEditModeOp,
   SetClipboardOp,
+  SetDocumentNameOp,
   ReparentOp,
   ReorderZOp,
   SetFocusContextOp,
@@ -374,6 +375,10 @@ export function applySetClipboard(state: AppState, op: SetClipboardOp): void {
   state.clipboard = op.after ? { ...op.after } : null;
 }
 
+export function applySetDocumentName(state: AppState, op: SetDocumentNameOp): void {
+  state.document.name = op.after;
+}
+
 export function applyReparent(state: AppState, op: ReparentOp): void {
   // Apply moves in order. For each, remove from current parent, insert into
   // new — and re-express x/y from the OLD parent's coordinate space into the
@@ -541,6 +546,9 @@ export function applyInverse(state: AppState, op: Op): void {
     case "set_clipboard":
       state.clipboard = op.before ? { ...op.before } : null;
       break;
+    case "set_document_name":
+      state.document.name = op.before;
+      break;
     case "reparent": {
       // Reverse each move
       const reverse: ReparentOp = {
@@ -648,6 +656,9 @@ export function applyOp(state: AppState, op: Op): void {
       break;
     case "set_clipboard":
       applySetClipboard(state, op);
+      break;
+    case "set_document_name":
+      applySetDocumentName(state, op);
       break;
     case "reparent":
       applyReparent(state, op);

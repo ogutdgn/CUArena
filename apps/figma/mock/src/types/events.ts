@@ -489,6 +489,12 @@ export type SemanticEvent =
       after: string;
     })
   | (SemanticEventBase & {
+      name: "rename_file";
+      before: string;
+      after: string;
+      trigger: "inline_edit" | "file_menu";
+    })
+  | (SemanticEventBase & {
       name: "delete_page";
       targetPageId: string;
       pageIndex: number;
