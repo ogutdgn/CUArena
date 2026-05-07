@@ -66,16 +66,17 @@ These apply to every app in this repo:
 
 ## Skills (repo-internal)
 
-The skills under `.claude/skills/` encode **how to work in this repo**. They are placeholders right now and will be filled in as we run the corresponding flow:
+The skills under `.claude/skills/` encode **how to work in this repo**. Most are placeholders right now; the ones marked ACTIVE are ratified and should be invoked.
 
-| Skill | Trigger |
-|---|---|
-| `research-flow` | Starting a new app's documentation corpus (raw fetch → AI filter → committed helper) |
-| `architecture-decision-flow` | After research, before coding — picking stack, state shape, op set |
-| `development-flow` | Implementing a feature (feature-checklist → execution-map plan → TDD → session-end) |
-| `session-end` | At end of session — tick checklist, update execution-map, check task scope changes |
-| `commit-style` | Before any commit |
-| `helper-blind-read-prevent` | Before reading any helper/ content |
+| Skill | Status | Trigger |
+|---|---|---|
+| `codex-fix-pipeline` | **ACTIVE** | Bug fix or feature development — audit → file → plan → codex review → implement → codex review → per-bug commits → push approval. Invoke at the start of any such task. |
+| `research-flow` | placeholder | Starting a new app's documentation corpus (raw fetch → AI filter → committed helper) |
+| `architecture-decision-flow` | placeholder | After research, before coding — picking stack, state shape, op set |
+| `development-flow` | placeholder | Implementing a feature (feature-checklist → execution-map plan → TDD → session-end) |
+| `session-end` | placeholder | At end of session — tick checklist, update execution-map, check task scope changes |
+| `commit-style` | partial | Before any commit |
+| `helper-blind-read-prevent` | active | Before reading any helper/ content |
 
 ---
 
