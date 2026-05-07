@@ -1,25 +1,29 @@
-# Bugs Found
+# Mock Improvement Steps
 
-Running list of bugs and structural risks found in the Figma mock app.
+Running list of improvement steps for the Figma mock — **bug fixes**, **UI improvements**, and **feature updates** — surfaced by Codex audits, hands-on exploration, or user-driven scope.
 
 ## Conventions
 
-Each bug section starts with a status marker and priority:
-- `✅ Fixed` — closed; **Status** line names the commit that resolved it.
+Each entry starts with a status marker and (for bug fixes) a priority:
+- `✅ Fixed` / `🟢 Shipped` — closed; **Status** line names the commit that resolved it.
 - `🔴 Open` — actionable, not yet fixed.
 - `🟡 In progress` — fix in flight (planning / draft / under review).
 - `⚪ Wontfix / Deferred` — explicitly deferred; **Status** line records why.
 
-Priorities (per Codex audit convention):
+Bug-fix priorities (Codex audit convention):
 - **P1** — wrong final document state, undo corruption, runtime crash.
 - **P2** — log-stream contract break, missed semantic event, recoverable misbehavior.
 - **P3** — forensic/log quality, minor UX or doc rot.
 
-When a bug ships, update the **Status** line with the commit short SHA and date; do not delete the bug section (the history is the value).
+UI improvements and feature updates do not use P-priorities — they're scoped by user request and ordered for safe-first execution.
+
+When an entry ships, update the **Status** line with the commit short SHA and date; do not delete the section (the history is the value). Item numbering is continuous across all three sections (a single sequence preserves stable `#N` references in commits and `delivery-1_updates.md`).
 
 ---
 
-## 2026-05-07 — Mock Foundation / Logic Review (Codex audit)
+## Bug fixes
+
+### 2026-05-07 — Mock Foundation / Logic Review (Codex audit)
 
 Scope: `apps/figma/mock` foundation and logical correctness review. Focus areas were scene graph mutation, coordinate spaces, undo/redo, semantic logging, outcome document integrity, and architecture consistency.
 
@@ -28,7 +32,7 @@ Verification performed:
 - Reviewed core mock files around `engine/ops.ts`, `engine/dispatch.ts`, `engine/hierarchyCommands.ts`, `engine/alignmentCommands.ts`, `engine/propertyCommands.ts`, logger files, canvas/tools, and prototype UI.
 - Ran `npm run typecheck` from `apps/figma/mock`; it passed.
 
-### 1. ✅ P1 — Reparent keeps stale local coordinates
+#### 1. ✅ P1 — Reparent keeps stale local coordinates
 
 **Status:** Fixed in `07657e9` (2026-05-07).
 
@@ -57,7 +61,7 @@ Suggested fix direction:
 - Ensure group/ungroup and panel drag do not need separate ad hoc coordinate fixes.
 - Add focused tests around top-level -> frame, frame -> page, group -> parent, and nested parent changes.
 
-### 2. ✅ P1 — Cross-parent align/distribute uses local coordinates
+#### 2. ✅ P1 — Cross-parent align/distribute uses local coordinates
 
 **Status:** Fixed in `1897504` (2026-05-07).
 
@@ -76,7 +80,7 @@ Suggested fix direction:
 - Convert each final world position back to the layer's own parent space before dispatching `set_transform`.
 - Add tests for mixed-parent alignment and same-parent alignment to preserve current behavior.
 
-### 3. ✅ P2 — Undo snapshots are captured after mutation
+#### 3. ✅ P2 — Undo snapshots are captured after mutation
 
 **Status:** Fixed in `e2fd631` (2026-05-07).
 
@@ -95,7 +99,7 @@ Suggested fix direction:
 - Keep `selectionAfter`/`focusContextAfter` from the post-apply state.
 - Add regression coverage for delete -> undo restoring both the node and the selected id.
 
-### 4. ✅ P2 — Stroke/effect changes are missing semantic events
+#### 4. ✅ P2 — Stroke/effect changes are missing semantic events
 
 **Status:** Fixed in `998d429` (2026-05-07).
 
@@ -123,7 +127,7 @@ Suggested fix direction:
 - Make the property command layer consistent: if a command changes document state, it should dispatch an op and emit semantic intent.
 - Add a small audit/test that all property panel commands produce semantic events.
 
-### 5. ✅ P2 — Prototype document changes bypass ops/undo
+#### 5. ✅ P2 — Prototype document changes bypass ops/undo
 
 **Status:** Fixed in `41fd1c8` (2026-05-07).
 
@@ -150,7 +154,7 @@ Suggested fix direction:
 - Move prototype mutations behind engine command functions.
 - Preserve semantic events, but let ops own undo/redo and state mutation.
 
-### 6. ✅ P3 — Raw event ranges include the previous boundary
+#### 6. ✅ P3 — Raw event ranges include the previous boundary
 
 **Status:** Fixed in `c080a6a` (2026-05-07).
 
@@ -170,11 +174,11 @@ Suggested fix direction:
 
 ---
 
-## 2026-05-07 — Hands-on task runs (manual exploration)
+### 2026-05-07 — Hands-on task runs (manual exploration)
 
 Scope: bugs surfaced while running the 50 delivery-1 tasks by hand, in the order task_01 → task_24 → task_14 → task_09 → task_07. Symptoms reported by the user; reproductions verified before they get filed below.
 
-### 7. ✅ P2 — Corner-radius slider value is off (possibly % vs px mismatch)
+#### 7. ✅ P2 — Corner-radius slider value is off (possibly % vs px mismatch)
 
 **Status:** Fixed in `b6d6079` (2026-05-07). Investigation showed the data path was px end-to-end (NumericInput → setCornerRadius → set_property → SVG `rx={cr}`); the symptom matched the missing Figma-style drag-scrub on the input label. Added a leftmost drag-scrub strip to NumericInput that updates the displayed value live and fires a single onCommit on pointer-up, so undo history and semantic-event counts aren't inflated by intermediate moves.
 
@@ -191,7 +195,7 @@ Scope: bugs surfaced while running the 50 delivery-1 tasks by hand, in the order
 - Check whether the renderer applies it as px (correct) vs as a fraction of size.
 - If a % path exists, decide whether to remove it or expose it explicitly.
 
-### 8. ✅ P2 — Alignment buttons need an explicit parent selection
+#### 8. ✅ P2 — Alignment buttons need an explicit parent selection
 
 **Status:** Fixed in `5981591` (2026-05-07). New `getSingleSelectionAlignmentContainer` helper resolves the alignment target when a single layer sits inside a non-page frame/group/section; shared between the engine guard and the AlignmentRow disabled state so they cannot drift. Single-child alignment uses the parent's world rect for bounds and converts back to parent-local before dispatching set_transform; existing 2+ layer behavior is unchanged.
 
@@ -208,7 +212,7 @@ Scope: bugs surfaced while running the 50 delivery-1 tasks by hand, in the order
 - Mind the new world-space code from #2 — the parent's world rect comes from `worldRectOfLayer(s, parentLayer)` for frame/group, or page bounds when parent is the page.
 - Distribute (≥3 layers) probably stays the same since it is inherently multi-layer.
 
-### 9. ✅ P2 — Verifier expects `create_vector` event that mock never emits
+#### 9. ✅ P2 — Verifier expects `create_vector` event that mock never emits
 
 **Status:** Fixed in `b87f10b` (2026-05-07). All 6 affected verifiers (07/08/19/39/42/49) now check `create_vector_with_pen` since every prompt asks for the pen tool. task_08 / task_39 minimums lowered to 1 because their prompts duplicate a single pen vector to reach the final shape count (geometry rubric still enforces ≥2 / ≥3 final vectors). Mock event emission unchanged — pen vs pencil attribution preserved in the log.
 
@@ -234,7 +238,7 @@ Scope: bugs surfaced while running the 50 delivery-1 tasks by hand, in the order
 
 Each prompt should be re-read to confirm pen vs pencil before flipping; if any task is genuinely pencil, point its verifier at `create_vector_with_pencil`.
 
-### 10. ✅ P2 — Tidy up is a non-functional placeholder
+#### 10. ✅ P2 — Tidy up is a non-functional placeholder
 
 **Status:** Fixed in `887853c` (2026-05-07). `tidySelection` added to alignmentCommands.ts following the helper spec: 1D vs 2D detection (2D classified before 1D-overlap check so grids with slight row overlap aren't collapsed), gap mode with mean fallback, column-aware positioning so variable-width grids line up, no-op when already tidy. `tidy_up` semantic event added to the schema. AlignmentRow's disabled-placeholder button is now wired to the real action.
 
@@ -259,3 +263,273 @@ Each prompt should be re-read to confirm pen vs pencil before flipping; if any t
 - Add `tidy_up` to `types/events.ts` SemanticEvent union.
 - Wire the button in `AlignmentRow.tsx` (drop `disabled visualOnly`, add real `onClick`).
 - task_09 verifier doesn't require the event, but task prompt does — implementing this aligns user-visible behavior with the prompt and unblocks any future verifier that adds `tidy_up` checks.
+
+### 2026-05-07 — User-driven round (figma/ui-feature-bug)
+
+Scope: hands-on bugs the user surfaced while running the mock, captured for the round on the `figma/ui-feature-bug` branch. Each entry's root-cause hypothesis is verified in code below; live repro is implied where the symptom needs runtime confirmation.
+
+#### 11. 🔴 P1 — Canvas layer drag is laggy and jumps left/right
+
+**File(s):**
+- `apps/figma/mock/src/tools/move.ts` (`onPointerMove` / `active_layer_drag` branch, `applyFrameNestingByOverlap`)
+- `apps/figma/mock/src/engine/snap.ts` (snap candidate iteration)
+
+**What I expected:** Smooth 60fps canvas drag. Snap recomputed per frame is fine; reparent decisions only fire at low frequency or at pointer-up.
+
+**What happened (root cause verified):** [move.ts:538](apps/figma/mock/src/tools/move.ts#L538) calls `applyFrameNestingByOverlap` on **every** pointermove event. That function walks the entire scene-graph to collect all frames (line 822-824), then for each moving root walks every frame computing `worldRectOfLayer` + overlap ratio + ancestor checks (line 826-902). On large pages this is O(layers × frames) per frame. When the overlap ratio crosses 0.5, the layer reparents mid-drag, which re-anchors world coordinates (the mover is now in a new parent space) and the next frame snaps relative to the new parent — visible as left/right jumps. Pointer events fire at 60–120Hz; the work overruns the frame budget.
+
+**Suggested fix direction:**
+- Throttle `applyFrameNestingByOverlap` to ~60ms (rAF) or run it only when the moving bbox's parent-overlap classification changes (track last classification, only reparent on transition).
+- Memoize the frame list per drag (rebuild only if document mutates, which during drag it doesn't apart from this op).
+- Memoize candidate sibling rects (line 478-493) per drag — they don't change while dragging.
+- Verify snap line buffering doesn't allocate per move; `computeSnap` already returns arrays each call (low risk).
+
+#### 12. 🔴 P2 — Frame auto-parent on creation does not nest the new shape
+
+**File(s):**
+- `apps/figma/mock/src/tools/creationBbox.ts` (drag-create resolver — needs verification)
+- `apps/figma/mock/src/engine/coordinates.ts` `resolveCreationParentId` (lines 71-84)
+- `apps/figma/mock/src/tools/pen.ts`, `pencil.ts`, `line.ts` (each call `resolveCreationParentId` at creation)
+
+**What I expected:** Drawing a shape (rectangle, ellipse, polygon, star, line, arrow, vector via pen/pencil) **inside an existing frame** auto-parents the new layer into that frame, matching real Figma. No need to draw outside the frame and drag back in.
+
+**What happened (root cause verified):** `resolveCreationParentId` at [coordinates.ts:71-84](apps/figma/mock/src/engine/coordinates.ts#L71-L84) only resolves a frame parent **when there is an active focus context** (`focusContextByPage[pageId]`). Without entering the frame (double-click), `focusId == null` → returns the page id. So a shape drawn while pointer is inside an unfocused frame goes to the page, not the frame.
+
+**Suggested fix direction:**
+- Make `resolveCreationParentId` look up the deepest visible frame (or section) whose world-rect contains the cursor when focus context is null. Same overlap logic as `applyFrameNestingByOverlap` (item #11), but at creation time → only one walk per click. Negligible cost.
+- Walk in z-order top-down so the topmost overlapping container wins.
+- Skip locked / hidden frames.
+- Apply uniformly to all creation tools (rectangle, ellipse, polygon, star, frame, line, arrow, pen, pencil) — they all funnel through `resolveCreationParentId`.
+
+#### 13. 🔴 P2 — Pen-created vector shows wrong selection bounds
+
+**File(s):**
+- `apps/figma/mock/src/tools/pen.ts` `syncStore` (lines 161-256) — bbox tracking during creation.
+- `apps/figma/mock/src/engine/selectors.ts` `selectionBbox` (lines 27-42).
+- `apps/figma/mock/src/ui/overlays/SelectionOverlay.tsx` + `VectorEditOverlay.tsx`.
+- `apps/figma/mock/src/ui/canvas/NodeRenderer.tsx` (vector rendering).
+
+**What I expected:** A pen-drawn vector layer's selection bbox tightly hugs the network's vertices. The displayed (x, y, w, h) on the layer matches `min/max` of vertex positions in world space.
+
+**What happened (needs live repro to disambiguate):** User reports "sınırları doğru göstermiyor" — bounds wrong. `pen.ts` syncStore normalizes vertices to (0,0)..(w,h) and dispatches set_property for x/y/w/h. So during creation bbox should track. Possible causes after creation:
+1. Editing handles in `vector` edit mode (post-create) mutates `network` but does not re-normalize the layer's `(x, y, w, h)` → bbox stale.
+2. Resize from the SelectionOverlay scales the network with the bbox; if the network has handles whose extent exceeds vertex extent (Bezier handles can stretch outside the polygon hull), the bbox drawn around the layer's `(w, h)` is smaller than the actual visible curve.
+3. A single-vertex network normalized with `Math.max(1, w)` floors to 1 — then `ShapeCount` and selection rect look 1×1 instead of empty/invisible.
+
+**Suggested fix direction:**
+- Add a `recomputeVectorBounds(layer)` helper that, given a Vector, computes the AABB of the network including Bezier handle reach (de Casteljau evaluation per segment OR the conservative bbox of `vertex ± handle_offset`). Use this everywhere the network mutates (pen syncStore, vector-edit overlay, scale).
+- After `mutate_vector_network` op applies, dispatch a follow-up set_property to re-tighten `(x, y, w, h)` (via the same approach as pen syncStore — translate vertices so min is 0).
+- Verify with task_07 (mountain range): after drawing a path then selecting it, bbox handles should sit on the visible curve extremes.
+
+#### 14. 🔴 P2 — Vector layers lack auto-numbered "Vector N" naming
+
+**File(s):**
+- `apps/figma/mock/src/tools/pen.ts` line 398 — `name: "Vector"` (no ordinal).
+- `apps/figma/mock/src/tools/pencil.ts` line 113 — `name: "Pencil stroke"` (different name, no ordinal).
+
+**What I expected:** Real Figma names every newly created layer with a type name + ordinal scoped to the page (e.g. "Vector 1", "Vector 2"). Both pen and pencil tools should produce a layer named **"Vector N"** because the underlying type is `vector` and the user shouldn't see implementation distinctions in the Layers panel. Tool attribution stays in the **semantic event** (`create_vector_with_pen` vs `create_vector_with_pencil`) — that's where forensics belong, not in the layer name.
+
+**What happened:** Pen sets `name: "Vector"` (constant, no ordinal); pencil sets `name: "Pencil stroke"` (different label, no ordinal). Both diverge from how rectangles/ellipses/polygons/etc. are named — see [polygon.ts:12](apps/figma/mock/src/tools/polygon.ts#L12) (`Polygon ${ordinal}` via `countByType(page, "polygon")`).
+
+**Suggested fix direction:**
+- Both `pen.ts` `beginNewCreation` (line 384-478) and `pencil.ts` `onPointerUp` (line 110-130) set `name: "Vector " + countByType(page, "vector") + 1`, where `countByType` is the same helper used by `creationBbox.makeCreationBboxTool`. Reuse the existing helper or extract a `countOfType` utility.
+- `pen.ts` `beginCreationFromExistingAnchor` (resume an existing vector) leaves the existing name alone.
+- Counting by type, not by "all layers", matches Figma's behavior (a fresh polygon among 5 vectors becomes "Polygon 1", not "Layer 6").
+- Verifier check: `TextContent` / `LayerName` checks in `delivery-1/` may rely on either name. Search `delivery-1/` for `"Vector"` and `"Pencil stroke"` literals; update verifier checks if any depend on the old name. Log to `delivery-1_updates.md`.
+
+#### 15. 🔴 P1 — Undo silently stops after a few presses (apparent ~5-entry limit)
+
+**File(s):**
+- `apps/figma/mock/src/engine/dispatch.ts` (`UNDO_STACK_MAX = 1000` on line 10 — limit is correct).
+- `apps/figma/mock/src/types/ops.ts` (`UNDOABLE_KINDS` set — needs audit).
+- `apps/figma/mock/src/util/keymap.ts` lines 197-205 (Cmd/Ctrl+Z keyboard shortcut — fires undo() once per keydown, looks correct).
+
+**What I expected:** Every meaningful document mutation pushes an undo entry. Holding or repeating Cmd/Ctrl+Z walks back through them one-by-one until the stack is empty. Stack max 1000 (per current code) is more than enough.
+
+**What happened (root cause hypothesis — needs live repro):**
+- Stack size limit is not the issue (1000 ≫ 5).
+- Two plausible root causes:
+  1. **Many semantic actions don't produce undoable ops** — e.g. mutating `set_focus_context` / `set_edit_mode` / `set_tool` may NOT be in `UNDOABLE_KINDS`. The user's perceived "5 actions" may include several non-mutation ops which create no undo entries; the stack actually has 5.
+  2. **Bundled transactions** — drag-move = 1 transaction = 1 undo entry. The user sees a complex visual change but only 1 entry exists. After 5 transactions of work, undo "runs out."
+- Need to audit `UNDOABLE_KINDS` against every Op kind and verify property-panel commits (NumericInput, color picker drag) each produce one transaction per commit (not per intermediate value, and not zero).
+
+**Suggested fix direction:**
+- Read [types/ops.ts UNDOABLE_KINDS](apps/figma/mock/src/types/ops.ts) and confirm every op that mutates `document.*` is in the set.
+- Property-panel inputs (NumericInput) commit on blur/Enter — ensure that's wrapped in a single transaction so each commit pushes one entry.
+- If the issue is "user expected 5 entries but only got 1 because of transaction batching", consider: drag-move is rightfully one entry, but multi-property edits in property panels SHOULD be per-field. Verify behavior matches expectation.
+- Add a short developer console log at undo() that prints `undoStack.length` so the user can confirm whether the stack is empty (entries were properly created but consumed) vs the stack never grew (entries weren't created).
+- Live repro session needed to disambiguate.
+
+#### 16. 🔴 P2 — Hover outline draws at canvas top-left for frame children
+
+**File(s):**
+- `apps/figma/mock/src/ui/overlays/HoverOutline.tsx` lines 25-37.
+
+**What I expected:** Hover outline rect rendered tightly around the hovered layer in world space, so the blue thin outline visually wraps the shape regardless of nesting depth.
+
+**What happened (root cause verified):** [HoverOutline.tsx:29-32](apps/figma/mock/src/ui/overlays/HoverOutline.tsx#L29-L32) uses `l.x` and `l.y` directly. Those are **local coordinates** (relative to the parent, e.g. a Frame at world (300, 300) with a child at local (50, 50)). The rect is rendered inside the world-space SVG group. So for a child of a Frame at world (300, 300), the outline draws at (50, 50) instead of (350, 350) — visually it lands at the top-left of the canvas.
+
+**Suggested fix direction:**
+- Replace `l.x` / `l.y` / `l.w` / `l.h` with the result of `worldRectOfLayer(useStore.getState(), l)` (already used by `selectionBbox` in `selectors.ts`).
+- Keep the same `pointerEvents="none"`, stroke width scaled by `1/zoom`.
+- This is a one-file, ~3-line fix; touches no semantic events or store schema.
+
+---
+
+## UI improvements
+
+### 2026-05-07 — Right + Left sidebar polish (figma/ui-feature-bug)
+
+#### 17. 🔴 — Right sidebar (no-selection) Page section incomplete + Share button still active
+
+**File(s):**
+- `apps/figma/mock/src/ui/chrome/RightPanel.tsx` lines 60-77 (no-selection branch), 116-135 (Share button).
+- `apps/figma/mock/src/ui/panels/PageSection.tsx` lines 39-90 (Page + Local-styles + Export sections).
+- `apps/figma/mock/src/types/scene.ts` `Page` (line 317-326) — needs `backgroundHidden: boolean` added.
+- `apps/figma/mock/src/types/events.ts` — new semantic events: `set_page_background_opacity`, `toggle_page_background_hidden`.
+
+**Expected behavior (research-backed):** When nothing is selected, the right sidebar shows:
+1. Header (zoom, profile placeholder "A", Present icon, **Share button as inactive** — 50% opacity, neutral grey background, `cursor: not-allowed`, `aria-disabled="true"`, no click handler / no toast).
+2. Tabs row (Design active / Prototype).
+3. **No** sub-header.
+4. **Page section** with:
+   - Color swatch (14×14) + **directly editable hex input** (typing a valid hex commits the color).
+   - **Opacity input** (default 100%, % suffix) — maps to `page.backgroundColor.a × 100`. Editable; clamp 0–100. Per Figma help docs, clicking 100% opens an inline numeric input.
+   - **Eye toggle (Hide icon)** — toggles a new boolean `page.backgroundHidden`. When hidden, the canvas background renders transparent (CSS checker-pattern over the canvas root), and outcome.document keeps the field so verifiers can read it.
+5. **Local styles + Export sections: omit entirely** for this round (user choice; both are visual-only `○` per state-matrix).
+
+**Current state:**
+- `RightPanel.tsx:64` `<PageSection />` renders Page + Local-styles + Export. Drop the latter two from PageSection or guard them behind a flag.
+- `PageSection.tsx:42-73` combines swatch + hex into a single click-to-open-picker button. Needs split: swatch button (opens picker) + standalone hex input + opacity input + hide toggle.
+- `RightPanel.tsx:116-135` Share button uses Figma blue `var(--color-selection-blue)` background — currently looks active. Apply inactive treatment.
+
+**New ops + semantic events:**
+- `set_property` already covers `page.backgroundColor` mutations (current `setBg` in PageSection.tsx already dispatches one). Reuse for opacity (mutates `backgroundColor.a`) and for `backgroundHidden`.
+- New semantic events:
+  - `set_page_background_opacity { pageId, before, after, trigger }` — fires when opacity input commits.
+  - `toggle_page_background_hidden { pageId, before, after, trigger }` — fires when eye icon clicked.
+- Existing `set_page_background` event keeps firing for hex/color-picker changes; add a `trigger` field if missing to distinguish hex-input vs color-picker.
+
+**Verifier impact (delivery-1):** `Page.backgroundColor` is already part of `outcome.document`. Adding `backgroundHidden` extends the outcome shape — verifiers that use it can opt in via a new check primitive (`PageBackgroundHidden`). No existing verifier should break since they don't read the new field. Log to `delivery-1_updates.md` if any check primitives change.
+
+#### 18. 🔴 — Left sidebar lacks "Layers" section header
+
+**File(s):**
+- `apps/figma/mock/src/ui/chrome/LeftPanel.tsx` lines 11-36 (root layout).
+- `apps/figma/mock/src/ui/panels/LayersTree.tsx` (rendered directly in LeftPanel without a wrapping header).
+
+**Expected behavior:** The left sidebar's Pages section already has a clear "Pages" uppercase header ([LeftPanel.tsx:130-159](apps/figma/mock/src/ui/chrome/LeftPanel.tsx#L130-L159)). The Layers section below it should have a matching **"Layers" header** (uppercase, small caps, same style as Pages header). NO sidebar-close icon (mock-specific deviation from real Figma's minimize-UI button — which lives at the top-right of the file-name row in Figma but the user explicitly said don't add it).
+
+The far-left icon column (`LeftRail`) keeps its current inactive `noopClick` behavior — the user said leave it alone.
+
+**Current state:**
+- `LeftPanel.tsx:32` renders `<LayersTree />` directly inside the scroll area with no header.
+- No close icon currently rendered. ✓ matches user request.
+
+**Suggested fix direction:**
+- Add a `LayersHeader` div above `<LayersTree />` styled identically to the Pages header (`fs-xs`, uppercase, letter-spacing 0.4, font-weight 600, padding 6px 12px 4px).
+- No `+` button on the right (Pages has add-page; Layers has no equivalent).
+- Optional: collapse-all chevron icon on the right (matches real Figma's collapse-layers-icon) — defer this if it adds scope.
+
+**Real-Figma divergence note:** Real Figma does NOT render an explicit "Layers" label — it just has an implicit collapse-all icon. Adding the label is a mock-specific deviation, deliberately chosen by the user for clarity. Document this in a code comment so future agents don't "fix" it back.
+
+---
+
+## Feature updates
+
+### 2026-05-07 — File rename + Rotation panel + Shape geometry (figma/ui-feature-bug)
+
+#### 19. 🔴 — File rename (Untitled → editable inline)
+
+**File(s):**
+- `apps/figma/mock/src/ui/chrome/LeftPanel.tsx` lines 38-72 (`FileNameRow`).
+- `apps/figma/mock/src/types/scene.ts` `DocumentNode` (line 328-332) — needs a `name` field.
+- `apps/figma/mock/src/engine/store.ts` (initial state — `document.name = "Untitled"`).
+- `apps/figma/mock/src/types/events.ts` — new semantic event `rename_file`.
+
+**Expected behavior (research-backed):** Per Figma help center, **single-click on the file name** enters edit mode. The name becomes a text input with the existing value pre-selected. **Enter** or **blur** commits. **Escape** cancels. Empty/whitespace-only commits revert to "Untitled" (or to the previous name). No documented length cap; mock should trim and cap at ~255 chars. The chevron next to the name keeps its current behavior (opens the file menu — currently `noopClick`).
+
+**Current state:** `FileNameRow` is a single button with `onClick = noopClick("file-menu.open", ...)` and the literal text "Untitled". No edit affordance.
+
+**Suggested fix direction:**
+- Add `name: string` to `DocumentNode`; default `"Untitled"`. Existing log/outcome shape unchanged otherwise — `outcome.document` already serializes the document; the new field rides along.
+- Convert `FileNameRow` to the same click-to-edit pattern used by `LeftPanel.tsx PageRow` (lines 226-253) and `LayersTree.tsx`. Local `useState` for `editing`. Single-click on the **name span** → enter edit. Click on the chevron → file-menu noop (existing behavior).
+- New command `renameFile(name, trigger)` in a new or existing engine command file, dispatching `set_property` on the document.
+- Emit `rename_file { before, after, trigger: "inline_edit" | "file_menu" }` semantic event on commit.
+- Add `name` to `outcome.document` serialization in `logger/outcome.ts` if not already covered by the generic walk.
+
+**Verifier impact:** New optional check primitive `FileNameEquals(expected: str)` for tasks that ask the user to rename. Don't add unless a delivery-1 task needs it; otherwise keep dormant.
+
+#### 20. 🔴 — Rotation panel (4 controls in Position section)
+
+**File(s):**
+- `apps/figma/mock/src/ui/panels/PositionSection.tsx` (current panel — adds rotation row).
+- `apps/figma/mock/src/engine/transformCommands.ts` — already has `flipSelection`; needs `rotate90Selection`.
+- `apps/figma/mock/src/engine/propertyCommands.ts` `setTransformField` — needs rotation normalization (mod 360).
+- `apps/figma/mock/src/types/events.ts` — `rotate_layer` event already exists (move.ts line 627); reuse it. New events for `flip_layer` (per direction) likely already exist via `flipSelection`; verify.
+
+**Expected behavior:** The Position section should have a Rotation row below the X/Y row, with 4 controls (matching the user's reference screenshot):
+1. **Degree input** with `°` suffix. Accepts any numeric value (negative, positive, magnitudes > 360). On commit, normalize to `((value % 360) + 360) % 360` so `-1060 → 20°` (per user's spec). Edits all selected layers' `rotation` field via `set_transform`. Already partially implemented at [PositionSection.tsx:27-29](apps/figma/mock/src/ui/panels/PositionSection.tsx#L27-L29) but lacks normalization.
+2. **Rotate 90° clockwise** icon button — adds 90° to each layer's rotation, normalized. Rotation pivot = each layer's own center (NOT the selection bbox center). Single semantic event `rotate_layer { trigger: "panel_rotate_90" }`.
+3. **Flip horizontal** icon button — calls `flipSelection("horizontal", "panel_button")`. Pivot = each layer's own center.
+4. **Flip vertical** icon button — calls `flipSelection("vertical", "panel_button")`. Pivot = each layer's own center.
+
+**Current state:** PositionSection has X, Y, ∠ (rotation input). Rotation input doesn't normalize. No icon buttons. `flipSelection` exists in `transformCommands.ts` and is wired to keyboard shortcuts (Shift+H / Shift+V) per [keymap.ts:296-307](apps/figma/mock/src/util/keymap.ts#L296-L307); reuse it.
+
+**Suggested fix direction:**
+- Add rotation-normalization in `setTransformField` when path === "rotation": `value = ((value % 360) + 360) % 360`.
+- Add `rotate90Selection(trigger)` to `engine/transformCommands.ts` modeled after `flipSelection`. Per-layer: `newRot = ((layer.rotation + 90) % 360 + 360) % 360`. Single transaction, one `set_transform` op for all selected layers, one semantic `rotate_layer` event.
+- PositionSection: replace the lone rotation row with a row of 4 controls — degree NumericInput (existing) + 3 icon buttons. Use Lucide icons: `RotateCw` (90°), `FlipHorizontal2`, `FlipVertical2`.
+- Per-layer-center pivot for both flip and rotate-90 is the existing behavior in `flipSelection`/`set_transform` — verify in `applyOp` for `set_transform` that `(x, y)` is recomputed so each layer's center stays put.
+
+**Verifier impact:** Verifiers checking `rotation` property (e.g. a "draw a square rotated 45°" task) should still work. The rotate-90 button only adds to rotation, doesn't change geometry shape. Flip already exists. No verifier breakage expected.
+
+#### 21. 🔴 — Polygon/star sides count + line/arrow as 2-point geometry
+
+**File(s):**
+- `apps/figma/mock/src/types/scene.ts` `Polygon`, `Star`, `Line`, `Arrow` (lines 165-198). Possible `Line.height = 0` invariant.
+- `apps/figma/mock/src/tools/polygon.ts`, `star.ts`, `line.ts` (defaults + creation).
+- `apps/figma/mock/src/ui/panels/AppearanceSection.tsx` (or new `ShapeOptionsSection`) — `sides` / `points` / `innerRatio` controls.
+- `apps/figma/mock/src/ui/canvas/NodeRenderer.tsx` — switch line/arrow rendering from rect-wrapped to stroked SVG `<line>` (or path).
+- `apps/figma/mock/src/ui/overlays/SelectionOverlay.tsx` + `move.ts` handle code — line/arrow get a custom 2-point selection (overlay + 2 endpoint handles), not 8-handle bbox.
+- `apps/figma/mock/src/engine/selectors.ts` `hitTest` — line/arrow hit-test uses point-to-segment distance, not rect-contains.
+- `apps/figma/mock/src/engine/snap.ts`, `engine/alignmentCommands.ts` — sibling rects for lines need verification (current `worldRectOfLayer` returns the bbox; for a 45° line that's a square — semantically wrong for snap/align, but visually acceptable for now; flag as out-of-scope).
+- `apps/figma/mock/src/engine/propertyCommands.ts` — new `setPolygonSides`, `setStarPoints`, `setStarInnerRatio` commands.
+- `apps/figma/mock/src/types/events.ts` — `set_polygon_sides`, `set_star_points`, `set_star_inner_ratio` semantic events.
+
+**Expected behavior (research-backed):**
+
+**Polygon:**
+- `sides` editable, min 3, max 60 (mirroring Star — Figma docs don't cap polygon explicitly but 60 is the practical UI cap). Default 3.
+- Renders as a regular polygon inscribed in the bbox (top vertex at `-90°`). Bbox does NOT tightly hug the visible shape — this matches Figma so adding sides keeps the bbox stable.
+- New "Count" control in AppearanceSection (or a new `ShapeOptionsSection` shown when selection type is polygon/star).
+
+**Star:**
+- `points` editable, min 3, max **60** (Figma hard cap, help-center confirmed).
+- `innerRatio` editable as a percentage (UI shows %, store keeps 0..1). Min 0.0, max 1.0. Default 0.5 (mock keeps current default; real Figma uses ~0.382 — `[gap]`, flag in code comment).
+- Renders as a star inscribed in the bbox (outer points on inscribed circle/ellipse, inner points on circle of radius `outerR × innerRatio`). Bbox same convention as polygon.
+- New "Count" + "Ratio" controls in AppearanceSection.
+
+**Line / Arrow (CRITICAL refactor):**
+- Figma's `LineNode` is `(x, y, width, rotation)` with `height = 0`. The current mock stores `{ p1, p2 }` as offsets within an axis-aligned bbox — equivalent geometry but the **rendering** treats lines as rectangles. KEEP the current `Line { p1, p2 }` representation BUT change rendering and selection:
+  - **Rendering** (`NodeRenderer.tsx`): draw an SVG `<line>` from world-space p1 to p2 with the stroke applied. NO rectangle. The bbox `(x, y, w, h)` derives from `min/max(p1, p2)` and may be axis-aligned (which is what current line.ts produces).
+  - **Selection** (`SelectionOverlay.tsx`): for line/arrow, render a single overlay line on top of the path + 2 endpoint handles (small blue squares at p1, p2) + rotation cursors just outside endpoints. NO 8-handle bbox.
+  - **Hit-test** (`selectors.ts hitTest`): for line/arrow, use point-to-segment distance ≤ `(strokeWeight / 2 + 4) / zoom`. Current `contains` uses rect-contains which is too loose (clicks anywhere in the bounding rect register, even far from the visible line).
+  - **Resize**: dragging an endpoint handle moves only that endpoint (changes both `p1`/`p2` and consequently `(x, y, w, h)`). Shift constrains to 15° angle increments (matches `constrainShift` already in line.ts).
+  - **Stroke**: alignment locked to `center` for lines/arrows (Figma rule). Disable inside/outside in StrokeSection when selection is line/arrow.
+  - **Stroke caps** (`endCapStart`/`endCapEnd` for arrows; `Line` may need them too — see below). Render arrowheads as decorative markers on the SVG line endpoints.
+- **Width profile + Arrow interaction:** applying a width profile to an arrow strips its arrowhead per Figma rule. Defer this — it's a follow-up. Flag as `[gap-deferred]`.
+- **Optional small refactor:** add `endCapStart` / `endCapEnd` to `Line` so the Stroke section can render the start/end cap dropdowns Figma shows for any open path. This makes Line and Arrow uniform internally; the toolbar Arrow tool just defaults `endCapEnd = "arrow"`. Mock currently keeps Arrow as a separate `type: "arrow"` — keep that for now to avoid touching every reference, but consider migrating `Line` to have caps too.
+
+**New ops + semantic events:**
+- `set_property` already handles `sides` / `points` / `innerRatio` if AppearanceSection wires them through `setProp`-style commands. Add convenience commands `setPolygonSides(layerId, n)`, `setStarPoints(layerId, n)`, `setStarInnerRatio(layerId, r)` that dispatch `set_property` and emit semantic events.
+- Semantic events: `set_polygon_sides { layerId, before, after }`, `set_star_points`, `set_star_inner_ratio`. These extend the existing taxonomy and don't clash with anything.
+
+**Verifier impact (delivery-1):**
+- Polygon `PolygonSidesEquals` — already exists per architecture doc. Verifier reads `sides` from outcome — the field already exists in mock's Polygon type. No verifier change.
+- Star `StarPointsEquals` — already exists. Same — no change.
+- Line/Arrow geometry: any verifier that reads line `(x, y, w, h)` to derive direction may need to read `p1`/`p2` instead. Search delivery-1 for `line` / `arrow` checks. If any task verifies "this line goes diagonally from corner to corner" by checking bbox width and height, it still works (current line.ts already encodes this). If a verifier checks rotation derived from bbox, it might be buggy — verify.
+- Hit-test change: any task verifier that relies on click-to-select on a line does NOT exist (verifiers don't simulate clicks). No impact.
+- Selection overlay change: visual only, doesn't touch outcome.
+
+**Sequencing:** This item is the biggest in the round. Strongly recommend implementing AFTER all bug fixes and other UI/feature items so any breakage in shape geometry is isolated for review. Within this item, sequence: polygon sides → star points/ratio → line/arrow rendering (smallest engine change) → line/arrow selection → line/arrow hit-test.
