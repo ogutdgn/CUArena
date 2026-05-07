@@ -29,9 +29,32 @@ export function LeftPanel() {
       <TabsRow />
       <PagesSection />
       <div className="scroll-y" style={{ flex: 1, minHeight: 0 }}>
+        <LayersHeader />
         <LayersTree />
       </div>
     </aside>
+  );
+}
+
+// User-requested mock deviation: real Figma renders only an implicit
+// collapse-all icon for the Layers section. The explicit "Layers" label
+// here was asked for to mirror the Pages header style.
+function LayersHeader() {
+  return (
+    <div
+      style={{
+        padding: "6px 12px 4px",
+        color: "var(--color-text-secondary)",
+        fontSize: "var(--fs-xs)",
+        fontWeight: 600,
+        letterSpacing: 0.4,
+        textTransform: "uppercase",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <span style={{ flex: 1 }}>Layers</span>
+    </div>
   );
 }
 
