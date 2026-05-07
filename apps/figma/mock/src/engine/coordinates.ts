@@ -71,14 +71,46 @@ export function localToWorld(state: AppState, parentId: string, local: XY): XY {
 export function resolveCreationParentId(state: AppState, world: XY): string {
   const pageId = state.activePageId;
   const focusId = state.focusContextByPage[pageId] ?? null;
-  if (!focusId) return pageId;
-  const node = state.nodesById[focusId];
-  if (!node || (node as Page).type === "page") return pageId;
-  const layer = node as Layer;
-  if (layer.type !== "frame" && layer.type !== "section" && layer.type !== "group") return pageId;
-  const wr = worldRectOfLayer(state, layer);
-  if (world.x >= wr.x && world.x <= wr.x + wr.w && world.y >= wr.y && world.y <= wr.y + wr.h) {
-    return focusId;
+  // 1) If a focus context is set and the cursor is inside it, parent there.
+  if (focusId) {
+    const node = state.nodesById[focusId];
+    if (node && (node as Page).type !== "page") {
+      const layer = node as Layer;
+      if (layer.type === "frame" || layer.type === "section" || layer.type === "group") {
+        const wr = worldRectOfLayer(state, layer);
+        if (world.x >= wr.x && world.x <= wr.x + wr.w && world.y >= wr.y && world.y <= wr.y + wr.h) {
+          return focusId;
+        }
+      }
+    }
+  }
+  // 2) Otherwise auto-parent into the deepest visible/unlocked container under
+  // the cursor. Fixes #12: drawing inside an unfocused frame previously fell
+  // through to the page and required a follow-up drag-into-frame.
+  const page = state.document.pages.find((p) => p.id === pageId);
+  if (page) {
+    const deep = deepestContainerAt(page.children, world, 0, 0);
+    if (deep) return deep;
   }
   return pageId;
+}
+
+// Walks the layer tree top-down (z-order, last-in-array wins) and returns the
+// id of the deepest visible/unlocked frame|section|group that contains the
+// world point. Locked or hidden containers are skipped.
+function deepestContainerAt(layers: Layer[], world: XY, ox: number, oy: number): string | null {
+  for (let i = layers.length - 1; i >= 0; i--) {
+    const l = layers[i];
+    if (l.locked || !l.visible) continue;
+    if (l.type !== "frame" && l.type !== "section" && l.type !== "group") continue;
+    const wx = ox + l.x;
+    const wy = oy + l.y;
+    const inside =
+      world.x >= wx && world.x <= wx + l.w && world.y >= wy && world.y <= wy + l.h;
+    if (!inside) continue;
+    const deeper = deepestContainerAt(l.children, world, wx, wy);
+    if (deeper) return deeper;
+    return l.id;
+  }
+  return null;
 }
