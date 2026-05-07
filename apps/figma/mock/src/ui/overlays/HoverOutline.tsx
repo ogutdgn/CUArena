@@ -3,7 +3,7 @@
 // is shown there) and during any active drag.
 
 import { useStore, selectActiveViewport } from "@/engine/store";
-import { worldRectOfLayer } from "@/engine/coordinates";
+import { worldOrientedCornersOfLayer } from "@/engine/coordinates";
 import type { Layer, Page } from "@/types/scene";
 
 export function HoverOutline() {
@@ -13,17 +13,19 @@ export function HoverOutline() {
   const dragKind = useStore((s) => s.dragPreview.kind);
   const viewport = useStore((s) => selectActiveViewport(s));
   const activeRightTab = useStore((s) => s.activeRightTab);
-  // Resolve to a world-space rect inside the selector so ancestor offsets are
-  // applied — matches selectionBbox. Using local x/y here would land the
-  // outline at the canvas top-left for any frame child.
-  const rect = useStore((s) => {
+  // Resolve the four world-space corners of the layer's local rect after its
+  // own rotation + scale (around its center). Rendering as a polygon through
+  // those corners means the hover outline rotates with the layer instead of
+  // wrapping the axis-aligned AABB (which would leave empty corners around a
+  // rotated layer).
+  const corners = useStore((s) => {
     if (!id) return null;
     const layer = s.nodesById[id] as Layer | Page | undefined;
     if (!layer || (layer as Page).type === "page") return null;
-    return worldRectOfLayer(s, layer as Layer);
+    return worldOrientedCornersOfLayer(s, layer as Layer);
   });
 
-  if (!id || !rect) return null;
+  if (!id || !corners) return null;
   if (selection.includes(id)) return null;
   if (dragKind != null) return null;
   if (activeTool !== "move") return null;
@@ -31,12 +33,10 @@ export function HoverOutline() {
   if (activeRightTab === "prototype") return null;
 
   const sw = 1.5 / viewport.zoom;
+  const points = corners.map((c) => `${c.x},${c.y}`).join(" ");
   return (
-    <rect
-      x={rect.x}
-      y={rect.y}
-      width={rect.w}
-      height={rect.h}
+    <polygon
+      points={points}
       fill="none"
       stroke="var(--color-selection-blue)"
       strokeWidth={sw}

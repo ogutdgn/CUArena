@@ -53,6 +53,93 @@ export function worldRectOfLayer(state: AppState, layer: Layer): RectLike {
   return { x: p.x, y: p.y, w: layer.w, h: layer.h };
 }
 
+// Apply the layer's own scale (around center) + rotation (around center) to a
+// point given in the layer's local coordinate space, then translate to world.
+// Mirrors the order in NodeRenderer.commonTransform: SCALE → ROTATE →
+// TRANSLATE. Ancestor rotation/scale is intentionally NOT included — it's a
+// known limitation; ancestors with rotation/scale are rare in practice and a
+// full matrix-aware solution is a larger follow-up.
+export function localPointToWorld(state: AppState, layer: Layer, local: XY): XY {
+  const cx = layer.w / 2;
+  const cy = layer.h / 2;
+  let px = local.x;
+  let py = local.y;
+  if (layer.scaleX !== 1 || layer.scaleY !== 1) {
+    px = cx + (px - cx) * layer.scaleX;
+    py = cy + (py - cy) * layer.scaleY;
+  }
+  if (layer.rotation !== 0) {
+    const rad = (layer.rotation * Math.PI) / 180;
+    const cos = Math.cos(rad);
+    const sin = Math.sin(rad);
+    const dx = px - cx;
+    const dy = py - cy;
+    px = cx + dx * cos - dy * sin;
+    py = cy + dx * sin + dy * cos;
+  }
+  // Translate by the layer's parent-space origin + ancestor offset
+  const parentOffset = worldOffsetOfParent(state, layer.parentId);
+  return { x: parentOffset.x + layer.x + px, y: parentOffset.y + layer.y + py };
+}
+
+// Inverse of localPointToWorld: take a world point and express it in the
+// layer's local coordinate space. Used for hit-testing rotated/flipped layers.
+export function worldPointToLayerLocal(state: AppState, layer: Layer, world: XY): XY {
+  const parentOffset = worldOffsetOfParent(state, layer.parentId);
+  let px = world.x - parentOffset.x - layer.x;
+  let py = world.y - parentOffset.y - layer.y;
+  const cx = layer.w / 2;
+  const cy = layer.h / 2;
+  // Inverse of rotate (negative angle) around center
+  if (layer.rotation !== 0) {
+    const rad = (-layer.rotation * Math.PI) / 180;
+    const cos = Math.cos(rad);
+    const sin = Math.sin(rad);
+    const dx = px - cx;
+    const dy = py - cy;
+    px = cx + dx * cos - dy * sin;
+    py = cy + dx * sin + dy * cos;
+  }
+  // Inverse of scale around center (multiply by 1/scale; scale is ±1 so / works)
+  if (layer.scaleX !== 1 || layer.scaleY !== 1) {
+    px = cx + (px - cx) / layer.scaleX;
+    py = cy + (py - cy) / layer.scaleY;
+  }
+  return { x: px, y: py };
+}
+
+// Returns the four world-space corners of the layer's local rect, transformed
+// by the layer's rotation + scale around its center. Order: NW, NE, SE, SW
+// (top-left going clockwise). Used by selection overlays that need to render
+// an oriented box and by AABB/snap consumers that need a tight world bounding
+// box for a rotated/flipped layer.
+export function worldOrientedCornersOfLayer(state: AppState, layer: Layer): XY[] {
+  return [
+    localPointToWorld(state, layer, { x: 0, y: 0 }),
+    localPointToWorld(state, layer, { x: layer.w, y: 0 }),
+    localPointToWorld(state, layer, { x: layer.w, y: layer.h }),
+    localPointToWorld(state, layer, { x: 0, y: layer.h }),
+  ];
+}
+
+// Tight axis-aligned bounding box around the four transformed corners. For an
+// unrotated/unflipped layer this matches worldRectOfLayer; for rotated layers
+// it expands to cover the rotated outline.
+export function worldAABBOfLayer(state: AppState, layer: Layer): RectLike {
+  const corners = worldOrientedCornersOfLayer(state, layer);
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const c of corners) {
+    if (c.x < minX) minX = c.x;
+    if (c.y < minY) minY = c.y;
+    if (c.x > maxX) maxX = c.x;
+    if (c.y > maxY) maxY = c.y;
+  }
+  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+}
+
 export function worldToParentLocal(state: AppState, parentId: string, world: XY): XY {
   const p = worldOffsetOfParent(state, parentId);
   return { x: world.x - p.x, y: world.y - p.y };

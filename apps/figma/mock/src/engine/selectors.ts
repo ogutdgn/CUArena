@@ -3,7 +3,7 @@
 import type { AppState } from "./store";
 import type { Layer, Page, ContainerLayer } from "@/types/scene";
 import type { Rect } from "@/util/geometry";
-import { worldOffsetOfLayer, worldRectOfLayer } from "./coordinates";
+import { worldOffsetOfLayer, worldRectOfLayer, worldPointToLayerLocal } from "./coordinates";
 import { isContainer } from "@/types/scene";
 
 export function getActivePage(s: AppState): Page | null {
@@ -31,6 +31,13 @@ export function selectionBbox(s: AppState): Rect | null {
   let minY = Infinity;
   let maxX = -Infinity;
   let maxY = -Infinity;
+  // Intentionally NOT transform-aware: the resize math in `move.ts` consumes
+  // `selectionBbox` together with each layer's `worldRectOfLayer` (also
+  // untransformed) and assumes the two are in the same coordinate space.
+  // Per-layer transformed AABBs are used by `HoverOutline` and
+  // `ParentBoundsOverlay` for visual feedback that follows rotation/flip;
+  // upgrading the resize path to inverse-transform pointer deltas is a
+  // separate follow-up.
   for (const l of layers) {
     const r = worldRectOfLayer(s, l);
     if (r.x < minX) minX = r.x;
@@ -53,25 +60,25 @@ export function hitTest(s: AppState, x: number, y: number): Layer | null {
     if (node && (node as Page).type !== "page" && isContainer(node as Layer)) {
       const scope = node as ContainerLayer;
       const origin = worldOffsetOfLayer(s, scope);
-      return hitTestArr(scope.children, x, y, origin.x, origin.y, zoom);
+      return hitTestArr(scope.children, x, y, origin.x, origin.y, zoom, s);
     }
   }
-  return hitTestArr(page.children, x, y, 0, 0, zoom);
+  return hitTestArr(page.children, x, y, 0, 0, zoom, s);
 }
 
-function hitTestArr(layers: Layer[], x: number, y: number, ox: number, oy: number, zoom: number): Layer | null {
+function hitTestArr(layers: Layer[], x: number, y: number, ox: number, oy: number, zoom: number, state: AppState): Layer | null {
   for (let i = layers.length - 1; i >= 0; i--) {
     const l = layers[i];
     if (l.locked || !l.visible) continue;
     const wx = ox + l.x;
     const wy = oy + l.y;
     if (l.type === "frame" || l.type === "section" || l.type === "group") {
-      const hit = hitTestArr(l.children, x, y, wx, wy, zoom);
+      const hit = hitTestArr(l.children, x, y, wx, wy, zoom, state);
       if (hit) return hit;
-      if (l.type !== "group" && contains(wx, wy, l, x, y, zoom)) return l;
+      if (l.type !== "group" && containsTransformed(l, x, y, zoom, state)) return l;
       continue;
     }
-    if (contains(wx, wy, l, x, y, zoom)) return l;
+    if (containsTransformed(l, x, y, zoom, state)) return l;
   }
   return null;
 }
@@ -81,28 +88,28 @@ function hitTestArr(layers: Layer[], x: number, y: number, ox: number, oy: numbe
 // added so heavier strokes have a proportionally bigger hit area.
 const LINE_HIT_PADDING_PX = 4;
 
-function contains(wx: number, wy: number, l: Layer, x: number, y: number, zoom: number): boolean {
-  // Lines/arrows are 2-point geometry; rect-contains would let a click
-  // anywhere in the bounding rectangle select them, which is what made
-  // selection feel sloppy for diagonal lines. Use point-to-segment distance
-  // instead with a stroke-weight-aware threshold. Apply the layer's local
-  // rotation + scale (flip H/V) so a click on the visibly rotated/flipped
-  // segment lands on the actual stroke, not the un-transformed p1→p2.
+// Transform-aware containment. For line/arrow we apply the layer's local
+// scale + rotation to the endpoints and test point-to-segment distance with a
+// stroke-weight + zoom-aware threshold. For everything else we inverse-map the
+// world point into the layer's local coordinate space and test against the
+// un-rotated 0..w / 0..h rect — that way clicks land on the visibly rotated
+// or flipped layer rather than its stored un-transformed AABB.
+function containsTransformed(l: Layer, x: number, y: number, zoom: number, state: AppState): boolean {
   if (l.type === "line" || l.type === "arrow") {
     const sw = (l.strokes[0]?.weight ?? 1);
-    // Padding is a screen-pixel value, so divide by zoom to keep the felt
-    // slack consistent across zoom levels.
     const threshold = sw / 2 + LINE_HIT_PADDING_PX / Math.max(0.0001, zoom);
-    const a = applyLayerLocalTransform(l, l.p1.x, l.p1.y, wx, wy);
-    const b = applyLayerLocalTransform(l, l.p2.x, l.p2.y, wx, wy);
+    const ancestor = worldOffsetOfLayer(state, l);
+    const a = applyLayerLocalTransform(l, l.p1.x, l.p1.y, ancestor.x, ancestor.y);
+    const b = applyLayerLocalTransform(l, l.p2.x, l.p2.y, ancestor.x, ancestor.y);
     return pointToSegmentDistance(x, y, a.x, a.y, b.x, b.y) <= threshold;
   }
-  return x >= wx && x <= wx + l.w && y >= wy && y <= wy + l.h;
+  const local = worldPointToLayerLocal(state, l, { x, y });
+  return local.x >= 0 && local.x <= l.w && local.y >= 0 && local.y <= l.h;
 }
 
 // Apply scale-around-center then rotate-around-center then translate-to-world,
-// matching `commonTransform` in NodeRenderer. Used for line/arrow endpoint
-// hit-testing and selection overlay placement.
+// matching `commonTransform` in NodeRenderer. Used by line/arrow endpoint
+// hit-testing and SelectionOverlay endpoint placement.
 function applyLayerLocalTransform(
   l: Layer,
   lx: number,
