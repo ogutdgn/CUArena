@@ -6,7 +6,10 @@ import { emitSemantic } from "@/logger/semantic";
 import { getActivePage, getSelectedLayers, selectionBbox } from "./selectors";
 import type { TransformMap } from "@/types/ops";
 
-export function flipSelection(axis: "horizontal" | "vertical", trigger: "shortcut" | "context_menu" | "main_menu") {
+export function flipSelection(
+  axis: "horizontal" | "vertical",
+  trigger: "shortcut" | "context_menu" | "main_menu" | "panel_button",
+) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s);
   if (layers.length === 0) return;
@@ -34,6 +37,46 @@ export function flipSelection(axis: "horizontal" | "vertical", trigger: "shortcu
     name: "flip_layer",
     layerIds: layers.map((l) => l.id),
     axis,
+    trigger,
+  });
+}
+
+// Rotate each selected layer 90° clockwise around its own center.
+// `set_transform`'s rendering pivot is `(w/2, h/2)` (see commonTransform in
+// NodeRenderer), so we only mutate `rotation` — geometry (x/y) is untouched.
+// Trigger is narrowed to `"panel_button"` because that's the only entry point
+// today; widen with a corresponding `rotate_layer.trigger` union extension if
+// a shortcut / context-menu surface is added later.
+export function rotate90Selection(trigger: "panel_button" = "panel_button") {
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s);
+  if (layers.length === 0) return;
+  const before: TransformMap = {};
+  const after: TransformMap = {};
+  const beforeR: Record<string, number> = {};
+  const afterR: Record<string, number> = {};
+  for (const l of layers) {
+    const t = { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY };
+    before[l.id] = t;
+    const next = ((l.rotation + 90) % 360 + 360) % 360;
+    after[l.id] = { ...t, rotation: next };
+    beforeR[l.id] = l.rotation;
+    afterR[l.id] = next;
+  }
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_transform",
+    pageId: s.activePageId,
+    ids: layers.map((l) => l.id),
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "rotate_layer",
+    layerIds: layers.map((l) => l.id),
+    before: beforeR,
+    after: afterR,
     trigger,
   });
 }

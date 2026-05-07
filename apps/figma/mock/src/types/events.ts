@@ -386,13 +386,13 @@ export type SemanticEvent =
       layerIds: string[];
       before: Record<string, number>;
       after: Record<string, number>;
-      trigger: "drag" | "panel_input";
+      trigger: "drag" | "panel_input" | "panel_button";
     })
   | (SemanticEventBase & {
       name: "flip_layer";
       layerIds: string[];
       axis: "horizontal" | "vertical";
-      trigger: "shortcut" | "context_menu" | "main_menu";
+      trigger: "shortcut" | "context_menu" | "main_menu" | "panel_button";
     })
   | (SemanticEventBase & {
       name: "scale_layer";
