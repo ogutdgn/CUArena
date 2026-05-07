@@ -2,12 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
-import { useStore } from "@/engine/store";
-import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import { ArrowRight, Clock3, MousePointerClick, X, ChevronDown } from "lucide-react";
 import type { PrototypeConnection, PrototypeTrigger, PrototypeAction, PrototypeAnimation, Frame } from "@/types/scene";
 import { useState } from "react";
+import {
+  createPrototypeConnection,
+  updatePrototypeConnection,
+} from "@/engine/prototypeCommands";
 
 export const TRIGGER_LABELS: Record<PrototypeTrigger, string> = {
   none: "None",
@@ -83,33 +85,28 @@ export function InteractionModal({ connection, sourceLayerId, pageId, frames, on
 
   function save() {
     if (connection) {
-      // Update existing
-      const prev = connection;
-      useStore.setState((s) => {
-        const p = s.document.pages.find((pg) => pg.id === pageId);
-        if (!p?.prototypeConnections) return;
-        const c = p.prototypeConnections.find((c) => c.id === connection.id);
-        if (!c) return;
-        c.trigger = trigger;
-        c.action = action;
-        c.destinationFrameId = needsDest(action) ? destFrameId : undefined;
-        c.animation = animation;
-        c.delayMs = trigger === "after_delay" ? delayMs : undefined;
-      });
-      if (prev.trigger !== trigger) {
-        emitSemantic({ name: "update_prototype_connection", connectionId: connection.id, field: "trigger", before: prev.trigger, after: trigger });
+      // Update existing — build a patch with ONLY the fields that meaningfully
+      // changed. delayMs is only user-visible when the new trigger needs it;
+      // destinationFrameId only when the new action needs one. Otherwise we
+      // leave the stored value alone so a no-op Save does not generate an
+      // undoable update_prototype_connection event.
+      const patch: Partial<Omit<typeof connection, "id" | "sourceLayerId">> = {};
+      if (connection.trigger !== trigger) patch.trigger = trigger;
+      if (connection.action !== action) patch.action = action;
+      if ((connection.animation ?? "instant") !== animation) patch.animation = animation;
+      if (needsDest(action) && (connection.destinationFrameId ?? "") !== destFrameId) {
+        patch.destinationFrameId = destFrameId;
+      } else if (!needsDest(action) && connection.destinationFrameId !== undefined) {
+        patch.destinationFrameId = undefined;
       }
-      if (prev.action !== action) {
-        emitSemantic({ name: "update_prototype_connection", connectionId: connection.id, field: "action", before: prev.action, after: action });
+      if (trigger === "after_delay" && (connection.delayMs ?? 800) !== delayMs) {
+        patch.delayMs = delayMs;
+      } else if (trigger !== "after_delay" && connection.delayMs !== undefined && connection.trigger === "after_delay") {
+        // Trigger changed AWAY from after_delay — clear the now-irrelevant delay.
+        patch.delayMs = undefined;
       }
-      if (needsDest(action) && prev.destinationFrameId !== destFrameId) {
-        emitSemantic({ name: "update_prototype_connection", connectionId: connection.id, field: "destinationFrameId", before: prev.destinationFrameId ?? null, after: destFrameId });
-      }
-      if ((prev.animation ?? "instant") !== animation) {
-        emitSemantic({ name: "update_prototype_connection", connectionId: connection.id, field: "animation", before: prev.animation ?? "instant", after: animation });
-      }
-      if ((prev.delayMs ?? 800) !== delayMs) {
-        emitSemantic({ name: "update_prototype_connection", connectionId: connection.id, field: "delayMs", before: String(prev.delayMs ?? 800), after: String(delayMs) });
+      if (Object.keys(patch).length > 0) {
+        updatePrototypeConnection(pageId, connection.id, patch);
       }
     } else {
       // Create new
@@ -123,13 +120,7 @@ export function InteractionModal({ connection, sourceLayerId, pageId, frames, on
         animation,
         delayMs: trigger === "after_delay" ? delayMs : undefined,
       };
-      useStore.setState((s) => {
-        const p = s.document.pages.find((pg) => pg.id === pageId);
-        if (!p) return;
-        if (!p.prototypeConnections) p.prototypeConnections = [];
-        p.prototypeConnections.push(newConn);
-      });
-      emitSemantic({ name: "create_prototype_connection", connectionId: id, sourceLayerId, trigger, action });
+      createPrototypeConnection(pageId, newConn);
     }
     onClose();
   }

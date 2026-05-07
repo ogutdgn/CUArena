@@ -5,9 +5,12 @@ import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useStore } from "@/engine/store";
 import { getActivePage } from "@/engine/selectors";
-import { emitSemantic } from "@/logger/semantic";
 import { uid } from "@/util/id";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
+import {
+  createPrototypeConnection,
+  deletePrototypeConnection,
+} from "@/engine/prototypeCommands";
 import type { Frame, Layer, PrototypeConnection } from "@/types/scene";
 
 const ARROW_COLOR = "#1ABCFE";
@@ -211,19 +214,7 @@ export function ConnectionArrows() {
         animation: "instant",
         delayMs: 800,
       };
-      useStore.setState((s) => {
-        const pp = s.document.pages.find((q) => q.id === pageId);
-        if (!pp) return;
-        if (!pp.prototypeConnections) pp.prototypeConnections = [];
-        pp.prototypeConnections.push(newConn);
-      });
-      emitSemantic({
-        name: "create_prototype_connection",
-        connectionId: id,
-        sourceLayerId: drag.sourceId,
-        trigger: "on_tap",
-        action: "navigate_to",
-      });
+      createPrototypeConnection(pageId, newConn);
       setModalConnectionId(id);
     }
     setDrag(null);
@@ -260,15 +251,8 @@ export function ConnectionArrows() {
   const modalConnection = modalConnectionId ? connections.find((conn) => conn.id === modalConnectionId) ?? null : null;
 
   function deleteConnection(id: string) {
-    const conn = connections.find((c) => c.id === id);
-    if (!conn || !page) return;
-    const pageId = page.id;
-    useStore.setState((s) => {
-      const p = s.document.pages.find((pg) => pg.id === pageId);
-      if (!p?.prototypeConnections) return;
-      p.prototypeConnections = p.prototypeConnections.filter((c) => c.id !== id);
-    });
-    emitSemantic({ name: "delete_prototype_connection", connectionId: id, sourceLayerId: conn.sourceLayerId });
+    if (!page) return;
+    deletePrototypeConnection(page.id, id);
     setModalConnectionId(null);
   }
 
