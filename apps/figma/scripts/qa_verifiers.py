@@ -1,7 +1,7 @@
 """
 QA harness for the verifier set.
 
-For each task in tasks/, synthesizes:
+For each task in delivery-1/, synthesizes:
   - PERFECT-LOG: shapes/events the task expects, in matching counts
   - EMPTY-LOG: no shapes, no events (should score ~0)
 
@@ -12,15 +12,27 @@ Then runs the verifier on both, prints a table flagging:
   - OK          — perfect ≥ 0.7 and empty ≤ 0.3
 
 Usage:
-    PYTHONPATH=. python qa_verifiers.py
+    ../.venv/Scripts/python scripts/qa_verifiers.py
 """
 
 from __future__ import annotations
-import importlib, os, sys, traceback
+import importlib.util, os, sys, traceback
 from dataclasses import is_dataclass
+from pathlib import Path
 
-# Ensure framework imports resolve
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+APP_ROOT     = Path(__file__).resolve().parent.parent
+DELIVERY_DIR = APP_ROOT / "delivery-1"
+
+# Make `from verifier... import ...` work inside delivery-1/task_NN/verifier.py
+sys.path.insert(0, str(APP_ROOT))
+
+
+def load_task_from_dir(task_dir: Path):
+    verifier_py = task_dir / "verifier.py"
+    spec = importlib.util.spec_from_file_location(f"delivery_{task_dir.name}", verifier_py)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.task
 
 
 # ─────────────────────────────────────────────────
@@ -514,14 +526,13 @@ def score(task, log) -> float:
 # ─────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    tasks = sorted(f[:-3] for f in os.listdir("tasks")
-                   if f.endswith(".py") and f != "__init__.py")
+    task_dirs = sorted(p for p in DELIVERY_DIR.glob("task_*") if (p / "verifier.py").is_file())
 
     rows = []
-    for tname in tasks:
+    for task_dir in task_dirs:
+        tname = task_dir.name
         try:
-            mod = importlib.import_module(f"tasks.{tname}")
-            task = mod.task
+            task = load_task_from_dir(task_dir)
             p_log = perfect_log(task)
             e_log = empty_log()
             p_score = score(task, p_log)

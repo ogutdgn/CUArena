@@ -110,10 +110,12 @@ Phase boundaries were originally hard gates. Phases 1+2 are closed; phases 3+4 a
 ## 7. Artifact map (current)
 
 ```
-figma-mock/
-├── CLAUDE.md                       project instructions (source of truth for scope)
-├── feature-checklist.md            customer feature list (current source of truth)
-├── execution-map.md                wave-by-wave implementation order
+apps/figma/                         the figma app within cua-bench
+├── CLAUDE.md                       app-level agent guide (source of truth for scope)
+├── app-docs/
+│   ├── feature-checklist.md        customer feature list (current source of truth)
+│   ├── execution-map.md            wave-by-wave implementation order + session log
+│   └── architecture.md             engine, scene graph, ops, logger, UI shell
 ├── helper/
 │   ├── 00-overview.md              ← this file: scope, principles, how to use the corpus
 │   ├── 01-ui-schema-extraction.md  ← UI schema reference doc
@@ -131,8 +133,7 @@ figma-mock/
 │   │   ├── ui-schema/              UI region schema + state matrix + scroll/toast docs
 │   │   └── features/               ~250 per-feature specs across 34 categories
 │   └── open-source-example/        OpenPencil reference (read-only)
-└── mock/                       Vite + React + TS application
-    └── ARCHITECTURE.md             engine, scene graph, ops, logger, UI shell
+└── mock/                           Vite + React + TS application
 ```
 
 ## 7a. How to use this material — workflows for implementation agents
@@ -195,7 +196,7 @@ A spec field flagged as a gap means the corpus didn't cover it.
 1. Each spec has a `Semantic event(s) candidate` section. Use that as the starting name.
 2. Convention: snake_case `verb_noun`. Multi-trigger features use a single event with a `trigger` field (e.g. `move_layer { trigger: "drag" | "arrow_keys" | "panel_input" }`) UNLESS trajectory distinction matters for CUA.
 3. Cross-check sibling specs in the same category for consistency. If the candidate name conflicts with an existing one, harmonize and update both.
-4. Final taxonomy is consolidated incrementally as features ship — see `mock/ARCHITECTURE.md` for the live registry.
+4. Final taxonomy is consolidated incrementally as features ship — see `app-docs/architecture.md` for the live registry.
 
 ### Workflow 6 — Looking up a Figma feature you've never seen
 
@@ -225,7 +226,7 @@ A spec field flagged as a gap means the corpus didn't cover it.
 | "What multi-step flows exist?" | `helper/analysis/workflows.md` |
 | "Which articles are hubs?" | `helper/analysis/dependency-clusters.md` |
 | "Where's the source article for X?" | bottom of every spec under `helper/extracted/features/` |
-| "How does the engine work?" | `mock/ARCHITECTURE.md` |
+| "How does the engine work?" | `app-docs/architecture.md` |
 | "What's the current wave?" | `execution-map.md` |
 | "What does the customer want?" | `feature-checklist.md` |
 

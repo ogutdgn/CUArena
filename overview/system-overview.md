@@ -65,15 +65,14 @@ Every app in `apps/` follows the same shape:
 ```
 apps/<app>/
 ├── CLAUDE.md              app-level agent guide
-├── app-docs/              feature-checklist, execution-map, architecture, logging-documentation
-├── verifier-docs/         verifier design + writer instructions
-├── helper/                filtered research corpus (raw sources are gitignored)
+├── app-docs/              ALL docs: feature-checklist + execution-map + mock-doc/ + verifier-doc/ + scripts-doc/ + helper/
 ├── mock/                  the mock UI codebase
-├── verifier/              the verifier framework + per-task scripts
-└── scripts/               log export + utility scripts
+├── verifier/              the verifier framework (Python library, namespace package)
+├── delivery-1/            per-task package (prompt.md + verifier.py per task)
+└── scripts/               CLI entry-points (run_task / score_log / qa_verifiers) + logs/scores output
 ```
 
-The `helper/`, `mock/`, `verifier/` folders are **per-app** — not shared. Once two apps are shipped end-to-end, the shared parts of the verifier framework will be extracted to `shared/`.
+The `app-docs/helper/`, `mock/`, `verifier/` folders are **per-app** — not shared. Once two apps are shipped end-to-end, the shared parts of the verifier framework will be extracted to `shared/`.
 
 ---
 

@@ -24,12 +24,11 @@ cua-bench/
 ├── apps/
 │   ├── figma/                    active — Figma Design mock + verifier
 │   │   ├── CLAUDE.md             ← READ THIS when working on the figma app
-│   │   ├── app-docs/
-│   │   ├── verifier-docs/
-│   │   ├── helper/
+│   │   ├── app-docs/             all docs (mock-doc/ + verifier-doc/ + scripts-doc/ + helper/)
 │   │   ├── mock/
-│   │   ├── verifier/
-│   │   └── scripts/
+│   │   ├── verifier/             flat Python library (no __init__.py — namespace package)
+│   │   ├── delivery-1/           50-task source of truth (prompt.md + verifier.py per task)
+│   │   └── scripts/              CLI entry-points + logs/scores output
 │   ├── sheets/                   planned — skeleton only
 │   └── docs/                     planned — skeleton only
 └── shared/                       future: extracted shared verifier framework
@@ -60,7 +59,7 @@ These apply to every app in this repo:
 - **Per-app session workflow**: feature-checklist + execution-map per app, refreshed every session. See each app's CLAUDE.md.
 - **Branch strategy**: trunk-based, short-lived feature branches, PR per change. Branch name format: `<scope>/<short-slug>` (e.g. `feat/figma-fillgrad`, `restructure/monorepo-skeleton`).
 - **Commit style**: see [.claude/skills/commit-style.md](.claude/skills/commit-style.md).
-- **Helper-corpus reading**: NEVER read `apps/<X>/helper/` blind — always go through that app's `helper/00-overview.md` first.
+- **Helper-corpus reading**: NEVER read `apps/<X>/app-docs/helper/` blind — always go through that app's `app-docs/helper/00-overview.md` first.
 - **Documentation-first**: every new app starts with research → filtered helper → architecture decision → implementation. See [.claude/skills/research-flow.md](.claude/skills/research-flow.md).
 
 ---

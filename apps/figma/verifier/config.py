@@ -1,7 +1,7 @@
 import os
 import yaml
 
-_CONFIG_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config.yaml")
+_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config.yaml")
 _cache: dict = {}
 
 

@@ -31,8 +31,8 @@ Open priorities: outcome-stream correlation IDs, unsupported-button toast / rena
 
 ### Sheets — pending
 
-- M0: research cycle → committed `apps/sheets/helper/`
-- M1: architecture decision (stack, state shape, op set) → `apps/sheets/app-docs/architecture.md`
+- M0: research cycle → committed `apps/sheets/app-docs/helper/`
+- M1: architecture decision (stack, state shape, op set) → `apps/sheets/app-docs/mock-doc/architecture.md`
 - M2: minimum mock (grid, cell input, basic formulas) + logger
 - M3: verifier framework (initially a copy of figma's, refactored as needed)
 - M4: first 5 tasks + verifier scripts
@@ -40,7 +40,7 @@ Open priorities: outcome-stream correlation IDs, unsupported-button toast / rena
 
 ### Docs — pending
 
-- M0: research cycle → committed `apps/docs/helper/`
+- M0: research cycle → committed `apps/docs/app-docs/helper/`
 - M1: architecture decision (text model, run merging, edit-state)
 - M2: minimum mock (single-paragraph editing, runs, basic formatting) + logger
 - M3: verifier (uses shared framework from `shared/`)

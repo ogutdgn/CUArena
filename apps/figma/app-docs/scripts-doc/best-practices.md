@@ -119,7 +119,7 @@ storage = page.evaluate("""() => {
 ### Adding persistence to Option B (if server restarts are a concern)
 
 Replace the in-memory `latestLog` variable in `devLogRelayPlugin` with a file
-write to `verifier/logs/.dev-log-latest.json`. The GET endpoint reads from
+write to `scripts/logs/.dev-log-latest.json`. The GET endpoint reads from
 that file instead of memory. No other changes needed.
 
 ---

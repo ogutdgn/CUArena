@@ -11,10 +11,8 @@ cua-eval/
 ├── BUILDING_TASKS.md          ← step-by-step guide to add new tasks
 └── figma_tasks_finished.csv   ← 50 in-scope tasks
 
-verifier/tasks/
-├── house_task.py              ← cofounder's basic baseline
-├── house_task_comprehensive.py ← reference 5-rubric implementation
-└── task_NN_<name>.py × 49     ← all 49 in-scope verifiers
+delivery-1/
+└── task_NN/                   ← per-task package: prompt.md + verifier.py + output/<ts>/
 ```
 
 ## All 50 tasks (runnable today)
@@ -92,13 +90,16 @@ for the full template and check catalog.
 ## Running
 
 ```bash
-cd verifier
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+# One-time setup (from apps/figma/)
+python3 -m venv .venv
+.venv/Scripts/pip install -r requirements.txt   # .venv/bin/pip on Unix
 
-python run.py --task task_19_padlock --log logs/<your_run>.json
-python run.py --task task_29_polka_dot_grid --log logs/<your_run>.json
-# ...
+# Score an existing log against any task (numeric prefix or task_NN)
+.venv/Scripts/python scripts/score_log.py --task 19 --log scripts/logs/<your_run>.json
+.venv/Scripts/python scripts/score_log.py --task task_29 --log scripts/logs/<your_run>.json
+
+# Or full pipeline: live log + score (requires mock running on :5173)
+.venv/Scripts/python scripts/run_task.py task_19
 ```
 
 Each run produces a per-rubric breakdown plus a final score in `[0, 1]`.

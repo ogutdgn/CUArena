@@ -56,8 +56,8 @@ Every feature implemented in `mock/` has a corresponding check primitive in `ver
 | Multiple pages | `PageCount`, `LayerOnPage` |
 
 When a new feature is checked off in `app-docs/feature-checklist.md`:
-1. Check if any `planned` tasks in `verifier/task-docs/tasks.csv` now become `in_scope`.
-2. Check if new check primitives are needed in `verifier/verifier/checks/`.
+1. Check if any `planned` tasks in `app-docs/verifier-doc/tasks.csv` now become `in_scope`.
+2. Check if new check primitives are needed in `verifier/checks/`.
 
 ---
 
@@ -65,26 +65,35 @@ When a new feature is checked off in `app-docs/feature-checklist.md`:
 
 ```
 apps/figma/
-├── CLAUDE.md (this file)         agent guide for this app
-├── AGENTS.md                     mirror of CLAUDE.md (Codex/other tooling)
-├── app-docs/
+├── CLAUDE.md                     agent guide for this app (mirrored to AGENTS.md)
+├── AGENTS.md (this file)         mirror of CLAUDE.md (Codex/other tooling)
+├── README.md                     top-level intro for the app
+├── requirements.txt              Python deps (pyyaml — needed by verifier/config.py)
+├── .venv/                        Python venv (gitignored) — used by scripts/
+├── app-docs/                     ALL documentation lives here
 │   ├── feature-checklist.md     ← customer feature list; tick [x] as features ship
 │   ├── execution-map.md         ← wave-by-wave plan + session log (update every session)
-│   ├── architecture.md          ← mock tech overview (stack, ops, state, folder layout)
-│   └── logging-documentation.md ← full log schema reference (raw/semantic/outcome fields)
-├── verifier-docs/
-│   ├── verifier-documentation.md ← verifier design: scoring model, check catalog, rubrics
-│   └── verifier-writer.md        ← instructions for AI agents writing tasks/<id>.py scripts
-├── helper/                       reference corpus for Figma feature specs
-├── mock/                         the React Figma mock
-├── verifier/                     the Python verifier framework
-├── scripts/                      log export tooling (run_task.py)
-├── cua-eval/                     50-task CSV + builder guide
-└── delivery-1/                   per-task delivery package (50 prompt+verifier folders)
+│   ├── bugs-found.md            ← running list of bugs surfaced by audits (Codex/manual review)
+│   ├── mock-doc/                 mock-side technical docs
+│   │   ├── architecture.md      ← mock tech overview (stack, ops, state, folder layout)
+│   │   └── logging-documentation.md ← full log schema reference (raw/semantic/outcome fields)
+│   ├── verifier-doc/             verifier-side technical docs
+│   │   ├── verifier-documentation.md ← verifier design: scoring model, check catalog, rubrics
+│   │   ├── verifier-writer.md   ← instructions for AI agents writing per-task verifier.py scripts
+│   │   └── tasks.csv            ← 50-task scope/status table (planned / in_scope / shipped)
+│   ├── scripts-doc/              scripts/ usage docs
+│   │   ├── README.md            ← full flow diagram + step-by-step usage
+│   │   └── best-practices.md    ← export-approach trade-offs + migration notes
+│   └── helper/                   reference corpus for Figma feature specs
+├── mock/                         the React Figma mock (TypeScript + Vite)
+├── verifier/                     the Python framework (checks, rubrics, types) — library only
+├── delivery-1/                   single source of truth for tasks: per-task prompt.md + verifier.py
+├── scripts/                      CLI entry-points (run_task.py, score_log.py, qa_verifiers.py) + logs/scores output
+└── cua-eval/                     50-task CSV + builder guide
 ```
 
-**helper/** — reference corpus for Figma feature specs (read via `helper/00-overview.md §7a`).
-Do not read `helper/` blind — go through the overview first.
+**app-docs/helper/** — reference corpus for Figma feature specs (read via `app-docs/helper/00-overview.md §7a`).
+Do not read `app-docs/helper/` blind — go through the overview first.
 
 ---
 
@@ -101,46 +110,50 @@ Both `app-docs/feature-checklist.md` and `app-docs/execution-map.md` must be ref
   - In session-log entries, describe what shipped directly — do not label by Wave number.
   - **Delete** completed items from the lower plan. Do not annotate as "Done" — the session log is the record.
   - **Renumber waves from Wave 1** after deletions.
-- If a new feature shipped, check whether any `planned` task in `verifier/task-docs/tasks.csv` is now `in_scope` and whether new check primitives are needed.
+- If a new feature shipped, check whether any `planned` task in `app-docs/verifier-doc/tasks.csv` is now `in_scope` and whether new check primitives are needed.
 
 ---
 
 ## Working on `mock/`
 
-Code lives in `mock/`. Architecture: `app-docs/architecture.md`.
+Code lives in `mock/`. Architecture: `app-docs/mock-doc/architecture.md`.
 
 Reference material for Figma feature specs:
-- `helper/00-overview.md` — start here (§7a has agent workflows)
-- `helper/01-ui-schema-extraction.md` — UI regions, state matrix, color picker
-- `helper/02-feature-research.md` — ~250 feature specs across 34 categories
+- `app-docs/helper/00-overview.md` — start here (§7a has agent workflows)
+- `app-docs/helper/01-ui-schema-extraction.md` — UI regions, state matrix, color picker
+- `app-docs/helper/02-feature-research.md` — ~250 feature specs across 34 categories
 
 ---
 
 ## Working on `verifier/`
 
-Code lives in `verifier/`. Setup and usage: `verifier/README.md`.
+`verifier/` is now a flat Python **library** — checks, rubrics, types, loader, config.
+It has no `__init__.py` (PEP 420 namespace package) and no CLI of its own; entry-points live in `scripts/`.
 
-To write a new task verifier script: read `verifier-docs/verifier-writer.md` — it has the full check catalog and rules.
-
-Run a verifier (from `apps/figma/verifier/`):
-```bash
-.venv/bin/python run.py --task house_task --log logs/house_sample.json
-```
+To write a new task verifier: read `app-docs/verifier-doc/verifier-writer.md` — it has the full check catalog and rules.
+Tasks live as `delivery-1/task_NN/verifier.py` (single source of truth) and `import` from this package
+via `from verifier.checks.* import ...`.
 
 ---
 
-## scripts/ — log export tooling
+## scripts/ — CLI entry-points + log/score output
 
-The `scripts/` folder bridges `mock/` and `verifier/` for the **human developer** workflow.
+The `scripts/` folder is the only place a human developer runs Python from. It also stores
+the runtime artifacts (logs, scores) so the `verifier/` package and `delivery-1/` task
+definitions stay clean.
 
 ```
 scripts/
-├── run_task.py        ← fetches the current session log, saves it, runs the matching task verifier
-├── generate_delivery_1.py
-├── requirements.txt
-├── README.md          ← full flow diagram + step-by-step usage
-└── best-practices.md  ← three export approaches, trade-offs, migration guide
+├── run_task.py             ← fetch current session log + score against delivery-1 task (full pipeline)
+├── score_log.py            ← score an existing log file against a delivery-1 task (offline)
+├── qa_verifiers.py         ← smoke-test all 50 verifiers against synthetic perfect/empty logs
+├── generate_delivery_1.py  ← (legacy) regenerate the delivery-1 package
+├── logs/                   ← saved logs from run_task.py / export-log
+└── scores/                 ← saved scores from run_task.py / score_log.py
 ```
+
+Usage docs for `scripts/` live in [`app-docs/scripts-doc/README.md`](app-docs/scripts-doc/README.md);
+export-approach trade-offs in [`app-docs/scripts-doc/best-practices.md`](app-docs/scripts-doc/best-practices.md).
 
 ### How log export works
 
@@ -155,14 +168,21 @@ cd mock && npm run dev
 # 2. Do stuff in the browser at http://localhost:5173
 
 # 3. Run a task verifier end-to-end (from apps/figma/)
-verifier/.venv/Scripts/python scripts/run_task.py task_01
-# → saves log to verifier/logs/<task>_<timestamp>.json
-# → routes score into delivery-1/task_NN/output/<timestamp>/
+.venv/Scripts/python scripts/run_task.py task_01
+# → saves log to scripts/logs/<task>_<timestamp>.json
+# → saves score to scripts/scores/<task>_<timestamp>.json
+# → prints log details + score breakdown to stdout
+
+# Re-score a saved log
+.venv/Scripts/python scripts/score_log.py --task 01 --log scripts/logs/<file>.json
+
+# Smoke-test every verifier
+.venv/Scripts/python scripts/qa_verifiers.py
 ```
 
 ### For automated CUA / Docker
 
 The Vite relay is dev-only and not the right approach for automated runs. When a CUA agent
 controls the browser via Playwright, the test harness already has CDP access and should
-read sessionStorage directly via `page.evaluate()`. See `scripts/best-practices.md` for
+read sessionStorage directly via `page.evaluate()`. See `app-docs/scripts-doc/best-practices.md` for
 the full comparison and migration steps.
