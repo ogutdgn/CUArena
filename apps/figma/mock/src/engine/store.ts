@@ -13,6 +13,10 @@ enableMapSet();
 interface UndoEntry {
   id: string;
   timestamp: number;
+  // Page the selection / focus snapshots belong to. Pinned at capture time so
+  // undo/redo restore selection on the right page even if the active page
+  // changed afterward (e.g. delete_page / switch_page in the same entry).
+  pageId: string;
   ops: Op[];
   selectionBefore: string[];
   selectionAfter: string[];
