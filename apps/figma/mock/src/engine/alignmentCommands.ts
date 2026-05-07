@@ -188,3 +188,270 @@ export function distributeSelection(axis: DistributeAxis): void {
     trigger: "panel_button",
   } as never);
 }
+
+// ─── Tidy up ──────────────────────────────────────────────────────────
+//
+// Helper spec: app-docs/helper/extracted/features/alignment/tidy-up.md.
+// Detects whether the selection is 1D (single row / column with overlapping
+// perpendicular extents) or 2D (grid clustered on both axes), then equalizes
+// spacing using the **mode** of observed gaps (mean fallback if all unique).
+// No-op when neither layout qualifies, when fewer than 2 layers are selected,
+// or when the resolved positions don't actually move any layer.
+
+type WorldRect = { x: number; y: number; w: number; h: number };
+type LayerWithRect = { layer: Layer; wr: WorldRect };
+
+function commonRangeExists(rects: WorldRect[], axis: "x" | "y"): boolean {
+  let maxStart = -Infinity;
+  let minEnd = Infinity;
+  for (const r of rects) {
+    const start = axis === "x" ? r.x : r.y;
+    const size = axis === "x" ? r.w : r.h;
+    if (start > maxStart) maxStart = start;
+    if (start + size < minEnd) minEnd = start + size;
+  }
+  return maxStart < minEnd;
+}
+
+function computeSpacing(gaps: number[], tolerance: number): number {
+  if (gaps.length === 0) return 0;
+  // Bucket gaps within `tolerance` of an existing bucket's running mean; the
+  // bucket with the most members wins (mode). Falls back to overall mean when
+  // every gap is unique.
+  const buckets: Array<{ value: number; count: number }> = [];
+  for (const g of gaps) {
+    const hit = buckets.find((b) => Math.abs(b.value - g) <= tolerance);
+    if (hit) {
+      hit.value = (hit.value * hit.count + g) / (hit.count + 1);
+      hit.count += 1;
+    } else {
+      buckets.push({ value: g, count: 1 });
+    }
+  }
+  buckets.sort((a, b) => b.count - a.count);
+  if (buckets[0].count > 1) return buckets[0].value;
+  return gaps.reduce((s, g) => s + g, 0) / gaps.length;
+}
+
+function tryClusterAsGrid(items: LayerWithRect[]): LayerWithRect[][] | null {
+  if (items.length < 4) return null; // Grid needs at least 2x2.
+  const sorted = [...items].sort(
+    (a, b) => a.wr.y + a.wr.h / 2 - (b.wr.y + b.wr.h / 2),
+  );
+  const rows: LayerWithRect[][] = [];
+  for (const it of sorted) {
+    const cy = it.wr.y + it.wr.h / 2;
+    const tol = Math.max(8, it.wr.h / 4);
+    let placed = false;
+    for (const row of rows) {
+      const refCy = row[0].wr.y + row[0].wr.h / 2;
+      const rowTol = Math.max(tol, row[0].wr.h / 4);
+      if (Math.abs(cy - refCy) <= rowTol) {
+        row.push(it);
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) rows.push([it]);
+  }
+  if (rows.length < 2) return null;
+  // Every row must have the same number of items to qualify as a grid.
+  const cols = rows[0].length;
+  if (cols < 2) return null;
+  if (rows.some((r) => r.length !== cols)) return null;
+  for (const r of rows) {
+    r.sort((a, b) => a.wr.x + a.wr.w / 2 - (b.wr.x + b.wr.w / 2));
+  }
+  return rows;
+}
+
+function detectTidyDimension(
+  items: LayerWithRect[],
+):
+  | { kind: "1d_horizontal" }
+  | { kind: "1d_vertical" }
+  | { kind: "2d"; rows: LayerWithRect[][] }
+  | null {
+  if (items.length < 2) return null;
+  const rects = items.map((i) => i.wr);
+
+  if (items.length === 2) {
+    // 2 layers: only 1D ever qualifies.
+    const yOverlap = commonRangeExists(rects, "y");
+    const xOverlap = commonRangeExists(rects, "x");
+    if (yOverlap && !xOverlap) return { kind: "1d_horizontal" };
+    if (xOverlap && !yOverlap) return { kind: "1d_vertical" };
+    if (yOverlap && xOverlap) {
+      // Layers overlap on both axes (e.g. stacked); pick the axis with the
+      // larger center-to-center span so the tidy is meaningful.
+      const dx = Math.abs(
+        rects[0].x + rects[0].w / 2 - (rects[1].x + rects[1].w / 2),
+      );
+      const dy = Math.abs(
+        rects[0].y + rects[0].h / 2 - (rects[1].y + rects[1].h / 2),
+      );
+      return dx >= dy ? { kind: "1d_horizontal" } : { kind: "1d_vertical" };
+    }
+    return null;
+  }
+
+  // 3+ layers: try 2D grid FIRST. A grid where adjacent rows happen to share
+  // a y-range (e.g. tall cards with slight overlap) would otherwise be
+  // misclassified as 1D horizontal and collapsed onto a single row.
+  const grid = tryClusterAsGrid(items);
+  if (grid) return { kind: "2d", rows: grid };
+
+  const yOverlap = commonRangeExists(rects, "y");
+  const xOverlap = commonRangeExists(rects, "x");
+  if (yOverlap) return { kind: "1d_horizontal" };
+  if (xOverlap) return { kind: "1d_vertical" };
+  return null;
+}
+
+export function tidySelection(
+  trigger: "panel_button" | "context_menu" | "shortcut",
+): void {
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s);
+  if (layers.length < 2) return;
+
+  const items: LayerWithRect[] = layers.map((l) => ({ layer: l, wr: worldRectOfLayer(s, l) }));
+  const detection = detectTidyDimension(items);
+  if (!detection) return; // No qualifying 1D or 2D layout — no-op.
+
+  const before: TransformMap = {};
+  const after: TransformMap = {};
+  const tEpsilon = 0.5; // sub-pixel positions don't count as "changed".
+  let changed = false;
+
+  function recordTarget(layer: Layer, worldX: number, worldY: number) {
+    const local = worldToParentLocal(s, layer.parentId, { x: worldX, y: worldY });
+    const t = { x: layer.x, y: layer.y, w: layer.w, h: layer.h, rotation: layer.rotation, scaleX: layer.scaleX, scaleY: layer.scaleY };
+    before[layer.id] = t;
+    after[layer.id] = { ...t, x: local.x, y: local.y };
+    if (Math.abs(local.x - layer.x) > tEpsilon || Math.abs(local.y - layer.y) > tEpsilon) {
+      changed = true;
+    }
+  }
+
+  let computedSpacing: { x?: number; y?: number } = {};
+
+  if (detection.kind === "1d_horizontal" || detection.kind === "1d_vertical") {
+    const horizontal = detection.kind === "1d_horizontal";
+    const sorted = [...items].sort((a, b) =>
+      horizontal
+        ? a.wr.x + a.wr.w / 2 - (b.wr.x + b.wr.w / 2)
+        : a.wr.y + a.wr.h / 2 - (b.wr.y + b.wr.h / 2),
+    );
+    const gaps: number[] = [];
+    for (let i = 1; i < sorted.length; i++) {
+      const prev = sorted[i - 1].wr;
+      const cur = sorted[i].wr;
+      gaps.push(
+        horizontal ? cur.x - (prev.x + prev.w) : cur.y - (prev.y + prev.h),
+      );
+    }
+    const spacing = computeSpacing(gaps, 2);
+    if (horizontal) computedSpacing = { x: spacing };
+    else computedSpacing = { y: spacing };
+
+    // Perpendicular axis: align all layers to the average current center on that axis.
+    const perpCenters = sorted.map((it) =>
+      horizontal ? it.wr.y + it.wr.h / 2 : it.wr.x + it.wr.w / 2,
+    );
+    const perpAvg = perpCenters.reduce((a, b) => a + b, 0) / perpCenters.length;
+
+    let cursor = horizontal ? sorted[0].wr.x : sorted[0].wr.y;
+    for (const it of sorted) {
+      const wx = horizontal ? cursor : perpAvg - it.wr.w / 2;
+      const wy = horizontal ? perpAvg - it.wr.h / 2 : cursor;
+      recordTarget(it.layer, wx, wy);
+      cursor += (horizontal ? it.wr.w : it.wr.h) + spacing;
+    }
+  } else {
+    // 2D grid
+    const rows = detection.rows;
+    const cols = rows[0].length;
+    const anchorX = Math.min(...items.map((i) => i.wr.x));
+    const anchorY = Math.min(...items.map((i) => i.wr.y));
+
+    // Row gaps: gap between rows (max-bottom of row N → top of row N+1).
+    const rowGaps: number[] = [];
+    for (let r = 1; r < rows.length; r++) {
+      const prevBottom = Math.max(...rows[r - 1].map((c) => c.wr.y + c.wr.h));
+      const curTop = Math.min(...rows[r].map((c) => c.wr.y));
+      rowGaps.push(curTop - prevBottom);
+    }
+    // Col gaps aggregated across EVERY row so a single outlier in the first
+    // row can't force the whole grid to inherit a bad spacing.
+    const colGaps: number[] = [];
+    for (const row of rows) {
+      for (let c = 1; c < row.length; c++) {
+        const prev = row[c - 1].wr;
+        const cur = row[c].wr;
+        colGaps.push(cur.x - (prev.x + prev.w));
+      }
+    }
+    const ySpacing = computeSpacing(rowGaps, 2);
+    const xSpacing = computeSpacing(colGaps, 2);
+    computedSpacing = { x: xSpacing, y: ySpacing };
+
+    // For variable-width grids: each column gets a fixed width = max width
+    // observed in that column across all rows. Then column anchors are shared
+    // by every row, so columns line up vertically even when items differ in
+    // width row-to-row. Items are centered within their column slot.
+    const colWidths: number[] = [];
+    for (let c = 0; c < cols; c++) {
+      let maxW = 0;
+      for (const row of rows) {
+        if (row[c].wr.w > maxW) maxW = row[c].wr.w;
+      }
+      colWidths.push(maxW);
+    }
+    const colXAnchors: number[] = [];
+    {
+      let cur = anchorX;
+      for (let c = 0; c < cols; c++) {
+        colXAnchors.push(cur);
+        cur += colWidths[c] + xSpacing;
+      }
+    }
+
+    let yCursor = anchorY;
+    for (const row of rows) {
+      const rowH = Math.max(...row.map((c) => c.wr.h));
+      for (let c = 0; c < cols; c++) {
+        const it = row[c];
+        const colW = colWidths[c];
+        const wx = colXAnchors[c] + (colW - it.wr.w) / 2;
+        const wy = yCursor + (rowH - it.wr.h) / 2;
+        recordTarget(it.layer, wx, wy);
+      }
+      yCursor += rowH + ySpacing;
+    }
+  }
+
+  if (!changed) return; // Already tidy — don't burn an undo entry.
+
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_transform",
+    pageId: s.activePageId,
+    ids: items.map((i) => i.layer.id),
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "tidy_up",
+    layerIds: items.map((i) => i.layer.id),
+    dimension:
+      detection.kind === "1d_horizontal"
+        ? "1d_horizontal"
+        : detection.kind === "1d_vertical"
+        ? "1d_vertical"
+        : "2d",
+    computedSpacing,
+    trigger,
+  });
+}
