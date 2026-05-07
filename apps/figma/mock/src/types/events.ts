@@ -251,6 +251,16 @@ export type SemanticEvent =
       trigger: "panel_button" | "shortcut";
     })
   | (SemanticEventBase & {
+      name: "tidy_up";
+      layerIds: string[];
+      // Detected layout for the selection. 1D = single row/column with
+      // overlapping perpendicular extents; 2D = multi-row/column grid.
+      dimension: "1d_horizontal" | "1d_vertical" | "2d";
+      // Resolved spacing in px. 1D fills only the primary axis; 2D fills both.
+      computedSpacing: { x?: number; y?: number };
+      trigger: "panel_button" | "context_menu" | "shortcut";
+    })
+  | (SemanticEventBase & {
       name: "set_page_background";
       targetPageId: string;
       before: { r: number; g: number; b: number; a: number };
