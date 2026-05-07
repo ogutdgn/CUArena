@@ -1,4 +1,4 @@
-import { worldRectOfLayer } from "@/engine/coordinates";
+import { worldOrientedCornersOfLayer } from "@/engine/coordinates";
 import { useStore, selectActiveViewport } from "@/engine/store";
 import type { Layer, Page } from "@/types/scene";
 
@@ -10,7 +10,10 @@ function isContainer(node: Layer | Page | undefined): node is Layer {
 
 export function ParentBoundsOverlay() {
   const viewport = useStore((s) => selectActiveViewport(s));
-  const bounds = useStore((s) => {
+  // Render the parent's outline as an oriented quad through its four
+  // transformed corners so a rotated/flipped parent's bounds rotate with it
+  // (rather than being drawn as the axis-aligned AABB).
+  const corners = useStore((s) => {
     const pageId = s.activePageId;
     const focusId = s.focusContextByPage[pageId] ?? null;
 
@@ -30,19 +33,16 @@ export function ParentBoundsOverlay() {
     }
 
     if (!parent) return null;
-    const wr = worldRectOfLayer(s, parent);
-    return { x: wr.x, y: wr.y, w: wr.w, h: wr.h };
+    return worldOrientedCornersOfLayer(s, parent);
   });
 
-  if (!bounds) return null;
+  if (!corners) return null;
   const sw = 1 / viewport.zoom;
   const dash = `${4 / viewport.zoom} ${3 / viewport.zoom}`;
+  const points = corners.map((c) => `${c.x},${c.y}`).join(" ");
   return (
-    <rect
-      x={bounds.x}
-      y={bounds.y}
-      width={bounds.w}
-      height={bounds.h}
+    <polygon
+      points={points}
       fill="none"
       stroke="rgba(13,153,255,0.55)"
       strokeWidth={sw}

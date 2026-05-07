@@ -22,7 +22,7 @@ import { uid } from "@/util/id";
 import type { TransformMap, TransformTuple } from "@/types/ops";
 import type { Layer, Page } from "@/types/scene";
 import type { HandleDir, RotateCorner } from "@/ui/overlays/SelectionOverlay";
-import { worldOffsetOfParent, worldRectOfLayer } from "@/engine/coordinates";
+import { worldOffsetOfParent, worldRectOfLayer, worldAABBOfLayer } from "@/engine/coordinates";
 
 const DRAG_THRESHOLD = 3;
 
@@ -405,7 +405,10 @@ export const moveTool: ITool = {
           for (const l of arr) {
             if (movingSet.has(l.id)) continue;
             if (!l.visible) continue;
-            const wr = worldRectOfLayer(liveAfterDup, l);
+            // Transformed AABB so a rotated/flipped sibling exposes its visible
+            // outline as a snap candidate / frame target, not its un-rotated
+            // stored rect.
+            const wr = worldAABBOfLayer(liveAfterDup, l);
             const rect = { x: wr.x, y: wr.y, w: wr.w, h: wr.h };
             candidatesCache.push(rect);
             if (l.type === "frame") framesCache.push({ id: l.id, rect });
@@ -789,7 +792,8 @@ export const moveTool: ITool = {
       }
       walkLayers(roots, (l) => {
         if (l.locked || !l.visible) return;
-        const wr = worldRectOfLayer(useStore.getState(), l);
+        // Marquee select against the rotated/flipped layer's visible outline.
+        const wr = worldAABBOfLayer(useStore.getState(), l);
         if (rectIntersects(box, { x: wr.x, y: wr.y, w: wr.w, h: wr.h })) hits.push(l.id);
       });
       const s2 = useStore.getState();
@@ -886,7 +890,10 @@ function applyFrameNestingByOverlap(
     const layer = now.nodesById[id] as Layer | undefined;
     if (!layer || (layer as unknown as Page).type === "page") continue;
 
-    const wr = worldRectOfLayer(now, layer);
+    // Use the transformed AABB so a rotated/flipped moving layer overlaps
+    // its destination frame by visible outline, not by its un-rotated stored
+    // rect. Frames in the cache are already AABB-based for the same reason.
+    const wr = worldAABBOfLayer(now, layer);
     const area = Math.max(1, wr.w * wr.h);
 
     const currentParent = now.nodesById[layer.parentId] as Layer | Page | undefined;
@@ -898,7 +905,7 @@ function applyFrameNestingByOverlap(
         : null;
     const currentOverlap =
       currentFrameParent != null
-        ? overlapRatio(wr, worldRectOfLayer(now, currentFrameParent), area)
+        ? overlapRatio(wr, worldAABBOfLayer(now, currentFrameParent), area)
         : 0;
 
     let bestFrameId: string | null = null;
