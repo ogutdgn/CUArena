@@ -53,12 +53,16 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
   const s = useStore.getState();
   const layers = getSelectedLayers(s);
   if (layers.length === 0) return;
+  // Normalize rotation to [0, 360). Lets users type magnitudes like -1060 and
+  // see the input snap to the equivalent canonical angle (per user spec, item 20).
+  let v = value;
+  if (field === "rotation") v = ((value % 360) + 360) % 360;
   const before: TransformMap = {};
   const after: TransformMap = {};
   for (const l of layers) {
     const t = txtuple(l);
     before[l.id] = { ...t };
-    after[l.id] = { ...t, [field]: field === "w" || field === "h" ? Math.max(1, value) : value };
+    after[l.id] = { ...t, [field]: field === "w" || field === "h" ? Math.max(1, v) : v };
   }
   dispatch({
     id: makeOpId(),
@@ -74,7 +78,7 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
     const afterR: Record<string, number> = {};
     for (const l of layers) {
       beforeR[l.id] = l.rotation;
-      afterR[l.id] = value;
+      afterR[l.id] = v;
     }
     emitSemantic({ name: "rotate_layer", layerIds: layers.map((l) => l.id), before: beforeR, after: afterR, trigger: "panel_input" });
   } else if (field === "w" || field === "h") {
