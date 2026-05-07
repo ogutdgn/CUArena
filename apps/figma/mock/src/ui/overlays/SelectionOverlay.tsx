@@ -4,7 +4,9 @@
 
 import { useStore, selectActiveViewport } from "@/engine/store";
 import { selectionBbox } from "@/engine/selectors";
+import { worldOffsetOfLayer } from "@/engine/coordinates";
 import type { Rect } from "@/util/geometry";
+import type { Layer } from "@/types/scene";
 
 const HANDLE_SIZE_PX = 8; // visual diameter on screen
 const HANDLE_HIT_PADDING_PX = 4;
@@ -19,6 +21,49 @@ export function SelectionOverlay() {
   const editMode = useStore((s) => s.editMode);
   const activeTool = useStore((s) => s.activeTool);
   const activeRightTab = useStore((s) => s.activeRightTab);
+  // Detect a single-line/arrow selection. Lines are 2-point geometry, not
+  // bounding-box-wrapped rectangles, so the standard 8-handle bbox treats
+  // them like a rect. Render a line overlay + 2 endpoint markers instead.
+  // Per-line endpoint resize (drag p1/p2) is deferred (item 21f).
+  const lineSelection = useStore((s) => {
+    const ids = s.selectionByPage[s.activePageId] ?? [];
+    if (ids.length !== 1) return null;
+    const node = s.nodesById[ids[0]] as Layer | undefined;
+    if (!node) return null;
+    if (node.type !== "line" && node.type !== "arrow") return null;
+    // World-space layer top-left = ancestor offset + layer.x/y (no transform).
+    // Applies the layer's scale + rotation around its bbox center to each
+    // endpoint, matching what NodeRenderer's commonTransform does in SVG.
+    // Without this, flipping a line via the panel button would leave the
+    // overlay drawn in the un-flipped position.
+    const off = worldOffsetOfLayer(s, node);
+    const wx = off.x - node.x + node.x;
+    const wy = off.y - node.y + node.y;
+    const cx = node.w / 2;
+    const cy = node.h / 2;
+    const transform = (lx: number, ly: number) => {
+      let px = lx;
+      let py = ly;
+      if (node.scaleX !== 1 || node.scaleY !== 1) {
+        px = cx + (px - cx) * node.scaleX;
+        py = cy + (py - cy) * node.scaleY;
+      }
+      if (node.rotation !== 0) {
+        const rad = (node.rotation * Math.PI) / 180;
+        const cos = Math.cos(rad);
+        const sin = Math.sin(rad);
+        const dx = px - cx;
+        const dy = py - cy;
+        px = cx + dx * cos - dy * sin;
+        py = cy + dx * sin + dy * cos;
+      }
+      return { x: wx + px, y: wy + py };
+    };
+    return {
+      p1: transform(node.p1.x, node.p1.y),
+      p2: transform(node.p2.x, node.p2.y),
+    };
+  });
   if (!bbox) return null;
   // Pen mode should render anchor/handle previews only (no selection bbox).
   if (activeTool === "pen") return null;
@@ -75,7 +120,40 @@ export function SelectionOverlay() {
           stroke={sw}
         />
       ))}
+      {lineSelection && (
+        <>
+          {/* Visual line overlay + endpoint markers. Bbox + handles above
+              still render so the user retains resize until item 21f ships
+              proper endpoint-drag resize. */}
+          <line
+            x1={lineSelection.p1.x}
+            y1={lineSelection.p1.y}
+            x2={lineSelection.p2.x}
+            y2={lineSelection.p2.y}
+            stroke="var(--color-selection-blue)"
+            strokeWidth={1.5 / viewport.zoom}
+            pointerEvents="none"
+          />
+          <EndpointMarker x={lineSelection.p1.x} y={lineSelection.p1.y} size={HANDLE_SIZE_PX / viewport.zoom} stroke={1 / viewport.zoom} />
+          <EndpointMarker x={lineSelection.p2.x} y={lineSelection.p2.y} size={HANDLE_SIZE_PX / viewport.zoom} stroke={1 / viewport.zoom} />
+        </>
+      )}
     </g>
+  );
+}
+
+function EndpointMarker({ x, y, size, stroke }: { x: number; y: number; size: number; stroke: number }) {
+  const half = size / 2;
+  return (
+    <rect
+      x={x - half}
+      y={y - half}
+      width={size}
+      height={size}
+      fill="white"
+      stroke="var(--color-selection-blue)"
+      strokeWidth={stroke}
+    />
   );
 }
 
