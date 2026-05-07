@@ -886,14 +886,9 @@ function applyFrameNestingByOverlap(
       if (frameIndex >= 0) toIndex = frameIndex + 1;
     }
 
-    const before = transformOf(layer);
-    const parentWorld = worldOffsetOfParent(now, toParentId);
-    const after = {
-      ...before,
-      x: wr.x - parentWorld.x,
-      y: wr.y - parentWorld.y,
-    };
-
+    // applyReparent now preserves world position by re-expressing x/y in the
+    // new parent's coordinate space, so a follow-up set_transform is no longer
+    // needed (and would double-correct on undo).
     dispatch(
       {
         id: makeOpId(),
@@ -901,18 +896,6 @@ function applyFrameNestingByOverlap(
         kind: "reparent",
         pageId: now.activePageId,
         moves: [{ id, fromParentId: layer.parentId, fromIndex, toParentId, toIndex }],
-      },
-      { transactionId: txId },
-    );
-    dispatch(
-      {
-        id: makeOpId(),
-        timestamp: performance.now(),
-        kind: "set_transform",
-        pageId: now.activePageId,
-        ids: [id],
-        before: { [id]: before },
-        after: { [id]: after },
       },
       { transactionId: txId },
     );
