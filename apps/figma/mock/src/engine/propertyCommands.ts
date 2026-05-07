@@ -14,6 +14,41 @@ function txtuple(l: Layer) {
   return { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY } as const;
 }
 
+// Generic helper: dispatch a set_property op AND emit a `set_property` semantic
+// event so the action stream stays consistent with the document mutation.
+// Used by stroke/effect/lock commands that don't have a domain-specific
+// semantic event in the schema. Skips emission when no layer was actually
+// changed (Object.keys(after).length === 0).
+function dispatchPropertyWithSemantic(
+  pageId: string,
+  ids: string[],
+  path: string,
+  before: Record<string, unknown>,
+  after: Record<string, unknown>,
+  trigger: "panel_input" | "color_picker" | "context_menu" | "shortcut" = "panel_input",
+): void {
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_property",
+    pageId,
+    ids,
+    path,
+    before,
+    after,
+  });
+  const changedIds = Object.keys(after);
+  if (changedIds.length === 0) return;
+  emitSemantic({
+    name: "set_property",
+    layerIds: changedIds,
+    path,
+    before,
+    after,
+    trigger,
+  });
+}
+
 export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", value: number) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s);
@@ -147,16 +182,13 @@ export function setLocked(locked: boolean) {
     before[l.id] = l.locked;
     after[l.id] = locked;
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: "locked",
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    "locked",
     before,
     after,
-  });
+  );
 }
 
 export function setCornerRadius(value: number) {
@@ -326,16 +358,13 @@ export function setStrokeWeight(value: number) {
     before[l.id] = strokes[0].weight;
     after[l.id] = v;
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: "strokes/0/weight",
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    "strokes/0/weight",
     before,
     after,
-  });
+  );
 }
 
 export function addSolidStroke() {
@@ -355,16 +384,13 @@ export function addSolidStroke() {
     before[l.id] = [...strokes];
     after[l.id] = [...strokes, newStroke];
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: "strokes",
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    "strokes",
     before,
     after,
-  });
+  );
 }
 
 export function addDropShadowEffect() {
@@ -387,16 +413,13 @@ export function addDropShadowEffect() {
     before[l.id] = [...effs];
     after[l.id] = [...effs, effect];
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: "effects",
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    "effects",
     before,
     after,
-  });
+  );
 }
 
 export function addLayerBlurEffect() {
@@ -411,16 +434,13 @@ export function addLayerBlurEffect() {
     before[l.id] = [...effs];
     after[l.id] = [...effs, effect];
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: "effects",
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    "effects",
     before,
     after,
-  });
+  );
 }
 
 export function removeEffect(effectIndex: number) {
@@ -434,16 +454,13 @@ export function removeEffect(effectIndex: number) {
     before[l.id] = [...effs];
     after[l.id] = effs.filter((_, i) => i !== effectIndex);
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: "effects",
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    "effects",
     before,
     after,
-  });
+  );
 }
 
 export function toggleEffectVisibility(effectIndex: number) {
@@ -490,16 +507,13 @@ export function setEffectField(effectIndex: number, field: "x" | "y" | "blur" | 
     before[l.id] = eff[field];
     after[l.id] = value;
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: `effects/${effectIndex}/${field}`,
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    `effects/${effectIndex}/${field}`,
     before,
     after,
-  });
+  );
 }
 
 export function setEffectColor(effectIndex: number, color: Color) {
@@ -514,16 +528,14 @@ export function setEffectColor(effectIndex: number, color: Color) {
     before[l.id] = { ...eff.color };
     after[l.id] = { ...color };
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: `effects/${effectIndex}/color`,
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    `effects/${effectIndex}/color`,
     before,
     after,
-  });
+    "color_picker",
+  );
 }
 
 export function setStrokeColor(strokeIndex: number, color: Color) {
@@ -539,14 +551,12 @@ export function setStrokeColor(strokeIndex: number, color: Color) {
     before[l.id] = { ...sk.paint.color };
     after[l.id] = { ...color };
   }
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId: s.activePageId,
-    ids: layers.map((l) => l.id),
-    path: `strokes/${strokeIndex}/paint/color`,
+  dispatchPropertyWithSemantic(
+    s.activePageId,
+    layers.map((l) => l.id),
+    `strokes/${strokeIndex}/paint/color`,
     before,
     after,
-  });
+    "color_picker",
+  );
 }
