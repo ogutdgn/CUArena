@@ -369,44 +369,62 @@ function GroupEl({ layer }: { layer: Extract<Layer, { type: "frame" | "section" 
   const clip = isFrame && layer.clipsContent;
   const clipId = `clip-${layer.id}`;
   const sa = strokeAttrs(strokes);
+  // Render the frame/section label OUTSIDE the layer's commonTransform group
+  // so flipping the frame (scaleX/scaleY = -1) does not mirror the label glyphs.
+  // Rotation does still apply (manually below) so a rotated frame's label
+  // rotates with it. Ancestor transforms (parent frame's flip/rotation) still
+  // apply because this fragment renders inside the parent's group — that
+  // matches Figma behavior in the common case where ancestors are unflipped.
   return (
-    <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>
-      {clip && (
-        <defs>
-          <clipPath id={clipId}>
-            <rect x={0} y={0} width={layer.w} height={layer.h} rx={rx} ry={rx} />
-          </clipPath>
-        </defs>
-      )}
-      {(isFrame || isSection) && (
-        <rect
-          x={0}
-          y={0}
-          width={layer.w}
-          height={layer.h}
-          rx={rx}
-          ry={rx}
-          fill={paintToFill(fills)}
-          stroke={isFrame ? sa.stroke : "none"}
-          strokeWidth={isFrame ? sa.strokeWidth : 0}
-        />
-      )}
-      {(isFrame || isSection) && (
-        <text
-          x={0}
-          y={-6}
-          fill={isSection ? "var(--color-text-secondary)" : "rgba(120,120,120,1)"}
-          fontSize={isSection ? 14 : 11}
-          style={{ fontFamily: "var(--font-family)", fontWeight: isSection ? 600 : 500 }}
-        >
-          {layer.name}
-        </text>
-      )}
-      <g clipPath={clip ? `url(#${clipId})` : undefined}>
-        {layer.children.map((c) => (
-          <NodeRenderer key={c.id} layer={c} />
-        ))}
+    <>
+      <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>
+        {clip && (
+          <defs>
+            <clipPath id={clipId}>
+              <rect x={0} y={0} width={layer.w} height={layer.h} rx={rx} ry={rx} />
+            </clipPath>
+          </defs>
+        )}
+        {(isFrame || isSection) && (
+          <rect
+            x={0}
+            y={0}
+            width={layer.w}
+            height={layer.h}
+            rx={rx}
+            ry={rx}
+            fill={paintToFill(fills)}
+            stroke={isFrame ? sa.stroke : "none"}
+            strokeWidth={isFrame ? sa.strokeWidth : 0}
+          />
+        )}
+        <g clipPath={clip ? `url(#${clipId})` : undefined}>
+          {layer.children.map((c) => (
+            <NodeRenderer key={c.id} layer={c} />
+          ))}
+        </g>
       </g>
-    </g>
+      {(isFrame || isSection) && (
+        <g
+          transform={
+            layer.rotation !== 0
+              ? `translate(${layer.x} ${layer.y}) rotate(${layer.rotation} ${layer.w / 2} ${layer.h / 2})`
+              : `translate(${layer.x} ${layer.y})`
+          }
+          opacity={layer.opacity}
+          pointerEvents="none"
+        >
+          <text
+            x={0}
+            y={-6}
+            fill={isSection ? "var(--color-text-secondary)" : "rgba(120,120,120,1)"}
+            fontSize={isSection ? 14 : 11}
+            style={{ fontFamily: "var(--font-family)", fontWeight: isSection ? 600 : 500 }}
+          >
+            {layer.name}
+          </text>
+        </g>
+      )}
+    </>
   );
 }
