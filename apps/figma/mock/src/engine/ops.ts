@@ -28,6 +28,7 @@ import type {
 import type { AppState } from "./store";
 import type { Layer, Page } from "@/types/scene";
 import { isContainer } from "@/types/scene";
+import { worldOffsetOfParent } from "./coordinates";
 
 function findNodeInLayers(layers: Layer[], id: string): Layer | null {
   for (const l of layers) {
@@ -343,7 +344,12 @@ export function applySetClipboard(state: AppState, op: SetClipboardOp): void {
 }
 
 export function applyReparent(state: AppState, op: ReparentOp): void {
-  // Apply moves in order. For each, remove from current parent, insert into new.
+  // Apply moves in order. For each, remove from current parent, insert into
+  // new — and re-express x/y from the OLD parent's coordinate space into the
+  // NEW parent's coordinate space so the layer's world position is preserved.
+  // Without this, grouping/ungrouping or any cross-parent reparent visually
+  // shifts layers (and corrupts geometry that verifiers read from
+  // `outcome.document`).
   for (const m of op.moves) {
     const layer = findNodeInDocument(state, m.id) as Layer | undefined;
     if (!layer || (layer as unknown as Page).type === "page") continue;
@@ -351,8 +357,17 @@ export function applyReparent(state: AppState, op: ReparentOp): void {
     if (!fromArr) continue;
     const idx = fromArr.findIndex((c) => c.id === m.id);
     if (idx === -1) continue;
+
+    const oldOffset = worldOffsetOfParent(state, m.fromParentId);
+    const worldX = layer.x + oldOffset.x;
+    const worldY = layer.y + oldOffset.y;
+
     fromArr.splice(idx, 1);
     insertIntoTree(state, layer, m.toParentId, m.toIndex);
+
+    const newOffset = worldOffsetOfParent(state, m.toParentId);
+    layer.x = worldX - newOffset.x;
+    layer.y = worldY - newOffset.y;
   }
 }
 
