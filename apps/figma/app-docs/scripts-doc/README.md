@@ -5,6 +5,12 @@ lives at `../verifier/` (library only); task definitions live at `../delivery-1/
 (single source of truth, one folder per task). This folder also stores runtime
 artifacts (`logs/`, `scores/`).
 
+Related docs:
+
+- `best-practices.md` preserves export/logging approaches and trade-offs for future harness work.
+- `../mock-doc/logging-documentation.md` defines the log contract that these scripts consume.
+- `../verifier-doc/verifier-documentation.md` defines the scoring framework used after a log is collected.
+
 ---
 
 ## Log flow: mock → score

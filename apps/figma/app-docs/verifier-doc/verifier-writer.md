@@ -1,8 +1,12 @@
 # verifier — Claude Code Instructions
 
 When asked to write a verifier for a task, read the task's row from
-`task-docs/tasks.csv` (Simplified Prompt + Thorough Description columns),
-then write `tasks/<task_id>.py` using ONLY the primitives listed below.
+`app-docs/verifier-doc/tasks.csv` and the canonical task files in
+`delivery-1/task_NN/`, then write or update `delivery-1/task_NN/verifier.py`
+using ONLY the primitives listed below.
+
+Before changing a verifier, check `task-qa.md` and record any follow-up in
+`task-qa-actions.md`.
 
 ---
 
