@@ -120,6 +120,21 @@ Both `app-docs/feature-checklist.md` and `app-docs/execution-map.md` must be ref
 
 When changing the figma app, update documentation by change type before finishing the task:
 
+### Universal pre-finish gate
+
+Before marking any bug fix, feature update, or UI improvement as done, explicitly check:
+
+1. **Logger impact:** Did the change add, remove, rename, or reinterpret any user action, semantic event, raw target, or outcome field?
+   - If yes, update `app-docs/mock-doc/logging-documentation.md`.
+   - If no, record "Logger impact: none" in the relevant `app-docs/mock_improvement_steps.md` item when the item is non-trivial.
+2. **Verifier impact:** Can the verifier framework check the new/changed behavior from `outcome.document` or `semantic[]`?
+   - If a new checker/helper/rubric is needed, add it under `verifier/` and document it in `app-docs/verifier-doc/verifier-documentation.md` / `verifier-writer.md`.
+   - Do not modify `delivery-1/task_NN/prompt.md` or `delivery-1/task_NN/verifier.py` unless the user explicitly scopes task ownership into this branch.
+3. **Task QA impact:** If scoring assumptions or task achievability changed, update `app-docs/verifier-doc/task-qa.md` and `app-docs/verifier-doc/task-qa-actions.md`.
+4. **Architecture impact:** If the change creates or changes a durable engine/UI invariant, update `app-docs/mock-doc/architecture.md`.
+
+This gate applies even for UI work. A UI-only change can still affect raw targets, semantic events, outcome reachability, or verifier guidance.
+
 ### Bug fix
 
 - Add or update the bug entry in `app-docs/mock_improvement_steps.md`.
