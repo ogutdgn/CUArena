@@ -36,14 +36,14 @@ from verifier.rubrics.page         import PageRubric
 from verifier.rubrics.event        import EventRubric
 
 from verifier.checks.shape_checks     import ShapeCount, ShapeCountAtLeast, PolygonSidesEquals, StarPointsEquals, StarInnerRatioEquals
-from verifier.checks.geometry_checks  import LayersAligned, LayersSymmetricX, LayerSizeEquals, LayerPosition, LayerRotationEquals, DistanceBetween, LayerContains, LayersDistributed, LayersSameDimensions, LayerEdgesAligned
+from verifier.checks.geometry_checks  import LayersAligned, LayersSymmetricX, LayerSizeEquals, LayerPosition, LayerCenterPosition, LayerRotationEquals, DistanceBetween, LayerContains, LayersDistributed, LayersSameDimensions, LayerEdgesAligned, LineLengthEquals, LineAngleEquals, LinesShareEndpoint
 from verifier.checks.fill_checks      import SolidColorEquals, AllSolidColorEquals, FillTypeIs, FillCount, ImageFillExists, FillOpacityEquals
 from verifier.checks.stroke_checks    import StrokeExists, StrokeWeightEquals, StrokeColorEquals, StrokeAlignmentIs, StrokeIsDashed
 from verifier.checks.property_checks  import OpacityEquals, VisibilityIs, CornerRadiusEquals, IsFlippedH, IsFlippedV
 from verifier.checks.text_checks      import TextContent, TextContains, FontSizeEquals, FontWeightEquals, TextAlignEquals
 from verifier.checks.effect_checks    import DropShadowExists, LayerBlurExists, BlurRadiusEquals, EffectColorEquals
 from verifier.checks.structure_checks import LayerInsideFrame, ChildCount, ChildCountAtLeast, IsGrouped, ZOrderIsFirst, ZOrderIsLast, LayerTotalCount
-from verifier.checks.page_checks      import PageCount, PageCountAtLeast, LayerOnPage, ActivePageIs
+from verifier.checks.page_checks      import DocumentNameEquals, PageCount, PageCountAtLeast, LayerOnPage, PageBackgroundColorEquals, PageBackgroundOpacityEquals, PageBackgroundHiddenIs, ActivePageIs, PrototypeConnectionExists
 from verifier.checks.event_checks     import EventTypeUsed, EventTypeCount, EventTypeCountAtLeast, AlignToolUsed, UndoUsed, ToolUsed
 
 task = Task(
@@ -79,12 +79,17 @@ task = Task(
 | `LayersSymmetricX` | `layer_type, tolerance=10.0` | symmetric around center X |
 | `LayerSizeEquals` | `layer_type, width=None, height=None, tolerance=2.0` | dimensions |
 | `LayerPosition` | `layer_type, x=None, y=None, tolerance=5.0` | position |
+| `LayerCenterPosition` | `layer_type, x=None, y=None, tolerance=5.0` | center position |
 | `LayerRotationEquals` | `layer_type, degrees, tolerance=2.0` | rotation |
 | `DistanceBetween` | `type_a, type_b, expected_px, tolerance=5.0` | distance between layers |
 | `LayerContains` | `outer_type, inner_type` | inner is direct child of outer |
 | `LayersDistributed` | `layer_type, axis, tolerance=5.0` | evenly spaced |
 | `LayersSameDimensions` | `layer_type, tolerance=2.0` | all layers of type have equal w and h |
 | `LayerEdgesAligned` | `type_a, edge_a, type_b, edge_b, tolerance=5.0` | edge of type_a ≈ edge of type_b |
+
+| `LineLengthEquals` | `layer_type="line", length, tolerance=5.0` | visual endpoint length for line/arrow |
+| `LineAngleEquals` | `layer_type="line", degrees, tolerance_deg=5.0` | visual endpoint angle for line/arrow |
+| `LinesShareEndpoint` | `layer_type="line", minimum=2, tolerance=5.0` | line/arrow layers share an endpoint |
 
 axis values: `"x"` `"y"` `"center_x"` `"center_y"`
 
@@ -158,6 +163,11 @@ axis values: `"x"` `"y"` `"center_x"` `"center_y"`
 | `PageCountAtLeast` | `minimum` | document has ≥ N pages |
 | `LayerOnPage` | `layer_type, page_index` | layer of type exists on page at index (0-based) |
 | `ActivePageIs` | `page_name` | active page at session end has this name |
+| `DocumentNameEquals` | `expected` | document/file name |
+| `PageBackgroundColorEquals` | `expected_rgb, page_index=0, tolerance=0.05` | page background RGB |
+| `PageBackgroundOpacityEquals` | `opacity, page_index=0, tolerance=0.02` | page background alpha |
+| `PageBackgroundHiddenIs` | `hidden, page_index=0` | page background hide/show state |
+| `PrototypeConnectionExists` | `source_layer_id=None, destination_frame_id=None, trigger=None, action=None, page_index=0` | matching prototype connection |
 
 ### event_checks  ← reads semantic stream, not outcome
 | Class | Args | Checks |
@@ -169,9 +179,15 @@ axis values: `"x"` `"y"` `"center_x"` `"center_y"`
 | `UndoUsed` | — | `undo` event was used |
 | `ToolUsed` | `tool_id` | `tool_change` to given tool id occurred |
 
-Common `event_name` values: `create_rectangle` `create_ellipse` `create_polygon` `create_frame`
-`move_layer` `resize_layer` `rotate_layer` `align_layers` `group_selection` `ungroup`
-`set_fill_color` `set_corner_radius` `set_layer_opacity` `rename_layer` `undo` `redo`
+Common `event_name` values: `create_rectangle` `create_ellipse` `create_polygon`
+`create_frame` `create_line` `create_arrow` `move_layer` `resize_layer`
+`resize_line_endpoint` `rotate_layer` `flip_layer` `align_layers`
+`group_selection` `ungroup` `set_fill_color` `set_corner_radius`
+`set_layer_opacity` `set_page_background` `set_page_background_opacity`
+`toggle_page_background_hidden` `set_polygon_sides` `set_star_points`
+`set_star_inner_ratio` `rename_layer` `rename_file`
+`create_prototype_connection` `update_prototype_connection`
+`delete_prototype_connection` `undo` `redo`
 
 ---
 
