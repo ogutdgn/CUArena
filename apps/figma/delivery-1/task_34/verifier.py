@@ -14,6 +14,7 @@ from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
 from verifier.checks.geometry_checks import (
     LayersEvenlyRotated, LayersConcentric, AllLayerBoundsInside,
     LayerSizeAtLeast, FrameCountAtMost, LayersSameDimensions, LayerRotationEquals,
+    LinesShareEndpoint,
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, SolidColorEquals, FillCountAtMost, FillOpacityAtLeast,
@@ -51,7 +52,8 @@ task = Task(
             LayerSizeAtLeast(layer_type="line", min_w=20, min_h=1),                           # 4 ★ no degenerate lines
             NoLayerFlipped(layer_type="line"),                                                # 5 ★ branches not flipped
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),                # 6 ★ frame upright
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6]),
+            LinesShareEndpoint(layer_type="line", minimum=4, tolerance=12.0),                 # 7 ★ all 4 branches meet at the center (true endpoint, not bbox)
+        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7]),
 
         # critical: navy frame + white branches are prompt-explicit, all visible
         ColorRubric([

@@ -10,7 +10,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersConcentric, LayersEvenlyRotated, LayerSizeAtLeast
+from verifier.checks.geometry_checks import LayersConcentric, LayersEvenlyRotated, LayerSizeAtLeast, LinesShareEndpoint
 from verifier.checks.stroke_checks import (
     StrokeColorEquals, StrokeExists, StrokeWeightEquals,
     AllLayerStrokeVisible, AllStrokeColorEquals,
@@ -31,11 +31,12 @@ task = Task(
 
         # critical: from a center point + 45° intervals + non-degenerate + no flips — prompt-explicit
         AlignmentRubric([
-            LayersConcentric(layer_type="line", tolerance=10.0),                      # 0 ★ "from a single center point"
+            LayersConcentric(layer_type="line", tolerance=10.0),                      # 0 ★ "from a single center point" (bbox)
             LayersEvenlyRotated(layer_type="line", n=8, step_deg=45.0, tolerance_deg=8.0),  # 1 ★ "45° intervals"
             LayerSizeAtLeast(layer_type="line", min_w=20.0, min_h=0.0),               # 2 ★ non-zero length
             NoLayerFlipped(layer_type="line"),                                        # 3 ★ no flips
-        ], weight=0.25, critical=[0, 1, 2, 3]),
+            LinesShareEndpoint(layer_type="line", minimum=8, tolerance=10.0),         # 4 ★ true endpoint shared (not just bbox)
+        ], weight=0.25, critical=[0, 1, 2, 3, 4]),
 
         # critical: stroke must exist + roughly gold + visible — prompt says "All lines the same color"
         # gold is verifier convention (loose tol).
