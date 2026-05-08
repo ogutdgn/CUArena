@@ -129,6 +129,7 @@ Before marking any bug fix, feature update, or UI improvement as done, explicitl
    - If no, record "Logger impact: none" in the relevant `app-docs/mock_improvement_steps.md` item when the item is non-trivial.
 2. **Verifier impact:** Can the verifier framework check the new/changed behavior from `outcome.document` or `semantic[]`?
    - If a new checker/helper/rubric is needed, add it under `verifier/` and document it in `app-docs/verifier-doc/verifier-documentation.md` / `verifier-writer.md`.
+   - If shared checker primitives change, run `scripts/qa_verifier_framework.py` in addition to the delivery verifier smoke test.
    - Do not modify `delivery-1/task_NN/prompt.md` or `delivery-1/task_NN/verifier.py` unless the user explicitly scopes task ownership into this branch.
 3. **Task QA impact:** If scoring assumptions or task achievability changed, update `app-docs/verifier-doc/task-qa.md` and `app-docs/verifier-doc/task-qa-actions.md`.
 4. **Architecture impact:** If the change creates or changes a durable engine/UI invariant, update `app-docs/mock-doc/architecture.md`.
@@ -167,6 +168,7 @@ This gate applies even for UI work. A UI-only change can still affect raw target
 - Update `app-docs/verifier-doc/verifier-documentation.md` when the framework or check catalog changes.
 - Update `app-docs/verifier-doc/verifier-writer.md` when authoring rules change.
 - Update `app-docs/verifier-doc/task-qa.md` for audit findings and `app-docs/verifier-doc/task-qa-actions.md` for follow-up status.
+- Run `scripts/qa_verifier_framework.py` for shared checker/helper changes and `scripts/qa_verifiers.py` to confirm all `delivery-1/` task verifiers still smoke-test cleanly.
 
 Keep `app-docs/helper/` unchanged unless the user explicitly asks to refresh the helper corpus. Never read it blind; start from `app-docs/helper/00-overview.md`.
 
@@ -236,6 +238,9 @@ cd mock && npm run dev
 
 # Smoke-test every verifier
 .venv/Scripts/python scripts/qa_verifiers.py
+
+# Smoke-test shared verifier checker primitives
+.venv/Scripts/python scripts/qa_verifier_framework.py
 ```
 
 ### For automated CUA / Docker
