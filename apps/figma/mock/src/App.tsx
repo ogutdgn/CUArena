@@ -12,7 +12,6 @@ import { TextEditor } from "@/ui/overlays/TextEditor";
 import { ContextMenu } from "@/ui/overlays/ContextMenu";
 import { RenameModal } from "@/ui/overlays/RenameModal";
 import { Toasts } from "@/ui/overlays/Toasts";
-import { ActionBar } from "@/ui/overlays/ActionBar";
 import { PrototypePreview } from "@/ui/overlays/PrototypePreview";
 import { installKeymap, uninstallKeymap } from "@/util/keymap";
 
@@ -49,7 +48,6 @@ export function App() {
       <TextEditor />
       <RenameModal />
       <Toasts />
-      <ActionBar />
       <PrototypePreview />
       {contextMenu && (
         <ContextMenu
