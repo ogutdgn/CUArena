@@ -3,6 +3,13 @@
 This document is the single source of truth for the CUA verifier framework.
 Read this before writing any code.
 
+Related verifier docs:
+
+- `verifier-writer.md` explains how to author `delivery-1/task_NN/verifier.py` files.
+- `tasks.csv` tracks task scope/status.
+- `task-qa.md` is the delivery-1 achievability audit.
+- `task-qa-actions.md` tracks follow-up work from that audit and from `qa_verifiers.py`.
+
 ---
 
 ## 1. Purpose
@@ -483,7 +490,7 @@ property:
 
 ---
 
-## 12. Task Source (`task-docs/tasks.csv`)
+## 12. Task Source (`tasks.csv`)
 
 50 tasks with fields: `Difficulty`, `Thorough Description`, `Simplified Prompt`,
 `Time (minutes)`, `Step-by-step`, `Scope`.
@@ -492,6 +499,10 @@ property:
 - `in_scope` — 23 tasks. Features implemented in test-app. Verifier can be written now.
 - `planned` — 5 tasks. Feature in test-app checklist but not yet built (gradients, image fill). Verifier will be writable once implemented.
 - `out_of_scope` — 22 tasks. Feature not planned (boolean ops, auto-layout, components, variables, masks, inner shadow).
+
+Task QA files:
+- `task-qa.md` records the achievability audit for all 50 `delivery-1` tasks.
+- `task-qa-actions.md` records follow-up work from that audit and from `qa_verifiers.py` runs.
 
 ---
 

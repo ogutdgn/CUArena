@@ -152,14 +152,20 @@ All creation events share `layerId`, `parentId`, and `trigger`. Geometry payload
 
 | `name` | Extra fields |
 |---|---|
-| `move_layer` | `layerIds`; `before`/`after`: `Record<layerId, { x, y }>`; `trigger`: `drag` \| `arrow_key` \| `panel_input`; `modifiers: { shift, alt, ctrl }` |
+| `move_layer` | `layerIds`; `before`/`after`: `Record<layerId, { x, y }>` in world-space origin terms for drag; `trigger`: `drag` \| `arrow_key` \| `panel_input`; `modifiers: { shift, alt, ctrl }` |
 | `resize_layer` | `layerIds`; `before`/`after`: `Record<layerId, { x, y, w, h }>`; `handle`: `n`/`s`/`e`/`w`/`ne`/`nw`/`se`/`sw`; `trigger`; `modifiers` |
-| `rotate_layer` | `layerIds`; `before`/`after`: `Record<layerId, degrees>`; `trigger`: `drag` \| `panel_input` |
-| `flip_layer` | `layerIds`, `axis`: `horizontal` \| `vertical`; `trigger`: `shortcut` \| `context_menu` \| `main_menu` |
+| `resize_line_endpoint` | `layerId`; `endpoint`: `p1` \| `p2`; `before`/`after`: `{ transform, p1, p2 }`; `trigger`: `drag` |
+| `rotate_layer` | `layerIds`; `before`/`after`: `Record<layerId, degrees>`; `trigger`: `drag` \| `panel_input` \| `panel_button` |
+| `flip_layer` | `layerIds`, `axis`: `horizontal` \| `vertical`; `trigger`: `shortcut` \| `context_menu` \| `main_menu` \| `panel_button` |
 | `scale_layer` | `layerIds`, `factor: { sx, sy }`, `anchor: { x, y }`; `trigger`: `drag` |
 | `align_layers` | `layerIds`, `axis`: `left` \| `center-x` \| `right` \| `top` \| `center-y` \| `bottom`; `trigger`: `panel_button` \| `shortcut` |
 | `distribute_layers` | `layerIds`, `axis`: `horizontal` \| `vertical`; `trigger` |
-| `reorder_layer` | `layerIds`; `before`/`after`: `{ parentId, index }[]`; `trigger`: shortcut bracket variants \| `panel_drag` |
+| `reorder_layer` | `layerIds`; `before`/`after`: `{ parentId, index }[]`; `trigger`: shortcut bracket variants \| `panel_drag` \| `canvas_drag` |
+
+Notes:
+- `flip_layer.axis` is user-facing. Internal scale toggles may differ so the visual action matches the Position panel label.
+- A canvas drag that crosses a frame boundary emits `move_layer` for the drag and `reorder_layer` with `trigger: "canvas_drag"` for the parent/index transition.
+- Smart-snap guides are transient UI feedback. They do not emit semantic events unless the drag commits a document mutation.
 
 ### Edit operations
 
