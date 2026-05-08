@@ -1,18 +1,18 @@
-# Task 39 — Build a wifi icon: 3 pen-tool arcs + small filled circle below.
+# Task 39 — Build a wifi icon: 2 pen-tool arcs + small filled circle below.
 
-**Difficulty:** Medium  •  **Time horizon:** 18 min
+**Difficulty:** Easy  •  **Time horizon:** 12 min
 
 ## Thorough description
 
-Inside a 200x200 frame, draw 3 concentric arcs above a center point using the Pen tool. Apply a 6px navy stroke with rounded caps. Add a small filled navy circle below the arcs.
+Inside a 200×200 frame, draw 2 concentric arcs above a center point using the Pen tool. Apply a 6px navy stroke. Add a small navy-filled circle below the arcs.
 
 ## Simplified prompt
 
-> Build a wifi icon: 3 pen-tool arcs + small filled circle below.
+> 2 pen-tool arcs (6px navy stroke) above 1 small navy circle.
 
 ## Step-by-step
 
-1. Click Frame tool. 2. Click Pen tool, draw the first arc above center. 3. Press Escape, add 6px navy stroke, round caps. 4. Right-click then Duplicate, scrub larger, drag above. 5. Duplicate again, larger. 6. Click Ellipse tool, draw the small filled circle below the arcs.
+1. Click Frame tool. 2. Click Pen tool, draw the first arc above center. 3. Press Escape, add 6px navy stroke. 4. Right-click then Duplicate, scrub larger, drag above. 5. Click Ellipse tool, draw the small filled navy circle below the arcs.
 
 ## Verifier
 

@@ -1,57 +1,82 @@
 """
 Task 15 — Cloud silhouette (in-scope replacement, no boolean union).
 
-4 overlapping ellipses of varying sizes, all the same white fill,
-arranged so their tops form a fluffy cloud silhouette.
+4 overlapping ellipses, all white fill with 1px light-gray stroke.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.structure    import StructureRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersAligned, LayersOverlap
-from verifier.checks.fill_checks   import AllSolidColorEquals
+from verifier.checks.geometry_checks import (
+    LayersAligned, LayersOverlap, LayerSizeAtLeast,
+    AllLayerBoundsInside, LayerRotationEquals, LayersAtDistinctPositions,
+    AllLayerWidthFraction, LayersAllShareEdge,
+)
+from verifier.checks.fill_checks   import (
+    AllSolidColorEquals, AllFillTypeIs, FillCountAtMost, FillOpacityAtLeast,
+)
+from verifier.checks.stroke_checks import (
+    StrokeExists, StrokeWeightEquals, StrokeColorEquals,
+    AllStrokeExists, AllStrokeColorEquals, AllStrokeWeightWithinTolerance,
+)
+from verifier.checks.property_checks import (
+    NoLayerFlipped, LayerVisible,
+)
+from verifier.checks.structure_checks import LayerInsideFrame, ChildCountAtLeast
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+WHITE      = {"r": 1.0, "g": 1.0, "b": 1.0}
+LIGHT_GRAY = {"r": 0.85, "g": 0.85, "b": 0.85}
 
 task = Task(
     id="task_15_cloud_union",
-    description="4 overlapping white ellipses forming a cloud silhouette.",
+    description="4 overlapping white ellipses with 1px light-gray strokes forming a cloud silhouette.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
-            ShapeCount("ellipse", equals=4),
-        ]), max_score=0.25),
+        FundamentalsRubric([
+            ShapeCount("ellipse", equals=4),                                            # 0 ★ "4 overlapping ... ellipses"
+        ], weight=0.2, critical=[0]),
 
-        WeightedRubric(AlignmentRubric([
-            LayersAligned(layer_type="ellipse", axis="center_y", tolerance=20.0),
-            LayersOverlap(type_a="ellipse", type_b="ellipse"),
-        ]), max_score=0.25),
+        AlignmentRubric([
+            LayersAllShareEdge(layer_type="ellipse", edge="bottom", tolerance=40.0),    # 0 ★ "bottoms roughly share a horizontal line"
+            LayersOverlap(type_a="ellipse", type_b="ellipse"),                          # 1 ★ "overlapping"
+            LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),                 # 2 ★ no degenerate
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame",              # 3 ★ all in frame
+                                 tolerance=4.0),
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),          # 4 ★ frame upright
+            LayersAtDistinctPositions(layer_type="ellipse", min_distinct=3,             # 5 ★ at least 3 distinct centers
+                                       tolerance=20.0),
+            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",            # 6 ★ ellipses sane size vs frame
+                                  min_frac=0.04, max_frac=0.50),
+            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=2.0),        # 7 ★ ellipses upright (rotation matters for non-circle ovals)
+        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7]),
 
-        WeightedRubric(ColorRubric([
-            AllSolidColorEquals(layer_type="ellipse",
-                                expected_rgb={"r": 1.0, "g": 1.0, "b": 1.0},
-                                tolerance=0.1),
-        ]), max_score=0.25),
+        ColorRubric([
+            AllSolidColorEquals(layer_type="ellipse", expected_rgb=WHITE,               # 0 ★ "white ellipses"
+                                tolerance=0.10),
+            AllFillTypeIs("ellipse", kind="solid"),                                     # 1 ★ no image/gradient
+            FillCountAtMost("ellipse", max_count=1),                                    # 2 ★ no stacked fills
+            FillOpacityAtLeast("ellipse", min_opacity=0.5),                             # 3 ★ visible fills
+            LayerVisible("ellipse"),                                                    # 4 ★ alpha + visible + opacity
+            NoLayerFlipped(layer_type="ellipse"),                                       # 5 ★ no flip
+            AllStrokeExists("ellipse"),                                                 # 6 ★ EVERY ellipse has stroke
+            AllStrokeWeightWithinTolerance("ellipse", target_weight=1.0,                # 7 each ellipse stroke ~1px
+                                            tolerance=1.0),
+            AllStrokeColorEquals("ellipse", expected_rgb=LIGHT_GRAY, tolerance=0.20),   # 8 each ellipse stroke light-gray
+        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6]),
 
-        WeightedRubric(EventRubric([
-            ToolUsed("ellipse"),
+        StructureRubric([
+            LayerInsideFrame("ellipse"),                                                # 0 ★ in frame
+            ChildCountAtLeast("frame", minimum=4),                                      # 1 ★ all 4 in one frame
+        ], weight=0.2, critical=[0, 1]),
+
+        EventRubric([
+            ToolUsed("ellipse"),                                                        # 0 ★ ellipse tool mandated
             EventTypeCount("create_ellipse", equals=4),
-        ]), max_score=0.25),
+        ], weight=0.2, critical=[0]),
     ],
     efficiency=EfficiencyRubric(target_turns=14),
 )
