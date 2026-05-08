@@ -1,18 +1,18 @@
-# Task 47 — Build a sunburst stamp: 16-point star + smaller centered cream circle.
+# Task 47 — Build a sunburst stamp: 8-point warm-orange star + smaller centered cream circle.
 
-**Difficulty:** Medium  •  **Time horizon:** 18 min
+**Difficulty:** Easy  •  **Time horizon:** 12 min
 
 ## Thorough description
 
-Use the Star tool to draw a 16-point star with inner radius set to ~70% (soft sunburst look). Apply a warm orange fill. Draw a smaller circle with cream fill centered on top.
+Use the Star tool to draw an 8-point star. Apply a warm orange fill. Draw a smaller circle with cream fill centered on top.
 
 ## Simplified prompt
 
-> Build a sunburst stamp: 16-point star + smaller centered cream circle.
+> 8-point warm-orange star + smaller centered cream circle on top.
 
 ## Step-by-step
 
-1. Click Star tool, scrub points to 16, scrub inner radius to 70%. 2. Drag the star, pick warm orange. 3. Click Ellipse tool, drag a smaller circle, pick cream. 4. Marquee both. 5. Click Align horizontal centers and Align vertical centers.
+1. Click Star tool, scrub points to 8. 2. Drag the star, pick warm orange. 3. Click Ellipse tool, drag a smaller circle, pick cream. 4. Marquee both. 5. Click Align horizontal centers and Align vertical centers.
 
 ## Verifier
 

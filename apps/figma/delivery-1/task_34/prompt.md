@@ -1,18 +1,18 @@
-# Task 34 — Make a 6-fold symmetric snowflake by duplicating one branch group and rotating 60° five times.
+# Task 34 — Make a 4-fold symmetric snowflake by rotating one branch 90° three times.
 
-**Difficulty:** Medium  •  **Time horizon:** 18 min
+**Difficulty:** Easy  •  **Time horizon:** 10 min
 
 ## Thorough description
 
-Inside a navy frame, draw a vertical white line through the center plus 2 short diagonal branches off the upper portion (forming one snowflake arm). Group the arm. Duplicate the group and rotate 60°. Repeat to make 6 branches.
+Inside a navy frame, draw a single white line as one branch. Duplicate it three times, rotating each by 90° around the center, to form a 4-fold symmetric snowflake.
 
 ## Simplified prompt
 
-> Make a 6-fold symmetric snowflake by duplicating one branch group and rotating 60° five times.
+> Navy frame + 4 white line branches rotated 90° apart for 4-fold symmetry.
 
 ## Step-by-step
 
-1. Click Frame tool, navy fill. 2. Click Line tool, draw a vertical center line, white. 3. Draw 2 short diagonal branch lines off the upper portion. 4. Marquee the branch lines, right-click then Group. 5. Right-click then Duplicate, scrub rotation +60°. 6. Repeat duplicate-and-rotate for 5 more branches (120°, 180°, 240°, 300°).
+1. Click Frame tool, navy fill. 2. Click Line tool, draw a white branch line through center. 3. Right-click then Duplicate, scrub rotation +90°. 4. Duplicate, +180°. 5. Duplicate, +270°.
 
 ## Verifier
 
