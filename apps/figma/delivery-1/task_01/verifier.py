@@ -32,7 +32,7 @@ from verifier.checks.geometry_checks import (
     LayerSizeAtLeast, AllLayerWidthFraction, SmallerLayerInsideLarger,
     AllLayerBoundsInside, LayerAreaRatioAtLeast,
     SmallerLayerCenteredOnLargerEdge, LayerAboveLargestLayer,
-    LayerInFrontOfLargestLayer,
+    LayerInFrontOfLargestLayer, PolygonCornersAligned,
 )
 from verifier.checks.fill_checks     import (
     AllFillTypeIs, DistinctSolidColors, FillCountAtMost, FillOpacityAtLeast,
@@ -71,11 +71,8 @@ task = Task(
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),                     # 2 ★ "round" windows
             LayersFlankLayer(flanker_type="ellipse", pivot_type="rectangle",
                              axis="x", tolerance=10.0),                               # 3 ★ "on either side"
-            LayerEdgesAligned(                                                        # 4 ★ roof on body
-                type_a="polygon", edge_a="bottom",
-                type_b="rectangle", edge_b="top",
-                tolerance=10.0,
-            ),
+            PolygonCornersAligned(polygon_type="polygon", rect_type="rectangle",      # 4 ★ roof's bottom corners coincide with body's top corners
+                                  tolerance=12.0),
             SmallerLayerInsideLarger(layer_type="rectangle", tolerance=4.0),          # 5 ★ door in body (largest)
             LayersOverlap(type_a="ellipse", type_b="rectangle"),                      # 6 ★ window on body
             FrameSizeEquals(width=1280, height=832, tolerance=10.0),                  # 7 ★ frame size
@@ -103,8 +100,8 @@ task = Task(
                 layer_type="rectangle", edge="bottom",
                 edge_tolerance=20.0, axis_tolerance=80.0,
             ),
-            LayerAboveLargestLayer(top_type="polygon", bottom_type="rectangle",       # 22 ★ roof on body (largest), not inside
-                                   tolerance=10.0),
+            LayerAboveLargestLayer(top_type="polygon", bottom_type="rectangle",       # 22 ★ roof above body (loose tol — vertex-precise check is PolygonCornersAligned above)
+                                   tolerance=25.0),
             AllLayerBoundsInside(inner_type="ellipse", outer_type="rectangle",        # 23 ★ windows fully inside body
                                  tolerance=4.0),
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.4),         # 24 ★ no circle-like rectangles

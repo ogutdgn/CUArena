@@ -15,6 +15,7 @@ from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast, Polygon
 from verifier.checks.geometry_checks import (
     LayersConcentric, LayersEvenlyRotated, LayerRotationEquals,
     LayerAreaRatioAtLeast, LayerSizeAtLeast, AllLayerBoundsInside,
+    LinesShareEndpoint,
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, SolidColorEquals, AllLayersHaveNoFill, FillOpacityAtLeast,
@@ -57,6 +58,7 @@ task = Task(
             LayerSizeAtLeast(layer_type="line", min_w=20, min_h=0),                            # 8 ★ lines ≥ 20px long
             LayerSizeAtLeast(layer_type="polygon", min_w=20, min_h=20),                        # 9 ★ no degenerate hex
             AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=4.0),     # 10 ★ hexagons inside frame
+            LinesShareEndpoint(layer_type="line", minimum=4, tolerance=12.0),                   # 11 ★ all 4 radials meet at center
         ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
 
         # critical: navy frame, white strokes on lines and hexagons (all of them),

@@ -1172,19 +1172,10 @@ def mutate_for_geometry(task, log) -> None:
                 if placed:
                     break
         elif cname == "LayersFlankLayer":
-            # Place flanker_type[0] before pivot_type[0] and flanker_type[1] after,
-            # along the flanking axis. Center on the perpendicular axis.
-            flankers = by_type.get(c.flanker_type, [])
-            pivots = by_type.get(c.pivot_type, [])
-            if len(flankers) >= 2 and pivots:
-                pivot_min = min(p["x"] if c.axis == "x" else p["y"] for p in pivots)
-                pivot_max = max((p["x"] + p["w"]) if c.axis == "x" else (p["y"] + p["h"]) for p in pivots)
-                if c.axis == "x":
-                    flankers[0]["x"] = pivot_min - flankers[0]["w"] - 10
-                    flankers[1]["x"] = pivot_max + 10
-                else:
-                    flankers[0]["y"] = pivot_min - flankers[0]["h"] - 10
-                    flankers[1]["y"] = pivot_max + 10
+            # Skip here — handled in Pass 8.7 after SmallerLayerInsideLarger
+            # has finalized the rectangle positions (this main-loop iteration
+            # would see stale pivot positions).
+            pass
         elif cname == "LayersBracketAllOnAxis":
             # Place brackets[0] above all inners, brackets[1] below all inners.
             brackets = by_type.get(c.bracket_type, [])
@@ -1246,6 +1237,81 @@ def mutate_for_geometry(task, log) -> None:
                     for l in target_layers:
                         if id(l) in ids_to_move:
                             frame.setdefault("children", []).append(l)
+
+    # ── Pass 8.7: line-endpoint primitives (LinesShareEndpoint / LineAngleEquals
+    # / LineLengthEquals / PolygonCornersAligned) need explicit per-layer p1/p2.
+    # Existing handlers set bbox + rotation; here we set local-space p1 to the bbox
+    # center so all lines (already concentric) share an endpoint after transform,
+    # and leave default p2 so the rotation property still drives visual angle.
+    if any(type(c).__name__ == "LinesShareEndpoint" for c in checks):
+        for line in by_type.get("line", []):
+            line["p1"] = {"x": line["w"] / 2, "y": line["h"] / 2}
+            # leave p2 unset → defaults to right-edge, rotation drives angle
+            if "p2" in line:
+                del line["p2"]
+
+    # Re-run LayersFlankLayer after rectangles have been positioned by
+    # SmallerLayerInsideLarger above. The first run in the main loop sees stale
+    # rectangle positions because LayersFlankLayer is checked before
+    # SmallerLayerInsideLarger in task definitions.
+    for c in checks:
+        if type(c).__name__ != "LayersFlankLayer":
+            continue
+        flankers = by_type.get(c.flanker_type, [])
+        pivots = by_type.get(c.pivot_type, [])
+        if len(flankers) < 2 or not pivots:
+            continue
+        flanker_must_fit_inside = any(
+            type(c2).__name__ == "AllLayerBoundsInside"
+            and c2.inner_type == c.flanker_type
+            and c2.outer_type == c.pivot_type
+            for c2 in checks
+        )
+        if not (flanker_must_fit_inside and len(pivots) >= 2):
+            continue
+        outer = max(pivots, key=lambda p: p["w"] * p["h"])
+        inner = min(pivots, key=lambda p: p["w"] * p["h"])
+        if c.axis == "x":
+            gap_left = inner["x"] - outer["x"]
+            gap_right = (outer["x"] + outer["w"]) - (inner["x"] + inner["w"])
+            target_w = max(20, min(flankers[0]["w"], gap_left - 6, gap_right - 6))
+            target_h = target_w
+            for f in flankers[:2]:
+                f["w"] = target_w
+                f["h"] = target_h
+                f["y"] = outer["y"] + outer["h"] / 2 - target_h / 2
+            flankers[0]["x"] = outer["x"] + (gap_left - target_w) / 2
+            flankers[1]["x"] = inner["x"] + inner["w"] + (gap_right - target_w) / 2
+        else:
+            gap_top = inner["y"] - outer["y"]
+            gap_bot = (outer["y"] + outer["h"]) - (inner["y"] + inner["h"])
+            target_h = max(20, min(flankers[0]["h"], gap_top - 6, gap_bot - 6))
+            target_w = target_h
+            for f in flankers[:2]:
+                f["w"] = target_w
+                f["h"] = target_h
+                f["x"] = outer["x"] + outer["w"] / 2 - target_w / 2
+            flankers[0]["y"] = outer["y"] + (gap_top - target_h) / 2
+            flankers[1]["y"] = inner["y"] + inner["h"] + (gap_bot - target_h) / 2
+
+    # PolygonCornersAligned: triangle (sides=3) has its bottom-2 vertices at
+    # local y = 0.75*h (NOT h — there's a 0.25*h gap below them). To put those
+    # vertices on the rect's top edge AND at the rect's top corners:
+    #   layer.y = rect.top - 0.75 * poly.h
+    #   layer.x = rect.x - 0.067 * poly.w  (with poly.w = 1.155 * rect.w)
+    # so that bottom vertices land at rect.x and rect.x + rect.w.
+    if any(type(c).__name__ == "PolygonCornersAligned" for c in checks):
+        rects = by_type.get("rectangle", [])
+        polys = by_type.get("polygon", [])
+        if rects and polys:
+            outer = max(rects, key=lambda l: l["w"] * l["h"])
+            poly = polys[0]
+            poly["w"] = outer["w"] / 0.866   # ≈ 1.1547 * rect.w
+            poly["x"] = outer["x"] - poly["w"] * (0.5 - 0.5 * 0.866)  # ≈ rect.x - 0.067·poly.w
+            poly["y"] = outer["y"] - poly["h"] * 0.75
+            poly["rotation"] = 0
+            poly["scaleX"] = 1
+            poly["scaleY"] = 1
 
     # ── Pass 9: shift everything inside any frame if AllLayerBoundsInside is required.
     # After all sizing/positioning, layers may extend off-frame (e.g., polygon above
