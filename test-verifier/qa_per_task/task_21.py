@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from qa_per_task._helpers import make_layer, make_log, make_event
+from qa_per_task._helpers import make_layer, make_frame, make_log, make_event
 
 
 def _events(n=3):
@@ -20,7 +20,8 @@ def _stack(n=3, w=200, h=60, gap=16, colors=None):
     for i in range(n):
         layers.append(make_layer("rectangle", x=400, y=100+i*(h+gap), w=w, h=h,
                                   fill=colors[i % len(colors)]))
-    return make_log(layers, _events(n))
+    frame = make_frame(layers, w=1280, h=832)
+    return make_log([frame], _events(n))
 
 
 def perfect():        return _stack()

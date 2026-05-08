@@ -28,7 +28,7 @@ def _row(n=3, w=160, h=40, gap=12, colors=None):
 
 def perfect():        return _row()
 def perfect_other_color(): return _row(colors=[(0.2,0.6,0.9)]*3)
-def perfect_more_gap():    return _row(gap=24)
+def perfect_more_gap():    return _row(gap=18)
 
 
 def fail_2_rects():     return _row(n=2)

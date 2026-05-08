@@ -4,11 +4,12 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qa_per_task._helpers import (
-    make_layer, make_log, make_event, make_stroke, make_drop_shadow,
+    make_layer, make_frame, make_log, make_event, make_stroke, make_drop_shadow,
 )
 
 
 YELLOW_NOTE = (1.0, 0.92, 0.6)
+DARK_YELLOW = (0.85, 0.78, 0.5)
 
 
 def _events():
@@ -22,27 +23,29 @@ def _events():
     return sem
 
 
-def _note(rotation=3, color=YELLOW_NOTE, has_shadow=True, n_lines=3):
+def _note(rotation=3, color=YELLOW_NOTE, has_shadow=True, n_lines=3,
+          fold_color=DARK_YELLOW):
     effects = [make_drop_shadow(y=4, blur=8)] if has_shadow else []
     rect = make_layer("rectangle", x=300, y=300, w=200, h=200, fill=color,
                       rotation=rotation, effects=effects)
-    fold = make_layer("vector", x=460, y=300, w=40, h=40, fill=(0.85,0.78,0.5))
+    fold = make_layer("vector", x=460, y=300, w=40, h=40, fill=fold_color)
     lines = []
     for i in range(n_lines):
         lines.append(make_layer("line", x=320, y=350+i*30, w=160, h=2, fill=None,
-                                 strokes=[make_stroke(rgb=(0.5,0.5,0.5), weight=1)],
+                                 strokes=[make_stroke(rgb=(0.5, 0.5, 0.5), weight=1)],
                                  rotation=0))
-    return make_log([rect, fold, *lines], _events())
+    frame = make_frame([rect, fold, *lines], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def perfect():        return _note()
-def perfect_other_rotation(): return _note(rotation=4)
+def perfect_other_rotation(): return _note(rotation=3.5)
 def perfect_more_lines():     return _note(n_lines=4)
 
 
 def fail_no_rotation():    return _note(rotation=0)
 def fail_no_shadow():      return _note(has_shadow=False)
-def fail_not_yellow():     return _note(color=(0.95,0.3,0.3))
+def fail_not_yellow():     return _note(color=(0.95, 0.3, 0.3))
 def fail_no_lines():       return _note(n_lines=0)
 
 

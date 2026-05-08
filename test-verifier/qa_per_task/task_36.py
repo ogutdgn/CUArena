@@ -19,9 +19,10 @@ def _events():
 
 def _polaroid(rotation=5, color=WHITE, has_shadow=True):
     effects = [make_drop_shadow(y=8, blur=12)] if has_shadow else []
+    # outer center = (550, 570); inner centered to match → (550 - 130, 570 - 130) = (420, 440)
     outer = make_layer("rectangle", x=400, y=400, w=300, h=340, fill=color,
                       rotation=rotation, effects=effects)
-    inner = make_layer("rectangle", x=420, y=420, w=260, h=260, fill=(0.85,0.85,0.85),
+    inner = make_layer("rectangle", x=420, y=440, w=260, h=260, fill=(0.85,0.85,0.85),
                       rotation=rotation)
     return make_log([outer, inner], _events())
 

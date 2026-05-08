@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from qa_per_task._helpers import make_layer, make_log, make_event, make_stroke
+from qa_per_task._helpers import make_layer, make_frame, make_log, make_event, make_stroke
 
 
 def _events(n=4):
@@ -15,59 +15,65 @@ def _events(n=4):
 
 
 def _line(x, y, w, h, rotation):
-    return make_layer("line", x=x, y=y, w=w, h=h, fill=None,
-                      strokes=[make_stroke(rgb=(1,1,1), weight=2)],
-                      rotation=rotation)
+    layer = make_layer("line", x=x, y=y, w=w, h=h, fill=(0.05, 0.05, 0.05),
+                       strokes=[make_stroke(rgb=(0.05, 0.05, 0.05), weight=2)],
+                       rotation=rotation)
+    return layer
+
+
+def _wrap(layers, n=4):
+    frame = make_frame(layers, w=1280, h=832, fill=(0.95, 0.95, 0.95))
+    return make_log([frame], _events(n))
 
 
 def perfect():
-    """2 vertical lines + 2 horizontal lines crossing."""
+    """2 horizontal + 2 vertical lines crossing (rotation distinguishes)."""
     layers = [
-        _line(400, 200, 4, 200, 0),
-        _line(500, 200, 4, 200, 0),
-        _line(350, 270, 200, 4, 90),
-        _line(350, 330, 200, 4, 90),
+        _line(300, 270, 300, 4, 0),    # horizontal
+        _line(300, 400, 300, 4, 0),    # horizontal
+        _line(300, 200, 300, 4, 90),   # vertical
+        _line(420, 200, 300, 4, 90),   # vertical
     ]
-    return make_log(layers, _events())
+    return _wrap(layers)
 
 
 def perfect_smaller():
     layers = [
-        _line(400, 250, 4, 100, 0),
-        _line(450, 250, 4, 100, 0),
-        _line(380, 280, 100, 4, 90),
-        _line(380, 320, 100, 4, 90),
+        _line(380, 280, 200, 4, 0),
+        _line(380, 320, 200, 4, 0),
+        _line(380, 250, 200, 4, 90),
+        _line(440, 250, 200, 4, 90),
     ]
-    return make_log(layers, _events())
+    return _wrap(layers)
 
 
 def perfect_larger():
     layers = [
-        _line(400, 100, 4, 400, 0),
-        _line(550, 100, 4, 400, 0),
-        _line(300, 200, 400, 4, 90),
-        _line(300, 350, 400, 4, 90),
+        _line(200, 270, 500, 4, 0),
+        _line(200, 500, 500, 4, 0),
+        _line(200, 200, 500, 4, 90),
+        _line(380, 200, 500, 4, 90),
     ]
-    return make_log(layers, _events())
+    return _wrap(layers)
 
 
 def fail_3_lines():
     layers = [
-        _line(400, 200, 4, 200, 0),
-        _line(500, 200, 4, 200, 0),
-        _line(350, 270, 200, 4, 90),
+        _line(300, 270, 300, 4, 0),
+        _line(300, 400, 300, 4, 0),
+        _line(300, 200, 300, 4, 90),
     ]
-    return make_log(layers, _events(n=3))
+    return _wrap(layers, n=3)
 
 
 def fail_all_same_rotation():
-    layers = [_line(100+i*100, 200, 4, 200, 0) for i in range(4)]
-    return make_log(layers, _events())
+    layers = [_line(100+i*150, 200, 300, 4, 0) for i in range(4)]
+    return _wrap(layers)
 
 
 def fail_diagonal_lines():
-    layers = [_line(100+i*100, 200, 4, 200, 45*(i+1)) for i in range(4)]
-    return make_log(layers, _events())
+    layers = [_line(100+i*100, 200, 300, 4, 45*(i+1)) for i in range(4)]
+    return _wrap(layers)
 
 
 PASS_LOGS = [

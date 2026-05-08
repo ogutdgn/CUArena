@@ -64,5 +64,5 @@ FAIL_LOGS = [
     ("3_lines",            fail_3_lines(),            ["≥4"]),
     ("only_1_hex",         fail_only_1_hex(),         ["expected 2, got 1"]),
     ("wrong_frame_color",  fail_wrong_frame_color(),  ["No frame with solid"]),
-    ("wrong_line_color",   fail_wrong_line_color(),   ["No line with stroke color"]),
+    ("wrong_line_color",   fail_wrong_line_color(),   ["stroke color off"]),
 ]

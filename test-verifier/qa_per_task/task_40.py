@@ -4,7 +4,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qa_per_task._helpers import (
-    make_layer, make_log, make_event, make_drop_shadow, GREEN, WHITE,
+    make_layer, make_frame, make_log, make_event, make_drop_shadow, GREEN, WHITE,
 )
 
 
@@ -24,7 +24,8 @@ def _toggle(rect_color=GREEN, thumb_color=WHITE, shadow=True, thumb_x=440, radiu
     effects = [make_drop_shadow(y=2, blur=4)] if shadow else []
     thumb = make_layer("ellipse", x=thumb_x, y=305, w=30, h=30, fill=thumb_color,
                        effects=effects)
-    return make_log([rect, thumb], _events())
+    frame = make_frame([rect, thumb], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def perfect():        return _toggle()
@@ -33,7 +34,8 @@ def perfect_other_size():
     rect = make_layer("rectangle", x=400, y=300, w=120, h=60, fill=GREEN, cornerRadius=30)
     thumb = make_layer("ellipse", x=470, y=305, w=50, h=50, fill=WHITE,
                        effects=[make_drop_shadow(y=2, blur=4)])
-    return make_log([rect, thumb], _events())
+    frame = make_frame([rect, thumb], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def fail_no_shadow():        return _toggle(shadow=False)

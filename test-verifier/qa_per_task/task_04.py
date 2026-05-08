@@ -79,7 +79,7 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("5_squares",       fail_5_squares(),       ["expected 6, got 5"]),
     ("in_a_row",        fail_in_a_row(),        ["radial"]),
-    ("not_squares",     fail_not_squares(),     ["No rectangle with w ≈ h"]),
+    ("not_squares",     fail_not_squares(),     ["Non-square rectangle"]),
     ("all_same_color",  fail_all_same_color(),  ["≥6"]),
     ("uneven_sizes",    fail_uneven_sizes(),    ["≠ 50×50"]),
 ]

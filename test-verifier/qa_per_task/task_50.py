@@ -54,8 +54,8 @@ PASS_LOGS = [
 ]
 FAIL_LOGS = [
     ("3_point_star",         fail_3_point_star(),         ["expected 5, got 3"]),
-    ("no_stroke",            fail_no_stroke(),            ["No star with a stroke"]),
+    ("no_stroke",            fail_no_stroke(),            ["no stroke|no visible non-zero stroke"]),
     ("thin_stroke",          fail_thin_stroke(),          ["stroke weight"]),
-    ("wrong_stroke_color",   fail_wrong_stroke_color(),   ["No star with stroke color"]),
+    ("wrong_stroke_color",   fail_wrong_stroke_color(),   ["stroke color off|stroke color off"]),
     ("same_color",           fail_same_color(),           ["≥2"]),
 ]

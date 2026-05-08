@@ -68,5 +68,5 @@ FAIL_LOGS = [
     ("3_lines",            fail_3_lines(),            ["expected 4, got 3"]),
     ("wrong_rotation",     fail_wrong_rotation(),     ["rotations stepped by 90"]),
     ("wrong_frame_color",  fail_wrong_frame_color(),  ["No frame with solid"]),
-    ("wrong_line_color",   fail_wrong_line_color(),   ["No line with stroke color"]),
+    ("wrong_line_color",   fail_wrong_line_color(),   ["stroke color off"]),
 ]

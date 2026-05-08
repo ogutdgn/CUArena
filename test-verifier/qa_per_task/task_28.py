@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from qa_per_task._helpers import make_layer, make_log, make_event, make_stroke
+from qa_per_task._helpers import make_layer, make_frame, make_log, make_event, make_stroke
 
 
 def _events():
@@ -25,7 +25,8 @@ def _x_photo(rect_w=400, rect_h=300, fill=(0.85,0.85,0.85)):
     line2 = make_layer("line", x=200, y=200, w=rect_w, h=rect_h, fill=None,
                        p1={"x":rect_w,"y":0}, p2={"x":0,"y":rect_h},
                        strokes=[make_stroke(rgb=(0,0,0), weight=2)])
-    return make_log([rect, line1, line2], _events())
+    frame = make_frame([rect, line1, line2], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def perfect():        return _x_photo()
@@ -41,7 +42,8 @@ def fail_one_line():
     sem = [make_event("session_start"),
            make_event("create_rectangle"),
            make_event("create_line")]
-    return make_log([rect, line1], sem)
+    frame = make_frame([rect, line1], w=1280, h=832)
+    return make_log([frame], sem)
 
 
 def fail_lines_not_diagonal():
@@ -52,7 +54,8 @@ def fail_lines_not_diagonal():
     line2 = make_layer("line", x=300, y=200, w=4, h=300, fill=None,
                        p1={"x":0,"y":0}, p2={"x":0,"y":300},
                        strokes=[make_stroke(rgb=(0,0,0), weight=2)])
-    return make_log([rect, line1, line2], _events())
+    frame = make_frame([rect, line1, line2], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def fail_no_rect():
@@ -65,7 +68,8 @@ def fail_no_rect():
     sem = [make_event("session_start"),
            make_event("create_line"),
            make_event("create_line")]
-    return make_log([line1, line2], sem)
+    frame = make_frame([line1, line2], w=1280, h=832)
+    return make_log([frame], sem)
 
 
 PASS_LOGS = [

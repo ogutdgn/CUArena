@@ -4,7 +4,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qa_per_task._helpers import (
-    make_layer, make_log, make_event, make_stroke, WHITE, LIGHT_GRAY,
+    make_layer, make_frame, make_log, make_event, make_stroke, WHITE, LIGHT_GRAY,
 )
 
 
@@ -16,14 +16,17 @@ def _events(n=4):
     return sem
 
 
-def _cloud(sizes, color=WHITE, stroke=LIGHT_GRAY, x_step=70, y_offset=0):
+def _cloud(sizes, color=WHITE, stroke=LIGHT_GRAY, x_step=70, y_offset=0, with_stroke=True):
     cy = 350
     layers = []
     for i, sz in enumerate(sizes):
-        layers.append(make_layer("ellipse", x=200+i*x_step, y=cy-sz/2 + y_offset*i,
-                                  w=sz, h=sz, fill=color,
-                                  strokes=[make_stroke(rgb=stroke, weight=1)]))
-    return make_log(layers, _events(n=len(sizes)))
+        l = make_layer("ellipse", x=200+i*x_step, y=cy-sz/2 + y_offset*i,
+                        w=sz, h=sz, fill=color)
+        if with_stroke:
+            l["strokes"] = [make_stroke(rgb=stroke, weight=1)]
+        layers.append(l)
+    frame = make_frame(layers, w=1280, h=832, fill=(0.95, 0.95, 0.95))
+    return make_log([frame], _events(n=len(sizes)))
 
 
 def perfect():        return _cloud([100, 140, 120, 90])
@@ -37,16 +40,10 @@ def fail_not_overlapping():
     for i in range(4):
         layers.append(make_layer("ellipse", x=100+i*250, y=300, w=100, h=100, fill=WHITE,
                                   strokes=[make_stroke(rgb=LIGHT_GRAY, weight=1)]))
-    return make_log(layers, _events())
+    frame = make_frame(layers, w=1280, h=832, fill=(0.95, 0.95, 0.95))
+    return make_log([frame], _events())
 def fail_not_white():     return _cloud([100,140,120,90], color=(0.3, 0.3, 0.3))
-def fail_no_stroke():
-    cy = 350
-    sizes = [100,140,120,90]
-    layers = []
-    for i, sz in enumerate(sizes):
-        layers.append(make_layer("ellipse", x=200+i*70, y=cy-sz/2,
-                                  w=sz, h=sz, fill=WHITE))
-    return make_log(layers, _events())
+def fail_no_stroke():     return _cloud([100,140,120,90], with_stroke=False)
 
 
 PASS_LOGS = [
@@ -58,5 +55,5 @@ FAIL_LOGS = [
     ("3_ellipses",       fail_3_ellipses(),       ["expected 4, got 3"]),
     ("not_overlapping",  fail_not_overlapping(),  ["overlap"]),
     ("not_white",        fail_not_white(),        ["color mismatch"]),
-    ("no_stroke",        fail_no_stroke(),        ["No ellipse with a stroke"]),
+    ("no_stroke",        fail_no_stroke(),        ["no stroke"]),
 ]

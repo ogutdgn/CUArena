@@ -81,6 +81,35 @@ class FillTypeIs:
 
 
 @dataclass
+class AllFillTypeIs:
+    """Every layer of layer_type has fills[fill_index] of the given kind.
+    Stricter than FillTypeIs (which passes on ≥1 layer)."""
+    layer_type: str
+    kind: str       # "solid" | "image" | "gradient"
+    fill_index: int = 0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = []
+        for l in layers:
+            fills = l.get("fills", [])
+            if self.fill_index >= len(fills):
+                failures.append(f"{l['id'][:8]}: no fill at index {self.fill_index}")
+                continue
+            if fills[self.fill_index].get("kind") != self.kind:
+                failures.append(f"{l['id'][:8]}: fill kind '{fills[self.fill_index].get('kind')}' ≠ '{self.kind}'")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} have {self.kind} fill" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
 class FillCount:
     """All layers of layer_type have exactly `equals` fills."""
     layer_type: str
@@ -97,6 +126,30 @@ class FillCount:
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"{self.layer_type} fill count correct" if passed
                     else f"{len(failures)} {self.layer_type} layers have wrong fill count",
+        )
+
+
+@dataclass
+class FillCountAtMost:
+    """All layers of layer_type have at most `max_count` fills.
+    Catches stacked-fill workarounds where extra fills hide under the first."""
+    layer_type: str
+    max_count: int = 1
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = [
+            f"{l['id'][:8]}: {len(l.get('fills', []))} fills > {self.max_count}"
+            for l in layers if len(l.get("fills", [])) > self.max_count
+        ]
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} have ≤ {self.max_count} fills" if passed
+                    else "; ".join(failures),
         )
 
 
@@ -141,6 +194,36 @@ class FillOpacityEquals:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} with fill opacity {self.opacity}±{self.tolerance}",
+        )
+
+
+@dataclass
+class FillOpacityAtLeast:
+    """Every layer of layer_type has fills[fill_index].opacity >= min_opacity.
+    Catches near-invisible fills that satisfy other color checks trivially."""
+    layer_type: str
+    min_opacity: float       # 0..1
+    fill_index: int = 0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = []
+        for l in layers:
+            fills = l.get("fills", [])
+            if self.fill_index >= len(fills):
+                failures.append(f"{l['id'][:8]}: no fill at index {self.fill_index}")
+                continue
+            op = fills[self.fill_index].get("opacity", 1.0)
+            if op < self.min_opacity:
+                failures.append(f"{l['id'][:8]}: opacity {op:.2f} < {self.min_opacity}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} fill opacity ≥ {self.min_opacity}" if passed
+                    else "; ".join(failures),
         )
 
 
@@ -296,6 +379,45 @@ class DistinctSolidColors:
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"distinct solid colors: expected ≥{self.minimum}, got {len(seen)}",
+        )
+
+
+@dataclass
+class DistinctTypedSolidColors:
+    """
+    Layers of layer_type have at least `minimum` perceptually-distinct solid fills.
+
+    Stricter than DistinctSolidColors because the frame (and any unrelated layers)
+    are excluded — only the named layer_type's own fills are counted.
+    Use to enforce "two different shades of X" prompts where the frame's
+    background color must not be counted as one of the X's "distinct colors".
+    """
+    layer_type: str
+    minimum: int
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        seen: list[tuple[float, float, float]] = []
+        for l in layers:
+            for fill in l.get("fills", []):
+                if fill.get("kind") != "solid":
+                    continue
+                c = fill.get("color", {})
+                rgb = (c.get("r", 0), c.get("g", 0), c.get("b", 0))
+                close = any(
+                    max(abs(rgb[0] - d[0]), abs(rgb[1] - d[1]), abs(rgb[2] - d[2])) <= self.tolerance
+                    for d in seen
+                )
+                if not close:
+                    seen.append(rgb)
+        passed = len(seen) >= self.minimum
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"distinct {self.layer_type} colors: expected ≥{self.minimum}, got {len(seen)}",
         )
 
 

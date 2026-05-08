@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from qa_per_task._helpers import make_layer, make_log, make_event
+from qa_per_task._helpers import make_layer, make_frame, make_log, make_event
 
 
 def _events(n=3):
@@ -20,7 +20,8 @@ def _eye(sizes=(160, 100, 40)):
     layers = []
     for sz, c in zip(sizes, colors):
         layers.append(make_layer("ellipse", x=cx-sz/2, y=cy-sz/2, w=sz, h=sz, fill=c))
-    return make_log(layers, _events())
+    frame = make_frame(layers, w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def perfect():        return _eye()
@@ -66,5 +67,5 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("2_ellipses",      fail_2_ellipses(),      ["expected 3, got 2"]),
     ("not_concentric",  fail_not_concentric(),  ["concentric"]),
-    ("not_circular",    fail_not_circular(),    ["w ≈ h"]),
+    ("not_circular",    fail_not_circular(),    ["non-circular ellipse"]),
 ]

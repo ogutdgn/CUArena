@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from qa_per_task._helpers import make_layer, make_log, make_event
+from qa_per_task._helpers import make_layer, make_frame, make_log, make_event
 
 
 def _events():
@@ -15,7 +15,7 @@ def _events():
     return sem
 
 
-def _hourglass(angles=(0, 180)):
+def _hourglass(angles=(180, 0)):
     cx = 500
     p_top = make_layer("polygon", x=cx-50, y=200, w=100, h=100, fill=(0.5,0.4,0.7),
                        sides=3, rotation=angles[0])
@@ -23,7 +23,8 @@ def _hourglass(angles=(0, 180)):
                        sides=3, rotation=angles[1])
     cap_top = make_layer("rectangle", x=cx-100, y=180, w=200, h=20, fill=(0.6,0.5,0.7))
     cap_bot = make_layer("rectangle", x=cx-100, y=400, w=200, h=20, fill=(0.6,0.5,0.7))
-    return make_log([p_top, p_bot, cap_top, cap_bot], _events())
+    frame = make_frame([p_top, p_bot, cap_top, cap_bot], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def perfect():       return _hourglass()
@@ -35,12 +36,13 @@ def perfect_alt():
 def perfect_smaller():
     cx = 500
     p_top = make_layer("polygon", x=cx-30, y=240, w=60, h=60, fill=(0.5,0.4,0.7),
-                       sides=3, rotation=0)
-    p_bot = make_layer("polygon", x=cx-30, y=300, w=60, h=60, fill=(0.5,0.4,0.7),
                        sides=3, rotation=180)
+    p_bot = make_layer("polygon", x=cx-30, y=300, w=60, h=60, fill=(0.5,0.4,0.7),
+                       sides=3, rotation=0)
     cap_top = make_layer("rectangle", x=cx-50, y=220, w=100, h=20, fill=(0.6,0.5,0.7))
     cap_bot = make_layer("rectangle", x=cx-50, y=360, w=100, h=20, fill=(0.6,0.5,0.7))
-    return make_log([p_top, p_bot, cap_top, cap_bot], _events())
+    frame = make_frame([p_top, p_bot, cap_top, cap_bot], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def fail_one_triangle():

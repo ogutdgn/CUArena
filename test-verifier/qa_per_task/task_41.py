@@ -1,10 +1,10 @@
-"""Task 41 — 320×48 rounded light-gray bar + magnifier (stroked circle + line) + 1 dot."""
+"""Task 41 — 320×48 rounded light-gray bar + magnifier (stroked circle + line) + dots."""
 from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qa_per_task._helpers import (
-    make_layer, make_log, make_event, make_stroke,
+    make_layer, make_frame, make_log, make_event, make_stroke,
 )
 
 
@@ -19,6 +19,7 @@ def _events():
            make_event("create_rectangle"),
            make_event("create_ellipse"),
            make_event("create_ellipse"),
+           make_event("create_ellipse"),
            make_event("create_line")]
     return sem
 
@@ -27,12 +28,15 @@ def _bar(bar_w=320, bar_h=48, radius=24, fill=LIGHT_GRAY_BAR):
     bar = make_layer("rectangle", x=200, y=300, w=bar_w, h=bar_h, fill=fill,
                      cornerRadius=radius)
     glass = make_layer("ellipse", x=210, y=312, w=24, h=24, fill=None,
-                       strokes=[make_stroke(rgb=(0.5,0.5,0.5), weight=2)])
+                       strokes=[make_stroke(rgb=(0.5, 0.5, 0.5), weight=2)])
     handle = make_layer("line", x=232, y=334, w=10, h=10, fill=None,
-                        strokes=[make_stroke(rgb=(0.5,0.5,0.5), weight=2)])
-    dot = make_layer("ellipse", x=270, y=320, w=8, h=8, fill=None,
-                     strokes=[make_stroke(rgb=(0.5,0.5,0.5), weight=2)])
-    return make_log([bar, glass, handle, dot], _events())
+                        strokes=[make_stroke(rgb=(0.5, 0.5, 0.5), weight=2)])
+    dot1 = make_layer("ellipse", x=270, y=320, w=8, h=8, fill=None,
+                      strokes=[make_stroke(rgb=(0.5, 0.5, 0.5), weight=2)])
+    dot2 = make_layer("ellipse", x=290, y=320, w=8, h=8, fill=None,
+                      strokes=[make_stroke(rgb=(0.5, 0.5, 0.5), weight=2)])
+    frame = make_frame([bar, glass, handle, dot1, dot2], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def perfect():        return _bar()
@@ -49,9 +53,11 @@ def fail_no_glass_stroke():
                      cornerRadius=24)
     glass = make_layer("ellipse", x=210, y=312, w=24, h=24, fill=None)
     handle = make_layer("line", x=232, y=334, w=10, h=10, fill=None,
-                        strokes=[make_stroke(rgb=(0.5,0.5,0.5), weight=2)])
-    dot = make_layer("ellipse", x=270, y=320, w=8, h=8, fill=None)
-    return make_log([bar, glass, handle, dot], _events())
+                        strokes=[make_stroke(rgb=(0.5, 0.5, 0.5), weight=2)])
+    dot1 = make_layer("ellipse", x=270, y=320, w=8, h=8, fill=None)
+    dot2 = make_layer("ellipse", x=290, y=320, w=8, h=8, fill=None)
+    frame = make_frame([bar, glass, handle, dot1, dot2], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 PASS_LOGS = [
@@ -63,5 +69,5 @@ FAIL_LOGS = [
     ("wrong_bar_size",   fail_wrong_bar_size(),   ["w=200 ≠ 320"]),
     ("no_radius",        fail_no_radius(),        ["cornerRadius"]),
     ("dark_bar",         fail_dark_bar(),         ["No rectangle with solid"]),
-    ("no_glass_stroke",  fail_no_glass_stroke(),  ["No ellipse with a stroke"]),
+    ("no_glass_stroke",  fail_no_glass_stroke(),  ["no visible stroke"]),
 ]

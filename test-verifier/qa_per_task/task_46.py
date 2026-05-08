@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from qa_per_task._helpers import make_layer, make_log, make_event
+from qa_per_task._helpers import make_layer, make_frame, make_log, make_event
 
 
 def _events(n=5):
@@ -14,12 +14,17 @@ def _events(n=5):
     return sem
 
 
-def _bars(heights=(60,90,40,80,50), w=20, gap=4, baseline_y=400):
+def _wrap(layers, n_events=None):
+    if n_events is None: n_events = len(layers)
+    return make_log([make_frame(layers, w=1280, h=832)], _events(n=n_events))
+
+
+def _bars(heights=(60,90,40,80,50), w=20, gap=4, baseline_y=600):
     layers = []
     for i, h in enumerate(heights):
-        layers.append(make_layer("rectangle", x=100+i*(w+gap), y=baseline_y - h,
+        layers.append(make_layer("rectangle", x=500+i*(w+gap), y=baseline_y - h,
                                   w=w, h=h, fill=(0.2+0.15*i, 0.5, 0.85)))
-    return make_log(layers, _events(n=len(heights)))
+    return _wrap(layers)
 
 
 def perfect():        return _bars()
@@ -32,18 +37,17 @@ def fail_misaligned_baseline():
     layers = []
     heights = [60, 90, 40, 80, 50]
     for i, h in enumerate(heights):
-        layers.append(make_layer("rectangle", x=100+i*24, y=200+i*30, w=20, h=h,
+        layers.append(make_layer("rectangle", x=500+i*24, y=200+i*30, w=20, h=h,
                                   fill=(0.2+0.15*i, 0.5, 0.85)))
-    return make_log(layers, _events())
+    return _wrap(layers)
 def fail_no_gap():     return _bars(gap=0, w=20)
 def fail_uniform_color():
-    return _bars(heights=(60,90,40,80,50)) if False else (lambda: __make_uniform())()
-def __make_uniform():
     layers = []
     heights = [60, 90, 40, 80, 50]
     for i, h in enumerate(heights):
-        layers.append(make_layer("rectangle", x=100+i*24, y=400-h, w=20, h=h, fill=(0.5,0.5,0.5)))
-    return make_log(layers, _events())
+        layers.append(make_layer("rectangle", x=500+i*24, y=600-h, w=20, h=h, fill=(0.95,0.95,0.95)))
+    return make_log([make_frame(layers, w=1280, h=832, fill=(0.95,0.95,0.95))],
+                    _events(n=len(layers)))
 
 
 PASS_LOGS = [
@@ -54,5 +58,5 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("4_bars",                fail_4_bars(),                ["expected 5, got 4"]),
     ("misaligned_baseline",   fail_misaligned_baseline(),   ["all rectangle.bottom: spread"]),
-    ("uniform_color",         fail_uniform_color(),         ["≥2"]),
+    ("uniform_color",         fail_uniform_color(),         ["distinct solid colors"]),
 ]

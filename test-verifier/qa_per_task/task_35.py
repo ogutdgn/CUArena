@@ -63,7 +63,7 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("3_hexagons",   fail_3_hexagons(),   ["expected 4, got 3"]),
     ("pentagons",    fail_pentagons(),    ["expected 6, got 5"]),
-    ("no_stroke",    fail_no_stroke(),    ["No polygon with a stroke"]),
+    ("no_stroke",    fail_no_stroke(),    ["no visible non-zero stroke"]),
     ("wrong_color",  fail_wrong_color(),  ["color mismatch"]),
     ("in_a_row",     fail_in_a_row(),     ["row clusters"]),
 ]

@@ -5,12 +5,17 @@ from verifier.math_utils import find_layers_by_type
 
 @dataclass
 class ShapeCount:
-    """Passes when the document contains exactly `equals` layers of `layer_type`."""
+    """Passes when the document contains exactly `equals` layers of `layer_type`.
+
+    Walks `outcome.document` directly rather than trusting
+    `outcome.summary.shapeCounts` — the summary can be stale when the agent
+    creates and then deletes layers.
+    """
     layer_type: str
     equals: int
 
     def run(self, log: dict) -> CheckResult:
-        count = log["outcome"]["summary"]["shapeCounts"].get(self.layer_type, 0)
+        count = len(find_layers_by_type(log["outcome"]["document"], self.layer_type))
         passed = count == self.equals
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
@@ -20,12 +25,15 @@ class ShapeCount:
 
 @dataclass
 class ShapeCountAtLeast:
-    """Passes when the document contains at least `minimum` layers of `layer_type`."""
+    """Passes when the document contains at least `minimum` layers of `layer_type`.
+
+    Walks `outcome.document` directly (see ShapeCount note).
+    """
     layer_type: str
     minimum: int
 
     def run(self, log: dict) -> CheckResult:
-        count = log["outcome"]["summary"]["shapeCounts"].get(self.layer_type, 0)
+        count = len(find_layers_by_type(log["outcome"]["document"], self.layer_type))
         passed = count >= self.minimum
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,

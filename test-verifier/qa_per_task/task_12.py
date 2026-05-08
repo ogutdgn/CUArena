@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from qa_per_task._helpers import make_layer, make_log, make_event
+from qa_per_task._helpers import make_layer, make_frame, make_log, make_event
 
 
 def _events(n=4):
@@ -14,11 +14,14 @@ def _events(n=4):
     return sem
 
 
-def _row(n=4, w=120, h=120, gap=20, y=200):
+def _row(n=4, w=120, h=120, gap=20, y=200, in_frame=True):
     layers = []
     for i in range(n):
         layers.append(make_layer("rectangle", x=100+i*(w+gap), y=y,
                                   w=w, h=h, fill=(0.5+0.1*i, 0.5, 0.7)))
+    if in_frame:
+        frame = make_frame(layers, w=1280, h=832, fill=(0.95, 0.95, 0.95))
+        return make_log([frame], _events(n))
     return make_log(layers, _events(n))
 
 
@@ -35,13 +38,15 @@ def fail_misaligned_y():
         make_layer("rectangle", x=380, y=200, w=120, h=120, fill=(0.7,0.5,0.7)),
         make_layer("rectangle", x=520, y=300, w=120, h=120, fill=(0.8,0.5,0.7)),
     ]
-    return make_log(layers, _events())
+    frame = make_frame(layers, w=1280, h=832, fill=(0.95, 0.95, 0.95))
+    return make_log([frame], _events())
 def fail_different_sizes():
     layers = []
     for i in range(4):
         layers.append(make_layer("rectangle", x=100+i*170, y=200, w=80+i*40, h=120,
                                   fill=(0.5+0.1*i, 0.5, 0.7)))
-    return make_log(layers, _events())
+    frame = make_frame(layers, w=1280, h=832, fill=(0.95, 0.95, 0.95))
+    return make_log([frame], _events())
 
 
 PASS_LOGS = [

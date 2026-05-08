@@ -4,7 +4,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qa_per_task._helpers import (
-    make_layer, make_log, make_event, make_stroke, DARK_GRAY, BLACK,
+    make_layer, make_frame, make_log, make_event, make_stroke, DARK_GRAY, BLACK,
 )
 
 
@@ -27,7 +27,8 @@ def _lock(body_color=DARK_GRAY, key_color=BLACK, stroke_w=14, radius=12):
                          strokes=[make_stroke(rgb=DARK_GRAY, weight=stroke_w)],
                          network={"vertices": [], "segments": [], "closed": False})
     key = make_layer("ellipse", x=485, y=420, w=30, h=30, fill=key_color)
-    return make_log([body, shackle, key], _events())
+    frame = make_frame([body, shackle, key], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def perfect():           return _lock()
@@ -37,7 +38,8 @@ def perfect_other_size():
     shackle = make_layer("vector", x=420, y=200, w=160, h=180, fill=None,
                          strokes=[make_stroke(rgb=DARK_GRAY, weight=14)])
     key = make_layer("ellipse", x=480, y=420, w=40, h=40, fill=BLACK)
-    return make_log([body, shackle, key], _events())
+    frame = make_frame([body, shackle, key], w=1280, h=832)
+    return make_log([frame], _events())
 
 
 def fail_no_corner_radius():    return _lock(radius=0)

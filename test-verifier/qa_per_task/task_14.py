@@ -4,7 +4,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qa_per_task._helpers import (
-    make_layer, make_log, make_event, make_stroke, RED, WHITE, BLACK,
+    make_layer, make_frame, make_log, make_event, make_stroke, RED, WHITE, BLACK,
 )
 
 
@@ -16,13 +16,16 @@ def _events(n=4):
     return sem
 
 
-def _target(sizes, colors, stroke_color=BLACK, stroke_w=4):
-    cx, cy = 500, 500
+def _target(sizes, colors, stroke_color=BLACK, stroke_w=4, with_stroke=True):
+    cx, cy = 600, 416
     layers = []
     for sz, c in zip(sizes, colors):
-        layers.append(make_layer("ellipse", x=cx-sz/2, y=cy-sz/2, w=sz, h=sz,
-                                  fill=c, strokes=[make_stroke(rgb=stroke_color, weight=stroke_w)]))
-    return make_log(layers, _events(n=len(sizes)))
+        l = make_layer("ellipse", x=cx-sz/2, y=cy-sz/2, w=sz, h=sz, fill=c)
+        if with_stroke:
+            l["strokes"] = [make_stroke(rgb=stroke_color, weight=stroke_w)]
+        layers.append(l)
+    frame = make_frame(layers, w=1280, h=832, fill=(0.95, 0.95, 0.95))
+    return make_log([frame], _events(n=len(sizes)))
 
 
 def perfect():        return _target([240,180,120,60], [RED, WHITE, RED, WHITE])
@@ -31,14 +34,7 @@ def perfect_thicker_stroke(): return _target([240,180,120,60], [RED, WHITE, RED,
 
 
 def fail_3_circles():           return _target([240,180,120], [RED, WHITE, RED])
-def fail_no_strokes():
-    cx, cy = 500, 500
-    layers = []
-    sizes = [240,180,120,60]
-    colors = [RED, WHITE, RED, WHITE]
-    for sz, c in zip(sizes, colors):
-        layers.append(make_layer("ellipse", x=cx-sz/2, y=cy-sz/2, w=sz, h=sz, fill=c))
-    return make_log(layers, _events())
+def fail_no_strokes():          return _target([240,180,120,60], [RED, WHITE, RED, WHITE], with_stroke=False)
 def fail_all_red():             return _target([240,180,120,60], [RED, RED, RED, RED])
 def fail_color_order_reversed(): return _target([240,180,120,60], [WHITE, RED, WHITE, RED])
 def fail_wrong_stroke_color():   return _target([240,180,120,60], [RED, WHITE, RED, WHITE],
@@ -52,8 +48,8 @@ PASS_LOGS = [
 ]
 FAIL_LOGS = [
     ("3_circles",                fail_3_circles(),                ["expected 4, got 3"]),
-    ("no_strokes",               fail_no_strokes(),               ["No ellipse with a stroke"]),
+    ("no_strokes",               fail_no_strokes(),               ["no stroke"]),
     ("all_red",                  fail_all_red(),                  ["color mismatch"]),
     ("color_order_reversed",     fail_color_order_reversed(),     ["color mismatch"]),
-    ("wrong_stroke_color",       fail_wrong_stroke_color(),       ["No ellipse with stroke color"]),
+    ("wrong_stroke_color",       fail_wrong_stroke_color(),       ["stroke color off"]),
 ]

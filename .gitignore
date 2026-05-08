@@ -7,4 +7,5 @@ __pycache__/
 venv/
 .venv/
 test-verifier/logs/*.json
-test-verifier/scores/*.jsondelivery-1/task_*/output/
+test-verifier/scores/*.json
+delivery-1/task_*/output/

@@ -4,7 +4,7 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from qa_per_task._helpers import (
-    make_layer, make_log, make_event, make_stroke, WHITE,
+    make_layer, make_frame, make_log, make_event, make_stroke, WHITE,
 )
 
 
@@ -18,35 +18,39 @@ def _events():
     return sem
 
 
+def _wrap(layers):
+    return make_log([make_frame(layers, w=1280, h=832)], _events())
+
+
 def _avatar(status_color=GREEN_STATUS, stroke_color=WHITE, stroke_w=2,
-            status_x=540, status_y=540):
-    avatar = make_layer("ellipse", x=400, y=400, w=200, h=200, fill=(0.85,0.7,0.6))
-    status = make_layer("ellipse", x=status_x, y=status_y, w=40, h=40, fill=status_color,
+            status_x=740, status_y=480):
+    avatar = make_layer("ellipse", x=480, y=216, w=320, h=320, fill=(0.85,0.7,0.6))
+    status = make_layer("ellipse", x=status_x, y=status_y, w=80, h=80, fill=status_color,
                         strokes=[make_stroke(rgb=stroke_color, weight=stroke_w)])
-    return make_log([avatar, status], _events())
+    return _wrap([avatar, status])
 
 
 def perfect():        return _avatar()
 def perfect_alt_color():return _avatar(status_color=(0.95,0.3,0.3))
 def perfect_other_size():
-    avatar = make_layer("ellipse", x=400, y=400, w=160, h=160, fill=(0.85,0.7,0.6))
-    status = make_layer("ellipse", x=520, y=520, w=32, h=32, fill=GREEN_STATUS,
+    avatar = make_layer("ellipse", x=520, y=256, w=240, h=240, fill=(0.85,0.7,0.6))
+    status = make_layer("ellipse", x=700, y=440, w=60, h=60, fill=GREEN_STATUS,
                         strokes=[make_stroke(rgb=WHITE, weight=2)])
-    return make_log([avatar, status], _events())
+    return _wrap([avatar, status])
 
 
 def fail_no_stroke():
-    avatar = make_layer("ellipse", x=400, y=400, w=200, h=200, fill=(0.85,0.7,0.6))
-    status = make_layer("ellipse", x=540, y=540, w=40, h=40, fill=GREEN_STATUS)
-    return make_log([avatar, status], _events())
+    avatar = make_layer("ellipse", x=480, y=216, w=320, h=320, fill=(0.85,0.7,0.6))
+    status = make_layer("ellipse", x=740, y=480, w=80, h=80, fill=GREEN_STATUS)
+    return _wrap([avatar, status])
 def fail_thin_stroke():       return _avatar(stroke_w=0.5)
 def fail_wrong_stroke_color():return _avatar(stroke_color=(0.95,0.3,0.3))
 def fail_status_overlaps_center():
     """Status badge directly on top, not bottom-right."""
-    avatar = make_layer("ellipse", x=400, y=400, w=200, h=200, fill=(0.85,0.7,0.6))
-    status = make_layer("ellipse", x=480, y=480, w=40, h=40, fill=GREEN_STATUS,
+    avatar = make_layer("ellipse", x=480, y=216, w=320, h=320, fill=(0.85,0.7,0.6))
+    status = make_layer("ellipse", x=600, y=336, w=80, h=80, fill=GREEN_STATUS,
                         strokes=[make_stroke(rgb=WHITE, weight=2)])
-    return make_log([avatar, status], _events())
+    return _wrap([avatar, status])
 
 
 PASS_LOGS = [

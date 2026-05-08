@@ -120,6 +120,36 @@ class LayerRotationEquals:
 
 
 @dataclass
+class LayersHaveDistinctRotations:
+    """At least `minimum` distinct rotation values across layers of layer_type
+    (within tolerance). Catches "all wedges at same angle" deceptions where the
+    prompt requires varied rotations (e.g., pie wedges at different angles).
+
+    Compares rotations modulo 360°; two rotations are 'distinct' iff their
+    angular difference exceeds `tolerance_deg`."""
+    layer_type: str
+    minimum: int = 2
+    tolerance_deg: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        rotations = [l.get("rotation", 0) % 360 for l in layers]
+        distinct = []
+        for r in rotations:
+            if all(abs(((r - d + 180) % 360) - 180) > self.tolerance_deg for d in distinct):
+                distinct.append(r)
+        passed = len(distinct) >= self.minimum
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} has {len(distinct)} distinct rotations "
+                    f"(need ≥{self.minimum}, tol {self.tolerance_deg}°)",
+        )
+
+
+@dataclass
 class DistanceBetween:
     """Distance between the nearest pair of (type_a, type_b) layers ≈ expected_px."""
     type_a: str
@@ -333,6 +363,90 @@ class LayersStacked:
 
 
 @dataclass
+class LayersAtDistinctPositions:
+    """Layers of layer_type have at least `min_distinct` distinct (x_center, y_center)
+    positions, where two centers are considered the same if both x and y differ by
+    less than `tolerance` px.
+
+    Catches degenerate "all stacked at one point" / "all duplicated at same x" patterns
+    that other checks (overlap, alignment) silently accept."""
+    layer_type: str
+    min_distinct: int
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        seen = []
+        for l in layers:
+            cx = l["x"] + l["w"] / 2
+            cy = l["y"] + l["h"] / 2
+            close = any(abs(cx - sx) < self.tolerance and abs(cy - sy) < self.tolerance
+                        for sx, sy in seen)
+            if not close:
+                seen.append((cx, cy))
+        passed = len(seen) >= self.min_distinct
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type}: {len(seen)} distinct centers (need ≥ {self.min_distinct}, tol {self.tolerance}px)",
+        )
+
+
+@dataclass
+class LayersHaveConsistentGap:
+    """
+    Layers of layer_type are arranged sequentially along axis with positive,
+    consistent inter-edge gaps. Catches both:
+      - overlapping piles (zero/negative gaps),
+      - inconsistent spacing (some pairs touch, others have wide gaps).
+
+    axis="x": sorted left-to-right; gap[i] = sorted[i+1].left - sorted[i].right.
+    axis="y": sorted top-to-bottom; gap[i] = sorted[i+1].top - sorted[i].bottom.
+
+    Pass conditions:
+      1. min(gaps) >= min_gap                         (no overlaps/touching pile)
+      2. max(gaps) - min(gaps) <= variance_tolerance  (gaps roughly equal)
+
+    Stricter than LayersStacked (which needs an exact gap value) — accepts any
+    positive consistent spacing, which matches "consistent spacing" prompts.
+    """
+    layer_type: str
+    axis: str = "x"           # "x" | "y"
+    min_gap: float = 1.0
+    variance_tolerance: float = 8.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type} layers, found {len(layers)}")
+        if self.axis == "y":
+            sorted_layers = sorted(layers, key=lambda l: l["y"])
+            gaps = [sorted_layers[i + 1]["y"] - (sorted_layers[i]["y"] + sorted_layers[i]["h"])
+                    for i in range(len(sorted_layers) - 1)]
+        elif self.axis == "x":
+            sorted_layers = sorted(layers, key=lambda l: l["x"])
+            gaps = [sorted_layers[i + 1]["x"] - (sorted_layers[i]["x"] + sorted_layers[i]["w"])
+                    for i in range(len(sorted_layers) - 1)]
+        else:
+            raise ValueError(f"axis must be 'x' or 'y', got '{self.axis}'")
+        if not gaps:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No gaps to compare for {self.layer_type}")
+        gmin, gmax = min(gaps), max(gaps)
+        positive_ok = gmin >= self.min_gap
+        variance_ok = (gmax - gmin) <= self.variance_tolerance
+        passed = positive_ok and variance_ok
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(f"{self.layer_type} gaps on {self.axis}: min={gmin:.1f} max={gmax:.1f} "
+                     f"(need min ≥ {self.min_gap}, variance ≤ {self.variance_tolerance})"),
+        )
+
+
+@dataclass
 class LayersOverlap:
     """At least one (type_a, type_b) pair has overlapping bounding boxes."""
     type_a: str
@@ -391,6 +505,44 @@ class LayerBoundsInside:
 
 
 @dataclass
+class AllLayerBoundsInside:
+    """Every inner_type layer's bbox fits entirely inside ANY outer_type layer's bbox.
+    Stricter than LayerBoundsInside (which passes on ≥1 inner fitting in any outer)."""
+    inner_type: str
+    outer_type: str
+    tolerance: float = 4.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        inners = find_layers_by_type(doc, self.inner_type)
+        outers = find_layers_by_type(doc, self.outer_type)
+        if not inners or not outers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.inner_type} and {self.outer_type} layers")
+        t = self.tolerance
+        failures = []
+        for inner in inners:
+            fits_any = False
+            for outer in outers:
+                if inner is outer:
+                    continue
+                if (inner["x"] >= outer["x"] - t
+                        and inner["y"] >= outer["y"] - t
+                        and inner["x"] + inner["w"] <= outer["x"] + outer["w"] + t
+                        and inner["y"] + inner["h"] <= outer["y"] + outer["h"] + t):
+                    fits_any = True
+                    break
+            if not fits_any:
+                failures.append(f"{inner['id'][:8]} ({self.inner_type}) outside all {self.outer_type}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.inner_type} fit inside some {self.outer_type}" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
 class FrameSizeEquals:
     """At least one frame in the document matches (width, height) within tolerance.
     Used to enforce a specific preset like MacBook Air (1280x832)."""
@@ -433,6 +585,53 @@ class LayerIsCircular:
 
 
 @dataclass
+class LayerAllCircular:
+    """EVERY layer of layer_type has w ≈ h within tolerance.
+    Stricter than LayerIsCircular (which passes on ≥1)."""
+    layer_type: str
+    tolerance: float = 2.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = []
+        for l in layers:
+            if not (l["w"] > 0 and l["h"] > 0 and abs(l["w"] - l["h"]) <= self.tolerance):
+                failures.append(f"{l['id'][:8]}: {l['w']}×{l['h']}")
+        if not failures:
+            return CheckResult(passed=True, score=1.0, max_score=1.0,
+                               message=f"All {len(layers)} {self.layer_type} layers circular")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"Non-circular {self.layer_type}: {failures[:3]}")
+
+
+@dataclass
+class LayerAllSameSize:
+    """EVERY layer of layer_type has dimensions within tolerance of the first layer's.
+    Stricter than LayersSameDimensions (which passes if max_w-min_w within tolerance)."""
+    layer_type: str
+    tolerance: float = 2.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        ref_w, ref_h = layers[0]["w"], layers[0]["h"]
+        failures = []
+        for l in layers[1:]:
+            if abs(l["w"] - ref_w) > self.tolerance or abs(l["h"] - ref_h) > self.tolerance:
+                failures.append(f"{l['id'][:8]}: {l['w']}×{l['h']} vs {ref_w}×{ref_h}")
+        if not failures:
+            return CheckResult(passed=True, score=1.0, max_score=1.0,
+                               message=f"All {len(layers)} {self.layer_type} same size")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"Size mismatch: {failures[:3]}")
+
+
+@dataclass
 class LayerIsSquare:
     """At least one layer of layer_type has w ≈ h within tolerance.
     Distinguishes a true square from a wide/tall rectangle."""
@@ -451,6 +650,29 @@ class LayerIsSquare:
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} with w ≈ h (±{self.tolerance}px)",
         )
+
+
+@dataclass
+class LayerAllSquare:
+    """EVERY layer of layer_type has w ≈ h within tolerance.
+    Stricter than LayerIsSquare (which passes on ≥1)."""
+    layer_type: str
+    tolerance: float = 2.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = []
+        for l in layers:
+            if not (l["w"] > 0 and l["h"] > 0 and abs(l["w"] - l["h"]) <= self.tolerance):
+                failures.append(f"{l['id'][:8]}: {l['w']}×{l['h']}")
+        if not failures:
+            return CheckResult(passed=True, score=1.0, max_score=1.0,
+                               message=f"All {len(layers)} {self.layer_type} square")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"Non-square {self.layer_type}: {failures[:3]}")
 
 
 @dataclass
@@ -708,9 +930,13 @@ def _document_ordinals(doc: dict) -> dict:
 @dataclass
 class LayerOnTopOf:
     """At least one (type_a, type_b) pair where a is later in z-order than b
-    AND their bounding boxes overlap (a is visibly stacked on top of b)."""
+    AND their bounding boxes overlap (a is visibly stacked on top of b).
+
+    require_overlap=False relaxes the bbox check (useful when shapes only
+    touch at an edge, like roof-on-body)."""
     type_a: str
     type_b: str
+    require_overlap: bool = True
 
     def run(self, log: dict) -> CheckResult:
         doc = log["outcome"]["document"]
@@ -724,9 +950,10 @@ class LayerOnTopOf:
             for b in b_layers:
                 if id(a) == id(b):
                     continue
-                if _bbox_overlap(a, b) and ordinals[id(a)] > ordinals[id(b)]:
-                    return CheckResult(passed=True, score=1.0, max_score=1.0,
-                                       message=f"{self.type_a} on top of {self.type_b}")
+                if ordinals[id(a)] > ordinals[id(b)]:
+                    if not self.require_overlap or _bbox_overlap(a, b):
+                        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                           message=f"{self.type_a} on top of {self.type_b}")
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.type_a} stacked on top of any {self.type_b}",
@@ -734,11 +961,45 @@ class LayerOnTopOf:
 
 
 @dataclass
+class LayerInFrontOf:
+    """Every type_a layer is later in document z-order than every type_b layer
+    (drawn last → renders on top). No bbox-overlap requirement.
+
+    Stricter than LayerOnTopOf: catches z-order swaps even when shapes only
+    touch at an edge."""
+    type_a: str
+    type_b: str
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        ordinals = _document_ordinals(doc)
+        a_layers = find_layers_by_type(doc, self.type_a)
+        b_layers = find_layers_by_type(doc, self.type_b)
+        if not a_layers or not b_layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.type_a} and {self.type_b} layers")
+        min_a_ord = min(ordinals[id(a)] for a in a_layers)
+        max_b_ord = max(ordinals[id(b)] for b in b_layers)
+        passed = min_a_ord > max_b_ord
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"all {self.type_a} drawn after all {self.type_b} (z-order ok)" if passed
+                    else f"{self.type_a} z-order min {min_a_ord} ≤ {self.type_b} z-order max {max_b_ord}",
+        )
+
+
+@dataclass
 class LayerCenteredOnLayer:
-    """At least one (type_a, type_b) cross-type pair shares a center within tolerance."""
+    """At least one (type_a, type_b) cross-type pair shares a center within tolerance.
+
+    axis="both": both x and y centers must match (default — original behavior).
+    axis="x":    only x-centers must match (e.g. roof x-centered on body, regardless of y).
+    axis="y":    only y-centers must match.
+    """
     type_a: str
     type_b: str
     tolerance: float = 5.0
+    axis: str = "both"
 
     def run(self, log: dict) -> CheckResult:
         doc = log["outcome"]["document"]
@@ -753,12 +1014,20 @@ class LayerCenteredOnLayer:
                     continue
                 acx, acy = a["x"] + a["w"] / 2, a["y"] + a["h"] / 2
                 bcx, bcy = b["x"] + b["w"] / 2, b["y"] + b["h"] / 2
-                if abs(acx - bcx) <= self.tolerance and abs(acy - bcy) <= self.tolerance:
+                x_ok = abs(acx - bcx) <= self.tolerance
+                y_ok = abs(acy - bcy) <= self.tolerance
+                if self.axis == "x" and x_ok:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.type_a} x-centered on {self.type_b}")
+                if self.axis == "y" and y_ok:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.type_a} y-centered on {self.type_b}")
+                if self.axis == "both" and x_ok and y_ok:
                     return CheckResult(passed=True, score=1.0, max_score=1.0,
                                        message=f"{self.type_a} centered on {self.type_b}")
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
-            message=f"No {self.type_a} center matches any {self.type_b} center (tol {self.tolerance}px)",
+            message=f"No {self.type_a} center matches any {self.type_b} center on {self.axis} (tol {self.tolerance}px)",
         )
 
 
@@ -879,10 +1148,14 @@ class LayersHaveRotations:
 @dataclass
 class LayersAlternatingColors:
     """Sorted layers of layer_type alternate between exactly `n_colors` distinct fills
-    in a periodic A,B,A,B... pattern (or A,B,C,A,B,C... for n_colors=3)."""
+    in a periodic A,B,A,B... pattern (or A,B,C,A,B,C... for n_colors=3).
+
+    sort_axis ∈ {"x", "y", "angle"}. With "angle", layers are sorted by their angle
+    around the layer-set centroid — used for radial layouts where alternation
+    should cycle around the wheel, not along x/y."""
     layer_type: str
     n_colors: int
-    sort_axis: str = "x"        # "x" or "y" — direction along which we sort
+    sort_axis: str = "x"        # "x" | "y" | "angle"
     tolerance: float = 0.05
 
     def run(self, log: dict) -> CheckResult:
@@ -892,6 +1165,11 @@ class LayersAlternatingColors:
                                message=f"Need ≥{self.n_colors*2} {self.layer_type} layers, found {len(layers)}")
         if self.sort_axis == "x":
             ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
+        elif self.sort_axis == "angle":
+            cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+            cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+            ordered = sorted(layers, key=lambda l: math.atan2(
+                (l["y"] + l["h"] / 2) - cy, (l["x"] + l["w"] / 2) - cx))
         else:
             ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
         # Capture first n_colors fill colors as the cycle
@@ -1113,6 +1391,242 @@ class LayersFlankLayer:
 
 
 @dataclass
+class LayerSizeAtLeast:
+    """Every layer of layer_type has w ≥ min_w AND h ≥ min_h.
+    Catches degenerate 1×1 / 5×5 shapes that satisfy other checks trivially."""
+    layer_type: str
+    min_w: float = 0.0
+    min_h: float = 0.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = [
+            f"{l['id'][:8]}: {l['w']}×{l['h']} below min {self.min_w}×{self.min_h}"
+            for l in layers if l["w"] < self.min_w or l["h"] < self.min_h
+        ]
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} ≥ {self.min_w}×{self.min_h}" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
+class AllLayerWidthFraction:
+    """Every inner_type child of any parent_type layer has width in [min_frac, max_frac]
+    × parent's width. Stricter than LayerWidthFraction (which passes on ≥1 child)."""
+    inner_type: str
+    parent_type: str
+    min_frac: float
+    max_frac: float
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        parents = find_layers_by_type(doc, self.parent_type)
+        if not parents:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.parent_type} layers found")
+        children_seen = 0
+        failures = []
+        for parent in parents:
+            if not parent.get("w"):
+                continue
+            for child in parent.get("children", []):
+                if child.get("type") != self.inner_type:
+                    continue
+                children_seen += 1
+                frac = child["w"] / parent["w"]
+                if not (self.min_frac <= frac <= self.max_frac):
+                    failures.append(f"{child['id'][:8]}: width frac {frac:.2f} ∉ [{self.min_frac}, {self.max_frac}]")
+        if children_seen == 0:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.inner_type} children inside any {self.parent_type}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {children_seen} {self.inner_type} children within [{self.min_frac}, {self.max_frac}] of {self.parent_type}" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
+class SmallerLayerInsideLarger:
+    """Among layers of layer_type, the largest (by area) is the container; every
+    other layer of layer_type must fit inside its bbox (within tolerance overhang).
+
+    Closes the gap in LayerBoundsInside(rectangle, rectangle) where 'body fits
+    inside door' would falsely pass when door > body."""
+    layer_type: str
+    tolerance: float = 4.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type} layers, found {len(layers)}")
+        outer = max(layers, key=lambda l: l["w"] * l["h"])
+        t = self.tolerance
+        failures = []
+        for inner in layers:
+            if inner is outer:
+                continue
+            if not (inner["x"] >= outer["x"] - t
+                    and inner["y"] >= outer["y"] - t
+                    and inner["x"] + inner["w"] <= outer["x"] + outer["w"] + t
+                    and inner["y"] + inner["h"] <= outer["y"] + outer["h"] + t):
+                failures.append(f"{inner['id'][:8]} not inside largest {self.layer_type}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All smaller {self.layer_type} fit inside largest" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
+class LayerAreaRatioAtLeast:
+    """Among layers of layer_type, (largest area) / (second-largest area) >= min_ratio.
+    Distinguishes a clear primary instance from a same-type sidekick (e.g., body
+    vs. door — both rectangles — where body should dominate by area)."""
+    layer_type: str
+    min_ratio: float = 2.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type} layers, got {len(layers)}")
+        areas = sorted((l["w"] * l["h"] for l in layers), reverse=True)
+        if areas[1] <= 0:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"degenerate {self.layer_type} (zero area)")
+        ratio = areas[0] / areas[1]
+        passed = ratio >= self.min_ratio
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} area ratio {ratio:.2f} ≥ {self.min_ratio}" if passed
+                    else f"{self.layer_type} area ratio {ratio:.2f} < {self.min_ratio} (largest not dominant)",
+        )
+
+
+@dataclass
+class CrossTypeAreaRatioAtLeast:
+    """(Largest big_type area) / (largest small_type area) >= min_ratio.
+    Catches: 'small' element inflated to match a 'big' element (fold == rect, thumb == pill)."""
+    big_type: str
+    small_type: str
+    min_ratio: float = 2.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        bigs = find_layers_by_type(doc, self.big_type)
+        smalls = find_layers_by_type(doc, self.small_type)
+        if not bigs or not smalls:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.big_type} and {self.small_type}")
+        big_area = max(l["w"] * l["h"] for l in bigs)
+        small_area = max(l["w"] * l["h"] for l in smalls)
+        if small_area <= 0:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"degenerate {self.small_type} (zero area)")
+        ratio = big_area / small_area
+        passed = ratio >= self.min_ratio
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.big_type}/{self.small_type} area ratio {ratio:.2f} ≥ {self.min_ratio}" if passed
+                    else f"{self.big_type}/{self.small_type} area ratio {ratio:.2f} < {self.min_ratio}",
+        )
+
+
+@dataclass
+class SmallerLayerCenteredOnLargerEdge:
+    """Among layers of layer_type, the smallest (by area) has its `edge` aligned
+    with the largest's same edge AND its center on the perpendicular axis aligned
+    with the largest's center.
+
+    Captures "door at the bottom-center of body" without needing explicit roles.
+
+    edge ∈ {"top", "bottom", "left", "right"}; the alignment axis is implicit
+    (top/bottom → align center_x; left/right → align center_y).
+    """
+    layer_type: str
+    edge: str
+    edge_tolerance: float = 10.0
+    axis_tolerance: float = 30.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type} layers, got {len(layers)}")
+        largest = max(layers, key=lambda l: l["w"] * l["h"])
+        smallest = min(layers, key=lambda l: l["w"] * l["h"])
+        if largest is smallest:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"{self.layer_type} layers have identical area")
+        if self.edge == "top":      lg, sm = largest["y"], smallest["y"]
+        elif self.edge == "bottom": lg, sm = largest["y"] + largest["h"], smallest["y"] + smallest["h"]
+        elif self.edge == "left":   lg, sm = largest["x"], smallest["x"]
+        elif self.edge == "right":  lg, sm = largest["x"] + largest["w"], smallest["x"] + smallest["w"]
+        else:
+            raise ValueError(f"unknown edge: {self.edge}")
+        edge_diff = abs(sm - lg)
+        if self.edge in ("top", "bottom"):
+            axis_diff = abs((smallest["x"] + smallest["w"] / 2) - (largest["x"] + largest["w"] / 2))
+            axis_label = "center_x"
+        else:
+            axis_diff = abs((smallest["y"] + smallest["h"] / 2) - (largest["y"] + largest["h"] / 2))
+            axis_label = "center_y"
+        passed = edge_diff <= self.edge_tolerance and axis_diff <= self.axis_tolerance
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(f"smallest {self.layer_type} {self.edge}-edge {edge_diff:.1f}px from largest, "
+                     f"{axis_label} {axis_diff:.1f}px from largest "
+                     f"(tol edge={self.edge_tolerance}, axis={self.axis_tolerance})"),
+        )
+
+
+@dataclass
+class LayerAboveLargestLayer:
+    """At least one top_type layer sits ABOVE the largest bottom_type layer:
+       top.bottom ≈ bottom_largest.top (within tolerance) AND top.y < bottom_largest.y
+       AND horizontal overlap.
+
+    Stricter than LayerEdgesAligned because (a) only the largest bottom_type counts
+    (so a coincidentally-aligned smaller sibling can't satisfy it), and (b) the
+    top must actually be above (not overlapping inside)."""
+    top_type: str
+    bottom_type: str
+    tolerance: float = 10.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        tops = find_layers_by_type(doc, self.top_type)
+        bottoms = find_layers_by_type(doc, self.bottom_type)
+        if not tops or not bottoms:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.top_type} and {self.bottom_type}")
+        anchor = max(bottoms, key=lambda l: l["w"] * l["h"])
+        for top in tops:
+            edge_diff = abs((top["y"] + top["h"]) - anchor["y"])
+            above = top["y"] < anchor["y"]
+            horiz_overlap = (top["x"] < anchor["x"] + anchor["w"]
+                             and top["x"] + top["w"] > anchor["x"])
+            if edge_diff <= self.tolerance and above and horiz_overlap:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.top_type} sits above largest {self.bottom_type}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.top_type} sits above largest {self.bottom_type} "
+                    f"(need bottom-edge ≈ top-edge, fully above, horiz overlap)",
+        )
+
+
+@dataclass
 class LayersAllShareEdge:
     """All layers of layer_type share the same coordinate on the given edge.
 
@@ -1150,4 +1664,259 @@ class LayersAllShareEdge:
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"all {self.layer_type}.{self.edge}: spread {spread:.1f}px (tol {self.tolerance}px)",
+        )
+
+
+@dataclass
+class LayerSmallerThanLayer:
+    """Every smaller_type layer is strictly smaller than every larger_type layer
+    (max_frac × shortest dimension). Catches the "smaller centered circle" /
+    "star inside square" deception where the so-called inner is actually the
+    same size as or larger than the outer.
+
+    Compares min(w, h) so a squashed inner can't pass via one tiny axis."""
+    smaller_type: str
+    larger_type: str
+    max_frac: float = 0.8
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        smalls = find_layers_by_type(doc, self.smaller_type)
+        larges = find_layers_by_type(doc, self.larger_type)
+        if not smalls or not larges:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need both {self.smaller_type} and {self.larger_type}")
+        anchor = max(larges, key=lambda l: l["w"] * l["h"])
+        anchor_short = min(anchor["w"], anchor["h"])
+        if anchor_short <= 0:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"degenerate {self.larger_type} (zero dimension)")
+        failures = []
+        for s in smalls:
+            if id(s) == id(anchor):
+                continue
+            short = min(s["w"], s["h"])
+            frac = short / anchor_short
+            if frac > self.max_frac:
+                failures.append(f"{s['id'][:8]}: short {short:.0f}/{anchor_short:.0f}={frac:.2f} > {self.max_frac}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.smaller_type} ≤ {self.max_frac} of largest {self.larger_type}" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
+class LayerShortDimensionAtMost:
+    """Every layer of layer_type has min(w, h) ≤ max_value. Used as an absolute
+    cap on giant shapes (e.g., star can't be 5000×5000)."""
+    layer_type: str
+    max_value: float
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = [
+            f"{l['id'][:8]}: short={min(l['w'], l['h']):.0f} > {self.max_value}"
+            for l in layers if min(l["w"], l["h"]) > self.max_value
+        ]
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} short-dim ≤ {self.max_value}" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
+class AllLayersAreCircular:
+    """Every layer of layer_type has w ≈ h within tolerance (true circles only).
+
+    Stricter than LayerIsCircular which passes if at least one is round —
+    catches the case where one ellipse is a true circle but another is
+    visually squashed (e.g. 200×60 oval clapper)."""
+    layer_type: str
+    tolerance: float = 3.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = [
+            f"{l['id'][:8]}: {l['w']}×{l['h']}"
+            for l in layers
+            if not (l["w"] > 0 and l["h"] > 0 and abs(l["w"] - l["h"]) <= self.tolerance)
+        ]
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {len(layers)} {self.layer_type} circular (±{self.tolerance}px)" if passed
+                    else f"non-circular {self.layer_type}: " + "; ".join(failures),
+        )
+
+
+@dataclass
+class FrameCountAtMost:
+    """Document contains at most `maximum` frames at the page-root level (across all pages).
+
+    Catches the design split into multiple top-level frames (e.g. shapes scattered
+    across 2+ frames instead of one)."""
+    maximum: int
+
+    def run(self, log: dict) -> CheckResult:
+        n = 0
+        for page in log["outcome"]["document"].get("pages", []):
+            for child in page.get("children", []):
+                if child.get("type") == "frame":
+                    n += 1
+        passed = n <= self.maximum
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"top-level frames: {n} ≤ {self.maximum}" if passed
+                    else f"top-level frames: {n} > {self.maximum} (design split across frames)",
+        )
+
+
+@dataclass
+class LayersHaveDistinctCenters:
+    """Among layers of layer_type, every pair has center distance >= min_offset.
+    Catches "2 identical-bbox ellipses pretending to be distinct shapes" — when
+    LayersOverlap also requires overlap, this enforces partial (not full) overlap.
+    """
+    layer_type: str
+    min_offset: float = 20.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type}, got {len(layers)}")
+        for i in range(len(layers)):
+            for j in range(i + 1, len(layers)):
+                a = layers[i]; b = layers[j]
+                acx, acy = a["x"] + a["w"] / 2, a["y"] + a["h"] / 2
+                bcx, bcy = b["x"] + b["w"] / 2, b["y"] + b["h"] / 2
+                dist = math.hypot(acx - bcx, acy - bcy)
+                if dist < self.min_offset:
+                    return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                       message=f"{self.layer_type} pair {i},{j} centers {dist:.1f}px apart < {self.min_offset}")
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"All {self.layer_type} pairs have center offset ≥ {self.min_offset}",
+        )
+
+
+@dataclass
+class LayersHaveDescendingArea:
+    """Among layers of layer_type, sorting by area gives a strictly descending
+    sequence where each pair (n, n+1) has area_n / area_{n+1} >= min_ratio.
+
+    Catches "concentric circles, but iris ≈ pupil ≈ sclera" — every step in the
+    nesting must be a real, visible size jump."""
+    layer_type: str
+    min_ratio: float = 1.5
+    minimum_layers: int = 2
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < self.minimum_layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥{self.minimum_layers} {self.layer_type}, got {len(layers)}")
+        areas = sorted((l["w"] * l["h"] for l in layers), reverse=True)
+        for i in range(len(areas) - 1):
+            if areas[i + 1] <= 0:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"degenerate {self.layer_type} (zero area)")
+            r = areas[i] / areas[i + 1]
+            if r < self.min_ratio:
+                return CheckResult(passed=False, score=0.0, max_score=1.0,
+                                   message=f"{self.layer_type} sizes not descending: pair {i}/{i+1} ratio {r:.2f} < {self.min_ratio}")
+        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                           message=f"All {len(layers)} {self.layer_type} sizes descend by ≥{self.min_ratio}× each step")
+
+
+@dataclass
+class LayersOrderedByRotation:
+    """Among layers of layer_type, the one closest to rotation_first must come
+    BEFORE (smaller coord) the one closest to rotation_second along the axis.
+
+    Use case: hourglass triangles — the rotation-180 triangle (pointing down)
+    must be positioned ABOVE (smaller y) the rotation-0 triangle (pointing up).
+    Catches the "right rotations, wrong vertical order" deception."""
+    layer_type: str
+    rotation_first: float
+    rotation_second: float
+    axis: str = "y"        # "x" → first.center_x < second.center_x; "y" → first.center_y < second.center_y
+    rotation_tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type}, got {len(layers)}")
+        def near(rot, target):
+            return abs(((rot - target + 180) % 360) - 180) <= self.rotation_tolerance
+        firsts = [l for l in layers if near(l.get("rotation", 0) % 360, self.rotation_first % 360)]
+        seconds = [l for l in layers if near(l.get("rotation", 0) % 360, self.rotation_second % 360)]
+        if not firsts or not seconds:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need {self.layer_type} at both {self.rotation_first}° and {self.rotation_second}°")
+        if self.axis == "y":
+            f_coord = min(l["y"] + l["h"] / 2 for l in firsts)
+            s_coord = max(l["y"] + l["h"] / 2 for l in seconds)
+        else:
+            f_coord = min(l["x"] + l["w"] / 2 for l in firsts)
+            s_coord = max(l["x"] + l["w"] / 2 for l in seconds)
+        passed = f_coord < s_coord
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} at {self.rotation_first}° before {self.rotation_second}° on {self.axis}" if passed
+                    else f"{self.layer_type} at {self.rotation_first}° not before {self.rotation_second}° on {self.axis} (got {f_coord:.1f} ≥ {s_coord:.1f})",
+        )
+
+
+@dataclass
+class LayersBracketAllOnAxis:
+    """Among layers of bracket_type and inner_type:
+       at least one bracket_type sits BEFORE all inner_type bounds, and
+       at least one bracket_type sits AFTER all inner_type bounds (along axis).
+
+    Stricter than LayersFlankLayer (which only checks one pivot's center): the
+    inner span is taken across the union of all inner_type bboxes.
+    Catches "cap inside triangle stack" / "left bracket between bars" deceptions.
+
+    axis="y": bracket center_y < min(inner.top) − tol AND bracket center_y > max(inner.bottom) + tol
+    axis="x": same logic on x.
+    """
+    bracket_type: str
+    inner_type: str
+    axis: str = "y"
+    tolerance: float = 4.0
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        brackets = find_layers_by_type(doc, self.bracket_type)
+        inners = find_layers_by_type(doc, self.inner_type)
+        if not brackets or not inners or self.bracket_type == self.inner_type:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need distinct {self.bracket_type} and {self.inner_type}")
+        if self.axis == "y":
+            inner_min = min(i["y"] for i in inners)
+            inner_max = max(i["y"] + i["h"] for i in inners)
+            before = sum(1 for b in brackets if (b["y"] + b["h"] / 2) <= inner_min + self.tolerance)
+            after  = sum(1 for b in brackets if (b["y"] + b["h"] / 2) >= inner_max - self.tolerance)
+        else:
+            inner_min = min(i["x"] for i in inners)
+            inner_max = max(i["x"] + i["w"] for i in inners)
+            before = sum(1 for b in brackets if (b["x"] + b["w"] / 2) <= inner_min + self.tolerance)
+            after  = sum(1 for b in brackets if (b["x"] + b["w"] / 2) >= inner_max - self.tolerance)
+        passed = before >= 1 and after >= 1
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.bracket_type} brackets all {self.inner_type} on {self.axis}" if passed
+                    else f"{self.bracket_type} fails to bracket all {self.inner_type} on {self.axis} (before={before}, after={after})",
         )
