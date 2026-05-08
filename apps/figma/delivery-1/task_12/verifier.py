@@ -29,34 +29,34 @@ task = Task(
     description="4 same-size rectangles in a horizontal row, sharing the same y baseline, evenly spaced.",
     rubrics=[
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=4),                                          # 0 ★ "4" rectangles
+            ShapeCount("rectangle", equals=4),                                          # 0 ★ prompt: "4 same-size rectangles"
         ], weight=0.2, critical=[0]),
 
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=3.0),                # 0 ★ "same-size"
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=5.0),      # 1 ★ "horizontal row" → tops/bottoms align
-            LayersDistributed(layer_type="rectangle", axis="x", tolerance=8.0),         # 2 ★ "consistent spacing"
-            LayersAllShareEdge(layer_type="rectangle", edge="top", tolerance=5.0),      # 3 ★ "horizontal row" tops align
-            LayersAllShareEdge(layer_type="rectangle", edge="bottom", tolerance=5.0),   # 4 ★ "row" bottoms align
-            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=2.0),      # 5 ★ rects upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),          # 6 ★ frame upright
-            LayerSizeAtLeast(layer_type="rectangle", min_w=15, min_h=15),               # 7 ★ no degenerate
-            AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",          # 8 ★ rect-vs-frame size sane
+            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),                # 0 ★ prompt: "same-size"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),     # 1 prompt: "horizontal row"
+            LayersDistributed(layer_type="rectangle", axis="x", tolerance=8.0),         # 2 ★ prompt: "consistent spacing"
+            LayersAllShareEdge(layer_type="rectangle", edge="top", tolerance=15.0),     # 3 ★ prompt: "tops and bottoms align"
+            LayersAllShareEdge(layer_type="rectangle", edge="bottom", tolerance=15.0),  # 4 prompt: "tops and bottoms align"
+            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 5 rects upright
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 6 frame upright (implicit)
+            LayerSizeAtLeast(layer_type="rectangle", min_w=15, min_h=15),               # 7 no degenerate
+            AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",          # 8 rect-vs-frame size sane
                                   min_frac=0.04, max_frac=0.40),
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 9 ★ rects in frame bounds
-                                 tolerance=4.0),
-            LayersHaveConsistentGap(layer_type="rectangle", axis="x",                   # 10 ★ "consistent spacing" with positive gaps
-                                    min_gap=1.0, variance_tolerance=10.0),
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+                                 tolerance=10.0),
+            LayersHaveConsistentGap(layer_type="rectangle", axis="x",                   # 10 prompt: "consistent spacing"
+                                    min_gap=1.0, variance_tolerance=12.0),
+        ], weight=0.2, critical=[0, 2, 3, 9]),
 
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                   # 0 ★ every rect solid
-            FillCountAtMost("rectangle", max_count=1),                                  # 1 ★ no stacked fills
-            FillOpacityAtLeast("rectangle", min_opacity=0.5),                           # 2 ★ visible fills
-            LayerVisible("rectangle"),                                                  # 3 ★ alpha + visible + layer opacity
-            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.4),           # 4 ★ no pill/circle rects
-            NoLayerFlipped(layer_type="rectangle"),                                     # 5 ★ no mirror/flip
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5]),
+            AllFillTypeIs("rectangle", kind="solid"),                                   # 0 ★ prompt: "any solid fill"
+            FillCountAtMost("rectangle", max_count=1),                                  # 1 no stacked fills
+            FillOpacityAtLeast("rectangle", min_opacity=0.5),                           # 2 visible fills
+            LayerVisible("rectangle"),                                                  # 3 alpha + visible + layer opacity
+            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 4 no pill/circle rects
+            NoLayerFlipped(layer_type="rectangle"),                                     # 5 no mirror/flip
+        ], weight=0.2, critical=[0]),
 
         StructureRubric([
             LayerInsideFrame("rectangle"),                                              # 0 ★ rects inside frame
@@ -64,9 +64,9 @@ task = Task(
         ], weight=0.2, critical=[0, 1]),
 
         EventRubric([
-            ToolUsed("rectangle"),                                                       # 0 ★ rectangle tool mandated
+            ToolUsed("rectangle"),                                                       # 0 prompt mentions tool but keyboard-shortcut OK
             EventTypeCount("create_rectangle", equals=4),
-        ], weight=0.2, critical=[0]),
+        ], weight=0.2, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=18),
 )

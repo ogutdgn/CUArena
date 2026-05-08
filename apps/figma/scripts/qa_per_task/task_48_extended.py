@@ -4,17 +4,23 @@ Prompt: Navy frame + 4 white radial lines (90° apart) + 2 concentric stroked he
 """
 from __future__ import annotations
 import sys
-sys.path.insert(0, "/Users/rashidalblwi/figma-mock/test-verifier")
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))                # scripts/
+sys.path.insert(0, str(HERE.parent.parent))         # apps/figma/
 
 from qa_per_task._helpers import (
     make_layer, make_frame, make_log, make_event, make_stroke, make_drop_shadow,
-    score_task, NAVY, WHITE, YELLOW, GREEN, RED, PURPLE, GOLD, CYAN, PINK,
-    ORANGE, BLACK, WARM_ORANGE,
+    score_task,
+    PINK, ORANGE, NAVY, WHITE, YELLOW, GREEN, RED, PURPLE, GOLD, CYAN,
+    BLACK, LIGHT_GRAY, DARK_GRAY, WARM_ORANGE, CREAM, DEEP_BLUE, TEAL,
+    COBALT, MAGENTA, SAND, PALE_YELLOW, DEEP_PURPLE,
 )
-from tasks import task_48_spiderweb as t
-T = t.task
-
-
+import importlib.util
+_VERIFIER = HERE.parent.parent / "delivery-1" / "task_48" / "verifier.py"
+_spec = importlib.util.spec_from_file_location("_v", _VERIFIER)
+_v = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_v)
+T = _v.task
 def evt(n_lines=4, n_hex=2, extras=()):
     sem = [make_event("session_start"),
            make_event("tool_change", before="select", after="line"),

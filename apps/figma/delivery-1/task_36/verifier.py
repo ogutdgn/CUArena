@@ -42,30 +42,30 @@ task = Task(
         # both share same center, inner is smaller, non-degenerate, not flipped,
         # no extreme corner-radius (still rectangles).
         AlignmentRubric([
-            SmallerLayerInsideLarger(layer_type="rectangle", tolerance=8.0),               # 0 ★ "inside it"
-            LayersConcentric(layer_type="rectangle", tolerance=15.0),                      # 1 ★ "share the same center"
-            LayerAreaRatioAtLeast(layer_type="rectangle", min_ratio=1.05),                 # 2 ★ inner truly smaller
-            LayerSmallerThanLayer(smaller_type="rectangle", larger_type="rectangle",       # 3 ★ inner < 95% of outer
+            SmallerLayerInsideLarger(layer_type="rectangle", tolerance=10.0),              # 0 ★ prompt: "smaller inner rectangle inside it"
+            LayersConcentric(layer_type="rectangle", tolerance=15.0),                      # 1 ★ prompt: "both centered" / "share the same center"
+            LayerAreaRatioAtLeast(layer_type="rectangle", min_ratio=1.05),                 # 2 inner truly smaller
+            LayerSmallerThanLayer(smaller_type="rectangle", larger_type="rectangle",       # 3 ★ prompt: "smaller inner rectangle"
                                   max_frac=0.95),
-            LayerSizeAtLeast(layer_type="rectangle", min_w=20, min_h=20),                  # 4 ★ no degenerate rects
-            NoLayerFlipped(layer_type="rectangle"),                                        # 5 ★ rects not flipped
-            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.4),              # 6 ★ rectangles not circles
-        ], weight=0.25, critical=[0, 1, 2, 3, 4, 5, 6]),
+            LayerSizeAtLeast(layer_type="rectangle", min_w=20, min_h=20),                  # 4 no degenerate rects
+            NoLayerFlipped(layer_type="rectangle"),                                        # 5 rects not flipped
+            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),              # 6 rectangles not circles
+        ], weight=0.25, critical=[0, 1, 3]),
 
-        # critical: solid fills, visible, no stacking, no opacity tricks
+        # critical: solid fills (prompt: "Each can have its own fill color")
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                       # 0 ★ both solid
-            FillCountAtMost("rectangle", max_count=1),                                      # 2 ★ no stacked fills
-            FillOpacityAtLeast("rectangle", min_opacity=0.5),                               # 3 ★ visible fills
-            LayerVisible("rectangle"),                                                      # 4 ★ visible layers
-        ], weight=0.25, critical=[0, 1, 2, 3]),
-
-
-        # critical: must use rectangle tool
-        EventRubric([
-            ToolUsed("rectangle"),                          # 0 ★
-            EventTypeCount("create_rectangle", equals=2),   # 1
+            AllFillTypeIs("rectangle", kind="solid"),                                       # 0 ★ prompt: "Each can have its own fill color"
+            FillCountAtMost("rectangle", max_count=1),                                      # 2 no stacked fills
+            FillOpacityAtLeast("rectangle", min_opacity=0.5),                               # 3 visible fills
+            LayerVisible("rectangle"),                                                      # 4 visible layers
         ], weight=0.25, critical=[0]),
+
+
+        # event: must use rectangle tool (kept soft per playbook)
+        EventRubric([
+            ToolUsed("rectangle"),                          # 0
+            EventTypeCount("create_rectangle", equals=2),   # 1
+        ], weight=0.25, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=15),
 )

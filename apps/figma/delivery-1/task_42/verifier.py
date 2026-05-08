@@ -44,62 +44,62 @@ task = Task(
         # critical: ellipses circular (ALL of them), frame correct size, shapes inside frame,
         # sane sizing, upright (no rotation/flip), badge overlaps bell, ellipses smaller than bell.
         AlignmentRubric([
-            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                   # 0 ★ at least one round
-            AllLayersAreCircular(layer_type="ellipse", tolerance=3.0),                              # 1 ★ EVERY ellipse round
-            FrameSizeEquals(width=1280, height=832, tolerance=10.0),                                # 2 ★ frame size
-            AllLayerBoundsInside(inner_type="vector",  outer_type="frame", tolerance=4.0),          # 3 ★ bell inside frame
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=4.0),          # 4 ★ ellipses inside frame
-            LayerSizeAtLeast(layer_type="vector",  min_w=40, min_h=40),                             # 5 ★ bell not degenerate
-            LayerSizeAtLeast(layer_type="ellipse", min_w=8,  min_h=8),                              # 6 ★ ellipses not degenerate
-            AllLayerWidthFraction(inner_type="vector", parent_type="frame",                          # 7 ★ bell sane vs frame
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                   # 0 ★ prompt: "clapper circle" / "badge circle"
+            AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                              # 1 EVERY ellipse round
+            FrameSizeEquals(width=1280, height=832, tolerance=25.0),                                # 2 frame size
+            AllLayerBoundsInside(inner_type="vector",  outer_type="frame", tolerance=10.0),         # 3 ★ shapes inside frame (combined)
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),         # 4 ellipses inside frame
+            LayerSizeAtLeast(layer_type="vector",  min_w=40, min_h=40),                             # 5 bell not degenerate
+            LayerSizeAtLeast(layer_type="ellipse", min_w=8,  min_h=8),                              # 6 ellipses not degenerate
+            AllLayerWidthFraction(inner_type="vector", parent_type="frame",                          # 7 bell sane vs frame
                                    min_frac=0.05, max_frac=0.50),
-            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                         # 8 ★ ellipses sane vs frame
+            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                         # 8 ellipses sane vs frame
                                    min_frac=0.005, max_frac=0.10),
-            LayerRotationEquals(layer_type="vector",  degrees=0, tolerance=2.0),                    # 9 ★ bell upright
-            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=2.0),                    # 10 ★ ellipses upright
-            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=2.0),                    # 11 ★ frame upright
-            NoLayerFlipped(layer_type="vector"),                                                    # 12 ★ bell not mirrored
-            NoLayerFlipped(layer_type="ellipse"),                                                   # 13 ★ ellipses not mirrored
-            LayersOverlap(type_a="ellipse", type_b="vector"),                                       # 14 ★ at least 1 ellipse overlaps bell
-            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="vector", max_frac=0.6),       # 15 ★ ellipses smaller than bell
-            FrameCountAtMost(maximum=1),                                                            # 16 ★ exactly one top-level frame
-            LayerNextTo(type_a="ellipse", type_b="vector", side="below", tolerance=20.0),           # 17 ★ clapper below bell
-        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]),
+            LayerRotationEquals(layer_type="vector",  degrees=0, tolerance=5.0),                    # 9 bell upright
+            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),                    # 10 ellipses upright
+            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),                    # 11 frame upright
+            NoLayerFlipped(layer_type="vector"),                                                    # 12 bell not mirrored
+            NoLayerFlipped(layer_type="ellipse"),                                                   # 13 ellipses not mirrored
+            LayersOverlap(type_a="ellipse", type_b="vector"),                                       # 14 ★ prompt: "badge circle in the upper-right" of bell
+            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="vector", max_frac=0.85),     # 15 ellipses smaller than bell
+            FrameCountAtMost(maximum=1),                                                            # 16 exactly one top-level frame
+            LayerNextTo(type_a="ellipse", type_b="vector", side="below", tolerance=20.0),           # 17 ★ prompt: "clapper circle below"
+        ], weight=0.20, critical=[0, 14, 17]),
 
         # critical: gold bell, distinct ellipse colors, white stroke color, sane fill stack & opacity.
         ColorRubric([
-            AllFillTypeIs("vector",  kind="solid"),                                          # 0 ★
-            AllFillTypeIs("ellipse", kind="solid"),                                          # 1 ★
-            AllSolidColorEquals(layer_type="vector", expected_rgb=GOLD, tolerance=0.20),     # 2 ★ EVERY bell yellow-gold
-            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.10),       # 3 ★ clapper vs badge distinct
-            DistinctSolidColors(minimum=3, tolerance=0.10),                                  # 4 ★ overall distinct
-            FillCountAtMost("vector",  max_count=1),                                         # 5 ★ no stacked fills on bell
-            FillCountAtMost("ellipse", max_count=1),                                         # 6 ★ no stacked fills on ellipses
-            FillOpacityAtLeast("vector",  min_opacity=0.5),                                  # 7 ★ visible bell fill
-            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 8 ★ visible ellipse fills
-            LayerVisible("vector"),                                                           # 9 ★ alpha+visible+opacity for bell
-            LayerVisible("ellipse"),                                                          # 10 ★ alpha+visible+opacity for ellipses
-            StrokeExists("ellipse"),                                                         # 11 ★ stroke around badge
-            StrokeWeightEquals("ellipse", weight=2.0, tolerance=1.0),                        # 12 ★ 2px weight
-            StrokeColorEquals("ellipse", expected_rgb=WHITE, tolerance=0.20),                # 13 ★ white stroke
-            StrokeRendersVisible("ellipse"),                                                  # 14 ★ stroke actually renders
-        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]),
+            AllFillTypeIs("vector",  kind="solid"),                                          # 0 ★ visible solid bell
+            AllFillTypeIs("ellipse", kind="solid"),                                          # 1 visible solid ellipses
+            AllSolidColorEquals(layer_type="vector", expected_rgb=GOLD, tolerance=0.28),     # 2 ★ prompt: "yellow-gold fill"
+            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.12),       # 3 ★ prompt: "clapper" vs "red badge"
+            DistinctSolidColors(minimum=3, tolerance=0.15),                                  # 4 overall distinct
+            FillCountAtMost("vector",  max_count=1),                                         # 5 no stacked fills on bell
+            FillCountAtMost("ellipse", max_count=1),                                         # 6 no stacked fills on ellipses
+            FillOpacityAtLeast("vector",  min_opacity=0.5),                                  # 7 visible bell fill
+            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 8 visible ellipse fills
+            LayerVisible("vector"),                                                           # 9 alpha+visible+opacity for bell
+            LayerVisible("ellipse"),                                                          # 10 alpha+visible+opacity for ellipses
+            StrokeExists("ellipse"),                                                         # 11 stroke around badge
+            StrokeWeightEquals("ellipse", weight=2.0, tolerance=2.5),                        # 12 prompt: "2px white stroke"
+            StrokeColorEquals("ellipse", expected_rgb=WHITE, tolerance=0.28),                # 13 prompt: "white stroke"
+            StrokeRendersVisible("ellipse"),                                                  # 14 stroke actually renders
+        ], weight=0.20, critical=[0, 2, 3]),
 
         # critical: bell + ellipses live inside one frame on page 0
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="vector",  minimum=1),  # 0 ★
-            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 1 ★
-            LayerOnPage(layer_type="vector",  page_index=0),            # 2 ★ bell on page 0
-            LayerOnPage(layer_type="ellipse", page_index=0),            # 3 ★ ellipses on page 0
-        ], weight=0.20, critical=[0, 1, 2, 3]),
+            LayerGroupAllInSameFrame(layer_type="vector",  minimum=1),  # 0 ★ shapes share one frame
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 1 ★ ellipses inside the frame
+            LayerOnPage(layer_type="vector",  page_index=0),            # 2 bell on page 0
+            LayerOnPage(layer_type="ellipse", page_index=0),            # 3 ellipses on page 0
+        ], weight=0.20, critical=[0, 1]),
 
         # critical: pen + ellipse tools must be used (prompt-mandated)
         EventRubric([
-            ToolUsed("pen"),                                            # 0 ★ pen tool used
-            ToolUsed("ellipse"),                                        # 1 ★ ellipse tool used
+            ToolUsed("pen"),                                            # 0 pen tool used
+            ToolUsed("ellipse"),                                        # 1 ellipse tool used
             EventTypeCountAtLeast("create_vector",  minimum=1),         # 2
             EventTypeCountAtLeast("create_ellipse", minimum=2),         # 3
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.20, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=24),
 )

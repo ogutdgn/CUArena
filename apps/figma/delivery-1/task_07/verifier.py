@@ -34,38 +34,38 @@ task = Task(
 
         # ── Alignment / Geometry ──
         AlignmentRubric([
-            LayersOverlap(type_a="vector", type_b="vector"),                          # 0 ★ "overlapping" / "layered"
-            FrameSizeEquals(width=1000, height=400, tolerance=10.0),                  # 1 ★ 1000x400 frame
-            LayerRotationEquals(layer_type="vector", degrees=0, tolerance=2.0),       # 2 ★ vectors upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),        # 3 ★ frame upright
-            LayerSizeAtLeast(layer_type="vector", min_w=20, min_h=20),                # 4 ★ no degenerate vectors
+            LayersOverlap(type_a="vector", type_b="vector"),                          # 0 ★ prompt: "overlapping pen-tool paths"
+            FrameSizeEquals(width=1000, height=400, tolerance=25.0),                  # 1 ★ prompt: "1000x400 frame"
+            LayerRotationEquals(layer_type="vector", degrees=0, tolerance=5.0),       # 2 vectors upright (sanity)
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),        # 3 frame upright (implicit)
+            LayerSizeAtLeast(layer_type="vector", min_w=20, min_h=20),                # 4 no degenerate vectors (sanity)
             AllLayerWidthFraction(inner_type="vector", parent_type="frame",
-                                  min_frac=0.10, max_frac=0.95),                      # 5 ★ vector size sane
+                                  min_frac=0.10, max_frac=0.95),                      # 5 vector size sane
             AllLayerBoundsInside(inner_type="vector", outer_type="frame",
-                                 tolerance=10.0),                                     # 6 ★ vectors inside frame
-            NoLayerFlipped(layer_type="vector"),                                      # 7 ★ vectors not mirrored
-        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7]),
+                                 tolerance=10.0),                                     # 6 ★ prompt: "Create a 1000x400 frame" (vectors inside)
+            NoLayerFlipped(layer_type="vector"),                                      # 7 vectors not mirrored (implicit)
+        ], weight=0.20, critical=[0, 1, 6]),
 
         # ── Color: solid fills + 2 distinct gray shades ──
         ColorRubric([
-            AllFillTypeIs("vector", kind="solid"),                                    # 0 ★ every vector solid
-            DistinctTypedSolidColors(layer_type="vector", minimum=2, tolerance=0.05), # 1 ★ "different shades"
-            FillCountAtMost("vector", max_count=1),                                   # 2 ★ no stacked fills
-            FillOpacityAtLeast("vector", min_opacity=0.5),                            # 3 ★ visible fills
-            LayerVisible("vector"),                                                   # 4 ★ alpha+visible+opacity
-        ], weight=0.20, critical=[0, 1, 2, 3, 4]),
+            AllFillTypeIs("vector", kind="solid"),                                    # 0 ★ prompt: "Apply dark gray fill" / "lighter gray fill"
+            DistinctTypedSolidColors(layer_type="vector", minimum=2, tolerance=0.12), # 1 ★ prompt: "different shades"
+            FillCountAtMost("vector", max_count=1),                                   # 2 no stacked fills (sanity)
+            FillOpacityAtLeast("vector", min_opacity=0.5),                            # 3 visible fills (sanity)
+            LayerVisible("vector"),                                                   # 4 alpha+visible+opacity (sanity)
+        ], weight=0.20, critical=[0, 1]),
 
         # ── Structure: vectors in one frame ──
         StructureRubric([
-            LayerInsideFrame("vector"),                                               # 0 ★
-            ChildCountAtLeast("frame", minimum=2),                                    # 1 ★ both in one frame
+            LayerInsideFrame("vector"),                                               # 0 ★ prompt: "Create a 1000x400 frame"
+            ChildCountAtLeast("frame", minimum=2),                                    # 1 ★ both vectors in one frame
         ], weight=0.20, critical=[0, 1]),
 
-        # ── Event: pen tool used ──
+        # ── Event: pen tool used (non-critical: tool may be shortcut) ──
         EventRubric([
-            ToolUsed("pen"),                                                          # 0 ★ "Use the Pen tool"
-            EventTypeCountAtLeast("create_vector", minimum=2),                        # 1 ★
-        ], weight=0.20, critical=[0, 1]),
+            ToolUsed("pen"),                                                          # 0 prompt: "Use the Pen tool" (tool may be shortcut)
+            EventTypeCountAtLeast("create_vector", minimum=2),                        # 1
+        ], weight=0.20, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=30),
 )

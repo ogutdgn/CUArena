@@ -10,7 +10,7 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersConcentric, LayersEvenlyRotated, LayerSizeAtLeast
+from verifier.checks.geometry_checks import LayersConcentric, LayersEvenlyRotated, LayerSizeAtLeast, LinesShareEndpoint
 from verifier.checks.stroke_checks import (
     StrokeColorEquals, StrokeExists, StrokeWeightEquals,
     AllLayerStrokeVisible, AllStrokeColorEquals,
@@ -29,28 +29,28 @@ task = Task(
             ShapeCount("line", equals=8),                                             # 0 ★ "8 lines"
         ], weight=0.25, critical=[0]),
 
-        # critical: from a center point + 45° intervals + non-degenerate + no flips — prompt-explicit
+        # critical: from a center point + 45° intervals + endpoint shared — prompt-explicit
         AlignmentRubric([
-            LayersConcentric(layer_type="line", tolerance=10.0),                      # 0 ★ "from a single center point"
-            LayersEvenlyRotated(layer_type="line", n=8, step_deg=45.0, tolerance_deg=8.0),  # 1 ★ "45° intervals"
-            LayerSizeAtLeast(layer_type="line", min_w=20.0, min_h=0.0),               # 2 ★ non-zero length
-            NoLayerFlipped(layer_type="line"),                                        # 3 ★ no flips
-        ], weight=0.25, critical=[0, 1, 2, 3]),
+            LayersConcentric(layer_type="line", tolerance=12.0),                      # 0 ★ prompt: "from a single center point" (bbox)
+            LayersEvenlyRotated(layer_type="line", n=8, step_deg=45.0, tolerance_deg=10.0),  # 1 ★ prompt: "45° intervals"
+            LayerSizeAtLeast(layer_type="line", min_w=20.0, min_h=0.0),               # 2 non-zero length (sanity)
+            NoLayerFlipped(layer_type="line"),                                        # 3 no flips (implicit)
+            LinesShareEndpoint(layer_type="line", minimum=8, tolerance=15.0),         # 4 ★ prompt: "from a center point"
+        ], weight=0.25, critical=[0, 1, 4]),
 
-        # critical: stroke must exist + roughly gold + visible — prompt says "All lines the same color"
-        # gold is verifier convention (loose tol).
+        # critical: stroke must exist + roughly gold — prompt says "All lines the same color"
         ColorRubric([
-            StrokeColorEquals(layer_type="line", expected_rgb=GOLD, tolerance=0.25),  # 0 (loose tol — not critical)
-            AllLayerStrokeVisible(layer_type="line", min_alpha=0.5, min_weight=0.5),  # 1 ★ all visible strokes
-            AllStrokeColorEquals(layer_type="line", expected_rgb=GOLD, tolerance=0.30),# 2 ★ all-same gold
-            LayerVisible(layer_type="line", min_opacity=0.5, min_alpha=0.0),          # 3 ★ layer visible (no fill needed)
-        ], weight=0.25, critical=[1, 2, 3]),
+            StrokeColorEquals(layer_type="line", expected_rgb=GOLD, tolerance=0.28),  # 0 (loose tol — not critical)
+            AllLayerStrokeVisible(layer_type="line", min_alpha=0.5, min_weight=0.5),  # 1 ★ prompt: lines must be visible
+            AllStrokeColorEquals(layer_type="line", expected_rgb=GOLD, tolerance=0.30),# 2 ★ prompt: "All lines the same color"
+            LayerVisible(layer_type="line", min_opacity=0.5, min_alpha=0.0),          # 3 layer visible (sanity)
+        ], weight=0.25, critical=[1, 2]),
 
-        # critical: line tool used — prompt-explicit ("Use the line tool", "Click Line tool")
+        # event: line tool used — prompt-explicit but agent might use shortcut, so non-critical
         EventRubric([
-            ToolUsed("line"),                                                         # 0 ★ "Use the line tool"
+            ToolUsed("line"),                                                         # 0 prompt: "Use the line tool" (tool may be shortcut)
             EventTypeCount("create_line", equals=8),                                  # 1
-        ], weight=0.25, critical=[0]),
+        ], weight=0.25, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )

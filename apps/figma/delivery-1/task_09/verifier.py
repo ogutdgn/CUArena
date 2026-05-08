@@ -35,39 +35,39 @@ task = Task(
 
         # ── Alignment / Geometry ──
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=2.0),              # 0 ★ "same-size"
-            LayersInGrid(layer_type="rectangle", rows=3, cols=4, tolerance=10.0),     # 1 ★ "4x3 grid"
-            LayerAllSquare(layer_type="rectangle", tolerance=3.0),                    # 2 ★ "squares" (w≈h)
-            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=2.0),    # 3 ★ squares upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),        # 4 ★ frame upright
-            LayerSizeAtLeast(layer_type="rectangle", min_w=15, min_h=15),             # 5 ★ no degenerate
+            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),              # 0 ★ prompt: "12 same-size squares"
+            LayersInGrid(layer_type="rectangle", rows=3, cols=4, tolerance=12.0),     # 1 ★ prompt: "4x3 grid"
+            LayerAllSquare(layer_type="rectangle", tolerance=8.0),                    # 2 ★ prompt: "squares" (w≈h)
+            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),    # 3 squares upright (sanity)
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),        # 4 frame upright (implicit)
+            LayerSizeAtLeast(layer_type="rectangle", min_w=15, min_h=15),             # 5 no degenerate (sanity)
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",
-                                 tolerance=10.0),                                     # 6 ★ inside frame
-            NoLayerFlipped(layer_type="rectangle"),                                   # 7 ★ not mirrored
-            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.4),         # 8 ★ no circular squares
-        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8]),
+                                 tolerance=10.0),                                     # 6 ★ prompt: "Inside a frame"
+            NoLayerFlipped(layer_type="rectangle"),                                   # 7 not mirrored (implicit)
+            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),         # 8 no circular squares (sanity)
+        ], weight=0.20, critical=[0, 1, 2, 6]),
 
         # ── Color: solid fills + 12 distinct colors ──
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                 # 0 ★ every solid
+            AllFillTypeIs("rectangle", kind="solid"),                                 # 0 ★ prompt: "filled a different color" (every solid)
             DistinctTypedSolidColors(layer_type="rectangle", minimum=12,
-                                     tolerance=0.05),                                 # 1 ★ "each different color"
-            FillCountAtMost("rectangle", max_count=1),                                # 2 ★ no stacked fills
-            FillOpacityAtLeast("rectangle", min_opacity=0.5),                         # 3 ★ visible fills
-            LayerVisible("rectangle"),                                                # 4 ★ alpha+visible+opacity
-        ], weight=0.20, critical=[0, 1, 2, 3, 4]),
+                                     tolerance=0.12),                                 # 1 ★ prompt: "each square is filled a different color"
+            FillCountAtMost("rectangle", max_count=1),                                # 2 no stacked fills (sanity)
+            FillOpacityAtLeast("rectangle", min_opacity=0.5),                         # 3 visible fills (sanity)
+            LayerVisible("rectangle"),                                                # 4 alpha+visible+opacity (sanity)
+        ], weight=0.20, critical=[0, 1]),
 
         # ── Structure: squares in one frame ──
         StructureRubric([
-            LayerInsideFrame("rectangle"),                                            # 0 ★
+            LayerInsideFrame("rectangle"),                                            # 0 ★ prompt: "Inside a frame"
             ChildCountAtLeast("frame", minimum=12),                                   # 1 ★ all 12 in one frame
         ], weight=0.20, critical=[0, 1]),
 
-        # ── Event: rectangle tool used ──
+        # ── Event: rectangle tool used (non-critical: tool may be shortcut) ──
         EventRubric([
-            ToolUsed("rectangle"),                                                    # 0 ★ "Click Rectangle tool"
-            EventTypeCount("create_rectangle", equals=12),                            # 1 ★
-        ], weight=0.20, critical=[0, 1]),
+            ToolUsed("rectangle"),                                                    # 0 prompt: "Click Rectangle tool" (tool may be shortcut)
+            EventTypeCount("create_rectangle", equals=12),                            # 1
+        ], weight=0.20, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=36),
 )

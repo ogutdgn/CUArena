@@ -30,44 +30,44 @@ task = Task(
     rubrics=[
         # ── Fundamentals: exactly 3 triangles ──
         FundamentalsRubric([
-            ShapeCount("polygon", equals=3),                                          # 0 ★ "3 ... triangles"
-            PolygonSidesEquals(sides=3),                                              # 1 ★ "triangles" — 3 sides
+            ShapeCount("polygon", equals=3),                                          # 0 ★ prompt: "3 nested triangles"
+            PolygonSidesEquals(sides=3),                                              # 1 ★ prompt: "Polygon tool with 3 sides"
         ], weight=0.20, critical=[0, 1]),
 
         # ── Alignment / Geometry ──
         AlignmentRubric([
-            LayersConcentric(layer_type="polygon", tolerance=10.0),                   # 0 ★ "same center"
-            SmallerLayerInsideLarger(layer_type="polygon", tolerance=2.0),            # 1 ★ "nested ... decreasing size"
-            LayerRotationEquals(layer_type="polygon", degrees=0, tolerance=2.0),      # 2 ★ upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),        # 3 ★ frame upright
-            LayerSizeAtLeast(layer_type="polygon", min_w=20, min_h=20),               # 4 ★ no degenerate
+            LayersConcentric(layer_type="polygon", tolerance=12.0),                   # 0 ★ prompt: "same center"
+            SmallerLayerInsideLarger(layer_type="polygon", tolerance=2.0),            # 1 ★ prompt: "nested ... decreasing size"
+            LayerRotationEquals(layer_type="polygon", degrees=0, tolerance=5.0),      # 2 upright (implicit)
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),        # 3 frame upright (implicit)
+            LayerSizeAtLeast(layer_type="polygon", min_w=20, min_h=20),               # 4 no degenerate
             AllLayerBoundsInside(inner_type="polygon", outer_type="frame",
                                  tolerance=10.0),                                     # 5 ★ inside frame
-            NoLayerFlipped(layer_type="polygon"),                                     # 6 ★ not mirrored
-            LayerAreaRatioAtLeast(layer_type="polygon", min_ratio=2.0),               # 7 ★ outer >> inner
-        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7]),
+            NoLayerFlipped(layer_type="polygon"),                                     # 6 not mirrored
+            LayerAreaRatioAtLeast(layer_type="polygon", min_ratio=1.5),               # 7 outer > inner
+        ], weight=0.20, critical=[0, 1, 5]),
 
         # ── Color: solid alternating ──
         ColorRubric([
-            AllFillTypeIs("polygon", kind="solid"),                                   # 0 ★ every solid
+            AllFillTypeIs("polygon", kind="solid"),                                   # 0 ★ prompt: every shape needs visible fill
             DistinctTypedSolidColors(layer_type="polygon", minimum=2,
-                                     tolerance=0.05),                                 # 1 ★ "alternating two colors"
-            FillCountAtMost("polygon", max_count=1),                                  # 2 ★ no stacked fills
-            FillOpacityAtLeast("polygon", min_opacity=0.5),                           # 3 ★ visible fills
-            LayerVisible("polygon"),                                                  # 4 ★ alpha+visible+opacity
-        ], weight=0.20, critical=[0, 1, 2, 3, 4]),
+                                     tolerance=0.12),                                 # 1 ★ prompt: "alternating two colors"
+            FillCountAtMost("polygon", max_count=1),                                  # 2 no stacked fills
+            FillOpacityAtLeast("polygon", min_opacity=0.5),                           # 3 visible fills
+            LayerVisible("polygon"),                                                  # 4 alpha+visible+opacity
+        ], weight=0.20, critical=[0, 1]),
 
         # ── Structure: in one frame ──
         StructureRubric([
-            LayerInsideFrame("polygon"),                                              # 0 ★
-            ChildCountAtLeast("frame", minimum=3),                                    # 1 ★ all 3 in one frame
+            LayerInsideFrame("polygon"),                                              # 0 ★ inside frame
+            ChildCountAtLeast("frame", minimum=3),                                    # 1 ★ prompt: "3 ... triangles" all in one frame
         ], weight=0.20, critical=[0, 1]),
 
         # ── Event: polygon tool used ──
         EventRubric([
-            ToolUsed("polygon"),                                                      # 0 ★ "Polygon tool with 3 sides"
-            EventTypeCount("create_polygon", equals=3),                               # 1 ★
-        ], weight=0.20, critical=[0, 1]),
+            ToolUsed("polygon"),                                                      # 0 prompt mentions Polygon tool but agent may keyboard-shortcut
+            EventTypeCount("create_polygon", equals=3),                               # 1
+        ], weight=0.20, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=18),
 )

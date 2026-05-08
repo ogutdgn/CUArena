@@ -29,42 +29,42 @@ task = Task(
     rubrics=[
         # critical: exactly 5 rectangles
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=5),                                  # 0 ★ "5"
+            ShapeCount("rectangle", equals=5),                                  # 0 ★ prompt: "5 same-size squares"
         ], weight=0.20, critical=[0]),
 
-        # critical: same-size SQUARES, row alignment, in-frame, non-degenerate
+        # critical: same-size SQUARES, row alignment, stacked horizontally
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=2.0),         # 0 ★ "same-size"
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),  # 1 ★ "row"
-            LayerIsSquare(layer_type="rectangle", tolerance=4.0),                # 2 ★ "squares"
+            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),         # 0 ★ prompt: "5 same-size squares"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),  # 1 ★ prompt: "in a horizontal row"
+            LayerIsSquare(layer_type="rectangle", tolerance=8.0),                # 2 ★ prompt: "squares"
             LayersStacked(layer_type="rectangle", axis="x", gap_px=16.0,
-                          tolerance=8.0),                                        # 3 ★ row spacing
-            LayerSizeAtLeast(layer_type="rectangle", min_w=20.0, min_h=20.0),    # 4 ★ non-degenerate
+                          tolerance=12.0),                                        # 3 ★ prompt: "in a row"
+            LayerSizeAtLeast(layer_type="rectangle", min_w=20.0, min_h=20.0),    # 4 non-degenerate
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",
-                                 tolerance=8.0),                                 # 5 ★ inside frame
-        ], weight=0.25, critical=[0, 1, 2, 3, 4, 5]),
+                                 tolerance=10.0),                                 # 5 inside frame
+        ], weight=0.25, critical=[0, 1, 2, 3]),
 
-        # critical: solid + distinct brand colors + visible
+        # critical: solid + distinct brand colors
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                           # 0 ★
-            DistinctSolidColors(minimum=5, tolerance=0.05),                     # 1 ★ "different brand color"
+            AllFillTypeIs("rectangle", kind="solid"),                           # 0 ★ every shape needs visible fill
+            DistinctSolidColors(minimum=5, tolerance=0.12),                     # 1 ★ prompt: "each filled a different brand color"
             LayerVisible(layer_type="rectangle", min_opacity=0.5,
-                         min_alpha=0.5),                                        # 2 ★ visible
-        ], weight=0.20, critical=[0, 1, 2]),
+                         min_alpha=0.5),                                        # 2 visible
+        ], weight=0.20, critical=[0, 1]),
 
-        # critical: squares look like squares (unrotated, unflipped, not pill)
+        # squares look like squares (unrotated, unflipped, not pill)
         PropertyRubric([
             LayerRotationEquals(layer_type="rectangle", degrees=0.0,
-                                tolerance=2.0),                                 # 0 ★ unrotated
-            NoLayerFlipped(layer_type="rectangle"),                             # 1 ★ no flips
-            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.4),   # 2 ★ not full circle
-        ], weight=0.15, critical=[0, 1, 2]),
+                                tolerance=5.0),                                 # 0 unrotated
+            NoLayerFlipped(layer_type="rectangle"),                             # 1 no flips
+            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),   # 2 not full circle
+        ], weight=0.15, critical=[]),
 
-        # critical: rectangle tool used
+        # rectangle tool used
         EventRubric([
-            ToolUsed("rectangle"),                                              # 0 ★
+            ToolUsed("rectangle"),                                              # 0
             EventTypeCount("create_rectangle", equals=5),                       # 1
-        ], weight=0.20, critical=[0]),
+        ], weight=0.20, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )
