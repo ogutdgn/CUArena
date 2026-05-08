@@ -8,6 +8,7 @@ import { setSelection } from "./commands";
 import { uid } from "@/util/id";
 import type { Image as ImageLayer, Page } from "@/types/scene";
 import { resolveCreationParentId, worldToParentLocal } from "./coordinates";
+import { clientToWorldPoint } from "./viewportCoordinates";
 
 interface PlacementHint {
   worldX?: number;
@@ -46,8 +47,9 @@ export async function placeImageFiles(
   const svgEl = document.querySelector(".canvas-svg") as SVGSVGElement | null;
   const r = svgEl?.getBoundingClientRect();
   const vp = sCheck.viewportByPage[sCheck.activePageId] ?? { x: 0, y: 0, zoom: 1 };
-  const baseX = hint?.worldX != null ? hint.worldX : r ? vp.x + r.width / 2 / vp.zoom : 0;
-  const baseY = hint?.worldY != null ? hint.worldY : r ? vp.y + r.height / 2 / vp.zoom : 0;
+  const centerWorld = r ? clientToWorldPoint(r.left + r.width / 2, r.top + r.height / 2, vp, r) : { x: 0, y: 0 };
+  const baseX = hint?.worldX != null ? hint.worldX : centerWorld.x;
+  const baseY = hint?.worldY != null ? hint.worldY : centerWorld.y;
 
   for (let i = 0; i < files.length; i++) {
     const f = files[i];

@@ -9,6 +9,7 @@ import { getSelectedLayers } from "./selectors";
 import type { Layer } from "@/types/scene";
 import type { TransformMap } from "@/types/ops";
 import type { Color } from "@/types/scene";
+import { getLayerPositionValue, transformForLayerPositionValue } from "./positionCoordinates";
 
 function txtuple(l: Layer) {
   return { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY } as const;
@@ -62,7 +63,15 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
   for (const l of layers) {
     const t = txtuple(l);
     before[l.id] = { ...t };
-    after[l.id] = { ...t, [field]: field === "w" || field === "h" ? Math.max(1, v) : v };
+    if (field === "x" || field === "y") {
+      const pos = getLayerPositionValue(s, l);
+      after[l.id] = transformForLayerPositionValue(s, l, { ...pos, [field]: v });
+    } else if (field === "w" || field === "h") {
+      const pos = getLayerPositionValue(s, l);
+      after[l.id] = transformForLayerPositionValue(s, l, pos, { [field]: Math.max(1, v) });
+    } else {
+      after[l.id] = { ...t, [field]: v };
+    }
   }
   dispatch({
     id: makeOpId(),
@@ -101,8 +110,9 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
     const beforeR: Record<string, { x: number; y: number }> = {};
     const afterR: Record<string, { x: number; y: number }> = {};
     for (const l of layers) {
-      beforeR[l.id] = { x: l.x, y: l.y };
-      afterR[l.id] = { x: field === "x" ? value : l.x, y: field === "y" ? value : l.y };
+      const pos = getLayerPositionValue(s, l);
+      beforeR[l.id] = pos;
+      afterR[l.id] = { ...pos, [field]: value };
     }
     emitSemantic({
       name: "move_layer",

@@ -6,14 +6,17 @@ import { setTransformField } from "@/engine/propertyCommands";
 import { flipSelection, rotate90Selection } from "@/engine/transformCommands";
 import { ConstraintsControl } from "./ConstraintsControl";
 import { RotateCw, FlipHorizontal2, FlipVertical2 } from "lucide-react";
+import { getLayerPositionValue } from "@/engine/positionCoordinates";
 
 export function PositionSection() {
   const layers = useStore((s) => getSelectedLayers(s));
   if (layers.length === 0) return null;
 
   const ref = layers[0];
-  const xVal: number | "Mixed" = layers.every((l) => l.x === ref.x) ? ref.x : "Mixed";
-  const yVal: number | "Mixed" = layers.every((l) => l.y === ref.y) ? ref.y : "Mixed";
+  const refPos = getLayerPositionValue(useStore.getState(), ref);
+  const positions = layers.map((l) => getLayerPositionValue(useStore.getState(), l));
+  const xVal: number | "Mixed" = positions.every((p) => p.x === refPos.x) ? refPos.x : "Mixed";
+  const yVal: number | "Mixed" = positions.every((p) => p.y === refPos.y) ? refPos.y : "Mixed";
   const rotVal: number | "Mixed" = layers.every((l) => l.rotation === ref.rotation) ? ref.rotation : "Mixed";
 
   return (

@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useStore } from "@/engine/store";
 import { getActivePage } from "@/engine/selectors";
 import { worldAABBOfLayer, worldOrientedCornersOfLayer, type XY } from "@/engine/coordinates";
+import { clientToWorldPoint } from "@/engine/viewportCoordinates";
 import { uid } from "@/util/id";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
 import {
@@ -181,10 +182,7 @@ export function ConnectionArrows() {
     const svg = svgGroupRef.current?.ownerSVGElement;
     if (!svg) return { x: 0, y: 0 };
     const rect = svg.getBoundingClientRect();
-    return {
-      x: (clientX - rect.left) / viewport.zoom + viewport.x,
-      y: (clientY - rect.top) / viewport.zoom + viewport.y,
-    };
+    return clientToWorldPoint(clientX, clientY, viewport, rect);
   }
 
   function hitDestFrame(wx: number, wy: number, excludeId: string): Frame | undefined {

@@ -164,6 +164,8 @@ All creation events share `layerId`, `parentId`, and `trigger`. Geometry payload
 
 Notes:
 - `flip_layer.axis` is user-facing. Internal scale toggles may differ so the visual action matches the Position panel label.
+- Position panel X/Y values are center-origin user coordinates. Top-level layer values are relative to the page/world origin, which renders at the visible canvas center in the default viewport; nested layer values are relative to the parent visual center. The stored `outcome.document` geometry remains parent-local bbox geometry.
+- `move_layer` with `trigger: "panel_input"` records these user-facing Position values in `before`/`after`.
 - A canvas drag that crosses a frame boundary emits `move_layer` for the drag and `reorder_layer` with `trigger: "canvas_drag"` for the parent/index transition.
 - Smart-snap guides are transient UI feedback. They do not emit semantic events unless the drag commits a document mutation.
 
