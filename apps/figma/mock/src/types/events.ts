@@ -299,6 +299,22 @@ export type SemanticEvent =
       modifiers: { shift: boolean; alt: boolean };
     })
   | (SemanticEventBase & {
+      name: "resize_line_endpoint";
+      layerId: string;
+      endpoint: "p1" | "p2";
+      before: {
+        transform: { x: number; y: number; w: number; h: number; rotation: number; scaleX: number; scaleY: number };
+        p1: { x: number; y: number };
+        p2: { x: number; y: number };
+      };
+      after: {
+        transform: { x: number; y: number; w: number; h: number; rotation: number; scaleX: number; scaleY: number };
+        p1: { x: number; y: number };
+        p2: { x: number; y: number };
+      };
+      trigger: "drag";
+    })
+  | (SemanticEventBase & {
       name: "delete";
       layerIds: string[];
       trigger:
@@ -468,7 +484,8 @@ export type SemanticEvent =
         | "shortcut_cmd_open_bracket"
         | "shortcut_cmd_alt_close_bracket"
         | "shortcut_cmd_alt_open_bracket"
-        | "panel_drag";
+        | "panel_drag"
+        | "canvas_drag";
     })
   | (SemanticEventBase & {
       name: "create_page";
