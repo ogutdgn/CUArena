@@ -1,16 +1,23 @@
 """Round 3 novel deceptions for task 24 — centered white rounded modal w/ shadow."""
 from __future__ import annotations
 import sys
-sys.path.insert(0, "/Users/rashidalblwi/figma-mock/test-verifier")
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))                # scripts/
+sys.path.insert(0, str(HERE.parent.parent))         # apps/figma/
 
 from qa_per_task._helpers import (
     make_layer, make_frame, make_log, make_event, make_stroke, make_drop_shadow,
-    score_task, NAVY, WHITE, RED, GREEN, PURPLE,
+    score_task,
+    PINK, ORANGE, NAVY, WHITE, YELLOW, GREEN, RED, PURPLE, GOLD, CYAN,
+    BLACK, LIGHT_GRAY, DARK_GRAY, WARM_ORANGE, CREAM, DEEP_BLUE, TEAL,
+    COBALT, MAGENTA, SAND, PALE_YELLOW, DEEP_PURPLE,
 )
-from tasks import task_24_centered_modal as t
-T = t.task
-
-
+import importlib.util
+_VERIFIER = HERE.parent.parent / "delivery-1" / "task_24" / "verifier.py"
+_spec = importlib.util.spec_from_file_location("_v", _VERIFIER)
+_v = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_v)
+T = _v.task
 def evt(rect=1, set_fill=1, frame=1, align=2, extras=()):
     sem = [make_event("session_start"),
            make_event("tool_change", before="select", after="frame"),
