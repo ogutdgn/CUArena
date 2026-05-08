@@ -19,6 +19,7 @@ import { InsertionCrosshair } from "@/ui/overlays/InsertionCrosshair";
 import { RotateReadout } from "@/ui/overlays/RotateReadout";
 import { FlowBadges } from "@/ui/overlays/FlowBadges";
 import { ConnectionArrows } from "@/ui/overlays/ConnectionArrows";
+import { FrameLabelsOverlay } from "@/ui/overlays/FrameLabelsOverlay";
 import { placeImageFiles } from "@/engine/imageCommands";
 
 const MIN_ZOOM = 0.05;
@@ -64,11 +65,14 @@ export function CanvasView() {
   }
   function onPointerMove(e: React.PointerEvent<SVGSVGElement>) {
     const world = clientToWorld(e.clientX, e.clientY);
-    getActiveTool(effectiveTool()).onPointerMove?.(world, e.nativeEvent);
-    useStore.setState((s) => {
-      s.cursorWorld = world;
-      s.insertionCursor = world;
-    });
+    const tool = effectiveTool();
+    getActiveTool(tool).onPointerMove?.(world, e.nativeEvent);
+    if (tool !== "hand") {
+      useStore.setState((s) => {
+        s.cursorWorld = world;
+        s.insertionCursor = world;
+      });
+    }
   }
   function onPointerUp(e: React.PointerEvent<SVGSVGElement>) {
     const world = clientToWorld(e.clientX, e.clientY);
@@ -229,6 +233,7 @@ export function CanvasView() {
       <g transform={`matrix(${viewport.zoom} 0 0 ${viewport.zoom} ${-viewport.x * viewport.zoom} ${-viewport.y * viewport.zoom})`}>
         {page && page.children.map((l) => <NodeRenderer key={l.id} layer={l} />)}
 
+        <FrameLabelsOverlay />
         <HoverOutline />
         <ParentBoundsOverlay />
         <SelectionOverlay />
