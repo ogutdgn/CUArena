@@ -5,43 +5,42 @@ import type { Point } from "@/util/geometry";
 import { useStore, selectActiveViewport } from "@/engine/store";
 import { dispatch, makeOpId } from "@/engine/dispatch";
 import { emitSemantic } from "@/logger/semantic";
+import { pannedViewportFromClientDelta } from "@/engine/viewportPan";
 
 type State =
   | { kind: "idle" }
-  | { kind: "panning"; startWorld: Point; startViewport: { x: number; y: number; zoom: number } };
+  | { kind: "panning"; startClient: Point; currentClient: Point; startViewport: { x: number; y: number; zoom: number }; rafId: number | null };
 
 let state: State = { kind: "idle" };
 
 export const handTool: ITool = {
-  onPointerDown(world, _e) {
+  onPointerDown(_world, e) {
     const s = useStore.getState();
     state = {
       kind: "panning",
-      startWorld: world,
+      startClient: { x: e.clientX, y: e.clientY },
+      currentClient: { x: e.clientX, y: e.clientY },
       startViewport: { ...selectActiveViewport(s) },
+      rafId: null,
     };
   },
-  onPointerMove(world, _e) {
+  onPointerMove(_world, e) {
     if (state.kind !== "panning") return;
-    const s = useStore.getState();
-    const dx = world.x - state.startWorld.x;
-    const dy = world.y - state.startWorld.y;
-    const cur = selectActiveViewport(s);
-    // Live viewport update — non-undoable. Skip undo on dispatch.
-    dispatch(
-      {
-        id: makeOpId(),
-        timestamp: performance.now(),
-        kind: "set_viewport",
-        pageId: s.activePageId,
-        before: cur,
-        after: { ...cur, x: state.startViewport.x - dx, y: state.startViewport.y - dy },
-      },
-      { skipUndo: true },
-    );
+    state.currentClient = { x: e.clientX, y: e.clientY };
+    if (state.rafId != null) return;
+    state.rafId = requestAnimationFrame(() => {
+      if (state.kind !== "panning") return;
+      state.rafId = null;
+      applyPanFrame(state);
+    });
   },
   onPointerUp(_world, _e) {
     if (state.kind !== "panning") return;
+    if (state.rafId != null) {
+      cancelAnimationFrame(state.rafId);
+      state.rafId = null;
+    }
+    applyPanFrame(state);
     const s = useStore.getState();
     const final = selectActiveViewport(s);
     emitSemantic({
@@ -54,6 +53,25 @@ export const handTool: ITool = {
     state = { kind: "idle" };
   },
   onAbort() {
+    if (state.kind === "panning" && state.rafId != null) cancelAnimationFrame(state.rafId);
     state = { kind: "idle" };
   },
 };
+
+function applyPanFrame(panning: Extract<State, { kind: "panning" }>): void {
+  const s = useStore.getState();
+  const cur = selectActiveViewport(s);
+  const after = pannedViewportFromClientDelta(panning.startViewport, panning.startClient, panning.currentClient);
+  if (after.x === cur.x && after.y === cur.y && after.zoom === cur.zoom) return;
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "set_viewport",
+      pageId: s.activePageId,
+      before: cur,
+      after,
+    },
+    { skipUndo: true },
+  );
+}
