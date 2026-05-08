@@ -3,59 +3,91 @@ Task 32 — 4-blade pinwheel (IN SCOPE).
 
 4 triangles rotated radially (alternating two colors) + small center pivot circle.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.structure    import StructureRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
-from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
+from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast, PolygonSidesEquals
 from verifier.checks.geometry_checks import (
-    LayersSameDimensions, RadialDistribution, LayersEvenlyRotated, LayerIsCircular
+    LayersSameDimensions, RadialDistribution, LayersEvenlyRotated,
+    LayerIsCircular, LayersAlternatingColors, AllLayerBoundsInside,
+    LayerSizeAtLeast, LayerSmallerThanLayer, LayerInFrontOf,
+    AllLayersAreCircular, FrameCountAtMost,
 )
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.fill_checks   import (
+    AllFillTypeIs, DistinctSolidColors, FillCountAtMost, FillOpacityAtLeast,
+)
+from verifier.checks.property_checks import LayerVisible, NoLayerFlipped
+from verifier.checks.structure_checks import (
+    LayerInsideFrame, LayerGroupAllInSameFrame, ChildCountAtLeast,
+)
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
-
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
 
 task = Task(
     id="task_32_pinwheel",
-    description="4 triangles rotated radially around a small center circle, alternating two colors.",
+    description="4 triangles rotated 90° apart, alternating two colors, around a small center circle.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
-            ShapeCount("polygon", equals=4),
-            ShapeCount("ellipse", equals=1),
-            ShapeCountAtLeast("frame", minimum=1),
-        ]), max_score=0.25),
+        # critical: prompt mandates 4 triangles + 1 center circle
+        FundamentalsRubric([
+            ShapeCount("polygon", equals=4),         # 0 ★ "4 triangles"
+            ShapeCount("ellipse", equals=1),         # 1 ★ "small center circle"
+            ShapeCountAtLeast("frame", minimum=1),   # 2
+            PolygonSidesEquals(sides=3),             # 3 ★ "triangles" → 3 sides
+        ], weight=0.2, critical=[0, 1, 3]),
 
-        WeightedRubric(AlignmentRubric([
-            LayersSameDimensions(layer_type="polygon", tolerance=3.0),
-            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),
-            LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=8.0),
-            LayerIsCircular(layer_type="ellipse", tolerance=3.0),
-        ]), max_score=0.25),
+        # critical: prompt mandates radial 90° rotation, same dims, round center,
+        # blades inside frame, non-degenerate sizes, pivot smaller than blades,
+        # pivot drawn on top, no flipping.
+        AlignmentRubric([
+            LayersSameDimensions(layer_type="polygon", tolerance=3.0),                       # 0 ★ same triangles
+            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),                # 1 ★ "arranged radially"
+            LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=8.0), # 2 ★ rotated 90° apart
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                             # 3 ★ "circle"
+            AllLayersAreCircular(layer_type="ellipse", tolerance=3.0),                        # 4 ★ pivot truly circular (all)
+            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=4.0),    # 5 ★ blades inside frame
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=4.0),    # 6 ★ pivot inside frame
+            LayerSizeAtLeast(layer_type="polygon", min_w=10, min_h=10),                       # 7 ★ no degenerate blades
+            LayerSizeAtLeast(layer_type="ellipse", min_w=8, min_h=8),                         # 8 ★ no degenerate pivot
+            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="polygon",              # 9 ★ "small center circle"
+                                  max_frac=0.8),
+            LayerInFrontOf(type_a="ellipse", type_b="polygon"),                               # 10 ★ pivot on top
+            NoLayerFlipped(layer_type="polygon"),                                             # 11 ★ blades not flipped
+        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
 
-        WeightedRubric(ColorRubric([
-            FillTypeIs("polygon", kind="solid"),
-        ]), max_score=0.25),
+        # critical: prompt mandates 2 distinct alternating colors, and visible
+        # solid fills (no transparency tricks, no stacked fills).
+        ColorRubric([
+            AllFillTypeIs("polygon", kind="solid"),                                                          # 0 ★
+            AllFillTypeIs("ellipse", kind="solid"),                                                          # 1 ★ pivot solid
+            DistinctSolidColors(minimum=2, tolerance=0.10),                                                  # 2 ★ "alternating two colors"
+            LayersAlternatingColors(layer_type="polygon", n_colors=2, sort_axis="angle", tolerance=0.15),    # 3 ★ alternation around the wheel
+            FillCountAtMost("polygon", max_count=1),                                                         # 4 ★ no stacked fills
+            FillCountAtMost("ellipse", max_count=1),                                                         # 5 ★
+            FillOpacityAtLeast("polygon", min_opacity=0.5),                                                  # 6 ★ visible blade fills
+            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                                  # 7 ★
+            LayerVisible("polygon"),                                                                         # 8 ★ visible blades
+            LayerVisible("ellipse"),                                                                         # 9 ★ visible pivot
+        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
 
-        WeightedRubric(EventRubric([
-            ToolUsed("polygon"),
-            EventTypeCount("create_polygon", equals=4),
-            EventTypeCount("create_ellipse", equals=1),
-        ]), max_score=0.25),
+        # critical: shapes must all live in one frame (catches split-frame designs)
+        StructureRubric([
+            LayerInsideFrame("polygon"),                                # 0 ★
+            LayerInsideFrame("ellipse"),                                # 1 ★
+            LayerGroupAllInSameFrame(layer_type="polygon", minimum=4),  # 2 ★ all blades same frame
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=1),  # 3 ★ pivot in same scope
+            ChildCountAtLeast("frame", minimum=5),                      # 4 ★ all 5 shapes in one frame
+            FrameCountAtMost(maximum=1),                                # 5 ★ exactly 1 top-level frame
+        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5]),
+
+        # critical: must use polygon tool
+        EventRubric([
+            ToolUsed("polygon"),                       # 0 ★
+            EventTypeCount("create_polygon", equals=4),# 1
+            EventTypeCount("create_ellipse", equals=1),# 2
+        ], weight=0.2, critical=[0]),
     ],
-    efficiency=EfficiencyRubric(target_turns=25),
+    efficiency=EfficiencyRubric(target_turns=22),
 )
