@@ -77,3 +77,54 @@ class TextAlignEquals:
                                    message=f"Text hAlign is '{self.align}'")
         return CheckResult(passed=False, score=0.0, max_score=1.0,
                            message=f"No text layer with hAlign '{self.align}'")
+
+
+@dataclass
+class VerticalAlignEquals:
+    """Any text layer has the given vertical alignment."""
+    align: str   # "top" | "middle" | "bottom"
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], "text")
+        for l in layers:
+            if l.get("vAlign") == self.align:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"Text vAlign is '{self.align}'")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"No text layer with vAlign '{self.align}'")
+
+
+@dataclass
+class LineHeightEquals:
+    """Any text layer has lineHeight.value ≈ expected (when lineHeight.type == 'pixels' or 'percent')."""
+    value: float
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], "text")
+        for l in layers:
+            lh = l.get("lineHeight") or {}
+            v = lh.get("value")
+            if v is not None and abs(v - self.value) <= self.tolerance:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"Text lineHeight {v} ≈ {self.value}")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"No text layer with lineHeight {self.value}±{self.tolerance}")
+
+
+@dataclass
+class LetterSpacingEquals:
+    """Any text layer has letterSpacing.value ≈ expected."""
+    value: float
+    tolerance: float = 0.5
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], "text")
+        for l in layers:
+            ls = l.get("letterSpacing") or {}
+            v = ls.get("value")
+            if v is not None and abs(v - self.value) <= self.tolerance:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"Text letterSpacing {v} ≈ {self.value}")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"No text layer with letterSpacing {self.value}±{self.tolerance}")
