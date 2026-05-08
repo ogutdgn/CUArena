@@ -30,6 +30,32 @@ __exportLog()   // downloads figma-mock-log-<sessionId>.json
 
 ---
 
+## Docker (Customer Delivery)
+
+From `apps/figma/`:
+
+```bash
+docker compose up -d --build mock
+```
+
+Then open `http://localhost:5173`.
+
+Run end-to-end export + scoring from Docker:
+
+```bash
+docker compose run --rm verifier python3 scripts/run_task.py --host mock task_01
+```
+
+Build a clean customer handoff archive:
+
+```bash
+./scripts/package_delivery.sh
+```
+
+Full handoff/runbook: [`delivery-1/DOCKER_DELIVERY.md`](delivery-1/DOCKER_DELIVERY.md)
+
+---
+
 ## Run the verifier
 
 ```bash
