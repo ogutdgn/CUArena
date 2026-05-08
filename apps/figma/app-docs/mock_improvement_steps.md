@@ -23,6 +23,31 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-07 — User-reported transform polish
+
+#### 22. 🟡 P2 — Flip/rotate selection outline and frame label diverge from the layer transform
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/overlays/SelectionOverlay.tsx`
+- `apps/figma/mock/src/ui/overlays/ConnectionArrows.tsx`
+- `apps/figma/mock/src/ui/canvas/NodeRenderer.tsx`
+- `apps/figma/mock/src/engine/coordinates.ts`
+
+**What I expected:** Position panel rotate / flip controls update the selected layer and its visible selection outline together. Child layer outlines and prototype connector handles should follow their parent frame/group/section transform. A flipped frame should keep its "Frame N" chrome label readable, not mirrored by the frame's shape transform.
+
+**What happened:** The layer itself can rotate/flip, but child outlines and prototype plus handles still come from coordinate helpers that only add ancestor `x/y`; they ignore ancestor rotation/flip. Frame labels are also fragile because the "label transform" is inline in `GroupEl` instead of a separately tested transform that explicitly omits flip scale.
+
+**Root cause verified in code:** `SelectionOverlay`, `HoverOutline`, `ParentBoundsOverlay`, line overlays, and prototype handles need visual/rendered-world geometry, but `coordinates.ts` had an explicit limitation: ancestor rotation/scale were not included in `localPointToWorld`. `ConnectionArrows.buildBounds` repeated the same offset-only walk. `NodeRenderer` already tries to render frame labels outside `commonTransform`, but the transform string is not covered by regression tests, making future flip changes easy to break.
+
+**Suggested fix direction:**
+- Keep `selectionBbox()` unchanged for drag/resize math and handles until resize becomes transform-aware.
+- Make visual geometry helpers use the rendered transform chain, including ancestor rotation/flip.
+- Render the single selected non-line/arrow outline as an oriented polygon; keep multi-selection as the existing axis-aligned bbox.
+- Position prototype connector handles from transformed frame edge midpoints.
+- Extract and test the frame label transform so it never includes `scale(...)`.
+
 ### 2026-05-07 — Mock Foundation / Logic Review (Codex audit)
 
 Scope: `apps/figma/mock` foundation and logical correctness review. Focus areas were scene graph mutation, coordinate spaces, undo/redo, semantic logging, outcome document integrity, and architecture consistency.
