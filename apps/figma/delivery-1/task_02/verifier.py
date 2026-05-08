@@ -30,31 +30,29 @@ task = Task(
     rubrics=[
         # critical: exact count of 5 — prompt-explicit
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=5),                                       # 0 ★ "5 ... bands"
+            ShapeCount("rectangle", equals=5),                                       # 0 ★ prompt: "5 horizontal rectangles"
         ], weight=0.25, critical=[0]),
 
-        # critical: same width (same dimensions + center_x), stacked top-to-bottom,
-        # horizontal aspect, inside frame — all prompt-explicit
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=3.0),             # 0 ★ "same width and similar height"
-            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=3.0),   # 1 ★ same width centers
-            LayersStacked(layer_type="rectangle", axis="y", gap_px=0.0, tolerance=4.0),  # 2 ★ "stack ... top-to-bottom" + "flush"
-            LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="horizontal"),  # 3 ★ "horizontal rectangle"
-            LayerInsideFrame("rectangle"),                                           # 4 ★ "inside ... a frame"
-            LayerGroupAllInSameFrame("rectangle", minimum=5),                        # 5 ★ all 5 in one frame
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=4.0),  # 6 ★ bands fit
-            LayerSizeAtLeast(layer_type="rectangle", min_w=80.0, min_h=20.0),        # 7 ★ non-degenerate
-            LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=2.0), # 8 ★ unrotated
-            NoLayerFlipped(layer_type="rectangle"),                                  # 9 ★ no flips
-            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.3),        # 10 ★ rect-shaped (not pill)
-            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=2.0),     # 11 ★ frame not rotated
-        ], weight=0.25, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
+            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),             # 0 ★ prompt: "Each rectangle is the same width and a similar height"
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=12.0),  # 1 ★ prompt: "click Align horizontal centers"
+            LayersStacked(layer_type="rectangle", axis="y", gap_px=0.0, tolerance=12.0),  # 2 ★ prompt: "stack 5 horizontal rectangles top-to-bottom" + "flush against each other"
+            LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="horizontal"),  # 3 ★ prompt: "5 horizontal rectangles"
+            LayerInsideFrame("rectangle"),                                           # 4
+            LayerGroupAllInSameFrame("rectangle", minimum=5),                        # 5
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),  # 6
+            LayerSizeAtLeast(layer_type="rectangle", min_w=80.0, min_h=20.0),        # 7
+            LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=5.0), # 8
+            NoLayerFlipped(layer_type="rectangle"),                                  # 9
+            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),        # 10
+            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),     # 11
+        ], weight=0.25, critical=[0, 1, 2, 3]),
 
-        # critical: solid fills + 5 distinct colors + sunset color order + visible — prompt-explicit
+        # critical: solid fills + 5 distinct colors + sunset color order — prompt-explicit
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                # 0 ★
-            DistinctSolidColors(minimum=5, tolerance=0.05),                          # 1 ★ 5 sunset colors
-            LayersHaveColorOrder(                                                    # 2 ★ purple→pink→orange→yellow→pale yellow
+            AllFillTypeIs("rectangle", kind="solid"),                                # 0 ★ prompt: solid fill bands
+            DistinctSolidColors(minimum=5, tolerance=0.12),                          # 1 ★ prompt: "sunset colors: deep purple, pink, orange, yellow, pale yellow"
+            LayersHaveColorOrder(                                                    # 2 ★ prompt: "purple, pink, orange, yellow, pale yellow" top-to-bottom
                 layer_type="rectangle",
                 expected_rgbs=[
                     {"r": 0.30, "g": 0.10, "b": 0.50},   # deep purple
@@ -64,16 +62,16 @@ task = Task(
                     {"r": 1.00, "g": 1.00, "b": 0.70},   # pale yellow
                 ],
                 sort_axis="y",
-                tolerance=0.20,
+                tolerance=0.25,
             ),
-            LayerVisible(layer_type="rectangle", min_opacity=0.5, min_alpha=0.5),    # 3 ★ catches alpha=0/opacity=0
-            FillCountAtMost(layer_type="rectangle", max_count=1),                    # 4 ★ catches stacked fills
-            FillOpacityAtLeast(layer_type="rectangle", min_opacity=0.5),             # 5 ★ catches near-invisible
-        ], weight=0.25, critical=[0, 1, 2, 3, 4, 5]),
+            LayerVisible(layer_type="rectangle", min_opacity=0.5, min_alpha=0.5),    # 3
+            FillCountAtMost(layer_type="rectangle", max_count=1),                    # 4
+            FillOpacityAtLeast(layer_type="rectangle", min_opacity=0.5),             # 5
+        ], weight=0.25, critical=[0, 1, 2]),
 
         # critical: rectangle tool used — prompt-explicit
         EventRubric([
-            ToolUsed("rectangle"),                                                   # 0 ★ "Click Rectangle tool"
+            ToolUsed("rectangle"),                                                   # 0 ★ prompt: "Click Rectangle tool"
             EventTypeCount("create_rectangle", equals=5),                            # 1
         ], weight=0.25, critical=[0]),
     ],

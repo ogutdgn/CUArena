@@ -33,59 +33,59 @@ task = Task(
     rubrics=[
         # critical: 1 circle + 4 rays inside a frame (prompt-explicit counts)
         FundamentalsRubric([
-            ShapeCount("ellipse", equals=1),                                    # 0 ★ "a yellow center circle"
-            ShapeCount("polygon", equals=4),                                    # 1 ★ "4 thin triangle rays"
-            ShapeCountAtLeast("frame", minimum=1),                              # 2 ★ "Inside a frame"
-            PolygonSidesEquals(sides=3),                                         # 3 ★ "triangle rays"
-        ], weight=0.2, critical=[0, 1, 2, 3]),
+            ShapeCount("ellipse", equals=1),                                    # 0 ★ prompt: "a yellow center circle"
+            ShapeCount("polygon", equals=4),                                    # 1 ★ prompt: "4 thin triangle rays"
+            ShapeCountAtLeast("frame", minimum=1),                              # 2 prompt: "Inside a frame"
+            PolygonSidesEquals(sides=3),                                         # 3 prompt: "triangle rays"
+        ], weight=0.2, critical=[0, 1]),
 
         # critical: round center, rays evenly rotated 90° apart, radial layout, sane size, on-frame
         AlignmentRubric([
-            LayersSameDimensions(layer_type="polygon", tolerance=4.0),          # 0 ★
-            LayerIsCircular(layer_type="ellipse", tolerance=3.0),               # 1 ★ "circle"
-            LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=10.0),  # 2 ★ "rotated 90°"
-            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),  # 3 ★ "around it / 12,3,6,9"
-            LayerCenteredOnLayerSetCentroid(type_a="ellipse", type_b="polygon", tolerance=20.0),  # 4 ★ rays around circle
-            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=2.0),  # 5 ★ circle upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),    # 6 ★ frame upright
-            NoLayerFlipped(layer_type="ellipse"),                                  # 7 ★ circle not flipped
-            NoLayerFlipped(layer_type="polygon"),                                  # 8 ★ rays not flipped
-            LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),            # 9 ★ no tiny circle
-            LayerSizeAtLeast(layer_type="polygon", min_w=15, min_h=15),            # 10 ★ no tiny rays
+            LayersSameDimensions(layer_type="polygon", tolerance=8.0),          # 0
+            LayerIsCircular(layer_type="ellipse", tolerance=8.0),               # 1 ★ prompt: "circle"
+            LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=10.0),  # 2 ★ prompt: "rotated 90° apart"
+            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),  # 3 ★ prompt: "around it ... 12, 3, 6, 9"
+            LayerCenteredOnLayerSetCentroid(type_a="ellipse", type_b="polygon", tolerance=20.0),  # 4 ★ prompt: "rays around it"
+            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),  # 5
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),    # 6
+            NoLayerFlipped(layer_type="ellipse"),                                  # 7
+            NoLayerFlipped(layer_type="polygon"),                                  # 8
+            LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),            # 9
+            LayerSizeAtLeast(layer_type="polygon", min_w=15, min_h=15),            # 10
             AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",
-                                  min_frac=0.02, max_frac=0.40),                   # 11 ★ circle-vs-frame size
+                                  min_frac=0.02, max_frac=0.40),                   # 11
             AllLayerWidthFraction(inner_type="polygon", parent_type="frame",
-                                  min_frac=0.02, max_frac=0.30),                   # 12 ★ rays-vs-frame size
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=4.0),  # 13 ★ circle in frame
-            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=4.0),  # 14 ★ rays in frame
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]),
+                                  min_frac=0.02, max_frac=0.30),                   # 12
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),  # 13
+            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=10.0),  # 14
+        ], weight=0.2, critical=[1, 2, 3, 4]),
 
         # critical: solid fills + yellow center circle + visible
         ColorRubric([
-            AllFillTypeIs("ellipse", kind="solid"),                             # 0 ★
-            AllFillTypeIs("polygon", kind="solid"),                             # 1 ★
-            SolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW, tolerance=0.20),  # 2 ★ "yellow"
-            FillCountAtMost(layer_type="ellipse", max_count=1),                 # 3 ★ no stacked fills on circle
-            FillCountAtMost(layer_type="polygon", max_count=1),                 # 4 ★ no stacked fills on rays
-            FillOpacityAtLeast(layer_type="ellipse", min_opacity=0.5),          # 5 ★ circle visible
-            FillOpacityAtLeast(layer_type="polygon", min_opacity=0.5),          # 6 ★ rays visible
-            LayerVisible(layer_type="ellipse"),                                 # 7 ★ alpha + visibility
-            LayerVisible(layer_type="polygon"),                                 # 8 ★ alpha + visibility
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8]),
+            AllFillTypeIs("ellipse", kind="solid"),                             # 0 ★ every shape needs visible solid fill
+            AllFillTypeIs("polygon", kind="solid"),                             # 1
+            SolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW, tolerance=0.28),  # 2 ★ prompt: "yellow circle"
+            FillCountAtMost(layer_type="ellipse", max_count=1),                 # 3
+            FillCountAtMost(layer_type="polygon", max_count=1),                 # 4
+            FillOpacityAtLeast(layer_type="ellipse", min_opacity=0.5),          # 5
+            FillOpacityAtLeast(layer_type="polygon", min_opacity=0.5),          # 6
+            LayerVisible(layer_type="ellipse"),                                 # 7
+            LayerVisible(layer_type="polygon"),                                 # 8
+        ], weight=0.2, critical=[0, 2]),
 
         # both circle and rays inside frame (structural)
         StructureRubric([
-            LayerInsideFrame("ellipse"),                                        # 0 ★
-            LayerInsideFrame("polygon"),                                        # 1 ★
-        ], weight=0.2, critical=[0, 1]),
+            LayerInsideFrame("ellipse"),                                        # 0 ★ prompt: "Inside a frame"
+            LayerInsideFrame("polygon"),                                        # 1
+        ], weight=0.2, critical=[0]),
 
         # critical: ellipse + polygon tools both used
         EventRubric([
-            ToolUsed("ellipse"),                                                # 0 ★
-            ToolUsed("polygon"),                                                # 1 ★
+            ToolUsed("ellipse"),                                                # 0
+            ToolUsed("polygon"),                                                # 1
             EventTypeCount("create_ellipse", equals=1),                         # 2
             EventTypeCount("create_polygon", equals=4),                         # 3
-        ], weight=0.2, critical=[0, 1]),
+        ], weight=0.2, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=18),
 )

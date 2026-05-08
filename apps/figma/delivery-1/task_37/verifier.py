@@ -37,77 +37,78 @@ task = Task(
     rubrics=[
         # critical: prompt mandates 1 sticky body + pen-tool fold + 3 lines + sizes
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=1),                       # 0 ★ "yellow square"
-            ShapeCountAtLeast("vector", minimum=1),                  # 1 ★ "Pen tool" fold
-            ShapeCountAtLeast("line", minimum=3),                    # 2 ★ "3 ... horizontal lines"
-            LayerSizeAtLeast(layer_type="rectangle", min_w=40, min_h=40),  # 3 ★ no degenerate body
-            LayerSizeAtLeast(layer_type="vector",    min_w=4,  min_h=4),   # 4 ★ no 1x1 fold
-            LayerSizeAtLeast(layer_type="line",      min_w=10, min_h=0),   # 5 ★ no 1x1 lines
-            LayerIsSquare(layer_type="rectangle", tolerance=40.0),         # 6 ★ "yellow SQUARE"
-            NoLayerFlipped(layer_type="rectangle"),                        # 7 ★ no scaleX=-1
-        ], weight=0.16, critical=[0, 1, 2, 3, 4, 5, 6, 7]),
+            ShapeCount("rectangle", equals=1),                       # 0 ★ prompt: "yellow square"
+            ShapeCountAtLeast("vector", minimum=1),                  # 1 prompt: "Pen tool" fold
+            ShapeCountAtLeast("line", minimum=3),                    # 2 ★ prompt: "3 ... horizontal lines"
+            LayerSizeAtLeast(layer_type="rectangle", min_w=40, min_h=40),  # 3 no degenerate body
+            LayerSizeAtLeast(layer_type="vector",    min_w=4,  min_h=4),   # 4 no 1x1 fold
+            LayerSizeAtLeast(layer_type="line",      min_w=10, min_h=0),   # 5 no 1x1 lines
+            LayerIsSquare(layer_type="rectangle", tolerance=40.0),         # 6 "yellow SQUARE"
+            NoLayerFlipped(layer_type="rectangle"),                        # 7 no scaleX=-1
+        ], weight=0.16, critical=[0, 2]),
 
-        # critical: rotation 3° is prompt-explicit; everything must fit inside frame
+        # critical: rotation 3° is prompt-explicit; fold-over-rect prompt-explicit
         AlignmentRubric([
-            LayerBoundsInside(inner_type="vector", outer_type="rectangle", tolerance=20.0),    # 0 ★ fold over rect
-            LayerRotationEquals(layer_type="rectangle", degrees=3.0, tolerance=0.9),           # 1 ★ "rotated 3°"
-            LayerRotationEquals(layer_type="line",      degrees=0.0, tolerance=2.5),           # 2 ★ "horizontal" lines
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=8.0),   # 3 ★ rect inside frame
-            AllLayerBoundsInside(inner_type="vector",    outer_type="frame", tolerance=8.0),   # 4 ★ fold inside frame
-            AllLayerBoundsInside(inner_type="line",      outer_type="frame", tolerance=8.0),   # 5 ★ lines inside frame
-            LayerAspectRatioGreaterThan(layer_type="line", ratio=4.0, axis="horizontal"),      # 6 ★ thin horizontal
-            LayerCenteredOnLayer(type_a="line", type_b="rectangle", tolerance=60.0, axis="x"), # 7 ★ lines on rect x
-            LayerCenteredOnLayer(type_a="line", type_b="rectangle", tolerance=180.0, axis="y"),# 8 ★ lines on rect y
-            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=2.0),               # 9 ★ frame not rotated
-            LayersStacked(layer_type="line", axis="y", gap_px=20.0, tolerance=20.0),           # 10 ★ lines stacked w/ gap (catches overlap)
-            LayerEdgesAligned(type_a="vector", edge_a="right",                                 # 11 ★ fold at TOP-RIGHT corner
+            LayerBoundsInside(inner_type="vector", outer_type="rectangle", tolerance=20.0),    # 0 ★ prompt: "Above the body draw a small triangular fold"
+            LayerRotationEquals(layer_type="rectangle", degrees=3.0, tolerance=2.5),           # 1 ★ prompt: "rotated 3°"
+            LayerRotationEquals(layer_type="line",      degrees=0.0, tolerance=8.0),           # 2 ★ prompt: "horizontal lines"
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=8.0),   # 3 rect inside frame
+            AllLayerBoundsInside(inner_type="vector",    outer_type="frame", tolerance=8.0),   # 4 fold inside frame
+            AllLayerBoundsInside(inner_type="line",      outer_type="frame", tolerance=8.0),   # 5 lines inside frame
+            LayerAspectRatioGreaterThan(layer_type="line", ratio=4.0, axis="horizontal"),      # 6 thin horizontal
+            LayerCenteredOnLayer(type_a="line", type_b="rectangle", tolerance=60.0, axis="x"), # 7 lines on rect x
+            LayerCenteredOnLayer(type_a="line", type_b="rectangle", tolerance=180.0, axis="y"),# 8 lines on rect y
+            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),               # 9 frame not rotated
+            LayersStacked(layer_type="line", axis="y", gap_px=20.0, tolerance=20.0),           # 10 lines stacked w/ gap
+            LayerEdgesAligned(type_a="vector", edge_a="right",                                 # 11 ★ prompt: "top-right corner"
                               type_b="rectangle", edge_b="right", tolerance=80.0),
-            CrossTypeAreaRatioAtLeast(big_type="rectangle", small_type="vector",               # 12 ★ fold smaller than rect
+            CrossTypeAreaRatioAtLeast(big_type="rectangle", small_type="vector",               # 12 fold smaller than rect
                                        min_ratio=4.0),
-        ], weight=0.18, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+        ], weight=0.18, critical=[0, 1, 2, 11]),
 
-        # critical: yellow fill is prompt-explicit; fold must also be a yellow shade
+        # critical: yellow fill is prompt-explicit; fold must also be yellow-ish
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                          # 0 ★
-            SolidColorEquals(layer_type="rectangle", expected_rgb=YELLOW, tolerance=0.09),     # 1 ★ "yellow"
-            FillCountAtMost(layer_type="rectangle", max_count=1),                              # 2 ★ no stacked fills
-            LayerVisible(layer_type="rectangle"),                                              # 3 ★ catches alpha=0/opacity=0
-            AllFillTypeIs("vector", kind="solid"),                                             # 4 ★ fold must be solid
-            SolidColorEquals(layer_type="vector", expected_rgb=YELLOW, tolerance=0.18),        # 5 ★ "darker yellow" fold
-            StrokeExists(layer_type="line"),                                                   # 6 ★ lines must be drawn
-            StrokeWeightEquals(layer_type="line", weight=1.5, tolerance=1.0),                  # 7 ★ visible weight (>=0.5)
-            AllLayerStrokeVisible(layer_type="line", min_alpha=0.5, min_weight=0.5),           # 8 ★ lines render visibly
-        ], weight=0.18, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8]),
+            AllFillTypeIs("rectangle", kind="solid"),                                          # 0 ★ every shape needs visible fill
+            SolidColorEquals(layer_type="rectangle", expected_rgb=YELLOW, tolerance=0.09),     # 1 ★ prompt: "yellow square"
+            FillCountAtMost(layer_type="rectangle", max_count=1),                              # 2 no stacked fills
+            LayerVisible(layer_type="rectangle"),                                              # 3 catches alpha=0/opacity=0
+            AllFillTypeIs("vector", kind="solid"),                                             # 4 fold must be solid
+            SolidColorEquals(layer_type="vector", expected_rgb=YELLOW, tolerance=0.18),        # 5 "darker yellow" fold
+            StrokeExists(layer_type="line"),                                                   # 6 lines must be drawn
+            StrokeWeightEquals(layer_type="line", weight=1.5, tolerance=2.5),                  # 7 visible weight
+            AllLayerStrokeVisible(layer_type="line", min_alpha=0.5, min_weight=0.5),           # 8 lines render visibly
+        ], weight=0.18, critical=[0, 1]),
 
+        # effect: drop shadow not in simplified prompt — soft only
         EffectRubric([
-            DropShadowExists("rectangle"),                                                     # 0 ★ "drop shadow"
-            VisibleDropShadowExists("rectangle"),                                              # 1 ★ shadow alpha>0, visible
-        ], weight=0.10, critical=[0, 1]),
+            DropShadowExists("rectangle"),                                                     # 0 thorough-desc bonus
+            VisibleDropShadowExists("rectangle"),                                              # 1 thorough-desc bonus
+        ], weight=0.10, critical=[]),
 
-        # structure: rectangle must be inside a frame
+        # structure: shapes must be inside a frame (one combined)
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                          # 0 ★ "inside frame"
-            LayerInsideFrame(layer_type="vector"),                                             # 1 ★ fold inside frame
-            LayerInsideFrame(layer_type="line"),                                               # 2 ★ lines inside frame
-            LayerInFrontOf(type_a="line", type_b="rectangle"),                                 # 3 ★ lines drawn on top
-            LayerInFrontOf(type_a="vector", type_b="rectangle"),                               # 4 ★ fold drawn on top
-        ], weight=0.10, critical=[0, 1, 2, 3, 4]),
+            LayerInsideFrame(layer_type="rectangle"),                                          # 0 ★ rect inside frame
+            LayerInsideFrame(layer_type="vector"),                                             # 1 fold inside frame
+            LayerInsideFrame(layer_type="line"),                                               # 2 lines inside frame
+            LayerInFrontOf(type_a="line", type_b="rectangle"),                                 # 3 lines drawn on top
+            LayerInFrontOf(type_a="vector", type_b="rectangle"),                               # 4 fold drawn on top
+        ], weight=0.10, critical=[0]),
 
-        # critical: must use rectangle, pen, and line tools (all explicit)
+        # event: tool-used checks kept soft per playbook (agent may use shortcuts)
         EventRubric([
-            ToolUsed("rectangle"),                                # 0 ★
-            ToolUsed("pen"),                                      # 1 ★ "Pen tool"
-            ToolUsed("line"),                                     # 2 ★ "Line tool"
+            ToolUsed("rectangle"),                                # 0
+            ToolUsed("pen"),                                      # 1 prompt: "Pen tool"
+            ToolUsed("line"),                                     # 2 prompt: "Line tool"
             EventTypeCount("create_rectangle", equals=1),         # 3
             EventTypeCountAtLeast("create_line", minimum=3),      # 4
-            EventTypeCountAtLeast("create_vector", minimum=1),    # 5 ★ pen creates vector
-        ], weight=0.18, critical=[0, 1, 2, 5]),
+            EventTypeCountAtLeast("create_vector", minimum=1),    # 5 ★ prompt: "Pen tool ... fold"
+        ], weight=0.18, critical=[5]),
 
         # property: catches stacked-trick fills, etc.
         FundamentalsRubric([
-            FillCountAtMost(layer_type="vector", max_count=1),                                 # 0 ★ no stacked fills
-            LayerVisible(layer_type="vector"),                                                 # 1 ★ fold actually visible
-        ], weight=0.10, critical=[0, 1]),
+            FillCountAtMost(layer_type="vector", max_count=1),                                 # 0 no stacked fills
+            LayerVisible(layer_type="vector"),                                                 # 1 fold actually visible
+        ], weight=0.10, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )

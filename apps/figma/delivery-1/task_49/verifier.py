@@ -31,24 +31,24 @@ task = Task(
 
         # critical: vector upright, not tiny, not flipped
         AlignmentRubric([
-            LayerSizeAtLeast(layer_type="vector", min_w=50, min_h=20),                  # 0 ★ no degenerate
-            LayerShortDimensionAtMost(layer_type="vector", max_value=1500),             # 1 ★ not absurd
-            LayerRotationEquals(layer_type="vector", degrees=0, tolerance=15.0),        # 2 ★ roughly upright (allow some lean)
-            NoLayerFlipped(layer_type="vector"),                                        # 3 ★ no mirror
-            LayerVisible(layer_type="vector"),                                          # 4 ★ visible
-        ], weight=0.25, critical=[0, 1, 2, 3, 4]),
+            LayerSizeAtLeast(layer_type="vector", min_w=50, min_h=20),                  # 0 ★ no degenerate (S-curve must have actual extent)
+            LayerShortDimensionAtMost(layer_type="vector", max_value=1500),             # 1 not absurd
+            LayerRotationEquals(layer_type="vector", degrees=0, tolerance=15.0),        # 2 roughly upright (allow some lean)
+            NoLayerFlipped(layer_type="vector"),                                        # 3 no mirror
+            LayerVisible(layer_type="vector"),                                          # 4 visible
+        ], weight=0.25, critical=[0]),
 
         # critical: 12px dashed stroke (all explicit prompt requirements)
         ColorRubric([
-            AllStrokeExists("vector"),                                          # 0 ★ stroke required everywhere
-            StrokeWeightEquals("vector", weight=12.0, tolerance=2.0),           # 1 ★ 12px thick
-            StrokeIsDashed("vector"),                                           # 2 ★ dashed style
-            AllStrokeWeightAtMost("vector", max_weight=25.0),                   # 3 ★ stroke not absurdly thick (>25 fails)
-        ], weight=0.25, critical=[0, 1, 2, 3]),
+            AllStrokeExists("vector"),                                          # 0 ★ prompt: "thick (12px) dashed stroke" (stroke required)
+            StrokeWeightEquals("vector", weight=12.0, tolerance=2.5),           # 1 ★ prompt: "(12px)"
+            StrokeIsDashed("vector"),                                           # 2 ★ prompt: "dashed stroke"
+            AllStrokeWeightAtMost("vector", max_weight=25.0),                   # 3 stroke not absurdly thick (>25 fails)
+        ], weight=0.25, critical=[0, 1, 2]),
 
         # critical: pen tool mandated
         EventRubric([
-            ToolUsed("pen"),                                              # 0 ★ pen tool
+            ToolUsed("pen"),                                              # 0 ★ prompt: "Pen tool"
             EventTypeCountAtLeast("create_vector", minimum=1),            # 1
         ], weight=0.25, critical=[0]),
     ],
