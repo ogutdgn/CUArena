@@ -222,7 +222,10 @@ function PolygonEl({ layer }: { layer: Extract<Layer, { type: "polygon" }> }) {
 
 function StarEl({ layer }: { layer: Extract<Layer, { type: "star" }> }) {
   const points = Math.max(3, layer.points);
-  const inner = Math.max(0.05, Math.min(0.95, layer.innerRatio));
+  // Honor the full Figma range [0, 1]. Previously this clamped to [0.05, 0.95]
+  // for "defensive" rendering, which silently diverged from the stored value
+  // when the panel input set Ratio to 0% or 100%.
+  const inner = Math.max(0, Math.min(1, layer.innerRatio));
   const cx = layer.w / 2;
   const cy = layer.h / 2;
   const rxOuter = layer.w / 2;
@@ -387,17 +390,6 @@ function GroupEl({ layer }: { layer: Extract<Layer, { type: "frame" | "section" 
           stroke={isFrame ? sa.stroke : "none"}
           strokeWidth={isFrame ? sa.strokeWidth : 0}
         />
-      )}
-      {(isFrame || isSection) && (
-        <text
-          x={0}
-          y={-6}
-          fill={isSection ? "var(--color-text-secondary)" : "rgba(120,120,120,1)"}
-          fontSize={isSection ? 14 : 11}
-          style={{ fontFamily: "var(--font-family)", fontWeight: isSection ? 600 : 500 }}
-        >
-          {layer.name}
-        </text>
       )}
       <g clipPath={clip ? `url(#${clipId})` : undefined}>
         {layer.children.map((c) => (

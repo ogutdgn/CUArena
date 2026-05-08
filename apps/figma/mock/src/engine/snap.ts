@@ -26,6 +26,31 @@ export interface SnapResult {
   measures: DistanceMeasure[];
 }
 
+export function snapBboxFromStartAABBs(
+  startAABBs: Record<string, Rect>,
+  layerIds: string[],
+): Rect {
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+
+  for (const id of layerIds) {
+    const rect = startAABBs[id];
+    if (!rect) continue;
+    if (rect.x < minX) minX = rect.x;
+    if (rect.y < minY) minY = rect.y;
+    if (rect.x + rect.w > maxX) maxX = rect.x + rect.w;
+    if (rect.y + rect.h > maxY) maxY = rect.y + rect.h;
+  }
+
+  if (!Number.isFinite(minX) || !Number.isFinite(minY) || !Number.isFinite(maxX) || !Number.isFinite(maxY)) {
+    return { x: 0, y: 0, w: 0, h: 0 };
+  }
+
+  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+}
+
 interface XEdge { kind: "left" | "right" | "centerX"; value: number; rect: Rect }
 interface YEdge { kind: "top" | "bottom" | "centerY"; value: number; rect: Rect }
 

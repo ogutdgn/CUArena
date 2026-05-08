@@ -178,13 +178,14 @@ type FrameRendererProps = {
 function NoDeviceFrame({ frame, connections, onConnection }: FrameRendererProps) {
   const maxW = CONTENT_W - 32;
   const maxH = CONTENT_H - 32;
-  const scale = Math.min(maxW / frame.w, maxH / frame.h, 1);
-  const displayW = frame.w * scale;
-  const displayH = frame.h * scale;
+  const visual = prototypeFrameVisualBounds(frame);
+  const scale = Math.min(maxW / visual.w, maxH / visual.h, 1);
+  const displayW = visual.w * scale;
+  const displayH = visual.h * scale;
 
   return (
-    <svg width={displayW} height={displayH} style={{ display: "block" }}>
-      <g transform={`scale(${scale})`}>
+    <svg width={displayW} height={displayH} viewBox={`${visual.x} ${visual.y} ${visual.w} ${visual.h}`} style={{ display: "block" }}>
+      <g transform={prototypeFrameTransform(frame)}>
         <FrameContent frame={frame} connections={connections} onConnection={onConnection} />
       </g>
     </svg>
@@ -223,9 +224,10 @@ function IPhoneFrame({ deviceW, deviceH, frame, connections, onConnection }: { d
   const btnW = deviceW * 0.018;
   const btnRadius = btnW / 2;
 
-  const frameScale = Math.min(screenW / frame.w, screenH / frame.h);
-  const frameDisplayW = frame.w * frameScale;
-  const frameDisplayH = frame.h * frameScale;
+  const visual = prototypeFrameVisualBounds(frame);
+  const frameScale = Math.min(screenW / visual.w, screenH / visual.h);
+  const frameDisplayW = visual.w * frameScale;
+  const frameDisplayH = visual.h * frameScale;
 
   return (
     <div style={{ position: "relative", width: deviceW, height: deviceH, flexShrink: 0 }}>
@@ -257,8 +259,8 @@ function IPhoneFrame({ deviceW, deviceH, frame, connections, onConnection }: { d
         background: "#000",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-        <svg width={frameDisplayW} height={frameDisplayH} style={{ display: "block" }}>
-          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} connections={connections} onConnection={onConnection} /></g>
+        <svg width={frameDisplayW} height={frameDisplayH} viewBox={`${visual.x} ${visual.y} ${visual.w} ${visual.h}`} style={{ display: "block" }}>
+          <g transform={prototypeFrameTransform(frame)}><FrameContent frame={frame} connections={connections} onConnection={onConnection} /></g>
         </svg>
 
         {/* Dynamic island — floats above content */}
@@ -292,9 +294,10 @@ function IPadFrame({ deviceW, deviceH, frame, connections, onConnection }: { dev
   const faceIdW = screenW * 0.12;
   const faceIdH = screenH * 0.016;
 
-  const frameScale = Math.min(screenW / frame.w, screenH / frame.h);
-  const frameDisplayW = frame.w * frameScale;
-  const frameDisplayH = frame.h * frameScale;
+  const visual = prototypeFrameVisualBounds(frame);
+  const frameScale = Math.min(screenW / visual.w, screenH / visual.h);
+  const frameDisplayW = visual.w * frameScale;
+  const frameDisplayH = visual.h * frameScale;
 
   return (
     <div style={{ position: "relative", width: deviceW, height: deviceH, flexShrink: 0 }}>
@@ -313,8 +316,8 @@ function IPadFrame({ deviceW, deviceH, frame, connections, onConnection }: { dev
         background: "#000",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-        <svg width={frameDisplayW} height={frameDisplayH} style={{ display: "block" }}>
-          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} connections={connections} onConnection={onConnection} /></g>
+        <svg width={frameDisplayW} height={frameDisplayH} viewBox={`${visual.x} ${visual.y} ${visual.w} ${visual.h}`} style={{ display: "block" }}>
+          <g transform={prototypeFrameTransform(frame)}><FrameContent frame={frame} connections={connections} onConnection={onConnection} /></g>
         </svg>
         {/* Face ID capsule */}
         <div style={{
@@ -336,9 +339,10 @@ function DesktopFrame({ deviceW, deviceH, frame, connections, onConnection }: { 
   const screenH = deviceH - bezelY * 2;
   const dockH = deviceH * 0.08;
 
-  const frameScale = Math.min(screenW / frame.w, (screenH - dockH) / frame.h);
-  const frameDisplayW = frame.w * frameScale;
-  const frameDisplayH = frame.h * frameScale;
+  const visual = prototypeFrameVisualBounds(frame);
+  const frameScale = Math.min(screenW / visual.w, (screenH - dockH) / visual.h);
+  const frameDisplayW = visual.w * frameScale;
+  const frameDisplayH = visual.h * frameScale;
 
   return (
     <div style={{ position: "relative", width: deviceW, height: deviceH, flexShrink: 0 }}>
@@ -365,8 +369,8 @@ function DesktopFrame({ deviceW, deviceH, frame, connections, onConnection }: { 
         background: "#000",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-        <svg width={frameDisplayW} height={frameDisplayH} style={{ display: "block" }}>
-          <g transform={`scale(${frameScale})`}><FrameContent frame={frame} connections={connections} onConnection={onConnection} /></g>
+        <svg width={frameDisplayW} height={frameDisplayH} viewBox={`${visual.x} ${visual.y} ${visual.w} ${visual.h}`} style={{ display: "block" }}>
+          <g transform={prototypeFrameTransform(frame)}><FrameContent frame={frame} connections={connections} onConnection={onConnection} /></g>
         </svg>
       </div>
     </div>
@@ -497,6 +501,46 @@ function frameFill(frame: Frame): string {
     }
   }
   return "white";
+}
+
+function prototypeFrameTransform(frame: Frame): string {
+  const cx = frame.w / 2;
+  const cy = frame.h / 2;
+  const parts: string[] = [];
+  if (frame.rotation !== 0) parts.push(`rotate(${frame.rotation} ${cx} ${cy})`);
+  if (frame.scaleX !== 1 || frame.scaleY !== 1) {
+    parts.push(`translate(${cx} ${cy}) scale(${frame.scaleX} ${frame.scaleY}) translate(${-cx} ${-cy})`);
+  }
+  return parts.join(" ");
+}
+
+function prototypeFrameVisualBounds(frame: Frame): { x: number; y: number; w: number; h: number } {
+  const cx = frame.w / 2;
+  const cy = frame.h / 2;
+  const rad = (frame.rotation * Math.PI) / 180;
+  const cos = Math.cos(rad);
+  const sin = Math.sin(rad);
+  const corners = [
+    { x: 0, y: 0 },
+    { x: frame.w, y: 0 },
+    { x: frame.w, y: frame.h },
+    { x: 0, y: frame.h },
+  ].map((p) => {
+    let x = cx + (p.x - cx) * frame.scaleX;
+    let y = cy + (p.y - cy) * frame.scaleY;
+    const dx = x - cx;
+    const dy = y - cy;
+    x = cx + dx * cos - dy * sin;
+    y = cy + dx * sin + dy * cos;
+    return { x, y };
+  });
+  const xs = corners.map((p) => p.x);
+  const ys = corners.map((p) => p.y);
+  const minX = Math.min(...xs);
+  const minY = Math.min(...ys);
+  const maxX = Math.max(...xs);
+  const maxY = Math.max(...ys);
+  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
 }
 
 function sortPreviewFrames(frames: Frame[]): Frame[] {

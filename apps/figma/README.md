@@ -73,7 +73,7 @@ All docs now live under [`app-docs/`](app-docs/):
 apps/figma/app-docs/
 ├── feature-checklist.md      ← customer feature list; tick [x] as features ship
 ├── execution-map.md          ← session log (top) + pending waves (bottom)
-├── bugs-found.md             ← running list of bugs surfaced by audits
+├── mock_improvement_steps.md ← bug fixes + UI improvements + feature updates
 ├── mock-doc/
 │   ├── architecture.md       ← mock stack, ops, state buckets, folder layout
 │   └── logging-documentation.md  ← full log schema (raw/semantic/outcome fields)

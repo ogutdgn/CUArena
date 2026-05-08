@@ -14,6 +14,7 @@ export function createPage(name?: string, trigger: "panel_button" | "context_men
     type: "page",
     name: name ?? `Page ${ordinal}`,
     backgroundColor: { r: 0.118, g: 0.118, b: 0.118, a: 1 },
+    backgroundHidden: false,
     children: [],
   };
   const pageIndex = s.document.pages.length;
