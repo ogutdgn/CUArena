@@ -14,7 +14,7 @@ import {
   abortTransaction,
 } from "@/engine/dispatch";
 import { hitTest, getActivePage, selectionBbox } from "@/engine/selectors";
-import { computeSnap } from "@/engine/snap";
+import { computeSnap, snapBboxFromStartAABBs } from "@/engine/snap";
 import { setSelection, deselectAll } from "@/engine/commands";
 import { enterTextEdit } from "@/engine/textCommands";
 import { emitSemantic } from "@/logger/semantic";
@@ -22,9 +22,38 @@ import { uid } from "@/util/id";
 import type { TransformMap, TransformTuple } from "@/types/ops";
 import type { Layer, Page } from "@/types/scene";
 import type { HandleDir, RotateCorner } from "@/ui/overlays/SelectionOverlay";
-import { worldOffsetOfParent, worldRectOfLayer } from "@/engine/coordinates";
+import {
+  invertMatrix,
+  layerToWorldMatrix,
+  localToWorld,
+  multiplyMatrices,
+  parentToWorldMatrix,
+  transformFromLocalMatrix,
+  worldRectOfLayer,
+  worldAABBOfLayer,
+} from "@/engine/coordinates";
+import type { Matrix } from "@/engine/coordinates";
+import { resizeSingleTransformedLayer } from "@/engine/resizeGeometry";
+import { resizeLineEndpointFromWorld, type LineEndpoint, type LineLikeLayer } from "@/engine/lineGeometry";
 
 const DRAG_THRESHOLD = 3;
+const FRAME_NEST_ENTER_RATIO = 0.6;
+const FRAME_NEST_EXIT_RATIO = 0.4;
+
+interface CandidateRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+interface FrameCacheEntry {
+  id: string;
+  rect: CandidateRect;
+}
+
+type MatrixMap = Record<string, Matrix>;
+type RectMap = Record<string, Rect>;
 
 type State =
   | { kind: "idle" }
@@ -51,15 +80,31 @@ type State =
       modifiers: { shift: boolean; alt: boolean };
     }
   | {
+      kind: "armed_line_endpoint";
+      endpoint: LineEndpoint;
+      layerId: string;
+      downWorld: Point;
+      startLayer: LineLikeLayer;
+    }
+  | {
       kind: "active_layer_drag";
       layerIds: string[];
       sourceLayerIds: string[];
       downWorld: Point;
       startTransforms: TransformMap;
       startWorldTransforms: TransformMap;
+      startWorldMatrices: MatrixMap;
+      startWorldAABBs: RectMap;
       txId: string;
       isDuplicate: boolean;
       duplicatedIds: string[];
+      // Cached at drag start. Sibling rects don't change during a drag (only
+      // the moving layer moves), and frames don't get added/removed mid-drag,
+      // so it's safe to populate once and reuse on every pointermove. Cuts
+      // the per-frame O(layers × frames) scan that previously caused the
+      // visible jitter (item #11).
+      candidatesCache: CandidateRect[];
+      framesCache: FrameCacheEntry[];
     }
   | {
       kind: "active_handle_drag";
@@ -71,6 +116,13 @@ type State =
       startWorldTransforms: TransformMap;
       txId: string;
       modifiers: { shift: boolean; alt: boolean };
+    }
+  | {
+      kind: "active_line_endpoint_drag";
+      endpoint: LineEndpoint;
+      layerId: string;
+      startLayer: LineLikeLayer;
+      txId: string;
     }
   | {
       kind: "active_box_drag";
@@ -101,12 +153,43 @@ type State =
 
 let state: State = { kind: "idle" };
 
+// Throttle frame-nesting reparent checks to one per animation frame. Real
+// pointer events fire 60–120Hz; without this the overlap walk thrashes the
+// scene-graph and produces visible jitter.
+let pendingNestingRaf = 0;
+
+function scheduleNestingCheck(): void {
+  if (pendingNestingRaf !== 0) return;
+  pendingNestingRaf = requestAnimationFrame(() => {
+    pendingNestingRaf = 0;
+    if (state.kind === "active_layer_drag") {
+      applyFrameNestingByOverlap(state, state.txId);
+    }
+  });
+}
+
+function flushPendingNesting(): void {
+  if (pendingNestingRaf !== 0) {
+    cancelAnimationFrame(pendingNestingRaf);
+    pendingNestingRaf = 0;
+  }
+}
+
 function getHandleDirFromTarget(e: PointerEvent): HandleDir | null {
   const t = e.target as Element | null;
   if (!t) return null;
   const el = (t as Element).closest?.("[data-handle]") as HTMLElement | null;
   if (!el) return null;
   return (el.dataset.handle as HandleDir) ?? null;
+}
+
+function getLineEndpointFromTarget(e: PointerEvent): LineEndpoint | null {
+  const t = e.target as Element | null;
+  if (!t) return null;
+  const el = (t as Element).closest?.("[data-line-endpoint]") as HTMLElement | null;
+  if (!el) return null;
+  const value = el.dataset.lineEndpoint;
+  return value === "p1" || value === "p2" ? value : null;
 }
 
 function getRotateCornerFromTarget(e: PointerEvent): RotateCorner | null {
@@ -149,7 +232,24 @@ export const moveTool: ITool = {
       }
     }
 
-    // 2) Resize handle?
+    // 2) Line/arrow endpoint resize?
+    const endpoint = getLineEndpointFromTarget(e);
+    if (endpoint) {
+      const ids = s.selectionByPage[s.activePageId] ?? [];
+      const node = ids.length === 1 ? (s.nodesById[ids[0]] as Layer | undefined) : undefined;
+      if (node && (node.type === "line" || node.type === "arrow")) {
+        state = {
+          kind: "armed_line_endpoint",
+          endpoint,
+          layerId: node.id,
+          downWorld: world,
+          startLayer: cloneLineLikeLayer(node),
+        };
+        return;
+      }
+    }
+
+    // 3) Resize handle?
     const handleDir = getHandleDirFromTarget(e);
     if (handleDir) {
       const bbox = selectionBbox(s);
@@ -176,7 +276,7 @@ export const moveTool: ITool = {
       }
     }
 
-    // 3) Layer hit?
+    // 4) Layer hit?
     const hit = hitTest(s, world.x, world.y);
     if (hit) {
       const cur = s.selectionByPage[s.activePageId] ?? [];
@@ -335,8 +435,12 @@ export const moveTool: ITool = {
         .filter((n): n is Layer => !!n && (n as Page).type !== "page") as Layer[];
       const startTransforms: TransformMap = {};
       const startWorldTransforms: TransformMap = {};
+      const startWorldMatrices: MatrixMap = {};
+      const startWorldAABBs: RectMap = {};
       for (const l of layers) startTransforms[l.id] = transformOf(l);
       for (const l of layers) startWorldTransforms[l.id] = worldTransformOf(s, l);
+      for (const l of layers) startWorldMatrices[l.id] = layerToWorldMatrix(s, l);
+      for (const l of layers) startWorldAABBs[l.id] = worldAABBOfLayer(s, l);
 
       const txId = openTransaction();
       let duplicatedIds: string[] = [];
@@ -348,9 +452,37 @@ export const moveTool: ITool = {
         for (let i = 0; i < layers.length; i++) {
           startTransforms[duplicatedIds[i]] = startTransforms[layers[i].id];
           startWorldTransforms[duplicatedIds[i]] = startWorldTransforms[layers[i].id];
+          startWorldMatrices[duplicatedIds[i]] = startWorldMatrices[layers[i].id];
+          startWorldAABBs[duplicatedIds[i]] = startWorldAABBs[layers[i].id];
           delete startTransforms[layers[i].id];
           delete startWorldTransforms[layers[i].id];
+          delete startWorldMatrices[layers[i].id];
+          delete startWorldAABBs[layers[i].id];
         }
+      }
+
+      // Snapshot siblings + frames once for this drag — see State type comment.
+      const liveAfterDup = useStore.getState();
+      const pageAfterDup = getActivePage(liveAfterDup);
+      const movingSet = new Set(activeIds);
+      const candidatesCache: CandidateRect[] = [];
+      const framesCache: FrameCacheEntry[] = [];
+      if (pageAfterDup) {
+        const collect = (arr: Layer[]) => {
+          for (const l of arr) {
+            if (movingSet.has(l.id)) continue;
+            if (!l.visible) continue;
+            // Transformed AABB so a rotated/flipped sibling exposes its visible
+            // outline as a snap candidate / frame target, not its un-rotated
+            // stored rect.
+            const wr = worldAABBOfLayer(liveAfterDup, l);
+            const rect = { x: wr.x, y: wr.y, w: wr.w, h: wr.h };
+            candidatesCache.push(rect);
+            if (l.type === "frame") framesCache.push({ id: l.id, rect });
+            if (l.type === "frame" || l.type === "section" || l.type === "group") collect(l.children);
+          }
+        };
+        collect(pageAfterDup.children);
       }
 
       state = {
@@ -360,9 +492,13 @@ export const moveTool: ITool = {
         downWorld: state.downWorld,
         startTransforms,
         startWorldTransforms,
+        startWorldMatrices,
+        startWorldAABBs,
         txId,
         isDuplicate: state.modifiers.alt,
         duplicatedIds,
+        candidatesCache,
+        framesCache,
       };
       this.onPointerMove?.(world, e);
       return;
@@ -383,6 +519,22 @@ export const moveTool: ITool = {
         startWorldTransforms: state.startWorldTransforms,
         txId,
         modifiers: state.modifiers,
+      };
+      this.onPointerMove?.(world, e);
+      return;
+    }
+
+    if (state.kind === "armed_line_endpoint") {
+      const dx = world.x - state.downWorld.x;
+      const dy = world.y - state.downWorld.y;
+      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+      const txId = openTransaction();
+      state = {
+        kind: "active_line_endpoint_drag",
+        endpoint: state.endpoint,
+        layerId: state.layerId,
+        startLayer: state.startLayer,
+        txId,
       };
       this.onPointerMove?.(world, e);
       return;
@@ -418,7 +570,10 @@ export const moveTool: ITool = {
       for (const id of state.layerIds) {
         const t = state.startTransforms[id];
         if (!t) continue;
-        const newRot = t.rotation + deltaDeg;
+        // Normalize to [0, 360) on commit so the stored rotation matches
+        // what panel input + rotate-90° + the readout display. Without this
+        // a long drag could leave layer.rotation negative or > 360.
+        const newRot = (((t.rotation + deltaDeg) % 360) + 360) % 360;
         after[id] = { ...t, rotation: newRot };
         displayDeg = newRot;
       }
@@ -462,35 +617,12 @@ export const moveTool: ITool = {
       const rawDx = world.x - state.downWorld.x;
       const rawDy = world.y - state.downWorld.y;
 
-      // Compute moving group bbox at start
-      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-      for (const id of state.layerIds) {
-        const t = state.startWorldTransforms[id];
-        if (!t) continue;
-        if (t.x < minX) minX = t.x;
-        if (t.y < minY) minY = t.y;
-        if (t.x + t.w > maxX) maxX = t.x + t.w;
-        if (t.y + t.h > maxY) maxY = t.y + t.h;
-      }
-      const movingBbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+      const movingBbox = snapBboxFromStartAABBs(state.startWorldAABBs, state.layerIds);
 
-      // Collect sibling candidates: layers in active page not being dragged.
+      // Sibling candidates were snapshotted at drag start (see State type).
+      // Avoids the per-pointermove scene walk that produced visible jitter.
       const sLive = useStore.getState();
-      const page = getActivePage(sLive);
-      const candidates: { x: number; y: number; w: number; h: number }[] = [];
-      if (page) {
-        const movingSet = new Set(state.layerIds);
-        const collect = (arr: Layer[]) => {
-          for (const l of arr) {
-            if (movingSet.has(l.id)) continue;
-            if (!l.visible) continue;
-            const wr = worldRectOfLayer(sLive, l);
-            candidates.push({ x: wr.x, y: wr.y, w: wr.w, h: wr.h });
-            if (l.type === "frame" || l.type === "section" || l.type === "group") collect(l.children);
-          }
-        };
-        collect(page.children);
-      }
+      const candidates = state.candidatesCache;
 
       const zoom = (sLive.viewportByPage[sLive.activePageId] ?? { zoom: 1 }).zoom;
       // Skip snap when shift held (shift = constrain to axis; pure raw move).
@@ -506,15 +638,13 @@ export const moveTool: ITool = {
       for (const id of state.layerIds) {
         const tLocal = state.startTransforms[id];
         const tWorld = state.startWorldTransforms[id];
-        if (!tLocal || !tWorld) continue;
+        const startWorldMatrix = state.startWorldMatrices[id];
+        if (!tLocal || !tWorld || !startWorldMatrix) continue;
         const liveLayer = sLive.nodesById[id] as Layer | undefined;
         if (!liveLayer || (liveLayer as unknown as Page).type === "page") continue;
-        const p = worldOffsetOfParent(sLive, liveLayer.parentId);
-        after[id] = {
-          ...tLocal,
-          x: tWorld.x + snapped.dx - p.x,
-          y: tWorld.y + snapped.dy - p.y,
-        };
+        const desiredWorldMatrix = translateWorldMatrix(startWorldMatrix, snapped.dx, snapped.dy);
+        const localMatrix = multiplyMatrices(invertMatrix(parentToWorldMatrix(sLive, liveLayer.parentId)), desiredWorldMatrix);
+        after[id] = transformFromLocalMatrix(liveLayer, localMatrix);
       }
       dispatch(
         {
@@ -533,15 +663,34 @@ export const moveTool: ITool = {
         s.snapLines = snapped.lines;
         s.snapMeasures = snapped.measures;
       });
-      // Re-evaluate nesting continuously while dragging so crossing the
-      // overlap threshold reparents before pointer-up.
-      applyFrameNestingByOverlap(state, state.txId);
+      // Re-evaluate nesting on the next animation frame so crossing the
+      // overlap threshold reparents before pointer-up. rAF coalesces high-rate
+      // pointer events to one check per paint frame; pointer-up forces a flush
+      // so the final classification still lands.
+      scheduleNestingCheck();
       return;
     }
 
     if (state.kind === "active_handle_drag") {
       const dx = world.x - state.downWorld.x;
       const dy = world.y - state.downWorld.y;
+      const sLive = useStore.getState();
+      const transformedSingle = resizeSingleTransformedLayer(sLive, state.layerIds, state.startTransforms, state.handleDir, world);
+      if (transformedSingle) {
+        dispatch(
+          {
+            id: makeOpId(),
+            timestamp: performance.now(),
+            kind: "set_transform",
+            pageId: sLive.activePageId,
+            ids: state.layerIds,
+            before: state.startTransforms,
+            after: transformedSingle,
+          },
+          { transactionId: state.txId },
+        );
+        return;
+      }
       const newBbox = applyHandleResize(state.startBbox, state.handleDir, dx, dy, e.shiftKey, e.altKey);
       const after: TransformMap = {};
       // Map each layer's transform proportionally with the bbox change.
@@ -590,6 +739,53 @@ export const moveTool: ITool = {
       return;
     }
 
+    if (state.kind === "active_line_endpoint_drag") {
+      const sLive = useStore.getState();
+      const layer = sLive.nodesById[state.layerId] as Layer | undefined;
+      if (!layer || (layer.type !== "line" && layer.type !== "arrow")) return;
+      const resized = resizeLineEndpointFromWorld(sLive, state.startLayer, state.endpoint, world);
+      const startTransform = transformOf(state.startLayer);
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_transform",
+          pageId: sLive.activePageId,
+          ids: [layer.id],
+          before: { [layer.id]: startTransform },
+          after: { [layer.id]: resized.transform },
+        },
+        { transactionId: state.txId },
+      );
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_property",
+          pageId: sLive.activePageId,
+          ids: [layer.id],
+          path: "p1",
+          before: { [layer.id]: state.startLayer.p1 },
+          after: { [layer.id]: resized.p1 },
+        },
+        { transactionId: state.txId },
+      );
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_property",
+          pageId: sLive.activePageId,
+          ids: [layer.id],
+          path: "p2",
+          before: { [layer.id]: state.startLayer.p2 },
+          after: { [layer.id]: resized.p2 },
+        },
+        { transactionId: state.txId },
+      );
+      return;
+    }
+
     if (state.kind === "active_box_drag") {
       state = { ...state, currentWorld: world };
       useStore.setState((s) => {
@@ -605,6 +801,10 @@ export const moveTool: ITool = {
       return;
     }
     if (state.kind === "armed_handle") {
+      state = { kind: "idle" };
+      return;
+    }
+    if (state.kind === "armed_line_endpoint") {
       state = { kind: "idle" };
       return;
     }
@@ -642,6 +842,9 @@ export const moveTool: ITool = {
     }
 
     if (state.kind === "active_layer_drag") {
+      // Cancel any pending rAF nesting check and run it synchronously so the
+      // final classification fires regardless of throttle timing.
+      flushPendingNesting();
       applyFrameNestingByOverlap(state, state.txId);
       commitTransaction(state.txId);
       // Read final transforms post-snap from the live state.
@@ -650,14 +853,14 @@ export const moveTool: ITool = {
       const afterPos: Record<string, { x: number; y: number }> = {};
       let dx = 0, dy = 0;
       for (const id of state.layerIds) {
-        const t = state.startWorldTransforms[id];
+        const startMatrix = state.startWorldMatrices[id];
         const cur = live.nodesById[id] as Layer | undefined;
-        if (!t || !cur) continue;
-        beforePos[id] = { x: t.x, y: t.y };
-        const wr = worldRectOfLayer(live, cur);
-        afterPos[id] = { x: wr.x, y: wr.y };
-        dx = wr.x - t.x;
-        dy = wr.y - t.y;
+        if (!startMatrix || !cur) continue;
+        const afterMatrix = layerToWorldMatrix(live, cur);
+        beforePos[id] = { x: startMatrix.e, y: startMatrix.f };
+        afterPos[id] = { x: afterMatrix.e, y: afterMatrix.f };
+        dx = afterMatrix.e - startMatrix.e;
+        dy = afterMatrix.f - startMatrix.f;
       }
       useStore.setState((s) => {
         s.snapLines = [];
@@ -710,6 +913,32 @@ export const moveTool: ITool = {
       return;
     }
 
+    if (state.kind === "active_line_endpoint_drag") {
+      commitTransaction(state.txId);
+      const live = useStore.getState();
+      const cur = live.nodesById[state.layerId] as Layer | undefined;
+      if (cur && (cur.type === "line" || cur.type === "arrow")) {
+        emitSemantic({
+          name: "resize_line_endpoint",
+          layerId: state.layerId,
+          endpoint: state.endpoint,
+          before: {
+            transform: transformOf(state.startLayer),
+            p1: state.startLayer.p1,
+            p2: state.startLayer.p2,
+          },
+          after: {
+            transform: transformOf(cur),
+            p1: cur.p1,
+            p2: cur.p2,
+          },
+          trigger: "drag",
+        });
+      }
+      state = { kind: "idle" };
+      return;
+    }
+
     if (state.kind === "active_box_drag") {
       const page = getActivePage(useStore.getState());
       if (!page) {
@@ -730,7 +959,8 @@ export const moveTool: ITool = {
       }
       walkLayers(roots, (l) => {
         if (l.locked || !l.visible) return;
-        const wr = worldRectOfLayer(useStore.getState(), l);
+        // Marquee select against the rotated/flipped layer's visible outline.
+        const wr = worldAABBOfLayer(useStore.getState(), l);
         if (rectIntersects(box, { x: wr.x, y: wr.y, w: wr.w, h: wr.h })) hits.push(l.id);
       });
       const s2 = useStore.getState();
@@ -753,7 +983,12 @@ export const moveTool: ITool = {
   },
 
   onAbort() {
-    if (state.kind === "active_layer_drag" || state.kind === "active_handle_drag" || state.kind === "active_rotate_drag") {
+    if (
+      state.kind === "active_layer_drag" ||
+      state.kind === "active_handle_drag" ||
+      state.kind === "active_rotate_drag" ||
+      state.kind === "active_line_endpoint_drag"
+    ) {
       abortTransaction(state.txId);
     }
     useStore.setState((s) => {
@@ -776,13 +1011,27 @@ function transformOf(l: Layer): TransformTuple {
   };
 }
 
-function worldTransformOf(s: ReturnType<typeof useStore.getState>, l: Layer): TransformTuple {
-  const wr = worldRectOfLayer(s, l);
+function translateWorldMatrix(matrix: Matrix, dx: number, dy: number): Matrix {
+  return { ...matrix, e: matrix.e + dx, f: matrix.f + dy };
+}
+
+function cloneLineLikeLayer(layer: LineLikeLayer): LineLikeLayer {
   return {
-    x: wr.x,
-    y: wr.y,
-    w: wr.w,
-    h: wr.h,
+    ...layer,
+    p1: { ...layer.p1 },
+    p2: { ...layer.p2 },
+    strokes: layer.strokes.map((stroke) => ({ ...stroke })),
+    effects: layer.effects.map((effect) => ({ ...effect })),
+  } as LineLikeLayer;
+}
+
+function worldTransformOf(s: ReturnType<typeof useStore.getState>, l: Layer): TransformTuple {
+  const origin = localToWorld(s, l.parentId, { x: l.x, y: l.y });
+  return {
+    x: origin.x,
+    y: origin.y,
+    w: l.w,
+    h: l.h,
     rotation: l.rotation,
     scaleX: l.scaleX,
     scaleY: l.scaleY,
@@ -818,17 +1067,19 @@ function applyFrameNestingByOverlap(
     return true;
   });
 
-  const frames: Layer[] = [];
-  walkLayers(page.children, (l) => {
-    if (l.type === "frame") frames.push(l);
-  });
+  // Frame rects were cached at drag start and don't move during the drag, so
+  // skip the scene walk + per-frame world-rect computation.
+  const frames = drag.framesCache;
 
   for (const id of movedRoots) {
     const now = useStore.getState();
     const layer = now.nodesById[id] as Layer | undefined;
     if (!layer || (layer as unknown as Page).type === "page") continue;
 
-    const wr = worldRectOfLayer(now, layer);
+    // Use the transformed AABB so a rotated/flipped moving layer overlaps
+    // its destination frame by visible outline, not by its un-rotated stored
+    // rect. Frames in the cache are already AABB-based for the same reason.
+    const wr = worldAABBOfLayer(now, layer);
     const area = Math.max(1, wr.w * wr.h);
 
     const currentParent = now.nodesById[layer.parentId] as Layer | Page | undefined;
@@ -840,7 +1091,7 @@ function applyFrameNestingByOverlap(
         : null;
     const currentOverlap =
       currentFrameParent != null
-        ? overlapRatio(wr, worldRectOfLayer(now, currentFrameParent), area)
+        ? overlapRatio(wr, worldAABBOfLayer(now, currentFrameParent), area)
         : 0;
 
     let bestFrameId: string | null = null;
@@ -848,27 +1099,24 @@ function applyFrameNestingByOverlap(
     let bestRatio = 0;
 
     for (const frame of frames) {
-      const frameNow = now.nodesById[frame.id] as Layer | undefined;
-      if (!frameNow || frameNow.type !== "frame") continue;
-      if (!frameNow.visible) continue;
-      if (frameNow.id === id) continue;
-      if (isAncestor(now, id, frameNow.id)) continue; // don't move into own descendant
-      if (movedSet.has(frameNow.id)) continue; // don't move into simultaneously moved frame
+      if (frame.id === id) continue;
+      if (isAncestor(now, id, frame.id)) continue; // don't move into own descendant
+      if (movedSet.has(frame.id)) continue; // don't move into simultaneously moved frame
 
-      const ratio = overlapRatio(wr, worldRectOfLayer(now, frameNow), area);
-      if (ratio < 0.5) continue;
-      const depth = depthOf(now, frameNow.id);
+      const ratio = overlapRatio(wr, frame.rect, area);
+      if (ratio < FRAME_NEST_ENTER_RATIO) continue;
+      const depth = depthOf(now, frame.id);
       if (depth > bestDepth || (depth === bestDepth && ratio > bestRatio)) {
         bestDepth = depth;
         bestRatio = ratio;
-        bestFrameId = frameNow.id;
+        bestFrameId = frame.id;
       }
     }
 
     let toParentId = layer.parentId;
     if (bestFrameId) {
       toParentId = bestFrameId;
-    } else if (currentFrameParent && currentOverlap < 0.5) {
+    } else if (currentFrameParent && currentOverlap < FRAME_NEST_EXIT_RATIO) {
       toParentId = currentFrameParent.parentId;
     }
     if (toParentId === layer.parentId) continue;
@@ -899,6 +1147,17 @@ function applyFrameNestingByOverlap(
       },
       { transactionId: txId },
     );
+    const afterState = useStore.getState();
+    const afterLayer = afterState.nodesById[id] as Layer | undefined;
+    const afterArr = afterLayer ? childrenOf(afterState, afterLayer.parentId) : null;
+    const afterIndex = afterArr && afterLayer ? afterArr.findIndex((c) => c.id === id) : toIndex;
+    emitSemantic({
+      name: "reorder_layer",
+      layerIds: [id],
+      before: [{ parentId: layer.parentId, index: fromIndex }],
+      after: [{ parentId: afterLayer?.parentId ?? toParentId, index: afterIndex >= 0 ? afterIndex : toIndex }],
+      trigger: "canvas_drag",
+    });
   }
 }
 

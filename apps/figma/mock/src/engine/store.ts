@@ -108,6 +108,7 @@ function createDefaultPage(): Page {
     type: "page",
     name: "Page 1",
     backgroundColor: bg,
+    backgroundHidden: false,
     children: [],
     prototypeSettings: { device: null, backgroundColor: { r: 0.055, g: 0.051, b: 0.051, a: 1 } },
     prototypeFlows: [],
@@ -136,6 +137,7 @@ const initialPage = createDefaultPage();
 const initialDoc: DocumentNode = {
   id: uid("doc"),
   schemaVersion: 1,
+  name: "Untitled",
   pages: [initialPage],
 };
 

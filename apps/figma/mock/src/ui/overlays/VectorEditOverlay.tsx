@@ -7,6 +7,7 @@ import { dispatch, makeOpId, openTransaction, commitTransaction } from "@/engine
 import { emitSemantic } from "@/logger/semantic";
 import type { Vector, VectorNetwork } from "@/types/scene";
 import { worldOffsetOfLayer } from "@/engine/coordinates";
+import { clientToWorldPoint } from "@/engine/viewportCoordinates";
 
 const ANCHOR_PX = 8;
 const SEG_HIT_PX = 8;
@@ -55,10 +56,7 @@ export function VectorEditOverlay() {
     const svgEl = document.querySelector(".canvas-svg") as SVGSVGElement | null;
     if (!svgEl) return;
     const r = svgEl.getBoundingClientRect();
-    const sx = e.clientX - r.left;
-    const sy = e.clientY - r.top;
-    const wx = sx / viewport.zoom + viewport.x;
-    const wy = sy / viewport.zoom + viewport.y;
+    const { x: wx, y: wy } = clientToWorldPoint(e.clientX, e.clientY, viewport, r);
     const nx = wx - ox;
     const ny = wy - oy;
     const nextNetwork: VectorNetwork = {
@@ -187,8 +185,7 @@ export function VectorEditOverlay() {
               const svgEl = document.querySelector(".canvas-svg") as SVGSVGElement | null;
               if (!svgEl) return;
               const r = svgEl.getBoundingClientRect();
-              const wx = (e.clientX - r.left) / viewport.zoom + viewport.x;
-              const wy = (e.clientY - r.top) / viewport.zoom + viewport.y;
+              const { x: wx, y: wy } = clientToWorldPoint(e.clientX, e.clientY, viewport, r);
               addPointOnSegment(i, { x: wx, y: wy });
             }}
           />

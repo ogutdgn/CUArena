@@ -4,6 +4,20 @@ from verifier.math_utils import find_layers_by_type
 
 
 @dataclass
+class DocumentNameEquals:
+    """Document/file name matches the expected value."""
+    expected: str
+
+    def run(self, log: dict) -> CheckResult:
+        actual = log["outcome"]["document"].get("name")
+        passed = actual == self.expected
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"document name: expected '{self.expected}', got '{actual}'",
+        )
+
+
+@dataclass
 class PageCount:
     """Document has exactly `equals` pages."""
     equals: int
@@ -80,6 +94,46 @@ class PageBackgroundColorEquals:
 
 
 @dataclass
+class PageBackgroundOpacityEquals:
+    """Page at page_index has backgroundColor alpha matching opacity."""
+    opacity: float
+    page_index: int = 0
+    tolerance: float = 0.02
+
+    def run(self, log: dict) -> CheckResult:
+        pages = log["outcome"]["document"].get("pages", [])
+        if self.page_index >= len(pages):
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Page index {self.page_index} does not exist")
+        bg = pages[self.page_index].get("backgroundColor", {})
+        actual = bg.get("a")
+        passed = actual is not None and abs(actual - self.opacity) <= self.tolerance
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"page {self.page_index} background opacity: expected {self.opacity}+-{self.tolerance}, got {actual}",
+        )
+
+
+@dataclass
+class PageBackgroundHiddenIs:
+    """Page background visibility toggle matches hidden."""
+    hidden: bool
+    page_index: int = 0
+
+    def run(self, log: dict) -> CheckResult:
+        pages = log["outcome"]["document"].get("pages", [])
+        if self.page_index >= len(pages):
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Page index {self.page_index} does not exist")
+        actual = pages[self.page_index].get("backgroundHidden", False)
+        passed = actual == self.hidden
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"page {self.page_index} backgroundHidden: expected {self.hidden}, got {actual}",
+        )
+
+
+@dataclass
 class ActivePageIs:
     """The active page at session end matches `page_name`."""
     page_name: str
@@ -93,6 +147,38 @@ class ActivePageIs:
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"active page: expected '{self.page_name}', got '{actual_name}'",
+        )
+
+
+@dataclass
+class PrototypeConnectionExists:
+    """At least one prototype connection matches the supplied fields."""
+    source_layer_id: str | None = None
+    destination_frame_id: str | None = None
+    trigger: str | None = None
+    action: str | None = None
+    page_index: int = 0
+
+    def run(self, log: dict) -> CheckResult:
+        pages = log["outcome"]["document"].get("pages", [])
+        if self.page_index >= len(pages):
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Page index {self.page_index} does not exist")
+        connections = pages[self.page_index].get("prototypeConnections", []) or []
+        for conn in connections:
+            if self.source_layer_id is not None and conn.get("sourceLayerId") != self.source_layer_id:
+                continue
+            if self.destination_frame_id is not None and conn.get("destinationFrameId") != self.destination_frame_id:
+                continue
+            if self.trigger is not None and conn.get("trigger") != self.trigger:
+                continue
+            if self.action is not None and conn.get("action") != self.action:
+                continue
+            return CheckResult(passed=True, score=1.0, max_score=1.0,
+                               message="matching prototype connection found")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No prototype connection matched on page {self.page_index}",
         )
 
 

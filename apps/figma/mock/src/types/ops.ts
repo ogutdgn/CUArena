@@ -192,6 +192,12 @@ export interface SetClipboardOp extends OpBase {
   after: ClipboardPayload | null;
 }
 
+export interface SetDocumentNameOp extends OpBase {
+  kind: "set_document_name";
+  before: string;
+  after: string;
+}
+
 // Slice 0 needs only a subset — full union below for forward-compat.
 export type Op =
   | CreateNodeOp
@@ -209,6 +215,7 @@ export type Op =
   | DeletePageOp
   | SwitchPageOp
   | SetClipboardOp
+  | SetDocumentNameOp
   | MutateTextRunsOp
   | MutateVectorNetworkOp;
 
@@ -223,6 +230,7 @@ export const UNDOABLE_KINDS = new Set<Op["kind"]>([
   "delete_page",
   "mutate_text_runs",
   "mutate_vector_network",
+  "set_document_name",
 ]);
 
 // Color helper used at op construction sites

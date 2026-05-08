@@ -5,10 +5,19 @@ import { useStore, selectActiveViewport } from "@/engine/store";
 import { commitText, snapshotText } from "@/engine/textCommands";
 import { emitSemantic } from "@/logger/semantic";
 import type { Text as TextLayer } from "@/types/scene";
+import { textEditorCssMatrix } from "./textEditorGeometry";
 
 export function TextEditor() {
   const editMode = useStore((s) => s.editMode);
-  const viewport = useStore((s) => selectActiveViewport(s));
+  const cssMatrix = useStore((s) => {
+    if (s.editMode.kind !== "text" || !s.editMode.layerId) return null;
+    const n = s.nodesById[s.editMode.layerId];
+    if (!n || (n as TextLayer).type !== "text") return null;
+    const svgEl = document.querySelector(".canvas-svg") as SVGSVGElement | null;
+    const rect = svgEl?.getBoundingClientRect();
+    if (!rect) return null;
+    return textEditorCssMatrix(s, n as TextLayer, selectActiveViewport(s), rect);
+  });
   const layer = useStore((s) => {
     if (s.editMode.kind !== "text" || !s.editMode.layerId) return null;
     const n = s.nodesById[s.editMode.layerId];
@@ -52,14 +61,14 @@ export function TextEditor() {
 
   if (editMode.kind !== "text" || !layer) return null;
 
-  // Compute screen rect from world rect
+  // Compute screen transform from the full layer-to-world matrix. Text layers
+  // inside frames store x/y in parent-local coordinates; using those directly
+  // as world coordinates makes the editor appear near the page origin until
+  // commit. The matrix path matches SVG rendering, including rotated/flipped
+  // parents.
   const svgEl = document.querySelector(".canvas-svg") as SVGSVGElement | null;
   const r = svgEl?.getBoundingClientRect();
-  if (!r) return null;
-  const screenX = r.left + (layer.x - viewport.x) * viewport.zoom;
-  const screenY = r.top + (layer.y - viewport.y) * viewport.zoom;
-  const screenW = layer.w * viewport.zoom;
-  const screenH = layer.h * viewport.zoom;
+  if (!r || !cssMatrix) return null;
 
   function commit() {
     const layerId = (editMode as { layerId?: string }).layerId;
@@ -97,14 +106,16 @@ export function TextEditor() {
       }}
       style={{
         position: "fixed",
-        left: screenX,
-        top: screenY,
-        minWidth: layer.resizingMode === "fixed" ? screenW : undefined,
-        width: layer.resizingMode === "fixed" ? screenW : "auto",
-        height: layer.resizingMode === "fixed" ? screenH : undefined,
-        minHeight: 16 * viewport.zoom,
+        left: 0,
+        top: 0,
+        transform: cssMatrix,
+        transformOrigin: "0 0",
+        minWidth: layer.resizingMode === "fixed" ? layer.w : undefined,
+        width: layer.resizingMode === "fixed" ? layer.w : "auto",
+        height: layer.resizingMode === "fixed" ? layer.h : undefined,
+        minHeight: 16,
         fontFamily: layer.fontFamily,
-        fontSize: layer.fontSize * viewport.zoom,
+        fontSize: layer.fontSize,
         fontWeight: layer.fontWeight,
         lineHeight: layer.lineHeight.type === "auto" ? "normal" : `${layer.lineHeight.value}${layer.lineHeight.type === "px" ? "px" : "%"}`,
         textAlign: layer.hAlign,

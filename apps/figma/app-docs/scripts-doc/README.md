@@ -5,6 +5,12 @@ lives at `../verifier/` (library only); task definitions live at `../delivery-1/
 (single source of truth, one folder per task). This folder also stores runtime
 artifacts (`logs/`, `scores/`).
 
+Related docs:
+
+- `best-practices.md` preserves export/logging approaches and trade-offs for future harness work.
+- `../mock-doc/logging-documentation.md` defines the log contract that these scripts consume.
+- `../verifier-doc/verifier-documentation.md` defines the scoring framework used after a log is collected.
+
 ---
 
 ## Log flow: mock → score
@@ -81,6 +87,16 @@ The log lands in `scripts/logs/<task>_<timestamp>.json` and the score in
 .venv/Scripts/python scripts/qa_verifiers.py
 ```
 
+### Smoke-test verifier framework primitives
+
+```bash
+.venv/Scripts/python scripts/qa_verifier_framework.py
+```
+
+Use this when adding or changing shared checker primitives under `verifier/checks/`.
+It covers framework capabilities that may not be exercised by the current
+`delivery-1/` task set.
+
 ---
 
 ## Files
@@ -90,6 +106,7 @@ The log lands in `scripts/logs/<task>_<timestamp>.json` and the score in
 | `run_task.py` | Full pipeline: fetch live log via `GET /dev-log`, save it, score it against `delivery-1/<task>/verifier.py`, save and print result. Subcommand `export-log` exports without scoring. |
 | `score_log.py` | Score an existing saved log file against a `delivery-1/` task verifier. |
 | `qa_verifiers.py` | Smoke-test every `delivery-1/task_NN/verifier.py` against synthetic perfect/empty logs and flag CRASH / TOO STRICT / TOO LENIENT. |
+| `qa_verifier_framework.py` | Smoke-test shared checker primitives that support newer mock features but may not be referenced by `delivery-1/` yet. |
 | `generate_delivery_1.py` | (Legacy) regenerator for `delivery-1/` package. |
 | `logs/` | Saved logs from `run_task.py` / `export-log`. |
 | `scores/` | Saved scores from `run_task.py` / `score_log.py`. |

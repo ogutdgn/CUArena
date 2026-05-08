@@ -5,6 +5,8 @@ import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useStore } from "@/engine/store";
 import { getActivePage } from "@/engine/selectors";
+import { worldAABBOfLayer, worldOrientedCornersOfLayer, type XY } from "@/engine/coordinates";
+import { clientToWorldPoint } from "@/engine/viewportCoordinates";
 import { uid } from "@/util/id";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
 import {
@@ -19,24 +21,23 @@ const HANDLE_OFFSET_PX = 10;
 const HANDLE_HIT_R_PX = 18;
 const DEST_HIT_MARGIN_PX = 10;
 
-type Bounds = { x: number; y: number; w: number; h: number };
+type Bounds = { x: number; y: number; w: number; h: number; corners: XY[] };
 type EdgeSide = "top" | "right" | "bottom" | "left";
 type DragState = { sourceId: string; sourceSide: EdgeSide; sx: number; sy: number; cx: number; cy: number } | null;
 
-function buildBounds(page: ReturnType<typeof getActivePage>): Map<string, Bounds> {
+function buildBounds(state: ReturnType<typeof useStore.getState>, page: ReturnType<typeof getActivePage>): Map<string, Bounds> {
   const map = new Map<string, Bounds>();
   if (!page) return map;
 
-  function visit(layer: Layer, ox: number, oy: number) {
-    const x = ox + layer.x;
-    const y = oy + layer.y;
-    map.set(layer.id, { x, y, w: layer.w, h: layer.h });
+  function visit(layer: Layer) {
+    const aabb = worldAABBOfLayer(state, layer);
+    map.set(layer.id, { ...aabb, corners: worldOrientedCornersOfLayer(state, layer) });
     if ("children" in layer) {
-      for (const child of layer.children) visit(child, x, y);
+      for (const child of layer.children) visit(child);
     }
   }
 
-  for (const child of page.children) visit(child, 0, 0);
+  for (const child of page.children) visit(child);
   return map;
 }
 
@@ -56,31 +57,54 @@ function flattenLayers(page: ReturnType<typeof getActivePage>): Layer[] {
 }
 
 function edgeAnchor(b: Bounds, side: EdgeSide): { x: number; y: number } {
-  switch (side) {
-    case "top":
-      return { x: b.x + b.w / 2, y: b.y };
-    case "right":
-      return { x: b.x + b.w, y: b.y + b.h / 2 };
-    case "bottom":
-      return { x: b.x + b.w / 2, y: b.y + b.h };
-    case "left":
-      return { x: b.x, y: b.y + b.h / 2 };
+  const [nw, ne, se, sw] = b.corners;
+  const desired: Record<EdgeSide, XY> = {
+    top: { x: 0, y: -1 },
+    right: { x: 1, y: 0 },
+    bottom: { x: 0, y: 1 },
+    left: { x: -1, y: 0 },
+  };
+  const center = centerOf(b);
+  const edges = [
+    midpoint(nw, ne),
+    midpoint(ne, se),
+    midpoint(se, sw),
+    midpoint(sw, nw),
+  ];
+  let best = edges[0];
+  let bestScore = -Infinity;
+  for (const edge of edges) {
+    const dx = edge.x - center.x;
+    const dy = edge.y - center.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const score = (dx / len) * desired[side].x + (dy / len) * desired[side].y;
+    if (score > bestScore) {
+      best = edge;
+      bestScore = score;
+    }
   }
+  return best;
 }
 
 function handlePoint(b: Bounds, side: EdgeSide, sc: number): { x: number; y: number } {
   const p = edgeAnchor(b, side);
   const offset = HANDLE_OFFSET_PX * sc;
-  switch (side) {
-    case "top":
-      return { x: p.x, y: p.y - offset };
-    case "right":
-      return { x: p.x + offset, y: p.y };
-    case "bottom":
-      return { x: p.x, y: p.y + offset };
-    case "left":
-      return { x: p.x - offset, y: p.y };
-  }
+  const c = centerOf(b);
+  const dx = p.x - c.x;
+  const dy = p.y - c.y;
+  const len = Math.hypot(dx, dy) || 1;
+  return { x: p.x + (dx / len) * offset, y: p.y + (dy / len) * offset };
+}
+
+function midpoint(a: XY, b: XY): XY {
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+}
+
+function centerOf(b: Bounds): XY {
+  return {
+    x: (b.corners[0].x + b.corners[2].x) / 2,
+    y: (b.corners[0].y + b.corners[2].y) / 2,
+  };
 }
 
 function sideToward(from: Bounds, to: Bounds): EdgeSide {
@@ -138,6 +162,7 @@ function offsetForBidirectionalPair(src: Bounds, dst: Bounds, sourceLayerId: str
 export function ConnectionArrows() {
   const tab = useStore((s) => s.activeRightTab);
   const page = useStore((s) => getActivePage(s));
+  const appState = useStore((s) => s);
   const viewport = useStore((s) => s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 });
   const selection = useStore((s) => s.selectionByPage[s.activePageId] ?? []);
   const [drag, setDrag] = useState<DragState>(null);
@@ -147,7 +172,7 @@ export function ConnectionArrows() {
 
   const connections = page?.prototypeConnections ?? [];
   const sc = 1 / viewport.zoom;
-  const bounds = buildBounds(page);
+  const bounds = buildBounds(appState, page);
   const allLayers = flattenLayers(page);
   const selectedIds = new Set(selection);
   const frameLayers = allLayers.filter((layer): layer is Frame => layer.type === "frame");
@@ -157,10 +182,7 @@ export function ConnectionArrows() {
     const svg = svgGroupRef.current?.ownerSVGElement;
     if (!svg) return { x: 0, y: 0 };
     const rect = svg.getBoundingClientRect();
-    return {
-      x: (clientX - rect.left) / viewport.zoom + viewport.x,
-      y: (clientY - rect.top) / viewport.zoom + viewport.y,
-    };
+    return clientToWorldPoint(clientX, clientY, viewport, rect);
   }
 
   function hitDestFrame(wx: number, wy: number, excludeId: string): Frame | undefined {
@@ -170,7 +192,7 @@ export function ConnectionArrows() {
       if (layer.id === excludeId) continue;
       const b = bounds.get(layer.id);
       if (!b) continue;
-      if (wx >= b.x - margin && wx <= b.x + b.w + margin && wy >= b.y - margin && wy <= b.y + b.h + margin) {
+      if (pointInPolygonWithMargin({ x: wx, y: wy }, b.corners, margin)) {
         hit = layer;
       }
     }
@@ -365,13 +387,11 @@ export function ConnectionArrows() {
               const db = bounds.get(hoverDestId);
               if (!db) return null;
               return (
-                <rect
-                  x={db.x - 2 * sc} y={db.y - 2 * sc}
-                  width={db.w + 4 * sc} height={db.h + 4 * sc}
+                <polygon
+                  points={db.corners.map((p) => `${p.x},${p.y}`).join(" ")}
                   fill="none"
                   stroke={ARROW_COLOR}
                   strokeWidth={2 * sc}
-                  rx={3 * sc}
                   style={{ pointerEvents: "none" }}
                 />
               );
@@ -402,4 +422,29 @@ export function ConnectionArrows() {
     )}
     </>
   );
+}
+
+function pointInPolygonWithMargin(point: XY, polygon: XY[], margin: number): boolean {
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const a = polygon[i];
+    const b = polygon[j];
+    if (pointToSegmentDistance(point, a, b) <= margin) return true;
+    const crosses = a.y > point.y !== b.y > point.y;
+    if (crosses) {
+      const xAtY = ((b.x - a.x) * (point.y - a.y)) / (b.y - a.y) + a.x;
+      if (point.x < xAtY) inside = !inside;
+    }
+  }
+  return inside;
+}
+
+function pointToSegmentDistance(point: XY, a: XY, b: XY): number {
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const len2 = dx * dx + dy * dy;
+  if (len2 === 0) return Math.hypot(point.x - a.x, point.y - a.y);
+  let t = ((point.x - a.x) * dx + (point.y - a.y) * dy) / len2;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(point.x - (a.x + dx * t), point.y - (a.y + dy * t));
 }

@@ -265,6 +265,21 @@ export type SemanticEvent =
       targetPageId: string;
       before: { r: number; g: number; b: number; a: number };
       after: { r: number; g: number; b: number; a: number };
+      trigger?: "color_picker" | "hex_input";
+    })
+  | (SemanticEventBase & {
+      name: "set_page_background_opacity";
+      targetPageId: string;
+      before: number;
+      after: number;
+      trigger: "panel_input";
+    })
+  | (SemanticEventBase & {
+      name: "toggle_page_background_hidden";
+      targetPageId: string;
+      before: boolean;
+      after: boolean;
+      trigger: "panel_button";
     })
   | (SemanticEventBase & {
       name: "move_layer";
@@ -282,6 +297,22 @@ export type SemanticEvent =
       handle: "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
       trigger: "drag" | "panel_input";
       modifiers: { shift: boolean; alt: boolean };
+    })
+  | (SemanticEventBase & {
+      name: "resize_line_endpoint";
+      layerId: string;
+      endpoint: "p1" | "p2";
+      before: {
+        transform: { x: number; y: number; w: number; h: number; rotation: number; scaleX: number; scaleY: number };
+        p1: { x: number; y: number };
+        p2: { x: number; y: number };
+      };
+      after: {
+        transform: { x: number; y: number; w: number; h: number; rotation: number; scaleX: number; scaleY: number };
+        p1: { x: number; y: number };
+        p2: { x: number; y: number };
+      };
+      trigger: "drag";
     })
   | (SemanticEventBase & {
       name: "delete";
@@ -371,13 +402,13 @@ export type SemanticEvent =
       layerIds: string[];
       before: Record<string, number>;
       after: Record<string, number>;
-      trigger: "drag" | "panel_input";
+      trigger: "drag" | "panel_input" | "panel_button";
     })
   | (SemanticEventBase & {
       name: "flip_layer";
       layerIds: string[];
       axis: "horizontal" | "vertical";
-      trigger: "shortcut" | "context_menu" | "main_menu";
+      trigger: "shortcut" | "context_menu" | "main_menu" | "panel_button";
     })
   | (SemanticEventBase & {
       name: "scale_layer";
@@ -453,7 +484,8 @@ export type SemanticEvent =
         | "shortcut_cmd_open_bracket"
         | "shortcut_cmd_alt_close_bracket"
         | "shortcut_cmd_alt_open_bracket"
-        | "panel_drag";
+        | "panel_drag"
+        | "canvas_drag";
     })
   | (SemanticEventBase & {
       name: "create_page";
@@ -472,6 +504,33 @@ export type SemanticEvent =
       targetPageId: string;
       before: string;
       after: string;
+    })
+  | (SemanticEventBase & {
+      name: "rename_file";
+      before: string;
+      after: string;
+      trigger: "inline_edit" | "file_menu";
+    })
+  | (SemanticEventBase & {
+      name: "set_polygon_sides";
+      layerIds: string[];
+      before: Record<string, number>;
+      after: Record<string, number>;
+      trigger: "panel_input";
+    })
+  | (SemanticEventBase & {
+      name: "set_star_points";
+      layerIds: string[];
+      before: Record<string, number>;
+      after: Record<string, number>;
+      trigger: "panel_input";
+    })
+  | (SemanticEventBase & {
+      name: "set_star_inner_ratio";
+      layerIds: string[];
+      before: Record<string, number>;
+      after: Record<string, number>;
+      trigger: "panel_input";
     })
   | (SemanticEventBase & {
       name: "delete_page";

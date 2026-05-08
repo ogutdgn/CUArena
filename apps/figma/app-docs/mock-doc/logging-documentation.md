@@ -152,14 +152,22 @@ All creation events share `layerId`, `parentId`, and `trigger`. Geometry payload
 
 | `name` | Extra fields |
 |---|---|
-| `move_layer` | `layerIds`; `before`/`after`: `Record<layerId, { x, y }>`; `trigger`: `drag` \| `arrow_key` \| `panel_input`; `modifiers: { shift, alt, ctrl }` |
+| `move_layer` | `layerIds`; `before`/`after`: `Record<layerId, { x, y }>` in world-space origin terms for drag; `trigger`: `drag` \| `arrow_key` \| `panel_input`; `modifiers: { shift, alt, ctrl }` |
 | `resize_layer` | `layerIds`; `before`/`after`: `Record<layerId, { x, y, w, h }>`; `handle`: `n`/`s`/`e`/`w`/`ne`/`nw`/`se`/`sw`; `trigger`; `modifiers` |
-| `rotate_layer` | `layerIds`; `before`/`after`: `Record<layerId, degrees>`; `trigger`: `drag` \| `panel_input` |
-| `flip_layer` | `layerIds`, `axis`: `horizontal` \| `vertical`; `trigger`: `shortcut` \| `context_menu` \| `main_menu` |
+| `resize_line_endpoint` | `layerId`; `endpoint`: `p1` \| `p2`; `before`/`after`: `{ transform, p1, p2 }`; `trigger`: `drag` |
+| `rotate_layer` | `layerIds`; `before`/`after`: `Record<layerId, degrees>`; `trigger`: `drag` \| `panel_input` \| `panel_button` |
+| `flip_layer` | `layerIds`, `axis`: `horizontal` \| `vertical`; `trigger`: `shortcut` \| `context_menu` \| `main_menu` \| `panel_button` |
 | `scale_layer` | `layerIds`, `factor: { sx, sy }`, `anchor: { x, y }`; `trigger`: `drag` |
 | `align_layers` | `layerIds`, `axis`: `left` \| `center-x` \| `right` \| `top` \| `center-y` \| `bottom`; `trigger`: `panel_button` \| `shortcut` |
 | `distribute_layers` | `layerIds`, `axis`: `horizontal` \| `vertical`; `trigger` |
-| `reorder_layer` | `layerIds`; `before`/`after`: `{ parentId, index }[]`; `trigger`: shortcut bracket variants \| `panel_drag` |
+| `reorder_layer` | `layerIds`; `before`/`after`: `{ parentId, index }[]`; `trigger`: shortcut bracket variants \| `panel_drag` \| `canvas_drag` |
+
+Notes:
+- `flip_layer.axis` is user-facing. Internal scale toggles may differ so the visual action matches the Position panel label.
+- Position panel X/Y values are center-origin user coordinates. Top-level layer values are relative to the page/world origin, which renders at the visible canvas center in the default viewport; nested layer values are relative to the parent visual center. The stored `outcome.document` geometry remains parent-local bbox geometry.
+- `move_layer` with `trigger: "panel_input"` records these user-facing Position values in `before`/`after`.
+- A canvas drag that crosses a frame boundary emits `move_layer` for the drag and `reorder_layer` with `trigger: "canvas_drag"` for the parent/index transition.
+- Smart-snap guides are transient UI feedback. They do not emit semantic events unless the drag commits a document mutation.
 
 ### Edit operations
 
@@ -182,7 +190,12 @@ All creation events share `layerId`, `parentId`, and `trigger`. Geometry payload
 | `set_layer_opacity` | `layerIds`; `before`/`after`: `Record<layerId, number>` (0..1); `trigger`: `slider_scrub` \| `panel_input` |
 | `set_corner_radius` | `layerIds`; `before`/`after`: `Record<layerId, number \| [n,n,n,n]>`; `trigger` |
 | `rename_layer` | `layerId`, `before`, `after`; `trigger`: `inline_panel` \| `rename_modal` \| `context_menu` |
-| `set_page_background` | `targetPageId`; `before`/`after`: `{ r, g, b, a }` (0..1) |
+| `set_page_background` | `targetPageId`; `before`/`after`: `{ r, g, b, a }` (0..1); `trigger`: `color_picker` \| `panel_input` |
+| `set_page_background_opacity` | `targetPageId`; `before`/`after`: alpha number (0..1); `trigger`: `slider_scrub` \| `panel_input` |
+| `toggle_page_background_hidden` | `targetPageId`; `before`/`after`: boolean; `trigger`: `panel_button` |
+| `set_polygon_sides` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
+| `set_star_points` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
+| `set_star_inner_ratio` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
 
 ### Grouping
 
@@ -209,6 +222,7 @@ All creation events share `layerId`, `parentId`, and `trigger`. Geometry payload
 | `create_page` | `newPageId`, `pageIndex`; `trigger`: `panel_button` \| `context_menu` |
 | `switch_page` | `beforePageId`, `afterPageId`; `trigger`: `panel_click` \| `shortcut` \| `implicit_after_create` |
 | `rename_page` | `targetPageId`, `before`, `after` |
+| `rename_file` | `before`, `after`; `trigger`: `inline_edit` \| `file_menu` |
 | `delete_page` | `targetPageId`, `pageIndex`; `trigger`: `context_menu` \| `shortcut` |
 
 ### Undo / redo
@@ -242,7 +256,7 @@ All creation events share `layerId`, `parentId`, and `trigger`. Geometry payload
 | `navigate_prototype_preview` | `direction`: `prev` \| `next`; `fromIndex`, `toIndex` |
 | `create_prototype_connection` | `connectionId`, `sourceLayerId`, `trigger` (string), `action` (string) |
 | `delete_prototype_connection` | `connectionId`, `sourceLayerId` |
-| `update_prototype_connection` | `connectionId`, `field`: `trigger` \| `action` \| `destinationFrameId` \| `animation` \| `url`; `before`, `after` |
+| `update_prototype_connection` | `connectionId`, `field`: `trigger` \| `action` \| `destinationFrameId` \| `animation` \| `delayMs` \| `url`; `before`, `after` |
 | `navigate_prototype_connection` | `connectionId`, `sourceLayerId`, `destinationFrameId` |
 
 ---
@@ -279,9 +293,11 @@ Type: `DocumentNode` from [`mock/src/types/scene.ts`](mock/src/types/scene.ts).
 document
 ├─ id (string)
 ├─ schemaVersion (number)
+├─ name (string)
 └─ pages: Page[]
    ├─ id, name, type: "page"
    ├─ backgroundColor: { r, g, b, a }   (0..1)
+   ├─ backgroundHidden: boolean
    ├─ prototypeSettings, prototypeFlows, prototypeConnections (optional)
    └─ children: Layer[]                  (recursive into containers)
 ```

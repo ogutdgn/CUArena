@@ -233,7 +233,7 @@ test-app/src/
 
 ---
 
-## 8. Coordinate spaces
+## 8. Coordinate spaces and transform invariants
 
 | Space | Description | Used in |
 |---|---|---|
@@ -242,3 +242,47 @@ test-app/src/
 | **Scene** | Parent-relative coords in layer `x/y/w/h` | outcome.document, semantic events |
 
 `coordinates.ts` provides `screenToScene()` and `sceneToScreen()`.
+
+### Rendered world geometry
+
+Layer `x/y/w/h` is stored in parent space, but canvas rendering, hit-testing, hover, selection, prototype handles, smart-snap, and frame nesting need rendered world geometry. These paths must use the matrix-aware helpers in `engine/coordinates.ts`:
+
+- `layerToWorldMatrix`
+- `parentToWorldMatrix`
+- `localPointToWorld`
+- `worldPointToLayerLocal`
+- `worldToParentLocal`
+- `worldOrientedCornersOfLayer`
+- `worldAABBOfLayer`
+
+Do not add parent offsets by hand for nested layers. That offset-only pattern ignores ancestor rotation and flip.
+
+### Reparent invariant
+
+`reparent` preserves the visual world transform of the moved layer. When a layer enters or exits a frame/group/section, its local transform is re-expressed under the new parent so the user does not see a jump.
+
+Canvas drag can combine `set_transform` and `reparent` in one transaction. The transaction should still behave like one user gesture for undo.
+
+### Smart-snap invariant
+
+Smart-snap compares visual bounds, not raw stored rectangles.
+
+- Candidate siblings and frames are cached as transformed `worldAABBOfLayer` rectangles.
+- Moving selections snapshot transformed visual AABBs at drag start and use their union as the moving bbox.
+- Snap guide lines and distance measures are transient UI feedback; they do not mutate document state.
+
+### Line and arrow invariant
+
+Lines and arrows are two-point geometry. Their visual segment is represented by `p1` and `p2`, while `x/y/w/h` stores the normalized parent-space bbox. Selection and endpoint drag should use line-specific geometry helpers instead of the normal eight-handle rectangle model.
+
+### Position coordinate invariant
+
+Stored layer geometry remains rect-based: `x/y` is the parent-local top-left of the layer bbox. User-facing Position panel X/Y is a different engine-level concept:
+
+- The canvas viewport is center-origin: with `viewport = { x: 0, y: 0, zoom: 1 }`, world `{ x: 0, y: 0 }` renders at the visible canvas center.
+- Top-level layer Position X/Y is the layer visual center relative to the page/world origin `{ x: 0, y: 0 }`, which is the visible canvas center at the default viewport.
+- Nested layer Position X/Y is the layer visual center relative to its parent container's visual center.
+- Setting Position X/Y converts that center-origin value back to stored parent-local `x/y`.
+- Panel width/height changes preserve the current center-origin Position value.
+
+Use `engine/positionCoordinates.ts` for Position value conversion and `engine/viewportCoordinates.ts` for screen/world conversion. Do not read or write `layer.x/layer.y` directly when implementing user-facing Position behavior.

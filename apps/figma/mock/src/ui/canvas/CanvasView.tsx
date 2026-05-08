@@ -1,7 +1,7 @@
 // SVG canvas root. Owns viewport (pan/zoom) and routes pointer events to the
 // active tool. Renders the active page's layer tree + selection overlay + marquee.
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStore } from "@/engine/store";
 import { dispatch, makeOpId } from "@/engine/dispatch";
 import { getActivePage, hitTest, selectionBbox } from "@/engine/selectors";
@@ -19,13 +19,16 @@ import { InsertionCrosshair } from "@/ui/overlays/InsertionCrosshair";
 import { RotateReadout } from "@/ui/overlays/RotateReadout";
 import { FlowBadges } from "@/ui/overlays/FlowBadges";
 import { ConnectionArrows } from "@/ui/overlays/ConnectionArrows";
+import { FrameLabelsOverlay } from "@/ui/overlays/FrameLabelsOverlay";
 import { placeImageFiles } from "@/engine/imageCommands";
+import { clientToWorldPoint, svgWorldTransform } from "@/engine/viewportCoordinates";
 
 const MIN_ZOOM = 0.05;
 const MAX_ZOOM = 32;
 
 export function CanvasView() {
   const ref = useRef<SVGSVGElement | null>(null);
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const activeTool = useStore((s) => s.activeTool);
   const viewport = useStore((s) => s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 });
   const page = useStore((s) => getActivePage(s));
@@ -37,17 +40,27 @@ export function CanvasView() {
   const pageBg = page
     ? `rgba(${Math.round(page.backgroundColor.r * 255)}, ${Math.round(page.backgroundColor.g * 255)}, ${Math.round(page.backgroundColor.b * 255)}, ${page.backgroundColor.a})`
     : "white";
+  const bgHidden = page?.backgroundHidden === true;
+  const checkerPatternId = "canvas-bg-checker";
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const r = el.getBoundingClientRect();
+      setCanvasSize({ width: r.width, height: r.height });
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   function clientToWorld(clientX: number, clientY: number): { x: number; y: number } {
     const el = ref.current;
     if (!el) return { x: 0, y: 0 };
     const rect = el.getBoundingClientRect();
-    const sx = clientX - rect.left;
-    const sy = clientY - rect.top;
-    return {
-      x: sx / viewport.zoom + viewport.x,
-      y: sy / viewport.zoom + viewport.y,
-    };
+    return clientToWorldPoint(clientX, clientY, viewport, rect);
   }
 
   function effectiveTool(): typeof activeTool {
@@ -62,11 +75,14 @@ export function CanvasView() {
   }
   function onPointerMove(e: React.PointerEvent<SVGSVGElement>) {
     const world = clientToWorld(e.clientX, e.clientY);
-    getActiveTool(effectiveTool()).onPointerMove?.(world, e.nativeEvent);
-    useStore.setState((s) => {
-      s.cursorWorld = world;
-      s.insertionCursor = world;
-    });
+    const tool = effectiveTool();
+    getActiveTool(tool).onPointerMove?.(world, e.nativeEvent);
+    if (tool !== "hand") {
+      useStore.setState((s) => {
+        s.cursorWorld = world;
+        s.insertionCursor = world;
+      });
+    }
   }
   function onPointerUp(e: React.PointerEvent<SVGSVGElement>) {
     const world = clientToWorld(e.clientX, e.clientY);
@@ -82,14 +98,12 @@ export function CanvasView() {
     const isZoom = e.ctrlKey || e.metaKey;
     if (isZoom) {
       const rect = (ref.current as SVGSVGElement).getBoundingClientRect();
-      const sx = e.clientX - rect.left;
-      const sy = e.clientY - rect.top;
-      const cursorWorld = { x: sx / cur.zoom + cur.x, y: sy / cur.zoom + cur.y };
+      const cursorWorld = clientToWorldPoint(e.clientX, e.clientY, cur, rect);
       const factor = Math.exp(-e.deltaY * 0.0015);
       const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, cur.zoom * factor));
       const newViewport = {
-        x: cursorWorld.x - sx / newZoom,
-        y: cursorWorld.y - sy / newZoom,
+        x: cursorWorld.x - (e.clientX - rect.left - rect.width / 2) / newZoom,
+        y: cursorWorld.y - (e.clientY - rect.top - rect.height / 2) / newZoom,
         zoom: newZoom,
       };
       dispatch(
@@ -201,21 +215,33 @@ export function CanvasView() {
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
-      {/* Backdrop — captures pointer events on empty canvas areas. */}
+      {/* Backdrop — captures pointer events on empty canvas areas. When the
+          page background is hidden (eye toggle in PageSection), render a small
+          checker pattern instead of the page color. */}
+      {bgHidden && (
+        <defs>
+          <pattern id={checkerPatternId} width={16} height={16} patternUnits="userSpaceOnUse">
+            <rect x={0} y={0} width={16} height={16} fill="#2a2a2a" />
+            <rect x={0} y={0} width={8} height={8} fill="#1e1e1e" />
+            <rect x={8} y={8} width={8} height={8} fill="#1e1e1e" />
+          </pattern>
+        </defs>
+      )}
       <rect
         data-id="canvas-backdrop"
         x="0"
         y="0"
         width="100%"
         height="100%"
-        fill={pageBg}
+        fill={bgHidden ? `url(#${checkerPatternId})` : pageBg}
         opacity={1}
       />
 
-      {/* World-space group. With zoom=1 and viewport=(0,0), this is identity. */}
-      <g transform={`matrix(${viewport.zoom} 0 0 ${viewport.zoom} ${-viewport.x * viewport.zoom} ${-viewport.y * viewport.zoom})`}>
+      {/* World-space group. With zoom=1 and viewport=(0,0), world origin is the visible canvas center. */}
+      <g transform={svgWorldTransform(viewport, canvasSize)}>
         {page && page.children.map((l) => <NodeRenderer key={l.id} layer={l} />)}
 
+        <FrameLabelsOverlay />
         <HoverOutline />
         <ParentBoundsOverlay />
         <SelectionOverlay />

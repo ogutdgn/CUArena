@@ -9,6 +9,7 @@ import { getSelectedLayers } from "./selectors";
 import type { Layer } from "@/types/scene";
 import type { TransformMap } from "@/types/ops";
 import type { Color } from "@/types/scene";
+import { getLayerPositionValue, transformForLayerPositionValue } from "./positionCoordinates";
 
 function txtuple(l: Layer) {
   return { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY } as const;
@@ -53,12 +54,24 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
   const s = useStore.getState();
   const layers = getSelectedLayers(s);
   if (layers.length === 0) return;
+  // Normalize rotation to [0, 360). Lets users type magnitudes like -1060 and
+  // see the input snap to the equivalent canonical angle (per user spec, item 20).
+  let v = value;
+  if (field === "rotation") v = ((value % 360) + 360) % 360;
   const before: TransformMap = {};
   const after: TransformMap = {};
   for (const l of layers) {
     const t = txtuple(l);
     before[l.id] = { ...t };
-    after[l.id] = { ...t, [field]: field === "w" || field === "h" ? Math.max(1, value) : value };
+    if (field === "x" || field === "y") {
+      const pos = getLayerPositionValue(s, l);
+      after[l.id] = transformForLayerPositionValue(s, l, { ...pos, [field]: v });
+    } else if (field === "w" || field === "h") {
+      const pos = getLayerPositionValue(s, l);
+      after[l.id] = transformForLayerPositionValue(s, l, pos, { [field]: Math.max(1, v) });
+    } else {
+      after[l.id] = { ...t, [field]: v };
+    }
   }
   dispatch({
     id: makeOpId(),
@@ -74,7 +87,7 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
     const afterR: Record<string, number> = {};
     for (const l of layers) {
       beforeR[l.id] = l.rotation;
-      afterR[l.id] = value;
+      afterR[l.id] = v;
     }
     emitSemantic({ name: "rotate_layer", layerIds: layers.map((l) => l.id), before: beforeR, after: afterR, trigger: "panel_input" });
   } else if (field === "w" || field === "h") {
@@ -97,8 +110,9 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
     const beforeR: Record<string, { x: number; y: number }> = {};
     const afterR: Record<string, { x: number; y: number }> = {};
     for (const l of layers) {
-      beforeR[l.id] = { x: l.x, y: l.y };
-      afterR[l.id] = { x: field === "x" ? value : l.x, y: field === "y" ? value : l.y };
+      const pos = getLayerPositionValue(s, l);
+      beforeR[l.id] = pos;
+      afterR[l.id] = { ...pos, [field]: value };
     }
     emitSemantic({
       name: "move_layer",
@@ -536,6 +550,124 @@ export function setEffectColor(effectIndex: number, color: Color) {
     after,
     "color_picker",
   );
+}
+
+// Polygon sides count. Min 3 (geometric minimum for a polygon); max 60
+// mirrors Figma's documented Star cap — Figma doesn't publish a polygon cap,
+// 60 is a reasonable practical bound.
+export function setPolygonSides(value: number) {
+  const v = Math.max(3, Math.min(60, Math.round(value)));
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => l.type === "polygon");
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  const beforeN: Record<string, number> = {};
+  const afterN: Record<string, number> = {};
+  for (const l of layers) {
+    const cur = (l as { sides: number }).sides;
+    if (cur === v) continue;
+    before[l.id] = cur;
+    after[l.id] = v;
+    beforeN[l.id] = cur;
+    afterN[l.id] = v;
+  }
+  if (Object.keys(after).length === 0) return;
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_property",
+    pageId: s.activePageId,
+    ids: Object.keys(after),
+    path: "sides",
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "set_polygon_sides",
+    layerIds: Object.keys(after),
+    before: beforeN,
+    after: afterN,
+    trigger: "panel_input",
+  });
+}
+
+// Star point count. Figma hard cap: 3..60.
+export function setStarPoints(value: number) {
+  const v = Math.max(3, Math.min(60, Math.round(value)));
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => l.type === "star");
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  const beforeN: Record<string, number> = {};
+  const afterN: Record<string, number> = {};
+  for (const l of layers) {
+    const cur = (l as { points: number }).points;
+    if (cur === v) continue;
+    before[l.id] = cur;
+    after[l.id] = v;
+    beforeN[l.id] = cur;
+    afterN[l.id] = v;
+  }
+  if (Object.keys(after).length === 0) return;
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_property",
+    pageId: s.activePageId,
+    ids: Object.keys(after),
+    path: "points",
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "set_star_points",
+    layerIds: Object.keys(after),
+    before: beforeN,
+    after: afterN,
+    trigger: "panel_input",
+  });
+}
+
+// Star inner radius / "ratio". UI shows a percentage (0..100); store keeps 0..1.
+export function setStarInnerRatio(pct: number) {
+  const v = Math.max(0, Math.min(1, pct / 100));
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => l.type === "star");
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  const beforeN: Record<string, number> = {};
+  const afterN: Record<string, number> = {};
+  for (const l of layers) {
+    const cur = (l as { innerRatio: number }).innerRatio;
+    // Compare in displayed-percent space so a focus+blur on the same integer
+    // doesn't burn an undo entry.
+    if (Math.round(cur * 100) === Math.round(v * 100)) continue;
+    before[l.id] = cur;
+    after[l.id] = v;
+    beforeN[l.id] = cur;
+    afterN[l.id] = v;
+  }
+  if (Object.keys(after).length === 0) return;
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_property",
+    pageId: s.activePageId,
+    ids: Object.keys(after),
+    path: "innerRatio",
+    before,
+    after,
+  });
+  emitSemantic({
+    name: "set_star_inner_ratio",
+    layerIds: Object.keys(after),
+    before: beforeN,
+    after: afterN,
+    trigger: "panel_input",
+  });
 }
 
 export function setStrokeColor(strokeIndex: number, color: Color) {

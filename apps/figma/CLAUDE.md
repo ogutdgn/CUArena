@@ -73,14 +73,16 @@ apps/figma/
 ├── app-docs/                     ALL documentation lives here
 │   ├── feature-checklist.md     ← customer feature list; tick [x] as features ship
 │   ├── execution-map.md         ← wave-by-wave plan + session log (update every session)
-│   ├── bugs-found.md            ← running list of bugs surfaced by audits (Codex/manual review)
+│   ├── mock_improvement_steps.md ← bug fixes + UI improvements + feature updates (single numbering, status-tracked)
 │   ├── mock-doc/                 mock-side technical docs
 │   │   ├── architecture.md      ← mock tech overview (stack, ops, state, folder layout)
 │   │   └── logging-documentation.md ← full log schema reference (raw/semantic/outcome fields)
 │   ├── verifier-doc/             verifier-side technical docs
 │   │   ├── verifier-documentation.md ← verifier design: scoring model, check catalog, rubrics
 │   │   ├── verifier-writer.md   ← instructions for AI agents writing per-task verifier.py scripts
-│   │   └── tasks.csv            ← 50-task scope/status table (planned / in_scope / shipped)
+│   │   ├── tasks.csv            ← 50-task scope/status table (planned / in_scope / shipped)
+│   │   ├── task-qa.md           ← delivery-1 achievability audit and task QA checks
+│   │   └── task-qa-actions.md   ← follow-up tracker for task QA / verifier QA actions
 │   ├── scripts-doc/              scripts/ usage docs
 │   │   ├── README.md            ← full flow diagram + step-by-step usage
 │   │   └── best-practices.md    ← export-approach trade-offs + migration notes
@@ -111,6 +113,64 @@ Both `app-docs/feature-checklist.md` and `app-docs/execution-map.md` must be ref
   - **Delete** completed items from the lower plan. Do not annotate as "Done" — the session log is the record.
   - **Renumber waves from Wave 1** after deletions.
 - If a new feature shipped, check whether any `planned` task in `app-docs/verifier-doc/tasks.csv` is now `in_scope` and whether new check primitives are needed.
+
+---
+
+## Documentation update protocol
+
+When changing the figma app, update documentation by change type before finishing the task:
+
+### Universal pre-finish gate
+
+Before marking any bug fix, feature update, or UI improvement as done, explicitly check:
+
+1. **Logger impact:** Did the change add, remove, rename, or reinterpret any user action, semantic event, raw target, or outcome field?
+   - If yes, update `app-docs/mock-doc/logging-documentation.md`.
+   - If no, record "Logger impact: none" in the relevant `app-docs/mock_improvement_steps.md` item when the item is non-trivial.
+2. **Verifier impact:** Can the verifier framework check the new/changed behavior from `outcome.document` or `semantic[]`?
+   - If a new checker/helper/rubric is needed, add it under `verifier/` and document it in `app-docs/verifier-doc/verifier-documentation.md` / `verifier-writer.md`.
+   - If shared checker primitives change, run `scripts/qa_verifier_framework.py` in addition to the delivery verifier smoke test.
+   - Do not modify `delivery-1/task_NN/prompt.md` or `delivery-1/task_NN/verifier.py` unless the user explicitly scopes task ownership into this branch.
+3. **Task QA impact:** If scoring assumptions or task achievability changed, update `app-docs/verifier-doc/task-qa.md` and `app-docs/verifier-doc/task-qa-actions.md`.
+4. **Architecture impact:** If the change creates or changes a durable engine/UI invariant, update `app-docs/mock-doc/architecture.md`.
+
+This gate applies even for UI work. A UI-only change can still affect raw targets, semantic events, outcome reachability, or verifier guidance.
+
+### Bug fix
+
+- Add or update the bug entry in `app-docs/mock_improvement_steps.md`.
+- If the fix changes engine architecture, coordinate-space rules, scene-graph invariants, tools, overlays, or UI systems, update `app-docs/mock-doc/architecture.md`.
+- Audit logger impact. If semantic events, outcome shape, raw capture, or event meaning changes, update `app-docs/mock-doc/logging-documentation.md`.
+- Run verifier QA when the change can affect final document state, event names, or scoring. If task QA status changes, update `app-docs/verifier-doc/task-qa.md` and record follow-up status in `app-docs/verifier-doc/task-qa-actions.md`.
+
+### Feature update
+
+- Check or update `app-docs/feature-checklist.md`.
+- Add or update the feature entry in `app-docs/mock_improvement_steps.md`.
+- Update `app-docs/mock-doc/architecture.md` for new app systems or durable behavior.
+- Update `app-docs/mock-doc/logging-documentation.md` for any new or changed semantic/outcome contract.
+- Check `app-docs/verifier-doc/tasks.csv` for tasks that should move from `planned` to `in_scope`, and update verifier docs if new check primitives are needed.
+
+### UI improvement
+
+- Track the item in `app-docs/mock_improvement_steps.md`.
+- Update architecture docs only if the UI change creates a reusable pattern, panel state, overlay system, or other durable app behavior.
+- Logger docs usually do not change unless the UI creates, removes, or renames a semantic action.
+
+### Logger change
+
+- Update `app-docs/mock-doc/logging-documentation.md`.
+- Check verifier compatibility and update `app-docs/verifier-doc/verifier-documentation.md` if checks or scoring assumptions change.
+- Mention logger impact in the relevant `app-docs/mock_improvement_steps.md` item.
+
+### Verifier or task QA change
+
+- Update `app-docs/verifier-doc/verifier-documentation.md` when the framework or check catalog changes.
+- Update `app-docs/verifier-doc/verifier-writer.md` when authoring rules change.
+- Update `app-docs/verifier-doc/task-qa.md` for audit findings and `app-docs/verifier-doc/task-qa-actions.md` for follow-up status.
+- Run `scripts/qa_verifier_framework.py` for shared checker/helper changes and `scripts/qa_verifiers.py` to confirm all `delivery-1/` task verifiers still smoke-test cleanly.
+
+Keep `app-docs/helper/` unchanged unless the user explicitly asks to refresh the helper corpus. Never read it blind; start from `app-docs/helper/00-overview.md`.
 
 ---
 
@@ -178,6 +238,9 @@ cd mock && npm run dev
 
 # Smoke-test every verifier
 .venv/Scripts/python scripts/qa_verifiers.py
+
+# Smoke-test shared verifier checker primitives
+.venv/Scripts/python scripts/qa_verifier_framework.py
 ```
 
 ### For automated CUA / Docker
