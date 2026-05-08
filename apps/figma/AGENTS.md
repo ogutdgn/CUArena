@@ -90,7 +90,7 @@ apps/figma/
 ├── mock/                         the React Figma mock (TypeScript + Vite)
 ├── verifier/                     the Python framework (checks, rubrics, types) — library only
 ├── delivery-1/                   single source of truth for tasks: per-task prompt.md + verifier.py
-├── scripts/                      CLI entry-points (run_task.py, score_log.py, qa_verifiers.py) + logs/scores output
+├── scripts/                      CLI entry-points (run_task.py, score_log.py, qa_verifiers.py, qa_per_task/) + logs/scores output
 └── cua-eval/                     50-task CSV + builder guide
 ```
 
@@ -169,6 +169,7 @@ This gate applies even for UI work. A UI-only change can still affect raw target
 - Update `app-docs/verifier-doc/verifier-writer.md` when authoring rules change.
 - Update `app-docs/verifier-doc/task-qa.md` for audit findings and `app-docs/verifier-doc/task-qa-actions.md` for follow-up status.
 - Run `scripts/qa_verifier_framework.py` for shared checker/helper changes and `scripts/qa_verifiers.py` to confirm all `delivery-1/` task verifiers still smoke-test cleanly.
+- Run `scripts/qa_per_task/_runner.py <NN>` after changing a task verifier and `scripts/qa_per_task/_runner.py all` before broad delivery/verifier hardening commits.
 
 Keep `app-docs/helper/` unchanged unless the user explicitly asks to refresh the helper corpus. Never read it blind; start from `app-docs/helper/00-overview.md`.
 
@@ -207,6 +208,8 @@ scripts/
 ├── run_task.py             ← fetch current session log + score against delivery-1 task (full pipeline)
 ├── score_log.py            ← score an existing log file against a delivery-1 task (offline)
 ├── qa_verifiers.py         ← smoke-test all 50 verifiers against synthetic perfect/empty logs
+├── qa_verifier_framework.py← smoke-test shared checker primitives
+├── qa_per_task/            ← per-task delivery hardening stress batteries
 ├── generate_delivery_1.py  ← (legacy) regenerate the delivery-1 package
 ├── logs/                   ← saved logs from run_task.py / export-log
 └── scores/                 ← saved scores from run_task.py / score_log.py

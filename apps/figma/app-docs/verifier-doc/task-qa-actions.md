@@ -10,9 +10,10 @@ Use this file for actions, decisions, and status changes. Keep the full audit de
 
 Last verified: 2026-05-08
 
-- `qa_verifiers.py`: `50 OK | 0 STRICT | 0 LENIENT | 0 CRASH`
+- `qa_verifiers.py`: `42 OK | 8 STRICT | 0 LENIENT | 0 CRASH`
 - `qa_verifier_framework.py`: `2 OK | 0 FAIL`
-- No delivery-1 verifier code changes were required for the latest transform, logger, smart-snap, line/arrow, and overlay fixes.
+- `qa_per_task/_runner.py all`: `50 tasks | 0 bug(s)`
+- The `origin/delivery-1` verifier hardening was ported into the new `apps/figma/` layout without restoring the old root `delivery-1/`, `test-verifier/`, `test-app/`, or `project-documents/` layout.
 
 ---
 
@@ -23,6 +24,20 @@ No open task QA actions at the moment.
 ---
 
 ## Closed Actions
+
+### 2026-05-08 - delivery-1 hardening port
+
+Status: closed
+
+Context:
+- The old `delivery-1` branch contained verifier hardening and per-task stress QA written against the previous root project layout.
+- Main now uses `apps/figma/delivery-1`, `apps/figma/verifier`, and `apps/figma/scripts` as the canonical paths.
+
+Outcome:
+- Ported the delivery task prompt/verifier updates into `apps/figma/delivery-1`.
+- Ported verifier hardening primitives and rubrics into `apps/figma/verifier` while preserving the newer logger-aligned page, prototype, center-position, polygon-vertex, and line-endpoint checks.
+- Ported per-task stress QA into `apps/figma/scripts/qa_per_task` with a runner that loads canonical `delivery-1/task_NN/verifier.py` files.
+- Verification: `qa_verifier_framework.py` passed, `qa_verifiers.py` returned 42 OK / 8 STRICT / 0 CRASH, and `qa_per_task/_runner.py all` returned 0 bug(s).
 
 ### 2026-05-07 - Transform and logger regression pass
 

@@ -118,6 +118,21 @@ final_score = base_score × multiplier
 
 ## 5. Folder Structure
 
+Current repository layout:
+
+```
+apps/figma/
+├── verifier/                  framework library: checks, rubrics, types, loader, config
+├── delivery-1/                canonical task prompts + verifier.py files
+└── scripts/                   CLI runners, QA harnesses, logs, and scores
+    ├── qa_verifiers.py        synthetic perfect/empty smoke test for all tasks
+    ├── qa_verifier_framework.py
+    └── qa_per_task/           delivery-1 hardening stress batteries
+```
+
+Historical notes below may refer to the old `test-verifier/` shape. Do not create
+that root layout in new work; port old assets into the `apps/figma/` paths above.
+
 ```
 test-verifier/
 │
@@ -167,6 +182,48 @@ test-verifier/
 ```
 
 ---
+
+## 5a. Delivery-1 Hardening Import
+
+The 2026-05-08 `delivery-1` hardening port added stricter task rubrics and a
+per-task stress harness while preserving newer mock/logger verifier primitives.
+
+Use these checks when task authors need stricter visual assertions:
+
+- Geometry: `LayersHaveDistinctRotations`, `LayersAtDistinctPositions`,
+  `LayersHaveConsistentGap`, `LayersOverlap`, `LayerBoundsInside`,
+  `AllLayerBoundsInside`, `FrameSizeEquals`, `LayerIsCircular`,
+  `LayerAllCircular`, `LayerAllSameSize`, `LayerIsSquare`, `LayerAllSquare`,
+  `LayersHaveAspectMix`, `LayerAspectRatioGreaterThan`, `RadialDistribution`,
+  `LayersEvenlyRotated`, `LayersInGrid`, `LayerCenteredInFrame`,
+  `LayerOnTopOf`, `LayerInFrontOf`, `LayerCenteredOnLayer`, `LayerNextTo`,
+  `LayerWidthFraction`, `LayersHaveRotations`, `LayersAlternatingColors`,
+  `OffsetGridLayout`, `RadialDistributionExcludeCentral`, `LinesOnDiagonal`,
+  `LayersFlankLayer`, `LayerSizeAtLeast`, `AllLayerWidthFraction`,
+  `SmallerLayerInsideLarger`, `LayerAreaRatioAtLeast`,
+  `CrossTypeAreaRatioAtLeast`, `SmallerLayerCenteredOnLargerEdge`,
+  `LayerAboveLargestLayer`, `LayersAllShareEdge`, `LayerSmallerThanLayer`,
+  `LayerShortDimensionAtMost`, `AllLayersAreCircular`, `FrameCountAtMost`,
+  `LayersHaveDistinctCenters`, `LayersHaveDescendingArea`,
+  `LayersOrderedByRotation`, and `LayersBracketAllOnAxis`.
+- Existing newer geometry primitives remain available: `LayerCenterPosition`,
+  `PolygonCornersAligned`, `LineLengthEquals`, `LineAngleEquals`, and
+  `LinesShareEndpoint`.
+- Fill/stroke/effect/property/text hardening primitives include visible/all-layer
+  variants, distinct color checks, color order checks, opacity/radius thresholds,
+  constraint checks, vertical text alignment, line height, letter spacing, and
+  detailed drop-shadow checks.
+
+Validation commands:
+
+```bash
+.venv/Scripts/python scripts/qa_verifier_framework.py
+.venv/Scripts/python scripts/qa_verifiers.py
+.venv/Scripts/python scripts/qa_per_task/_runner.py all
+```
+
+Current import result: framework QA passes, delivery smoke QA has 42 OK / 8
+STRICT / 0 CRASH, and the per-task stress runner reports 0 bug(s).
 
 ## 6. Data Types (`verifier/types.py`)
 
