@@ -20,8 +20,8 @@ export function flipSelection(
     before[l.id] = t;
     after[l.id] = {
       ...t,
-      scaleX: axis === "horizontal" ? ((-t.scaleX) as 1 | -1) : t.scaleX,
-      scaleY: axis === "vertical" ? ((-t.scaleY) as 1 | -1) : t.scaleY,
+      scaleX: axis === "vertical" ? ((-t.scaleX) as 1 | -1) : t.scaleX,
+      scaleY: axis === "horizontal" ? ((-t.scaleY) as 1 | -1) : t.scaleY,
     };
   }
   dispatch({

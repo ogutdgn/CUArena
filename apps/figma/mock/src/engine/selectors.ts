@@ -3,7 +3,7 @@
 import type { AppState } from "./store";
 import type { Layer, Page, ContainerLayer } from "@/types/scene";
 import type { Rect } from "@/util/geometry";
-import { worldOffsetOfLayer, worldRectOfLayer, worldPointToLayerLocal } from "./coordinates";
+import { worldOffsetOfLayer, worldRectOfLayer, worldPointToLayerLocal, localPointToWorld } from "./coordinates";
 import { isContainer } from "@/types/scene";
 
 export function getActivePage(s: AppState): Page | null {
@@ -98,43 +98,12 @@ function containsTransformed(l: Layer, x: number, y: number, zoom: number, state
   if (l.type === "line" || l.type === "arrow") {
     const sw = (l.strokes[0]?.weight ?? 1);
     const threshold = sw / 2 + LINE_HIT_PADDING_PX / Math.max(0.0001, zoom);
-    const ancestor = worldOffsetOfLayer(state, l);
-    const a = applyLayerLocalTransform(l, l.p1.x, l.p1.y, ancestor.x, ancestor.y);
-    const b = applyLayerLocalTransform(l, l.p2.x, l.p2.y, ancestor.x, ancestor.y);
+    const a = localPointToWorld(state, l, l.p1);
+    const b = localPointToWorld(state, l, l.p2);
     return pointToSegmentDistance(x, y, a.x, a.y, b.x, b.y) <= threshold;
   }
   const local = worldPointToLayerLocal(state, l, { x, y });
   return local.x >= 0 && local.x <= l.w && local.y >= 0 && local.y <= l.h;
-}
-
-// Apply scale-around-center then rotate-around-center then translate-to-world,
-// matching `commonTransform` in NodeRenderer. Used by line/arrow endpoint
-// hit-testing and SelectionOverlay endpoint placement.
-function applyLayerLocalTransform(
-  l: Layer,
-  lx: number,
-  ly: number,
-  wx: number,
-  wy: number,
-): { x: number; y: number } {
-  const cx = l.w / 2;
-  const cy = l.h / 2;
-  let px = lx;
-  let py = ly;
-  if (l.scaleX !== 1 || l.scaleY !== 1) {
-    px = cx + (px - cx) * l.scaleX;
-    py = cy + (py - cy) * l.scaleY;
-  }
-  if (l.rotation !== 0) {
-    const rad = (l.rotation * Math.PI) / 180;
-    const cos = Math.cos(rad);
-    const sin = Math.sin(rad);
-    const dx = px - cx;
-    const dy = py - cy;
-    px = cx + dx * cos - dy * sin;
-    py = cy + dx * sin + dy * cos;
-  }
-  return { x: wx + px, y: wy + py };
 }
 
 function pointToSegmentDistance(px: number, py: number, ax: number, ay: number, bx: number, by: number): number {

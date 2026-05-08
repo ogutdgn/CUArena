@@ -22,9 +22,23 @@ import { uid } from "@/util/id";
 import type { TransformMap, TransformTuple } from "@/types/ops";
 import type { Layer, Page } from "@/types/scene";
 import type { HandleDir, RotateCorner } from "@/ui/overlays/SelectionOverlay";
-import { worldOffsetOfParent, worldRectOfLayer, worldAABBOfLayer } from "@/engine/coordinates";
+import {
+  invertMatrix,
+  layerToWorldMatrix,
+  localToWorld,
+  multiplyMatrices,
+  parentToWorldMatrix,
+  transformFromLocalMatrix,
+  worldRectOfLayer,
+  worldAABBOfLayer,
+} from "@/engine/coordinates";
+import type { Matrix } from "@/engine/coordinates";
+import { resizeSingleTransformedLayer } from "@/engine/resizeGeometry";
+import { resizeLineEndpointFromWorld, type LineEndpoint, type LineLikeLayer } from "@/engine/lineGeometry";
 
 const DRAG_THRESHOLD = 3;
+const FRAME_NEST_ENTER_RATIO = 0.6;
+const FRAME_NEST_EXIT_RATIO = 0.4;
 
 interface CandidateRect {
   x: number;
@@ -37,6 +51,8 @@ interface FrameCacheEntry {
   id: string;
   rect: CandidateRect;
 }
+
+type MatrixMap = Record<string, Matrix>;
 
 type State =
   | { kind: "idle" }
@@ -63,12 +79,20 @@ type State =
       modifiers: { shift: boolean; alt: boolean };
     }
   | {
+      kind: "armed_line_endpoint";
+      endpoint: LineEndpoint;
+      layerId: string;
+      downWorld: Point;
+      startLayer: LineLikeLayer;
+    }
+  | {
       kind: "active_layer_drag";
       layerIds: string[];
       sourceLayerIds: string[];
       downWorld: Point;
       startTransforms: TransformMap;
       startWorldTransforms: TransformMap;
+      startWorldMatrices: MatrixMap;
       txId: string;
       isDuplicate: boolean;
       duplicatedIds: string[];
@@ -90,6 +114,13 @@ type State =
       startWorldTransforms: TransformMap;
       txId: string;
       modifiers: { shift: boolean; alt: boolean };
+    }
+  | {
+      kind: "active_line_endpoint_drag";
+      endpoint: LineEndpoint;
+      layerId: string;
+      startLayer: LineLikeLayer;
+      txId: string;
     }
   | {
       kind: "active_box_drag";
@@ -150,6 +181,15 @@ function getHandleDirFromTarget(e: PointerEvent): HandleDir | null {
   return (el.dataset.handle as HandleDir) ?? null;
 }
 
+function getLineEndpointFromTarget(e: PointerEvent): LineEndpoint | null {
+  const t = e.target as Element | null;
+  if (!t) return null;
+  const el = (t as Element).closest?.("[data-line-endpoint]") as HTMLElement | null;
+  if (!el) return null;
+  const value = el.dataset.lineEndpoint;
+  return value === "p1" || value === "p2" ? value : null;
+}
+
 function getRotateCornerFromTarget(e: PointerEvent): RotateCorner | null {
   const t = e.target as Element | null;
   if (!t) return null;
@@ -190,7 +230,24 @@ export const moveTool: ITool = {
       }
     }
 
-    // 2) Resize handle?
+    // 2) Line/arrow endpoint resize?
+    const endpoint = getLineEndpointFromTarget(e);
+    if (endpoint) {
+      const ids = s.selectionByPage[s.activePageId] ?? [];
+      const node = ids.length === 1 ? (s.nodesById[ids[0]] as Layer | undefined) : undefined;
+      if (node && (node.type === "line" || node.type === "arrow")) {
+        state = {
+          kind: "armed_line_endpoint",
+          endpoint,
+          layerId: node.id,
+          downWorld: world,
+          startLayer: cloneLineLikeLayer(node),
+        };
+        return;
+      }
+    }
+
+    // 3) Resize handle?
     const handleDir = getHandleDirFromTarget(e);
     if (handleDir) {
       const bbox = selectionBbox(s);
@@ -217,7 +274,7 @@ export const moveTool: ITool = {
       }
     }
 
-    // 3) Layer hit?
+    // 4) Layer hit?
     const hit = hitTest(s, world.x, world.y);
     if (hit) {
       const cur = s.selectionByPage[s.activePageId] ?? [];
@@ -376,8 +433,10 @@ export const moveTool: ITool = {
         .filter((n): n is Layer => !!n && (n as Page).type !== "page") as Layer[];
       const startTransforms: TransformMap = {};
       const startWorldTransforms: TransformMap = {};
+      const startWorldMatrices: MatrixMap = {};
       for (const l of layers) startTransforms[l.id] = transformOf(l);
       for (const l of layers) startWorldTransforms[l.id] = worldTransformOf(s, l);
+      for (const l of layers) startWorldMatrices[l.id] = layerToWorldMatrix(s, l);
 
       const txId = openTransaction();
       let duplicatedIds: string[] = [];
@@ -389,8 +448,10 @@ export const moveTool: ITool = {
         for (let i = 0; i < layers.length; i++) {
           startTransforms[duplicatedIds[i]] = startTransforms[layers[i].id];
           startWorldTransforms[duplicatedIds[i]] = startWorldTransforms[layers[i].id];
+          startWorldMatrices[duplicatedIds[i]] = startWorldMatrices[layers[i].id];
           delete startTransforms[layers[i].id];
           delete startWorldTransforms[layers[i].id];
+          delete startWorldMatrices[layers[i].id];
         }
       }
 
@@ -425,6 +486,7 @@ export const moveTool: ITool = {
         downWorld: state.downWorld,
         startTransforms,
         startWorldTransforms,
+        startWorldMatrices,
         txId,
         isDuplicate: state.modifiers.alt,
         duplicatedIds,
@@ -450,6 +512,22 @@ export const moveTool: ITool = {
         startWorldTransforms: state.startWorldTransforms,
         txId,
         modifiers: state.modifiers,
+      };
+      this.onPointerMove?.(world, e);
+      return;
+    }
+
+    if (state.kind === "armed_line_endpoint") {
+      const dx = world.x - state.downWorld.x;
+      const dy = world.y - state.downWorld.y;
+      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+      const txId = openTransaction();
+      state = {
+        kind: "active_line_endpoint_drag",
+        endpoint: state.endpoint,
+        layerId: state.layerId,
+        startLayer: state.startLayer,
+        txId,
       };
       this.onPointerMove?.(world, e);
       return;
@@ -563,15 +641,13 @@ export const moveTool: ITool = {
       for (const id of state.layerIds) {
         const tLocal = state.startTransforms[id];
         const tWorld = state.startWorldTransforms[id];
-        if (!tLocal || !tWorld) continue;
+        const startWorldMatrix = state.startWorldMatrices[id];
+        if (!tLocal || !tWorld || !startWorldMatrix) continue;
         const liveLayer = sLive.nodesById[id] as Layer | undefined;
         if (!liveLayer || (liveLayer as unknown as Page).type === "page") continue;
-        const p = worldOffsetOfParent(sLive, liveLayer.parentId);
-        after[id] = {
-          ...tLocal,
-          x: tWorld.x + snapped.dx - p.x,
-          y: tWorld.y + snapped.dy - p.y,
-        };
+        const desiredWorldMatrix = translateWorldMatrix(startWorldMatrix, snapped.dx, snapped.dy);
+        const localMatrix = multiplyMatrices(invertMatrix(parentToWorldMatrix(sLive, liveLayer.parentId)), desiredWorldMatrix);
+        after[id] = transformFromLocalMatrix(liveLayer, localMatrix);
       }
       dispatch(
         {
@@ -601,6 +677,23 @@ export const moveTool: ITool = {
     if (state.kind === "active_handle_drag") {
       const dx = world.x - state.downWorld.x;
       const dy = world.y - state.downWorld.y;
+      const sLive = useStore.getState();
+      const transformedSingle = resizeSingleTransformedLayer(sLive, state.layerIds, state.startTransforms, state.handleDir, world);
+      if (transformedSingle) {
+        dispatch(
+          {
+            id: makeOpId(),
+            timestamp: performance.now(),
+            kind: "set_transform",
+            pageId: sLive.activePageId,
+            ids: state.layerIds,
+            before: state.startTransforms,
+            after: transformedSingle,
+          },
+          { transactionId: state.txId },
+        );
+        return;
+      }
       const newBbox = applyHandleResize(state.startBbox, state.handleDir, dx, dy, e.shiftKey, e.altKey);
       const after: TransformMap = {};
       // Map each layer's transform proportionally with the bbox change.
@@ -649,6 +742,53 @@ export const moveTool: ITool = {
       return;
     }
 
+    if (state.kind === "active_line_endpoint_drag") {
+      const sLive = useStore.getState();
+      const layer = sLive.nodesById[state.layerId] as Layer | undefined;
+      if (!layer || (layer.type !== "line" && layer.type !== "arrow")) return;
+      const resized = resizeLineEndpointFromWorld(sLive, state.startLayer, state.endpoint, world);
+      const startTransform = transformOf(state.startLayer);
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_transform",
+          pageId: sLive.activePageId,
+          ids: [layer.id],
+          before: { [layer.id]: startTransform },
+          after: { [layer.id]: resized.transform },
+        },
+        { transactionId: state.txId },
+      );
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_property",
+          pageId: sLive.activePageId,
+          ids: [layer.id],
+          path: "p1",
+          before: { [layer.id]: state.startLayer.p1 },
+          after: { [layer.id]: resized.p1 },
+        },
+        { transactionId: state.txId },
+      );
+      dispatch(
+        {
+          id: makeOpId(),
+          timestamp: performance.now(),
+          kind: "set_property",
+          pageId: sLive.activePageId,
+          ids: [layer.id],
+          path: "p2",
+          before: { [layer.id]: state.startLayer.p2 },
+          after: { [layer.id]: resized.p2 },
+        },
+        { transactionId: state.txId },
+      );
+      return;
+    }
+
     if (state.kind === "active_box_drag") {
       state = { ...state, currentWorld: world };
       useStore.setState((s) => {
@@ -664,6 +804,10 @@ export const moveTool: ITool = {
       return;
     }
     if (state.kind === "armed_handle") {
+      state = { kind: "idle" };
+      return;
+    }
+    if (state.kind === "armed_line_endpoint") {
       state = { kind: "idle" };
       return;
     }
@@ -772,6 +916,12 @@ export const moveTool: ITool = {
       return;
     }
 
+    if (state.kind === "active_line_endpoint_drag") {
+      commitTransaction(state.txId);
+      state = { kind: "idle" };
+      return;
+    }
+
     if (state.kind === "active_box_drag") {
       const page = getActivePage(useStore.getState());
       if (!page) {
@@ -816,7 +966,12 @@ export const moveTool: ITool = {
   },
 
   onAbort() {
-    if (state.kind === "active_layer_drag" || state.kind === "active_handle_drag" || state.kind === "active_rotate_drag") {
+    if (
+      state.kind === "active_layer_drag" ||
+      state.kind === "active_handle_drag" ||
+      state.kind === "active_rotate_drag" ||
+      state.kind === "active_line_endpoint_drag"
+    ) {
       abortTransaction(state.txId);
     }
     useStore.setState((s) => {
@@ -839,13 +994,27 @@ function transformOf(l: Layer): TransformTuple {
   };
 }
 
-function worldTransformOf(s: ReturnType<typeof useStore.getState>, l: Layer): TransformTuple {
-  const wr = worldRectOfLayer(s, l);
+function translateWorldMatrix(matrix: Matrix, dx: number, dy: number): Matrix {
+  return { ...matrix, e: matrix.e + dx, f: matrix.f + dy };
+}
+
+function cloneLineLikeLayer(layer: LineLikeLayer): LineLikeLayer {
   return {
-    x: wr.x,
-    y: wr.y,
-    w: wr.w,
-    h: wr.h,
+    ...layer,
+    p1: { ...layer.p1 },
+    p2: { ...layer.p2 },
+    strokes: layer.strokes.map((stroke) => ({ ...stroke })),
+    effects: layer.effects.map((effect) => ({ ...effect })),
+  } as LineLikeLayer;
+}
+
+function worldTransformOf(s: ReturnType<typeof useStore.getState>, l: Layer): TransformTuple {
+  const origin = localToWorld(s, l.parentId, { x: l.x, y: l.y });
+  return {
+    x: origin.x,
+    y: origin.y,
+    w: l.w,
+    h: l.h,
     rotation: l.rotation,
     scaleX: l.scaleX,
     scaleY: l.scaleY,
@@ -918,7 +1087,7 @@ function applyFrameNestingByOverlap(
       if (movedSet.has(frame.id)) continue; // don't move into simultaneously moved frame
 
       const ratio = overlapRatio(wr, frame.rect, area);
-      if (ratio < 0.5) continue;
+      if (ratio < FRAME_NEST_ENTER_RATIO) continue;
       const depth = depthOf(now, frame.id);
       if (depth > bestDepth || (depth === bestDepth && ratio > bestRatio)) {
         bestDepth = depth;
@@ -930,7 +1099,7 @@ function applyFrameNestingByOverlap(
     let toParentId = layer.parentId;
     if (bestFrameId) {
       toParentId = bestFrameId;
-    } else if (currentFrameParent && currentOverlap < 0.5) {
+    } else if (currentFrameParent && currentOverlap < FRAME_NEST_EXIT_RATIO) {
       toParentId = currentFrameParent.parentId;
     }
     if (toParentId === layer.parentId) continue;
