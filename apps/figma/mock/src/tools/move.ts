@@ -14,7 +14,7 @@ import {
   abortTransaction,
 } from "@/engine/dispatch";
 import { hitTest, getActivePage, selectionBbox } from "@/engine/selectors";
-import { computeSnap } from "@/engine/snap";
+import { computeSnap, snapBboxFromStartAABBs } from "@/engine/snap";
 import { setSelection, deselectAll } from "@/engine/commands";
 import { enterTextEdit } from "@/engine/textCommands";
 import { emitSemantic } from "@/logger/semantic";
@@ -53,6 +53,7 @@ interface FrameCacheEntry {
 }
 
 type MatrixMap = Record<string, Matrix>;
+type RectMap = Record<string, Rect>;
 
 type State =
   | { kind: "idle" }
@@ -93,6 +94,7 @@ type State =
       startTransforms: TransformMap;
       startWorldTransforms: TransformMap;
       startWorldMatrices: MatrixMap;
+      startWorldAABBs: RectMap;
       txId: string;
       isDuplicate: boolean;
       duplicatedIds: string[];
@@ -434,9 +436,11 @@ export const moveTool: ITool = {
       const startTransforms: TransformMap = {};
       const startWorldTransforms: TransformMap = {};
       const startWorldMatrices: MatrixMap = {};
+      const startWorldAABBs: RectMap = {};
       for (const l of layers) startTransforms[l.id] = transformOf(l);
       for (const l of layers) startWorldTransforms[l.id] = worldTransformOf(s, l);
       for (const l of layers) startWorldMatrices[l.id] = layerToWorldMatrix(s, l);
+      for (const l of layers) startWorldAABBs[l.id] = worldAABBOfLayer(s, l);
 
       const txId = openTransaction();
       let duplicatedIds: string[] = [];
@@ -449,9 +453,11 @@ export const moveTool: ITool = {
           startTransforms[duplicatedIds[i]] = startTransforms[layers[i].id];
           startWorldTransforms[duplicatedIds[i]] = startWorldTransforms[layers[i].id];
           startWorldMatrices[duplicatedIds[i]] = startWorldMatrices[layers[i].id];
+          startWorldAABBs[duplicatedIds[i]] = startWorldAABBs[layers[i].id];
           delete startTransforms[layers[i].id];
           delete startWorldTransforms[layers[i].id];
           delete startWorldMatrices[layers[i].id];
+          delete startWorldAABBs[layers[i].id];
         }
       }
 
@@ -487,6 +493,7 @@ export const moveTool: ITool = {
         startTransforms,
         startWorldTransforms,
         startWorldMatrices,
+        startWorldAABBs,
         txId,
         isDuplicate: state.modifiers.alt,
         duplicatedIds,
@@ -610,17 +617,7 @@ export const moveTool: ITool = {
       const rawDx = world.x - state.downWorld.x;
       const rawDy = world.y - state.downWorld.y;
 
-      // Compute moving group bbox at start
-      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-      for (const id of state.layerIds) {
-        const t = state.startWorldTransforms[id];
-        if (!t) continue;
-        if (t.x < minX) minX = t.x;
-        if (t.y < minY) minY = t.y;
-        if (t.x + t.w > maxX) maxX = t.x + t.w;
-        if (t.y + t.h > maxY) maxY = t.y + t.h;
-      }
-      const movingBbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+      const movingBbox = snapBboxFromStartAABBs(state.startWorldAABBs, state.layerIds);
 
       // Sibling candidates were snapshotted at drag start (see State type).
       // Avoids the per-pointermove scene walk that produced visible jitter.

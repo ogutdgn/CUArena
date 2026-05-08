@@ -23,6 +23,31 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-07 - Smart-snap transform polish
+
+#### 23. In progress P2 - Smart-snap guides use stale moving bounds after rotate/flip
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/tools/move.ts`
+- `apps/figma/mock/src/engine/snap.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** Alignment/smart-snap guide lines should be calculated from the same transformed visual bounds the user sees while dragging. If a layer is rotated or flipped, the snap line should appear on its current visual edge/center, not on its pre-transform rectangle.
+
+**What happened:** Candidate layers and frames were already cached with `worldAABBOfLayer`, so targets were transform-aware. The moving selection bbox, however, was still built from `startWorldTransforms`, which stores parent-origin plus raw `w/h`. After rotate/flip, the solver compared transformed targets against an untransformed moving rectangle, causing guide lines and distance measures to appear in stale positions.
+
+**Root cause verified in code:** `move.ts` active drag used `worldTransformOf()` snapshots to compute `movingBbox`. That helper intentionally returns parent-space origin plus `w/h`; it is not the rendered visual AABB. This diverged from the newer matrix-based drag path, which already moves layers via `startWorldMatrices`.
+
+**Fix direction applied:**
+- Snapshot `worldAABBOfLayer` for every dragged layer at drag start.
+- Build the moving snap bbox from the union of those visual AABBs.
+- Keep candidate/frame caching as-is because it already uses transformed AABBs.
+- Add a transform regression case proving rotated layer snap bbox starts from the visual AABB.
+
+**Logger impact:** None. Smart-snap guide lines are transient UI feedback and do not mutate the document. `move_layer` semantic logging remains handled at pointer-up by the matrix-based world origin path from the logger audit pass.
+
 ### 2026-05-07 — User-reported transform polish
 
 #### 22. 🟡 P2 — Flip/rotate selection outline and frame label diverge from the layer transform

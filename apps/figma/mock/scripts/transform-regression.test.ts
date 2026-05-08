@@ -12,6 +12,7 @@ import {
   multiplyMatrices,
   transformFromLocalMatrix,
 } from "../src/engine/coordinates";
+import { computeSnap, snapBboxFromStartAABBs } from "../src/engine/snap";
 import { selectionOutlineGeometry } from "../src/ui/overlays/selectionOverlayGeometry";
 import { resizeSingleTransformedLayer } from "../src/engine/resizeGeometry";
 import { resizeLineEndpointFromWorld } from "../src/engine/lineGeometry";
@@ -261,6 +262,26 @@ const flippedOrigin = localToWorld(flippedRootState, flippedRoot.parentId, { x: 
 const flippedMoveLocal = worldToParentLocal(flippedRootState, flippedRoot.parentId, { x: flippedOrigin.x + 15, y: flippedOrigin.y + 5 });
 assert(flippedMoveLocal.x === flippedRoot.x + 15, "moving a flipped root layer should use its parent-space origin, not its mirrored visual corner");
 assert(flippedMoveLocal.y === flippedRoot.y + 5, "moving a flipped root layer should not jump vertically");
+
+const rotatedSnapLayer: Rectangle = {
+  ...rect,
+  id: "rotated-snap-layer",
+  x: 100,
+  y: 100,
+  w: 100,
+  h: 50,
+  rotation: 90,
+  scaleX: 1,
+  scaleY: 1,
+};
+const rotatedSnapState = makeState(rotatedSnapLayer);
+const rotatedSnapVisualBbox = worldAABBOfLayer(rotatedSnapState, rotatedSnapLayer);
+const snapCandidate = { x: 200, y: 100, w: 40, h: 40 };
+const dragSnapBbox = snapBboxFromStartAABBs({ [rotatedSnapLayer.id]: rotatedSnapVisualBbox }, [rotatedSnapLayer.id]);
+assert(Math.abs(dragSnapBbox.x - rotatedSnapVisualBbox.x) < 0.001, "drag snap bbox should start from the rotated layer's visual AABB x");
+assert(Math.abs(dragSnapBbox.w - rotatedSnapVisualBbox.w) < 0.001, "drag snap bbox should use the rotated layer's visual AABB width");
+const snapToVisualRight = computeSnap(rotatedSnapVisualBbox, snapCandidate.x - (rotatedSnapVisualBbox.x + rotatedSnapVisualBbox.w), 0, [snapCandidate], 1);
+assert(snapToVisualRight.lines.some((line) => line.axis === "x" && line.x === snapCandidate.x), "snap guides should align from a rotated layer's visual AABB");
 
 const innerFrame: Frame = {
   ...frame,
