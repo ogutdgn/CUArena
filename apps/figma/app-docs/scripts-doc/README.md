@@ -97,6 +97,18 @@ Use this when adding or changing shared checker primitives under `verifier/check
 It covers framework capabilities that may not be exercised by the current
 `delivery-1/` task set.
 
+### Run per-task hardening QA
+
+```bash
+.venv/Scripts/python scripts/qa_per_task/_runner.py 01
+.venv/Scripts/python scripts/qa_per_task/_runner.py all
+```
+
+`qa_per_task/` contains the delivery-1 hardening stress batteries ported from the
+old `test-verifier/qa_per_task` layout. The runner loads canonical tasks from
+`delivery-1/task_NN/verifier.py`; it does not use or require the old root
+`test-verifier/tasks/` package.
+
 ---
 
 ## Files
@@ -107,6 +119,7 @@ It covers framework capabilities that may not be exercised by the current
 | `score_log.py` | Score an existing saved log file against a `delivery-1/` task verifier. |
 | `qa_verifiers.py` | Smoke-test every `delivery-1/task_NN/verifier.py` against synthetic perfect/empty logs and flag CRASH / TOO STRICT / TOO LENIENT. |
 | `qa_verifier_framework.py` | Smoke-test shared checker primitives that support newer mock features but may not be referenced by `delivery-1/` yet. |
+| `qa_per_task/_runner.py` | Run targeted or full delivery-1 stress batteries from `qa_per_task/task_NN.py` against the canonical `delivery-1/task_NN/verifier.py` files. |
 | `generate_delivery_1.py` | (Legacy) regenerator for `delivery-1/` package. |
 | `logs/` | Saved logs from `run_task.py` / `export-log`. |
 | `scores/` | Saved scores from `run_task.py` / `score_log.py`. |

@@ -17,6 +17,7 @@ Before changing a verifier, check `task-qa.md` and record any follow-up in
 - Do not invent check classes not in this catalog.
 - Only use tasks with `Scope = in_scope`. Skip `planned` and `out_of_scope`.
 - Choose tolerances appropriate to the task (tighter for pixel-precise tasks, looser for freehand).
+- For delivery-1 hardening work, run `scripts/qa_per_task/_runner.py <NN>` after editing a task verifier. Use `all` before broad commits.
 
 ---
 
@@ -92,6 +93,12 @@ task = Task(
 | `LinesShareEndpoint` | `layer_type="line", minimum=2, tolerance=5.0` | line/arrow layers share an endpoint |
 
 axis values: `"x"` `"y"` `"center_x"` `"center_y"`
+
+Additional delivery hardening geometry checks are available in
+`verifier.checks.geometry_checks` for stricter spatial tasks: concentric/stacked/grid
+layouts, overlap/containment, circular/square/aspect assertions, radial distribution,
+relative ordering, edge sharing, area ratios, frame count limits, and bracket/flank
+relationships. Prefer these existing primitives over custom task logic.
 
 ### fill_checks
 | Class | Args | Checks |
@@ -188,6 +195,24 @@ Common `event_name` values: `create_rectangle` `create_ellipse` `create_polygon`
 `set_star_inner_ratio` `rename_layer` `rename_file`
 `create_prototype_connection` `update_prototype_connection`
 `delete_prototype_connection` `undo` `redo`
+
+---
+
+## QA expectations
+
+After changing a task verifier:
+
+```bash
+.venv/Scripts/python scripts/qa_per_task/_runner.py <NN>
+.venv/Scripts/python scripts/qa_verifiers.py
+```
+
+After changing shared checks, rubrics, helpers, or logger-facing assumptions:
+
+```bash
+.venv/Scripts/python scripts/qa_verifier_framework.py
+.venv/Scripts/python scripts/qa_per_task/_runner.py all
+```
 
 ---
 
