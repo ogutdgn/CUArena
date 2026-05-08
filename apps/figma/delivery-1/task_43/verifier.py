@@ -1,58 +1,105 @@
 """
 Task 43 — Compass rose (IN SCOPE).
 
-Sand-colored circle + 4 triangles (1 red N, 3 gray E/S/W) + small gold center pivot circle.
+Sand-colored circle + 4 triangles arranged 90° apart (cardinal directions, distinct colors)
++ small gold center pivot circle.
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.structure    import StructureRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
-from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersSameDimensions, LayerIsCircular
-from verifier.checks.fill_checks   import FillTypeIs
+from verifier.checks.shape_checks  import ShapeCount, PolygonSidesEquals
+from verifier.checks.geometry_checks import (
+    LayersSameDimensions, LayersEvenlyRotated, LayerIsCircular,
+    AllLayersAreCircular, FrameSizeEquals, AllLayerBoundsInside,
+    LayerSizeAtLeast, LayerRotationEquals, AllLayerWidthFraction,
+    LayerSmallerThanLayer, FrameCountAtMost, LayerAreaRatioAtLeast,
+    LayerCenteredOnLayer, RadialDistribution,
+)
+from verifier.checks.fill_checks   import (
+    AllFillTypeIs, DistinctSolidColors, DistinctTypedSolidColors,
+    FillCountAtMost, FillOpacityAtLeast, SolidColorEquals,
+)
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
+from verifier.checks.property_checks import NoLayerFlipped, LayerVisible
+from verifier.checks.structure_checks import LayerGroupAllInSameFrame
+from verifier.checks.page_checks   import LayerOnPage
 
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
+GOLD = {"r": 0.85, "g": 0.65, "b": 0.13}
+SAND = {"r": 0.90, "g": 0.80, "b": 0.60}
 
 task = Task(
     id="task_43_compass_rose",
-    description="1 sand circle + 4 triangles N/E/S/W + 1 small gold center circle.",
+    description="Sand circle + 4 N/E/S/W triangles (90° apart, distinct colors) + gold center pivot.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
-            ShapeCount("ellipse", equals=2),
-            ShapeCount("polygon", equals=4),
-        ]), max_score=0.25),
+        # critical: prompt mandates exactly 2 ellipses (sand + gold center) and 4 triangles.
+        FundamentalsRubric([
+            ShapeCount("ellipse", equals=2),    # 0 ★ sand circle + gold center
+            ShapeCount("polygon", equals=4),    # 1 ★ 4 N/E/S/W triangles
+            PolygonSidesEquals(sides=3),        # 2 ★ all polygons are triangles
+        ], weight=0.20, critical=[0, 1, 2]),
 
-        WeightedRubric(AlignmentRubric([
-            LayersSameDimensions(layer_type="polygon", tolerance=3.0),
-            LayerIsCircular(layer_type="ellipse", tolerance=3.0),
-        ]), max_score=0.25),
+        # critical: triangles same size + 90° apart, ellipses round, frame size, in-frame, sane sizing.
+        AlignmentRubric([
+            LayersSameDimensions(layer_type="polygon", tolerance=3.0),                           # 0 ★ matched triangles
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                # 1 ★ at least one round
+            AllLayersAreCircular(layer_type="ellipse", tolerance=3.0),                           # 2 ★ EVERY ellipse round
+            LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=10.0),    # 3 ★ N/E/S/W cardinals
+            FrameSizeEquals(width=1280, height=832, tolerance=10.0),                             # 4 ★ frame size
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=4.0),       # 5 ★ ellipses inside frame
+            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=4.0),       # 6 ★ triangles inside frame
+            LayerSizeAtLeast(layer_type="ellipse", min_w=10, min_h=10),                          # 7 ★ no degenerate ellipse
+            LayerSizeAtLeast(layer_type="polygon", min_w=10, min_h=20),                          # 8 ★ no degenerate triangle
+            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                      # 9 ★ ellipses sane vs frame
+                                  min_frac=0.005, max_frac=0.50),
+            AllLayerWidthFraction(inner_type="polygon", parent_type="frame",                      # 10 ★ triangles sane
+                                  min_frac=0.005, max_frac=0.50),
+            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=2.0),                 # 11 ★ ellipses upright
+            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=2.0),                 # 12 ★ frame upright
+            NoLayerFlipped(layer_type="ellipse"),                                                # 13 ★ ellipses not mirrored
+            NoLayerFlipped(layer_type="polygon"),                                                # 14 ★ triangles not mirrored
+            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="ellipse", max_frac=0.4),   # 15 ★ center much smaller than sand
+            LayerAreaRatioAtLeast(layer_type="ellipse", min_ratio=4.0),                          # 16 ★ sand dominates center
+            LayerCenteredOnLayer(type_a="ellipse", type_b="ellipse", tolerance=30.0, axis="both"),# 17 ★ center pivot on sand
+            FrameCountAtMost(maximum=1),                                                         # 18 ★ exactly one top-level frame
+            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0,                    # 19 ★ triangles spread radially
+                                radius_tolerance_frac=0.5),
+        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]),
 
-        WeightedRubric(ColorRubric([
-            FillTypeIs("polygon", kind="solid"),
-            FillTypeIs("ellipse", kind="solid"),
-        ]), max_score=0.25),
+        # critical: distinct colors, gold center, sane fills.
+        ColorRubric([
+            AllFillTypeIs("polygon", kind="solid"),                                              # 0 ★
+            AllFillTypeIs("ellipse", kind="solid"),                                              # 1 ★
+            DistinctSolidColors(minimum=4, tolerance=0.10),                                      # 2 ★ sand+gold+red+gray
+            DistinctTypedSolidColors(layer_type="polygon", minimum=2, tolerance=0.10),           # 3 ★ N (red) vs others (gray)
+            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.10),           # 4 ★ sand vs gold center
+            SolidColorEquals(layer_type="ellipse", expected_rgb=GOLD, tolerance=0.20),           # 5 ★ gold center exists
+            FillCountAtMost("polygon", max_count=1),                                             # 6 ★ no stacked fills
+            FillCountAtMost("ellipse", max_count=1),                                             # 7 ★ no stacked fills
+            FillOpacityAtLeast("polygon", min_opacity=0.5),                                      # 8 ★ visible fills
+            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                      # 9 ★ visible fills
+            LayerVisible("polygon"),                                                              # 10 ★ alpha+visible+opacity
+            LayerVisible("ellipse"),                                                              # 11 ★
+        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
 
-        WeightedRubric(EventRubric([
-            ToolUsed("ellipse"),
-            ToolUsed("polygon"),
-            EventTypeCount("create_ellipse", equals=2),
-            EventTypeCount("create_polygon", equals=4),
-        ]), max_score=0.25),
+        # critical: shapes live in same frame on page 0
+        StructureRubric([
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 0 ★
+            LayerGroupAllInSameFrame(layer_type="polygon", minimum=4),  # 1 ★
+            LayerOnPage(layer_type="ellipse", page_index=0),            # 2 ★
+            LayerOnPage(layer_type="polygon", page_index=0),            # 3 ★
+        ], weight=0.20, critical=[0, 1, 2, 3]),
+
+        # critical: ellipse + polygon tools mandated by prompt
+        EventRubric([
+            ToolUsed("ellipse"),                            # 0 ★
+            ToolUsed("polygon"),                            # 1 ★
+            EventTypeCount("create_ellipse", equals=2),     # 2
+            EventTypeCount("create_polygon", equals=4),     # 3
+        ], weight=0.20, critical=[0, 1]),
     ],
-    efficiency=EfficiencyRubric(target_turns=36),
+    efficiency=EfficiencyRubric(target_turns=24),
 )

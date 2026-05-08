@@ -19,6 +19,33 @@ class LayerInsideFrame:
 
 
 @dataclass
+class LayerGroupAllInSameFrame:
+    """All layers of layer_type (across the doc) must be direct children of the SAME frame.
+    Catches:
+      - layers split across multiple frames
+      - some layers in a frame, others on the page (no frame)
+      - layers buried in groups/components inside a frame (not direct children)
+    """
+    layer_type: str
+    minimum: int = 1
+
+    def run(self, log: dict) -> CheckResult:
+        doc = log["outcome"]["document"]
+        all_layers = find_layers_by_type(doc, self.layer_type)
+        if len(all_layers) < self.minimum:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Found {len(all_layers)} {self.layer_type} (need ≥{self.minimum})")
+        frames = find_layers_by_type(doc, "frame")
+        for frame in frames:
+            direct_children = [c for c in frame.get("children", []) if c.get("type") == self.layer_type]
+            if len(direct_children) == len(all_layers) and len(direct_children) >= self.minimum:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"All {len(all_layers)} {self.layer_type} are direct children of one frame")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"All {len(all_layers)} {self.layer_type} not direct children of a single frame")
+
+
+@dataclass
 class ChildCount:
     """At least one parent_type layer has exactly `equals` children."""
     parent_type: str

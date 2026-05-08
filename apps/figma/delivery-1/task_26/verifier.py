@@ -4,53 +4,67 @@ Task 26 — Brand color row (in-scope replacement, no variables).
 5 same-size squares arranged in a horizontal row, each filled a different
 brand color (1 primary + 4 supports).
 """
-from dataclasses import dataclass
-from typing import Any
-from verifier.types import Task, RubricResult
+from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
+from verifier.rubrics.property     import PropertyRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import LayersSameDimensions, LayersAligned
-from verifier.checks.fill_checks   import FillTypeIs, DistinctSolidColors
+from verifier.checks.geometry_checks import (
+    LayersSameDimensions, LayersAligned, LayersStacked,
+    LayerIsSquare, LayerSizeAtLeast, LayerRotationEquals,
+    AllLayerBoundsInside,
+)
+from verifier.checks.fill_checks   import AllFillTypeIs, DistinctSolidColors
+from verifier.checks.property_checks import (
+    LayerVisible, NoLayerFlipped, CornerRadiusFractionAtMost,
+)
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
-
-
-@dataclass
-class WeightedRubric:
-    rubric: Any
-    max_score: float
-    def run(self, log):
-        r = self.rubric.run(log)
-        scale = self.max_score / r.max_score if r.max_score else 1.0
-        return RubricResult(name=r.name, score=round(r.score * scale, 4),
-                            max_score=self.max_score, checks=r.checks)
-
 
 task = Task(
     id="task_26_color_variable_card",
     description="5 same-size squares in a horizontal row, each a different brand color.",
     rubrics=[
-        WeightedRubric(FundamentalsRubric([
-            ShapeCount("rectangle", equals=5),
-        ]), max_score=0.25),
+        # critical: exactly 5 rectangles
+        FundamentalsRubric([
+            ShapeCount("rectangle", equals=5),                                  # 0 ★ "5"
+        ], weight=0.20, critical=[0]),
 
-        WeightedRubric(AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=2.0),
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),
-        ]), max_score=0.25),
+        # critical: same-size SQUARES, row alignment, in-frame, non-degenerate
+        AlignmentRubric([
+            LayersSameDimensions(layer_type="rectangle", tolerance=2.0),         # 0 ★ "same-size"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),  # 1 ★ "row"
+            LayerIsSquare(layer_type="rectangle", tolerance=4.0),                # 2 ★ "squares"
+            LayersStacked(layer_type="rectangle", axis="x", gap_px=16.0,
+                          tolerance=8.0),                                        # 3 ★ row spacing
+            LayerSizeAtLeast(layer_type="rectangle", min_w=20.0, min_h=20.0),    # 4 ★ non-degenerate
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",
+                                 tolerance=8.0),                                 # 5 ★ inside frame
+        ], weight=0.25, critical=[0, 1, 2, 3, 4, 5]),
 
-        WeightedRubric(ColorRubric([
-            FillTypeIs("rectangle", kind="solid"),
-            DistinctSolidColors(minimum=5, tolerance=0.05),
-        ]), max_score=0.25),
+        # critical: solid + distinct brand colors + visible
+        ColorRubric([
+            AllFillTypeIs("rectangle", kind="solid"),                           # 0 ★
+            DistinctSolidColors(minimum=5, tolerance=0.05),                     # 1 ★ "different brand color"
+            LayerVisible(layer_type="rectangle", min_opacity=0.5,
+                         min_alpha=0.5),                                        # 2 ★ visible
+        ], weight=0.20, critical=[0, 1, 2]),
 
-        WeightedRubric(EventRubric([
-            ToolUsed("rectangle"),
-            EventTypeCount("create_rectangle", equals=5),
-        ]), max_score=0.25),
+        # critical: squares look like squares (unrotated, unflipped, not pill)
+        PropertyRubric([
+            LayerRotationEquals(layer_type="rectangle", degrees=0.0,
+                                tolerance=2.0),                                 # 0 ★ unrotated
+            NoLayerFlipped(layer_type="rectangle"),                             # 1 ★ no flips
+            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.4),   # 2 ★ not full circle
+        ], weight=0.15, critical=[0, 1, 2]),
+
+        # critical: rectangle tool used
+        EventRubric([
+            ToolUsed("rectangle"),                                              # 0 ★
+            EventTypeCount("create_rectangle", equals=5),                       # 1
+        ], weight=0.20, critical=[0]),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )
