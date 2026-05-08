@@ -23,6 +23,30 @@ class DropShadowExists:
 
 
 @dataclass
+class VisibleDropShadowExists:
+    """At least one layer of layer_type has a *visible* drop shadow:
+       - shadow.visible != False
+       - shadow.color.a >= min_alpha (default 0.05)
+    Catches transparent shadows / hidden shadows that pass DropShadowExists."""
+    layer_type: str
+    min_alpha: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            for e in _effects_of_kind(l, "drop_shadow"):
+                if e.get("visible", True) is False:
+                    continue
+                a = e.get("color", {}).get("a", 1.0)
+                if a < self.min_alpha:
+                    continue
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} has visible drop shadow")
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"No {self.layer_type} with visible drop shadow found")
+
+
+@dataclass
 class LayerBlurExists:
     """At least one layer of layer_type has a layer blur effect."""
     layer_type: str
@@ -35,6 +59,40 @@ class LayerBlurExists:
                                    message=f"{self.layer_type} has layer blur")
         return CheckResult(passed=False, score=0.0, max_score=1.0,
                            message=f"No {self.layer_type} with layer blur found")
+
+
+@dataclass
+class AllLayerBlurExists:
+    """Every layer of layer_type has a *visible* non-zero layer blur effect.
+    Stricter than LayerBlurExists (≥1 layer) — catches "blur on one but not the other"
+    designs."""
+    layer_type: str
+    min_radius: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = []
+        for l in layers:
+            blurs = _effects_of_kind(l, "layer_blur")
+            ok = False
+            for b in blurs:
+                if b.get("visible", True) is False:
+                    continue
+                if b.get("radius", 0) < self.min_radius:
+                    continue
+                ok = True
+                break
+            if not ok:
+                failures.append(f"{l['id'][:8]}: no visible layer blur ≥ {self.min_radius}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {len(layers)} {self.layer_type} have layer blur" if passed
+                    else "; ".join(failures),
+        )
 
 
 @dataclass
@@ -77,4 +135,165 @@ class EffectColorEquals:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} with shadow[{self.effect_index}] color {self.expected_rgb}",
+        )
+
+
+@dataclass
+class DropShadowOffsetEquals:
+    """At least one layer of layer_type has a drop shadow with x,y offset matching expected."""
+    layer_type: str
+    x: float
+    y: float
+    effect_index: int = 0
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            shadows = _effects_of_kind(l, "drop_shadow")
+            if self.effect_index < len(shadows):
+                e = shadows[self.effect_index]
+                if (abs(e.get("x", 0) - self.x) <= self.tolerance
+                        and abs(e.get("y", 0) - self.y) <= self.tolerance):
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.layer_type} shadow offset ({e.get('x')},{e.get('y')}) ≈ ({self.x},{self.y})")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with shadow offset ≈ ({self.x},{self.y})",
+        )
+
+
+@dataclass
+class DropShadowBlurEquals:
+    """At least one layer of layer_type has a drop shadow with blur ≈ expected."""
+    layer_type: str
+    blur: float
+    effect_index: int = 0
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            shadows = _effects_of_kind(l, "drop_shadow")
+            if self.effect_index < len(shadows):
+                b = shadows[self.effect_index].get("blur", 0)
+                if abs(b - self.blur) <= self.tolerance:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.layer_type} shadow blur {b} ≈ {self.blur}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with shadow blur {self.blur}±{self.tolerance}",
+        )
+
+
+@dataclass
+class DropShadowSpreadEquals:
+    """At least one layer of layer_type has a drop shadow with spread ≈ expected."""
+    layer_type: str
+    spread: float
+    effect_index: int = 0
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            shadows = _effects_of_kind(l, "drop_shadow")
+            if self.effect_index < len(shadows):
+                s = shadows[self.effect_index].get("spread", 0)
+                if abs(s - self.spread) <= self.tolerance:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"{self.layer_type} shadow spread {s} ≈ {self.spread}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with shadow spread {self.spread}±{self.tolerance}",
+        )
+
+
+@dataclass
+class EffectCount:
+    """All layers of layer_type have exactly N effects (any kind)."""
+    layer_type: str
+    equals: int
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        wrong = [l for l in layers if len(l.get("effects", [])) != self.equals]
+        passed = not wrong
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} have {self.equals} effects" if passed
+                    else f"{len(wrong)}/{len(layers)} {self.layer_type} have wrong effect count",
+        )
+
+
+@dataclass
+class DropShadowCountAtLeast:
+    """At least one layer of layer_type has at least `minimum` *visible* drop shadows.
+    Catches: layer-blur replacing drop-shadow, drop-shadow alpha=0, visible=False shadows."""
+    layer_type: str
+    minimum: int = 2
+    min_alpha: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        for l in layers:
+            visible_shadows = [
+                e for e in l.get("effects", [])
+                if e.get("kind") == "drop_shadow"
+                and e.get("visible", True) is not False
+                and e.get("color", {}).get("a", 1.0) >= self.min_alpha
+            ]
+            if len(visible_shadows) >= self.minimum:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} has {len(visible_shadows)} visible drop shadows (≥{self.minimum})")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with ≥{self.minimum} visible drop shadows",
+        )
+
+
+@dataclass
+class PairedDropShadowsOpposite:
+    """At least one layer of layer_type has 2+ drop shadows whose (x,y) offsets
+    point in *opposite* directions (highlight + shadow neumorphic pair).
+    Catches: 2 shadows on the same side, 2 zero-offset shadows, identical shadows."""
+    layer_type: str
+    min_offset: float = 2.0  # each shadow must have at least this offset magnitude
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        for l in layers:
+            shadows = [
+                e for e in l.get("effects", [])
+                if e.get("kind") == "drop_shadow"
+                and e.get("visible", True) is not False
+                and e.get("color", {}).get("a", 1.0) >= 0.05
+            ]
+            # Need at least 2 visible shadows with non-trivial offsets
+            offset_pairs = [
+                (e.get("x", 0), e.get("y", 0)) for e in shadows
+                if abs(e.get("x", 0)) >= self.min_offset or abs(e.get("y", 0)) >= self.min_offset
+            ]
+            if len(offset_pairs) < 2:
+                continue
+            # Check at least one opposing pair exists
+            for i in range(len(offset_pairs)):
+                for j in range(i + 1, len(offset_pairs)):
+                    a, b = offset_pairs[i], offset_pairs[j]
+                    # Opposite if signs differ on at least one axis (and combined offsets non-trivial)
+                    if (a[0] * b[0] < 0) or (a[1] * b[1] < 0):
+                        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                           message=f"{self.layer_type} has paired opposing drop shadows {a}/{b}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with paired opposing drop shadows",
         )

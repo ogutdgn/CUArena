@@ -107,6 +107,11 @@ def transformed_layer_point(layer: dict, point: dict) -> tuple[float, float]:
 
 
 def line_endpoints(layer: dict) -> tuple[tuple[float, float], tuple[float, float]]:
+    if "p1" not in layer and "p2" not in layer:
+        return (
+            transformed_layer_point(layer, {"x": 0, "y": layer.get("h", 0) / 2}),
+            transformed_layer_point(layer, {"x": layer.get("w", 0), "y": layer.get("h", 0) / 2}),
+        )
     return transformed_layer_point(layer, layer.get("p1", {})), transformed_layer_point(layer, layer.get("p2", {}))
 
 
