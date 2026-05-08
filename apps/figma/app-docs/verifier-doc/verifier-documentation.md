@@ -238,12 +238,16 @@ All checks live in `verifier/checks/`. Each check exposes a single method:
 | `LayersSymmetricX` | `layer_type, tolerance=10.0` | layers symmetric around collective center X |
 | `LayerSizeEquals` | `layer_type, width=None, height=None, tolerance=2.0` | layers have approx given dimensions |
 | `LayerPosition` | `layer_type, x=None, y=None, tolerance=5.0` | layers are at approx given position |
+| `LayerCenterPosition` | `layer_type, x=None, y=None, tolerance=5.0` | at least one layer center is at approx given position |
 | `LayerRotationEquals` | `layer_type, degrees, tolerance=2.0` | layers have approx given rotation |
 | `DistanceBetween` | `type_a, type_b, expected_px, tolerance=5.0` | distance between nearest pair of layers |
 | `LayerContains` | `outer_type, inner_type` | at least one inner_type layer is inside an outer_type layer |
 | `LayersDistributed` | `layer_type, axis, tolerance=5.0` | layers are evenly spaced on axis |
 | `LayersSameDimensions` | `layer_type, tolerance=2.0` | all layers of type have equal w and h as each other |
 | `LayerEdgesAligned` | `type_a, edge_a, type_b, edge_b, tolerance=5.0` | an edge of type_a aligns with an edge of type_b |
+| `LineLengthEquals` | `layer_type="line", length, tolerance=5.0` | all line/arrow layers have approx visual endpoint length |
+| `LineAngleEquals` | `layer_type="line", degrees, tolerance_deg=5.0` | all line/arrow layers have approx visual endpoint angle |
+| `LinesShareEndpoint` | `layer_type="line", minimum=2, tolerance=5.0` | at least N line/arrow layers share a visual endpoint |
 
 `axis` options: `"x"` `"y"` `"center_x"` `"center_y"`
 `edge` options: `"top"` `"bottom"` `"left"` `"right"` `"center_x"` `"center_y"`
@@ -321,10 +325,15 @@ All checks live in `verifier/checks/`. Each check exposes a single method:
 
 | Class | Arguments | What it checks |
 |---|---|---|
+| `DocumentNameEquals` | `expected` | document/file name matches expected value |
 | `PageCount` | `equals` | document has exactly N pages |
 | `PageCountAtLeast` | `minimum` | document has at least N pages |
 | `LayerOnPage` | `layer_type, page_index` | layer of type exists on page at index (0-based) |
+| `PageBackgroundColorEquals` | `expected_rgb, page_index=0, tolerance=0.05` | page background RGB matches expected color |
+| `PageBackgroundOpacityEquals` | `opacity, page_index=0, tolerance=0.02` | page background alpha matches expected value |
+| `PageBackgroundHiddenIs` | `hidden, page_index=0` | page background hide/show toggle matches expected state |
 | `ActivePageIs` | `page_name` | active page at session end has this name |
+| `PrototypeConnectionExists` | `source_layer_id=None, destination_frame_id=None, trigger=None, action=None, page_index=0` | a prototype connection exists matching the supplied fields |
 
 ### event_checks.py — reads `semantic[]`, not `outcome`
 

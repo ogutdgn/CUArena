@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from verifier.types import CheckResult
 from verifier.math_utils import (
     find_layers_by_type, find_all_layers, layers_aligned, layers_symmetric_x, layer_center,
-    polygon_vertices,
+    polygon_vertices, line_angle_degrees, line_endpoints, line_length,
 )
 
 
@@ -93,6 +93,32 @@ class LayerPosition:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} at ({self.x}, {self.y}) ±{self.tolerance}px",
+        )
+
+
+@dataclass
+class LayerCenterPosition:
+    """At least one layer of layer_type has center approximately at (x, y)."""
+    layer_type: str
+    x: float | None = None
+    y: float | None = None
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        for l in layers:
+            cx, cy = layer_center(l)
+            x_ok = self.x is None or abs(cx - self.x) <= self.tolerance
+            y_ok = self.y is None or abs(cy - self.y) <= self.tolerance
+            if x_ok and y_ok:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} center found at ({cx}, {cy})")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} center at ({self.x}, {self.y}) +- {self.tolerance}px",
         )
 
 
@@ -1119,4 +1145,89 @@ class LinesOnDiagonal:
         return CheckResult(
             passed=False, score=0.0, max_score=1.0,
             message=f"No 2 {self.line_type}s span the {self.rect_type} diagonals",
+        )
+
+
+@dataclass
+class LineLengthEquals:
+    """All line/arrow layers of layer_type have visual endpoint length ~= length."""
+    layer_type: str = "line"
+    length: float = 0.0
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = []
+        for layer in layers:
+            actual = line_length(layer)
+            if abs(actual - self.length) > self.tolerance:
+                failures.append(f"{layer['id'][:8]}: length={actual:.1f}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} endpoint length {self.length} correct" if passed else "; ".join(failures),
+        )
+
+
+@dataclass
+class LineAngleEquals:
+    """All line/arrow layers of layer_type have visual endpoint angle ~= degrees."""
+    layer_type: str = "line"
+    degrees: float = 0.0
+    tolerance_deg: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        target = self.degrees % 360
+        failures = []
+        for layer in layers:
+            actual = line_angle_degrees(layer)
+            delta = abs(((actual - target + 180) % 360) - 180)
+            if delta > self.tolerance_deg:
+                failures.append(f"{layer['id'][:8]}: angle={actual:.1f}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} endpoint angle {target}deg correct" if passed else "; ".join(failures),
+        )
+
+
+@dataclass
+class LinesShareEndpoint:
+    """At least minimum line/arrow layers share a visual endpoint."""
+    layer_type: str = "line"
+    minimum: int = 2
+    tolerance: float = 5.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < self.minimum:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need >={self.minimum} {self.layer_type} layers, found {len(layers)}")
+        endpoints: list[tuple[str, tuple[float, float]]] = []
+        for layer in layers:
+            p1, p2 = line_endpoints(layer)
+            endpoints.append((layer["id"], p1))
+            endpoints.append((layer["id"], p2))
+        for _, candidate in endpoints:
+            matched_ids = {
+                layer_id
+                for layer_id, point in endpoints
+                if abs(point[0] - candidate[0]) <= self.tolerance
+                and abs(point[1] - candidate[1]) <= self.tolerance
+            }
+            if len(matched_ids) >= self.minimum:
+                return CheckResult(
+                    passed=True, score=1.0, max_score=1.0,
+                    message=f"{len(matched_ids)} {self.layer_type} layers share an endpoint",
+                )
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No shared endpoint across >={self.minimum} {self.layer_type} layers",
         )

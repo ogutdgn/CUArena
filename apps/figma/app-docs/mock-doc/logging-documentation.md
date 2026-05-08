@@ -190,7 +190,12 @@ Notes:
 | `set_layer_opacity` | `layerIds`; `before`/`after`: `Record<layerId, number>` (0..1); `trigger`: `slider_scrub` \| `panel_input` |
 | `set_corner_radius` | `layerIds`; `before`/`after`: `Record<layerId, number \| [n,n,n,n]>`; `trigger` |
 | `rename_layer` | `layerId`, `before`, `after`; `trigger`: `inline_panel` \| `rename_modal` \| `context_menu` |
-| `set_page_background` | `targetPageId`; `before`/`after`: `{ r, g, b, a }` (0..1) |
+| `set_page_background` | `targetPageId`; `before`/`after`: `{ r, g, b, a }` (0..1); `trigger`: `color_picker` \| `panel_input` |
+| `set_page_background_opacity` | `targetPageId`; `before`/`after`: alpha number (0..1); `trigger`: `slider_scrub` \| `panel_input` |
+| `toggle_page_background_hidden` | `targetPageId`; `before`/`after`: boolean; `trigger`: `panel_button` |
+| `set_polygon_sides` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
+| `set_star_points` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
+| `set_star_inner_ratio` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
 
 ### Grouping
 
@@ -217,6 +222,7 @@ Notes:
 | `create_page` | `newPageId`, `pageIndex`; `trigger`: `panel_button` \| `context_menu` |
 | `switch_page` | `beforePageId`, `afterPageId`; `trigger`: `panel_click` \| `shortcut` \| `implicit_after_create` |
 | `rename_page` | `targetPageId`, `before`, `after` |
+| `rename_file` | `before`, `after`; `trigger`: `inline_edit` \| `file_menu` |
 | `delete_page` | `targetPageId`, `pageIndex`; `trigger`: `context_menu` \| `shortcut` |
 
 ### Undo / redo
@@ -250,7 +256,7 @@ Notes:
 | `navigate_prototype_preview` | `direction`: `prev` \| `next`; `fromIndex`, `toIndex` |
 | `create_prototype_connection` | `connectionId`, `sourceLayerId`, `trigger` (string), `action` (string) |
 | `delete_prototype_connection` | `connectionId`, `sourceLayerId` |
-| `update_prototype_connection` | `connectionId`, `field`: `trigger` \| `action` \| `destinationFrameId` \| `animation` \| `url`; `before`, `after` |
+| `update_prototype_connection` | `connectionId`, `field`: `trigger` \| `action` \| `destinationFrameId` \| `animation` \| `delayMs` \| `url`; `before`, `after` |
 | `navigate_prototype_connection` | `connectionId`, `sourceLayerId`, `destinationFrameId` |
 
 ---
@@ -287,9 +293,11 @@ Type: `DocumentNode` from [`mock/src/types/scene.ts`](mock/src/types/scene.ts).
 document
 ├─ id (string)
 ├─ schemaVersion (number)
+├─ name (string)
 └─ pages: Page[]
    ├─ id, name, type: "page"
    ├─ backgroundColor: { r, g, b, a }   (0..1)
+   ├─ backgroundHidden: boolean
    ├─ prototypeSettings, prototypeFlows, prototypeConnections (optional)
    └─ children: Layer[]                  (recursive into containers)
 ```

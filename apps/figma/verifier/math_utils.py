@@ -78,6 +78,48 @@ def layer_center(layer: dict) -> tuple[float, float]:
     return layer["x"] + layer["w"] / 2, layer["y"] + layer["h"] / 2
 
 
+def transformed_layer_point(layer: dict, point: dict) -> tuple[float, float]:
+    """Apply a layer's own scale/rotation/translation to a local point.
+
+    This mirrors the mock renderer's layer transform order for endpoint-based
+    shapes: mirror around center, rotate around center, then translate by x/y.
+    The result is in the layer's parent coordinate space.
+    """
+    w = layer.get("w", 0)
+    h = layer.get("h", 0)
+    cx = w / 2
+    cy = h / 2
+    x = point.get("x", 0)
+    y = point.get("y", 0)
+
+    x = cx + (x - cx) * layer.get("scaleX", 1)
+    y = cy + (y - cy) * layer.get("scaleY", 1)
+
+    rotation = layer.get("rotation", 0)
+    if rotation:
+        rad = _math.radians(rotation)
+        dx = x - cx
+        dy = y - cy
+        x = cx + dx * _math.cos(rad) - dy * _math.sin(rad)
+        y = cy + dx * _math.sin(rad) + dy * _math.cos(rad)
+
+    return layer.get("x", 0) + x, layer.get("y", 0) + y
+
+
+def line_endpoints(layer: dict) -> tuple[tuple[float, float], tuple[float, float]]:
+    return transformed_layer_point(layer, layer.get("p1", {})), transformed_layer_point(layer, layer.get("p2", {}))
+
+
+def line_length(layer: dict) -> float:
+    p1, p2 = line_endpoints(layer)
+    return _math.hypot(p2[0] - p1[0], p2[1] - p1[1])
+
+
+def line_angle_degrees(layer: dict) -> float:
+    p1, p2 = line_endpoints(layer)
+    return _math.degrees(_math.atan2(p2[1] - p1[1], p2[0] - p1[0])) % 360
+
+
 def layers_aligned(layers: list[dict], axis: str, tolerance: float) -> tuple[bool, float]:
     """
     Check whether layers share approximately the same coordinate on axis.

@@ -11,6 +11,7 @@ Use this file for actions, decisions, and status changes. Keep the full audit de
 Last verified: 2026-05-08
 
 - `qa_verifiers.py`: `50 OK | 0 STRICT | 0 LENIENT | 0 CRASH`
+- `qa_verifier_framework.py`: `2 OK | 0 FAIL`
 - No delivery-1 verifier code changes were required for the latest transform, logger, smart-snap, line/arrow, and overlay fixes.
 
 ---
@@ -47,3 +48,16 @@ Context:
 Outcome:
 - All 50 verifier QA smoke tests remained OK.
 - No task scope or check primitive changed.
+
+### 2026-05-08 - Logger/verifier capability audit
+
+Status: closed
+
+Context:
+- Logger schema and verifier checker coverage were re-audited before starting the next UI improvement batch.
+- `delivery-1/` remains untouched; framework additions were made only under `verifier/`, `scripts/`, and `app-docs/`.
+
+Outcome:
+- Logger docs now include page background opacity/hidden, polygon/star option events, file rename, and prototype `delayMs` update fields.
+- Added verifier primitives for document name, page background opacity/hidden, prototype connection existence, center-position checks, and line/arrow endpoint length/angle/shared-endpoint checks.
+- Added `qa_verifier_framework.py` so shared checker primitives can be tested even before delivery tasks adopt them.
