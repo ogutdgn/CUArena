@@ -856,14 +856,14 @@ export const moveTool: ITool = {
       const afterPos: Record<string, { x: number; y: number }> = {};
       let dx = 0, dy = 0;
       for (const id of state.layerIds) {
-        const t = state.startWorldTransforms[id];
+        const startMatrix = state.startWorldMatrices[id];
         const cur = live.nodesById[id] as Layer | undefined;
-        if (!t || !cur) continue;
-        beforePos[id] = { x: t.x, y: t.y };
-        const wr = worldRectOfLayer(live, cur);
-        afterPos[id] = { x: wr.x, y: wr.y };
-        dx = wr.x - t.x;
-        dy = wr.y - t.y;
+        if (!startMatrix || !cur) continue;
+        const afterMatrix = layerToWorldMatrix(live, cur);
+        beforePos[id] = { x: startMatrix.e, y: startMatrix.f };
+        afterPos[id] = { x: afterMatrix.e, y: afterMatrix.f };
+        dx = afterMatrix.e - startMatrix.e;
+        dy = afterMatrix.f - startMatrix.f;
       }
       useStore.setState((s) => {
         s.snapLines = [];
@@ -918,6 +918,26 @@ export const moveTool: ITool = {
 
     if (state.kind === "active_line_endpoint_drag") {
       commitTransaction(state.txId);
+      const live = useStore.getState();
+      const cur = live.nodesById[state.layerId] as Layer | undefined;
+      if (cur && (cur.type === "line" || cur.type === "arrow")) {
+        emitSemantic({
+          name: "resize_line_endpoint",
+          layerId: state.layerId,
+          endpoint: state.endpoint,
+          before: {
+            transform: transformOf(state.startLayer),
+            p1: state.startLayer.p1,
+            p2: state.startLayer.p2,
+          },
+          after: {
+            transform: transformOf(cur),
+            p1: cur.p1,
+            p2: cur.p2,
+          },
+          trigger: "drag",
+        });
+      }
       state = { kind: "idle" };
       return;
     }
@@ -1130,6 +1150,17 @@ function applyFrameNestingByOverlap(
       },
       { transactionId: txId },
     );
+    const afterState = useStore.getState();
+    const afterLayer = afterState.nodesById[id] as Layer | undefined;
+    const afterArr = afterLayer ? childrenOf(afterState, afterLayer.parentId) : null;
+    const afterIndex = afterArr && afterLayer ? afterArr.findIndex((c) => c.id === id) : toIndex;
+    emitSemantic({
+      name: "reorder_layer",
+      layerIds: [id],
+      before: [{ parentId: layer.parentId, index: fromIndex }],
+      after: [{ parentId: afterLayer?.parentId ?? toParentId, index: afterIndex >= 0 ? afterIndex : toIndex }],
+      trigger: "canvas_drag",
+    });
   }
 }
 
