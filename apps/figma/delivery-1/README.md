@@ -2,8 +2,11 @@
 
 Per-task package: each `task_NN/` folder contains the prompt and the
 verifier script as separate files. When you run a verifier with
-`test-verifier/run.py`, the result is auto-routed back into the
+`scripts/score_log.py`, the result is auto-routed back into the
 matching `task_NN/output/<timestamp>/` folder.
+
+For Dockerized customer handoff and run commands, see
+[`DOCKER_DELIVERY.md`](DOCKER_DELIVERY.md).
 
 ```
 task_NN/
@@ -18,27 +21,26 @@ task_NN/
 
 ## Running a verifier
 
-`run.py` accepts the full module name (`task_01_house_task_comprehensive`),
-a short prefix (`task_01`), or just a number (`01` or `1`).
+`score_log.py` accepts a task id as `task_NN`, short numeric form (`01` / `1`),
+or a full delivery task name.
 
 ```bash
 # Score an existing agent log
-cd test-verifier
-PYTHONPATH=. python3 run.py --task 01 --log logs/<your-log>.json
+cd apps/figma
+python3 scripts/score_log.py --task 01 --log scripts/logs/<your-log>.json
 # → writes delivery-1/task_01/output/<timestamp>/{log,result}.json + reward.txt
 
-# Generate the log + run the verifier in one shot (test-app dev mode)
-cd test-app && npm run dev      # http://localhost:5173
-# (do the task in the browser, then:)
-python3 scripts/run_task.py --task task_01_house_task_comprehensive
+# Generate the live log + run verifier in one shot (mock dev mode)
+cd apps/figma/mock && npm run dev      # http://localhost:5173
+cd .. && python3 scripts/run_task.py task_01
 
 # Smoke-test every verifier against synthetic perfect/empty logs
-cd test-verifier
-PYTHONPATH=. python3 qa_verifiers.py
+cd apps/figma
+python3 scripts/qa_verifiers.py
 ```
 
-The `<module_name>` column in the index below matches the filename in
-`test-verifier/tasks/`; you can pass any of the accepted forms.
+The `<module_name>` column in the index below matches the task verifier id in
+`delivery-1/task_NN/verifier.py`; you can pass `task_NN` or numeric forms.
 
 ## Index
 

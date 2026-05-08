@@ -7,6 +7,7 @@ Usage:
   python scripts/run_task.py 1                                  # numeric prefix also works
   python scripts/run_task.py export-log                         # export only, no scoring
   python scripts/run_task.py export-log task_01                 # export only, prefix filename with task
+  python scripts/run_task.py --host mock task_01                # docker-compose service-to-service
 
 Loads task verifiers from delivery-1/task_NN/verifier.py (single source of truth).
 Saves logs to scripts/logs/, scores to scripts/scores/.
@@ -74,8 +75,8 @@ def load_task(task_dir: Path):
     return mod.task
 
 
-def fetch_log(port: int) -> dict:
-    url = f"http://localhost:{port}/dev-log"
+def fetch_log(host: str, port: int) -> dict:
+    url = f"http://{host}:{port}/dev-log"
     try:
         with urlopen(url, timeout=5) as r:
             return json.loads(r.read())
@@ -180,15 +181,15 @@ def save_result(result, task_dir: Path) -> Path:
     return path
 
 
-def cmd_full_pipeline(task_input: str, port: int) -> None:
+def cmd_full_pipeline(task_input: str, host: str, port: int) -> None:
     task_dir = resolve_task(task_input)
     if task_dir.name != task_input:
         print(f"Resolved '{task_input}' → {task_dir.name}")
 
     task = load_task(task_dir)
 
-    print(f"Fetching log from http://localhost:{port}/dev-log …")
-    log = fetch_log(port)
+    print(f"Fetching log from http://{host}:{port}/dev-log …")
+    log = fetch_log(host, port)
     log_path = save_log(log, task_dir.name)
     print_log_details(log, log_path)
 
@@ -198,7 +199,7 @@ def cmd_full_pipeline(task_input: str, port: int) -> None:
     print(f"Score saved → {score_path}")
 
 
-def cmd_export_only(task_input: str | None, port: int) -> None:
+def cmd_export_only(task_input: str | None, host: str, port: int) -> None:
     prefix = "log"
     if task_input:
         task_dir = resolve_task(task_input)
@@ -206,8 +207,8 @@ def cmd_export_only(task_input: str | None, port: int) -> None:
             print(f"Resolved '{task_input}' → {task_dir.name}")
         prefix = task_dir.name
 
-    print(f"Fetching log from http://localhost:{port}/dev-log …")
-    log = fetch_log(port)
+    print(f"Fetching log from http://{host}:{port}/dev-log …")
+    log = fetch_log(host, port)
     log_path = save_log(log, prefix)
     print_log_details(log, log_path)
 
@@ -221,20 +222,22 @@ def main() -> None:
             "  python scripts/run_task.py task_01\n"
             "  python scripts/run_task.py 1\n"
             "  python scripts/run_task.py export-log\n"
-            "  python scripts/run_task.py export-log task_01"
+            "  python scripts/run_task.py export-log task_01\n"
+            "  python scripts/run_task.py --host mock task_01"
         ),
     )
     parser.add_argument("target", help="task name (e.g. 'task_01' or '1') or the literal 'export-log'")
     parser.add_argument("task", nargs="?", help="optional task name after 'export-log' (used as filename prefix)")
+    parser.add_argument("--host", default="localhost", help="mock dev-server host (default localhost)")
     parser.add_argument("--port", type=int, default=5173, help="Vite dev server port (default 5173)")
     args = parser.parse_args()
 
     if args.target == "export-log":
-        cmd_export_only(args.task, args.port)
+        cmd_export_only(args.task, args.host, args.port)
     else:
         if args.task is not None:
             parser.error(f"Unexpected extra argument '{args.task}'. For export-only use: export-log [task]")
-        cmd_full_pipeline(args.target, args.port)
+        cmd_full_pipeline(args.target, args.host, args.port)
 
 
 if __name__ == "__main__":
