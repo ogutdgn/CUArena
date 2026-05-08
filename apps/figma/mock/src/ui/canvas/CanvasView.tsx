@@ -1,7 +1,7 @@
 // SVG canvas root. Owns viewport (pan/zoom) and routes pointer events to the
 // active tool. Renders the active page's layer tree + selection overlay + marquee.
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStore } from "@/engine/store";
 import { dispatch, makeOpId } from "@/engine/dispatch";
 import { getActivePage, hitTest, selectionBbox } from "@/engine/selectors";
@@ -21,12 +21,14 @@ import { FlowBadges } from "@/ui/overlays/FlowBadges";
 import { ConnectionArrows } from "@/ui/overlays/ConnectionArrows";
 import { FrameLabelsOverlay } from "@/ui/overlays/FrameLabelsOverlay";
 import { placeImageFiles } from "@/engine/imageCommands";
+import { clientToWorldPoint, svgWorldTransform } from "@/engine/viewportCoordinates";
 
 const MIN_ZOOM = 0.05;
 const MAX_ZOOM = 32;
 
 export function CanvasView() {
   const ref = useRef<SVGSVGElement | null>(null);
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const activeTool = useStore((s) => s.activeTool);
   const viewport = useStore((s) => s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 });
   const page = useStore((s) => getActivePage(s));
@@ -41,16 +43,24 @@ export function CanvasView() {
   const bgHidden = page?.backgroundHidden === true;
   const checkerPatternId = "canvas-bg-checker";
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const r = el.getBoundingClientRect();
+      setCanvasSize({ width: r.width, height: r.height });
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   function clientToWorld(clientX: number, clientY: number): { x: number; y: number } {
     const el = ref.current;
     if (!el) return { x: 0, y: 0 };
     const rect = el.getBoundingClientRect();
-    const sx = clientX - rect.left;
-    const sy = clientY - rect.top;
-    return {
-      x: sx / viewport.zoom + viewport.x,
-      y: sy / viewport.zoom + viewport.y,
-    };
+    return clientToWorldPoint(clientX, clientY, viewport, rect);
   }
 
   function effectiveTool(): typeof activeTool {
@@ -88,14 +98,12 @@ export function CanvasView() {
     const isZoom = e.ctrlKey || e.metaKey;
     if (isZoom) {
       const rect = (ref.current as SVGSVGElement).getBoundingClientRect();
-      const sx = e.clientX - rect.left;
-      const sy = e.clientY - rect.top;
-      const cursorWorld = { x: sx / cur.zoom + cur.x, y: sy / cur.zoom + cur.y };
+      const cursorWorld = clientToWorldPoint(e.clientX, e.clientY, cur, rect);
       const factor = Math.exp(-e.deltaY * 0.0015);
       const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, cur.zoom * factor));
       const newViewport = {
-        x: cursorWorld.x - sx / newZoom,
-        y: cursorWorld.y - sy / newZoom,
+        x: cursorWorld.x - (e.clientX - rect.left - rect.width / 2) / newZoom,
+        y: cursorWorld.y - (e.clientY - rect.top - rect.height / 2) / newZoom,
         zoom: newZoom,
       };
       dispatch(
@@ -229,8 +237,8 @@ export function CanvasView() {
         opacity={1}
       />
 
-      {/* World-space group. With zoom=1 and viewport=(0,0), this is identity. */}
-      <g transform={`matrix(${viewport.zoom} 0 0 ${viewport.zoom} ${-viewport.x * viewport.zoom} ${-viewport.y * viewport.zoom})`}>
+      {/* World-space group. With zoom=1 and viewport=(0,0), world origin is the visible canvas center. */}
+      <g transform={svgWorldTransform(viewport, canvasSize)}>
         {page && page.children.map((l) => <NodeRenderer key={l.id} layer={l} />)}
 
         <FrameLabelsOverlay />

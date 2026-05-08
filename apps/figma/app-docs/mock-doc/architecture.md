@@ -274,3 +274,15 @@ Smart-snap compares visual bounds, not raw stored rectangles.
 ### Line and arrow invariant
 
 Lines and arrows are two-point geometry. Their visual segment is represented by `p1` and `p2`, while `x/y/w/h` stores the normalized parent-space bbox. Selection and endpoint drag should use line-specific geometry helpers instead of the normal eight-handle rectangle model.
+
+### Position coordinate invariant
+
+Stored layer geometry remains rect-based: `x/y` is the parent-local top-left of the layer bbox. User-facing Position panel X/Y is a different engine-level concept:
+
+- The canvas viewport is center-origin: with `viewport = { x: 0, y: 0, zoom: 1 }`, world `{ x: 0, y: 0 }` renders at the visible canvas center.
+- Top-level layer Position X/Y is the layer visual center relative to the page/world origin `{ x: 0, y: 0 }`, which is the visible canvas center at the default viewport.
+- Nested layer Position X/Y is the layer visual center relative to its parent container's visual center.
+- Setting Position X/Y converts that center-origin value back to stored parent-local `x/y`.
+- Panel width/height changes preserve the current center-origin Position value.
+
+Use `engine/positionCoordinates.ts` for Position value conversion and `engine/viewportCoordinates.ts` for screen/world conversion. Do not read or write `layer.x/layer.y` directly when implementing user-facing Position behavior.

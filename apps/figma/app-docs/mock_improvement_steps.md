@@ -503,6 +503,28 @@ The far-left icon column (`LeftRail`) keeps its current inactive `noopClick` beh
 
 ## Feature updates
 
+### 2026-05-08 — Position coordinate model
+
+#### 24. 🟢 — Position panel uses center-origin coordinates
+
+**Status:** Shipped in working tree (commit pending). Engine-level position coordinate API added so the Position panel no longer treats stored top-left `x/y` as the user-facing coordinate system.
+
+**File(s):**
+- `apps/figma/mock/src/engine/positionCoordinates.ts`
+- `apps/figma/mock/src/engine/propertyCommands.ts`
+- `apps/figma/mock/src/ui/panels/PositionSection.tsx`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+- `apps/figma/app-docs/mock-doc/architecture.md`
+- `apps/figma/app-docs/mock-doc/logging-documentation.md`
+
+**Expected behavior:** Position X/Y describes the selected layer's center. A top-level layer with X=0, Y=0 has its center on the visible canvas center at the default viewport. A child layer with X=0, Y=0 has its center on the parent container's visual center.
+
+**Implementation decision:** `outcome.document` and scene storage remain parent-local bbox geometry (`x/y` as top-left). The product-level Position coordinate system lives in `engine/positionCoordinates.ts`, while canvas screen/world conversion lives in `engine/viewportCoordinates.ts`. Panel display/input, panel move logging, and future user-facing position behavior share the same engine abstractions.
+
+**Logger impact:** Existing `move_layer` remains the semantic event for Position panel X/Y input. For `trigger: "panel_input"`, before/after values now represent the user-facing center-origin Position values. No new event type was required.
+
+**Verifier impact:** No verifier framework change required. Outcome geometry remains parent-local bbox geometry, so existing checks continue reading the same document shape.
+
 ### 2026-05-07 — File rename + Rotation panel + Shape geometry (figma/ui-feature-bug)
 
 #### 19. 🟢 — File rename (Untitled → editable inline)

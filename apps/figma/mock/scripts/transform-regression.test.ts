@@ -13,6 +13,7 @@ import {
   transformFromLocalMatrix,
 } from "../src/engine/coordinates";
 import { computeSnap, snapBboxFromStartAABBs } from "../src/engine/snap";
+import { getLayerPositionValue, transformForLayerPositionValue } from "../src/engine/positionCoordinates";
 import { selectionOutlineGeometry } from "../src/ui/overlays/selectionOverlayGeometry";
 import { resizeSingleTransformedLayer } from "../src/engine/resizeGeometry";
 import { resizeLineEndpointFromWorld } from "../src/engine/lineGeometry";
@@ -283,6 +284,57 @@ assert(Math.abs(dragSnapBbox.w - rotatedSnapVisualBbox.w) < 0.001, "drag snap bb
 const snapToVisualRight = computeSnap(rotatedSnapVisualBbox, snapCandidate.x - (rotatedSnapVisualBbox.x + rotatedSnapVisualBbox.w), 0, [snapCandidate], 1);
 assert(snapToVisualRight.lines.some((line) => line.axis === "x" && line.x === snapCandidate.x), "snap guides should align from a rotated layer's visual AABB");
 
+const topLevelPositionRect: Rectangle = {
+  ...rect,
+  id: "top-level-position",
+  parentId: "page-1",
+  x: 10,
+  y: 20,
+  w: 100,
+  h: 50,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+};
+const topLevelPositionState = makeState(topLevelPositionRect);
+const topLevelPosition = getLayerPositionValue(topLevelPositionState, topLevelPositionRect);
+assert(topLevelPosition.x === 60 && topLevelPosition.y === 45, "top-level Position X/Y should describe the layer center relative to the page origin");
+const centeredTopLevel = transformForLayerPositionValue(topLevelPositionState, topLevelPositionRect, { x: 0, y: 0 });
+assert(centeredTopLevel.x === -50 && centeredTopLevel.y === -25, "top-level Position 0,0 should place the layer center on the page origin");
+
+const positionFrame: Frame = {
+  ...frame,
+  id: "position-frame",
+  parentId: "page-1",
+  x: 100,
+  y: 100,
+  w: 200,
+  h: 100,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  children: [],
+};
+const positionChild: Rectangle = {
+  ...child,
+  id: "position-child",
+  parentId: positionFrame.id,
+  x: 0,
+  y: 0,
+  w: 20,
+  h: 20,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+};
+const positionNestedState = makeNestedState(positionFrame, positionChild);
+const nestedPosition = getLayerPositionValue(positionNestedState, positionChild);
+assert(nestedPosition.x === -90 && nestedPosition.y === -40, "nested Position X/Y should be relative to the parent visual center");
+const centeredNested = transformForLayerPositionValue(positionNestedState, positionChild, { x: 0, y: 0 });
+assert(centeredNested.x === 90 && centeredNested.y === 40, "nested Position 0,0 should place the child center on the parent center");
+const resizedCenterPreserved = transformForLayerPositionValue(positionNestedState, positionChild, nestedPosition, { w: 40, h: 30 });
+assert(resizedCenterPreserved.x === -10 && resizedCenterPreserved.y === -5, "panel size changes should preserve the center-origin Position value");
+
 const innerFrame: Frame = {
   ...frame,
   id: "inner-frame",
@@ -345,8 +397,8 @@ const nestedText: Text = {
 const textFrame: Frame = { ...flippedFrame, scaleX: 1, children: [nestedText] };
 const textState = makeState(textFrame);
 textState.nodesById[nestedText.id] = nestedText;
-const textMatrix = textEditorCssMatrix(textState, nestedText, { x: 0, y: 0, zoom: 1 }, { left: 0, top: 0 });
-assert(textMatrix.endsWith(", 40, 55)"), "text editor overlay should use parent-aware world position while editing inside a frame");
+const textMatrix = textEditorCssMatrix(textState, nestedText, { x: 0, y: 0, zoom: 1 }, { left: 0, top: 0, width: 1000, height: 800 });
+assert(textMatrix.endsWith(", 540, 455)"), "text editor overlay should use centered viewport and parent-aware world position while editing inside a frame");
 
 const reparentFromFlippedFrame: Frame = {
   ...flippedFrame,

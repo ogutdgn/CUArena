@@ -8,7 +8,7 @@ Use this file for actions, decisions, and status changes. Keep the full audit de
 
 ## Current Status
 
-Last verified: 2026-05-07
+Last verified: 2026-05-08
 
 - `qa_verifiers.py`: `50 OK | 0 STRICT | 0 LENIENT | 0 CRASH`
 - No delivery-1 verifier code changes were required for the latest transform, logger, smart-snap, line/arrow, and overlay fixes.
@@ -35,3 +35,15 @@ Outcome:
 - All 50 verifier QA smoke tests remained OK.
 - No task moved between `planned`, `in_scope`, or `shipped`.
 - No check primitive needed to change.
+
+### 2026-05-08 - Position coordinate model pass
+
+Status: closed
+
+Context:
+- Position panel X/Y changed to engine-level center-origin values while outcome storage stayed parent-local bbox geometry.
+- QA was rerun after the change.
+
+Outcome:
+- All 50 verifier QA smoke tests remained OK.
+- No task scope or check primitive changed.

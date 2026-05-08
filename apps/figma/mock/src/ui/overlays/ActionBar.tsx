@@ -8,6 +8,7 @@ import { selectionBbox, getSelectedLayers } from "@/engine/selectors";
 import { groupSelection } from "@/engine/hierarchyCommands";
 import { noopClick } from "@/ui/chrome/noopClick";
 import { Group, Component, Box, Combine } from "lucide-react";
+import { worldToClientPoint } from "@/engine/viewportCoordinates";
 
 const HEIGHT = 32;
 const GAP = 12;
@@ -27,8 +28,9 @@ export function ActionBar() {
   const svgEl = document.querySelector(".canvas-svg") as SVGSVGElement | null;
   if (!svgEl) return null;
   const r = svgEl.getBoundingClientRect();
-  const screenX = r.left + (bbox.x - viewport.x) * viewport.zoom;
-  const screenY = r.top + (bbox.y - viewport.y) * viewport.zoom;
+  const screenTopLeft = worldToClientPoint(bbox.x, bbox.y, viewport, r);
+  const screenX = screenTopLeft.x;
+  const screenY = screenTopLeft.y;
   const screenW = bbox.w * viewport.zoom;
 
   // If selection is too high on screen, render BELOW the bbox.

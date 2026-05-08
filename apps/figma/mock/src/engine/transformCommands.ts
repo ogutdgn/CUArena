@@ -124,8 +124,7 @@ export function zoomToSelection(trigger: "keyboard" | "dropdown_entry") {
 export function zoomBy(factor: number, trigger: "keyboard" | "scroll" | "input_field" | "dropdown_entry") {
   const s = useStore.getState();
   const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
-  const { width, height } = svgSize();
-  const centerWorld = { x: cur.x + width / 2 / cur.zoom, y: cur.y + height / 2 / cur.zoom };
+  const centerWorld = { x: cur.x, y: cur.y };
   const newZoom = Math.max(0.05, Math.min(32, cur.zoom * factor));
   if (newZoom === cur.zoom) return;
   dispatch(
@@ -136,8 +135,8 @@ export function zoomBy(factor: number, trigger: "keyboard" | "scroll" | "input_f
       pageId: s.activePageId,
       before: cur,
       after: {
-        x: centerWorld.x - width / 2 / newZoom,
-        y: centerWorld.y - height / 2 / newZoom,
+        x: centerWorld.x,
+        y: centerWorld.y,
         zoom: newZoom,
       },
     },
@@ -156,8 +155,7 @@ export function zoomToCustom(zoomPct: number, trigger: "input_field") {
   const z = Math.max(5, Math.min(3200, zoomPct)) / 100;
   const s = useStore.getState();
   const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
-  const { width, height } = svgSize();
-  const centerWorld = { x: cur.x + width / 2 / cur.zoom, y: cur.y + height / 2 / cur.zoom };
+  const centerWorld = { x: cur.x, y: cur.y };
   dispatch(
     {
       id: makeOpId(),
@@ -166,8 +164,8 @@ export function zoomToCustom(zoomPct: number, trigger: "input_field") {
       pageId: s.activePageId,
       before: cur,
       after: {
-        x: centerWorld.x - width / 2 / z,
-        y: centerWorld.y - height / 2 / z,
+        x: centerWorld.x,
+        y: centerWorld.y,
         zoom: z,
       },
     },
@@ -179,9 +177,6 @@ export function zoomToCustom(zoomPct: number, trigger: "input_field") {
 export function zoomTo100(trigger: "keyboard" | "input_field") {
   const s = useStore.getState();
   const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
-  // Anchor on viewport center
-  const { width, height } = svgSize();
-  const centerWorld = { x: cur.x + width / 2 / cur.zoom, y: cur.y + height / 2 / cur.zoom };
   const newZoom = 1;
   dispatch(
     {
@@ -190,7 +185,7 @@ export function zoomTo100(trigger: "keyboard" | "input_field") {
       kind: "set_viewport",
       pageId: s.activePageId,
       before: cur,
-      after: { x: centerWorld.x - width / 2 / newZoom, y: centerWorld.y - height / 2 / newZoom, zoom: newZoom },
+      after: { x: cur.x, y: cur.y, zoom: newZoom },
     },
     { skipUndo: true },
   );
@@ -215,8 +210,8 @@ function applyZoomToBounds(bounds: { x: number; y: number; w: number; h: number 
       pageId: s.activePageId,
       before: cur,
       after: {
-        x: cxW - width / 2 / newZoom,
-        y: cyW - height / 2 / newZoom,
+        x: cxW,
+        y: cyW,
         zoom: newZoom,
       },
     },
