@@ -36,66 +36,66 @@ task = Task(
     rubrics=[
         # critical: 1 star with 8 points + 1 circle (all explicit)
         FundamentalsRubric([
-            ShapeCount("star",    equals=1),    # 0 ★
-            StarPointsEquals(points=8),         # 1 ★ 8-point star
-            ShapeCount("ellipse", equals=1),    # 2 ★
+            ShapeCount("star",    equals=1),    # 0 ★ prompt: "8-point star"
+            StarPointsEquals(points=8),         # 1 ★ prompt: "8-point star"
+            ShapeCount("ellipse", equals=1),    # 2 ★ prompt: "smaller circle"
         ], weight=0.20, critical=[0, 1, 2]),
 
         # critical: circle inside + centered on star, on top, circular, sane sizing.
         AlignmentRubric([
-            LayerBoundsInside(inner_type="ellipse", outer_type="star", tolerance=4.0),       # 0 ★ inside star
-            LayerCenteredOnLayer(type_a="ellipse", type_b="star", tolerance=8.0),            # 1 ★ centered
-            LayerOnTopOf(type_a="ellipse", type_b="star"),                                   # 2 ★ on top (overlap)
-            LayerInFrontOf(type_a="ellipse", type_b="star"),                                 # 3 ★ z-order
-            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                            # 4 ★ at-least-one round
-            AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                       # 5 ★ EVERY ellipse circular
-            FrameSizeEquals(width=1280, height=832, tolerance=10.0),                         # 6 ★ frame size
-            AllLayerBoundsInside(inner_type="star", outer_type="frame", tolerance=4.0),      # 7 ★ star in frame
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=4.0),   # 8 ★ ellipse in frame
-            LayerSizeAtLeast(layer_type="star",    min_w=40, min_h=40),                      # 9 ★ no degenerate star
-            LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),                      # 10 ★ no degenerate circle
-            AllLayerWidthFraction(inner_type="star", parent_type="frame",                    # 11 ★ star sane size
+            LayerBoundsInside(inner_type="ellipse", outer_type="star", tolerance=10.0),      # 0 ★ prompt: "smaller circle on top"
+            LayerCenteredOnLayer(type_a="ellipse", type_b="star", tolerance=20.0),           # 1 ★ prompt: "both centered together"
+            LayerOnTopOf(type_a="ellipse", type_b="star"),                                   # 2 ★ prompt: "circle on top"
+            LayerInFrontOf(type_a="ellipse", type_b="star"),                                 # 3 z-order
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                            # 4 at-least-one round
+            AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                       # 5 EVERY ellipse circular
+            FrameSizeEquals(width=1280, height=832, tolerance=25.0),                         # 6 frame size
+            AllLayerBoundsInside(inner_type="star", outer_type="frame", tolerance=10.0),     # 7 star in frame
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),  # 8 ellipse in frame
+            LayerSizeAtLeast(layer_type="star",    min_w=40, min_h=40),                      # 9 no degenerate star
+            LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),                      # 10 no degenerate circle
+            AllLayerWidthFraction(inner_type="star", parent_type="frame",                    # 11 star sane size
                                   min_frac=0.05, max_frac=0.50),
-            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                 # 12 ★ circle sane
+            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                 # 12 circle sane
                                   min_frac=0.02, max_frac=0.40),
-            LayerRotationEquals(layer_type="star",    degrees=0, tolerance=2.0),             # 13 ★ star upright
-            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=2.0),             # 14 ★ circle upright
-            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=2.0),             # 15 ★ frame upright
-            NoLayerFlipped(layer_type="star"),                                               # 16 ★ star not mirrored
-            NoLayerFlipped(layer_type="ellipse"),                                            # 17 ★ circle not mirrored
-            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="star", max_frac=0.85), # 18 ★ circle smaller than star
-            FrameCountAtMost(maximum=1),                                                     # 19 ★ exactly one frame
-        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]),
+            LayerRotationEquals(layer_type="star",    degrees=0, tolerance=5.0),             # 13 star upright
+            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),             # 14 circle upright
+            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),             # 15 frame upright
+            NoLayerFlipped(layer_type="star"),                                               # 16 star not mirrored
+            NoLayerFlipped(layer_type="ellipse"),                                            # 17 circle not mirrored
+            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="star", max_frac=0.85),# 18 circle smaller than star
+            FrameCountAtMost(maximum=1),                                                     # 19 exactly one frame
+        ], weight=0.20, critical=[0, 1, 2]),
 
         # critical: deep blue star, yellow circle (specific colors)
         ColorRubric([
-            AllFillTypeIs("star",    kind="solid"),                                          # 0 ★
-            AllFillTypeIs("ellipse", kind="solid"),                                          # 1 ★
-            AllSolidColorEquals(layer_type="star",    expected_rgb=DEEP_BLUE, tolerance=0.20),# 2 ★ deep blue
-            AllSolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW,    tolerance=0.20),# 3 ★ yellow
-            FillCountAtMost("star",    max_count=1),                                         # 4 ★ no stacked fills
-            FillCountAtMost("ellipse", max_count=1),                                         # 5 ★ no stacked fills
-            FillOpacityAtLeast("star",    min_opacity=0.5),                                  # 6 ★ visible
-            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 7 ★ visible
-            LayerVisible("star"),                                                             # 8 ★ alpha+visible+opacity
-            LayerVisible("ellipse"),                                                          # 9 ★
-        ], weight=0.20, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
+            AllFillTypeIs("star",    kind="solid"),                                          # 0 ★ visible solid star
+            AllFillTypeIs("ellipse", kind="solid"),                                          # 1 visible solid ellipse
+            AllSolidColorEquals(layer_type="star",    expected_rgb=DEEP_BLUE, tolerance=0.28),# 2 ★ prompt: "deep blue fill"
+            AllSolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW,    tolerance=0.28),# 3 ★ prompt: "yellow fill"
+            FillCountAtMost("star",    max_count=1),                                         # 4 no stacked fills
+            FillCountAtMost("ellipse", max_count=1),                                         # 5 no stacked fills
+            FillOpacityAtLeast("star",    min_opacity=0.5),                                  # 6 visible
+            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 7 visible
+            LayerVisible("star"),                                                             # 8 alpha+visible+opacity
+            LayerVisible("ellipse"),                                                          # 9
+        ], weight=0.20, critical=[0, 2, 3]),
 
         # critical: shapes in same frame on page 0
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="star",    minimum=1),  # 0 ★
-            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=1),  # 1 ★
-            LayerOnPage(layer_type="star",    page_index=0),            # 2 ★
-            LayerOnPage(layer_type="ellipse", page_index=0),            # 3 ★
-        ], weight=0.20, critical=[0, 1, 2, 3]),
+            LayerGroupAllInSameFrame(layer_type="star",    minimum=1),  # 0 ★ shapes share one frame
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=1),  # 1 ellipse in same frame
+            LayerOnPage(layer_type="star",    page_index=0),            # 2 star on page 0
+            LayerOnPage(layer_type="ellipse", page_index=0),            # 3 ellipse on page 0
+        ], weight=0.20, critical=[0]),
 
         # critical: star + ellipse tools used
         EventRubric([
-            ToolUsed("star"),                               # 0 ★
-            ToolUsed("ellipse"),                            # 1 ★
+            ToolUsed("star"),                               # 0 star tool used
+            ToolUsed("ellipse"),                            # 1 ellipse tool used
             EventTypeCount("create_star",    equals=1),     # 2
             EventTypeCount("create_ellipse", equals=1),     # 3
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.20, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )

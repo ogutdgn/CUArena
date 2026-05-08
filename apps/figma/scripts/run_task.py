@@ -15,6 +15,8 @@ Run with the verifier venv's python (it has pyyaml):
   ../.venv/Scripts/python scripts/run_task.py task_01
 """
 
+from __future__ import annotations
+
 import argparse
 import dataclasses
 import importlib.util
