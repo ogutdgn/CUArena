@@ -42,9 +42,24 @@ def describe_endpoint(model: str, *, turn_delay_s: float = 0.0,
     }
 
 
+# Always sent. Hard environment constraint — see anthropic.py for context.
+MOUSE_ONLY_NOTE = """ENVIRONMENT CONSTRAINT — MOUSE ONLY:
+The browser this agent controls does NOT accept keyboard input. Pretend the keyboard is unplugged.
+
+Use ONLY these mouse actions:
+- screenshot, move
+- click (left/right/middle), double_click
+- drag, scroll, wait
+
+Do NOT use the `type` or `keypress` actions — they have NO effect in this environment.
+If a task seems to require typing, a keyboard shortcut, or pressing Enter/Escape, find a mouse-only path (click the matching UI button or menu item instead).
+"""
+
+
+# Optional UI-explainer prompt — only sent when --harness is on.
 DEFAULT_SYSTEM_PROMPT = (
     "You are an autonomous computer-use agent operating a Figma design mock in a browser. "
-    "Use the computer tool to complete the task by clicking, typing, and dragging in the canvas. "
+    "Use the computer tool to complete the task by clicking and dragging in the canvas. "
     f"Viewport is {DISPLAY_WIDTH}x{DISPLAY_HEIGHT}. "
     "The left panel has shape tools; the right panel shows properties of the selected layer. "
     "Work efficiently — fewer turns yields a higher score multiplier. "
@@ -86,8 +101,17 @@ def _normalize_key(k: str) -> str:
     return _KEY_MAP.get(k.upper(), k if len(k) == 1 else k.capitalize())
 
 
-def _execute(session: BrowserSession, action: dict[str, Any]) -> None:
+KEYBOARD_ACTIONS = ("type", "keypress")
+
+
+def _execute(session: BrowserSession, action: dict[str, Any]) -> bool:
+    """Execute one OpenAI computer action. Returns ``True`` if the action
+    was a blocked keyboard action (no-op'd), ``False`` otherwise. The
+    caller uses the flag to attach a feedback message to the next input."""
     t = action.get("type")
+    if t in KEYBOARD_ACTIONS:
+        # Hard environment constraint — don't actually press anything.
+        return True
     if t == "click":
         session.click(int(action["x"]), int(action["y"]),
                       button=action.get("button", "left"))
@@ -102,18 +126,12 @@ def _execute(session: BrowserSession, action: dict[str, Any]) -> None:
         session.scroll(int(action["x"]), int(action["y"]),
                        int(action.get("scroll_x", 0)),
                        int(action.get("scroll_y", 0)))
-    elif t == "type":
-        session.type_text(str(action.get("text", "")))
-    elif t == "keypress":
-        keys = action.get("keys", [])
-        chord = "+".join(_normalize_key(k) for k in keys)
-        if chord:
-            session.key(chord)
     elif t == "wait":
         session.wait(int(action.get("ms", 1000)))
     elif t == "screenshot":
         pass
     # else: unknown — ignored
+    return False
 
 
 def run_openai_agent(
@@ -258,6 +276,7 @@ def run_openai_agent(
             next_input = []
             actions_this_turn: list[dict[str, Any]] = []
             latest_shot: str | None = None
+            blocked_attempts: list[dict[str, Any]] = []
             for call in calls:
                 action = call.get("action") or {}
                 actions_this_turn.append(action)
@@ -265,8 +284,12 @@ def run_openai_agent(
                     turn=turn, action=action, text=action.get("type", "?")))
                 extras = {k: v for k, v in action.items() if k != "type"}
                 desc = f"{action.get('type','?')} {extras}" if extras else action.get("type", "?")
-                print(f"{progress_prefix}  t{turn:02d} act: {desc[:120]}", flush=True)
-                _execute(session, action)
+                blocked = _execute(session, action)
+                if blocked:
+                    blocked_attempts.append(action)
+                    print(f"{progress_prefix}  t{turn:02d} BLOCKED: {desc[:120]}", flush=True)
+                else:
+                    print(f"{progress_prefix}  t{turn:02d} act: {desc[:120]}", flush=True)
                 session.wait(150)
                 shot = session.screenshot_b64()
                 latest_shot = shot
@@ -279,6 +302,25 @@ def run_openai_agent(
                         "type": "computer_screenshot",
                         "image_url": f"data:image/png;base64,{shot}",
                     },
+                })
+
+            if blocked_attempts:
+                # The Responses API doesn't surface text via computer_call_output,
+                # so attach a separate user message item right after it.
+                detail = "; ".join(
+                    f"{a.get('type')}={a.get('text') or a.get('keys')}"
+                    for a in blocked_attempts
+                )
+                next_input.append({
+                    "role": "user",
+                    "content": [{
+                        "type": "input_text",
+                        "text": (
+                            f"BLOCKED: keyboard actions were intercepted and did NOT execute "
+                            f"({detail}). The keyboard is disabled in this environment — use "
+                            f"only mouse actions (click, double_click, drag, scroll). "
+                            f"The screen is unchanged."),
+                    }],
                 })
 
             shot_path = _save_screenshot(attempt_dir, f"turn_{turn:02d}.png", latest_shot) if latest_shot else None

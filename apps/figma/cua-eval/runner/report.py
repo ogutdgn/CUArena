@@ -78,7 +78,8 @@ def _write_md(attempts: list[AttemptResult], path: Path,
         passk = mean(passes_per_task) if passes_per_task else 0.0
         mean_score = mean(a.final_score for a in items) if items else 0.0
         mean_turns = mean(a.turns for a in items) if items else 0.0
-        mean_s_per_turn = (mean(a.elapsed_s / a.turns for a in items if a.turns) if items else 0.0)
+        per_turn_samples = [a.elapsed_s / a.turns for a in items if a.turns]
+        mean_s_per_turn = mean(per_turn_samples) if per_turn_samples else 0.0
         in_tok = sum((a.usage or {}).get("input_tokens", 0) for a in items)
         out_tok = sum((a.usage or {}).get("output_tokens", 0) for a in items)
         cost = sum((a.cost_estimate or {}).get("total_usd", 0.0) for a in items)
