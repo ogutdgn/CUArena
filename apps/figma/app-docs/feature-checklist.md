@@ -39,6 +39,7 @@
 34. [ ] Prototype Feature
 35. [ ] Right-sidebar state/visual parity
 36. [ ] text-range
+37. [x] Frame presets in right sidebar (tool panel + selected-frame dropdown)
 
 
 ---
