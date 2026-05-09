@@ -91,12 +91,13 @@ appended turn-by-turn. `log.json` and `score.json` land after scoring.
 ```
 apps/figma/cua-eval/runs/<run_id>/
 ├── attempts.json                       all per-attempt results, machine-readable
-├── summary.csv                         one row per attempt
+├── summary.csv                         one row per attempt (incl. cost + elapsed)
 ├── summary.md                          headline pass@k + per-task per-provider table
 └── <provider>/task_NN/attempt_K/
-    ├── meta.json                       provider, model, prompt_mode, harness, mock_url, started_at
+    ├── meta.json                       inputs + endpoint signature (see below)
+    ├── outcome.json                    final summary (started/ended, cost, score, error)
     ├── prompt.txt                      EXACT user-message text the model received
-    ├── system_prompt.txt               harness system prompt (empty if --no-harness)
+    ├── system_prompt.txt               harness system prompt (empty if no --harness)
     ├── trajectory.jsonl                one JSON line per turn — actions, text, usage, screenshot
     ├── trajectory.json                 finalized trajectory (written at end)
     ├── screenshots/
@@ -105,6 +106,40 @@ apps/figma/cua-eval/runs/<run_id>/
     ├── log.json                        the figma-mock session log
     └── score.json                      verifier output (rubrics, base, eff, final)
 ```
+
+`meta.json` captures everything needed to reproduce the request:
+
+```json
+{
+  "task_id": "task_05_plus_sign",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "endpoint": {
+    "provider": "anthropic",
+    "endpoint": "messages.create",
+    "tool": {"type": "computer_20250124", "name": "computer",
+             "display_width_px": 1280, "display_height_px": 800,
+             "display_number": 1},
+    "beta_headers": ["computer-use-2025-01-24"],
+    "max_tokens": 4096,
+    "keep_screenshots": 3,
+    "turn_delay_s": 0.0,
+    "max_retries": 5
+  },
+  "prompt_mode": "description", "prompt_chars": 412,
+  "harness": false, "system_prompt_chars": 0,
+  "step_cap": 60,
+  "mock_url": "http://localhost:5173", "headless": true,
+  "viewport": {"width": 1280, "height": 800, "device_scale_factor": 1},
+  "pass_threshold": 0.7,
+  "started_at_iso": "2026-05-08T20:21:37+00:00",
+  "harness_git": {"git_sha": "554a7c1", "git_branch": "claude/...", "git_dirty": false},
+  "sdk_versions": {"python": "3.11.x", "anthropic": "0.x.y", "openai": "1.x.y", "playwright": "1.x"},
+  "argv": ["passk.py", "--tasks", "05", "--headed"]
+}
+```
+
+`outcome.json` captures the post-run summary (cost, elapsed, score, error).
 
 A `trajectory.jsonl` line looks like:
 

@@ -24,6 +24,31 @@ from ..browser import DISPLAY_HEIGHT, DISPLAY_WIDTH, BrowserSession
 from .base import AgentResult, AgentTrajectoryStep
 
 
+def describe_endpoint(model: str, *, max_tokens: int = 4096,
+                      keep_screenshots: int = 3, turn_delay_s: float = 0.0,
+                      max_retries: int = 5) -> dict[str, Any]:
+    """Static metadata about how this agent calls the API. Captured into
+    meta.json so a researcher reading the logs later knows exactly what
+    request shape produced the trajectory."""
+    return {
+        "provider": "anthropic",
+        "model": model,
+        "endpoint": "messages.create",
+        "tool": {
+            "type": "computer_20250124",
+            "name": "computer",
+            "display_width_px": DISPLAY_WIDTH,
+            "display_height_px": DISPLAY_HEIGHT,
+            "display_number": 1,
+        },
+        "beta_headers": ["computer-use-2025-01-24"],
+        "max_tokens": max_tokens,
+        "keep_screenshots": keep_screenshots,
+        "turn_delay_s": turn_delay_s,
+        "max_retries": max_retries,
+    }
+
+
 DEFAULT_SYSTEM_PROMPT = """You are an autonomous computer-use agent operating a Figma design mock in a browser.
 
 You will be given a task. Use the computer tool to complete the task by clicking, typing, and dragging in the canvas. The viewport is {w}x{h}.

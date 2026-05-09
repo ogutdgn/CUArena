@@ -20,6 +20,28 @@ from ..browser import DISPLAY_HEIGHT, DISPLAY_WIDTH, BrowserSession
 from .base import AgentResult, AgentTrajectoryStep
 
 
+def describe_endpoint(model: str, *, turn_delay_s: float = 0.0,
+                      max_retries: int = 5) -> dict[str, Any]:
+    """Static metadata about how this agent calls the API. Captured into
+    meta.json so a researcher reading the logs later knows exactly what
+    request shape produced the trajectory."""
+    return {
+        "provider": "openai",
+        "model": model,
+        "endpoint": "responses.create",
+        "tool": {
+            "type": "computer_use_preview",
+            "display_width": DISPLAY_WIDTH,
+            "display_height": DISPLAY_HEIGHT,
+            "environment": "browser",
+        },
+        "truncation": "auto",
+        "context_carry": "previous_response_id",
+        "turn_delay_s": turn_delay_s,
+        "max_retries": max_retries,
+    }
+
+
 DEFAULT_SYSTEM_PROMPT = (
     "You are an autonomous computer-use agent operating a Figma design mock in a browser. "
     "Use the computer tool to complete the task by clicking, typing, and dragging in the canvas. "
