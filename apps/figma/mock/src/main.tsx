@@ -12,17 +12,19 @@ import { installPersist } from "@/logger/persist";
 import { emitSemantic } from "@/logger/semantic";
 import { downloadLogAsJson } from "@/logger/export";
 
-installPersist();
+const persist = installPersist();
 installRawCapture();
 
 if (import.meta.env.DEV) {
   (window as any).__exportLog = downloadLogAsJson;
 }
-emitSemantic({
-  name: "session_start",
-  userAgent: navigator.userAgent,
-  viewport: { width: window.innerWidth, height: window.innerHeight },
-});
+if (!persist.restored) {
+  emitSemantic({
+    name: "session_start",
+    userAgent: navigator.userAgent,
+    viewport: { width: window.innerWidth, height: window.innerHeight },
+  });
+}
 
 const rootEl = document.getElementById("root");
 if (!rootEl) throw new Error("No #root element found");
