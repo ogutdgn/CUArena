@@ -876,6 +876,18 @@ def mutate_for_geometry(task, log) -> None:
             for l in by_type.get(c.layer_type, []):
                 s = _ensure_stroke(l)
                 s["weight"] = c.target_weight
+        elif cname == "AllStrokeWeightsEqual":
+            for l in by_type.get(c.layer_type, []):
+                s = _ensure_stroke(l)
+                s["weight"] = c.weight
+        elif cname == "VectorsCurvedCountAtLeast":
+            # Mark vectors as curved by attaching bezier handles to a segment.
+            # The check looks for any segment with handleFrom OR handleTo set.
+            for l in by_type.get("vector", [])[: c.minimum]:
+                l.setdefault("network", {}).setdefault("segments", []).append({
+                    "handleFrom": {"x": 10, "y": 0},
+                    "handleTo":   {"x": -10, "y": 0},
+                })
 
         # Property checks
         elif cname == "OpacityEquals":

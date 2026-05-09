@@ -16,10 +16,10 @@ from verifier.checks.geometry_checks import (
     LayerRotationEquals,
 )
 from verifier.checks.fill_checks   import (
-    AllFillTypeIs, AllSolidColorEquals, FillCountAtMost, FillOpacityAtLeast,
+    AllFillTypeIs, AllSolidColorEquals, FillCountAtMost,
 )
 from verifier.checks.stroke_checks import (
-    AllStrokeExists, AllStrokeColorEquals, AllStrokeWeightWithinTolerance,
+    AllStrokeExists, AllStrokeColorEquals, AllStrokeWeightsEqual,
     AllLayerStrokeVisible,
 )
 from verifier.checks.property_checks import (
@@ -40,31 +40,30 @@ task = Task(
             PolygonSidesEquals(sides=6),      # 1 ★ prompt: "hexagon (Polygon tool, 6 sides)"
         ], weight=0.25, critical=[0, 1]),
 
-        # critical: prompt mandates 2x2 honeycomb arrangement, plus same-size,
-        # non-degenerate, upright, not flipped, no corner-radius transforms.
+        # critical: 2×2 offset honeycomb tiling — single primitive maps to prompt phrase.
         AlignmentRubric([
-            LayersSameDimensions(layer_type="polygon", tolerance=8.0),                # 0
-            OffsetGridLayout(layer_type="polygon", rows=2, cols=2, tolerance=15.0),   # 1 ★ prompt: "2×2 offset honeycomb tiling"
+            OffsetGridLayout(layer_type="polygon", rows=2, cols=2, tolerance=15.0),   # 0 ★ prompt: "2×2 offset honeycomb tiling"
+            LayersSameDimensions(layer_type="polygon", tolerance=8.0),                # 1
             LayerSizeAtLeast(layer_type="polygon", min_w=15, min_h=15),               # 2
             LayerRotationEquals(layer_type="polygon", degrees=0, tolerance=5.0),      # 3
             NoLayerFlipped(layer_type="polygon"),                                     # 4
             CornerRadiusFractionAtMost(layer_type="polygon", max_frac=0.5),           # 5
-        ], weight=0.25, critical=[1]),
+        ], weight=0.25, critical=[0]),
 
-        # critical: yellow fill + 1px black stroke are prompt-explicit, all visible
+        # critical: yellow fill + 1px black stroke are prompt-explicit, all visible.
+        # AllStrokeWeightsEqual maps directly to "1px ... each" (every layer must match).
         ColorRubric([
-            AllFillTypeIs("polygon", kind="solid"),                                           # 0 ★ every shape needs visible solid fill
+            AllFillTypeIs("polygon", kind="solid"),                                           # 0 ★ prompt: "yellow hexagons" require visible fill
             AllSolidColorEquals(layer_type="polygon", expected_rgb=YELLOW, tolerance=0.28),   # 1 ★ prompt: "yellow hexagons"
             AllStrokeExists("polygon"),                                                       # 2 ★ prompt: "1px black stroke each"
-            AllStrokeWeightWithinTolerance("polygon", target_weight=1.0, tolerance=2.5),      # 3 prompt: "1px"
+            AllStrokeWeightsEqual(layer_type="polygon", weight=1.0, tolerance=2.5),           # 3 ★ prompt: "1px ... each"
             AllStrokeColorEquals("polygon", expected_rgb=BLACK, tolerance=0.28),              # 4 ★ prompt: "black stroke"
             AllLayerStrokeVisible("polygon", min_alpha=0.5, min_weight=0.5),                  # 5
             FillCountAtMost("polygon", max_count=1),                                          # 6
-            FillOpacityAtLeast("polygon", min_opacity=0.5),                                   # 7
-            LayerVisible("polygon"),                                                          # 8
+            LayerVisible("polygon"),                                                          # 7
         ], weight=0.25, critical=[0, 1, 2, 4]),
 
-        # critical: must use polygon tool
+        # event: must use polygon tool (kept soft per playbook)
         EventRubric([
             ToolUsed("polygon"),                          # 0
             EventTypeCount("create_polygon", equals=4),   # 1

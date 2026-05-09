@@ -70,6 +70,6 @@ FAIL_LOGS = [
     ("pentagons",    fail_pentagons(),    ["expected 6, got 5"]),
     ("no_stroke",    fail_no_stroke(),    ["no visible non-zero stroke"]),
     ("wrong_color",  fail_wrong_color(),  ["color mismatch"]),
-    ("one_thick_stroke", fail_one_thick_stroke(), ["weight 6"]),
+    ("one_thick_stroke", fail_one_thick_stroke(), [r"6 != 1\.0"]),
     ("in_a_row",     fail_in_a_row(),     ["row clusters"]),
 ]

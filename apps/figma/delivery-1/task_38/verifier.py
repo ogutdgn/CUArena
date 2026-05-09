@@ -14,9 +14,8 @@ from verifier.rubrics.structure    import StructureRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import (
     LayersAligned, LayerSizeAtLeast, AllLayerBoundsInside,
-    LayerRotationEquals, LayerAreaRatioAtLeast, LayersHaveConsistentGap,
-    LayerEdgesAligned, LayerAspectRatioGreaterThan, SmallerLayerInsideLarger,
-    LayerCenteredOnLayer, CrossTypeAreaRatioAtLeast,
+    LayerRotationEquals, LayerAreaRatioAtLeast,
+    SmallerLayerInsideLarger, CrossTypeAreaRatioAtLeast,
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, DistinctSolidColors, FillCountAtMost, FillOpacityAtLeast,
@@ -47,20 +46,20 @@ task = Task(
         # critical: prompt mandates rounded body + bars-inside-body
         AlignmentRubric([
             CornerRadiusAtLeast(layer_type="rectangle", min_value=4.0),                       # 0 ★ prompt: "rounded outer rectangle"
-            LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=5.0),          # 1 no rotation
-            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),              # 2 frame upright
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=8.0),  # 3 ★ all rects in frame
-            SmallerLayerInsideLarger(layer_type="rectangle", tolerance=20.0),                 # 4 ★ prompt: "3 colored bar rectangles inside"
+            SmallerLayerInsideLarger(layer_type="rectangle", tolerance=20.0),                 # 1 ★ prompt: "3 colored bar rectangles inside"
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=8.0),  # 2 all rects in frame
+            LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=5.0),          # 3 no rotation
+            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),              # 4 frame upright
             LayersAligned(layer_type="rectangle", axis="center_y", tolerance=80.0),           # 5 bars/body roughly aligned
             CrossTypeAreaRatioAtLeast(big_type="frame", small_type="rectangle",                # 6 body smaller than frame
                                        min_ratio=2.0),
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.6),                  # 7 no over-rounded body
-        ], weight=0.18, critical=[0, 3, 4]),
+        ], weight=0.18, critical=[0, 1]),
 
         # critical: prompt mandates 3 distinct bar colors + gray stroke on body
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                            # 0 ★ every shape needs visible fill type
-            DistinctSolidColors(minimum=4, tolerance=0.15),                      # 1 ★ prompt: "green/yellow/red" + neutral
+            AllFillTypeIs("rectangle", kind="solid"),                            # 0 ★ prompt: "3 colored bar rectangles" (solid fill)
+            DistinctSolidColors(minimum=4, tolerance=0.15),                      # 1 ★ prompt: "green/yellow/red sequence" + body
             StrokeExists("rectangle"),                                           # 2 prompt: "gray stroke"
             StrokeWeightEquals("rectangle", weight=2.0, tolerance=2.5),          # 3 visible weight
             StrokeColorEquals("rectangle", expected_rgb=GRAY, tolerance=0.25),   # 4 ★ prompt: "gray stroke"
@@ -70,10 +69,10 @@ task = Task(
             FillOpacityAtLeast(layer_type="rectangle", min_opacity=0.5),         # 8 visible fills
         ], weight=0.18, critical=[0, 1, 4]),
 
-        # structure: shapes must be inside a frame
+        # structure: shapes must be inside a frame (soft anchor — prompt does not say "Inside a frame")
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                    # 0 ★ inside frame
-        ], weight=0.10, critical=[0]),
+            LayerInsideFrame(layer_type="rectangle"),                    # 0 inside frame (kept soft)
+        ], weight=0.10, critical=[]),
 
         # event: rectangle tool — kept soft per playbook
         EventRubric([
