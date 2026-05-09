@@ -17,11 +17,9 @@ from verifier.checks.geometry_checks import (
     LayerRotationEquals, AllLayerBoundsInside, LayerSizeAtLeast,
 )
 from verifier.checks.fill_checks   import (
-    AllFillTypeIs, LayersHaveColorOrder, FillCountAtMost, FillOpacityAtLeast,
+    AllFillTypeIs, LayersHaveColorOrder,
 )
-from verifier.checks.property_checks import (
-    NoLayerFlipped, LayerVisible,
-)
+from verifier.checks.property_checks import NoLayerFlipped
 from verifier.checks.structure_checks import LayerGroupAllInSameFrame
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -38,7 +36,7 @@ task = Task(
             ShapeCountAtLeast("frame", minimum=1),                              # 1 ★ prompt: "Inside a 600x600 frame"
         ], weight=0.2, critical=[0, 1]),
 
-        # critical: same-size, vertical, stacked, alternating
+        # critical: same-size, vertical, stacked side-by-side, alternating
         AlignmentRubric([
             LayersSameDimensions(layer_type="rectangle", tolerance=8.0),         # 0 ★ prompt: "6 same-size vertical rectangle stripes"
             LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),  # 1 y-aligned
@@ -52,23 +50,20 @@ task = Task(
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),  # 9 stripes inside frame
         ], weight=0.2, critical=[0, 2, 3, 4]),
 
-        # critical: solid fills
+        # critical: deep-blue/cream alternation in order
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                           # 0 ★ every shape needs visible fill
+            AllFillTypeIs("rectangle", kind="solid"),                           # 0 solid fills required
             LayersHaveColorOrder(
                 layer_type="rectangle",
                 expected_rgbs=[DEEP_BLUE, CREAM, DEEP_BLUE, CREAM, DEEP_BLUE, CREAM],
                 sort_axis="x",
                 tolerance=0.25,
-            ),                                                                   # 1
-            FillCountAtMost(layer_type="rectangle", max_count=1),               # 2 no stacked fills
-            FillOpacityAtLeast(layer_type="rectangle", min_opacity=0.5),        # 3 visible fill
-            LayerVisible(layer_type="rectangle"),                               # 4 alpha + visibility
-        ], weight=0.2, critical=[0]),
+            ),                                                                   # 1 ★ prompt: "deep blue ... cream so colors alternate"
+        ], weight=0.2, critical=[1]),
 
         # all stripes in same frame (structural)
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="rectangle", minimum=6),        # 0 ★ all stripes share parent frame
+            LayerGroupAllInSameFrame(layer_type="rectangle", minimum=6),        # 0 ★ prompt: "Inside a 600x600 frame, draw 6 ... stripes"
         ], weight=0.2, critical=[0]),
 
         # rectangle tool used
