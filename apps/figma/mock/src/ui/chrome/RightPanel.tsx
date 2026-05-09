@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
-import { zoomToCustom, zoomToFit, zoomTo100, zoomToSelection } from "@/engine/transformCommands";
-import { Play, Share2, ChevronDown } from "lucide-react";
-import { noopClick } from "./noopClick";
+import { zoomToCustom, zoomToFit, zoomTo100 } from "@/engine/transformCommands";
+import { SquarePlay, ChevronDown } from "lucide-react";
 import { emitSemantic } from "@/logger/semantic";
 import { PageSection } from "@/ui/panels/PageSection";
 import { PositionSection } from "@/ui/panels/PositionSection";
@@ -57,7 +56,6 @@ export function RightPanel() {
     >
       <Header onPresent={openPreview} />
       <Tabs />
-      {activeTab === "design" && <SubHeader hasSelection={selection.length > 0} />}
       <div className="scroll-y" style={{ flex: 1, minHeight: 0 }}>
         {activeTab === "prototype" ? (
           <PrototypePanel />
@@ -96,52 +94,27 @@ function Header({ onPresent }: { onPresent: () => void }) {
     >
       <ZoomControl />
       <span style={{ flex: 1 }} />
-      <ChromeIconButton id="right-panel.avatar.self" label="A" tooltip="Multiplayer — not implemented" />
       <button
         data-id="right-panel.present"
         onClick={onPresent}
         title="Preview prototype"
         style={{
-          width: 24,
           height: 24,
-          borderRadius: 12,
+          padding: "0 8px",
+          borderRadius: 6,
           background: "transparent",
           color: "var(--color-text-secondary)",
-          display: "grid",
-          placeItems: "center",
+          display: "flex",
+          alignItems: "center",
+          gap: 5,
+          fontSize: "var(--fs-sm)",
+          fontWeight: 500,
         }}
         onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-bg-row-hover)")}
         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
       >
-        <Play size={14} />
-      </button>
-      {/* Share — intentionally inactive in this mock. No click handler, no
-          toast: per Codex review, fully inert (aria-disabled + cursor:not-allowed)
-          gives the right semantics. Visual treatment uses neutral row-hover bg
-          + reduced opacity to read as "disabled" rather than primary action. */}
-      <button
-        data-id="right-panel.share"
-        type="button"
-        disabled
-        aria-disabled="true"
-        title="Share — disabled in this mock"
-        style={{
-          height: 24,
-          padding: "0 10px",
-          borderRadius: 4,
-          background: "var(--color-bg-row-hover)",
-          color: "var(--color-text-muted)",
-          fontSize: "var(--fs-sm)",
-          fontWeight: 600,
-          display: "flex",
-          alignItems: "center",
-          gap: 4,
-          opacity: 0.6,
-          cursor: "not-allowed",
-        }}
-      >
-        <Share2 size={12} />
-        Share
+        <SquarePlay size={14} />
+        Preview
       </button>
     </div>
   );
@@ -237,34 +210,21 @@ function ZoomControl() {
         >
           <ZoomMenuItem id="zoom.zoom-in" label="Zoom in" shortcut="⌘+" onClick={() => { setMenuOpen(false); zoomToCustom((zoom * 1.2) * 100, "input_field"); }} />
           <ZoomMenuItem id="zoom.zoom-out" label="Zoom out" shortcut="⌘−" onClick={() => { setMenuOpen(false); zoomToCustom((zoom / 1.2) * 100, "input_field"); }} />
-          <Sep />
+          <ZoomMenuItem id="zoom.zoom-fit" label="Zoom to fit" shortcut="⇧1" onClick={() => { setMenuOpen(false); zoomToFit("dropdown_entry"); }} />
+          <ZoomMenuItem id="zoom.zoom-50" label="Zoom to 50%" onClick={() => { setMenuOpen(false); zoomToCustom(50, "input_field"); }} />
           <ZoomMenuItem id="zoom.zoom-100" label="Zoom to 100%" shortcut="⌘0" onClick={() => { setMenuOpen(false); zoomTo100("input_field"); }} />
-          <ZoomMenuItem id="zoom.zoom-fit" label="Zoom to fit" shortcut="⌘1" onClick={() => { setMenuOpen(false); zoomToFit("dropdown_entry"); }} />
-          <ZoomMenuItem id="zoom.zoom-selection" label="Zoom to selection" shortcut="⌘2" onClick={() => { setMenuOpen(false); zoomToSelection("dropdown_entry"); }} />
-          <Sep />
-          <ZoomMenuItem id="zoom-view-options.pixel-preview" label="Pixel preview" disabled />
-          <ZoomMenuItem id="zoom-view-options.pixel-grid" label="Pixel grid" disabled />
-          <ZoomMenuItem id="zoom-view-options.snap-to-pixel" label="Snap to pixel grid" disabled />
-          <ZoomMenuItem id="zoom-view-options.layout-guides" label="Layout guides" disabled />
-          <ZoomMenuItem id="zoom-view-options.multiplayer-cursors" label="Multiplayer cursors" disabled />
-          <ZoomMenuItem id="zoom-view-options.outlines.show" label="Show outlines" disabled />
+          <ZoomMenuItem id="zoom.zoom-200" label="Zoom to 200%" onClick={() => { setMenuOpen(false); zoomToCustom(200, "input_field"); }} />
         </div>
       )}
     </div>
   );
 }
 
-function ZoomMenuItem({ id, label, shortcut, onClick, disabled }: { id: string; label: string; shortcut?: string; onClick?: () => void; disabled?: boolean }) {
+function ZoomMenuItem({ id, label, shortcut, onClick }: { id: string; label: string; shortcut?: string; onClick?: () => void }) {
   return (
     <button
       data-id={id}
-      onClick={(e) => {
-        if (disabled) {
-          noopClick(id, e);
-          return;
-        }
-        onClick?.();
-      }}
+      onClick={() => onClick?.()}
       style={{
         width: "100%",
         display: "flex",
@@ -272,13 +232,11 @@ function ZoomMenuItem({ id, label, shortcut, onClick, disabled }: { id: string; 
         height: 26,
         padding: "0 8px",
         borderRadius: 4,
-        color: disabled ? "var(--color-text-disabled)" : "var(--color-text-primary)",
+        color: "var(--color-text-primary)",
         background: "transparent",
         textAlign: "left",
       }}
-      onMouseEnter={(e) => {
-        if (!disabled) e.currentTarget.style.background = "var(--color-bg-row-hover)";
-      }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-bg-row-hover)")}
       onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
     >
       <span style={{ flex: 1 }}>{label}</span>
@@ -287,42 +245,7 @@ function ZoomMenuItem({ id, label, shortcut, onClick, disabled }: { id: string; 
   );
 }
 
-function Sep() {
-  return <div style={{ height: 1, background: "var(--color-divider)", margin: "4px 0" }} />;
-}
 
-function ChromeIconButton({
-  id,
-  icon,
-  label,
-  tooltip,
-}: {
-  id: string;
-  icon?: React.ReactNode;
-  label?: string;
-  tooltip: string;
-}) {
-  return (
-    <button
-      data-id={id}
-      title={tooltip}
-      onClick={(e) => noopClick(id, e)}
-      style={{
-        width: 24,
-        height: 24,
-        borderRadius: 12,
-        background: label ? "var(--color-selection-blue)" : "transparent",
-        color: label ? "var(--color-text-on-accent)" : "var(--color-text-secondary)",
-        display: "grid",
-        placeItems: "center",
-        fontSize: 11,
-        fontWeight: 600,
-      }}
-    >
-      {icon ?? label}
-    </button>
-  );
-}
 
 function Tabs() {
   const activeTab = useStore((s) => s.activeRightTab);
@@ -381,45 +304,3 @@ function Tab({ id, label, active, onClick }: { id: string; label: string; active
   );
 }
 
-function SubHeader({ hasSelection }: { hasSelection: boolean }) {
-  if (!hasSelection) return null;
-  return (
-    <div
-      style={{
-        height: 32,
-        display: "flex",
-        alignItems: "center",
-        gap: 4,
-        padding: "0 8px",
-        borderBottom: "1px solid var(--color-border)",
-        color: "var(--color-text-secondary)",
-        fontSize: "var(--fs-sm)",
-      }}
-    >
-      <SubHeaderButton id="sub-header.mask" label="Mask" />
-      <SubHeaderButton id="sub-header.create-component" label="Component" />
-      <SubHeaderButton id="sub-header.boolean.open" label="Boolean" />
-      <span style={{ flex: 1 }} />
-      <SubHeaderButton id="sub-header.more" label="•••" />
-    </div>
-  );
-}
-
-function SubHeaderButton({ id, label }: { id: string; label: string }) {
-  return (
-    <button
-      data-id={id}
-      title={`${label} — not implemented in this mock`}
-      onClick={(e) => noopClick(id, e)}
-      style={{
-        height: 22,
-        padding: "0 6px",
-        borderRadius: 4,
-        color: "var(--color-text-muted)",
-        fontSize: "var(--fs-xs)",
-      }}
-    >
-      {label}
-    </button>
-  );
-}
