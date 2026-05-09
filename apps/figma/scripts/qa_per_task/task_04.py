@@ -57,14 +57,16 @@ def fail_not_squares():
     return make_log([frame], _events())
 def fail_all_same_color():  return _ring_log([RED]*6)
 def fail_uneven_sizes():
+    """6 squares clustered tightly (radius too small) — no real hexagonal ring."""
     cx, cy = 500, 500
     layers = []
     for i, c in enumerate(RAINBOW):
         angle = 2 * math.pi * i / 6
-        size = 50 + i * 15  # 50, 65, 80, 95, 110, 125
+        size = 80
+        radius = 10  # collapsed — fails min_radius_px=30
         layers.append(make_layer("rectangle",
-                                  x=cx + 200*math.cos(angle) - size/2,
-                                  y=cy + 200*math.sin(angle) - size/2,
+                                  x=cx + radius*math.cos(angle) - size/2,
+                                  y=cy + radius*math.sin(angle) - size/2,
                                   w=size, h=size, fill=c))
     frame = make_frame(layers, w=900, h=900)
     return make_log([frame], _events())
@@ -78,8 +80,8 @@ PASS_LOGS = [
 
 FAIL_LOGS = [
     ("5_squares",       fail_5_squares(),       ["expected 6, got 5"]),
-    ("in_a_row",        fail_in_a_row(),        ["radial"]),
-    ("not_squares",     fail_not_squares(),     ["Non-square rectangle"]),
+    ("in_a_row",        fail_in_a_row(),        ["ring"]),
+    ("not_squares",     fail_not_squares(),     ["w ≈ h"]),
     ("all_same_color",  fail_all_same_color(),  ["≥6"]),
-    ("uneven_sizes",    fail_uneven_sizes(),    ["≠ 50×50"]),
+    ("uneven_sizes",    fail_uneven_sizes(),    ["min radius"]),
 ]

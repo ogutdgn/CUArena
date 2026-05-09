@@ -215,6 +215,13 @@ def mutate_for_geometry(task, log) -> None:
                 angle = (2 * math.pi * i) / c.n
                 l["x"] = 500 + 200 * math.cos(angle) - l["w"] / 2
                 l["y"] = 500 + 200 * math.sin(angle) - l["h"] / 2
+        elif cname == "LayersOnRing":
+            layers = by_type.get(c.layer_type, [])
+            radius = max(c.min_radius_px + 20, 150)
+            for i, l in enumerate(layers[: c.n]):
+                angle = (2 * math.pi * i) / c.n
+                l["x"] = 500 + radius * math.cos(angle) - l["w"] / 2
+                l["y"] = 500 + radius * math.sin(angle) - l["h"] / 2
         elif cname == "LayerCenteredInFrame":
             for parent in collect_layers_by_type(doc).get("frame", []):
                 for child in parent.get("children", []):
@@ -444,6 +451,19 @@ def mutate_for_geometry(task, log) -> None:
                         ls[0]["fills"] = [{"kind": "solid", "color": ref_color, "opacity": 1.0, "visible": True}]
                     else:
                         fills[0]["color"] = ref_color
+        elif cname == "LayersAlternatingColorsByArea":
+            layers = by_type.get(c.layer_type, [])
+            ordered = sorted(layers, key=lambda l: l["w"] * l["h"], reverse=True)
+            cycle_colors = [
+                {"r": 0.20, "g": 0.50, "b": 0.80, "a": 1.0},
+                {"r": 0.95, "g": 0.30, "b": 0.30, "a": 1.0},
+                {"r": 0.30, "g": 0.85, "b": 0.30, "a": 1.0},
+                {"r": 0.95, "g": 0.85, "b": 0.20, "a": 1.0},
+            ]
+            for i, l in enumerate(ordered):
+                target = cycle_colors[i % c.n_colors]
+                l["fills"] = [{"kind": "solid", "color": dict(target),
+                               "opacity": 1.0, "visible": True}]
         elif cname == "LayersAlternatingColors":
             layers = by_type.get(c.layer_type, [])
             if c.sort_axis == "x":
@@ -1249,6 +1269,28 @@ def mutate_for_geometry(task, log) -> None:
             # leave p2 unset → defaults to right-edge, rotation drives angle
             if "p2" in line:
                 del line["p2"]
+
+    # LinesRadialFromSharedEndpoint: each line's p1 sits at a single shared
+    # world center; p2 fans out evenly around it at uniform length.
+    for c in checks:
+        if type(c).__name__ != "LinesRadialFromSharedEndpoint":
+            continue
+        lines = by_type.get("line", [])[: c.n]
+        if not lines:
+            continue
+        center_x, center_y = 500.0, 500.0
+        length = max(c.min_length_px + 40.0, 100.0)
+        for i, line in enumerate(lines):
+            angle = (2 * math.pi * i) / c.n
+            tip_x = center_x + length * math.cos(angle)
+            tip_y = center_y + length * math.sin(angle)
+            line["x"] = 0.0
+            line["y"] = 0.0
+            line["w"] = max(line.get("w", 80) or 80, length + 10)
+            line["h"] = max(line.get("h", 80) or 80, length + 10)
+            line["rotation"] = 0
+            line["p1"] = {"x": center_x, "y": center_y}
+            line["p2"] = {"x": tip_x, "y": tip_y}
 
     # Re-run LayersFlankLayer after rectangles have been positioned by
     # SmallerLayerInsideLarger above. The first run in the main loop sees stale

@@ -77,5 +77,5 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("3_squares",         fail_3_squares(),         ["expected 4, got 3"]),
     ("not_concentric",    fail_not_concentric(),    ["concentric"]),
-    ("not_nested",        fail_not_nested(),        ["area ratio"]),
+    ("not_nested",        fail_not_nested(),        ["not strictly smaller"]),
 ]

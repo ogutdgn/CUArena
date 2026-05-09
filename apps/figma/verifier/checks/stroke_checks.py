@@ -392,3 +392,33 @@ class StrokeRendersVisible:
             passed=False, score=0.0, max_score=1.0,
             message=f"No {self.layer_type} with a renderable stroke (visible + alpha ≥ {self.min_alpha})",
         )
+
+
+@dataclass
+class AllStrokeWeightsEqual:
+    """All layers of layer_type have first-stroke weight ≈ expected."""
+    layer_type: str
+    weight: float
+    tolerance: float = 0.5
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"No {self.layer_type} layers found",
+            )
+        failures = []
+        for l in layers:
+            s = _first_stroke(l)
+            if s is None:
+                failures.append(f"{l['id'][:8]}: missing stroke")
+                continue
+            got = s.get("weight", 0)
+            if abs(got - self.weight) > self.tolerance:
+                failures.append(f"{l['id'][:8]}: {got} != {self.weight}+/-{self.tolerance}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} stroke weights match" if passed else "; ".join(failures),
+        )

@@ -476,3 +476,96 @@ class LayersAllSameColor:
             passed=True, score=1.0, max_score=1.0,
             message=f"All {len(layers)} {self.layer_type} share one color",
         )
+
+
+@dataclass
+class AllSolidColorsNearGray:
+    """
+    All layers of `layer_type` have a first solid fill whose RGB channels are
+    close to each other (i.e. gray family color).
+    """
+    layer_type: str
+    tolerance: float = 0.12
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        for l in layers:
+            fills = l.get("fills", [])
+            if not fills or fills[0].get("kind") != "solid":
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=f"{self.layer_type} {l.get('id', '')[:8]} missing solid fill",
+                )
+            c = fills[0].get("color", {})
+            r, g, b = c.get("r", 0.0), c.get("g", 0.0), c.get("b", 0.0)
+            if max(abs(r - g), abs(g - b), abs(r - b)) > self.tolerance:
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=f"{self.layer_type} {l.get('id', '')[:8]} not gray-like",
+                )
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"All {self.layer_type} fills are gray-like",
+        )
+
+
+@dataclass
+class LayersAlternatingColorsByArea:
+    """
+    Layers of `layer_type`, sorted by area descending (outer->inner), alternate
+    between exactly `n_colors` unique solid colors.
+    """
+    layer_type: str
+    n_colors: int = 2
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < self.n_colors * 2:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"Need >={self.n_colors * 2} {self.layer_type} layers, found {len(layers)}",
+            )
+
+        ordered = sorted(layers, key=lambda l: l["w"] * l["h"], reverse=True)
+        colors: list[tuple[float, float, float]] = []
+        for l in ordered:
+            fills = l.get("fills", [])
+            if not fills or fills[0].get("kind") != "solid":
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=f"{self.layer_type} missing solid fill in area order",
+                )
+            c = fills[0].get("color", {})
+            colors.append((c.get("r", 0), c.get("g", 0), c.get("b", 0)))
+
+        cycle = colors[: self.n_colors]
+        distinct_cycle: list[tuple[float, float, float]] = []
+        for rgb in cycle:
+            close = any(
+                max(abs(rgb[0] - d[0]), abs(rgb[1] - d[1]), abs(rgb[2] - d[2])) <= self.tolerance
+                for d in distinct_cycle
+            )
+            if not close:
+                distinct_cycle.append(rgb)
+        if len(distinct_cycle) != self.n_colors:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"Expected exactly {self.n_colors} alternating colors, got fewer in cycle seed",
+            )
+
+        for i, rgb in enumerate(colors):
+            expected = cycle[i % self.n_colors]
+            diff = max(abs(rgb[0] - expected[0]), abs(rgb[1] - expected[1]), abs(rgb[2] - expected[2]))
+            if diff > self.tolerance:
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=f"{self.layer_type} color at rank {i} breaks alternating cycle",
+                )
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"{self.layer_type} colors alternate by area with {self.n_colors} colors",
+        )
