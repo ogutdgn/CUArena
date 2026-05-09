@@ -164,6 +164,7 @@ test-app/src/
 │   ├── alignmentCommands.ts    align + distribute selection
 │   ├── hierarchyCommands.ts    group/ungroup, z-order, reparent, rename
 │   ├── imageCommands.ts        place image
+│   ├── framePresetCommands.ts  create/apply frame presets
 │   ├── pageCommands.ts         create/delete/switch page
 │   ├── propertyCommands.ts     fills, strokes, effects, opacity, corner radius
 │   ├── textCommands.ts         font, size, weight, alignment
@@ -219,6 +220,7 @@ test-app/src/
 │       ├── TypographySection.tsx   font/size/weight/align
 │       ├── ConstraintsControl.tsx  H/V constraint dropdowns
 │       ├── LayoutSection.tsx       frame layout settings
+│       ├── FramePresetBrowser.tsx  frame preset category + size list
 │       ├── AlignmentRow.tsx        align + distribute buttons
 │       ├── ExportSection.tsx       export stub (noop)
 │       ├── PrototypePanel.tsx      prototype connections + flows
@@ -228,7 +230,8 @@ test-app/src/
     ├── id.ts                   nanoid wrapper
     ├── keymap.ts               keyboard shortcut routing
     ├── geometry.ts             bbox, hit-test, bounds math
-    └── prototypeDevices.ts     device preset list
+    ├── prototypeDevices.ts     prototype device list
+    └── framePresets.ts         frame preset list (right sidebar)
 ```
 
 ---

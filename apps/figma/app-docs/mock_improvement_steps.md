@@ -503,6 +503,33 @@ The far-left icon column (`LeftRail`) keeps its current inactive `noopClick` beh
 
 ## Feature updates
 
+### 2026-05-08 — Frame preset browser + apply preset sizing
+
+#### 25. 🟢 — Frame presets in right sidebar (tool-active browser + selected-frame dropdown)
+
+**Status:** Shipped in working tree (commit pending).
+
+**File(s):**
+- `apps/figma/mock/src/util/framePresets.ts`
+- `apps/figma/mock/src/engine/framePresetCommands.ts`
+- `apps/figma/mock/src/ui/panels/FramePresetBrowser.tsx`
+- `apps/figma/mock/src/ui/chrome/RightPanel.tsx`
+- `apps/figma/mock/src/ui/panels/LayoutSection.tsx`
+
+**Expected behavior:**
+- With `Frame` tool active and no selection, right sidebar shows frame preset categories and size rows.
+- Clicking a preset creates a frame with preset dimensions and preset-based default name.
+- Placement uses latest canvas pointer world coordinate when available; falls back to viewport center.
+- For single selected frame, `Layout` section exposes a `Frame` preset dropdown and applying a preset resizes W/H in one op.
+- Applying preset to existing frame preserves frame name.
+
+**Implementation notes:**
+- Added a frozen May-2026 preset catalog for deterministic behavior in the mock.
+- Reused existing `create_frame` semantic event with `mode: "preset"` and `trigger: "preset"` for preset-based frame creation.
+- Resize from selected-frame dropdown emits one `resize_layer` semantic event (`panel_input`) and keeps undo as a single entry.
+
+**Logger impact:** No schema changes. Existing events were reused; event meanings remain compatible with `mock-doc/logging-documentation.md`.
+
 ### 2026-05-08 — Position coordinate model
 
 #### 24. 🟢 — Position panel uses center-origin coordinates

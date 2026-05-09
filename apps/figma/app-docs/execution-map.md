@@ -6,6 +6,12 @@ The status section at the top is a per-session log of what shipped (newest entry
 
 **Session log**
 
+- **2026-05-08**
+  - Frame preset workflow shipped in the right sidebar. When `Frame` tool is active with no selection, the Design panel now renders a scrollable preset browser with category groups (Phone, Tablet, Desktop, Presentation, Watch, Paper, Social Media, Figma Community, Archive). Clicking a preset creates a frame from preset dimensions and names it after the preset.
+  - Layout section now includes a `Frame` preset dropdown for single-frame selection. Choosing a preset resizes the selected frame in one transform op (single undo step), preserves existing frame name, and keeps frame-child reflow behavior via constraints.
+  - Preset creation now uses pointer-first placement: uses the latest canvas pointer location when available, otherwise viewport center fallback.
+  - Added frozen preset catalog and command wiring: `mock/src/util/framePresets.ts`, `mock/src/engine/framePresetCommands.ts`, `mock/src/ui/panels/FramePresetBrowser.tsx`; integrated in `RightPanel.tsx` and `LayoutSection.tsx`.
+
 - **2026-05-06**
   - Repo restructured into `cua-bench` monorepo: GitHub repo renamed `figma-mock` → `cua-bench`; figma content moved under `apps/figma/`; `test-app` → `mock`, `test-verifier` → `verifier`. Top-level skeleton added: `overview/` (system-overview, log-contract, conventions, roadmap), `.claude/skills/` (placeholder skills for research-flow, architecture-decision-flow, development-flow, session-end, commit-style, helper-blind-read-prevent), `shared/` (empty, future carve-out target), per-app `CLAUDE.md` + `AGENTS.md` mirror, repo-root `CLAUDE.md` + `AGENTS.md` + `README.md`. All path references inside docs and code (`mock/`, `verifier/`, `apps/figma/...`) updated. `package.json` name → `figma-mock`. `.gitignore` updated for new paths.
   - Helper docs note: `apps/figma/helper/00-overview.md` §7 artifact map still shows the pre-migration tree (`figma-mock/...` instead of `apps/figma/...`). Marked for refresh in a follow-up doc-rot pass; functional content unchanged.
