@@ -19,10 +19,13 @@ import { EffectsSection } from "@/ui/panels/EffectsSection";
 import { ExportSection } from "@/ui/panels/ExportSection";
 import { AlignmentRow } from "@/ui/panels/AlignmentRow";
 import { PrototypePanel } from "@/ui/panels/PrototypePanel";
+import { FramePresetBrowser } from "@/ui/panels/FramePresetBrowser";
+import { createFrameFromPreset } from "@/engine/framePresetCommands";
 
 export function RightPanel() {
   const selection = useStore((s) => getSelectedLayers(s));
   const activeTab = useStore((s) => s.activeRightTab);
+  const activeTool = useStore((s) => s.activeTool);
 
   function openPreview() {
     const wasOpen = !!useStore.getState().prototypePreview;
@@ -62,7 +65,11 @@ export function RightPanel() {
         {activeTab === "prototype" ? (
           <PrototypePanel />
         ) : selection.length === 0 ? (
-          <PageSection />
+          activeTool === "frame" ? (
+            <FramePresetBrowser onPick={createFrameFromPreset} />
+          ) : (
+            <PageSection />
+          )
         ) : (
           <>
             <AlignmentRow />
