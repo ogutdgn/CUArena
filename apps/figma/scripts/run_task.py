@@ -7,6 +7,7 @@ Usage:
   python scripts/run_task.py 1                                  # numeric prefix also works
   python scripts/run_task.py export-log                         # export only, no scoring
   python scripts/run_task.py export-log task_01                 # export only, prefix filename with task
+  python scripts/run_task.py --host mock task_01                # docker-compose service-to-service
 
 Loads task verifiers from delivery-1/task_NN/verifier.py (single source of truth).
 Saves logs to scripts/logs/, scores to scripts/scores/.
@@ -26,7 +27,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from urllib.request import urlopen
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 
 APP_ROOT     = Path(__file__).resolve().parent.parent       # apps/figma/
 SCRIPTS_DIR  = Path(__file__).resolve().parent              # apps/figma/scripts/
@@ -39,6 +40,23 @@ sys.path.insert(0, str(APP_ROOT))
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
+
+
+class MissingDevLogError(RuntimeError):
+    """Raised when /dev-log exists but no session log has been posted yet."""
+
+    def __init__(self, url: str):
+        super().__init__(f"No log yet at {url}")
+        self.url = url
+
+
+def fetch_log_status(host: str, port: int) -> dict | None:
+    url = f"http://{host}:{port}/dev-log/status"
+    try:
+        with urlopen(url, timeout=3) as r:
+            return json.loads(r.read())
+    except Exception:
+        return None
 
 
 def list_task_dirs() -> list[Path]:
@@ -74,19 +92,21 @@ def load_task(task_dir: Path):
     return mod.task
 
 
-def fetch_log(port: int) -> dict:
-    url = f"http://localhost:{port}/dev-log"
+def fetch_log(host: str, port: int) -> dict:
+    url = f"http://{host}:{port}/dev-log"
     try:
         with urlopen(url, timeout=5) as r:
             return json.loads(r.read())
+    except HTTPError as e:
+        if e.code == 404:
+            raise MissingDevLogError(url) from e
+        print(f"\nHTTP error: {e}", file=sys.stderr)
+        sys.exit(1)
     except URLError as e:
         reason = str(getattr(e, "reason", e))
         if "Connection refused" in reason or "10061" in reason:
             print(f"\nCould not connect to {url}", file=sys.stderr)
             print("Make sure the mock is running:  npm run dev  (in mock/)", file=sys.stderr)
-        elif "404" in reason:
-            print(f"\nNo log yet at {url}", file=sys.stderr)
-            print("Open the app in your browser and perform some actions first.", file=sys.stderr)
         else:
             print(f"\nHTTP error: {e}", file=sys.stderr)
         sys.exit(1)
@@ -153,6 +173,52 @@ def score_log(task, log_path: Path):
     )
 
 
+def forced_zero_result(task, log_path: Path, reason: str):
+    from verifier.types import CheckResult, EfficiencyResult, RubricResult, TaskResult
+
+    rubric_results: list[RubricResult] = []
+    for rubric in task.rubrics:
+        checks = getattr(rubric, "checks", []) or []
+        check_count = len(checks) if checks else 1
+        check_results = [
+            CheckResult(
+                passed=False,
+                score=0.0,
+                max_score=1.0,
+                message=reason,
+            )
+            for _ in range(check_count)
+        ]
+        max_score = float(getattr(rubric, "weight", 0.5))
+        rubric_results.append(
+            RubricResult(
+                name=str(getattr(rubric, "name", "rubric")),
+                score=0.0,
+                max_score=max_score,
+                checks=check_results,
+            )
+        )
+
+    target_turns = int(getattr(task.efficiency, "target_turns", 0) or 0)
+    lam = getattr(task.efficiency, "lambda_", None)
+    lambda_used = float(lam if lam is not None else 0.0)
+    efficiency = EfficiencyResult(
+        multiplier=1.0,
+        actual_turns=0,
+        target_turns=target_turns,
+        lambda_used=lambda_used,
+        message="Forced zero result: no /dev-log payload was available.",
+    )
+    return TaskResult(
+        task_id=task.id,
+        log_path=str(log_path),
+        rubrics=rubric_results,
+        base_score=0.0,
+        efficiency=efficiency,
+        final_score=0.0,
+    )
+
+
 def print_result(result) -> None:
     max_base = sum(r.max_score for r in result.rubrics)
     print(f"\nTask : {result.task_id}")
@@ -180,25 +246,64 @@ def save_result(result, task_dir: Path) -> Path:
     return path
 
 
-def cmd_full_pipeline(task_input: str, port: int) -> None:
+def cmd_full_pipeline(task_input: str, host: str, port: int) -> None:
     task_dir = resolve_task(task_input)
     if task_dir.name != task_input:
         print(f"Resolved '{task_input}' → {task_dir.name}")
 
     task = load_task(task_dir)
 
-    print(f"Fetching log from http://localhost:{port}/dev-log …")
-    log = fetch_log(port)
-    log_path = save_log(log, task_dir.name)
-    print_log_details(log, log_path)
-
-    result = score_log(task, log_path)
+    print(f"Fetching log from http://{host}:{port}/dev-log …")
+    try:
+        log = fetch_log(host, port)
+        log_path = save_log(log, task_dir.name)
+        print_log_details(log, log_path)
+        result = score_log(task, log_path)
+    except MissingDevLogError as e:
+        print(f"\nNo session log available at {e.url}.")
+        status = fetch_log_status(host, port)
+        if status:
+            print(
+                "Relay status:"
+                f" hasLog={status.get('hasLog')}"
+                f", postCount={status.get('postCount')}"
+                f", lastSessionId={status.get('lastSessionId')}"
+            )
+            if int(status.get("postCount") or 0) == 0:
+                print(
+                    "No browser log POST has reached this mock instance yet."
+                    " Open http://localhost:5173, hard-refresh, interact once, wait 0.5s, then rerun."
+                )
+        print("Returning forced zero score for this run.")
+        ts_ms = int(datetime.now().timestamp() * 1000)
+        empty_log = {
+            "schemaVersion": 1,
+            "sessionId": "missing_dev_log",
+            "exportedAt": ts_ms,
+            "raw": [],
+            "semantic": [],
+            "outcome": {
+                "schemaVersion": 1,
+                "sessionId": "missing_dev_log",
+                "capturedAt": ts_ms,
+                "activePageId": "",
+                "summary": {"semanticEventCount": 0, "shapeCounts": {}},
+                "document": {"id": "document_missing_dev_log", "schemaVersion": 1, "pages": []},
+            },
+        }
+        log_path = save_log(empty_log, f"{task_dir.name}_missing")
+        print_log_details(empty_log, log_path)
+        result = forced_zero_result(
+            task,
+            log_path,
+            "No interaction log captured; rubric forced to 0.0.",
+        )
     print_result(result)
     score_path = save_result(result, task_dir)
     print(f"Score saved → {score_path}")
 
 
-def cmd_export_only(task_input: str | None, port: int) -> None:
+def cmd_export_only(task_input: str | None, host: str, port: int) -> None:
     prefix = "log"
     if task_input:
         task_dir = resolve_task(task_input)
@@ -206,8 +311,8 @@ def cmd_export_only(task_input: str | None, port: int) -> None:
             print(f"Resolved '{task_input}' → {task_dir.name}")
         prefix = task_dir.name
 
-    print(f"Fetching log from http://localhost:{port}/dev-log …")
-    log = fetch_log(port)
+    print(f"Fetching log from http://{host}:{port}/dev-log …")
+    log = fetch_log(host, port)
     log_path = save_log(log, prefix)
     print_log_details(log, log_path)
 
@@ -221,20 +326,22 @@ def main() -> None:
             "  python scripts/run_task.py task_01\n"
             "  python scripts/run_task.py 1\n"
             "  python scripts/run_task.py export-log\n"
-            "  python scripts/run_task.py export-log task_01"
+            "  python scripts/run_task.py export-log task_01\n"
+            "  python scripts/run_task.py --host mock task_01"
         ),
     )
     parser.add_argument("target", help="task name (e.g. 'task_01' or '1') or the literal 'export-log'")
     parser.add_argument("task", nargs="?", help="optional task name after 'export-log' (used as filename prefix)")
+    parser.add_argument("--host", default="localhost", help="mock dev-server host (default localhost)")
     parser.add_argument("--port", type=int, default=5173, help="Vite dev server port (default 5173)")
     args = parser.parse_args()
 
     if args.target == "export-log":
-        cmd_export_only(args.task, args.port)
+        cmd_export_only(args.task, args.host, args.port)
     else:
         if args.task is not None:
             parser.error(f"Unexpected extra argument '{args.task}'. For export-only use: export-log [task]")
-        cmd_full_pipeline(args.target, args.port)
+        cmd_full_pipeline(args.target, args.host, args.port)
 
 
 if __name__ == "__main__":

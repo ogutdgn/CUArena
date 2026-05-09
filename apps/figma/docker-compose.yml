@@ -1,0 +1,30 @@
+name: cua-bench-figma
+
+services:
+  mock:
+    build:
+      context: ../..
+      dockerfile: apps/figma/docker/Dockerfile.mock
+    image: cua-bench-figma-mock:latest
+    ports:
+      - "5173:5173"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:5173/"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  verifier:
+    build:
+      context: ../..
+      dockerfile: apps/figma/docker/Dockerfile.verifier
+    image: cua-bench-figma-verifier:latest
+    depends_on:
+      mock:
+        condition: service_healthy
+    working_dir: /workspace/apps/figma
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./scripts:/workspace/apps/figma/scripts
+      - ./delivery-1:/workspace/apps/figma/delivery-1

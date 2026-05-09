@@ -70,6 +70,9 @@ The log updates automatically — no extra steps needed.
 # Just export the log, no scoring
 .venv/Scripts/python scripts/run_task.py export-log
 .venv/Scripts/python scripts/run_task.py export-log task_01
+
+# Docker / compose service-to-service fetch
+docker compose run --rm verifier python3 scripts/run_task.py --host mock task_01
 ```
 
 The log lands in `scripts/logs/<task>_<timestamp>.json` and the score in

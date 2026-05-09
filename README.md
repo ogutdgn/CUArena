@@ -16,6 +16,7 @@ cua-bench/
 ## Where to start
 
 - **Working on the figma app?** → [apps/figma/README.md](apps/figma/README.md), [apps/figma/CLAUDE.md](apps/figma/CLAUDE.md)
+- **Need containerized figma delivery?** → [apps/figma/docker-compose.yml](apps/figma/docker-compose.yml), [apps/figma/delivery-1/DOCKER_DELIVERY.md](apps/figma/delivery-1/DOCKER_DELIVERY.md)
 - **Repo-level conventions / cross-app rules?** → [CLAUDE.md](CLAUDE.md), [overview/](overview/)
 - **What is this benchmark, conceptually?** → [overview/system-overview.md](overview/system-overview.md)
 - **What's planned next?** → [overview/roadmap.md](overview/roadmap.md)
