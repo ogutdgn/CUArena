@@ -50,6 +50,15 @@ class MissingDevLogError(RuntimeError):
         self.url = url
 
 
+def fetch_log_status(host: str, port: int) -> dict | None:
+    url = f"http://{host}:{port}/dev-log/status"
+    try:
+        with urlopen(url, timeout=3) as r:
+            return json.loads(r.read())
+    except Exception:
+        return None
+
+
 def list_task_dirs() -> list[Path]:
     return sorted(p for p in DELIVERY_DIR.glob("task_*") if (p / "verifier.py").is_file())
 
@@ -252,6 +261,19 @@ def cmd_full_pipeline(task_input: str, host: str, port: int) -> None:
         result = score_log(task, log_path)
     except MissingDevLogError as e:
         print(f"\nNo session log available at {e.url}.")
+        status = fetch_log_status(host, port)
+        if status:
+            print(
+                "Relay status:"
+                f" hasLog={status.get('hasLog')}"
+                f", postCount={status.get('postCount')}"
+                f", lastSessionId={status.get('lastSessionId')}"
+            )
+            if int(status.get("postCount") or 0) == 0:
+                print(
+                    "No browser log POST has reached this mock instance yet."
+                    " Open http://localhost:5173, hard-refresh, interact once, wait 0.5s, then rerun."
+                )
         print("Returning forced zero score for this run.")
         ts_ms = int(datetime.now().timestamp() * 1000)
         empty_log = {
