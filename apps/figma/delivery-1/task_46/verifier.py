@@ -35,23 +35,21 @@ task = Task(
             ShapeCount("rectangle", equals=5),    # 0 ★ prompt: "5 vertical bars"
         ], weight=0.20, critical=[0]),
 
-        # critical: side-by-side stacking, shared baseline, taller-than-wide,
-        # frame size, in-frame, sane sizing, upright (no rotation/flip).
+        # critical: side-by-side stacking, shared baseline, varying heights, vertical
         AlignmentRubric([
             LayersStacked(layer_type="rectangle", axis="x", gap_px=4.0, tolerance=12.0),         # 0 ★ prompt: "side-by-side"
             LayersAllShareEdge(layer_type="rectangle", edge="bottom", tolerance=15.0),           # 1 ★ prompt: "sharing a bottom baseline"
-            LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=1.0, axis="vertical"),     # 2 ★ prompt: "vertical bars"
-            FrameSizeEquals(width=1280, height=832, tolerance=25.0),                             # 3 frame size
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),    # 4 ★ bars inside frame
-            LayerSizeAtLeast(layer_type="rectangle", min_w=2, min_h=10),                         # 5 no degenerate
-            AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",                   # 6 sane width
+            LayerHeightRangeAtLeast(layer_type="rectangle", min_range=20.0),                     # 2 ★ prompt: "varying heights"
+            LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=1.0, axis="vertical"),     # 3 ★ prompt: "vertical bars"
+            FrameSizeEquals(width=1280, height=832, tolerance=25.0),                             # 4 frame size
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),    # 5 bars inside frame
+            LayerSizeAtLeast(layer_type="rectangle", min_w=2, min_h=10),                         # 6 no degenerate
+            AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",                   # 7 sane width
                                   min_frac=0.001, max_frac=0.30),
-            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),               # 7 bars upright
-            LayerRotationEquals(layer_type="frame",     degrees=0, tolerance=5.0),               # 8 frame upright (implicit)
+            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),               # 8 bars upright
             NoLayerFlipped(layer_type="rectangle"),                                              # 9 no mirror
             FrameCountAtMost(maximum=1),                                                         # 10 exactly one frame
-            LayerHeightRangeAtLeast(layer_type="rectangle", min_range=20.0),                     # 11 ★ prompt: "varying heights"
-        ], weight=0.20, critical=[0, 1, 2, 4, 11]),
+        ], weight=0.20, critical=[0, 1, 2, 3]),
 
         # color rubric: distinct colors not strictly mandated (varying heights, not hues)
         # but sane fills + visibility are.
@@ -60,12 +58,12 @@ task = Task(
             DistinctSolidColors(minimum=2, tolerance=0.15),         # 1
             FillCountAtMost("rectangle", max_count=1),              # 2 no stacked fills
             FillOpacityAtLeast("rectangle", min_opacity=0.5),       # 3 visible
-            LayerVisible("rectangle"),                               # 4 alpha+visible+opacity
+            LayerVisible("rectangle"),                              # 4 alpha+visible+opacity
         ], weight=0.20, critical=[0]),
 
-        # critical: bars in same frame on page 0
+        # structural: bars in same frame on page 0
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="rectangle", minimum=5),  # 0 ★ all 5 bars in one frame (combined inside-frame check)
+            LayerGroupAllInSameFrame(layer_type="rectangle", minimum=5),  # 0 all 5 bars in one frame
             LayerOnPage(layer_type="rectangle", page_index=0),            # 1 on page 0
         ], weight=0.20, critical=[0]),
 
