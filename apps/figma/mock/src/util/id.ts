@@ -1,5 +1,4 @@
 let counter = 0;
-const SESSION_ID_STORAGE_KEY = "__figma_mock_session_id";
 
 export function uid(prefix = "n"): string {
   counter += 1;
@@ -32,7 +31,7 @@ function randomUuidV4Fallback(): string {
   ].join("-");
 }
 
-function randomUuidV4(): string {
+export function randomUuidV4(): string {
   if (typeof crypto !== "undefined") {
     if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
     if (typeof crypto.getRandomValues === "function") {
@@ -54,14 +53,5 @@ function randomUuidV4(): string {
 }
 
 export function createSessionId(): string {
-  const fresh = `session_${randomUuidV4()}`;
-  if (typeof window === "undefined") return fresh;
-  try {
-    const existing = sessionStorage.getItem(SESSION_ID_STORAGE_KEY);
-    if (existing) return existing;
-    sessionStorage.setItem(SESSION_ID_STORAGE_KEY, fresh);
-  } catch {
-    // Storage may be unavailable; fall back to ephemeral id.
-  }
-  return fresh;
+  return `session_${randomUuidV4()}`;
 }
