@@ -31,7 +31,7 @@ task = Task(
 
         ColorRubric([
             DistinctStrokeColors(minimum=2, tolerance=0.12),                                    # 0 ★ prompt: "different blue shades"
-            AllStrokeWeightsEqual(layer_type="vector", weight=4.0, tolerance=2.5),              # 1 ★ prompt: "4px blue stroke"
+            AllStrokeWeightsEqual(layer_type="vector", weight=4.0, tolerance=2.0),              # 1 ★ prompt: "4px blue stroke"
         ], weight=0.25, critical=[0, 1]),
 
         StructureRubric([

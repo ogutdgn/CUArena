@@ -138,7 +138,7 @@ The `<module_name>` column in the index below matches the task verifier id in
 | 17 | Easy | 10 min | [Build an hourglass: 2 triangles point-to-point + 2 horizontal cap rectangles.](task_17/prompt.md) | `task_17_play_button` |
 | 18 | Easy | 8 min | [Draw an eye icon: 3 nested ellipses (sclera, iris, pupil) sharing a center.](task_18/prompt.md) | `task_18_donut` |
 | 19 | Easy | 15 min | [Build a padlock with a rectangle body, a pen-tool U-shackle, and a keyhole.](task_19/prompt.md) | `task_19_padlock` |
-| 20 | Easy | 10 min | [Draw 2 overlapping bright-colored circles inside a dark navy frame.](task_20/prompt.md) | `task_20_glow_blob` |
+| 20 | Easy | 10 min | [Draw 2 overlapping circles inside a dark navy frame.](task_20/prompt.md) | `task_20_glow_blob` |
 | 21 | Easy | 10 min | [Stack 3 same-size rectangles vertically, different colors, aligned on x.](task_21/prompt.md) | `task_21_button_stack` |
 | 22 | Easy | 10 min | [Draw 4 same-size pill rectangles in a horizontal row with different pastel fills.](task_22/prompt.md) | `task_22_tag_pills` |
 | 23 | Easy | 8 min | [Draw a left sidebar rectangle inside an outer frame.](task_23/prompt.md) | `task_23_stretchy_sidebar` |

@@ -16,7 +16,7 @@ from verifier.checks.geometry_checks import (
     LayerIsCircular, AllLayersAreCircular, FrameSizeEquals,
     AllLayerBoundsInside, LayerSizeAtLeast, LayerRotationEquals,
     LayersOverlap, LayerSmallerThanLayer, AllLayerWidthFraction,
-    FrameCountAtMost, LayerNextTo,
+    FrameCountAtMost, LayerNextTo, LayerEdgesAligned,
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, AllSolidColorEquals, DistinctSolidColors,
@@ -64,7 +64,11 @@ task = Task(
             LayerSmallerThanLayer(smaller_type="ellipse", larger_type="vector", max_frac=0.85),     # 15 ellipses smaller than bell
             FrameCountAtMost(maximum=1),                                                            # 16 exactly one top-level frame
             LayerNextTo(type_a="ellipse", type_b="vector", side="below", tolerance=20.0),           # 17 ★ prompt: "clapper circle below"
-        ], weight=0.20, critical=[0, 17]),
+            LayerEdgesAligned(type_a="ellipse", edge_a="right",                                     # 18 ★ prompt: "upper-right corner" (right-edge)
+                              type_b="vector", edge_b="right", tolerance=15.0),
+            LayerEdgesAligned(type_a="ellipse", edge_a="top",                                       # 19 ★ prompt: "upper-right corner" (top-edge)
+                              type_b="vector", edge_b="top", tolerance=15.0),
+        ], weight=0.20, critical=[0, 17, 18, 19]),
 
         # critical: gold bell, white badge stroke (prompt-explicit colors).
         ColorRubric([

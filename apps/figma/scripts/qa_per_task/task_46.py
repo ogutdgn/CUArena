@@ -40,7 +40,7 @@ def fail_misaligned_baseline():
         layers.append(make_layer("rectangle", x=500+i*24, y=200+i*30, w=20, h=h,
                                   fill=(0.2+0.15*i, 0.5, 0.85)))
     return _wrap(layers)
-def fail_no_gap():     return _bars(gap=0, w=20)
+def fail_huge_gaps():     return _bars(gap=80, w=20)
 def fail_same_height(): return _bars(heights=(70, 70, 70, 70, 70))
 def fail_uniform_color():
     layers = []
@@ -59,6 +59,7 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("4_bars",                fail_4_bars(),                ["expected 5, got 4"]),
     ("misaligned_baseline",   fail_misaligned_baseline(),   ["all rectangle.bottom: spread"]),
+    ("huge_gaps",             fail_huge_gaps(),             ["stacked"]),
     ("same_height",           fail_same_height(),           ["height range"]),
     ("uniform_color",         fail_uniform_color(),         ["distinct solid colors"]),
 ]
