@@ -11,6 +11,8 @@ and aggregates pass@k.
 # 1. Drop API keys (file is gitignored):
 #      apps/figma/cua-eval/.env
 #    Required:  OPENAI_API_KEY=...   and/or   ANTHROPIC_API_KEY=...
+#    Start from:
+#      cp apps/figma/cua-eval/.env.example apps/figma/cua-eval/.env
 
 # 2. Install Python deps + a Chromium for Playwright:
 cd apps/figma
@@ -45,6 +47,21 @@ npm run dev      # serves http://localhost:5173
 # Watch the browser
 .venv/bin/python cua-eval/runner/passk.py --smoke --headed
 
+# Persist every attempt into SQLite (default path shown explicitly)
+.venv/bin/python cua-eval/runner/passk.py --smoke \
+    --trace-db cua-eval/runs/trace_store.sqlite3
+
+# Optional: also embed PNG bytes in DB BLOBs (larger DB files)
+.venv/bin/python cua-eval/runner/passk.py --smoke \
+    --trace-db-store-screenshot-bytes
+
+# Hosted backend (team-shared): Postgres metadata + S3 artifacts
+.venv/bin/python cua-eval/runner/passk.py --smoke \
+    --trace-backend postgres-s3 \
+    --trace-postgres-dsn "$CUA_TRACE_POSTGRES_DSN" \
+    --trace-s3-bucket "$CUA_TRACE_S3_BUCKET" \
+    --trace-s3-prefix "figma/rollouts"
+
 # Enable the harness (system prompt that describes the UI)
 .venv/bin/python cua-eval/runner/passk.py --tasks 05 --harness
 
@@ -59,6 +76,28 @@ npm run dev      # serves http://localhost:5173
 RUN_ID=parallel_$(date +%Y%m%d_%H%M%S)
 .venv/bin/python cua-eval/runner/passk.py --tasks 02 --run-id "$RUN_ID" ...
 ```
+
+DB flags:
+
+- `--trace-backend {sqlite,postgres-s3}`: trace backend type (default `sqlite`)
+- `--trace-db <path>`: backend=sqlite path (default: `cua-eval/runs/trace_store.sqlite3`)
+- `--no-trace-db`: disable DB writes and keep filesystem-only artifacts
+- `--trace-db-store-screenshot-bytes`: backend=sqlite only, store screenshot PNG bytes as BLOBs
+- `--trace-postgres-dsn`: backend=postgres-s3 DSN
+- `--trace-s3-bucket`: backend=postgres-s3 artifact bucket
+- `--trace-s3-prefix`: backend=postgres-s3 artifact prefix (default `cua-traces`)
+- `--trace-aws-region`: backend=postgres-s3 AWS region (optional)
+- `--trace-s3-endpoint-url`: backend=postgres-s3 custom S3 endpoint (optional, for MinIO/R2)
+
+Env equivalents:
+
+- `CUA_TRACE_BACKEND`
+- `CUA_TRACE_DB`
+- `CUA_TRACE_POSTGRES_DSN`
+- `CUA_TRACE_S3_BUCKET`
+- `CUA_TRACE_S3_PREFIX`
+- `CUA_TRACE_AWS_REGION`
+- `CUA_TRACE_S3_ENDPOINT_URL`
 
 ## Parallel runs
 
@@ -197,6 +236,84 @@ A `trajectory.jsonl` line looks like:
   "screenshot": "screenshots/turn_03.png"
 }
 ```
+
+## Trace persistence
+
+When trace persistence is enabled, each run writes:
+
+- `runs`: run config + summary
+- `attempts`: one row per provider/task/attempt with score + usage + prompt/system prompt
+- artifact records for screenshots, logs, trajectories, etc.
+
+Two modes:
+
+- `sqlite`: all metadata/artifacts in one local sqlite file
+- `postgres-s3`: metadata in Postgres, artifact files uploaded to S3 and referenced by URI
+
+Quick queries:
+
+```bash
+# Inspect latest runs
+sqlite3 cua-eval/runs/trace_store.sqlite3 \
+  "select run_id,status,attempt_count,pass_count from runs order by created_at_ms desc limit 10;"
+
+# Best score per task/provider for a run
+sqlite3 cua-eval/runs/trace_store.sqlite3 "
+select provider, task_id, max(final_score) as best
+from attempts
+where run_id = 'YOUR_RUN_ID'
+group by provider, task_id
+order by provider, task_id;"
+
+# Pull one attempt log JSON
+sqlite3 cua-eval/runs/trace_store.sqlite3 "
+select log_json
+from attempts
+where run_id='YOUR_RUN_ID' and provider='anthropic' and task_id='05' and attempt_index=1;"
+
+# List screenshots for one attempt
+sqlite3 cua-eval/runs/trace_store.sqlite3 "
+select ordinal, filename, path, width, height, byte_size
+from screenshots
+where attempt_id = (
+  select id from attempts
+  where run_id='YOUR_RUN_ID' and provider='anthropic' and task_id='05' and attempt_index=1
+);"
+```
+
+Postgres + S3 query examples:
+
+```bash
+psql "$CUA_TRACE_POSTGRES_DSN" -c "
+select run_id,status,attempt_count,pass_count,created_at
+from runs
+order by created_at desc
+limit 10;"
+
+psql "$CUA_TRACE_POSTGRES_DSN" -c "
+select provider, task_id, max(final_score) as best
+from attempts
+where run_id = 'YOUR_RUN_ID'
+group by provider, task_id
+order by provider, task_id;"
+
+psql "$CUA_TRACE_POSTGRES_DSN" -c "
+select artifact_kind, filename, storage_uri, byte_size
+from artifacts
+where attempt_id = (
+  select id from attempts
+  where run_id='YOUR_RUN_ID' and provider='anthropic' and task_id='05' and attempt_index=1
+);"
+```
+
+## Bedrock-friendly deployment notes
+
+For Bedrock-oriented infra, prefer:
+
+- Postgres on RDS/Aurora
+- S3 for artifacts
+- IAM role auth for S3 (no static keys)
+- short-lived DB credentials (Secrets Manager / IAM auth proxy)
 
 ## Pass criterion
 
