@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_morr1rbc_3_3s1eer",
+  "exportedAt": 1777932483215,
+  "raw": [
+    {
+      "eventId": "raw_morr1s7f_5_hc19ah",
+      "type": "pointermove",
+      "timestamp": 1652.3000000002794,
+      "sessionTime": 1149.3999999999069,
+      "fields": {
+        "clientX": 321.6484375,
+        "clientY": 46.609375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr1tal_6_l7xshl",
+      "type": "pointermove",
+      "timestamp": 3062.2000000001863,
+      "sessionTime": 2559.2999999998137,
+      "fields": {
+        "clientX": 250.765625,
+        "clientY": 59.484375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "left-nav.tab.assets",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": true
+      }
+    },
+    {
+      "eventId": "raw_morr3fro_7_9c225t",
+      "type": "pointermove",
+      "timestamp": 78844.70000000019,
+      "sessionTime": 78341.79999999981,
+      "fields": {
+        "clientX": 427.109375,
+        "clientY": 80.5,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fry_8_tovvfc",
+      "type": "pointermove",
+      "timestamp": 78854.6000000001,
+      "sessionTime": 78351.69999999972,
+      "fields": {
+        "clientX": 428.6328125,
+        "clientY": 75.4140625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fsf_9_ptap0d",
+      "type": "pointermove",
+      "timestamp": 78872,
+      "sessionTime": 78369.09999999963,
+      "fields": {
+        "clientX": 433.03125,
+        "clientY": 57.8203125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fsv_10_c7t5is",
+      "type": "pointermove",
+      "timestamp": 78887.5,
+      "sessionTime": 78384.59999999963,
+      "fields": {
+        "clientX": 434.75,
+        "clientY": 52.34375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3ftb_11_yl7ns1",
+      "type": "pointermove",
+      "timestamp": 78904.1000000001,
+      "sessionTime": 78401.19999999972,
+      "fields": {
+        "clientX": 435.578125,
+        "clientY": 51.5078125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fts_12_inuaha",
+      "type": "pointermove",
+      "timestamp": 78920.80000000028,
+      "sessionTime": 78417.8999999999,
+      "fields": {
+        "clientX": 436.09375,
+        "clientY": 51.5078125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fu9_13_i16dib",
+      "type": "pointermove",
+      "timestamp": 78937.5,
+      "sessionTime": 78434.59999999963,
+      "fields": {
+        "clientX": 436.921875,
+        "clientY": 51.5078125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fuq_14_owp09k",
+      "type": "pointermove",
+      "timestamp": 78954.30000000028,
+      "sessionTime": 78451.3999999999,
+      "fields": {
+        "clientX": 439.875,
+        "clientY": 54.09375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fv6_15_h85oym",
+      "type": "pointermove",
+      "timestamp": 78970.80000000028,
+      "sessionTime": 78467.8999999999,
+      "fields": {
+        "clientX": 449.5625,
+        "clientY": 58.6953125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fvn_16_ygrvq2",
+      "type": "pointermove",
+      "timestamp": 78987.6000000001,
+      "sessionTime": 78484.69999999972,
+      "fields": {
+        "clientX": 468.53125,
+        "clientY": 65.8828125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fw3_17_6fxjci",
+      "type": "pointermove",
+      "timestamp": 79004.20000000019,
+      "sessionTime": 78501.29999999981,
+      "fields": {
+        "clientX": 505.609375,
+        "clientY": 78.8125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fwk_18_x1exu9",
+      "type": "pointermove",
+      "timestamp": 79020.5,
+      "sessionTime": 78517.59999999963,
+      "fields": {
+        "clientX": 547.984375,
+        "clientY": 89.625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morr3fx0_19_ues3an",
+      "type": "pointermove",
+      "timestamp": 79036.70000000019,
+      "sessionTime": 78533.79999999981,
+      "fields": {
+        "clientX": 572.8984375,
+        "clientY": 93.4609375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    }
+  ],
+  "semantic": [
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_morr1rbc_3_3s1eer",
+      "eventId": "sem_morr1rbi_4_zanmsl",
+      "timestamp": 502.90000000037253,
+      "pageId": "page_morr1rbc_1_0b33an",
+      "rawEventIdRange": null,
+      "name": "session_start",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/2.5.17 Chrome/142.0.7444.265 Electron/39.3.0 Safari/537.36",
+      "viewport": {
+        "width": 766,
+        "height": 95
+      }
+    }
+  ],
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_morr1rbc_3_3s1eer",
+    "capturedAt": 1777932483215,
+    "activePageId": "page_morr1rbc_1_0b33an",
+    "summary": {
+      "semanticEventCount": 1,
+      "shapeCounts": {}
+    },
+    "document": {
+      "id": "doc_morr1rbc_2_tkyfkr",
+      "schemaVersion": 1,
+      "pages": [
+        {
+          "id": "page_morr1rbc_1_0b33an",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "children": [],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          },
+          "prototypeFlows": []
+        }
+      ]
+    }
+  }
+}
