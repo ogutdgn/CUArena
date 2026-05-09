@@ -48,24 +48,24 @@ task = Task(
 
         # critical: rounded bar + circular magnifier ring; everything inside frame
         AlignmentRubric([
-            LayerSizeEquals(layer_type="rectangle", width=320, height=48, tolerance=15.0),  # 0
-            CornerRadiusAtLeast(layer_type="rectangle", min_value=20.0),                    # 1 ★ prompt: "rounded rectangle"
-            LayerIsCircular(layer_type="ellipse", tolerance=4.0),                            # 2 ★ prompt: "small circle" (magnifier ring)
+            CornerRadiusAtLeast(layer_type="rectangle", min_value=20.0),                    # 0 ★ prompt: "rounded rectangle"
+            LayerIsCircular(layer_type="ellipse", tolerance=4.0),                            # 1 ★ prompt: "small circle" (magnifier ring)
+            LayerSizeEquals(layer_type="rectangle", width=320, height=48, tolerance=15.0),  # 2 size guidance
             LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=5.0),         # 3 bar upright
             LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),             # 4 frame upright (implicit)
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),# 5 ★ shapes inside frame (combined intent)
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),# 5 bar in frame
             AllLayerBoundsInside(inner_type="ellipse",   outer_type="frame", tolerance=10.0),# 6 ellipses in frame
             AllLayerBoundsInside(inner_type="line",      outer_type="frame", tolerance=10.0),# 7 line inside frame
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="horizontal"),# 8 bar wider than tall
             CrossTypeAreaRatioAtLeast(big_type="frame", small_type="rectangle",              # 9 bar smaller than frame
                                        min_ratio=2.0),
-        ], weight=0.20, critical=[1, 2, 5]),
+        ], weight=0.20, critical=[0, 1]),
 
-        # critical: light-gray bar + stroked magnifier ring are prompt-explicit
+        # critical: stroked magnifier ring is prompt-explicit; bar color is verifier-spec only
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                              # 0 ★ visible solid bar
-            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.25),     # 1 ★ prompt: "light-gray"
-            StrokeExists("ellipse"),                                                                # 2 ★ prompt: "circle with stroke"
+            StrokeExists("ellipse"),                                                                # 0 ★ prompt: "circle with stroke"
+            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.25),     # 1 verifier-spec light-gray bar
+            AllFillTypeIs("rectangle", kind="solid"),                                              # 2 visible solid bar
             StrokeWeightEquals("ellipse", weight=2.0, tolerance=2.5),                               # 3 prompt: "2px stroke"
             VisibleStrokeExists("ellipse"),                                                         # 4 stroke visible
             AllLayerStrokeVisible(layer_type="ellipse", min_alpha=0.1, min_weight=0.5),             # 5 stroke visible (dots+glass)
@@ -73,14 +73,14 @@ task = Task(
             LayerVisible(layer_type="rectangle"),                                                   # 7 bar visible
             FillOpacityAtLeast(layer_type="rectangle", min_opacity=0.5),                            # 8
             VisibleStrokeExists("line"),                                                            # 9 line stroke visible
-        ], weight=0.20, critical=[0, 1, 2]),
+        ], weight=0.20, critical=[0]),
 
-        # structure: shapes inside a frame
+        # structure: shapes inside a frame (implicit, soft)
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                          # 0 ★ shapes belong to a frame
+            LayerInsideFrame(layer_type="rectangle"),                                          # 0 bar inside frame
             LayerInsideFrame(layer_type="ellipse"),                                            # 1
             LayerInsideFrame(layer_type="line"),                                               # 2
-        ], weight=0.10, critical=[0]),
+        ], weight=0.10, critical=[]),
 
         # critical: must use rectangle, ellipse, and line tools
         EventRubric([
