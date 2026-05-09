@@ -91,6 +91,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--harness", action="store_true",
                    help="Enable a system prompt that describes the mock's UI. "
                         "Default: OFF (model sees only the task prompt and screenshots).")
+    p.add_argument("--system-prompt-file", type=Path, default=None,
+                   help="Path to a markdown/text file used VERBATIM as the system "
+                        "prompt, replacing MOUSE_ONLY_NOTE and the --harness "
+                        "default. Example: app-docs/cua-system-prompt-click-only.md")
     p.add_argument("--keep-screenshots", type=int, default=3,
                    help="(anthropic) keep only the last N screenshots in conversation "
                         "history; older ones are replaced with a text stub. Default 3. "
@@ -160,32 +164,66 @@ def resolve_provider_runner(
     openai_model: str,
     keep_screenshots: int,
     common_kwargs: dict[str, Any],
+    system_prompt_override: str | None = None,
 ) -> tuple[Any, dict[str, Any], str | None]:
     if provider == "anthropic":
         try:
             if __package__:
-                from .agents.anthropic import run_anthropic_agent, DEFAULT_SYSTEM_PROMPT as anth_sys
+                from .agents.anthropic import (
+                    run_anthropic_agent,
+                    DEFAULT_SYSTEM_PROMPT as anth_sys,
+                    MOUSE_ONLY_NOTE as anth_mouse_only,
+                )
             else:
-                from runner.agents.anthropic import run_anthropic_agent, DEFAULT_SYSTEM_PROMPT as anth_sys  # type: ignore
+                from runner.agents.anthropic import (        # type: ignore
+                    run_anthropic_agent,
+                    DEFAULT_SYSTEM_PROMPT as anth_sys,
+                    MOUSE_ONLY_NOTE as anth_mouse_only,
+                )
         except ImportError as exc:
             raise RuntimeError("anthropic provider unavailable. Install deps from requirements.txt") from exc
+        # Precedence:
+        #   --system-prompt-file FILE wins → its contents are used VERBATIM.
+        #   Otherwise: MOUSE_ONLY_NOTE always; + DEFAULT_SYSTEM_PROMPT iff --harness.
+        if system_prompt_override is not None:
+            sys_prompt = system_prompt_override
+        else:
+            sys_prompt = (
+                anth_mouse_only + "\n\n" + anth_sys.format(w=1280, h=800)
+                if harness_enabled else anth_mouse_only
+            )
         return (
             run_anthropic_agent,
             {"model": anthropic_model, "keep_screenshots": keep_screenshots, **common_kwargs},
-            (anth_sys.format(w=1280, h=800) if harness_enabled else None),
+            sys_prompt,
         )
     if provider == "openai":
         try:
             if __package__:
-                from .agents.openai import run_openai_agent, DEFAULT_SYSTEM_PROMPT as oai_sys
+                from .agents.openai import (
+                    run_openai_agent,
+                    DEFAULT_SYSTEM_PROMPT as oai_sys,
+                    MOUSE_ONLY_NOTE as oai_mouse_only,
+                )
             else:
-                from runner.agents.openai import run_openai_agent, DEFAULT_SYSTEM_PROMPT as oai_sys  # type: ignore
+                from runner.agents.openai import (           # type: ignore
+                    run_openai_agent,
+                    DEFAULT_SYSTEM_PROMPT as oai_sys,
+                    MOUSE_ONLY_NOTE as oai_mouse_only,
+                )
         except ImportError as exc:
             raise RuntimeError("openai provider unavailable. Install deps from requirements.txt") from exc
+        if system_prompt_override is not None:
+            sys_prompt = system_prompt_override
+        else:
+            sys_prompt = (
+                oai_mouse_only + "\n\n" + oai_sys
+                if harness_enabled else oai_mouse_only
+            )
         return (
             run_openai_agent,
             {"model": openai_model, **common_kwargs},
-            (oai_sys if harness_enabled else None),
+            sys_prompt,
         )
     raise RuntimeError(f"Unknown provider: {provider}")
 
@@ -250,7 +288,18 @@ def main() -> int:
     print(f"k         : {args.k}")
     print(f"Threshold : final_score >= {args.threshold}")
     print(f"Mock URL  : {args.mock_url}")
-    print(f"Harness   : {'on' if args.harness else 'off'}")
+    # Resolve --system-prompt-file once. None means "use built-in defaults."
+    system_prompt_override: str | None = None
+    if args.system_prompt_file is not None:
+        if not args.system_prompt_file.is_file():
+            print(f"ERROR: --system-prompt-file not found: {args.system_prompt_file}", file=sys.stderr)
+            return 2
+        system_prompt_override = args.system_prompt_file.read_text(encoding="utf-8")
+
+    if system_prompt_override is not None:
+        print(f"System    : file {args.system_prompt_file} ({len(system_prompt_override)} chars)")
+    else:
+        print(f"System    : mouse-only note (always)" + (" + UI explainer (--harness)" if args.harness else ""))
     print(f"Prompt    : {args.prompt_mode}"
           + ("  (⚠ includes step-by-step solution)" if args.prompt_mode == "full" else ""))
     if trace_db:
@@ -284,6 +333,7 @@ def main() -> int:
                 openai_model=args.openai_model,
                 keep_screenshots=args.keep_screenshots,
                 common_kwargs=common_kwargs,
+                system_prompt_override=system_prompt_override,
             )
 
             for task_id in tasks:
