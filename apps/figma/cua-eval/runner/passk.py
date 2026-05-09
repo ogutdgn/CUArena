@@ -38,17 +38,15 @@ if str(HERE.parent.parent.parent.parent.parent) not in sys.path:
 
 try:
     from .runner import AttemptResult, list_task_dirs, run_attempt
-    from .agents.anthropic import run_anthropic_agent, DEFAULT_SYSTEM_PROMPT as ANTH_SYS
-    from .agents.openai import run_openai_agent, DEFAULT_SYSTEM_PROMPT as OAI_SYS
     from . import report as report_mod
+    from .trace_db import TraceStore, create_trace_store
 except ImportError:
     # Script-style invocation (`python passk.py ...`) — promote the parent
     # package onto sys.path and re-import absolutely.
     sys.path.insert(0, str(HERE.parent.parent))
     from runner.runner import AttemptResult, list_task_dirs, run_attempt        # type: ignore
-    from runner.agents.anthropic import run_anthropic_agent, DEFAULT_SYSTEM_PROMPT as ANTH_SYS  # type: ignore
-    from runner.agents.openai import run_openai_agent, DEFAULT_SYSTEM_PROMPT as OAI_SYS         # type: ignore
     from runner import report as report_mod                                     # type: ignore
+    from runner.trace_db import TraceStore, create_trace_store                  # type: ignore
 
 
 SMOKE_TASKS = ["05", "10", "12"]   # short, easy tasks for cheap end-to-end check
@@ -105,7 +103,91 @@ def parse_args() -> argparse.Namespace:
                         "(or the API's retry-after header). Default 5.")
     p.add_argument("--headed", action="store_true", help="Show the browser window.")
     p.add_argument("--run-id", default=None, help="Override the run id (default: timestamp).")
+    p.add_argument(
+        "--trace-backend",
+        default=os.environ.get("CUA_TRACE_BACKEND", "sqlite"),
+        choices=["sqlite", "postgres-s3"],
+        help="Trace backend type (default: sqlite).",
+    )
+    p.add_argument(
+        "--trace-db",
+        default=os.environ.get("CUA_TRACE_DB", str(EVAL_ROOT / "runs" / "trace_store.sqlite3")),
+        help="SQLite path for trace backend=sqlite (default: cua-eval/runs/trace_store.sqlite3).",
+    )
+    p.add_argument(
+        "--no-trace-db",
+        action="store_true",
+        help="Disable DB ingestion and keep filesystem-only artifacts.",
+    )
+    p.add_argument(
+        "--trace-db-store-screenshot-bytes",
+        action="store_true",
+        help="backend=sqlite only: store screenshot PNG bytes in DB BLOBs.",
+    )
+    p.add_argument(
+        "--trace-postgres-dsn",
+        default=os.environ.get("CUA_TRACE_POSTGRES_DSN"),
+        help="backend=postgres-s3: postgres DSN",
+    )
+    p.add_argument(
+        "--trace-s3-bucket",
+        default=os.environ.get("CUA_TRACE_S3_BUCKET"),
+        help="backend=postgres-s3: S3 bucket for artifacts",
+    )
+    p.add_argument(
+        "--trace-s3-prefix",
+        default=os.environ.get("CUA_TRACE_S3_PREFIX", "cua-traces"),
+        help="backend=postgres-s3: S3 prefix",
+    )
+    p.add_argument(
+        "--trace-aws-region",
+        default=os.environ.get("CUA_TRACE_AWS_REGION"),
+        help="backend=postgres-s3: AWS region (optional)",
+    )
+    p.add_argument(
+        "--trace-s3-endpoint-url",
+        default=os.environ.get("CUA_TRACE_S3_ENDPOINT_URL"),
+        help="backend=postgres-s3: custom S3 endpoint URL (optional)",
+    )
     return p.parse_args()
+
+
+def resolve_provider_runner(
+    provider: str,
+    *,
+    harness_enabled: bool,
+    anthropic_model: str,
+    openai_model: str,
+    keep_screenshots: int,
+    common_kwargs: dict[str, Any],
+) -> tuple[Any, dict[str, Any], str | None]:
+    if provider == "anthropic":
+        try:
+            if __package__:
+                from .agents.anthropic import run_anthropic_agent, DEFAULT_SYSTEM_PROMPT as anth_sys
+            else:
+                from runner.agents.anthropic import run_anthropic_agent, DEFAULT_SYSTEM_PROMPT as anth_sys  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError("anthropic provider unavailable. Install deps from requirements.txt") from exc
+        return (
+            run_anthropic_agent,
+            {"model": anthropic_model, "keep_screenshots": keep_screenshots, **common_kwargs},
+            (anth_sys.format(w=1280, h=800) if harness_enabled else None),
+        )
+    if provider == "openai":
+        try:
+            if __package__:
+                from .agents.openai import run_openai_agent, DEFAULT_SYSTEM_PROMPT as oai_sys
+            else:
+                from runner.agents.openai import run_openai_agent, DEFAULT_SYSTEM_PROMPT as oai_sys  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError("openai provider unavailable. Install deps from requirements.txt") from exc
+        return (
+            run_openai_agent,
+            {"model": openai_model, **common_kwargs},
+            (oai_sys if harness_enabled else None),
+        )
+    raise RuntimeError(f"Unknown provider: {provider}")
 
 
 def resolve_task_list(args: argparse.Namespace) -> list[str]:
@@ -128,6 +210,38 @@ def main() -> int:
     run_id = args.run_id or datetime.now().strftime("%Y%m%d_%H%M%S")
     run_root = RUNS_DIR / run_id
     run_root.mkdir(parents=True, exist_ok=True)
+    trace_db: TraceStore | None = None
+    if not args.no_trace_db:
+        trace_db = create_trace_store(
+            backend=args.trace_backend,
+            sqlite_path=Path(args.trace_db),
+            sqlite_store_screenshot_bytes=args.trace_db_store_screenshot_bytes,
+            postgres_dsn=args.trace_postgres_dsn,
+            s3_bucket=args.trace_s3_bucket,
+            s3_prefix=args.trace_s3_prefix,
+            aws_region=args.trace_aws_region,
+            s3_endpoint_url=args.trace_s3_endpoint_url,
+        )
+        trace_db.upsert_run(
+            run_id=run_id,
+            run_root=run_root,
+            config={
+                "providers": args.providers,
+                "tasks": tasks,
+                "k": args.k,
+                "threshold": args.threshold,
+                "step_cap": args.step_cap,
+                "mock_url": args.mock_url,
+                "prompt_mode": args.prompt_mode,
+                "harness": bool(args.harness),
+                "headed": bool(args.headed),
+                "run_id": run_id,
+                "trace_backend": args.trace_backend,
+                "trace_db": args.trace_db,
+                "trace_s3_bucket": args.trace_s3_bucket,
+                "trace_s3_prefix": args.trace_s3_prefix,
+            },
+        )
 
     print(f"Run id    : {run_id}")
     print(f"Run dir   : {run_root}")
@@ -139,6 +253,14 @@ def main() -> int:
     print(f"Harness   : {'on' if args.harness else 'off'}")
     print(f"Prompt    : {args.prompt_mode}"
           + ("  (⚠ includes step-by-step solution)" if args.prompt_mode == "full" else ""))
+    if trace_db:
+        if args.trace_backend == "sqlite":
+            print(f"Trace DB  : sqlite {Path(args.trace_db)}"
+                  + ("  (with screenshot blobs)" if args.trace_db_store_screenshot_bytes else ""))
+        else:
+            print(f"Trace DB  : postgres+s3 (bucket={args.trace_s3_bucket}, prefix={args.trace_s3_prefix})")
+    else:
+        print("Trace DB  : disabled (--no-trace-db)")
     print()
 
     # Build the harness system prompt per provider. ``None`` = no harness.
@@ -146,70 +268,92 @@ def main() -> int:
 
     all_attempts: list[AttemptResult] = []
     t0 = time.time()
-
-    common_kwargs = {
-        "step_cap": args.step_cap,
-        "turn_delay_s": args.turn_delay_s,
-        "max_retries": args.max_retries,
-    }
-    for provider in args.providers:
-        if provider == "anthropic":
-            agent_runner = run_anthropic_agent
-            agent_kwargs = {
-                "model": args.anthropic_model,
-                "keep_screenshots": args.keep_screenshots,
-                **common_kwargs,
-            }
-            sys_prompt = (ANTH_SYS.format(w=1280, h=800) if harness_enabled else None)
-        else:
-            agent_runner = run_openai_agent
-            agent_kwargs = {"model": args.openai_model, **common_kwargs}
-            sys_prompt = (OAI_SYS if harness_enabled else None)
-
-        for task_id in tasks:
-            for k_idx in range(args.k):
-                label = attempt_label(provider, task_id, k_idx)
-                attempt_dir = run_root / provider / f"task_{task_id}" / f"attempt_{k_idx + 1}"
-                t_a = time.time()
-                print(f"{label} starting...", flush=True)
-                try:
-                    res = run_attempt(
-                        task_id=task_id,
-                        provider=provider,
-                        agent_runner=agent_runner,
-                        agent_kwargs=agent_kwargs,
-                        out_dir=attempt_dir,
-                        mock_url=args.mock_url,
-                        headless=not args.headed,
-                        pass_threshold=args.threshold,
-                        progress_prefix=label,
-                        prompt_mode=args.prompt_mode,
-                        harness=harness_enabled,
-                        system_prompt=sys_prompt,
-                    )
-                except Exception as exc:
-                    print(f"{label} CRASH: {exc}", flush=True)
-                    continue
-                all_attempts.append(res)
-                dt = time.time() - t_a
-                pass_mark = "✓ pass" if res.passed else "✗ fail"
-                err = f"  err={res.error}" if res.error else ""
-                print(f"{label} {pass_mark}  score={res.final_score:.3f}/{res.max_score:.1f}  "
-                      f"turns={res.turns}  stop={res.stop_reason}  {dt:.1f}s{err}", flush=True)
-
     summary_json = run_root / "attempts.json"
-    summary_json.write_text(
-        json.dumps([dataclasses.asdict(a) for a in all_attempts], indent=2),
-        encoding="utf-8")
 
-    report_mod.write_reports(all_attempts, run_root, threshold=args.threshold, k=args.k)
+    try:
+        common_kwargs = {
+            "step_cap": args.step_cap,
+            "turn_delay_s": args.turn_delay_s,
+            "max_retries": args.max_retries,
+        }
+        for provider in args.providers:
+            agent_runner, agent_kwargs, sys_prompt = resolve_provider_runner(
+                provider,
+                harness_enabled=harness_enabled,
+                anthropic_model=args.anthropic_model,
+                openai_model=args.openai_model,
+                keep_screenshots=args.keep_screenshots,
+                common_kwargs=common_kwargs,
+            )
 
-    print()
-    print(f"Run complete in {time.time() - t0:.1f}s")
-    print(f"Attempts JSON : {summary_json}")
-    print(f"Summary MD    : {run_root / 'summary.md'}")
-    print(f"Summary CSV   : {run_root / 'summary.csv'}")
-    return 0
+            for task_id in tasks:
+                for k_idx in range(args.k):
+                    label = attempt_label(provider, task_id, k_idx)
+                    attempt_dir = run_root / provider / f"task_{task_id}" / f"attempt_{k_idx + 1}"
+                    t_a = time.time()
+                    print(f"{label} starting...", flush=True)
+                    try:
+                        res = run_attempt(
+                            task_id=task_id,
+                            provider=provider,
+                            agent_runner=agent_runner,
+                            agent_kwargs=agent_kwargs,
+                            out_dir=attempt_dir,
+                            mock_url=args.mock_url,
+                            headless=not args.headed,
+                            pass_threshold=args.threshold,
+                            progress_prefix=label,
+                            prompt_mode=args.prompt_mode,
+                            harness=harness_enabled,
+                            system_prompt=sys_prompt,
+                        )
+                    except Exception as exc:
+                        print(f"{label} CRASH: {exc}", flush=True)
+                        continue
+                    all_attempts.append(res)
+                    if trace_db is not None:
+                        trace_db.ingest_attempt(
+                            run_id=run_id,
+                            provider=provider,
+                            task_id=task_id,
+                            attempt_index=k_idx + 1,
+                            attempt_dir=attempt_dir,
+                            result=res,
+                        )
+                    dt = time.time() - t_a
+                    pass_mark = "✓ pass" if res.passed else "✗ fail"
+                    err = f"  err={res.error}" if res.error else ""
+                    print(f"{label} {pass_mark}  score={res.final_score:.3f}/{res.max_score:.1f}  "
+                          f"turns={res.turns}  stop={res.stop_reason}  {dt:.1f}s{err}", flush=True)
+
+        summary_json.write_text(
+            json.dumps([dataclasses.asdict(a) for a in all_attempts], indent=2),
+            encoding="utf-8")
+
+        report_mod.write_reports(all_attempts, run_root, threshold=args.threshold, k=args.k)
+        if trace_db is not None:
+            trace_db.finalize_run(
+                run_id=run_id,
+                attempts=all_attempts,
+                extra={
+                    "threshold": args.threshold,
+                    "k": args.k,
+                    "run_root": str(run_root.resolve()),
+                    "summary_csv": str((run_root / "summary.csv").resolve()),
+                    "summary_md": str((run_root / "summary.md").resolve()),
+                    "attempts_json": str(summary_json.resolve()),
+                },
+            )
+
+        print()
+        print(f"Run complete in {time.time() - t0:.1f}s")
+        print(f"Attempts JSON : {summary_json}")
+        print(f"Summary MD    : {run_root / 'summary.md'}")
+        print(f"Summary CSV   : {run_root / 'summary.csv'}")
+        return 0
+    finally:
+        if trace_db is not None:
+            trace_db.close()
 
 
 if __name__ == "__main__":
