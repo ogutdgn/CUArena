@@ -50,12 +50,102 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def _append_jsonl(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+
+def _write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, default=str)
+
+
+def _load_dotenv_if_present(path: Path) -> None:
+    if not path.is_file():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        s = line.strip()
+        if not s or s.startswith("#") or "=" not in s:
+            continue
+        k, v = s.split("=", 1)
+        key = k.strip()
+        if not key:
+            continue
+        value = v.strip().strip("\"").strip("'")
+        # Respect shell-provided values.
+        os.environ.setdefault(key, value)
+
+
+def _resolve_api_key(primary_env: str, aliases: list[str]) -> tuple[str, str] | tuple[None, None]:
+    candidates = [primary_env] + aliases
+    for name in candidates:
+        val = os.getenv(name, "").strip()
+        if val:
+            return val, name
+    return None, None
+
+
+def _sanitize_for_trace(value: Any) -> Any:
+    if isinstance(value, dict):
+        out: dict[str, Any] = {}
+        for k, v in value.items():
+            if k == "data" and isinstance(v, str) and len(v) > 120:
+                out[k] = f"<redacted_base64:{len(v)} chars>"
+            else:
+                out[k] = _sanitize_for_trace(v)
+        return out
+    if isinstance(value, list):
+        return [_sanitize_for_trace(v) for v in value]
+    if isinstance(value, str) and len(value) > 8000:
+        return value[:8000] + "...<truncated>"
+    return value
+
+
+def _run_stamp(run_index: int) -> str:
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ms = int((time.time() % 1) * 1000)
+    return f"{ts}_{ms:03d}_r{run_index:03d}"
+
+
+def _truncate_anthropic_image_history(messages: list[dict[str, Any]], keep_last_images: int = 3) -> None:
+    """Keep only the most recent screenshot image blocks in chat history.
+
+    Older image blocks are replaced with a short text placeholder to keep
+    context semantics while reducing token load for long rollouts.
+    """
+    image_slots: list[tuple[list[dict[str, Any]], int]] = []
+    for msg in messages:
+        if not isinstance(msg, dict):
+            continue
+        content = msg.get("content")
+        if not isinstance(content, list):
+            continue
+        for block in content:
+            if not isinstance(block, dict) or block.get("type") != "tool_result":
+                continue
+            tr_content = block.get("content")
+            if not isinstance(tr_content, list):
+                continue
+            for idx, item in enumerate(tr_content):
+                if isinstance(item, dict) and item.get("type") == "image":
+                    image_slots.append((tr_content, idx))
+    if len(image_slots) <= keep_last_images:
+        return
+    cutoff = len(image_slots) - keep_last_images
+    for i in range(cutoff):
+        target_list, target_idx = image_slots[i]
+        target_list[target_idx] = {"type": "text", "text": "screenshot omitted"}
+
+
 def _http_json(
     method: str,
     url: str,
     payload: dict[str, Any] | None = None,
     headers: dict[str, str] | None = None,
     timeout: float = 90.0,
+    retries: int = 3,
 ) -> dict[str, Any]:
     req_headers = {"Content-Type": "application/json"}
     if headers:
@@ -63,19 +153,42 @@ def _http_json(
     data = None
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url=url, data=data, headers=req_headers, method=method.upper())
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            body = resp.read().decode("utf-8")
-            if not body:
-                return {}
-            return json.loads(body)
-    except urllib.error.HTTPError as e:
+    last_error: RuntimeError | None = None
+    for attempt in range(retries + 1):
+        req = urllib.request.Request(url=url, data=data, headers=req_headers, method=method.upper())
         try:
-            err_body = e.read().decode("utf-8")
-        except Exception:
-            err_body = "<no-body>"
-        raise RuntimeError(f"HTTP {e.code} {url}: {err_body}") from e
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                body = resp.read().decode("utf-8")
+                if not body:
+                    return {}
+                return json.loads(body)
+        except urllib.error.HTTPError as e:
+            try:
+                err_body = e.read().decode("utf-8")
+            except Exception:
+                err_body = "<no-body>"
+            status = int(getattr(e, "code", 0) or 0)
+            is_retryable = status in (429, 500, 502, 503, 504, 529)
+            if is_retryable and attempt < retries:
+                retry_after_raw = e.headers.get("retry-after") if hasattr(e, "headers") and e.headers else None
+                try:
+                    retry_after = float(retry_after_raw) if retry_after_raw else 0.0
+                except Exception:
+                    retry_after = 0.0
+                delay = retry_after if retry_after > 0 else min(25.0, 2.0 * (attempt + 1))
+                time.sleep(delay)
+                continue
+            last_error = RuntimeError(f"HTTP {status} {url}: {err_body}")
+            break
+        except urllib.error.URLError as e:
+            if attempt < retries:
+                time.sleep(min(10.0, 1.0 * (attempt + 1)))
+                continue
+            last_error = RuntimeError(f"URL error {url}: {e}")
+            break
+    if last_error:
+        raise last_error
+    raise RuntimeError(f"HTTP request failed with unknown error: {url}")
 
 
 def _parse_tasks(raw: str) -> list[str]:
@@ -181,6 +294,7 @@ class RunnerConfig:
     openai_model: str
     anthropic_model: str
     max_steps: int
+    runs_per_task: int
     max_parallel: int
     headless: bool
     step_delay_ms: int
@@ -200,17 +314,31 @@ class EpisodeResult:
     provider: str
     model: str
     task: str
+    run_index: int
     status: str
     started_at: str
     finished_at: str
     duration_sec: float
     session_id: str | None
     steps: int
+    turns: int
+    stop_reason: str | None
+    stopped_by_model: bool
+    hit_max_steps: bool
     final_score: float | None
     base_score: float | None
     efficiency_multiplier: float | None
     run_dir: str
     error: str | None
+
+
+@dataclasses.dataclass
+class EpisodeTrace:
+    steps: int
+    turns: int
+    stop_reason: str | None
+    stopped_by_model: bool
+    hit_max_steps: bool
 
 
 class BrowserHarness:
@@ -262,11 +390,27 @@ class BrowserHarness:
         await self._page.goto(self.app_url, wait_until="domcontentloaded", timeout=self.nav_timeout_ms)
         await self._page.wait_for_timeout(350)
 
-    async def screenshot_b64(self) -> str:
+    async def screenshot_png(self) -> bytes:
         if self._page is None:
             raise RuntimeError("No active page")
-        png = await self._page.screenshot(type="png")
+        return await self._page.screenshot(type="png")
+
+    async def screenshot_b64(self) -> str:
+        png = await self.screenshot_png()
         return base64.b64encode(png).decode("utf-8")
+
+    async def save_screenshot(self, path: Path) -> None:
+        png = await self.screenshot_png()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(png)
+
+    async def current_session_id(self) -> str | None:
+        if self._page is None:
+            raise RuntimeError("No active page")
+        value = await self._page.evaluate("() => sessionStorage.getItem('__figma_mock_session_id')")
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+        return None
 
     async def execute_openai_actions(self, actions: list[dict[str, Any]]) -> None:
         for action in actions:
@@ -321,9 +465,8 @@ class BrowserHarness:
             async def _do():
                 await self._page.mouse.move(x, y)
                 await self._page.evaluate(
-                    "(dx, dy) => window.scrollBy({left: dx, top: dy, behavior: 'auto'})",
-                    scroll_x,
-                    scroll_y,
+                    "({dx, dy}) => window.scrollBy({left: dx, top: dy, behavior: 'auto'})",
+                    {"dx": scroll_x, "dy": scroll_y},
                 )
 
             await self._with_modifiers(keys, _do)
@@ -433,9 +576,8 @@ class BrowserHarness:
                 dx, dy = amount_px, 0
             await self._page.mouse.move(x, y)
             await self._page.evaluate(
-                "(sx, sy) => window.scrollBy({left: sx, top: sy, behavior: 'auto'})",
-                dx,
-                dy,
+                "({sx, sy}) => window.scrollBy({left: sx, top: sy, behavior: 'auto'})",
+                {"sx": dx, "sy": dy},
             )
             return
         raise RuntimeError(f"Unsupported Anthropic action: {action}")
@@ -463,8 +605,13 @@ class OpenAIComputerAgent:
     def _headers(self) -> dict[str, str]:
         return {"Authorization": f"Bearer {self.api_key}"}
 
-    async def run_episode(self, harness: BrowserHarness, task_prompt: str, trace_file: Path) -> int:
+    async def run_episode(self, harness: BrowserHarness, task_prompt: str, episode_dir: Path) -> EpisodeTrace:
         steps = 0
+        turns = 0
+        stop_reason: str | None = None
+        stopped_by_model = False
+        actions_path = episode_dir / "actions.jsonl"
+        messages_path = episode_dir / "openai_messages.jsonl"
         screenshot0 = await harness.screenshot_b64()
         req: dict[str, Any] = {
             "model": self.model,
@@ -495,12 +642,17 @@ class OpenAIComputerAgent:
         if self.tool_type == "computer_use_preview":
             req["reasoning"] = {"summary": "concise"}
 
+        _append_jsonl(messages_path, {"ts": _utc_now(), "kind": "request", "turn": 1, "payload": _sanitize_for_trace(req)})
         resp = _http_json("POST", "https://api.openai.com/v1/responses", payload=req, headers=self._headers(), timeout=120.0)
+        _append_jsonl(messages_path, {"ts": _utc_now(), "kind": "response", "turn": 1, "payload": _sanitize_for_trace(resp)})
+        turns = 1
 
         while steps < self.max_steps:
             outputs = resp.get("output", []) or []
             computer_call = next((o for o in outputs if o.get("type") == "computer_call"), None)
             if not computer_call:
+                stop_reason = str(resp.get("status") or "no_computer_call")
+                stopped_by_model = True
                 break
             call_id = computer_call.get("call_id")
             if not call_id:
@@ -514,14 +666,14 @@ class OpenAIComputerAgent:
             actions = [a for a in actions if isinstance(a, dict)]
             if not actions:
                 # No executable action, break to avoid dead-loop.
+                stop_reason = "empty_computer_actions"
+                stopped_by_model = True
                 break
 
             await harness.execute_openai_actions(actions)
             steps += len(actions)
-            trace_file.parent.mkdir(parents=True, exist_ok=True)
-            with open(trace_file, "a", encoding="utf-8") as tf:
-                for a in actions:
-                    tf.write(json.dumps({"ts": _utc_now(), "provider": "openai", "action": a}) + "\n")
+            for a in actions:
+                _append_jsonl(actions_path, {"ts": _utc_now(), "provider": "openai", "action": a})
 
             screenshot_b64 = await harness.screenshot_b64()
             follow = {
@@ -541,9 +693,21 @@ class OpenAIComputerAgent:
                 ],
                 "truncation": "auto",
             }
+            turns += 1
+            _append_jsonl(messages_path, {"ts": _utc_now(), "kind": "request", "turn": turns, "payload": _sanitize_for_trace(follow)})
             resp = _http_json("POST", "https://api.openai.com/v1/responses", payload=follow, headers=self._headers(), timeout=120.0)
+            _append_jsonl(messages_path, {"ts": _utc_now(), "kind": "response", "turn": turns, "payload": _sanitize_for_trace(resp)})
 
-        return steps
+        hit_max_steps = steps >= self.max_steps
+        if hit_max_steps and not stop_reason:
+            stop_reason = "max_steps_reached"
+        return EpisodeTrace(
+            steps=steps,
+            turns=turns,
+            stop_reason=stop_reason,
+            stopped_by_model=stopped_by_model,
+            hit_max_steps=hit_max_steps,
+        )
 
 
 class AnthropicComputerAgent:
@@ -580,8 +744,14 @@ class AnthropicComputerAgent:
             "display_height_px": self.height,
         }
 
-    async def run_episode(self, harness: BrowserHarness, task_prompt: str, trace_file: Path) -> int:
+    async def run_episode(self, harness: BrowserHarness, task_prompt: str, episode_dir: Path) -> EpisodeTrace:
         steps = 0
+        turns = 0
+        stop_reason: str | None = None
+        stopped_by_model = False
+        actions_path = episode_dir / "actions.jsonl"
+        messages_path = episode_dir / "claude_messages.jsonl"
+        screens_dir = episode_dir / "screens"
         messages: list[dict[str, Any]] = [
             {
                 "role": "user",
@@ -594,12 +764,18 @@ class AnthropicComputerAgent:
         ]
 
         while steps < self.max_steps:
+            turns += 1
+            _truncate_anthropic_image_history(messages, keep_last_images=3)
             req = {
                 "model": self.model,
                 "max_tokens": 4096,
                 "messages": messages,
                 "tools": [self._tool_def()],
             }
+            _append_jsonl(
+                messages_path,
+                {"ts": _utc_now(), "kind": "request", "turn": turns, "payload": _sanitize_for_trace(req)},
+            )
             resp = _http_json(
                 "POST",
                 "https://api.anthropic.com/v1/messages",
@@ -607,26 +783,40 @@ class AnthropicComputerAgent:
                 headers=self._headers(),
                 timeout=120.0,
             )
+            stop_reason = str(resp.get("stop_reason")) if resp.get("stop_reason") is not None else None
+            _append_jsonl(
+                messages_path,
+                {
+                    "ts": _utc_now(),
+                    "kind": "response",
+                    "turn": turns,
+                    "stop_reason": stop_reason,
+                    "payload": _sanitize_for_trace(resp),
+                },
+            )
             content = resp.get("content", []) or []
             messages.append({"role": "assistant", "content": content})
 
             tool_uses = [b for b in content if isinstance(b, dict) and b.get("type") == "tool_use"]
             if not tool_uses:
+                stopped_by_model = True
                 break
 
             tool_results: list[dict[str, Any]] = []
-            trace_file.parent.mkdir(parents=True, exist_ok=True)
-
-            for block in tool_uses:
+            for action_idx, block in enumerate(tool_uses, start=1):
                 inp = block.get("input", {}) or {}
                 if not isinstance(inp, dict):
                     inp = {}
                 await harness.execute_anthropic_action(inp)
                 steps += 1
-                with open(trace_file, "a", encoding="utf-8") as tf:
-                    tf.write(json.dumps({"ts": _utc_now(), "provider": "anthropic", "action": inp}) + "\n")
+                _append_jsonl(actions_path, {"ts": _utc_now(), "provider": "anthropic", "turn": turns, "action": inp})
+                if steps > self.max_steps:
+                    break
 
                 shot = await harness.screenshot_b64()
+                shot_path = screens_dir / f"turn_{turns:03d}_action_{action_idx:02d}.png"
+                shot_path.parent.mkdir(parents=True, exist_ok=True)
+                shot_path.write_bytes(base64.b64decode(shot))
                 tool_results.append(
                     {
                         "type": "tool_result",
@@ -643,16 +833,28 @@ class AnthropicComputerAgent:
                         ],
                     }
                 )
+                if steps >= self.max_steps:
+                    break
 
             messages.append({"role": "user", "content": tool_results})
 
-        return steps
+        hit_max_steps = steps >= self.max_steps
+        if hit_max_steps and not stop_reason:
+            stop_reason = "max_steps_reached"
+        return EpisodeTrace(
+            steps=steps,
+            turns=turns,
+            stop_reason=stop_reason,
+            stopped_by_model=stopped_by_model,
+            hit_max_steps=hit_max_steps,
+        )
 
 
 async def _run_one_episode(
     cfg: RunnerConfig,
     provider: str,
     task_id_2d: str,
+    run_index: int,
     run_root: Path,
 ) -> EpisodeResult:
     started = time.time()
@@ -660,19 +862,25 @@ async def _run_one_episode(
     task_dir = _resolve_task_dir(task_id_2d)
     task_prompt = _read_task_prompt(task_dir)
 
-    ep_dir = run_root / provider / f"task_{task_id_2d}" / datetime.now().strftime("%Y%m%d_%H%M%S")
+    ep_dir = run_root / provider / f"task_{task_id_2d}" / _run_stamp(run_index)
+    screens_dir = ep_dir / "screens"
     ep_dir.mkdir(parents=True, exist_ok=True)
     (ep_dir / "prompt.md").write_text(task_prompt, encoding="utf-8")
 
     model = cfg.openai_model if provider == "openai" else cfg.anthropic_model
     session_id: str | None = None
-    steps = 0
+    trace = EpisodeTrace(
+        steps=0,
+        turns=0,
+        stop_reason=None,
+        stopped_by_model=False,
+        hit_max_steps=False,
+    )
     final_score = None
     base_score = None
     eff = None
     err = None
     status = "ok"
-    trace_file = ep_dir / "actions.jsonl"
 
     try:
         async with BrowserHarness(
@@ -684,11 +892,16 @@ async def _run_one_episode(
             nav_timeout_ms=cfg.nav_timeout_ms,
         ) as harness:
             await harness.reset()
+            await harness.save_screenshot(screens_dir / "start.png")
 
             if provider == "openai":
-                api_key = os.getenv(cfg.openai_api_key_env, "").strip()
+                api_key, api_key_src = _resolve_api_key(
+                    cfg.openai_api_key_env,
+                    ["OPENAI_API_KEY", "openai_api_key"],
+                )
                 if not api_key:
                     raise RuntimeError(f"Missing env var {cfg.openai_api_key_env}")
+                (ep_dir / "auth_key_source.txt").write_text(f"{api_key_src}\n", encoding="utf-8")
                 agent = OpenAIComputerAgent(
                     api_key=api_key,
                     model=cfg.openai_model,
@@ -697,11 +910,15 @@ async def _run_one_episode(
                     height=cfg.height,
                     max_steps=cfg.max_steps,
                 )
-                steps = await agent.run_episode(harness, task_prompt, trace_file)
+                trace = await agent.run_episode(harness, task_prompt, ep_dir)
             elif provider == "anthropic":
-                api_key = os.getenv(cfg.anthropic_api_key_env, "").strip()
+                api_key, api_key_src = _resolve_api_key(
+                    cfg.anthropic_api_key_env,
+                    ["ANTHROPIC_API_KEY", "CLAUDE_API_KEY", "claude_api_key", "anthropic_api_key"],
+                )
                 if not api_key:
                     raise RuntimeError(f"Missing env var {cfg.anthropic_api_key_env}")
+                (ep_dir / "auth_key_source.txt").write_text(f"{api_key_src}\n", encoding="utf-8")
                 agent = AnthropicComputerAgent(
                     api_key=api_key,
                     model=cfg.anthropic_model,
@@ -711,27 +928,33 @@ async def _run_one_episode(
                     height=cfg.height,
                     max_steps=cfg.max_steps,
                 )
-                steps = await agent.run_episode(harness, task_prompt, trace_file)
+                trace = await agent.run_episode(harness, task_prompt, ep_dir)
             else:
                 raise RuntimeError(f"Unsupported provider: {provider}")
+
+            session_id = await harness.current_session_id()
+            await harness.save_screenshot(screens_dir / "final.png")
 
         # Wait for persist flush (~250ms in app); add margin.
         await asyncio.sleep(0.65)
 
         status_url = f"{cfg.app_url.rstrip('/')}/dev-log/status"
+        if session_id:
+            status_url = f"{status_url}?{urllib.parse.urlencode({'sessionId': session_id})}"
         s = _http_json("GET", status_url, timeout=20.0)
-        session_id = s.get("lastSessionId")
+        if not session_id:
+            session_id = s.get("selectedSessionId") or s.get("lastSessionId")
         if not session_id:
             raise RuntimeError(f"No session id from {status_url}: {s}")
-        (ep_dir / "status.json").write_text(json.dumps(s, indent=2), encoding="utf-8")
+        _write_json(ep_dir / "status.json", s)
 
         log_url = f"{cfg.app_url.rstrip('/')}/dev-log?{urllib.parse.urlencode({'sessionId': session_id})}"
         log_obj = _http_json("GET", log_url, timeout=20.0)
         log_path = ep_dir / "log.json"
-        log_path.write_text(json.dumps(log_obj, indent=2), encoding="utf-8")
+        _write_json(log_path, log_obj)
 
         result = _score_log(task_dir, log_path)
-        (ep_dir / "score.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+        _write_json(ep_dir / "score.json", result)
         final_score = float(result.get("final_score", 0.0))
         base_score = float(result.get("base_score", 0.0))
         eff_obj = result.get("efficiency", {}) or {}
@@ -739,7 +962,7 @@ async def _run_one_episode(
     except Exception as e:
         status = "error"
         err = f"{e}\n{traceback.format_exc(limit=2)}"
-        (ep_dir / "error.txt").write_text(err, encoding="utf-8")
+        _write_json(ep_dir / "error.json", {"error": str(e), "traceback": err})
 
     finished_at = _utc_now()
     duration = round(time.time() - started, 3)
@@ -747,19 +970,25 @@ async def _run_one_episode(
         provider=provider,
         model=model,
         task=f"task_{task_id_2d}",
+        run_index=run_index,
         status=status,
         started_at=started_at,
         finished_at=finished_at,
         duration_sec=duration,
         session_id=session_id,
-        steps=steps,
+        steps=trace.steps,
+        turns=trace.turns,
+        stop_reason=trace.stop_reason,
+        stopped_by_model=trace.stopped_by_model,
+        hit_max_steps=trace.hit_max_steps,
         final_score=final_score,
         base_score=base_score,
         efficiency_multiplier=eff,
         run_dir=str(ep_dir),
         error=err,
     )
-    (ep_dir / "summary.json").write_text(json.dumps(dataclasses.asdict(summary), indent=2), encoding="utf-8")
+    _write_json(ep_dir / "summary.json", dataclasses.asdict(summary))
+    _write_json(ep_dir / "trace_meta.json", dataclasses.asdict(trace))
     return summary
 
 
@@ -769,13 +998,13 @@ async def _worker_loop(name: str, cfg: RunnerConfig, q: asyncio.Queue, run_root:
         if item is None:
             q.task_done()
             return
-        provider, task_id_2d = item
-        print(f"[{name}] start provider={provider} task=task_{task_id_2d}")
-        res = await _run_one_episode(cfg, provider, task_id_2d, run_root)
+        provider, task_id_2d, run_index = item
+        print(f"[{name}] start provider={provider} task=task_{task_id_2d} run={run_index}")
+        res = await _run_one_episode(cfg, provider, task_id_2d, run_index, run_root)
         summaries.append(res)
         print(
-            f"[{name}] done provider={provider} task=task_{task_id_2d} "
-            f"status={res.status} score={res.final_score} session={res.session_id}"
+            f"[{name}] done provider={provider} task=task_{task_id_2d} run={run_index} "
+            f"status={res.status} score={res.final_score} session={res.session_id} stop={res.stop_reason}"
         )
         q.task_done()
 
@@ -786,6 +1015,7 @@ def _load_config(args: argparse.Namespace) -> RunnerConfig:
         app_url = cfg_obj.get("app_url", args.app_url)
         providers = cfg_obj.get("providers", args.providers.split(","))
         tasks_raw = cfg_obj.get("tasks", args.tasks)
+        runs_per_task = int(cfg_obj.get("runs_per_task", args.runs_per_task))
         if isinstance(tasks_raw, list):
             task_ids = _parse_tasks(",".join(str(x) for x in tasks_raw))
         else:
@@ -794,6 +1024,7 @@ def _load_config(args: argparse.Namespace) -> RunnerConfig:
         app_url = args.app_url
         providers = [p.strip() for p in args.providers.split(",") if p.strip()]
         task_ids = _parse_tasks(args.tasks)
+        runs_per_task = int(args.runs_per_task)
 
     out_dir = Path(args.output_dir).expanduser()
     return RunnerConfig(
@@ -803,6 +1034,7 @@ def _load_config(args: argparse.Namespace) -> RunnerConfig:
         openai_model=args.openai_model,
         anthropic_model=args.anthropic_model,
         max_steps=args.max_steps,
+        runs_per_task=max(1, runs_per_task),
         max_parallel=max(1, args.max_parallel),
         headless=not args.show_browser,
         step_delay_ms=args.step_delay_ms,
@@ -829,11 +1061,16 @@ def _write_leaderboard(run_root: Path, summaries: list[EpisodeResult]) -> None:
         "provider",
         "model",
         "task",
+        "run_index",
         "status",
+        "turns",
+        "steps",
+        "stop_reason",
+        "stopped_by_model",
+        "hit_max_steps",
         "final_score",
         "base_score",
         "efficiency_multiplier",
-        "steps",
         "duration_sec",
         "session_id",
         "run_dir",
@@ -851,23 +1088,74 @@ def _write_leaderboard(run_root: Path, summaries: list[EpisodeResult]) -> None:
     out_csv.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def _write_aggregate_summary(run_root: Path, summaries: list[EpisodeResult]) -> dict[str, Any]:
+    grouped: dict[tuple[str, str], list[EpisodeResult]] = {}
+    for s in summaries:
+        key = (s.provider, s.task)
+        grouped.setdefault(key, []).append(s)
+
+    per_task: list[dict[str, Any]] = []
+    all_scores: list[float] = []
+    for (provider, task), rows in sorted(grouped.items()):
+        ok_scores = [float(r.final_score) for r in rows if r.status == "ok" and r.final_score is not None]
+        all_scores.extend(ok_scores)
+        per_task.append(
+            {
+                "provider": provider,
+                "task": task,
+                "attempts": len(rows),
+                "successes": len(ok_scores),
+                "mean_reward": round(sum(ok_scores) / len(ok_scores), 4) if ok_scores else None,
+                "max_reward": round(max(ok_scores), 4) if ok_scores else None,
+                "min_reward": round(min(ok_scores), 4) if ok_scores else None,
+            }
+        )
+
+    overall = {
+        "attempts": len(summaries),
+        "successes": len([s for s in summaries if s.status == "ok" and s.final_score is not None]),
+        "mean_reward": round(sum(all_scores) / len(all_scores), 4) if all_scores else None,
+        "max_reward": round(max(all_scores), 4) if all_scores else None,
+        "min_reward": round(min(all_scores), 4) if all_scores else None,
+    }
+    out = {"per_task": per_task, "overall": overall}
+    _write_json(run_root / "aggregate_summary.json", out)
+    return out
+
+
 async def _amain(args: argparse.Namespace) -> int:
+    _load_dotenv_if_present(APP_ROOT / ".env")
     cfg = _load_config(args)
     for p in cfg.providers:
         if p not in ("openai", "anthropic"):
             raise SystemExit(f"Unsupported provider '{p}'. Use openai,anthropic")
     if not cfg.task_ids:
         raise SystemExit("No tasks selected")
+    if "openai" in cfg.providers:
+        api_key, _src = _resolve_api_key(cfg.openai_api_key_env, ["OPENAI_API_KEY", "openai_api_key"])
+        if not api_key:
+            raise SystemExit(f"Missing OpenAI key: set {cfg.openai_api_key_env} (or OPENAI_API_KEY/openai_api_key)")
+    if "anthropic" in cfg.providers:
+        api_key, _src = _resolve_api_key(
+            cfg.anthropic_api_key_env,
+            ["ANTHROPIC_API_KEY", "CLAUDE_API_KEY", "claude_api_key", "anthropic_api_key"],
+        )
+        if not api_key:
+            raise SystemExit(
+                "Missing Anthropic key: set "
+                f"{cfg.anthropic_api_key_env} (or ANTHROPIC_API_KEY/CLAUDE_API_KEY/claude_api_key)"
+            )
 
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_root = cfg.output_dir / stamp
     run_root.mkdir(parents=True, exist_ok=True)
-    (run_root / "config.json").write_text(json.dumps(dataclasses.asdict(cfg), indent=2, default=str), encoding="utf-8")
+    _write_json(run_root / "config.json", dataclasses.asdict(cfg))
 
     queue: asyncio.Queue = asyncio.Queue()
     for provider in cfg.providers:
         for task_id in cfg.task_ids:
-            queue.put_nowait((provider, task_id))
+            for run_index in range(1, cfg.runs_per_task + 1):
+                queue.put_nowait((provider, task_id, run_index))
     for _ in range(cfg.max_parallel):
         queue.put_nowait(None)
 
@@ -881,7 +1169,15 @@ async def _amain(args: argparse.Namespace) -> int:
         await w
 
     _write_leaderboard(run_root, summaries)
+    agg = _write_aggregate_summary(run_root, summaries)
     print(f"\nRun complete. Artifacts: {run_root}")
+    print("Per-task reward summary:")
+    for row in agg["per_task"]:
+        print(
+            f"  {row['provider']:<10} {row['task']:<8} "
+            f"attempts={row['attempts']:<3} successes={row['successes']:<3} mean={row['mean_reward']}"
+        )
+    print(f"Overall mean reward: {agg['overall']['mean_reward']}")
     ok = [s for s in summaries if s.status == "ok"]
     if ok:
         mean_score = sum(float(s.final_score or 0.0) for s in ok) / len(ok)
@@ -897,6 +1193,7 @@ def main() -> None:
     p.add_argument("--app-url", default="http://127.0.0.1:5173", help="Figma mock URL")
     p.add_argument("--providers", default="openai,anthropic", help="comma-separated: openai,anthropic")
     p.add_argument("--tasks", default="01", help="comma/range, e.g. 01,02,10-12")
+    p.add_argument("--runs-per-task", type=int, default=1, help="repeat each task K times per provider")
     p.add_argument("--max-steps", type=int, default=80, help="max tool-action turns per episode")
     p.add_argument("--max-parallel", type=int, default=1, help="concurrent episodes (default 1 to minimize cores)")
     p.add_argument("--show-browser", action="store_true", help="run headed browser instead of headless")
@@ -922,4 +1219,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
