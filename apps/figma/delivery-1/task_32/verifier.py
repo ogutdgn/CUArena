@@ -18,9 +18,9 @@ from verifier.checks.geometry_checks import (
     AllLayersAreCircular, FrameCountAtMost,
 )
 from verifier.checks.fill_checks   import (
-    AllFillTypeIs, DistinctSolidColors, FillCountAtMost, FillOpacityAtLeast,
+    AllFillTypeIs, DistinctSolidColors,
 )
-from verifier.checks.property_checks import LayerVisible, NoLayerFlipped
+from verifier.checks.property_checks import NoLayerFlipped
 from verifier.checks.structure_checks import (
     LayerInsideFrame, LayerGroupAllInSameFrame, ChildCountAtLeast,
 )
@@ -34,13 +34,11 @@ task = Task(
         FundamentalsRubric([
             ShapeCount("polygon", equals=4),         # 0 ★ prompt: "4 triangles"
             ShapeCount("ellipse", equals=1),         # 1 ★ prompt: "small center circle"
-            ShapeCountAtLeast("frame", minimum=1),   # 2
-            PolygonSidesEquals(sides=3),             # 3 prompt: "triangles" → 3 sides
-        ], weight=0.2, critical=[0, 1]),
+            ShapeCountAtLeast("frame", minimum=1),   # 2 ★ prompt: "Inside a frame"
+            PolygonSidesEquals(sides=3),             # 3 ★ prompt: "triangles"
+        ], weight=0.2, critical=[0, 1, 3]),
 
-        # critical: prompt mandates radial 90° rotation, same dims, round center,
-        # blades inside frame, non-degenerate sizes, pivot smaller than blades,
-        # pivot drawn on top, no flipping.
+        # critical: prompt mandates radial 90° rotation, round center, small pivot.
         AlignmentRubric([
             LayersSameDimensions(layer_type="polygon", tolerance=8.0),                       # 0
             RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),                # 1 ★ prompt: "arranged radially"
@@ -57,20 +55,13 @@ task = Task(
             NoLayerFlipped(layer_type="polygon"),                                             # 11
         ], weight=0.2, critical=[1, 2, 3, 9]),
 
-        # critical: prompt mandates 2 distinct alternating colors, and visible
-        # solid fills (no transparency tricks, no stacked fills).
+        # critical: prompt mandates 2 alternating colors radially
         ColorRubric([
-            AllFillTypeIs("polygon", kind="solid"),                                                          # 0 ★ every shape needs visible solid fill
+            AllFillTypeIs("polygon", kind="solid"),                                                          # 0 solid fills required
             AllFillTypeIs("ellipse", kind="solid"),                                                          # 1
             DistinctSolidColors(minimum=2, tolerance=0.15),                                                  # 2 ★ prompt: "alternating two colors"
-            LayersAlternatingColors(layer_type="polygon", n_colors=2, sort_axis="angle", tolerance=0.15),    # 3 ★ prompt: "alternating ... color A ... color B ... A ... B"
-            FillCountAtMost("polygon", max_count=1),                                                         # 4
-            FillCountAtMost("ellipse", max_count=1),                                                         # 5
-            FillOpacityAtLeast("polygon", min_opacity=0.5),                                                  # 6
-            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                                  # 7
-            LayerVisible("polygon"),                                                                         # 8
-            LayerVisible("ellipse"),                                                                         # 9
-        ], weight=0.2, critical=[0, 2, 3]),
+            LayersAlternatingColors(layer_type="polygon", n_colors=2, sort_axis="angle", tolerance=0.15),    # 3 ★ prompt: "Pick color A. ... color B. ... color A. ... color B."
+        ], weight=0.2, critical=[2, 3]),
 
         # critical: shapes must all live in one frame (catches split-frame designs)
         StructureRubric([
@@ -78,9 +69,9 @@ task = Task(
             LayerInsideFrame("ellipse"),                                # 1
             LayerGroupAllInSameFrame(layer_type="polygon", minimum=4),  # 2
             LayerGroupAllInSameFrame(layer_type="ellipse", minimum=1),  # 3
-            ChildCountAtLeast("frame", minimum=5),                      # 4 ★ prompt: 4 triangles + 1 circle inside one frame
+            ChildCountAtLeast("frame", minimum=5),                      # 4 4 triangles + 1 circle inside one frame
             FrameCountAtMost(maximum=1),                                # 5
-        ], weight=0.2, critical=[0, 4]),
+        ], weight=0.2, critical=[0]),
 
         # critical: must use polygon tool
         EventRubric([

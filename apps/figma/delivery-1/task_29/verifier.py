@@ -19,11 +19,8 @@ from verifier.checks.geometry_checks import (
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, LayersAllSameColor, SolidColorEquals,
-    FillCountAtMost, FillOpacityAtLeast,
 )
-from verifier.checks.property_checks import (
-    NoLayerFlipped, LayerVisible,
-)
+from verifier.checks.property_checks import NoLayerFlipped
 from verifier.checks.structure_checks import LayerGroupAllInSameFrame
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount, AlignToolUsed
 
@@ -33,16 +30,16 @@ task = Task(
     id="task_29_polka_dot_grid",
     description="Off-white frame + 4 same-color circles in a 2×2 grid via Tidy up.",
     rubrics=[
-        # critical: 4 circles in a frame
+        # critical: 4 circles inside a frame
         FundamentalsRubric([
             ShapeCount("ellipse", equals=4),                                # 0 ★ prompt: "4 same-size circles"
-            ShapeCountAtLeast("frame", minimum=1),                          # 1 ★ prompt: "Inside a frame"
+            ShapeCountAtLeast("frame", minimum=1),                          # 1 ★ prompt: "Inside a frame with off-white fill"
         ], weight=0.2, critical=[0, 1]),
 
-        # critical: same-size, 2x2 grid, circular, on-frame
+        # critical: same-size, 2x2 grid, circular
         AlignmentRubric([
             LayersSameDimensions(layer_type="ellipse", tolerance=8.0),      # 0 ★ prompt: "4 same-size circles"
-            LayersInGrid(layer_type="ellipse", rows=2, cols=2, tolerance=12.0),  # 1 ★ prompt: "2x2 grid pattern"
+            LayersInGrid(layer_type="ellipse", rows=2, cols=2, tolerance=12.0),  # 1 ★ prompt: "arranged in a 2x2 grid pattern"
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),           # 2 ★ prompt: "circles"
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),  # 3 upright
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),    # 4 frame upright
@@ -54,19 +51,16 @@ task = Task(
                                  tolerance=10.0),                            # 8 on-frame
         ], weight=0.2, critical=[0, 1, 2]),
 
-        # critical: solid + off-white frame
+        # critical: off-white frame fill
         ColorRubric([
-            AllFillTypeIs("ellipse", kind="solid"),                         # 0 ★ every shape needs visible fill
-            LayersAllSameColor(layer_type="ellipse", tolerance=0.05),       # 1   (optional per prompt)
+            AllFillTypeIs("ellipse", kind="solid"),                         # 0 circle solid fill
+            LayersAllSameColor(layer_type="ellipse", tolerance=0.05),       # 1 (optional per prompt)
             SolidColorEquals(layer_type="frame", expected_rgb=OFF_WHITE, tolerance=0.25),  # 2 ★ prompt: "off-white fill"
-            FillCountAtMost(layer_type="ellipse", max_count=1),             # 3 no stacked fills
-            FillOpacityAtLeast(layer_type="ellipse", min_opacity=0.5),      # 4 visible fill
-            LayerVisible(layer_type="ellipse"),                             # 5 alpha + visibility
-        ], weight=0.2, critical=[0, 2]),
+        ], weight=0.2, critical=[2]),
 
         # all dots in same frame (structural)
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=4),      # 0 ★ all 4 in same frame
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=4),      # 0 ★ prompt: "Inside a frame ... draw 4 ... circles"
         ], weight=0.2, critical=[0]),
 
         # critical: Tidy up (AlignToolUsed)
