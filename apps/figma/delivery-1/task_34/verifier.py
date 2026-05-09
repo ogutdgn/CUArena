@@ -72,7 +72,7 @@ task = Task(
         StructureRubric([
             LayerInsideFrame("line"),                                       # 0 ★ prompt: "Inside a navy frame"
             LayerGroupAllInSameFrame(layer_type="line", minimum=4),         # 1
-            ChildCountAtLeast("frame", minimum=4),                          # 2 ★ prompt: 4 branches inside frame
+            ChildCountAtLeast("frame", minimum=4),                          # 2 frame holds all 4 branches (demoted: not a verbatim prompt phrase)
             FrameCountAtMost(maximum=1),                                    # 3
         ], weight=0.2, critical=[0, 2]),
 

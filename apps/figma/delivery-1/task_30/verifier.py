@@ -15,6 +15,7 @@ from verifier.checks.geometry_checks import (
     LayersSameDimensions, LayersAligned, LayersStacked,
     LayerAspectRatioGreaterThan, LayersAlternatingColors,
     LayerRotationEquals, AllLayerBoundsInside, LayerSizeAtLeast,
+    LayerSizeEquals,
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, LayersHaveColorOrder,
@@ -28,7 +29,7 @@ CREAM     = {"r": 1.00, "g": 0.95, "b": 0.80}
 
 task = Task(
     id="task_30_stripe_wallpaper",
-    description="6 vertical stripes alternating deep-blue/cream filling a frame.",
+    description="6 vertical stripes alternating deep-blue/cream filling a 600×600 frame.",
     rubrics=[
         # critical: 6 stripes inside a frame
         FundamentalsRubric([
@@ -48,7 +49,8 @@ task = Task(
             NoLayerFlipped(layer_type="rectangle"),                                       # 7 not flipped
             LayerSizeAtLeast(layer_type="rectangle", min_w=10, min_h=100),                # 8 no degenerate stripes
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),  # 9 stripes inside frame
-        ], weight=0.2, critical=[0, 2, 3, 4]),
+            LayerSizeEquals(layer_type="frame", width=600, height=600, tolerance=20.0),  # 10 ★ prompt: "600x600 frame"
+        ], weight=0.2, critical=[0, 2, 3, 4, 10]),
 
         # critical: deep-blue/cream alternation in order
         ColorRubric([
