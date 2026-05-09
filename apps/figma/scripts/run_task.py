@@ -22,18 +22,21 @@ import argparse
 import dataclasses
 import importlib.util
 import json
+import os
 import re
 import sys
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import urlencode
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
 
 APP_ROOT     = Path(__file__).resolve().parent.parent       # apps/figma/
 SCRIPTS_DIR  = Path(__file__).resolve().parent              # apps/figma/scripts/
 DELIVERY_DIR = APP_ROOT / "delivery-1"
-LOGS_DIR     = SCRIPTS_DIR / "logs"
-SCORES_DIR   = SCRIPTS_DIR / "scores"
+OUTPUT_ROOT  = Path(os.getenv("FIGMA_OUTPUT_DIR", str(SCRIPTS_DIR)))
+LOGS_DIR     = OUTPUT_ROOT / "logs"
+SCORES_DIR   = OUTPUT_ROOT / "scores"
 
 # Make `from verifier... import ...` work inside delivery-1/task_NN/verifier.py
 sys.path.insert(0, str(APP_ROOT))
@@ -45,13 +48,21 @@ if hasattr(sys.stdout, "reconfigure"):
 class MissingDevLogError(RuntimeError):
     """Raised when /dev-log exists but no session log has been posted yet."""
 
-    def __init__(self, url: str):
+    def __init__(self, url: str, session_id: str | None = None):
         super().__init__(f"No log yet at {url}")
         self.url = url
+        self.session_id = session_id
 
 
-def fetch_log_status(host: str, port: int) -> dict | None:
-    url = f"http://{host}:{port}/dev-log/status"
+def _build_url(host: str, port: int, path: str, session_id: str | None = None) -> str:
+    base = f"http://{host}:{port}{path}"
+    if session_id:
+        return f"{base}?{urlencode({'sessionId': session_id})}"
+    return base
+
+
+def fetch_log_status(host: str, port: int, session_id: str | None = None) -> dict | None:
+    url = _build_url(host, port, "/dev-log/status", session_id=session_id)
     try:
         with urlopen(url, timeout=3) as r:
             return json.loads(r.read())
@@ -92,14 +103,14 @@ def load_task(task_dir: Path):
     return mod.task
 
 
-def fetch_log(host: str, port: int) -> dict:
-    url = f"http://{host}:{port}/dev-log"
+def fetch_log(host: str, port: int, session_id: str | None = None) -> dict:
+    url = _build_url(host, port, "/dev-log", session_id=session_id)
     try:
         with urlopen(url, timeout=5) as r:
             return json.loads(r.read())
     except HTTPError as e:
         if e.code == 404:
-            raise MissingDevLogError(url) from e
+            raise MissingDevLogError(url, session_id=session_id) from e
         print(f"\nHTTP error: {e}", file=sys.stderr)
         sys.exit(1)
     except URLError as e:
@@ -246,33 +257,38 @@ def save_result(result, task_dir: Path) -> Path:
     return path
 
 
-def cmd_full_pipeline(task_input: str, host: str, port: int) -> None:
+def cmd_full_pipeline(task_input: str, host: str, port: int, session_id: str | None = None) -> None:
     task_dir = resolve_task(task_input)
     if task_dir.name != task_input:
         print(f"Resolved '{task_input}' → {task_dir.name}")
 
     task = load_task(task_dir)
 
-    print(f"Fetching log from http://{host}:{port}/dev-log …")
+    fetch_url = _build_url(host, port, "/dev-log", session_id=session_id)
+    print(f"Fetching log from {fetch_url} …")
     try:
-        log = fetch_log(host, port)
+        log = fetch_log(host, port, session_id=session_id)
         log_path = save_log(log, task_dir.name)
         print_log_details(log, log_path)
         result = score_log(task, log_path)
     except MissingDevLogError as e:
         print(f"\nNo session log available at {e.url}.")
-        status = fetch_log_status(host, port)
+        status = fetch_log_status(host, port, session_id=session_id)
         if status:
             print(
                 "Relay status:"
                 f" hasLog={status.get('hasLog')}"
                 f", postCount={status.get('postCount')}"
+                f", sessionCount={status.get('sessionCount')}"
+                f", selectedSessionId={status.get('selectedSessionId')}"
                 f", lastSessionId={status.get('lastSessionId')}"
             )
+            if session_id:
+                print(f"Requested sessionId: {session_id}")
             if int(status.get("postCount") or 0) == 0:
                 print(
                     "No browser log POST has reached this mock instance yet."
-                    " Open http://localhost:5173, hard-refresh, interact once, wait 0.5s, then rerun."
+                    f" Open http://{host}:{port}, hard-refresh, interact once, wait 0.5s, then rerun."
                 )
         print("Returning forced zero score for this run.")
         ts_ms = int(datetime.now().timestamp() * 1000)
@@ -303,7 +319,7 @@ def cmd_full_pipeline(task_input: str, host: str, port: int) -> None:
     print(f"Score saved → {score_path}")
 
 
-def cmd_export_only(task_input: str | None, host: str, port: int) -> None:
+def cmd_export_only(task_input: str | None, host: str, port: int, session_id: str | None = None) -> None:
     prefix = "log"
     if task_input:
         task_dir = resolve_task(task_input)
@@ -311,8 +327,9 @@ def cmd_export_only(task_input: str | None, host: str, port: int) -> None:
             print(f"Resolved '{task_input}' → {task_dir.name}")
         prefix = task_dir.name
 
-    print(f"Fetching log from http://{host}:{port}/dev-log …")
-    log = fetch_log(host, port)
+    fetch_url = _build_url(host, port, "/dev-log", session_id=session_id)
+    print(f"Fetching log from {fetch_url} …")
+    log = fetch_log(host, port, session_id=session_id)
     log_path = save_log(log, prefix)
     print_log_details(log, log_path)
 
@@ -327,21 +344,23 @@ def main() -> None:
             "  python scripts/run_task.py 1\n"
             "  python scripts/run_task.py export-log\n"
             "  python scripts/run_task.py export-log task_01\n"
-            "  python scripts/run_task.py --host mock task_01"
+            "  python scripts/run_task.py --host mock task_01\n"
+            "  python scripts/run_task.py --host mock --session-id <uuid> task_01"
         ),
     )
     parser.add_argument("target", help="task name (e.g. 'task_01' or '1') or the literal 'export-log'")
     parser.add_argument("task", nargs="?", help="optional task name after 'export-log' (used as filename prefix)")
     parser.add_argument("--host", default="localhost", help="mock dev-server host (default localhost)")
     parser.add_argument("--port", type=int, default=5173, help="Vite dev server port (default 5173)")
+    parser.add_argument("--session-id", default=None, help="optional sessionId to fetch from /dev-log")
     args = parser.parse_args()
 
     if args.target == "export-log":
-        cmd_export_only(args.task, args.host, args.port)
+        cmd_export_only(args.task, args.host, args.port, session_id=args.session_id)
     else:
         if args.task is not None:
             parser.error(f"Unexpected extra argument '{args.task}'. For export-only use: export-log [task]")
-        cmd_full_pipeline(args.target, args.host, args.port)
+        cmd_full_pipeline(args.target, args.host, args.port, session_id=args.session_id)
 
 
 if __name__ == "__main__":

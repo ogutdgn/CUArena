@@ -1,5 +1,7 @@
 # Delivery 1 — Figma CUA Eval (50 tasks)
 
+Preferred customer handoff (no source checkout): see [RUNTIME_ONLY_DELIVERY.md](RUNTIME_ONLY_DELIVERY.md).
+
 This folder is the task delivery root. Each `task_NN/` contains:
 
 - `prompt.md` (task instructions)
@@ -43,6 +45,15 @@ If `postCount = 0`, the verifier will force a zero score because no session log 
 ```bash
 docker compose run --rm verifier python3 scripts/run_task.py --host mock task_01
 ```
+
+For concurrent rollouts, bind scoring to a specific session id:
+
+```bash
+docker compose run --rm verifier \
+  python3 scripts/run_task.py --host mock --session-id <session_uuid> task_01
+```
+
+Use `dev-log/status` to inspect `lastSessionId` and per-session availability.
 
 Accepted task forms:
 

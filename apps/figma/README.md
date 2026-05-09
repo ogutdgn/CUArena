@@ -46,6 +46,14 @@ Run end-to-end export + scoring from Docker:
 docker compose run --rm verifier python3 scripts/run_task.py --host mock task_01
 ```
 
+Run automated CUA benchmark episodes (OpenAI + Anthropic adapters):
+
+```bash
+python3 scripts/cua_benchmark_runner.py --providers openai,anthropic --tasks 01 --max-parallel 1
+```
+
+Runner docs: [`app-docs/scripts-doc/cua-benchmark-runner.md`](app-docs/scripts-doc/cua-benchmark-runner.md).
+
 Build a clean customer handoff archive:
 
 ```bash
