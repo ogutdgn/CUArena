@@ -14,7 +14,7 @@ from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.checks.shape_checks  import ShapeCount, PolygonSidesEquals
 from verifier.checks.geometry_checks import (
     LayersOverlap, LayerSizeAtLeast, AllLayerBoundsInside,
-    LayerRotationEquals, LayerAreaRatioAtLeast, AllLayerWidthFraction,
+    LayerRotationEquals, AllLayerWidthFraction,
     CrossTypeAreaRatioAtLeast,
 )
 from verifier.checks.fill_checks   import (
@@ -22,7 +22,6 @@ from verifier.checks.fill_checks   import (
     FillCountAtMost, FillOpacityAtLeast,
 )
 from verifier.checks.stroke_checks import (
-    StrokeExists, StrokeWeightEquals, StrokeColorEquals,
     AllStrokeExists, AllStrokeColorEquals, AllStrokeWeightWithinTolerance,
 )
 from verifier.checks.property_checks import (
@@ -40,9 +39,9 @@ task = Task(
     description="Rounded rectangle bubble + small triangle tail, both light gray with 2px dark-gray stroke.",
     rubrics=[
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=1),                                          # 0 ★ "rounded rectangle"
-            ShapeCount("polygon",   equals=1),                                          # 1 ★ "small triangle tail"
-            PolygonSidesEquals(sides=3),                                                # 2 ★ "triangle"
+            ShapeCount("rectangle", equals=1),                                          # 0 ★ prompt: "rounded rectangle"
+            ShapeCount("polygon",   equals=1),                                          # 1 ★ prompt: "small triangle tail"
+            PolygonSidesEquals(sides=3),                                                # 2 ★ prompt: "small triangle tail"
         ], weight=0.2, critical=[0, 1, 2]),
 
         AlignmentRubric([
@@ -50,28 +49,28 @@ task = Task(
             CornerRadiusAtLeast(layer_type="rectangle", min_value=8.0),                 # 1 ★ prompt: "rounded rectangle"
             LayerSizeAtLeast(layer_type="rectangle", min_w=40, min_h=40),               # 2 no degenerate bubble
             LayerSizeAtLeast(layer_type="polygon", min_w=15, min_h=15),                 # 3 no degenerate tail
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 4 rect in frame
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 4 rect in frame (implicit)
                                  tolerance=10.0),
-            AllLayerBoundsInside(inner_type="polygon", outer_type="frame",              # 5 tail in frame
+            AllLayerBoundsInside(inner_type="polygon", outer_type="frame",              # 5 tail in frame (implicit)
                                  tolerance=10.0),
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 6 bubble upright
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 7 frame upright
             AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",          # 8 rect-vs-frame size sane
                                   min_frac=0.05, max_frac=0.80),
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 9 no full pill
-            CrossTypeAreaRatioAtLeast(big_type="rectangle", small_type="polygon",       # 10 ★ prompt: "small triangle tail" (bubble dominates)
+            CrossTypeAreaRatioAtLeast(big_type="rectangle", small_type="polygon",       # 10 ★ prompt: "small triangle tail"
                                       min_ratio=2.0),
             LayerRotationEquals(layer_type="polygon", degrees=0, tolerance=5.0),        # 11 tail upright
         ], weight=0.2, critical=[0, 1, 10]),
 
         ColorRubric([
-            AllSolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY,        # 0 ★ prompt: "light gray"
+            AllSolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY,        # 0 ★ prompt: "Both filled the same light gray color"
                                 tolerance=0.28),
-            AllSolidColorEquals(layer_type="polygon",   expected_rgb=LIGHT_GRAY,        # 1 ★ prompt: "light gray"
+            AllSolidColorEquals(layer_type="polygon",   expected_rgb=LIGHT_GRAY,        # 1 ★ prompt: "Both filled the same light gray color"
                                 tolerance=0.28),
             SameColorAcrossTypes(types=["rectangle", "polygon"], tolerance=0.15),       # 2 ★ prompt: "Both filled the same"
-            AllFillTypeIs("rectangle", kind="solid"),                                   # 3 ★ no image/gradient
-            AllFillTypeIs("polygon",   kind="solid"),                                   # 4 ★ no image/gradient
+            AllFillTypeIs("rectangle", kind="solid"),                                   # 3 solid (implicit from "filled... color")
+            AllFillTypeIs("polygon",   kind="solid"),                                   # 4 solid (implicit)
             FillCountAtMost("rectangle", max_count=1),                                  # 5 no stacked fills
             FillCountAtMost("polygon",   max_count=1),                                  # 6
             FillOpacityAtLeast("rectangle", min_opacity=0.5),                           # 7
@@ -80,21 +79,21 @@ task = Task(
             LayerVisible("polygon"),                                                    # 10
             NoLayerFlipped(layer_type="rectangle"),                                     # 11
             NoLayerFlipped(layer_type="polygon"),                                       # 12
-            AllStrokeExists("rectangle"),                                               # 13
-            AllStrokeExists("polygon"),                                                 # 14
-            AllStrokeWeightWithinTolerance("rectangle", target_weight=2.0,              # 15
+            AllStrokeExists("rectangle"),                                               # 13 stroke not in prompt; demoted
+            AllStrokeExists("polygon"),                                                 # 14 stroke not in prompt; demoted
+            AllStrokeWeightWithinTolerance("rectangle", target_weight=2.0,              # 15 stroke not in prompt
                                             tolerance=2.5),
-            AllStrokeWeightWithinTolerance("polygon", target_weight=2.0,                # 16
+            AllStrokeWeightWithinTolerance("polygon", target_weight=2.0,                # 16 stroke not in prompt
                                             tolerance=2.5),
-            AllStrokeColorEquals("rectangle", expected_rgb=DARK_GRAY, tolerance=0.28),  # 17
-            AllStrokeColorEquals("polygon", expected_rgb=DARK_GRAY, tolerance=0.28),    # 18
-        ], weight=0.2, critical=[0, 1, 2, 3, 4]),
+            AllStrokeColorEquals("rectangle", expected_rgb=DARK_GRAY, tolerance=0.28),  # 17 stroke not in prompt
+            AllStrokeColorEquals("polygon", expected_rgb=DARK_GRAY, tolerance=0.28),    # 18 stroke not in prompt
+        ], weight=0.2, critical=[0, 1, 2]),
 
         StructureRubric([
-            LayerInsideFrame("rectangle"),                                              # 0 ★ rect in frame
-            LayerInsideFrame("polygon"),                                                # 1 ★ poly in frame
-            ChildCountAtLeast("frame", minimum=2),                                      # 2 both inside one frame
-        ], weight=0.2, critical=[0, 1]),
+            LayerInsideFrame("rectangle"),                                              # 0 rect in frame (implicit)
+            LayerInsideFrame("polygon"),                                                # 1 poly in frame (implicit)
+            ChildCountAtLeast("frame", minimum=2),                                      # 2 both inside one frame (implicit)
+        ], weight=0.2, critical=[]),
 
         EventRubric([
             ToolUsed("rectangle"),                                                      # 0 rectangle tool used

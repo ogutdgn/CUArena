@@ -16,7 +16,7 @@ from verifier.checks.geometry_checks import (
     LayersSameDimensions, LayersAligned, LayersDistributed, LayersAllShareEdge,
     LayersHaveConsistentGap,
     LayerSizeAtLeast, AllLayerWidthFraction, AllLayerBoundsInside,
-    LayerRotationEquals, LayerAspectRatioGreaterThan,
+    LayerRotationEquals,
 )
 from verifier.checks.fill_checks   import AllFillTypeIs, FillCountAtMost, FillOpacityAtLeast
 from verifier.checks.property_checks import (
@@ -33,21 +33,21 @@ task = Task(
         ], weight=0.2, critical=[0]),
 
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),                # 0 ★ prompt: "same-size"
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),     # 1 prompt: "horizontal row"
+            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),                # 0 ★ prompt: "4 same-size rectangles"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),     # 1 ★ prompt: "horizontal row"
             LayersDistributed(layer_type="rectangle", axis="x", tolerance=8.0),         # 2 ★ prompt: "consistent spacing"
             LayersAllShareEdge(layer_type="rectangle", edge="top", tolerance=15.0),     # 3 ★ prompt: "tops and bottoms align"
-            LayersAllShareEdge(layer_type="rectangle", edge="bottom", tolerance=15.0),  # 4 prompt: "tops and bottoms align"
-            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 5 rects upright
+            LayersAllShareEdge(layer_type="rectangle", edge="bottom", tolerance=15.0),  # 4 ★ prompt: "tops and bottoms align"
+            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 5 rects upright (implicit)
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 6 frame upright (implicit)
             LayerSizeAtLeast(layer_type="rectangle", min_w=15, min_h=15),               # 7 no degenerate
             AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",          # 8 rect-vs-frame size sane
                                   min_frac=0.04, max_frac=0.40),
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 9 ★ rects in frame bounds
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 9 rects in frame bounds (implicit)
                                  tolerance=10.0),
-            LayersHaveConsistentGap(layer_type="rectangle", axis="x",                   # 10 prompt: "consistent spacing"
+            LayersHaveConsistentGap(layer_type="rectangle", axis="x",                   # 10 reinforces "consistent spacing" via gap-variance
                                     min_gap=1.0, variance_tolerance=12.0),
-        ], weight=0.2, critical=[0, 2, 3, 9]),
+        ], weight=0.2, critical=[0, 1, 2, 3, 4]),
 
         ColorRubric([
             AllFillTypeIs("rectangle", kind="solid"),                                   # 0 ★ prompt: "any solid fill"
@@ -59,9 +59,9 @@ task = Task(
         ], weight=0.2, critical=[0]),
 
         StructureRubric([
-            LayerInsideFrame("rectangle"),                                              # 0 ★ rects inside frame
-            ChildCountAtLeast("frame", minimum=4),                                      # 1 ★ all 4 rects in one frame
-        ], weight=0.2, critical=[0, 1]),
+            LayerInsideFrame("rectangle"),                                              # 0 rects inside frame (implicit, not in prompt)
+            ChildCountAtLeast("frame", minimum=4),                                      # 1 all 4 rects in one frame (implicit, not in prompt)
+        ], weight=0.2, critical=[]),
 
         EventRubric([
             ToolUsed("rectangle"),                                                       # 0 prompt mentions tool but keyboard-shortcut OK
