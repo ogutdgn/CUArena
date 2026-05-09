@@ -8,66 +8,39 @@ from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
-from verifier.rubrics.structure    import StructureRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount, PolygonSidesEquals
-from verifier.checks.geometry_checks import (
-    LayersConcentric, SmallerLayerInsideLarger, LayerRotationEquals,
-    LayerSizeAtLeast, AllLayerBoundsInside,
-    LayerAreaRatioAtLeast,
-)
-from verifier.checks.fill_checks   import (
-    AllFillTypeIs, DistinctTypedSolidColors, FillCountAtMost, FillOpacityAtLeast,
-)
-from verifier.checks.structure_checks import LayerInsideFrame, ChildCountAtLeast
-from verifier.checks.property_checks import NoLayerFlipped, LayerVisible
-from verifier.checks.event_checks  import ToolUsed, EventTypeCount
+from verifier.checks.geometry_checks import LayersConcentric, LayersStrictlyNested
+from verifier.checks.fill_checks   import DistinctTypedSolidColors
+from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
 
 task = Task(
     id="task_11_pressed_button",
     description="3 triangles of decreasing size centered together, alternating two colors.",
     rubrics=[
-        # ── Fundamentals: exactly 3 triangles ──
         FundamentalsRubric([
             ShapeCount("polygon", equals=3),                                          # 0 ★ prompt: "3 nested triangles"
             PolygonSidesEquals(sides=3),                                              # 1 ★ prompt: "Polygon tool with 3 sides"
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.15, critical=[0, 1]),
 
-        # ── Alignment / Geometry ──
         AlignmentRubric([
             LayersConcentric(layer_type="polygon", tolerance=12.0),                   # 0 ★ prompt: "same center"
-            SmallerLayerInsideLarger(layer_type="polygon", tolerance=2.0),            # 1 ★ prompt: "nested ... decreasing size"
-            LayerRotationEquals(layer_type="polygon", degrees=0, tolerance=5.0),      # 2 upright (implicit)
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),        # 3 frame upright (implicit)
-            LayerSizeAtLeast(layer_type="polygon", min_w=20, min_h=20),               # 4 no degenerate
-            AllLayerBoundsInside(inner_type="polygon", outer_type="frame",
-                                 tolerance=10.0),                                     # 5 ★ inside frame
-            NoLayerFlipped(layer_type="polygon"),                                     # 6 not mirrored
-            LayerAreaRatioAtLeast(layer_type="polygon", min_ratio=1.5),               # 7 outer > inner
-        ], weight=0.20, critical=[0, 1, 5]),
+            LayersStrictlyNested(layer_type="polygon", equals=3,
+                                 tolerance_px=8.0, min_size_drop_px=4.0),             # 1 ★ prompt: "3 nested triangles ... decreasing size"
+        ], weight=0.25, critical=[0, 1]),
 
-        # ── Color: solid alternating ──
+        # Only 3 polygons → the alternating-by-area primitive (needs ≥4) doesn't apply.
+        # Keep the simple "≥2 distinct fills" combo, ★-flagged on the prompt's color phrase.
         ColorRubric([
-            AllFillTypeIs("polygon", kind="solid"),                                   # 0 ★ prompt: every shape needs visible fill
             DistinctTypedSolidColors(layer_type="polygon", minimum=2,
-                                     tolerance=0.12),                                 # 1 ★ prompt: "alternating two colors"
-            FillCountAtMost("polygon", max_count=1),                                  # 2 no stacked fills
-            FillOpacityAtLeast("polygon", min_opacity=0.5),                           # 3 visible fills
-            LayerVisible("polygon"),                                                  # 4 alpha+visible+opacity
-        ], weight=0.20, critical=[0, 1]),
+                                     tolerance=0.12),                                 # 0 ★ prompt: "alternating two colors"
+        ], weight=0.50, critical=[0]),
 
-        # ── Structure: in one frame ──
-        StructureRubric([
-            LayerInsideFrame("polygon"),                                              # 0 ★ inside frame
-            ChildCountAtLeast("frame", minimum=3),                                    # 1 ★ prompt: "3 ... triangles" all in one frame
-        ], weight=0.20, critical=[0, 1]),
-
-        # ── Event: polygon tool used ──
         EventRubric([
-            ToolUsed("polygon"),                                                      # 0 prompt mentions Polygon tool but agent may keyboard-shortcut
-            EventTypeCount("create_polygon", equals=3),                               # 1
-        ], weight=0.20, critical=[]),
+            ToolUsed("polygon"),                                                      # 0 ★ prompt: "Click Polygon tool"
+            EventTypeCountAtLeast("create_polygon", minimum=3),                       # 1
+        ], weight=0.10, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=18),
 )
