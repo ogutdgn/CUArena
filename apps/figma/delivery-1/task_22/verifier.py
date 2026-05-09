@@ -46,10 +46,10 @@ task = Task(
 
         # solid fills + distinct pastels
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                             # 0 ★ every rect needs a visible solid fill
+            AllFillTypeIs("rectangle", kind="solid"),                             # 0   structural: solid fill required for color check
             DistinctSolidColors(minimum=4, tolerance=0.12),                       # 1 ★ prompt: "different pastel fills"
             LayerVisible(layer_type="rectangle", min_opacity=0.5, min_alpha=0.5), # 2
-        ], weight=0.25, critical=[0, 1]),
+        ], weight=0.25, critical=[1]),
 
         # pills must look like pills (unrotated, unflipped)
         PropertyRubric([

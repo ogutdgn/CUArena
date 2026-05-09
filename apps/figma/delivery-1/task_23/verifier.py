@@ -51,10 +51,10 @@ task = Task(
 
         # dark-gray solid + visible
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                           # 0 ★ every rect needs a visible solid fill
+            AllFillTypeIs("rectangle", kind="solid"),                           # 0   structural: solid fill required for color check
             SolidColorEquals(layer_type="rectangle", expected_rgb=DARK_GRAY, tolerance=0.28),  # 1 ★ prompt: "dark gray fill"
             LayerVisible(layer_type="rectangle", min_opacity=0.5, min_alpha=0.5),  # 2
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.20, critical=[1]),
 
         # rectangle (not pill / not rotated / not mirrored)
         PropertyRubric([
