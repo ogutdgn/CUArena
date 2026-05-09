@@ -17,9 +17,15 @@ def _events(n=8):
 
 
 def _line(rotation_deg, color=GOLD, length=200, cx=500, cy=500):
-    return make_layer("line", x=cx, y=cy, w=length, h=2,
-                      fill=None, strokes=[make_stroke(rgb=color, weight=2)],
-                      rotation=rotation_deg)
+    angle = math.radians(rotation_deg)
+    tip_x = cx + length * math.cos(angle)
+    tip_y = cy + length * math.sin(angle)
+    layer = make_layer("line", x=0, y=0, w=length + 10, h=length + 10,
+                       fill=None, strokes=[make_stroke(rgb=color, weight=2)],
+                       rotation=0)
+    layer["p1"] = {"x": cx, "y": cy}
+    layer["p2"] = {"x": tip_x, "y": tip_y}
+    return layer
 
 
 def perfect():
@@ -69,8 +75,8 @@ PASS_LOGS = [
 ]
 
 FAIL_LOGS = [
-    ("4_lines",              fail_4_lines(),              ["expected 8, got 4"]),
-    ("wrong_rotation_step",  fail_wrong_rotation_step(),  ["rotations stepped by 45.0"]),
-    ("not_concentric",       fail_not_concentric(),       ["concentric"]),
+    ("4_lines",              fail_4_lines(),              ["found 4"]),
+    ("wrong_rotation_step",  fail_wrong_rotation_step(),  ["gap dev"]),
+    ("not_concentric",       fail_not_concentric(),       ["Shared-center"]),
     ("wrong_color",          fail_wrong_color(),          ["stroke color"]),
 ]

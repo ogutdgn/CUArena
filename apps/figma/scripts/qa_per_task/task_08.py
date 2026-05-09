@@ -19,9 +19,17 @@ BLUE_LIGHT  = (0.45, 0.65, 0.95)
 
 
 def _wave(y, color, weight=4, h=120):
+    network = {
+        "vertices": [],
+        "segments": [
+            {"handleFrom": {"x": 0.2, "y": -0.4}, "handleTo": {"x": 0.4, "y": 0.4}},
+            {"handleFrom": {"x": 0.6, "y": -0.4}, "handleTo": {"x": 0.8, "y": 0.4}},
+        ],
+        "closed": False,
+    }
     return make_layer("vector", x=100, y=y, w=800, h=h, fill=None,
                       strokes=[make_stroke(rgb=color, weight=weight)],
-                      network={"vertices": [], "segments": [], "closed": False})
+                      network=network)
 
 
 def perfect():
@@ -83,7 +91,7 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("three_vectors",      perfect_three(),           ["expected 2"]),
     ("one_vector",         fail_one_vector(),         ["expected 2"]),
-    ("no_stroke",          fail_no_stroke(),          ["no visible non-zero stroke"]),
-    ("thin_stroke",        fail_thin_stroke(),        ["stroke weight"]),
+    ("no_stroke",          fail_no_stroke(),          ["missing stroke"]),
+    ("thin_stroke",        fail_thin_stroke(),        ["!= 4.0"]),
     ("same_stroke_color",  fail_same_stroke_color(),  ["≥2"]),
 ]
