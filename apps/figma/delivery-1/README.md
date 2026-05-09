@@ -1,43 +1,105 @@
 # Delivery 1 — Figma CUA Eval (50 tasks)
 
-Per-task package: each `task_NN/` folder contains the prompt and the
-verifier script as separate files. When you run a verifier with
-`scripts/score_log.py`, the result is auto-routed back into the
-matching `task_NN/output/<timestamp>/` folder.
+This folder is the task delivery root. Each `task_NN/` contains:
 
-For Dockerized customer handoff and run commands, see
-[`DOCKER_DELIVERY.md`](DOCKER_DELIVERY.md).
+- `prompt.md` (task instructions)
+- `verifier.py` (task scoring logic)
+- `output/<timestamp>/` (written by scoring scripts)
 
-```
-task_NN/
-  prompt.md           — difficulty, thorough, simplified, step-by-step
-  verifier.py         — copy of test-verifier/tasks/task_NN_*.py
-  output/             — created on first run
-    <timestamp>/
-      log.json        — copy of the agent's session log
-      reward.txt      — single line: final_score
-      result.json     — full rubric breakdown + efficiency
-```
+Use this file as the runbook for local testing, Docker testing, and verifier execution.
 
-## Running a verifier
+## Quick start (Docker, recommended)
 
-`score_log.py` accepts a task id as `task_NN`, short numeric form (`01` / `1`),
-or a full delivery task name.
+From `apps/figma/`:
 
 ```bash
-# Score an existing agent log
-cd apps/figma
-python3 scripts/score_log.py --task 01 --log scripts/logs/<your-log>.json
-# → writes delivery-1/task_01/output/<timestamp>/{log,result}.json + reward.txt
-
-# Generate the live log + run verifier in one shot (mock dev mode)
-cd apps/figma/mock && npm run dev      # http://localhost:5173
-cd .. && python3 scripts/run_task.py task_01
-
-# Smoke-test every verifier against synthetic perfect/empty logs
-cd apps/figma
-python3 scripts/qa_verifiers.py
+docker compose up -d --build mock
+docker compose build verifier --no-cache
 ```
+
+Open the app at:
+
+- `http://127.0.0.1:5173`
+
+Use `127.0.0.1` intentionally. `localhost` can hit a different local Vite process if one is running.
+
+## Verify logging is live
+
+Before running a task score, verify the mock relay is receiving browser logs:
+
+```bash
+docker compose exec mock sh -lc "wget -qO- http://127.0.0.1:5173/dev-log/status; echo"
+```
+
+Expected after at least one canvas action:
+
+- `postCount > 0`
+- `hasLog = true`
+
+If `postCount = 0`, the verifier will force a zero score because no session log reached this mock instance.
+
+## Run end-to-end scoring (live app session)
+
+```bash
+docker compose run --rm verifier python3 scripts/run_task.py --host mock task_01
+```
+
+Accepted task forms:
+
+- `task_01`
+- `01`
+- `1`
+
+Outputs:
+
+- `scripts/logs/<task>_<timestamp>.json`
+- `scripts/scores/<task>_<timestamp>.json`
+- `delivery-1/task_01/output/<timestamp>/{log.json,reward.txt,result.json}`
+
+## Score an existing log file
+
+```bash
+docker compose run --rm verifier \
+  python3 scripts/score_log.py --task 01 --log scripts/logs/<your-log>.json
+```
+
+## Local (non-Docker) run
+
+```bash
+cd apps/figma/mock
+npm install
+npm run dev
+
+cd ..
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python scripts/run_task.py task_01
+```
+
+## Verifier test sweep
+
+Run synthetic QA over all task verifiers:
+
+```bash
+docker compose run --rm verifier python3 scripts/qa_verifiers.py
+```
+
+## Common failure modes
+
+`No session log available at http://mock:5173/dev-log`:
+
+- Run `dev-log/status` command above.
+- If `postCount=0`, your browser actions are not hitting this Docker mock process.
+- Make sure no host Vite server is also bound to port `5173`:
+
+```bash
+lsof -iTCP:5173 -sTCP:LISTEN -n -P
+pkill -f "apps/figma/mock/node_modules/.bin/vite" || true
+```
+
+Then reload `http://127.0.0.1:5173`, interact once, wait ~0.5s, and rerun scoring.
+
+For full packaging and customer handoff details, see [`DOCKER_DELIVERY.md`](DOCKER_DELIVERY.md).
 
 The `<module_name>` column in the index below matches the task verifier id in
 `delivery-1/task_NN/verifier.py`; you can pass `task_NN` or numeric forms.
