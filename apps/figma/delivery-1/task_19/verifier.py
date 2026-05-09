@@ -22,8 +22,8 @@ from verifier.checks.fill_checks   import (
     AllFillTypeIs, SolidColorEquals, FillCountAtMost,
 )
 from verifier.checks.stroke_checks import (
-    StrokeExists, StrokeWeightEquals, StrokeColorEquals,
-    AllLayerStrokeVisible, StrokeRendersVisible,
+    StrokeExists, StrokeWeightEquals,
+    StrokeRendersVisible,
 )
 from verifier.checks.property_checks import (
     CornerRadiusEquals, LayerVisible, NoLayerFlipped,
@@ -55,32 +55,32 @@ task = Task(
                                  tolerance=20.0, axis="both"),
             LayerNextTo(type_a="vector", type_b="rectangle", side="above",              # 2 ★ prompt: "drawn above" the body
                         tolerance=30.0),
-            LayerIsCircular(layer_type="ellipse", tolerance=8.0),                       # 3 prompt: "small circle keyhole"
-            CornerRadiusEquals(layer_type="rectangle", radius=12.0, tolerance=4.0),     # 4 prompt: "scrub corner radius to 12"
-            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="rectangle",      # 5 keyhole "small" ≤ 0.4 of body
+            LayerIsCircular(layer_type="ellipse", tolerance=8.0),                       # 3 ★ prompt: "small circle keyhole"
+            CornerRadiusEquals(layer_type="rectangle", radius=12.0, tolerance=4.0),     # 4 ★ prompt: "scrub corner radius to 12"
+            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="rectangle",      # 5 ★ prompt: "small ... keyhole"
                                   max_frac=0.85),
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 6 body not rotated
             LayerRotationEquals(layer_type="ellipse",   degrees=0, tolerance=5.0),      # 7 keyhole not rotated
             LayerRotationEquals(layer_type="vector",    degrees=0, tolerance=10.0),     # 8 shackle U-shape not flipped
-        ], weight=0.20, critical=[0, 1, 2]),
+        ], weight=0.20, critical=[0, 1, 2, 4]),
 
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                   # 0 ★ every shape needs a visible solid fill
+            AllFillTypeIs("rectangle", kind="solid"),                                   # 0 every shape needs a visible solid fill
             FillCountAtMost(layer_type="rectangle", max_count=1),                       # 1 stacked-fill blocked
             FillCountAtMost(layer_type="ellipse",   max_count=1),                       # 2 stacked-fill blocked
             SolidColorEquals(layer_type="rectangle", expected_rgb=DARK_GRAY,            # 3 ★ prompt: "Body is dark gray"
                              tolerance=0.28),
             SolidColorEquals(layer_type="ellipse",   expected_rgb=BLACK,                # 4 ★ prompt: "keyhole is black"
                              tolerance=0.28),
-            StrokeExists("vector"),                                                     # 5 prompt: "14px stroke"
-            StrokeWeightEquals("vector", weight=14.0, tolerance=2.5),                   # 6 prompt: "14px"
+            StrokeExists("vector"),                                                     # 5 ★ prompt: "14px stroke"
+            StrokeWeightEquals("vector", weight=14.0, tolerance=2.5),                   # 6 ★ prompt: "14px stroke"
             StrokeRendersVisible(layer_type="vector", min_alpha=0.5),                   # 7 shackle stroke must render
             LayerVisible(layer_type="rectangle", min_opacity=0.5, min_alpha=0.5),       # 8 body visible
             LayerVisible(layer_type="ellipse",   min_opacity=0.5, min_alpha=0.5),       # 9 keyhole visible
-        ], weight=0.20, critical=[0, 3, 4]),
+        ], weight=0.20, critical=[3, 4, 6]),
 
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                   # 0 ★ rectangle in frame
+            LayerInsideFrame(layer_type="rectangle"),                                   # 0 rectangle in frame
             LayerInsideFrame(layer_type="vector"),                                      # 1 vector in frame
             LayerInsideFrame(layer_type="ellipse"),                                     # 2 ellipse in frame
             LayerGroupAllInSameFrame(layer_type="rectangle", minimum=1),                # 3
@@ -98,7 +98,7 @@ task = Task(
             FrameCountAtMost(maximum=1),                                                # 13
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 14
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 15 body not pill-shaped
-        ], weight=0.20, critical=[0]),
+        ], weight=0.20, critical=[]),
 
         EventRubric([
             ToolUsed("rectangle"),                                                      # 0 rectangle tool used

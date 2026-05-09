@@ -18,7 +18,7 @@ from verifier.checks.geometry_checks import (
     FrameCountAtMost, LayerAspectRatioGreaterThan,
 )
 from verifier.checks.fill_checks   import (
-    AllFillTypeIs, DistinctSolidColors, FillCountAtMost,
+    AllFillTypeIs, FillCountAtMost,
     DistinctTypedSolidColors,
 )
 from verifier.checks.property_checks import (
@@ -43,28 +43,28 @@ task = Task(
             LayersAligned(layer_type="rectangle", axis="center_x", tolerance=12.0),     # 1 ★ prompt: "aligned on x"
             LayersStacked(layer_type="rectangle", axis="y", gap_px=16.0, tolerance=12.0),# 2 ★ prompt: "stacked vertically"
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 3   not rotated
-            LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=1.5,              # 4   wider than tall
+            LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=1.5,              # 4   wider than tall (icon-button shape)
                                         axis="horizontal"),
         ], weight=0.20, critical=[0, 1, 2]),
 
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                   # 0 ★ every rect needs a visible solid fill
+            AllFillTypeIs("rectangle", kind="solid"),                                   # 0 every rect needs a visible solid fill
             FillCountAtMost(layer_type="rectangle", max_count=1),                       # 1
             DistinctTypedSolidColors(layer_type="rectangle", minimum=3, tolerance=0.12),# 2 ★ prompt: "different colors"
             LayerVisible(layer_type="rectangle", min_opacity=0.5, min_alpha=0.5),       # 3
-        ], weight=0.20, critical=[0, 2]),
+        ], weight=0.20, critical=[2]),
 
         StructureRubric([
             LayerInsideFrame(layer_type="rectangle"),                                   # 0   rects in a frame
-            LayerGroupAllInSameFrame(layer_type="rectangle", minimum=3),                # 1 ★ all 3 in same frame
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 2 ★ rects must fit inside frame
+            LayerGroupAllInSameFrame(layer_type="rectangle", minimum=3),                # 1   all 3 in same frame
+            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 2   rects must fit inside frame
                                  tolerance=10.0),
             LayerSizeAtLeast(layer_type="rectangle", min_w=30, min_h=20),               # 3   not 1×1 degenerate
             NoLayerFlipped(layer_type="rectangle"),                                     # 4   not flipped
             FrameCountAtMost(maximum=1),                                                # 5
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 6   frame upright (implicit)
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 7   rects not pill-shaped
-        ], weight=0.20, critical=[1, 2]),
+        ], weight=0.20, critical=[]),
 
         EventRubric([
             ToolUsed("rectangle"),                                                      # 0   tool used (agent may shortcut)
