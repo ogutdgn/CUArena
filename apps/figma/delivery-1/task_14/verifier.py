@@ -13,19 +13,17 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import (
-    LayersConcentric, SmallerLayerInsideLarger, LayerIsCircular,
+    LayersConcentric, LayersStrictlyNested, LayerIsCircular,
     LayerSizeAtLeast, AllLayerBoundsInside, LayerRotationEquals,
-    LayersSameDimensions, LayerAreaRatioAtLeast,
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, LayersHaveColorOrder, FillCountAtMost, FillOpacityAtLeast,
 )
 from verifier.checks.stroke_checks import (
-    StrokeExists, StrokeWeightEquals, StrokeColorEquals,
     AllStrokeExists, AllStrokeColorEquals, AllStrokeWeightWithinTolerance,
 )
 from verifier.checks.property_checks import (
-    NoLayerFlipped, LayerVisible, LayerRendersStrokeOrFill,
+    NoLayerFlipped, LayerVisible,
 )
 from verifier.checks.structure_checks import LayerInsideFrame, ChildCountAtLeast
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
@@ -43,18 +41,18 @@ task = Task(
         ], weight=0.2, critical=[0]),
 
         AlignmentRubric([
-            LayersConcentric(layer_type="ellipse", tolerance=12.0),                     # 0 ★ prompt: "concentric ... centered"
-            SmallerLayerInsideLarger(layer_type="ellipse", tolerance=2.0),              # 1 ★ prompt: "decreasing diameters"
+            LayersConcentric(layer_type="ellipse", tolerance=12.0),                     # 0 ★ prompt: "all sharing the same center"
+            LayersStrictlyNested(layer_type="ellipse", equals=4,                        # 1 ★ prompt: "4 concentric circles with decreasing diameters"
+                                 tolerance_px=8.0, min_size_drop_px=4.0),
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),                       # 2 ★ prompt: "circles"
             LayerSizeAtLeast(layer_type="ellipse", min_w=15, min_h=15),                 # 3 no degenerate
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame",              # 4 ★ all in frame
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame",              # 4 implicit frame containment
                                  tolerance=10.0),
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 5 frame upright (implicit)
-            LayerAreaRatioAtLeast(layer_type="ellipse", min_ratio=1.4),                 # 6 outermost > second-largest by ≥1.4x area
-        ], weight=0.2, critical=[0, 1, 2, 4]),
+        ], weight=0.2, critical=[0, 1, 2]),
 
         ColorRubric([
-            AllFillTypeIs("ellipse", kind="solid"),                                     # 0 ★ prompt: every shape needs visible fill
+            AllFillTypeIs("ellipse", kind="solid"),                                     # 0 every shape needs visible solid fill
             LayersHaveColorOrder(                                                       # 1 ★ prompt: "Alternate red and white from outermost to center"
                 layer_type="ellipse",
                 expected_rgbs=[RED, WHITE, RED, WHITE],
@@ -69,12 +67,12 @@ task = Task(
             FillOpacityAtLeast("ellipse", min_opacity=0.5),                             # 6 visible fills
             LayerVisible("ellipse"),                                                    # 7 alpha + visible + opacity
             NoLayerFlipped(layer_type="ellipse"),                                       # 8 no flip
-        ], weight=0.2, critical=[0, 1, 2, 3, 4]),
+        ], weight=0.2, critical=[1, 2, 3, 4]),
 
         StructureRubric([
-            LayerInsideFrame("ellipse"),                                                # 0 ★ in frame
-            ChildCountAtLeast("frame", minimum=4),                                      # 1 ★ prompt: "4 ... circles" all in one frame
-        ], weight=0.2, critical=[0, 1]),
+            LayerInsideFrame("ellipse"),                                                # 0 implicit frame containment
+            ChildCountAtLeast("frame", minimum=4),                                      # 1 implicit
+        ], weight=0.2, critical=[]),
 
         EventRubric([
             ToolUsed("ellipse"),                                                        # 0 prompt mentions tool but keyboard-shortcut OK

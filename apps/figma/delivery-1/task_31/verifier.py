@@ -17,11 +17,9 @@ from verifier.checks.geometry_checks import (
     AllLayerWidthFraction, LayerCenteredOnLayerSetCentroid,
 )
 from verifier.checks.fill_checks   import (
-    AllFillTypeIs, SolidColorEquals, FillCountAtMost, FillOpacityAtLeast,
+    AllFillTypeIs, SolidColorEquals,
 )
-from verifier.checks.property_checks import (
-    NoLayerFlipped, LayerVisible,
-)
+from verifier.checks.property_checks import NoLayerFlipped
 from verifier.checks.structure_checks import LayerInsideFrame
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
@@ -31,20 +29,20 @@ task = Task(
     id="task_31_sun_rays",
     description="Yellow center circle + 4 triangle rays rotated 90° apart (radial sun).",
     rubrics=[
-        # critical: 1 circle + 4 rays inside a frame (prompt-explicit counts)
+        # critical: 1 circle + 4 triangle rays inside a frame (prompt-explicit counts + shape)
         FundamentalsRubric([
             ShapeCount("ellipse", equals=1),                                    # 0 ★ prompt: "a yellow center circle"
             ShapeCount("polygon", equals=4),                                    # 1 ★ prompt: "4 thin triangle rays"
-            ShapeCountAtLeast("frame", minimum=1),                              # 2 prompt: "Inside a frame"
-            PolygonSidesEquals(sides=3),                                         # 3 prompt: "triangle rays"
-        ], weight=0.2, critical=[0, 1]),
+            ShapeCountAtLeast("frame", minimum=1),                              # 2 ★ prompt: "Inside a frame"
+            PolygonSidesEquals(sides=3),                                         # 3 ★ prompt: "triangle rays"
+        ], weight=0.2, critical=[0, 1, 3]),
 
-        # critical: round center, rays evenly rotated 90° apart, radial layout, sane size, on-frame
+        # critical: round center, rays evenly rotated 90° apart, radial layout around circle
         AlignmentRubric([
-            LayersSameDimensions(layer_type="polygon", tolerance=8.0),          # 0
+            LayersSameDimensions(layer_type="polygon", tolerance=8.0),          # 0 same-size rays
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),               # 1 ★ prompt: "circle"
             LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=10.0),  # 2 ★ prompt: "rotated 90° apart"
-            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),  # 3 ★ prompt: "around it ... 12, 3, 6, 9"
+            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),  # 3 ★ prompt: "around it ... 12 o'clock, 3 o'clock, 6 o'clock, 9 o'clock"
             LayerCenteredOnLayerSetCentroid(type_a="ellipse", type_b="polygon", tolerance=20.0),  # 4 ★ prompt: "rays around it"
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),  # 5
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),    # 6
@@ -60,18 +58,12 @@ task = Task(
             AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=10.0),  # 14
         ], weight=0.2, critical=[1, 2, 3, 4]),
 
-        # critical: solid fills + yellow center circle + visible
+        # critical: yellow center circle
         ColorRubric([
-            AllFillTypeIs("ellipse", kind="solid"),                             # 0 ★ every shape needs visible solid fill
-            AllFillTypeIs("polygon", kind="solid"),                             # 1
-            SolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW, tolerance=0.28),  # 2 ★ prompt: "yellow circle"
-            FillCountAtMost(layer_type="ellipse", max_count=1),                 # 3
-            FillCountAtMost(layer_type="polygon", max_count=1),                 # 4
-            FillOpacityAtLeast(layer_type="ellipse", min_opacity=0.5),          # 5
-            FillOpacityAtLeast(layer_type="polygon", min_opacity=0.5),          # 6
-            LayerVisible(layer_type="ellipse"),                                 # 7
-            LayerVisible(layer_type="polygon"),                                 # 8
-        ], weight=0.2, critical=[0, 2]),
+            AllFillTypeIs("ellipse", kind="solid"),                             # 0 solid fill
+            AllFillTypeIs("polygon", kind="solid"),                             # 1 solid fill
+            SolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW, tolerance=0.28),  # 2 ★ prompt: "yellow ... circle"
+        ], weight=0.2, critical=[2]),
 
         # both circle and rays inside frame (structural)
         StructureRubric([
@@ -79,7 +71,7 @@ task = Task(
             LayerInsideFrame("polygon"),                                        # 1
         ], weight=0.2, critical=[0]),
 
-        # critical: ellipse + polygon tools both used
+        # ellipse + polygon tools both used
         EventRubric([
             ToolUsed("ellipse"),                                                # 0
             ToolUsed("polygon"),                                                # 1

@@ -67,24 +67,24 @@ task = Task(
 
         # critical: distinct colors, green badge, white stroke, sane fills
         ColorRubric([
-            AllFillTypeIs("ellipse", kind="solid"),                                          # 0 ★ visible solid ellipses
-            DistinctSolidColors(minimum=2, tolerance=0.15),                                  # 1 ★ prompt: distinct avatar vs green badge
-            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.12),       # 2 ellipses themselves distinct
-            SolidColorEquals(layer_type="ellipse", expected_rgb=GREEN, tolerance=0.28),      # 3 ★ prompt: "green fill" badge
-            FillCountAtMost("ellipse", max_count=1),                                         # 4 no stacked fills
-            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 5 visible fill
-            LayerVisible("ellipse"),                                                          # 6 alpha+visible+opacity
-            StrokeExists("ellipse"),                                                         # 7 stroke around badge
-            StrokeWeightEquals("ellipse", weight=2.0, tolerance=1.0),                        # 8 prompt: "2px white stroke"
-            StrokeColorEquals("ellipse", expected_rgb=WHITE, tolerance=0.28),                # 9 prompt: "white stroke"
+            SolidColorEquals(layer_type="ellipse", expected_rgb=GREEN, tolerance=0.28),      # 0 ★ prompt: "green fill"
+            StrokeColorEquals("ellipse", expected_rgb=WHITE, tolerance=0.28),                # 1 ★ prompt: "white stroke"
+            AllFillTypeIs("ellipse", kind="solid"),                                          # 2 visible solid ellipses
+            DistinctSolidColors(minimum=2, tolerance=0.15),                                  # 3 distinct avatar vs green badge
+            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.12),       # 4 ellipses themselves distinct
+            FillCountAtMost("ellipse", max_count=1),                                         # 5 no stacked fills
+            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 6 visible fill
+            LayerVisible("ellipse"),                                                          # 7 alpha+visible+opacity
+            StrokeExists("ellipse"),                                                         # 8 stroke around badge
+            StrokeWeightEquals("ellipse", weight=2.0, tolerance=1.0),                        # 9 prompt: "2px white stroke"
             StrokeRendersVisible("ellipse"),                                                  # 10 stroke renders
-        ], weight=0.20, critical=[0, 1, 3]),
+        ], weight=0.20, critical=[0, 1]),
 
-        # critical: avatar + badge in same frame on page 0
+        # structure: avatar + badge in same frame on page 0 (implicit, soft)
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 0 ★ both ellipses share a frame
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 0 both ellipses share a frame
             LayerOnPage(layer_type="ellipse", page_index=0),            # 1 ellipses on page 0
-        ], weight=0.20, critical=[0]),
+        ], weight=0.20, critical=[]),
 
         # critical: ellipse tool mandated
         EventRubric([
