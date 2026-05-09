@@ -44,6 +44,15 @@ If `postCount = 0`, the verifier will force a zero score because no session log 
 docker compose run --rm verifier python3 scripts/run_task.py --host mock task_01
 ```
 
+For concurrent rollouts, bind scoring to a specific session id:
+
+```bash
+docker compose run --rm verifier \
+  python3 scripts/run_task.py --host mock --session-id <session_uuid> task_01
+```
+
+Use `dev-log/status` to inspect `lastSessionId` and per-session availability.
+
 Accepted task forms:
 
 - `task_01`
