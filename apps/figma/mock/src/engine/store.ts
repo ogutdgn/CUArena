@@ -100,6 +100,12 @@ export interface AppState {
   sessionId: string;
 }
 
+export interface PersistedStoreSnapshot {
+  document: unknown;
+  activePageId?: string;
+  sessionId?: string;
+}
+
 function createDefaultPage(): Page {
   const id = uid("page");
   const bg: Color = { r: 0.118, g: 0.118, b: 0.118, a: 1 };
@@ -122,6 +128,39 @@ function buildNodeIndex(doc: DocumentNode): Record<string, Layer | Page> {
     walk(page.children, map);
   }
   return map;
+}
+
+function hasStringId(x: unknown): x is { id: string } {
+  return typeof x === "object" && x !== null && typeof (x as { id?: unknown }).id === "string";
+}
+
+function isDocumentLike(x: unknown): x is DocumentNode {
+  if (typeof x !== "object" || x === null) return false;
+  const doc = x as { id?: unknown; pages?: unknown };
+  if (typeof doc.id !== "string") return false;
+  if (!Array.isArray(doc.pages) || doc.pages.length === 0) return false;
+  return doc.pages.every((p) => hasStringId(p));
+}
+
+function resolveActivePageId(doc: DocumentNode, requested?: string): string {
+  if (requested && doc.pages.some((p) => p.id === requested)) return requested;
+  return doc.pages[0].id;
+}
+
+function buildPageBuckets(doc: DocumentNode): {
+  viewportByPage: Record<string, Viewport>;
+  selectionByPage: Record<string, string[]>;
+  focusContextByPage: Record<string, string | null>;
+} {
+  const viewportByPage: Record<string, Viewport> = {};
+  const selectionByPage: Record<string, string[]> = {};
+  const focusContextByPage: Record<string, string | null> = {};
+  for (const page of doc.pages) {
+    viewportByPage[page.id] = { x: 0, y: 0, zoom: 1 };
+    selectionByPage[page.id] = [];
+    focusContextByPage[page.id] = null;
+  }
+  return { viewportByPage, selectionByPage, focusContextByPage };
 }
 
 function walk(layers: Layer[], map: Record<string, Layer | Page>) {
@@ -184,6 +223,39 @@ const initialState: AppState = {
 };
 
 export const useStore = create<AppState>()(immer(() => initialState));
+
+export function hydrateStoreFromSnapshot(snapshot: PersistedStoreSnapshot): boolean {
+  if (!isDocumentLike(snapshot.document)) return false;
+  const doc = snapshot.document;
+  const activePageId = resolveActivePageId(doc, snapshot.activePageId);
+  const pageBuckets = buildPageBuckets(doc);
+  useStore.setState((s) => {
+    s.document = doc;
+    s.nodesById = buildNodeIndex(doc);
+    s.activePageId = activePageId;
+    s.viewportByPage = pageBuckets.viewportByPage;
+    s.selectionByPage = pageBuckets.selectionByPage;
+    s.focusContextByPage = pageBuckets.focusContextByPage;
+    s.hoveredNodeId = null;
+    s.cursorWorld = null;
+    s.dragPreview = { kind: null, data: null };
+    s.snapLines = [];
+    s.snapMeasures = [];
+    s.contextMenu = null;
+    s.renamingLayerId = null;
+    s.penPreview = null;
+    s.pencilPreview = null;
+    s.insertionCursor = null;
+    s.vectorEditSelected = null;
+    s.rotateReadout = null;
+    s.undoStack = [];
+    s.redoStack = [];
+    if (typeof snapshot.sessionId === "string" && snapshot.sessionId.length > 0) {
+      s.sessionId = snapshot.sessionId;
+    }
+  });
+  return true;
+}
 
 // ---- Selectors / derived ----
 
