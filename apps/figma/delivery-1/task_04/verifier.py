@@ -32,7 +32,7 @@ task = Task(
         ], weight=0.50, critical=[0]),
 
         ColorRubric([
-            FillTypeIs("rectangle", kind="solid"),                                              # 0 ★ prompt: solid rainbow colors
+            FillTypeIs("rectangle", kind="solid"),                                              # 0 ★ prompt: "filled a different rainbow color"
             DistinctSolidColors(minimum=6, tolerance=0.12),                                     # 1 ★ prompt: "red, yellow, green, cyan, blue, magenta"
         ], weight=0.20, critical=[0, 1]),
 

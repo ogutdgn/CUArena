@@ -54,6 +54,13 @@ def fail_no_stroke_on_badge():
 def fail_one_color_only():
     """All 3 layers same gold color → DistinctSolidColors≥3 fails."""
     return _bell(bell_color=GOLD, badge_color=GOLD)
+def fail_badge_at_bottom():
+    """Badge placed below the bell, not in the upper-right corner."""
+    bell = make_layer("vector", x=540, y=280, w=200, h=240, fill=GOLD)
+    clapper = make_layer("ellipse", x=620, y=520, w=40, h=40, fill=GOLD)
+    badge = make_layer("ellipse", x=540, y=520, w=24, h=24, fill=(0.95,0.2,0.2),
+                       strokes=[make_stroke(rgb=WHITE, weight=2)])
+    return _wrap([bell, clapper, badge])
 
 
 PASS_LOGS = [
@@ -66,4 +73,5 @@ FAIL_LOGS = [
     ("wrong_bell_color",    fail_wrong_bell_color(),    ["color mismatch"]),
     ("no_stroke_on_badge",  fail_no_stroke_on_badge(),  ["No ellipse with a stroke"]),
     ("one_color_only",      fail_one_color_only(),      ["distinct ellipse colors"]),
+    ("badge_at_bottom",     fail_badge_at_bottom(),     ["No ellipse.top aligns"]),
 ]

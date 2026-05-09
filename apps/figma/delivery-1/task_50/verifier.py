@@ -1,8 +1,7 @@
 """
 Task 50 — Star inside square (in-scope replacement, no image fill/mask).
 
-1 large square + 1 5-point star centered on top, contrasting fills,
-4px white stroke around the star (substitute for the masked-region border).
+1 large square + 1 5-point star centered on top, contrasting fills.
 """
 from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
@@ -19,20 +18,14 @@ from verifier.checks.geometry_checks import (
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, DistinctSolidColors, FillCountAtMost, FillOpacityAtLeast,
 )
-from verifier.checks.stroke_checks import (
-    StrokeWeightEquals,
-    AllStrokeExists, AllStrokeColorEquals,
-)
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 from verifier.checks.property_checks import (
     NoLayerFlipped, LayerVisible, CornerRadiusFractionAtMost,
 )
 
-WHITE = {"r": 1.0, "g": 1.0, "b": 1.0}
-
 task = Task(
     id="task_50_album_cover",
-    description="1 large square + 1 5-point star centered on top, contrasting fills, 4px white stroke on star.",
+    description="1 large square + 1 5-point star centered on top, contrasting fills.",
     rubrics=[
         # critical: 1 square + 1 5-point star (counts + points are explicit)
         FundamentalsRubric([
@@ -60,17 +53,14 @@ task = Task(
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),               # 13 not round-rect
         ], weight=0.25, critical=[0, 1, 2]),
 
-        # critical: contrasting (distinct) colors + white stroke around star + visibility
+        # critical: contrasting (distinct) fills + visibility
         ColorRubric([
             AllFillTypeIs("rectangle", kind="solid"),                                       # 0 ★ shape needs visible fill
             AllFillTypeIs("star",      kind="solid"),                                       # 1 (combined w/ #0)
             DistinctSolidColors(minimum=2, tolerance=0.15),                                 # 2 ★ prompt: "contrasting colors"
-            AllStrokeExists("star"),                                                        # 3 star stroke (substitute prop)
-            StrokeWeightEquals("star", weight=4.0, tolerance=2.5),                          # 4 4px
-            AllStrokeColorEquals("star", expected_rgb=WHITE, tolerance=0.28),               # 5 white stroke
-            FillCountAtMost("rectangle", max_count=1),                                      # 6 no stacked fills
-            FillOpacityAtLeast("rectangle", min_opacity=0.5),                               # 7 visible
-            LayerVisible("rectangle"),                                                       # 8
+            FillCountAtMost("rectangle", max_count=1),                                      # 3 no stacked fills
+            FillOpacityAtLeast("rectangle", min_opacity=0.5),                               # 4 visible
+            LayerVisible("rectangle"),                                                       # 5
         ], weight=0.25, critical=[0, 2]),
 
         # critical: rectangle + star tools used
