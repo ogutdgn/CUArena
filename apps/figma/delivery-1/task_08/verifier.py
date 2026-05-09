@@ -26,7 +26,7 @@ task = Task(
 
         AlignmentRubric([
             LayerAspectRatioGreaterThan(layer_type="vector", ratio=2.0, axis="horizontal"),     # 0 ★ prompt: "horizontal wave"
-            VectorsCurvedCountAtLeast(minimum=2),                                               # 1 ★ prompt: "smooth Bezier curves ... with bezier handles"
+            VectorsCurvedCountAtLeast(minimum=2),                                               # 1 ★ prompt: "smooth Bezier curves"
         ], weight=0.35, critical=[0, 1]),
 
         ColorRubric([
