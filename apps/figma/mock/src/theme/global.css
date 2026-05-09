@@ -105,6 +105,7 @@ textarea {
 /* Hide scrollbars in panels but keep functionality */
 .scroll-y {
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #555 transparent;
 }
