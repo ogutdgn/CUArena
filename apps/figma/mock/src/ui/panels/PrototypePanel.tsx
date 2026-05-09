@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { useStore } from "@/engine/store";
 import { getActivePage, getSelectedLayers } from "@/engine/selectors";
 import { uid } from "@/util/id";
-import { PROTOTYPE_DEVICES, findDevice } from "@/util/prototypeDevices";
+import { findDevice } from "@/util/prototypeDevices";
+import { getDeviceCategories } from "@/util/framePresets";
 import type { Frame, PrototypeFlow, PrototypeConnection, PrototypeTrigger, ScrollBehavior, ScrollPosition } from "@/types/scene";
-import { ChevronDown, Plus, Minus, Monitor, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, Plus, Minus, SlidersHorizontal } from "lucide-react";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
 import {
   setPrototypeDevice,
@@ -30,13 +31,6 @@ const TRIGGER_SHORT: Record<PrototypeTrigger, string> = {
   touch_up: "Touch ↑",
   after_delay: "Delay",
 };
-
-// ─── helpers ──────────────────────────────────────────────────────────────────
-
-function colorToHex(c: { r: number; g: number; b: number }): string {
-  const hex = (v: number) => Math.round(v * 255).toString(16).padStart(2, "0");
-  return (hex(c.r) + hex(c.g) + hex(c.b)).toUpperCase();
-}
 
 // ─── main panel ───────────────────────────────────────────────────────────────
 
@@ -147,50 +141,29 @@ function NoSelectionPanel({
             }}
           >
             <DeviceOption label="No device" selected={!settings.device} onClick={() => setDevice(null)} />
-            <div style={{ height: 1, background: "var(--color-divider)", margin: "4px 0" }} />
-            {PROTOTYPE_DEVICES.map((d) => (
-              <DeviceOption
-                key={d.id}
-                label={d.label}
-                size={`${d.w}×${d.h}`}
-                selected={settings.device === d.id}
-                onClick={() => setDevice(d.id)}
-              />
+            {getDeviceCategories().map((cat) => (
+              <div key={cat.id}>
+                <div style={{ height: 1, background: "var(--color-divider)", margin: "4px 0" }} />
+                <div style={{ padding: "3px 8px 1px", fontSize: "var(--fs-xs)", color: "var(--color-text-disabled)", fontWeight: 600, letterSpacing: 0.3, textTransform: "uppercase" }}>
+                  {cat.label}
+                </div>
+                {cat.presets.map((d) => (
+                  <DeviceOption
+                    key={d.id}
+                    label={d.label}
+                    size={`${d.w}×${d.h}`}
+                    selected={settings.device === d.id}
+                    onClick={() => setDevice(d.id)}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         )}
       </div>
 
-      {/* Background color */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          background: "var(--color-bg-input)",
-          border: "1px solid var(--color-border)",
-          borderRadius: 6,
-          padding: "4px 8px",
-          height: 28,
-        }}
-      >
-        <div
-          style={{
-            width: 14,
-            height: 14,
-            borderRadius: 2,
-            background: `rgb(${Math.round(settings.backgroundColor.r * 255)},${Math.round(settings.backgroundColor.g * 255)},${Math.round(settings.backgroundColor.b * 255)})`,
-            border: "1px solid rgba(255,255,255,0.15)",
-            flexShrink: 0,
-          }}
-        />
-        <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-primary)", fontFamily: "monospace" }}>
-          {colorToHex(settings.backgroundColor)}
-        </span>
-      </div>
-
-      {/* Device preview */}
-      <DevicePreview deviceId={settings.device} bgColor={settings.backgroundColor} />
+      {/* Device preview — only shown when a device is selected */}
+      {device && <DevicePreview device={device} />}
 
       {/* Flows list */}
       {flows.length > 0 && (
@@ -242,64 +215,74 @@ function DeviceOption({
   );
 }
 
-function DevicePreview({
-  deviceId,
-  bgColor,
-}: {
-  deviceId: string | null;
-  bgColor: { r: number; g: number; b: number; a: number };
-}) {
-  const bg = `rgb(${Math.round(bgColor.r * 255)},${Math.round(bgColor.g * 255)},${Math.round(bgColor.b * 255)})`;
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: 120,
-        background: bg,
-        borderRadius: 6,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
-      }}
-    >
-      {deviceId ? (
-        <PhoneSilhouette />
-      ) : (
-        <Monitor size={32} style={{ color: "rgba(255,255,255,0.2)" }} />
-      )}
-    </div>
-  );
-}
+function DevicePreview({ device }: { device: NonNullable<ReturnType<typeof findDevice>> }) {
+  const MAX_W = 176;
+  const MAX_H = 164;
+  const scale = Math.min(MAX_W / device.w, MAX_H / device.h);
+  const pw = Math.round(device.w * scale);
+  const ph = Math.round(device.h * scale);
+  const radius = device.kind === "phone" ? Math.round(14 * scale) : device.kind === "tablet" ? Math.round(10 * scale) : 4;
+  const screenInset = 3;
+  const screenRadius = Math.max(2, radius - 2);
+  const showIsland = device.kind === "phone" && ph > 60;
 
-function PhoneSilhouette() {
   return (
-    <svg width="54" height="100" viewBox="0 0 54 100" fill="none">
-      {/* Shell */}
-      <rect x="1" y="1" width="52" height="98" rx="12" fill="url(#phoneGrad)" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
-      <defs>
-        <linearGradient id="phoneGrad" x1="0" y1="0" x2="54" y2="100" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#2d2d2d" />
-          <stop offset="100%" stopColor="#0a0a0a" />
-        </linearGradient>
-      </defs>
-      {/* Screen */}
-      <rect x="3.5" y="3.5" width="47" height="93" rx="9.5" fill="#0d0d1a" />
-      {/* Dynamic island */}
-      <rect x="17" y="7" width="20" height="5.5" rx="2.75" fill="#000" />
-      {/* Right power button */}
-      <rect x="53" y="27" width="3" height="13" rx="1.5" fill="#222" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-      {/* Left mute */}
-      <rect x="-2" y="18" width="3" height="5" rx="1.5" fill="#222" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-      {/* Left volume up */}
-      <rect x="-2" y="27" width="3" height="9" rx="1.5" fill="#222" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-      {/* Left volume down */}
-      <rect x="-2" y="39" width="3" height="9" rx="1.5" fill="#222" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-      {/* Speaker dots */}
-      {[0,1,2,3,4,5].map(i => (
-        <circle key={i} cx={21 + i * 2.4} cy={95} r={0.8} fill="rgba(255,255,255,0.18)" />
-      ))}
-    </svg>
+    <div style={{ width: "100%", display: "flex", justifyContent: "center", padding: "8px 0" }}>
+      <div
+        style={{
+          width: pw,
+          height: ph,
+          borderRadius: radius,
+          background: "linear-gradient(135deg, #2a2a2a 0%, #0e0e0e 100%)",
+          border: "1.5px solid rgba(255,255,255,0.18)",
+          position: "relative",
+          flexShrink: 0,
+          boxShadow: "0 8px 24px rgba(0,0,0,0.6)",
+        }}
+      >
+        {/* Screen */}
+        <div
+          style={{
+            position: "absolute",
+            inset: screenInset,
+            borderRadius: screenRadius,
+            background: "#0d0d1a",
+          }}
+        />
+        {/* Dynamic island for phones */}
+        {showIsland && (
+          <div
+            style={{
+              position: "absolute",
+              top: screenInset + 4,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: Math.round(pw * 0.35),
+              height: Math.max(4, Math.round(ph * 0.015)),
+              background: "#000",
+              borderRadius: 99,
+              zIndex: 1,
+            }}
+          />
+        )}
+        {/* Dimensions label */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: screenInset + 4,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            fontSize: 9,
+            color: "rgba(255,255,255,0.25)",
+            pointerEvents: "none",
+            lineHeight: 1,
+          }}
+        >
+          {device.w}×{device.h}
+        </div>
+      </div>
+    </div>
   );
 }
 

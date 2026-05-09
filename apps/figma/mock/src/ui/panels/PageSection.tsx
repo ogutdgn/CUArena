@@ -5,7 +5,7 @@ import { useStore } from "@/engine/store";
 import { ColorPicker, colorToHex, parseHex } from "@/ui/overlays/ColorPicker";
 import { dispatch, makeOpId, openTransaction, commitTransaction } from "@/engine/dispatch";
 import { emitSemantic } from "@/logger/semantic";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 import type { Color } from "@/types/scene";
 
 // No-selection right-panel section. Renders only the Page block — Local styles
@@ -135,7 +135,7 @@ export function PageSection() {
 
   return (
     <Section title="Page">
-      <div style={{ display: "flex", alignItems: "center", gap: 6, height: 28 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, height: 28, minWidth: 0, overflow: "hidden" }}>
         <button
           data-id="page.bg.open-color-picker"
           onClick={(e) => {
@@ -186,7 +186,7 @@ export function PageSection() {
             outline: 0,
           }}
         />
-        <div style={{ width: 56, flexShrink: 0 }}>
+        <div style={{ width: 56, flexShrink: 0, opacity: page.backgroundHidden ? 0.35 : 1, pointerEvents: page.backgroundHidden ? "none" : "auto" }}>
           <NumericInput value={opacityPct} onCommit={commitOpacity} min={0} max={100} suffix="%" />
         </div>
         <button
@@ -204,7 +204,7 @@ export function PageSection() {
             flexShrink: 0,
           }}
         >
-          {page.backgroundHidden ? <EyeOff size={14} /> : <Eye size={14} />}
+          {page.backgroundHidden ? <EyeClosed size={14} /> : <Eye size={14} />}
         </button>
       </div>
       {pickerAnchor && (
