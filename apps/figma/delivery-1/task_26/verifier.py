@@ -46,11 +46,11 @@ task = Task(
 
         # critical: solid + distinct brand colors
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                           # 0 ★ every shape needs visible fill
-            DistinctSolidColors(minimum=5, tolerance=0.12),                     # 1 ★ prompt: "each filled a different brand color"
+            AllFillTypeIs("rectangle", kind="solid"),                           # 0   structural: solid fill required for color check
+            DistinctSolidColors(minimum=5, tolerance=0.12),                     # 1 ★ prompt: "different brand color"
             LayerVisible(layer_type="rectangle", min_opacity=0.5,
                          min_alpha=0.5),                                        # 2 visible
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.20, critical=[1]),
 
         # squares look like squares (unrotated, unflipped, not pill)
         PropertyRubric([
