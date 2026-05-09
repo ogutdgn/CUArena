@@ -22,6 +22,7 @@ import argparse
 import dataclasses
 import importlib.util
 import json
+import os
 import re
 import sys
 from datetime import datetime
@@ -33,8 +34,9 @@ from urllib.error import HTTPError, URLError
 APP_ROOT     = Path(__file__).resolve().parent.parent       # apps/figma/
 SCRIPTS_DIR  = Path(__file__).resolve().parent              # apps/figma/scripts/
 DELIVERY_DIR = APP_ROOT / "delivery-1"
-LOGS_DIR     = SCRIPTS_DIR / "logs"
-SCORES_DIR   = SCRIPTS_DIR / "scores"
+OUTPUT_ROOT  = Path(os.getenv("FIGMA_OUTPUT_DIR", str(SCRIPTS_DIR)))
+LOGS_DIR     = OUTPUT_ROOT / "logs"
+SCORES_DIR   = OUTPUT_ROOT / "scores"
 
 # Make `from verifier... import ...` work inside delivery-1/task_NN/verifier.py
 sys.path.insert(0, str(APP_ROOT))
@@ -286,7 +288,7 @@ def cmd_full_pipeline(task_input: str, host: str, port: int, session_id: str | N
             if int(status.get("postCount") or 0) == 0:
                 print(
                     "No browser log POST has reached this mock instance yet."
-                    " Open http://127.0.0.1:5173, hard-refresh, interact once, wait 0.5s, then rerun."
+                    f" Open http://{host}:{port}, hard-refresh, interact once, wait 0.5s, then rerun."
                 )
         print("Returning forced zero score for this run.")
         ts_ms = int(datetime.now().timestamp() * 1000)

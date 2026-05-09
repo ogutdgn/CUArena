@@ -1,0 +1,25 @@
+name: cua-bench-figma-runtime
+
+services:
+  mock:
+    image: ${FIGMA_MOCK_IMAGE:-cua-bench-figma-mock:delivery1}
+    ports:
+      - "${FIGMA_HOST_PORT:-5173}:5173"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:5173/"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  verifier:
+    image: ${FIGMA_VERIFIER_IMAGE:-cua-bench-figma-verifier:delivery1}
+    depends_on:
+      mock:
+        condition: service_healthy
+    working_dir: /workspace/apps/figma
+    stdin_open: true
+    tty: true
+    environment:
+      FIGMA_OUTPUT_DIR: /workspace/out
+    volumes:
+      - ./out:/workspace/out

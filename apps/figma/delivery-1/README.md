@@ -1,5 +1,7 @@
 # Delivery 1 — Figma CUA Eval (50 tasks)
 
+Preferred customer handoff (no source checkout): see [RUNTIME_ONLY_DELIVERY.md](RUNTIME_ONLY_DELIVERY.md).
+
 This folder is the task delivery root. Each `task_NN/` contains:
 
 - `prompt.md` (task instructions)

@@ -1,5 +1,11 @@
 # Docker Delivery Guide (Customer Handoff)
 
+If you want a runtime-only handoff (no repo checkout), use:
+
+- [RUNTIME_ONLY_DELIVERY.md](RUNTIME_ONLY_DELIVERY.md)
+
+That path ships prebuilt images + host commands only.
+
 This environment can be shipped as a Dockerized package with:
 
 - `mock/` (web UI)
