@@ -18,12 +18,17 @@ def _events(n_arcs=2):
     return sem
 
 
-def _wifi(n_arcs=2, stroke_w=6, stroke_color=NAVY, dot_color=NAVY):
+def _wifi(n_arcs=2, stroke_w=6, stroke_color=NAVY, dot_color=NAVY, curved=True):
     arcs = []
     for i in range(n_arcs):
+        # Pen-tool arcs are curves — give them bezier handles so
+        # VectorsCurvedCountAtLeast recognises them.
+        network = {"segments": [{"handleFrom": {"x": 10, "y": 0},
+                                  "handleTo":   {"x": -10, "y": 0}}]} if curved else {}
         arcs.append(make_layer("vector", x=300-50*i, y=200-30*i,
                                 w=200+100*i, h=100+50*i, fill=None,
-                                strokes=[make_stroke(rgb=stroke_color, weight=stroke_w)]))
+                                strokes=[make_stroke(rgb=stroke_color, weight=stroke_w)],
+                                network=network))
     dot = make_layer("ellipse", x=400, y=380, w=20, h=20, fill=dot_color)
     frame = make_frame([*arcs, dot], w=1280, h=832)
     return make_log([frame], _events(n_arcs))
@@ -46,6 +51,6 @@ PASS_LOGS = [
 ]
 FAIL_LOGS = [
     ("one_arc",         fail_one_arc(),         ["≥2"]),
-    ("thin_stroke",     fail_thin_stroke(),     ["stroke weight"]),
-    ("wrong_color",     fail_wrong_color(),     ["No vector with stroke color"]),
+    ("thin_stroke",     fail_thin_stroke(),     [r"1 != 6\.0"]),
+    ("wrong_color",     fail_wrong_color(),     [r"stroke color off"]),
 ]
