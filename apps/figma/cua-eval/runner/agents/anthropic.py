@@ -24,24 +24,66 @@ from ..browser import DISPLAY_HEIGHT, DISPLAY_WIDTH, BrowserSession
 from .base import AgentResult, AgentTrajectoryStep
 
 
+# Anthropic's computer-use tool/beta pairs as documented at
+# https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool
+#
+# The newer ``computer_20251124`` / ``computer-use-2025-11-24`` pair is for
+# Claude Opus 4.7 / 4.6 / 4.5 and Sonnet 4.6, and adds the ``zoom`` action.
+# The older ``computer_20250124`` / ``computer-use-2025-01-24`` pair is for
+# Sonnet 4.5, Haiku 4.5, Opus 4.1, Sonnet 4, Opus 4, and Sonnet 3.7.
+NEW_TOOL = ("computer_20251124", "computer-use-2025-11-24")
+OLD_TOOL = ("computer_20250124", "computer-use-2025-01-24")
+
+# Substring → tool pair. First match wins; ordering matters because
+# "claude-opus-4-1" is a substring of nothing else, but "opus-4-" matches
+# 4.5/4.6/4.7 too, so we list 4-1 before the broader prefix.
+_MODEL_TOOL_TABLE: list[tuple[str, tuple[str, str]]] = [
+    # Opus 4.1 still uses the old tool — match it before the broader opus-4 rule.
+    ("claude-opus-4-1", OLD_TOOL),
+    # New tool: Opus 4.5 / 4.6 / 4.7 and Sonnet 4.6.
+    ("claude-opus-4-5", NEW_TOOL),
+    ("claude-opus-4-6", NEW_TOOL),
+    ("claude-opus-4-7", NEW_TOOL),
+    ("claude-sonnet-4-6", NEW_TOOL),
+    # Old tool: everyone else with computer-use support.
+    ("claude-sonnet-4-5", OLD_TOOL),
+    ("claude-haiku-4-5", OLD_TOOL),
+    ("claude-sonnet-4", OLD_TOOL),         # plain "sonnet 4"
+    ("claude-opus-4", OLD_TOOL),           # plain "opus 4"
+    ("claude-3-7-sonnet", OLD_TOOL),
+]
+
+
+def _tool_version_for_model(model: str) -> tuple[str, str]:
+    """Return the (tool_type, beta_header) for ``model``, per Anthropic's
+    docs. Falls back to the older pair for unknown models — the API will
+    return a clear 400 if that's wrong."""
+    m = model.lower()
+    for needle, pair in _MODEL_TOOL_TABLE:
+        if m.startswith(needle):
+            return pair
+    return OLD_TOOL
+
+
 def describe_endpoint(model: str, *, max_tokens: int = 4096,
                       keep_screenshots: int = 3, turn_delay_s: float = 0.0,
                       max_retries: int = 5) -> dict[str, Any]:
     """Static metadata about how this agent calls the API. Captured into
     meta.json so a researcher reading the logs later knows exactly what
     request shape produced the trajectory."""
+    tool_type, beta = _tool_version_for_model(model)
     return {
         "provider": "anthropic",
         "model": model,
         "endpoint": "messages.create",
         "tool": {
-            "type": "computer_20250124",
+            "type": tool_type,
             "name": "computer",
             "display_width_px": DISPLAY_WIDTH,
             "display_height_px": DISPLAY_HEIGHT,
             "display_number": 1,
         },
-        "beta_headers": ["computer-use-2025-01-24"],
+        "beta_headers": [beta],
         "max_tokens": max_tokens,
         "keep_screenshots": keep_screenshots,
         "turn_delay_s": turn_delay_s,
@@ -49,9 +91,29 @@ def describe_endpoint(model: str, *, max_tokens: int = 4096,
     }
 
 
+# Always sent. Hard environment constraint — the figma mock does NOT
+# accept keyboard input through computer-use; only mouse actions actually
+# affect the canvas. Without this note the model burns turns trying to
+# type names, use shortcuts, etc.
+MOUSE_ONLY_NOTE = """ENVIRONMENT CONSTRAINT — MOUSE ONLY:
+The browser this agent controls does NOT accept keyboard input. Pretend the keyboard is unplugged.
+
+Use ONLY these mouse actions:
+- screenshot, mouse_move, cursor_position
+- left_click, right_click, middle_click, double_click, triple_click
+- left_click_drag, left_mouse_down, left_mouse_up
+- scroll, wait
+
+Do NOT use the `type`, `key`, or `hold_key` actions — they have NO effect in this environment.
+If a task seems to require typing, a keyboard shortcut, or pressing Enter/Escape, find a mouse-only path (click the matching UI button or menu item instead). Modifier-clicks are allowed via the `text` parameter on left_click/scroll (e.g. shift, ctrl, alt, super).
+"""
+
+
+# Optional UI-explainer prompt — only sent when --harness is on. Layered
+# on top of MOUSE_ONLY_NOTE.
 DEFAULT_SYSTEM_PROMPT = """You are an autonomous computer-use agent operating a Figma design mock in a browser.
 
-You will be given a task. Use the computer tool to complete the task by clicking, typing, and dragging in the canvas. The viewport is {w}x{h}.
+You will be given a task. Use the computer tool to complete the task by clicking and dragging in the canvas. The viewport is {w}x{h}.
 
 Guidelines:
 - Take a screenshot first to see the UI.
@@ -99,18 +161,22 @@ def _execute(session: BrowserSession, action: dict[str, Any]) -> dict[str, Any]:
         elif name == "left_mouse_up":
             session.page.mouse.move(x, y)
             session.page.mouse.up()
-        elif name == "type":
-            session.type_text(str(action.get("text", "")))
-        elif name == "key":
-            keys = str(action.get("text", ""))
-            # Anthropic uses xdotool-style ("ctrl+a", "Return"). Normalize for Playwright.
-            session.key(_normalize_keys(keys))
-        elif name == "hold_key":
-            keys = _normalize_keys(str(action.get("text", "")))
-            duration_s = float(action.get("duration", 1))
-            session.page.keyboard.down(keys)
-            session.wait(int(duration_s * 1000))
-            session.page.keyboard.up(keys)
+        elif name in ("type", "key", "hold_key"):
+            # Hard environment constraint — keyboard input is disabled in
+            # this harness. Don't actually press; return a text message in
+            # the tool_result so the model gets explicit feedback that
+            # this action did nothing and stops repeating it.
+            attempted = action.get("text", "")
+            session.wait(50)
+            shot = session.screenshot_b64()
+            return [
+                {"type": "text",
+                 "text": (f"BLOCKED: keyboard action '{name}' is disabled in this environment. "
+                          f"Attempted text/keys: {attempted!r}. Use mouse-only actions instead "
+                          f"(left_click, left_click_drag, scroll, etc.). The screen is unchanged.")},
+                {"type": "image",
+                 "source": {"type": "base64", "media_type": "image/png", "data": shot}},
+            ]
         elif name == "scroll":
             direction = action.get("scroll_direction", "down")
             amount = int(action.get("scroll_amount", 3)) * 100
@@ -260,8 +326,9 @@ def run_anthropic_agent(
                            error="ANTHROPIC_API_KEY not set")
 
     client = Anthropic(api_key=api_key)
+    tool_type, beta_header = _tool_version_for_model(model)
     tools = [{
-        "type": "computer_20250124",
+        "type": tool_type,
         "name": "computer",
         "display_width_px": DISPLAY_WIDTH,
         "display_height_px": DISPLAY_HEIGHT,
@@ -313,7 +380,7 @@ def run_anthropic_agent(
             max_tokens=max_tokens,
             tools=tools,
             messages=messages,
-            extra_headers={"anthropic-beta": "computer-use-2025-01-24"},
+            extra_headers={"anthropic-beta": beta_header},
         )
         if effective_system:
             api_kwargs["system"] = effective_system
@@ -328,13 +395,20 @@ def run_anthropic_agent(
             except Exception as exc:
                 last_exc = exc
                 msg = str(exc)
-                is_rate = "429" in msg or "rate_limit" in msg.lower() or "overloaded" in msg.lower()
+                low = msg.lower()
+                is_429 = "429" in msg or "rate_limit" in low
+                is_overloaded = "overloaded" in low or "529" in msg
                 is_5xx = any(code in msg for code in ("500", "502", "503", "504"))
-                if not (is_rate or is_5xx) or attempt_idx == max_retries:
+                if not (is_429 or is_overloaded or is_5xx) or attempt_idx == max_retries:
                     break
                 wait = _retry_after_seconds(exc, default=min(60.0, 5.0 * (2 ** attempt_idx)))
-                print(f"{progress_prefix}  rate-limit / transient on turn {turn} "
-                      f"(attempt {attempt_idx + 1}/{max_retries + 1}); sleeping {wait:.1f}s",
+                kind = "429 rate-limit" if is_429 else ("529 overloaded" if is_overloaded else "5xx")
+                # Show the first ~200 chars of the actual error so 429s
+                # (your TPM cap, slow down) can be told apart from 529s
+                # (Anthropic overloaded, just wait).
+                snippet = msg.replace("\n", " ")[:200]
+                print(f"{progress_prefix}  {kind} on turn {turn} "
+                      f"(attempt {attempt_idx + 1}/{max_retries + 1}); sleeping {wait:.1f}s :: {snippet}",
                       flush=True)
                 time.sleep(wait)
 

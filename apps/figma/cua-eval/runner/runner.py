@@ -212,7 +212,11 @@ def run_attempt(
     # Materialize what the model is about to be shown — eagerly, so a
     # killed run still preserves the inputs.
     prompt_path.write_text(prompt, encoding="utf-8")
-    effective_system = system_prompt if harness else None
+    # ``system_prompt`` already encodes the harness choice (the caller
+    # built MOUSE_ONLY_NOTE [+ DEFAULT_SYSTEM_PROMPT if --harness]). Trust
+    # it; the mouse-only note is a hard environment constraint and must
+    # always reach the model.
+    effective_system = system_prompt
     system_prompt_path.write_text(effective_system or "", encoding="utf-8")
 
     # Pull static endpoint metadata from the matching agent module so the
