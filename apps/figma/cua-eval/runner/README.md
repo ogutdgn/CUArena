@@ -52,6 +52,48 @@ npm run dev      # serves http://localhost:5173
 .venv/bin/python cua-eval/runner/passk.py --tasks 05 --prompt-mode full
 ```
 
+`--run-id` is optional; it just renames the directory under `cua-eval/runs/`
+(default: timestamp). A useful idiom for parallel batches:
+
+```bash
+RUN_ID=parallel_$(date +%Y%m%d_%H%M%S)
+.venv/bin/python cua-eval/runner/passk.py --tasks 02 --run-id "$RUN_ID" ...
+```
+
+## Parallel runs
+
+Each `passk.py` invocation drives a single Playwright browser against a single
+mock instance, so parallelism is achieved by running **multiple mock servers
+on distinct ports** and pointing one runner at each.
+
+```bash
+# Terminal 1 — mock on :5173
+cd apps/figma/mock && npm run dev
+
+# Terminal 2 — mock on :5174 (Vite auto-bumps the port if 5173 is taken)
+cd apps/figma/mock && npm run dev
+
+# Terminal 3 — runner against :5173
+cd apps/figma
+.venv/bin/python cua-eval/runner/passk.py --tasks 02 \
+    --mock-url http://localhost:5173 --run-id "task02_$(date +%H%M%S)" --headed
+
+# Terminal 4 — runner against :5174 (different task, same time)
+cd apps/figma
+.venv/bin/python cua-eval/runner/passk.py --tasks 05 \
+    --mock-url http://localhost:5174 --run-id "task05_$(date +%H%M%S)" --headed
+```
+
+Rules:
+
+- Each runner **must** point at its own dev-server port. Two runners sharing a
+  mock will collide on session-log state and produce wrong scores.
+- Distinct `--run-id`s keep `cua-eval/runs/` tidy when batches finish out of
+  order.
+- API rate limits still apply per-key — running 4 anthropic agents in parallel
+  hits TPM caps faster than running them serially. Use `--turn-delay-s` /
+  `--keep-screenshots` to pace.
+
 ## Prompt modes (`--prompt-mode`)
 
 Each `delivery-1/task_NN/prompt.md` has several sections including a
