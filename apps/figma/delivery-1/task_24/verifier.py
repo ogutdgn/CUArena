@@ -50,18 +50,18 @@ task = Task(
 
         # solid white + visible
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                       # 0 ★ every rect needs a visible solid fill
+            AllFillTypeIs("rectangle", kind="solid"),                       # 0   structural: solid fill required for color check
             AllSolidColorEquals(layer_type="rectangle", expected_rgb=WHITE, tolerance=0.15),  # 1 ★ prompt: "white fill"
             LayerVisible(layer_type="rectangle", min_opacity=0.5,
                          min_alpha=0.5),                                    # 2
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.20, critical=[1]),
 
-        # drop shadow on modal — must be visible (not alpha=0 / hidden)
+        # drop shadow on modal — visual polish, not prompt-explicit
         EffectRubric([
-            DropShadowExists("rectangle"),                                  # 0 ★ prompt thorough: implies modal needs depth
+            DropShadowExists("rectangle"),                                  # 0   prompt does not mention shadow; non-critical
             VisibleDropShadowExists(layer_type="rectangle",
                                     min_alpha=0.05),                        # 1
-        ], weight=0.15, critical=[0]),
+        ], weight=0.15, critical=[]),
 
         # rectangle (unrotated, unflipped, not pill)
         PropertyRubric([
