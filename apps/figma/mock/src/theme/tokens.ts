@@ -3,7 +3,6 @@
 
 export const tokens = {
   // Sizing
-  leftRailWidth: 48,
   leftPanelDefaultWidth: 240,
   leftPanelMinWidth: 200,
   leftPanelMaxWidth: 480,
@@ -101,6 +100,5 @@ export function cssVars(): Record<string, string> {
   }
   out["--font-family"] = tokens.fontFamily;
   out["--toolbar-height"] = `${tokens.toolbarHeight}px`;
-  out["--left-rail-width"] = `${tokens.leftRailWidth}px`;
   return out;
 }
