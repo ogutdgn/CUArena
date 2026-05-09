@@ -59,11 +59,14 @@ task = Task(
             NoLayerFlipped(layer_type="ellipse"),                                                # 10 not flipped
             LayerSmallerThanLayer(smaller_type="ellipse", larger_type="ellipse", max_frac=0.85), # 11 badge much smaller
             LayerAreaRatioAtLeast(layer_type="ellipse", min_ratio=1.5),                          # 12 avatar dominates
-            SmallerLayerCenteredOnLargerEdge(                                                    # 13 ★ prompt: "bottom-right" placement
+            SmallerLayerCenteredOnLargerEdge(                                                    # 13 ★ prompt: "bottom-right" — bottom-edge alignment
                 layer_type="ellipse", edge="bottom",
                 edge_tolerance=40.0, axis_tolerance=200.0),
-            FrameCountAtMost(maximum=1),                                                         # 14 exactly one frame
-        ], weight=0.20, critical=[0, 2, 13]),
+            SmallerLayerCenteredOnLargerEdge(                                                    # 14 ★ prompt: "bottom-right" — right-edge alignment
+                layer_type="ellipse", edge="right",
+                edge_tolerance=40.0, axis_tolerance=200.0),
+            FrameCountAtMost(maximum=1),                                                         # 15 exactly one frame
+        ], weight=0.20, critical=[0, 2, 13, 14]),
 
         # critical: distinct colors, green badge, white stroke, sane fills
         ColorRubric([

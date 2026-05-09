@@ -35,7 +35,7 @@ task = Task(
         AlignmentRubric([
             LayersSameDimensions(layer_type="rectangle", tolerance=8.0),          # 0 ★ prompt: "same-size"
             LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),# 1 ★ prompt: "same y-baseline"
-            LayersStacked(layer_type="rectangle", axis="x", gap_px=8.0, tolerance=12.0),  # 2 ★ prompt: "horizontal row"
+            LayersStacked(layer_type="rectangle", axis="x", gap_px=8.0, tolerance=6.0),  # 2 ★ prompt: "horizontal row"
             CornerRadiusAtLeast(layer_type="rectangle", min_value=24.0),          # 3 ★ prompt: "pill rectangles" (radius 999)
             LayerSizeAtLeast(layer_type="rectangle", min_w=40.0, min_h=20.0),     # 4   non-degenerate
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",

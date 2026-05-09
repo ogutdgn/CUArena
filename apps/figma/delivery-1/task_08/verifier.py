@@ -26,12 +26,12 @@ task = Task(
 
         AlignmentRubric([
             LayerAspectRatioGreaterThan(layer_type="vector", ratio=2.0, axis="horizontal"),     # 0 ★ prompt: "horizontal wave"
-            VectorsCurvedCountAtLeast(minimum=2),                                               # 1 ★ prompt: "smooth Bezier curves ... with bezier handles"
+            VectorsCurvedCountAtLeast(minimum=2),                                               # 1 ★ prompt: "smooth Bezier curves"
         ], weight=0.35, critical=[0, 1]),
 
         ColorRubric([
             DistinctStrokeColors(minimum=2, tolerance=0.12),                                    # 0 ★ prompt: "different blue shades"
-            AllStrokeWeightsEqual(layer_type="vector", weight=4.0, tolerance=2.5),              # 1 ★ prompt: "4px blue stroke"
+            AllStrokeWeightsEqual(layer_type="vector", weight=4.0, tolerance=2.0),              # 1 ★ prompt: "4px blue stroke"
         ], weight=0.25, critical=[0, 1]),
 
         StructureRubric([

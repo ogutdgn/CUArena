@@ -56,7 +56,7 @@ task = Task(
             AllFillTypeIs("polygon", kind="solid"),                                           # 0 ★ prompt: "yellow hexagons" require visible fill
             AllSolidColorEquals(layer_type="polygon", expected_rgb=YELLOW, tolerance=0.28),   # 1 ★ prompt: "yellow hexagons"
             AllStrokeExists("polygon"),                                                       # 2 ★ prompt: "1px black stroke each"
-            AllStrokeWeightsEqual(layer_type="polygon", weight=1.0, tolerance=2.5),           # 3 ★ prompt: "1px ... each"
+            AllStrokeWeightsEqual(layer_type="polygon", weight=1.0, tolerance=1.5),           # 3 ★ prompt: "1px ... each"
             AllStrokeColorEquals("polygon", expected_rgb=BLACK, tolerance=0.28),              # 4 ★ prompt: "black stroke"
             AllLayerStrokeVisible("polygon", min_alpha=0.5, min_weight=0.5),                  # 5
             FillCountAtMost("polygon", max_count=1),                                          # 6

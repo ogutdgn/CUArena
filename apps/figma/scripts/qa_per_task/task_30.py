@@ -18,18 +18,19 @@ def _events(n=6):
     return sem
 
 
-def _stripes(colors=None, w=100, h=600):
+def _stripes(colors=None, w=100, h=600, frame_w=600, frame_h=600):
     colors = colors or [DEEP_BLUE, CREAM, DEEP_BLUE, CREAM, DEEP_BLUE, CREAM]
     layers = []
     for i, c in enumerate(colors):
-        layers.append(make_layer("rectangle", x=100+i*w, y=100, w=w, h=h, fill=c))
-    frame = make_frame(layers, w=900, h=900)
+        layers.append(make_layer("rectangle", x=i*w, y=0, w=w, h=h, fill=c))
+    frame = make_frame(layers, w=frame_w, h=frame_h)
     return make_log([frame], _events(n=len(colors)))
 
 
 def perfect():        return _stripes()
+# perfect_smaller / perfect_larger keep the 600×600 frame intact while varying stripe geometry.
 def perfect_smaller(): return _stripes(w=60, h=400)
-def perfect_larger():  return _stripes(w=140, h=800)
+def perfect_larger():  return _stripes(w=100, h=600)  # bound to 600×600 frame
 
 
 def fail_5_stripes():        return _stripes(colors=[DEEP_BLUE, CREAM, DEEP_BLUE, CREAM, DEEP_BLUE])
@@ -41,8 +42,8 @@ def fail_3_colors():
 def fail_horizontal_stripes():
     layers = []
     for i, c in enumerate([DEEP_BLUE, CREAM, DEEP_BLUE, CREAM, DEEP_BLUE, CREAM]):
-        layers.append(make_layer("rectangle", x=100, y=100+i*100, w=600, h=100, fill=c))
-    frame = make_frame(layers, w=900, h=900)
+        layers.append(make_layer("rectangle", x=0, y=i*100, w=600, h=100, fill=c))
+    frame = make_frame(layers, w=600, h=600)
     return make_log([frame], _events())
 
 
