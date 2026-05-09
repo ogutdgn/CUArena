@@ -6,7 +6,7 @@ import { immer } from "zustand/middleware/immer";
 import { enableMapSet } from "immer";
 import type { DocumentNode, Layer, Page, Color } from "@/types/scene";
 import type { ToolId, EditMode, Viewport, ClipboardPayload, Op } from "@/types/ops";
-import { uid } from "@/util/id";
+import { createSessionId, uid } from "@/util/id";
 
 enableMapSet();
 
@@ -180,7 +180,7 @@ const initialState: AppState = {
   undoStack: [],
   redoStack: [],
 
-  sessionId: uid("session"),
+  sessionId: createSessionId(),
 };
 
 export const useStore = create<AppState>()(immer(() => initialState));
