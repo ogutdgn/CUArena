@@ -145,7 +145,7 @@ The `<module_name>` column in the index below matches the task verifier id in
 | 24 | Easy | 10 min | [Draw a centered modal rectangle inside an outer frame using align tool.](task_24/prompt.md) | `task_24_centered_modal` |
 | 25 | Easy | 8 min | [Draw 3 identical rectangles in a horizontal row with consistent spacing.](task_25/prompt.md) | `task_25_button_component` |
 | 26 | Easy | 10 min | [Draw 5 same-size squares in a row with brand colors.](task_26/prompt.md) | `task_26_color_variable_card` |
-| 27 | Easy | 12 min | [Draw 3 same-size squares centered together, rotated to different angles.](task_27/prompt.md) | `task_27_neumorphic_button` |
+| 27 | Easy | 12 min | [Neumorphic pressed-button rectangle.](task_27/prompt.md) | `task_27_neumorphic_button` |
 | 28 | Easy | 8 min | [Draw a photo-placeholder rectangle with two diagonal lines forming an X.](task_28/prompt.md) | `task_28_edited_photo` |
 | 29 | Easy | 10 min | [Draw a 2x2 polka dot grid using Tidy up to align 4 circles.](task_29/prompt.md) | `task_29_polka_dot_grid` |
 | 30 | Easy | 10 min | [Draw 6 alternating vertical stripes filling a 600x600 frame.](task_30/prompt.md) | `task_30_stripe_wallpaper` |

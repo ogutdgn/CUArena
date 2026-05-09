@@ -36,13 +36,13 @@ task = Task(
     rubrics=[
         # critical: exactly 1 rectangle
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=1),                                  # 0 ★ task: "A 200×200 ... rounded rectangle"
+            ShapeCount("rectangle", equals=1),                                  # 0 ★ prompt: "a single 200×200 light-gray rounded rectangle"
         ], weight=0.2, critical=[0]),
 
         # critical: 200x200 + rounded
         AlignmentRubric([
-            LayerSizeEquals(layer_type="rectangle", width=200, height=200, tolerance=25.0),  # 0 ★ task: "200×200"
-            CornerRadiusAtLeast(layer_type="rectangle", min_value=16.0),        # 1 ★ task: "rounded rectangle"
+            LayerSizeEquals(layer_type="rectangle", width=200, height=200, tolerance=25.0),  # 0 ★ prompt: "200×200"
+            CornerRadiusAtLeast(layer_type="rectangle", min_value=16.0),        # 1 ★ prompt: "rounded rectangle"
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),   # 2 no full circle
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),  # 3 upright
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),  # 4 frame upright
@@ -53,15 +53,15 @@ task = Task(
         # critical: light-gray solid fill
         ColorRubric([
             AllFillTypeIs("rectangle", kind="solid"),                           # 0 solid fill required
-            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.25),  # 1 ★ task: "light-gray"
+            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.25),  # 1 ★ prompt: "light-gray"
         ], weight=0.2, critical=[1]),
 
         # critical: paired drop shadows (the defining feature of neumorphism)
         EffectRubric([
             DropShadowExists("rectangle"),                                      # 0 drop shadow present
-            EffectCount(layer_type="rectangle", equals=2),                      # 1 ★ task: "two paired drop shadows"
+            EffectCount(layer_type="rectangle", equals=2),                      # 1 ★ prompt: "two paired (opposing) drop shadows"
             DropShadowCountAtLeast(layer_type="rectangle", minimum=2),          # 2 ≥2 visible drop shadows
-            PairedDropShadowsOpposite(layer_type="rectangle", min_offset=2.0),  # 3 ★ task: "highlight + shadow"
+            PairedDropShadowsOpposite(layer_type="rectangle", min_offset=2.0),  # 3 ★ prompt: "opposing drop shadows"
         ], weight=0.2, critical=[1, 3]),
 
         # rectangle inside a frame (structure)

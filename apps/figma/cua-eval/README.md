@@ -45,7 +45,7 @@ delivery-1/
 | 24 | Centered modal panel | 10m | Easy |
 | 25 | Identical button row | 8m | Easy |
 | 26 | Brand color row | 10m | Easy |
-| 27 | Layered rotated diamonds | 12m | Easy |
+| 27 | Neumorphic pressed-button | 12m | Easy |
 | 28 | Photo placeholder X | 8m | Easy |
 | 29 | 2x2 polka dot grid | 10m | Easy |
 | 30 | Vertical stripe wallpaper | 10m | Easy |

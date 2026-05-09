@@ -1,18 +1,18 @@
-# Task 27 — Draw 3 same-size squares centered together, rotated to different angles.
+# Task 27 — Neumorphic pressed-button rectangle.
 
 **Difficulty:** Easy  •  **Time horizon:** 12 min
 
 ## Thorough description
 
-Draw 3 same-size squares all sharing the same center point but rotated to different angles (e.g., 0°, 30°, 60°). Each square a different color, layered to form a star-burst diamond pattern.
+Draw a single 200×200 light-gray rounded rectangle and apply two opposing drop shadows — one offset toward the top-left (highlight) and one offset toward the bottom-right (shadow) — to create the soft pressed look of a neumorphic button. Both shadows should share the same blur and similar alpha, with offsets pointing in opposite directions across the rectangle.
 
 ## Simplified prompt
 
-> Draw 3 same-size squares centered together, rotated to different angles.
+> Draw a 200×200 light-gray rounded rectangle with two paired (opposing) drop shadows so it looks like a neumorphic button.
 
 ## Step-by-step
 
-1. Click Rectangle tool. 2. Drag the first square. 3. Pick color A. 4. Right-click then Duplicate, scrub rotation to 30°. 5. Pick color B. 6. Duplicate again, scrub rotation to 60°. 7. Pick color C. 8. Marquee all. 9. Click Align horizontal centers and Align vertical centers.
+1. Click Rectangle tool. 2. Drag a 200×200 rectangle. 3. Set the fill to light gray (around #E1E5EE). 4. Scrub corner radius to 20. 5. Open the Effects panel and add a drop shadow with offset roughly (-8, -8), blur 16. 6. Add a second drop shadow with offset roughly (8, 8), blur 16. 7. Confirm the rectangle stays upright (0° rotation, not flipped).
 
 ## Verifier
 
