@@ -7,6 +7,7 @@ import json
 import sys
 import time
 from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -18,7 +19,13 @@ if str(APP_ROOT) not in sys.path:
     sys.path.insert(0, str(APP_ROOT))
 
 from .agents.base import AgentResult        # noqa: E402
-from .browser import launch_browser         # noqa: E402
+from .browser import DISPLAY_HEIGHT, DISPLAY_WIDTH, launch_browser   # noqa: E402
+from .env import (                          # noqa: E402
+    estimate_cost_usd,
+    harness_git_info,
+    python_argv,
+    sdk_versions,
+)
 
 
 @dataclass
@@ -38,6 +45,8 @@ class AttemptResult:
     score_path: str
     trajectory_path: str
     usage: dict[str, Any] = field(default_factory=dict)
+    cost_estimate: dict[str, Any] = field(default_factory=dict)
+    elapsed_s: float = 0.0
 
 
 def list_task_dirs() -> list[Path]:
@@ -195,8 +204,8 @@ def run_attempt(
     log_path = out_dir / "log.json"
     score_path = out_dir / "score.json"
     trajectory_path = out_dir / "trajectory.json"
-    trajectory_jsonl_path = out_dir / "trajectory.jsonl"
     meta_path = out_dir / "meta.json"
+    outcome_path = out_dir / "outcome.json"
     prompt_path = out_dir / "prompt.txt"
     system_prompt_path = out_dir / "system_prompt.txt"
 
@@ -205,16 +214,51 @@ def run_attempt(
     prompt_path.write_text(prompt, encoding="utf-8")
     effective_system = system_prompt if harness else None
     system_prompt_path.write_text(effective_system or "", encoding="utf-8")
-    meta_path.write_text(json.dumps({
+
+    # Pull static endpoint metadata from the matching agent module so the
+    # log records the exact request shape (tool type/version, beta header,
+    # max_tokens, viewport, etc.) without duplicating constants.
+    if provider == "anthropic":
+        from .agents.anthropic import describe_endpoint as _describe
+    elif provider == "openai":
+        from .agents.openai import describe_endpoint as _describe
+    else:
+        _describe = lambda *_a, **_kw: {}                       # noqa: E731
+    endpoint_meta = _describe(**{
+        k: v for k, v in agent_kwargs.items()
+        if k in ("model", "max_tokens", "keep_screenshots",
+                 "turn_delay_s", "max_retries")
+    })
+
+    started_at = int(time.time() * 1000)
+    started_iso = datetime.fromtimestamp(started_at / 1000, tz=timezone.utc).isoformat()
+    meta = {
         "task_id": task.id,
+        "task_dir": str(task_dir),
         "provider": provider,
         "model": agent_kwargs.get("model", "?"),
+        "endpoint": endpoint_meta,
         "prompt_mode": prompt_mode,
+        "prompt_chars": len(prompt),
         "harness": harness,
+        "system_prompt_chars": len(effective_system or ""),
         "step_cap": agent_kwargs.get("step_cap", None),
         "mock_url": mock_url,
-        "started_at": int(time.time() * 1000),
-    }, indent=2), encoding="utf-8")
+        "headless": headless,
+        "viewport": {
+            "width": DISPLAY_WIDTH,
+            "height": DISPLAY_HEIGHT,
+            "device_scale_factor": 1,
+        },
+        "pass_threshold": pass_threshold,
+        "started_at": started_at,
+        "started_at_iso": started_iso,
+        "harness": harness,
+        "harness_git": harness_git_info(),
+        "sdk_versions": sdk_versions(),
+        "argv": python_argv(),
+    }
+    meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
     error: str | None = None
     agent_res: AgentResult | None = None
@@ -263,6 +307,43 @@ def run_attempt(
                                    encoding="utf-8")
 
     max_base = float(sum(r.max_score for r in result.rubrics))
+
+    # Final outcome blob — written after scoring so a researcher reading
+    # the attempt dir later has end-to-end metadata without parsing
+    # multiple files.
+    ended_at = int(time.time() * 1000)
+    usage = (agent_res.usage if agent_res else {}) or {}
+    cost = estimate_cost_usd(
+        meta["model"],
+        usage.get("input_tokens", 0) or 0,
+        usage.get("output_tokens", 0) or 0,
+    )
+    outcome_blob = {
+        "task_id": task.id,
+        "provider": provider,
+        "model": meta["model"],
+        "started_at": started_at,
+        "ended_at": ended_at,
+        "ended_at_iso": datetime.fromtimestamp(ended_at / 1000, tz=timezone.utc).isoformat(),
+        "elapsed_s": round((ended_at - started_at) / 1000, 2),
+        "turns": (agent_res.turns if agent_res else 0),
+        "stop_reason": (agent_res.stop_reason if agent_res else "error"),
+        "finished": (agent_res.finished if agent_res else False),
+        "error": (error or (agent_res.error if agent_res else None)),
+        "usage": usage,
+        "cost_estimate": cost,
+        "score": {
+            "final": result.final_score,
+            "base": result.base_score,
+            "max": max_base,
+            "efficiency": result.efficiency.multiplier,
+            "passed": result.final_score >= pass_threshold,
+            "threshold": pass_threshold,
+        },
+        "log_session_id": (log_payload or {}).get("sessionId") if log_payload else None,
+    }
+    outcome_path.write_text(json.dumps(outcome_blob, indent=2), encoding="utf-8")
+
     return AttemptResult(
         task_id=task.id,
         provider=provider,
@@ -278,5 +359,7 @@ def run_attempt(
         log_path=str(log_path),
         score_path=str(score_path),
         trajectory_path=str(trajectory_path),
-        usage=(agent_res.usage if agent_res else {}),
+        usage=usage,
+        cost_estimate=cost,
+        elapsed_s=outcome_blob["elapsed_s"],
     )
