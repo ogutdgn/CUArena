@@ -52,6 +52,6 @@ PASS_LOGS = [
 ]
 FAIL_LOGS = [
     ("not_overlapping",    fail_not_overlapping(),    ["overlap"]),
-    ("same_color",         fail_same_color(),         ["≥3"]),
+    ("same_color",         fail_same_color(),         ["≥2"]),
     ("wrong_frame_color",  fail_wrong_frame_color(),  ["No frame with solid"]),
 ]
