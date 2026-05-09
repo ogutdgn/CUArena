@@ -101,7 +101,7 @@ task = Task(
             ToolUsed("line"),                                     # 2 prompt: "Line tool"
             EventTypeCount("create_rectangle", equals=1),         # 3
             EventTypeCountAtLeast("create_line", minimum=3),      # 4
-            EventTypeCountAtLeast("create_vector", minimum=1),    # 5 ★ prompt: "Pen tool ... triangular fold"
+            EventTypeCountAtLeast("create_vector", minimum=1),    # 5 ★ prompt: "triangular fold ... using the Pen tool"
         ], weight=0.18, critical=[5]),
 
         # property: catches stacked-trick fills, etc.
