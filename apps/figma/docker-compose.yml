@@ -26,6 +26,5 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./scripts/logs:/workspace/apps/figma/scripts/logs
-      - ./scripts/scores:/workspace/apps/figma/scripts/scores
+      - ./scripts:/workspace/apps/figma/scripts
       - ./delivery-1:/workspace/apps/figma/delivery-1
