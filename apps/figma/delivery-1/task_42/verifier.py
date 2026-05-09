@@ -37,17 +37,17 @@ task = Task(
     rubrics=[
         # critical: pen-drawn bell vector + clapper/badge ellipses are prompt-mandated
         FundamentalsRubric([
-            ShapeCountAtLeast("vector",  minimum=1),   # 0 ★ pen bell
-            ShapeCountAtLeast("ellipse", minimum=2),   # 1 ★ clapper + badge
+            ShapeCountAtLeast("vector",  minimum=1),   # 0 ★ prompt: "pen-drawn bell silhouette"
+            ShapeCountAtLeast("ellipse", minimum=2),   # 1 ★ prompt: "small clapper circle" + "red badge circle"
         ], weight=0.20, critical=[0, 1]),
 
-        # critical: ellipses circular (ALL of them), frame correct size, shapes inside frame,
-        # sane sizing, upright (no rotation/flip), badge overlaps bell, ellipses smaller than bell.
+        # critical: clapper-below-bell + ellipses are circles (prompt-explicit).
+        # Order note: LayerNextTo placed AFTER LayersOverlap so its position handler wins.
         AlignmentRubric([
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                   # 0 ★ prompt: "clapper circle" / "badge circle"
             AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                              # 1 EVERY ellipse round
             FrameSizeEquals(width=1280, height=832, tolerance=25.0),                                # 2 frame size
-            AllLayerBoundsInside(inner_type="vector",  outer_type="frame", tolerance=10.0),         # 3 ★ shapes inside frame (combined)
+            AllLayerBoundsInside(inner_type="vector",  outer_type="frame", tolerance=10.0),         # 3 bell inside frame
             AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),         # 4 ellipses inside frame
             LayerSizeAtLeast(layer_type="vector",  min_w=40, min_h=40),                             # 5 bell not degenerate
             LayerSizeAtLeast(layer_type="ellipse", min_w=8,  min_h=8),                              # 6 ellipses not degenerate
@@ -60,38 +60,38 @@ task = Task(
             LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),                    # 11 frame upright
             NoLayerFlipped(layer_type="vector"),                                                    # 12 bell not mirrored
             NoLayerFlipped(layer_type="ellipse"),                                                   # 13 ellipses not mirrored
-            LayersOverlap(type_a="ellipse", type_b="vector"),                                       # 14 ★ prompt: "badge circle in the upper-right" of bell
+            LayersOverlap(type_a="ellipse", type_b="vector"),                                       # 14 ellipses sit on bell
             LayerSmallerThanLayer(smaller_type="ellipse", larger_type="vector", max_frac=0.85),     # 15 ellipses smaller than bell
             FrameCountAtMost(maximum=1),                                                            # 16 exactly one top-level frame
             LayerNextTo(type_a="ellipse", type_b="vector", side="below", tolerance=20.0),           # 17 ★ prompt: "clapper circle below"
-        ], weight=0.20, critical=[0, 14, 17]),
+        ], weight=0.20, critical=[0, 17]),
 
-        # critical: gold bell, distinct ellipse colors, white stroke color, sane fill stack & opacity.
+        # critical: gold bell, white badge stroke (prompt-explicit colors).
         ColorRubric([
-            AllFillTypeIs("vector",  kind="solid"),                                          # 0 ★ visible solid bell
-            AllFillTypeIs("ellipse", kind="solid"),                                          # 1 visible solid ellipses
-            AllSolidColorEquals(layer_type="vector", expected_rgb=GOLD, tolerance=0.28),     # 2 ★ prompt: "yellow-gold fill"
-            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.12),       # 3 ★ prompt: "clapper" vs "red badge"
-            DistinctSolidColors(minimum=3, tolerance=0.15),                                  # 4 overall distinct
-            FillCountAtMost("vector",  max_count=1),                                         # 5 no stacked fills on bell
-            FillCountAtMost("ellipse", max_count=1),                                         # 6 no stacked fills on ellipses
-            FillOpacityAtLeast("vector",  min_opacity=0.5),                                  # 7 visible bell fill
-            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 8 visible ellipse fills
-            LayerVisible("vector"),                                                           # 9 alpha+visible+opacity for bell
-            LayerVisible("ellipse"),                                                          # 10 alpha+visible+opacity for ellipses
-            StrokeExists("ellipse"),                                                         # 11 stroke around badge
-            StrokeWeightEquals("ellipse", weight=2.0, tolerance=2.5),                        # 12 prompt: "2px white stroke"
-            StrokeColorEquals("ellipse", expected_rgb=WHITE, tolerance=0.28),                # 13 prompt: "white stroke"
+            AllSolidColorEquals(layer_type="vector", expected_rgb=GOLD, tolerance=0.28),     # 0 ★ prompt: "yellow-gold fill"
+            StrokeColorEquals("ellipse", expected_rgb=WHITE, tolerance=0.28),                # 1 ★ prompt: "white stroke"
+            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.12),       # 2 clapper vs red badge
+            AllFillTypeIs("vector",  kind="solid"),                                          # 3 visible solid bell
+            AllFillTypeIs("ellipse", kind="solid"),                                          # 4 visible solid ellipses
+            DistinctSolidColors(minimum=3, tolerance=0.15),                                  # 5 overall distinct
+            FillCountAtMost("vector",  max_count=1),                                         # 6 no stacked fills on bell
+            FillCountAtMost("ellipse", max_count=1),                                         # 7 no stacked fills on ellipses
+            FillOpacityAtLeast("vector",  min_opacity=0.5),                                  # 8 visible bell fill
+            FillOpacityAtLeast("ellipse", min_opacity=0.5),                                  # 9 visible ellipse fills
+            LayerVisible("vector"),                                                           # 10 alpha+visible+opacity for bell
+            LayerVisible("ellipse"),                                                          # 11 alpha+visible+opacity for ellipses
+            StrokeExists("ellipse"),                                                         # 12 stroke around badge
+            StrokeWeightEquals("ellipse", weight=2.0, tolerance=2.5),                        # 13 prompt: "2px white stroke"
             StrokeRendersVisible("ellipse"),                                                  # 14 stroke actually renders
-        ], weight=0.20, critical=[0, 2, 3]),
+        ], weight=0.20, critical=[0, 1]),
 
-        # critical: bell + ellipses live inside one frame on page 0
+        # structure: bell + ellipses live inside one frame on page 0 (implicit, soft)
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="vector",  minimum=1),  # 0 ★ shapes share one frame
-            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 1 ★ ellipses inside the frame
+            LayerGroupAllInSameFrame(layer_type="vector",  minimum=1),  # 0 shapes share one frame
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 1 ellipses inside the frame
             LayerOnPage(layer_type="vector",  page_index=0),            # 2 bell on page 0
             LayerOnPage(layer_type="ellipse", page_index=0),            # 3 ellipses on page 0
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.20, critical=[]),
 
         # critical: pen + ellipse tools must be used (prompt-mandated)
         EventRubric([

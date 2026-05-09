@@ -44,54 +44,54 @@ task = Task(
 
         # critical: triangles same size + 90° apart, ellipses round, frame size, in-frame, sane sizing.
         AlignmentRubric([
-            LayersSameDimensions(layer_type="polygon", tolerance=8.0),                           # 0 matched triangles
-            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                # 1 at least one round
-            AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                           # 2 EVERY ellipse round
-            LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=10.0),   # 3 ★ prompt: "pointing N/E/S/W"
-            FrameSizeEquals(width=1280, height=832, tolerance=25.0),                             # 4 frame size
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),      # 5 ellipses inside frame
-            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=10.0),      # 6 triangles inside frame
-            LayerSizeAtLeast(layer_type="ellipse", min_w=10, min_h=10),                          # 7 no degenerate ellipse
-            LayerSizeAtLeast(layer_type="polygon", min_w=10, min_h=20),                          # 8 no degenerate triangle
-            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                      # 9 ellipses sane vs frame
-                                  min_frac=0.005, max_frac=0.50),
-            AllLayerWidthFraction(inner_type="polygon", parent_type="frame",                      # 10 triangles sane
-                                  min_frac=0.005, max_frac=0.50),
-            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),                 # 11 ellipses upright
-            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),                 # 12 frame upright
-            NoLayerFlipped(layer_type="ellipse"),                                                # 13 ellipses not mirrored
-            NoLayerFlipped(layer_type="polygon"),                                                # 14 triangles not mirrored
-            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="ellipse", max_frac=0.85), # 15 center much smaller than sand
-            LayerAreaRatioAtLeast(layer_type="ellipse", min_ratio=2.0),                          # 16 sand dominates center
-            LayerCenteredOnLayer(type_a="ellipse", type_b="ellipse", tolerance=30.0, axis="both"),# 17 ★ prompt: "small gold center circle" sits on sand
-            FrameCountAtMost(maximum=1),                                                         # 18 exactly one top-level frame
-            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=18.0,                    # 19 ★ prompt: "from center" radial layout
+            LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=10.0),   # 0 ★ prompt: "pointing N/E/S/W"
+            LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                # 1 ★ prompt: "sand-colored circle" / "gold center circle"
+            RadialDistribution(layer_type="polygon", n=4, tolerance_deg=18.0,                    # 2 ★ prompt: "from center"
                                 radius_tolerance_frac=0.5),
-        ], weight=0.20, critical=[3, 17, 19]),
+            LayersSameDimensions(layer_type="polygon", tolerance=8.0),                           # 3 matched triangles
+            AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                           # 4 EVERY ellipse round
+            FrameSizeEquals(width=1280, height=832, tolerance=25.0),                             # 5 frame size
+            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),      # 6 ellipses inside frame
+            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=10.0),      # 7 triangles inside frame
+            LayerSizeAtLeast(layer_type="ellipse", min_w=10, min_h=10),                          # 8 no degenerate ellipse
+            LayerSizeAtLeast(layer_type="polygon", min_w=10, min_h=20),                          # 9 no degenerate triangle
+            AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                      # 10 ellipses sane vs frame
+                                  min_frac=0.005, max_frac=0.50),
+            AllLayerWidthFraction(inner_type="polygon", parent_type="frame",                      # 11 triangles sane
+                                  min_frac=0.005, max_frac=0.50),
+            LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),                 # 12 ellipses upright
+            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),                 # 13 frame upright
+            NoLayerFlipped(layer_type="ellipse"),                                                # 14 ellipses not mirrored
+            NoLayerFlipped(layer_type="polygon"),                                                # 15 triangles not mirrored
+            LayerSmallerThanLayer(smaller_type="ellipse", larger_type="ellipse", max_frac=0.85), # 16 center much smaller than sand
+            LayerAreaRatioAtLeast(layer_type="ellipse", min_ratio=2.0),                          # 17 sand dominates center
+            LayerCenteredOnLayer(type_a="ellipse", type_b="ellipse", tolerance=30.0, axis="both"),# 18 gold center sits on sand
+            FrameCountAtMost(maximum=1),                                                         # 19 exactly one top-level frame
+        ], weight=0.20, critical=[0, 1, 2]),
 
         # critical: distinct colors, gold center, sane fills.
         ColorRubric([
-            AllFillTypeIs("polygon", kind="solid"),                                              # 0 ★ visible solid triangles
-            AllFillTypeIs("ellipse", kind="solid"),                                              # 1 visible solid ellipses
-            DistinctSolidColors(minimum=4, tolerance=0.15),                                      # 2 ★ prompt: sand+gold+red+gray (4 distinct)
-            DistinctTypedSolidColors(layer_type="polygon", minimum=2, tolerance=0.12),           # 3 ★ prompt: "N triangle is red; E/S/W are gray"
-            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.12),           # 4 sand vs gold center
-            SolidColorEquals(layer_type="ellipse", expected_rgb=GOLD, tolerance=0.28),           # 5 prompt: "gold center"
+            DistinctTypedSolidColors(layer_type="polygon", minimum=2, tolerance=0.12),           # 0 ★ prompt: "N triangle is red; E/S/W are gray"
+            SolidColorEquals(layer_type="ellipse", expected_rgb=GOLD, tolerance=0.28),           # 1 ★ prompt: "gold center"
+            AllFillTypeIs("polygon", kind="solid"),                                              # 2 visible solid triangles
+            AllFillTypeIs("ellipse", kind="solid"),                                              # 3 visible solid ellipses
+            DistinctSolidColors(minimum=4, tolerance=0.15),                                      # 4 sand+gold+red+gray (4 distinct)
+            DistinctTypedSolidColors(layer_type="ellipse", minimum=2, tolerance=0.12),           # 5 sand vs gold center
             FillCountAtMost("polygon", max_count=1),                                             # 6 no stacked fills
             FillCountAtMost("ellipse", max_count=1),                                             # 7 no stacked fills
             FillOpacityAtLeast("polygon", min_opacity=0.5),                                      # 8 visible fills
             FillOpacityAtLeast("ellipse", min_opacity=0.5),                                      # 9 visible fills
             LayerVisible("polygon"),                                                              # 10 alpha+visible+opacity
             LayerVisible("ellipse"),                                                              # 11
-        ], weight=0.20, critical=[0, 2, 3]),
+        ], weight=0.20, critical=[0, 1]),
 
-        # critical: shapes live in same frame on page 0
+        # structure: shapes share a frame (implicit, soft)
         StructureRubric([
-            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 0 ★ ellipses in one frame
-            LayerGroupAllInSameFrame(layer_type="polygon", minimum=4),  # 1 ★ triangles in same frame
+            LayerGroupAllInSameFrame(layer_type="ellipse", minimum=2),  # 0 ellipses in one frame
+            LayerGroupAllInSameFrame(layer_type="polygon", minimum=4),  # 1 triangles in same frame
             LayerOnPage(layer_type="ellipse", page_index=0),            # 2 ellipses on page 0
             LayerOnPage(layer_type="polygon", page_index=0),            # 3 polygons on page 0
-        ], weight=0.20, critical=[0, 1]),
+        ], weight=0.20, critical=[]),
 
         # critical: ellipse + polygon tools mandated by prompt
         EventRubric([
