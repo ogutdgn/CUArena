@@ -61,11 +61,7 @@ export function RightPanel() {
         ) : activeTab === "prototype" ? (
           <PrototypePanel />
         ) : selection.length === 0 ? (
-          activeTool === "frame" ? (
-            <FramePresetBrowser onPick={createFrameFromPreset} />
-          ) : (
-            <PageSection />
-          )
+          <PageSection />
         ) : (
           <>
             <PositionSection />
