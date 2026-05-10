@@ -23,6 +23,33 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-10 — User-reported frame paste behavior
+
+#### 24. ✅ P1 — Paste sends copied frame children to the page root
+
+**Status:** Fixed in `8985c9f` (2026-05-10).
+
+Files:
+- `apps/figma/mock/src/engine/commands.ts`
+- `apps/figma/mock/src/engine/pastePlacement.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** Copying a rectangle that is inside a frame and pasting it should behave like normal Figma copy/paste: the duplicate remains a child of the same frame in the layer tree, offset slightly from the source, with parent-local coordinates that still render in the expected visual location.
+
+**What happened:** Paste currently resolves the target parent from `focusContextByPage[activePageId] ?? page.id`. If the user has not explicitly entered the frame focus context, the cloned layer is inserted under the page root even though the copied source layer came from a frame.
+
+**Root cause verified in code:** `pasteFromClipboard` overwrites each cloned layer's `parentId` with the focus context or page id and emits `placement: "viewport_center"`. It does not preserve the source parent for normal same-document layer paste, and it does not use the frame-aware parent/coordinate helpers that creation tools use.
+
+**Fix direction:**
+- Preserve the source parent when it still exists on the active page.
+- Keep pasted geometry in the target parent's local coordinate space.
+- Emit `placement: "into_frame"` when the paste target is a frame/group/section.
+- Add a regression case for frame child copy/paste.
+
+**Logger impact:** Existing `paste.placement` schema already includes `into_frame` and `from_origin`; no schema documentation change required.
+
+**Verifier impact:** Outcome document structure changes in the intended direction: pasted frame children remain under `frame.children`, so existing frame containment checks can observe the final state.
+
 ### 2026-05-07 - Smart-snap transform polish
 
 #### 23. In progress P2 - Smart-snap guides use stale moving bounds after rotate/flip
