@@ -10,6 +10,7 @@ import type { ClipboardPayload } from "@/types/ops";
 import { uid } from "@/util/id";
 import { isContainer } from "@/types/scene";
 import { getActivePage, getSelectedLayers, selectionBbox } from "./selectors";
+import { placementForPastedLayer, type PastePlacementKind } from "./pastePlacement";
 
 function parentChildren(state: ReturnType<typeof useStore.getState>, parentId: string): Layer[] | null {
   const page = state.document.pages.find((p) => p.id === parentId);
@@ -101,32 +102,40 @@ export function pasteFromClipboard(
   if (!cb || !page) return;
   if (cb.kind !== "app_layers" || !cb.layers || cb.layers.length === 0) return;
 
-  // Slice 0 placement: viewport center (deferred), use origin offset to keep simple.
-  const targetParentId = state.focusContextByPage[state.activePageId] ?? page.id;
   const offset = { dx: 10, dy: 10 };
-  const newLayers: Layer[] = cb.layers.map((source) => {
-    const clone = withFreshIds(source, targetParentId);
-    clone.x += offset.dx;
-    clone.y += offset.dy;
-    return clone;
+  const pasted = cb.layers.map((source) => {
+    const placement = placementForPastedLayer(state, source, offset);
+    const clone = withFreshIds(source, placement.parentId);
+    clone.x = placement.x;
+    clone.y = placement.y;
+    return { layer: clone, placement: placement.placement };
   });
 
-  // Insert each at end of parent's children
-  const parentChildrenArr = parentChildren(state, targetParentId) ?? [];
-  let insertIdx = parentChildrenArr.length;
+  const insertIndexByParent = new Map<string, number>();
+  const nextInsertIndex = (parentId: string): number => {
+    const known = insertIndexByParent.get(parentId);
+    if (known != null) {
+      insertIndexByParent.set(parentId, known + 1);
+      return known;
+    }
+    const first = parentChildren(state, parentId)?.length ?? 0;
+    insertIndexByParent.set(parentId, first + 1);
+    return first;
+  };
 
   const newIds: string[] = [];
-  for (const layer of newLayers) {
+  const placements = new Set<PastePlacementKind>();
+  for (const { layer, placement } of pasted) {
+    placements.add(placement);
     dispatch({
       id: makeOpId(),
       timestamp: performance.now(),
       kind: "create_node",
       pageId: state.activePageId,
-      parentId: targetParentId,
-      indexInParent: insertIdx,
+      parentId: layer.parentId,
+      indexInParent: nextInsertIndex(layer.parentId),
       node: layer,
     });
-    insertIdx += 1;
     newIds.push(layer.id);
   }
 
@@ -135,7 +144,7 @@ export function pasteFromClipboard(
   emitSemantic({
     name: "paste",
     newLayerIds: newIds,
-    placement: "viewport_center",
+    placement: placements.has("into_frame") ? "into_frame" : "from_origin",
     trigger,
   });
   emitSemantic({
