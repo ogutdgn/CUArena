@@ -5,15 +5,16 @@ import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
 import { setTransformField } from "@/engine/propertyCommands";
-import { noopClick } from "@/ui/chrome/noopClick";
-import { FramePresetBrowser } from "./FramePresetBrowser";
-import { applyFramePresetToSelection } from "@/engine/framePresetCommands";
-import { findFramePresetBySize } from "@/util/framePresets";
+import { Ratio } from "lucide-react";
 
 export function LayoutSection() {
   const layers = useStore((s) => getSelectedLayers(s));
-  const [presetOpen, setPresetOpen] = useState(false);
-  const presetRef = useRef<HTMLDivElement | null>(null);
+  const locked = useStore((s) => s.aspectRatioLocked);
+
+  function setLocked(v: boolean) {
+    useStore.setState((s) => { s.aspectRatioLocked = v; });
+  }
+
   if (layers.length === 0) return null;
 
   const ref = layers[0];
@@ -31,91 +32,77 @@ export function LayoutSection() {
     return () => document.removeEventListener("mousedown", onDoc, true);
   }, [presetOpen]);
 
+  function commitW(v: number) {
+    setTransformField("w", v);
+    if (locked && typeof wVal === "number" && typeof hVal === "number" && wVal > 0) {
+      const ratio = hVal / wVal;
+      setTransformField("h", Math.max(1, Math.round(v * ratio)));
+    }
+  }
+
+  function commitH(v: number) {
+    setTransformField("h", v);
+    if (locked && typeof wVal === "number" && typeof hVal === "number" && hVal > 0) {
+      const ratio = wVal / hVal;
+      setTransformField("w", Math.max(1, Math.round(v * ratio)));
+    }
+  }
+
   return (
     <Section title="Layout">
-      {singleFrame && (
-        <div ref={presetRef} style={{ position: "relative" }}>
-          <button
-            data-id="layout.frame-preset.open"
-            onClick={() => setPresetOpen((v) => !v)}
+      <div style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-secondary)", fontWeight: 500, marginBottom: 4 }}>
+        Dimensions
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        {locked ? (
+          // Connected — single unified container
+          <div
             style={{
-              width: "100%",
-              height: 28,
-              borderRadius: 4,
-              background: "var(--color-bg-input)",
-              color: "var(--color-text-primary)",
-              display: "flex",
-              alignItems: "center",
-              padding: "0 8px",
-              fontSize: "var(--fs-sm)",
-              gap: 6,
+              flex: 1, display: "flex", alignItems: "center",
+              height: 28, background: "var(--color-bg-input)", borderRadius: 4, overflow: "hidden",
             }}
           >
-            <span style={{ width: 44, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)" }}>Frame</span>
-            <span style={{ flex: 1, textAlign: "left", minWidth: 0 }}>
-              {matchedPreset ? matchedPreset.label : "Custom"}
-            </span>
-            <span style={{ color: "var(--color-text-muted)", fontVariantNumeric: "tabular-nums", flexShrink: 0 }}>
-              {layers[0].w}x{layers[0].h}
-            </span>
-            <ChevronDown size={11} style={{ color: "var(--color-text-secondary)" }} />
-          </button>
-          {presetOpen && (
-            <div
-              style={{
-                position: "absolute",
-                top: 32,
-                left: 0,
-                right: 0,
-                background: "var(--color-bg-panel-elevated)",
-                border: "1px solid var(--color-border-strong)",
-                borderRadius: 6,
-                boxShadow: "0 12px 28px rgba(0,0,0,0.5)",
-                zIndex: 240,
-              }}
-            >
-              <FramePresetBrowser
-                variant="menu"
-                onPick={(preset) => {
-                  applyFramePresetToSelection(preset);
-                  setPresetOpen(false);
-                }}
-              />
+            <span style={{ padding: "0 4px 0 8px", color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500, flexShrink: 0 }}>W</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <NumericInput value={wVal} onCommit={commitW} min={1} noBg />
             </div>
-          )}
-        </div>
-      )}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-        <Row label="W">
-          <NumericInput value={wVal} onCommit={(v) => setTransformField("w", v)} min={1} />
-        </Row>
-        <Row label="H">
-          <NumericInput value={hVal} onCommit={(v) => setTransformField("h", v)} min={1} />
-        </Row>
-      </div>
-      <button
-        data-id="layout.use-auto-layout"
-        onClick={(e) => noopClick("layout.use-auto-layout", e)}
-        title="Use auto layout — not implemented in this mock"
-        style={{
-          height: 28,
-          borderRadius: 4,
-          background: "var(--color-bg-input)",
-          color: "var(--color-text-secondary)",
-          fontSize: "var(--fs-sm)",
-        }}
-      >
-        Use auto layout
-      </button>
-    </Section>
-  );
-}
+            <div style={{ width: 1, height: 16, background: "var(--color-border)", flexShrink: 0 }} />
+            <span style={{ padding: "0 4px 0 8px", color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500, flexShrink: 0 }}>H</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <NumericInput value={hVal} onCommit={commitH} min={1} noBg />
+            </div>
+          </div>
+        ) : (
+          // Separate — two independent inputs
+          <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 4, height: 28 }}>
+              <span style={{ width: 14, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500 }}>W</span>
+              <NumericInput value={wVal} onCommit={commitW} min={1} />
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 4, height: 28 }}>
+              <span style={{ width: 14, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500 }}>H</span>
+              <NumericInput value={hVal} onCommit={commitH} min={1} />
+            </div>
+          </div>
+        )}
 
-function Row({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 6, height: 28 }}>
-      <span style={{ width: 16, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)" }}>{label}</span>
-      {children}
-    </div>
+        {/* Lock aspect ratio */}
+        <button
+          data-id="layout.lock-aspect-ratio"
+          onClick={() => setLocked(!locked)}
+          title={locked ? "Unlock aspect ratio" : "Lock aspect ratio"}
+          style={{
+            width: 28, height: 28, borderRadius: 5, flexShrink: 0,
+            display: "grid", placeItems: "center",
+            background: locked ? "var(--color-selection-blue)" : "var(--color-bg-input)",
+            color: locked ? "var(--color-text-on-accent)" : "var(--color-text-secondary)",
+          }}
+          onMouseEnter={(e) => { if (!locked) e.currentTarget.style.background = "var(--color-bg-row-hover)"; }}
+          onMouseLeave={(e) => { if (!locked) e.currentTarget.style.background = "var(--color-bg-input)"; }}
+        >
+          <Ratio size={14} />
+        </button>
+      </div>
+    </Section>
   );
 }

@@ -1,49 +1,72 @@
 ---
 name: commit-style
-description: Use before any git commit in cua-bench. Defines subject-line scope tags, staging discipline, and PR-vs-direct-commit guidance.
+description: Use before any git commit in cua-bench. Defines subject-line scope tags, body detail requirements, staging discipline, and PR-vs-direct-commit guidance.
 ---
 
 # Commit Style
 
-**Status: SKELETON — refine as we hit edge cases.**
-
 ## Subject line
 
-Format: `<scope>: <imperative summary>`
+Format: `<type>(<scope>): <imperative summary>`
 
 `<scope>` is one of:
-- `figma`, `sheets`, `docs` — code or doc changes that are app-specific.
-- `verifier` — when changing only the verifier framework of an app, you may also use `figma-verifier`, `sheets-verifier`, etc. for clarity.
+- `figma`, `sheets`, `docs` — app-specific code or doc changes.
+- `figma-verifier`, `sheets-verifier` etc. — verifier-only changes.
 - `overview`, `skills`, `repo` — cross-app or repo-root changes.
 - `restructure` — large structural changes (rare).
-- `fix(<scope>)` — bugfixes; subject is the bug being fixed.
-- `feat(<scope>)` — new features; subject is the feature.
-- `docs(<scope>)` — documentation-only changes.
 
-Imperative form ("add fillgrad", not "added fillgrad"). Lowercase first word.
+`<type>` is one of:
+- `feat` — new user-visible feature or capability.
+- `fix` — bug fix (subject names the bug, not the solution).
+- `refactor` — internal restructure with no behaviour change.
+- `ui` — visual-only change (no logic, no semantic events).
+- `docs` — documentation only.
+- `test` — verifier or QA scripts only.
+- `chore` — tooling, deps, config.
 
-## Body
+Imperative form, lowercase first word. Keep under 72 chars.
 
-- One blank line after subject.
-- Body explains **why**, not what (the diff shows what).
-- If the commit ships a feature listed in `feature-checklist.md`, reference the item number: `Ships #16 (Fill with image).`
-- If the commit follows from a session, mention the relevant `execution-map.md` entry by date.
+## Body — required for all non-trivial commits
+
+Always include a body. One blank line after the subject, then:
+
+**What changed** — bullet list of concrete changes (files/components/behaviour). Be specific: name the components, functions, or files touched. Example:
+```
+- Remove LeftRail component and its grid column from App.tsx
+- Pages section: add collapse toggle; show active page name when collapsed
+- Add SearchPanel: layer + page search, scope dropdown (this page / all pages),
+  result grouping by page in all-pages mode, highlighted match text
+- Remove --left-rail-width from tokens.ts and global.css
+```
+
+**Why** — one or two sentences explaining the motivation. What problem does this solve, or what goal does it serve?
+
+**Impact notes** (include when relevant):
+- `Logger impact: none` — or describe what semantic events changed.
+- `Verifier impact: none` — or describe what checks are affected.
+- `Breaking: <what>` — if any data-id, API, or log contract changed.
+
+If the commit ships a feature in `feature-checklist.md`: `Ships #N (feature name).`
+
+## Trailer
+
+**Do NOT add `Co-Authored-By: Claude` or any AI authorship trailer.** Never.
 
 ## Staging
 
-- Stage files explicitly with named paths. Do not use `git add .` or `git add -A` blanket adds — they pick up generated/local files.
-- Verify the diff before committing: `git diff --cached`.
-- Never commit `.env`, credentials, raw helper sources, agent log dumps, or `node_modules/.venv` directories.
+- Stage files explicitly by path — never `git add .` or `git add -A`.
+- Run `git diff --cached --stat` before committing to verify the staged set.
+- Never commit: `.env`, credentials, `node_modules/`, `.venv/`, raw helper sources, agent log dumps, `dist-*`, `*.tsbuildinfo`, `package-lock.json` (unless deps actually changed intentionally).
 
-## When to PR vs commit direct to main
+## When to PR vs commit direct to branch
 
-- **Direct to main**: trivial doc fixes, typo corrections, single-file local changes that you've eyeballed.
-- **PR**: anything that touches multiple files, restructures folders, changes the log contract, or is hard to review post-hoc as a single diff. Branch name follows `<scope>/<slug>` per `overview/conventions.md`.
-- Force-push: only on your own branch, never on main. Don't rebase published branches without coordination.
+- **Direct commit**: single-concern change on a feature branch, already reviewed in conversation.
+- **PR**: anything touching the log contract, verifier framework, or 5+ files — create a PR so it can be reviewed before merging to main.
+- Force-push only on your own branch, never on main.
 
 ## What NOT to do
 
-- Skip hooks (`--no-verify`) — investigate the failing hook instead.
+- Skip hooks (`--no-verify`) — investigate the failing hook.
 - Bypass signing.
-- Amend a public commit.
-- Lump unrelated changes into one commit "to save time" — split them.
+- Amend a published commit.
+- Lump unrelated changes into one commit.
