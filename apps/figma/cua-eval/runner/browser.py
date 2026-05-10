@@ -65,26 +65,39 @@ class BrowserSession:
         self.page.wait_for_timeout(ms)
 
     def scrape_log(self) -> dict:
-        """Reconstruct the unified log from sessionStorage. Returns the same
-        shape that the Vite /dev-log relay would have POSTed."""
+        """Reconstruct the unified log from local/sessionStorage. Returns
+        the same shape that the Vite /dev-log relay would have POSTed.
+
+        Mock prefers localStorage (mock/src/logger/persist.ts:resolveStorage),
+        falling back to sessionStorage when localStorage is blocked. We
+        check both so the scrape works regardless of which the mock chose.
+        """
         # Let the 250ms persist throttle settle.
         self.page.wait_for_timeout(750)
         bundle = self.page.evaluate(
             """() => {
                 const out = { raw: null, semantic: null, outcome: null, sessionId: null };
-                for (let i = 0; i < sessionStorage.length; i++) {
-                    const k = sessionStorage.key(i);
-                    if (!k || !k.endsWith('_data')) continue;
-                    const v = sessionStorage.getItem(k);
-                    if (v == null) continue;
-                    if (k.includes('_raw_')) {
-                        out.raw = v;
-                        out.sessionId = k.split('_raw_')[1].replace('_data','');
-                    } else if (k.includes('_semantic_')) {
-                        out.semantic = v;
-                    } else if (k.includes('_outcome_')) {
-                        out.outcome = v;
+                const stores = [];
+                try { if (typeof localStorage !== 'undefined') stores.push(localStorage); } catch (e) {}
+                try { if (typeof sessionStorage !== 'undefined') stores.push(sessionStorage); } catch (e) {}
+                for (const store of stores) {
+                    for (let i = 0; i < store.length; i++) {
+                        const k = store.key(i);
+                        if (!k || !k.endsWith('_data')) continue;
+                        const v = store.getItem(k);
+                        if (v == null) continue;
+                        if (k.includes('_raw_')) {
+                            // Prefer the latest raw key (later iterations win).
+                            out.raw = v;
+                            out.sessionId = k.split('_raw_')[1].replace('_data','');
+                        } else if (k.includes('_semantic_')) {
+                            out.semantic = v;
+                        } else if (k.includes('_outcome_')) {
+                            out.outcome = v;
+                        }
                     }
+                    // If this store had data, don't overwrite from the next one.
+                    if (out.raw || out.semantic || out.outcome) break;
                 }
                 return out;
             }"""
