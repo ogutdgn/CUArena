@@ -10,13 +10,10 @@ import { PageSection } from "@/ui/panels/PageSection";
 import { PositionSection } from "@/ui/panels/PositionSection";
 import { LayoutSection } from "@/ui/panels/LayoutSection";
 import { AppearanceSection } from "@/ui/panels/AppearanceSection";
-import { ShapeOptionsSection } from "@/ui/panels/ShapeOptionsSection";
 import { TypographySection } from "@/ui/panels/TypographySection";
 import { FillSection } from "@/ui/panels/FillSection";
 import { StrokeSection } from "@/ui/panels/StrokeSection";
 import { EffectsSection } from "@/ui/panels/EffectsSection";
-import { ExportSection } from "@/ui/panels/ExportSection";
-import { AlignmentRow } from "@/ui/panels/AlignmentRow";
 import { PrototypePanel } from "@/ui/panels/PrototypePanel";
 import { FramePresetsPanel } from "@/ui/panels/FramePresetsPanel";
 
@@ -59,24 +56,21 @@ export function RightPanel() {
       <Header onPresent={openPreview} />
       <Tabs />
       <div className="scroll-y" style={{ flex: 1, minHeight: 0 }}>
-        {activeTab === "prototype" ? (
-          <PrototypePanel />
-        ) : activeTool === "frame" ? (
+        {activeTool === "frame" ? (
           <FramePresetsPanel />
+        ) : activeTab === "prototype" ? (
+          <PrototypePanel />
         ) : selection.length === 0 ? (
           <PageSection />
         ) : (
           <>
-            <AlignmentRow />
             <PositionSection />
             <LayoutSection />
             <AppearanceSection />
-            <ShapeOptionsSection />
             <TypographySection />
             <FillSection />
             <StrokeSection />
             <EffectsSection />
-            <ExportSection />
           </>
         )}
       </div>
@@ -88,23 +82,21 @@ function Header({ onPresent }: { onPresent: () => void }) {
   return (
     <div
       style={{
-        height: 36,
+        height: 32,
         display: "flex",
         alignItems: "center",
+        justifyContent: "center",
         padding: "0 8px",
-        gap: 6,
         borderBottom: "1px solid var(--color-border)",
       }}
     >
-      <ZoomControl />
-      <span style={{ flex: 1 }} />
       <button
         data-id="right-panel.present"
         onClick={onPresent}
         title="Preview prototype"
         style={{
           height: 24,
-          padding: "0 8px",
+          padding: "0 10px",
           borderRadius: 6,
           background: "transparent",
           color: "var(--color-text-secondary)",
@@ -126,9 +118,9 @@ function Header({ onPresent }: { onPresent: () => void }) {
 
 function ZoomControl() {
   const zoom = useStore((s) => s.viewportByPage[s.activePageId]?.zoom ?? 1);
-  const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -140,68 +132,38 @@ function ZoomControl() {
     return () => document.removeEventListener("mousedown", onDoc, true);
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (menuOpen) {
+      setDraft(String(Math.round(zoom * 100)));
+      requestAnimationFrame(() => { inputRef.current?.focus(); inputRef.current?.select(); });
+    }
+  }, [menuOpen]);
+
   return (
     <div ref={ref} style={{ position: "relative" }}>
       <button
         data-id="zoom-view-options.open"
-        onClick={() => {
-          setDraft(String(Math.round(zoom * 100)));
-          setEditing(true);
-          setMenuOpen(true);
-        }}
+        onClick={() => setMenuOpen((o) => !o)}
         title="View options"
         style={{
-          height: 24,
-          padding: "0 6px",
-          borderRadius: 4,
-          color: "var(--color-text-secondary)",
-          fontSize: "var(--fs-sm)",
-          display: "flex",
-          alignItems: "center",
-          gap: 2,
+          height: 24, padding: "0 6px", borderRadius: 4,
+          color: "var(--color-text-secondary)", fontSize: "var(--fs-sm)",
+          display: "flex", alignItems: "center", gap: 2,
+          background: menuOpen ? "var(--color-bg-row-active)" : "transparent",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-bg-row-hover)")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        onMouseEnter={(e) => { if (!menuOpen) e.currentTarget.style.background = "var(--color-bg-row-hover)"; }}
+        onMouseLeave={(e) => { if (!menuOpen) e.currentTarget.style.background = "transparent"; }}
       >
-        {editing ? (
-          <input
-            autoFocus
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            onBlur={() => {
-              const n = parseFloat(draft);
-              if (Number.isFinite(n)) zoomToCustom(n, "input_field");
-              setEditing(false);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") (e.target as HTMLInputElement).blur();
-              if (e.key === "Escape") setEditing(false);
-            }}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              width: 40,
-              background: "var(--color-bg-input)",
-              border: 0,
-              outline: 0,
-              borderRadius: 3,
-              color: "var(--color-text-primary)",
-              padding: "0 4px",
-              fontSize: "var(--fs-sm)",
-            }}
-          />
-        ) : (
-          <>
-            {Math.round(zoom * 100)}%
-            <ChevronDown size={11} style={{ transition: "transform 100ms ease", transform: menuOpen ? "rotate(180deg)" : undefined }} />
-          </>
-        )}
+        {Math.round(zoom * 100)}%
+        <ChevronDown size={11} style={{ transition: "transform 100ms ease", transform: menuOpen ? "rotate(180deg)" : undefined }} />
       </button>
+
       {menuOpen && (
         <div
           style={{
             position: "absolute",
-            top: 30,
-            left: 0,
+            top: 28,
+            right: 0,
             minWidth: 220,
             background: "var(--color-bg-panel-elevated)",
             border: "1px solid var(--color-border-strong)",
@@ -212,12 +174,37 @@ function ZoomControl() {
             fontSize: "var(--fs-sm)",
           }}
         >
-          <ZoomMenuItem id="zoom.zoom-in" label="Zoom in" shortcut="⌘+" onClick={() => { setMenuOpen(false); zoomToCustom((zoom * 1.2) * 100, "input_field"); }} />
-          <ZoomMenuItem id="zoom.zoom-out" label="Zoom out" shortcut="⌘−" onClick={() => { setMenuOpen(false); zoomToCustom((zoom / 1.2) * 100, "input_field"); }} />
-          <ZoomMenuItem id="zoom.zoom-fit" label="Zoom to fit" shortcut="⇧1" onClick={() => { setMenuOpen(false); zoomToFit("dropdown_entry"); }} />
-          <ZoomMenuItem id="zoom.zoom-50" label="Zoom to 50%" onClick={() => { setMenuOpen(false); zoomToCustom(50, "input_field"); }} />
-          <ZoomMenuItem id="zoom.zoom-100" label="Zoom to 100%" shortcut="⌘0" onClick={() => { setMenuOpen(false); zoomTo100("input_field"); }} />
-          <ZoomMenuItem id="zoom.zoom-200" label="Zoom to 200%" onClick={() => { setMenuOpen(false); zoomToCustom(200, "input_field"); }} />
+          {/* Inline zoom input at the top */}
+          <div style={{ padding: "4px 4px 6px" }}>
+            <input
+              ref={inputRef}
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              onBlur={() => {
+                const n = parseFloat(draft);
+                if (Number.isFinite(n)) zoomToCustom(n, "input_field");
+                setMenuOpen(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                if (e.key === "Escape") setMenuOpen(false);
+              }}
+              style={{
+                width: "100%", height: 28, boxSizing: "border-box",
+                background: "var(--color-bg-input)",
+                border: "1.5px solid var(--color-selection-blue)",
+                borderRadius: 4, outline: 0,
+                color: "var(--color-text-primary)",
+                padding: "0 8px", fontSize: "var(--fs-sm)",
+              }}
+            />
+          </div>
+          <ZoomMenuItem id="zoom.zoom-in"  label="Zoom in"       shortcut="⌘+" onClick={() => { setMenuOpen(false); zoomToCustom((zoom * 1.2) * 100, "input_field"); }} />
+          <ZoomMenuItem id="zoom.zoom-out" label="Zoom out"      shortcut="⌘−" onClick={() => { setMenuOpen(false); zoomToCustom((zoom / 1.2) * 100, "input_field"); }} />
+          <ZoomMenuItem id="zoom.zoom-fit" label="Zoom to fit"   shortcut="⇧1" onClick={() => { setMenuOpen(false); zoomToFit("dropdown_entry"); }} />
+          <ZoomMenuItem id="zoom.zoom-50"  label="Zoom to 50%"                 onClick={() => { setMenuOpen(false); zoomToCustom(50, "input_field"); }} />
+          <ZoomMenuItem id="zoom.zoom-100" label="Zoom to 100%"  shortcut="⌘0" onClick={() => { setMenuOpen(false); zoomTo100("input_field"); }} />
+          <ZoomMenuItem id="zoom.zoom-200" label="Zoom to 200%"                onClick={() => { setMenuOpen(false); zoomToCustom(200, "input_field"); }} />
         </div>
       )}
     </div>
@@ -228,6 +215,10 @@ function ZoomMenuItem({ id, label, shortcut, onClick }: { id: string; label: str
   return (
     <button
       data-id={id}
+      // Prevent focus shift on mousedown — without this, the zoom input above
+      // blurs, its onBlur runs setMenuOpen(false) and the menu unmounts before
+      // this button's click fires, swallowing the action.
+      onMouseDown={(e) => e.preventDefault()}
       onClick={() => onClick?.()}
       style={{
         width: "100%",
@@ -273,6 +264,10 @@ function Tabs() {
     >
       <Tab id="right-panel.tab.design" label="Design" active={activeTab === "design"} onClick={() => switchTab("design")} />
       <Tab id="right-panel.tab.prototype" label="Prototype" active={activeTab === "prototype"} onClick={() => switchTab("prototype")} />
+      <div style={{ flex: 1 }} />
+      <div style={{ display: "flex", alignItems: "center", paddingRight: 4 }}>
+        <ZoomControl />
+      </div>
     </div>
   );
 }

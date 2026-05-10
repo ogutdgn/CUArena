@@ -1,6 +1,7 @@
 // Shared section shell for the right-panel.
 
 import type { ReactNode } from "react";
+import type React from "react";
 import { ChevronDown, Plus } from "lucide-react";
 import { noopClick } from "@/ui/chrome/noopClick";
 
@@ -8,12 +9,19 @@ export function Section({
   title,
   children,
   addId,
+  onAdd,
   collapsibleId,
+  headerActions,
 }: {
   title: string;
   children: ReactNode;
   addId?: string;
+  onAdd?: (e: React.MouseEvent) => void;
   collapsibleId?: string;
+  // Custom buttons rendered inline at the right end of the header. Takes
+  // precedence over the default Plus/Chevron buttons when both are provided
+  // — used by Appearance to show eye + droplet alongside the title.
+  headerActions?: ReactNode;
 }) {
   return (
     <section
@@ -35,19 +43,19 @@ export function Section({
         }}
       >
         <span style={{ flex: 1 }}>{title}</span>
-        {addId && (
+        {headerActions}
+        {(addId || onAdd) && (
           <button
             data-id={addId}
-            onClick={(e) => noopClick(addId, e)}
-            title={`${title} — add — not implemented in this mock`}
+            onClick={(e) => onAdd ? onAdd(e) : addId && noopClick(addId, e)}
+            title={`Add ${title}`}
             style={{
-              width: 18,
-              height: 18,
-              borderRadius: 3,
-              display: "grid",
-              placeItems: "center",
+              width: 18, height: 18, borderRadius: 3,
+              display: "grid", placeItems: "center",
               color: "var(--color-text-secondary)",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-bg-row-hover)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
           >
             <Plus size={11} />
           </button>
@@ -70,7 +78,7 @@ export function Section({
           </button>
         )}
       </div>
-      <div style={{ marginTop: 6, display: "grid", gap: 6 }}>{children}</div>
+      <div style={{ marginTop: 6, display: "grid", gap: 6, gridTemplateColumns: "minmax(0, 1fr)" }}>{children}</div>
     </section>
   );
 }

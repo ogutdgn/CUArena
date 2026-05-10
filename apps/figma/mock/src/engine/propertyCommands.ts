@@ -205,21 +205,34 @@ export function setLocked(locked: boolean) {
   );
 }
 
-export function setCornerRadius(value: number) {
-  const v = Math.max(0, value);
+// Sets corner radius. Single number → uniform; 4-tuple → per-corner
+// [topLeft, topRight, bottomRight, bottomLeft]. Frames are excluded —
+// frames always render as plain rectangles regardless of model state.
+export function setCornerRadius(value: number | [number, number, number, number]) {
+  const clamp = (n: number) => Math.max(0, n);
+  const v: number | [number, number, number, number] = Array.isArray(value)
+    ? [clamp(value[0]), clamp(value[1]), clamp(value[2]), clamp(value[3])]
+    : clamp(value);
   const s = useStore.getState();
-  const layers = getSelectedLayers(s).filter((l) => "cornerRadius" in l);
+  // Frames intentionally excluded — they always render flat. Polygons and
+  // stars accept only a uniform number (no per-corner editing for them).
+  const layers = getSelectedLayers(s).filter((l) =>
+    l.type === "rectangle" || l.type === "image" || l.type === "polygon" || l.type === "star",
+  );
   if (layers.length === 0) return;
   const before: Record<string, unknown> = {};
   const after: Record<string, unknown> = {};
   const beforeS: Record<string, number | [number, number, number, number]> = {};
   const afterS: Record<string, number | [number, number, number, number]> = {};
   for (const l of layers) {
-    const cr = (l as { cornerRadius: number | [number, number, number, number] }).cornerRadius;
+    const cr = (l as { cornerRadius?: number | [number, number, number, number] }).cornerRadius ?? 0;
+    // Polygon/star only accept uniform — collapse a tuple to its first value.
+    const layerVal: number | [number, number, number, number] =
+      (l.type === "polygon" || l.type === "star") && Array.isArray(v) ? v[0] : v;
     before[l.id] = cr;
-    after[l.id] = v;
+    after[l.id] = layerVal;
     beforeS[l.id] = cr;
-    afterS[l.id] = v;
+    afterS[l.id] = layerVal;
   }
   dispatch({
     id: makeOpId(),
@@ -359,6 +372,9 @@ export function toggleFillVisibility(fillIndex: number) {
   });
 }
 
+// One weight covers the whole stroke stack — UI shows a single weight field
+// and every stroke on the layer must share it so the multi-stroke alpha
+// composite renders as a single line. Updates every stroke's weight in one op.
 export function setStrokeWeight(value: number) {
   const v = Math.max(0, value);
   const s = useStore.getState();
@@ -369,13 +385,13 @@ export function setStrokeWeight(value: number) {
   for (const l of layers) {
     const strokes = (l as { strokes: { weight: number }[] }).strokes;
     if (strokes.length === 0) continue;
-    before[l.id] = strokes[0].weight;
-    after[l.id] = v;
+    before[l.id] = strokes.map((sk) => ({ ...sk }));
+    after[l.id] = strokes.map((sk) => ({ ...sk, weight: v }));
   }
   dispatchPropertyWithSemantic(
     s.activePageId,
     layers.map((l) => l.id),
-    "strokes/0/weight",
+    "strokes",
     before,
     after,
   );
@@ -385,16 +401,19 @@ export function addSolidStroke() {
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => "strokes" in l);
   if (layers.length === 0) return;
-  const newStroke = {
-    paint: { kind: "solid", color: { r: 0, g: 0, b: 0, a: 1 }, opacity: 1, visible: true },
-    weight: 1,
-    alignment: "inside",
-    dash: null,
-  };
   const before: Record<string, unknown> = {};
   const after: Record<string, unknown> = {};
   for (const l of layers) {
-    const strokes = (l as { strokes: unknown[] }).strokes;
+    const strokes = (l as { strokes: { weight: number }[] }).strokes;
+    // Inherit weight from the existing stack so the single-weight UI invariant
+    // holds when the user adds another color row.
+    const inheritedWeight = strokes.length > 0 ? strokes[0].weight : 1;
+    const newStroke = {
+      paint: { kind: "solid", color: { r: 0, g: 0, b: 0, a: 1 }, opacity: 1, visible: true },
+      weight: inheritedWeight,
+      alignment: "inside",
+      dash: null,
+    };
     before[l.id] = [...strokes];
     after[l.id] = [...strokes, newStroke];
   }
@@ -630,9 +649,11 @@ export function setStarPoints(value: number) {
   });
 }
 
-// Star inner radius / "ratio". UI shows a percentage (0..100); store keeps 0..1.
+// Star inner radius / "ratio". UI shows a percentage (10..100); store keeps
+// 0.1..1. Below 10% the star degenerates into thin lines that read as
+// rendering glitches, so the minimum is clamped at 0.1.
 export function setStarInnerRatio(pct: number) {
-  const v = Math.max(0, Math.min(1, pct / 100));
+  const v = Math.max(0.1, Math.min(1, pct / 100));
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => l.type === "star");
   if (layers.length === 0) return;
@@ -668,6 +689,35 @@ export function setStarInnerRatio(pct: number) {
     after: afterN,
     trigger: "panel_input",
   });
+}
+
+export function removeStroke(strokeIndex: number) {
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => "strokes" in l);
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  for (const l of layers) {
+    const strokes = (l as { strokes: unknown[] }).strokes;
+    before[l.id] = [...strokes];
+    after[l.id] = strokes.filter((_, i) => i !== strokeIndex);
+  }
+  dispatchPropertyWithSemantic(s.activePageId, layers.map((l) => l.id), "strokes", before, after);
+}
+
+export function toggleStrokeVisibility(strokeIndex: number) {
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s).filter((l) => "strokes" in l);
+  if (layers.length === 0) return;
+  const before: Record<string, unknown> = {};
+  const after: Record<string, unknown> = {};
+  for (const l of layers) {
+    const sk = (l as { strokes: { paint: { visible: boolean } }[] }).strokes[strokeIndex];
+    if (!sk) continue;
+    before[l.id] = sk.paint.visible;
+    after[l.id] = !sk.paint.visible;
+  }
+  dispatchPropertyWithSemantic(s.activePageId, layers.map((l) => l.id), `strokes/${strokeIndex}/paint/visible`, before, after);
 }
 
 export function setStrokeColor(strokeIndex: number, color: Color) {

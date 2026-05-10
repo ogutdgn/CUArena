@@ -112,25 +112,33 @@ export function ColorPicker({
         onChange={(h) => { setHsv(h); commit(h, alpha); }}
       />
 
-      {/* Sliders */}
-      <div style={{ padding: "10px 10px 0", display: "flex", flexDirection: "column", gap: 8 }}>
-        <HueSlider
-          hue={hsv.h}
-          onDragStart={onChangeStart}
-          onDragEnd={onChangeEnd}
-          onChange={(h) => {
-            const next = { ...hsv, h };
-            setHsv(next);
-            commit(next, alpha);
-          }}
-        />
-        <AlphaSlider
-          alpha={alpha}
-          baseColor={currentRgb}
-          onDragStart={onChangeStart}
-          onDragEnd={onChangeEnd}
-          onChange={(a) => { setAlpha(a); commit(hsv, a); }}
-        />
+      {/* Sliders + current color swatch */}
+      <div style={{ padding: "10px 10px 0", display: "flex", alignItems: "center", gap: 8 }}>
+        {/* Current color preview */}
+        <div style={{
+          width: 28, height: 28, borderRadius: 6, flexShrink: 0,
+          background: `rgba(${Math.round(currentRgb.r*255)},${Math.round(currentRgb.g*255)},${Math.round(currentRgb.b*255)},${alpha}), repeating-conic-gradient(#888 0% 25%, #555 0% 50%) 50% / 6px 6px`,
+          border: "1px solid rgba(255,255,255,0.12)",
+        }} />
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
+          <HueSlider
+            hue={hsv.h}
+            onDragStart={onChangeStart}
+            onDragEnd={onChangeEnd}
+            onChange={(h) => {
+              const next = { ...hsv, h };
+              setHsv(next);
+              commit(next, alpha);
+            }}
+          />
+          <AlphaSlider
+            alpha={alpha}
+            baseColor={currentRgb}
+            onDragStart={onChangeStart}
+            onDragEnd={onChangeEnd}
+            onChange={(a) => { setAlpha(a); commit(hsv, a); }}
+          />
+        </div>
       </div>
 
       {/* Format row */}
@@ -593,6 +601,21 @@ function hslToRgb({ h, s, l }: { h: number; s: number; l: number }): { r: number
 export function colorToHex(c: { r: number; g: number; b: number }): string {
   const to = (v: number) => Math.round(v * 255).toString(16).padStart(2, "0").toUpperCase();
   return `${to(c.r)}${to(c.g)}${to(c.b)}`;
+}
+
+// Split swatch background — left half shows the solid (fully opaque) color,
+// right half shows the color at its actual alpha over a checker pattern. Lets
+// the user see both the chosen hue and what its current opacity will look like
+// against an unknown background. At a=1 both halves match.
+export function swatchBackground(color: { r: number; g: number; b: number; a: number }): string {
+  const R = Math.round(color.r * 255), G = Math.round(color.g * 255), B = Math.round(color.b * 255);
+  const opaque = `rgba(${R}, ${G}, ${B}, 1)`;
+  const alpha = `rgba(${R}, ${G}, ${B}, ${color.a})`;
+  return [
+    `linear-gradient(to right, ${opaque} 50%, transparent 50%)`,
+    `linear-gradient(to right, transparent 50%, ${alpha} 50%)`,
+    `repeating-conic-gradient(#666 0% 25%, #999 0% 50%) 50% / 4px 4px`,
+  ].join(", ");
 }
 
 export function parseHex(input: string): Color | null {

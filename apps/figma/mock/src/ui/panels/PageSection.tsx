@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import { Section } from "./sectionShell";
-import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
-import { ColorPicker, colorToHex, parseHex } from "@/ui/overlays/ColorPicker";
+import { ColorPicker, colorToHex, parseHex, swatchBackground } from "@/ui/overlays/ColorPicker";
 import { dispatch, makeOpId, openTransaction, commitTransaction } from "@/engine/dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { Eye, EyeClosed } from "lucide-react";
@@ -28,7 +27,6 @@ export function PageSection() {
   const pickerTxRef = useRef<string | null>(null);
   if (!page) return null;
   const c = page.backgroundColor;
-  const swatchBg = `rgba(${Math.round(c.r * 255)}, ${Math.round(c.g * 255)}, ${Math.round(c.b * 255)}, ${c.a})`;
   const opacityPct = Math.round(c.a * 100);
 
   function commitBg(color: Color, trigger: "color_picker" | "hex_input") {
@@ -70,27 +68,26 @@ export function PageSection() {
     commitTransaction(id);
   }
 
-  function commitOpacity(pct: number) {
+  function commitOpacity(pct: number, txId?: string | null) {
     if (!page) return;
-    // Compare in the integer-percent space the UI displays. Without this, a
-    // non-integer stored alpha (e.g. 0.255) round-trips through the input as
-    // 26%, and a focus+blur without editing would dispatch a tiny opacity
-    // change (0.255 → 0.26) and burn an undo entry.
     const beforePct = Math.round(page.backgroundColor.a * 100);
     const target = Math.max(0, Math.min(100, Math.round(pct)));
     if (beforePct === target) return;
     const v = target / 100;
     const before = page.backgroundColor.a;
-    dispatch({
-      id: makeOpId(),
-      timestamp: performance.now(),
-      kind: "set_property",
-      pageId: page.id,
-      ids: [page.id],
-      path: "backgroundColor/a",
-      before: { [page.id]: before },
-      after: { [page.id]: v },
-    });
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "set_property",
+        pageId: page.id,
+        ids: [page.id],
+        path: "backgroundColor/a",
+        before: { [page.id]: before },
+        after: { [page.id]: v },
+      },
+      txId ? { transactionId: txId } : undefined,
+    );
     emitSemantic({
       name: "set_page_background_opacity",
       targetPageId: page.id,
@@ -98,6 +95,12 @@ export function PageSection() {
       after: v,
       trigger: "panel_input",
     });
+  }
+
+  function syncHiddenToOpacity(targetPct: number) {
+    if (!page) return;
+    if (targetPct === 0 && !page.backgroundHidden) toggleHidden();
+    else if (targetPct > 0 && page.backgroundHidden) toggleHidden();
   }
 
   function toggleHidden() {
@@ -133,6 +136,13 @@ export function PageSection() {
 
   const hexValue = hexDraft ?? colorToHex(c);
 
+  // Scrub state for % drag
+  const scrubRef = useRef<{ baseX: number; baseValue: number } | null>(null);
+  const scrubTxRef = useRef<string | null>(null);
+  const [opacityDraft, setOpacityDraft] = useState<string | null>(null);
+  const [scrubbing, setScrubbing] = useState(false);
+  const opacityDisplay = opacityDraft ?? String(opacityPct);
+
   return (
     <Section title="Page">
       <div style={{ display: "flex", alignItems: "center", gap: 6, height: 28, minWidth: 0, overflow: "hidden" }}>
@@ -142,20 +152,18 @@ export function PageSection() {
             const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
             setPickerAnchor({ right: window.innerWidth - rect.left + 8, top: rect.top });
           }}
-          title="Page background"
+          title="Page background color"
           style={{
-            width: 22,
-            height: 22,
-            borderRadius: 3,
-            background: swatchBg,
+            width: 22, height: 22, borderRadius: 3, flexShrink: 0,
+            background: swatchBackground(c),
             border: "1px solid var(--color-border)",
-            flexShrink: 0,
           }}
         />
         <input
           data-id="page.bg.hex-input"
           value={hexValue}
           onChange={(e) => setHexDraft(e.target.value)}
+          onFocus={(e) => requestAnimationFrame(() => e.target.select())}
           onBlur={(e) => {
             if (cancelHexRef.current) {
               cancelHexRef.current = false;
@@ -173,21 +181,81 @@ export function PageSection() {
           }}
           spellCheck={false}
           style={{
-            flex: 1,
-            minWidth: 0,
-            height: 22,
+            flex: 1, minWidth: 0, height: 22,
             background: "var(--color-bg-input)",
             color: "var(--color-text-primary)",
-            border: 0,
-            borderRadius: 3,
-            padding: "0 6px",
-            fontSize: "var(--fs-sm)",
-            fontFamily: "var(--font-family)",
-            outline: 0,
+            border: 0, borderRadius: 3, padding: "0 6px",
+            fontSize: "var(--fs-sm)", fontFamily: "var(--font-family)", outline: 0,
           }}
         />
-        <div style={{ width: 56, flexShrink: 0, opacity: page.backgroundHidden ? 0.35 : 1, pointerEvents: page.backgroundHidden ? "none" : "auto" }}>
-          <NumericInput value={opacityPct} onCommit={commitOpacity} min={0} max={100} suffix="%" />
+        {/* Opacity: editable number + draggable % */}
+        <div
+          style={{
+            display: "flex", alignItems: "center",
+            height: 22, background: "var(--color-bg-input)", borderRadius: 3,
+            flexShrink: 0,
+            opacity: page.backgroundHidden ? 0.35 : 1,
+            pointerEvents: page.backgroundHidden ? "none" : "auto",
+          }}
+        >
+          <input
+            data-id="page.bg.opacity-input"
+            value={opacityDisplay}
+            onChange={(e) => setOpacityDraft(e.target.value)}
+            onFocus={(e) => { setOpacityDraft(String(opacityPct)); requestAnimationFrame(() => e.target.select()); }}
+            onBlur={() => {
+              const n = parseFloat(opacityDisplay);
+              if (Number.isFinite(n)) {
+                commitOpacity(n);
+                syncHiddenToOpacity(Math.max(0, Math.min(100, Math.round(n))));
+              }
+              setOpacityDraft(null);
+            }}
+            onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
+            style={{
+              width: 28, background: "transparent", border: 0,
+              color: "var(--color-text-primary)", fontSize: "var(--fs-sm)",
+              outline: 0, textAlign: "right", padding: "0 2px",
+            }}
+          />
+          <span
+            data-id="page.bg.opacity-scrub"
+            onPointerDown={(e) => {
+              (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+              scrubRef.current = { baseX: e.clientX, baseValue: opacityPct };
+              scrubTxRef.current = openTransaction();
+              setScrubbing(true);
+            }}
+            onPointerMove={(e) => {
+              if (!scrubRef.current) return;
+              const dx = e.clientX - scrubRef.current.baseX;
+              const next = Math.max(0, Math.min(100, Math.round(scrubRef.current.baseValue + dx)));
+              setOpacityDraft(String(next));
+              commitOpacity(next, scrubTxRef.current);
+            }}
+            onPointerUp={(e) => {
+              if (!scrubRef.current) return;
+              const dx = e.clientX - scrubRef.current.baseX;
+              const next = Math.max(0, Math.min(100, Math.round(scrubRef.current.baseValue + dx)));
+              commitOpacity(next, scrubTxRef.current);
+              if (scrubTxRef.current) {
+                commitTransaction(scrubTxRef.current);
+                scrubTxRef.current = null;
+              }
+              syncHiddenToOpacity(next);
+              setOpacityDraft(null);
+              scrubRef.current = null;
+              setScrubbing(false);
+            }}
+            style={{
+              fontSize: "var(--fs-xs)", color: "var(--color-text-muted)",
+              paddingRight: 6, paddingLeft: 1,
+              cursor: scrubbing ? "ew-resize" : "ew-resize",
+              userSelect: "none", touchAction: "none",
+            }}
+          >
+            %
+          </span>
         </div>
         <button
           data-id="page.bg.toggle-hidden"

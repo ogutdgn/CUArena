@@ -165,6 +165,10 @@ export interface Ellipse extends LayerBase {
 export interface Polygon extends LayerBase {
   type: "polygon";
   sides: number;
+  // Uniform vertex rounding. Polygons/stars don't expose per-corner control —
+  // only a single uniform radius. Optional for backward compatibility with
+  // older scenes; readers must default to 0.
+  cornerRadius?: number;
   fills: Paint[];
   strokes: Stroke[];
   effects: Effect[];
@@ -174,6 +178,7 @@ export interface Star extends LayerBase {
   type: "star";
   points: number;
   innerRatio: number;
+  cornerRadius?: number;
   fills: Paint[];
   strokes: Stroke[];
   effects: Effect[];
