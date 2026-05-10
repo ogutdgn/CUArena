@@ -1,6 +1,7 @@
 // Renders one Layer as SVG.
 
 import type { Layer, Paint, Stroke, Effect } from "@/types/scene";
+import { useStore } from "@/engine/store";
 
 export function NodeRenderer({ layer }: { layer: Layer }) {
   if (!layer.visible) return null;
@@ -418,6 +419,11 @@ function ArrowEl({ layer }: { layer: Extract<Layer, { type: "arrow" }> }) {
 }
 
 function TextEl({ layer }: { layer: Extract<Layer, { type: "text" }> }) {
+  // Hide the canvas text node while this layer is being edited — TextEditor
+  // overlays a contentEditable at the same screen position, and rendering both
+  // produces visible double-text artifacts.
+  const isEditing = useStore((s) => s.editMode.kind === "text" && s.editMode.layerId === layer.id);
+  if (isEditing) return null;
   const fillCol = paintToFill(layer.fills);
   return (
     <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>

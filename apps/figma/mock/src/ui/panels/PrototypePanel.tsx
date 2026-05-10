@@ -5,7 +5,7 @@ import { uid } from "@/util/id";
 import { findDevice } from "@/util/prototypeDevices";
 import { getDeviceCategories } from "@/util/framePresets";
 import type { Frame, PrototypeFlow, PrototypeConnection, PrototypeTrigger, ScrollBehavior, ScrollPosition } from "@/types/scene";
-import { ChevronDown, Plus, Minus, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, Plus, Minus } from "lucide-react";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
 import {
   setPrototypeDevice,
@@ -405,10 +405,7 @@ function FramePanel({
         <Section
           label="Interactions"
           action={
-            <div style={{ display: "flex", gap: 2 }}>
-              <button style={iconBtnStyle} title="Interaction settings"><SlidersHorizontal size={12} /></button>
-              <button onClick={() => setModalConn("new")} style={iconBtnStyle}><Plus size={12} /></button>
-            </div>
+            <button onClick={() => setModalConn("new")} style={iconBtnStyle}><Plus size={12} /></button>
           }
         >
           {layerConns.map((conn) => (
@@ -571,10 +568,7 @@ function ItemPanel({ layer, connections, topFrames, pageId }: {
         <Section
           label="Interactions"
           action={
-            <div style={{ display: "flex", gap: 2 }}>
-              <button style={iconBtnStyle} title="Interaction settings"><SlidersHorizontal size={12} /></button>
-              <button onClick={() => setModalConn("new")} style={iconBtnStyle}><Plus size={12} /></button>
-            </div>
+            <button onClick={() => setModalConn("new")} style={iconBtnStyle}><Plus size={12} /></button>
           }
         >
           {layerConns.map((conn) => (

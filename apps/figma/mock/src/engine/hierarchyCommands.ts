@@ -226,10 +226,19 @@ export function reorderZ(direction: "front" | "back" | "forward" | "backward"): 
     if (!arr) continue;
     const sortedItems = [...items].sort((a, b) => arr.indexOf(a) - arr.indexOf(b));
     const before = sortedItems.map((it) => arr.indexOf(it));
+    // toIndex is the insert position in the array AFTER selected items have
+    // been spliced out (see applyReorderZ in ops.ts). Since the items between
+    // `before[0]` and `before[last]` collapse out alongside the selection,
+    // insertions are computed relative to that already-shrunk array.
     let toIndex = 0;
     if (direction === "front") toIndex = arr.length;
     else if (direction === "back") toIndex = 0;
-    else if (direction === "forward") toIndex = Math.min(arr.length, before[before.length - 1] + 2);
+    // Forward by one: place the selection just past the next sibling above
+    // the topmost selected item. After removal, that sibling sits at index
+    // `before[last]`, so we insert one slot further at `before[last] + 1`.
+    else if (direction === "forward") toIndex = Math.min(arr.length, before[before.length - 1] + 1);
+    // Backward by one: insert just before the sibling below the bottommost
+    // selected item. After removal that sibling is at `before[0] - 1`.
     else if (direction === "backward") toIndex = Math.max(0, before[0] - 1);
 
     dispatch(

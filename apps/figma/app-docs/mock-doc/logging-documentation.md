@@ -183,7 +183,7 @@ Notes:
 
 | `name` | Extra fields |
 |---|---|
-| `set_property` | `layerIds`, `path` (dot-path into the layer, e.g. `fills.0.color`); `before`/`after`: `Record<layerId, unknown>`; `trigger`: `panel_input` \| `color_picker` \| `context_menu` \| `shortcut` |
+| `set_property` | `layerIds`, `path` (dot-path into the layer, e.g. `fills.0.color`, `strokes`, `strokes/${i}/paint/visible`); `before`/`after`: `Record<layerId, unknown>`; `trigger`: `panel_input` \| `color_picker` \| `context_menu` \| `shortcut`. **Note**: stroke-weight edits replace the full `strokes` array (path `"strokes"`) so every stroke in the stack stays at the same weight. `removeStroke` also writes path `"strokes"`; `toggleStrokeVisibility` writes path `"strokes/${i}/paint/visible"`. |
 | `set_fill_color` | `layerIds`, `fillIndex`; `before`/`after`: `{ r, g, b, a }` (0..1) |
 | `add_fill` / `remove_fill` | `layerIds`, `fillIndex` |
 | `toggle_layer_visibility` / `toggle_fill_visibility` / `toggle_stroke_visibility` / `toggle_effect_visibility` | `layerIds`, optional `index`, `after: boolean` |
@@ -195,7 +195,7 @@ Notes:
 | `toggle_page_background_hidden` | `targetPageId`; `before`/`after`: boolean; `trigger`: `panel_button` |
 | `set_polygon_sides` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
 | `set_star_points` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
-| `set_star_inner_ratio` | `layerIds`; `before`/`after`: `Record<layerId, number>`; `trigger`: `panel_input` |
+| `set_star_inner_ratio` | `layerIds`; `before`/`after`: `Record<layerId, number>` (clamped to `[0.1, 1.0]` — UI hides values below 10%); `trigger`: `panel_input` |
 
 ### Grouping
 
@@ -346,14 +346,14 @@ Every layer has the **`LayerBase` block**:
 |---|---|
 | `rectangle` | `cornerRadius` (number or 4-tuple), `fills: Paint[]`, `strokes: Stroke[]`, `effects: Effect[]` |
 | `ellipse` | `fills`, `strokes`, `effects`, `arcStartAngle`, `arcEndAngle`, `innerRadius` |
-| `polygon` | `sides`, `fills`, `strokes`, `effects` |
-| `star` | `points`, `innerRatio`, `fills`, `strokes`, `effects` |
+| `polygon` | `sides`, optional `cornerRadius?: number` (uniform-only — never a 4-tuple), `fills`, `strokes`, `effects` |
+| `star` | `points`, `innerRatio` (clamped to `[0.1, 1.0]`), optional `cornerRadius?: number` (uniform-only), `fills`, `strokes`, `effects` |
 | `line` | `p1: { x, y }`, `p2: { x, y }`, `strokes`, `effects` |
 | `arrow` | `p1`, `p2`, `strokes`, `effects`, `endCapStart`/`endCapEnd`: `none`\|`arrow` |
 | `text` | `content` (full string), `runs: TextRun[]`, `fontFamily`, `fontWeight`, `fontSize`, `lineHeight: { type: auto\|px\|percent, value? }`, `letterSpacing: { type: px\|percent, value }`, `hAlign`, `vAlign`, `fills`, `strokes`, `effects`, `resizingMode`. `TextRun` = `{ range: [start,end], fontFamily?, fontWeight?, fontSize?, letterSpacing?, lineHeight?, fills? }` |
 | `vector` | `network: { vertices, segments, closed }`, `fills`, `strokes`, `effects`. `vertices[i]` = `{ x, y, handleType: corner\|mirror\|mirror_angle\|independent }`. `segments[i]` = `{ fromIndex, toIndex, handleFrom: { dx, dy }\|null, handleTo: { dx, dy }\|null }` |
 | `image` | `cornerRadius`, `imageFill: { src, naturalWidth, naturalHeight, fit, rotation, opacity, visible }`, `fills`, `strokes`, `effects` |
-| `frame` | `fills`, `strokes`, `effects`, `cornerRadius`, `clipsContent: boolean`, `children: Layer[]` (recurse), `overflowScrolling`: `none`\|`horizontal`\|`vertical`\|`both` |
+| `frame` | `fills`, `strokes`, `effects`, `cornerRadius` (carried in the model but **render-side override forces `0`** — frames always render flat regardless of stored value; rubrics that judge visual outcome should treat frames as having `cornerRadius=0`), `clipsContent: boolean`, `children: Layer[]` (recurse), `overflowScrolling`: `none`\|`horizontal`\|`vertical`\|`both` |
 | `section` | `fills`, `clipsContent: false`, `children: Layer[]`, `devStatus`: `null`\|`ready_for_dev` |
 | `group` | `effects`, `children: Layer[]` |
 | `slice` | (no extras beyond `LayerBase`) |
@@ -377,3 +377,17 @@ Every layer has the **`LayerBase` block**:
 - `outcome` is a snapshot, not a log. If the agent finishes and immediately undoes everything, the snapshot reflects the post-undo state.
 - `semantic.eventCount` includes EVERY semantic event — `tool_change`, `selection_change`, `pan_canvas`, etc. If a rubric defines "turns" more narrowly (e.g. "only creation/transform events"), the rubric is responsible for filtering before counting.
 - Ring-buffer caps: very long sessions may drop the oldest raw events (cap 500 000) or semantic events (cap 10 000). Outcome is unaffected because it's a live snapshot.
+
+---
+
+## Right-panel overhaul (2026-05) — payload changes evaluators should know
+
+The figma/ui session reshaped the right panel and its engine commands. No new event names were introduced; existing events carry slightly different payloads:
+
+- **`set_corner_radius`** payload may be a 4-tuple `[topLeft, topRight, bottomRight, bottomLeft]` for `rectangle` / `image`. Polygon and star always use a uniform `number`. Frames carry the value but render-side ignores it.
+- **`set_property` `path` for strokes**: `setStrokeWeight` now writes the full `strokes` array via `path: "strokes"` (was `"strokes/0/weight"`); `removeStroke` writes `path: "strokes"`; `toggleStrokeVisibility` writes `path: "strokes/${i}/paint/visible"`.
+- **`set_star_inner_ratio`** values are clamped to `[0.1, 1.0]` (UI minimum is 10%).
+- **Live-drag scrubs**: `NumericInput` and the per-fill/stroke/effect opacity scrubbers fire their commit on every pointermove tick. One drag gesture produces dozens of `set_property` / `set_fill_color` / `set_stroke_color` / `set_effect_color` semantic events. Rubrics counting "turns" should consider deduplicating consecutive same-target events with timestamp deltas under ~100ms before scoring efficiency.
+- **Multi-fill / multi-stroke compositing** is rendering-only (Porter-Duff source-over). Per-paint `outcome.document.<layer>.fills[i]` and `strokes[i]` are unchanged — checks reading individual paint data are unaffected.
+- **Removed UI `data-id`s** (raw stream surface only, semantic events unchanged): `effects.add.drop-shadow`, `effects.add.layer-blur` (Drop Shadow now added directly via `effects.add`), `polygon.sides.input`, `star.points.input`, `star.ratio.input` (Polygon and Star sections were merged into Appearance).
+- **New UI `data-id`s**: `appearance.corner-radius.per-corner-toggle`, `fill.row.<i>.opacity`, `layout.lock-aspect-ratio`.
