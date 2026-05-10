@@ -105,7 +105,7 @@ Goal: Remove or hide all UI elements with no functionality.
 
 - [x] `appearance.blend-mode` — Removed from AppearanceSection in figma/ui session
 - [x] `layout.use-auto-layout` — Removed by previous chat (LayoutSection refactor)
-- [ ] `typography.type-settings` — Three-dot button (`TypographySection.tsx`) `[STATE: text layer selected]`
+- [x] `typography.type-settings` — Three-dot button removed from `TypographySection.tsx`. Trailing flex spacer also dropped; `noopClick` import cleaned up (unused after removal).
 - [x] `export.add` — ExportSection no longer imported anywhere (dead file; UI surface effectively gone)
 - [x] `fill.add` — Now functional (wired to addSolidFill, no longer noopClick)
 - [x] `stroke.add` — StrokeSection no longer carries this `data-id` (Section uses onAdd directly)
@@ -136,15 +136,15 @@ Goal: Remove or hide all UI elements with no functionality.
 ## 10. PROTOTYPE PANEL — `PrototypePanel.tsx`
 > `[STATE: visible in Prototype tab when frame/item is selected]`
 
-- [ ] "Interaction settings" button (SlidersHorizontal icon) — on frame selection
-- [ ] "Interaction settings" button (SlidersHorizontal icon) — on item selection
+- [x] "Interaction settings" button (SlidersHorizontal icon) — on frame selection (FramePanel)
+- [x] "Interaction settings" button (SlidersHorizontal icon) — on item selection (ItemPanel)
+
+**Action taken:** Removed both noop SlidersHorizontal buttons from the Interactions section header in `FramePanel` and `ItemPanel`. The wrapping `<div>` collapsed back to a single `Plus` button. Removed `SlidersHorizontal` from `lucide-react` import (no longer used anywhere in `PrototypePanel.tsx`).
 
 ---
 
 ## Progress
 
-**Done:** 55 / 59 (1 explicitly skipped — `page-context.{id}.delete` working correctly)
+**Done:** 58 / 59 (1 explicitly skipped — `page-context.{id}.delete` working correctly).
 
-Remaining (3 actionable):
-- Typography (1): type-settings three-dot
-- PrototypePanel (2): "Interaction settings" buttons (frame + item selection)
+Checklist closed — every actionable noop UI element listed in this file has been removed.

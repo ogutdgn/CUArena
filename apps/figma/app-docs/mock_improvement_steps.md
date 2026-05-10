@@ -467,6 +467,35 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 
 ## UI improvements
 
+### 2026-05-10 — ui-fixes-checklist closeout (figma/ui-feature-bug)
+
+#### 27. 🟢 — Final noop-button cleanup: typography type-settings + prototype interaction-settings
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/panels/TypographySection.tsx`
+- `apps/figma/mock/src/ui/panels/PrototypePanel.tsx`
+- `apps/figma/app-docs/ui-fixes-checklist.md`
+
+**What changed:** Removed the last three actionable noop UI elements tracked in `ui-fixes-checklist.md`:
+1. Typography section's `data-id="typography.type-settings"` three-dot (`⋯`) button — only fired `noopClick(...)`. Trailing flex spacer dropped; unused `noopClick` import removed.
+2. `PrototypePanel.tsx` `FramePanel` Interactions header — `SlidersHorizontal` "Interaction settings" button (no `onClick`).
+3. `PrototypePanel.tsx` `ItemPanel` Interactions header — same `SlidersHorizontal` button.
+
+After (2) + (3) the wrapping `<div style="gap:2">` collapses back to a single `Plus` button. `SlidersHorizontal` import removed from `lucide-react` (no longer used anywhere in `PrototypePanel.tsx`).
+
+**Logger impact:** None.
+- `typography.type-settings` only invoked `noopClick`; it never emitted a semantic event. No verifier check or `logging-documentation.md` entry references this `data-id`.
+- The two `SlidersHorizontal` buttons had no `onClick` at all — pure dead UI.
+- `outcome.document` and `semantic[]` contracts unchanged.
+
+**Verifier impact:** None. No check primitive, rubric, or `delivery-1/` task verifier references the removed elements.
+
+**Architecture impact:** None. No reusable pattern, panel state, or overlay system added or removed.
+
+Closes `ui-fixes-checklist.md`: 58 / 59 done (1 explicitly skipped — `page-context.{id}.delete` working correctly).
+
 ### 2026-05-07 — Right + Left sidebar polish (figma/ui-feature-bug)
 
 #### 17. 🟢 — Right sidebar (no-selection) Page section incomplete + Share button still active
