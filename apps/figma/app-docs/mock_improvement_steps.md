@@ -681,3 +681,67 @@ The far-left icon column (`LeftRail`) keeps its current inactive `noopClick` beh
 - Selection overlay change: visual only, doesn't touch outcome.
 
 **Sequencing:** This item is the biggest in the round. Strongly recommend implementing AFTER all bug fixes and other UI/feature items so any breakage in shape geometry is isolated for review. Within this item, sequence: polygon sides → star points/ratio → line/arrow rendering (smallest engine change) → line/arrow selection → line/arrow hit-test.
+
+---
+
+### 2026-05-09 — Right-panel overhaul (figma/ui session)
+
+#### 26. 🟢 — Right-panel UI overhaul + multi-fill/stroke compositing + per-corner cornerRadius
+
+**Status:** Shipped in `c690596` (PR #34, 2026-05-09) plus follow-up `31272da` (PR #35) cleaning up post-merge frame-preset hybrid.
+
+**Files (engine):**
+- `apps/figma/mock/src/engine/propertyCommands.ts`
+- `apps/figma/mock/src/types/scene.ts`
+- `apps/figma/mock/src/ui/canvas/NodeRenderer.tsx`
+
+**Files (UI primitives):**
+- `apps/figma/mock/src/ui/panels/NumericInput.tsx`
+- `apps/figma/mock/src/ui/panels/OpacityScrubber.tsx` (new)
+- `apps/figma/mock/src/ui/panels/sectionShell.tsx`
+- `apps/figma/mock/src/ui/overlays/ColorPicker.tsx`
+
+**Files (panels):**
+- `apps/figma/mock/src/ui/panels/AppearanceSection.tsx` (rewrite)
+- `apps/figma/mock/src/ui/panels/FillSection.tsx`
+- `apps/figma/mock/src/ui/panels/StrokeSection.tsx`
+- `apps/figma/mock/src/ui/panels/EffectsSection.tsx`
+- `apps/figma/mock/src/ui/panels/PageSection.tsx`
+- `apps/figma/mock/src/ui/panels/LayoutSection.tsx`
+- `apps/figma/mock/src/ui/panels/PositionSection.tsx`
+- `apps/figma/mock/src/ui/chrome/RightPanel.tsx`
+
+**What shipped:**
+
+*Engine / model:*
+- `setCornerRadius` accepts `number | [tl, tr, br, bl]`. Filter is type-based (rectangle / image / polygon / star). Polygon and star collapse incoming tuples to a uniform value.
+- `setStrokeWeight` writes the full strokes array via `path: "strokes"` (was `"strokes/0/weight"`); single-weight invariant for the layer. `addSolidStroke` inherits weight from the existing stack so the invariant holds when adding a row.
+- `setStarInnerRatio` clamps to `[0.1, 1.0]`; UI hides values below 10%.
+- `Polygon` and `Star` gained optional `cornerRadius?: number` (uniform-only).
+
+*Rendering:*
+- `paintToFill` and `strokeAttrs` composite all visible paints via Porter-Duff source-over (was: first visible paint wins).
+- `RectangleEl` and `ImageContent` switched to path-based rendering with a new `rectCornerPath(w, h, cr)` helper so 4-tuple cornerRadius renders correctly.
+- New `roundedPolygonPath(points, radius)` helper (tangent-length `t = r/tan(angle/2)`, half-edge clamp, collinear-vertex skip). `PolygonEl` falls back to `<ellipse>` when input radius reaches the inscribed-ellipse threshold so polygons morph into circles at max radius.
+- Frames force `rx=0` regardless of the model value — frames always render flat.
+- Line / Arrow / Vector strokes drop the white fallback; shapes render invisible when stroke is fully transparent or hidden.
+
+*UI primitives:*
+- `NumericInput` gained `prefix` (the glyph itself becomes the drag handle), `integer`, and `disabled` props. Drag-scrub now fires `onCommit` on every pointermove tick.
+- `OpacityScrubber` (new shared component) reused across Fill / Stroke / Effect color rows.
+- `Section` shell gained a `headerActions` slot.
+- `ColorPicker` exports `swatchBackground` (split swatch — left opaque, right alpha over checker).
+
+*Panels:*
+- `AppearanceSection` was rewritten — Opacity + Corner radius grid with per-corner toggle (rectangle / image only), Polygon Count, Star Count + Ratio, disabled corner field for shapes that don't support one.
+- `FillSection`: removed the empty-state button, wired the section `+` to `addSolidFill`, added per-fill opacity, swapped EyeOff → EyeClosed.
+- `StrokeSection`: weight row only renders when strokes exist; multi-stroke compositing in canvas; `OpacityScrubber` for per-stroke opacity.
+- `EffectsSection`: `+` adds a Drop Shadow directly and opens a floating popover (anchored to the right panel's left edge, flips up when needed). Compact pill type switcher; `ShadowColorRow` uses `OpacityScrubber`.
+- `PageSection`: split swatch + transaction-wrapped opacity scrub.
+- `RightPanel`: `ShapeOptionsSection` removed (its content moved into Appearance); zoom dropdown menu items now apply on click (`onMouseDown preventDefault` fix for the focus-race bug).
+
+**Logger impact:** payload-only — no new event names. See [`logging-documentation.md`](mock-doc/logging-documentation.md) "Right-panel overhaul" section for the full list (cornerRadius tuple, stroke `path` change, star ratio clamp, live-drag event explosion, removed/added `data-id`s).
+
+**Verifier impact:** none required. `CornerRadiusEquals` and `CornerRadiusAtLeast` already handle the 4-tuple case, and every cornerRadius read uses `.get("cornerRadius", 0)` so polygon / star without the field default to 0.
+
+**Known trade-off:** live-drag scrubs fire ~30–60 commits per gesture. Efficiency-multiplier rubrics that count semantic events should consider deduplicating same-target events with sub-100ms timestamp deltas. Wrapping `NumericInput` drags in a transaction (the pattern `PageSection` already uses for opacity) would collapse a gesture into a single undo entry; deferred as a separate item.

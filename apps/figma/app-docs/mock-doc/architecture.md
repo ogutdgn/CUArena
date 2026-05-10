@@ -97,11 +97,13 @@ Undo stack: 1000 entries.
 
 **Properties (right panel):**
 - Position, size, rotation, flip (H/V)
-- Fills (solid color), stroke (weight/color/alignment/dash)
-- Opacity, corner radius, visibility
-- Effects: drop shadow, layer blur
+- Fills (multi-fill list, per-fill opacity, alpha-composited via Porter-Duff source-over)
+- Strokes (multi-stroke list, single shared weight per layer, per-stroke opacity, alpha-composited)
+- Opacity, **per-corner cornerRadius** (rectangle/image: `[tl,tr,br,bl]` tuple; polygon/star: uniform only; frame: ignored at render), visibility
+- Effects: drop shadow, layer blur (`+` adds drop shadow + opens floating popover; type switcher inside)
+- Appearance section unifies opacity + corner radius + per-corner toggle + polygon Count + star Count/Ratio
 - Text: font, size, weight, alignment, line height, letter spacing
-- Constraints (H/V per layer)
+- Constraints (H/V per layer), aspect-ratio lock (Layout)
 - Prototype panel (Design/Prototype tab, `Shift+E`)
 
 **Prototype:**
@@ -289,3 +291,16 @@ Stored layer geometry remains rect-based: `x/y` is the parent-local top-left of 
 - Panel width/height changes preserve the current center-origin Position value.
 
 Use `engine/positionCoordinates.ts` for Position value conversion and `engine/viewportCoordinates.ts` for screen/world conversion. Do not read or write `layer.x/layer.y` directly when implementing user-facing Position behavior.
+
+### Paint compositing invariant
+
+Multi-fill and multi-stroke render via Porter-Duff source-over compositing. The fill / stroke list is top-down (index 0 is on top); compositing walks the array bottom-up so each upper paint is laid over the accumulator. Per-paint alpha drives how much of the layer below shows through. Single helpers in `NodeRenderer.tsx` (`paintToFill`, `strokeAttrs`) own this math — shapes do not iterate paints themselves.
+
+Strokes additionally maintain a single-weight invariant per layer: every stroke entry must share the same `weight` and `dash` value. `setStrokeWeight` writes the entire `strokes` array in one op, and `addSolidStroke` inherits weight from `strokes[0]`. The renderer uses `strokes[0].weight` and `strokes[0].dash` to draw the composited line.
+
+### Corner radius invariant
+
+`cornerRadius` is polymorphic at the type level:
+- **Rectangle / Image** carry `number | [topLeft, topRight, bottomRight, bottomLeft]`. Rendering uses the path helper `rectCornerPath(w, h, cr)` (NOT `<rect rx>`) so 4-tuples render correctly. Image clip paths use the same helper.
+- **Polygon / Star** carry an optional uniform `cornerRadius?: number`. The vertex-rounding helper `roundedPolygonPath(points, radius)` replaces each vertex with a circular arc tangent to both adjacent edges (tangent length `t = r/tan(angle/2)`, clamped to half-edge to prevent overlap, collinear vertices skipped). When the radius reaches the inscribed-ellipse threshold, `PolygonEl` falls back to `<ellipse>` so polygons morph cleanly into circles at max radius.
+- **Frame** carries `cornerRadius` in the model but `GroupEl` overrides it to `rx=0` at render. Frames are always flat regardless of the stored value. The model field is preserved so existing tools that set or read it don't crash.
