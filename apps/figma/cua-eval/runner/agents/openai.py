@@ -42,29 +42,8 @@ def describe_endpoint(model: str, *, turn_delay_s: float = 0.0,
     }
 
 
-# Always sent. Hard environment constraint — see anthropic.py for context.
-MOUSE_ONLY_NOTE = """ENVIRONMENT CONSTRAINT — MOUSE ONLY:
-The browser this agent controls does NOT accept keyboard input. Pretend the keyboard is unplugged.
-
-Use ONLY these mouse actions:
-- screenshot, move
-- click (left/right/middle), double_click
-- drag, scroll, wait
-
-Do NOT use the `type` or `keypress` actions — they have NO effect in this environment.
-If a task seems to require typing, a keyboard shortcut, or pressing Enter/Escape, find a mouse-only path (click the matching UI button or menu item instead).
-"""
-
-
-# Optional UI-explainer prompt — only sent when --harness is on.
-DEFAULT_SYSTEM_PROMPT = (
-    "You are an autonomous computer-use agent operating a Figma design mock in a browser. "
-    "Use the computer tool to complete the task by clicking and dragging in the canvas. "
-    f"Viewport is {DISPLAY_WIDTH}x{DISPLAY_HEIGHT}. "
-    "The left panel has shape tools; the right panel shows properties of the selected layer. "
-    "Work efficiently — fewer turns yields a higher score multiplier. "
-    "When the task is complete, stop calling the tool and reply with a short summary."
-)
+# System prompts now live as markdown files under
+# ``apps/figma/cua-eval/system-prompts/``. See anthropic.py.
 
 
 def _save_screenshot(attempt_dir: Path | None, name: str, b64_png: str) -> str | None:
@@ -104,14 +83,24 @@ def _normalize_key(k: str) -> str:
 KEYBOARD_ACTIONS = ("type", "keypress")
 
 
-def _execute(session: BrowserSession, action: dict[str, Any]) -> bool:
-    """Execute one OpenAI computer action. Returns ``True`` if the action
-    was a blocked keyboard action (no-op'd), ``False`` otherwise. The
-    caller uses the flag to attach a feedback message to the next input."""
+def _execute(session: BrowserSession, action: dict[str, Any], *,
+             allow_keyboard: bool = False) -> bool:
+    """Execute one OpenAI computer action. Returns ``True`` only when a
+    keyboard action was intercepted (no-op'd) — the caller uses the flag
+    to attach a feedback message. With ``allow_keyboard=True`` keyboard
+    actions are executed normally and this returns False."""
     t = action.get("type")
-    if t in KEYBOARD_ACTIONS:
-        # Hard environment constraint — don't actually press anything.
+    if t in KEYBOARD_ACTIONS and not allow_keyboard:
         return True
+    if t == "type":
+        session.type_text(str(action.get("text", "")))
+        return False
+    if t == "keypress":
+        keys = action.get("keys", [])
+        chord = "+".join(_normalize_key(k) for k in keys)
+        if chord:
+            session.key(chord)
+        return False
     if t == "click":
         session.click(int(action["x"]), int(action["y"]),
                       button=action.get("button", "left"))
@@ -145,6 +134,7 @@ def run_openai_agent(
     attempt_dir: Path | None = None,
     turn_delay_s: float = 0.0,
     max_retries: int = 5,
+    allow_keyboard: bool = False,
 ) -> AgentResult:
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
@@ -284,7 +274,7 @@ def run_openai_agent(
                     turn=turn, action=action, text=action.get("type", "?")))
                 extras = {k: v for k, v in action.items() if k != "type"}
                 desc = f"{action.get('type','?')} {extras}" if extras else action.get("type", "?")
-                blocked = _execute(session, action)
+                blocked = _execute(session, action, allow_keyboard=allow_keyboard)
                 if blocked:
                     blocked_attempts.append(action)
                     print(f"{progress_prefix}  t{turn:02d} BLOCKED: {desc[:120]}", flush=True)
