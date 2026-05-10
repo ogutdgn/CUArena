@@ -40,6 +40,14 @@ const DRAG_THRESHOLD = 3;
 const FRAME_NEST_ENTER_RATIO = 0.6;
 const FRAME_NEST_EXIT_RATIO = 0.4;
 
+// PointerEvent.detail click-count is unreliable across browsers for spaced
+// pointerdowns, so manual timestamp+position tracking is the source of truth
+// for the text-layer double-click → text-edit gesture; e.detail stays as a
+// fast path for browsers that do report it correctly.
+const DOUBLE_CLICK_MS = 350;
+const DOUBLE_CLICK_PX = 5;
+let lastTextClick: { layerId: string; t: number; world: Point } | null = null;
+
 interface CandidateRect {
   x: number;
   y: number;
@@ -283,11 +291,23 @@ export const moveTool: ITool = {
       const alreadySelected = cur.includes(hit.id);
 
       // Double-click on a text layer enters text edit mode.
-      if (e.detail >= 2 && hit.type === "text") {
-        if (!alreadySelected) setSelection([hit.id], "click_select");
-        enterTextEdit(hit.id);
-        state = { kind: "idle" };
-        return;
+      if (hit.type === "text") {
+        const now = performance.now();
+        const recent = lastTextClick;
+        const isDouble =
+          e.detail >= 2 ||
+          (recent !== null &&
+            recent.layerId === hit.id &&
+            now - recent.t < DOUBLE_CLICK_MS &&
+            Math.hypot(world.x - recent.world.x, world.y - recent.world.y) < DOUBLE_CLICK_PX);
+        if (isDouble) {
+          if (!alreadySelected) setSelection([hit.id], "click_select");
+          enterTextEdit(hit.id);
+          lastTextClick = null;
+          state = { kind: "idle" };
+          return;
+        }
+        lastTextClick = { layerId: hit.id, t: now, world };
       }
 
       // Double-click on a vector layer enters vector edit mode.

@@ -3,7 +3,6 @@ import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
 import { setTextProperty } from "@/engine/textCommands";
-import { noopClick } from "@/ui/chrome/noopClick";
 import { AlignLeft, AlignCenter, AlignRight, AlignJustify } from "lucide-react";
 import type { Text as TextLayer } from "@/types/scene";
 
@@ -73,22 +72,6 @@ export function TypographySection() {
         <AlignBtn id="typography.align.center" active={t.hAlign === "center"} icon={<AlignCenter size={14} />} onClick={() => setTextProperty("hAlign", "center")} title="Align center" />
         <AlignBtn id="typography.align.right" active={t.hAlign === "right"} icon={<AlignRight size={14} />} onClick={() => setTextProperty("hAlign", "right")} title="Align right" />
         <AlignBtn id="typography.align.justify" active={t.hAlign === "justify"} icon={<AlignJustify size={14} />} onClick={() => setTextProperty("hAlign", "justify")} title="Justify" />
-        <span style={{ flex: 1 }} />
-        <button
-          data-id="typography.type-settings"
-          onClick={(e) => noopClick("typography.type-settings", e)}
-          title="Type settings — not implemented"
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: 4,
-            color: "var(--color-text-secondary)",
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
-          ⋯
-        </button>
       </div>
     </Section>
   );

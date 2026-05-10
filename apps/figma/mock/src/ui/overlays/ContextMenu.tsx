@@ -78,10 +78,6 @@ export function ContextMenu({
       <Item id="ctx.paste" label="Paste" shortcut="⌘V" disabled={!clipboard} onClick={() => { pasteFromClipboard("context_menu"); onClose(); }} />
       <Item id="ctx.duplicate" label="Duplicate" shortcut="⌘D" disabled={!hasSelection} onClick={() => { duplicateSelection(); onClose(); }} />
       <Sep />
-      <Item id="ctx.copy-as.css" label="Copy as CSS" disabled />
-      <Item id="ctx.copy-as.svg" label="Copy as SVG" disabled />
-      <Item id="ctx.copy-as.png" label="Copy as PNG" disabled />
-      <Sep />
       <Item id="ctx.rename" label="Rename" shortcut="⌘R" disabled={layers.length !== 1} onClick={() => { onRequestRename(); onClose(); }} />
       <Item id="ctx.delete" label="Delete" shortcut="⌫" disabled={!hasSelection} onClick={() => { deleteSelection("context_menu_canvas"); onClose(); }} />
       <Sep />
@@ -98,10 +94,6 @@ export function ContextMenu({
       <Sep />
       <Item id="ctx.toggle-lock" label={allLocked ? "Unlock" : "Lock"} shortcut="⇧⌘L" disabled={!hasSelection} onClick={() => { setLocked(!allLocked); onClose(); }} />
       <Item id="ctx.toggle-visibility" label={allHidden ? "Show" : "Hide"} shortcut="⇧⌘H" disabled={!hasSelection} onClick={() => { setVisibility(allHidden); onClose(); }} />
-      <Sep />
-      <Item id="ctx.use-as-mask" label="Use as mask" disabled />
-      <Item id="ctx.create-component" label="Create component" disabled />
-      <Item id="ctx.flatten" label="Flatten" disabled />
     </div>
   );
 }
