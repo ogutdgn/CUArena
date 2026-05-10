@@ -62,8 +62,16 @@ npm run dev      # serves http://localhost:5173
     --trace-s3-bucket "$CUA_TRACE_S3_BUCKET" \
     --trace-s3-prefix "figma/rollouts"
 
-# Enable the harness (system prompt that describes the UI)
-.venv/bin/python cua-eval/runner/passk.py --tasks 05 --harness
+# Pick a system prompt by name (NAME → cua-eval/system-prompts/<NAME>.md)
+.venv/bin/python cua-eval/runner/passk.py --tasks 05 --system-prompt mouse-only
+
+# Or pass an explicit path
+.venv/bin/python cua-eval/runner/passk.py --tasks 05 \
+    --system-prompt app-docs/cua-system-prompt-click-only.md
+
+# Hard-disable keyboard at the executor level (orthogonal to the prompt)
+.venv/bin/python cua-eval/runner/passk.py --tasks 05 \
+    --system-prompt mouse-only --block-keyboard
 
 # Send the entire prompt.md including step-by-step solution (oracle baseline)
 .venv/bin/python cua-eval/runner/passk.py --tasks 05 --prompt-mode full
@@ -145,22 +153,36 @@ the Thorough description so the model isn't given an oracle.
 | `description` *(default)* | Thorough description body only — for fair eval. |
 | `full` | The entire `prompt.md` verbatim, including the step-by-step. |
 
-## Harness (`--harness`)
+## System prompts (`--system-prompt`)
 
-By default the model receives **no** system prompt — only the task prompt
-and screenshots. Pass `--harness` to add a one-paragraph system prompt
-that describes the mock's left/right panels and viewport size.
+The flag picks **one** of three forms:
 
-### Customizing the harness
+- `none` *(default)* — no system prompt; the model sees only the task prompt + screenshots.
+- `NAME` — resolves to `cua-eval/system-prompts/<NAME>.md`. Bundled names:
+  - `mouse-only` — minimal "keyboard is unplugged" environment constraint.
+  - `figma-mock` — mouse-only constraint + a UI explainer for the canvas/panels.
+  - `click-only` — the longer curated click-only doc (mirrors `app-docs/cua-system-prompt-click-only.md`).
+- `PATH` — any `.md`/`.txt` file path is loaded verbatim.
 
-The harness text lives in `DEFAULT_SYSTEM_PROMPT` in each agent module:
+Add your own prompt by dropping a `.md` file into `cua-eval/system-prompts/`;
+it'll show up in `--help` and be selectable as a NAME.
 
-- `cua-eval/runner/agents/anthropic.py` — Claude harness (uses `{w}` and `{h}` placeholders for viewport)
-- `cua-eval/runner/agents/openai.py` — OpenAI harness (plain string, viewport already interpolated)
+The exact prompt that reached the model is saved per-attempt at
+`runs/<run_id>/<provider>/task_NN/attempt_K/system_prompt.txt`.
 
-To plug in your own harness, either edit those constants or extend
-`passk.py` to load a file (e.g. `--harness-file path/to/system.txt`)
-and pass that string in place of the default.
+## Keyboard handicap (`--block-keyboard`)
+
+Orthogonal to `--system-prompt`. When set, the executor intercepts the
+model's `type` / `key` / `keypress` actions, doesn't actually press
+anything, and tells the model the action was BLOCKED. Default off — the
+keyboard works.
+
+A typical mouse-only run pairs them:
+
+```bash
+.venv/bin/python cua-eval/runner/passk.py --tasks 05 \
+    --system-prompt mouse-only --block-keyboard
+```
 
 ## Output
 
@@ -178,7 +200,7 @@ apps/figma/cua-eval/runs/<run_id>/
     ├── meta.json                       inputs + endpoint signature (see below)
     ├── outcome.json                    final summary (started/ended, cost, score, error)
     ├── prompt.txt                      EXACT user-message text the model received
-    ├── system_prompt.txt               harness system prompt (empty if no --harness)
+    ├── system_prompt.txt               resolved system prompt (empty if --system-prompt none)
     ├── trajectory.jsonl                one JSON line per turn — actions, text, usage, screenshot
     ├── trajectory.json                 finalized trajectory (written at end)
     ├── screenshots/

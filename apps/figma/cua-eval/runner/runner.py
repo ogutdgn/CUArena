@@ -192,7 +192,6 @@ def run_attempt(
     pass_threshold: float,
     progress_prefix: str = "",
     prompt_mode: str = "full",
-    harness: bool = True,
     system_prompt: str | None = None,
 ) -> AttemptResult:
     task_dir = resolve_task(task_id)
@@ -212,10 +211,7 @@ def run_attempt(
     # Materialize what the model is about to be shown — eagerly, so a
     # killed run still preserves the inputs.
     prompt_path.write_text(prompt, encoding="utf-8")
-    # ``system_prompt`` already encodes the harness choice (the caller
-    # built MOUSE_ONLY_NOTE [+ DEFAULT_SYSTEM_PROMPT if --harness]). Trust
-    # it; the mouse-only note is a hard environment constraint and must
-    # always reach the model.
+    # ``system_prompt`` is whatever passk.py resolved from --system-prompt.
     effective_system = system_prompt
     system_prompt_path.write_text(effective_system or "", encoding="utf-8")
 
@@ -244,8 +240,8 @@ def run_attempt(
         "endpoint": endpoint_meta,
         "prompt_mode": prompt_mode,
         "prompt_chars": len(prompt),
-        "harness": harness,
         "system_prompt_chars": len(effective_system or ""),
+        "block_keyboard": not bool(agent_kwargs.get("allow_keyboard", True)),
         "step_cap": agent_kwargs.get("step_cap", None),
         "mock_url": mock_url,
         "headless": headless,
@@ -257,7 +253,6 @@ def run_attempt(
         "pass_threshold": pass_threshold,
         "started_at": started_at,
         "started_at_iso": started_iso,
-        "harness": harness,
         "harness_git": harness_git_info(),
         "sdk_versions": sdk_versions(),
         "argv": python_argv(),
