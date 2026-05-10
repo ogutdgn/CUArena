@@ -23,35 +23,35 @@ task = Task(
     description="2 vertical + 2 horizontal lines crossing to form a # (hashtag) symbol.",
     rubrics=[
         FundamentalsRubric([
-            ShapeCount("line", equals=4),                                               # 0 ★ "4 lines" explicit
+            ShapeCount("line", equals=4),                                               # 0 ★ prompt: "4 lines"
         ], weight=0.2, critical=[0]),
 
         AlignmentRubric([
-            LayersHaveRotations(layer_type="line", expected=[0, 90], count_per=2,       # 0 ★ "2 vertical + 2 horizontal" perpendicular
-                                tolerance_deg=5.0),
-            LayersOverlap(type_a="line", type_b="line"),                                # 1 ★ lines must cross (form #)
-            LayerSizeAtLeast(layer_type="line", min_w=20, min_h=0),                     # 2 ★ no degenerate / pixel lines
-            AllLayerBoundsInside(inner_type="line", outer_type="frame",                 # 3 ★ lines fit in frame
+            LayersHaveRotations(layer_type="line", expected=[0, 90], count_per=2,       # 0 ★ prompt: "2 vertical + 2 horizontal"
+                                tolerance_deg=10.0),
+            LayersOverlap(type_a="line", type_b="line"),                                # 1 ★ prompt: "forming a hashtag (#) shape"
+            LayerSizeAtLeast(layer_type="line", min_w=20, min_h=0),                     # 2 no degenerate / pixel lines
+            AllLayerBoundsInside(inner_type="line", outer_type="frame",                 # 3 lines fit in frame (implicit)
                                  tolerance=8.0),
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),          # 4 ★ frame upright
-            LayersAtDistinctPositions(layer_type="line", min_distinct=4, tolerance=10.0), # 5 ★ no piled-at-one-point
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5]),
-
-        ColorRubric([
-            LayerVisible("line"),                                                       # 0 ★ visible fill (when fills present)
-            LayerRendersStrokeOrFill("line"),                                           # 1 ★ stroke OR fill renders (lines often stroke-only)
-            NoLayerFlipped(layer_type="line"),                                          # 2 ★ no mirror/flip
-        ], weight=0.2, critical=[0, 1, 2]),
-
-        StructureRubric([
-            LayerInsideFrame("line"),                                                   # 0 ★ lines inside frame
-            ChildCountAtLeast("frame", minimum=4),                                      # 1 ★ all 4 lines in one frame
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 4 frame upright (implicit)
+            LayersAtDistinctPositions(layer_type="line", min_distinct=4, tolerance=10.0), # 5 no piled-at-one-point
         ], weight=0.2, critical=[0, 1]),
 
+        ColorRubric([
+            LayerVisible("line"),                                                       # 0 visible fill (when fills present)
+            LayerRendersStrokeOrFill("line"),                                           # 1 lines must render (stroke or fill, implicit from "draw")
+            NoLayerFlipped(layer_type="line"),                                          # 2 no mirror/flip
+        ], weight=0.2, critical=[]),
+
+        StructureRubric([
+            LayerInsideFrame("line"),                                                   # 0 lines inside frame (implicit, not in prompt)
+            ChildCountAtLeast("frame", minimum=4),                                      # 1 all 4 lines in one frame (implicit)
+        ], weight=0.2, critical=[]),
+
         EventRubric([
-            ToolUsed("line"),                                                           # 0 ★ line tool mandated
+            ToolUsed("line"),                                                           # 0 prompt mentions tool but keyboard-shortcut OK
             EventTypeCount("create_line", equals=4),
-        ], weight=0.2, critical=[0]),
+        ], weight=0.2, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=14),
 )

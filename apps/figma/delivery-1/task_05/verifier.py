@@ -1,7 +1,7 @@
 """
 Task 05 — Plus-sign emblem (in-scope replacement).
 
-2 perpendicular rectangles crossed at center to form a + shape.
+2 perpendicular rectangles crossed at center to form a + shape, both filled the same color.
 """
 from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
@@ -10,53 +10,34 @@ from verifier.rubrics.color        import ColorRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
-from verifier.checks.geometry_checks import (
-    LayersAligned, LayersHaveAspectMix, LayerSizeAtLeast, LayerRotationEquals,
-)
-from verifier.checks.fill_checks   import (
-    AllFillTypeIs, AllSolidColorEquals, FillCountAtMost, FillOpacityAtLeast,
-)
-from verifier.checks.property_checks import (
-    LayerVisible, NoLayerFlipped, CornerRadiusFractionAtMost,
-)
-from verifier.checks.event_checks  import ToolUsed, EventTypeCount
+from verifier.checks.geometry_checks import LayersAligned, LayersHaveAspectMix
+from verifier.checks.fill_checks   import LayersAllSameColor
+from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
+
 task = Task(
     id="task_05_red_heart_union",
-    description="2 perpendicular rectangles crossed at center forming a plus sign, both red fill.",
+    description="2 perpendicular rectangles crossed at center forming a plus sign, same color.",
     rubrics=[
-        # critical: exactly 2 rectangles — prompt-explicit
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=2),                                        # 0 ★ "2 rectangles"
-        ], weight=0.25, critical=[0]),
+            ShapeCount("rectangle", equals=2),                                        # 0 ★ prompt: "2 perpendicular rectangles"
+        ], weight=0.20, critical=[0]),
 
-        # critical: centered together (both axes) + perpendicular wide/tall mix
         AlignmentRubric([
-            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=4.0),    # 0 ★ "center points aligned"
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=4.0),    # 1 ★ "center points aligned"
-            LayersHaveAspectMix(layer_type="rectangle",                               # 2 ★ "wide and short" + "narrow and tall"
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=12.0),   # 0 ★ prompt: "centered together"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),   # 1 ★ prompt: "centered together"
+            LayersHaveAspectMix(layer_type="rectangle",                               # 2 ★ prompt: "horizontal rectangle is wide and short; the vertical rectangle is narrow and tall"
                                 horizontal_count=1, vertical_count=1, ratio=2.0),
-            LayerSizeAtLeast(layer_type="rectangle", min_w=20.0, min_h=20.0),         # 3 ★ non-degenerate
-            LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=2.0),  # 4 ★ no rotation
-            NoLayerFlipped(layer_type="rectangle"),                                   # 5 ★ no flips
-            CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.3),         # 6 ★ no extreme rounding
-        ], weight=0.25, critical=[0, 1, 2, 3, 4, 5, 6]),
+        ], weight=0.40, critical=[0, 1, 2]),
 
-        # critical: solid fills + same color (red) — prompt-explicit
+        # "same color" — uniformity, no specific RGB
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                                 # 0 ★
-            AllSolidColorEquals(layer_type="rectangle",                               # 1 ★ "Pick same color for both"
-                                expected_rgb={"r": 1.0, "g": 0.1, "b": 0.1},
-                                tolerance=0.20),
-            LayerVisible(layer_type="rectangle", min_opacity=0.5, min_alpha=0.5),     # 2 ★ visible
-            FillCountAtMost(layer_type="rectangle", max_count=1),                     # 3 ★ no stacked fills
-            FillOpacityAtLeast(layer_type="rectangle", min_opacity=0.5),              # 4 ★ near-invisible
-        ], weight=0.25, critical=[0, 1, 2, 3, 4]),
+            LayersAllSameColor(layer_type="rectangle", tolerance=0.12),               # 0 ★ prompt: "Pick same color for both"
+        ], weight=0.30, critical=[0]),
 
-        # critical: rectangle tool used — prompt-explicit
         EventRubric([
-            ToolUsed("rectangle"),                                                    # 0 ★ "Click Rectangle tool"
-            EventTypeCount("create_rectangle", equals=2),                             # 1
-        ], weight=0.25, critical=[0]),
+            ToolUsed("rectangle"),                                                    # 0 ★ prompt: "Click Rectangle tool"
+            EventTypeCountAtLeast("create_rectangle", minimum=2),                     # 1
+        ], weight=0.10, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=15),
 )

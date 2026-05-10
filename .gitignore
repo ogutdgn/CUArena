@@ -15,3 +15,5 @@ apps/figma/scripts/scores/*.json
 # Local-only working notes — never committed.
 SESSION_HANDOFF.md
 UI_FIXES.md
+apps/figma/cua-eval/.env
+apps/figma/cua-eval/runs/

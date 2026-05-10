@@ -39,6 +39,14 @@ class RingBuffer<T> {
   get length(): number {
     return this.size;
   }
+
+  load(items: T[]): void {
+    this.clear();
+    const start = Math.max(0, items.length - this.capacity);
+    for (let i = start; i < items.length; i++) {
+      this.push(items[i]);
+    }
+  }
 }
 
 class LoggerStore {
@@ -81,6 +89,15 @@ class LoggerStore {
   clear(): void {
     this.rawEvents.clear();
     this.semanticEvents.clear();
+    for (const fn of this.clearHooks) fn();
+    this.notify();
+  }
+
+  hydrate(raw: RawEvent[], semantic: SemanticEvent[]): void {
+    this.rawEvents.load(raw);
+    this.semanticEvents.load(semantic);
+    // Hydration represents a fresh baseline; semantic emitters should not
+    // splice stale raw-id boundaries across reloads.
     for (const fn of this.clearHooks) fn();
     this.notify();
   }

@@ -63,9 +63,15 @@ def fail_not_overlapping():
 
 
 def fail_same_color():
+    """Both vectors AND frame share the same gray → distinct < 2."""
     far = _mountain(100, 100, 600, 250, DARK_GRAY)
     near = _mountain(200, 180, 500, 200, DARK_GRAY)
     frame = make_frame([far, near], w=1000, h=400)
+    # Override frame fill so the whole doc has 1 distinct solid color.
+    frame["fills"] = [{"kind": "solid",
+                       "color": {"r": DARK_GRAY[0], "g": DARK_GRAY[1],
+                                 "b": DARK_GRAY[2], "a": 1.0},
+                       "opacity": 1.0, "visible": True}]
     return make_log([frame], _events())
 
 

@@ -68,6 +68,12 @@ def fail_not_nested():
     return make_log([frame], _events())
 
 
+def fail_non_alternating_colors():
+    """4 nested squares, but colors don't alternate by area: [A, A, B, B]
+    instead of [A, B, A, B]."""
+    return _nested([400, 280, 160, 60], [C1, C1, C2, C2])
+
+
 PASS_LOGS = [
     ("perfect",             perfect()),
     ("perfect_diff_palette",perfect_diff_palette()),
@@ -75,7 +81,8 @@ PASS_LOGS = [
 ]
 
 FAIL_LOGS = [
-    ("3_squares",         fail_3_squares(),         ["expected 4, got 3"]),
-    ("not_concentric",    fail_not_concentric(),    ["concentric"]),
-    ("not_nested",        fail_not_nested(),        ["area ratio"]),
+    ("3_squares",                 fail_3_squares(),                 ["expected 4, got 3"]),
+    ("not_concentric",            fail_not_concentric(),            ["concentric"]),
+    ("not_nested",                fail_not_nested(),                ["not strictly smaller"]),
+    ("non_alternating_colors",    fail_non_alternating_colors(),    ["alternating"]),
 ]

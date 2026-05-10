@@ -1,15 +1,23 @@
 """100 edge cases for task 38 (battery indicator) — runs all and prints score table."""
 from __future__ import annotations
 import sys
-sys.path.insert(0, "/Users/rashidalblwi/figma-mock/test-verifier")
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))                # scripts/
+sys.path.insert(0, str(HERE.parent.parent))         # apps/figma/
 
 from qa_per_task._helpers import (
     make_layer, make_frame, make_log, make_event, make_stroke, make_drop_shadow,
-    score_task, GREEN, YELLOW, RED, NAVY, WHITE, ORANGE, PINK, PURPLE, GOLD, CYAN, BLACK,
+    score_task,
+    PINK, ORANGE, NAVY, WHITE, YELLOW, GREEN, RED, PURPLE, GOLD, CYAN,
+    BLACK, LIGHT_GRAY, DARK_GRAY, WARM_ORANGE, CREAM, DEEP_BLUE, TEAL,
+    COBALT, MAGENTA, SAND, PALE_YELLOW, DEEP_PURPLE,
 )
-from tasks import task_38_battery_indicator as t
-T = t.task
-
+import importlib.util
+_VERIFIER = HERE.parent.parent / "delivery-1" / "task_38" / "verifier.py"
+_spec = importlib.util.spec_from_file_location("_v", _VERIFIER)
+_v = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_v)
+T = _v.task
 GREEN_BAR  = (0.4, 0.85, 0.4)
 YELLOW_BAR = (0.95, 0.85, 0.2)
 RED_BAR    = (0.95, 0.3, 0.3)

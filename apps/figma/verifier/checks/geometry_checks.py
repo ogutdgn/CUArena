@@ -2235,3 +2235,218 @@ class LinesShareEndpoint:
             message=f"{best_count} {self.layer_type} endpoints share ({best_point[0]:.1f}, {best_point[1]:.1f})"
                     if passed else f"No shared endpoint among {self.layer_type} layers reaches {self.minimum} endpoints",
         )
+
+
+@dataclass
+class LayersOnRing:
+    """
+    Exactly `n` layers of `layer_type` form a ring:
+      1) equal angular spacing around centroid
+      2) similar radius from centroid
+      3) non-trivial radius (not collapsed near center)
+    """
+    layer_type: str
+    n: int
+    angle_tolerance_deg: float = 8.0
+    radius_tolerance_px: float = 20.0
+    min_radius_px: float = 30.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) != self.n:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"Need exactly {self.n} {self.layer_type}, found {len(layers)}",
+            )
+
+        centers = [(l["x"] + l["w"] / 2, l["y"] + l["h"] / 2) for l in layers]
+        cx = sum(p[0] for p in centers) / len(centers)
+        cy = sum(p[1] for p in centers) / len(centers)
+
+        radii = [math.hypot(px - cx, py - cy) for px, py in centers]
+        min_r = min(radii)
+        max_r = max(radii)
+        radius_spread = max_r - min_r
+
+        angles = sorted((math.degrees(math.atan2(py - cy, px - cx)) % 360) for px, py in centers)
+        gaps = [angles[i + 1] - angles[i] for i in range(len(angles) - 1)]
+        gaps.append(360 - angles[-1] + angles[0])
+        expected_gap = 360 / self.n
+        max_gap_dev = max(abs(g - expected_gap) for g in gaps)
+
+        passed = (
+            max_gap_dev <= self.angle_tolerance_deg
+            and radius_spread <= self.radius_tolerance_px
+            and min_r >= self.min_radius_px
+        )
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(
+                f"{self.layer_type} ring: gap dev {max_gap_dev:.1f} deg (tol {self.angle_tolerance_deg} deg), "
+                f"radius spread {radius_spread:.1f}px (tol {self.radius_tolerance_px}px), "
+                f"min radius {min_r:.1f}px (min {self.min_radius_px}px)"
+            ),
+        )
+
+
+@dataclass
+class LinesRadialFromSharedEndpoint:
+    """
+    Exactly `n` line layers form a radial burst from one shared center endpoint.
+
+    For each line we choose the endpoint closest to the inferred shared center,
+    then use the opposite endpoint as the ray direction for angular spacing.
+    """
+    n: int
+    center_tolerance_px: float = 12.0
+    angle_tolerance_deg: float = 10.0
+    min_length_px: float = 10.0
+    length_tolerance_px: float = 60.0
+
+    def run(self, log: dict) -> CheckResult:
+        lines = find_layers_by_type(log["outcome"]["document"], "line")
+        if len(lines) != self.n:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"Need exactly {self.n} line layers, found {len(lines)}",
+            )
+
+        endpoints: list[tuple[float, float]] = []
+        line_points: list[tuple[tuple[float, float], tuple[float, float]]] = []
+        for l in lines:
+            p1 = (l.get("p1", {}).get("x", 0.0) + l["x"], l.get("p1", {}).get("y", 0.0) + l["y"])
+            p2 = (l.get("p2", {}).get("x", 0.0) + l["x"], l.get("p2", {}).get("y", 0.0) + l["y"])
+            line_points.append((p1, p2))
+            endpoints.extend([p1, p2])
+
+        best_center = None
+        best_count = -1
+        best_sum_dist = float("inf")
+        for c in endpoints:
+            dists = sorted(math.hypot(c[0] - p[0], c[1] - p[1]) for p in endpoints)
+            near = [d for d in dists if d <= self.center_tolerance_px]
+            count = len(near)
+            sum_dist = sum(near)
+            if count > best_count or (count == best_count and sum_dist < best_sum_dist):
+                best_center = c
+                best_count = count
+                best_sum_dist = sum_dist
+
+        assert best_center is not None
+        if best_count < self.n:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=(
+                    f"Shared-center endpoint cluster too weak: only {best_count}/{self.n} "
+                    f"endpoints within {self.center_tolerance_px}px"
+                ),
+            )
+
+        center = best_center
+        angles: list[float] = []
+        lengths: list[float] = []
+        for p1, p2 in line_points:
+            d1 = math.hypot(p1[0] - center[0], p1[1] - center[1])
+            d2 = math.hypot(p2[0] - center[0], p2[1] - center[1])
+            near, far = (p1, p2) if d1 <= d2 else (p2, p1)
+            length = math.hypot(far[0] - near[0], far[1] - near[1])
+            lengths.append(length)
+            angles.append(math.degrees(math.atan2(far[1] - center[1], far[0] - center[0])) % 360)
+
+        min_len = min(lengths)
+        max_len = max(lengths)
+        if min_len < self.min_length_px:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"Burst lines too short: min length {min_len:.1f}px (need >={self.min_length_px}px)",
+            )
+
+        sorted_angles = sorted(angles)
+        gaps = [sorted_angles[i + 1] - sorted_angles[i] for i in range(len(sorted_angles) - 1)]
+        gaps.append(360 - sorted_angles[-1] + sorted_angles[0])
+        expected_gap = 360 / self.n
+        max_gap_dev = max(abs(g - expected_gap) for g in gaps)
+        length_spread = max_len - min_len
+
+        passed = max_gap_dev <= self.angle_tolerance_deg and length_spread <= self.length_tolerance_px
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(
+                f"line burst: gap dev {max_gap_dev:.1f} deg (tol {self.angle_tolerance_deg} deg), "
+                f"length spread {length_spread:.1f}px (tol {self.length_tolerance_px}px), "
+                f"cluster hits {best_count}/{self.n}"
+            ),
+        )
+
+
+@dataclass
+class VectorsCurvedCountAtLeast:
+    """
+    At least `minimum` vectors contain curved segments (bezier handles present).
+    """
+    minimum: int
+
+    def run(self, log: dict) -> CheckResult:
+        vectors = find_layers_by_type(log["outcome"]["document"], "vector")
+        curved = 0
+        for v in vectors:
+            network = v.get("network", {})
+            segments = network.get("segments", [])
+            has_curve = any(seg.get("handleFrom") is not None or seg.get("handleTo") is not None for seg in segments)
+            if has_curve:
+                curved += 1
+        passed = curved >= self.minimum
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"curved vectors: expected >={self.minimum}, got {curved}",
+        )
+
+
+@dataclass
+class LayersStrictlyNested:
+    """
+    Layers of a given type are strictly nested by size:
+    sorted by area (largest->smallest), each inner layer must fit inside the
+    previous outer layer with a strict size drop.
+    """
+    layer_type: str
+    equals: int
+    tolerance_px: float = 2.0
+    min_size_drop_px: float = 4.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) != self.equals:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"Need exactly {self.equals} {self.layer_type}, found {len(layers)}",
+            )
+
+        ordered = sorted(layers, key=lambda l: l["w"] * l["h"], reverse=True)
+        t = self.tolerance_px
+        for i in range(len(ordered) - 1):
+            outer = ordered[i]
+            inner = ordered[i + 1]
+            if inner["w"] >= outer["w"] - self.min_size_drop_px or inner["h"] >= outer["h"] - self.min_size_drop_px:
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=(
+                        f"Layer {i+1} not strictly smaller than layer {i}: "
+                        f"{inner['w']:.1f}x{inner['h']:.1f} vs {outer['w']:.1f}x{outer['h']:.1f}"
+                    ),
+                )
+            if not (
+                inner["x"] >= outer["x"] - t
+                and inner["y"] >= outer["y"] - t
+                and inner["x"] + inner["w"] <= outer["x"] + outer["w"] + t
+                and inner["y"] + inner["h"] <= outer["y"] + outer["h"] + t
+            ):
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=f"Layer {i+1} is not nested inside layer {i} (tol {t}px)",
+                )
+
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"{self.layer_type} layers are strictly nested ({self.equals} total)",
+        )

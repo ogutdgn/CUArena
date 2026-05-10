@@ -5,16 +5,23 @@ Frame 1000x300.
 """
 from __future__ import annotations
 import sys
-sys.path.insert(0, "/Users/rashidalblwi/figma-mock/test-verifier")
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))                # scripts/
+sys.path.insert(0, str(HERE.parent.parent))         # apps/figma/
 
 from qa_per_task._helpers import (
     make_layer, make_frame, make_log, make_event, make_stroke, make_drop_shadow,
-    score_task, PINK, ORANGE, NAVY, WHITE, YELLOW, GREEN, RED, PURPLE, GOLD, CYAN,
-    DARK_GRAY, LIGHT_GRAY, BLACK, COBALT, DEEP_BLUE,
+    score_task,
+    PINK, ORANGE, NAVY, WHITE, YELLOW, GREEN, RED, PURPLE, GOLD, CYAN,
+    BLACK, LIGHT_GRAY, DARK_GRAY, WARM_ORANGE, CREAM, DEEP_BLUE, TEAL,
+    COBALT, MAGENTA, SAND, PALE_YELLOW, DEEP_PURPLE,
 )
-from tasks import task_08_water_waves as t
-T = t.task
-
+import importlib.util
+_VERIFIER = HERE.parent.parent / "delivery-1" / "task_08" / "verifier.py"
+_spec = importlib.util.spec_from_file_location("_v", _VERIFIER)
+_v = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_v)
+T = _v.task
 # Blue shades
 BLUE1 = (0.20, 0.40, 0.85)   # primary blue
 BLUE2 = (0.10, 0.30, 0.65)   # darker blue
