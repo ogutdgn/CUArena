@@ -6,6 +6,9 @@ The status section at the top is a per-session log of what shipped (newest entry
 
 **Session log**
 
+- **2026-05-10**
+  - `ui-fixes-checklist.md` closed out. Removed the final three actionable noop UI elements: Typography section's `typography.type-settings` three-dot button (and unused `noopClick` import + trailing flex spacer), and the two `SlidersHorizontal` "Interaction settings" buttons in `PrototypePanel.tsx` (`FramePanel` + `ItemPanel`). After removing both Interaction-settings buttons, `SlidersHorizontal` is dropped from the `lucide-react` import. Logger and verifier contracts unchanged — none of the removed elements emitted semantic events or were referenced by any check primitive. Progress: 58 / 59 (1 explicitly skipped). See `mock_improvement_steps.md` #27.
+
 - **2026-05-08**
   - Frame preset workflow shipped in the right sidebar. When `Frame` tool is active with no selection, the Design panel now renders a scrollable preset browser with category groups (Phone, Tablet, Desktop, Presentation, Watch, Paper, Social Media, Figma Community, Archive). Clicking a preset creates a frame from preset dimensions and names it after the preset.
   - Layout section now includes a `Frame` preset dropdown for single-frame selection. Choosing a preset resizes the selected frame in one transform op (single undo step), preserves existing frame name, and keeps frame-child reflow behavior via constraints.
