@@ -20,6 +20,7 @@ import argparse
 import dataclasses
 import importlib.util
 import json
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -27,8 +28,9 @@ from pathlib import Path
 APP_ROOT     = Path(__file__).resolve().parent.parent
 SCRIPTS_DIR  = Path(__file__).resolve().parent
 DELIVERY_DIR = APP_ROOT / "delivery-1"
-LOGS_DIR     = SCRIPTS_DIR / "logs"
-SCORES_DIR   = SCRIPTS_DIR / "scores"
+OUTPUT_ROOT  = Path(os.getenv("FIGMA_OUTPUT_DIR", str(SCRIPTS_DIR)))
+LOGS_DIR     = OUTPUT_ROOT / "logs"
+SCORES_DIR   = OUTPUT_ROOT / "scores"
 
 sys.path.insert(0, str(APP_ROOT))
 

@@ -252,3 +252,25 @@ The Vite relay is dev-only and not the right approach for automated runs. When a
 controls the browser via Playwright, the test harness already has CDP access and should
 read sessionStorage directly via `page.evaluate()`. See `app-docs/scripts-doc/best-practices.md` for
 the full comparison and migration steps.
+
+### CUA evaluation harness (`cua-eval/`)
+
+For end-to-end CUA evaluation (drive Anthropic / OpenAI computer-use agents through tasks
+and score the results), use [`cua-eval/runner/passk.py`](cua-eval/runner/passk.py), not
+`scripts/run_task.py`. It is the canonical pass@k harness — Playwright Chromium, scrapes
+the session log via `page.evaluate()`, scores in-process via `verifier/loader.py`, writes
+per-attempt artifacts to `cua-eval/runs/<run_id>/`.
+
+```bash
+# All from apps/figma/. Mock must be running first (npm run dev → :5173).
+.venv/bin/python cua-eval/runner/passk.py \
+    --providers anthropic --anthropic-model claude-sonnet-4-5 \
+    --tasks 02 --mock-url http://localhost:5173 --headed
+```
+
+To run multiple tasks concurrently, start one `npm run dev` per port (Vite auto-bumps:
+:5173, :5174, …) and run one `passk.py` per dev-server with distinct `--mock-url`s. Each
+runner needs its own mock — two runners sharing a mock will collide on session-log state.
+
+Full docs (flags, prompt modes, harness, output layout, rate-limit knobs, parallel pattern):
+[cua-eval/runner/README.md](cua-eval/runner/README.md).

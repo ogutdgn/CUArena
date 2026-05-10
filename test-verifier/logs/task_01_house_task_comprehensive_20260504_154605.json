@@ -1,0 +1,850 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_morrh18a_3_hm3hva",
+  "exportedAt": 1777934640686,
+  "raw": [
+    {
+      "eventId": "raw_morrh1g6_5_s66mu9",
+      "type": "pointermove",
+      "timestamp": 386.30000000074506,
+      "sessionTime": 278.80000000074506,
+      "fields": {
+        "clientX": 269.7421875,
+        "clientY": 275.3359375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "left-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrh1gq_6_t5gfos",
+      "type": "pointermove",
+      "timestamp": 406.30000000074506,
+      "sessionTime": 298.80000000074506,
+      "fields": {
+        "clientX": 331.0234375,
+        "clientY": 193.984375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrh1h4_7_y5e1fc",
+      "type": "pointermove",
+      "timestamp": 419.80000000074506,
+      "sessionTime": 312.30000000074506,
+      "fields": {
+        "clientX": 385.0546875,
+        "clientY": 123.9609375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrh1hk_8_k9z4rf",
+      "type": "pointermove",
+      "timestamp": 436.40000000037253,
+      "sessionTime": 328.90000000037253,
+      "fields": {
+        "clientX": 424.65625,
+        "clientY": 74.8125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrh1i1_9_4glg8u",
+      "type": "pointermove",
+      "timestamp": 453.1000000005588,
+      "sessionTime": 345.6000000005588,
+      "fields": {
+        "clientX": 472.1328125,
+        "clientY": 8.3671875,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrh230_10_ypmo43",
+      "type": "pointermove",
+      "timestamp": 1207.9000000003725,
+      "sessionTime": 1100.4000000003725,
+      "fields": {
+        "clientX": 380.4375,
+        "clientY": 79.359375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": true
+      }
+    },
+    {
+      "eventId": "raw_morrh23d_11_awqhlo",
+      "type": "pointermove",
+      "timestamp": 1220.5,
+      "sessionTime": 1113,
+      "fields": {
+        "clientX": 346.515625,
+        "clientY": 122.7734375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": true
+      }
+    },
+    {
+      "eventId": "raw_morrh23r_12_ev82im",
+      "type": "pointermove",
+      "timestamp": 1235.300000000745,
+      "sessionTime": 1127.800000000745,
+      "fields": {
+        "clientX": 272.609375,
+        "clientY": 235.8203125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "left-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": true
+      }
+    },
+    {
+      "eventId": "raw_morrj8fl_13_mbw880",
+      "type": "pointermove",
+      "timestamp": 102749.10000000056,
+      "sessionTime": 102641.60000000056,
+      "fields": {
+        "clientX": 486.890625,
+        "clientY": 300.453125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8fo_14_61pgsu",
+      "type": "pointermove",
+      "timestamp": 102751.5,
+      "sessionTime": 102644,
+      "fields": {
+        "clientX": 461.515625,
+        "clientY": 287.2578125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8g6_15_bn57gf",
+      "type": "pointermove",
+      "timestamp": 102769.30000000075,
+      "sessionTime": 102661.80000000075,
+      "fields": {
+        "clientX": 437.46875,
+        "clientY": 278.5703125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8gl_16_ehbafy",
+      "type": "pointermove",
+      "timestamp": 102785,
+      "sessionTime": 102677.5,
+      "fields": {
+        "clientX": 415.765625,
+        "clientY": 273.1015625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8h2_17_ose6qo",
+      "type": "pointermove",
+      "timestamp": 102801.60000000056,
+      "sessionTime": 102694.10000000056,
+      "fields": {
+        "clientX": 408.296875,
+        "clientY": 272.1875,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8hi_18_jvfr8w",
+      "type": "pointermove",
+      "timestamp": 102818.10000000056,
+      "sessionTime": 102710.60000000056,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 272.1875,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar.text",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8lq_19_k94bpl",
+      "type": "pointermove",
+      "timestamp": 102969.70000000019,
+      "sessionTime": 102862.20000000019,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 273.1328125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar.text",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8m6_20_q8gmh7",
+      "type": "pointermove",
+      "timestamp": 102985.30000000075,
+      "sessionTime": 102877.80000000075,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 276.75,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar.text",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8mm_21_dlxdsr",
+      "type": "pointermove",
+      "timestamp": 103002,
+      "sessionTime": 102894.5,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 288.3203125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar.text",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8n3_22_7wqhze",
+      "type": "pointermove",
+      "timestamp": 103018.70000000019,
+      "sessionTime": 102911.20000000019,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 294.3203125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar.text",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8nn_23_zkzbkq",
+      "type": "pointermove",
+      "timestamp": 103038.70000000019,
+      "sessionTime": 102931.20000000019,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 300.3203125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8o3_24_fjhi5f",
+      "type": "pointermove",
+      "timestamp": 103054.20000000019,
+      "sessionTime": 102946.70000000019,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 305.1328125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8ok_25_e43oi1",
+      "type": "pointermove",
+      "timestamp": 103071.80000000075,
+      "sessionTime": 102964.30000000075,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 307.4375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8p0_26_hdgijf",
+      "type": "pointermove",
+      "timestamp": 103087.80000000075,
+      "sessionTime": 102980.30000000075,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 308.265625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8pg_27_nvxnbz",
+      "type": "pointermove",
+      "timestamp": 103103.20000000019,
+      "sessionTime": 102995.70000000019,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 308.5234375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8qs_28_78yt1e",
+      "type": "pointermove",
+      "timestamp": 103151.60000000056,
+      "sessionTime": 103044.10000000056,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 308.7578125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8sn_29_za4kgf",
+      "type": "pointermove",
+      "timestamp": 103218.5,
+      "sessionTime": 103111,
+      "fields": {
+        "clientX": 403.2109375,
+        "clientY": 308.984375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8t6_30_3q2lji",
+      "type": "pointermove",
+      "timestamp": 103237.20000000019,
+      "sessionTime": 103129.70000000019,
+      "fields": {
+        "clientX": 402.6015625,
+        "clientY": 310.75,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8tm_31_ihigh6",
+      "type": "pointermove",
+      "timestamp": 103254,
+      "sessionTime": 103146.5,
+      "fields": {
+        "clientX": 401.6328125,
+        "clientY": 313.0546875,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj8u3_32_33gu1p",
+      "type": "pointermove",
+      "timestamp": 103270.60000000056,
+      "sessionTime": 103163.10000000056,
+      "fields": {
+        "clientX": 401,
+        "clientY": 314.9296875,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj96s_33_ted4p1",
+      "type": "resize",
+      "timestamp": 103727.5,
+      "sessionTime": 103620,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 311
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj97g_34_62qpxc",
+      "type": "resize",
+      "timestamp": 103751.5,
+      "sessionTime": 103644,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 290
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj97w_35_dslq7v",
+      "type": "resize",
+      "timestamp": 103768,
+      "sessionTime": 103660.5,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 249
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj98d_36_t3rs9i",
+      "type": "resize",
+      "timestamp": 103784.70000000019,
+      "sessionTime": 103677.20000000019,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 192
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj98u_37_3h8stb",
+      "type": "resize",
+      "timestamp": 103801.30000000075,
+      "sessionTime": 103693.80000000075,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 122
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj99b_38_blve4a",
+      "type": "resize",
+      "timestamp": 103818.10000000056,
+      "sessionTime": 103710.60000000056,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 59
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj99r_39_1l9hr6",
+      "type": "resize",
+      "timestamp": 103834.40000000037,
+      "sessionTime": 103726.90000000037,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 15
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj9aw_40_3c8f0d",
+      "type": "resize",
+      "timestamp": 103875.20000000019,
+      "sessionTime": 103767.70000000019,
+      "fields": {
+        "innerWidth": 766,
+        "innerHeight": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morrj9b2_41_t90e6c",
+      "type": "visibilitychange",
+      "timestamp": 103881.30000000075,
+      "sessionTime": 103773.80000000075,
+      "fields": {
+        "visibilityState": "visible"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morsde9x_42_qi48k2",
+      "type": "visibilitychange",
+      "timestamp": 1509997.3000000007,
+      "sessionTime": 1509889.8000000007,
+      "fields": {
+        "visibilityState": "visible"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morsdo80_43_tkv6hr",
+      "type": "resize",
+      "timestamp": 1522887.6000000006,
+      "sessionTime": 1522780.1000000006,
+      "fields": {
+        "innerWidth": 1066,
+        "innerHeight": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_morsdo8n_44_kf7xhp",
+      "type": "visibilitychange",
+      "timestamp": 1522911.1000000006,
+      "sessionTime": 1522803.6000000006,
+      "fields": {
+        "visibilityState": "visible"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    }
+  ],
+  "semantic": [
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_morrh18a_3_hm3hva",
+      "eventId": "sem_morrh18g_4_ba7lv6",
+      "timestamp": 107.6000000005588,
+      "pageId": "page_morrh18a_1_vetn0k",
+      "rawEventIdRange": null,
+      "name": "session_start",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/2.5.17 Chrome/142.0.7444.265 Electron/39.3.0 Safari/537.36",
+      "viewport": {
+        "width": 766,
+        "height": 316
+      }
+    }
+  ],
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_morrh18a_3_hm3hva",
+    "capturedAt": 1777934640686,
+    "activePageId": "page_morrh18a_1_vetn0k",
+    "summary": {
+      "semanticEventCount": 1,
+      "shapeCounts": {}
+    },
+    "document": {
+      "id": "doc_morrh18a_2_c8t8t3",
+      "schemaVersion": 1,
+      "pages": [
+        {
+          "id": "page_morrh18a_1_vetn0k",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "children": [],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          },
+          "prototypeFlows": []
+        }
+      ]
+    }
+  }
+}

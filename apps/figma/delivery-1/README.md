@@ -1,44 +1,119 @@
 # Delivery 1 — Figma CUA Eval (50 tasks)
 
-Per-task package: each `task_NN/` folder contains the prompt and the
-verifier script as separate files. When you run a verifier with
-`test-verifier/run.py`, the result is auto-routed back into the
-matching `task_NN/output/<timestamp>/` folder.
+Preferred customer handoff (no source checkout): see [RUNTIME_ONLY_DELIVERY.md](RUNTIME_ONLY_DELIVERY.md).
 
-```
-task_NN/
-  prompt.md           — difficulty, thorough, simplified, step-by-step
-  verifier.py         — copy of test-verifier/tasks/task_NN_*.py
-  output/             — created on first run
-    <timestamp>/
-      log.json        — copy of the agent's session log
-      reward.txt      — single line: final_score
-      result.json     — full rubric breakdown + efficiency
-```
+This folder is the task delivery root. Each `task_NN/` contains:
 
-## Running a verifier
+- `prompt.md` (task instructions)
+- `verifier.py` (task scoring logic)
+- `output/<timestamp>/` (written by scoring scripts)
 
-`run.py` accepts the full module name (`task_01_house_task_comprehensive`),
-a short prefix (`task_01`), or just a number (`01` or `1`).
+Use this file as the runbook for local testing, Docker testing, and verifier execution.
+
+## Quick start (Docker, recommended)
+
+From `apps/figma/`:
 
 ```bash
-# Score an existing agent log
-cd test-verifier
-PYTHONPATH=. python3 run.py --task 01 --log logs/<your-log>.json
-# → writes delivery-1/task_01/output/<timestamp>/{log,result}.json + reward.txt
-
-# Generate the log + run the verifier in one shot (test-app dev mode)
-cd test-app && npm run dev      # http://localhost:5173
-# (do the task in the browser, then:)
-python3 scripts/run_task.py --task task_01_house_task_comprehensive
-
-# Smoke-test every verifier against synthetic perfect/empty logs
-cd test-verifier
-PYTHONPATH=. python3 qa_verifiers.py
+docker compose up -d --build mock
+docker compose build verifier --no-cache
 ```
 
-The `<module_name>` column in the index below matches the filename in
-`test-verifier/tasks/`; you can pass any of the accepted forms.
+Open the app at:
+
+- `http://127.0.0.1:5173`
+
+Use `127.0.0.1` intentionally. `localhost` can hit a different local Vite process if one is running.
+
+## Verify logging is live
+
+Before running a task score, verify the mock relay is receiving browser logs:
+
+```bash
+docker compose exec mock sh -lc "wget -qO- http://127.0.0.1:5173/dev-log/status; echo"
+```
+
+Expected after at least one canvas action:
+
+- `postCount > 0`
+- `hasLog = true`
+
+If `postCount = 0`, the verifier will force a zero score because no session log reached this mock instance.
+
+## Run end-to-end scoring (live app session)
+
+```bash
+docker compose run --rm verifier python3 scripts/run_task.py --host mock task_01
+```
+
+For concurrent rollouts, bind scoring to a specific session id:
+
+```bash
+docker compose run --rm verifier \
+  python3 scripts/run_task.py --host mock --session-id <session_uuid> task_01
+```
+
+Use `dev-log/status` to inspect `lastSessionId` and per-session availability.
+
+Accepted task forms:
+
+- `task_01`
+- `01`
+- `1`
+
+Outputs:
+
+- `scripts/logs/<task>_<timestamp>.json`
+- `scripts/scores/<task>_<timestamp>.json`
+- `delivery-1/task_01/output/<timestamp>/{log.json,reward.txt,result.json}`
+
+## Score an existing log file
+
+```bash
+docker compose run --rm verifier \
+  python3 scripts/score_log.py --task 01 --log scripts/logs/<your-log>.json
+```
+
+## Local (non-Docker) run
+
+```bash
+cd apps/figma/mock
+npm install
+npm run dev
+
+cd ..
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python scripts/run_task.py task_01
+```
+
+## Verifier test sweep
+
+Run synthetic QA over all task verifiers:
+
+```bash
+docker compose run --rm verifier python3 scripts/qa_verifiers.py
+```
+
+## Common failure modes
+
+`No session log available at http://mock:5173/dev-log`:
+
+- Run `dev-log/status` command above.
+- If `postCount=0`, your browser actions are not hitting this Docker mock process.
+- Make sure no host Vite server is also bound to port `5173`:
+
+```bash
+lsof -iTCP:5173 -sTCP:LISTEN -n -P
+pkill -f "apps/figma/mock/node_modules/.bin/vite" || true
+```
+
+Then reload `http://127.0.0.1:5173`, interact once, wait ~0.5s, and rerun scoring.
+
+For full packaging and customer handoff details, see [`DOCKER_DELIVERY.md`](DOCKER_DELIVERY.md).
+
+The `<module_name>` column in the index below matches the task verifier id in
+`delivery-1/task_NN/verifier.py`; you can pass `task_NN` or numeric forms.
 
 ## Index
 
@@ -63,14 +138,14 @@ The `<module_name>` column in the index below matches the filename in
 | 17 | Easy | 10 min | [Build an hourglass: 2 triangles point-to-point + 2 horizontal cap rectangles.](task_17/prompt.md) | `task_17_play_button` |
 | 18 | Easy | 8 min | [Draw an eye icon: 3 nested ellipses (sclera, iris, pupil) sharing a center.](task_18/prompt.md) | `task_18_donut` |
 | 19 | Easy | 15 min | [Build a padlock with a rectangle body, a pen-tool U-shackle, and a keyhole.](task_19/prompt.md) | `task_19_padlock` |
-| 20 | Easy | 10 min | [Draw 2 overlapping bright-colored circles inside a dark navy frame.](task_20/prompt.md) | `task_20_glow_blob` |
+| 20 | Easy | 10 min | [Draw 2 overlapping circles inside a dark navy frame.](task_20/prompt.md) | `task_20_glow_blob` |
 | 21 | Easy | 10 min | [Stack 3 same-size rectangles vertically, different colors, aligned on x.](task_21/prompt.md) | `task_21_button_stack` |
 | 22 | Easy | 10 min | [Draw 4 same-size pill rectangles in a horizontal row with different pastel fills.](task_22/prompt.md) | `task_22_tag_pills` |
 | 23 | Easy | 8 min | [Draw a left sidebar rectangle inside an outer frame.](task_23/prompt.md) | `task_23_stretchy_sidebar` |
 | 24 | Easy | 10 min | [Draw a centered modal rectangle inside an outer frame using align tool.](task_24/prompt.md) | `task_24_centered_modal` |
 | 25 | Easy | 8 min | [Draw 3 identical rectangles in a horizontal row with consistent spacing.](task_25/prompt.md) | `task_25_button_component` |
 | 26 | Easy | 10 min | [Draw 5 same-size squares in a row with brand colors.](task_26/prompt.md) | `task_26_color_variable_card` |
-| 27 | Easy | 12 min | [Draw 3 same-size squares centered together, rotated to different angles.](task_27/prompt.md) | `task_27_neumorphic_button` |
+| 27 | Easy | 12 min | [Neumorphic pressed-button rectangle.](task_27/prompt.md) | `task_27_neumorphic_button` |
 | 28 | Easy | 8 min | [Draw a photo-placeholder rectangle with two diagonal lines forming an X.](task_28/prompt.md) | `task_28_edited_photo` |
 | 29 | Easy | 10 min | [Draw a 2x2 polka dot grid using Tidy up to align 4 circles.](task_29/prompt.md) | `task_29_polka_dot_grid` |
 | 30 | Easy | 10 min | [Draw 6 alternating vertical stripes filling a 600x600 frame.](task_30/prompt.md) | `task_30_stripe_wallpaper` |

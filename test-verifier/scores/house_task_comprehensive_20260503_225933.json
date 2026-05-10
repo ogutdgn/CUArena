@@ -1,0 +1,194 @@
+{
+  "task_id": "house_task_comprehensive",
+  "log_path": "/Users/cumhuraygar/Desktop/avenStudio/CUA/figma-mock/test-verifier/logs/task_01_house_task_comprehensive_20260503_225932.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle: expected 2, got 2"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse: expected 2, got 2"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon: expected 1, got 1"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse aligned on center_y: max diff 0.0px (tolerance 8.0px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse same size (50\u00d750)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse symmetric on X: max deviation 0.0px (tolerance 15.0px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon.bottom (261px) \u2248 rectangle.top (253px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle bounds fit inside rectangle"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse overlaps rectangle"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "frame matches 1280\u00d7832"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle has solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon has solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse has solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "distinct solid colors: expected \u22654, got 4"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle found inside a frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon found inside a frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse found inside a frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "frame has \u22655 children"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.1667,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'rectangle': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'ellipse': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'polygon': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_rectangle': expected 2, got 2"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "event 'create_ellipse': expected 2, got 1"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_polygon': expected 1, got 1"
+        }
+      ]
+    }
+  ],
+  "base_score": 0.9667,
+  "efficiency": {
+    "multiplier": 0.5053,
+    "actual_turns": 121,
+    "target_turns": 30,
+    "lambda_used": 0.05,
+    "message": "121 turns used, target 30, \u03bb=0.05 \u2192 multiplier 0.5053"
+  },
+  "final_score": 0.4885
+}

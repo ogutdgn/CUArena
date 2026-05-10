@@ -59,7 +59,8 @@ PASS_LOGS = [
     ("perfect_other_size",perfect_other_size()),
 ]
 FAIL_LOGS = [
-    ("no_stroke",            fail_no_stroke(),            ["No ellipse with a stroke"]),
-    ("thin_stroke",          fail_thin_stroke(),          ["stroke weight"]),
-    ("wrong_stroke_color",   fail_wrong_stroke_color(),   ["No ellipse with stroke color"]),
+    ("no_stroke",                fail_no_stroke(),                ["No ellipse with a stroke"]),
+    ("thin_stroke",              fail_thin_stroke(),              ["stroke weight"]),
+    ("wrong_stroke_color",       fail_wrong_stroke_color(),       ["No ellipse with stroke color"]),
+    ("status_overlaps_center",   fail_status_overlaps_center(),   ["from largest"]),
 ]

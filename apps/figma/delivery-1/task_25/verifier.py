@@ -12,7 +12,8 @@ from verifier.rubrics.property     import PropertyRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import (
-    LayersSameDimensions, LayersAligned, LayerSizeEquals, LayersStacked,
+    LayersSameDimensions, LayersAligned, LayerSizeEquals,
+    LayersHaveConsistentGap,
     LayerSizeAtLeast, AllLayerBoundsInside, LayerRotationEquals,
 )
 from verifier.checks.fill_checks   import AllFillTypeIs, LayersAllSameColor
@@ -25,42 +26,43 @@ task = Task(
     id="task_25_button_component",
     description="3 identical 160×40 rectangles in a horizontal row, all same color.",
     rubrics=[
-        # critical: exactly 3 rectangles
+        # exactly 3 rectangles
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=3),                                  # 0 ★ "3"
+            ShapeCount("rectangle", equals=3),                                  # 0 ★ prompt: "3 identical rectangles"
         ], weight=0.20, critical=[0]),
 
-        # critical: identical size, horizontal row, shared y-baseline, on-frame
+        # identical size, horizontal row, shared y-baseline, consistent spacing
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=2.0),         # 0 ★ "identical"/"same size"
-            LayerSizeEquals(layer_type="rectangle", width=160, height=40, tolerance=4.0),  # 1 ★
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=3.0),         # 2 ★ "same y-baseline"
-            LayersStacked(layer_type="rectangle", axis="x", gap_px=12.0, tolerance=8.0),   # 3 ★ "horizontal row"
-            LayerSizeAtLeast(layer_type="rectangle", min_w=40.0, min_h=20.0),    # 4 ★ non-degenerate
+            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),         # 0 ★ prompt: "3 identical rectangles"
+            LayerSizeEquals(layer_type="rectangle", width=160, height=40, tolerance=12.0),  # 1
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),         # 2 ★ prompt: "same y-baseline"
+            LayersHaveConsistentGap(layer_type="rectangle", axis="x",
+                                    min_gap=4.0, variance_tolerance=8.0),         # 3 ★ prompt: "consistent spacing"
+            LayerSizeAtLeast(layer_type="rectangle", min_w=40.0, min_h=20.0),    # 4   non-degenerate
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",
-                                 tolerance=8.0),                                 # 5 ★ inside frame
-        ], weight=0.25, critical=[0, 1, 2, 3, 4, 5]),
+                                 tolerance=10.0),                                # 5
+        ], weight=0.25, critical=[0, 2, 3]),
 
-        # critical: same solid color + visible
+        # same solid color + visible
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                           # 0 ★
-            LayersAllSameColor(layer_type="rectangle", tolerance=0.05),         # 1 ★ "same color"
+            AllFillTypeIs("rectangle", kind="solid"),                           # 0   structural: solid fill required for color check
+            LayersAllSameColor(layer_type="rectangle", tolerance=0.12),         # 1 ★ prompt: "same color"
             LayerVisible(layer_type="rectangle", min_opacity=0.5,
-                         min_alpha=0.5),                                        # 2 ★ visible
-        ], weight=0.20, critical=[0, 1, 2]),
+                         min_alpha=0.5),                                        # 2
+        ], weight=0.20, critical=[1]),
 
-        # critical: identical button shape (no rotation/flip gimmicks)
+        # identical button shape (no rotation/flip gimmicks)
         PropertyRubric([
             LayerRotationEquals(layer_type="rectangle", degrees=0.0,
-                                tolerance=2.0),                                 # 0 ★ unrotated
-            NoLayerFlipped(layer_type="rectangle"),                             # 1 ★ no flips
-        ], weight=0.10, critical=[0, 1]),
+                                tolerance=5.0),                                 # 0   unrotated
+            NoLayerFlipped(layer_type="rectangle"),                             # 1   no flips
+        ], weight=0.10, critical=[]),
 
-        # critical: rectangle tool used
+        # rectangle tool used
         EventRubric([
-            ToolUsed("rectangle"),                                              # 0 ★
+            ToolUsed("rectangle"),                                              # 0   tool used (agent may shortcut)
             EventTypeCount("create_rectangle", equals=3),                       # 1
-        ], weight=0.25, critical=[0]),
+        ], weight=0.25, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=15),
 )

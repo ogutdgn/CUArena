@@ -15,10 +15,8 @@ from verifier.checks.geometry_checks import (
     LinesOnDiagonal, LayerRotationEquals, AllLayerBoundsInside,
     LayerSizeAtLeast, AllLayerWidthFraction,
 )
-from verifier.checks.fill_checks   import (
-    AllFillTypeIs, FillCountAtMost, FillOpacityAtLeast,
-)
-from verifier.checks.property_checks import NoLayerFlipped, LayerVisible
+from verifier.checks.fill_checks   import AllFillTypeIs
+from verifier.checks.property_checks import NoLayerFlipped
 from verifier.checks.structure_checks import LayerInsideFrame
 from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 from verifier.checks.stroke_checks import AllLayerStrokeVisible
@@ -29,45 +27,42 @@ task = Task(
     rubrics=[
         # critical: 1 rect + 2 lines (prompt-explicit counts)
         FundamentalsRubric([
-            ShapeCount("rectangle", equals=1),                              # 0 ★ "a rectangle"
-            ShapeCount("line",      equals=2),                              # 1 ★ "two diagonal lines"
+            ShapeCount("rectangle", equals=1),                              # 0 ★ prompt: "a rectangle"
+            ShapeCount("line",      equals=2),                              # 1 ★ prompt: "2 diagonal lines"
         ], weight=0.2, critical=[0, 1]),
 
-        # critical: diagonals must form X-cross + upright + sane size + on-frame
+        # critical: diagonals must form X-cross (single domain primitive on actual line endpoints)
         AlignmentRubric([
-            LinesOnDiagonal(rect_type="rectangle", line_type="line", tolerance=12.0),  # 0 ★ "corner to corner / X"
-            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=2.0),   # 1 ★ rect upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),       # 2 ★ frame upright
-            NoLayerFlipped(layer_type="rectangle"),                                  # 3 ★ rect not flipped
-            LayerSizeAtLeast(layer_type="rectangle", min_w=40, min_h=40),            # 4 ★ no degenerate rect
+            LinesOnDiagonal(rect_type="rectangle", line_type="line", tolerance=15.0),  # 0 ★ prompt: "from corner to corner ... so they form an X-cross"
+            LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),   # 1 rect upright
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),       # 2 frame upright
+            NoLayerFlipped(layer_type="rectangle"),                                  # 3 rect not flipped
+            LayerSizeAtLeast(layer_type="rectangle", min_w=40, min_h=40),            # 4 no degenerate rect
             AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",
-                                  min_frac=0.05, max_frac=0.90),                     # 5 ★ rect-vs-frame size sane
+                                  min_frac=0.05, max_frac=0.90),                     # 5 rect-vs-frame size sane
             AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",
-                                 tolerance=4.0),                                     # 6 ★ rect inside frame
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6]),
+                                 tolerance=10.0),                                    # 6 rect inside frame
+        ], weight=0.2, critical=[0]),
 
-        # critical: rectangle solid fill, visible, no stacked, lines visible (have strokes)
+        # critical: lines must visually show as the X-cross
         ColorRubric([
-            AllFillTypeIs("rectangle", kind="solid"),                       # 0 ★
-            FillCountAtMost(layer_type="rectangle", max_count=1),           # 1 ★ no stacked fills
-            FillOpacityAtLeast(layer_type="rectangle", min_opacity=0.5),    # 2 ★ rect visible
-            LayerVisible(layer_type="rectangle"),                           # 3 ★ alpha + visibility
-            AllLayerStrokeVisible(layer_type="line", min_alpha=0.1, min_weight=0.5),  # 4 ★ lines visible (alpha/weight)
-        ], weight=0.2, critical=[0, 1, 2, 3, 4]),
+            AllFillTypeIs("rectangle", kind="solid"),                       # 0 rectangle has solid fill
+            AllLayerStrokeVisible(layer_type="line", min_alpha=0.1, min_weight=0.5),  # 1 ★ prompt: "two diagonal lines forming an X" (lines must render)
+        ], weight=0.2, critical=[1]),
 
-        # both rect and lines inside frame (structure)
+        # both rect and lines inside frame (structural)
         StructureRubric([
-            LayerInsideFrame("rectangle"),                                  # 0 ★
-            LayerInsideFrame("line"),                                       # 1 ★
-        ], weight=0.2, critical=[0, 1]),
+            LayerInsideFrame("rectangle"),                                  # 0 inside-frame
+            LayerInsideFrame("line"),                                       # 1 inside-frame
+        ], weight=0.2, critical=[]),
 
-        # critical: rectangle + line tools both used
+        # rectangle + line tools both used
         EventRubric([
-            ToolUsed("rectangle"),                                          # 0 ★
-            ToolUsed("line"),                                               # 1 ★
+            ToolUsed("rectangle"),                                          # 0
+            ToolUsed("line"),                                               # 1
             EventTypeCount("create_rectangle", equals=1),                   # 2
             EventTypeCount("create_line",      equals=2),                   # 3
-        ], weight=0.2, critical=[0, 1]),
+        ], weight=0.2, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=15),
 )

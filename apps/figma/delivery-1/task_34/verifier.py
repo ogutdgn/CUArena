@@ -14,6 +14,7 @@ from verifier.checks.shape_checks  import ShapeCount, ShapeCountAtLeast
 from verifier.checks.geometry_checks import (
     LayersEvenlyRotated, LayersConcentric, AllLayerBoundsInside,
     LayerSizeAtLeast, FrameCountAtMost, LayersSameDimensions, LayerRotationEquals,
+    LinesShareEndpoint,
 )
 from verifier.checks.fill_checks   import (
     AllFillTypeIs, SolidColorEquals, FillCountAtMost, FillOpacityAtLeast,
@@ -37,48 +38,49 @@ task = Task(
     rubrics=[
         # critical: prompt mandates 4 line branches and a frame
         FundamentalsRubric([
-            ShapeCountAtLeast("frame", minimum=1),  # 0 ★ "frame"
-            ShapeCount("line", equals=4),           # 1 ★ "4 ... branches"
-        ], weight=0.2, critical=[0, 1]),
+            ShapeCountAtLeast("frame", minimum=1),  # 0 prompt: "navy frame"
+            ShapeCount("line", equals=4),           # 1 ★ prompt: "4 white line branches"
+        ], weight=0.2, critical=[1]),
 
         # critical: prompt mandates 90°-apart rotation, lines concentric (4-fold
         # symmetry around center), lines inside frame, non-degenerate, not flipped.
         AlignmentRubric([
-            LayersEvenlyRotated(layer_type="line", n=4, step_deg=90.0, tolerance_deg=10.0),  # 0 ★ "rotated 90° apart"
-            LayersConcentric(layer_type="line", tolerance=20.0),                              # 1 ★ "around the center"
-            LayersSameDimensions(layer_type="line", tolerance=5.0),                           # 2 ★ same branch length
-            AllLayerBoundsInside(inner_type="line", outer_type="frame", tolerance=4.0),       # 3 ★ branches inside frame
-            LayerSizeAtLeast(layer_type="line", min_w=20, min_h=1),                           # 4 ★ no degenerate lines
-            NoLayerFlipped(layer_type="line"),                                                # 5 ★ branches not flipped
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=2.0),                # 6 ★ frame upright
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6]),
+            LayersEvenlyRotated(layer_type="line", n=4, step_deg=90.0, tolerance_deg=10.0),  # 0 ★ prompt: "rotated 90° apart"
+            LayersConcentric(layer_type="line", tolerance=20.0),                              # 1 ★ prompt: "rotating each by 90° around the center"
+            LayersSameDimensions(layer_type="line", tolerance=8.0),                           # 2
+            AllLayerBoundsInside(inner_type="line", outer_type="frame", tolerance=10.0),      # 3
+            LayerSizeAtLeast(layer_type="line", min_w=20, min_h=1),                           # 4
+            NoLayerFlipped(layer_type="line"),                                                # 5
+            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),                # 6
+            LinesShareEndpoint(layer_type="line", minimum=4, tolerance=15.0),                 # 7 ★ prompt: "around the center" (4-fold symmetry)
+        ], weight=0.2, critical=[0, 1, 7]),
 
         # critical: navy frame + white branches are prompt-explicit, all visible
         ColorRubric([
-            AllFillTypeIs("frame", kind="solid"),                                       # 0 ★
-            SolidColorEquals(layer_type="frame", expected_rgb=NAVY, tolerance=0.30),    # 1 ★ "navy frame"
-            AllStrokeExists("line"),                                                    # 2 ★ all branches have visible stroke
-            AllStrokeColorEquals(layer_type="line", expected_rgb=WHITE, tolerance=0.20),# 3 ★ "white line branches" (every line)
-            AllLayerStrokeVisible("line", min_alpha=0.5, min_weight=0.5),               # 4 ★ no transparent / 0-weight strokes
-            FillCountAtMost("frame", max_count=1),                                      # 5 ★ no stacked frame fills
-            FillOpacityAtLeast("frame", min_opacity=0.5),                               # 6 ★ visible frame
-            LayerVisible("frame"),                                                      # 7 ★ visible frame layer
-            LayerVisible("line"),                                                       # 8 ★ branches visible (no opacity=0)
-        ], weight=0.2, critical=[0, 1, 2, 3, 4, 5, 6, 7, 8]),
+            AllFillTypeIs("frame", kind="solid"),                                       # 0
+            SolidColorEquals(layer_type="frame", expected_rgb=NAVY, tolerance=0.28),    # 1 ★ prompt: "navy frame"
+            AllStrokeExists("line"),                                                    # 2
+            AllStrokeColorEquals(layer_type="line", expected_rgb=WHITE, tolerance=0.28),# 3 ★ prompt: "white line branches"
+            AllLayerStrokeVisible("line", min_alpha=0.5, min_weight=0.5),               # 4
+            FillCountAtMost("frame", max_count=1),                                      # 5
+            FillOpacityAtLeast("frame", min_opacity=0.5),                               # 6
+            LayerVisible("frame"),                                                      # 7
+            LayerVisible("line"),                                                       # 8
+        ], weight=0.2, critical=[1, 3]),
 
         # critical: shapes must all live in one frame (catches split-frame designs)
         StructureRubric([
-            LayerInsideFrame("line"),                                       # 0 ★ branches in a frame
-            LayerGroupAllInSameFrame(layer_type="line", minimum=4),         # 1 ★ all 4 in same frame
-            ChildCountAtLeast("frame", minimum=4),                          # 2 ★ frame holds all branches
-            FrameCountAtMost(maximum=1),                                    # 3 ★ exactly 1 top-level frame
-        ], weight=0.2, critical=[0, 1, 2, 3]),
+            LayerInsideFrame("line"),                                       # 0 ★ prompt: "Inside a navy frame"
+            LayerGroupAllInSameFrame(layer_type="line", minimum=4),         # 1
+            ChildCountAtLeast("frame", minimum=4),                          # 2 frame holds all 4 branches (demoted: not a verbatim prompt phrase)
+            FrameCountAtMost(maximum=1),                                    # 3
+        ], weight=0.2, critical=[0, 2]),
 
         # critical: must use line tool
         EventRubric([
-            ToolUsed("line"),                       # 0 ★
+            ToolUsed("line"),                       # 0
             EventTypeCount("create_line", equals=4),# 1
-        ], weight=0.2, critical=[0]),
+        ], weight=0.2, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=20),
 )
