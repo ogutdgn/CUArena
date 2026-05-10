@@ -11,9 +11,5 @@ apps/figma/scripts/logs/*.json
 !apps/figma/scripts/logs/house_sample.json
 apps/figma/scripts/scores/*.json
 !apps/figma/scripts/scores/.gitkeep
-
-# Local-only working notes — never committed.
-SESSION_HANDOFF.md
-UI_FIXES.md
 apps/figma/cua-eval/.env
 apps/figma/cua-eval/runs/
