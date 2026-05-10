@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { Section } from "./sectionShell";
 import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
@@ -20,17 +18,6 @@ export function LayoutSection() {
   const ref = layers[0];
   const wVal: number | "Mixed" = layers.every((l) => l.w === ref.w) ? ref.w : "Mixed";
   const hVal: number | "Mixed" = layers.every((l) => l.h === ref.h) ? ref.h : "Mixed";
-  const singleFrame = layers.length === 1 && layers[0].type === "frame";
-  const matchedPreset = singleFrame ? findFramePresetBySize(layers[0].w, layers[0].h) : null;
-
-  useEffect(() => {
-    if (!presetOpen) return;
-    function onDoc(e: MouseEvent) {
-      if (!presetRef.current?.contains(e.target as Node)) setPresetOpen(false);
-    }
-    document.addEventListener("mousedown", onDoc, true);
-    return () => document.removeEventListener("mousedown", onDoc, true);
-  }, [presetOpen]);
 
   function commitW(v: number) {
     setTransformField("w", v);
