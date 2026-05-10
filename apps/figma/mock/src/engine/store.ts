@@ -92,6 +92,7 @@ export interface AppState {
   uiHidden: boolean;
 
   activeRightTab: "design" | "prototype";
+  aspectRatioLocked: boolean;
   prototypePreview: { pos: { x: number; y: number }; flowIndex: number } | null;
 
   undoStack: UndoEntry[];
@@ -175,6 +176,7 @@ const initialState: AppState = {
   uiHidden: false,
 
   activeRightTab: "design",
+  aspectRatioLocked: false,
   prototypePreview: null,
 
   undoStack: [],

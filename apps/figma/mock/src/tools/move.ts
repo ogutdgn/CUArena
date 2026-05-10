@@ -1287,8 +1287,9 @@ function applyHandleResize(
     if (east && !west) { w += dx; }
   }
 
-  // Shift = preserve aspect ratio of the original bbox
-  if (shift && start.w > 0 && start.h > 0) {
+  // Shift or aspect-ratio lock = preserve aspect ratio of the original bbox
+  const preserveAspect = shift || useStore.getState().aspectRatioLocked;
+  if (preserveAspect && start.w > 0 && start.h > 0) {
     const aspect = start.w / start.h;
     if (north || south) {
       const targetW = h * aspect;

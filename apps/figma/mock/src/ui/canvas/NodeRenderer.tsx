@@ -46,14 +46,33 @@ function colorToCss(c: { r: number; g: number; b: number; a: number }): string {
   return `rgba(${Math.round(c.r * 255)}, ${Math.round(c.g * 255)}, ${Math.round(c.b * 255)}, ${c.a})`;
 }
 
+// Composites all visible fills using Porter-Duff "source over". Figma stores
+// fills top-down (index 0 is on top), so we walk bottom-up and composite each
+// upper fill over the accumulator. Per-fill alpha controls how much each layer
+// shows through, so reducing the top fill's alpha reveals lower fills.
 function paintToFill(fills: Paint[] | undefined): string {
-  if (!fills) return "transparent";
-  for (const p of fills) {
+  if (!fills || fills.length === 0) return "transparent";
+  let r = 0, g = 0, b = 0, a = 0;
+  for (let i = fills.length - 1; i >= 0; i--) {
+    const p = fills[i];
     if (!p.visible) continue;
-    if (p.kind === "solid") return colorToCss(p.color);
-    if (p.kind === "image") return "rgba(180,180,180,1)";
+    let sr: number, sg: number, sb: number, sa: number;
+    if (p.kind === "solid") {
+      sr = p.color.r; sg = p.color.g; sb = p.color.b; sa = p.color.a;
+    } else if (p.kind === "image") {
+      sr = 180 / 255; sg = 180 / 255; sb = 180 / 255; sa = 1;
+    } else {
+      continue;
+    }
+    const outA = sa + a * (1 - sa);
+    if (outA <= 0) { r = 0; g = 0; b = 0; a = 0; continue; }
+    r = (sr * sa + r * a * (1 - sa)) / outA;
+    g = (sg * sa + g * a * (1 - sa)) / outA;
+    b = (sb * sa + b * a * (1 - sa)) / outA;
+    a = outA;
   }
-  return "transparent";
+  if (a <= 0) return "transparent";
+  return `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
 }
 
 function effectsToFilter(effects: Effect[] | undefined, layerId: string): { filter: string; defs: React.ReactNode } | null {
@@ -108,35 +127,64 @@ function effectsToFilter(effects: Effect[] | undefined, layerId: string): { filt
 
 function strokeAttrs(strokes: Stroke[] | undefined): { stroke: string; strokeWidth: number; strokeDasharray?: string } {
   if (!strokes || strokes.length === 0) return { stroke: "none", strokeWidth: 0 };
-  for (const s of strokes) {
-    if (!s.paint.visible) continue;
-    if (s.paint.kind !== "solid") continue;
-    return {
-      stroke: colorToCss(s.paint.color),
-      strokeWidth: s.weight,
-      strokeDasharray: s.dash ? `${s.dash.dash} ${s.dash.gap}` : undefined,
-    };
+  // Composite stroke colors via Porter-Duff source-over (same as fills). All
+  // strokes share one weight (UI invariant), so the visual stack collapses to
+  // a single line whose color is the alpha-composited stack.
+  let r = 0, g = 0, b = 0, a = 0;
+  for (let i = strokes.length - 1; i >= 0; i--) {
+    const sk = strokes[i];
+    if (!sk.paint.visible) continue;
+    if (sk.paint.kind !== "solid") continue;
+    const sr = sk.paint.color.r, sg = sk.paint.color.g, sb = sk.paint.color.b, sa = sk.paint.color.a;
+    const outA = sa + a * (1 - sa);
+    if (outA <= 0) { r = 0; g = 0; b = 0; a = 0; continue; }
+    r = (sr * sa + r * a * (1 - sa)) / outA;
+    g = (sg * sa + g * a * (1 - sa)) / outA;
+    b = (sb * sa + b * a * (1 - sa)) / outA;
+    a = outA;
   }
-  return { stroke: "none", strokeWidth: 0 };
+  if (a <= 0) return { stroke: "none", strokeWidth: 0 };
+  const top = strokes[0];
+  return {
+    stroke: `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`,
+    strokeWidth: top.weight,
+    strokeDasharray: top.dash ? `${top.dash.dash} ${top.dash.gap}` : undefined,
+  };
+}
+
+// Builds an SVG path for a rectangle whose corners may have different radii.
+// Corner order: [topLeft, topRight, bottomRight, bottomLeft]. Each is clamped
+// to half of the smaller dimension. Returns a closed path.
+function rectCornerPath(w: number, h: number, cr: number | [number, number, number, number]): string {
+  const arr: [number, number, number, number] = Array.isArray(cr) ? cr : [cr, cr, cr, cr];
+  const maxR = Math.min(w, h) / 2;
+  const [tl, tr, br, bl] = arr.map((v) => Math.max(0, Math.min(v, maxR))) as [number, number, number, number];
+  return [
+    `M${tl},0`,
+    `H${w - tr}`,
+    tr > 0 ? `A${tr},${tr} 0 0 1 ${w},${tr}` : `L${w},0`,
+    `V${h - br}`,
+    br > 0 ? `A${br},${br} 0 0 1 ${w - br},${h}` : `L${w},${h}`,
+    `H${bl}`,
+    bl > 0 ? `A${bl},${bl} 0 0 1 0,${h - bl}` : `L0,${h}`,
+    `V${tl}`,
+    tl > 0 ? `A${tl},${tl} 0 0 1 ${tl},0` : `L0,0`,
+    `Z`,
+  ].join(" ");
 }
 
 function RectangleEl({ layer }: { layer: Extract<Layer, { type: "rectangle" | "image" }> }) {
   const fills = "fills" in layer ? layer.fills : undefined;
   const strokes = "strokes" in layer ? layer.strokes : undefined;
   const cr = "cornerRadius" in layer ? layer.cornerRadius : 0;
-  const rx = typeof cr === "number" ? cr : 0;
   const sa = strokeAttrs(strokes);
   const eff = effectsToFilter(layer.effects, layer.id);
+  const d = rectCornerPath(layer.w, layer.h, cr);
   return (
     <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>
       {eff?.defs}
-      <rect
-        x={0}
-        y={0}
-        width={layer.w}
-        height={layer.h}
-        rx={rx}
-        ry={rx}
+      <path
+        d={d}
         fill={paintToFill(fills)}
         stroke={sa.stroke}
         strokeWidth={sa.strokeWidth}
@@ -144,13 +192,13 @@ function RectangleEl({ layer }: { layer: Extract<Layer, { type: "rectangle" | "i
         filter={eff?.filter}
       />
       {layer.type === "image" && (
-        <ImageContent layer={layer} cornerRadius={rx} />
+        <ImageContent layer={layer} cornerPath={d} />
       )}
     </g>
   );
 }
 
-function ImageContent({ layer, cornerRadius }: { layer: Extract<Layer, { type: "image" }>; cornerRadius: number }) {
+function ImageContent({ layer, cornerPath }: { layer: Extract<Layer, { type: "image" }>; cornerPath: string }) {
   const clipId = `clip-img-${layer.id}`;
   const fit = layer.imageFill.fit;
   const src = layer.imageFill.src;
@@ -158,7 +206,7 @@ function ImageContent({ layer, cornerRadius }: { layer: Extract<Layer, { type: "
     <>
       <defs>
         <clipPath id={clipId}>
-          <rect x={0} y={0} width={layer.w} height={layer.h} rx={cornerRadius} ry={cornerRadius} />
+          <path d={cornerPath} />
         </clipPath>
       </defs>
       <g clipPath={`url(#${clipId})`}>
@@ -201,21 +249,101 @@ function EllipseEl({ layer }: { layer: Extract<Layer, { type: "ellipse" }> }) {
   );
 }
 
+// Rounds every vertex of a closed polygon. Each corner is replaced with a
+// circular arc tangent to both adjacent edges; the input `radius` is the
+// arc's circle radius (Figma semantics). The tangent length along each edge
+// is t = radius / tan(angle/2). Clamping t to half the shorter edge prevents
+// adjacent arcs from overlapping; when several vertices simultaneously hit
+// that cap (regular polygon at apothem-equivalent input), the arcs collapse
+// into a single inscribed circle — so polygons morph into circles at max
+// radius. Collinear vertices (e.g. star inner points at ratio=50%) are
+// passed through with no rounding.
+function roundedPolygonPath(points: { x: number; y: number }[], radius: number): string {
+  if (points.length < 3) return "";
+  if (radius <= 0) {
+    return "M" + points.map((p) => `${p.x},${p.y}`).join(" L") + " Z";
+  }
+  const cmds: string[] = [];
+  for (let i = 0; i < points.length; i++) {
+    const prev = points[(i - 1 + points.length) % points.length];
+    const cur = points[i];
+    const next = points[(i + 1) % points.length];
+    const vp = { x: prev.x - cur.x, y: prev.y - cur.y };
+    const vn = { x: next.x - cur.x, y: next.y - cur.y };
+    const lenP = Math.hypot(vp.x, vp.y);
+    const lenN = Math.hypot(vn.x, vn.y);
+    if (lenP === 0 || lenN === 0) continue;
+
+    // Smaller angle between the two edges meeting at cur, in [0, π].
+    const cosA = Math.max(-1, Math.min(1, (vp.x * vn.x + vp.y * vn.y) / (lenP * lenN)));
+    const angle = Math.acos(cosA);
+
+    // Collinear vertex — no rounding needed; pass through exactly.
+    if (angle < 1e-3 || Math.PI - angle < 1e-3) {
+      cmds.push((i === 0 ? "M" : "L") + `${cur.x},${cur.y}`);
+      continue;
+    }
+
+    // t is how far along each edge we move away from the vertex before the
+    // arc starts. r is the actual arc radius — equals input `radius` until
+    // t hits the half-edge cap, after which r is recomputed from the capped t.
+    const tanHalf = Math.tan(angle / 2);
+    let t = radius / tanHalf;
+    t = Math.min(t, lenP / 2, lenN / 2);
+    const r = t * tanHalf;
+
+    const Pin = { x: cur.x + (vp.x / lenP) * t, y: cur.y + (vp.y / lenP) * t };
+    const Pout = { x: cur.x + (vn.x / lenN) * t, y: cur.y + (vn.y / lenN) * t };
+
+    // Cross product (SVG y-down): convex vertex of a CW polygon → cross < 0
+    // → sweep=1 (clockwise arc bulges toward the original vertex). Concave
+    // (e.g. star inner) flips the sweep to bulge the opposite way.
+    const cross = vp.x * vn.y - vp.y * vn.x;
+    const sweep = cross < 0 ? 1 : 0;
+
+    cmds.push((i === 0 ? "M" : "L") + `${Pin.x},${Pin.y}`);
+    cmds.push(`A${r},${r} 0 0 ${sweep} ${Pout.x},${Pout.y}`);
+  }
+  cmds.push("Z");
+  return cmds.join(" ");
+}
+
 function PolygonEl({ layer }: { layer: Extract<Layer, { type: "polygon" }> }) {
   const sides = Math.max(3, layer.sides);
   const cx = layer.w / 2;
   const cy = layer.h / 2;
   const rx = layer.w / 2;
   const ry = layer.h / 2;
-  const points: string[] = [];
+  const sa = strokeAttrs(layer.strokes);
+  const cr = layer.cornerRadius ?? 0;
+
+  // Inscribed ellipse axes — at this radius, every vertex's rounding has
+  // collapsed and the polygon is geometrically equivalent to the inscribed
+  // ellipse (a circle when rx === ry). Switching to <ellipse> gives a clean
+  // single curve instead of N arcs that wouldn't align on non-regular
+  // (rx ≠ ry) polygons.
+  const apothemFactor = Math.cos(Math.PI / sides);
+  const inscribedRx = rx * apothemFactor;
+  const inscribedRy = ry * apothemFactor;
+  const ellipseThreshold = Math.max(inscribedRx, inscribedRy);
+
+  if (cr >= ellipseThreshold) {
+    return (
+      <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>
+        <ellipse cx={cx} cy={cy} rx={inscribedRx} ry={inscribedRy} fill={paintToFill(layer.fills)} stroke={sa.stroke} strokeWidth={sa.strokeWidth} />
+      </g>
+    );
+  }
+
+  const points: { x: number; y: number }[] = [];
   for (let i = 0; i < sides; i++) {
     const angle = -Math.PI / 2 + (i * 2 * Math.PI) / sides;
-    points.push(`${cx + Math.cos(angle) * rx},${cy + Math.sin(angle) * ry}`);
+    points.push({ x: cx + Math.cos(angle) * rx, y: cy + Math.sin(angle) * ry });
   }
-  const sa = strokeAttrs(layer.strokes);
+  const d = roundedPolygonPath(points, cr);
   return (
     <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>
-      <polygon points={points.join(" ")} fill={paintToFill(layer.fills)} stroke={sa.stroke} strokeWidth={sa.strokeWidth} />
+      <path d={d} fill={paintToFill(layer.fills)} stroke={sa.stroke} strokeWidth={sa.strokeWidth} />
     </g>
   );
 }
@@ -230,34 +358,34 @@ function StarEl({ layer }: { layer: Extract<Layer, { type: "star" }> }) {
   const cy = layer.h / 2;
   const rxOuter = layer.w / 2;
   const ryOuter = layer.h / 2;
-  const pts: string[] = [];
+  const pts: { x: number; y: number }[] = [];
   for (let i = 0; i < points * 2; i++) {
     const angle = -Math.PI / 2 + (i * Math.PI) / points;
     const r = i % 2 === 0 ? 1 : inner;
-    pts.push(`${cx + Math.cos(angle) * rxOuter * r},${cy + Math.sin(angle) * ryOuter * r}`);
+    pts.push({ x: cx + Math.cos(angle) * rxOuter * r, y: cy + Math.sin(angle) * ryOuter * r });
   }
   const sa = strokeAttrs(layer.strokes);
+  const cr = layer.cornerRadius ?? 0;
+  const d = roundedPolygonPath(pts, cr);
   return (
     <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>
-      <polygon points={pts.join(" ")} fill={paintToFill(layer.fills)} stroke={sa.stroke} strokeWidth={sa.strokeWidth} />
+      <path d={d} fill={paintToFill(layer.fills)} stroke={sa.stroke} strokeWidth={sa.strokeWidth} />
     </g>
   );
 }
 
 function LineEl({ layer }: { layer: Extract<Layer, { type: "line" }> }) {
   const sa = strokeAttrs(layer.strokes);
-  const stroke = sa.stroke === "none" ? "white" : sa.stroke;
   const sw = Math.max(1, sa.strokeWidth || 1);
   return (
     <g transform={commonTransform(layer)} data-id={layer.id} opacity={layer.opacity}>
-      <line x1={layer.p1.x} y1={layer.p1.y} x2={layer.p2.x} y2={layer.p2.y} stroke={stroke} strokeWidth={sw} />
+      <line x1={layer.p1.x} y1={layer.p1.y} x2={layer.p2.x} y2={layer.p2.y} stroke={sa.stroke} strokeWidth={sw} />
     </g>
   );
 }
 
 function ArrowEl({ layer }: { layer: Extract<Layer, { type: "arrow" }> }) {
   const sa = strokeAttrs(layer.strokes);
-  const stroke = sa.stroke === "none" ? "white" : sa.stroke;
   const sw = Math.max(1, sa.strokeWidth || 1);
   const markerId = `arrow-end-${layer.id}`;
   const startMarkerId = `arrow-start-${layer.id}`;
@@ -266,12 +394,12 @@ function ArrowEl({ layer }: { layer: Extract<Layer, { type: "arrow" }> }) {
       <defs>
         {layer.endCapEnd === "arrow" && (
           <marker id={markerId} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill={stroke} />
+            <path d="M 0 0 L 10 5 L 0 10 z" fill={sa.stroke} />
           </marker>
         )}
         {layer.endCapStart === "arrow" && (
           <marker id={startMarkerId} viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 10 0 L 0 5 L 10 10 z" fill={stroke} />
+            <path d="M 10 0 L 0 5 L 10 10 z" fill={sa.stroke} />
           </marker>
         )}
       </defs>
@@ -280,7 +408,7 @@ function ArrowEl({ layer }: { layer: Extract<Layer, { type: "arrow" }> }) {
         y1={layer.p1.y}
         x2={layer.p2.x}
         y2={layer.p2.y}
-        stroke={stroke}
+        stroke={sa.stroke}
         strokeWidth={sw}
         markerEnd={layer.endCapEnd === "arrow" ? `url(#${markerId})` : undefined}
         markerStart={layer.endCapStart === "arrow" ? `url(#${startMarkerId})` : undefined}
@@ -320,11 +448,10 @@ function VectorEl({ layer }: { layer: Extract<Layer, { type: "vector" }> }) {
   const network = layer.network;
   if (network.vertices.length === 0) return null;
   const sa = strokeAttrs(layer.strokes);
-  const stroke = sa.stroke === "none" ? "white" : sa.stroke;
   const d = vectorNetworkToPath(network);
   return (
     <g transform={commonTransform(layer)} opacity={layer.opacity} data-id={layer.id}>
-      <path d={d} fill={network.closed ? paintToFill(layer.fills) : "none"} stroke={stroke} strokeWidth={sa.strokeWidth || 1} />
+      <path d={d} fill={network.closed ? paintToFill(layer.fills) : "none"} stroke={sa.stroke} strokeWidth={sa.strokeWidth || 1} />
     </g>
   );
 }
@@ -364,8 +491,9 @@ function GroupEl({ layer }: { layer: Extract<Layer, { type: "frame" | "section" 
   const isSection = layer.type === "section";
   const fills = isFrame ? layer.fills : isSection ? layer.fills : [];
   const strokes = isFrame ? layer.strokes : [];
-  const cr = isFrame ? layer.cornerRadius : 0;
-  const rx = typeof cr === "number" ? cr : 0;
+  // Frames are always rectangles — corner radius is intentionally ignored
+  // even if the model carries a non-zero value.
+  const rx = 0;
   const clip = isFrame && layer.clipsContent;
   const clipId = `clip-${layer.id}`;
   const sa = strokeAttrs(strokes);
