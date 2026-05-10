@@ -23,6 +23,46 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-10 — User-reported text-edit re-entry regression
+
+#### 28. 🟢 P2 — Cannot re-enter text edit on a committed text layer (double-click ignored)
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/tools/move.ts`
+
+**What I expected:** After a text layer is created and committed (Esc / blur), the layer stays selected with the Move tool active. Double-clicking the layer should re-enter text edit mode and place the caret — Figma's standard gesture.
+
+**What happened:** Second click fell through to the normal click + drag-arm flow, so the user could only translate the layer, not re-edit it. The user reported "move aktive oluyor direkt" (drag activates immediately).
+
+**Root cause verified in code:** `move.ts` pointerdown's text branch read `e.detail >= 2` to detect a double-click. `MouseEvent.detail` carries click-count for `click` / `dblclick` events but is **not reliably populated for spaced `pointerdown` events** across Chromium / Firefox / Safari, especially when the user double-clicks slightly slower than the OS threshold. The fast path matched only intermittently.
+
+**Fix:** Manual timestamp + world-position tracking. A module-level `lastTextClick = { layerId, t, world }` is recorded on every text-layer pointerdown. The next pointerdown promotes to text edit when (same layer) AND (Δt < 350ms) AND (Δworld < 5px). The original `e.detail >= 2` check is kept as a fast path for browsers that do populate it correctly.
+
+**Logger impact:** None. `enterTextEdit` already emits a `mode_change` semantic event (`textCommands.ts`); the gesture path only changes *when* the event is emitted, not which event. No raw target, semantic field, or outcome shape is added or renamed. Existing `mode_change` documentation in `mock-doc/logging-documentation.md` covers the new gesture path.
+
+**Verifier impact:** None. Edit-mode entry does not mutate `outcome.document` (edit mode is UI state in the store, not a document field); no check primitive or rubric references this gesture.
+
+#### 29. 🟢 P2 — Canvas text node and edit overlay render together, producing ghosted double-text
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/canvas/NodeRenderer.tsx`
+
+**What I expected:** When a text layer enters edit mode, only the in-place `TextEditor` (a `position:fixed` `contentEditable` div) should render the layer's text. The underlying SVG `TextEl` should hide itself so the user sees one set of glyphs.
+
+**What happened:** On re-entering text edit, the existing text appeared ghosted/doubled — `TextEl`'s `<foreignObject>` content stayed visible behind the edit overlay. Newly typed characters looked clean only because they appeared in the overlay alone; the pre-edit content overlapped the same characters in the SVG layer underneath. User screenshot showed visible duplicate of "asdasdasd".
+
+**Root cause verified in code:** `NodeRenderer.tsx` `TextEl` returned its `<foreignObject>` text rendering unconditionally; it had no awareness of `editMode`. Because both `TextEl` and `TextEditor` use the same world transform / font metrics, they paint glyphs at exactly the same screen coordinates and overlap.
+
+**Fix:** `TextEl` now subscribes to `s.editMode` and returns `null` when the current layer is the one being edited (`editMode.kind === "text" && editMode.layerId === layer.id`). The canvas hides one source; the overlay is the only one rendering. On commit/escape, `editMode` returns to `none` and `TextEl` re-renders the freshly-committed content.
+
+**Logger impact:** None. Render gating reads UI state — no semantic event, raw target, or outcome field changes.
+
+**Verifier impact:** None. `outcome.document` text content is unchanged (`commitText` still flushes the draft into the layer on blur/escape); only the visible canvas paint is suppressed during edit.
+
 ### 2026-05-10 — User-reported frame paste behavior
 
 #### 24. ✅ P1 — Paste sends copied frame children to the page root
