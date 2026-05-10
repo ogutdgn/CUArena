@@ -8,18 +8,35 @@ export function NumericInput({
   value,
   onCommit,
   suffix,
+  prefix,
   min,
   max,
   step = 1,
   width,
+  noBg,
+  integer,
+  disabled,
 }: {
   value: number | "Mixed";
   onCommit: (n: number) => void;
   suffix?: string;
+  // Glyph rendered inside the box on the left. When provided, it doubles as
+  // the drag-scrub handle — pointer-down on it starts a horizontal scrub. If
+  // omitted, a thin invisible strip serves the same purpose so click-to-edit
+  // on the input still works.
+  prefix?: React.ReactNode;
   min?: number;
   max?: number;
   step?: number;
+  noBg?: boolean;
   width?: number | string;
+  // Snap commits and live-drag values to integers. Used for counts that can
+  // never be fractional (polygon sides, star points).
+  integer?: boolean;
+  // Renders the field greyed out and ignores edits/scrubs. Used to keep the
+  // Appearance panel layout stable across shape types when a property
+  // doesn't apply (e.g. corner radius on a line).
+  disabled?: boolean;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
@@ -37,21 +54,20 @@ export function NumericInput({
   function commit() {
     const n = parseFloat(draft);
     if (Number.isFinite(n)) {
-      let v = n;
-      if (typeof min === "number") v = Math.max(min, v);
-      if (typeof max === "number") v = Math.min(max, v);
-      onCommit(v);
+      onCommit(clampValue(n));
     }
     setEditing(false);
   }
 
   function clampValue(v: number): number {
+    if (integer) v = Math.round(v);
     if (typeof min === "number") v = Math.max(min, v);
     if (typeof max === "number") v = Math.min(max, v);
     return v;
   }
 
   function onScrubPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    if (disabled) return;
     if (typeof value !== "number") return; // No scrubbing on Mixed.
     e.preventDefault();
     e.stopPropagation();
@@ -68,10 +84,12 @@ export function NumericInput({
     const next = clampValue(s.baseValue + dx * step * factor);
     if (next === s.lastV) return;
     s.lastV = next;
-    // Visual feedback only — show the running value in the input. Don't fire
-    // onCommit per pointermove or every move would push its own undo entry
-    // and inflate the verifier's semantic-event count for a single gesture.
     setDraft(formatValue(next));
+    // Live update — fire onCommit on each tick so the canvas reflects the
+    // drag in real time. Each tick currently produces its own undo entry;
+    // moving to a transaction-based API would collapse the gesture into a
+    // single undo, but the visible behavior here is what the user expects.
+    onCommit(next);
   }
 
   function onScrubPointerUp(e: React.PointerEvent<HTMLDivElement>) {
@@ -80,8 +98,6 @@ export function NumericInput({
     (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     scrubStateRef.current = null;
     setScrubbing(false);
-    // Single onCommit per gesture; skip when no change.
-    if (s.lastV !== s.baseValue) onCommit(s.lastV);
   }
 
   return (
@@ -93,31 +109,41 @@ export function NumericInput({
         flex: 1,
         minWidth: 0,
         height: 24,
-        background: "var(--color-bg-input)",
-        borderRadius: 4,
+        background: noBg ? "transparent" : "var(--color-bg-input)",
+        borderRadius: noBg ? 0 : 4,
         padding: "0 6px",
         width,
+        opacity: disabled ? 0.4 : 1,
+        pointerEvents: disabled ? "none" : "auto",
       }}
     >
-      {/* Drag-scrub strip — narrow, leftmost, cursor ew-resize. Sits before the input
-          so click-to-edit on the input still works; the strip's pointerdown
-          stops propagation so it doesn't bubble into the input/focus path. */}
+      {/* Drag-scrub handle. When `prefix` is set the glyph itself is the
+          handle (X/Y label, blur dots, spread sun, etc); otherwise a thin
+          invisible strip preserves click-to-edit on the input. */}
       <div
         onPointerDown={onScrubPointerDown}
         onPointerMove={onScrubPointerMove}
         onPointerUp={onScrubPointerUp}
         style={{
-          width: 6,
-          height: 18,
+          minWidth: prefix ? 14 : 6,
+          height: prefix ? 20 : 18,
           flexShrink: 0,
-          cursor: scrubbing ? "ew-resize" : "ew-resize",
+          display: "grid",
+          placeItems: "center",
+          cursor: "ew-resize",
+          color: "var(--color-text-muted)",
+          fontSize: "var(--fs-xs)",
           touchAction: "none",
+          userSelect: "none",
         }}
         title="Drag to scrub"
-      />
+      >
+        {prefix}
+      </div>
       <input
         ref={ref}
         value={draft}
+        disabled={disabled}
         onChange={(e) => setDraft(e.target.value)}
         onFocus={(e) => {
           setEditing(true);

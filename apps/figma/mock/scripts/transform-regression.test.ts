@@ -18,6 +18,7 @@ import { selectionOutlineGeometry } from "../src/ui/overlays/selectionOverlayGeo
 import { resizeSingleTransformedLayer } from "../src/engine/resizeGeometry";
 import { resizeLineEndpointFromWorld } from "../src/engine/lineGeometry";
 import { applyReparent, applySetTransform } from "../src/engine/ops";
+import { placementForPastedLayer } from "../src/engine/pastePlacement";
 import { frameLabelGeometry } from "../src/engine/frameLabelsGeometry";
 import { pannedViewportFromClientDelta } from "../src/engine/viewportPan";
 import { textEditorCssMatrix } from "../src/ui/overlays/textEditorGeometry";
@@ -64,6 +65,7 @@ function makeState(layer: Layer): AppState {
     openModal: null,
     uiHidden: false,
     activeRightTab: "design",
+    aspectRatioLocked: false,
     rotateReadout: null,
     toasts: [],
     prototypePreview: null,
@@ -524,3 +526,29 @@ const worldPoint = localToWorld(rotatedFrameState, rotatedFrame.id, localPoint);
 const roundTrip = worldToParentLocal(rotatedFrameState, rotatedFrame.id, worldPoint);
 assert(Math.abs(roundTrip.x - localPoint.x) < 0.001, "parent local x should round-trip through rotated parent matrix");
 assert(Math.abs(roundTrip.y - localPoint.y) < 0.001, "parent local y should round-trip through rotated parent matrix");
+
+const pasteFrame: Frame = {
+  ...frame,
+  id: "paste-frame",
+  parentId: "page-1",
+  x: 200,
+  y: 140,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  children: [],
+};
+const pasteSource: Rectangle = {
+  ...child,
+  id: "paste-source",
+  parentId: pasteFrame.id,
+  x: 24,
+  y: 32,
+};
+const pasteState = makeNestedState(pasteFrame, pasteSource);
+pasteState.focusContextByPage[pasteState.activePageId] = null;
+const pastedPlacement = placementForPastedLayer(pasteState, pasteSource, { dx: 10, dy: 10 });
+assert(pastedPlacement.parentId === pasteFrame.id, "paste should keep a copied frame child inside the same frame");
+assert(pastedPlacement.placement === "into_frame", "paste into an existing frame should log into_frame placement");
+assert(pastedPlacement.x === pasteSource.x + 10, "same-frame paste should keep the normal x offset in frame-local space");
+assert(pastedPlacement.y === pasteSource.y + 10, "same-frame paste should keep the normal y offset in frame-local space");

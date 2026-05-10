@@ -40,7 +40,6 @@
   --color-page-bg-default: #FFFFFF;
 
   /* Sizing */
-  --left-rail-width: 48px;
   --toolbar-height: 40px;
 
   /* Type */
@@ -106,6 +105,7 @@ textarea {
 /* Hide scrollbars in panels but keep functionality */
 .scroll-y {
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #555 transparent;
 }

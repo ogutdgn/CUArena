@@ -6,36 +6,28 @@ import {
   Hand,
   Frame,
   Square,
-  Pen,
+  PenTool,
   Type,
-  MessageSquare,
-  Sparkles,
-  ChevronUp,
-  Code2,
-  Brush,
-  Ruler,
+  SquareDashedMousePointer,
   ChevronDown,
   Circle,
   Hexagon,
   Star,
   Minus,
   ArrowRight,
-  Image as ImageIcon,
-  Pencil,
+  PencilLine,
   LayoutTemplate,
   Crop,
   Maximize2,
-  MessageCircle,
 } from "lucide-react";
 import { useStore } from "@/engine/store";
 import { dispatch, makeOpId } from "@/engine/dispatch";
 import { emitSemantic } from "@/logger/semantic";
-import { noopClick } from "./noopClick";
 import { ToolbarDropdown, type DropdownItem } from "./ToolbarDropdown";
 import type { ToolId } from "@/types/ops";
 import { abortPenIfActive } from "@/tools/pen";
 
-type DropdownKey = "move-tools" | "region-tools" | "shape-tools" | "creation-tools" | "comment-tools" | null;
+type DropdownKey = "move-tools" | "region-tools" | "shape-tools" | "creation-tools" | null;
 
 export function Toolbar() {
   const activeTool = useStore((s) => s.activeTool);
@@ -47,7 +39,6 @@ export function Toolbar() {
   const regionBtnRef = useRef<HTMLDivElement | null>(null);
   const shapeBtnRef = useRef<HTMLDivElement | null>(null);
   const createBtnRef = useRef<HTMLDivElement | null>(null);
-  const commentBtnRef = useRef<HTMLDivElement | null>(null);
 
   const setToolFromClick = (after: ToolId, trigger: "shortcut" | "toolbar_click" = "toolbar_click") => {
     if (
@@ -117,19 +108,13 @@ export function Toolbar() {
     { id: "toolbar.shape-tools.ellipse", label: "Ellipse", shortcut: "O", icon: <Circle size={14} />, onClick: () => setToolFromClick("ellipse") },
     { id: "toolbar.shape-tools.polygon", label: "Polygon", icon: <Hexagon size={14} />, onClick: () => setToolFromClick("polygon") },
     { id: "toolbar.shape-tools.star", label: "Star", icon: <Star size={14} />, onClick: () => setToolFromClick("star") },
-    { id: "toolbar.shape-tools.image", label: "Place image / video", shortcut: "Shift+Cmd+K", icon: <ImageIcon size={14} />, disabled: true, onClick: () => noopClick("toolbar.shape-tools.image") },
   ];
 
   const creationItems: DropdownItem[] = [
-    { id: "toolbar.creation-tools.pen", label: "Pen", shortcut: "P", icon: <Pen size={14} />, onClick: () => setToolFromClick("pen") },
-    { id: "toolbar.creation-tools.pencil", label: "Pencil", shortcut: "⇧P", icon: <Pencil size={14} />, onClick: () => setToolFromClick("pencil") },
+    { id: "toolbar.creation-tools.pen", label: "Pen", shortcut: "P", icon: <PenTool size={14} />, onClick: () => setToolFromClick("pen") },
+    { id: "toolbar.creation-tools.pencil", label: "Pencil", shortcut: "⇧P", icon: <PencilLine size={14} />, onClick: () => setToolFromClick("pencil") },
   ];
 
-  const commentItems: DropdownItem[] = [
-    { id: "toolbar.comment-tools-dropdown.comment", label: "Comment", shortcut: "C", icon: <MessageCircle size={14} />, disabled: true, onClick: () => noopClick("toolbar.comment-tools-dropdown.comment") },
-    { id: "toolbar.comment-tools-dropdown.annotation", label: "Annotation", icon: <MessageSquare size={14} />, disabled: true, onClick: () => noopClick("toolbar.comment-tools-dropdown.annotation") },
-    { id: "toolbar.comment-tools-dropdown.measurement", label: "Measurement", icon: <Ruler size={14} />, disabled: true, onClick: () => noopClick("toolbar.comment-tools-dropdown.measurement") },
-  ];
 
   const moveActive = activeTool === "move" || activeTool === "hand" || activeTool === "scale";
   const regionActive = activeTool === "frame" || activeTool === "section" || activeTool === "slice";
@@ -166,7 +151,7 @@ export function Toolbar() {
       : shapeToolForIcon === "arrow"
       ? <ArrowRight size={16} />
       : <Square size={16} />;
-  const creationIcon = creationToolForIcon === "pencil" ? <Pencil size={16} /> : <Pen size={16} />;
+  const creationIcon = creationToolForIcon === "pencil" ? <PencilLine size={16} /> : <PenTool size={16} />;
 
   function dropdownAnchor(ref: React.RefObject<HTMLDivElement | null>) {
     if (!ref.current) return null;
@@ -242,33 +227,6 @@ export function Toolbar() {
           title="Text (T)"
         />
         <Divider />
-        <ToolGroup
-          groupRef={commentBtnRef}
-          icon={<MessageSquare size={16} />}
-          active={false}
-          onIconClick={(e) => noopClick("toolbar.comment-tools-dropdown.open", e)}
-          onChevronClick={() => setOpenDropdown(openDropdown === "comment-tools" ? null : "comment-tools")}
-          title="Comments — not implemented"
-          dim
-          open={openDropdown === "comment-tools"}
-        />
-        <ToolButton
-          id="toolbar.actions-menu.open"
-          icon={<Sparkles size={16} />}
-          active={false}
-          onClick={(e) => noopClick("toolbar.actions-menu.open", e)}
-          title="Actions menu — not implemented"
-          dim
-        />
-        <ToolButton
-          id="toolbar.expand"
-          icon={<ChevronUp size={14} />}
-          active={false}
-          onClick={(e) => noopClick("toolbar.expand", e)}
-          title="More — not implemented"
-          dim
-        />
-        <Divider />
         <ModeSwitcher />
       </div>
 
@@ -280,8 +238,6 @@ export function Toolbar() {
         renderDropdown(shapeItems, () => setOpenDropdown(null), dropdownAnchor(shapeBtnRef))}
       {openDropdown === "creation-tools" &&
         renderDropdown(creationItems, () => setOpenDropdown(null), dropdownAnchor(createBtnRef))}
-      {openDropdown === "comment-tools" &&
-        renderDropdown(commentItems, () => setOpenDropdown(null), dropdownAnchor(commentBtnRef))}
     </>
   );
 }
@@ -413,48 +369,18 @@ function ModeSwitcher() {
         background: "var(--color-bg-toolbar-pill)",
         borderRadius: 8,
         padding: 2,
-        gap: 2,
       }}
     >
-      <Segment
-        id="toolbar.mode-switcher.draw"
-        icon={<Brush size={14} />}
-        active={false}
-        title="Figma Draw — not implemented in this mock"
-        visualOnly
-      />
-      <Segment id="toolbar.mode-switcher.design" icon={<Ruler size={14} />} active title="Design" />
-      <Segment
-        id="toolbar.mode-switcher.dev"
-        icon={<Code2 size={14} />}
-        active={false}
-        title="Dev Mode — not implemented in this mock"
-        visualOnly
-      />
+      <Segment id="toolbar.mode-switcher.design" icon={<SquareDashedMousePointer size={14} />} active title="Design" />
     </div>
   );
 }
 
-function Segment({
-  id,
-  icon,
-  active,
-  title,
-  visualOnly,
-}: {
-  id: string;
-  icon: React.ReactNode;
-  active: boolean;
-  title: string;
-  visualOnly?: boolean;
-}) {
+function Segment({ id, icon, active, title }: { id: string; icon: React.ReactNode; active: boolean; title: string }) {
   return (
     <button
       data-id={id}
       title={title}
-      onClick={(e) => {
-        if (visualOnly) noopClick(id, e);
-      }}
       style={{
         width: 28,
         height: 24,

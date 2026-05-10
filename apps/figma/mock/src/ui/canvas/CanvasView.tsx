@@ -215,26 +215,24 @@ export function CanvasView() {
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
-      {/* Backdrop — captures pointer events on empty canvas areas. When the
-          page background is hidden (eye toggle in PageSection), render a small
-          checker pattern instead of the page color. */}
-      {bgHidden && (
-        <defs>
-          <pattern id={checkerPatternId} width={16} height={16} patternUnits="userSpaceOnUse">
-            <rect x={0} y={0} width={16} height={16} fill="#2a2a2a" />
-            <rect x={0} y={0} width={8} height={8} fill="#1e1e1e" />
-            <rect x={8} y={8} width={8} height={8} fill="#1e1e1e" />
-          </pattern>
-        </defs>
-      )}
+      {/* Backdrop — checker always present underneath so partial alpha shows through.
+          Color rect sits on top; when background is hidden the color is invisible. */}
+      <defs>
+        <pattern id={checkerPatternId} width={16} height={16} patternUnits="userSpaceOnUse">
+          <rect x={0} y={0} width={16} height={16} fill="#2a2a2a" />
+          <rect x={0} y={0} width={8} height={8} fill="#1e1e1e" />
+          <rect x={8} y={8} width={8} height={8} fill="#1e1e1e" />
+        </pattern>
+      </defs>
+      <rect x="0" y="0" width="100%" height="100%" fill={`url(#${checkerPatternId})`} />
       <rect
         data-id="canvas-backdrop"
         x="0"
         y="0"
         width="100%"
         height="100%"
-        fill={bgHidden ? `url(#${checkerPatternId})` : pageBg}
-        opacity={1}
+        fill={pageBg}
+        opacity={bgHidden ? 0 : 1}
       />
 
       {/* World-space group. With zoom=1 and viewport=(0,0), world origin is the visible canvas center. */}
