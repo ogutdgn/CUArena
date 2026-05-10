@@ -93,6 +93,44 @@ class CornerRadiusAtLeast:
 
 
 @dataclass
+class CornerRadiusPerCornerEquals:
+    """At least one layer of layer_type has a 4-tuple cornerRadius matching
+    [tl, tr, br, bl] within tolerance. Use for prompts that want different
+    radii per corner (e.g. "round only the top corners"). Order matches the
+    mock's stored format: top-left, top-right, bottom-right, bottom-left.
+
+    Scalar cornerRadius (uniform value) is treated as [r, r, r, r] so a task
+    that asks for [10, 10, 10, 10] still passes when the layer is set
+    uniformly to 10.
+    """
+    layer_type: str
+    tl: float
+    tr: float
+    br: float
+    bl: float
+    tolerance: float = 1.0
+
+    def run(self, log: dict) -> CheckResult:
+        expected = (self.tl, self.tr, self.br, self.bl)
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            cr = l.get("cornerRadius", 0)
+            if isinstance(cr, (int, float)):
+                actual = (cr, cr, cr, cr)
+            elif isinstance(cr, list) and len(cr) == 4:
+                actual = (cr[0], cr[1], cr[2], cr[3])
+            else:
+                continue
+            if all(abs(a - e) <= self.tolerance for a, e in zip(actual, expected)):
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} cornerRadius {actual} ≈ {expected}")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with cornerRadius {expected}±{self.tolerance}",
+        )
+
+
+@dataclass
 class CornerRadiusFractionAtMost:
     """Every layer of layer_type has cornerRadius / min(w, h) ≤ max_frac.
     Catches rectangles with extreme corner-rounding that visually become circles."""
