@@ -87,6 +87,11 @@ export function SelectionOverlay() {
   // pen creation) — bbox stroke alone is enough.
   const minimal = editMode.kind === "vector" || editMode.kind === "text" || editMode.kind === "pen_creation";
   if (minimal) {
+    // TextEditor draws its own 1.5px selection-blue CSS border on the
+    // contentEditable overlay; emitting a second SVG outline at the same
+    // world position visibly doubles it. Suppress the SVG outline only for
+    // text edit; vector / pen_creation still need the bbox stroke.
+    if (editMode.kind === "text") return null;
     const sw = 1 / viewport.zoom;
     return (
       <SelectionOutline outline={visibleOutline} strokeWidth={sw} />

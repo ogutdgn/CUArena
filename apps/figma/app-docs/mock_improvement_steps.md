@@ -23,6 +23,27 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-10 — User-reported text edit overlay outline doubled
+
+#### 30. 🟢 P2 — Selection outline appears doubled in text edit mode
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/overlays/SelectionOverlay.tsx`
+
+**What I expected:** When a text layer enters edit mode, exactly one selection-blue outline rendered around the layer — `TextEditor`'s own 1.5px CSS border on the `contentEditable` overlay.
+
+**What happened:** Two overlapping blue outlines appeared at the same world position. The user noticed the doubling once `#29` (canvas `TextEl` render gating) made the underlying SVG text invisible — previously the doubled outline was masked by the visible canvas glyphs.
+
+**Root cause verified in code:** `SelectionOverlay.tsx` switches to a "minimal" branch when `editMode.kind` is `vector | text | pen_creation` (suppress handles, draw bbox stroke only). For text-edit mode the bbox stroke is redundant because `TextEditor` already renders its own `1.5px solid var(--color-selection-blue)` border on the `contentEditable` div at the same screen position.
+
+**Fix:** `SelectionOverlay` returns `null` when `editMode.kind === "text"`. Vector and pen_creation sub-modes still receive the SVG outline because their overlays don't draw their own bbox border.
+
+**Logger impact:** None. Render-only suppression.
+
+**Verifier impact:** None. No check primitive references the selection overlay; `outcome.document` is unchanged.
+
 ### 2026-05-10 — User-reported text-edit re-entry regression
 
 #### 28. 🟢 P2 — Cannot re-enter text edit on a committed text layer (double-click ignored)
