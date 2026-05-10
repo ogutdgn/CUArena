@@ -72,6 +72,7 @@ apps/figma/
 ├── .venv/                        Python venv (gitignored) — used by scripts/
 ├── app-docs/                     ALL documentation lives here
 │   ├── feature-checklist.md     ← customer feature list; tick [x] as features ship
+│   ├── ui-fixes-checklist.md    ← non-functional UI elements to remove or hide; tick [x] as cleaned up
 │   ├── execution-map.md         ← wave-by-wave plan + session log (update every session)
 │   ├── mock_improvement_steps.md ← bug fixes + UI improvements + feature updates (single numbering, status-tracked)
 │   ├── mock-doc/                 mock-side technical docs
