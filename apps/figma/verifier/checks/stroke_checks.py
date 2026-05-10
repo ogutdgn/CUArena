@@ -422,3 +422,76 @@ class AllStrokeWeightsEqual:
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"All {self.layer_type} stroke weights match" if passed else "; ".join(failures),
         )
+
+
+@dataclass
+class StrokeCount:
+    """All layers of layer_type have exactly `equals` strokes."""
+    layer_type: str
+    equals: int
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = [l for l in layers if len(l.get("strokes", [])) != self.equals]
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"{self.layer_type} stroke count correct" if passed
+                    else f"{len(failures)} {self.layer_type} layers have wrong stroke count",
+        )
+
+
+@dataclass
+class StrokeCountAtMost:
+    """All layers of layer_type have at most `max_count` strokes.
+    Catches stacked-stroke workarounds where extra strokes hide under the first."""
+    layer_type: str
+    max_count: int = 1
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"No {self.layer_type} layers found")
+        failures = [
+            f"{l['id'][:8]}: {len(l.get('strokes', []))} strokes > {self.max_count}"
+            for l in layers if len(l.get("strokes", [])) > self.max_count
+        ]
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"All {self.layer_type} have ≤ {self.max_count} strokes" if passed
+                    else "; ".join(failures),
+        )
+
+
+@dataclass
+class StrokeColorAtIndexEquals:
+    """At least one layer of layer_type has strokes[stroke_index] with a solid
+    paint color matching expected_rgb. Use for multi-stroke prompts where the
+    first stroke alone isn't enough (e.g. "second stroke must be blue"). The
+    existing StrokeColorEquals only inspects strokes[0]."""
+    layer_type: str
+    expected_rgb: dict
+    stroke_index: int = 0
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        for l in layers:
+            strokes = l.get("strokes", [])
+            if self.stroke_index >= len(strokes):
+                continue
+            paint = strokes[self.stroke_index].get("paint", {})
+            if paint.get("kind") != "solid":
+                continue
+            if channel_distance(paint.get("color", {}), self.expected_rgb) <= self.tolerance:
+                return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                   message=f"{self.layer_type} stroke[{self.stroke_index}] color matches")
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"No {self.layer_type} with stroke[{self.stroke_index}] color {self.expected_rgb} (tol {self.tolerance})",
+        )
