@@ -91,37 +91,9 @@ def describe_endpoint(model: str, *, max_tokens: int = 4096,
     }
 
 
-# Always sent. Hard environment constraint — the figma mock does NOT
-# accept keyboard input through computer-use; only mouse actions actually
-# affect the canvas. Without this note the model burns turns trying to
-# type names, use shortcuts, etc.
-MOUSE_ONLY_NOTE = """ENVIRONMENT CONSTRAINT — MOUSE ONLY:
-The browser this agent controls does NOT accept keyboard input. Pretend the keyboard is unplugged.
-
-Use ONLY these mouse actions:
-- screenshot, mouse_move, cursor_position
-- left_click, right_click, middle_click, double_click, triple_click
-- left_click_drag, left_mouse_down, left_mouse_up
-- scroll, wait
-
-Do NOT use the `type`, `key`, or `hold_key` actions — they have NO effect in this environment.
-If a task seems to require typing, a keyboard shortcut, or pressing Enter/Escape, find a mouse-only path (click the matching UI button or menu item instead). Modifier-clicks are allowed via the `text` parameter on left_click/scroll (e.g. shift, ctrl, alt, super).
-"""
-
-
-# Optional UI-explainer prompt — only sent when --harness is on. Layered
-# on top of MOUSE_ONLY_NOTE.
-DEFAULT_SYSTEM_PROMPT = """You are an autonomous computer-use agent operating a Figma design mock in a browser.
-
-You will be given a task. Use the computer tool to complete the task by clicking and dragging in the canvas. The viewport is {w}x{h}.
-
-Guidelines:
-- Take a screenshot first to see the UI.
-- The left panel has shape tools (rectangle, ellipse, polygon, etc.). Click a tool, then drag on the canvas to create a shape.
-- The right panel shows properties of the selected layer (fill, stroke, position, size, corner radius, etc.).
-- Work efficiently — fewer turns means a higher score multiplier.
-- When you believe the task is complete, stop calling the computer tool and reply with a short summary.
-"""
+# System prompts now live as markdown files under
+# ``apps/figma/cua-eval/system-prompts/``. Pick one with
+# ``--system-prompt NAME`` from passk.py, or pass ``none`` for none.
 
 
 def _action_to_text(action: dict[str, Any]) -> str:
@@ -130,9 +102,11 @@ def _action_to_text(action: dict[str, Any]) -> str:
     return f"{a} {extras}" if extras else a
 
 
-def _execute(session: BrowserSession, action: dict[str, Any]) -> dict[str, Any]:
+def _execute(session: BrowserSession, action: dict[str, Any], *,
+             allow_keyboard: bool = False) -> dict[str, Any]:
     """Execute one Anthropic computer action. Returns a tool_result content
-    list (always with a screenshot)."""
+    list (always with a screenshot). When ``allow_keyboard`` is False
+    (default), keyboard actions are intercepted and reported as BLOCKED."""
     name = action.get("action")
     coord = action.get("coordinate") or [0, 0]
     x, y = int(coord[0]), int(coord[1])
@@ -162,21 +136,31 @@ def _execute(session: BrowserSession, action: dict[str, Any]) -> dict[str, Any]:
             session.page.mouse.move(x, y)
             session.page.mouse.up()
         elif name in ("type", "key", "hold_key"):
-            # Hard environment constraint — keyboard input is disabled in
-            # this harness. Don't actually press; return a text message in
-            # the tool_result so the model gets explicit feedback that
-            # this action did nothing and stops repeating it.
-            attempted = action.get("text", "")
-            session.wait(50)
-            shot = session.screenshot_b64()
-            return [
-                {"type": "text",
-                 "text": (f"BLOCKED: keyboard action '{name}' is disabled in this environment. "
-                          f"Attempted text/keys: {attempted!r}. Use mouse-only actions instead "
-                          f"(left_click, left_click_drag, scroll, etc.). The screen is unchanged.")},
-                {"type": "image",
-                 "source": {"type": "base64", "media_type": "image/png", "data": shot}},
-            ]
+            if not allow_keyboard:
+                # Default: keyboard handicap on. No-op the action and tell
+                # the model so it stops repeating.
+                attempted = action.get("text", "")
+                session.wait(50)
+                shot = session.screenshot_b64()
+                return [
+                    {"type": "text",
+                     "text": (f"BLOCKED: keyboard action '{name}' is disabled in this environment. "
+                              f"Attempted text/keys: {attempted!r}. Use mouse-only actions instead "
+                              f"(left_click, left_click_drag, scroll, etc.). The screen is unchanged.")},
+                    {"type": "image",
+                     "source": {"type": "base64", "media_type": "image/png", "data": shot}},
+                ]
+            # allow_keyboard=True: actually press.
+            if name == "type":
+                session.type_text(str(action.get("text", "")))
+            elif name == "key":
+                session.key(_normalize_keys(str(action.get("text", ""))))
+            elif name == "hold_key":
+                keys = _normalize_keys(str(action.get("text", "")))
+                duration_s = float(action.get("duration", 1))
+                session.page.keyboard.down(keys)
+                session.wait(int(duration_s * 1000))
+                session.page.keyboard.up(keys)
         elif name == "scroll":
             direction = action.get("scroll_direction", "down")
             amount = int(action.get("scroll_amount", 3)) * 100
@@ -318,6 +302,7 @@ def run_anthropic_agent(
     keep_screenshots: int = 3,
     turn_delay_s: float = 0.0,
     max_retries: int = 5,
+    allow_keyboard: bool = False,
 ) -> AgentResult:
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
@@ -334,9 +319,9 @@ def run_anthropic_agent(
         "display_height_px": DISPLAY_HEIGHT,
         "display_number": 1,
     }]
-    # ``system_prompt is None`` means "no harness" — the API call simply
-    # omits the ``system`` parameter. Callers that want the default harness
-    # should pass ``DEFAULT_SYSTEM_PROMPT.format(w=..., h=...)``.
+    # ``system_prompt is None`` means "no system prompt" — the API call
+    # simply omits the ``system`` parameter. The harness's passk.py resolves
+    # --system-prompt into the string passed here.
     effective_system = system_prompt
 
     initial_screenshot = session.screenshot_b64()
@@ -471,7 +456,7 @@ def run_anthropic_agent(
             trajectory.append(AgentTrajectoryStep(
                 turn=turn, action=action, text=_action_to_text(action)))
             print(f"{progress_prefix}  t{turn:02d} act: {_action_to_text(action)[:120]}", flush=True)
-            content = _execute(session, action)
+            content = _execute(session, action, allow_keyboard=allow_keyboard)
             for c in content:
                 if isinstance(c, dict) and c.get("type") == "image":
                     latest_shot_b64 = c.get("source", {}).get("data")
