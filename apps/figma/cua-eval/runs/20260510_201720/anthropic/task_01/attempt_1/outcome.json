@@ -1,0 +1,33 @@
+{
+  "task_id": "house_task_comprehensive",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "started_at": 1778469440635,
+  "ended_at": 1778469660271,
+  "ended_at_iso": "2026-05-11T03:21:00.271000+00:00",
+  "elapsed_s": 219.64,
+  "turns": 43,
+  "stop_reason": "done",
+  "finished": true,
+  "error": null,
+  "usage": {
+    "input_tokens": 401245,
+    "output_tokens": 6301
+  },
+  "cost_estimate": {
+    "input_usd": 1.203735,
+    "output_usd": 0.094515,
+    "total_usd": 1.29825,
+    "input_rate_per_mtok_usd": 3.0,
+    "output_rate_per_mtok_usd": 15.0
+  },
+  "score": {
+    "final": 0.6221,
+    "base": 0.8846,
+    "max": 1.0,
+    "efficiency": 0.7033,
+    "passed": false,
+    "threshold": 0.7
+  },
+  "log_session_id": "session_755938fa-3f9e-49b8-922b-1999e86377ef"
+}

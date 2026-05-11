@@ -1,0 +1,33 @@
+{
+  "task_id": "task_03_glowing_orb",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "started_at": 1778470356488,
+  "ended_at": 1778471013973,
+  "ended_at_iso": "2026-05-11T03:43:33.973000+00:00",
+  "elapsed_s": 657.49,
+  "turns": 104,
+  "stop_reason": "done",
+  "finished": true,
+  "error": null,
+  "usage": {
+    "input_tokens": 1468278,
+    "output_tokens": 15202
+  },
+  "cost_estimate": {
+    "input_usd": 4.404834,
+    "output_usd": 0.22803,
+    "total_usd": 4.632864,
+    "input_rate_per_mtok_usd": 3.0,
+    "output_rate_per_mtok_usd": 15.0
+  },
+  "score": {
+    "final": 0.4011,
+    "base": 0.775,
+    "max": 1.0,
+    "efficiency": 0.5175,
+    "passed": false,
+    "threshold": 0.7
+  },
+  "log_session_id": "session_82c0a1ec-ea43-4c56-8559-df555b39837e"
+}

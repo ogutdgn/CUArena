@@ -1,0 +1,2 @@
+provider,model,task_id,passed,final_score,base_score,max_score,efficiency,turns,elapsed_s,stop_reason,input_tokens,output_tokens,cost_input_usd,cost_output_usd,cost_total_usd,error
+anthropic,claude-sonnet-4-5,task_03_glowing_orb,no,0.4011,0.7750,1.00,0.5175,104,657.5,done,1468278,15202,4.404834,0.22803,4.632864,
