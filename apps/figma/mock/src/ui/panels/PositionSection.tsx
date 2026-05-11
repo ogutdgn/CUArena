@@ -2,8 +2,9 @@ import { Section } from "./sectionShell";
 import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
-import { setTransformField } from "@/engine/propertyCommands";
+import { applyPanelFrameContainmentForSelection, setTransformField } from "@/engine/propertyCommands";
 import { flipSelection, rotate90Selection } from "@/engine/transformCommands";
+import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import {
   alignSelection,
   getSingleSelectionAlignmentContainer,
@@ -31,6 +32,11 @@ export function PositionSection() {
   const canAlign = layers.length >= 2 || singleContainer !== null;
   const alignHint = canAlign ? undefined : " — select 2+ layers, or a layer inside a frame";
 
+  function commitTransformScrub(transactionId: string) {
+    applyPanelFrameContainmentForSelection(transactionId);
+    commitTransaction(transactionId);
+  }
+
   return (
     <Section title="Position">
       {/* Alignment */}
@@ -45,33 +51,31 @@ export function PositionSection() {
         <AlignBtn id="alignment.bottom"   title="Align bottom"            disabled={!canAlign} hint={alignHint} onClick={() => alignSelection("bottom")}>   <AlignEndHorizontal    size={14} /></AlignBtn>
       </div>
 
-      {/* Position */}
+      {/* Position — X/Y glyphs live inside each NumericInput so they double as
+          drag-scrub handles (same pattern as opacity / corner-radius). */}
       <SubLabel>Position</SubLabel>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-        <XYRow label="X">
-          <NumericInput value={xVal} onCommit={(v) => setTransformField("x", v)} />
-        </XYRow>
-        <XYRow label="Y">
-          <NumericInput value={yVal} onCommit={(v) => setTransformField("y", v)} />
-        </XYRow>
+        <NumericInput
+          prefix={<AxisGlyph>X</AxisGlyph>}
+          value={xVal}
+          onCommit={(v, context) => setTransformField("x", v, { ...context, deferFrameContainment: !!context?.transactionId })}
+          onScrubStart={openTransaction}
+          onScrubEnd={commitTransformScrub}
+        />
+        <NumericInput
+          prefix={<AxisGlyph>Y</AxisGlyph>}
+          value={yVal}
+          onCommit={(v, context) => setTransformField("y", v, { ...context, deferFrameContainment: !!context?.transactionId })}
+          onScrubStart={openTransaction}
+          onScrubEnd={commitTransformScrub}
+        />
       </div>
 
       {/* Rotation */}
       <SubLabel>Rotation</SubLabel>
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 0, height: 28, background: "var(--color-bg-input)", borderRadius: 4 }}>
-            <span style={{ padding: "0 6px", color: "var(--color-text-muted)", display: "flex", alignItems: "center" }}>
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="2" y1="2" x2="2" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <line x1="2" y1="11" x2="11" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M2 7 A4 4 0 0 1 6 11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none"/>
-              </svg>
-            </span>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <NumericInput value={rotVal} onCommit={(v) => setTransformField("rotation", v)} suffix="°" />
-            </div>
-          </div>
+          <NumericInput prefix={<RotationGlyph />} value={rotVal} onCommit={(v) => setTransformField("rotation", v)} suffix="°" />
         </div>
         <IconBtn id="position.rotate-90"       title="Rotate 90° clockwise" onClick={() => rotate90Selection("panel_button")}><RotateCw       size={14} /></IconBtn>
         <IconBtn id="position.flip-horizontal" title="Flip horizontal"      onClick={() => flipSelection("horizontal", "panel_button")}><FlipHorizontal2 size={14} /></IconBtn>
@@ -81,18 +85,23 @@ export function PositionSection() {
   );
 }
 
-function SubLabel({ children }: { children: React.ReactNode }) {
+function AxisGlyph({ children }: { children: React.ReactNode }) {
+  return <span style={{ fontWeight: 500 }}>{children}</span>;
+}
+
+function RotationGlyph() {
   return (
-    <div style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-secondary)", fontWeight: 500, marginTop: 2, marginBottom: 4 }}>
-      {children}
-    </div>
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="2" y1="2" x2="2" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="2" y1="11" x2="11" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M2 7 A4 4 0 0 1 6 11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+    </svg>
   );
 }
 
-function XYRow({ label, children }: { label: string; children: React.ReactNode }) {
+function SubLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 6, height: 28 }}>
-      <span style={{ width: 14, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500 }}>{label}</span>
+    <div style={{ fontSize: "var(--fs-xs)", color: "var(--color-text-secondary)", fontWeight: 500, marginTop: 2, marginBottom: 4 }}>
       {children}
     </div>
   );

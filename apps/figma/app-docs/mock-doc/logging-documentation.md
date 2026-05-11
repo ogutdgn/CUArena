@@ -166,7 +166,7 @@ Notes:
 - `flip_layer.axis` is user-facing. Internal scale toggles may differ so the visual action matches the Position panel label.
 - Position panel X/Y values are center-origin user coordinates. Top-level layer values are relative to the page/world origin, which renders at the visible canvas center in the default viewport; nested layer values are relative to the parent visual center. The stored `outcome.document` geometry remains parent-local bbox geometry.
 - `move_layer` with `trigger: "panel_input"` records these user-facing Position values in `before`/`after`.
-- A canvas drag that crosses a frame boundary emits `move_layer` for the drag and `reorder_layer` with `trigger: "canvas_drag"` for the parent/index transition.
+- A canvas drag that crosses a frame boundary emits `move_layer` for the drag and `reorder_layer` with `trigger: "canvas_drag"` for the parent/index transition. A Position/Layout panel transform that crosses the same boundary emits the panel `move_layer` / `resize_layer` event plus `reorder_layer` with `trigger: "panel_drag"`.
 - Smart-snap guides are transient UI feedback. They do not emit semantic events unless the drag commits a document mutation.
 
 ### Edit operations
@@ -245,12 +245,7 @@ Notes:
 | `name` | Extra fields |
 |---|---|
 | `prototype_tab_switch` | `before`/`after`: `design` \| `prototype`; `trigger`: `tab_click` \| `shortcut_shift_e` |
-| `add_prototype_flow` | `flowId`, `flowName`, `frameId` |
-| `remove_prototype_flow` | `flowId`, `frameId` |
-| `rename_prototype_flow` | `flowId`, `before`, `after` |
 | `set_prototype_device` | `before`, `after` (device id strings or `null`) |
-| `set_overflow_scrolling` | `layerId`, `before`, `after` |
-| `set_scroll_position` | `layerId`, `before`, `after` |
 | `open_prototype_preview` | `trigger`: `play_button` |
 | `close_prototype_preview` | `trigger`: `close_button` \| `play_button_toggle` |
 | `navigate_prototype_preview` | `direction`: `prev` \| `next`; `fromIndex`, `toIndex` |
@@ -298,7 +293,7 @@ document
    ├─ id, name, type: "page"
    ├─ backgroundColor: { r, g, b, a }   (0..1)
    ├─ backgroundHidden: boolean
-   ├─ prototypeSettings, prototypeFlows, prototypeConnections (optional)
+   ├─ prototypeSettings, prototypeConnections (optional)
    └─ children: Layer[]                  (recursive into containers)
 ```
 
@@ -318,7 +313,6 @@ Every layer has the **`LayerBase` block**:
 | `locked` | `boolean` | Editing lock; UI-only, doesn't affect rubrics. |
 | `opacity` | `number` | 0..1 multiplicative. |
 | `constraints` | `{ horizontal, vertical }` | Resize-reflow rules; values listed below. |
-| `scrollPosition` | `"scroll_with_parent" \| "fixed" \| "sticky"` | Optional, prototype-related. |
 
 **`Constraints` values:**
 - `horizontal`: `left` \| `right` \| `center` \| `stretch` \| `scale`
@@ -353,7 +347,7 @@ Every layer has the **`LayerBase` block**:
 | `text` | `content` (full string), `runs: TextRun[]`, `fontFamily`, `fontWeight`, `fontSize`, `lineHeight: { type: auto\|px\|percent, value? }`, `letterSpacing: { type: px\|percent, value }`, `hAlign`, `vAlign`, `fills`, `strokes`, `effects`, `resizingMode`. `TextRun` = `{ range: [start,end], fontFamily?, fontWeight?, fontSize?, letterSpacing?, lineHeight?, fills? }` |
 | `vector` | `network: { vertices, segments, closed }`, `fills`, `strokes`, `effects`. `vertices[i]` = `{ x, y, handleType: corner\|mirror\|mirror_angle\|independent }`. `segments[i]` = `{ fromIndex, toIndex, handleFrom: { dx, dy }\|null, handleTo: { dx, dy }\|null }` |
 | `image` | `cornerRadius`, `imageFill: { src, naturalWidth, naturalHeight, fit, rotation, opacity, visible }`, `fills`, `strokes`, `effects` |
-| `frame` | `fills`, `strokes`, `effects`, `cornerRadius` (carried in the model but **render-side override forces `0`** — frames always render flat regardless of stored value; rubrics that judge visual outcome should treat frames as having `cornerRadius=0`), `clipsContent: boolean`, `children: Layer[]` (recurse), `overflowScrolling`: `none`\|`horizontal`\|`vertical`\|`both` |
+| `frame` | `fills`, `strokes`, `effects`, `cornerRadius` (carried in the model but **render-side override forces `0`** — frames always render flat regardless of stored value; rubrics that judge visual outcome should treat frames as having `cornerRadius=0`), `clipsContent: boolean`, `children: Layer[]` (recurse) |
 | `section` | `fills`, `clipsContent: false`, `children: Layer[]`, `devStatus`: `null`\|`ready_for_dev` |
 | `group` | `effects`, `children: Layer[]` |
 | `slice` | (no extras beyond `LayerBase`) |

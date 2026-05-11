@@ -35,10 +35,9 @@ import {
 import type { Matrix } from "@/engine/coordinates";
 import { resizeSingleTransformedLayer } from "@/engine/resizeGeometry";
 import { resizeLineEndpointFromWorld, type LineEndpoint, type LineLikeLayer } from "@/engine/lineGeometry";
+import { getFrameContainmentMoves, type FrameContainmentFrame } from "@/engine/frameContainment";
 
 const DRAG_THRESHOLD = 3;
-const FRAME_NEST_ENTER_RATIO = 0.6;
-const FRAME_NEST_EXIT_RATIO = 0.4;
 
 // PointerEvent.detail click-count is unreliable across browsers for spaced
 // pointerdowns, so manual timestamp+position tracking is the source of truth
@@ -53,11 +52,6 @@ interface CandidateRect {
   y: number;
   w: number;
   h: number;
-}
-
-interface FrameCacheEntry {
-  id: string;
-  rect: CandidateRect;
 }
 
 type MatrixMap = Record<string, Matrix>;
@@ -112,7 +106,7 @@ type State =
       // the per-frame O(layers × frames) scan that previously caused the
       // visible jitter (item #11).
       candidatesCache: CandidateRect[];
-      framesCache: FrameCacheEntry[];
+      framesCache: FrameContainmentFrame[];
     }
   | {
       kind: "active_handle_drag";
@@ -486,7 +480,7 @@ export const moveTool: ITool = {
       const pageAfterDup = getActivePage(liveAfterDup);
       const movingSet = new Set(activeIds);
       const candidatesCache: CandidateRect[] = [];
-      const framesCache: FrameCacheEntry[] = [];
+      const framesCache: FrameContainmentFrame[] = [];
       if (pageAfterDup) {
         const collect = (arr: Layer[]) => {
           for (const l of arr) {
@@ -1071,111 +1065,28 @@ function applyFrameNestingByOverlap(
   drag: Extract<State, { kind: "active_layer_drag" }>,
   txId: string,
 ): void {
-  const s = useStore.getState();
-  const page = getActivePage(s);
-  if (!page) return;
-
-  const movedSet = new Set(drag.layerIds);
-  const movedRoots = drag.layerIds.filter((id) => {
-    let cur = s.nodesById[id] as Layer | undefined;
-    while (cur && (cur as unknown as Page).type !== "page") {
-      const parent = s.nodesById[cur.parentId] as Layer | Page | undefined;
-      if (!parent || (parent as unknown as Page).type === "page") break;
-      if (movedSet.has((parent as Layer).id)) return false;
-      cur = parent as Layer;
-    }
-    return true;
-  });
-
-  // Frame rects were cached at drag start and don't move during the drag, so
-  // skip the scene walk + per-frame world-rect computation.
-  const frames = drag.framesCache;
-
-  for (const id of movedRoots) {
+  const moves = getFrameContainmentMoves(useStore.getState(), drag.layerIds, { frames: drag.framesCache });
+  for (const move of moves) {
     const now = useStore.getState();
-    const layer = now.nodesById[id] as Layer | undefined;
-    if (!layer || (layer as unknown as Page).type === "page") continue;
-
-    // Use the transformed AABB so a rotated/flipped moving layer overlaps
-    // its destination frame by visible outline, not by its un-rotated stored
-    // rect. Frames in the cache are already AABB-based for the same reason.
-    const wr = worldAABBOfLayer(now, layer);
-    const area = Math.max(1, wr.w * wr.h);
-
-    const currentParent = now.nodesById[layer.parentId] as Layer | Page | undefined;
-    const currentFrameParent =
-      currentParent &&
-      (currentParent as Page).type !== "page" &&
-      (currentParent as Layer).type === "frame"
-        ? (currentParent as Layer)
-        : null;
-    const currentOverlap =
-      currentFrameParent != null
-        ? overlapRatio(wr, worldAABBOfLayer(now, currentFrameParent), area)
-        : 0;
-
-    let bestFrameId: string | null = null;
-    let bestDepth = -1;
-    let bestRatio = 0;
-
-    for (const frame of frames) {
-      if (frame.id === id) continue;
-      if (isAncestor(now, id, frame.id)) continue; // don't move into own descendant
-      if (movedSet.has(frame.id)) continue; // don't move into simultaneously moved frame
-
-      const ratio = overlapRatio(wr, frame.rect, area);
-      if (ratio < FRAME_NEST_ENTER_RATIO) continue;
-      const depth = depthOf(now, frame.id);
-      if (depth > bestDepth || (depth === bestDepth && ratio > bestRatio)) {
-        bestDepth = depth;
-        bestRatio = ratio;
-        bestFrameId = frame.id;
-      }
-    }
-
-    let toParentId = layer.parentId;
-    if (bestFrameId) {
-      toParentId = bestFrameId;
-    } else if (currentFrameParent && currentOverlap < FRAME_NEST_EXIT_RATIO) {
-      toParentId = currentFrameParent.parentId;
-    }
-    if (toParentId === layer.parentId) continue;
-
-    const fromArr = childrenOf(now, layer.parentId);
-    const toArr = childrenOf(now, toParentId);
-    if (!fromArr || !toArr) continue;
-    const fromIndex = fromArr.findIndex((c) => c.id === id);
-    if (fromIndex < 0) continue;
-
-    // Keep frame ejection visually near the source frame; otherwise append.
-    let toIndex = toArr.length;
-    if (currentFrameParent && toParentId === currentFrameParent.parentId) {
-      const frameIndex = toArr.findIndex((c) => c.id === currentFrameParent.id);
-      if (frameIndex >= 0) toIndex = frameIndex + 1;
-    }
-
-    // applyReparent now preserves world position by re-expressing x/y in the
-    // new parent's coordinate space, so a follow-up set_transform is no longer
-    // needed (and would double-correct on undo).
     dispatch(
       {
         id: makeOpId(),
         timestamp: performance.now(),
         kind: "reparent",
         pageId: now.activePageId,
-        moves: [{ id, fromParentId: layer.parentId, fromIndex, toParentId, toIndex }],
+        moves: [move],
       },
       { transactionId: txId },
     );
     const afterState = useStore.getState();
-    const afterLayer = afterState.nodesById[id] as Layer | undefined;
+    const afterLayer = afterState.nodesById[move.id] as Layer | undefined;
     const afterArr = afterLayer ? childrenOf(afterState, afterLayer.parentId) : null;
-    const afterIndex = afterArr && afterLayer ? afterArr.findIndex((c) => c.id === id) : toIndex;
+    const afterIndex = afterArr && afterLayer ? afterArr.findIndex((c) => c.id === move.id) : move.toIndex;
     emitSemantic({
       name: "reorder_layer",
-      layerIds: [id],
-      before: [{ parentId: layer.parentId, index: fromIndex }],
-      after: [{ parentId: afterLayer?.parentId ?? toParentId, index: afterIndex >= 0 ? afterIndex : toIndex }],
+      layerIds: [move.id],
+      before: [{ parentId: move.fromParentId, index: move.fromIndex }],
+      after: [{ parentId: afterLayer?.parentId ?? move.toParentId, index: afterIndex >= 0 ? afterIndex : move.toIndex }],
       trigger: "canvas_drag",
     });
   }
@@ -1185,49 +1096,8 @@ function childrenOf(s: ReturnType<typeof useStore.getState>, parentId: string): 
   const p = s.nodesById[parentId] as Layer | Page | undefined;
   if (!p) return null;
   if ((p as Page).type === "page") return (p as Page).children;
-  if ("children" in (p as object)) {
-    return ((p as Layer & { children?: Layer[] }).children ?? null);
-  }
+  if ("children" in (p as object)) return ((p as Layer & { children?: Layer[] }).children ?? null);
   return null;
-}
-
-function overlapRatio(
-  a: { x: number; y: number; w: number; h: number },
-  b: { x: number; y: number; w: number; h: number },
-  aArea: number,
-): number {
-  const x1 = Math.max(a.x, b.x);
-  const y1 = Math.max(a.y, b.y);
-  const x2 = Math.min(a.x + a.w, b.x + b.w);
-  const y2 = Math.min(a.y + a.h, b.y + b.h);
-  const w = Math.max(0, x2 - x1);
-  const h = Math.max(0, y2 - y1);
-  return (w * h) / Math.max(1, aArea);
-}
-
-function depthOf(s: ReturnType<typeof useStore.getState>, id: string): number {
-  let d = 0;
-  let cur = s.nodesById[id] as Layer | Page | undefined;
-  while (cur && (cur as unknown as Page).type !== "page") {
-    const parent = s.nodesById[(cur as Layer).parentId] as Layer | Page | undefined;
-    if (!parent || (parent as unknown as Page).type === "page") break;
-    d += 1;
-    cur = parent;
-  }
-  return d;
-}
-
-function isAncestor(
-  s: ReturnType<typeof useStore.getState>,
-  ancestorId: string,
-  nodeId: string,
-): boolean {
-  let cur = s.nodesById[nodeId] as Layer | Page | undefined;
-  while (cur && (cur as unknown as Page).type !== "page") {
-    if ((cur as Layer).id === ancestorId) return true;
-    cur = s.nodesById[(cur as Layer).parentId] as Layer | Page | undefined;
-  }
-  return false;
 }
 
 function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Layer[]): string[] {

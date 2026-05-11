@@ -2,25 +2,20 @@
 // in a `set_property` op + a specific semantic event, so prototype edits go
 // through the same dispatch / undo / log pipeline as every other mutation.
 //
-// All mutations write whole arrays (prototypeFlows / prototypeConnections) or
-// whole objects (prototypeSettings) so undo restores the exact prior state
-// without depending on element-level paths.
+// All mutations write whole arrays (prototypeConnections) or whole objects
+// (prototypeSettings) so undo restores the exact prior state without
+// depending on element-level paths.
 
 import { useStore } from "./store";
 import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import type {
-  Frame,
-  Layer,
   Page,
   PrototypeAction,
   PrototypeAnimation,
   PrototypeConnection,
-  PrototypeFlow,
   PrototypeSettings,
   PrototypeTrigger,
-  ScrollBehavior,
-  ScrollPosition,
 } from "@/types/scene";
 
 const DEFAULT_SETTINGS: PrototypeSettings = {
@@ -54,25 +49,6 @@ function dispatchPageProperty(
   );
 }
 
-function dispatchLayerProperty(
-  pageId: string,
-  layerId: string,
-  path: string,
-  beforeValue: unknown,
-  afterValue: unknown,
-): void {
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId,
-    ids: [layerId],
-    path,
-    before: { [layerId]: beforeValue },
-    after: { [layerId]: afterValue },
-  });
-}
-
 // ─── prototype settings ───────────────────────────────────────────────
 
 export function setPrototypeDevice(pageId: string, device: string | null): void {
@@ -83,55 +59,6 @@ export function setPrototypeDevice(pageId: string, device: string | null): void 
   const afterSettings: PrototypeSettings = { ...beforeSettings, device };
   dispatchPageProperty(pageId, "prototypeSettings", beforeSettings, afterSettings);
   emitSemantic({ name: "set_prototype_device", before: beforeSettings.device, after: device });
-}
-
-// ─── flows ────────────────────────────────────────────────────────────
-
-export function addPrototypeFlow(pageId: string, flow: PrototypeFlow): void {
-  const page = findPage(pageId);
-  if (!page) return;
-  const before: PrototypeFlow[] = [...(page.prototypeFlows ?? [])];
-  const after: PrototypeFlow[] = [...before, flow];
-  dispatchPageProperty(pageId, "prototypeFlows", before, after);
-  emitSemantic({
-    name: "add_prototype_flow",
-    flowId: flow.id,
-    flowName: flow.name,
-    frameId: flow.frameId,
-  });
-}
-
-export function removePrototypeFlow(pageId: string, flowId: string): void {
-  const page = findPage(pageId);
-  if (!page) return;
-  const before: PrototypeFlow[] = [...(page.prototypeFlows ?? [])];
-  const removed = before.find((f) => f.id === flowId);
-  if (!removed) return;
-  const after: PrototypeFlow[] = before.filter((f) => f.id !== flowId);
-  dispatchPageProperty(pageId, "prototypeFlows", before, after);
-  emitSemantic({
-    name: "remove_prototype_flow",
-    flowId,
-    frameId: removed.frameId,
-  });
-}
-
-export function renamePrototypeFlow(pageId: string, flowId: string, newName: string): void {
-  const page = findPage(pageId);
-  if (!page) return;
-  const before: PrototypeFlow[] = [...(page.prototypeFlows ?? [])];
-  const target = before.find((f) => f.id === flowId);
-  if (!target || target.name === newName) return;
-  const after: PrototypeFlow[] = before.map((f) =>
-    f.id === flowId ? { ...f, name: newName } : f,
-  );
-  dispatchPageProperty(pageId, "prototypeFlows", before, after);
-  emitSemantic({
-    name: "rename_prototype_flow",
-    flowId,
-    before: target.name,
-    after: newName,
-  });
 }
 
 // ─── connections ──────────────────────────────────────────────────────
@@ -210,43 +137,11 @@ export function deletePrototypeConnection(pageId: string, connId: string): void 
   });
 }
 
-// ─── per-layer scroll behavior ────────────────────────────────────────
-
-export function setLayerOverflowScrolling(
-  pageId: string,
-  layerId: string,
-  value: ScrollBehavior,
-): void {
-  const node = useStore.getState().nodesById[layerId] as Layer | Page | undefined;
-  if (!node || (node as Page).type === "page") return;
-  if ((node as Layer).type !== "frame") return;
-  const before = ((node as Frame).overflowScrolling ?? "none") as ScrollBehavior;
-  if (before === value) return;
-  dispatchLayerProperty(pageId, layerId, "overflowScrolling", before, value);
-  emitSemantic({ name: "set_overflow_scrolling", layerId, before, after: value });
-}
-
-export function setLayerScrollPosition(
-  pageId: string,
-  layerId: string,
-  value: ScrollPosition,
-): void {
-  const node = useStore.getState().nodesById[layerId] as Layer | Page | undefined;
-  if (!node || (node as Page).type === "page") return;
-  const before = ((node as Layer).scrollPosition ?? "scroll_with_parent") as ScrollPosition;
-  if (before === value) return;
-  dispatchLayerProperty(pageId, layerId, "scrollPosition", before, value);
-  emitSemantic({ name: "set_scroll_position", layerId, before, after: value });
-}
-
 // Re-export type aliases used by callers (avoids unused-imports lint).
 export type {
   PrototypeAction,
   PrototypeAnimation,
   PrototypeConnection,
-  PrototypeFlow,
   PrototypeSettings,
   PrototypeTrigger,
-  ScrollBehavior,
-  ScrollPosition,
 };
