@@ -55,7 +55,7 @@ task = Task(
                 layer_type="ellipse",
                 expected_rgbs=[RED, WHITE, RED, WHITE],
                 sort_axis="size",
-                tolerance=25.0,
+                tolerance=0.2,
             ),
             AllStrokeExists("ellipse"),                                                 # 2 ★ prompt: "each with a 4px black stroke"
             AllStrokeWeightWithinTolerance("ellipse", target_weight=4.0,                # 3 ★ prompt: "4px ... stroke"

@@ -45,7 +45,7 @@ task = Task(
         # same solid color + visible
         ColorRubric([
             AllFillTypeIs("rectangle", kind="solid"),                           # 0   structural: solid fill required for color check
-            LayersAllSameColor(layer_type="rectangle", tolerance=25.0),         # 1 ★ prompt: "same color"
+            LayersAllSameColor(layer_type="rectangle", tolerance=0.12),         # 1 ★ prompt: "same color"
             LayerVisible(layer_type="rectangle", min_opacity=0.5,
                          min_alpha=0.5),                                        # 2
         ], weight=0.20, critical=[1]),

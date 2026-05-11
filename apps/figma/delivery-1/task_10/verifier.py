@@ -30,7 +30,7 @@ task = Task(
 
         ColorRubric([
             LayersAlternatingColorsByArea(layer_type="rectangle", n_colors=2,
-                                          tolerance=25.0),                                      # 0 ★ prompt: "alternating two colors"
+                                          tolerance=0.12),                                      # 0 ★ prompt: "alternating two colors"
         ], weight=0.50, critical=[0]),
 
         EventRubric([
