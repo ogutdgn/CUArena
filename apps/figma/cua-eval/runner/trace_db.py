@@ -86,6 +86,44 @@ def _guess_content_type(path: Path) -> str:
     return "application/octet-stream"
 
 
+def _collect_attempt_artifacts(attempt_dir: Path) -> list[tuple[str, Path, int | None]]:
+    meta_path = attempt_dir / "meta.json"
+    outcome_path = attempt_dir / "outcome.json"
+    prompt_path = attempt_dir / "prompt.txt"
+    system_prompt_path = attempt_dir / "system_prompt.txt"
+    log_path = attempt_dir / "log.json"
+    end_state_path = attempt_dir / "end_state.json"
+    score_path = attempt_dir / "score.json"
+    trajectory_path = attempt_dir / "trajectory.json"
+    trajectory_jsonl_path = attempt_dir / "trajectory.jsonl"
+    screenshots_dir = attempt_dir / "screenshots"
+
+    artifacts: list[tuple[str, Path, int | None]] = []
+    if meta_path.is_file():
+        artifacts.append(("meta_json", meta_path, None))
+    if outcome_path.is_file():
+        artifacts.append(("outcome_json", outcome_path, None))
+    if prompt_path.is_file():
+        artifacts.append(("prompt_text", prompt_path, None))
+    if system_prompt_path.is_file():
+        artifacts.append(("system_prompt_text", system_prompt_path, None))
+    if log_path.is_file():
+        artifacts.append(("log_json", log_path, None))
+    if end_state_path.is_file():
+        artifacts.append(("end_state_json", end_state_path, None))
+    if score_path.is_file():
+        artifacts.append(("score_json", score_path, None))
+    if trajectory_path.is_file():
+        artifacts.append(("trajectory_json", trajectory_path, None))
+    if trajectory_jsonl_path.is_file():
+        artifacts.append(("trajectory_jsonl", trajectory_jsonl_path, None))
+    if screenshots_dir.is_dir():
+        screenshots = sorted([p for p in screenshots_dir.iterdir() if p.is_file() and p.suffix.lower() == ".png"])
+        for idx, shot in enumerate(screenshots):
+            artifacts.append(("screenshot", shot, idx))
+    return artifacts
+
+
 class TraceStore(Protocol):
     def upsert_run(self, *, run_id: str, run_root: Path, config: dict[str, Any]) -> None: ...
     def ingest_attempt(
@@ -579,18 +617,8 @@ class PostgresS3TraceStore:
         attempt_dir: Path,
         result: AttemptResult,
     ) -> None:
-        meta_path = attempt_dir / "meta.json"
-        outcome_path = attempt_dir / "outcome.json"
-        prompt_path = attempt_dir / "prompt.txt"
-        system_prompt_path = attempt_dir / "system_prompt.txt"
-        log_path = attempt_dir / "log.json"
-        score_path = attempt_dir / "score.json"
-        trajectory_path = attempt_dir / "trajectory.json"
-        trajectory_jsonl_path = attempt_dir / "trajectory.jsonl"
-        screenshots_dir = attempt_dir / "screenshots"
-
-        meta_obj = _read_json_any(meta_path)
-        outcome_obj = _read_json_any(outcome_path)
+        meta_obj = _read_json_any(attempt_dir / "meta.json")
+        outcome_obj = _read_json_any(attempt_dir / "outcome.json")
         started_at_ms = None
         ended_at_ms = None
         if isinstance(meta_obj, dict):
@@ -600,8 +628,8 @@ class PostgresS3TraceStore:
         usage = result.usage or {}
         cost = result.cost_estimate or {}
 
-        prompt_text = _read_text(prompt_path)
-        system_prompt_text = _read_text(system_prompt_path)
+        prompt_text = _read_text(attempt_dir / "prompt.txt")
+        system_prompt_text = _read_text(attempt_dir / "system_prompt.txt")
 
         with self.conn.cursor() as cur:
             cur.execute(
@@ -679,29 +707,7 @@ class PostgresS3TraceStore:
             attempt_id = int(row[0])
             cur.execute("DELETE FROM artifacts WHERE attempt_id = %s", (attempt_id,))
 
-            artifacts: list[tuple[str, Path, int | None]] = []
-            if meta_path.is_file():
-                artifacts.append(("meta_json", meta_path, None))
-            if outcome_path.is_file():
-                artifacts.append(("outcome_json", outcome_path, None))
-            if prompt_path.is_file():
-                artifacts.append(("prompt_text", prompt_path, None))
-            if system_prompt_path.is_file():
-                artifacts.append(("system_prompt_text", system_prompt_path, None))
-            if log_path.is_file():
-                artifacts.append(("log_json", log_path, None))
-            if score_path.is_file():
-                artifacts.append(("score_json", score_path, None))
-            if trajectory_path.is_file():
-                artifacts.append(("trajectory_json", trajectory_path, None))
-            if trajectory_jsonl_path.is_file():
-                artifacts.append(("trajectory_jsonl", trajectory_jsonl_path, None))
-            if screenshots_dir.is_dir():
-                screenshots = sorted([p for p in screenshots_dir.iterdir() if p.is_file() and p.suffix.lower() == ".png"])
-                for idx, shot in enumerate(screenshots):
-                    artifacts.append(("screenshot", shot, idx))
-
-            for kind, art_path, ordinal in artifacts:
+            for kind, art_path, ordinal in _collect_attempt_artifacts(attempt_dir):
                 uploaded = self._upload_artifact(
                     run_id=run_id,
                     provider=provider,
@@ -765,6 +771,184 @@ class PostgresS3TraceStore:
         self.conn.commit()
 
 
+class S3TraceStore:
+    def __init__(
+        self,
+        *,
+        s3_bucket: str,
+        s3_prefix: str = "cua-traces",
+        aws_region: str | None = None,
+        s3_endpoint_url: str | None = None,
+    ) -> None:
+        try:
+            import boto3  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError("Missing dependency: boto3. Install requirements.txt") from exc
+        self.s3_bucket = s3_bucket
+        self.s3_prefix = s3_prefix.strip("/") or "cua-traces"
+        self.s3 = boto3.client("s3", region_name=aws_region, endpoint_url=s3_endpoint_url)
+        self._run_roots: dict[str, Path] = {}
+
+    def close(self) -> None:
+        return
+
+    def _upload_bytes(self, *, key: str, payload: bytes, content_type: str, metadata: dict[str, str]) -> str:
+        self.s3.put_object(
+            Bucket=self.s3_bucket,
+            Key=key,
+            Body=payload,
+            ContentType=content_type,
+            Metadata=metadata,
+        )
+        return f"s3://{self.s3_bucket}/{key}"
+
+    def _upload_file(self, *, run_id: str, provider: str, task_id: str, attempt_index: int, path: Path, kind: str) -> dict[str, Any]:
+        payload = path.read_bytes()
+        sha = _sha256_hex(payload)
+        key = (
+            f"{self.s3_prefix}/run_id={run_id}/provider={provider}/task={task_id}/attempt={attempt_index}/"
+            f"{kind}/{path.name}"
+        )
+        content_type = _guess_content_type(path)
+        storage_uri = self._upload_bytes(
+            key=key,
+            payload=payload,
+            content_type=content_type,
+            metadata={
+                "run_id": run_id,
+                "provider": provider,
+                "task_id": task_id,
+                "attempt_index": str(attempt_index),
+                "artifact_kind": kind,
+                "sha256": sha,
+            },
+        )
+        width, height = (None, None)
+        if content_type == "image/png":
+            width, height = _png_dimensions(payload)
+        stat = path.stat()
+        return {
+            "artifact_kind": kind,
+            "filename": path.name,
+            "relative_path": str(path),
+            "storage_uri": storage_uri,
+            "sha256": sha,
+            "byte_size": len(payload),
+            "content_type": content_type,
+            "width": width,
+            "height": height,
+            "captured_at_ms": int(stat.st_mtime * 1000),
+        }
+
+    def upsert_run(self, *, run_id: str, run_root: Path, config: dict[str, Any]) -> None:
+        self._run_roots[run_id] = run_root
+        payload = {
+            "run_id": run_id,
+            "run_root": str(run_root.resolve()),
+            "status": "running",
+            "created_at_ms": _now_ms(),
+            "config": config,
+        }
+        key = f"{self.s3_prefix}/run_id={run_id}/run/meta.json"
+        self._upload_bytes(
+            key=key,
+            payload=json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8"),
+            content_type="application/json",
+            metadata={"run_id": run_id, "kind": "run_meta"},
+        )
+
+    def ingest_attempt(
+        self,
+        *,
+        run_id: str,
+        provider: str,
+        task_id: str,
+        attempt_index: int,
+        attempt_dir: Path,
+        result: AttemptResult,
+    ) -> None:
+        uploaded_artifacts: list[dict[str, Any]] = []
+        for kind, art_path, _ordinal in _collect_attempt_artifacts(attempt_dir):
+            uploaded_artifacts.append(
+                self._upload_file(
+                    run_id=run_id,
+                    provider=provider,
+                    task_id=task_id,
+                    attempt_index=attempt_index,
+                    path=art_path,
+                    kind=kind,
+                )
+            )
+
+        end_state = next(
+            (a for a in reversed(uploaded_artifacts) if a.get("artifact_kind") == "screenshot"),
+            None,
+        )
+        attempt_manifest = {
+            "run_id": run_id,
+            "provider": provider,
+            "task_id": task_id,
+            "attempt_index": attempt_index,
+            "attempt_dir": str(attempt_dir.resolve()),
+            "result": asdict(result),
+            "end_state": end_state,
+            "artifacts": uploaded_artifacts,
+            "uploaded_at_ms": _now_ms(),
+        }
+        key = f"{self.s3_prefix}/run_id={run_id}/provider={provider}/task={task_id}/attempt={attempt_index}/attempt_manifest.json"
+        self._upload_bytes(
+            key=key,
+            payload=json.dumps(attempt_manifest, ensure_ascii=False, indent=2).encode("utf-8"),
+            content_type="application/json",
+            metadata={
+                "run_id": run_id,
+                "provider": provider,
+                "task_id": task_id,
+                "attempt_index": str(attempt_index),
+                "kind": "attempt_manifest",
+            },
+        )
+
+    def finalize_run(self, *, run_id: str, attempts: list[AttemptResult], extra: dict[str, Any]) -> None:
+        summary = {
+            "run_id": run_id,
+            "status": "completed",
+            "ended_at_ms": _now_ms(),
+            "attempt_count": len(attempts),
+            "pass_count": sum(1 for a in attempts if a.passed),
+            "pass_rate": (sum(1 for a in attempts if a.passed) / len(attempts)) if attempts else 0.0,
+            "extra": extra,
+            "attempts": [asdict(a) for a in attempts],
+        }
+        key = f"{self.s3_prefix}/run_id={run_id}/run/summary.json"
+        self._upload_bytes(
+            key=key,
+            payload=json.dumps(summary, ensure_ascii=False, indent=2).encode("utf-8"),
+            content_type="application/json",
+            metadata={"run_id": run_id, "kind": "run_summary"},
+        )
+
+        run_root = self._run_roots.get(run_id)
+        if run_root is None:
+            return
+        run_level_files = [
+            ("run_attempts_json", run_root / "attempts.json"),
+            ("run_summary_csv", run_root / "summary.csv"),
+            ("run_summary_md", run_root / "summary.md"),
+        ]
+        for kind, path in run_level_files:
+            if not path.is_file():
+                continue
+            payload = path.read_bytes()
+            sha = _sha256_hex(payload)
+            self._upload_bytes(
+                key=f"{self.s3_prefix}/run_id={run_id}/run/{path.name}",
+                payload=payload,
+                content_type=_guess_content_type(path),
+                metadata={"run_id": run_id, "kind": kind, "sha256": sha},
+            )
+
+
 def create_trace_store(
     *,
     backend: str,
@@ -778,6 +962,15 @@ def create_trace_store(
 ) -> TraceStore:
     if backend == "sqlite":
         return SqliteTraceStore(sqlite_path, store_screenshot_bytes=sqlite_store_screenshot_bytes)
+    if backend == "s3":
+        if not s3_bucket:
+            raise RuntimeError("trace backend s3 requires --trace-s3-bucket or CUA_TRACE_S3_BUCKET")
+        return S3TraceStore(
+            s3_bucket=s3_bucket,
+            s3_prefix=s3_prefix,
+            aws_region=aws_region,
+            s3_endpoint_url=s3_endpoint_url,
+        )
     if backend == "postgres-s3":
         if not postgres_dsn:
             raise RuntimeError("trace backend postgres-s3 requires --trace-postgres-dsn or CUA_TRACE_POSTGRES_DSN")

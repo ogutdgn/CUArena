@@ -205,6 +205,7 @@ def run_attempt(
     trajectory_path = out_dir / "trajectory.json"
     meta_path = out_dir / "meta.json"
     outcome_path = out_dir / "outcome.json"
+    end_state_path = out_dir / "end_state.json"
     prompt_path = out_dir / "prompt.txt"
     system_prompt_path = out_dir / "system_prompt.txt"
 
@@ -282,6 +283,20 @@ def run_attempt(
 
     if log_payload is not None:
         log_path.write_text(json.dumps(log_payload, indent=2), encoding="utf-8")
+        end_state_path.write_text(
+            json.dumps(
+                {
+                    "schemaVersion": 1,
+                    "sessionId": log_payload.get("sessionId", ""),
+                    "exportedAt": log_payload.get("exportedAt", int(time.time() * 1000)),
+                    "outcome": log_payload.get("outcome", {}),
+                    "raw_event_count": len(log_payload.get("raw", []) or []),
+                    "semantic_event_count": len(log_payload.get("semantic", []) or []),
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
         try:
             result = score_log(task, log_path)
         except Exception as score_exc:
@@ -292,11 +307,27 @@ def run_attempt(
             error = score_err if not error else f"{error}; {score_err}"
             result = _zero_result(task, log_path, reason=str(score_exc))
     else:
+        fallback_ts = int(time.time() * 1000)
         log_path.write_text(json.dumps({
             "schemaVersion": 1, "sessionId": "unavailable",
-            "exportedAt": int(time.time() * 1000),
+            "exportedAt": fallback_ts,
             "raw": [], "semantic": [], "outcome": {},
         }, indent=2), encoding="utf-8")
+        end_state_path.write_text(
+            json.dumps(
+                {
+                    "schemaVersion": 1,
+                    "sessionId": "unavailable",
+                    "exportedAt": fallback_ts,
+                    "outcome": {},
+                    "raw_event_count": 0,
+                    "semantic_event_count": 0,
+                    "status": "no_log",
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
         result = _zero_result(task, log_path, reason=error or "no log")
 
     score_path.write_text(json.dumps(dataclasses.asdict(result), indent=2), encoding="utf-8")
