@@ -50,7 +50,7 @@ PASS_LOGS = [
     ("perfect_other_size",perfect_other_size()),
 ]
 FAIL_LOGS = [
-    ("no_shadow",     fail_no_shadow(),     ["drop shadow"]),
+    # Prompt for task_40 doesn't mention drop shadow — removed adversarial. (Was: no_shadow.)
     ("thumb_left",    fail_thumb_left(),    ["aligns with any rectangle.right"]),
     ("wrong_color",   fail_wrong_color(),   ["No rectangle with solid"]),
     ("no_radius",     fail_no_radius(),     ["cornerRadius"]),

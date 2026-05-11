@@ -62,9 +62,10 @@ def fail_not_concentric():
     return make_log(layers, _events())
 
 
-def fail_wrong_color():
-    """All red strokes instead of gold."""
-    layers = [_line(i*45, color=RED) for i in range(8)]
+def fail_mixed_colors():
+    """8 lines with DIFFERENT colors (violates "all lines same color")."""
+    # alternating gold/red — should fail DistinctStrokeColors(minimum=1) tolerance check
+    layers = [_line(i*45, color=(RED if i % 2 else GOLD)) for i in range(8)]
     return make_log(layers, _events())
 
 
@@ -78,5 +79,7 @@ FAIL_LOGS = [
     ("4_lines",              fail_4_lines(),              ["found 4"]),
     ("wrong_rotation_step",  fail_wrong_rotation_step(),  ["gap dev"]),
     ("not_concentric",       fail_not_concentric(),       ["Shared-center"]),
-    ("wrong_color",          fail_wrong_color(),          ["stroke color"]),
+    # Prompt is "all same color, any color" — a wrong-but-uniform color is NOT adversarial.
+    # The right adversarial is *different* colors across lines.
+    ("mixed_colors",         fail_mixed_colors(),         ["stroke colors not uniform"]),
 ]

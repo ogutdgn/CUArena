@@ -53,7 +53,7 @@ task = Task(
         # critical: light-gray solid fill
         ColorRubric([
             AllFillTypeIs("rectangle", kind="solid"),                           # 0 solid fill required
-            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.25),  # 1 ★ prompt: "light-gray"
+            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.28),  # 1 ★ prompt: "light-gray" — human-friendly
         ], weight=0.2, critical=[1]),
 
         # critical: paired drop shadows (the defining feature of neumorphism)

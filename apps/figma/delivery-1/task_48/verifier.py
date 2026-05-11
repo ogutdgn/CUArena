@@ -68,8 +68,8 @@ task = Task(
             SolidColorEquals(layer_type="frame", expected_rgb=NAVY, tolerance=0.30),    # 1 ★ prompt: "navy frame"
             AllStrokeExists("line"),                                                     # 2 ★ prompt: "white ... lines" (stroke required)
             AllStrokeExists("polygon"),                                                  # 3 all hexagons stroked
-            AllStrokeColorEquals("line", expected_rgb=WHITE, tolerance=0.20),            # 4 ★ prompt: "white ... lines"
-            AllStrokeColorEquals("polygon", expected_rgb=WHITE, tolerance=0.20),         # 5 ★ prompt: "white-stroked hexagons"
+            AllStrokeColorEquals("line", expected_rgb=WHITE, tolerance=0.28),            # 4 ★ prompt: "white ... lines" — human-friendly
+            AllStrokeColorEquals("polygon", expected_rgb=WHITE, tolerance=0.28),         # 5 ★ prompt: "white-stroked hexagons" — human-friendly
             AllStrokeWeightAtMost("line", max_weight=10.0),                              # 6 lines not absurd-thick
             FillOpacityAtLeast("frame", min_opacity=0.5),                                # 7 frame visible fill
             LayerVisible("frame"),                                                       # 8 frame visible

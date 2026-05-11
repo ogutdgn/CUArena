@@ -40,7 +40,7 @@ task = Task(
 
         EventRubric([
             ToolUsed("pen"),                                                                    # 0 ★ prompt: "Use the Pen tool"
-            EventTypeCountAtLeast("create_vector", minimum=2),                                  # 1
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1),                         # 1 ★ prompt says "Duplicate the path" so only 1 pen-created vector is expected
         ], weight=0.10, critical=[]),
     ],
     efficiency=EfficiencyRubric(target_turns=40),
