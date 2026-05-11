@@ -2,7 +2,8 @@ import { Section } from "./sectionShell";
 import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
-import { setTransformField } from "@/engine/propertyCommands";
+import { applyPanelFrameContainmentForSelection, setTransformField } from "@/engine/propertyCommands";
+import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import { Ratio } from "lucide-react";
 
 export function LayoutSection() {
@@ -19,19 +20,26 @@ export function LayoutSection() {
   const wVal: number | "Mixed" = layers.every((l) => l.w === ref.w) ? ref.w : "Mixed";
   const hVal: number | "Mixed" = layers.every((l) => l.h === ref.h) ? ref.h : "Mixed";
 
-  function commitW(v: number) {
-    setTransformField("w", v);
+  function commitTransformScrub(transactionId: string) {
+    applyPanelFrameContainmentForSelection(transactionId);
+    commitTransaction(transactionId);
+  }
+
+  function commitW(v: number, context?: { transactionId?: string }) {
+    const opts = { ...context, deferFrameContainment: !!context?.transactionId };
+    setTransformField("w", v, opts);
     if (locked && typeof wVal === "number" && typeof hVal === "number" && wVal > 0) {
       const ratio = hVal / wVal;
-      setTransformField("h", Math.max(1, Math.round(v * ratio)));
+      setTransformField("h", Math.max(1, Math.round(v * ratio)), opts);
     }
   }
 
-  function commitH(v: number) {
-    setTransformField("h", v);
+  function commitH(v: number, context?: { transactionId?: string }) {
+    const opts = { ...context, deferFrameContainment: !!context?.transactionId };
+    setTransformField("h", v, opts);
     if (locked && typeof wVal === "number" && typeof hVal === "number" && hVal > 0) {
       const ratio = wVal / hVal;
-      setTransformField("w", Math.max(1, Math.round(v * ratio)));
+      setTransformField("w", Math.max(1, Math.round(v * ratio)), opts);
     }
   }
 
@@ -42,34 +50,28 @@ export function LayoutSection() {
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         {locked ? (
-          // Connected — single unified container
+          // Connected — single unified container; W/H glyphs live inside each
+          // NumericInput so they double as drag-scrub handles (same pattern as
+          // opacity / corner-radius in AppearanceSection).
           <div
             style={{
               flex: 1, display: "flex", alignItems: "center",
               height: 28, background: "var(--color-bg-input)", borderRadius: 4, overflow: "hidden",
             }}
           >
-            <span style={{ padding: "0 4px 0 8px", color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500, flexShrink: 0 }}>W</span>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <NumericInput value={wVal} onCommit={commitW} min={1} noBg />
+              <NumericInput prefix={<DimGlyph>W</DimGlyph>} value={wVal} onCommit={commitW} min={1} noBg onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
             </div>
             <div style={{ width: 1, height: 16, background: "var(--color-border)", flexShrink: 0 }} />
-            <span style={{ padding: "0 4px 0 8px", color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500, flexShrink: 0 }}>H</span>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <NumericInput value={hVal} onCommit={commitH} min={1} noBg />
+              <NumericInput prefix={<DimGlyph>H</DimGlyph>} value={hVal} onCommit={commitH} min={1} noBg onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
             </div>
           </div>
         ) : (
           // Separate — two independent inputs
           <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 4, height: 28 }}>
-              <span style={{ width: 14, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500 }}>W</span>
-              <NumericInput value={wVal} onCommit={commitW} min={1} />
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 4, height: 28 }}>
-              <span style={{ width: 14, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)", fontWeight: 500 }}>H</span>
-              <NumericInput value={hVal} onCommit={commitH} min={1} />
-            </div>
+            <NumericInput prefix={<DimGlyph>W</DimGlyph>} value={wVal} onCommit={commitW} min={1} onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
+            <NumericInput prefix={<DimGlyph>H</DimGlyph>} value={hVal} onCommit={commitH} min={1} onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
           </div>
         )}
 
@@ -92,4 +94,8 @@ export function LayoutSection() {
       </div>
     </Section>
   );
+}
+
+function DimGlyph({ children }: { children: React.ReactNode }) {
+  return <span style={{ fontWeight: 500 }}>{children}</span>;
 }

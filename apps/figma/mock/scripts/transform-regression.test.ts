@@ -22,6 +22,7 @@ import { placementForPastedLayer } from "../src/engine/pastePlacement";
 import { frameLabelGeometry } from "../src/engine/frameLabelsGeometry";
 import { pannedViewportFromClientDelta } from "../src/engine/viewportPan";
 import { textEditorCssMatrix } from "../src/ui/overlays/textEditorGeometry";
+import { applyFrameContainmentForLayers, getFrameContainmentMoves } from "../src/engine/frameContainment";
 import type { AppState } from "../src/engine/store";
 import type { Frame, Layer, Line, Page, Rectangle, Text } from "../src/types/scene";
 
@@ -206,6 +207,59 @@ assert(childMinX === 120 && childMaxX === 140, "child outline should follow a fl
 const childGeom = selectionOutlineGeometry(nestedState);
 assert(childGeom.kind === "single_oriented", "nested child selection should use oriented geometry");
 assert(Math.min(...childGeom.points.map((p) => p.x)) === childMinX, "selection outline should use transformed child corners");
+
+const panelMoveFrame: Frame = {
+  ...frame,
+  id: "panel-frame",
+  parentId: "page-1",
+  x: 0,
+  y: 0,
+  w: 100,
+  h: 100,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  clipsContent: true,
+  children: [],
+};
+const panelMoveChild: Rectangle = {
+  ...child,
+  id: "panel-child",
+  parentId: "panel-frame",
+  x: 20,
+  y: 20,
+  w: 20,
+  h: 20,
+};
+const panelMoveState = makeNestedState(panelMoveFrame, panelMoveChild);
+applySetTransform(panelMoveState, {
+  id: "op-panel-move",
+  timestamp: 0,
+  kind: "set_transform",
+  pageId: panelMoveState.activePageId,
+  ids: [panelMoveChild.id],
+  before: { [panelMoveChild.id]: { x: 20, y: 20, w: 20, h: 20, rotation: 0, scaleX: 1, scaleY: 1 } },
+  after: { [panelMoveChild.id]: { x: 130, y: 20, w: 20, h: 20, rotation: 0, scaleX: 1, scaleY: 1 } },
+});
+applyFrameContainmentForLayers(panelMoveState, [panelMoveChild.id]);
+const panelMovedChild = panelMoveState.nodesById[panelMoveChild.id] as Rectangle;
+assert(panelMovedChild.parentId === "page-1", "panel X/Y transform should eject a frame child once overlap drops below the exit threshold");
+assert(Math.abs(panelMovedChild.x - 130) < 0.001, "panel frame ejection should preserve the child's world x");
+assert(Math.abs(panelMovedChild.y - 20) < 0.001, "panel frame ejection should preserve the child's world y");
+
+const panelHalfOutFrame: Frame = { ...panelMoveFrame, id: "panel-half-frame", children: [] };
+const panelHalfOutChild: Rectangle = {
+  ...panelMoveChild,
+  id: "panel-half-child",
+  parentId: "panel-half-frame",
+  x: 90,
+  y: 20,
+};
+const panelHalfOutState = makeNestedState(panelHalfOutFrame, panelHalfOutChild);
+const conservativeExitMoves = getFrameContainmentMoves(panelHalfOutState, [panelHalfOutChild.id]);
+assert(conservativeExitMoves.length === 0, "canvas hysteresis should keep a half-overlapping frame child nested");
+const panelExitMoves = getFrameContainmentMoves(panelHalfOutState, [panelHalfOutChild.id], { exitRatio: 0.6 });
+assert(panelExitMoves.length === 1 && panelExitMoves[0].toParentId === "page-1", "panel containment should eject once less than 60% of the layer remains in the frame");
 
 const multiRotated: Rectangle = { ...rect, id: "multi-rotated", rotation: 90, scaleX: 1, scaleY: 1 };
 const multiFlipped: Rectangle = { ...rect, id: "multi-flipped", x: 200, y: 10, w: 80, h: 40, rotation: 0, scaleX: -1, scaleY: 1 };

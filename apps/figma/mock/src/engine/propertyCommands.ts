@@ -6,10 +6,11 @@ import { useStore } from "./store";
 import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { getSelectedLayers } from "./selectors";
-import type { Layer } from "@/types/scene";
+import type { Layer, Page } from "@/types/scene";
 import type { TransformMap } from "@/types/ops";
 import type { Color } from "@/types/scene";
 import { getLayerPositionValue, transformForLayerPositionValue } from "./positionCoordinates";
+import { getFrameContainmentMoves } from "./frameContainment";
 
 function txtuple(l: Layer) {
   return { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY } as const;
@@ -50,7 +51,11 @@ function dispatchPropertyWithSemantic(
   });
 }
 
-export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", value: number) {
+export function setTransformField(
+  field: "x" | "y" | "w" | "h" | "rotation",
+  value: number,
+  options: { transactionId?: string; deferFrameContainment?: boolean } = {},
+) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s);
   if (layers.length === 0) return;
@@ -81,7 +86,12 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
     ids: layers.map((l) => l.id),
     before,
     after,
+  }, {
+    transactionId: options.transactionId,
   });
+  if (!options.deferFrameContainment && (field === "x" || field === "y" || field === "w" || field === "h")) {
+    dispatchPanelFrameContainment(layers.map((l) => l.id), options.transactionId);
+  }
   if (field === "rotation") {
     const beforeR: Record<string, number> = {};
     const afterR: Record<string, number> = {};
@@ -123,6 +133,48 @@ export function setTransformField(field: "x" | "y" | "w" | "h" | "rotation", val
       modifiers: { shift: false, alt: false, ctrl: false },
     });
   }
+}
+
+export function applyPanelFrameContainmentForSelection(transactionId?: string): void {
+  const layers = getSelectedLayers(useStore.getState());
+  if (layers.length === 0) return;
+  dispatchPanelFrameContainment(layers.map((l) => l.id), transactionId);
+}
+
+function dispatchPanelFrameContainment(layerIds: string[], transactionId?: string): void {
+  const moves = getFrameContainmentMoves(useStore.getState(), layerIds, { exitRatio: 0.6 });
+  for (const move of moves) {
+    const now = useStore.getState();
+    dispatch(
+      {
+        id: makeOpId(),
+        timestamp: performance.now(),
+        kind: "reparent",
+        pageId: now.activePageId,
+        moves: [move],
+      },
+      { transactionId },
+    );
+    const afterState = useStore.getState();
+    const afterLayer = afterState.nodesById[move.id] as Layer | undefined;
+    const afterArr = afterLayer ? childrenOf(afterState, afterLayer.parentId) : null;
+    const afterIndex = afterArr && afterLayer ? afterArr.findIndex((c) => c.id === move.id) : move.toIndex;
+    emitSemantic({
+      name: "reorder_layer",
+      layerIds: [move.id],
+      before: [{ parentId: move.fromParentId, index: move.fromIndex }],
+      after: [{ parentId: afterLayer?.parentId ?? move.toParentId, index: afterIndex >= 0 ? afterIndex : move.toIndex }],
+      trigger: "panel_drag",
+    });
+  }
+}
+
+function childrenOf(state: ReturnType<typeof useStore.getState>, parentId: string): Layer[] | null {
+  const p = state.nodesById[parentId] as Layer | Page | undefined;
+  if (!p) return null;
+  if ((p as Page).type === "page") return (p as Page).children;
+  if ("children" in (p as object)) return ((p as Layer & { children?: Layer[] }).children ?? null);
+  return null;
 }
 
 export function setOpacity(value: number) {
