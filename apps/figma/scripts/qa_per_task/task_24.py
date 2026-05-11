@@ -51,7 +51,8 @@ PASS_LOGS = [
     ("perfect_taller",  perfect_taller()),
 ]
 FAIL_LOGS = [
-    ("no_shadow",       fail_no_shadow(),       ["drop shadow"]),
+    # Prompt: "draw a smaller rounded rectangle ... center it horizontally and vertically".
+    # Drop shadow is NOT in the prompt, so removing it is not adversarial. (Was: no_shadow.)
     ("not_white",       fail_not_white(),       ["color mismatch"]),
     ("no_radius",       fail_no_radius(),       ["cornerRadius"]),
     ("off_center",      fail_off_center(),      ["centered"]),

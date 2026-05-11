@@ -52,7 +52,7 @@ task = Task(
         # critical: pen tool mandated
         EventRubric([
             ToolUsed("pen"),                                              # 0 ★ prompt: "Pen tool"
-            EventTypeCountAtLeast("create_vector", minimum=1),            # 1
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1),   # 1 ★ mock event name
         ], weight=0.25, critical=[0]),
     ],
     efficiency=EfficiencyRubric(target_turns=18),

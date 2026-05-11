@@ -100,7 +100,7 @@ task = Task(
             ToolUsed("pen"),                                                            # 1 pen tool used
             ToolUsed("ellipse"),                                                        # 2 ellipse tool used
             EventTypeCount("create_rectangle", equals=1),                               # 3 exact count
-            EventTypeCount("create_vector",    equals=1),                               # 4
+            EventTypeCount("create_vector_with_pen", equals=1),                         # 4 ★ mock event name
             EventTypeCount("create_ellipse",   equals=1),                               # 5
         ], weight=0.20, critical=[]),
     ],

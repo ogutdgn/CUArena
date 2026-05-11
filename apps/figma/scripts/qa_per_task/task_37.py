@@ -63,7 +63,7 @@ PASS_LOGS = [
 ]
 FAIL_LOGS = [
     ("no_rotation",  fail_no_rotation(),  ["rotation"]),
-    ("no_shadow",    fail_no_shadow(),    ["drop shadow"]),
+    # Prompt for task_37 doesn't mention drop shadow — removed adversarial. (Was: no_shadow.)
     ("not_yellow",   fail_not_yellow(),   ["No rectangle with solid"]),
     ("invisible_lines", fail_invisible_lines(), ["no visible stroke"]),
     ("no_lines",     fail_no_lines(),     ["≥3"]),

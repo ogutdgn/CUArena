@@ -33,7 +33,15 @@ def perfect_more_gap():    return _row(gap=18)
 
 def fail_2_rects():     return _row(n=2)
 def fail_different_colors(): return _row(colors=[PURPLE,(0.95,0.3,0.3),(0.4,0.85,0.4)])
-def fail_wrong_size():       return _row(w=80, h=80)
+def fail_different_sizes():
+    # Prompt: "3 identical rectangles (same size, same color)". Adversarial: mixed sizes,
+    # not specific dimensions (prompt doesn't pin a size — humans can pick any size).
+    layers = [
+        make_layer("rectangle", x=100, y=300, w=160, h=40, fill=PURPLE),
+        make_layer("rectangle", x=272, y=300, w= 80, h=40, fill=PURPLE),
+        make_layer("rectangle", x=372, y=300, w=160, h=80, fill=PURPLE),
+    ]
+    return make_log(layers, _events())
 def fail_misaligned_y():
     layers = [
         make_layer("rectangle", x=100, y=300, w=160, h=40, fill=PURPLE),
@@ -51,6 +59,6 @@ PASS_LOGS = [
 FAIL_LOGS = [
     ("2_rects",          fail_2_rects(),          ["expected 3, got 2"]),
     ("different_colors", fail_different_colors(), ["differs from"]),
-    ("wrong_size",       fail_wrong_size(),       ["w=80 ≠ 160"]),
+    ("different_sizes",  fail_different_sizes(),  ["≠"]),  # LayersSameDimensions fires
     ("misaligned_y",     fail_misaligned_y(),     ["aligned on center_y"]),
 ]

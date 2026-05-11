@@ -395,6 +395,57 @@ class StrokeRendersVisible:
 
 
 @dataclass
+class AllStrokesSameColor:
+    """All layers of layer_type have first-stroke colors within `tolerance` of
+    each other. Any single color is acceptable — checks consistency only.
+    Use when the prompt says e.g. 'all lines the same color' but doesn't
+    specify which color."""
+    layer_type: str
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if not layers:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"No {self.layer_type} layers found",
+            )
+        colors = []
+        for l in layers:
+            s = _first_stroke(l)
+            if s is None:
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=f"{self.layer_type} {l.get('id','?')[:8]} has no stroke",
+                )
+            paint = s.get("paint", {})
+            if paint.get("kind") != "solid":
+                continue  # non-solid skipped from same-color check
+            c = paint.get("color", {})
+            colors.append((c.get("r", 0), c.get("g", 0), c.get("b", 0)))
+        if not colors:
+            return CheckResult(
+                passed=False, score=0.0, max_score=1.0,
+                message=f"No solid stroke colors on {self.layer_type} layers",
+            )
+        ref = colors[0]
+        for c in colors[1:]:
+            d = max(abs(c[0] - ref[0]), abs(c[1] - ref[1]), abs(c[2] - ref[2]))
+            if d > self.tolerance:
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=(f"{self.layer_type} stroke colors not uniform: "
+                             f"first=({ref[0]:.2f},{ref[1]:.2f},{ref[2]:.2f}), "
+                             f"another=({c[0]:.2f},{c[1]:.2f},{c[2]:.2f}), "
+                             f"diff={d:.2f} > tol {self.tolerance}"),
+                )
+        return CheckResult(
+            passed=True, score=1.0, max_score=1.0,
+            message=f"All {len(colors)} {self.layer_type} strokes share a color (tol {self.tolerance})",
+        )
+
+
+@dataclass
 class AllStrokeWeightsEqual:
     """All layers of layer_type have first-stroke weight ≈ expected."""
     layer_type: str

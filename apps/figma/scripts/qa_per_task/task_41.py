@@ -66,8 +66,8 @@ PASS_LOGS = [
     ("perfect_other_color",    perfect_other_color()),
 ]
 FAIL_LOGS = [
-    ("wrong_bar_size",   fail_wrong_bar_size(),   ["w=200 ≠ 320"]),
+    # Prompt for task_41 doesn't specify exact bar dimensions or color — removed
+    # adversarials that tested for those. (Was: wrong_bar_size, dark_bar.)
     ("no_radius",        fail_no_radius(),        ["cornerRadius"]),
-    ("dark_bar",         fail_dark_bar(),         ["No rectangle with solid"]),
     ("no_glass_stroke",  fail_no_glass_stroke(),  ["no visible stroke"]),
 ]
