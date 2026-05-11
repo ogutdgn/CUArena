@@ -129,29 +129,29 @@ export function Toolbar() {
   const creationActive = activeTool === "pen" || activeTool === "pencil";
 
   const moveIcon =
-    activeTool === "hand" ? <Hand size={16} /> : activeTool === "scale" ? <Maximize2 size={16} /> : <MousePointer2 size={16} />;
+    activeTool === "hand" ? <Hand size={18} /> : activeTool === "scale" ? <Maximize2 size={18} /> : <MousePointer2 size={18} />;
   const regionToolForIcon = regionActive ? activeTool : lastRegionTool;
   const shapeToolForIcon = shapeActive ? activeTool : lastShapeTool;
   const creationToolForIcon = creationActive ? activeTool : lastCreationTool;
   const regionIcon =
     regionToolForIcon === "section"
-      ? <LayoutTemplate size={16} />
+      ? <LayoutTemplate size={18} />
       : regionToolForIcon === "slice"
-      ? <Crop size={16} />
-      : <Frame size={16} />;
+      ? <Crop size={18} />
+      : <Frame size={18} />;
   const shapeIcon =
     shapeToolForIcon === "ellipse"
-      ? <Circle size={16} />
+      ? <Circle size={18} />
       : shapeToolForIcon === "polygon"
-      ? <Hexagon size={16} />
+      ? <Hexagon size={18} />
       : shapeToolForIcon === "star"
-      ? <Star size={16} />
+      ? <Star size={18} />
       : shapeToolForIcon === "line"
-      ? <Minus size={16} />
+      ? <Minus size={18} />
       : shapeToolForIcon === "arrow"
-      ? <ArrowRight size={16} />
-      : <Square size={16} />;
-  const creationIcon = creationToolForIcon === "pencil" ? <PencilLine size={16} /> : <PenTool size={16} />;
+      ? <ArrowRight size={18} />
+      : <Square size={18} />;
+  const creationIcon = creationToolForIcon === "pencil" ? <PencilLine size={18} /> : <PenTool size={18} />;
 
   function dropdownAnchor(ref: React.RefObject<HTMLDivElement | null>) {
     if (!ref.current) return null;
@@ -169,11 +169,11 @@ export function Toolbar() {
           bottom: 16,
           left: "50%",
           transform: "translateX(-50%)",
-          height: 40,
+          height: 46,
           display: "flex",
           alignItems: "center",
           gap: 2,
-          padding: "0 6px",
+          padding: "0 8px",
           background: "var(--color-bg-toolbar)",
           border: "1px solid var(--color-border)",
           borderRadius: 12,
@@ -221,7 +221,7 @@ export function Toolbar() {
         />
         <ToolButton
           id="toolbar.text"
-          icon={<Type size={16} />}
+          icon={<Type size={18} />}
           active={activeTool === "text"}
           onClick={() => setToolFromClick("text")}
           title="Text (T)"
@@ -281,8 +281,8 @@ const ToolGroup = ({
       title={title}
       onClick={onIconClick}
       style={{
-        width: 30,
-        height: 32,
+        width: 34,
+        height: 36,
         display: "grid",
         placeItems: "center",
         color: "inherit",
@@ -300,8 +300,8 @@ const ToolGroup = ({
       title={`${title} options`}
       onClick={onChevronClick}
       style={{
-        width: 14,
-        height: 32,
+        width: 16,
+        height: 36,
         display: "grid",
         placeItems: "center",
         color: "inherit",
@@ -336,8 +336,8 @@ function ToolButton({
       title={title}
       onClick={onClick}
       style={{
-        width: 32,
-        height: 32,
+        width: 36,
+        height: 36,
         borderRadius: 8,
         display: "grid",
         placeItems: "center",
@@ -357,7 +357,7 @@ function ToolButton({
 }
 
 function Divider() {
-  return <span style={{ width: 1, height: 16, background: "var(--color-border)", margin: "0 2px" }} />;
+  return <span style={{ width: 1, height: 20, background: "var(--color-border)", margin: "0 2px" }} />;
 }
 
 function ModeSwitcher() {
@@ -382,8 +382,8 @@ function Segment({ id, icon, active, title }: { id: string; icon: React.ReactNod
       data-id={id}
       title={title}
       style={{
-        width: 28,
-        height: 24,
+        width: 32,
+        height: 28,
         borderRadius: 6,
         display: "grid",
         placeItems: "center",
