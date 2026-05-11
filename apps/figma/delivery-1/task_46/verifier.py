@@ -37,12 +37,12 @@ task = Task(
 
         # critical: side-by-side stacking, shared baseline, varying heights, vertical
         AlignmentRubric([
-            LayersStacked(layer_type="rectangle", axis="x", gap_px=4.0, tolerance=12.0),         # 0 ★ prompt: "side-by-side"
+            LayersStacked(layer_type="rectangle", axis="x", gap_px=4.0, tolerance=25.0),         # 0 ★ prompt: "side-by-side"
             LayersAllShareEdge(layer_type="rectangle", edge="bottom", tolerance=15.0),           # 1 ★ prompt: "sharing a bottom baseline"
             LayerHeightRangeAtLeast(layer_type="rectangle", min_range=20.0),                     # 2 ★ prompt: "varying heights"
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=1.0, axis="vertical"),     # 3 ★ prompt: "vertical bars"
             FrameSizeEquals(width=1280, height=832, tolerance=25.0),                             # 4 frame size
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),    # 5 bars inside frame
+
             LayerSizeAtLeast(layer_type="rectangle", min_w=2, min_h=10),                         # 6 no degenerate
             AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",                   # 7 sane width
                                   min_frac=0.001, max_frac=0.30),

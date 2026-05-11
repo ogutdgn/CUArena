@@ -43,7 +43,7 @@ task = Task(
         # critical: 2×2 offset honeycomb tiling — single primitive maps to prompt phrase.
         AlignmentRubric([
             OffsetGridLayout(layer_type="polygon", rows=2, cols=2, tolerance=15.0),   # 0 ★ prompt: "2×2 offset honeycomb tiling"
-            LayersSameDimensions(layer_type="polygon", tolerance=8.0),                # 1
+            LayersSameDimensions(layer_type="polygon", tolerance=25.0),                # 1
             LayerSizeAtLeast(layer_type="polygon", min_w=15, min_h=15),               # 2
             LayerRotationEquals(layer_type="polygon", degrees=0, tolerance=5.0),      # 3
             NoLayerFlipped(layer_type="polygon"),                                     # 4

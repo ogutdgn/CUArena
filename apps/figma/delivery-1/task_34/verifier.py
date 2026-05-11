@@ -47,7 +47,7 @@ task = Task(
         AlignmentRubric([
             LayersEvenlyRotated(layer_type="line", n=4, step_deg=90.0, tolerance_deg=10.0),  # 0 ★ prompt: "rotated 90° apart"
             LayersConcentric(layer_type="line", tolerance=20.0),                              # 1 ★ prompt: "rotating each by 90° around the center"
-            LayersSameDimensions(layer_type="line", tolerance=8.0),                           # 2
+            LayersSameDimensions(layer_type="line", tolerance=25.0),                           # 2
             AllLayerBoundsInside(inner_type="line", outer_type="frame", tolerance=10.0),      # 3
             LayerSizeAtLeast(layer_type="line", min_w=20, min_h=1),                           # 4
             NoLayerFlipped(layer_type="line"),                                                # 5

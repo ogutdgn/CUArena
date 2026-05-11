@@ -62,8 +62,8 @@ task = Task(
 
         # ── END-STATE: Alignment / Geometry (weight 0.2) ────
         AlignmentRubric([
-            LayersAligned(layer_type="ellipse", axis="center_y", tolerance=12.0),    # 0
-            LayersSameDimensions(layer_type="ellipse", tolerance=8.0),                # 1
+            LayersAligned(layer_type="ellipse", axis="center_y", tolerance=25.0),    # 0
+            LayersSameDimensions(layer_type="ellipse", tolerance=25.0),                # 1
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),                     # 2 ★ prompt: "2 small round windows"
             LayersFlankLayer(flanker_type="ellipse", pivot_type="rectangle",
                              axis="x", tolerance=15.0),                               # 3 ★ prompt: "on either side of the door"

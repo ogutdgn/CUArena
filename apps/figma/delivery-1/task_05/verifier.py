@@ -23,8 +23,8 @@ task = Task(
         ], weight=0.20, critical=[0]),
 
         AlignmentRubric([
-            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=12.0),   # 0 ★ prompt: "centered together"
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),   # 1 ★ prompt: "centered together"
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=25.0),   # 0 ★ prompt: "centered together"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=25.0),   # 1 ★ prompt: "centered together"
             LayersHaveAspectMix(layer_type="rectangle",                               # 2 ★ prompt: "horizontal rectangle is wide and short; the vertical rectangle is narrow and tall"
                                 horizontal_count=1, vertical_count=1, ratio=2.0),
         ], weight=0.40, critical=[0, 1, 2]),

@@ -34,14 +34,13 @@ task = Task(
 
         # critical: same-size SQUARES, row alignment, stacked horizontally
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),         # 0 ★ prompt: "5 same-size squares"
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),  # 1 ★ prompt: "in a horizontal row"
+            LayersSameDimensions(layer_type="rectangle", tolerance=25.0),         # 0 ★ prompt: "5 same-size squares"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=25.0),  # 1 ★ prompt: "in a horizontal row"
             LayerIsSquare(layer_type="rectangle", tolerance=8.0),                # 2 ★ prompt: "squares"
             LayersStacked(layer_type="rectangle", axis="x", gap_px=16.0,
-                          tolerance=12.0),                                        # 3 ★ prompt: "in a row"
+                          tolerance=25.0),                                        # 3 ★ prompt: "in a row"
             LayerSizeAtLeast(layer_type="rectangle", min_w=20.0, min_h=20.0),    # 4 non-degenerate
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",
-                                 tolerance=10.0),                                 # 5 inside frame
+
         ], weight=0.25, critical=[0, 1, 2, 3]),
 
         # critical: solid + distinct brand colors

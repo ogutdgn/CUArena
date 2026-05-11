@@ -100,7 +100,7 @@ def load_dotenv() -> None:
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Pass@k CUA benchmark runner")
     p.add_argument("--providers", nargs="+", default=["anthropic"],
-                   choices=["anthropic", "openai"],
+                   choices=["anthropic", "openai", "openrouter"],
                    help="Which providers to run.")
     p.add_argument("--tasks", nargs="*", default=None,
                    help="Task IDs (e.g. 01 02 03). Defaults to all 50.")
@@ -115,6 +115,7 @@ def parse_args() -> argparse.Namespace:
                    help="URL of the running figma mock.")
     p.add_argument("--anthropic-model", default=os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-5"))
     p.add_argument("--openai-model", default=os.environ.get("OPENAI_MODEL", "computer-use-preview"))
+    p.add_argument("--openrouter-model", default=os.environ.get("OPENROUTER_MODEL", "qwen/qwen3.5-27b"))
     p.add_argument("--prompt-mode", choices=["bare", "description", "full"], default="description",
                    help="What to send the model. Default: 'description' (Thorough description only). "
                         "'bare'=Simplified prompt only. 'full'=entire prompt.md including step-by-step solution.")
@@ -128,6 +129,15 @@ def parse_args() -> argparse.Namespace:
                         "and tell the model they were blocked. Default: keyboard works. "
                         "Orthogonal to --system-prompt — pair with mouse-only/click-only "
                         "for a hard mouse-only environment.")
+    p.add_argument("--coord-clamp", action="store_true",
+                   help="(openrouter only) Reject off-viewport coordinates with a "
+                        "corrective tool_result instead of letting Playwright click "
+                        "outside the canvas. Useful for models with frozen-coord priors "
+                        "from training data.")
+    p.add_argument("--loop-break", action="store_true",
+                   help="(openrouter only) After 3 consecutive identical actions with "
+                        "no screen change, inject a 'STUCK — try different' user message "
+                        "to nudge the model out of attractors.")
     p.add_argument("--keep-screenshots", type=int, default=3,
                    help="(anthropic) keep only the last N screenshots in conversation "
                         "history; older ones are replaced with a text stub. Default 3. "
@@ -194,10 +204,13 @@ def resolve_provider_runner(
     *,
     anthropic_model: str,
     openai_model: str,
+    openrouter_model: str,
     keep_screenshots: int,
     common_kwargs: dict[str, Any],
     system_prompt: str | None,
     block_keyboard: bool,
+    coord_clamp: bool = False,
+    loop_break: bool = False,
 ) -> tuple[Any, dict[str, Any], str | None]:
     """The system prompt has already been resolved to a string (or None);
     just pick the right agent runner and pass everything through. The
@@ -234,6 +247,26 @@ def resolve_provider_runner(
             {
                 "model": openai_model,
                 "allow_keyboard": not block_keyboard,
+                **common_kwargs,
+            },
+            system_prompt,
+        )
+    if provider == "openrouter":
+        try:
+            if __package__:
+                from .agents.openrouter import run_openrouter_agent
+            else:
+                from runner.agents.openrouter import run_openrouter_agent  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError("openrouter provider unavailable. Install deps from requirements.txt") from exc
+        return (
+            run_openrouter_agent,
+            {
+                "model": openrouter_model,
+                "keep_screenshots": keep_screenshots,
+                "allow_keyboard": not block_keyboard,
+                "coord_clamp": coord_clamp,
+                "loop_break": loop_break,
                 **common_kwargs,
             },
             system_prompt,
@@ -335,10 +368,13 @@ def main() -> int:
                 provider,
                 anthropic_model=args.anthropic_model,
                 openai_model=args.openai_model,
+                openrouter_model=args.openrouter_model,
                 keep_screenshots=args.keep_screenshots,
                 common_kwargs=common_kwargs,
                 system_prompt=sys_prompt_text,
                 block_keyboard=args.block_keyboard,
+                coord_clamp=args.coord_clamp,
+                loop_break=args.loop_break,
             )
 
             for task_id in tasks:

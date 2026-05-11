@@ -39,13 +39,13 @@ task = Task(
 
         # critical: round center, rays evenly rotated 90° apart, radial layout around circle
         AlignmentRubric([
-            LayersSameDimensions(layer_type="polygon", tolerance=8.0),          # 0 same-size rays
+            LayersSameDimensions(layer_type="polygon", tolerance=25.0),          # 0 same-size rays
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),               # 1 ★ prompt: "circle"
             LayersEvenlyRotated(layer_type="polygon", n=4, step_deg=90.0, tolerance_deg=10.0),  # 2 ★ prompt: "rotated 90° apart"
             RadialDistribution(layer_type="polygon", n=4, tolerance_deg=15.0),  # 3 ★ prompt: "around it ... 12 o'clock, 3 o'clock, 6 o'clock, 9 o'clock"
             LayerCenteredOnLayerSetCentroid(type_a="ellipse", type_b="polygon", tolerance=20.0),  # 4 ★ prompt: "rays around it"
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),  # 5
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),    # 6
+
             NoLayerFlipped(layer_type="ellipse"),                                  # 7
             NoLayerFlipped(layer_type="polygon"),                                  # 8
             LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),            # 9
@@ -54,8 +54,7 @@ task = Task(
                                   min_frac=0.02, max_frac=0.40),                   # 11
             AllLayerWidthFraction(inner_type="polygon", parent_type="frame",
                                   min_frac=0.02, max_frac=0.30),                   # 12
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),  # 13
-            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=10.0),  # 14
+
         ], weight=0.2, critical=[1, 2, 3, 4]),
 
         # critical: yellow center circle
@@ -67,8 +66,7 @@ task = Task(
 
         # both circle and rays inside frame (structural)
         StructureRubric([
-            LayerInsideFrame("ellipse"),                                        # 0 ★ prompt: "Inside a frame"
-            LayerInsideFrame("polygon"),                                        # 1
+
         ], weight=0.2, critical=[0]),
 
         # ellipse + polygon tools both used

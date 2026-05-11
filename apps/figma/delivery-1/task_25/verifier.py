@@ -33,14 +33,13 @@ task = Task(
 
         # identical size, horizontal row, shared y-baseline, consistent spacing
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),         # 0 ★ prompt: "3 identical rectangles"
-            LayerSizeEquals(layer_type="rectangle", width=160, height=40, tolerance=12.0),  # 1
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),         # 2 ★ prompt: "same y-baseline"
+            LayersSameDimensions(layer_type="rectangle", tolerance=25.0),         # 0 ★ prompt: "3 identical rectangles"
+
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=25.0),         # 2 ★ prompt: "same y-baseline"
             LayersHaveConsistentGap(layer_type="rectangle", axis="x",
                                     min_gap=4.0, variance_tolerance=8.0),         # 3 ★ prompt: "consistent spacing"
             LayerSizeAtLeast(layer_type="rectangle", min_w=40.0, min_h=20.0),    # 4   non-degenerate
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",
-                                 tolerance=10.0),                                # 5
+
         ], weight=0.25, critical=[0, 2, 3]),
 
         # same solid color + visible

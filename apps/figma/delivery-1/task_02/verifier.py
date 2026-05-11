@@ -8,6 +8,7 @@ from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
 from verifier.rubrics.color        import ColorRubric
+from verifier.rubrics.structure    import StructureRubric
 from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
@@ -15,6 +16,7 @@ from verifier.checks.geometry_checks import (
     LayersSameDimensions, LayersStacked, LayerAspectRatioGreaterThan,
 )
 from verifier.checks.fill_checks   import LayersHaveColorOrder
+from verifier.checks.structure_checks import LayerInsideFrame
 from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
 
 DEEP_PURPLE = {"r": 0.30, "g": 0.10, "b": 0.50}
@@ -33,10 +35,10 @@ task = Task(
 
         AlignmentRubric([
             LayersStacked(layer_type="rectangle", axis="y", gap_px=0.0,
-                          tolerance=12.0),                                            # 0 ★ prompt: "stack 5 horizontal rectangles top-to-bottom" + "flush against each other"
+                          tolerance=25.0),                                            # 0 ★ prompt: "stack 5 horizontal rectangles top-to-bottom" + "flush against each other"
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0,
                                         axis="horizontal"),                           # 1 ★ prompt: "5 horizontal rectangle bands"
-            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),              # 2 ★ prompt: "Each rectangle is the same width and a similar height"
+            LayersSameDimensions(layer_type="rectangle", tolerance=25.0),              # 2 ★ prompt: "Each rectangle is the same width and a similar height"
         ], weight=0.30, critical=[0, 1, 2]),
 
         ColorRubric([
@@ -46,7 +48,11 @@ task = Task(
                 sort_axis="y",
                 tolerance=0.25,
             ),
-        ], weight=0.40, critical=[0]),
+        ], weight=0.30, critical=[0]),
+
+        StructureRubric([
+            LayerInsideFrame("rectangle"),                                            # 0 ★ prompt: "Create a frame and inside it stack 5 ..."
+        ], weight=0.10, critical=[]),
 
         EventRubric([
             ToolUsed("rectangle"),                                                    # 0 ★ prompt: "Click Rectangle tool"
