@@ -116,19 +116,23 @@ def parse_prompt(prompt_md: str) -> dict[str, Any]:
     # Sizes (NxN pixels)
     out["mentions_size"] = re.findall(r"\b\d+\s*[x×]\s*\d+\b", desc)
 
-    # Shape counts: "3 rectangles", "two circles"
+    # Shape counts: "3 rectangles", "two circles".
+    # IMPORTANT: skip numbers that are part of an NxN pixel spec like
+    # "200×200 frame" — they're not shape counts, they're size dimensions
+    # for the frame container.
     word_to_num = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
                    "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
                    "twelve": 12}
+    # Mask out NxN tokens so they don't get matched as shape counts
+    masked = re.sub(r"\b\d+\s*[x×]\s*\d+\b", "__SIZE__", low)
     counts: list[tuple[int, str]] = []
-    for m in re.finditer(r"\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten|twelve)\s+(\w+)\b", low):
+    for m in re.finditer(r"\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten|twelve)\s+(\w+)\b", masked):
         n_str, w = m.group(1), m.group(2)
         try:
             n = int(n_str)
         except ValueError:
             n = word_to_num.get(n_str, 0)
         if n and w in SHAPE_NAMES:
-            # Normalize plural
             singular = w.rstrip("s") if w.endswith("s") else w
             counts.append((n, singular))
     out["mentions_shape_counts"] = counts
@@ -306,8 +310,31 @@ def compare(prompt: dict[str, Any], verifier: dict[str, Any]) -> dict[str, Any]:
                       "prompt doesn't mention 'rounded' or 'corner radius'.",
         })
 
-    # Brittle alignment (verifier-side regardless of prompt)
+    # Brittle alignment (verifier-side regardless of prompt).
+    # Filter out false positives: color/fractional tolerances (<1.0) and
+    # checks whose class name signals color (HaveColorOrder, AlternatingColors,
+    # AllSameColor, AlternatingColorsByArea).
+    real_brittle = False
     if verifier.get("brittle_alignment_tolerance"):
+        for r in verifier.get("rubrics", []):
+            for c in r.get("checks", []):
+                cn = c.get("check", "")
+                tol = c.get("params", {}).get("tolerance")
+                if not (isinstance(tol, (int, float)) and tol < 15):
+                    continue
+                if not cn.startswith("Layers"):
+                    continue
+                # Skip color checks regardless of tolerance value
+                if any(x in cn for x in ("Color", "Fill")):
+                    continue
+                # Skip fractional tolerances (<1.0) — definitely non-pixel
+                if tol < 1.0:
+                    continue
+                real_brittle = True
+                break
+            if real_brittle:
+                break
+    if real_brittle:
         issues.append({
             "type": "BRITTLE-ALIGN-TOLERANCE",
             "severity": "medium",
