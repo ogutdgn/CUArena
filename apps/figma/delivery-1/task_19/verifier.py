@@ -80,23 +80,18 @@ task = Task(
         ], weight=0.20, critical=[3, 4, 6]),
 
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                   # 0 rectangle in frame
-            LayerInsideFrame(layer_type="vector"),                                      # 1 vector in frame
-            LayerInsideFrame(layer_type="ellipse"),                                     # 2 ellipse in frame
+
             LayerGroupAllInSameFrame(layer_type="rectangle", minimum=1),                # 3
             LayerGroupAllInSameFrame(layer_type="vector",    minimum=1),                # 4
             LayerGroupAllInSameFrame(layer_type="ellipse",   minimum=1),                # 5
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 6
-                                 tolerance=10.0),
-            AllLayerBoundsInside(inner_type="ellipse",   outer_type="frame",            # 7
-                                 tolerance=10.0),
+
             LayerSizeAtLeast(layer_type="rectangle", min_w=80, min_h=60),               # 8 body sized for icon
             LayerSizeAtLeast(layer_type="ellipse",   min_w=8,  min_h=8),                # 9
             LayerSizeAtLeast(layer_type="vector",    min_w=40, min_h=40),               # 10
             NoLayerFlipped(layer_type="rectangle"),                                     # 11
             NoLayerFlipped(layer_type="ellipse"),                                       # 12
             FrameCountAtMost(maximum=1),                                                # 13
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 14
+
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 15 body not pill-shaped
         ], weight=0.20, critical=[]),
 

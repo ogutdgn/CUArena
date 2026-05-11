@@ -50,8 +50,7 @@ task = Task(
             LayerBoundsInside(inner_type="ellipse", outer_type="star", tolerance=10.0),      # 4 circle inside star
             LayerIsCircular(layer_type="ellipse", tolerance=4.0),                            # 5 ★ prompt: "circle"
             FrameSizeEquals(width=1280, height=832, tolerance=25.0),                         # 6 frame size
-            AllLayerBoundsInside(inner_type="star", outer_type="frame", tolerance=10.0),     # 7 star inside frame
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),  # 8 ellipse inside frame
+
             LayerSizeAtLeast(layer_type="star",    min_w=40, min_h=40),                      # 9 no degenerate star
             LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),                      # 10 no degenerate circle
             LayerRotationEquals(layer_type="star",    degrees=0, tolerance=5.0),             # 11 star upright

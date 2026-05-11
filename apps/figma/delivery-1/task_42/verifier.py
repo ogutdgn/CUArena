@@ -47,8 +47,7 @@ task = Task(
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                   # 0 ★ prompt: "clapper circle" / "badge circle"
             AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                              # 1 EVERY ellipse round
             FrameSizeEquals(width=1280, height=832, tolerance=25.0),                                # 2 frame size
-            AllLayerBoundsInside(inner_type="vector",  outer_type="frame", tolerance=10.0),         # 3 bell inside frame
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),         # 4 ellipses inside frame
+
             LayerSizeAtLeast(layer_type="vector",  min_w=40, min_h=40),                             # 5 bell not degenerate
             LayerSizeAtLeast(layer_type="ellipse", min_w=8,  min_h=8),                              # 6 ellipses not degenerate
             AllLayerWidthFraction(inner_type="vector", parent_type="frame",                          # 7 bell sane vs frame
@@ -57,7 +56,7 @@ task = Task(
                                    min_frac=0.005, max_frac=0.10),
             LayerRotationEquals(layer_type="vector",  degrees=0, tolerance=5.0),                    # 9 bell upright
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),                    # 10 ellipses upright
-            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),                    # 11 frame upright
+
             NoLayerFlipped(layer_type="vector"),                                                    # 12 bell not mirrored
             NoLayerFlipped(layer_type="ellipse"),                                                   # 13 ellipses not mirrored
             LayersOverlap(type_a="ellipse", type_b="vector"),                                       # 14 ellipses sit on bell

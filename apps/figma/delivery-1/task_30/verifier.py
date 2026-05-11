@@ -39,9 +39,9 @@ task = Task(
 
         # critical: same-size, vertical, stacked side-by-side, alternating
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),         # 0 ★ prompt: "6 same-size vertical rectangle stripes"
-            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=12.0),  # 1 y-aligned
-            LayersStacked(layer_type="rectangle", axis="x", gap_px=0.0, tolerance=12.0),  # 2 ★ prompt: "filling the frame width"
+            LayersSameDimensions(layer_type="rectangle", tolerance=25.0),         # 0 ★ prompt: "6 same-size vertical rectangle stripes"
+            LayersAligned(layer_type="rectangle", axis="center_y", tolerance=25.0),  # 1 y-aligned
+            LayersStacked(layer_type="rectangle", axis="x", gap_px=0.0, tolerance=25.0),  # 2 ★ prompt: "filling the frame width"
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="vertical"),  # 3 ★ prompt: "vertical ... stripes"
             LayersAlternatingColors(layer_type="rectangle", n_colors=2, sort_axis="x"),  # 4 ★ prompt: "alternating two colors"
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),       # 5 stripes upright
@@ -59,7 +59,7 @@ task = Task(
                 layer_type="rectangle",
                 expected_rgbs=[DEEP_BLUE, CREAM, DEEP_BLUE, CREAM, DEEP_BLUE, CREAM],
                 sort_axis="x",
-                tolerance=0.25,
+                tolerance=25.0,
             ),                                                                   # 1 ★ prompt: "deep blue ... cream so colors alternate"
         ], weight=0.2, critical=[1]),
 

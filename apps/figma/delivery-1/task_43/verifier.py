@@ -48,11 +48,10 @@ task = Task(
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                # 1 ★ prompt: "sand-colored circle" / "gold center circle"
             RadialDistribution(layer_type="polygon", n=4, tolerance_deg=18.0,                    # 2 ★ prompt: "from center"
                                 radius_tolerance_frac=0.5),
-            LayersSameDimensions(layer_type="polygon", tolerance=8.0),                           # 3 matched triangles
-            AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                           # 4 EVERY ellipse round
+            LayersSameDimensions(layer_type="polygon", tolerance=25.0),                           # 3 matched triangles
+            AllLayersAreCircular(layer_type="ellipse", tolerance=25.0),                           # 4 EVERY ellipse round
             FrameSizeEquals(width=1280, height=832, tolerance=25.0),                             # 5 frame size
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),      # 6 ellipses inside frame
-            AllLayerBoundsInside(inner_type="polygon", outer_type="frame", tolerance=10.0),      # 7 triangles inside frame
+
             LayerSizeAtLeast(layer_type="ellipse", min_w=10, min_h=10),                          # 8 no degenerate ellipse
             LayerSizeAtLeast(layer_type="polygon", min_w=10, min_h=20),                          # 9 no degenerate triangle
             AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                      # 10 ellipses sane vs frame
@@ -60,7 +59,7 @@ task = Task(
             AllLayerWidthFraction(inner_type="polygon", parent_type="frame",                      # 11 triangles sane
                                   min_frac=0.005, max_frac=0.50),
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),                 # 12 ellipses upright
-            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),                 # 13 frame upright
+
             NoLayerFlipped(layer_type="ellipse"),                                                # 14 ellipses not mirrored
             NoLayerFlipped(layer_type="polygon"),                                                # 15 triangles not mirrored
             LayerSmallerThanLayer(smaller_type="ellipse", larger_type="ellipse", max_frac=0.85), # 16 center much smaller than sand

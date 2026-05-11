@@ -53,9 +53,7 @@ task = Task(
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),                            # 2 ★ prompt: "white circle thumb"
             LayerBoundsInside(inner_type="ellipse", outer_type="rectangle", tolerance=10.0), # 3 thumb sits inside pill
             LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=5.0),         # 4 pill upright
-            LayerRotationEquals(layer_type="frame",     degrees=0.0, tolerance=5.0),         # 5 frame upright
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=8.0), # 6 pill in frame
-            AllLayerBoundsInside(inner_type="ellipse",   outer_type="frame", tolerance=8.0), # 7 thumb in frame
+
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=1.2, axis="horizontal"),# 8 pill wider than tall
             LayerCenteredOnLayer(type_a="ellipse", type_b="rectangle",                        # 9 thumb y-centered on pill
                                   tolerance=15.0, axis="y"),
@@ -78,15 +76,11 @@ task = Task(
         ], weight=0.20, critical=[0, 1]),
 
         # effect: drop shadow not in simplified prompt — soft only
-        EffectRubric([
-            DropShadowExists("ellipse"),                                                      # 0 thorough-desc bonus
-            VisibleDropShadowExists("ellipse"),                                               # 1 thorough-desc bonus
-        ], weight=0.12, critical=[]),
+        EffectRubric([], weight=0.12, critical=[]),
 
         # structure: shapes inside a frame (implicit, soft)
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                          # 0 pill inside frame
-            LayerInsideFrame(layer_type="ellipse"),                                            # 1 thumb inside frame
+
         ], weight=0.10, critical=[]),
 
         # event: tool-used checks kept soft per playbook

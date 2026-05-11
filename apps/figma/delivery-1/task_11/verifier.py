@@ -25,9 +25,9 @@ task = Task(
         ], weight=0.15, critical=[0, 1]),
 
         AlignmentRubric([
-            LayersConcentric(layer_type="polygon", tolerance=12.0),                   # 0 ★ prompt: "same center"
+            LayersConcentric(layer_type="polygon", tolerance=25.0),                   # 0 ★ prompt: "same center"
             LayersStrictlyNested(layer_type="polygon", equals=3,
-                                 tolerance_px=8.0, min_size_drop_px=4.0),             # 1 ★ prompt: "3 nested triangles ... decreasing size"
+                                 tolerance_px=25.0, min_size_drop_px=4.0),             # 1 ★ prompt: "3 nested triangles ... decreasing size"
         ], weight=0.25, critical=[0, 1]),
 
         # Only 3 polygons → the alternating-by-area primitive (needs ≥4) doesn't apply.

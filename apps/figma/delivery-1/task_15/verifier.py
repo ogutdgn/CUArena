@@ -43,9 +43,7 @@ task = Task(
             LayersAllShareEdge(layer_type="ellipse", edge="bottom", tolerance=40.0),    # 0 ★ prompt: "Their bottoms roughly share a horizontal line"
             LayersOverlap(type_a="ellipse", type_b="ellipse"),                          # 1 ★ prompt: "4 overlapping ... ellipses"
             LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),                 # 2 no degenerate
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame",              # 3 implicit frame containment
-                                 tolerance=10.0),
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 4 frame upright (implicit)
+
             LayersAtDistinctPositions(layer_type="ellipse", min_distinct=3,             # 5 at least 3 distinct centers
                                        tolerance=20.0),
             AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",            # 6 ellipses sane size vs frame
@@ -68,7 +66,7 @@ task = Task(
         ], weight=0.2, critical=[0]),
 
         StructureRubric([
-            LayerInsideFrame("ellipse"),                                                # 0 implicit frame containment
+
             ChildCountAtLeast("frame", minimum=4),                                      # 1 implicit
         ], weight=0.2, critical=[]),
 

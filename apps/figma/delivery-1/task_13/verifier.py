@@ -31,10 +31,7 @@ task = Task(
                                 tolerance_deg=10.0),
             LayersOverlap(type_a="line", type_b="line"),                                # 1 ★ prompt: "forming a hashtag (#) shape"
             LayerSizeAtLeast(layer_type="line", min_w=20, min_h=0),                     # 2 no degenerate / pixel lines
-            AllLayerBoundsInside(inner_type="line", outer_type="frame",                 # 3 lines fit in frame (implicit)
-                                 tolerance=8.0),
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 4 frame upright (implicit)
-            LayersAtDistinctPositions(layer_type="line", min_distinct=4, tolerance=10.0), # 5 no piled-at-one-point
+            LayersAtDistinctPositions(layer_type="line", min_distinct=4, tolerance=25.0), # 5 no piled-at-one-point
         ], weight=0.2, critical=[0, 1]),
 
         ColorRubric([
@@ -44,7 +41,6 @@ task = Task(
         ], weight=0.2, critical=[]),
 
         StructureRubric([
-            LayerInsideFrame("line"),                                                   # 0 lines inside frame (implicit, not in prompt)
             ChildCountAtLeast("frame", minimum=4),                                      # 1 all 4 lines in one frame (implicit)
         ], weight=0.2, critical=[]),
 

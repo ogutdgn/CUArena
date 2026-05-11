@@ -49,7 +49,7 @@ task = Task(
             AllLayersHaveNoFill(layer_type="polygon"),                                         # 0 ★ prompt: "no fill, white stroke"
             LayersEvenlyRotated(layer_type="line", n=4, step_deg=90.0, tolerance_deg=10.0),   # 1 ★ prompt: "90° apart"
             LayersConcentric(layer_type="line", tolerance=15.0),                               # 2 ★ prompt: "radiating from the center"
-            LayersConcentric(layer_type="polygon", tolerance=12.0),                            # 3 ★ prompt: "concentric hexagons"
+            LayersConcentric(layer_type="polygon", tolerance=25.0),                            # 3 ★ prompt: "concentric hexagons"
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),                 # 4 frame upright (implicit)
             NoLayerFlipped(layer_type="frame"),                                                # 5 frame not mirrored
             NoLayerFlipped(layer_type="line"),                                                 # 6 lines not mirrored

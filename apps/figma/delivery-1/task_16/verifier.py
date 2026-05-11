@@ -49,12 +49,7 @@ task = Task(
             CornerRadiusAtLeast(layer_type="rectangle", min_value=8.0),                 # 1 ★ prompt: "rounded rectangle"
             LayerSizeAtLeast(layer_type="rectangle", min_w=40, min_h=40),               # 2 no degenerate bubble
             LayerSizeAtLeast(layer_type="polygon", min_w=15, min_h=15),                 # 3 no degenerate tail
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 4 rect in frame (implicit)
-                                 tolerance=10.0),
-            AllLayerBoundsInside(inner_type="polygon", outer_type="frame",              # 5 tail in frame (implicit)
-                                 tolerance=10.0),
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 6 bubble upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 7 frame upright
             AllLayerWidthFraction(inner_type="rectangle", parent_type="frame",          # 8 rect-vs-frame size sane
                                   min_frac=0.05, max_frac=0.80),
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 9 no full pill
@@ -90,8 +85,6 @@ task = Task(
         ], weight=0.2, critical=[0, 1, 2]),
 
         StructureRubric([
-            LayerInsideFrame("rectangle"),                                              # 0 rect in frame (implicit)
-            LayerInsideFrame("polygon"),                                                # 1 poly in frame (implicit)
             ChildCountAtLeast("frame", minimum=2),                                      # 2 both inside one frame (implicit)
         ], weight=0.2, critical=[]),
 

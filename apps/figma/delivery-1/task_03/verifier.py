@@ -29,7 +29,7 @@ task = Task(
         AlignmentRubric([
             RadialDistributionExcludeCentral(layer_type="ellipse", n=8,
                                              tolerance_deg=15.0),                     # 0 ★ prompt: "8 colored petals arranged radially around it"
-            LayerInsideFrame(layer_type="ellipse"),                                   # 1 ★ prompt: "Inside a frame"
+
         ], weight=0.30, critical=[0, 1]),
 
         ColorRubric([

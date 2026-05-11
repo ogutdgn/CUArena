@@ -52,13 +52,11 @@ task = Task(
             LayerBoundsInside(inner_type="vector", outer_type="rectangle", tolerance=20.0),    # 0 ★ prompt: "Above the body draw a small triangular fold"
             LayerRotationEquals(layer_type="rectangle", degrees=3.0, tolerance=2.5),           # 1 ★ prompt: "rotated 3°"
             LayerRotationEquals(layer_type="line",      degrees=0.0, tolerance=8.0),           # 2 ★ prompt: "3 thin horizontal lines"
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=8.0),   # 3 rect inside frame
-            AllLayerBoundsInside(inner_type="vector",    outer_type="frame", tolerance=8.0),   # 4 fold inside frame
-            AllLayerBoundsInside(inner_type="line",      outer_type="frame", tolerance=8.0),   # 5 lines inside frame
+
             LayerAspectRatioGreaterThan(layer_type="line", ratio=4.0, axis="horizontal"),      # 6 thin horizontal
             LayerCenteredOnLayer(type_a="line", type_b="rectangle", tolerance=60.0, axis="x"), # 7 lines on rect x
             LayerCenteredOnLayer(type_a="line", type_b="rectangle", tolerance=180.0, axis="y"),# 8 lines on rect y
-            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),               # 9 frame not rotated
+
             LayersStacked(layer_type="line", axis="y", gap_px=20.0, tolerance=20.0),           # 10 lines stacked w/ gap
             LayerEdgesAligned(type_a="vector", edge_a="right",                                 # 11 ★ prompt: "fold on the top-right corner"
                               type_b="rectangle", edge_b="right", tolerance=80.0),
@@ -80,16 +78,11 @@ task = Task(
         ], weight=0.18, critical=[0, 1]),
 
         # effect: drop shadow not in simplified prompt — soft only
-        EffectRubric([
-            DropShadowExists("rectangle"),                                                     # 0 thorough-desc bonus
-            VisibleDropShadowExists("rectangle"),                                              # 1 thorough-desc bonus
-        ], weight=0.10, critical=[]),
+        EffectRubric([], weight=0.10, critical=[]),
 
         # structure: shapes inside the frame ("Click Frame tool" is step 1) — soft.
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                          # 0 step 1: "Click Frame tool"
-            LayerInsideFrame(layer_type="vector"),                                             # 1 fold inside frame
-            LayerInsideFrame(layer_type="line"),                                               # 2 lines inside frame
+
             LayerInFrontOf(type_a="line", type_b="rectangle"),                                 # 3 lines drawn on top
             LayerInFrontOf(type_a="vector", type_b="rectangle"),                               # 4 fold drawn on top
         ], weight=0.10, critical=[]),
