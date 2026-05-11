@@ -688,7 +688,7 @@
       },
       {
         "name": "color",
-        "weight": 0.4,
+        "weight": 0.3,
         "critical": [
           0
         ],
@@ -725,7 +725,20 @@
                 }
               ],
               "sort_axis": "y",
-              "tolerance": 25.0
+              "tolerance": 0.25
+            }
+          }
+        ]
+      },
+      {
+        "name": "structure",
+        "weight": 0.1,
+        "critical": [],
+        "checks": [
+          {
+            "check": "LayerInsideFrame",
+            "params": {
+              "layer_type": "rectangle"
             }
           }
         ]
@@ -751,12 +764,12 @@
         ]
       }
     ],
-    "frame_required": false,
-    "brittle_alignment_tolerance": false,
+    "frame_required": true,
+    "brittle_alignment_tolerance": true,
     "all_tolerances": [
       25.0,
       25.0,
-      25.0
+      0.25
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -764,6 +777,7 @@
       "LayerAspectRatioGreaterThan": 1,
       "LayersSameDimensions": 1,
       "LayersHaveColorOrder": 1,
+      "LayerInsideFrame": 1,
       "ToolUsed": 1,
       "EventTypeCountAtLeast": 1
     },
@@ -963,10 +977,10 @@
     },
     "target_turns": 30,
     "rollout": {
-      "best": 0.125,
-      "mean": 0.07943333333333334,
-      "range": 0.075,
-      "plateau": false,
+      "best": 0.05,
+      "mean": 0.04176666666666667,
+      "range": 0.024700000000000003,
+      "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
       "stops": {
@@ -975,7 +989,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_03/attempt_1/score.json",
-      "final_score": 0.125,
+      "final_score": 0.05,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -989,10 +1003,10 @@
         },
         {
           "name": "alignment",
-          "score": 0.075,
+          "score": 0.0,
           "max_score": 0.3,
-          "n_checks": 2,
-          "n_pass": 1,
+          "n_checks": 1,
+          "n_pass": 0,
           "fail_messages": [
             "Need exactly 9 ellipse, found 1"
           ]
@@ -1036,10 +1050,9 @@
         "create_ellipse": 3
       }
     },
-    "verdict": "model-primary",
+    "verdict": "honest",
     "verdict_reasons": [
-      "Verifier fix would lift 0.125 \u2192 0.200 (+0.075), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve alignment: 0.075->0.150"
+      "No meaningful verifier-fixable lift (0.050 \u2192 0.050). Score reflects model capability."
     ]
   },
   {
@@ -1309,7 +1322,7 @@
             "params": {
               "layer_type": "rectangle",
               "fill_index": 0,
-              "tolerance": 25.0
+              "tolerance": 0.12
             }
           }
         ]
@@ -1336,11 +1349,11 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": false,
+    "brittle_alignment_tolerance": true,
     "all_tolerances": [
       25.0,
       25.0,
-      25.0
+      0.12
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -1355,11 +1368,11 @@
     },
     "target_turns": 15,
     "rollout": {
-      "best": 0.7333,
-      "mean": 0.6485333333333333,
-      "range": 0.18769999999999998,
+      "best": 1.0,
+      "mean": 0.8485333333333333,
+      "range": 0.4544,
       "plateau": false,
-      "n_pass": 1,
+      "n_pass": 2,
       "n_attempts": 3,
       "stops": {
         "done": 2,
@@ -1367,8 +1380,8 @@
       }
     },
     "score_breakdown": {
-      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_05/attempt_3/score.json",
-      "final_score": 0.7333,
+      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_05/attempt_1/score.json",
+      "final_score": 1.0,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -1380,13 +1393,11 @@
         },
         {
           "name": "alignment",
-          "score": 0.1333,
+          "score": 0.4,
           "max_score": 0.4,
           "n_checks": 3,
-          "n_pass": 2,
-          "fail_messages": [
-            "rectangle aligned on center_y: max diff 25.0px (tolerance 12.0px)"
-          ]
+          "n_pass": 3,
+          "fail_messages": []
         },
         {
           "name": "color",
@@ -1424,7 +1435,7 @@
     },
     "verdict": "passing",
     "verdict_reasons": [
-      "Passing (1/3 attempts)"
+      "Passing (2/3 attempts)"
     ]
   },
   {
@@ -2179,8 +2190,8 @@
     "target_turns": 36,
     "rollout": {
       "best": 0.3,
-      "mean": 0.18333333333333335,
-      "range": 0.25,
+      "mean": 0.2333333333333333,
+      "range": 0.09999999999999998,
       "plateau": false,
       "n_pass": 0,
       "n_attempts": 3,
@@ -2227,8 +2238,8 @@
           "name": "structure",
           "score": 0.15,
           "max_score": 0.15,
-          "n_checks": 1,
-          "n_pass": 1,
+          "n_checks": 0,
+          "n_pass": 0,
           "fail_messages": []
         },
         {
@@ -2327,7 +2338,7 @@
             "params": {
               "layer_type": "rectangle",
               "n_colors": 2,
-              "tolerance": 25.0
+              "tolerance": 0.12
             }
           }
         ]
@@ -2354,10 +2365,10 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": false,
+    "brittle_alignment_tolerance": true,
     "all_tolerances": [
       25.0,
-      25.0
+      0.12
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -2863,9 +2874,9 @@
     },
     "target_turns": 18,
     "rollout": {
-      "best": 0.3545,
-      "mean": 0.2954,
-      "range": 0.17729999999999999,
+      "best": 0.3667,
+      "mean": 0.30560000000000004,
+      "range": 0.18330000000000002,
       "plateau": false,
       "n_pass": 0,
       "n_attempts": 3,
@@ -2876,7 +2887,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_12/attempt_2/score.json",
-      "final_score": 0.3545,
+      "final_score": 0.3667,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -2890,15 +2901,13 @@
         },
         {
           "name": "alignment",
-          "score": 0.0545,
+          "score": 0.0667,
           "max_score": 0.2,
-          "n_checks": 11,
+          "n_checks": 9,
           "n_pass": 6,
           "fail_messages": [
             "Need \u22653 rectangle layers for distribution check, found 2",
             "No frame layers found",
-            "No frame layers found",
-            "Need both rectangle and frame layers",
             "rectangle gaps on x: min=-90.0 max=-90.0 (need min \u2265 1.0, variance \u2264 12.0)"
           ]
         },
@@ -2914,10 +2923,9 @@
           "name": "structure",
           "score": 0.0,
           "max_score": 0.2,
-          "n_checks": 2,
+          "n_checks": 1,
           "n_pass": 0,
           "fail_messages": [
-            "No rectangle found as direct child of a frame",
             "No frame with \u22654 children"
           ]
         },
@@ -2952,8 +2960,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.355 \u2192 0.409 (+0.055), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve alignment: 0.054->0.109"
+      "Verifier fix would lift 0.367 \u2192 0.433 (+0.067), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.067->0.133"
     ]
   },
   {
@@ -3110,9 +3118,9 @@
     },
     "target_turns": 14,
     "rollout": {
-      "best": 0.3167,
-      "mean": 0.2575,
-      "range": 0.1573,
+      "best": 0.325,
+      "mean": 0.26663333333333333,
+      "range": 0.16140000000000002,
       "plateau": false,
       "n_pass": 0,
       "n_attempts": 3,
@@ -3124,7 +3132,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_13/attempt_2/score.json",
-      "final_score": 0.3167,
+      "final_score": 0.325,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -3138,16 +3146,14 @@
         },
         {
           "name": "alignment",
-          "score": 0.0167,
+          "score": 0.025,
           "max_score": 0.2,
-          "n_checks": 6,
+          "n_checks": 4,
           "n_pass": 1,
           "fail_messages": [
             "Need exactly 4 line, found 1",
             "No line overlaps any line",
-            "Need both line and frame layers",
-            "No frame layers found",
-            "line: 1 distinct centers (need \u2265 4, tol 10.0px)"
+            "line: 1 distinct centers (need \u2265 4, tol 25.0px)"
           ]
         },
         {
@@ -3162,10 +3168,9 @@
           "name": "structure",
           "score": 0.0,
           "max_score": 0.2,
-          "n_checks": 2,
+          "n_checks": 1,
           "n_pass": 0,
           "fail_messages": [
-            "No line found as direct child of a frame",
             "No frame with \u22654 children"
           ]
         },
@@ -3199,7 +3204,7 @@
     },
     "verdict": "honest",
     "verdict_reasons": [
-      "No meaningful verifier-fixable lift (0.317 \u2192 0.333). Score reflects model capability."
+      "No meaningful verifier-fixable lift (0.325 \u2192 0.350). Score reflects model capability."
     ]
   },
   {
@@ -3311,7 +3316,7 @@
                 }
               ],
               "sort_axis": "size",
-              "tolerance": 25.0
+              "tolerance": 0.2
             }
           },
           {
@@ -3407,11 +3412,11 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": false,
+    "brittle_alignment_tolerance": true,
     "all_tolerances": [
       25.0,
       8.0,
-      25.0,
+      0.2,
       2.5,
       0.28
     ],
@@ -3439,8 +3444,8 @@
     },
     "target_turns": 20,
     "rollout": {
-      "best": 0.0945,
-      "mean": 0.09449999999999999,
+      "best": 0.1028,
+      "mean": 0.1028,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -3769,8 +3774,8 @@
     },
     "target_turns": 14,
     "rollout": {
-      "best": 0.1806,
-      "mean": 0.1806,
+      "best": 0.1889,
+      "mean": 0.18889999999999998,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -3781,7 +3786,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_fillin3_20260510_170851/openrouter/task_15/attempt_1/score.json",
-      "final_score": 0.1806,
+      "final_score": 0.1889,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -3795,16 +3800,15 @@
         },
         {
           "name": "alignment",
-          "score": 0.025,
+          "score": 0.0333,
           "max_score": 0.2,
-          "n_checks": 8,
+          "n_checks": 6,
           "n_pass": 2,
           "fail_messages": [
             "Need \u22652 ellipse, got 1",
             "No ellipse overlaps any ellipse",
-            "Need both ellipse and frame layers",
-            "No frame layers found",
-            "ellipse: 1 distinct centers (need \u2265 3, tol 20.0px)"
+            "ellipse: 1 distinct centers (need \u2265 3, tol 20.0px)",
+            "No frame layers found"
           ]
         },
         {
@@ -3824,10 +3828,9 @@
           "name": "structure",
           "score": 0.0,
           "max_score": 0.2,
-          "n_checks": 2,
+          "n_checks": 1,
           "n_pass": 0,
           "fail_messages": [
-            "No ellipse found as direct child of a frame",
             "No frame with \u22654 children"
           ]
         },
@@ -3858,8 +3861,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.181 \u2192 0.261 (+0.081), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve alignment: 0.025->0.050",
+      "Verifier fix would lift 0.189 \u2192 0.278 (+0.089), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.033->0.067",
       "unhalve color: 0.056->0.111"
     ]
   },
@@ -4245,8 +4248,8 @@
     },
     "target_turns": 18,
     "rollout": {
-      "best": 0.095,
-      "mean": 0.09500000000000001,
+      "best": 0.0991,
+      "mean": 0.09910000000000001,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -4257,7 +4260,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_16/attempt_1/score.json",
-      "final_score": 0.095,
+      "final_score": 0.0991,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -4272,16 +4275,16 @@
         },
         {
           "name": "alignment",
-          "score": 0.025,
+          "score": 0.0333,
           "max_score": 0.2,
-          "n_checks": 12,
+          "n_checks": 9,
           "n_pass": 3,
           "fail_messages": [
             "Need both rectangle and polygon layers",
             "No rectangle with cornerRadius \u2265 8.0",
             "No polygon layers found",
-            "Need both rectangle and frame layers",
-            "Need both polygon and frame layers"
+            "No frame layers found",
+            "Need both rectangle and polygon"
           ]
         },
         {
@@ -4302,11 +4305,9 @@
           "name": "structure",
           "score": 0.0,
           "max_score": 0.2,
-          "n_checks": 3,
+          "n_checks": 1,
           "n_pass": 0,
           "fail_messages": [
-            "No rectangle found as direct child of a frame",
-            "No polygon found as direct child of a frame",
             "No frame with \u22652 children"
           ]
         },
@@ -4339,9 +4340,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.190 \u2192 0.280 (+0.090), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.198 \u2192 0.296 (+0.098), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.033->0.067",
-      "unhalve alignment: 0.025->0.050",
+      "unhalve alignment: 0.033->0.067",
       "unhalve color: 0.032->0.063"
     ]
   },
@@ -4641,9 +4642,9 @@
     },
     "target_turns": 20,
     "rollout": {
-      "best": 0.0154,
-      "mean": 0.015400000000000002,
-      "range": 0.0,
+      "best": 0.025,
+      "mean": 0.0218,
+      "range": 0.009600000000000001,
       "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
@@ -4654,7 +4655,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_17/attempt_1/score.json",
-      "final_score": 0.0154,
+      "final_score": 0.025,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -4698,16 +4699,16 @@
         },
         {
           "name": "structure",
-          "score": 0.0154,
+          "score": 0.025,
           "max_score": 0.2,
-          "n_checks": 13,
+          "n_checks": 8,
           "n_pass": 1,
           "fail_messages": [
-            "No polygon found as direct child of a frame",
-            "No rectangle found as direct child of a frame",
             "Found 0 polygon (need \u22652)",
             "Found 0 rectangle (need \u22652)",
-            "Need both polygon and frame layers"
+            "No polygon layers found",
+            "No rectangle layers found",
+            "No polygon layers found"
           ]
         },
         {
@@ -4740,7 +4741,7 @@
     },
     "verdict": "honest",
     "verdict_reasons": [
-      "No meaningful verifier-fixable lift (0.015 \u2192 0.015). Score reflects model capability."
+      "No meaningful verifier-fixable lift (0.025 \u2192 0.025). Score reflects model capability."
     ]
   },
   {
@@ -4955,9 +4956,9 @@
     },
     "target_turns": 15,
     "rollout": {
-      "best": 0.3076,
-      "mean": 0.28853333333333336,
-      "range": 0.02859999999999996,
+      "best": 0.3433,
+      "mean": 0.3433,
+      "range": 0.0,
       "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
@@ -4966,8 +4967,8 @@
       }
     },
     "score_breakdown": {
-      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_fillin2_20260510_163353/openrouter/task_18/attempt_2/score.json",
-      "final_score": 0.3076,
+      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_fillin2_20260510_163353/openrouter/task_18/attempt_1/score.json",
+      "final_score": 0.3433,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -4977,7 +4978,7 @@
           "n_pass": 0,
           "fail_messages": [
             "ellipse: expected 3, got 1",
-            "Total layers: expected 4, got 2"
+            "Total layers: expected 4, got 1"
           ]
         },
         {
@@ -5004,14 +5005,12 @@
         },
         {
           "name": "structure",
-          "score": 0.1143,
+          "score": 0.15,
           "max_score": 0.2,
-          "n_checks": 7,
-          "n_pass": 4,
+          "n_checks": 4,
+          "n_pass": 3,
           "fail_messages": [
-            "No ellipse found as direct child of a frame",
-            "Found 1 ellipse (need \u22653)",
-            "ellipse_ (ellipse) outside all frame"
+            "Found 1 ellipse (need \u22653)"
           ]
         },
         {
@@ -5043,7 +5042,7 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.308 \u2192 0.401 (+0.093), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.343 \u2192 0.437 (+0.093), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve alignment: 0.033->0.067",
       "unhalve color: 0.060->0.120"
     ]
@@ -5444,9 +5443,9 @@
     },
     "target_turns": 30,
     "rollout": {
-      "best": 0.2847,
-      "mean": 0.21676666666666666,
-      "range": 0.10190000000000002,
+      "best": 0.3222,
+      "mean": 0.24926666666666666,
+      "range": 0.1094,
       "plateau": false,
       "n_pass": 0,
       "n_attempts": 3,
@@ -5457,7 +5456,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_fillin_20260510_155010/openrouter/task_19/attempt_1/score.json",
-      "final_score": 0.2847,
+      "final_score": 0.3222,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -5500,16 +5499,16 @@
         },
         {
           "name": "structure",
-          "score": 0.0625,
+          "score": 0.1,
           "max_score": 0.2,
-          "n_checks": 16,
+          "n_checks": 10,
           "n_pass": 5,
           "fail_messages": [
-            "No rectangle found as direct child of a frame",
-            "No vector found as direct child of a frame",
-            "No ellipse found as direct child of a frame",
             "All 1 rectangle not direct children of a single frame",
-            "All 1 vector not direct children of a single frame"
+            "All 1 vector not direct children of a single frame",
+            "Found 0 ellipse (need \u22651)",
+            "No ellipse layers found",
+            "No ellipse layers found"
           ]
         },
         {
@@ -5543,7 +5542,7 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.285 \u2192 0.407 (+0.122), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.322 \u2192 0.444 (+0.122), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.050->0.100",
       "unhalve alignment: 0.022->0.044",
       "unhalve color: 0.050->0.100"
@@ -6154,8 +6153,8 @@
     },
     "target_turns": 18,
     "rollout": {
-      "best": 0.253,
-      "mean": 0.253,
+      "best": 0.3012,
+      "mean": 0.3012,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -6166,7 +6165,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_21/attempt_1/score.json",
-      "final_score": 0.253,
+      "final_score": 0.3012,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -6203,15 +6202,12 @@
         },
         {
           "name": "structure",
-          "score": 0.1,
+          "score": 0.16,
           "max_score": 0.2,
-          "n_checks": 8,
+          "n_checks": 5,
           "n_pass": 4,
           "fail_messages": [
-            "No rectangle found as direct child of a frame",
-            "Found 1 rectangle (need \u22653)",
-            "Need both rectangle and frame layers",
-            "No frame layers found"
+            "Found 1 rectangle (need \u22653)"
           ]
         },
         {
@@ -6241,7 +6237,7 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.315 \u2192 0.430 (+0.115), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.375 \u2192 0.490 (+0.115), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve alignment: 0.040->0.080",
       "unhalve color: 0.075->0.150"
     ]
@@ -6431,8 +6427,8 @@
     },
     "target_turns": 20,
     "rollout": {
-      "best": 0.3012,
-      "mean": 0.3012,
+      "best": 0.3041,
+      "mean": 0.3041,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -6443,7 +6439,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_22/attempt_1/score.json",
-      "final_score": 0.3012,
+      "final_score": 0.3041,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -6457,16 +6453,16 @@
         },
         {
           "name": "alignment",
-          "score": 0.0179,
+          "score": 0.0208,
           "max_score": 0.25,
-          "n_checks": 7,
+          "n_checks": 6,
           "n_pass": 1,
           "fail_messages": [
             "Need \u22652 rectangle layers, found 1",
             "Need \u22652 rectangle layers, found 1",
             "Need \u22652 rectangle layers, found 1",
             "No rectangle with cornerRadius \u2265 24.0",
-            "Need both rectangle and frame layers"
+            "rect_mp0: ratio=1.00 < 1.5"
           ]
         },
         {
@@ -6514,8 +6510,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.301 \u2192 0.402 (+0.101), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve alignment: 0.018->0.036",
+      "Verifier fix would lift 0.304 \u2192 0.408 (+0.104), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.021->0.042",
       "unhalve color: 0.083->0.167"
     ]
   },
@@ -7043,11 +7039,11 @@
     },
     "target_turns": 20,
     "rollout": {
-      "best": 0.55,
-      "mean": 0.3866666666666667,
-      "range": 0.24500000000000005,
+      "best": 0.7,
+      "mean": 0.48666666666666664,
+      "range": 0.31999999999999995,
       "plateau": false,
-      "n_pass": 0,
+      "n_pass": 1,
       "n_attempts": 3,
       "stops": {
         "loop_break_abort": 1,
@@ -7056,7 +7052,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_24/attempt_1/score.json",
-      "final_score": 0.55,
+      "final_score": 0.7,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -7090,14 +7086,11 @@
         },
         {
           "name": "effect",
-          "score": 0.0,
+          "score": 0.15,
           "max_score": 0.15,
-          "n_checks": 2,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No rectangle with drop shadow found",
-            "No rectangle with visible drop shadow found"
-          ]
+          "fail_messages": []
         },
         {
           "name": "property",
@@ -7135,11 +7128,9 @@
         "create_rectangle": 3
       }
     },
-    "verdict": "model-primary",
+    "verdict": "passing",
     "verdict_reasons": [
-      "Verifier fix would lift 0.550 \u2192 0.640 (+0.090), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
-      "unhalve event: 0.050->0.100"
+      "Passing (1/3 attempts)"
     ]
   },
   {
@@ -7227,7 +7218,7 @@
             "params": {
               "layer_type": "rectangle",
               "fill_index": 0,
-              "tolerance": 25.0
+              "tolerance": 0.12
             }
           },
           {
@@ -7283,11 +7274,11 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": false,
+    "brittle_alignment_tolerance": true,
     "all_tolerances": [
       25.0,
       25.0,
-      25.0,
+      0.12,
       5.0
     ],
     "check_class_counts": {
@@ -7309,11 +7300,11 @@
     },
     "target_turns": 15,
     "rollout": {
-      "best": 0.6875,
-      "mean": 0.6736333333333334,
-      "range": 0.02080000000000004,
+      "best": 0.7188,
+      "mean": 0.7188,
+      "range": 0.0,
       "plateau": true,
-      "n_pass": 0,
+      "n_pass": 3,
       "n_attempts": 3,
       "stops": {
         "step_cap": 2,
@@ -7321,8 +7312,8 @@
       }
     },
     "score_breakdown": {
-      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_fillin3_20260510_170851/openrouter/task_25/attempt_1/score.json",
-      "final_score": 0.6875,
+      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_25/attempt_2/score.json",
+      "final_score": 0.7188,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -7334,14 +7325,12 @@
         },
         {
           "name": "alignment",
-          "score": 0.0625,
+          "score": 0.0938,
           "max_score": 0.25,
-          "n_checks": 6,
+          "n_checks": 4,
           "n_pass": 3,
           "fail_messages": [
-            "rect_mp0: w=100 \u2260 160; rect_mp0: h=100 \u2260 40; rectangl: w=100 \u2260 160; rectangl: h=100 \u2260 40; rectangl: w=100 \u2260 160; rectangl: h=100 \u2260 40",
-            "rectangle gaps on x: min=-100.0 max=-90.0 (need min \u2265 4.0, variance \u2264 8.0)",
-            "Need both rectangle and frame layers"
+            "rectangle gaps on x: min=-90.0 max=-90.0 (need min \u2265 4.0, variance \u2264 8.0)"
           ]
         },
         {
@@ -7391,10 +7380,9 @@
         "copy": 1
       }
     },
-    "verdict": "verifier-primary",
+    "verdict": "passing",
     "verdict_reasons": [
-      "Current 0.688; post-verifier-fix estimate 0.750 \u2192 would pass (lift +0.062)",
-      "unhalve alignment: 0.062->0.125"
+      "Passing (3/3 attempts)"
     ]
   },
   {
@@ -7582,9 +7570,9 @@
     },
     "target_turns": 20,
     "rollout": {
-      "best": 0.2993,
-      "mean": 0.29736666666666667,
-      "range": 0.005800000000000027,
+      "best": 0.3063,
+      "mean": 0.3043,
+      "range": 0.006000000000000005,
       "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
@@ -7594,7 +7582,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_26/attempt_1/score.json",
-      "final_score": 0.2993,
+      "final_score": 0.3063,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -7608,15 +7596,14 @@
         },
         {
           "name": "alignment",
-          "score": 0.0417,
+          "score": 0.05,
           "max_score": 0.25,
-          "n_checks": 6,
+          "n_checks": 5,
           "n_pass": 2,
           "fail_messages": [
             "Need \u22652 rectangle layers, found 1",
             "Need \u22652 rectangle layers, found 1",
-            "Need \u22652 rectangle layers, found 1",
-            "Need both rectangle and frame layers"
+            "Need \u22652 rectangle layers, found 1"
           ]
         },
         {
@@ -7664,8 +7651,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.358 \u2192 0.467 (+0.108), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve alignment: 0.042->0.083",
+      "Verifier fix would lift 0.367 \u2192 0.483 (+0.117), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.050->0.100",
       "unhalve color: 0.067->0.133"
     ]
   },
@@ -7861,8 +7848,8 @@
     },
     "target_turns": 18,
     "rollout": {
-      "best": 0.5571,
-      "mean": 0.5571,
+      "best": 0.68,
+      "mean": 0.68,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -7874,7 +7861,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_27/attempt_1/score.json",
-      "final_score": 0.5571,
+      "final_score": 0.68,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -7886,14 +7873,12 @@
         },
         {
           "name": "alignment",
-          "score": 0.0571,
+          "score": 0.08,
           "max_score": 0.2,
-          "n_checks": 7,
+          "n_checks": 5,
           "n_pass": 4,
           "fail_messages": [
-            "No rectangle with cornerRadius \u2265 16.0",
-            "No frame layers found",
-            "Need both rectangle and frame layers"
+            "No rectangle with cornerRadius \u2265 16.0"
           ]
         },
         {
@@ -7919,13 +7904,11 @@
         },
         {
           "name": "structure",
-          "score": 0.0,
+          "score": 0.1,
           "max_score": 0.1,
-          "n_checks": 1,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No rectangle found as direct child of a frame"
-          ]
+          "fail_messages": []
         },
         {
           "name": "event",
@@ -7950,10 +7933,10 @@
         "deselect": 3
       }
     },
-    "verdict": "model-primary",
+    "verdict": "verifier-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.557 \u2192 0.614 (+0.057), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve alignment: 0.057->0.114"
+      "Current 0.680; post-verifier-fix estimate 0.760 \u2192 would pass (lift +0.080)",
+      "unhalve alignment: 0.080->0.160"
     ]
   },
   {
@@ -8123,11 +8106,11 @@
     },
     "target_turns": 15,
     "rollout": {
-      "best": 0.6429,
-      "mean": 0.5262333333333333,
-      "range": 0.35000000000000003,
+      "best": 0.86,
+      "mean": 0.7433333333333333,
+      "range": 0.35,
       "plateau": false,
-      "n_pass": 0,
+      "n_pass": 2,
       "n_attempts": 3,
       "stops": {
         "step_cap": 1,
@@ -8136,7 +8119,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_28/attempt_2/score.json",
-      "final_score": 0.6429,
+      "final_score": 0.86,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -8148,15 +8131,13 @@
         },
         {
           "name": "alignment",
-          "score": 0.0429,
+          "score": 0.06,
           "max_score": 0.2,
-          "n_checks": 7,
+          "n_checks": 5,
           "n_pass": 3,
           "fail_messages": [
             "No 2 lines span the rectangle diagonals",
-            "No frame layers found",
-            "No frame layers found",
-            "Need both rectangle and frame layers"
+            "No frame layers found"
           ]
         },
         {
@@ -8169,14 +8150,11 @@
         },
         {
           "name": "structure",
-          "score": 0.0,
+          "score": 0.2,
           "max_score": 0.2,
-          "n_checks": 2,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No rectangle found as direct child of a frame",
-            "No line found as direct child of a frame"
-          ]
+          "fail_messages": []
         },
         {
           "name": "event",
@@ -8202,9 +8180,9 @@
         "create_rectangle": 3
       }
     },
-    "verdict": "honest",
+    "verdict": "passing",
     "verdict_reasons": [
-      "No meaningful verifier-fixable lift (0.643 \u2192 0.686). Score reflects model capability."
+      "Passing (2/3 attempts)"
     ]
   },
   {
@@ -8338,7 +8316,7 @@
             "params": {
               "layer_type": "ellipse",
               "fill_index": 0,
-              "tolerance": 25.0
+              "tolerance": 0.05
             }
           },
           {
@@ -8400,7 +8378,7 @@
       }
     ],
     "frame_required": true,
-    "brittle_alignment_tolerance": false,
+    "brittle_alignment_tolerance": true,
     "all_tolerances": [
       25.0,
       25.0,
@@ -8408,7 +8386,7 @@
       5.0,
       5.0,
       10.0,
-      25.0,
+      0.05,
       0.25
     ],
     "check_class_counts": {
@@ -8714,7 +8692,7 @@
                 }
               ],
               "sort_axis": "x",
-              "tolerance": 25.0
+              "tolerance": 0.25
             }
           }
         ]
@@ -8767,7 +8745,7 @@
       5.0,
       10.0,
       20.0,
-      25.0
+      0.25
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -9153,9 +9131,9 @@
     },
     "target_turns": 18,
     "rollout": {
-      "best": 0.2166,
-      "mean": 0.17023333333333332,
-      "range": 0.0875,
+      "best": 0.4166,
+      "mean": 0.29246666666666665,
+      "range": 0.20410000000000003,
       "plateau": false,
       "n_pass": 0,
       "n_attempts": 3,
@@ -9166,7 +9144,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_31/attempt_2/score.json",
-      "final_score": 0.2166,
+      "final_score": 0.4166,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -9183,8 +9161,8 @@
           "name": "alignment",
           "score": 0.0333,
           "max_score": 0.2,
-          "n_checks": 15,
-          "n_pass": 5,
+          "n_checks": 12,
+          "n_pass": 4,
           "fail_messages": [
             "Need \u22652 polygon layers, found 0",
             "Need exactly 4 polygon layers, found 0",
@@ -9206,14 +9184,11 @@
         },
         {
           "name": "structure",
-          "score": 0.0,
+          "score": 0.2,
           "max_score": 0.2,
-          "n_checks": 2,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No ellipse found as direct child of a frame",
-            "No polygon found as direct child of a frame"
-          ]
+          "fail_messages": []
         },
         {
           "name": "event",
@@ -9246,7 +9221,7 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.217 \u2192 0.333 (+0.117), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.417 \u2192 0.533 (+0.117), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.050->0.100",
       "unhalve alignment: 0.033->0.067",
       "unhalve color: 0.033->0.067"
@@ -9421,7 +9396,7 @@
               "layer_type": "polygon",
               "n_colors": 2,
               "sort_axis": "angle",
-              "tolerance": 25.0
+              "tolerance": 0.15
             }
           }
         ]
@@ -9491,13 +9466,13 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": false,
+    "brittle_alignment_tolerance": true,
     "all_tolerances": [
       25.0,
       8.0,
       25.0,
       0.15,
-      25.0
+      0.15
     ],
     "check_class_counts": {
       "ShapeCount": 2,
@@ -9528,8 +9503,8 @@
     },
     "target_turns": 22,
     "rollout": {
-      "best": 0.0417,
-      "mean": 0.041699999999999994,
+      "best": 0.05,
+      "mean": 0.05000000000000001,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -9540,7 +9515,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_32/attempt_1/score.json",
-      "final_score": 0.0417,
+      "final_score": 0.05,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -9558,7 +9533,7 @@
           "name": "alignment",
           "score": 0.0,
           "max_score": 0.2,
-          "n_checks": 12,
+          "n_checks": 10,
           "n_pass": 0,
           "fail_messages": [
             "Need \u22652 polygon layers, found 0",
@@ -9583,13 +9558,11 @@
         },
         {
           "name": "structure",
-          "score": 0.0167,
+          "score": 0.025,
           "max_score": 0.2,
-          "n_checks": 6,
+          "n_checks": 4,
           "n_pass": 1,
           "fail_messages": [
-            "No polygon found as direct child of a frame",
-            "No ellipse found as direct child of a frame",
             "Found 0 polygon (need \u22654)",
             "Found 0 ellipse (need \u22651)",
             "No frame with \u22655 children"
@@ -9625,7 +9598,7 @@
     },
     "verdict": "honest",
     "verdict_reasons": [
-      "No meaningful verifier-fixable lift (0.042 \u2192 0.083). Score reflects model capability."
+      "No meaningful verifier-fixable lift (0.050 \u2192 0.100). Score reflects model capability."
     ]
   },
   {
@@ -11289,9 +11262,9 @@
     },
     "target_turns": 20,
     "rollout": {
-      "best": 0.1,
-      "mean": 0.08900000000000001,
-      "range": 0.0165,
+      "best": 0.2,
+      "mean": 0.17800000000000002,
+      "range": 0.033,
       "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
@@ -11302,7 +11275,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_37/attempt_1/score.json",
-      "final_score": 0.1,
+      "final_score": 0.2,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -11321,14 +11294,14 @@
           "name": "alignment",
           "score": 0.0,
           "max_score": 0.18,
-          "n_checks": 13,
+          "n_checks": 9,
           "n_pass": 0,
           "fail_messages": [
             "Need both vector and rectangle layers",
             "rect_mp0: rotation=0",
             "No line layers found",
-            "Need both rectangle and frame layers",
-            "Need both vector and frame layers"
+            "No line layers found",
+            "Need both line and rectangle layers"
           ]
         },
         {
@@ -11347,25 +11320,19 @@
         },
         {
           "name": "effect",
-          "score": 0.0,
+          "score": 0.1,
           "max_score": 0.1,
-          "n_checks": 2,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No rectangle with drop shadow found",
-            "No rectangle with visible drop shadow found"
-          ]
+          "fail_messages": []
         },
         {
           "name": "structure",
           "score": 0.0,
           "max_score": 0.1,
-          "n_checks": 5,
+          "n_checks": 2,
           "n_pass": 0,
           "fail_messages": [
-            "No rectangle found as direct child of a frame",
-            "No vector found as direct child of a frame",
-            "No line found as direct child of a frame",
             "Need both line and rectangle layers",
             "Need both vector and rectangle layers"
           ]
@@ -11411,7 +11378,7 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.100 \u2192 0.200 (+0.100), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.200 \u2192 0.300 (+0.100), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.040->0.080",
       "unhalve color: 0.030->0.060",
       "unhalve event: 0.030->0.060"
@@ -11678,8 +11645,8 @@
     },
     "target_turns": 24,
     "rollout": {
-      "best": 0.3925,
-      "mean": 0.3925,
+      "best": 0.5,
+      "mean": 0.5,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -11690,7 +11657,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_38/attempt_1/score.json",
-      "final_score": 0.3925,
+      "final_score": 0.5,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -11705,16 +11672,15 @@
         },
         {
           "name": "alignment",
-          "score": 0.0225,
+          "score": 0.03,
           "max_score": 0.18,
-          "n_checks": 8,
+          "n_checks": 6,
           "n_pass": 2,
           "fail_messages": [
             "No rectangle with cornerRadius \u2265 4.0",
             "Need \u22652 rectangle layers, found 1",
-            "Need both rectangle and frame layers",
-            "No frame layers found",
-            "Need \u22652 rectangle layers, found 1"
+            "Need \u22652 rectangle layers, found 1",
+            "Need both frame and rectangle"
           ]
         },
         {
@@ -11733,13 +11699,11 @@
         },
         {
           "name": "structure",
-          "score": 0.0,
+          "score": 0.1,
           "max_score": 0.1,
-          "n_checks": 1,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No rectangle found as direct child of a frame"
-          ]
+          "fail_messages": []
         },
         {
           "name": "event",
@@ -11777,9 +11741,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.393 \u2192 0.495 (+0.102), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.500 \u2192 0.610 (+0.110), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.040->0.080",
-      "unhalve alignment: 0.022->0.045",
+      "unhalve alignment: 0.030->0.060",
       "unhalve color: 0.040->0.080"
     ]
   },
@@ -12590,9 +12554,9 @@
     },
     "target_turns": 18,
     "rollout": {
-      "best": 0.2382,
-      "mean": 0.23516666666666666,
-      "range": 0.009099999999999997,
+      "best": 0.465,
+      "mean": 0.4608333333333334,
+      "range": 0.012500000000000011,
       "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
@@ -12602,7 +12566,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_fillin_20260510_155010/openrouter/task_40/attempt_1/score.json",
-      "final_score": 0.2382,
+      "final_score": 0.465,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -12618,16 +12582,16 @@
         },
         {
           "name": "alignment",
-          "score": 0.0182,
+          "score": 0.025,
           "max_score": 0.2,
-          "n_checks": 11,
+          "n_checks": 8,
           "n_pass": 2,
           "fail_messages": [
             "No rectangle with cornerRadius \u2265 15.0",
             "No ellipse layers found",
             "No ellipse with w \u2248 h (\u00b18.0px)",
             "Need both ellipse and rectangle layers",
-            "No frame layers found"
+            "Need both ellipse and rectangle layers"
           ]
         },
         {
@@ -12646,25 +12610,19 @@
         },
         {
           "name": "effect",
-          "score": 0.0,
+          "score": 0.12,
           "max_score": 0.12,
-          "n_checks": 2,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No ellipse with drop shadow found",
-            "No ellipse with visible drop shadow found"
-          ]
+          "fail_messages": []
         },
         {
           "name": "structure",
-          "score": 0.0,
+          "score": 0.1,
           "max_score": 0.1,
-          "n_checks": 2,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No rectangle found as direct child of a frame",
-            "No ellipse found as direct child of a frame"
-          ]
+          "fail_messages": []
         },
         {
           "name": "event",
@@ -12702,9 +12660,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.238 \u2192 0.336 (+0.098), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.465 \u2192 0.570 (+0.105), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.040->0.080",
-      "unhalve alignment: 0.018->0.036",
+      "unhalve alignment: 0.025->0.050",
       "unhalve color: 0.040->0.080"
     ]
   },
@@ -13021,8 +12979,8 @@
     },
     "target_turns": 24,
     "rollout": {
-      "best": 0.1643,
-      "mean": 0.1643,
+      "best": 0.2787,
+      "mean": 0.2787,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -13033,7 +12991,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_41/attempt_1/score.json",
-      "final_score": 0.1643,
+      "final_score": 0.2787,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -13050,24 +13008,22 @@
         },
         {
           "name": "alignment",
-          "score": 0.02,
+          "score": 0.04,
           "max_score": 0.2,
-          "n_checks": 10,
+          "n_checks": 5,
           "n_pass": 2,
           "fail_messages": [
             "No rectangle with cornerRadius \u2265 20.0",
             "No ellipse with w \u2248 h (\u00b14.0px)",
-            "rect_mp0: w=400 \u2260 320",
-            "No frame layers found",
-            "Need both rectangle and frame layers"
+            "Need both frame and rectangle"
           ]
         },
         {
           "name": "color",
-          "score": 0.05,
+          "score": 0.0444,
           "max_score": 0.2,
-          "n_checks": 10,
-          "n_pass": 5,
+          "n_checks": 9,
+          "n_pass": 4,
           "fail_messages": [
             "No ellipse with a stroke found",
             "No ellipse with stroke weight 2.0\u00b12.5",
@@ -13078,15 +13034,11 @@
         },
         {
           "name": "structure",
-          "score": 0.0,
+          "score": 0.1,
           "max_score": 0.1,
-          "n_checks": 3,
+          "n_checks": 0,
           "n_pass": 0,
-          "fail_messages": [
-            "No rectangle found as direct child of a frame",
-            "No ellipse found as direct child of a frame",
-            "No line found as direct child of a frame"
-          ]
+          "fail_messages": []
         },
         {
           "name": "event",
@@ -13129,10 +13081,10 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.164 \u2192 0.269 (+0.104), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.279 \u2192 0.397 (+0.119), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.034->0.069",
-      "unhalve alignment: 0.020->0.040",
-      "unhalve color: 0.050->0.100"
+      "unhalve alignment: 0.040->0.080",
+      "unhalve color: 0.044->0.089"
     ]
   },
   {
@@ -13566,9 +13518,9 @@
     },
     "target_turns": 24,
     "rollout": {
-      "best": 0.1833,
-      "mean": 0.15273333333333333,
-      "range": 0.09169999999999999,
+      "best": 0.1868,
+      "mean": 0.15566666666666665,
+      "range": 0.0934,
       "plateau": false,
       "n_pass": 0,
       "n_attempts": 3,
@@ -13579,7 +13531,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_42/attempt_1/score.json",
-      "final_score": 0.1833,
+      "final_score": 0.1868,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -13593,16 +13545,16 @@
         },
         {
           "name": "alignment",
-          "score": 0.02,
+          "score": 0.0235,
           "max_score": 0.2,
-          "n_checks": 20,
+          "n_checks": 17,
           "n_pass": 4,
           "fail_messages": [
             "No ellipse with w \u2248 h (\u00b13.0px)",
             "No ellipse layers found",
             "No frame at 1280\u00d7832 (\u00b125.0px)",
-            "Need both vector and frame layers",
-            "Need both ellipse and frame layers"
+            "No ellipse layers found",
+            "No frame layers found"
           ]
         },
         {
@@ -13661,9 +13613,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.183 \u2192 0.267 (+0.083), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.187 \u2192 0.274 (+0.087), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.050->0.100",
-      "unhalve alignment: 0.020->0.040",
+      "unhalve alignment: 0.024->0.047",
       "unhalve color: 0.013->0.027"
     ]
   },
@@ -14072,8 +14024,8 @@
     },
     "target_turns": 24,
     "rollout": {
-      "best": 0.1683,
-      "mean": 0.1683,
+      "best": 0.1745,
+      "mean": 0.1745,
       "range": 0.0,
       "plateau": true,
       "n_pass": 0,
@@ -14085,7 +14037,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_43/attempt_1/score.json",
-      "final_score": 0.1683,
+      "final_score": 0.1745,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -14101,16 +14053,16 @@
         },
         {
           "name": "alignment",
-          "score": 0.035,
+          "score": 0.0412,
           "max_score": 0.2,
-          "n_checks": 20,
+          "n_checks": 17,
           "n_pass": 7,
           "fail_messages": [
             "Need exactly 4 polygon layers, found 0",
             "Need exactly 4 polygon layers, found 0",
             "Need \u22652 polygon layers, found 0",
             "No frame at 1280\u00d7832 (\u00b125.0px)",
-            "Need both ellipse and frame layers"
+            "No polygon layers found"
           ]
         },
         {
@@ -14168,8 +14120,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.168 \u2192 0.237 (+0.068), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve alignment: 0.035->0.070",
+      "Verifier fix would lift 0.175 \u2192 0.249 (+0.075), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.041->0.082",
       "unhalve color: 0.033->0.067"
     ]
   },
@@ -14507,10 +14459,10 @@
     },
     "target_turns": 14,
     "rollout": {
-      "best": 0.6052,
-      "mean": 0.5871,
-      "range": 0.04799999999999993,
-      "plateau": true,
+      "best": 0.6935,
+      "mean": 0.6682666666666667,
+      "range": 0.0615,
+      "plateau": false,
       "n_pass": 0,
       "n_attempts": 3,
       "stops": {
@@ -14519,7 +14471,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_44/attempt_2/score.json",
-      "final_score": 0.6052,
+      "final_score": 0.6935,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -14531,14 +14483,12 @@
         },
         {
           "name": "alignment",
-          "score": 0.0688,
+          "score": 0.1571,
           "max_score": 0.2,
-          "n_checks": 16,
+          "n_checks": 14,
           "n_pass": 11,
           "fail_messages": [
             "No frame at 1280\u00d7832 (\u00b125.0px)",
-            "Need both ellipse and frame layers",
-            "No frame layers found",
             "No frame layers found",
             "smallest ellipse right-edge 140.0px from largest, center_y 60.0px from largest (tol edge=40.0, axis=200.0)"
           ]
@@ -14593,11 +14543,9 @@
         "undo": 2
       }
     },
-    "verdict": "verifier-primary",
+    "verdict": "honest",
     "verdict_reasons": [
-      "Current 0.605; post-verifier-fix estimate 0.710 \u2192 would pass (lift +0.105)",
-      "unhalve alignment: 0.069->0.138",
-      "unhalve color: 0.036->0.073"
+      "No meaningful verifier-fixable lift (0.694 \u2192 0.730). Score reflects model capability."
     ]
   },
   {
@@ -14942,9 +14890,9 @@
     },
     "target_turns": 20,
     "rollout": {
-      "best": 0.0063,
-      "mean": 0.0063,
-      "range": 0.0,
+      "best": 0.0071,
+      "mean": 0.006833333333333334,
+      "range": 0.0008000000000000004,
       "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
@@ -14955,8 +14903,8 @@
       }
     },
     "score_breakdown": {
-      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_45/attempt_1/score.json",
-      "final_score": 0.0063,
+      "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_fillin_20260510_155010/openrouter/task_45/attempt_1/score.json",
+      "final_score": 0.0071,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -14972,9 +14920,9 @@
         },
         {
           "name": "alignment",
-          "score": 0.0063,
+          "score": 0.0071,
           "max_score": 0.2,
-          "n_checks": 16,
+          "n_checks": 14,
           "n_pass": 1,
           "fail_messages": [
             "Need both ellipse and star layers",
@@ -15036,7 +14984,7 @@
     },
     "verdict": "honest",
     "verdict_reasons": [
-      "No meaningful verifier-fixable lift (0.006 \u2192 0.013). Score reflects model capability."
+      "No meaningful verifier-fixable lift (0.007 \u2192 0.014). Score reflects model capability."
     ]
   },
   {
@@ -15279,9 +15227,9 @@
     },
     "target_turns": 18,
     "rollout": {
-      "best": 0.5991,
-      "mean": 0.5749,
-      "range": 0.047599999999999976,
+      "best": 0.6048,
+      "mean": 0.5804,
+      "range": 0.04800000000000004,
       "plateau": true,
       "n_pass": 0,
       "n_attempts": 3,
@@ -15291,7 +15239,7 @@
     },
     "score_breakdown": {
       "source": "/Users/rashidalblwi/figma-mock/apps/figma/cua-eval/runs/qwen35_parallel_10x_20260510_144617/openrouter/task_46/attempt_3/score.json",
-      "final_score": 0.5991,
+      "final_score": 0.6048,
       "rubrics": [
         {
           "name": "fundamentals",
@@ -15303,14 +15251,13 @@
         },
         {
           "name": "alignment",
-          "score": 0.0636,
+          "score": 0.07,
           "max_score": 0.2,
-          "n_checks": 11,
+          "n_checks": 10,
           "n_pass": 7,
           "fail_messages": [
-            "rectangle stacked on x (gap=4.0px): max deviation 34.0px (tolerance 12.0px)",
+            "rectangle stacked on x (gap=4.0px): max deviation 34.0px (tolerance 25.0px)",
             "No frame at 1280\u00d7832 (\u00b125.0px)",
-            "Need both rectangle and frame layers",
             "No frame layers found"
           ]
         },
@@ -15359,8 +15306,8 @@
     },
     "verdict": "verifier-primary",
     "verdict_reasons": [
-      "Current 0.674; post-verifier-fix estimate 0.787 \u2192 would pass (lift +0.114)",
-      "unhalve alignment: 0.064->0.127",
+      "Current 0.680; post-verifier-fix estimate 0.800 \u2192 would pass (lift +0.120)",
+      "unhalve alignment: 0.070->0.140",
       "unhalve structure: 0.050->0.100"
     ]
   },

@@ -90,8 +90,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": false,
-      "brittle_alignment_tolerance": false,
+      "frame_required": true,
+      "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -101,25 +101,16 @@
         "LayerAspectRatioGreaterThan": 1,
         "LayersSameDimensions": 1,
         "LayersHaveColorOrder": 1,
+        "LayerInsideFrame": 1,
         "ToolUsed": 1,
         "EventTypeCountAtLeast": 1
       },
-      "n_rubrics": 4
+      "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-UNDERSPEC",
-        "severity": "low",
-        "detail": "Prompt mentions a frame (Create a frame) but verifier has no frame containment check."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "low": 1
-    },
-    "issue_types": [
-      "FRAME-UNDERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_03_glowing_orb",
@@ -226,7 +217,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": false,
+      "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -437,7 +428,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": false,
+      "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -610,7 +601,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": false,
+      "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "ellipse": 1
       },
@@ -844,20 +835,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_19_padlock",
@@ -1192,7 +1173,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": false,
+      "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -1380,7 +1361,7 @@
     },
     "verifier_summary": {
       "frame_required": true,
-      "brittle_alignment_tolerance": false,
+      "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "ellipse": 1,
         "frame": 1
@@ -1458,20 +1439,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_31_sun_rays",
@@ -1545,7 +1516,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": false,
+      "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "polygon": 1,
         "ellipse": 1,
@@ -1916,12 +1887,7 @@
       "mentions_size": [
         "200\u00d7200"
       ],
-      "mentions_shape_counts": [
-        [
-          200,
-          "frame"
-        ]
-      ],
+      "mentions_shape_counts": [],
       "mentions_tools": [
         "pen"
       ],
@@ -1965,20 +1931,10 @@
       },
       "n_rubrics": 6
     },
-    "issues": [
-      {
-        "type": "SHAPE-CHECK-MISSING",
-        "severity": "medium",
-        "detail": "Prompt mentions '200 frame(s)' but verifier has no ShapeCount/ShapeCountAtLeast check for 'frame'."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "SHAPE-CHECK-MISSING"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_40_toggle_switch",

@@ -14,7 +14,7 @@
 | pass@3 (only tasks with all 3 attempts) | **10.0%** (5/50) |
 | mean score | 0.269 |
 | nonzero scores | 141/150 (94%) |
-| partial ≥0.1 | 108/150 (72%) |
+| partial ≥0.1 | 109/150 (73%) |
 | total cost (est.) | $34.97 |
 
 ## Passing tasks
@@ -52,7 +52,7 @@
 | Task | k | Best | Mean | Passed (k of n) |
 |---|---|---|---|---|
 | `house_task_comprehensive` | 3 | 0.065 | 0.024 | 0/3 |
-| `task_02_sunset_gradient` | 3 | 0.050 | 0.044 | 0/3 |
+| `task_02_sunset_gradient` | 3 | 0.125 | 0.072 | 0/3 |
 | `task_03_glowing_orb` | 3 | 0.050 | 0.042 | 0/3 |
 | `task_04_color_wheel` | 3 | 0.150 | 0.131 | 0/3 |
 | `task_05_red_heart_union` | 3 | 1.000 | 0.849 | 2/3 |
