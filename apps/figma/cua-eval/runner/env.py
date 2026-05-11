@@ -21,8 +21,9 @@ PRICES_USD_PER_MTOK: dict[str, tuple[float, float]] = {
     "claude-haiku-4-5":  (1.0, 5.0),
     # OpenAI
     "computer-use-preview": (3.0, 12.0),
-    # OpenRouter (Qwen via DeepInfra)
+    # OpenRouter (Qwen via DeepInfra / Alibaba)
     "qwen/qwen3.5-27b": (0.195, 1.56),
+    "qwen/qwen3-vl-32b-instruct": (0.104, 0.416),
 }
 
 

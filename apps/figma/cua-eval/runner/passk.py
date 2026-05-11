@@ -129,6 +129,15 @@ def parse_args() -> argparse.Namespace:
                         "and tell the model they were blocked. Default: keyboard works. "
                         "Orthogonal to --system-prompt — pair with mouse-only/click-only "
                         "for a hard mouse-only environment.")
+    p.add_argument("--coord-clamp", action="store_true",
+                   help="(openrouter only) Reject off-viewport coordinates with a "
+                        "corrective tool_result instead of letting Playwright click "
+                        "outside the canvas. Useful for models with frozen-coord priors "
+                        "from training data.")
+    p.add_argument("--loop-break", action="store_true",
+                   help="(openrouter only) After 3 consecutive identical actions with "
+                        "no screen change, inject a 'STUCK — try different' user message "
+                        "to nudge the model out of attractors.")
     p.add_argument("--keep-screenshots", type=int, default=3,
                    help="(anthropic) keep only the last N screenshots in conversation "
                         "history; older ones are replaced with a text stub. Default 3. "
@@ -200,6 +209,8 @@ def resolve_provider_runner(
     common_kwargs: dict[str, Any],
     system_prompt: str | None,
     block_keyboard: bool,
+    coord_clamp: bool = False,
+    loop_break: bool = False,
 ) -> tuple[Any, dict[str, Any], str | None]:
     """The system prompt has already been resolved to a string (or None);
     just pick the right agent runner and pass everything through. The
@@ -254,6 +265,8 @@ def resolve_provider_runner(
                 "model": openrouter_model,
                 "keep_screenshots": keep_screenshots,
                 "allow_keyboard": not block_keyboard,
+                "coord_clamp": coord_clamp,
+                "loop_break": loop_break,
                 **common_kwargs,
             },
             system_prompt,
@@ -360,6 +373,8 @@ def main() -> int:
                 common_kwargs=common_kwargs,
                 system_prompt=sys_prompt_text,
                 block_keyboard=args.block_keyboard,
+                coord_clamp=args.coord_clamp,
+                loop_break=args.loop_break,
             )
 
             for task_id in tasks:
