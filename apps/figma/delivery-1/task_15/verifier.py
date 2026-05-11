@@ -62,7 +62,7 @@ task = Task(
             AllStrokeExists("ellipse"),                                                 # 6 prompt does not require strokes; demoted
             AllStrokeWeightWithinTolerance("ellipse", target_weight=1.0,                # 7 each ellipse stroke ~1px (not in prompt)
                                             tolerance=2.5),
-            AllStrokeColorEquals("ellipse", expected_rgb=LIGHT_GRAY, tolerance=0.28),   # 8 each ellipse stroke light-gray (not in prompt)
+            AllStrokeColorEquals("ellipse", expected_rgb=LIGHT_GRAY, tolerance=0.35),   # 8 ellipse stroke (not in prompt; loose tol for "light-gray" interpretation)
         ], weight=0.2, critical=[0]),
 
         StructureRubric([

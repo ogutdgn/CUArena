@@ -57,8 +57,8 @@ task = Task(
         ColorRubric([
             AllFillTypeIs("star",    kind="solid"),                                              # 0 ★ visible solid star
             AllFillTypeIs("ellipse", kind="solid"),                                              # 1 visible solid ellipse
-            SolidColorEquals(layer_type="star",    expected_rgb=WARM_ORANGE, tolerance=0.28),    # 2 ★ prompt: "warm-orange ... star"
-            SolidColorEquals(layer_type="ellipse", expected_rgb=CREAM,       tolerance=0.28),    # 3 ★ prompt: "cream circle"
+            SolidColorEquals(layer_type="star",    expected_rgb=WARM_ORANGE, tolerance=0.35),    # 2 ★ prompt: "warm-orange" — loose tol for modifier+color
+            SolidColorEquals(layer_type="ellipse", expected_rgb=CREAM,       tolerance=0.35),    # 3 ★ prompt: "cream circle" — loose tol for modifier+color
             FillCountAtMost("star", max_count=1),                                                # 4 no stacked fills
             FillOpacityAtLeast("star", min_opacity=0.5),                                         # 5 visible fill
             LayerVisible("star"),                                                                # 6 alpha+visible+opacity
