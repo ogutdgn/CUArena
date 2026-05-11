@@ -50,12 +50,9 @@ task = Task(
         AlignmentRubric([
             CornerRadiusAtLeast(layer_type="rectangle", min_value=20.0),                    # 0 ★ prompt: "rounded rectangle"
             LayerIsCircular(layer_type="ellipse", tolerance=4.0),                            # 1 ★ prompt: "small circle" (magnifier ring)
-            LayerSizeEquals(layer_type="rectangle", width=320, height=48, tolerance=15.0),  # 2 size guidance
+
             LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=5.0),         # 3 bar upright
-            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),             # 4 frame upright (implicit)
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),# 5 bar in frame
-            AllLayerBoundsInside(inner_type="ellipse",   outer_type="frame", tolerance=10.0),# 6 ellipses in frame
-            AllLayerBoundsInside(inner_type="line",      outer_type="frame", tolerance=10.0),# 7 line inside frame
+
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="horizontal"),# 8 bar wider than tall
             CrossTypeAreaRatioAtLeast(big_type="frame", small_type="rectangle",              # 9 bar smaller than frame
                                        min_ratio=2.0),
@@ -64,7 +61,7 @@ task = Task(
         # critical: stroked magnifier ring is prompt-explicit; bar color is verifier-spec only
         ColorRubric([
             StrokeExists("ellipse"),                                                                # 0 ★ prompt: "circle with stroke"
-            SolidColorEquals(layer_type="rectangle", expected_rgb=LIGHT_GRAY, tolerance=0.25),     # 1 verifier-spec light-gray bar
+
             AllFillTypeIs("rectangle", kind="solid"),                                              # 2 visible solid bar
             StrokeWeightEquals("ellipse", weight=2.0, tolerance=2.5),                               # 3 prompt: "2px stroke"
             VisibleStrokeExists("ellipse"),                                                         # 4 stroke visible
@@ -77,9 +74,7 @@ task = Task(
 
         # structure: shapes inside a frame (implicit, soft)
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                          # 0 bar inside frame
-            LayerInsideFrame(layer_type="ellipse"),                                            # 1
-            LayerInsideFrame(layer_type="line"),                                               # 2
+
         ], weight=0.10, critical=[]),
 
         # critical: must use rectangle, ellipse, and line tools

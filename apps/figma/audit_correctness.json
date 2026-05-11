@@ -1,0 +1,2555 @@
+[
+  {
+    "task_id": "house_task_comprehensive",
+    "task_dir": "task_01",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Use the Frame"
+      ],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "1280x832"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "frame"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "ellipse": 1,
+        "polygon": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 3,
+        "PolygonSidesEquals": 1,
+        "LayersAligned": 1,
+        "LayersSameDimensions": 1,
+        "LayerIsCircular": 1,
+        "LayersFlankLayer": 1,
+        "PolygonCornersAligned": 1,
+        "SmallerLayerInsideLarger": 1,
+        "LayersOverlap": 1,
+        "FrameSizeEquals": 1,
+        "LayerCenteredOnLayer": 1,
+        "LayerRotationEquals": 3,
+        "AllLayerWidthFraction": 3,
+        "LayerSizeAtLeast": 1,
+        "AllLayerBoundsInside": 4,
+        "NoLayerFlipped": 1,
+        "LayerAreaRatioAtLeast": 1,
+        "SmallerLayerCenteredOnLargerEdge": 1,
+        "LayerAboveLargestLayer": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "LayerInFrontOfLargestLayer": 1,
+        "AllFillTypeIs": 3,
+        "DistinctSolidColors": 1,
+        "FillCountAtMost": 3,
+        "FillOpacityAtLeast": 3,
+        "LayerVisible": 3,
+        "LayerInsideFrame": 3,
+        "ChildCountAtLeast": 1,
+        "ToolUsed": 3,
+        "EventTypeCountAtLeast": 4
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_02_sunset_gradient",
+    "task_dir": "task_02",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Create a frame"
+      ],
+      "mentions_named_color": [
+        "orange",
+        "pink",
+        "purple",
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersStacked": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "LayersSameDimensions": 1,
+        "LayersHaveColorOrder": 1,
+        "LayerInsideFrame": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_03_glowing_orb",
+    "task_dir": "task_03",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "RadialDistributionExcludeCentral": 1,
+        "CentermostLayerHasColor": 1,
+        "DistinctTypedSolidColors": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_04_color_wheel",
+    "task_dir": "task_04",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "blue",
+        "cyan",
+        "green",
+        "magenta",
+        "rainbow",
+        "red",
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayerIsSquare": 1,
+        "LayersOnRing": 1,
+        "FillTypeIs": 1,
+        "DistinctSolidColors": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_05_red_heart_union",
+    "task_dir": "task_05",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [
+        [
+          2,
+          "rectangle"
+        ]
+      ],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersAligned": 2,
+        "LayersHaveAspectMix": 1,
+        "LayersAllSameColor": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_06_gold_star_exclude",
+    "task_dir": "task_06",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [
+        [
+          8,
+          "line"
+        ]
+      ],
+      "mentions_tools": [
+        "line"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "line": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LinesRadialFromSharedEndpoint": 1,
+        "StrokeExists": 1,
+        "StrokeColorEquals": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_07_mountain_range",
+    "task_dir": "task_07",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "1000x400 frame"
+      ],
+      "mentions_named_color": [
+        "gray"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "1000x400"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "pen"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "vector": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersOverlap": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "FillTypeIs": 1,
+        "DistinctSolidColors": 1,
+        "AllSolidColorsNearGray": 1,
+        "LayerInsideFrame": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_08_water_waves",
+    "task_dir": "task_08",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "1000x300 frame"
+      ],
+      "mentions_named_color": [
+        "blue"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "1000x300"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "pen"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "vector": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "VectorsCurvedCountAtLeast": 1,
+        "DistinctStrokeColors": 1,
+        "AllStrokeWeightsEqual": 1,
+        "LayerInsideFrame": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_09_brand_palette",
+    "task_dir": "task_09",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "4x3"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersInGrid": 1,
+        "LayerAllSquare": 1,
+        "LayersSameDimensions": 1,
+        "DistinctTypedSolidColors": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_10_apple_avatar",
+    "task_dir": "task_10",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersConcentric": 1,
+        "LayersStrictlyNested": 1,
+        "LayersAlternatingColorsByArea": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_11_pressed_button",
+    "task_dir": "task_11",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [
+        [
+          3,
+          "triangle"
+        ]
+      ],
+      "mentions_tools": [
+        "polygon"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "polygon": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "PolygonSidesEquals": 1,
+        "LayersConcentric": 1,
+        "LayersStrictlyNested": 1,
+        "DistinctTypedSolidColors": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_12_shadowed_cards",
+    "task_dir": "task_12",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersSameDimensions": 1,
+        "LayersAligned": 1,
+        "LayersDistributed": 1,
+        "LayersAllShareEdge": 2,
+        "LayerRotationEquals": 1,
+        "LayerSizeAtLeast": 1,
+        "AllLayerWidthFraction": 1,
+        "LayersHaveConsistentGap": 1,
+        "AllFillTypeIs": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "NoLayerFlipped": 1,
+        "ChildCountAtLeast": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_13_night_sky",
+    "task_dir": "task_13",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "line": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersHaveRotations": 1,
+        "LayersOverlap": 1,
+        "LayerSizeAtLeast": 1,
+        "LayersAtDistinctPositions": 1,
+        "LayerVisible": 1,
+        "LayerRendersStrokeOrFill": 1,
+        "NoLayerFlipped": 1,
+        "ChildCountAtLeast": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_14_concentric_target",
+    "task_dir": "task_14",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "black",
+        "red",
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersConcentric": 1,
+        "LayersStrictlyNested": 1,
+        "LayerIsCircular": 1,
+        "LayerSizeAtLeast": 1,
+        "AllFillTypeIs": 1,
+        "LayersHaveColorOrder": 1,
+        "AllStrokeExists": 1,
+        "AllStrokeWeightWithinTolerance": 1,
+        "AllStrokeColorEquals": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "NoLayerFlipped": 1,
+        "ChildCountAtLeast": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_15_cloud_union",
+    "task_dir": "task_15",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersAllShareEdge": 1,
+        "LayersOverlap": 1,
+        "LayerSizeAtLeast": 1,
+        "LayersAtDistinctPositions": 1,
+        "AllLayerWidthFraction": 1,
+        "LayerRotationEquals": 1,
+        "AllSolidColorEquals": 1,
+        "AllFillTypeIs": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "NoLayerFlipped": 1,
+        "AllStrokeExists": 1,
+        "AllStrokeWeightWithinTolerance": 1,
+        "AllStrokeColorEquals": 1,
+        "ChildCountAtLeast": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_16_speech_bubble",
+    "task_dir": "task_16",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "gray"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "polygon": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "PolygonSidesEquals": 1,
+        "LayersOverlap": 1,
+        "CornerRadiusAtLeast": 1,
+        "LayerSizeAtLeast": 2,
+        "LayerRotationEquals": 2,
+        "AllLayerWidthFraction": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "CrossTypeAreaRatioAtLeast": 1,
+        "AllSolidColorEquals": 2,
+        "SameColorAcrossTypes": 1,
+        "AllFillTypeIs": 2,
+        "FillCountAtMost": 2,
+        "FillOpacityAtLeast": 2,
+        "LayerVisible": 2,
+        "NoLayerFlipped": 2,
+        "AllStrokeExists": 2,
+        "AllStrokeWeightWithinTolerance": 2,
+        "AllStrokeColorEquals": 2,
+        "ChildCountAtLeast": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_17_play_button",
+    "task_dir": "task_17",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [
+        [
+          2,
+          "triangle"
+        ]
+      ],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "polygon": 1,
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "PolygonSidesEquals": 1,
+        "LayersAligned": 2,
+        "LayersHaveRotations": 1,
+        "LayersStacked": 1,
+        "LayersBracketAllOnAxis": 1,
+        "LayerRotationEquals": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "AllFillTypeIs": 2,
+        "FillCountAtMost": 2,
+        "LayerVisible": 2,
+        "LayerGroupAllInSameFrame": 2,
+        "LayerSizeAtLeast": 2,
+        "NoLayerFlipped": 2,
+        "FrameCountAtMost": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_18_donut",
+    "task_dir": "task_18",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "black",
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayerTotalCount": 1,
+        "LayersConcentric": 1,
+        "LayersStrictlyNested": 1,
+        "AllLayersAreCircular": 1,
+        "AllFillTypeIs": 1,
+        "FillCountAtMost": 1,
+        "LayerVisible": 1,
+        "DistinctSolidColors": 1,
+        "LayersHaveColorOrder": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "LayerSizeAtLeast": 1,
+        "NoLayerFlipped": 1,
+        "FrameCountAtMost": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_19_padlock",
+    "task_dir": "task_19",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "black",
+        "gray"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "pen"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "vector": 1,
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 3,
+        "LayerTotalCount": 1,
+        "LayerBoundsInside": 1,
+        "LayerCenteredOnLayer": 1,
+        "LayerNextTo": 1,
+        "LayerIsCircular": 1,
+        "CornerRadiusEquals": 1,
+        "LayerSmallerThanLayer": 1,
+        "LayerRotationEquals": 3,
+        "AllFillTypeIs": 1,
+        "FillCountAtMost": 2,
+        "SolidColorEquals": 2,
+        "StrokeExists": 1,
+        "StrokeWeightEquals": 1,
+        "StrokeRendersVisible": 1,
+        "LayerVisible": 2,
+        "LayerGroupAllInSameFrame": 3,
+        "LayerSizeAtLeast": 3,
+        "NoLayerFlipped": 2,
+        "FrameCountAtMost": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "ToolUsed": 3,
+        "EventTypeCount": 3
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_20_glow_blob",
+    "task_dir": "task_20",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Inside an 800x600 frame"
+      ],
+      "mentions_named_color": [
+        "cyan",
+        "magenta",
+        "navy"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "800x600"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "frame": 1,
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCountAtLeast": 1,
+        "ShapeCount": 1,
+        "LayerTotalCount": 1,
+        "LayersOverlap": 1,
+        "AllLayersAreCircular": 1,
+        "LayerRotationEquals": 2,
+        "LayersHaveDistinctCenters": 1,
+        "AllFillTypeIs": 2,
+        "FillCountAtMost": 2,
+        "SolidColorEquals": 1,
+        "DistinctTypedSolidColors": 1,
+        "LayerVisible": 2,
+        "LayerInsideFrame": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "AllLayerBoundsInside": 1,
+        "LayerSizeAtLeast": 2,
+        "NoLayerFlipped": 1,
+        "FrameCountAtMost": 1,
+        "LayersSameDimensions": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_21_button_stack",
+    "task_dir": "task_21",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayerTotalCount": 1,
+        "LayersSameDimensions": 1,
+        "LayersAligned": 1,
+        "LayersStacked": 1,
+        "LayerRotationEquals": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "AllFillTypeIs": 1,
+        "FillCountAtMost": 1,
+        "DistinctTypedSolidColors": 1,
+        "LayerVisible": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "LayerSizeAtLeast": 1,
+        "NoLayerFlipped": 1,
+        "FrameCountAtMost": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_22_tag_pills",
+    "task_dir": "task_22",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "pastel"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersSameDimensions": 1,
+        "LayersAligned": 1,
+        "LayersStacked": 1,
+        "CornerRadiusAtLeast": 1,
+        "LayerSizeAtLeast": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "AllFillTypeIs": 1,
+        "DistinctSolidColors": 1,
+        "LayerVisible": 1,
+        "NoLayerFlipped": 1,
+        "LayerRotationEquals": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_23_stretchy_sidebar",
+    "task_dir": "task_23",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Inside an outer frame"
+      ],
+      "mentions_named_color": [
+        "gray"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "frame": 1,
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCountAtLeast": 1,
+        "ShapeCount": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "LayerWidthFraction": 1,
+        "ConstraintHorizontalEquals": 1,
+        "ConstraintVerticalEquals": 1,
+        "LayerEdgesAligned": 1,
+        "AllLayerBoundsInside": 1,
+        "LayerSizeAtLeast": 1,
+        "AllFillTypeIs": 1,
+        "SolidColorEquals": 1,
+        "LayerVisible": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_24_centered_modal",
+    "task_dir": "task_24",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Inside an outer frame",
+        "inside the parent frame"
+      ],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "frame": 1,
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCountAtLeast": 1,
+        "ShapeCount": 1,
+        "LayerCenteredInFrame": 1,
+        "CornerRadiusAtLeast": 1,
+        "LayerSizeAtLeast": 1,
+        "AllLayerBoundsInside": 1,
+        "LayerWidthFraction": 1,
+        "AllFillTypeIs": 1,
+        "AllSolidColorEquals": 1,
+        "LayerVisible": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1,
+        "AlignToolUsed": 1
+      },
+      "n_rubrics": 6
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_25_button_component",
+    "task_dir": "task_25",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersSameDimensions": 1,
+        "LayersAligned": 1,
+        "LayersHaveConsistentGap": 1,
+        "LayerSizeAtLeast": 1,
+        "AllFillTypeIs": 1,
+        "LayersAllSameColor": 1,
+        "LayerVisible": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_26_color_variable_card",
+    "task_dir": "task_26",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "blue"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersSameDimensions": 1,
+        "LayersAligned": 1,
+        "LayerIsSquare": 1,
+        "LayersStacked": 1,
+        "LayerSizeAtLeast": 1,
+        "AllFillTypeIs": 1,
+        "DistinctSolidColors": 1,
+        "LayerVisible": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_27_neumorphic_button",
+    "task_dir": "task_27",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "gray",
+        "light-gray"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "200\u00d7200"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [
+        "blur",
+        "drop_shadow"
+      ],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayerSizeEquals": 1,
+        "CornerRadiusAtLeast": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "AllFillTypeIs": 1,
+        "SolidColorEquals": 1,
+        "DropShadowExists": 1,
+        "EffectCount": 1,
+        "DropShadowCountAtLeast": 1,
+        "PairedDropShadowsOpposite": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 6
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_28_edited_photo",
+    "task_dir": "task_28",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "line": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "LinesOnDiagonal": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "LayerSizeAtLeast": 1,
+        "AllLayerWidthFraction": 1,
+        "AllFillTypeIs": 1,
+        "AllLayerStrokeVisible": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_29_polka_dot_grid",
+    "task_dir": "task_29",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "frame with"
+      ],
+      "mentions_named_color": [
+        "off-white",
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "2x2"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "ellipse": 1,
+        "frame": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "ShapeCountAtLeast": 1,
+        "LayersSameDimensions": 1,
+        "LayersInGrid": 1,
+        "LayerIsCircular": 1,
+        "LayerRotationEquals": 2,
+        "NoLayerFlipped": 1,
+        "LayerSizeAtLeast": 1,
+        "AllLayerWidthFraction": 1,
+        "AllLayerBoundsInside": 1,
+        "AllFillTypeIs": 1,
+        "LayersAllSameColor": 1,
+        "SolidColorEquals": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1,
+        "AlignToolUsed": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_30_stripe_wallpaper",
+    "task_dir": "task_30",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Inside a 600x600 frame"
+      ],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "600x600"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "rectangle": 1,
+        "frame": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "ShapeCountAtLeast": 1,
+        "LayersSameDimensions": 1,
+        "LayersAligned": 1,
+        "LayersStacked": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "LayersAlternatingColors": 1,
+        "LayerRotationEquals": 2,
+        "NoLayerFlipped": 1,
+        "LayerSizeAtLeast": 1,
+        "AllLayerBoundsInside": 1,
+        "LayerSizeEquals": 1,
+        "AllFillTypeIs": 1,
+        "LayersHaveColorOrder": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_31_sun_rays",
+    "task_dir": "task_31",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "ellipse": 1,
+        "polygon": 1,
+        "frame": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "ShapeCountAtLeast": 1,
+        "PolygonSidesEquals": 1,
+        "LayersSameDimensions": 1,
+        "LayerIsCircular": 1,
+        "LayersEvenlyRotated": 1,
+        "RadialDistribution": 1,
+        "LayerCenteredOnLayerSetCentroid": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 2,
+        "LayerSizeAtLeast": 2,
+        "AllLayerWidthFraction": 2,
+        "AllFillTypeIs": 2,
+        "SolidColorEquals": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_32_pinwheel",
+    "task_dir": "task_32",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [
+        [
+          4,
+          "triangle"
+        ]
+      ],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": true,
+      "required_shape_types": {
+        "polygon": 1,
+        "ellipse": 1,
+        "frame": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "ShapeCountAtLeast": 1,
+        "PolygonSidesEquals": 1,
+        "LayersSameDimensions": 1,
+        "RadialDistribution": 1,
+        "LayersEvenlyRotated": 1,
+        "LayerIsCircular": 1,
+        "AllLayersAreCircular": 1,
+        "LayerSizeAtLeast": 2,
+        "LayerSmallerThanLayer": 1,
+        "LayerInFrontOf": 1,
+        "NoLayerFlipped": 1,
+        "AllFillTypeIs": 2,
+        "DistinctSolidColors": 1,
+        "LayersAlternatingColors": 1,
+        "LayerGroupAllInSameFrame": 2,
+        "ChildCountAtLeast": 1,
+        "FrameCountAtMost": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_33_pie_chart",
+    "task_dir": "task_33",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "teal"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "ellipse": 1,
+        "polygon": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "PolygonSidesEquals": 1,
+        "LayerIsCircular": 1,
+        "LayerInFrontOf": 1,
+        "LayersOverlap": 1,
+        "LayersHaveDistinctRotations": 1,
+        "LayerSizeAtLeast": 2,
+        "LayerSmallerThanLayer": 1,
+        "NoLayerFlipped": 2,
+        "AllFillTypeIs": 2,
+        "SolidColorEquals": 1,
+        "DistinctSolidColors": 1,
+        "FillCountAtMost": 2,
+        "LayerVisible": 2,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_34_snowflake",
+    "task_dir": "task_34",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Inside a navy frame"
+      ],
+      "mentions_named_color": [
+        "navy",
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "frame": 1,
+        "line": 1
+      },
+      "check_class_counts": {
+        "ShapeCountAtLeast": 1,
+        "ShapeCount": 1,
+        "LayersEvenlyRotated": 1,
+        "LayersConcentric": 1,
+        "LayersSameDimensions": 1,
+        "AllLayerBoundsInside": 1,
+        "LayerSizeAtLeast": 1,
+        "NoLayerFlipped": 1,
+        "LayerRotationEquals": 1,
+        "LinesShareEndpoint": 1,
+        "AllFillTypeIs": 1,
+        "SolidColorEquals": 1,
+        "AllStrokeExists": 1,
+        "AllStrokeColorEquals": 1,
+        "AllLayerStrokeVisible": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 2,
+        "LayerInsideFrame": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "ChildCountAtLeast": 1,
+        "FrameCountAtMost": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_35_honeycomb",
+    "task_dir": "task_35",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "black",
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "2\u00d72"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "polygon"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "polygon": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "PolygonSidesEquals": 1,
+        "OffsetGridLayout": 1,
+        "LayersSameDimensions": 1,
+        "LayerSizeAtLeast": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "AllFillTypeIs": 1,
+        "AllSolidColorEquals": 1,
+        "AllStrokeExists": 1,
+        "AllStrokeWeightsEqual": 1,
+        "AllStrokeColorEquals": 1,
+        "AllLayerStrokeVisible": 1,
+        "FillCountAtMost": 1,
+        "LayerVisible": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_36_polaroid",
+    "task_dir": "task_36",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersStrictlyNested": 1,
+        "LayersConcentric": 1,
+        "LayerSizeAtLeast": 1,
+        "NoLayerFlipped": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "AllFillTypeIs": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_37_sticky_note",
+    "task_dir": "task_37",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "pen"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "vector": 1,
+        "line": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "ShapeCountAtLeast": 2,
+        "LayerSizeAtLeast": 3,
+        "LayerIsSquare": 1,
+        "NoLayerFlipped": 1,
+        "LayerBoundsInside": 1,
+        "LayerRotationEquals": 2,
+        "LayerAspectRatioGreaterThan": 1,
+        "LayerCenteredOnLayer": 2,
+        "LayersStacked": 1,
+        "LayerEdgesAligned": 1,
+        "CrossTypeAreaRatioAtLeast": 1,
+        "AllFillTypeIs": 2,
+        "SolidColorEquals": 2,
+        "FillCountAtMost": 2,
+        "LayerVisible": 2,
+        "StrokeExists": 1,
+        "StrokeWeightEquals": 1,
+        "AllLayerStrokeVisible": 1,
+        "LayerInFrontOf": 2,
+        "ToolUsed": 3,
+        "EventTypeCount": 1,
+        "EventTypeCountAtLeast": 2
+      },
+      "n_rubrics": 7
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_38_battery_indicator",
+    "task_dir": "task_38",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "gray",
+        "green",
+        "red",
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayerSizeAtLeast": 2,
+        "LayerAreaRatioAtLeast": 1,
+        "NoLayerFlipped": 1,
+        "CornerRadiusAtLeast": 1,
+        "SmallerLayerInsideLarger": 1,
+        "LayerRotationEquals": 1,
+        "LayersAligned": 1,
+        "CrossTypeAreaRatioAtLeast": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "AllFillTypeIs": 1,
+        "DistinctSolidColors": 1,
+        "StrokeExists": 1,
+        "StrokeWeightEquals": 1,
+        "StrokeColorEquals": 1,
+        "VisibleStrokeExists": 1,
+        "FillCountAtMost": 1,
+        "LayerVisible": 1,
+        "FillOpacityAtLeast": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 6
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_39_wifi_icon",
+    "task_dir": "task_39",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "200\u00d7200 frame"
+      ],
+      "mentions_named_color": [
+        "navy"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [
+        "200\u00d7200"
+      ],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "pen"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "vector": 1,
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCountAtLeast": 1,
+        "ShapeCount": 1,
+        "VectorsCurvedCountAtLeast": 1,
+        "LayerSizeAtLeast": 2,
+        "NoLayerFlipped": 2,
+        "LayerIsCircular": 1,
+        "LayerEdgesAligned": 1,
+        "AllLayerBoundsInside": 2,
+        "LayerCenteredOnLayer": 1,
+        "LayerRotationEquals": 2,
+        "CrossTypeAreaRatioAtLeast": 2,
+        "AllFillTypeIs": 1,
+        "SolidColorEquals": 1,
+        "AllStrokeExists": 1,
+        "AllStrokeWeightsEqual": 1,
+        "AllStrokeColorEquals": 1,
+        "AllLayerStrokeVisible": 1,
+        "FillCountAtMost": 1,
+        "LayerVisible": 2,
+        "FillOpacityAtLeast": 1,
+        "LayerInsideFrame": 2,
+        "ToolUsed": 2,
+        "EventTypeCountAtLeast": 1,
+        "EventTypeCount": 1,
+        "LayerInFrontOf": 1
+      },
+      "n_rubrics": 6
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_40_toggle_switch",
+    "task_dir": "task_40",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "green",
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "LayerSizeAtLeast": 2,
+        "NoLayerFlipped": 2,
+        "CornerRadiusAtLeast": 1,
+        "LayerEdgesAligned": 1,
+        "LayerIsCircular": 1,
+        "LayerBoundsInside": 1,
+        "LayerRotationEquals": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "LayerCenteredOnLayer": 1,
+        "CrossTypeAreaRatioAtLeast": 1,
+        "SolidColorEquals": 2,
+        "AllFillTypeIs": 2,
+        "FillCountAtMost": 3,
+        "LayerVisible": 2,
+        "FillOpacityAtLeast": 2,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 7
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_41_search_bar",
+    "task_dir": "task_41",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": true
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "ellipse": 1,
+        "line": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "ShapeCountAtLeast": 2,
+        "LayerSizeAtLeast": 3,
+        "NoLayerFlipped": 1,
+        "CornerRadiusAtLeast": 1,
+        "LayerIsCircular": 1,
+        "LayerRotationEquals": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "CrossTypeAreaRatioAtLeast": 1,
+        "StrokeExists": 1,
+        "AllFillTypeIs": 1,
+        "StrokeWeightEquals": 1,
+        "VisibleStrokeExists": 2,
+        "AllLayerStrokeVisible": 1,
+        "FillCountAtMost": 1,
+        "LayerVisible": 1,
+        "FillOpacityAtLeast": 1,
+        "ToolUsed": 3,
+        "EventTypeCount": 1,
+        "EventTypeCountAtLeast": 2,
+        "LayerBoundsInside": 1,
+        "LayerCenteredOnLayer": 1
+      },
+      "n_rubrics": 6
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_42_bell_icon",
+    "task_dir": "task_42",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "gold",
+        "red",
+        "white",
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "vector": 1,
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCountAtLeast": 2,
+        "LayerIsCircular": 1,
+        "AllLayersAreCircular": 1,
+        "FrameSizeEquals": 1,
+        "LayerSizeAtLeast": 2,
+        "AllLayerWidthFraction": 2,
+        "LayerRotationEquals": 2,
+        "NoLayerFlipped": 2,
+        "LayersOverlap": 1,
+        "LayerSmallerThanLayer": 1,
+        "FrameCountAtMost": 1,
+        "LayerNextTo": 1,
+        "LayerEdgesAligned": 2,
+        "AllSolidColorEquals": 1,
+        "StrokeColorEquals": 1,
+        "DistinctTypedSolidColors": 1,
+        "AllFillTypeIs": 2,
+        "DistinctSolidColors": 1,
+        "FillCountAtMost": 2,
+        "FillOpacityAtLeast": 2,
+        "LayerVisible": 2,
+        "StrokeExists": 1,
+        "StrokeWeightEquals": 1,
+        "StrokeRendersVisible": 1,
+        "LayerGroupAllInSameFrame": 2,
+        "LayerOnPage": 2,
+        "ToolUsed": 2,
+        "EventTypeCountAtLeast": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_43_compass_rose",
+    "task_dir": "task_43",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "gold",
+        "gray",
+        "red",
+        "rose",
+        "sand"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "ellipse": 1,
+        "polygon": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "PolygonSidesEquals": 1,
+        "LayersEvenlyRotated": 1,
+        "LayerIsCircular": 1,
+        "RadialDistribution": 1,
+        "LayersSameDimensions": 1,
+        "AllLayersAreCircular": 1,
+        "FrameSizeEquals": 1,
+        "LayerSizeAtLeast": 2,
+        "AllLayerWidthFraction": 2,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 2,
+        "LayerSmallerThanLayer": 1,
+        "LayerAreaRatioAtLeast": 1,
+        "LayerCenteredOnLayer": 1,
+        "FrameCountAtMost": 1,
+        "DistinctTypedSolidColors": 2,
+        "SolidColorEquals": 1,
+        "AllFillTypeIs": 2,
+        "DistinctSolidColors": 1,
+        "FillCountAtMost": 2,
+        "FillOpacityAtLeast": 2,
+        "LayerVisible": 2,
+        "LayerGroupAllInSameFrame": 2,
+        "LayerOnPage": 2,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_44_avatar_status",
+    "task_dir": "task_44",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersOverlap": 1,
+        "LayerOnTopOf": 1,
+        "LayerIsCircular": 1,
+        "AllLayersAreCircular": 1,
+        "FrameSizeEquals": 1,
+        "LayerSizeAtLeast": 1,
+        "AllLayerWidthFraction": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "LayerSmallerThanLayer": 1,
+        "LayerAreaRatioAtLeast": 1,
+        "SmallerLayerCenteredOnLargerEdge": 2,
+        "FrameCountAtMost": 1,
+        "SolidColorEquals": 1,
+        "StrokeColorEquals": 1,
+        "AllFillTypeIs": 1,
+        "DistinctSolidColors": 1,
+        "DistinctTypedSolidColors": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "StrokeExists": 1,
+        "StrokeWeightEquals": 1,
+        "StrokeRendersVisible": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "LayerOnPage": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_45_geometric_emblem",
+    "task_dir": "task_45",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "blue",
+        "yellow"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "star"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "star": 1,
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "StarPointsEquals": 1,
+        "LayerCenteredOnLayer": 1,
+        "LayerSmallerThanLayer": 1,
+        "LayerInFrontOf": 1,
+        "LayerOnTopOf": 1,
+        "LayerBoundsInside": 1,
+        "LayerIsCircular": 1,
+        "FrameSizeEquals": 1,
+        "LayerSizeAtLeast": 2,
+        "LayerRotationEquals": 2,
+        "NoLayerFlipped": 2,
+        "FrameCountAtMost": 1,
+        "AllFillTypeIs": 2,
+        "AllSolidColorEquals": 2,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "LayerGroupAllInSameFrame": 2,
+        "LayerOnPage": 2,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_46_audio_waveform",
+    "task_dir": "task_46",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "LayersStacked": 1,
+        "LayersAllShareEdge": 1,
+        "LayerHeightRangeAtLeast": 1,
+        "LayerAspectRatioGreaterThan": 1,
+        "FrameSizeEquals": 1,
+        "LayerSizeAtLeast": 1,
+        "AllLayerWidthFraction": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "FrameCountAtMost": 1,
+        "AllFillTypeIs": 1,
+        "DistinctSolidColors": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "LayerGroupAllInSameFrame": 1,
+        "LayerOnPage": 1,
+        "ToolUsed": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_47_sunburst_badge",
+    "task_dir": "task_47",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [
+        "cream",
+        "orange"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "star"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "star": 1,
+        "ellipse": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "StarPointsEquals": 1,
+        "LayerCenteredOnLayer": 1,
+        "LayerSmallerThanLayer": 1,
+        "LayerInFrontOf": 1,
+        "LayerIsCircular": 1,
+        "LayerBoundsInside": 1,
+        "LayerRotationEquals": 2,
+        "NoLayerFlipped": 2,
+        "LayerSizeAtLeast": 2,
+        "LayerShortDimensionAtMost": 1,
+        "StarInnerRatioEquals": 1,
+        "AllFillTypeIs": 2,
+        "SolidColorEquals": 2,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_48_spiderweb",
+    "task_dir": "task_48",
+    "prompt": {
+      "mentions_frame": true,
+      "frame_phrases": [
+        "Inside a navy frame"
+      ],
+      "mentions_named_color": [
+        "navy",
+        "white"
+      ],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "polygon"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": true,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "frame": 1,
+        "line": 1,
+        "polygon": 1
+      },
+      "check_class_counts": {
+        "ShapeCountAtLeast": 2,
+        "ShapeCount": 1,
+        "PolygonSidesEquals": 1,
+        "AllLayersHaveNoFill": 1,
+        "LayersEvenlyRotated": 1,
+        "LayersConcentric": 2,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 3,
+        "LayerAreaRatioAtLeast": 1,
+        "LayerSizeAtLeast": 2,
+        "AllLayerBoundsInside": 1,
+        "LinesShareEndpoint": 1,
+        "AllFillTypeIs": 1,
+        "SolidColorEquals": 1,
+        "AllStrokeExists": 2,
+        "AllStrokeColorEquals": 2,
+        "AllStrokeWeightAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 3,
+        "LayerGroupAllInSameFrame": 2,
+        "ToolUsed": 2,
+        "EventTypeCountAtLeast": 1,
+        "EventTypeCount": 1
+      },
+      "n_rubrics": 5
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_49_decorative_ribbon",
+    "task_dir": "task_49",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [
+        "pen"
+      ],
+      "mentions_effects": [],
+      "mentions_alignment": false,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "vector": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 1,
+        "VectorsCurvedCountAtLeast": 1,
+        "LayerSizeAtLeast": 1,
+        "LayerShortDimensionAtMost": 1,
+        "LayerRotationEquals": 1,
+        "NoLayerFlipped": 1,
+        "LayerVisible": 1,
+        "AllStrokeExists": 1,
+        "StrokeWeightEquals": 1,
+        "StrokeIsDashed": 1,
+        "AllStrokeWeightAtMost": 1,
+        "ToolUsed": 1,
+        "EventTypeCountAtLeast": 1
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  },
+  {
+    "task_id": "task_50_album_cover",
+    "task_dir": "task_50",
+    "prompt": {
+      "mentions_frame": false,
+      "frame_phrases": [],
+      "mentions_named_color": [],
+      "mentions_hex_color": [],
+      "mentions_size": [],
+      "mentions_shape_counts": [],
+      "mentions_tools": [],
+      "mentions_effects": [],
+      "mentions_alignment": true,
+      "mentions_corner_radius": false
+    },
+    "verifier_summary": {
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
+      "required_shape_types": {
+        "rectangle": 1,
+        "star": 1
+      },
+      "check_class_counts": {
+        "ShapeCount": 2,
+        "StarPointsEquals": 1,
+        "LayerCenteredOnLayer": 1,
+        "LayerIsSquare": 1,
+        "LayerInFrontOf": 1,
+        "LayerSmallerThanLayer": 1,
+        "LayerBoundsInside": 1,
+        "LayerRotationEquals": 2,
+        "NoLayerFlipped": 2,
+        "LayerSizeAtLeast": 2,
+        "LayerShortDimensionAtMost": 1,
+        "StarInnerRatioEquals": 1,
+        "CornerRadiusFractionAtMost": 1,
+        "AllFillTypeIs": 2,
+        "DistinctSolidColors": 1,
+        "FillCountAtMost": 1,
+        "FillOpacityAtLeast": 1,
+        "LayerVisible": 1,
+        "ToolUsed": 2,
+        "EventTypeCount": 2
+      },
+      "n_rubrics": 4
+    },
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
+  }
+]

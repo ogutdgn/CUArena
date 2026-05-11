@@ -222,12 +222,15 @@ def run_attempt(
         from .agents.anthropic import describe_endpoint as _describe
     elif provider == "openai":
         from .agents.openai import describe_endpoint as _describe
+    elif provider == "openrouter":
+        from .agents.openrouter import describe_endpoint as _describe
     else:
         _describe = lambda *_a, **_kw: {}                       # noqa: E731
     endpoint_meta = _describe(**{
         k: v for k, v in agent_kwargs.items()
         if k in ("model", "max_tokens", "keep_screenshots",
-                 "turn_delay_s", "max_retries")
+                 "turn_delay_s", "max_retries",
+                 "coord_clamp", "loop_break")
     })
 
     started_at = int(time.time() * 1000)
@@ -279,7 +282,15 @@ def run_attempt(
 
     if log_payload is not None:
         log_path.write_text(json.dumps(log_payload, indent=2), encoding="utf-8")
-        result = score_log(task, log_path)
+        try:
+            result = score_log(task, log_path)
+        except Exception as score_exc:
+            # Verifier requires outcome.summary / .document — when an agent
+            # does nothing useful the mock's log can be incomplete. Fall
+            # back to a zero-scored attempt instead of crashing the run.
+            score_err = f"score failed: {score_exc}"
+            error = score_err if not error else f"{error}; {score_err}"
+            result = _zero_result(task, log_path, reason=str(score_exc))
     else:
         log_path.write_text(json.dumps({
             "schemaVersion": 1, "sessionId": "unavailable",

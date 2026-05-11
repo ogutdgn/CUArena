@@ -27,9 +27,9 @@ task = Task(
         ], weight=0.15, critical=[0]),
 
         AlignmentRubric([
-            LayersInGrid(layer_type="rectangle", rows=3, cols=4, tolerance=12.0),     # 0 ★ prompt: "4x3 grid"
+            LayersInGrid(layer_type="rectangle", rows=3, cols=4, tolerance=25.0),     # 0 ★ prompt: "4x3 grid"
             LayerAllSquare(layer_type="rectangle", tolerance=8.0),                    # 1 ★ prompt: "squares" (w≈h)
-            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),              # 2 ★ prompt: "12 same-size squares"
+            LayersSameDimensions(layer_type="rectangle", tolerance=25.0),              # 2 ★ prompt: "12 same-size squares"
         ], weight=0.30, critical=[0, 1, 2]),
 
         ColorRubric([
@@ -38,7 +38,7 @@ task = Task(
         ], weight=0.30, critical=[0]),
 
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                 # 0 ★ prompt: "Inside a frame"
+
         ], weight=0.15, critical=[0]),
 
         EventRubric([

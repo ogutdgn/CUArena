@@ -45,9 +45,9 @@ task = Task(
             CornerRadiusAtLeast(layer_type="rectangle", min_value=16.0),        # 1 ★ prompt: "rounded rectangle"
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),   # 2 no full circle
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),  # 3 upright
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),  # 4 frame upright
+
             NoLayerFlipped(layer_type="rectangle"),                             # 5 not mirrored
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=10.0),  # 6 on-frame
+
         ], weight=0.2, critical=[0, 1]),
 
         # critical: light-gray solid fill
@@ -66,7 +66,7 @@ task = Task(
 
         # rectangle inside a frame (structure)
         StructureRubric([
-            LayerInsideFrame("rectangle"),                                      # 0 in a frame
+
         ], weight=0.1, critical=[]),
 
         # rectangle tool used

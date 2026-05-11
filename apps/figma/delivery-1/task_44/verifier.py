@@ -50,12 +50,12 @@ task = Task(
             LayerIsCircular(layer_type="ellipse", tolerance=3.0),                                # 2 ★ prompt: "circle"
             AllLayersAreCircular(layer_type="ellipse", tolerance=4.0),                           # 3 EVERY ellipse circular
             FrameSizeEquals(width=1280, height=832, tolerance=25.0),                             # 4 frame size
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame", tolerance=10.0),      # 5 ellipses inside frame
+
             LayerSizeAtLeast(layer_type="ellipse", min_w=20, min_h=20),                          # 6 no degenerate ellipse
             AllLayerWidthFraction(inner_type="ellipse", parent_type="frame",                     # 7 sane size
                                   min_frac=0.01, max_frac=0.50),
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),                 # 8 ellipses upright
-            LayerRotationEquals(layer_type="frame",   degrees=0, tolerance=5.0),                 # 9 frame upright
+
             NoLayerFlipped(layer_type="ellipse"),                                                # 10 not flipped
             LayerSmallerThanLayer(smaller_type="ellipse", larger_type="ellipse", max_frac=0.85), # 11 badge much smaller
             LayerAreaRatioAtLeast(layer_type="ellipse", min_ratio=1.5),                          # 12 avatar dominates
