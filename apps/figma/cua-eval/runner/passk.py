@@ -51,6 +51,7 @@ except ImportError:
 
 SMOKE_TASKS = ["05", "10", "12"]   # short, easy tasks for cheap end-to-end check
 SYSTEM_PROMPTS_DIR = EVAL_ROOT / "system-prompts"
+DEFAULT_TRACE_S3_BUCKET = "cua-bench-logs"
 
 
 def _list_prompt_names() -> list[str]:
@@ -178,8 +179,8 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument(
         "--trace-s3-bucket",
-        default=os.environ.get("CUA_TRACE_S3_BUCKET"),
-        help="backend=postgres-s3: S3 bucket for artifacts",
+        default=os.environ.get("CUA_TRACE_S3_BUCKET", DEFAULT_TRACE_S3_BUCKET),
+        help=f"backend=postgres-s3: S3 bucket for artifacts (default: {DEFAULT_TRACE_S3_BUCKET})",
     )
     p.add_argument(
         "--trace-s3-prefix",
