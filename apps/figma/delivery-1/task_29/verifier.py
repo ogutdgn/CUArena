@@ -55,7 +55,7 @@ task = Task(
         ColorRubric([
             AllFillTypeIs("ellipse", kind="solid"),                         # 0 circle solid fill
             LayersAllSameColor(layer_type="ellipse", tolerance=0.05),       # 1 (optional per prompt)
-            SolidColorEquals(layer_type="frame", expected_rgb=OFF_WHITE, tolerance=0.28),  # 2 ★ prompt: "off-white fill" — human-friendly
+            SolidColorEquals(layer_type="frame", expected_rgb=OFF_WHITE, tolerance=0.35),  # 2 ★ prompt: "off-white fill" — loose tol for modifier+color
         ], weight=0.2, critical=[2]),
 
         # all dots in same frame (structural)

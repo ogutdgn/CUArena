@@ -80,8 +80,8 @@ task = Task(
                                             tolerance=2.5),
             AllStrokeWeightWithinTolerance("polygon", target_weight=2.0,                # 16 stroke not in prompt
                                             tolerance=2.5),
-            AllStrokeColorEquals("rectangle", expected_rgb=DARK_GRAY, tolerance=0.28),  # 17 stroke not in prompt
-            AllStrokeColorEquals("polygon", expected_rgb=DARK_GRAY, tolerance=0.28),    # 18 stroke not in prompt
+            AllStrokeColorEquals("rectangle", expected_rgb=DARK_GRAY, tolerance=0.35),  # 17 stroke not in prompt; loose tol for "dark gray"
+            AllStrokeColorEquals("polygon", expected_rgb=DARK_GRAY, tolerance=0.35),    # 18 stroke not in prompt; loose tol for "dark gray"
         ], weight=0.2, critical=[0, 1, 2]),
 
         StructureRubric([

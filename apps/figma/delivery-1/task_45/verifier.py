@@ -64,7 +64,7 @@ task = Task(
         ColorRubric([
             AllFillTypeIs("star",    kind="solid"),                                           # 0 ★ visible solid star
             AllFillTypeIs("ellipse", kind="solid"),                                           # 1 visible solid ellipse
-            AllSolidColorEquals(layer_type="star",    expected_rgb=DEEP_BLUE, tolerance=0.28),# 2 ★ prompt: "deep blue fill"
+            AllSolidColorEquals(layer_type="star",    expected_rgb=DEEP_BLUE, tolerance=0.35),# 2 ★ prompt: "deep blue fill" — loose tol for modifier+color
             AllSolidColorEquals(layer_type="ellipse", expected_rgb=YELLOW,    tolerance=0.28),# 3 ★ prompt: "yellow fill"
             FillCountAtMost("star", max_count=1),                                             # 4 no stacked fills
             FillOpacityAtLeast("star", min_opacity=0.5),                                      # 5 visible fill

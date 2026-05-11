@@ -58,7 +58,7 @@ task = Task(
         # critical: navy frame + white branches are prompt-explicit, all visible
         ColorRubric([
             AllFillTypeIs("frame", kind="solid"),                                       # 0
-            SolidColorEquals(layer_type="frame", expected_rgb=NAVY, tolerance=0.28),    # 1 ★ prompt: "navy frame"
+            SolidColorEquals(layer_type="frame", expected_rgb=NAVY, tolerance=0.35),    # 1 ★ prompt: "navy frame" — loose tol for modifier+color
             AllStrokeExists("line"),                                                    # 2
             AllStrokeColorEquals(layer_type="line", expected_rgb=WHITE, tolerance=0.28),# 3 ★ prompt: "white line branches"
             AllLayerStrokeVisible("line", min_alpha=0.5, min_weight=0.5),               # 4
