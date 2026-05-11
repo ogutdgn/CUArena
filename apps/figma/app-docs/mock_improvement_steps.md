@@ -23,6 +23,33 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-10 — User-reported panel scrub frame ejection regression
+
+#### 32. 🟢 P1 — Panel X/Y/W/H scrub leaves frame children visually stuck in their old parent
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/frameContainment.ts`
+- `apps/figma/mock/src/engine/propertyCommands.ts`
+- `apps/figma/mock/src/tools/move.ts`
+- `apps/figma/mock/src/ui/panels/NumericInput.tsx`
+- `apps/figma/mock/src/ui/panels/PositionSection.tsx`
+- `apps/figma/mock/src/ui/panels/LayoutSection.tsx`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** Moving or resizing a layer from the Position/Layout panel should obey the same frame containment rules as dragging it on canvas. If the layer exits a frame far enough, it should become a sibling of the frame while preserving its world position.
+
+**What happened:** The new visible X/Y/W/H drag handles made it easy to move a frame child through panel scrubbing, but `setTransformField` only dispatched `set_transform`. The layer could render outside or against the frame edge while its `parentId` stayed inside the frame, so clipped frames made it look stuck and hit-testing/selection still behaved like the layer belonged to the frame.
+
+**Root cause verified in code:** Canvas movement runs frame nesting/ejection logic in `tools/move.ts` and dispatches `reparent` when overlap crosses thresholds. Panel movement used `propertyCommands.ts` only, so it bypassed that containment path entirely.
+
+**Fix:** Extracted shared frame containment calculation into `engine/frameContainment.ts`. Canvas drag and panel X/Y/W/H transforms use the same overlap calculation; panel transforms use a more responsive exit threshold (60% remaining overlap instead of canvas drag's 40% hysteresis) because panel scrub defers reparent until pointer-up and does not need live anti-jitter hysteresis. Typed panel commits dispatch `reparent` after `set_transform` when needed; `applyReparent` preserves world transform. Numeric scrub opens a transaction for transform fields, defers containment while the pointer is moving so the Position/Layout value's reference frame cannot change mid-scrub, then applies the optional `reparent` before committing the transaction.
+
+**Logger impact:** Existing semantic events reused. Panel movement still emits `move_layer` / `resize_layer` with `trigger: "panel_input"`; when panel movement crosses a frame boundary it now additionally emits `reorder_layer` with existing `trigger: "panel_drag"`. No schema field added or renamed.
+
+**Verifier impact:** Positive outcome-document change: frame ejection through panel transforms now updates `parentId`/tree structure, so existing frame containment checks observe the same final document state as canvas drag. No new checker required.
+
 ### 2026-05-10 — User-reported text edit overlay outline doubled
 
 #### 30. 🟢 P2 — Selection outline appears doubled in text edit mode
@@ -552,6 +579,32 @@ Files:
 **Verifier impact:** None — neither field nor event was referenced by any check primitive, rubric, or `delivery-1/` task verifier. No check catalog change required.
 
 **Architecture impact:** None. No engine invariants relied on these fields; preview behavior is unchanged.
+
+### 2026-05-10 — Position / Layout drag-scrub glyphs relocated into inputs
+
+#### 31. 🟢 — X / Y / W / H / rotation glyphs moved into NumericInput as drag handles
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/panels/PositionSection.tsx`
+- `apps/figma/mock/src/ui/panels/LayoutSection.tsx`
+
+**What I expected:** Per Figma's Position and Layout sections, the axis labels (`X`, `Y`, `W`, `H`) and the rotation icon should sit inside each numeric field as drag-scrub handles — same affordance as opacity and corner-radius in the Appearance section, where the glyph itself catches `pointerdown` and slides the value horizontally.
+
+**What happened:** Both sections rendered each axis label as an outer `<span>` next to a bare `NumericInput`. `NumericInput` falls back to a thin 6px transparent strip on the left edge as the drag handle when no `prefix` is provided, so scrubbing technically worked but had no visible cue — users had no way to know the field was scrubbable.
+
+**Fix:** Moved the glyphs into each `NumericInput` via the existing `prefix` prop:
+- `LayoutSection`: `<DimGlyph>W</DimGlyph>` and `<DimGlyph>H</DimGlyph>` for both locked and unlocked dimension layouts. Outer wrapper spans dropped; the locked unified container now hosts two prefix'd inputs separated by the existing 1px divider.
+- `PositionSection`: `<AxisGlyph>X</AxisGlyph>` and `<AxisGlyph>Y</AxisGlyph>` replace the `XYRow` wrapper (which is removed). Rotation's inline SVG icon is wrapped into a `RotationGlyph` component and passed as `prefix`; the outer `display: flex; background: ...` wrapper around the rotation field is dropped because `NumericInput` already provides the same chrome.
+
+`NumericInput` itself is unchanged — `prefix` already maps to a `pointer-capture` drag handle div (see `NumericInput.tsx:120-142`). Drag-scrub semantics, step / Shift modifiers, and live `onCommit` ticks are inherited from the existing scrubber.
+
+**Logger impact:** None. The `set_property` / `set_transform` ops fired by `setTransformField("x"|"y"|"w"|"h"|"rotation", v)` are unchanged; the same panel_input trigger is emitted on commit / scrub tick. No new `data-id` raw targets — the previous outer label spans were cosmetic and carried no `data-id`.
+
+**Verifier impact:** None. `outcome.document` layer transforms / dimensions are unchanged; no check primitive cares about UI affordances.
+
+**Architecture impact:** None. Render-only restructure of two sections; no new state, op, or overlay system.
 
 ### 2026-05-10 — ui-fixes-checklist closeout (figma/ui-feature-bug)
 

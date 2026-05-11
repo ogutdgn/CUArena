@@ -16,9 +16,11 @@ export function NumericInput({
   noBg,
   integer,
   disabled,
+  onScrubStart,
+  onScrubEnd,
 }: {
   value: number | "Mixed";
-  onCommit: (n: number) => void;
+  onCommit: (n: number, context?: { transactionId?: string }) => void;
   suffix?: string;
   // Glyph rendered inside the box on the left. When provided, it doubles as
   // the drag-scrub handle — pointer-down on it starts a horizontal scrub. If
@@ -37,12 +39,13 @@ export function NumericInput({
   // Appearance panel layout stable across shape types when a property
   // doesn't apply (e.g. corner radius on a line).
   disabled?: boolean;
+  onScrubStart?: () => string | undefined;
+  onScrubEnd?: (transactionId: string) => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
-  const [scrubbing, setScrubbing] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
-  const scrubStateRef = useRef<{ baseX: number; baseValue: number; lastV: number } | null>(null);
+  const scrubStateRef = useRef<{ baseX: number; baseValue: number; lastV: number; transactionId?: string } | null>(null);
 
   // Sync incoming value when not editing.
   useEffect(() => {
@@ -72,8 +75,7 @@ export function NumericInput({
     e.preventDefault();
     e.stopPropagation();
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    scrubStateRef.current = { baseX: e.clientX, baseValue: value, lastV: value };
-    setScrubbing(true);
+    scrubStateRef.current = { baseX: e.clientX, baseValue: value, lastV: value, transactionId: onScrubStart?.() };
   }
 
   function onScrubPointerMove(e: React.PointerEvent<HTMLDivElement>) {
@@ -86,10 +88,9 @@ export function NumericInput({
     s.lastV = next;
     setDraft(formatValue(next));
     // Live update — fire onCommit on each tick so the canvas reflects the
-    // drag in real time. Each tick currently produces its own undo entry;
-    // moving to a transaction-based API would collapse the gesture into a
-    // single undo, but the visible behavior here is what the user expects.
-    onCommit(next);
+    // drag in real time. Callers can pass a transaction id so the whole scrub
+    // lands as a single undoable gesture.
+    onCommit(next, { transactionId: s.transactionId });
   }
 
   function onScrubPointerUp(e: React.PointerEvent<HTMLDivElement>) {
@@ -97,7 +98,7 @@ export function NumericInput({
     if (!s) return;
     (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     scrubStateRef.current = null;
-    setScrubbing(false);
+    if (s.transactionId) onScrubEnd?.(s.transactionId);
   }
 
   return (
@@ -124,6 +125,7 @@ export function NumericInput({
         onPointerDown={onScrubPointerDown}
         onPointerMove={onScrubPointerMove}
         onPointerUp={onScrubPointerUp}
+        onPointerCancel={onScrubPointerUp}
         style={{
           minWidth: prefix ? 14 : 6,
           height: prefix ? 20 : 18,

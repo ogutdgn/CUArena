@@ -43,10 +43,6 @@ function commonTransform(layer: Layer): string {
   return t;
 }
 
-function colorToCss(c: { r: number; g: number; b: number; a: number }): string {
-  return `rgba(${Math.round(c.r * 255)}, ${Math.round(c.g * 255)}, ${Math.round(c.b * 255)}, ${c.a})`;
-}
-
 // Composites all visible fills using Porter-Duff "source over". Figma stores
 // fills top-down (index 0 is on top), so we walk bottom-up and composite each
 // upper fill over the accumulator. Per-fill alpha controls how much each layer
