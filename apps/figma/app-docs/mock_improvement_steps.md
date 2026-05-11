@@ -528,6 +528,31 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 
 ## UI improvements
 
+### 2026-05-10 — Prototype panel scroll-behavior cleanup
+
+#### 33. 🟢 — Removed Prototype panel "Scroll behavior" sections (frame Overflow + item Position)
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/panels/PrototypePanel.tsx`
+- `apps/figma/mock/src/engine/prototypeCommands.ts`
+- `apps/figma/mock/src/types/scene.ts`
+- `apps/figma/mock/src/types/events.ts`
+- `apps/figma/app-docs/mock-doc/logging-documentation.md`
+
+**What I expected:** Settings shown in the right panel should drive observable behavior (and ideally be checkable by the verifier).
+
+**What happened:** Both Scroll behavior controls — frame `Overflow` (no/horizontal/vertical/both scrolling) and item `Position` (scroll_with_parent / fixed / sticky) — wrote to `Frame.overflowScrolling` / `Layer.scrollPosition` and emitted `set_overflow_scrolling` / `set_scroll_position` semantic events, but **no consumer read them**: `PrototypePreview.tsx` did not implement scrolling, no canvas / overlay code referenced the fields, and no verifier check or delivery-1 task touched them. The Flow starting point UI in the same panel is genuinely active (FlowBadges + PrototypePreview entry frame) and stays.
+
+**Fix:** Removed the two Scroll behavior sections from `FramePanel` and `ItemPanel`. Deleted the `setLayerOverflowScrolling` / `setLayerScrollPosition` commands and `dispatchLayerProperty` helper from `prototypeCommands.ts` (no other callers). Removed the `ScrollBehavior` / `ScrollPosition` type aliases, the `Frame.overflowScrolling` field, and the `LayerBase.scrollPosition` field from `types/scene.ts`. Removed the `set_overflow_scrolling` / `set_scroll_position` variants from the `SemanticEvent` union in `types/events.ts`. Also removed the now-unused `SelectDropdown` helper and the `ScrollBehavior`/`ScrollPosition` imports.
+
+**Logger impact:** Two semantic events removed (`set_overflow_scrolling`, `set_scroll_position`). Two outcome fields removed (`Frame.overflowScrolling`, `LayerBase.scrollPosition`). `logging-documentation.md` updated accordingly.
+
+**Verifier impact:** None — neither field nor event was referenced by any check primitive, rubric, or `delivery-1/` task verifier. No check catalog change required.
+
+**Architecture impact:** None. No engine invariants relied on these fields; preview behavior is unchanged.
+
 ### 2026-05-10 — ui-fixes-checklist closeout (figma/ui-feature-bug)
 
 #### 27. 🟢 — Final noop-button cleanup: typography type-settings + prototype interaction-settings

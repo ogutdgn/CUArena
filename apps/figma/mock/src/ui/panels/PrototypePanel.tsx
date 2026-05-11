@@ -4,7 +4,7 @@ import { getActivePage, getSelectedLayers } from "@/engine/selectors";
 import { uid } from "@/util/id";
 import { findDevice } from "@/util/prototypeDevices";
 import { getDeviceCategories } from "@/util/framePresets";
-import type { Frame, PrototypeFlow, PrototypeConnection, PrototypeTrigger, ScrollBehavior, ScrollPosition } from "@/types/scene";
+import type { Frame, PrototypeFlow, PrototypeConnection, PrototypeTrigger } from "@/types/scene";
 import { ChevronDown, Plus, Minus } from "lucide-react";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
 import {
@@ -13,8 +13,6 @@ import {
   removePrototypeFlow,
   renamePrototypeFlow,
   deletePrototypeConnection,
-  setLayerOverflowScrolling,
-  setLayerScrollPosition,
 } from "@/engine/prototypeCommands";
 
 // Short display labels for interaction rows (matches Figma's compact format)
@@ -367,12 +365,6 @@ function FramePanel({
     deletePrototypeConnection(pageId, id);
   }
 
-  const overflow: ScrollBehavior = frame.overflowScrolling ?? "none";
-
-  function setOverflow(v: ScrollBehavior) {
-    setLayerOverflowScrolling(pageId, frame.id, v);
-  }
-
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column" }}>
@@ -418,26 +410,6 @@ function FramePanel({
             />
           ))}
         </Section>
-
-        {/* Scroll behavior */}
-        <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
-          <div style={{ fontSize: "var(--fs-sm)", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 8 }}>
-            Scroll behavior
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-secondary)", flex: 1 }}>Overflow</span>
-            <SelectDropdown
-              value={overflow}
-              options={[
-                { value: "none", label: "No scrolling" },
-                { value: "horizontal", label: "Horizontal scrolling" },
-                { value: "vertical", label: "Vertical scrolling" },
-                { value: "both", label: "Horizontal and vertical" },
-              ]}
-              onChange={(v) => setOverflow(v as ScrollBehavior)}
-            />
-          </div>
-        </div>
 
         {/* Show prototype settings */}
         <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
@@ -550,12 +522,7 @@ function ItemPanel({ layer, connections, topFrames, pageId }: {
   pageId: string;
 }) {
   const [modalConn, setModalConn] = useState<PrototypeConnection | "new" | null>(null);
-  const pos: ScrollPosition = layer.scrollPosition ?? "scroll_with_parent";
   const layerConns = connections.filter((c) => c.sourceLayerId === layer.id);
-
-  function setPos(v: ScrollPosition) {
-    setLayerScrollPosition(pageId, layer.id, v);
-  }
 
   function deleteConnection(id: string) {
     deletePrototypeConnection(pageId, id);
@@ -581,25 +548,6 @@ function ItemPanel({ layer, connections, topFrames, pageId }: {
             />
           ))}
         </Section>
-
-        {/* Scroll behavior */}
-        <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
-          <div style={{ fontSize: "var(--fs-sm)", fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 8 }}>
-            Scroll behavior
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: "var(--fs-sm)", color: "var(--color-text-secondary)", flex: 1 }}>Position</span>
-            <SelectDropdown
-              value={pos}
-              options={[
-                { value: "scroll_with_parent", label: "Scroll with parent" },
-                { value: "fixed", label: "Fixed (stay in place)" },
-                { value: "sticky", label: "Sticky (stop at top edge)" },
-              ]}
-              onChange={(v) => setPos(v as ScrollPosition)}
-            />
-          </div>
-        </div>
 
         {/* Show prototype settings */}
         <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--color-border)" }}>
@@ -699,94 +647,6 @@ function Section({
         {action}
       </div>
       {children}
-    </div>
-  );
-}
-
-function SelectDropdown({
-  value,
-  options,
-  onChange,
-}: {
-  value: string;
-  options: { value: string; label: string }[];
-  onChange: (v: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const current = options.find((o) => o.value === value);
-
-  useEffect(() => {
-    if (!open) return;
-    function onDoc(e: MouseEvent) {
-      if (!ref.current?.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", onDoc, true);
-    return () => document.removeEventListener("mousedown", onDoc, true);
-  }, [open]);
-
-  return (
-    <div ref={ref} style={{ position: "relative" }}>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        style={{
-          height: 24,
-          padding: "0 8px",
-          background: "var(--color-bg-input)",
-          border: "1px solid var(--color-border)",
-          borderRadius: 4,
-          fontSize: "var(--fs-sm)",
-          color: "var(--color-text-primary)",
-          display: "flex",
-          alignItems: "center",
-          gap: 4,
-          maxWidth: 160,
-        }}
-      >
-        <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-          {current?.label ?? value}
-        </span>
-        <ChevronDown size={10} style={{ flexShrink: 0, color: "var(--color-text-secondary)" }} />
-      </button>
-      {open && (
-        <div
-          style={{
-            position: "absolute",
-            top: 28,
-            right: 0,
-            minWidth: 180,
-            background: "var(--color-bg-panel-elevated)",
-            border: "1px solid var(--color-border-strong)",
-            borderRadius: 6,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
-            zIndex: 200,
-            padding: 4,
-          }}
-        >
-          {options.map((o) => (
-            <button
-              key={o.value}
-              onClick={() => { onChange(o.value); setOpen(false); }}
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                height: 26,
-                padding: "0 8px",
-                borderRadius: 4,
-                background: o.value === value ? "var(--color-selection-blue)" : "transparent",
-                color: o.value === value ? "var(--color-text-on-accent)" : "var(--color-text-primary)",
-                fontSize: "var(--fs-sm)",
-                textAlign: "left",
-              }}
-              onMouseEnter={(e) => { if (o.value !== value) e.currentTarget.style.background = "var(--color-bg-row-hover)"; }}
-              onMouseLeave={(e) => { if (o.value !== value) e.currentTarget.style.background = "transparent"; }}
-            >
-              {o.label}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
