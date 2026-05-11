@@ -20,17 +20,13 @@ export function PrototypePreview() {
   const [overrideFrameId, setOverrideFrameId] = useState<string | null>(null);
   const [frameHistory, setFrameHistory] = useState<string[]>([]);
 
-  const flows = page?.prototypeFlows ?? [];
   const topFrames = sortPreviewFrames((page?.children.filter((c) => c.type === "frame") as Frame[] | undefined) ?? []);
   const connections = page?.prototypeConnections ?? [];
 
-  const useFlows = flows.length > 0;
-  const count = useFlows ? flows.length : topFrames.length;
+  const count = topFrames.length;
   const flowIndex = Math.max(0, Math.min(preview?.flowIndex ?? 0, Math.max(0, count - 1)));
 
-  const indexedFrame: Frame | undefined = useFlows
-    ? (page?.children.find((c) => c.id === flows[flowIndex]?.frameId) as Frame | undefined)
-    : topFrames[flowIndex];
+  const indexedFrame: Frame | undefined = topFrames[flowIndex];
 
   // Connection navigation overrides the index-based frame
   const frame: Frame | undefined = overrideFrameId

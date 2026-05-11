@@ -198,7 +198,6 @@ test-app/src/
 │   │   ├── ColorPicker.tsx         color wheel + hex/rgb inputs
 │   │   ├── ConnectionArrows.tsx    prototype connection lines
 │   │   ├── ContextMenu.tsx         right-click menu
-│   │   ├── FlowBadges.tsx          prototype flow badges
 │   │   ├── HoverOutline.tsx        layer hover ring
 │   │   ├── InsertionCrosshair.tsx  tool cursor
 │   │   ├── InteractionModal.tsx    prototype connection editor

@@ -119,7 +119,6 @@ function createDefaultPage(): Page {
     backgroundHidden: false,
     children: [],
     prototypeSettings: { device: null, backgroundColor: { r: 0.055, g: 0.051, b: 0.051, a: 1 } },
-    prototypeFlows: [],
   };
 }
 

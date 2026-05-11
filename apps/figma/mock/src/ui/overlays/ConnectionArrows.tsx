@@ -9,10 +9,7 @@ import { worldAABBOfLayer, worldOrientedCornersOfLayer, type XY } from "@/engine
 import { clientToWorldPoint } from "@/engine/viewportCoordinates";
 import { uid } from "@/util/id";
 import { InteractionModal } from "@/ui/overlays/InteractionModal";
-import {
-  createPrototypeConnection,
-  deletePrototypeConnection,
-} from "@/engine/prototypeCommands";
+import { createPrototypeConnection } from "@/engine/prototypeCommands";
 import type { Frame, Layer, PrototypeConnection } from "@/types/scene";
 
 const ARROW_COLOR = "#1ABCFE";
@@ -272,12 +269,6 @@ export function ConnectionArrows() {
 
   const modalConnection = modalConnectionId ? connections.find((conn) => conn.id === modalConnectionId) ?? null : null;
 
-  function deleteConnection(id: string) {
-    if (!page) return;
-    deletePrototypeConnection(page.id, id);
-    setModalConnectionId(null);
-  }
-
   return (
     <>
     <g ref={svgGroupRef}>
@@ -412,11 +403,9 @@ export function ConnectionArrows() {
     {modalConnection && createPortal(
       <InteractionModal
         connection={modalConnection}
-        sourceLayerId={modalConnection.sourceLayerId}
         pageId={page.id}
         frames={frameLayers}
         onClose={() => setModalConnectionId(null)}
-        onDelete={deleteConnection}
       />,
       document.body,
     )}

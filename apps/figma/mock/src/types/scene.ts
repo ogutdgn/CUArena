@@ -8,12 +8,6 @@ export interface Color {
   a: number;
 }
 
-export interface PrototypeFlow {
-  id: string;
-  name: string;
-  frameId: string;
-}
-
 export interface PrototypeSettings {
   device: string | null;
   backgroundColor: Color;
@@ -325,7 +319,6 @@ export interface Page {
   backgroundHidden: boolean;
   children: Layer[];
   prototypeSettings?: PrototypeSettings;
-  prototypeFlows?: PrototypeFlow[];
   prototypeConnections?: PrototypeConnection[];
 }
 

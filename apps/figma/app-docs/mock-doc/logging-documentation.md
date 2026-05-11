@@ -245,9 +245,6 @@ Notes:
 | `name` | Extra fields |
 |---|---|
 | `prototype_tab_switch` | `before`/`after`: `design` \| `prototype`; `trigger`: `tab_click` \| `shortcut_shift_e` |
-| `add_prototype_flow` | `flowId`, `flowName`, `frameId` |
-| `remove_prototype_flow` | `flowId`, `frameId` |
-| `rename_prototype_flow` | `flowId`, `before`, `after` |
 | `set_prototype_device` | `before`, `after` (device id strings or `null`) |
 | `open_prototype_preview` | `trigger`: `play_button` |
 | `close_prototype_preview` | `trigger`: `close_button` \| `play_button_toggle` |
@@ -296,7 +293,7 @@ document
    ├─ id, name, type: "page"
    ├─ backgroundColor: { r, g, b, a }   (0..1)
    ├─ backgroundHidden: boolean
-   ├─ prototypeSettings, prototypeFlows, prototypeConnections (optional)
+   ├─ prototypeSettings, prototypeConnections (optional)
    └─ children: Layer[]                  (recursive into containers)
 ```
 
