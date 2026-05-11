@@ -555,6 +555,27 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 
 ## UI improvements
 
+### 2026-05-11 — Prototype preview toolbar: drop noop settings + open-external buttons
+
+#### 35. 🟢 — Removed `SlidersHorizontal` and `ExternalLink` toolbar buttons from PrototypePreview
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/overlays/PrototypePreview.tsx`
+
+**What I expected:** Every toolbar button in the floating prototype preview window should do something observable.
+
+**What happened:** Two trailing toolbar buttons (`SlidersHorizontal` "settings" and `ExternalLink` "open in new tab") were rendered with `onClick={() => {}}` — pure noops. No state, no semantic event, no consumer. Same pattern as the noops we cleaned up across the rest of the mock per `app-docs/ui-fixes-checklist.md`.
+
+**Fix:** Removed both `<ToolBtn>` calls from the toolbar render and dropped `SlidersHorizontal`, `ExternalLink` from the `lucide-react` import. The toolbar is now: prev / next / restart / spacer / close.
+
+**Logger impact:** None. The buttons never emitted any event.
+
+**Verifier impact:** None. No raw `data-id` was attached; no check primitive cared.
+
+**Architecture impact:** None.
+
 ### 2026-05-10 — Prototype panel: drop Flow starting point + row-level interaction delete + auto-save modal
 
 #### 34. 🟢 — Removed Flow starting point UI/state, added row-level "−" delete on interactions, made the InteractionModal auto-save
