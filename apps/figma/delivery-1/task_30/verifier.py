@@ -59,7 +59,7 @@ task = Task(
                 layer_type="rectangle",
                 expected_rgbs=[DEEP_BLUE, CREAM, DEEP_BLUE, CREAM, DEEP_BLUE, CREAM],
                 sort_axis="x",
-                tolerance=25.0,
+                tolerance=0.25,
             ),                                                                   # 1 ★ prompt: "deep blue ... cream so colors alternate"
         ], weight=0.2, critical=[1]),
 

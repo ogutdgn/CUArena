@@ -44,7 +44,7 @@ task = Task(
                 layer_type="rectangle",
                 expected_rgbs=[DEEP_PURPLE, PINK, ORANGE, YELLOW, PALE_YELLOW],
                 sort_axis="y",
-                tolerance=25.0,
+                tolerance=0.25,
             ),
         ], weight=0.40, critical=[0]),
 

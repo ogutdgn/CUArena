@@ -31,7 +31,7 @@ task = Task(
 
         # "same color" — uniformity, no specific RGB
         ColorRubric([
-            LayersAllSameColor(layer_type="rectangle", tolerance=25.0),               # 0 ★ prompt: "Pick same color for both"
+            LayersAllSameColor(layer_type="rectangle", tolerance=0.12),               # 0 ★ prompt: "Pick same color for both"
         ], weight=0.30, critical=[0]),
 
         EventRubric([

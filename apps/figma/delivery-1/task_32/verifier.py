@@ -59,7 +59,7 @@ task = Task(
             AllFillTypeIs("polygon", kind="solid"),                                                          # 0 solid fills required
             AllFillTypeIs("ellipse", kind="solid"),                                                          # 1
             DistinctSolidColors(minimum=2, tolerance=0.15),                                                  # 2 ★ prompt: "alternating two colors"
-            LayersAlternatingColors(layer_type="polygon", n_colors=2, sort_axis="angle", tolerance=25.0),    # 3 ★ prompt: "Pick color A. ... color B. ... color A. ... color B."
+            LayersAlternatingColors(layer_type="polygon", n_colors=2, sort_axis="angle", tolerance=0.15),    # 3 ★ prompt: "Pick color A. ... color B. ... color A. ... color B."
         ], weight=0.2, critical=[2, 3]),
 
         # critical: shapes must all live in one frame (catches split-frame designs)
