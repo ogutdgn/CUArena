@@ -10,18 +10,18 @@
   --color-bg-input: #383838;
   --color-bg-input-hover: #444444;
   --color-bg-row-hover: rgba(255, 255, 255, 0.06);
-  --color-bg-row-active: rgba(13, 153, 255, 0.16);
+  --color-bg-row-active: rgba(13, 153, 255, 0.24);
   --color-bg-scrim: rgba(0, 0, 0, 0.5);
 
   /* Borders */
-  --color-border: #3D3D3D;
-  --color-border-strong: #4A4A4A;
-  --color-divider: #333333;
+  --color-border: #444444;
+  --color-border-strong: #525252;
+  --color-divider: #3A3A3A;
 
   /* Text */
-  --color-text-primary: #E5E5E5;
-  --color-text-secondary: #A0A0A0;
-  --color-text-muted: #777777;
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #B3B3B3;
+  --color-text-muted: #8C8C8C;
   --color-text-disabled: #555555;
   --color-text-on-accent: #FFFFFF;
   --color-text-placeholder: #666666;
@@ -80,6 +80,7 @@ body {
   font-size: var(--fs-base);
   color: var(--color-text-primary);
   background: var(--color-bg-canvas);
+  letter-spacing: -0.005em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -87,6 +88,7 @@ body {
 button {
   font-family: inherit;
   font-size: inherit;
+  font-weight: 500;
   color: inherit;
   background: transparent;
   border: 0;
