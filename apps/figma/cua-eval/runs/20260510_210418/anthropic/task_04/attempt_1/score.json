@@ -1,0 +1,85 @@
+{
+  "task_id": "task_04_color_wheel",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_210418/anthropic/task_04/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle: expected 6, got 6"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle square: 60\u00d760"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.0,
+      "max_score": 0.5,
+      "checks": [
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "rectangle ring: gap dev 22.1 deg (tol 10.0 deg), radius spread 61.3px (tol 22.0px), min radius 102.0px (min 30.0px)"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle has solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "distinct solid colors: expected \u22656, got 7"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.1,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'rectangle': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_rectangle': expected \u22656, got 6"
+        }
+      ]
+    }
+  ],
+  "base_score": 0.5,
+  "efficiency": {
+    "multiplier": 0.6009,
+    "actual_turns": 56,
+    "target_turns": 24,
+    "lambda_used": 0.05,
+    "message": "56 turns used, target 24, \u03bb=0.05 \u2192 multiplier 0.6009"
+  },
+  "final_score": 0.3004
+}

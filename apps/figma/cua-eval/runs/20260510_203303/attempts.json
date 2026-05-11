@@ -1,0 +1,30 @@
+[
+  {
+    "task_id": "task_06_gold_star_exclude",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5",
+    "final_score": 0.246,
+    "base_score": 0.445,
+    "max_score": 1.0,
+    "efficiency": 0.5527,
+    "passed": false,
+    "turns": 45,
+    "stop_reason": "done",
+    "error": null,
+    "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203303/anthropic/task_06/attempt_1/log.json",
+    "score_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203303/anthropic/task_06/attempt_1/score.json",
+    "trajectory_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203303/anthropic/task_06/attempt_1/trajectory.json",
+    "usage": {
+      "input_tokens": 433993,
+      "output_tokens": 8005
+    },
+    "cost_estimate": {
+      "input_usd": 1.301979,
+      "output_usd": 0.120075,
+      "total_usd": 1.422054,
+      "input_rate_per_mtok_usd": 3.0,
+      "output_rate_per_mtok_usd": 15.0
+    },
+    "elapsed_s": 271.19
+  }
+]

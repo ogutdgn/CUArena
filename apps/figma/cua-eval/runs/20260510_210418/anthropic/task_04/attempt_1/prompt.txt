@@ -1,0 +1,1 @@
+Inside a frame, arrange 6 same-size squares in a hexagonal ring (3 across the top of an arc and 3 across the bottom, or evenly placed around a hexagon's vertices). Each square filled a different rainbow color: red, yellow, green, cyan, blue, magenta.
