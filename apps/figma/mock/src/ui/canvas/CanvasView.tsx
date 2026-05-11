@@ -91,53 +91,63 @@ export function CanvasView() {
     }
   }
 
-  function onWheel(e: React.WheelEvent<SVGSVGElement>) {
-    const s = useStore.getState();
-    const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
-    const isZoom = e.ctrlKey || e.metaKey;
-    if (isZoom) {
-      const rect = (ref.current as SVGSVGElement).getBoundingClientRect();
-      const cursorWorld = clientToWorldPoint(e.clientX, e.clientY, cur, rect);
-      const factor = Math.exp(-e.deltaY * 0.0015);
-      const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, cur.zoom * factor));
-      const newViewport = {
-        x: cursorWorld.x - (e.clientX - rect.left - rect.width / 2) / newZoom,
-        y: cursorWorld.y - (e.clientY - rect.top - rect.height / 2) / newZoom,
-        zoom: newZoom,
-      };
-      dispatch(
-        {
-          id: makeOpId(),
-          timestamp: performance.now(),
-          kind: "set_viewport",
-          pageId: s.activePageId,
-          before: cur,
-          after: newViewport,
-        },
-        { skipUndo: true },
-      );
-      emitSemantic({
-        name: "zoom_canvas",
-        before: cur.zoom,
-        after: newZoom,
-        anchor: cursorWorld,
-        trigger: "scroll",
-      });
-    } else {
-      const factor = 1 / cur.zoom;
-      dispatch(
-        {
-          id: makeOpId(),
-          timestamp: performance.now(),
-          kind: "set_viewport",
-          pageId: s.activePageId,
-          before: cur,
-          after: { ...cur, x: cur.x + e.deltaX * factor, y: cur.y + e.deltaY * factor },
-        },
-        { skipUndo: true },
-      );
-    }
-  }
+  // Native non-passive wheel listener so we can preventDefault and stop the
+  // browser from page-zooming on trackpad pinch (ctrl+wheel). React's onWheel
+  // is attached passively on the root and would no-op preventDefault.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      e.preventDefault();
+      const s = useStore.getState();
+      const cur = s.viewportByPage[s.activePageId] ?? { x: 0, y: 0, zoom: 1 };
+      const isZoom = e.ctrlKey || e.metaKey;
+      if (isZoom) {
+        const rect = el.getBoundingClientRect();
+        const cursorWorld = clientToWorldPoint(e.clientX, e.clientY, cur, rect);
+        const factor = Math.exp(-e.deltaY * 0.005);
+        const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, cur.zoom * factor));
+        const newViewport = {
+          x: cursorWorld.x - (e.clientX - rect.left - rect.width / 2) / newZoom,
+          y: cursorWorld.y - (e.clientY - rect.top - rect.height / 2) / newZoom,
+          zoom: newZoom,
+        };
+        dispatch(
+          {
+            id: makeOpId(),
+            timestamp: performance.now(),
+            kind: "set_viewport",
+            pageId: s.activePageId,
+            before: cur,
+            after: newViewport,
+          },
+          { skipUndo: true },
+        );
+        emitSemantic({
+          name: "zoom_canvas",
+          before: cur.zoom,
+          after: newZoom,
+          anchor: cursorWorld,
+          trigger: "scroll",
+        });
+      } else {
+        const factor = 1 / cur.zoom;
+        dispatch(
+          {
+            id: makeOpId(),
+            timestamp: performance.now(),
+            kind: "set_viewport",
+            pageId: s.activePageId,
+            before: cur,
+            after: { ...cur, x: cur.x + e.deltaX * factor, y: cur.y + e.deltaY * factor },
+          },
+          { skipUndo: true },
+        );
+      }
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, []);
 
   function onContextMenu(e: React.MouseEvent<SVGSVGElement>) {
     e.preventDefault();
@@ -209,7 +219,6 @@ export function CanvasView() {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
-      onWheel={onWheel}
       onContextMenu={onContextMenu}
       onDragOver={onDragOver}
       onDrop={onDrop}

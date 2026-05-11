@@ -23,6 +23,31 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-11 — User-reported: trackpad pinch in canvas page-zooms the whole webpage
+
+#### 37. 🟢 P2 — Pinch-zoom inside canvas also zooms the browser page
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/canvas/CanvasView.tsx`
+
+**What I expected:** Trackpad pinch over the canvas should only zoom the canvas viewport — same as Figma. Browser-level page zoom should never fire.
+
+**What happened:** Pinching in the canvas zoomed the canvas AND the entire webpage at the same time (chrome elements scaling, text reflowing). The canvas zoom step also felt slow — needed a lot of finger travel for a small zoom change.
+
+**Root cause verified in code:** `CanvasView.tsx` used React's `onWheel={onWheel}` JSX prop. React 17+ attaches `wheel` listeners on the root delegation target as **passive** for scroll-jank reasons, which silently no-ops any `event.preventDefault()` call inside the handler. So even though the handler computed canvas zoom, the browser's native ctrl+wheel page-zoom behavior was never suppressed.
+
+**Fix:**
+- Replaced the React `onWheel` prop with a native `addEventListener("wheel", handler, { passive: false })` registered in a `useEffect` against the SVG ref. Handler now calls `e.preventDefault()` unconditionally before computing zoom or pan, so the browser stops both ctrl+wheel page-zoom and accidental page-scroll on the canvas surface.
+- Bumped zoom sensitivity in the same call site: factor coefficient `0.0015 → 0.005` (≈3.3×). Small pinches now produce a visibly larger zoom step, matching the feel of the real Figma. Sensitivity is the only knob — Math.exp curve preserves smoothness at both ends.
+
+**Logger impact:** None. `zoom_canvas` semantic event still fires with the same shape and `trigger: "scroll"`; just gets larger before/after deltas per pinch.
+
+**Verifier impact:** None. No check primitive observes wheel cadence or viewport directly; `outcome.document` is unchanged.
+
+**Architecture impact:** Minor — CanvasView now owns one native listener via `useEffect` in addition to the ResizeObserver one. Same component, same teardown discipline. No new module or invariant. Pinch / scroll-pan are still scoped to the canvas SVG only — chrome (panels, toolbar) still uses browser defaults.
+
 ### 2026-05-10 — User-reported panel scrub frame ejection regression
 
 #### 32. 🟢 P1 — Panel X/Y/W/H scrub leaves frame children visually stuck in their old parent
