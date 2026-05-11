@@ -1,0 +1,60 @@
+{
+  "task_id": "task_02_sunset_gradient",
+  "task_dir": "/Users/v/Repos/figma-mock/apps/figma/delivery-1/task_02",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "endpoint": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5",
+    "endpoint": "messages.create",
+    "tool": {
+      "type": "computer_20250124",
+      "name": "computer",
+      "display_width_px": 1280,
+      "display_height_px": 800,
+      "display_number": 1
+    },
+    "beta_headers": [
+      "computer-use-2025-01-24"
+    ],
+    "max_tokens": 4096,
+    "keep_screenshots": 3,
+    "turn_delay_s": 0.0,
+    "max_retries": 5
+  },
+  "prompt_mode": "description",
+  "prompt_chars": 290,
+  "system_prompt_chars": 0,
+  "block_keyboard": false,
+  "step_cap": 60,
+  "mock_url": "http://localhost:5174",
+  "headless": false,
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "device_scale_factor": 1
+  },
+  "pass_threshold": 0.7,
+  "started_at": 1778469450891,
+  "started_at_iso": "2026-05-11T03:17:30.891000+00:00",
+  "harness_git": {
+    "git_sha": "f28a6c4778b2cefbcb2f105fda5bd7336f9a712b",
+    "git_branch": "v/oai-ant-rollouts",
+    "git_dirty": true
+  },
+  "sdk_versions": {
+    "python": "3.14.4",
+    "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+    "anthropic": "0.100.0",
+    "openai": "2.36.0",
+    "playwright": "1.59.0"
+  },
+  "argv": [
+    "cua-eval/runner/passk.py",
+    "--tasks",
+    "02",
+    "--headed",
+    "--mock-url",
+    "http://localhost:5174"
+  ]
+}

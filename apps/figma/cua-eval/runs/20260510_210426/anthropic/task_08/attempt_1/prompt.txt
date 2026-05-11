@@ -1,0 +1,1 @@
+Create a 1000x300 frame. Use the Pen tool to draw a smooth horizontal wave with 2 peaks and 3 troughs using bezier handles (click and drag at each anchor). Apply a 4px blue stroke with rounded line caps. Duplicate the path, shift down, recolor in a different blue.

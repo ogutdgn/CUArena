@@ -1,0 +1,79 @@
+{
+  "task_id": "task_10_apple_avatar",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_205934/anthropic/task_10/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.15,
+      "max_score": 0.15,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle: expected 4, got 4"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle concentric: max diff x=0.0px y=0.0px (tolerance 12.0px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle layers are strictly nested (4 total)"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.5,
+      "max_score": 0.5,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle colors alternate by area with 2 colors"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.1,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'rectangle': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_rectangle': expected \u22654, got 4"
+        }
+      ]
+    }
+  ],
+  "base_score": 1.0,
+  "efficiency": {
+    "multiplier": 0.6296,
+    "actual_turns": 45,
+    "target_turns": 18,
+    "lambda_used": 0.05,
+    "message": "45 turns used, target 18, \u03bb=0.05 \u2192 multiplier 0.6296"
+  },
+  "final_score": 0.6296
+}

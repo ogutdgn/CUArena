@@ -1,0 +1,33 @@
+{
+  "task_id": "task_05_red_heart_union",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "started_at": 1778469647323,
+  "ended_at": 1778469689675,
+  "ended_at_iso": "2026-05-11T03:21:29.675000+00:00",
+  "elapsed_s": 42.35,
+  "turns": 7,
+  "stop_reason": "done",
+  "finished": true,
+  "error": null,
+  "usage": {
+    "input_tokens": 40810,
+    "output_tokens": 1212
+  },
+  "cost_estimate": {
+    "input_usd": 0.12243,
+    "output_usd": 0.01818,
+    "total_usd": 0.14061,
+    "input_rate_per_mtok_usd": 3.0,
+    "output_rate_per_mtok_usd": 15.0
+  },
+  "score": {
+    "final": 1.0,
+    "base": 1.0,
+    "max": 1.0,
+    "efficiency": 1.0,
+    "passed": true,
+    "threshold": 0.7
+  },
+  "log_session_id": "session_16de3ab7-e56b-48d0-aba5-2c5e148b3b82"
+}

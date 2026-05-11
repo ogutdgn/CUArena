@@ -1,0 +1,33 @@
+{
+  "task_id": "task_10_apple_avatar",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "started_at": 1778471974415,
+  "ended_at": 1778472218831,
+  "ended_at_iso": "2026-05-11T04:03:38.831000+00:00",
+  "elapsed_s": 244.42,
+  "turns": 44,
+  "stop_reason": "done",
+  "finished": true,
+  "error": null,
+  "usage": {
+    "input_tokens": 422649,
+    "output_tokens": 7892
+  },
+  "cost_estimate": {
+    "input_usd": 1.267947,
+    "output_usd": 0.11838,
+    "total_usd": 1.386327,
+    "input_rate_per_mtok_usd": 3.0,
+    "output_rate_per_mtok_usd": 15.0
+  },
+  "score": {
+    "final": 0.6296,
+    "base": 1.0,
+    "max": 1.0,
+    "efficiency": 0.6296,
+    "passed": false,
+    "threshold": 0.7
+  },
+  "log_session_id": "session_9654add0-2f15-405a-b3b2-ec3d92764b7f"
+}
