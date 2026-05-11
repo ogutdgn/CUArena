@@ -100,7 +100,7 @@ task = Task(
         EventRubric([
             ToolUsed("pen"),                                            # 0 pen tool used
             ToolUsed("ellipse"),                                        # 1 ellipse tool used
-            EventTypeCountAtLeast("create_vector",  minimum=1),         # 2
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1), # 2 ★ mock event name
             EventTypeCountAtLeast("create_ellipse", minimum=2),         # 3
         ], weight=0.20, critical=[]),
     ],

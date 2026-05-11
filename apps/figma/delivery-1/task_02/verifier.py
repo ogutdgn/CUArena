@@ -35,7 +35,7 @@ task = Task(
 
         AlignmentRubric([
             LayersStacked(layer_type="rectangle", axis="y", gap_px=0.0,
-                          tolerance=25.0),                                            # 0 ★ prompt: "stack 5 horizontal rectangles top-to-bottom" + "flush against each other"
+                          tolerance=8.0),                                             # 0 ★ prompt: "flush against each other" — strict (a 20px gap = visible band)
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0,
                                         axis="horizontal"),                           # 1 ★ prompt: "5 horizontal rectangle bands"
             LayersSameDimensions(layer_type="rectangle", tolerance=25.0),              # 2 ★ prompt: "Each rectangle is the same width and a similar height"
@@ -46,7 +46,7 @@ task = Task(
                 layer_type="rectangle",
                 expected_rgbs=[DEEP_PURPLE, PINK, ORANGE, YELLOW, PALE_YELLOW],
                 sort_axis="y",
-                tolerance=0.25,
+                tolerance=0.40,
             ),
         ], weight=0.30, critical=[0]),
 

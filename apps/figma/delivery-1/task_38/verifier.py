@@ -62,7 +62,7 @@ task = Task(
             DistinctSolidColors(minimum=4, tolerance=0.15),                      # 1 ★ prompt: "green/yellow/red sequence" + body
             StrokeExists("rectangle"),                                           # 2 prompt: "gray stroke"
             StrokeWeightEquals("rectangle", weight=2.0, tolerance=1.5),          # 3 visible weight
-            StrokeColorEquals("rectangle", expected_rgb=GRAY, tolerance=0.25),   # 4 ★ prompt: "gray stroke"
+            StrokeColorEquals("rectangle", expected_rgb=GRAY, tolerance=0.28),   # 4 ★ prompt: "gray stroke" — human-friendly
             VisibleStrokeExists("rectangle"),                                    # 5 catches alpha=0/visible=False/weight=0
             FillCountAtMost(layer_type="rectangle", max_count=1),                # 6 no stacked fills
             LayerVisible(layer_type="rectangle"),                                # 7 catches alpha=0/opacity=0

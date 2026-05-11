@@ -67,11 +67,11 @@ task = Task(
         # critical: yellow fill is prompt-explicit; fold must also be yellow-ish
         ColorRubric([
             AllFillTypeIs("rectangle", kind="solid"),                                          # 0 ★ prompt: "yellow square" (solid fill)
-            SolidColorEquals(layer_type="rectangle", expected_rgb=YELLOW, tolerance=0.09),     # 1 ★ prompt: "yellow square"
+            SolidColorEquals(layer_type="rectangle", expected_rgb=YELLOW, tolerance=0.28),     # 1 ★ prompt: "yellow square" — human-friendly
             FillCountAtMost(layer_type="rectangle", max_count=1),                              # 2 no stacked fills
             LayerVisible(layer_type="rectangle"),                                              # 3 catches alpha=0/opacity=0
             AllFillTypeIs("vector", kind="solid"),                                             # 4 ★ prompt: "darker yellow" fold
-            SolidColorEquals(layer_type="vector", expected_rgb=YELLOW, tolerance=0.18),        # 5 prompt: "darker yellow" fold
+            SolidColorEquals(layer_type="vector", expected_rgb=YELLOW, tolerance=0.28),        # 5 prompt: "darker yellow" fold — human-friendly
             StrokeExists(layer_type="line"),                                                   # 6 lines must be drawn
             StrokeWeightEquals(layer_type="line", weight=1.5, tolerance=2.5),                  # 7 visible weight
             AllLayerStrokeVisible(layer_type="line", min_alpha=0.5, min_weight=0.5),           # 8 lines render visibly
@@ -94,7 +94,7 @@ task = Task(
             ToolUsed("line"),                                     # 2 prompt: "Line tool"
             EventTypeCount("create_rectangle", equals=1),         # 3
             EventTypeCountAtLeast("create_line", minimum=3),      # 4
-            EventTypeCountAtLeast("create_vector", minimum=1),    # 5 ★ prompt: "triangular fold ... using the Pen tool"
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1),    # 5 ★ prompt: "triangular fold ... using the Pen tool" — mock event name
         ], weight=0.18, critical=[5]),
 
         # property: catches stacked-trick fills, etc.

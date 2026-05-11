@@ -1,7 +1,7 @@
 """
 Task 06 — Asterisk burst (in-scope replacement).
 
-8 lines radiating from a single center point at 45° intervals, gold stroke.
+8 lines radiating from a single center point at 45° intervals, all the same color.
 """
 from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
@@ -11,10 +11,8 @@ from verifier.rubrics.event        import EventRubric
 from verifier.rubrics.efficiency   import EfficiencyRubric
 from verifier.checks.shape_checks  import ShapeCount
 from verifier.checks.geometry_checks import LinesRadialFromSharedEndpoint
-from verifier.checks.stroke_checks import StrokeColorEquals, StrokeExists
+from verifier.checks.stroke_checks import AllStrokesSameColor, StrokeExists
 from verifier.checks.event_checks  import ToolUsed, EventTypeCountAtLeast
-
-GOLD = {"r": 0.85, "g": 0.65, "b": 0.13}
 
 task = Task(
     id="task_06_gold_star_exclude",
@@ -33,8 +31,8 @@ task = Task(
         ], weight=0.48, critical=[0]),
 
         ColorRubric([
-            StrokeExists(layer_type="line"),                                                    # 0 ★ prompt: "All lines the same color"
-            StrokeColorEquals(layer_type="line", expected_rgb=GOLD, tolerance=0.28),            # 1
+            StrokeExists(layer_type="line"),                                                    # 0 ★ prompt: "All lines the same color" — first half
+            AllStrokesSameColor(layer_type="line", tolerance=0.10),                             # 1 ★ prompt: "All lines the same color" — any color, just consistent across all 8 lines
         ], weight=0.15, critical=[0]),
 
         EventRubric([

@@ -159,6 +159,6 @@ FAIL_LOGS = [
     ("windows_misaligned",    fail_windows_misaligned(),   ["ellipse aligned on center_y"]),
     ("windows_not_symmetric", fail_windows_not_symmetric(), ["flanked by ellipse on both sides"]),
     ("no_frame",              fail_no_frame(),             ["No frame at 1280", "direct child of a frame", "≥5 children"]),
-    ("roof_floats",           fail_roof_floats(),          ["polygon.bottom.*rectangle.top"]),
+    ("roof_floats",           fail_roof_floats(),          ["polygon sits above largest rectangle"]),
     ("no_set_fill_events",    fail_no_set_fill_events(),   ["set_fill_color.*≥"]),
 ]
