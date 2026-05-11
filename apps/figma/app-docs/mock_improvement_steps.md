@@ -555,6 +555,34 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 
 ## UI improvements
 
+### 2026-05-11 — Boost chrome vividness: text/icon contrast, row saturation, button weight, toolbar size
+
+#### 36. 🟢 — Lifted text/icon tokens, sharpened selected row, defaulted chrome buttons to weight 500, enlarged bottom toolbar
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/theme/global.css`
+- `apps/figma/mock/src/theme/tokens.ts`
+- `apps/figma/mock/src/ui/chrome/Toolbar.tsx`
+
+**What I expected:** Side-by-side with the real Figma the mock should read about as vivid — clearly legible labels, a saturated selected page/layer row, crisp panel separation, slightly meatier chrome buttons, and a bottom toolbar that doesn't feel undersized.
+
+**What happened:** The mock looked washed out. `textPrimary #E5E5E5` lost contrast on `#1E1E1E`; `textSecondary #A0A0A0` made icons dim; `bgRowActive` at `0.16` opacity made the selected page row blend in; `border #3D3D3D` disappeared into the panel; body weight 400 felt thin; the floating toolbar was a notch smaller than the real one.
+
+**Fix (token tweaks + Toolbar sizing):**
+- Text tokens — `theme/global.css` + `theme/tokens.ts`: `textPrimary #E5E5E5 → #F5F5F5`, `textSecondary #A0A0A0 → #B3B3B3`, `textMuted #777777 → #8C8C8C`.
+- Selected row — `bgRowActive rgba(13,153,255,0.16) → 0.24`.
+- Borders — `border #3D3D3D → #444444`, `borderStrong #4A4A4A → #525252`, `divider #333333 → #3A3A3A`.
+- Typography — `body { letter-spacing: -0.005em }`; default `button { font-weight: 500 }` so all chrome buttons (toolbar buttons, layer/page rows, scope tabs) inherit medium weight without touching components that already set 500/600 explicitly.
+- Toolbar (`ui/chrome/Toolbar.tsx`) — container `height 40 → 46`, `padding 0 6 → 0 8`. `ToolButton 32×32 → 36×36`; `ToolGroup` icon-btn `30×32 → 34×36`, chevron `14×32 → 16×36`. Active tool icons `size 16 → 18` (12 sites). Mode switcher `Segment 28×24 → 32×28`. `Divider` height `16 → 20`. `tokens.ts.toolbarHeight` mirror `40 → 46`.
+
+**Logger impact:** None. No raw `data-id`, semantic event, or outcome field changed.
+
+**Verifier impact:** None. Visual-only.
+
+**Architecture impact:** None. All 35 `var(--color-*)` consumers inherit the new values automatically; no new component or invariant.
+
 ### 2026-05-11 — Prototype preview toolbar: drop noop settings + open-external buttons
 
 #### 35. 🟢 — Removed `SlidersHorizontal` and `ExternalLink` toolbar buttons from PrototypePreview
