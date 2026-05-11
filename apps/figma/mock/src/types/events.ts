@@ -576,18 +576,6 @@ export type SemanticEvent =
       after: string | null;
     })
   | (SemanticEventBase & {
-      name: "set_overflow_scrolling";
-      layerId: string;
-      before: string;
-      after: string;
-    })
-  | (SemanticEventBase & {
-      name: "set_scroll_position";
-      layerId: string;
-      before: string;
-      after: string;
-    })
-  | (SemanticEventBase & {
       name: "open_prototype_preview";
       trigger: "play_button";
     })

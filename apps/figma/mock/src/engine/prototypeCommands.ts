@@ -10,8 +10,6 @@ import { useStore } from "./store";
 import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import type {
-  Frame,
-  Layer,
   Page,
   PrototypeAction,
   PrototypeAnimation,
@@ -19,8 +17,6 @@ import type {
   PrototypeFlow,
   PrototypeSettings,
   PrototypeTrigger,
-  ScrollBehavior,
-  ScrollPosition,
 } from "@/types/scene";
 
 const DEFAULT_SETTINGS: PrototypeSettings = {
@@ -52,25 +48,6 @@ function dispatchPageProperty(
     },
     opts,
   );
-}
-
-function dispatchLayerProperty(
-  pageId: string,
-  layerId: string,
-  path: string,
-  beforeValue: unknown,
-  afterValue: unknown,
-): void {
-  dispatch({
-    id: makeOpId(),
-    timestamp: performance.now(),
-    kind: "set_property",
-    pageId,
-    ids: [layerId],
-    path,
-    before: { [layerId]: beforeValue },
-    after: { [layerId]: afterValue },
-  });
 }
 
 // ─── prototype settings ───────────────────────────────────────────────
@@ -210,35 +187,6 @@ export function deletePrototypeConnection(pageId: string, connId: string): void 
   });
 }
 
-// ─── per-layer scroll behavior ────────────────────────────────────────
-
-export function setLayerOverflowScrolling(
-  pageId: string,
-  layerId: string,
-  value: ScrollBehavior,
-): void {
-  const node = useStore.getState().nodesById[layerId] as Layer | Page | undefined;
-  if (!node || (node as Page).type === "page") return;
-  if ((node as Layer).type !== "frame") return;
-  const before = ((node as Frame).overflowScrolling ?? "none") as ScrollBehavior;
-  if (before === value) return;
-  dispatchLayerProperty(pageId, layerId, "overflowScrolling", before, value);
-  emitSemantic({ name: "set_overflow_scrolling", layerId, before, after: value });
-}
-
-export function setLayerScrollPosition(
-  pageId: string,
-  layerId: string,
-  value: ScrollPosition,
-): void {
-  const node = useStore.getState().nodesById[layerId] as Layer | Page | undefined;
-  if (!node || (node as Page).type === "page") return;
-  const before = ((node as Layer).scrollPosition ?? "scroll_with_parent") as ScrollPosition;
-  if (before === value) return;
-  dispatchLayerProperty(pageId, layerId, "scrollPosition", before, value);
-  emitSemantic({ name: "set_scroll_position", layerId, before, after: value });
-}
-
 // Re-export type aliases used by callers (avoids unused-imports lint).
 export type {
   PrototypeAction,
@@ -247,6 +195,4 @@ export type {
   PrototypeFlow,
   PrototypeSettings,
   PrototypeTrigger,
-  ScrollBehavior,
-  ScrollPosition,
 };
