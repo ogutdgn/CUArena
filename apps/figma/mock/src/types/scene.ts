@@ -8,15 +8,6 @@ export interface Color {
   a: number;
 }
 
-export type ScrollBehavior = "none" | "horizontal" | "vertical" | "both";
-export type ScrollPosition = "scroll_with_parent" | "fixed" | "sticky";
-
-export interface PrototypeFlow {
-  id: string;
-  name: string;
-  frameId: string;
-}
-
 export interface PrototypeSettings {
   device: string | null;
   backgroundColor: Color;
@@ -126,7 +117,6 @@ export interface LayerBase {
   locked: boolean;
   opacity: number; // 0..1
   constraints: Constraints;
-  scrollPosition?: ScrollPosition;
 }
 
 export type NodeType =
@@ -283,7 +273,6 @@ export interface Frame extends LayerBase {
   cornerRadius: number | [number, number, number, number];
   clipsContent: boolean;
   children: Layer[];
-  overflowScrolling?: ScrollBehavior;
 }
 
 export interface Section extends LayerBase {
@@ -330,7 +319,6 @@ export interface Page {
   backgroundHidden: boolean;
   children: Layer[];
   prototypeSettings?: PrototypeSettings;
-  prototypeFlows?: PrototypeFlow[];
   prototypeConnections?: PrototypeConnection[];
 }
 

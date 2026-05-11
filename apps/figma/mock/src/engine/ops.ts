@@ -177,21 +177,13 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
     if (fc && removedIds.has(fc)) state.focusContextByPage[pageId] = null;
   }
 
-  // Drop any prototype flows / connections that referenced deleted nodes, and
-  // snapshot the original arrays so undo restores them. Without this the
-  // exported `outcome.document` keeps stale flows / connections pointing at
-  // ids that no longer exist (visible to verifiers and replay tooling).
+  // Drop any prototype connections that referenced deleted nodes, and snapshot
+  // the original arrays so undo restores them. Without this the exported
+  // `outcome.document` keeps stale connections pointing at ids that no longer
+  // exist (visible to verifiers and replay tooling).
   const protoSnap: NonNullable<DeleteNodesOp["prototypeSnapshot"]> = [];
   for (const page of state.document.pages) {
-    let entry: { pageId: string; flowsBefore?: unknown[]; connectionsBefore?: unknown[] } | null = null;
-    if (page.prototypeFlows && page.prototypeFlows.length > 0) {
-      const filtered = page.prototypeFlows.filter((f) => !removedIds.has(f.frameId));
-      if (filtered.length !== page.prototypeFlows.length) {
-        entry = entry ?? { pageId: page.id };
-        entry.flowsBefore = [...page.prototypeFlows];
-        page.prototypeFlows = filtered;
-      }
-    }
+    let entry: { pageId: string; connectionsBefore?: unknown[] } | null = null;
     if (page.prototypeConnections && page.prototypeConnections.length > 0) {
       const filtered = page.prototypeConnections.filter(
         (c) =>
@@ -509,9 +501,6 @@ export function applyInverse(state: AppState, op: Op): void {
         for (const entry of op.prototypeSnapshot) {
           const page = state.document.pages.find((p) => p.id === entry.pageId);
           if (!page) continue;
-          if (entry.flowsBefore !== undefined) {
-            page.prototypeFlows = entry.flowsBefore as typeof page.prototypeFlows;
-          }
           if (entry.connectionsBefore !== undefined) {
             page.prototypeConnections = entry.connectionsBefore as typeof page.prototypeConnections;
           }

@@ -554,38 +554,9 @@ export type SemanticEvent =
       trigger: "tab_click" | "shortcut_shift_e";
     })
   | (SemanticEventBase & {
-      name: "add_prototype_flow";
-      flowId: string;
-      flowName: string;
-      frameId: string;
-    })
-  | (SemanticEventBase & {
-      name: "remove_prototype_flow";
-      flowId: string;
-      frameId: string;
-    })
-  | (SemanticEventBase & {
-      name: "rename_prototype_flow";
-      flowId: string;
-      before: string;
-      after: string;
-    })
-  | (SemanticEventBase & {
       name: "set_prototype_device";
       before: string | null;
       after: string | null;
-    })
-  | (SemanticEventBase & {
-      name: "set_overflow_scrolling";
-      layerId: string;
-      before: string;
-      after: string;
-    })
-  | (SemanticEventBase & {
-      name: "set_scroll_position";
-      layerId: string;
-      before: string;
-      after: string;
     })
   | (SemanticEventBase & {
       name: "open_prototype_preview";

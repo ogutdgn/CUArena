@@ -198,7 +198,6 @@ test-app/src/
 │   │   ├── ColorPicker.tsx         color wheel + hex/rgb inputs
 │   │   ├── ConnectionArrows.tsx    prototype connection lines
 │   │   ├── ContextMenu.tsx         right-click menu
-│   │   ├── FlowBadges.tsx          prototype flow badges
 │   │   ├── HoverOutline.tsx        layer hover ring
 │   │   ├── InsertionCrosshair.tsx  tool cursor
 │   │   ├── InteractionModal.tsx    prototype connection editor
@@ -266,7 +265,9 @@ Do not add parent offsets by hand for nested layers. That offset-only pattern ig
 
 `reparent` preserves the visual world transform of the moved layer. When a layer enters or exits a frame/group/section, its local transform is re-expressed under the new parent so the user does not see a jump.
 
-Canvas drag can combine `set_transform` and `reparent` in one transaction. The transaction should still behave like one user gesture for undo.
+Frame containment uses shared overlap logic in `engine/frameContainment.ts`. Canvas drag and right-panel X/Y/W/H transforms must both use this helper so a layer entering or exiting a frame updates both its visual transform and its scene-graph parent.
+
+Canvas drag and panel scrub can combine `set_transform` and `reparent` in one transaction. Panel scrub defers the containment check until pointer-up so the panel value does not change coordinate reference mid-gesture; the final `reparent` still lands in the same undo transaction. Panel transforms use the shared overlap calculation with a more responsive exit threshold than live canvas drag, because no mid-drag reparent jitter can occur.
 
 ### Smart-snap invariant
 

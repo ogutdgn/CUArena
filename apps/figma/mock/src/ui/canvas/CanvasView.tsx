@@ -17,7 +17,6 @@ import { PenPreview } from "@/ui/overlays/PenPreview";
 import { PencilPreview } from "@/ui/overlays/PencilPreview";
 import { InsertionCrosshair } from "@/ui/overlays/InsertionCrosshair";
 import { RotateReadout } from "@/ui/overlays/RotateReadout";
-import { FlowBadges } from "@/ui/overlays/FlowBadges";
 import { ConnectionArrows } from "@/ui/overlays/ConnectionArrows";
 import { FrameLabelsOverlay } from "@/ui/overlays/FrameLabelsOverlay";
 import { placeImageFiles } from "@/engine/imageCommands";
@@ -248,7 +247,6 @@ export function CanvasView() {
         <PencilPreview />
         <InsertionCrosshair />
         <RotateReadout />
-        <FlowBadges />
         <ConnectionArrows />
 
         {snapLines.map((l, i) =>
