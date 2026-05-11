@@ -90,7 +90,7 @@ task = Task(
         EventRubric([
             ToolUsed("pen"),                                          # 0 prompt: "Pen tool"
             ToolUsed("ellipse"),                                      # 1 prompt: "Ellipse tool"
-            EventTypeCountAtLeast("create_vector", minimum=2),        # 2
+            EventTypeCountAtLeast("create_vector_with_pen", minimum=1), # 2 ★ mock event name; prompt says draw 1st arc with pen then "Duplicate"
             EventTypeCount("create_ellipse", equals=1),               # 3
         ], weight=0.18, critical=[]),
 

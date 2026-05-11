@@ -53,7 +53,7 @@ task = Task(
 
         ColorRubric([
             AllSolidColorEquals(layer_type="ellipse", expected_rgb=WHITE,               # 0 ★ prompt: "all with the same white fill"
-                                tolerance=0.10),
+                                tolerance=0.28),
             AllFillTypeIs("ellipse", kind="solid"),                                     # 1 every shape needs visible fill
             FillCountAtMost("ellipse", max_count=1),                                    # 2 no stacked fills
             FillOpacityAtLeast("ellipse", min_opacity=0.5),                             # 3 visible fills

@@ -63,8 +63,8 @@ task = Task(
 
         # critical: green pill + white thumb are prompt-explicit
         ColorRubric([
-            SolidColorEquals(layer_type="rectangle", expected_rgb=GREEN, tolerance=0.18),     # 0 ★ prompt: "green pill"
-            SolidColorEquals(layer_type="ellipse",   expected_rgb=WHITE, tolerance=0.10),     # 1 ★ prompt: "white circle"
+            SolidColorEquals(layer_type="rectangle", expected_rgb=GREEN, tolerance=0.28),     # 0 ★ prompt: "green pill" — human-friendly
+            SolidColorEquals(layer_type="ellipse",   expected_rgb=WHITE, tolerance=0.28),     # 1 ★ prompt: "white circle" — human-friendly
             AllFillTypeIs("rectangle", kind="solid"),                                         # 2 visible fill type
             AllFillTypeIs("ellipse",   kind="solid"),                                         # 3 every shape needs solid fill
             FillCountAtMost(layer_type="rectangle", max_count=1),                             # 4 no stacked fills

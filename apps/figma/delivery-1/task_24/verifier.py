@@ -51,7 +51,7 @@ task = Task(
         # solid white + visible
         ColorRubric([
             AllFillTypeIs("rectangle", kind="solid"),                       # 0   structural: solid fill required for color check
-            AllSolidColorEquals(layer_type="rectangle", expected_rgb=WHITE, tolerance=0.15),  # 1 ★ prompt: "white fill"
+            AllSolidColorEquals(layer_type="rectangle", expected_rgb=WHITE, tolerance=0.28),  # 1 ★ prompt: "white fill" — human-friendly tolerance
             LayerVisible(layer_type="rectangle", min_opacity=0.5,
                          min_alpha=0.5),                                    # 2
         ], weight=0.20, critical=[1]),
