@@ -9,7 +9,7 @@ export const tokens = {
   rightPanelDefaultWidth: 240,
   rightPanelMinWidth: 200,
   rightPanelMaxWidth: 400,
-  toolbarHeight: 40,
+  toolbarHeight: 46,
   toolbarBottomGap: 12,
 
   // Type
@@ -61,18 +61,18 @@ export const darkColors = {
   bgInput: "#383838",
   bgInputHover: "#444444",
   bgRowHover: "rgba(255,255,255,0.06)",
-  bgRowActive: "rgba(13,153,255,0.16)",
+  bgRowActive: "rgba(13,153,255,0.24)",
   bgScrim: "rgba(0,0,0,0.5)",
 
   // Borders / dividers
-  border: "#3D3D3D",
-  borderStrong: "#4A4A4A",
-  divider: "#333333",
+  border: "#444444",
+  borderStrong: "#525252",
+  divider: "#3A3A3A",
 
   // Text
-  textPrimary: "#E5E5E5",
-  textSecondary: "#A0A0A0",
-  textMuted: "#777777",
+  textPrimary: "#F5F5F5",
+  textSecondary: "#B3B3B3",
+  textMuted: "#8C8C8C",
   textDisabled: "#555555",
   textOnAccent: "#FFFFFF",
   textPlaceholder: "#666666",

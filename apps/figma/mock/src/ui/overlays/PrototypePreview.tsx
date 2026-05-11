@@ -6,7 +6,7 @@ import { getActivePage } from "@/engine/selectors";
 import { NodeRenderer } from "@/ui/canvas/NodeRenderer";
 import { findDevice } from "@/util/prototypeDevices";
 import { emitSemantic } from "@/logger/semantic";
-import { X, ChevronLeft, ChevronRight, RotateCcw, SlidersHorizontal, ExternalLink } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import type { Frame, PrototypeAction, PrototypeConnection, PrototypeTrigger } from "@/types/scene";
 
 const TOOLBAR_H = 40;
@@ -127,8 +127,6 @@ export function PrototypePreview() {
           <ToolBtn disabled={flowIndex === count - 1 && !overrideFrameId} onClick={next}><ChevronRight size={16} /></ToolBtn>
           <ToolBtn onClick={restart}><RotateCcw size={14} /></ToolBtn>
           <span style={{ flex: 1 }} />
-          <ToolBtn onClick={() => {}}><SlidersHorizontal size={14} /></ToolBtn>
-          <ToolBtn onClick={() => {}}><ExternalLink size={14} /></ToolBtn>
           <ToolBtn onClick={close}><X size={14} /></ToolBtn>
         </div>
 
