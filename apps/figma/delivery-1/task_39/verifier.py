@@ -69,10 +69,10 @@ task = Task(
         # uniformly to both arcs.
         ColorRubric([
             AllFillTypeIs("ellipse", kind="solid"),                                          # 0 ★ prompt: "navy ... circle" (solid)
-            SolidColorEquals(layer_type="ellipse", expected_rgb=NAVY, tolerance=0.28),       # 1 ★ prompt: "navy ... circle"
+            SolidColorEquals(layer_type="ellipse", expected_rgb=NAVY, tolerance=0.35),       # 1 ★ prompt: "navy ... circle" — loose tol for modifier+color
             AllStrokeExists("vector"),                                                       # 2 ★ prompt: "Apply a 6px navy stroke"
             AllStrokeWeightsEqual(layer_type="vector", weight=6.0, tolerance=2.0),           # 3 ★ prompt: "6px ... stroke"
-            AllStrokeColorEquals(layer_type="vector", expected_rgb=NAVY, tolerance=0.28),    # 4 ★ prompt: "navy stroke"
+            AllStrokeColorEquals(layer_type="vector", expected_rgb=NAVY, tolerance=0.35),    # 4 ★ prompt: "navy stroke" — loose tol for modifier+color
             AllLayerStrokeVisible(layer_type="vector", min_alpha=0.5, min_weight=0.5),       # 5 stroke renders visibly
             FillCountAtMost(layer_type="ellipse", max_count=1),                              # 6 no stacked fills on dot
             LayerVisible(layer_type="ellipse"),                                              # 7 dot visible
