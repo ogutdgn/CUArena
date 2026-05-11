@@ -229,7 +229,8 @@ def run_attempt(
     endpoint_meta = _describe(**{
         k: v for k, v in agent_kwargs.items()
         if k in ("model", "max_tokens", "keep_screenshots",
-                 "turn_delay_s", "max_retries")
+                 "turn_delay_s", "max_retries",
+                 "coord_clamp", "loop_break")
     })
 
     started_at = int(time.time() * 1000)

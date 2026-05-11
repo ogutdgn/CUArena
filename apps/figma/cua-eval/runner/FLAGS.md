@@ -34,6 +34,8 @@ groups flags by purpose with the *why* alongside.
 | `--prompt-mode {bare,description,full}` | `description` | Which slice of `delivery-1/task_NN/prompt.md` reaches the model. `bare` = simplified one-liner only. `description` = the Thorough description (recommended for fair eval). `full` = the entire `prompt.md` *including the step-by-step solution* (oracle baseline). |
 | `--system-prompt SPEC` | `none` | Picks a system prompt. Three forms: <br>• `none` — no system prompt at all.<br>• `NAME` — resolves to `cua-eval/system-prompts/<NAME>.md`. Currently bundled: `mouse-only`, `figma-mock`, `click-only`.<br>• `PATH` — any `.md` / `.txt` file path is loaded verbatim. |
 | `--block-keyboard` | off | Hard environment handicap. Intercepts the model's `type` / `key` / `keypress` actions at the executor and tells the model they were BLOCKED — useful when the mock truly doesn't accept keyboard input. Orthogonal to `--system-prompt`; pair with `mouse-only` or `click-only` for "keyboard is unplugged" experiments. |
+| `--coord-clamp` | off | **(openrouter only)** Reject off-viewport coordinates with a corrective `tool_result` instead of letting Playwright click outside the canvas. Useful for models with frozen-coord priors (e.g. Qwen3.5-27B clicks at y=953 from full-resolution Figma training data). Fidelity-preserving: we don't silently move the click; we tell the model and let it retry. |
+| `--loop-break` | off | **(openrouter only)** After 3 consecutive identical actions with no screen change, inject a "STUCK — try different" user message before the next request. Helps models break out of off-target click attractors. Pair with `--coord-clamp` for models that loop on off-viewport coords. |
 
 Add a new system prompt by dropping a `.md` file into
 `cua-eval/system-prompts/` — `--help` picks it up automatically.
@@ -120,6 +122,12 @@ python3 cua-eval/runner/passk.py --providers anthropic openai
 python3 cua-eval/runner/passk.py --providers openrouter \
     --openrouter-model qwen/qwen3.5-27b \
     --system-prompt figma-mock --block-keyboard --k 3
+
+# Qwen3.5-27B with off-viewport-coord correction + loop-break (use with strict prompt)
+python3 cua-eval/runner/passk.py --providers openrouter \
+    --openrouter-model qwen/qwen3.5-27b \
+    --system-prompt qwen-figma-strict --block-keyboard \
+    --coord-clamp --loop-break --k 1
 
 # Oracle baseline (model gets the step-by-step solution in the prompt)
 python3 cua-eval/runner/passk.py --tasks 01 --prompt-mode full

@@ -18,6 +18,7 @@ at the output rate.
 from __future__ import annotations
 
 import base64
+import hashlib
 import json
 import os
 import time
@@ -86,7 +87,9 @@ COMPUTER_ACTION_TOOL: dict[str, Any] = {
 
 def describe_endpoint(model: str, *, keep_screenshots: int = 3,
                       turn_delay_s: float = 0.0,
-                      max_retries: int = 5) -> dict[str, Any]:
+                      max_retries: int = 5,
+                      coord_clamp: bool = False,
+                      loop_break: bool = False) -> dict[str, Any]:
     """Static metadata recorded into ``meta.json`` so a researcher reading
     the logs later knows exactly what request shape produced the trajectory."""
     return {
@@ -101,12 +104,14 @@ def describe_endpoint(model: str, *, keep_screenshots: int = 3,
             "display_height": DISPLAY_HEIGHT,
         },
         "tool_choice": "auto",
-        "provider_pin": DEFAULT_PROVIDER_PIN,
+        "provider_pin": os.environ.get("OPENROUTER_PROVIDER_PIN", DEFAULT_PROVIDER_PIN),
         "reasoning_enabled": False,
         "context_carry": "client_side_messages",
         "keep_screenshots": keep_screenshots,
         "turn_delay_s": turn_delay_s,
         "max_retries": max_retries,
+        "coord_clamp": coord_clamp,
+        "loop_break": loop_break,
     }
 
 
@@ -372,6 +377,46 @@ def _parse_tool_arguments(raw: str | dict | None) -> dict[str, Any]:
         return {"_raw": str(raw)}
 
 
+_COORD_ACTION_TYPES = ("click", "double_click", "move", "drag", "scroll")
+
+
+def _coords_in_viewport(action: dict[str, Any]) -> tuple[bool, tuple[int, int] | None]:
+    """For coord-bearing actions, return (in_viewport, parsed_xy).
+    For non-coord actions (type/keypress/wait/done), returns (True, None).
+    """
+    t = action.get("type")
+    if t not in _COORD_ACTION_TYPES:
+        return True, None
+    if t == "drag":
+        path = _coerce_path(action)
+        if not path:
+            return True, None  # malformed; let _execute handle it
+        for x, y in path:
+            if not (0 <= x <= DISPLAY_WIDTH and 0 <= y <= DISPLAY_HEIGHT):
+                return False, (x, y)
+        return True, path[0]
+    x, y = _coerce_xy(action)
+    in_vp = 0 <= x <= DISPLAY_WIDTH and 0 <= y <= DISPLAY_HEIGHT
+    return in_vp, (x, y)
+
+
+def _action_signature(action: dict[str, Any]) -> str:
+    """Stable signature for loop detection. Coord actions use parsed coords;
+    text/keypress include their payload."""
+    t = action.get("type", "?")
+    if t in _COORD_ACTION_TYPES:
+        if t == "drag":
+            path = _coerce_path(action)
+            return f"drag:{path}"
+        x, y = _coerce_xy(action)
+        return f"{t}:{x}:{y}"
+    if t == "type":
+        return f"type:{action.get('text','')!r}"
+    if t == "keypress":
+        return f"keypress:{action.get('keys',[])!r}"
+    return t
+
+
 def run_openrouter_agent(
     session: BrowserSession,
     task_prompt: str,
@@ -386,6 +431,8 @@ def run_openrouter_agent(
     turn_delay_s: float = 0.0,
     max_retries: int = 5,
     allow_keyboard: bool = False,
+    coord_clamp: bool = False,
+    loop_break: bool = False,
 ) -> AgentResult:
     api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
@@ -423,18 +470,91 @@ def run_openrouter_agent(
     usage_total = {"input_tokens": 0, "output_tokens": 0}
     stop_reason = "step_cap"
 
+    # 27B-specific intervention state.
+    initial_shot_hash = hashlib.md5(base64.standard_b64decode(initial_shot)).hexdigest()
+    recent_action_sigs: list[str] = []     # used by loop_break
+    recent_shot_hashes: list[str] = [initial_shot_hash]
+    coord_clamp_count = 0
+    loop_break_count = 0
+    LOOP_BREAK_ABORT_THRESHOLD = 10        # abort attempt after this many loop_break activations
+
     # OpenRouter passes provider routing + reasoning controls via
     # ``extra_body`` on the OpenAI SDK. ``reasoning.enabled=False`` actually
     # disables reasoning (vs. ``exclude=True`` which still emits & charges).
-    extra_body = {
-        "provider": {"only": [DEFAULT_PROVIDER_PIN]},
-        "reasoning": {"enabled": False},
-    }
+    # OPENROUTER_PROVIDER_PIN env var: "auto" (or empty) = let OpenRouter
+    # pick; otherwise pin to that provider (e.g. "DeepInfra").
+    pin = os.environ.get("OPENROUTER_PROVIDER_PIN", DEFAULT_PROVIDER_PIN)
+    extra_body: dict[str, Any] = {"reasoning": {"enabled": False}}
+    if pin and pin.lower() != "auto":
+        extra_body["provider"] = {"only": [pin]}
 
     try:
         for turn in range(step_cap):
             if turn > 0 and turn_delay_s > 0:
                 time.sleep(turn_delay_s)
+
+            # Loop-break: if the last 3 actions are identical AND the screen
+            # hasn't changed across them, inject a "stuck" nudge before the
+            # next request. Only fires when explicitly enabled.
+            if (loop_break and len(recent_action_sigs) >= 3
+                    and recent_action_sigs[-1] == recent_action_sigs[-2] == recent_action_sigs[-3]
+                    and len(set(recent_shot_hashes[-3:])) == 1):
+                stuck_sig = recent_action_sigs[-1]
+                print(f"{progress_prefix}  t{turn:02d} LOOP_BREAK: stuck on {stuck_sig}", flush=True)
+                # The most common failure mode we've observed is the model
+                # clicking on the canvas trying to "place" a shape rather
+                # than dragging to create one. The nudge tells it exactly
+                # how to draw and what shortcut keys exist.
+                stuck_was_click = stuck_sig.startswith("click:") or stuck_sig.startswith("double_click:")
+                draw_hint = (
+                    "SHAPES ARE CREATED BY DRAGGING, NOT CLICKING.\n"
+                    "To draw a shape:\n"
+                    "  1. Select the tool with a keypress: "
+                    '{\"type\":\"keypress\",\"keys\":[\"r\"]} for rectangle, '
+                    '\"o\" for ellipse, \"f\" for frame, \"t\" for text, \"l\" for line.\n'
+                    "  2. DRAG on the canvas (NOT click): "
+                    '{\"type\":\"drag\",\"path\":[{\"x\":300,\"y\":200},{\"x\":500,\"y\":400}]}\n'
+                    "Clicking on empty canvas does nothing. If you've been clicking, "
+                    "switch to drag for the next action.\n"
+                ) if stuck_was_click else (
+                    "Try a DIFFERENT action type entirely — your current one isn't producing a change.\n"
+                )
+                messages.append({
+                    "role": "user",
+                    "content": (
+                        f"STUCK: you've performed the same action ({stuck_sig}) 3 times "
+                        f"and the screen has NOT CHANGED.\n"
+                        f"{draw_hint}"
+                        f"DO NOT repeat the same coordinates or action. "
+                        f"Look at the screenshot more carefully before your next move."
+                    ),
+                })
+                _append_trajectory_jsonl(attempt_dir, {
+                    "turn": turn, "phase": "intervention",
+                    "intervention": "loop_break",
+                    "stuck_signature": stuck_sig,
+                })
+                loop_break_count += 1
+                # Reset so we don't fire again on the next turn if model still loops.
+                recent_action_sigs = recent_action_sigs[-1:]
+
+                # Early-abort: if the model has been nudged this many times
+                # without recovering, further turns are unlikely to help and
+                # just burn cost. Stop the attempt with a distinct reason
+                # so the writeup can distinguish "model gave up" from "ran out
+                # of turns" from "model kept looping despite interventions".
+                if loop_break_count > LOOP_BREAK_ABORT_THRESHOLD:
+                    print(f"{progress_prefix}  t{turn:02d} ABORT: "
+                          f"{loop_break_count} loop_breaks > {LOOP_BREAK_ABORT_THRESHOLD} threshold", flush=True)
+                    stop_reason = "loop_break_abort"
+                    _append_trajectory_jsonl(attempt_dir, {
+                        "turn": turn, "phase": "final",
+                        "elapsed_s": round(time.time() - t_start, 2),
+                        "stop_reason": "loop_break_abort",
+                        "loop_break_count": loop_break_count,
+                        "usage_total": dict(usage_total),
+                    })
+                    break
 
             n_trimmed = _trim_history_images(messages, keep_last=keep_screenshots)
             if n_trimmed and turn == 1:
@@ -444,6 +564,10 @@ def run_openrouter_agent(
             last_exc: Exception | None = None
             for attempt_idx in range(max_retries + 1):
                 try:
+                    # Per-request timeout prevents a hung socket from
+                    # silently freezing a multi-hour run (which happened
+                    # on Gate 3 v2 after ~1h). 120s is generous; typical
+                    # Qwen3.5-27B responses come back in 1-5s.
                     resp = client.chat.completions.create(
                         model=model,
                         messages=messages,
@@ -452,6 +576,7 @@ def run_openrouter_agent(
                         max_tokens=max_tokens,
                         temperature=0.0,
                         extra_body=extra_body,
+                        timeout=120,
                     )
                     break
                 except Exception as exc:
@@ -460,11 +585,22 @@ def run_openrouter_agent(
                     low = msg.lower()
                     is_429 = "429" in msg or "rate_limit" in low
                     is_5xx = any(c in msg for c in ("500", "502", "503", "504"))
-                    if not (is_429 or is_5xx) or attempt_idx == max_retries:
+                    # Also retry on timeouts and transient connection errors —
+                    # without this, a hung socket kills the run silently.
+                    is_timeout = ("timeout" in low or "timed out" in low
+                                  or "APITimeoutError" in msg
+                                  or "ReadTimeout" in msg or "ConnectTimeout" in msg)
+                    is_conn = ("connection" in low and ("reset" in low or "aborted" in low
+                                                         or "refused" in low or "closed" in low))
+                    if not (is_429 or is_5xx or is_timeout or is_conn) or attempt_idx == max_retries:
                         break
                     wait = _retry_after_seconds(exc, default=min(60.0, 5.0 * (2 ** attempt_idx)))
+                    kind = ("429 rate-limit" if is_429
+                            else "5xx" if is_5xx
+                            else "timeout" if is_timeout
+                            else "conn-error")
                     snippet = msg.replace("\n", " ")[:200]
-                    print(f"{progress_prefix}  rate-limit/transient on turn {turn} "
+                    print(f"{progress_prefix}  {kind} on turn {turn} "
                           f"(attempt {attempt_idx + 1}/{max_retries + 1}); sleeping {wait:.1f}s :: {snippet}",
                           flush=True)
                     time.sleep(wait)
@@ -548,6 +684,35 @@ def run_openrouter_agent(
                     })
                     continue
 
+                # Coord-clamp: if enabled, reject actions whose parsed coords
+                # fall outside the viewport before they reach Playwright.
+                # The model gets a corrective tool_result and a chance to retry.
+                if coord_clamp:
+                    in_vp, parsed_xy = _coords_in_viewport(action)
+                    if not in_vp and parsed_xy is not None:
+                        x, y = parsed_xy
+                        coord_clamp_count += 1
+                        print(f"{progress_prefix}  t{turn:02d} CLAMP_REJECT: ({x}, {y})", flush=True)
+                        messages.append({
+                            "role": "tool", "tool_call_id": tc.id,
+                            "content": (
+                                f"REJECTED: your action at ({x}, {y}) is OFF VIEWPORT. "
+                                f"The viewport is {DISPLAY_WIDTH}×{DISPLAY_HEIGHT}; valid x∈[0,{DISPLAY_WIDTH}], y∈[0,{DISPLAY_HEIGHT}]. "
+                                f"The bottom toolbar is at y≈763. The screen is unchanged. "
+                                f"Provide corrected integer coordinates within the viewport."
+                            ),
+                        })
+                        _append_trajectory_jsonl(attempt_dir, {
+                            "turn": turn, "phase": "intervention",
+                            "intervention": "coord_clamp", "rejected_xy": [x, y],
+                        })
+                        # Track signature so loop_break can still fire on
+                        # repeated rejected actions.
+                        recent_action_sigs.append(_action_signature(action))
+                        if len(recent_action_sigs) > 5:
+                            recent_action_sigs.pop(0)
+                        continue
+
                 try:
                     blocked, done = _execute(session, action, allow_keyboard=allow_keyboard)
                 except Exception as exec_exc:
@@ -593,6 +758,16 @@ def run_openrouter_agent(
                     "role": "tool", "tool_call_id": tc.id,
                     "content": f"executed {action.get('type')}",
                 })
+
+                # Track for loop_break: action signature + post-action screenshot hash.
+                if loop_break:
+                    recent_action_sigs.append(_action_signature(action))
+                    if len(recent_action_sigs) > 5:
+                        recent_action_sigs.pop(0)
+                    shot_hash = hashlib.md5(base64.standard_b64decode(shot)).hexdigest()
+                    recent_shot_hashes.append(shot_hash)
+                    if len(recent_shot_hashes) > 5:
+                        recent_shot_hashes.pop(0)
 
             if done_called:
                 stop_reason = "done"
@@ -649,6 +824,10 @@ def run_openrouter_agent(
         return AgentResult(provider="openrouter", model=model, turns=len(trajectory),
                            finished=False, stop_reason="error",
                            error=str(exc), trajectory=trajectory, usage=usage_total)
+
+    if coord_clamp or loop_break:
+        usage_total["coord_clamp_count"] = coord_clamp_count
+        usage_total["loop_break_count"] = loop_break_count
 
     return AgentResult(
         provider="openrouter",
