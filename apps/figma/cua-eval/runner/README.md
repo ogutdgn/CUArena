@@ -62,6 +62,12 @@ npm run dev      # serves http://localhost:5173
     --trace-s3-bucket "$CUA_TRACE_S3_BUCKET" \
     --trace-s3-prefix "figma/rollouts"
 
+# S3-only backend (no Postgres required): upload logs/screenshots/end-state
+.venv/bin/python cua-eval/runner/passk.py --smoke \
+    --trace-backend s3 \
+    --trace-s3-bucket "$CUA_TRACE_S3_BUCKET" \
+    --trace-s3-prefix "figma/rollouts"
+
 # Pick a system prompt by name (NAME → cua-eval/system-prompts/<NAME>.md)
 .venv/bin/python cua-eval/runner/passk.py --tasks 05 --system-prompt mouse-only
 
@@ -87,15 +93,15 @@ RUN_ID=parallel_$(date +%Y%m%d_%H%M%S)
 
 DB flags:
 
-- `--trace-backend {sqlite,postgres-s3}`: trace backend type (default `sqlite`)
+- `--trace-backend {sqlite,s3,postgres-s3}`: trace backend type (default `sqlite`)
 - `--trace-db <path>`: backend=sqlite path (default: `cua-eval/runs/trace_store.sqlite3`)
 - `--no-trace-db`: disable DB writes and keep filesystem-only artifacts
 - `--trace-db-store-screenshot-bytes`: backend=sqlite only, store screenshot PNG bytes as BLOBs
 - `--trace-postgres-dsn`: backend=postgres-s3 DSN
-- `--trace-s3-bucket`: backend=postgres-s3 artifact bucket
-- `--trace-s3-prefix`: backend=postgres-s3 artifact prefix (default `cua-traces`)
-- `--trace-aws-region`: backend=postgres-s3 AWS region (optional)
-- `--trace-s3-endpoint-url`: backend=postgres-s3 custom S3 endpoint (optional, for MinIO/R2)
+- `--trace-s3-bucket`: backend=s3 or backend=postgres-s3 artifact bucket
+- `--trace-s3-prefix`: backend=s3 or backend=postgres-s3 artifact prefix (default `cua-traces`)
+- `--trace-aws-region`: backend=s3 or backend=postgres-s3 AWS region (optional)
+- `--trace-s3-endpoint-url`: backend=s3 or backend=postgres-s3 custom S3 endpoint (optional, for MinIO/R2)
 
 Env equivalents:
 
@@ -207,6 +213,7 @@ apps/figma/cua-eval/runs/<run_id>/
     │   ├── initial.png                 viewport before turn 0
     │   └── turn_NN.png                 viewport after turn NN's actions
     ├── log.json                        the figma-mock session log
+    ├── end_state.json                  extracted final canvas outcome snapshot
     └── score.json                      verifier output (rubrics, base, eff, final)
 ```
 
@@ -270,6 +277,7 @@ When trace persistence is enabled, each run writes:
 Two modes:
 
 - `sqlite`: all metadata/artifacts in one local sqlite file
+- `s3`: uploads attempt/run artifacts (logs, screenshots, outcome/end-state) to S3 only
 - `postgres-s3`: metadata in Postgres, artifact files uploaded to S3 and referenced by URI
 
 Quick queries:

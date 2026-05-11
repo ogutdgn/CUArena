@@ -83,15 +83,15 @@ filesystem artifacts. Off-the-filesystem-only is the default; pass
 
 | Flag | Default | Purpose |
 |---|---|---|
-| `--trace-backend {sqlite,postgres-s3}` | `sqlite` (env: `CUA_TRACE_BACKEND`) | Which trace backend. SQLite is local; postgres-s3 splits structured rows to Postgres and screenshot blobs to S3. |
+| `--trace-backend {sqlite,s3,postgres-s3}` | `sqlite` (env: `CUA_TRACE_BACKEND`) | Which trace backend. `sqlite` is local DB, `s3` uploads artifacts only, `postgres-s3` writes structured rows to Postgres and artifacts to S3. |
 | `--trace-db PATH` | `cua-eval/runs/trace_store.sqlite3` (env: `CUA_TRACE_DB`) | SQLite file path (backend=sqlite only). |
 | `--no-trace-db` | off | Disable DB ingestion entirely. Filesystem artifacts under `runs/<id>/...` still land normally. |
 | `--trace-db-store-screenshot-bytes` | off | (sqlite only) Embed screenshot PNGs as BLOBs in the DB instead of just paths. |
 | `--trace-postgres-dsn DSN` | env: `CUA_TRACE_POSTGRES_DSN` | postgres-s3 only: Postgres connection string. |
-| `--trace-s3-bucket NAME` | env: `CUA_TRACE_S3_BUCKET` | postgres-s3 only: S3 bucket for screenshot artifacts. |
-| `--trace-s3-prefix PREFIX` | `cua-traces` (env: `CUA_TRACE_S3_PREFIX`) | postgres-s3 only: key prefix inside the bucket. |
-| `--trace-aws-region REGION` | env: `CUA_TRACE_AWS_REGION` | postgres-s3 only: AWS region. |
-| `--trace-s3-endpoint-url URL` | env: `CUA_TRACE_S3_ENDPOINT_URL` | postgres-s3 only: custom endpoint (for MinIO, R2, etc.). |
+| `--trace-s3-bucket NAME` | env: `CUA_TRACE_S3_BUCKET` | s3/postgres-s3: S3 bucket for logs, screenshots, and end-state artifacts. |
+| `--trace-s3-prefix PREFIX` | `cua-traces` (env: `CUA_TRACE_S3_PREFIX`) | s3/postgres-s3: key prefix inside the bucket. |
+| `--trace-aws-region REGION` | env: `CUA_TRACE_AWS_REGION` | s3/postgres-s3: AWS region. |
+| `--trace-s3-endpoint-url URL` | env: `CUA_TRACE_S3_ENDPOINT_URL` | s3/postgres-s3: custom endpoint (for MinIO, R2, etc.). |
 
 ---
 

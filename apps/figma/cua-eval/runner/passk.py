@@ -154,7 +154,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--trace-backend",
         default=os.environ.get("CUA_TRACE_BACKEND", "sqlite"),
-        choices=["sqlite", "postgres-s3"],
+        choices=["sqlite", "s3", "postgres-s3"],
         help="Trace backend type (default: sqlite).",
     )
     p.add_argument(
@@ -348,6 +348,8 @@ def main() -> int:
         if args.trace_backend == "sqlite":
             print(f"Trace DB  : sqlite {Path(args.trace_db)}"
                   + ("  (with screenshot blobs)" if args.trace_db_store_screenshot_bytes else ""))
+        elif args.trace_backend == "s3":
+            print(f"Trace DB  : s3-only (bucket={args.trace_s3_bucket}, prefix={args.trace_s3_prefix})")
         else:
             print(f"Trace DB  : postgres+s3 (bucket={args.trace_s3_bucket}, prefix={args.trace_s3_prefix})")
     else:
