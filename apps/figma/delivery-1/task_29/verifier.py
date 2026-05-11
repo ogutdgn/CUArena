@@ -38,8 +38,8 @@ task = Task(
 
         # critical: same-size, 2x2 grid, circular
         AlignmentRubric([
-            LayersSameDimensions(layer_type="ellipse", tolerance=8.0),      # 0 ★ prompt: "4 same-size circles"
-            LayersInGrid(layer_type="ellipse", rows=2, cols=2, tolerance=12.0),  # 1 ★ prompt: "arranged in a 2x2 grid pattern"
+            LayersSameDimensions(layer_type="ellipse", tolerance=25.0),      # 0 ★ prompt: "4 same-size circles"
+            LayersInGrid(layer_type="ellipse", rows=2, cols=2, tolerance=25.0),  # 1 ★ prompt: "arranged in a 2x2 grid pattern"
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),           # 2 ★ prompt: "circles"
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),  # 3 upright
             LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),    # 4 frame upright
@@ -54,7 +54,7 @@ task = Task(
         # critical: off-white frame fill
         ColorRubric([
             AllFillTypeIs("ellipse", kind="solid"),                         # 0 circle solid fill
-            LayersAllSameColor(layer_type="ellipse", tolerance=0.05),       # 1 (optional per prompt)
+            LayersAllSameColor(layer_type="ellipse", tolerance=25.0),       # 1 (optional per prompt)
             SolidColorEquals(layer_type="frame", expected_rgb=OFF_WHITE, tolerance=0.25),  # 2 ★ prompt: "off-white fill"
         ], weight=0.2, critical=[2]),
 

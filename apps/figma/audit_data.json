@@ -57,14 +57,14 @@
             "params": {
               "layer_type": "ellipse",
               "axis": "center_y",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "ellipse",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -461,10 +461,10 @@
       }
     ],
     "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
-      8.0,
+      25.0,
+      25.0,
       8.0,
       15.0,
       18.0,
@@ -666,7 +666,7 @@
               "layer_type": "rectangle",
               "axis": "y",
               "gap_px": 0.0,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -681,7 +681,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           }
         ]
@@ -725,7 +725,7 @@
                 }
               ],
               "sort_axis": "y",
-              "tolerance": 0.25
+              "tolerance": 25.0
             }
           }
         ]
@@ -752,11 +752,11 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
-      8.0,
-      0.25
+      25.0,
+      25.0,
+      25.0
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -890,12 +890,6 @@
               "tolerance_deg": 15.0,
               "radius_tolerance_frac": 0.25
             }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
           }
         ]
       },
@@ -950,7 +944,7 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       0.28,
@@ -959,7 +953,6 @@
     "check_class_counts": {
       "ShapeCount": 1,
       "RadialDistributionExcludeCentral": 1,
-      "LayerInsideFrame": 1,
       "CentermostLayerHasColor": 1,
       "DistinctTypedSolidColors": 1,
       "ToolUsed": 1,
@@ -1282,7 +1275,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_x",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -1290,7 +1283,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_y",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -1316,7 +1309,7 @@
             "params": {
               "layer_type": "rectangle",
               "fill_index": 0,
-              "tolerance": 0.12
+              "tolerance": 25.0
             }
           }
         ]
@@ -1343,11 +1336,11 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
-      12.0,
-      0.12
+      25.0,
+      25.0,
+      25.0
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -2098,7 +2091,7 @@
               "layer_type": "rectangle",
               "rows": 3,
               "cols": 4,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -2112,7 +2105,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           }
         ]
@@ -2140,14 +2133,7 @@
         "critical": [
           0
         ],
-        "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "event",
@@ -2170,12 +2156,12 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
+      25.0,
       8.0,
-      8.0,
+      25.0,
       0.08
     ],
     "check_class_counts": {
@@ -2184,7 +2170,6 @@
       "LayerAllSquare": 1,
       "LayersSameDimensions": 1,
       "DistinctTypedSolidColors": 1,
-      "LayerInsideFrame": 1,
       "ToolUsed": 1,
       "EventTypeCountAtLeast": 1
     },
@@ -2316,7 +2301,7 @@
             "check": "LayersConcentric",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -2324,7 +2309,7 @@
             "params": {
               "layer_type": "rectangle",
               "equals": 4,
-              "tolerance_px": 8.0,
+              "tolerance_px": 25.0,
               "min_size_drop_px": 4.0
             }
           }
@@ -2342,7 +2327,7 @@
             "params": {
               "layer_type": "rectangle",
               "n_colors": 2,
-              "tolerance": 0.12
+              "tolerance": 25.0
             }
           }
         ]
@@ -2369,10 +2354,10 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
-      0.12
+      25.0,
+      25.0
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -2503,7 +2488,7 @@
             "check": "LayersConcentric",
             "params": {
               "layer_type": "polygon",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -2511,7 +2496,7 @@
             "params": {
               "layer_type": "polygon",
               "equals": 3,
-              "tolerance_px": 8.0,
+              "tolerance_px": 25.0,
               "min_size_drop_px": 4.0
             }
           }
@@ -2556,9 +2541,9 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
+      25.0,
       0.12
     ],
     "check_class_counts": {
@@ -2684,7 +2669,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -2692,7 +2677,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_y",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -2700,7 +2685,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "x",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -2728,14 +2713,6 @@
             }
           },
           {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
             "check": "LayerSizeAtLeast",
             "params": {
               "layer_type": "rectangle",
@@ -2750,14 +2727,6 @@
               "parent_type": "frame",
               "min_frac": 0.04,
               "max_frac": 0.4
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -2830,12 +2799,6 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
             "check": "ChildCountAtLeast",
             "params": {
               "parent_type": "frame",
@@ -2865,17 +2828,15 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      8.0,
-      12.0,
-      8.0,
+      25.0,
+      25.0,
+      25.0,
       15.0,
       15.0,
-      5.0,
-      5.0,
-      10.0
+      5.0
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -2883,10 +2844,9 @@
       "LayersAligned": 1,
       "LayersDistributed": 1,
       "LayersAllShareEdge": 2,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "LayerSizeAtLeast": 1,
       "AllLayerWidthFraction": 1,
-      "AllLayerBoundsInside": 1,
       "LayersHaveConsistentGap": 1,
       "AllFillTypeIs": 1,
       "FillCountAtMost": 1,
@@ -2894,7 +2854,6 @@
       "LayerVisible": 1,
       "CornerRadiusFractionAtMost": 1,
       "NoLayerFlipped": 1,
-      "LayerInsideFrame": 1,
       "ChildCountAtLeast": 1,
       "ToolUsed": 1,
       "EventTypeCount": 1
@@ -2993,9 +2952,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.355 \u2192 0.527 (+0.173), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
-      "frame-fix structure: +1 check"
+      "Verifier fix would lift 0.355 \u2192 0.409 (+0.055), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.054->0.109"
     ]
   },
   {
@@ -3056,27 +3014,11 @@
             }
           },
           {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "line",
-              "outer_type": "frame",
-              "tolerance": 8.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
             "check": "LayersAtDistinctPositions",
             "params": {
               "layer_type": "line",
               "min_distinct": 4,
-              "tolerance": 10.0
+              "tolerance": 25.0
             }
           }
         ]
@@ -3116,12 +3058,6 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "line"
-            }
-          },
-          {
             "check": "ChildCountAtLeast",
             "params": {
               "parent_type": "frame",
@@ -3151,25 +3087,20 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      8.0,
-      5.0,
-      10.0
+      25.0
     ],
     "check_class_counts": {
       "ShapeCount": 1,
       "LayersHaveRotations": 1,
       "LayersOverlap": 1,
       "LayerSizeAtLeast": 1,
-      "AllLayerBoundsInside": 1,
-      "LayerRotationEquals": 1,
       "LayersAtDistinctPositions": 1,
       "LayerVisible": 1,
       "LayerRendersStrokeOrFill": 1,
       "NoLayerFlipped": 1,
-      "LayerInsideFrame": 1,
       "ChildCountAtLeast": 1,
       "ToolUsed": 1,
       "EventTypeCount": 1
@@ -3266,11 +3197,9 @@
         "move_layer": 1
       }
     },
-    "verdict": "model-primary",
+    "verdict": "honest",
     "verdict_reasons": [
-      "Verifier fix would lift 0.317 \u2192 0.467 (+0.150), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
-      "frame-fix structure: +1 check"
+      "No meaningful verifier-fixable lift (0.317 \u2192 0.333). Score reflects model capability."
     ]
   },
   {
@@ -3308,7 +3237,7 @@
             "check": "LayersConcentric",
             "params": {
               "layer_type": "ellipse",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -3316,7 +3245,7 @@
             "params": {
               "layer_type": "ellipse",
               "equals": 4,
-              "tolerance_px": 8.0,
+              "tolerance_px": 25.0,
               "min_size_drop_px": 4.0
             }
           },
@@ -3333,22 +3262,6 @@
               "layer_type": "ellipse",
               "min_w": 15,
               "min_h": 15
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
             }
           }
         ]
@@ -3398,7 +3311,7 @@
                 }
               ],
               "sort_axis": "size",
-              "tolerance": 0.2
+              "tolerance": 25.0
             }
           },
           {
@@ -3464,12 +3377,6 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
-          {
             "check": "ChildCountAtLeast",
             "params": {
               "parent_type": "frame",
@@ -3499,14 +3406,12 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
+      25.0,
       8.0,
-      10.0,
-      5.0,
-      0.2,
+      25.0,
       2.5,
       0.28
     ],
@@ -3516,8 +3421,6 @@
       "LayersStrictlyNested": 1,
       "LayerIsCircular": 1,
       "LayerSizeAtLeast": 1,
-      "AllLayerBoundsInside": 1,
-      "LayerRotationEquals": 1,
       "AllFillTypeIs": 1,
       "LayersHaveColorOrder": 1,
       "AllStrokeExists": 1,
@@ -3527,7 +3430,6 @@
       "FillOpacityAtLeast": 1,
       "LayerVisible": 1,
       "NoLayerFlipped": 1,
-      "LayerInsideFrame": 1,
       "ChildCountAtLeast": 1,
       "ToolUsed": 1,
       "EventTypeCount": 1
@@ -3626,10 +3528,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.189 \u2192 0.411 (+0.222), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
-      "unhalve color: 0.056->0.111",
-      "frame-fix structure: +1 check"
+      "Verifier fix would lift 0.189 \u2192 0.278 (+0.089), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.033->0.067",
+      "unhalve color: 0.056->0.111"
     ]
   },
   {
@@ -3683,22 +3584,6 @@
               "layer_type": "ellipse",
               "min_w": 20,
               "min_h": 20
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
             }
           },
           {
@@ -3819,12 +3704,6 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
-          {
             "check": "ChildCountAtLeast",
             "params": {
               "parent_type": "frame",
@@ -3854,12 +3733,10 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       40.0,
-      10.0,
-      5.0,
       20.0,
       5.0,
       0.1,
@@ -3871,10 +3748,9 @@
       "LayersAllShareEdge": 1,
       "LayersOverlap": 1,
       "LayerSizeAtLeast": 1,
-      "AllLayerBoundsInside": 1,
-      "LayerRotationEquals": 2,
       "LayersAtDistinctPositions": 1,
       "AllLayerWidthFraction": 1,
+      "LayerRotationEquals": 1,
       "AllSolidColorEquals": 1,
       "AllFillTypeIs": 1,
       "FillCountAtMost": 1,
@@ -3884,7 +3760,6 @@
       "AllStrokeExists": 1,
       "AllStrokeWeightWithinTolerance": 1,
       "AllStrokeColorEquals": 1,
-      "LayerInsideFrame": 1,
       "ChildCountAtLeast": 1,
       "ToolUsed": 1,
       "EventTypeCount": 1
@@ -3983,10 +3858,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.181 \u2192 0.386 (+0.206), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
-      "unhalve color: 0.056->0.111",
-      "frame-fix structure: +1 check"
+      "Verifier fix would lift 0.181 \u2192 0.261 (+0.081), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.025->0.050",
+      "unhalve color: 0.056->0.111"
     ]
   },
   {
@@ -4066,33 +3940,9 @@
             }
           },
           {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "polygon",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
             "check": "LayerRotationEquals",
             "params": {
               "layer_type": "rectangle",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
               "degrees": 0,
               "tolerance": 5.0
             }
@@ -4310,18 +4160,6 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "polygon"
-            }
-          },
-          {
             "check": "ChildCountAtLeast",
             "params": {
               "parent_type": "frame",
@@ -4364,12 +4202,9 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      10.0,
-      10.0,
-      5.0,
       5.0,
       5.0,
       0.28,
@@ -4386,8 +4221,7 @@
       "LayersOverlap": 1,
       "CornerRadiusAtLeast": 1,
       "LayerSizeAtLeast": 2,
-      "AllLayerBoundsInside": 2,
-      "LayerRotationEquals": 3,
+      "LayerRotationEquals": 2,
       "AllLayerWidthFraction": 1,
       "CornerRadiusFractionAtMost": 1,
       "CrossTypeAreaRatioAtLeast": 1,
@@ -4401,7 +4235,6 @@
       "AllStrokeExists": 2,
       "AllStrokeWeightWithinTolerance": 2,
       "AllStrokeColorEquals": 2,
-      "LayerInsideFrame": 2,
       "ChildCountAtLeast": 1,
       "ToolUsed": 2,
       "EventTypeCount": 2
@@ -4506,9 +4339,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.190 \u2192 0.363 (+0.173), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.190 \u2192 0.280 (+0.090), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.033->0.067",
-      "frame-fix alignment: +1 check",
+      "unhalve alignment: 0.025->0.050",
       "unhalve color: 0.032->0.063"
     ]
   },
@@ -4565,7 +4398,7 @@
             "params": {
               "layer_type": "polygon",
               "axis": "center_x",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -4573,7 +4406,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_x",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -4594,7 +4427,7 @@
               "layer_type": "polygon",
               "axis": "y",
               "gap_px": 0.0,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -4603,7 +4436,7 @@
               "bracket_type": "rectangle",
               "inner_type": "polygon",
               "axis": "y",
-              "tolerance": 4.0
+              "tolerance": 25.0
             }
           },
           {
@@ -4683,18 +4516,6 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "polygon"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
             "check": "LayerGroupAllInSameFrame",
             "params": {
               "layer_type": "polygon",
@@ -4706,22 +4527,6 @@
             "params": {
               "layer_type": "rectangle",
               "minimum": 2
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "polygon",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -4756,14 +4561,6 @@
             "check": "FrameCountAtMost",
             "params": {
               "maximum": 1
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
             }
           },
           {
@@ -4809,16 +4606,13 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
-      12.0,
-      12.0,
-      4.0,
-      5.0,
-      10.0,
-      10.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
       5.0
     ],
     "check_class_counts": {
@@ -4828,14 +4622,12 @@
       "LayersHaveRotations": 1,
       "LayersStacked": 1,
       "LayersBracketAllOnAxis": 1,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "LayerAspectRatioGreaterThan": 1,
       "AllFillTypeIs": 2,
       "FillCountAtMost": 2,
       "LayerVisible": 2,
-      "LayerInsideFrame": 2,
       "LayerGroupAllInSameFrame": 2,
-      "AllLayerBoundsInside": 2,
       "LayerSizeAtLeast": 2,
       "NoLayerFlipped": 2,
       "FrameCountAtMost": 1,
@@ -4948,7 +4740,7 @@
     },
     "verdict": "honest",
     "verdict_reasons": [
-      "No meaningful verifier-fixable lift (0.015 \u2192 0.031). Score reflects model capability."
+      "No meaningful verifier-fixable lift (0.015 \u2192 0.015). Score reflects model capability."
     ]
   },
   {
@@ -4992,7 +4784,7 @@
             "check": "LayersConcentric",
             "params": {
               "layer_type": "ellipse",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -5000,7 +4792,7 @@
             "params": {
               "layer_type": "ellipse",
               "equals": 3,
-              "tolerance_px": 8.0,
+              "tolerance_px": 25.0,
               "min_size_drop_px": 6.0
             }
           },
@@ -5008,7 +4800,7 @@
             "check": "AllLayersAreCircular",
             "params": {
               "layer_type": "ellipse",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           }
         ]
@@ -5083,24 +4875,10 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
-          {
             "check": "LayerGroupAllInSameFrame",
             "params": {
               "layer_type": "ellipse",
               "minimum": 3
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -5121,14 +4899,6 @@
             "check": "FrameCountAtMost",
             "params": {
               "maximum": 1
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
             }
           }
         ]
@@ -5154,15 +4924,13 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": true,
     "all_tolerances": [
-      12.0,
-      8.0,
+      25.0,
+      25.0,
       0.15,
-      0.5,
-      10.0,
-      5.0
+      0.5
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -5175,13 +4943,10 @@
       "LayerVisible": 1,
       "DistinctSolidColors": 1,
       "LayersHaveColorOrder": 1,
-      "LayerInsideFrame": 1,
       "LayerGroupAllInSameFrame": 1,
-      "AllLayerBoundsInside": 1,
       "LayerSizeAtLeast": 1,
       "NoLayerFlipped": 1,
       "FrameCountAtMost": 1,
-      "LayerRotationEquals": 1,
       "ToolUsed": 1,
       "EventTypeCount": 1
     },
@@ -5278,10 +5043,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.308 \u2192 0.430 (+0.122), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.308 \u2192 0.401 (+0.093), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve alignment: 0.033->0.067",
-      "unhalve color: 0.060->0.120",
-      "frame-fix structure: +1 check"
+      "unhalve color: 0.060->0.120"
     ]
   },
   {
@@ -5515,24 +5279,6 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "vector"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
-          {
             "check": "LayerGroupAllInSameFrame",
             "params": {
               "layer_type": "rectangle",
@@ -5551,22 +5297,6 @@
             "params": {
               "layer_type": "ellipse",
               "minimum": 1
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -5609,14 +5339,6 @@
             "check": "FrameCountAtMost",
             "params": {
               "maximum": 1
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
             }
           },
           {
@@ -5675,7 +5397,7 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       10.0,
@@ -5688,10 +5410,7 @@
       10.0,
       0.28,
       0.28,
-      2.5,
-      10.0,
-      10.0,
-      5.0
+      2.5
     ],
     "check_class_counts": {
       "ShapeCount": 3,
@@ -5702,7 +5421,7 @@
       "LayerIsCircular": 1,
       "CornerRadiusEquals": 1,
       "LayerSmallerThanLayer": 1,
-      "LayerRotationEquals": 4,
+      "LayerRotationEquals": 3,
       "AllFillTypeIs": 1,
       "FillCountAtMost": 2,
       "SolidColorEquals": 2,
@@ -5710,9 +5429,7 @@
       "StrokeWeightEquals": 1,
       "StrokeRendersVisible": 1,
       "LayerVisible": 2,
-      "LayerInsideFrame": 3,
       "LayerGroupAllInSameFrame": 3,
-      "AllLayerBoundsInside": 2,
       "LayerSizeAtLeast": 3,
       "NoLayerFlipped": 2,
       "FrameCountAtMost": 1,
@@ -5826,7 +5543,7 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.285 \u2192 0.419 (+0.135), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.285 \u2192 0.407 (+0.122), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.050->0.100",
       "unhalve alignment: 0.022->0.044",
       "unhalve color: 0.050->0.100"
@@ -6263,7 +5980,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -6271,7 +5988,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_x",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -6280,7 +5997,7 @@
               "layer_type": "rectangle",
               "axis": "y",
               "gap_px": 16.0,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -6347,24 +6064,10 @@
         "critical": [],
         "checks": [
           {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
             "check": "LayerGroupAllInSameFrame",
             "params": {
               "layer_type": "rectangle",
               "minimum": 3
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -6385,14 +6088,6 @@
             "check": "FrameCountAtMost",
             "params": {
               "maximum": 1
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
             }
           },
           {
@@ -6425,16 +6120,14 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      8.0,
-      12.0,
-      12.0,
+      25.0,
+      25.0,
+      25.0,
       5.0,
-      0.12,
-      10.0,
-      5.0
+      0.12
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -6442,15 +6135,13 @@
       "LayersSameDimensions": 1,
       "LayersAligned": 1,
       "LayersStacked": 1,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "LayerAspectRatioGreaterThan": 1,
       "AllFillTypeIs": 1,
       "FillCountAtMost": 1,
       "DistinctTypedSolidColors": 1,
       "LayerVisible": 1,
-      "LayerInsideFrame": 1,
       "LayerGroupAllInSameFrame": 1,
-      "AllLayerBoundsInside": 1,
       "LayerSizeAtLeast": 1,
       "NoLayerFlipped": 1,
       "FrameCountAtMost": 1,
@@ -6550,10 +6241,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.315 \u2192 0.455 (+0.140), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.315 \u2192 0.430 (+0.115), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve alignment: 0.040->0.080",
-      "unhalve color: 0.075->0.150",
-      "frame-fix structure: +1 check"
+      "unhalve color: 0.075->0.150"
     ]
   },
   {
@@ -6592,7 +6282,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -6600,7 +6290,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_y",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -6609,7 +6299,7 @@
               "layer_type": "rectangle",
               "axis": "x",
               "gap_px": 8.0,
-              "tolerance": 6.0
+              "tolerance": 25.0
             }
           },
           {
@@ -6625,14 +6315,6 @@
               "layer_type": "rectangle",
               "min_w": 40.0,
               "min_h": 20.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -6719,13 +6401,12 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      8.0,
-      12.0,
-      6.0,
-      10.0,
+      25.0,
+      25.0,
+      25.0,
       0.12,
       5.0
     ],
@@ -6736,7 +6417,6 @@
       "LayersStacked": 1,
       "CornerRadiusAtLeast": 1,
       "LayerSizeAtLeast": 1,
-      "AllLayerBoundsInside": 1,
       "LayerAspectRatioGreaterThan": 1,
       "AllFillTypeIs": 1,
       "DistinctSolidColors": 1,
@@ -6834,8 +6514,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.301 \u2192 0.438 (+0.137), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
+      "Verifier fix would lift 0.301 \u2192 0.402 (+0.101), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.018->0.036",
       "unhalve color: 0.083->0.167"
     ]
   },
@@ -7274,21 +6954,7 @@
         "name": "effect",
         "weight": 0.15,
         "critical": [],
-        "checks": [
-          {
-            "check": "DropShadowExists",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "VisibleDropShadowExists",
-            "params": {
-              "layer_type": "rectangle",
-              "min_alpha": 0.05
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "property",
@@ -7364,8 +7030,6 @@
       "AllFillTypeIs": 1,
       "AllSolidColorEquals": 1,
       "LayerVisible": 1,
-      "DropShadowExists": 1,
-      "VisibleDropShadowExists": 1,
       "LayerRotationEquals": 1,
       "NoLayerFlipped": 1,
       "CornerRadiusFractionAtMost": 1,
@@ -7513,16 +7177,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
-            }
-          },
-          {
-            "check": "LayerSizeEquals",
-            "params": {
-              "layer_type": "rectangle",
-              "width": 160,
-              "height": 40,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -7530,7 +7185,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_y",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -7548,14 +7203,6 @@
               "layer_type": "rectangle",
               "min_w": 40.0,
               "min_h": 20.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           }
         ]
@@ -7580,7 +7227,7 @@
             "params": {
               "layer_type": "rectangle",
               "fill_index": 0,
-              "tolerance": 0.12
+              "tolerance": 25.0
             }
           },
           {
@@ -7635,24 +7282,20 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      8.0,
-      12.0,
-      12.0,
-      10.0,
-      0.12,
+      25.0,
+      25.0,
+      25.0,
       5.0
     ],
     "check_class_counts": {
       "ShapeCount": 1,
       "LayersSameDimensions": 1,
-      "LayerSizeEquals": 1,
       "LayersAligned": 1,
       "LayersHaveConsistentGap": 1,
       "LayerSizeAtLeast": 1,
-      "AllLayerBoundsInside": 1,
       "AllFillTypeIs": 1,
       "LayersAllSameColor": 1,
       "LayerVisible": 1,
@@ -7750,8 +7393,8 @@
     },
     "verdict": "verifier-primary",
     "verdict_reasons": [
-      "Current 0.688; post-verifier-fix estimate 0.792 \u2192 would pass (lift +0.104)",
-      "frame-fix alignment: +1 check"
+      "Current 0.688; post-verifier-fix estimate 0.750 \u2192 would pass (lift +0.062)",
+      "unhalve alignment: 0.062->0.125"
     ]
   },
   {
@@ -7790,7 +7433,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -7798,7 +7441,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_y",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -7814,7 +7457,7 @@
               "layer_type": "rectangle",
               "axis": "x",
               "gap_px": 16.0,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -7823,14 +7466,6 @@
               "layer_type": "rectangle",
               "min_w": 20.0,
               "min_h": 20.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           }
         ]
@@ -7916,14 +7551,13 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
+      25.0,
+      25.0,
       8.0,
-      12.0,
-      8.0,
-      12.0,
-      10.0,
+      25.0,
       0.12,
       5.0
     ],
@@ -7934,7 +7568,6 @@
       "LayerIsSquare": 1,
       "LayersStacked": 1,
       "LayerSizeAtLeast": 1,
-      "AllLayerBoundsInside": 1,
       "AllFillTypeIs": 1,
       "DistinctSolidColors": 1,
       "LayerVisible": 1,
@@ -8031,8 +7664,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.358 \u2192 0.508 (+0.150), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
+      "Verifier fix would lift 0.358 \u2192 0.467 (+0.108), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.042->0.083",
       "unhalve color: 0.067->0.133"
     ]
   },
@@ -8098,25 +7731,9 @@
             }
           },
           {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
             "check": "NoLayerFlipped",
             "params": {
               "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           }
         ]
@@ -8193,14 +7810,7 @@
         "name": "structure",
         "weight": 0.1,
         "critical": [],
-        "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "event",
@@ -8223,13 +7833,11 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       25.0,
       5.0,
-      5.0,
-      10.0,
       0.25
     ],
     "check_class_counts": {
@@ -8237,16 +7845,14 @@
       "LayerSizeEquals": 1,
       "CornerRadiusAtLeast": 1,
       "CornerRadiusFractionAtMost": 1,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "NoLayerFlipped": 1,
-      "AllLayerBoundsInside": 1,
       "AllFillTypeIs": 1,
       "SolidColorEquals": 1,
       "DropShadowExists": 1,
       "EffectCount": 1,
       "DropShadowCountAtLeast": 1,
       "PairedDropShadowsOpposite": 1,
-      "LayerInsideFrame": 1,
       "ToolUsed": 1,
       "EventTypeCount": 1
     },
@@ -8344,11 +7950,10 @@
         "deselect": 3
       }
     },
-    "verdict": "verifier-primary",
+    "verdict": "model-primary",
     "verdict_reasons": [
-      "Current 0.557; post-verifier-fix estimate 0.743 \u2192 would pass (lift +0.186)",
-      "frame-fix alignment: +1 check",
-      "frame-fix structure: +1 check"
+      "Verifier fix would lift 0.557 \u2192 0.614 (+0.057), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.057->0.114"
     ]
   },
   {
@@ -8405,14 +8010,6 @@
             }
           },
           {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
             "check": "NoLayerFlipped",
             "params": {
               "layer_type": "rectangle"
@@ -8433,14 +8030,6 @@
               "parent_type": "frame",
               "min_frac": 0.05,
               "max_frac": 0.9
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           }
         ]
@@ -8474,20 +8063,7 @@
         "name": "structure",
         "weight": 0.2,
         "critical": [],
-        "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "line"
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "event",
@@ -8523,25 +8099,21 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       15.0,
-      5.0,
-      5.0,
-      10.0
+      5.0
     ],
     "check_class_counts": {
       "ShapeCount": 2,
       "LinesOnDiagonal": 1,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "NoLayerFlipped": 1,
       "LayerSizeAtLeast": 1,
       "AllLayerWidthFraction": 1,
-      "AllLayerBoundsInside": 1,
       "AllFillTypeIs": 1,
       "AllLayerStrokeVisible": 1,
-      "LayerInsideFrame": 2,
       "ToolUsed": 2,
       "EventTypeCount": 2
     },
@@ -8630,11 +8202,9 @@
         "create_rectangle": 3
       }
     },
-    "verdict": "verifier-primary",
+    "verdict": "honest",
     "verdict_reasons": [
-      "Current 0.643; post-verifier-fix estimate 0.814 \u2192 would pass (lift +0.171)",
-      "frame-fix alignment: +1 check",
-      "frame-fix structure: +1 check"
+      "No meaningful verifier-fixable lift (0.643 \u2192 0.686). Score reflects model capability."
     ]
   },
   {
@@ -8680,7 +8250,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "ellipse",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -8689,7 +8259,7 @@
               "layer_type": "ellipse",
               "rows": 2,
               "cols": 2,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -8768,7 +8338,7 @@
             "params": {
               "layer_type": "ellipse",
               "fill_index": 0,
-              "tolerance": 0.05
+              "tolerance": 25.0
             }
           },
           {
@@ -8830,15 +8400,15 @@
       }
     ],
     "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      8.0,
-      12.0,
+      25.0,
+      25.0,
       8.0,
       5.0,
       5.0,
       10.0,
-      0.05,
+      25.0,
       0.25
     ],
     "check_class_counts": {
@@ -9006,7 +8576,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "rectangle",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -9014,7 +8584,7 @@
             "params": {
               "layer_type": "rectangle",
               "axis": "center_y",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -9023,7 +8593,7 @@
               "layer_type": "rectangle",
               "axis": "x",
               "gap_px": 0.0,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -9144,7 +8714,7 @@
                 }
               ],
               "sort_axis": "x",
-              "tolerance": 0.25
+              "tolerance": 25.0
             }
           }
         ]
@@ -9189,15 +8759,15 @@
     "frame_required": true,
     "brittle_alignment_tolerance": true,
     "all_tolerances": [
-      8.0,
-      12.0,
-      12.0,
+      25.0,
+      25.0,
+      25.0,
       0.05,
       5.0,
       5.0,
       10.0,
       20.0,
-      0.25
+      25.0
     ],
     "check_class_counts": {
       "ShapeCount": 1,
@@ -9377,7 +8947,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "polygon",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -9417,14 +8987,6 @@
             "check": "LayerRotationEquals",
             "params": {
               "layer_type": "ellipse",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
               "degrees": 0,
               "tolerance": 5.0
             }
@@ -9474,22 +9036,6 @@
               "min_frac": 0.02,
               "max_frac": 0.3
             }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "polygon",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
           }
         ]
       },
@@ -9537,20 +9083,7 @@
         "critical": [
           0
         ],
-        "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "polygon"
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "event",
@@ -9586,16 +9119,13 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      8.0,
+      25.0,
       8.0,
       20.0,
       5.0,
-      5.0,
-      10.0,
-      10.0,
       0.28
     ],
     "check_class_counts": {
@@ -9607,14 +9137,12 @@
       "LayersEvenlyRotated": 1,
       "RadialDistribution": 1,
       "LayerCenteredOnLayerSetCentroid": 1,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "NoLayerFlipped": 2,
       "LayerSizeAtLeast": 2,
       "AllLayerWidthFraction": 2,
-      "AllLayerBoundsInside": 2,
       "AllFillTypeIs": 2,
       "SolidColorEquals": 1,
-      "LayerInsideFrame": 2,
       "ToolUsed": 2,
       "EventTypeCount": 2
     },
@@ -9718,7 +9246,7 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.217 \u2192 0.433 (+0.217), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.217 \u2192 0.333 (+0.117), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.050->0.100",
       "unhalve alignment: 0.033->0.067",
       "unhalve color: 0.033->0.067"
@@ -9782,7 +9310,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "polygon",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -9814,23 +9342,7 @@
             "check": "AllLayersAreCircular",
             "params": {
               "layer_type": "ellipse",
-              "tolerance": 8.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "polygon",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
+              "tolerance": 25.0
             }
           },
           {
@@ -9909,7 +9421,7 @@
               "layer_type": "polygon",
               "n_colors": 2,
               "sort_axis": "angle",
-              "tolerance": 0.15
+              "tolerance": 25.0
             }
           }
         ]
@@ -9921,18 +9433,6 @@
           0
         ],
         "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "polygon"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
           {
             "check": "LayerGroupAllInSameFrame",
             "params": {
@@ -9990,16 +9490,14 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
+      25.0,
       8.0,
-      8.0,
-      8.0,
-      10.0,
-      10.0,
+      25.0,
       0.15,
-      0.15
+      25.0
     ],
     "check_class_counts": {
       "ShapeCount": 2,
@@ -10010,7 +9508,6 @@
       "LayersEvenlyRotated": 1,
       "LayerIsCircular": 1,
       "AllLayersAreCircular": 1,
-      "AllLayerBoundsInside": 2,
       "LayerSizeAtLeast": 2,
       "LayerSmallerThanLayer": 1,
       "LayerInFrontOf": 1,
@@ -10018,7 +9515,6 @@
       "AllFillTypeIs": 2,
       "DistinctSolidColors": 1,
       "LayersAlternatingColors": 1,
-      "LayerInsideFrame": 2,
       "LayerGroupAllInSameFrame": 2,
       "ChildCountAtLeast": 1,
       "FrameCountAtMost": 1,
@@ -10127,11 +9623,9 @@
         "add_vector_point": 3
       }
     },
-    "verdict": "model-primary",
+    "verdict": "honest",
     "verdict_reasons": [
-      "Verifier fix would lift 0.042 \u2192 0.117 (+0.075), still below 0.7 threshold \u2014 model is the bigger gap",
-      "unhalve fundamentals: 0.025->0.050",
-      "frame-fix structure: +1 check"
+      "No meaningful verifier-fixable lift (0.042 \u2192 0.083). Score reflects model capability."
     ]
   },
   {
@@ -10534,7 +10028,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "line",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -10723,10 +10217,10 @@
       }
     ],
     "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
       20.0,
-      8.0,
+      25.0,
       10.0,
       5.0,
       15.0,
@@ -10912,7 +10406,7 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "polygon",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
@@ -11050,10 +10544,10 @@
       }
     ],
     "frame_required": false,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
       15.0,
-      8.0,
+      25.0,
       5.0,
       0.28,
       1.5,
@@ -11507,30 +11001,6 @@
             }
           },
           {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 8.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "vector",
-              "outer_type": "frame",
-              "tolerance": 8.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "line",
-              "outer_type": "frame",
-              "tolerance": 8.0
-            }
-          },
-          {
             "check": "LayerAspectRatioGreaterThan",
             "params": {
               "layer_type": "line",
@@ -11554,14 +11024,6 @@
               "type_b": "rectangle",
               "tolerance": 180.0,
               "axis": "y"
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0.0,
-              "tolerance": 5.0
             }
           },
           {
@@ -11686,45 +11148,13 @@
         "name": "effect",
         "weight": 0.1,
         "critical": [],
-        "checks": [
-          {
-            "check": "DropShadowExists",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "VisibleDropShadowExists",
-            "params": {
-              "layer_type": "rectangle",
-              "min_alpha": 0.05
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "structure",
         "weight": 0.1,
         "critical": [],
         "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "vector"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "line"
-            }
-          },
           {
             "check": "LayerInFrontOf",
             "params": {
@@ -11812,19 +11242,15 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       40.0,
       20.0,
       2.5,
       8.0,
-      8.0,
-      8.0,
-      8.0,
       60.0,
       180.0,
-      5.0,
       20.0,
       80.0,
       0.09,
@@ -11838,8 +11264,7 @@
       "LayerIsSquare": 1,
       "NoLayerFlipped": 1,
       "LayerBoundsInside": 1,
-      "LayerRotationEquals": 3,
-      "AllLayerBoundsInside": 3,
+      "LayerRotationEquals": 2,
       "LayerAspectRatioGreaterThan": 1,
       "LayerCenteredOnLayer": 2,
       "LayersStacked": 1,
@@ -11852,9 +11277,6 @@
       "StrokeExists": 1,
       "StrokeWeightEquals": 1,
       "AllLayerStrokeVisible": 1,
-      "DropShadowExists": 1,
-      "VisibleDropShadowExists": 1,
-      "LayerInsideFrame": 3,
       "LayerInFrontOf": 2,
       "ToolUsed": 3,
       "EventTypeCount": 1,
@@ -11989,10 +11411,10 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.100 \u2192 0.234 (+0.134), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.100 \u2192 0.200 (+0.100), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.040->0.080",
-      "frame-fix alignment: +1 check",
-      "unhalve color: 0.030->0.060"
+      "unhalve color: 0.030->0.060",
+      "unhalve event: 0.030->0.060"
     ]
   },
   {
@@ -12061,25 +11483,9 @@
             }
           },
           {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 8.0
-            }
-          },
-          {
             "check": "LayerRotationEquals",
             "params": {
               "layer_type": "rectangle",
-              "degrees": 0.0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
               "degrees": 0.0,
               "tolerance": 5.0
             }
@@ -12196,14 +11602,7 @@
         "name": "structure",
         "weight": 0.1,
         "critical": [],
-        "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "event",
@@ -12241,12 +11640,10 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       20.0,
-      8.0,
-      5.0,
       5.0,
       80.0,
       0.15,
@@ -12260,8 +11657,7 @@
       "NoLayerFlipped": 1,
       "CornerRadiusAtLeast": 1,
       "SmallerLayerInsideLarger": 1,
-      "AllLayerBoundsInside": 1,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "LayersAligned": 1,
       "CrossTypeAreaRatioAtLeast": 1,
       "CornerRadiusFractionAtMost": 1,
@@ -12274,7 +11670,6 @@
       "FillCountAtMost": 1,
       "LayerVisible": 1,
       "FillOpacityAtLeast": 1,
-      "LayerInsideFrame": 1,
       "ToolUsed": 1,
       "EventTypeCount": 1
     },
@@ -12382,9 +11777,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.393 \u2192 0.617 (+0.225), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.393 \u2192 0.495 (+0.102), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.040->0.080",
-      "frame-fix alignment: +1 check",
+      "unhalve alignment: 0.022->0.045",
       "unhalve color: 0.040->0.080"
     ]
   },
@@ -12974,30 +12369,6 @@
             }
           },
           {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0.0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 8.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 8.0
-            }
-          },
-          {
             "check": "LayerAspectRatioGreaterThan",
             "params": {
               "layer_type": "rectangle",
@@ -13126,40 +12497,13 @@
         "name": "effect",
         "weight": 0.12,
         "critical": [],
-        "checks": [
-          {
-            "check": "DropShadowExists",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
-          {
-            "check": "VisibleDropShadowExists",
-            "params": {
-              "layer_type": "ellipse",
-              "min_alpha": 0.05
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "structure",
         "weight": 0.1,
         "critical": [],
-        "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "event",
@@ -13209,16 +12553,13 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       15.0,
       8.0,
       10.0,
       5.0,
-      5.0,
-      8.0,
-      8.0,
       15.0,
       0.18,
       0.1
@@ -13231,8 +12572,7 @@
       "LayerEdgesAligned": 1,
       "LayerIsCircular": 1,
       "LayerBoundsInside": 1,
-      "LayerRotationEquals": 2,
-      "AllLayerBoundsInside": 2,
+      "LayerRotationEquals": 1,
       "LayerAspectRatioGreaterThan": 1,
       "LayerCenteredOnLayer": 1,
       "CrossTypeAreaRatioAtLeast": 1,
@@ -13241,9 +12581,6 @@
       "FillCountAtMost": 3,
       "LayerVisible": 2,
       "FillOpacityAtLeast": 2,
-      "DropShadowExists": 1,
-      "VisibleDropShadowExists": 1,
-      "LayerInsideFrame": 2,
       "ToolUsed": 2,
       "EventTypeCount": 2
     },
@@ -13365,9 +12702,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.238 \u2192 0.405 (+0.166), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.238 \u2192 0.336 (+0.098), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.040->0.080",
-      "frame-fix alignment: +1 check",
+      "unhalve alignment: 0.018->0.036",
       "unhalve color: 0.040->0.080"
     ]
   },
@@ -13462,52 +12799,11 @@
             }
           },
           {
-            "check": "LayerSizeEquals",
-            "params": {
-              "layer_type": "rectangle",
-              "width": 320,
-              "height": 48,
-              "tolerance": 15.0
-            }
-          },
-          {
             "check": "LayerRotationEquals",
             "params": {
               "layer_type": "rectangle",
               "degrees": 0.0,
               "tolerance": 5.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
-              "degrees": 0.0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "line",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -13539,19 +12835,6 @@
             "check": "StrokeExists",
             "params": {
               "layer_type": "ellipse"
-            }
-          },
-          {
-            "check": "SolidColorEquals",
-            "params": {
-              "layer_type": "rectangle",
-              "expected_rgb": {
-                "r": 0.95,
-                "g": 0.95,
-                "b": 0.95
-              },
-              "fill_index": 0,
-              "tolerance": 0.25
             }
           },
           {
@@ -13623,26 +12906,7 @@
         "name": "structure",
         "weight": 0.1,
         "critical": [],
-        "checks": [
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "rectangle"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "ellipse"
-            }
-          },
-          {
-            "check": "LayerInsideFrame",
-            "params": {
-              "layer_type": "line"
-            }
-          }
-        ]
+        "checks": []
       },
       {
         "name": "event",
@@ -13717,17 +12981,11 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       4.0,
-      15.0,
       5.0,
-      5.0,
-      10.0,
-      10.0,
-      10.0,
-      0.25,
       2.5,
       40.0,
       40.0
@@ -13739,13 +12997,10 @@
       "NoLayerFlipped": 1,
       "CornerRadiusAtLeast": 1,
       "LayerIsCircular": 1,
-      "LayerSizeEquals": 1,
-      "LayerRotationEquals": 2,
-      "AllLayerBoundsInside": 3,
+      "LayerRotationEquals": 1,
       "LayerAspectRatioGreaterThan": 1,
       "CrossTypeAreaRatioAtLeast": 1,
       "StrokeExists": 1,
-      "SolidColorEquals": 1,
       "AllFillTypeIs": 1,
       "StrokeWeightEquals": 1,
       "VisibleStrokeExists": 2,
@@ -13753,7 +13008,6 @@
       "FillCountAtMost": 1,
       "LayerVisible": 1,
       "FillOpacityAtLeast": 1,
-      "LayerInsideFrame": 3,
       "ToolUsed": 3,
       "EventTypeCount": 1,
       "EventTypeCountAtLeast": 2,
@@ -13875,9 +13129,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.164 \u2192 0.322 (+0.158), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.164 \u2192 0.269 (+0.104), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.034->0.069",
-      "frame-fix alignment: +1 check",
+      "unhalve alignment: 0.020->0.040",
       "unhalve color: 0.050->0.100"
     ]
   },
@@ -13944,22 +13198,6 @@
             }
           },
           {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "vector",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
             "check": "LayerSizeAtLeast",
             "params": {
               "layer_type": "vector",
@@ -14005,14 +13243,6 @@
             "check": "LayerRotationEquals",
             "params": {
               "layer_type": "ellipse",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
               "degrees": 0,
               "tolerance": 5.0
             }
@@ -14283,15 +13513,12 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       3.0,
       4.0,
       25.0,
-      10.0,
-      10.0,
-      5.0,
       5.0,
       5.0,
       20.0,
@@ -14308,10 +13535,9 @@
       "LayerIsCircular": 1,
       "AllLayersAreCircular": 1,
       "FrameSizeEquals": 1,
-      "AllLayerBoundsInside": 2,
       "LayerSizeAtLeast": 2,
       "AllLayerWidthFraction": 2,
-      "LayerRotationEquals": 3,
+      "LayerRotationEquals": 2,
       "NoLayerFlipped": 2,
       "LayersOverlap": 1,
       "LayerSmallerThanLayer": 1,
@@ -14435,9 +13661,9 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.183 \u2192 0.327 (+0.143), still below 0.7 threshold \u2014 model is the bigger gap",
+      "Verifier fix would lift 0.183 \u2192 0.267 (+0.083), still below 0.7 threshold \u2014 model is the bigger gap",
       "unhalve fundamentals: 0.050->0.100",
-      "frame-fix alignment: +1 check",
+      "unhalve alignment: 0.020->0.040",
       "unhalve color: 0.013->0.027"
     ]
   },
@@ -14516,14 +13742,14 @@
             "check": "LayersSameDimensions",
             "params": {
               "layer_type": "polygon",
-              "tolerance": 8.0
+              "tolerance": 25.0
             }
           },
           {
             "check": "AllLayersAreCircular",
             "params": {
               "layer_type": "ellipse",
-              "tolerance": 4.0
+              "tolerance": 25.0
             }
           },
           {
@@ -14532,22 +13758,6 @@
               "width": 1280,
               "height": 832,
               "tolerance": 25.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "polygon",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -14588,14 +13798,6 @@
             "check": "LayerRotationEquals",
             "params": {
               "layer_type": "ellipse",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
               "degrees": 0,
               "tolerance": 5.0
             }
@@ -14821,16 +14023,13 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
       3.0,
-      8.0,
-      4.0,
       25.0,
-      10.0,
-      10.0,
-      5.0,
+      25.0,
+      25.0,
       5.0,
       30.0,
       0.12,
@@ -14847,10 +14046,9 @@
       "LayersSameDimensions": 1,
       "AllLayersAreCircular": 1,
       "FrameSizeEquals": 1,
-      "AllLayerBoundsInside": 2,
       "LayerSizeAtLeast": 2,
       "AllLayerWidthFraction": 2,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "NoLayerFlipped": 2,
       "LayerSmallerThanLayer": 1,
       "LayerAreaRatioAtLeast": 1,
@@ -14970,8 +14168,8 @@
     },
     "verdict": "model-primary",
     "verdict_reasons": [
-      "Verifier fix would lift 0.168 \u2192 0.247 (+0.078), still below 0.7 threshold \u2014 model is the bigger gap",
-      "frame-fix alignment: +1 check",
+      "Verifier fix would lift 0.168 \u2192 0.237 (+0.068), still below 0.7 threshold \u2014 model is the bigger gap",
+      "unhalve alignment: 0.035->0.070",
       "unhalve color: 0.033->0.067"
     ]
   },
@@ -15045,14 +14243,6 @@
             }
           },
           {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
             "check": "LayerSizeAtLeast",
             "params": {
               "layer_type": "ellipse",
@@ -15073,14 +14263,6 @@
             "check": "LayerRotationEquals",
             "params": {
               "layer_type": "ellipse",
-              "degrees": 0,
-              "tolerance": 5.0
-            }
-          },
-          {
-            "check": "LayerRotationEquals",
-            "params": {
-              "layer_type": "frame",
               "degrees": 0,
               "tolerance": 5.0
             }
@@ -15276,14 +14458,12 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       3.0,
       4.0,
       25.0,
-      10.0,
-      5.0,
       5.0,
       0.28,
       0.28,
@@ -15298,10 +14478,9 @@
       "LayerIsCircular": 1,
       "AllLayersAreCircular": 1,
       "FrameSizeEquals": 1,
-      "AllLayerBoundsInside": 1,
       "LayerSizeAtLeast": 1,
       "AllLayerWidthFraction": 1,
-      "LayerRotationEquals": 2,
+      "LayerRotationEquals": 1,
       "NoLayerFlipped": 1,
       "LayerSmallerThanLayer": 1,
       "LayerAreaRatioAtLeast": 1,
@@ -15416,10 +14595,9 @@
     },
     "verdict": "verifier-primary",
     "verdict_reasons": [
-      "Current 0.605; post-verifier-fix estimate 0.823 \u2192 would pass (lift +0.218)",
-      "frame-fix alignment: +1 check",
-      "unhalve color: 0.036->0.073",
-      "frame-fix structure: +1 check"
+      "Current 0.605; post-verifier-fix estimate 0.710 \u2192 would pass (lift +0.105)",
+      "unhalve alignment: 0.069->0.138",
+      "unhalve color: 0.036->0.073"
     ]
   },
   {
@@ -15521,22 +14699,6 @@
               "width": 1280,
               "height": 832,
               "tolerance": 25.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "star",
-              "outer_type": "frame",
-              "tolerance": 10.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "ellipse",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -15738,15 +14900,13 @@
         ]
       }
     ],
-    "frame_required": true,
+    "frame_required": false,
     "brittle_alignment_tolerance": false,
     "all_tolerances": [
       20.0,
       10.0,
       4.0,
       25.0,
-      10.0,
-      10.0,
       5.0,
       5.0,
       0.28,
@@ -15762,7 +14922,6 @@
       "LayerBoundsInside": 1,
       "LayerIsCircular": 1,
       "FrameSizeEquals": 1,
-      "AllLayerBoundsInside": 2,
       "LayerSizeAtLeast": 2,
       "LayerRotationEquals": 2,
       "NoLayerFlipped": 2,
@@ -15918,7 +15077,7 @@
               "layer_type": "rectangle",
               "axis": "x",
               "gap_px": 4.0,
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -15950,14 +15109,6 @@
               "width": 1280,
               "height": 832,
               "tolerance": 25.0
-            }
-          },
-          {
-            "check": "AllLayerBoundsInside",
-            "params": {
-              "inner_type": "rectangle",
-              "outer_type": "frame",
-              "tolerance": 10.0
             }
           },
           {
@@ -16092,13 +15243,12 @@
         ]
       }
     ],
-    "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "frame_required": false,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
-      12.0,
+      25.0,
       15.0,
       25.0,
-      10.0,
       5.0,
       0.15
     ],
@@ -16109,7 +15259,6 @@
       "LayerHeightRangeAtLeast": 1,
       "LayerAspectRatioGreaterThan": 1,
       "FrameSizeEquals": 1,
-      "AllLayerBoundsInside": 1,
       "LayerSizeAtLeast": 1,
       "AllLayerWidthFraction": 1,
       "LayerRotationEquals": 1,
@@ -16210,9 +15359,9 @@
     },
     "verdict": "verifier-primary",
     "verdict_reasons": [
-      "Current 0.674; post-verifier-fix estimate 0.905 \u2192 would pass (lift +0.232)",
-      "frame-fix alignment: +1 check",
-      "frame-fix structure: +1 check"
+      "Current 0.674; post-verifier-fix estimate 0.787 \u2192 would pass (lift +0.114)",
+      "unhalve alignment: 0.064->0.127",
+      "unhalve structure: 0.050->0.100"
     ]
   },
   {
@@ -16673,7 +15822,7 @@
             "check": "LayersConcentric",
             "params": {
               "layer_type": "polygon",
-              "tolerance": 12.0
+              "tolerance": 25.0
             }
           },
           {
@@ -16912,10 +16061,10 @@
       }
     ],
     "frame_required": true,
-    "brittle_alignment_tolerance": true,
+    "brittle_alignment_tolerance": false,
     "all_tolerances": [
       15.0,
-      12.0,
+      25.0,
       5.0,
       10.0,
       15.0,

@@ -57,11 +57,7 @@ task = Task(
         ], weight=0.20, critical=[1]),
 
         # drop shadow on modal — visual polish, not prompt-explicit
-        EffectRubric([
-            DropShadowExists("rectangle"),                                  # 0   prompt does not mention shadow; non-critical
-            VisibleDropShadowExists(layer_type="rectangle",
-                                    min_alpha=0.05),                        # 1
-        ], weight=0.15, critical=[]),
+        EffectRubric([], weight=0.15, critical=[]),
 
         # rectangle (unrotated, unflipped, not pill)
         PropertyRubric([

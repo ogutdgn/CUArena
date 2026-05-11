@@ -22,7 +22,7 @@
     },
     "verifier_summary": {
       "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1,
         "ellipse": 1,
@@ -62,20 +62,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_02_sunset_gradient",
@@ -101,7 +91,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -121,21 +111,14 @@
         "type": "FRAME-UNDERSPEC",
         "severity": "low",
         "detail": "Prompt mentions a frame (Create a frame) but verifier has no frame containment check."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
       }
     ],
-    "n_issues": 2,
+    "n_issues": 1,
     "severity_counts": {
-      "low": 1,
-      "medium": 1
+      "low": 1
     },
     "issue_types": [
-      "FRAME-UNDERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
+      "FRAME-UNDERSPEC"
     ]
   },
   {
@@ -156,7 +139,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "ellipse": 1
@@ -164,7 +147,6 @@
       "check_class_counts": {
         "ShapeCount": 1,
         "RadialDistributionExcludeCentral": 1,
-        "LayerInsideFrame": 1,
         "CentermostLayerHasColor": 1,
         "DistinctTypedSolidColors": 1,
         "ToolUsed": 1,
@@ -172,20 +154,10 @@
       },
       "n_rubrics": 4
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_04_color_wheel",
@@ -254,7 +226,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -268,20 +240,10 @@
       },
       "n_rubrics": 4
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_06_gold_star_exclude",
@@ -437,8 +399,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -448,33 +410,15 @@
         "LayerAllSquare": 1,
         "LayersSameDimensions": 1,
         "DistinctTypedSolidColors": 1,
-        "LayerInsideFrame": 1,
         "ToolUsed": 1,
         "EventTypeCountAtLeast": 1
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_10_apple_avatar",
@@ -493,7 +437,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -507,20 +451,10 @@
       },
       "n_rubrics": 4
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_11_pressed_button",
@@ -546,7 +480,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "polygon": 1
       },
@@ -561,20 +495,10 @@
       },
       "n_rubrics": 4
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_12_shadowed_cards",
@@ -592,8 +516,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -603,10 +527,9 @@
         "LayersAligned": 1,
         "LayersDistributed": 1,
         "LayersAllShareEdge": 2,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "LayerSizeAtLeast": 1,
         "AllLayerWidthFraction": 1,
-        "AllLayerBoundsInside": 1,
         "LayersHaveConsistentGap": 1,
         "AllFillTypeIs": 1,
         "FillCountAtMost": 1,
@@ -614,34 +537,16 @@
         "LayerVisible": 1,
         "CornerRadiusFractionAtMost": 1,
         "NoLayerFlipped": 1,
-        "LayerInsideFrame": 1,
         "ChildCountAtLeast": 1,
         "ToolUsed": 1,
         "EventTypeCount": 1
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_13_night_sky",
@@ -659,8 +564,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "line": 1
       },
@@ -669,40 +574,20 @@
         "LayersHaveRotations": 1,
         "LayersOverlap": 1,
         "LayerSizeAtLeast": 1,
-        "AllLayerBoundsInside": 1,
-        "LayerRotationEquals": 1,
         "LayersAtDistinctPositions": 1,
         "LayerVisible": 1,
         "LayerRendersStrokeOrFill": 1,
         "NoLayerFlipped": 1,
-        "LayerInsideFrame": 1,
         "ChildCountAtLeast": 1,
         "ToolUsed": 1,
         "EventTypeCount": 1
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_14_concentric_target",
@@ -724,8 +609,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "ellipse": 1
       },
@@ -735,8 +620,6 @@
         "LayersStrictlyNested": 1,
         "LayerIsCircular": 1,
         "LayerSizeAtLeast": 1,
-        "AllLayerBoundsInside": 1,
-        "LayerRotationEquals": 1,
         "AllFillTypeIs": 1,
         "LayersHaveColorOrder": 1,
         "AllStrokeExists": 1,
@@ -746,34 +629,16 @@
         "FillOpacityAtLeast": 1,
         "LayerVisible": 1,
         "NoLayerFlipped": 1,
-        "LayerInsideFrame": 1,
         "ChildCountAtLeast": 1,
         "ToolUsed": 1,
         "EventTypeCount": 1
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_15_cloud_union",
@@ -793,7 +658,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "ellipse": 1
@@ -803,10 +668,9 @@
         "LayersAllShareEdge": 1,
         "LayersOverlap": 1,
         "LayerSizeAtLeast": 1,
-        "AllLayerBoundsInside": 1,
-        "LayerRotationEquals": 2,
         "LayersAtDistinctPositions": 1,
         "AllLayerWidthFraction": 1,
+        "LayerRotationEquals": 1,
         "AllSolidColorEquals": 1,
         "AllFillTypeIs": 1,
         "FillCountAtMost": 1,
@@ -816,27 +680,16 @@
         "AllStrokeExists": 1,
         "AllStrokeWeightWithinTolerance": 1,
         "AllStrokeColorEquals": 1,
-        "LayerInsideFrame": 1,
         "ChildCountAtLeast": 1,
         "ToolUsed": 1,
         "EventTypeCount": 1
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_16_speech_bubble",
@@ -856,7 +709,7 @@
       "mentions_corner_radius": true
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1,
@@ -868,8 +721,7 @@
         "LayersOverlap": 1,
         "CornerRadiusAtLeast": 1,
         "LayerSizeAtLeast": 2,
-        "AllLayerBoundsInside": 2,
-        "LayerRotationEquals": 3,
+        "LayerRotationEquals": 2,
         "AllLayerWidthFraction": 1,
         "CornerRadiusFractionAtMost": 1,
         "CrossTypeAreaRatioAtLeast": 1,
@@ -883,27 +735,16 @@
         "AllStrokeExists": 2,
         "AllStrokeWeightWithinTolerance": 2,
         "AllStrokeColorEquals": 2,
-        "LayerInsideFrame": 2,
         "ChildCountAtLeast": 1,
         "ToolUsed": 2,
         "EventTypeCount": 2
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_17_play_button",
@@ -926,8 +767,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "polygon": 1,
         "rectangle": 1
@@ -939,14 +780,12 @@
         "LayersHaveRotations": 1,
         "LayersStacked": 1,
         "LayersBracketAllOnAxis": 1,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "LayerAspectRatioGreaterThan": 1,
         "AllFillTypeIs": 2,
         "FillCountAtMost": 2,
         "LayerVisible": 2,
-        "LayerInsideFrame": 2,
         "LayerGroupAllInSameFrame": 2,
-        "AllLayerBoundsInside": 2,
         "LayerSizeAtLeast": 2,
         "NoLayerFlipped": 2,
         "FrameCountAtMost": 1,
@@ -956,27 +795,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_18_donut",
@@ -997,7 +819,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": true,
       "required_shape_types": {
         "ellipse": 1
@@ -1013,13 +835,10 @@
         "LayerVisible": 1,
         "DistinctSolidColors": 1,
         "LayersHaveColorOrder": 1,
-        "LayerInsideFrame": 1,
         "LayerGroupAllInSameFrame": 1,
-        "AllLayerBoundsInside": 1,
         "LayerSizeAtLeast": 1,
         "NoLayerFlipped": 1,
         "FrameCountAtMost": 1,
-        "LayerRotationEquals": 1,
         "ToolUsed": 1,
         "EventTypeCount": 1
       },
@@ -1027,23 +846,16 @@
     },
     "issues": [
       {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
         "type": "BRITTLE-ALIGN-TOLERANCE",
         "severity": "medium",
         "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
       }
     ],
-    "n_issues": 2,
+    "n_issues": 1,
     "severity_counts": {
-      "high": 1,
       "medium": 1
     },
     "issue_types": [
-      "FRAME-OVERSPEC",
       "BRITTLE-ALIGN-TOLERANCE"
     ]
   },
@@ -1068,7 +880,7 @@
       "mentions_corner_radius": true
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1,
@@ -1084,7 +896,7 @@
         "LayerIsCircular": 1,
         "CornerRadiusEquals": 1,
         "LayerSmallerThanLayer": 1,
-        "LayerRotationEquals": 4,
+        "LayerRotationEquals": 3,
         "AllFillTypeIs": 1,
         "FillCountAtMost": 2,
         "SolidColorEquals": 2,
@@ -1092,9 +904,7 @@
         "StrokeWeightEquals": 1,
         "StrokeRendersVisible": 1,
         "LayerVisible": 2,
-        "LayerInsideFrame": 3,
         "LayerGroupAllInSameFrame": 3,
-        "AllLayerBoundsInside": 2,
         "LayerSizeAtLeast": 3,
         "NoLayerFlipped": 2,
         "FrameCountAtMost": 1,
@@ -1104,20 +914,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_20_glow_blob",
@@ -1195,8 +995,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -1206,15 +1006,13 @@
         "LayersSameDimensions": 1,
         "LayersAligned": 1,
         "LayersStacked": 1,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "LayerAspectRatioGreaterThan": 1,
         "AllFillTypeIs": 1,
         "FillCountAtMost": 1,
         "DistinctTypedSolidColors": 1,
         "LayerVisible": 1,
-        "LayerInsideFrame": 1,
         "LayerGroupAllInSameFrame": 1,
-        "AllLayerBoundsInside": 1,
         "LayerSizeAtLeast": 1,
         "NoLayerFlipped": 1,
         "FrameCountAtMost": 1,
@@ -1224,27 +1022,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_22_tag_pills",
@@ -1264,8 +1045,8 @@
       "mentions_corner_radius": true
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -1276,7 +1057,6 @@
         "LayersStacked": 1,
         "CornerRadiusAtLeast": 1,
         "LayerSizeAtLeast": 1,
-        "AllLayerBoundsInside": 1,
         "LayerAspectRatioGreaterThan": 1,
         "AllFillTypeIs": 1,
         "DistinctSolidColors": 1,
@@ -1288,27 +1068,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_23_stretchy_sidebar",
@@ -1398,8 +1161,6 @@
         "AllFillTypeIs": 1,
         "AllSolidColorEquals": 1,
         "LayerVisible": 1,
-        "DropShadowExists": 1,
-        "VisibleDropShadowExists": 1,
         "LayerRotationEquals": 1,
         "NoLayerFlipped": 1,
         "CornerRadiusFractionAtMost": 1,
@@ -1409,20 +1170,10 @@
       },
       "n_rubrics": 6
     },
-    "issues": [
-      {
-        "type": "EFFECT-OVERSPEC",
-        "severity": "medium",
-        "detail": "Verifier requires drop-shadow / effect checks but prompt mentions no effects."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "EFFECT-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_25_button_component",
@@ -1440,19 +1191,17 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
       "check_class_counts": {
         "ShapeCount": 1,
         "LayersSameDimensions": 1,
-        "LayerSizeEquals": 1,
         "LayersAligned": 1,
         "LayersHaveConsistentGap": 1,
         "LayerSizeAtLeast": 1,
-        "AllLayerBoundsInside": 1,
         "AllFillTypeIs": 1,
         "LayersAllSameColor": 1,
         "LayerVisible": 1,
@@ -1463,33 +1212,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "SIZE-OVERSPEC",
-        "severity": "medium",
-        "detail": "Verifier requires exact W\u00d7H (1 check(s)) but prompt mentions no pixel dimensions."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 3,
-    "severity_counts": {
-      "high": 1,
-      "medium": 2
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "SIZE-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_26_color_variable_card",
@@ -1509,8 +1235,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -1521,7 +1247,6 @@
         "LayerIsSquare": 1,
         "LayersStacked": 1,
         "LayerSizeAtLeast": 1,
-        "AllLayerBoundsInside": 1,
         "AllFillTypeIs": 1,
         "DistinctSolidColors": 1,
         "LayerVisible": 1,
@@ -1533,27 +1258,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_27_neumorphic_button",
@@ -1579,7 +1287,7 @@
       "mentions_corner_radius": true
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
@@ -1589,35 +1297,23 @@
         "LayerSizeEquals": 1,
         "CornerRadiusAtLeast": 1,
         "CornerRadiusFractionAtMost": 1,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "NoLayerFlipped": 1,
-        "AllLayerBoundsInside": 1,
         "AllFillTypeIs": 1,
         "SolidColorEquals": 1,
         "DropShadowExists": 1,
         "EffectCount": 1,
         "DropShadowCountAtLeast": 1,
         "PairedDropShadowsOpposite": 1,
-        "LayerInsideFrame": 1,
         "ToolUsed": 1,
         "EventTypeCount": 1
       },
       "n_rubrics": 6
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_28_edited_photo",
@@ -1635,7 +1331,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1,
@@ -1644,33 +1340,21 @@
       "check_class_counts": {
         "ShapeCount": 2,
         "LinesOnDiagonal": 1,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "NoLayerFlipped": 1,
         "LayerSizeAtLeast": 1,
         "AllLayerWidthFraction": 1,
-        "AllLayerBoundsInside": 1,
         "AllFillTypeIs": 1,
         "AllLayerStrokeVisible": 1,
-        "LayerInsideFrame": 2,
         "ToolUsed": 2,
         "EventTypeCount": 2
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_29_polka_dot_grid",
@@ -1696,7 +1380,7 @@
     },
     "verifier_summary": {
       "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "ellipse": 1,
         "frame": 1
@@ -1722,20 +1406,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_30_stripe_wallpaper",
@@ -1817,8 +1491,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "ellipse": 1,
         "polygon": 1,
@@ -1833,40 +1507,21 @@
         "LayersEvenlyRotated": 1,
         "RadialDistribution": 1,
         "LayerCenteredOnLayerSetCentroid": 1,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "NoLayerFlipped": 2,
         "LayerSizeAtLeast": 2,
         "AllLayerWidthFraction": 2,
-        "AllLayerBoundsInside": 2,
         "AllFillTypeIs": 2,
         "SolidColorEquals": 1,
-        "LayerInsideFrame": 2,
         "ToolUsed": 2,
         "EventTypeCount": 2
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_32_pinwheel",
@@ -1889,8 +1544,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "polygon": 1,
         "ellipse": 1,
@@ -1905,7 +1560,6 @@
         "LayersEvenlyRotated": 1,
         "LayerIsCircular": 1,
         "AllLayersAreCircular": 1,
-        "AllLayerBoundsInside": 2,
         "LayerSizeAtLeast": 2,
         "LayerSmallerThanLayer": 1,
         "LayerInFrontOf": 1,
@@ -1913,7 +1567,6 @@
         "AllFillTypeIs": 2,
         "DistinctSolidColors": 1,
         "LayersAlternatingColors": 1,
-        "LayerInsideFrame": 2,
         "LayerGroupAllInSameFrame": 2,
         "ChildCountAtLeast": 1,
         "FrameCountAtMost": 1,
@@ -1922,27 +1575,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_33_pie_chart",
@@ -2015,7 +1651,7 @@
     },
     "verifier_summary": {
       "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "frame": 1,
         "line": 1
@@ -2048,20 +1684,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_35_honeycomb",
@@ -2087,7 +1713,7 @@
     },
     "verifier_summary": {
       "frame_required": false,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "polygon": 1
       },
@@ -2113,20 +1739,10 @@
       },
       "n_rubrics": 4
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_36_polaroid",
@@ -2190,7 +1806,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1,
@@ -2204,8 +1820,7 @@
         "LayerIsSquare": 1,
         "NoLayerFlipped": 1,
         "LayerBoundsInside": 1,
-        "LayerRotationEquals": 3,
-        "AllLayerBoundsInside": 3,
+        "LayerRotationEquals": 2,
         "LayerAspectRatioGreaterThan": 1,
         "LayerCenteredOnLayer": 2,
         "LayersStacked": 1,
@@ -2218,9 +1833,6 @@
         "StrokeExists": 1,
         "StrokeWeightEquals": 1,
         "AllLayerStrokeVisible": 1,
-        "DropShadowExists": 1,
-        "VisibleDropShadowExists": 1,
-        "LayerInsideFrame": 3,
         "LayerInFrontOf": 2,
         "ToolUsed": 3,
         "EventTypeCount": 1,
@@ -2228,27 +1840,10 @@
       },
       "n_rubrics": 7
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "EFFECT-OVERSPEC",
-        "severity": "medium",
-        "detail": "Verifier requires drop-shadow / effect checks but prompt mentions no effects."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "EFFECT-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_38_battery_indicator",
@@ -2271,7 +1866,7 @@
       "mentions_corner_radius": true
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
@@ -2283,8 +1878,7 @@
         "NoLayerFlipped": 1,
         "CornerRadiusAtLeast": 1,
         "SmallerLayerInsideLarger": 1,
-        "AllLayerBoundsInside": 1,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "LayersAligned": 1,
         "CrossTypeAreaRatioAtLeast": 1,
         "CornerRadiusFractionAtMost": 1,
@@ -2297,26 +1891,15 @@
         "FillCountAtMost": 1,
         "LayerVisible": 1,
         "FillOpacityAtLeast": 1,
-        "LayerInsideFrame": 1,
         "ToolUsed": 1,
         "EventTypeCount": 1
       },
       "n_rubrics": 6
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_39_wifi_icon",
@@ -2416,7 +1999,7 @@
       "mentions_corner_radius": true
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1,
@@ -2430,8 +2013,7 @@
         "LayerEdgesAligned": 1,
         "LayerIsCircular": 1,
         "LayerBoundsInside": 1,
-        "LayerRotationEquals": 2,
-        "AllLayerBoundsInside": 2,
+        "LayerRotationEquals": 1,
         "LayerAspectRatioGreaterThan": 1,
         "LayerCenteredOnLayer": 1,
         "CrossTypeAreaRatioAtLeast": 1,
@@ -2440,35 +2022,15 @@
         "FillCountAtMost": 3,
         "LayerVisible": 2,
         "FillOpacityAtLeast": 2,
-        "DropShadowExists": 1,
-        "VisibleDropShadowExists": 1,
-        "LayerInsideFrame": 2,
         "ToolUsed": 2,
         "EventTypeCount": 2
       },
       "n_rubrics": 7
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "EFFECT-OVERSPEC",
-        "severity": "medium",
-        "detail": "Verifier requires drop-shadow / effect checks but prompt mentions no effects."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "EFFECT-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_41_search_bar",
@@ -2486,7 +2048,7 @@
       "mentions_corner_radius": true
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1,
@@ -2500,13 +2062,10 @@
         "NoLayerFlipped": 1,
         "CornerRadiusAtLeast": 1,
         "LayerIsCircular": 1,
-        "LayerSizeEquals": 1,
-        "LayerRotationEquals": 2,
-        "AllLayerBoundsInside": 3,
+        "LayerRotationEquals": 1,
         "LayerAspectRatioGreaterThan": 1,
         "CrossTypeAreaRatioAtLeast": 1,
         "StrokeExists": 1,
-        "SolidColorEquals": 1,
         "AllFillTypeIs": 1,
         "StrokeWeightEquals": 1,
         "VisibleStrokeExists": 2,
@@ -2514,7 +2073,6 @@
         "FillCountAtMost": 1,
         "LayerVisible": 1,
         "FillOpacityAtLeast": 1,
-        "LayerInsideFrame": 3,
         "ToolUsed": 3,
         "EventTypeCount": 1,
         "EventTypeCountAtLeast": 2,
@@ -2523,33 +2081,10 @@
       },
       "n_rubrics": 6
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "COLOR-OVERSPEC",
-        "severity": "medium",
-        "detail": "Verifier requires 1 specific RGB(s) but prompt mentions no named color or hex."
-      },
-      {
-        "type": "SIZE-OVERSPEC",
-        "severity": "medium",
-        "detail": "Verifier requires exact W\u00d7H (1 check(s)) but prompt mentions no pixel dimensions."
-      }
-    ],
-    "n_issues": 3,
-    "severity_counts": {
-      "high": 1,
-      "medium": 2
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "COLOR-OVERSPEC",
-      "SIZE-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_42_bell_icon",
@@ -2572,7 +2107,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "vector": 1,
@@ -2583,10 +2118,9 @@
         "LayerIsCircular": 1,
         "AllLayersAreCircular": 1,
         "FrameSizeEquals": 1,
-        "AllLayerBoundsInside": 2,
         "LayerSizeAtLeast": 2,
         "AllLayerWidthFraction": 2,
-        "LayerRotationEquals": 3,
+        "LayerRotationEquals": 2,
         "NoLayerFlipped": 2,
         "LayersOverlap": 1,
         "LayerSmallerThanLayer": 1,
@@ -2611,20 +2145,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_43_compass_rose",
@@ -2648,8 +2172,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "ellipse": 1,
         "polygon": 1
@@ -2663,10 +2187,9 @@
         "LayersSameDimensions": 1,
         "AllLayersAreCircular": 1,
         "FrameSizeEquals": 1,
-        "AllLayerBoundsInside": 2,
         "LayerSizeAtLeast": 2,
         "AllLayerWidthFraction": 2,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "NoLayerFlipped": 2,
         "LayerSmallerThanLayer": 1,
         "LayerAreaRatioAtLeast": 1,
@@ -2686,27 +2209,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_44_avatar_status",
@@ -2726,7 +2232,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "ellipse": 1
@@ -2738,10 +2244,9 @@
         "LayerIsCircular": 1,
         "AllLayersAreCircular": 1,
         "FrameSizeEquals": 1,
-        "AllLayerBoundsInside": 1,
         "LayerSizeAtLeast": 1,
         "AllLayerWidthFraction": 1,
-        "LayerRotationEquals": 2,
+        "LayerRotationEquals": 1,
         "NoLayerFlipped": 1,
         "LayerSmallerThanLayer": 1,
         "LayerAreaRatioAtLeast": 1,
@@ -2765,20 +2270,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_45_geometric_emblem",
@@ -2801,7 +2296,7 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
+      "frame_required": false,
       "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "star": 1,
@@ -2817,7 +2312,6 @@
         "LayerBoundsInside": 1,
         "LayerIsCircular": 1,
         "FrameSizeEquals": 1,
-        "AllLayerBoundsInside": 2,
         "LayerSizeAtLeast": 2,
         "LayerRotationEquals": 2,
         "NoLayerFlipped": 2,
@@ -2834,20 +2328,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "high": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_46_audio_waveform",
@@ -2865,8 +2349,8 @@
       "mentions_corner_radius": false
     },
     "verifier_summary": {
-      "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "frame_required": false,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "rectangle": 1
       },
@@ -2877,7 +2361,6 @@
         "LayerHeightRangeAtLeast": 1,
         "LayerAspectRatioGreaterThan": 1,
         "FrameSizeEquals": 1,
-        "AllLayerBoundsInside": 1,
         "LayerSizeAtLeast": 1,
         "AllLayerWidthFraction": 1,
         "LayerRotationEquals": 1,
@@ -2895,27 +2378,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "FRAME-OVERSPEC",
-        "severity": "high",
-        "detail": "Verifier requires LayerInsideFrame / AllLayerBoundsInside(outer=frame) but prompt's Thorough description does not mention a Figma frame."
-      },
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 2,
-    "severity_counts": {
-      "high": 1,
-      "medium": 1
-    },
-    "issue_types": [
-      "FRAME-OVERSPEC",
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_47_sunburst_badge",
@@ -2996,7 +2462,7 @@
     },
     "verifier_summary": {
       "frame_required": true,
-      "brittle_alignment_tolerance": true,
+      "brittle_alignment_tolerance": false,
       "required_shape_types": {
         "frame": 1,
         "line": 1,
@@ -3029,20 +2495,10 @@
       },
       "n_rubrics": 5
     },
-    "issues": [
-      {
-        "type": "BRITTLE-ALIGN-TOLERANCE",
-        "severity": "medium",
-        "detail": "Verifier uses alignment tolerance < 15 px \u2014 strict beyond typical drag accuracy. This is a calibration issue, not a prompt-mismatch issue."
-      }
-    ],
-    "n_issues": 1,
-    "severity_counts": {
-      "medium": 1
-    },
-    "issue_types": [
-      "BRITTLE-ALIGN-TOLERANCE"
-    ]
+    "issues": [],
+    "n_issues": 0,
+    "severity_counts": {},
+    "issue_types": []
   },
   {
     "task_id": "task_49_decorative_ribbon",

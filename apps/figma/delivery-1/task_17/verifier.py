@@ -34,13 +34,13 @@ task = Task(
         ], weight=0.20, critical=[0, 1, 2]),
 
         AlignmentRubric([
-            LayersAligned(layer_type="polygon",   axis="center_x", tolerance=12.0),     # 0 ★ prompt: "All shapes share a center x"
-            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=12.0),     # 1 ★ prompt: "All shapes share a center x"
+            LayersAligned(layer_type="polygon",   axis="center_x", tolerance=25.0),     # 0 ★ prompt: "All shapes share a center x"
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=25.0),     # 1 ★ prompt: "All shapes share a center x"
             LayersHaveRotations(layer_type="polygon", expected=[0, 180], count_per=1,   # 2 ★ prompt: "one pointing down, one pointing up"
                                 tolerance_deg=10.0),
-            LayersStacked(layer_type="polygon",   axis="y", gap_px=0.0, tolerance=12.0),# 3 ★ prompt: "point-to-point at the center"
+            LayersStacked(layer_type="polygon",   axis="y", gap_px=0.0, tolerance=25.0),# 3 ★ prompt: "point-to-point at the center"
             LayersBracketAllOnAxis(bracket_type="rectangle", inner_type="polygon",      # 4 ★ prompt: "caps at the top and bottom"
-                                   axis="y", tolerance=4.0),
+                                   axis="y", tolerance=25.0),
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 5 caps must be horizontal
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0,              # 6 ★ prompt: "horizontal cap rectangles" (w > 2*h)
                                         axis="horizontal"),
@@ -56,20 +56,16 @@ task = Task(
         ], weight=0.20, critical=[]),
 
         StructureRubric([
-            LayerInsideFrame(layer_type="polygon"),                                     # 0 triangles in a frame
-            LayerInsideFrame(layer_type="rectangle"),                                   # 1 caps in same frame
+
             LayerGroupAllInSameFrame(layer_type="polygon",   minimum=2),                # 2 both triangles in same frame
             LayerGroupAllInSameFrame(layer_type="rectangle", minimum=2),                # 3 both caps in same frame
-            AllLayerBoundsInside(inner_type="polygon",   outer_type="frame",            # 4 triangles must fit inside frame
-                                 tolerance=10.0),
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 5 caps must fit inside frame
-                                 tolerance=10.0),
+
             LayerSizeAtLeast(layer_type="polygon",   min_w=15, min_h=15),               # 6 not 1×1 degenerate
             LayerSizeAtLeast(layer_type="rectangle", min_w=15, min_h=4),                # 7 not 1×1 degenerate
             NoLayerFlipped(layer_type="polygon"),                                       # 8 not flipped
             NoLayerFlipped(layer_type="rectangle"),                                     # 9 not flipped
             FrameCountAtMost(maximum=1),                                                # 10 one frame total (not split)
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 11 frame not rotated
+
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 12 caps not pills/circles
         ], weight=0.20, critical=[]),
 

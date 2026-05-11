@@ -39,9 +39,9 @@ task = Task(
         ], weight=0.20, critical=[0]),
 
         AlignmentRubric([
-            LayersSameDimensions(layer_type="rectangle", tolerance=8.0),                # 0 ★ prompt: "same-size rectangles"
-            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=12.0),     # 1 ★ prompt: "aligned on x"
-            LayersStacked(layer_type="rectangle", axis="y", gap_px=16.0, tolerance=12.0),# 2 ★ prompt: "stacked vertically"
+            LayersSameDimensions(layer_type="rectangle", tolerance=25.0),                # 0 ★ prompt: "same-size rectangles"
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=25.0),     # 1 ★ prompt: "aligned on x"
+            LayersStacked(layer_type="rectangle", axis="y", gap_px=16.0, tolerance=25.0),# 2 ★ prompt: "stacked vertically"
             LayerRotationEquals(layer_type="rectangle", degrees=0, tolerance=5.0),      # 3   not rotated
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=1.5,              # 4   wider than tall (icon-button shape)
                                         axis="horizontal"),
@@ -55,14 +55,13 @@ task = Task(
         ], weight=0.20, critical=[2]),
 
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                                   # 0   rects in a frame
+
             LayerGroupAllInSameFrame(layer_type="rectangle", minimum=3),                # 1   all 3 in same frame
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame",            # 2   rects must fit inside frame
-                                 tolerance=10.0),
+
             LayerSizeAtLeast(layer_type="rectangle", min_w=30, min_h=20),               # 3   not 1×1 degenerate
             NoLayerFlipped(layer_type="rectangle"),                                     # 4   not flipped
             FrameCountAtMost(maximum=1),                                                # 5
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 6   frame upright (implicit)
+
             CornerRadiusFractionAtMost(layer_type="rectangle", max_frac=0.5),           # 7   rects not pill-shaped
         ], weight=0.20, critical=[]),
 

@@ -47,9 +47,9 @@ task = Task(
         AlignmentRubric([
             CornerRadiusAtLeast(layer_type="rectangle", min_value=4.0),                       # 0 ★ prompt: "rounded outer rectangle"
             SmallerLayerInsideLarger(layer_type="rectangle", tolerance=20.0),                 # 1 ★ prompt: "3 colored bar rectangles inside"
-            AllLayerBoundsInside(inner_type="rectangle", outer_type="frame", tolerance=8.0),  # 2 all rects in frame
+
             LayerRotationEquals(layer_type="rectangle", degrees=0.0, tolerance=5.0),          # 3 no rotation
-            LayerRotationEquals(layer_type="frame", degrees=0.0, tolerance=5.0),              # 4 frame upright
+
             LayersAligned(layer_type="rectangle", axis="center_y", tolerance=80.0),           # 5 bars/body roughly aligned
             CrossTypeAreaRatioAtLeast(big_type="frame", small_type="rectangle",                # 6 body smaller than frame
                                        min_ratio=2.0),
@@ -71,7 +71,7 @@ task = Task(
 
         # structure: shapes must be inside a frame (soft anchor — prompt does not say "Inside a frame")
         StructureRubric([
-            LayerInsideFrame(layer_type="rectangle"),                    # 0 inside frame (kept soft)
+
         ], weight=0.10, critical=[]),
 
         # event: rectangle tool — kept soft per playbook

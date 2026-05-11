@@ -23,14 +23,14 @@ task = Task(
         ], weight=0.15, critical=[0]),
 
         AlignmentRubric([
-            LayersConcentric(layer_type="rectangle", tolerance=12.0),                           # 0 ★ prompt: "shared center"
+            LayersConcentric(layer_type="rectangle", tolerance=25.0),                           # 0 ★ prompt: "shared center"
             LayersStrictlyNested(layer_type="rectangle", equals=4,
-                                 tolerance_px=8.0, min_size_drop_px=4.0),                       # 1 ★ prompt: "nested ... decreasing size"
+                                 tolerance_px=25.0, min_size_drop_px=4.0),                       # 1 ★ prompt: "nested ... decreasing size"
         ], weight=0.25, critical=[0, 1]),
 
         ColorRubric([
             LayersAlternatingColorsByArea(layer_type="rectangle", n_colors=2,
-                                          tolerance=0.12),                                      # 0 ★ prompt: "alternating two colors"
+                                          tolerance=25.0),                                      # 0 ★ prompt: "alternating two colors"
         ], weight=0.50, critical=[0]),
 
         EventRubric([

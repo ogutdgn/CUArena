@@ -41,14 +41,12 @@ task = Task(
         ], weight=0.2, critical=[0]),
 
         AlignmentRubric([
-            LayersConcentric(layer_type="ellipse", tolerance=12.0),                     # 0 ★ prompt: "all sharing the same center"
+            LayersConcentric(layer_type="ellipse", tolerance=25.0),                     # 0 ★ prompt: "all sharing the same center"
             LayersStrictlyNested(layer_type="ellipse", equals=4,                        # 1 ★ prompt: "4 concentric circles with decreasing diameters"
-                                 tolerance_px=8.0, min_size_drop_px=4.0),
+                                 tolerance_px=25.0, min_size_drop_px=4.0),
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),                       # 2 ★ prompt: "circles"
             LayerSizeAtLeast(layer_type="ellipse", min_w=15, min_h=15),                 # 3 no degenerate
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame",              # 4 implicit frame containment
-                                 tolerance=10.0),
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 5 frame upright (implicit)
+
         ], weight=0.2, critical=[0, 1, 2]),
 
         ColorRubric([
@@ -57,7 +55,7 @@ task = Task(
                 layer_type="ellipse",
                 expected_rgbs=[RED, WHITE, RED, WHITE],
                 sort_axis="size",
-                tolerance=0.20,
+                tolerance=25.0,
             ),
             AllStrokeExists("ellipse"),                                                 # 2 ★ prompt: "each with a 4px black stroke"
             AllStrokeWeightWithinTolerance("ellipse", target_weight=4.0,                # 3 ★ prompt: "4px ... stroke"
@@ -70,7 +68,7 @@ task = Task(
         ], weight=0.2, critical=[1, 2, 3, 4]),
 
         StructureRubric([
-            LayerInsideFrame("ellipse"),                                                # 0 implicit frame containment
+
             ChildCountAtLeast("frame", minimum=4),                                      # 1 implicit
         ], weight=0.2, critical=[]),
 

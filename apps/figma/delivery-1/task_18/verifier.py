@@ -32,10 +32,10 @@ task = Task(
         ], weight=0.20, critical=[0]),
 
         AlignmentRubric([
-            LayersConcentric(layer_type="ellipse", tolerance=12.0),                     # 0 ★ prompt: "sharing a center"
+            LayersConcentric(layer_type="ellipse", tolerance=25.0),                     # 0 ★ prompt: "sharing a center"
             LayersStrictlyNested(layer_type="ellipse", equals=3,                        # 1 ★ prompt: "3 nested ellipses"
-                                 tolerance_px=8.0, min_size_drop_px=6.0),
-            AllLayersAreCircular(layer_type="ellipse", tolerance=8.0),                  # 2 ★ prompt: "ellipses" (circles for eye anatomy)
+                                 tolerance_px=25.0, min_size_drop_px=6.0),
+            AllLayersAreCircular(layer_type="ellipse", tolerance=25.0),                  # 2 ★ prompt: "ellipses" (circles for eye anatomy)
         ], weight=0.20, critical=[0, 1, 2]),
 
         ColorRubric([
@@ -53,14 +53,13 @@ task = Task(
         ], weight=0.20, critical=[3]),
 
         StructureRubric([
-            LayerInsideFrame(layer_type="ellipse"),                                     # 0 ellipses in a frame
+
             LayerGroupAllInSameFrame(layer_type="ellipse", minimum=3),                  # 1 all 3 in same frame
-            AllLayerBoundsInside(inner_type="ellipse", outer_type="frame",              # 2 ellipses must fit inside frame
-                                 tolerance=10.0),
+
             LayerSizeAtLeast(layer_type="ellipse", min_w=10, min_h=10),                 # 3 not 1×1 degenerate
             NoLayerFlipped(layer_type="ellipse"),                                       # 4 not flipped
             FrameCountAtMost(maximum=1),                                                # 5 one frame total
-            LayerRotationEquals(layer_type="frame", degrees=0, tolerance=5.0),          # 6 frame not rotated
+
         ], weight=0.20, critical=[]),
 
         EventRubric([
