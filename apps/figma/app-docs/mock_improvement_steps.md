@@ -555,6 +555,47 @@ Scope: hands-on bugs the user surfaced while running the mock, captured for the 
 
 ## UI improvements
 
+### 2026-05-10 — Prototype panel: drop Flow starting point + row-level interaction delete + auto-save modal
+
+#### 34. 🟢 — Removed Flow starting point UI/state, added row-level "−" delete on interactions, made the InteractionModal auto-save
+
+**Status:** Shipped in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/panels/PrototypePanel.tsx`
+- `apps/figma/mock/src/ui/overlays/InteractionModal.tsx`
+- `apps/figma/mock/src/ui/overlays/PrototypePreview.tsx`
+- `apps/figma/mock/src/ui/overlays/FlowBadges.tsx` (deleted)
+- `apps/figma/mock/src/ui/canvas/CanvasView.tsx`
+- `apps/figma/mock/src/engine/prototypeCommands.ts`
+- `apps/figma/mock/src/engine/ops.ts`
+- `apps/figma/mock/src/engine/store.ts`
+- `apps/figma/mock/src/types/scene.ts`
+- `apps/figma/mock/src/types/events.ts`
+- `apps/figma/mock/src/types/ops.ts`
+- `apps/figma/app-docs/mock-doc/logging-documentation.md`
+- `apps/figma/app-docs/mock-doc/architecture.md`
+
+**What I expected:** The Prototype panel should only surface controls users actually need; multi-step interaction edits should commit incrementally so users don't have to remember an Update button.
+
+**What happened (UX gaps):**
+- Flow starting point added a top-of-frame "Flow N" badge but no task or verifier check used it. The PrototypePreview navigation worked equally well falling back to `topFrames` order.
+- The Interactions list had no row-level delete; the only way to remove a connection was to open the modal and click an in-modal Delete button.
+- The modal required clicking Update / Add to commit changes, so closing via outside-click or X silently discarded edits.
+
+**Fix:**
+- Deleted Flow starting point UI from `FramePanel`, the Flows list from `NoSelectionPanel`, and the `FlowListItem` / `FlowRow` components. Removed `FlowBadges.tsx` and its mount in `CanvasView.tsx`. Simplified `PrototypePreview` to use `topFrames` directly.
+- Removed `addPrototypeFlow` / `removePrototypeFlow` / `renamePrototypeFlow` commands and their `add_prototype_flow` / `remove_prototype_flow` / `rename_prototype_flow` semantic events. Removed the `PrototypeFlow` interface, `Page.prototypeFlows` field, `prototypeFlows: []` store init, and the `flowsBefore` slot from `DeleteNodesOp.prototypeSnapshot` (plus its restore branch in `applyOpInverse`).
+- Refactored Interactions: extracted a shared `InteractionsPanel` (used by both `FramePanel` and `ItemPanel`). Clicking "+" now pre-creates a default connection (`on_tap` / `navigate_to` / first frame / `instant`) via `createPrototypeConnection` and immediately opens the modal pointing at it.
+- `InteractionRow` now wraps the interaction button + a row-level "−" button that calls `deletePrototypeConnection` directly.
+- `InteractionModal` is now pure-edit (`connection: PrototypeConnection`, no nullable / "new" sentinel). Each Trigger / Action / Destination / Animation / Delay change calls `updatePrototypeConnection` immediately. Removed the Add/Update primary button, the in-modal Delete button, and the `save()` / `onDelete` machinery. Closes on X or outside-click.
+
+**Logger impact:** Three semantic events removed (`add_prototype_flow`, `remove_prototype_flow`, `rename_prototype_flow`). One outcome field removed (`Page.prototypeFlows`). Connection lifecycle events (`create_prototype_connection`, `update_prototype_connection`, `delete_prototype_connection`) are unchanged in shape but now fire more frequently — `+` immediately emits `create_prototype_connection`, every modal field change emits `update_prototype_connection`, "−" emits `delete_prototype_connection`. `logging-documentation.md` updated.
+
+**Verifier impact:** None — no check primitive, rubric, or `delivery-1/` task referenced flows. Connection-shape checks and counts continue to read `outcome.document.pages[].prototypeConnections` exactly as before.
+
+**Architecture impact:** Minor. `architecture.md` overlay listing updated (FlowBadges removed). The auto-save model means more semantic events per user edit; the existing `updatePrototypeConnection` no-op guard (only dispatches when a tracked field actually changed) keeps undo history clean.
+
 ### 2026-05-10 — Prototype panel scroll-behavior cleanup
 
 #### 33. 🟢 — Removed Prototype panel "Scroll behavior" sections (frame Overflow + item Position)

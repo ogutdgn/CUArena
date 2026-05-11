@@ -1,15 +1,14 @@
 // Floating interaction editor popup — trigger + action pickers.
+//
+// Always edits an existing connection. The connection is created up-front in
+// the panel when the user clicks "+", so this modal is pure auto-save: every
+// field change immediately dispatches updatePrototypeConnection.
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
-import { uid } from "@/util/id";
 import { ArrowRight, Clock3, MousePointerClick, X, ChevronDown } from "lucide-react";
 import type { PrototypeConnection, PrototypeTrigger, PrototypeAction, PrototypeAnimation, Frame } from "@/types/scene";
-import { useState } from "react";
-import {
-  createPrototypeConnection,
-  updatePrototypeConnection,
-} from "@/engine/prototypeCommands";
+import { updatePrototypeConnection } from "@/engine/prototypeCommands";
 
 export const TRIGGER_LABELS: Record<PrototypeTrigger, string> = {
   none: "None",
@@ -57,22 +56,21 @@ export const ANIMATION_LABELS: Record<PrototypeAnimation, string> = {
 const ANIMATIONS = Object.keys(ANIMATION_LABELS) as PrototypeAnimation[];
 
 interface Props {
-  connection: PrototypeConnection | null; // null → new
-  sourceLayerId: string;
+  connection: PrototypeConnection;
   pageId: string;
   frames: Frame[];
   onClose: () => void;
-  onDelete?: (id: string) => void;
 }
 
-export function InteractionModal({ connection, sourceLayerId, pageId, frames, onClose, onDelete }: Props) {
+export function InteractionModal({ connection, pageId, frames, onClose }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const [trigger, setTrigger] = useState<PrototypeTrigger>(connection?.trigger ?? "on_tap");
-  const [action, setAction] = useState<PrototypeAction>(connection?.action ?? "navigate_to");
-  const [animation, setAnimation] = useState<PrototypeAnimation>(connection?.animation ?? "instant");
-  const [delayMs, setDelayMs] = useState<number>(connection?.delayMs ?? 800);
-  const [destFrameId, setDestFrameId] = useState<string>(connection?.destinationFrameId ?? (frames[0]?.id ?? ""));
   const [openMenu, setOpenMenu] = useState<"trigger" | "action" | "destination" | "animation" | null>(null);
+
+  const trigger = connection.trigger;
+  const action = connection.action;
+  const animation = connection.animation ?? "instant";
+  const delayMs = connection.delayMs ?? 800;
+  const destFrameId = connection.destinationFrameId ?? "";
 
   // Close on outside click
   useEffect(() => {
@@ -83,46 +81,33 @@ export function InteractionModal({ connection, sourceLayerId, pageId, frames, on
     return () => document.removeEventListener("mousedown", onDoc, true);
   }, [onClose]);
 
-  function save() {
-    if (connection) {
-      // Update existing — build a patch with ONLY the fields that meaningfully
-      // changed. delayMs is only user-visible when the new trigger needs it;
-      // destinationFrameId only when the new action needs one. Otherwise we
-      // leave the stored value alone so a no-op Save does not generate an
-      // undoable update_prototype_connection event.
-      const patch: Partial<Omit<typeof connection, "id" | "sourceLayerId">> = {};
-      if (connection.trigger !== trigger) patch.trigger = trigger;
-      if (connection.action !== action) patch.action = action;
-      if ((connection.animation ?? "instant") !== animation) patch.animation = animation;
-      if (needsDest(action) && (connection.destinationFrameId ?? "") !== destFrameId) {
-        patch.destinationFrameId = destFrameId;
-      } else if (!needsDest(action) && connection.destinationFrameId !== undefined) {
-        patch.destinationFrameId = undefined;
-      }
-      if (trigger === "after_delay" && (connection.delayMs ?? 800) !== delayMs) {
-        patch.delayMs = delayMs;
-      } else if (trigger !== "after_delay" && connection.delayMs !== undefined && connection.trigger === "after_delay") {
-        // Trigger changed AWAY from after_delay — clear the now-irrelevant delay.
-        patch.delayMs = undefined;
-      }
-      if (Object.keys(patch).length > 0) {
-        updatePrototypeConnection(pageId, connection.id, patch);
-      }
-    } else {
-      // Create new
-      const id = uid("conn");
-      const newConn: PrototypeConnection = {
-        id,
-        sourceLayerId,
-        trigger,
-        action,
-        destinationFrameId: needsDest(action) ? destFrameId : undefined,
-        animation,
-        delayMs: trigger === "after_delay" ? delayMs : undefined,
-      };
-      createPrototypeConnection(pageId, newConn);
+  function setTrigger(value: PrototypeTrigger) {
+    const patch: Partial<Omit<PrototypeConnection, "id" | "sourceLayerId">> = { trigger: value };
+    // Trigger changed AWAY from after_delay — clear the now-irrelevant delay.
+    if (value !== "after_delay" && trigger === "after_delay") patch.delayMs = undefined;
+    updatePrototypeConnection(pageId, connection.id, patch);
+  }
+
+  function setAction(value: PrototypeAction) {
+    const patch: Partial<Omit<PrototypeConnection, "id" | "sourceLayerId">> = { action: value };
+    if (!needsDest(value) && connection.destinationFrameId !== undefined) {
+      patch.destinationFrameId = undefined;
+    } else if (needsDest(value) && !connection.destinationFrameId && frames[0]) {
+      patch.destinationFrameId = frames[0].id;
     }
-    onClose();
+    updatePrototypeConnection(pageId, connection.id, patch);
+  }
+
+  function setAnimation(value: PrototypeAnimation) {
+    updatePrototypeConnection(pageId, connection.id, { animation: value });
+  }
+
+  function setDestFrameId(value: string) {
+    updatePrototypeConnection(pageId, connection.id, { destinationFrameId: value });
+  }
+
+  function setDelayMs(value: number) {
+    updatePrototypeConnection(pageId, connection.id, { delayMs: Math.max(0, Math.min(60000, value)) });
   }
 
   const destFrame = frames.find((f) => f.id === destFrameId);
@@ -176,7 +161,7 @@ export function InteractionModal({ connection, sourceLayerId, pageId, frames, on
                 value={`${delayMs}ms`}
                 onChange={(e) => {
                   const n = Number(e.target.value.replace(/[^0-9]/g, ""));
-                  if (!Number.isNaN(n)) setDelayMs(Math.max(0, Math.min(60000, n)));
+                  if (!Number.isNaN(n)) setDelayMs(n);
                 }}
                 style={{
                   width: "100%",
@@ -227,42 +212,6 @@ export function InteractionModal({ connection, sourceLayerId, pageId, frames, on
           onToggle={() => setOpenMenu(openMenu === "animation" ? null : "animation")}
           onSelect={(value) => { setAnimation(value as PrototypeAnimation); setOpenMenu(null); }}
         />
-      </div>
-
-      {/* Footer */}
-      <div style={{ padding: "8px 12px", borderTop: "1px solid var(--color-border)", display: "flex", gap: 6 }}>
-        {connection && onDelete && (
-          <button
-            onClick={() => { onDelete(connection.id); onClose(); }}
-            style={{
-              height: 28,
-              padding: "0 10px",
-              borderRadius: 6,
-              border: "1px solid var(--color-border)",
-              background: "transparent",
-              color: "var(--color-text-muted)",
-              fontSize: "var(--fs-sm)",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--color-text-primary)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = "var(--color-text-muted)"; }}
-          >
-            Delete
-          </button>
-        )}
-        <button
-          onClick={save}
-          style={{
-            flex: 1,
-            height: 28,
-            borderRadius: 6,
-            background: "var(--color-selection-blue)",
-            color: "var(--color-text-on-accent)",
-            fontSize: "var(--fs-sm)",
-            fontWeight: 600,
-          }}
-        >
-          {connection ? "Update" : "Add"}
-        </button>
       </div>
     </div>
   );

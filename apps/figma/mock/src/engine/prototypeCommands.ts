@@ -2,9 +2,9 @@
 // in a `set_property` op + a specific semantic event, so prototype edits go
 // through the same dispatch / undo / log pipeline as every other mutation.
 //
-// All mutations write whole arrays (prototypeFlows / prototypeConnections) or
-// whole objects (prototypeSettings) so undo restores the exact prior state
-// without depending on element-level paths.
+// All mutations write whole arrays (prototypeConnections) or whole objects
+// (prototypeSettings) so undo restores the exact prior state without
+// depending on element-level paths.
 
 import { useStore } from "./store";
 import { dispatch, makeOpId } from "./dispatch";
@@ -14,7 +14,6 @@ import type {
   PrototypeAction,
   PrototypeAnimation,
   PrototypeConnection,
-  PrototypeFlow,
   PrototypeSettings,
   PrototypeTrigger,
 } from "@/types/scene";
@@ -60,55 +59,6 @@ export function setPrototypeDevice(pageId: string, device: string | null): void 
   const afterSettings: PrototypeSettings = { ...beforeSettings, device };
   dispatchPageProperty(pageId, "prototypeSettings", beforeSettings, afterSettings);
   emitSemantic({ name: "set_prototype_device", before: beforeSettings.device, after: device });
-}
-
-// ─── flows ────────────────────────────────────────────────────────────
-
-export function addPrototypeFlow(pageId: string, flow: PrototypeFlow): void {
-  const page = findPage(pageId);
-  if (!page) return;
-  const before: PrototypeFlow[] = [...(page.prototypeFlows ?? [])];
-  const after: PrototypeFlow[] = [...before, flow];
-  dispatchPageProperty(pageId, "prototypeFlows", before, after);
-  emitSemantic({
-    name: "add_prototype_flow",
-    flowId: flow.id,
-    flowName: flow.name,
-    frameId: flow.frameId,
-  });
-}
-
-export function removePrototypeFlow(pageId: string, flowId: string): void {
-  const page = findPage(pageId);
-  if (!page) return;
-  const before: PrototypeFlow[] = [...(page.prototypeFlows ?? [])];
-  const removed = before.find((f) => f.id === flowId);
-  if (!removed) return;
-  const after: PrototypeFlow[] = before.filter((f) => f.id !== flowId);
-  dispatchPageProperty(pageId, "prototypeFlows", before, after);
-  emitSemantic({
-    name: "remove_prototype_flow",
-    flowId,
-    frameId: removed.frameId,
-  });
-}
-
-export function renamePrototypeFlow(pageId: string, flowId: string, newName: string): void {
-  const page = findPage(pageId);
-  if (!page) return;
-  const before: PrototypeFlow[] = [...(page.prototypeFlows ?? [])];
-  const target = before.find((f) => f.id === flowId);
-  if (!target || target.name === newName) return;
-  const after: PrototypeFlow[] = before.map((f) =>
-    f.id === flowId ? { ...f, name: newName } : f,
-  );
-  dispatchPageProperty(pageId, "prototypeFlows", before, after);
-  emitSemantic({
-    name: "rename_prototype_flow",
-    flowId,
-    before: target.name,
-    after: newName,
-  });
 }
 
 // ─── connections ──────────────────────────────────────────────────────
@@ -192,7 +142,6 @@ export type {
   PrototypeAction,
   PrototypeAnimation,
   PrototypeConnection,
-  PrototypeFlow,
   PrototypeSettings,
   PrototypeTrigger,
 };
