@@ -1,0 +1,30 @@
+[
+  {
+    "task_id": "task_03_glowing_orb",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5",
+    "final_score": 0.4011,
+    "base_score": 0.775,
+    "max_score": 1.0,
+    "efficiency": 0.5175,
+    "passed": false,
+    "turns": 104,
+    "stop_reason": "done",
+    "error": null,
+    "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203236/anthropic/task_03/attempt_1/log.json",
+    "score_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203236/anthropic/task_03/attempt_1/score.json",
+    "trajectory_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203236/anthropic/task_03/attempt_1/trajectory.json",
+    "usage": {
+      "input_tokens": 1468278,
+      "output_tokens": 15202
+    },
+    "cost_estimate": {
+      "input_usd": 4.404834,
+      "output_usd": 0.22803,
+      "total_usd": 4.632864,
+      "input_rate_per_mtok_usd": 3.0,
+      "output_rate_per_mtok_usd": 15.0
+    },
+    "elapsed_s": 657.49
+  }
+]

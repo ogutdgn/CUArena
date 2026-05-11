@@ -1,0 +1,374 @@
+{
+  "task_id": "house_task_comprehensive",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_201720/anthropic/task_01/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle: expected 2, got 2"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse: expected 2, got 2"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon: expected 1, got 1"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon sides: expected 3, got 3"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.0846,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse aligned on center_y: max diff 0.0px (tolerance 12.0px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse same size (40\u00d740)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse circular: 40\u00d740"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse flanks rectangle on x"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "No polygon bottom vertices align with rectangle top corners"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All smaller rectangle fit inside largest"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse overlaps rectangle"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "frame matches 1280\u00d7832"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon x-centered on rectangle"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle rotation 0\u00b0 correct"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "frame rotation 0\u00b0 correct"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "rect_mp0: width frac 0.04 \u2209 [0.04, 0.8]"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All 2 ellipse children within [0.02, 0.2] of frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All 1 polygon children within [0.1, 0.8] of frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse \u2265 10\u00d710"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "polygon_: rotation=180"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All rectangle fit inside some frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse fit inside some frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All polygon fit inside some frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "No rectangle flipped"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle area ratio 13.33 \u2265 2.0"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "smallest rectangle bottom-edge 15.0px from largest, center_x 0.0px from largest (tol edge=20.0, axis=80.0)"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "No polygon sits above largest rectangle (need bottom-edge \u2248 top-edge, fully above, horiz overlap)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse fit inside some rectangle"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All rectangle cornerRadius \u2264 0.5 of size"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "all polygon drawn after largest rectangle"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All rectangle have solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All polygon have solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse have solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "distinct solid colors: expected \u22654, got 5"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All rectangle have \u2264 1 fills"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All polygon have \u2264 1 fills"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse have \u2264 1 fills"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All rectangle fill opacity \u2265 0.5"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All polygon fill opacity \u2265 0.5"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse fill opacity \u2265 0.5"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All rectangle are visible"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All polygon are visible"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All ellipse are visible"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle found inside a frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "polygon found inside a frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "ellipse found inside a frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "frame has \u22655 children"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'rectangle': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'ellipse': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'polygon': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_rectangle': expected \u22652, got 2"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_ellipse': expected \u22652, got 2"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_polygon': expected \u22651, got 1"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'set_fill_color': expected \u22654, got 10"
+        }
+      ]
+    }
+  ],
+  "base_score": 0.8846,
+  "efficiency": {
+    "multiplier": 0.7033,
+    "actual_turns": 48,
+    "target_turns": 30,
+    "lambda_used": 0.05,
+    "message": "48 turns used, target 30, \u03bb=0.05 \u2192 multiplier 0.7033"
+  },
+  "final_score": 0.6221
+}

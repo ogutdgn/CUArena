@@ -1,0 +1,104 @@
+{
+  "task_id": "task_07_mountain_range",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203315/anthropic/task_07/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector: expected 2, got 2"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.3,
+      "max_score": 0.3,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector overlaps vector"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All vector aspect ratio \u2265 1.8 (horizontal)"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector has solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "distinct solid colors: expected \u22652, got 3"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All vector fills are gray-like"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.15,
+      "max_score": 0.15,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector found inside a frame"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.05,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'pen': used"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "event 'create_vector': expected \u22652, got 0"
+        }
+      ]
+    }
+  ],
+  "base_score": 0.95,
+  "efficiency": {
+    "multiplier": 0.8188,
+    "actual_turns": 39,
+    "target_turns": 30,
+    "lambda_used": 0.05,
+    "message": "39 turns used, target 30, \u03bb=0.05 \u2192 multiplier 0.8188"
+  },
+  "final_score": 0.7779
+}

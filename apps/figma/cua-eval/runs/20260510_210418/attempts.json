@@ -1,0 +1,30 @@
+[
+  {
+    "task_id": "task_04_color_wheel",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5",
+    "final_score": 0.3004,
+    "base_score": 0.5,
+    "max_score": 1.0,
+    "efficiency": 0.6009,
+    "passed": false,
+    "turns": 42,
+    "stop_reason": "done",
+    "error": null,
+    "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_210418/anthropic/task_04/attempt_1/log.json",
+    "score_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_210418/anthropic/task_04/attempt_1/score.json",
+    "trajectory_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_210418/anthropic/task_04/attempt_1/trajectory.json",
+    "usage": {
+      "input_tokens": 385169,
+      "output_tokens": 6445
+    },
+    "cost_estimate": {
+      "input_usd": 1.155507,
+      "output_usd": 0.096675,
+      "total_usd": 1.252182,
+      "input_rate_per_mtok_usd": 3.0,
+      "output_rate_per_mtok_usd": 15.0
+    },
+    "elapsed_s": 226.6
+  }
+]

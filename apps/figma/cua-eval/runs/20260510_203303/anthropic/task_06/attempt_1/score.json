@@ -1,0 +1,79 @@
+{
+  "task_id": "task_06_gold_star_exclude",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_203303/anthropic/task_06/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.22,
+      "max_score": 0.22,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "line: expected 8, got 8"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.0,
+      "max_score": 0.48,
+      "checks": [
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "Shared-center endpoint cluster too weak: only 6/8 endpoints within 20.0px"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.075,
+      "max_score": 0.15,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "line has a stroke"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "No line with stroke color {'r': 0.85, 'g': 0.65, 'b': 0.13}"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.15,
+      "max_score": 0.15,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'line': used"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'create_line': expected \u22658, got 9"
+        }
+      ]
+    }
+  ],
+  "base_score": 0.445,
+  "efficiency": {
+    "multiplier": 0.5527,
+    "actual_turns": 69,
+    "target_turns": 24,
+    "lambda_used": 0.05,
+    "message": "69 turns used, target 24, \u03bb=0.05 \u2192 multiplier 0.5527"
+  },
+  "final_score": 0.246
+}

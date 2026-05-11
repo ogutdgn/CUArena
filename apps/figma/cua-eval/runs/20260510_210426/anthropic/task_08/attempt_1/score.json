@@ -1,0 +1,98 @@
+{
+  "task_id": "task_08_water_waves",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260510_210426/anthropic/task_08/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector: expected 2, got 2"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.35,
+      "max_score": 0.35,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All vector aspect ratio \u2265 2.0 (horizontal)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "curved vectors: expected >=2, got 2"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "distinct stroke colors: expected \u22652, got 2"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All vector stroke weights match"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.1,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector found inside a frame"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.05,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "tool 'pen': used"
+        },
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "event 'create_vector': expected \u22652, got 0"
+        }
+      ]
+    }
+  ],
+  "base_score": 0.95,
+  "efficiency": {
+    "multiplier": 0.8188,
+    "actual_turns": 49,
+    "target_turns": 40,
+    "lambda_used": 0.05,
+    "message": "49 turns used, target 40, \u03bb=0.05 \u2192 multiplier 0.8188"
+  },
+  "final_score": 0.7779
+}
