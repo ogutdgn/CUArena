@@ -13,6 +13,7 @@ import {
 import { groupSelection, ungroupSelection, reorderZ } from "@/engine/hierarchyCommands";
 import { setVisibility, setLocked } from "@/engine/propertyCommands";
 import { flipSelection } from "@/engine/transformCommands";
+import { undo } from "@/engine/dispatch";
 import { noopClick } from "@/ui/chrome/noopClick";
 
 export function ContextMenu({
@@ -29,6 +30,7 @@ export function ContextMenu({
   const ref = useRef<HTMLDivElement | null>(null);
   const layers = useStore((s) => getSelectedLayers(s));
   const clipboard = useStore((s) => s.clipboard);
+  const canUndo = useStore((s) => s.undoStack.length > 0);
   const hasSelection = layers.length > 0;
   const allLocked = hasSelection && layers.every((l) => l.locked);
   const allHidden = hasSelection && layers.every((l) => !l.visible);
@@ -73,6 +75,8 @@ export function ContextMenu({
         fontSize: "var(--fs-sm)",
       }}
     >
+      <Item id="ctx.undo" label="Undo" shortcut="Ctrl+Z" disabled={!canUndo} disabledTitle="Nothing to undo" onClick={() => { undo(); onClose(); }} />
+      <Sep />
       <Item id="ctx.copy" label="Copy" shortcut="⌘C" disabled={!hasSelection} onClick={() => { copySelection("context_menu"); onClose(); }} />
       <Item id="ctx.cut" label="Cut" shortcut="⌘X" disabled={!hasSelection} onClick={() => { cutSelection("context_menu"); onClose(); }} />
       <Item id="ctx.paste" label="Paste" shortcut="⌘V" disabled={!clipboard} onClick={() => { pasteFromClipboard("context_menu"); onClose(); }} />
@@ -104,12 +108,14 @@ function Item({
   shortcut,
   onClick,
   disabled,
+  disabledTitle,
 }: {
   id: string;
   label: string;
   shortcut?: string;
   onClick?: () => void;
   disabled?: boolean;
+  disabledTitle?: string;
 }) {
   return (
     <button
@@ -136,7 +142,7 @@ function Item({
         if (!disabled) e.currentTarget.style.background = "var(--color-bg-row-hover)";
       }}
       onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-      title={disabled ? `${label} — not implemented in this mock` : label}
+      title={disabled ? disabledTitle ?? `${label} — not implemented in this mock` : label}
     >
       <span style={{ flex: 1 }}>{label}</span>
       {shortcut && (
