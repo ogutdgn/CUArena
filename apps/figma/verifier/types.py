@@ -38,6 +38,17 @@ class TaskResult:
 
 
 @dataclass
+class Fixture:
+    """Declarative starting state for a task scene.
+
+    The runner converts this into a mock document snapshot and injects it
+    via page.evaluate() before the agent starts.
+    """
+    frame:  dict                           # {"width": int, "height": int, "name": str}
+    layers: list[dict] = field(default_factory=list)
+
+
+@dataclass
 class Task:
     id:          str
     description: str

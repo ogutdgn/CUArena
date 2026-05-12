@@ -5,6 +5,7 @@ import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { getActivePage, getSelectedLayers, selectionBbox } from "./selectors";
 import type { TransformMap } from "@/types/ops";
+import { rotateSelectionAroundVisualCenter } from "./selectionTransforms";
 
 export function flipSelection(
   axis: "horizontal" | "vertical",
@@ -52,17 +53,15 @@ export function rotate90Selection(trigger: "panel_button" = "panel_button") {
   const layers = getSelectedLayers(s);
   if (layers.length === 0) return;
   const before: TransformMap = {};
-  const after: TransformMap = {};
   const beforeR: Record<string, number> = {};
   const afterR: Record<string, number> = {};
   for (const l of layers) {
     const t = { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY };
     before[l.id] = t;
-    const next = ((l.rotation + 90) % 360 + 360) % 360;
-    after[l.id] = { ...t, rotation: next };
     beforeR[l.id] = l.rotation;
-    afterR[l.id] = next;
   }
+  const after = rotateSelectionAroundVisualCenter(s, layers, 90);
+  for (const l of layers) afterR[l.id] = after[l.id]?.rotation ?? l.rotation;
   dispatch({
     id: makeOpId(),
     timestamp: performance.now(),

@@ -1,0 +1,24 @@
+{
+  "frame": {"width": 1200, "height": 800, "name": "scene"},
+  "layers": [
+    {"name": "shape_01", "type": "rectangle", "x": 100, "y": 120, "w": 100, "h": 130, "fill": "#27AE60"},
+    {"name": "shape_02", "type": "rectangle", "x": 250, "y": 480, "w": 100, "h": 130, "fill": "#2980B9"},
+    {"name": "shape_03", "type": "rectangle", "x": 960, "y": 160, "w": 100, "h": 130, "fill": "#8E44AD"},
+    {"name": "shape_04", "type": "rectangle", "x": 420, "y": 180, "w": 90,  "h": 100, "fill": "#E74C3C"},
+    {"name": "shape_05", "type": "rectangle", "x": 540, "y": 540, "w": 90,  "h": 100, "fill": "#16A085"},
+
+    {"name": "gift_box", "type": "group", "x": 720, "y": 340, "w": 120, "h": 130,
+     "children": [
+       {"type": "rectangle", "x": 0,  "y": 20, "w": 120, "h": 110, "fill": "#D35400"},
+       {"type": "rectangle", "x": 50, "y": 20, "w": 20,  "h": 110, "fill": "#F1C40F"},
+       {"type": "rectangle", "x": 0,  "y": 65, "w": 120, "h": 20,  "fill": "#F1C40F"},
+       {"type": "ellipse",   "x": 35, "y": 0,  "w": 50,  "h": 30,  "fill": "#F1C40F"}
+     ]},
+
+    {"name": "shape_06", "type": "rectangle", "x": 60,   "y": 540, "w": 130, "h": 180, "fill": "#2ECC71"},
+    {"name": "shape_07", "type": "rectangle", "x": 1040, "y": 480, "w": 130, "h": 180, "fill": "#229954"},
+    {"name": "shape_08", "type": "rectangle", "x": 880,  "y": 580, "w": 80,  "h": 60,  "fill": "#7F8C8D"},
+    {"name": "shape_09", "type": "rectangle", "x": 380,  "y": 360, "w": 70,  "h": 130, "fill": "#2C3E50"},
+    {"name": "shape_10", "type": "rectangle", "x": 600,  "y": 100, "w": 90,  "h": 180, "fill": "#F39C12"}
+  ]
+}

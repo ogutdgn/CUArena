@@ -2,7 +2,7 @@ import { Section } from "./sectionShell";
 import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
-import { applyPanelFrameContainmentForSelection, setTransformField } from "@/engine/propertyCommands";
+import { applyPanelFrameContainmentForSelection, nudgeTransformField, setTransformField } from "@/engine/propertyCommands";
 import { flipSelection, rotate90Selection } from "@/engine/transformCommands";
 import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import {
@@ -37,6 +37,28 @@ export function PositionSection() {
     commitTransaction(transactionId);
   }
 
+  function commitPositionField(
+    field: "x" | "y",
+    mixed: boolean,
+    v: number,
+    context?: { transactionId?: string; scrubDelta?: number },
+  ) {
+    const opts = { ...context, deferFrameContainment: !!context?.transactionId };
+    if (mixed && typeof context?.scrubDelta === "number") {
+      nudgeTransformField(field, context.scrubDelta, opts);
+    } else {
+      setTransformField(field, v, opts);
+    }
+  }
+
+  function commitRotationField(v: number, context?: { transactionId?: string; scrubDelta?: number }) {
+    if (rotVal === "Mixed" && typeof context?.scrubDelta === "number") {
+      nudgeTransformField("rotation", context.scrubDelta, context);
+    } else {
+      setTransformField("rotation", v, context);
+    }
+  }
+
   return (
     <Section title="Position">
       {/* Alignment */}
@@ -58,14 +80,16 @@ export function PositionSection() {
         <NumericInput
           prefix={<AxisGlyph>X</AxisGlyph>}
           value={xVal}
-          onCommit={(v, context) => setTransformField("x", v, { ...context, deferFrameContainment: !!context?.transactionId })}
+          scrubBaseValue={xVal === "Mixed" ? 0 : undefined}
+          onCommit={(v, context) => commitPositionField("x", xVal === "Mixed", v, context)}
           onScrubStart={openTransaction}
           onScrubEnd={commitTransformScrub}
         />
         <NumericInput
           prefix={<AxisGlyph>Y</AxisGlyph>}
           value={yVal}
-          onCommit={(v, context) => setTransformField("y", v, { ...context, deferFrameContainment: !!context?.transactionId })}
+          scrubBaseValue={yVal === "Mixed" ? 0 : undefined}
+          onCommit={(v, context) => commitPositionField("y", yVal === "Mixed", v, context)}
           onScrubStart={openTransaction}
           onScrubEnd={commitTransformScrub}
         />
@@ -75,7 +99,15 @@ export function PositionSection() {
       <SubLabel>Rotation</SubLabel>
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <NumericInput prefix={<RotationGlyph />} value={rotVal} onCommit={(v) => setTransformField("rotation", v)} suffix="°" />
+          <NumericInput
+            prefix={<RotationGlyph />}
+            value={rotVal}
+            scrubBaseValue={rotVal === "Mixed" ? 0 : undefined}
+            onCommit={commitRotationField}
+            onScrubStart={openTransaction}
+            onScrubEnd={commitTransaction}
+            suffix="°"
+          />
         </div>
         <IconBtn id="position.rotate-90"       title="Rotate 90° clockwise" onClick={() => rotate90Selection("panel_button")}><RotateCw       size={14} /></IconBtn>
         <IconBtn id="position.flip-horizontal" title="Flip horizontal"      onClick={() => flipSelection("horizontal", "panel_button")}><FlipHorizontal2 size={14} /></IconBtn>

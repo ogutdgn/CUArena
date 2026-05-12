@@ -64,6 +64,25 @@ class BrowserSession:
     def wait(self, ms: int) -> None:
         self.page.wait_for_timeout(ms)
 
+    def load_fixture(self, fixture_dict: dict) -> bool:
+        """Inject a fixture into the mock via window.__loadFixture.
+
+        fixture_dict should have 'frame' and 'layers' keys matching the
+        Fixture dataclass in verifier/types.py.
+        """
+        self.page.wait_for_timeout(300)
+        result = self.page.evaluate(
+            """(fixture) => {
+                if (typeof window.__loadFixture !== 'function') {
+                    return false;
+                }
+                return window.__loadFixture(fixture);
+            }""",
+            fixture_dict,
+        )
+        self.page.wait_for_timeout(500)
+        return bool(result)
+
     def scrape_log(self) -> dict:
         """Reconstruct the unified log from local/sessionStorage. Returns
         the same shape that the Vite /dev-log relay would have POSTed.

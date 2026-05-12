@@ -11,6 +11,9 @@ import type { TransformMap } from "@/types/ops";
 import type { Color } from "@/types/scene";
 import { getLayerPositionValue, transformForLayerPositionValue } from "./positionCoordinates";
 import { getFrameContainmentMoves } from "./frameContainment";
+import { rotateSelectionAroundVisualCenter } from "./selectionTransforms";
+
+type CommandOptions = { transactionId?: string };
 
 function txtuple(l: Layer) {
   return { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY } as const;
@@ -28,6 +31,7 @@ function dispatchPropertyWithSemantic(
   before: Record<string, unknown>,
   after: Record<string, unknown>,
   trigger: "panel_input" | "color_picker" | "context_menu" | "shortcut" = "panel_input",
+  options: CommandOptions = {},
 ): void {
   dispatch({
     id: makeOpId(),
@@ -38,7 +42,7 @@ function dispatchPropertyWithSemantic(
     path,
     before,
     after,
-  });
+  }, options.transactionId ? { transactionId: options.transactionId } : undefined);
   const changedIds = Object.keys(after);
   if (changedIds.length === 0) return;
   emitSemantic({
@@ -65,6 +69,11 @@ export function setTransformField(
   if (field === "rotation") v = ((value % 360) + 360) % 360;
   const before: TransformMap = {};
   const after: TransformMap = {};
+  const rotationDelta = field === "rotation" ? v - layers[0].rotation : 0;
+  const rotatedAfter =
+    field === "rotation" && layers.length > 1
+      ? rotateSelectionAroundVisualCenter(s, layers, rotationDelta)
+      : null;
   for (const l of layers) {
     const t = txtuple(l);
     before[l.id] = { ...t };
@@ -74,6 +83,8 @@ export function setTransformField(
     } else if (field === "w" || field === "h") {
       const pos = getLayerPositionValue(s, l);
       after[l.id] = transformForLayerPositionValue(s, l, pos, { [field]: Math.max(1, v) });
+    } else if (rotatedAfter) {
+      after[l.id] = rotatedAfter[l.id];
     } else {
       after[l.id] = { ...t, [field]: v };
     }
@@ -97,7 +108,7 @@ export function setTransformField(
     const afterR: Record<string, number> = {};
     for (const l of layers) {
       beforeR[l.id] = l.rotation;
-      afterR[l.id] = v;
+      afterR[l.id] = after[l.id]?.rotation ?? v;
     }
     emitSemantic({ name: "rotate_layer", layerIds: layers.map((l) => l.id), before: beforeR, after: afterR, trigger: "panel_input" });
   } else if (field === "w" || field === "h") {
@@ -135,6 +146,98 @@ export function setTransformField(
   }
 }
 
+export function nudgeTransformField(
+  field: "x" | "y" | "w" | "h" | "rotation",
+  delta: number,
+  options: { transactionId?: string; deferFrameContainment?: boolean } = {},
+) {
+  if (delta === 0) return;
+  const s = useStore.getState();
+  const layers = getSelectedLayers(s);
+  if (layers.length === 0) return;
+  const before: TransformMap = {};
+  let after: TransformMap = {};
+
+  for (const l of layers) {
+    const t = txtuple(l);
+    before[l.id] = { ...t };
+    if (field === "x" || field === "y") {
+      const pos = getLayerPositionValue(s, l);
+      after[l.id] = transformForLayerPositionValue(s, l, { ...pos, [field]: pos[field] + delta });
+    } else if (field === "w" || field === "h") {
+      const pos = getLayerPositionValue(s, l);
+      after[l.id] = transformForLayerPositionValue(s, l, pos, { [field]: Math.max(1, t[field] + delta) });
+    }
+  }
+
+  if (field === "rotation") {
+    after = rotateSelectionAroundVisualCenter(s, layers, delta);
+  }
+
+  dispatch({
+    id: makeOpId(),
+    timestamp: performance.now(),
+    kind: "set_transform",
+    pageId: s.activePageId,
+    ids: layers.map((l) => l.id),
+    before,
+    after,
+  }, {
+    transactionId: options.transactionId,
+  });
+
+  if (!options.deferFrameContainment && (field === "x" || field === "y" || field === "w" || field === "h")) {
+    dispatchPanelFrameContainment(layers.map((l) => l.id), options.transactionId);
+  }
+
+  if (field === "rotation") {
+    const beforeR: Record<string, number> = {};
+    const afterR: Record<string, number> = {};
+    for (const l of layers) {
+      beforeR[l.id] = l.rotation;
+      afterR[l.id] = after[l.id]?.rotation ?? l.rotation;
+    }
+    emitSemantic({ name: "rotate_layer", layerIds: layers.map((l) => l.id), before: beforeR, after: afterR, trigger: "panel_input" });
+  } else if (field === "w" || field === "h") {
+    const beforeR: Record<string, { x: number; y: number; w: number; h: number }> = {};
+    const afterR: Record<string, { x: number; y: number; w: number; h: number }> = {};
+    for (const l of layers) {
+      beforeR[l.id] = { x: l.x, y: l.y, w: l.w, h: l.h };
+      afterR[l.id] = {
+        x: after[l.id]?.x ?? l.x,
+        y: after[l.id]?.y ?? l.y,
+        w: after[l.id]?.w ?? l.w,
+        h: after[l.id]?.h ?? l.h,
+      };
+    }
+    emitSemantic({
+      name: "resize_layer",
+      layerIds: layers.map((l) => l.id),
+      before: beforeR,
+      after: afterR,
+      handle: field === "w" ? "e" : "s",
+      trigger: "panel_input",
+      modifiers: { shift: false, alt: false },
+    });
+  } else {
+    const beforeR: Record<string, { x: number; y: number }> = {};
+    const afterR: Record<string, { x: number; y: number }> = {};
+    for (const l of layers) {
+      const pos = getLayerPositionValue(s, l);
+      beforeR[l.id] = pos;
+      afterR[l.id] = { ...pos, [field]: pos[field] + delta };
+    }
+    emitSemantic({
+      name: "move_layer",
+      layerIds: layers.map((l) => l.id),
+      before: beforeR,
+      after: afterR,
+      trigger: "panel_input",
+      modifiers: { shift: false, alt: false, ctrl: false },
+    });
+  }
+}
+
 export function applyPanelFrameContainmentForSelection(transactionId?: string): void {
   const layers = getSelectedLayers(useStore.getState());
   if (layers.length === 0) return;
@@ -143,18 +246,20 @@ export function applyPanelFrameContainmentForSelection(transactionId?: string): 
 
 function dispatchPanelFrameContainment(layerIds: string[], transactionId?: string): void {
   const moves = getFrameContainmentMoves(useStore.getState(), layerIds, { exitRatio: 0.6 });
-  for (const move of moves) {
-    const now = useStore.getState();
-    dispatch(
-      {
-        id: makeOpId(),
-        timestamp: performance.now(),
-        kind: "reparent",
-        pageId: now.activePageId,
-        moves: [move],
-      },
-      { transactionId },
-    );
+  if (moves.length === 0) return;
+  const before = moves.map((move) => ({ id: move.id, parentId: move.fromParentId, index: move.fromIndex, toParentId: move.toParentId, toIndex: move.toIndex }));
+  const now = useStore.getState();
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "reparent",
+      pageId: now.activePageId,
+      moves,
+    },
+    { transactionId },
+  );
+  for (const move of before) {
     const afterState = useStore.getState();
     const afterLayer = afterState.nodesById[move.id] as Layer | undefined;
     const afterArr = afterLayer ? childrenOf(afterState, afterLayer.parentId) : null;
@@ -162,7 +267,7 @@ function dispatchPanelFrameContainment(layerIds: string[], transactionId?: strin
     emitSemantic({
       name: "reorder_layer",
       layerIds: [move.id],
-      before: [{ parentId: move.fromParentId, index: move.fromIndex }],
+      before: [{ parentId: move.parentId, index: move.index }],
       after: [{ parentId: afterLayer?.parentId ?? move.toParentId, index: afterIndex >= 0 ? afterIndex : move.toIndex }],
       trigger: "panel_drag",
     });
@@ -177,7 +282,7 @@ function childrenOf(state: ReturnType<typeof useStore.getState>, parentId: strin
   return null;
 }
 
-export function setOpacity(value: number) {
+export function setOpacity(value: number, options: CommandOptions = {}) {
   const v = Math.max(0, Math.min(1, value / 100));
   const s = useStore.getState();
   const layers = getSelectedLayers(s);
@@ -201,7 +306,7 @@ export function setOpacity(value: number) {
     path: "opacity",
     before,
     after,
-  });
+  }, options.transactionId ? { transactionId: options.transactionId } : undefined);
   emitSemantic({
     name: "set_layer_opacity",
     layerIds: layers.map((l) => l.id),
@@ -260,7 +365,7 @@ export function setLocked(locked: boolean) {
 // Sets corner radius. Single number → uniform; 4-tuple → per-corner
 // [topLeft, topRight, bottomRight, bottomLeft]. Frames are excluded —
 // frames always render as plain rectangles regardless of model state.
-export function setCornerRadius(value: number | [number, number, number, number]) {
+export function setCornerRadius(value: number | [number, number, number, number], options: CommandOptions = {}) {
   const clamp = (n: number) => Math.max(0, n);
   const v: number | [number, number, number, number] = Array.isArray(value)
     ? [clamp(value[0]), clamp(value[1]), clamp(value[2]), clamp(value[3])]
@@ -295,7 +400,7 @@ export function setCornerRadius(value: number | [number, number, number, number]
     path: "cornerRadius",
     before,
     after,
-  });
+  }, options.transactionId ? { transactionId: options.transactionId } : undefined);
   emitSemantic({
     name: "set_corner_radius",
     layerIds: layers.map((l) => l.id),
@@ -305,7 +410,7 @@ export function setCornerRadius(value: number | [number, number, number, number]
   });
 }
 
-export function setFillColor(fillIndex: number, color: Color) {
+export function setFillColor(fillIndex: number, color: Color, options: CommandOptions = {}) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => "fills" in l);
   if (layers.length === 0) return;
@@ -329,7 +434,7 @@ export function setFillColor(fillIndex: number, color: Color) {
     path: `fills/${fillIndex}/color`,
     before,
     after,
-  });
+  }, options.transactionId ? { transactionId: options.transactionId } : undefined);
   emitSemantic({
     name: "set_fill_color",
     layerIds: layers.map((l) => l.id),
@@ -427,7 +532,7 @@ export function toggleFillVisibility(fillIndex: number) {
 // One weight covers the whole stroke stack — UI shows a single weight field
 // and every stroke on the layer must share it so the multi-stroke alpha
 // composite renders as a single line. Updates every stroke's weight in one op.
-export function setStrokeWeight(value: number) {
+export function setStrokeWeight(value: number, options: CommandOptions = {}) {
   const v = Math.max(0, value);
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => "strokes" in l);
@@ -446,6 +551,8 @@ export function setStrokeWeight(value: number) {
     "strokes",
     before,
     after,
+    "panel_input",
+    options,
   );
 }
 
@@ -580,7 +687,7 @@ export function toggleEffectVisibility(effectIndex: number) {
   });
 }
 
-export function setEffectField(effectIndex: number, field: "x" | "y" | "blur" | "spread" | "radius", value: number) {
+export function setEffectField(effectIndex: number, field: "x" | "y" | "blur" | "spread" | "radius", value: number, options: CommandOptions = {}) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => "effects" in l);
   if (layers.length === 0) return;
@@ -598,10 +705,12 @@ export function setEffectField(effectIndex: number, field: "x" | "y" | "blur" | 
     `effects/${effectIndex}/${field}`,
     before,
     after,
+    "panel_input",
+    options,
   );
 }
 
-export function setEffectColor(effectIndex: number, color: Color) {
+export function setEffectColor(effectIndex: number, color: Color, options: CommandOptions = {}) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => "effects" in l);
   if (layers.length === 0) return;
@@ -620,6 +729,7 @@ export function setEffectColor(effectIndex: number, color: Color) {
     before,
     after,
     "color_picker",
+    options,
   );
 }
 
@@ -772,7 +882,7 @@ export function toggleStrokeVisibility(strokeIndex: number) {
   dispatchPropertyWithSemantic(s.activePageId, layers.map((l) => l.id), `strokes/${strokeIndex}/paint/visible`, before, after);
 }
 
-export function setStrokeColor(strokeIndex: number, color: Color) {
+export function setStrokeColor(strokeIndex: number, color: Color, options: CommandOptions = {}) {
   const s = useStore.getState();
   const layers = getSelectedLayers(s).filter((l) => "strokes" in l);
   if (layers.length === 0) return;
@@ -792,5 +902,6 @@ export function setStrokeColor(strokeIndex: number, color: Color) {
     before,
     after,
     "color_picker",
+    options,
   );
 }
