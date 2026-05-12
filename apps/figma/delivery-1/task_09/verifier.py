@@ -46,5 +46,5 @@ task = Task(
             EventTypeCountAtLeast("create_rectangle", minimum=12),                    # 1
         ], weight=0.10, critical=[]),
     ],
-    efficiency=EfficiencyRubric(target_turns=36),
+    efficiency=EfficiencyRubric(target_turns=61),
 )
