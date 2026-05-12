@@ -2,14 +2,16 @@
 QA harness for the verifier set.
 
 For each task in delivery-1/, synthesizes:
-  - PERFECT-LOG: shapes/events the task expects, in matching counts
-  - EMPTY-LOG: no shapes, no events (should score ~0)
+  - CORRECT: shapes/events the task expects, in matching counts
+  - IMPROPER: intentionally-broken version of CORRECT
+  - CORRECT+TRASH: CORRECT with unnecessary extra canvas objects
 
-Then runs the verifier on both, prints a table flagging:
+Then runs the verifier on all three and flags:
   - CRASH       — verifier raised an exception
-  - TOO STRICT  — perfect log scored < 0.7
-  - TOO LENIENT — empty log scored > 0.3
-  - OK          — perfect ≥ 0.7 and empty ≤ 0.3
+  - FAIL_CORRECT — CORRECT did not score 1.0
+  - FAIL_IMPROPER — IMPROPER still scored 1.0
+  - FAIL_TRASH — CORRECT+TRASH still scored 1.0
+  - OK          — CORRECT == 1.0 and both IMPROPER/TRASH < 1.0
 
 Usage:
     ../.venv/Scripts/python scripts/qa_verifiers.py
@@ -17,11 +19,13 @@ Usage:
 
 from __future__ import annotations
 import importlib.util, os, sys, traceback
+import json
 from dataclasses import is_dataclass
 from pathlib import Path
 
 APP_ROOT     = Path(__file__).resolve().parent.parent
 DELIVERY_DIR = APP_ROOT / "delivery-1"
+SCORE_EPS = 1e-6
 
 # Make `from verifier... import ...` work inside delivery-1/task_NN/verifier.py
 sys.path.insert(0, str(APP_ROOT))
@@ -364,6 +368,36 @@ def mutate_for_geometry(task, log) -> None:
                     a["x"] = b["x"] - a["w"]; a["y"] = b["y"]
                 elif c.side == "right":
                     a["x"] = b["x"] + b["w"]; a["y"] = b["y"]
+        elif cname == "LayersFlankLayer":
+            flankers = by_type.get(c.flanker_type, [])
+            pivots = by_type.get(c.pivot_type, [])
+            if len(flankers) >= 2 and pivots:
+                # For multi-pivot types (e.g. body + door rectangles), choose
+                # the smallest pivot so synthetic logs align with "flank door"
+                # semantics used by several tasks.
+                pivot = min(pivots, key=lambda l: l["w"] * l["h"])
+                if c.axis == "x":
+                    px = pivot["x"] + pivot["w"] / 2
+                    py = pivot["y"] + pivot["h"] / 2
+                    half_gap = max(
+                        18,
+                        int((pivot["w"] / 2) + flankers[0]["w"] / 2 + c.tolerance + 4),
+                    )
+                    flankers[0]["x"] = px - half_gap - flankers[0]["w"] / 2
+                    flankers[1]["x"] = px + half_gap - flankers[1]["w"] / 2
+                    flankers[0]["y"] = py - flankers[0]["h"] / 2
+                    flankers[1]["y"] = py - flankers[1]["h"] / 2
+                else:
+                    px = pivot["x"] + pivot["w"] / 2
+                    py = pivot["y"] + pivot["h"] / 2
+                    half_gap = max(
+                        18,
+                        int((pivot["h"] / 2) + flankers[0]["h"] / 2 + c.tolerance + 4),
+                    )
+                    flankers[0]["y"] = py - half_gap - flankers[0]["h"] / 2
+                    flankers[1]["y"] = py + half_gap - flankers[1]["h"] / 2
+                    flankers[0]["x"] = px - flankers[0]["w"] / 2
+                    flankers[1]["x"] = px - flankers[1]["w"] / 2
         elif cname == "LayerWidthFraction":
             for parent in by_type.get(c.parent_type, []):
                 children = parent.get("children", [])
@@ -647,6 +681,18 @@ def mutate_for_geometry(task, log) -> None:
             target.setdefault("a", 1.0)
             for l in by_type.get(c.layer_type, []):
                 l["fills"] = [{"kind": "solid", "color": target, "opacity": 1.0, "visible": True}]
+        elif cname == "AllSolidColorsNearGray":
+            # Keep layers in the gray family while still distinct enough to satisfy
+            # companion color-diversity checks when present.
+            gray_values = [0.22, 0.40, 0.58, 0.76, 0.32, 0.50, 0.68, 0.86]
+            for i, l in enumerate(by_type.get(c.layer_type, [])):
+                v = gray_values[i % len(gray_values)]
+                l["fills"] = [{
+                    "kind": "solid",
+                    "color": {"r": v, "g": v, "b": v, "a": 1.0},
+                    "opacity": 1.0,
+                    "visible": True,
+                }]
         elif cname == "CentermostLayerHasColor":
             layers = by_type.get(c.layer_type, [])
             if not layers:
@@ -1467,20 +1513,94 @@ def perfect_log(task) -> dict:
     return log
 
 
-def empty_log() -> dict:
-    return {
-        "schemaVersion": 1,
-        "sessionId": "qa_synthetic_empty",
-        "raw": [],
-        "semantic": [{"name": "session_start", "timestamp": 0}],
-        "outcome": {
-            "summary": {"shapeCounts": {}},
-            "document": {"pages": [{"id": "p", "children": [],
-                                     "prototypeSettings": {"device": None,
-                                                            "backgroundColor": {"r":0,"g":0,"b":0,"a":1}},
-                                     "prototypeFlows": []}]}
-        }
+def _deepcopy_json(obj):
+    return json.loads(json.dumps(obj))
+
+
+def _walk_layers(nodes: list[dict], out: list[dict]) -> None:
+    for n in nodes:
+        out.append(n)
+        children = n.get("children")
+        if isinstance(children, list):
+            _walk_layers(children, out)
+
+
+def _all_layers_from_log(log: dict) -> list[dict]:
+    pages = (((log.get("outcome") or {}).get("document") or {}).get("pages") or [])
+    if not pages:
+        return []
+    out: list[dict] = []
+    _walk_layers(pages[0].get("children", []) or [], out)
+    return out
+
+
+def improper_log(task) -> dict:
+    """Intentionally broken run: mutate one real layer away from validity."""
+    log = _deepcopy_json(perfect_log(task))
+    log["sessionId"] = "qa_synthetic_improper"
+
+    layers = [l for l in _all_layers_from_log(log) if l.get("type") != "frame"]
+    if not layers:
+        return log
+
+    victim = layers[0]
+    victim["x"] = 10_000
+    victim["y"] = 10_000
+    victim["visible"] = False
+    victim["opacity"] = 0.0
+    victim["fills"] = []
+    victim["strokes"] = []
+    victim["effects"] = []
+    if victim.get("type") == "polygon":
+        victim["sides"] = 5
+    if victim.get("type") == "star":
+        victim["points"] = 5
+    if victim.get("type") == "vector":
+        victim["network"] = {"segments": []}
+    return log
+
+
+def _append_trash_layer(log: dict) -> None:
+    outcome = log.setdefault("outcome", {})
+    document = outcome.setdefault("document", {})
+    pages = document.setdefault("pages", [{
+        "id": "p",
+        "children": [],
+        "prototypeSettings": {"device": None, "backgroundColor": {"r": 0, "g": 0, "b": 0, "a": 1}},
+        "prototypeFlows": [],
+    }])
+    page = pages[0]
+    children = page.setdefault("children", [])
+
+    trash = {
+        "id": "qa_trash_rect_0",
+        "type": "rectangle",
+        "x": 40, "y": 40, "w": 48, "h": 48,
+        "fills": [{"kind": "solid", "color": {"r": 1.0, "g": 0.0, "b": 1.0, "a": 1.0},
+                   "opacity": 1.0, "visible": True}],
+        "strokes": [],
+        "effects": [],
     }
+
+    frame = next((n for n in children if isinstance(n, dict) and n.get("type") == "frame"), None)
+    if frame is not None:
+        frame.setdefault("children", []).append(trash)
+    else:
+        children.append(trash)
+
+    summary = outcome.setdefault("summary", {})
+    shape_counts = summary.setdefault("shapeCounts", {})
+    shape_counts["rectangle"] = int(shape_counts.get("rectangle", 0) or 0) + 1
+
+
+def trash_log(task) -> dict:
+    """Correct run plus canvas clutter."""
+    log = _deepcopy_json(perfect_log(task))
+    log["sessionId"] = "qa_synthetic_correct_plus_trash"
+    _append_trash_layer(log)
+    semantic = log.setdefault("semantic", [])
+    semantic.append({"name": "create_shape", "timestamp": 999999})
+    return log
 
 
 # ─────────────────────────────────────────────────
@@ -1507,34 +1627,48 @@ if __name__ == "__main__":
         tname = task_dir.name
         try:
             task = load_task_from_dir(task_dir)
-            p_log = perfect_log(task)
-            e_log = empty_log()
-            p_score = score(task, p_log)
-            e_score = score(task, e_log)
+            c_log = perfect_log(task)
+            i_log = improper_log(task)
+            t_log = trash_log(task)
+            c_score = score(task, c_log)
+            i_score = score(task, i_log)
+            t_score = score(task, t_log)
 
-            if p_score >= 0.7 and e_score <= 0.3:
-                flag = "OK"
-            elif p_score < 0.7:
-                flag = "STRICT"
-            elif e_score > 0.3:
-                flag = "LENIENT"
+            correct_is_one = abs(c_score - 1.0) <= SCORE_EPS
+            improper_is_one = abs(i_score - 1.0) <= SCORE_EPS
+            trash_is_one = abs(t_score - 1.0) <= SCORE_EPS
+
+            if not correct_is_one:
+                flag = "FAIL_CORRECT"
+            elif improper_is_one:
+                flag = "FAIL_IMPROPER"
+            elif trash_is_one:
+                flag = "FAIL_TRASH"
             else:
-                flag = "?"
-            rows.append((tname, p_score, e_score, flag, None))
+                flag = "OK"
+            rows.append((tname, c_score, i_score, t_score, flag, None))
         except Exception as ex:
-            rows.append((tname, None, None, "CRASH", repr(ex)))
+            rows.append((tname, None, None, None, "CRASH", repr(ex)))
 
-    print(f"{'Task':<40} {'Perfect':>7} {'Empty':>6}  Flag       Notes")
+    print(f"{'Task':<40} {'Correct':>8} {'Improper':>8} {'Trash':>8}  Flag            Notes")
     print("-" * 110)
-    for tname, p, e, flag, err in rows:
-        if p is None:
-            print(f"{tname:<40} {'-':>7} {'-':>6}  {flag:<10} {err[:55] if err else ''}")
+    for tname, c, i, t, flag, err in rows:
+        if c is None:
+            print(f"{tname:<40} {'-':>8} {'-':>8} {'-':>8}  {flag:<15} {err[:55] if err else ''}")
         else:
-            print(f"{tname:<40} {p:>7.3f} {e:>6.3f}  {flag:<10}")
+            print(f"{tname:<40} {c:>8.3f} {i:>8.3f} {t:>8.3f}  {flag:<15}")
 
-    ok    = sum(1 for r in rows if r[3] == "OK")
-    strict = sum(1 for r in rows if r[3] == "STRICT")
-    lenient = sum(1 for r in rows if r[3] == "LENIENT")
-    crash = sum(1 for r in rows if r[3] == "CRASH")
+    ok = sum(1 for r in rows if r[4] == "OK")
+    fail_correct = sum(1 for r in rows if r[4] == "FAIL_CORRECT")
+    fail_improper = sum(1 for r in rows if r[4] == "FAIL_IMPROPER")
+    fail_trash = sum(1 for r in rows if r[4] == "FAIL_TRASH")
+    crash = sum(1 for r in rows if r[4] == "CRASH")
     print()
-    print(f"Summary: {ok} OK  |  {strict} STRICT  |  {lenient} LENIENT  |  {crash} CRASH  |  total {len(rows)}")
+    print(
+        "Summary: "
+        f"{ok} OK  |  "
+        f"{fail_correct} FAIL_CORRECT  |  "
+        f"{fail_improper} FAIL_IMPROPER  |  "
+        f"{fail_trash} FAIL_TRASH  |  "
+        f"{crash} CRASH  |  total {len(rows)}"
+    )
