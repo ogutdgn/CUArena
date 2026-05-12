@@ -187,11 +187,11 @@ class NoLayerCreated:
 
 @dataclass
 class NoLayerDeleted:
-    """Pass iff the agent emitted zero delete_layer events."""
+    """Pass iff the agent emitted zero delete events."""
 
     def run(self, log: dict) -> CheckResult:
         deletes = [e for e in log.get("semantic", [])
-                   if e.get("name") == "delete_layer"]
+                   if e.get("name") == "delete"]
         passed = len(deletes) == 0
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,

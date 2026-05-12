@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_55f24d3c-3988-4025-9198-bd852595c042",
+  "exportedAt": 1778573275143,
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_55f24d3c-3988-4025-9198-bd852595c042",
+    "capturedAt": 1778573269557,
+    "activePageId": "page_mp2ckfwz_4_76n1kc",
+    "selectedLayerIds": [],
+    "summary": {
+      "semanticEventCount": 7,
+      "shapeCounts": {
+        "frame": 1,
+        "ellipse": 1,
+        "rectangle": 2,
+        "polygon": 2
+      }
+    },
+    "document": {
+      "id": "doc_mp2ckfwz_16_iexhaa",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp2ckfwz_4_76n1kc",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "frame_mp2ckfwz_5_yjau29",
+              "type": "frame",
+              "name": "scene",
+              "parentId": "page_mp2ckfwz_4_76n1kc",
+              "x": 0,
+              "y": 0,
+              "w": 1200,
+              "h": 800,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": [],
+              "cornerRadius": 0,
+              "clipsContent": true,
+              "children": [
+                {
+                  "id": "fix_mp2ckfwz_11_4xvpv8",
+                  "type": "ellipse",
+                  "name": "blue_01",
+                  "parentId": "frame_mp2ckfwz_5_yjau29",
+                  "x": 480,
+                  "y": 360,
+                  "w": 100,
+                  "h": 100,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 1,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "fix_mp2ckfwz_12_6baild",
+                  "type": "rectangle",
+                  "name": "blue_02",
+                  "parentId": "frame_mp2ckfwz_5_yjau29",
+                  "x": 780,
+                  "y": 220,
+                  "w": 90,
+                  "h": 110,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 1,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp2ckfwz_13_ccdju9",
+                  "type": "polygon",
+                  "name": "blue_03",
+                  "parentId": "frame_mp2ckfwz_5_yjau29",
+                  "x": 1020,
+                  "y": 120,
+                  "w": 100,
+                  "h": 100,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 1,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "sides": 6,
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp2ckfwz_14_vgy4aw",
+                  "type": "rectangle",
+                  "name": "blue_04",
+                  "parentId": "frame_mp2ckfwz_5_yjau29",
+                  "x": 540,
+                  "y": 580,
+                  "w": 100,
+                  "h": 100,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 1,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp2ckfwz_15_blt3s3",
+                  "type": "polygon",
+                  "name": "blue_05",
+                  "parentId": "frame_mp2ckfwz_5_yjau29",
+                  "x": 80,
+                  "y": 380,
+                  "w": 100,
+                  "h": 100,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 1,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "sides": 5,
+                  "cornerRadius": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "raw_event_count": 118,
+  "semantic_event_count": 7
+}
