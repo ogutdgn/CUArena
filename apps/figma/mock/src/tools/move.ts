@@ -100,6 +100,7 @@ type State =
       txId: string;
       isDuplicate: boolean;
       duplicatedIds: string[];
+      containmentOrderIds: string[];
       // Cached at drag start. Sibling rects don't change during a drag (only
       // the moving layer moves), and frames don't get added/removed mid-drag,
       // so it's safe to populate once and reuse on every pointermove. Cuts
@@ -498,6 +499,7 @@ export const moveTool: ITool = {
         };
         collect(pageAfterDup.children);
       }
+      const containmentOrderIds = sortLayerIdsBySceneOrder(liveAfterDup, activeIds);
 
       state = {
         kind: "active_layer_drag",
@@ -511,6 +513,7 @@ export const moveTool: ITool = {
         txId,
         isDuplicate: state.modifiers.alt,
         duplicatedIds,
+        containmentOrderIds,
         candidatesCache,
         framesCache,
       };
@@ -1065,27 +1068,32 @@ function applyFrameNestingByOverlap(
   drag: Extract<State, { kind: "active_layer_drag" }>,
   txId: string,
 ): void {
-  const moves = getFrameContainmentMoves(useStore.getState(), drag.layerIds, { frames: drag.framesCache });
-  for (const move of moves) {
+  const moves = getFrameContainmentMoves(useStore.getState(), drag.layerIds, {
+    frames: drag.framesCache,
+    orderIds: drag.containmentOrderIds,
+  });
+  if (moves.length === 0) return;
+  const before = moves.map((move) => ({ id: move.id, parentId: move.fromParentId, index: move.fromIndex, toParentId: move.toParentId, toIndex: move.toIndex }));
+  const now = useStore.getState();
+  dispatch(
+    {
+      id: makeOpId(),
+      timestamp: performance.now(),
+      kind: "reparent",
+      pageId: now.activePageId,
+      moves,
+    },
+    { transactionId: txId },
+  );
+  for (const move of before) {
     const now = useStore.getState();
-    dispatch(
-      {
-        id: makeOpId(),
-        timestamp: performance.now(),
-        kind: "reparent",
-        pageId: now.activePageId,
-        moves: [move],
-      },
-      { transactionId: txId },
-    );
-    const afterState = useStore.getState();
-    const afterLayer = afterState.nodesById[move.id] as Layer | undefined;
-    const afterArr = afterLayer ? childrenOf(afterState, afterLayer.parentId) : null;
+    const afterLayer = now.nodesById[move.id] as Layer | undefined;
+    const afterArr = afterLayer ? childrenOf(now, afterLayer.parentId) : null;
     const afterIndex = afterArr && afterLayer ? afterArr.findIndex((c) => c.id === move.id) : move.toIndex;
     emitSemantic({
       name: "reorder_layer",
       layerIds: [move.id],
-      before: [{ parentId: move.fromParentId, index: move.fromIndex }],
+      before: [{ parentId: move.parentId, index: move.index }],
       after: [{ parentId: afterLayer?.parentId ?? move.toParentId, index: afterIndex >= 0 ? afterIndex : move.toIndex }],
       trigger: "canvas_drag",
     });
@@ -1098,6 +1106,32 @@ function childrenOf(s: ReturnType<typeof useStore.getState>, parentId: string): 
   if ((p as Page).type === "page") return (p as Page).children;
   if ("children" in (p as object)) return ((p as Layer & { children?: Layer[] }).children ?? null);
   return null;
+}
+
+function sortLayerIdsBySceneOrder(s: ReturnType<typeof useStore.getState>, ids: string[]): string[] {
+  return [...ids].sort((a, b) => compareSceneOrder(s, a, b));
+}
+
+function compareSceneOrder(s: ReturnType<typeof useStore.getState>, aId: string, bId: string): number {
+  const aPath = sceneOrderPath(s, aId);
+  const bPath = sceneOrderPath(s, bId);
+  const n = Math.min(aPath.length, bPath.length);
+  for (let i = 0; i < n; i++) {
+    if (aPath[i] !== bPath[i]) return aPath[i] - bPath[i];
+  }
+  return aPath.length - bPath.length;
+}
+
+function sceneOrderPath(s: ReturnType<typeof useStore.getState>, id: string): number[] {
+  const path: number[] = [];
+  let cur = s.nodesById[id] as Layer | Page | undefined;
+  while (cur && (cur as Page).type !== "page") {
+    const layer = cur as Layer;
+    const siblings = childrenOf(s, layer.parentId);
+    path.unshift(siblings ? siblings.findIndex((child) => child.id === layer.id) : -1);
+    cur = s.nodesById[layer.parentId] as Layer | Page | undefined;
+  }
+  return path;
 }
 
 function duplicateForDrag(s: ReturnType<typeof useStore.getState>, sources: Layer[]): string[] {
