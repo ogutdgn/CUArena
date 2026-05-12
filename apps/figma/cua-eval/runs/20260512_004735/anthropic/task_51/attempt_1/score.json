@@ -1,0 +1,72 @@
+{
+  "task_id": "task_51_read_count_blue_rects",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_004735/anthropic/task_51/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.7,
+      "max_score": 0.7,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Click on 'label_4' found in event log"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'label_4' is selected"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "create events: 0 (expected 0)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "delete_layer events: 0 (expected 0)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "No move_layer events"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.1,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'click_select': expected \u22651, got 1"
+        }
+      ]
+    }
+  ],
+  "base_score": 1.0,
+  "efficiency": {
+    "multiplier": 0.9094,
+    "actual_turns": 10,
+    "target_turns": 6,
+    "lambda_used": 0.05,
+    "message": "10 turns used, target 6, \u03bb=0.05 \u2192 multiplier 0.9094"
+  },
+  "final_score": 0.9094
+}

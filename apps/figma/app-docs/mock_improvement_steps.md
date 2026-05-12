@@ -23,6 +23,116 @@ When an entry ships, update the **Status** line with the commit short SHA and da
 
 ## Bug fixes
 
+### 2026-05-12 — User-reported frame containment z-order corruption
+
+#### 38. 🟡 P1 — Multi-selection frame entry can partially reparent and corrupt z-order
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/frameContainment.ts`
+- `apps/figma/mock/src/tools/move.ts`
+- `apps/figma/mock/src/engine/propertyCommands.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** When multiple selected root layers are dragged into or out of a frame together, the selected set should be treated as one selection union. If the whole selected area qualifies for frame entry, all selected roots enter together and keep their scene z-order. If only some selected shapes overlap enough, none should be reparented yet.
+
+**What happened:** Individual selected shapes could enter the frame before the full selection did. In a rectangle-with-circles case, the circles could become frame children while the backing rectangle was still outside, creating a temporary mixed-parent state and making frame children appear behind or out of order once the rectangle later entered/exited.
+
+**Root cause verified in code:** `getFrameContainmentMoves` made the enter/exit decision per root layer. The live drag path re-runs containment across animation frames, so selected children whose individual overlap crossed the threshold could reparent before the rest of the selection. On top of that, repeated moves into the same target could append later-entering background layers after foreground siblings, losing the original scene z-order.
+
+**Fix:** Frame containment now evaluates same-parent multi-selection moves against the selected roots' union bounds. Entry/exit produces a single batch of reparent moves only when the whole selection qualifies, and canvas/panel callers dispatch that batch as one `reparent` op. Target insertion indices are still normalized against drag-start scene order so the child order inside the target frame remains stable.
+
+**Logger impact:** None. The existing `reorder_layer` semantic event shape is preserved; the resulting document tree order is corrected.
+
+**Verifier impact:** Positive outcome-document change. Existing z-order and frame containment checks should observe the intended child order from `outcome.document`.
+
+#### 39. 🟡 P1 — Multi-selection rotate uses each layer's own center
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/selectionTransforms.ts`
+- `apps/figma/mock/src/engine/transformCommands.ts`
+- `apps/figma/mock/src/engine/propertyCommands.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** When multiple layers are selected, the rotate button and rotation input should rotate the whole selected bounding area around the selection center, matching Figma's multi-select behavior.
+
+**What happened:** The rotate command only changed each layer's `rotation` value, so every selected layer spun around its own center and stayed in place instead of rotating as a group.
+
+**Root cause verified in code:** `rotate90Selection` and `setTransformField("rotation")` built per-layer `set_transform` outputs by mutating only `rotation`. They did not apply a world-space transform around the multi-selection visual center.
+
+**Fix:** Added a shared selection transform helper that rotates each selected layer's world matrix around the visual union center, then re-expresses the result in the layer's parent space. Single-layer rotation keeps the existing own-center behavior; multi-layer panel and button rotation use the group-center path.
+
+**Logger impact:** None. The existing `rotate_layer` semantic event shape is preserved.
+
+**Verifier impact:** Positive outcome-document change for multi-selection rotation geometry. Existing final-state checks can still read each layer's `x/y/rotation` from `outcome.document`; no new checker required.
+
+#### 40. 🟡 P2 — Mixed numeric fields disable panel scrub for multi-selection
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/panels/NumericInput.tsx`
+- `apps/figma/mock/src/ui/panels/PositionSection.tsx`
+- `apps/figma/mock/src/ui/panels/LayoutSection.tsx`
+- `apps/figma/mock/src/engine/propertyCommands.ts`
+
+**What I expected:** X/Y, W/H, and rotation fields may show `Mixed` for multi-selection, but their glyph handles should still support click-drag scrubbing. A scrub on Mixed should apply a relative delta to every selected layer instead of forcing all layers to one absolute value.
+
+**What happened:** `NumericInput` returned early when `value === "Mixed"`, so the glyph handles could not start a scrub gesture.
+
+**Root cause verified in code:** The scrub state only accepted a numeric displayed value as its base. Position/Layout handlers also only had absolute `setTransformField` behavior, which is correct for typed numeric commits but wrong for Mixed scrub gestures.
+
+**Fix:** `NumericInput` now accepts an optional `scrubBaseValue` for Mixed displays and emits `scrubDelta` during pointer drag. Position/Layout route Mixed scrubs through a new `nudgeTransformField` helper, applying relative X/Y/W/H/rotation deltas to all selected layers while preserving transaction and frame-containment behavior.
+
+**Logger impact:** None. Existing `move_layer`, `resize_layer`, and `rotate_layer` semantic event shapes are preserved.
+
+**Verifier impact:** None. This improves panel reachability for existing final document states; no checker changes required.
+
+#### 41. 🟡 P1 — Scrub gestures create micro-undo entries and Mixed deltas drift from single-layer behavior
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/dispatch.ts`
+- `apps/figma/mock/src/ui/panels/NumericInput.tsx`
+- `apps/figma/mock/src/ui/panels/OpacityScrubber.tsx`
+- `apps/figma/mock/src/util/keymap.ts`
+- `apps/figma/mock/src/ui/panels/AppearanceSection.tsx`
+- `apps/figma/mock/src/ui/panels/FillSection.tsx`
+- `apps/figma/mock/src/ui/panels/StrokeSection.tsx`
+- `apps/figma/mock/src/ui/panels/EffectsSection.tsx`
+- `apps/figma/mock/src/engine/propertyCommands.ts`
+
+**What I expected:** Dragging a numeric/color/opacity control should be undoable as one user gesture. If a rotation scrub goes from 0 to 100, one undo should return to 0, not 99. Mixed scrub deltas should move at the same pixel-to-value rate as a single selected layer.
+
+**What happened:** Some panel scrub surfaces dispatched every pointermove without a transaction, creating one undo entry per tick. Mixed width/height scrub also used the displayed value clamp as the delta source, so `min` bounds could distort or stop relative deltas.
+
+**Root cause verified in code:** `NumericInput` computed `scrubDelta` after clamping the display value, and appearance/fill/stroke/effect scrub/color paths did not consistently pass `transactionId` through their property commands. `commitTransaction` stored every live tick as separate ops inside the undo entry instead of collapsing same-field edits to the first `before` and final `after`. The global keymap also returned early for focused `input`/`select` controls before handling Ctrl+Z/Ctrl+Y, so panel and interaction edits appeared non-undoable while focus stayed in a field.
+
+**Fix:** Transactions now compact consecutive `set_transform` and same-path `set_property` ops into a single undoable op with first-before/final-after semantics. `NumericInput` emits incremental raw Mixed deltas independent of display clamps, so each pointermove applies only the movement since the previous tick. Opacity, corner radius, fill/stroke/effect color, stroke weight, and effect numeric scrubs now open/commit one transaction per pointer gesture. Ctrl+Z/Ctrl+Y are handled as app-level undo/redo before the text-field shortcut guard.
+
+**Logger impact:** None. Existing semantic event names stay the same; undo granularity changes to match user gestures.
+
+**Verifier impact:** None. Undo stack behavior and panel edit ergonomics are not read by delivery verifiers.
+
+#### 42. 🟡 UI — Context menu exposes Undo
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/ui/overlays/ContextMenu.tsx`
+
+**What I expected:** The right-click context menu should expose Undo as a click target for users who do not use keyboard shortcuts.
+
+**Fix:** Added an Undo row at the top of the canvas context menu. It is disabled when the undo stack is empty and calls the same central `undo()` dispatcher used by `Ctrl+Z` when available.
+
+**Logger impact:** None. Uses the existing undo semantic event emitted by the dispatcher.
+
+**Verifier impact:** None. This is a UI reachability improvement for an existing command.
+
 ### 2026-05-11 — User-reported: trackpad pinch in canvas page-zooms the whole webpage
 
 #### 37. 🟢 P2 — Pinch-zoom inside canvas also zooms the browser page

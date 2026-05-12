@@ -1,0 +1,108 @@
+{
+  "task_id": "task_53_delete_all_red",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_010647/anthropic/task_53/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.5,
+      "max_score": 0.5,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'red_01' deleted"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'red_02' deleted"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'red_03' deleted"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'red_04' deleted"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'red_05' deleted"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.4,
+      "max_score": 0.4,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'blue_01' exists"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'blue_02' exists"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'blue_03' exists"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'blue_04' exists"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'blue_05' exists"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "create events: 0 (expected 0)"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.0,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": false,
+          "score": 0.0,
+          "max_score": 1.0,
+          "message": "event 'delete': expected \u22651, got 0"
+        }
+      ]
+    }
+  ],
+  "base_score": 0.9,
+  "efficiency": {
+    "multiplier": 1.0,
+    "actual_turns": 7,
+    "target_turns": 18,
+    "lambda_used": 0.05,
+    "message": "7 turns used, target 18, \u03bb=0.05 \u2192 multiplier 1.0"
+  },
+  "final_score": 0.9
+}

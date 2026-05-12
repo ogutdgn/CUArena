@@ -9,6 +9,7 @@ import {
 } from "@/engine/propertyCommands";
 import { ColorPicker, colorToHex, parseHex, swatchBackground } from "@/ui/overlays/ColorPicker";
 import { OpacityScrubber } from "./OpacityScrubber";
+import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import { Eye, EyeClosed, Minus, X, ChevronDown, GripVertical, Sun } from "lucide-react";
 import type { Effect, Color } from "@/types/scene";
 
@@ -168,6 +169,7 @@ function EffectDetail({
   const typeRef = useRef<HTMLDivElement>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerAnchor, setPickerAnchor] = useState<{ right: number; top: number } | null>(null);
+  const pickerTxRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!typeOpen) return;
@@ -262,8 +264,10 @@ function EffectDetail({
           <NumericInput
             prefix={<GripVertical size={12} />}
             value={effect.radius}
-            onCommit={(v) => setEffectField(index, "radius", v)}
+            onCommit={(v, context) => setEffectField(index, "radius", v, context)}
             min={0}
+            onScrubStart={openTransaction}
+            onScrubEnd={commitTransaction}
           />
         </DetailRow>
       )}
@@ -273,23 +277,27 @@ function EffectDetail({
         <>
           <DetailRow label="Position">
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              <NumericInput prefix="X" value={effect.x} onCommit={(v) => setEffectField(index, "x", v)} />
-              <NumericInput prefix="Y" value={effect.y} onCommit={(v) => setEffectField(index, "y", v)} />
+              <NumericInput prefix="X" value={effect.x} onCommit={(v, context) => setEffectField(index, "x", v, context)} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
+              <NumericInput prefix="Y" value={effect.y} onCommit={(v, context) => setEffectField(index, "y", v, context)} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
             </div>
           </DetailRow>
           <DetailRow label="Blur">
             <NumericInput
               prefix={<GripVertical size={12} />}
               value={effect.blur}
-              onCommit={(v) => setEffectField(index, "blur", v)}
+              onCommit={(v, context) => setEffectField(index, "blur", v, context)}
               min={0}
+              onScrubStart={openTransaction}
+              onScrubEnd={commitTransaction}
             />
           </DetailRow>
           <DetailRow label="Spread">
             <NumericInput
               prefix={<Sun size={12} />}
               value={effect.spread}
-              onCommit={(v) => setEffectField(index, "spread", v)}
+              onCommit={(v, context) => setEffectField(index, "spread", v, context)}
+              onScrubStart={openTransaction}
+              onScrubEnd={commitTransaction}
             />
           </DetailRow>
           <DetailRow label="Color">
@@ -302,7 +310,12 @@ function EffectDetail({
           {pickerOpen && pickerAnchor && (
             <ColorPicker
               value={effect.color}
-              onChange={(c: Color) => setEffectColor(index, c)}
+              onChange={(c: Color) => setEffectColor(index, c, pickerTxRef.current ? { transactionId: pickerTxRef.current } : undefined)}
+              onChangeStart={() => { pickerTxRef.current = openTransaction(); }}
+              onChangeEnd={() => {
+                if (pickerTxRef.current) commitTransaction(pickerTxRef.current);
+                pickerTxRef.current = null;
+              }}
               onClose={() => setPickerOpen(false)}
               anchor={pickerAnchor}
             />
@@ -325,8 +338,8 @@ function ShadowColorRow({ effect, index, onOpenPicker }: {
 
   useEffect(() => { if (!editing) setHexDraft(hex); }, [hex, editing]);
 
-  function commitOpacityPct(pct: number) {
-    setEffectColor(index, { ...effect.color, a: pct / 100 });
+  function commitOpacityPct(pct: number, context?: { transactionId?: string }) {
+    setEffectColor(index, { ...effect.color, a: pct / 100 }, context);
   }
 
   return (
@@ -345,7 +358,7 @@ function ShadowColorRow({ effect, index, onOpenPicker }: {
         onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
         style={{ flex: 1, minWidth: 0, background: "transparent", border: 0, color: "var(--color-text-primary)", fontSize: "var(--fs-sm)", fontFamily: "monospace", outline: 0, padding: 0 }}
       />
-      <OpacityScrubber value={opacityPct} onCommit={commitOpacityPct} />
+      <OpacityScrubber value={opacityPct} onCommit={commitOpacityPct} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
     </div>
   );
 }

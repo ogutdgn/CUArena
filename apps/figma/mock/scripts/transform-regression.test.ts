@@ -23,8 +23,9 @@ import { frameLabelGeometry } from "../src/engine/frameLabelsGeometry";
 import { pannedViewportFromClientDelta } from "../src/engine/viewportPan";
 import { textEditorCssMatrix } from "../src/ui/overlays/textEditorGeometry";
 import { applyFrameContainmentForLayers, getFrameContainmentMoves } from "../src/engine/frameContainment";
+import { rotateSelectionAroundVisualCenter } from "../src/engine/selectionTransforms";
 import type { AppState } from "../src/engine/store";
-import type { Frame, Layer, Line, Page, Rectangle, Text } from "../src/types/scene";
+import type { Frame, Layer, Line, Page, Polygon, Rectangle, Text } from "../src/types/scene";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -261,6 +262,322 @@ assert(conservativeExitMoves.length === 0, "canvas hysteresis should keep a half
 const panelExitMoves = getFrameContainmentMoves(panelHalfOutState, [panelHalfOutChild.id], { exitRatio: 0.6 });
 assert(panelExitMoves.length === 1 && panelExitMoves[0].toParentId === "page-1", "panel containment should eject once less than 60% of the layer remains in the frame");
 
+const zFrame: Frame = {
+  ...frame,
+  id: "z-target-frame",
+  parentId: "page-1",
+  x: 0,
+  y: 0,
+  w: 200,
+  h: 160,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  clipsContent: true,
+  children: [],
+};
+const zRect: Rectangle = {
+  ...rect,
+  id: "z-bottom-rect",
+  parentId: "page-1",
+  x: 20,
+  y: 20,
+  w: 120,
+  h: 100,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+};
+const zPoly1: Polygon = {
+  ...rect,
+  id: "z-poly-1",
+  parentId: "page-1",
+  type: "polygon",
+  name: "Polygon 1",
+  x: 40,
+  y: 40,
+  w: 50,
+  h: 50,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  sides: 5,
+  cornerRadius: 0,
+};
+const zPoly2: Polygon = {
+  ...zPoly1,
+  id: "z-poly-2",
+  name: "Polygon 2",
+  x: 80,
+  y: 50,
+};
+const zState = makeMultiSelectionState([zFrame, zRect, zPoly1, zPoly2]);
+zState.selectionByPage[zState.activePageId] = [zRect.id, zPoly1.id, zPoly2.id];
+const zMoves = getFrameContainmentMoves(zState, [zRect.id, zPoly1.id, zPoly2.id]);
+for (const move of zMoves) {
+  applyReparent(zState, {
+    id: `z-order-reparent-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zState.activePageId,
+    moves: [move],
+  });
+}
+const zFrameAfter = zState.nodesById[zFrame.id] as Frame;
+assert(
+  zFrameAfter.children.map((layer) => layer.id).join(",") === [zRect.id, zPoly1.id, zPoly2.id].join(","),
+  "batch frame containment should preserve selected siblings' z-order inside the target frame",
+);
+const zShuffledFrame: Frame = { ...zFrame, id: "z-shuffled-frame", children: [] };
+const zShuffledRect: Rectangle = { ...zRect, id: "z-shuffled-rect", parentId: "page-1", x: 20, y: 20 };
+const zShuffledPoly1: Polygon = { ...zPoly1, id: "z-shuffled-poly-1", parentId: "page-1", x: 40, y: 40 };
+const zShuffledPoly2: Polygon = { ...zPoly2, id: "z-shuffled-poly-2", parentId: "page-1", x: 80, y: 50 };
+const zShuffledState = makeMultiSelectionState([zShuffledFrame, zShuffledRect, zShuffledPoly1, zShuffledPoly2]);
+const zShuffledMoves = getFrameContainmentMoves(
+  zShuffledState,
+  [zShuffledPoly2.id, zShuffledRect.id, zShuffledPoly1.id],
+  { orderIds: [zShuffledRect.id, zShuffledPoly1.id, zShuffledPoly2.id] },
+);
+assert(zShuffledMoves.length === 3, `shuffled containment should produce three moves; got ${zShuffledMoves.length}`);
+for (const move of zShuffledMoves) {
+  applyReparent(zShuffledState, {
+    id: `z-shuffled-reparent-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zShuffledState.activePageId,
+    moves: [move],
+  });
+}
+const zShuffledFrameAfter = zShuffledState.nodesById[zShuffledFrame.id] as Frame;
+const zShuffledActual = zShuffledFrameAfter.children.map((layer) => layer.id).join(",");
+const zShuffledExpected = [zShuffledRect.id, zShuffledPoly1.id, zShuffledPoly2.id].join(",");
+assert(
+  zShuffledActual === zShuffledExpected,
+  `batch frame containment should preserve scene z-order even when selection order is shuffled; got ${zShuffledActual}`,
+);
+const zPanelFrame: Frame = { ...zFrame, id: "z-panel-frame", children: [] };
+const zPanelRect: Rectangle = { ...zRect, id: "z-panel-rect", parentId: "page-1", x: 20, y: 20 };
+const zPanelPoly1: Polygon = { ...zPoly1, id: "z-panel-poly-1", parentId: "page-1", x: 40, y: 40 };
+const zPanelPoly2: Polygon = { ...zPoly2, id: "z-panel-poly-2", parentId: "page-1", x: 80, y: 50 };
+const zPanelState = makeMultiSelectionState([zPanelFrame, zPanelRect, zPanelPoly1, zPanelPoly2]);
+const zPanelMoves = getFrameContainmentMoves(zPanelState, [zPanelPoly2.id, zPanelRect.id, zPanelPoly1.id]);
+for (const move of zPanelMoves) {
+  applyReparent(zPanelState, {
+    id: `z-panel-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zPanelState.activePageId,
+    moves: [move],
+  });
+}
+const zPanelFrameAfter = zPanelState.nodesById[zPanelFrame.id] as Frame;
+assert(
+  zPanelFrameAfter.children.map((layer) => layer.id).join(",") === [zPanelRect.id, zPanelPoly1.id, zPanelPoly2.id].join(","),
+  "panel frame containment should default to scene z-order when selection order is shuffled",
+);
+
+const zPartialFrame: Frame = { ...zFrame, id: "z-partial-frame", children: [] };
+const zPartialRect: Rectangle = { ...zRect, id: "z-partial-rect", parentId: "page-1", x: 120, y: 20, w: 200, h: 120 };
+const zPartialPoly1: Polygon = { ...zPoly1, id: "z-partial-poly-1", parentId: "page-1", x: 130, y: 40 };
+const zPartialPoly2: Polygon = { ...zPoly2, id: "z-partial-poly-2", parentId: "page-1", x: 150, y: 70 };
+const zPartialState = makeMultiSelectionState([zPartialFrame, zPartialRect, zPartialPoly1, zPartialPoly2]);
+const zPartialMoves = getFrameContainmentMoves(
+  zPartialState,
+  [zPartialRect.id, zPartialPoly1.id, zPartialPoly2.id],
+  { orderIds: [zPartialRect.id, zPartialPoly1.id, zPartialPoly2.id] },
+);
+assert(
+  zPartialMoves.length === 0,
+  "multi-selection frame containment should wait for the whole selection union instead of nesting individual shapes early",
+);
+
+const zSplitFrame: Frame = { ...zFrame, id: "z-split-frame", children: [] };
+const zSplitRect: Rectangle = { ...zRect, id: "z-split-rect", parentId: "page-1", x: 20, y: 20 };
+const zSplitPoly1: Polygon = { ...zPoly1, id: "z-split-poly-1", parentId: "page-1", x: 40, y: 40 };
+const zSplitPoly2: Polygon = { ...zPoly2, id: "z-split-poly-2", parentId: "page-1", x: 80, y: 50 };
+const zSplitState = makeMultiSelectionState([zSplitFrame, zSplitRect, zSplitPoly1, zSplitPoly2]);
+const zSplitFirstMoves = getFrameContainmentMoves(zSplitState, [zSplitPoly1.id, zSplitPoly2.id]);
+for (const move of zSplitFirstMoves) {
+  applyReparent(zSplitState, {
+    id: `z-split-first-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zSplitState.activePageId,
+    moves: [move],
+  });
+}
+const zSplitSecondMoves = getFrameContainmentMoves(
+  zSplitState,
+  [zSplitRect.id, zSplitPoly1.id, zSplitPoly2.id],
+  { orderIds: [zSplitRect.id, zSplitPoly1.id, zSplitPoly2.id] },
+);
+for (const move of zSplitSecondMoves) {
+  applyReparent(zSplitState, {
+    id: `z-split-second-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zSplitState.activePageId,
+    moves: [move],
+  });
+}
+const zSplitFrameAfter = zSplitState.nodesById[zSplitFrame.id] as Frame;
+assert(
+  zSplitFrameAfter.children.map((layer) => layer.id).join(",") === [zSplitRect.id, zSplitPoly1.id, zSplitPoly2.id].join(","),
+  "frame containment should preserve z-order when selected layers enter the frame across multiple nesting passes",
+);
+const zAroundFrame: Frame = { ...zFrame, id: "z-around-frame", children: [] };
+const zAroundRect: Rectangle = { ...zRect, id: "z-around-rect", parentId: "page-1", x: 20, y: 20 };
+const zAroundPoly1: Polygon = { ...zPoly1, id: "z-around-poly-1", parentId: "z-around-frame", x: 40, y: 40 };
+const zAroundPoly2: Polygon = { ...zPoly2, id: "z-around-poly-2", parentId: "page-1", x: 80, y: 50 };
+zAroundFrame.children = [zAroundPoly1];
+const zAroundState = makeMultiSelectionState([zAroundFrame, zAroundRect, zAroundPoly2]);
+zAroundState.nodesById[zAroundPoly1.id] = zAroundPoly1;
+const zAroundMoves = getFrameContainmentMoves(
+  zAroundState,
+  [zAroundRect.id, zAroundPoly1.id, zAroundPoly2.id],
+  { orderIds: [zAroundRect.id, zAroundPoly1.id, zAroundPoly2.id] },
+);
+for (const move of zAroundMoves) {
+  applyReparent(zAroundState, {
+    id: `z-around-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zAroundState.activePageId,
+    moves: [move],
+  });
+}
+const zAroundFrameAfter = zAroundState.nodesById[zAroundFrame.id] as Frame;
+assert(
+  zAroundFrameAfter.children.map((layer) => layer.id).join(",") === [zAroundRect.id, zAroundPoly1.id, zAroundPoly2.id].join(","),
+  "frame containment should adjust later toIndex values when inserting around an already-nested selected sibling",
+);
+const zMixedFrame: Frame = { ...zFrame, id: "z-mixed-frame", children: [] };
+const zMixedLow: Rectangle = { ...zRect, id: "z-mixed-low", parentId: "page-1", x: 20, y: 20 };
+const zMixedMid: Polygon = { ...zPoly1, id: "z-mixed-mid", parentId: "z-mixed-frame", x: -120, y: -120 };
+const zMixedHigh: Polygon = { ...zPoly2, id: "z-mixed-high", parentId: "page-1", x: 80, y: 50 };
+const zMixedNeutral: Rectangle = { ...zRect, id: "z-mixed-neutral", parentId: "z-mixed-frame", x: 130, y: 20, w: 20, h: 20 };
+zMixedFrame.children = [zMixedMid, zMixedNeutral];
+const zMixedState = makeMultiSelectionState([zMixedFrame, zMixedLow, zMixedHigh]);
+zMixedState.nodesById[zMixedMid.id] = zMixedMid;
+zMixedState.nodesById[zMixedNeutral.id] = zMixedNeutral;
+const zMixedMoves = getFrameContainmentMoves(
+  zMixedState,
+  [zMixedMid.id, zMixedLow.id, zMixedHigh.id],
+  { orderIds: [zMixedLow.id, zMixedMid.id, zMixedHigh.id] },
+);
+for (const move of zMixedMoves) {
+  applyReparent(zMixedState, {
+    id: `z-mixed-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zMixedState.activePageId,
+    moves: [move],
+  });
+}
+const zMixedFrameAfter = zMixedState.nodesById[zMixedFrame.id] as Frame;
+assert(
+  zMixedFrameAfter.children.map((layer) => layer.id).join(",") === [zMixedLow.id, zMixedNeutral.id, zMixedHigh.id].join(","),
+  "frame containment should not anchor inserts against selected siblings that are leaving the same frame",
+);
+const zSingleMixedFrame: Frame = { ...zFrame, id: "z-single-mixed-frame", children: [] };
+const zSingleMixedMid: Polygon = { ...zPoly1, id: "z-single-mixed-mid", parentId: "z-single-mixed-frame", x: -120, y: -120 };
+const zSingleMixedHigh: Polygon = { ...zPoly2, id: "z-single-mixed-high", parentId: "page-1", x: 80, y: 50 };
+const zSingleMixedNeutral: Rectangle = { ...zRect, id: "z-single-mixed-neutral", parentId: "z-single-mixed-frame", x: 130, y: 20, w: 20, h: 20 };
+zSingleMixedFrame.children = [zSingleMixedMid, zSingleMixedNeutral];
+const zSingleMixedState = makeMultiSelectionState([zSingleMixedFrame, zSingleMixedHigh]);
+zSingleMixedState.nodesById[zSingleMixedMid.id] = zSingleMixedMid;
+zSingleMixedState.nodesById[zSingleMixedNeutral.id] = zSingleMixedNeutral;
+const zSingleMixedMoves = getFrameContainmentMoves(
+  zSingleMixedState,
+  [zSingleMixedHigh.id, zSingleMixedMid.id],
+  { orderIds: [zSingleMixedMid.id, zSingleMixedHigh.id] },
+);
+for (const move of zSingleMixedMoves) {
+  applyReparent(zSingleMixedState, {
+    id: `z-single-mixed-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zSingleMixedState.activePageId,
+    moves: [move],
+  });
+}
+const zSingleMixedFrameAfter = zSingleMixedState.nodesById[zSingleMixedFrame.id] as Frame;
+assert(
+  zSingleMixedFrameAfter.children.map((layer) => layer.id).join(",") === [zSingleMixedNeutral.id, zSingleMixedHigh.id].join(","),
+  "single frame insert should remain stable when a selected target sibling leaves before or after it",
+);
+const zSingleMixedExitFirstFrame: Frame = { ...zFrame, id: "z-single-mixed-exit-first-frame", children: [] };
+const zSingleMixedExitFirstMid: Polygon = {
+  ...zPoly1,
+  id: "z-single-mixed-exit-first-mid",
+  parentId: "z-single-mixed-exit-first-frame",
+  x: -120,
+  y: -120,
+};
+const zSingleMixedExitFirstHigh: Polygon = { ...zPoly2, id: "z-single-mixed-exit-first-high", parentId: "page-1", x: 80, y: 50 };
+const zSingleMixedExitFirstNeutral: Rectangle = {
+  ...zRect,
+  id: "z-single-mixed-exit-first-neutral",
+  parentId: "z-single-mixed-exit-first-frame",
+  x: 130,
+  y: 20,
+  w: 20,
+  h: 20,
+};
+zSingleMixedExitFirstFrame.children = [zSingleMixedExitFirstMid, zSingleMixedExitFirstNeutral];
+const zSingleMixedExitFirstState = makeMultiSelectionState([zSingleMixedExitFirstFrame, zSingleMixedExitFirstHigh]);
+zSingleMixedExitFirstState.nodesById[zSingleMixedExitFirstMid.id] = zSingleMixedExitFirstMid;
+zSingleMixedExitFirstState.nodesById[zSingleMixedExitFirstNeutral.id] = zSingleMixedExitFirstNeutral;
+const zSingleMixedExitFirstMoves = getFrameContainmentMoves(
+  zSingleMixedExitFirstState,
+  [zSingleMixedExitFirstMid.id, zSingleMixedExitFirstHigh.id],
+  { orderIds: [zSingleMixedExitFirstMid.id, zSingleMixedExitFirstHigh.id] },
+);
+assert(
+  zSingleMixedExitFirstMoves[0]?.id === zSingleMixedExitFirstHigh.id,
+  "frame containment should process frame-entering moves before selected siblings exit that same frame",
+);
+for (const move of zSingleMixedExitFirstMoves) {
+  applyReparent(zSingleMixedExitFirstState, {
+    id: `z-single-mixed-exit-first-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zSingleMixedExitFirstState.activePageId,
+    moves: [move],
+  });
+}
+const zSingleMixedExitFirstFrameAfter = zSingleMixedExitFirstState.nodesById[zSingleMixedExitFirstFrame.id] as Frame;
+assert(
+  zSingleMixedExitFirstFrameAfter.children.map((layer) => layer.id).join(",") === [zSingleMixedExitFirstNeutral.id, zSingleMixedExitFirstHigh.id].join(","),
+  "single frame insert should preserve z-order when the exiting selected child is processed first",
+);
+const zExitFallbackFrame: Frame = { ...zFrame, id: "z-exit-fallback-frame", parentId: "page-1", x: 0, y: 0, children: [] };
+const zExitFallbackLow: Rectangle = { ...zRect, id: "z-exit-fallback-low", parentId: "z-exit-fallback-frame", x: -120, y: -120 };
+const zExitFallbackNeutral: Rectangle = { ...zRect, id: "z-exit-fallback-neutral", parentId: "page-1", x: 240, y: 20, w: 20, h: 20 };
+const zExitFallbackHigh: Polygon = { ...zPoly2, id: "z-exit-fallback-high", parentId: "page-1", x: 280, y: 50 };
+zExitFallbackFrame.children = [zExitFallbackLow];
+const zExitFallbackState = makeMultiSelectionState([zExitFallbackFrame, zExitFallbackNeutral, zExitFallbackHigh]);
+zExitFallbackState.nodesById[zExitFallbackLow.id] = zExitFallbackLow;
+const zExitFallbackMoves = getFrameContainmentMoves(
+  zExitFallbackState,
+  [zExitFallbackLow.id, zExitFallbackHigh.id],
+  { orderIds: [zExitFallbackLow.id, zExitFallbackHigh.id] },
+);
+for (const move of zExitFallbackMoves) {
+  applyReparent(zExitFallbackState, {
+    id: `z-exit-fallback-${move.id}`,
+    timestamp: 0,
+    kind: "reparent",
+    pageId: zExitFallbackState.activePageId,
+    moves: [move],
+  });
+}
+assert(
+  zExitFallbackState.document.pages[0].children.map((layer) => layer.id).join(",") ===
+    [zExitFallbackFrame.id, zExitFallbackLow.id, zExitFallbackNeutral.id, zExitFallbackHigh.id].join(","),
+  "frame exit should preserve fallback position around unrelated siblings when selected order is already satisfied",
+);
+
 const multiRotated: Rectangle = { ...rect, id: "multi-rotated", rotation: 90, scaleX: 1, scaleY: 1 };
 const multiFlipped: Rectangle = { ...rect, id: "multi-flipped", x: 200, y: 10, w: 80, h: 40, rotation: 0, scaleX: -1, scaleY: 1 };
 const multiState = makeMultiSelectionState([multiRotated, multiFlipped]);
@@ -278,6 +595,30 @@ assert(Math.abs(multiGeom.bbox.x - expectedMulti.x) < 0.001, "multi-selection ou
 assert(Math.abs(multiGeom.bbox.y - expectedMulti.y) < 0.001, "multi-selection outline y should include transformed visual bounds");
 assert(Math.abs(multiGeom.bbox.w - expectedMulti.w) < 0.001, "multi-selection outline width should include transformed visual bounds");
 assert(Math.abs(multiGeom.bbox.h - expectedMulti.h) < 0.001, "multi-selection outline height should include transformed visual bounds");
+
+const rotateGroupTop: Rectangle = { ...rect, id: "rotate-group-top", x: 0, y: 0, w: 100, h: 50, rotation: 0, scaleX: 1, scaleY: 1 };
+const rotateGroupBottom: Rectangle = { ...rect, id: "rotate-group-bottom", x: 0, y: 150, w: 100, h: 50, rotation: 0, scaleX: 1, scaleY: 1 };
+const rotateGroupState = makeMultiSelectionState([rotateGroupTop, rotateGroupBottom]);
+const rotateGroupBeforeTopCenter = localPointToWorld(rotateGroupState, rotateGroupTop, { x: 50, y: 25 });
+const rotateGroupBeforeBottomCenter = localPointToWorld(rotateGroupState, rotateGroupBottom, { x: 50, y: 25 });
+const rotateGroupAfter = rotateSelectionAroundVisualCenter(rotateGroupState, [rotateGroupTop, rotateGroupBottom], 90);
+applySetTransform(rotateGroupState, {
+  id: "rotate-group-op",
+  timestamp: 0,
+  kind: "set_transform",
+  pageId: rotateGroupState.activePageId,
+  ids: [rotateGroupTop.id, rotateGroupBottom.id],
+  before: {},
+  after: rotateGroupAfter,
+});
+const rotateGroupTopAfter = rotateGroupState.nodesById[rotateGroupTop.id] as Rectangle;
+const rotateGroupBottomAfter = rotateGroupState.nodesById[rotateGroupBottom.id] as Rectangle;
+const rotateGroupAfterTopCenter = localPointToWorld(rotateGroupState, rotateGroupTopAfter, { x: 50, y: 25 });
+const rotateGroupAfterBottomCenter = localPointToWorld(rotateGroupState, rotateGroupBottomAfter, { x: 50, y: 25 });
+assert(Math.abs(rotateGroupBeforeTopCenter.x - rotateGroupAfterTopCenter.x) > 1, "multi-selection rotation should move the first layer around the group center");
+assert(Math.abs(rotateGroupBeforeBottomCenter.x - rotateGroupAfterBottomCenter.x) > 1, "multi-selection rotation should move the second layer around the group center");
+assert(Math.abs(rotateGroupAfterTopCenter.y - rotateGroupAfterBottomCenter.y) < 0.001, "multi-selection rotation should turn the vertical stack into a horizontal stack");
+assert(rotateGroupTopAfter.rotation === 90 && rotateGroupBottomAfter.rotation === 90, "multi-selection rotation should still rotate each selected layer by the requested angle");
 
 const transformedLine: Line = {
   id: "line-1",
