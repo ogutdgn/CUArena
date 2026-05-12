@@ -16,11 +16,12 @@ export function NumericInput({
   noBg,
   integer,
   disabled,
+  scrubBaseValue,
   onScrubStart,
   onScrubEnd,
 }: {
   value: number | "Mixed";
-  onCommit: (n: number, context?: { transactionId?: string }) => void;
+  onCommit: (n: number, context?: { transactionId?: string; scrubDelta?: number }) => void;
   suffix?: string;
   // Glyph rendered inside the box on the left. When provided, it doubles as
   // the drag-scrub handle — pointer-down on it starts a horizontal scrub. If
@@ -39,13 +40,16 @@ export function NumericInput({
   // Appearance panel layout stable across shape types when a property
   // doesn't apply (e.g. corner radius on a line).
   disabled?: boolean;
+  // Optional numeric base for drag-scrubbing while the displayed value is
+  // Mixed. Callers can interpret the emitted scrubDelta as a relative edit.
+  scrubBaseValue?: number;
   onScrubStart?: () => string | undefined;
   onScrubEnd?: (transactionId: string) => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
   const ref = useRef<HTMLInputElement | null>(null);
-  const scrubStateRef = useRef<{ baseX: number; baseValue: number; lastV: number; transactionId?: string } | null>(null);
+  const scrubStateRef = useRef<{ baseX: number; baseValue: number; lastV: number; lastRawDelta: number; isMixed: boolean; transactionId?: string } | null>(null);
 
   // Sync incoming value when not editing.
   useEffect(() => {
@@ -71,11 +75,12 @@ export function NumericInput({
 
   function onScrubPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     if (disabled) return;
-    if (typeof value !== "number") return; // No scrubbing on Mixed.
+    const baseValue = typeof value === "number" ? value : scrubBaseValue;
+    if (typeof baseValue !== "number") return;
     e.preventDefault();
     e.stopPropagation();
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    scrubStateRef.current = { baseX: e.clientX, baseValue: value, lastV: value, transactionId: onScrubStart?.() };
+    scrubStateRef.current = { baseX: e.clientX, baseValue, lastV: baseValue, lastRawDelta: 0, isMixed: value === "Mixed", transactionId: onScrubStart?.() };
   }
 
   function onScrubPointerMove(e: React.PointerEvent<HTMLDivElement>) {
@@ -83,14 +88,22 @@ export function NumericInput({
     if (!s) return;
     const factor = e.shiftKey ? 10 : 1;
     const dx = e.clientX - s.baseX;
-    const next = clampValue(s.baseValue + dx * step * factor);
-    if (next === s.lastV) return;
+    const rawNext = s.baseValue + dx * step * factor;
+    const next = clampValue(rawNext);
+    const rawDelta = rawNext - s.baseValue;
+    const tickDelta = rawDelta - s.lastRawDelta;
+    if (s.isMixed) {
+      if (tickDelta === 0) return;
+    } else if (next === s.lastV) {
+      return;
+    }
     s.lastV = next;
+    s.lastRawDelta = rawDelta;
     setDraft(formatValue(next));
     // Live update — fire onCommit on each tick so the canvas reflects the
     // drag in real time. Callers can pass a transaction id so the whole scrub
     // lands as a single undoable gesture.
-    onCommit(next, { transactionId: s.transactionId });
+    onCommit(next, { transactionId: s.transactionId, scrubDelta: s.isMixed ? tickDelta : rawDelta });
   }
 
   function onScrubPointerUp(e: React.PointerEvent<HTMLDivElement>) {
