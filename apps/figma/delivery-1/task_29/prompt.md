@@ -1,18 +1,18 @@
-# Task 29 — Draw a 2x2 polka dot grid using Tidy up to align 4 circles.
+# Task 29 — Draw a 2x2 polka dot grid by aligning 4 circles.
 
-**Difficulty:** Easy  •  **Time horizon:** 10 min
+**Difficulty:** Medium  •  **Time horizon:** 10 min
 
 ## Thorough description
 
-Inside a frame with off-white fill, draw 4 same-size circles arranged in a 2x2 grid pattern. Use Tidy up after marquee-selecting all 4. Each circle the same color (or all different).
+Inside a frame with off-white fill, draw 4 same-size circles arranged in a 2x2 grid pattern. Make each circle the same color.
 
 ## Simplified prompt
 
-> Draw a 2x2 polka dot grid using Tidy up to align 4 circles.
+> Inside an off-white frame, draw 4 same-color same-size circles in a 2×2 grid.
 
 ## Step-by-step
 
-1. Click Frame tool, drag a frame, pick off-white fill. 2. Click Ellipse tool. 3. Drag the first circle, pick a color. 4. Right-click then Duplicate three times. 5. Position the 4 circles in a rough 2x2 layout. 6. Marquee all 4. 7. Click Tidy up.
+1. Click Frame tool, drag a frame, pick off-white fill. 2. Click Ellipse tool, drag the first circle, pick a color. 3. Right-click then Duplicate three times. 4. Drag the 4 circles into rough rows and columns. 5. Marquee row 1 → click Align top → click Distribute horizontal spacing. 6. Repeat for row 2. 7. Marquee each column → click Align horizontal centers.
 
 ## Verifier
 
