@@ -50,6 +50,20 @@ function isInTextField(e: KeyboardEvent): boolean {
 }
 
 function onKeyDown(e: KeyboardEvent): void {
+  const meta = e.metaKey || e.ctrlKey;
+  const key = e.key.toLowerCase();
+
+  if (meta && key === "z" && !e.shiftKey) {
+    e.preventDefault();
+    undo();
+    return;
+  }
+  if (meta && ((key === "z" && e.shiftKey) || key === "y")) {
+    e.preventDefault();
+    redo();
+    return;
+  }
+
   if (isInTextField(e)) return;
 
   // Space-temp-hand: while held, the active tool gives way to pan.
@@ -60,9 +74,6 @@ function onKeyDown(e: KeyboardEvent): void {
     e.preventDefault();
     return;
   }
-
-  const meta = e.metaKey || e.ctrlKey;
-  const key = e.key.toLowerCase();
 
   // Shift+E — toggle Design/Prototype tab
   if (e.shiftKey && !meta && !e.altKey && key === "e") {
@@ -192,16 +203,6 @@ function onKeyDown(e: KeyboardEvent): void {
     if (key === "a") {
       e.preventDefault();
       selectAll();
-      return;
-    }
-    if (key === "z" && !e.shiftKey) {
-      e.preventDefault();
-      undo();
-      return;
-    }
-    if ((key === "z" && e.shiftKey) || key === "y") {
-      e.preventDefault();
-      redo();
       return;
     }
     if (key === "\\" && !e.altKey) {

@@ -8,18 +8,22 @@ export function OpacityScrubber({
   value,
   onCommit,
   testId,
+  onScrubStart,
+  onScrubEnd,
 }: {
   value: number;
-  onCommit: (pct: number) => void;
+  onCommit: (pct: number, context?: { transactionId?: string }) => void;
   testId?: string;
+  onScrubStart?: () => string | undefined;
+  onScrubEnd?: (transactionId: string) => void;
 }) {
   const [draft, setDraft] = useState<string | null>(null);
-  const scrubRef = useRef<{ baseX: number; baseValue: number } | null>(null);
+  const scrubRef = useRef<{ baseX: number; baseValue: number; transactionId?: string } | null>(null);
   const display = draft ?? String(value);
 
-  function commit(n: number) {
+  function commit(n: number, context?: { transactionId?: string }) {
     if (!Number.isFinite(n)) return;
-    onCommit(Math.max(0, Math.min(100, Math.round(n))));
+    onCommit(Math.max(0, Math.min(100, Math.round(n))), context);
   }
 
   return (
@@ -44,20 +48,21 @@ export function OpacityScrubber({
       <span
         onPointerDown={(e) => {
           (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-          scrubRef.current = { baseX: e.clientX, baseValue: value };
+          scrubRef.current = { baseX: e.clientX, baseValue: value, transactionId: onScrubStart?.() };
         }}
         onPointerMove={(e) => {
           if (!scrubRef.current) return;
           const dx = e.clientX - scrubRef.current.baseX;
           const next = Math.max(0, Math.min(100, Math.round(scrubRef.current.baseValue + dx)));
           setDraft(String(next));
-          commit(next);
+          commit(next, { transactionId: scrubRef.current.transactionId });
         }}
         onPointerUp={(e) => {
           if (!scrubRef.current) return;
           const dx = e.clientX - scrubRef.current.baseX;
           const next = Math.max(0, Math.min(100, Math.round(scrubRef.current.baseValue + dx)));
-          commit(next);
+          commit(next, { transactionId: scrubRef.current.transactionId });
+          if (scrubRef.current.transactionId) onScrubEnd?.(scrubRef.current.transactionId);
           setDraft(null);
           scrubRef.current = null;
           (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
