@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Section } from "./sectionShell";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
 import { addSolidFill, removeFill, setFillColor, toggleFillVisibility } from "@/engine/propertyCommands";
 import { ColorPicker, colorToHex, parseHex, swatchBackground } from "@/ui/overlays/ColorPicker";
 import { OpacityScrubber } from "./OpacityScrubber";
+import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import { Eye, EyeClosed, Minus } from "lucide-react";
 import type { Paint, Color } from "@/types/scene";
 
@@ -13,6 +14,7 @@ export function FillSection() {
   const layer = layers[0];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [anchor, setAnchor] = useState<{ right: number; top: number } | null>(null);
+  const pickerTxRef = useRef<string | null>(null);
   if (!layer) return null;
   const fills: Paint[] = "fills" in layer ? (layer as { fills: Paint[] }).fills : [];
   if (!("fills" in layer)) return null;
@@ -36,7 +38,12 @@ export function FillSection() {
       {openIndex != null && anchor && fills[openIndex] && fills[openIndex].kind === "solid" && (
         <ColorPicker
           value={(fills[openIndex] as Extract<Paint, { kind: "solid" }>).color}
-          onChange={(c: Color) => setFillColor(openIndex, c)}
+          onChange={(c: Color) => setFillColor(openIndex, c, pickerTxRef.current ? { transactionId: pickerTxRef.current } : undefined)}
+          onChangeStart={() => { pickerTxRef.current = openTransaction(); }}
+          onChangeEnd={() => {
+            if (pickerTxRef.current) commitTransaction(pickerTxRef.current);
+            pickerTxRef.current = null;
+          }}
           onClose={() => setOpenIndex(null)}
           anchor={anchor}
         />
@@ -78,9 +85,9 @@ function FillRow({
     else setHexDraft(hex);
   }
 
-  function commitOpacityPct(pct: number) {
+  function commitOpacityPct(pct: number, context?: { transactionId?: string }) {
     if (!isSolid || !color) return;
-    setFillColor(index, { ...color, a: pct / 100 });
+    setFillColor(index, { ...color, a: pct / 100 }, context);
   }
 
   return (
@@ -128,6 +135,8 @@ function FillRow({
       <OpacityScrubber
         value={opacityPct}
         onCommit={commitOpacityPct}
+        onScrubStart={openTransaction}
+        onScrubEnd={commitTransaction}
         testId={`fill.row.${index}.opacity`}
       />
       <button
