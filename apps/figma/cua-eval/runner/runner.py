@@ -271,8 +271,16 @@ def run_attempt(
     full_agent_kwargs["system_prompt"] = effective_system
     full_agent_kwargs["attempt_dir"] = out_dir
 
+    fixture_dict = None
+    if hasattr(task, "fixture") and task.fixture is not None:
+        from dataclasses import asdict as _fixture_asdict
+        fixture_dict = _fixture_asdict(task.fixture)
+
     try:
         with launch_browser(mock_url, headless=headless) as session:
+            if fixture_dict is not None:
+                if not session.load_fixture(fixture_dict):
+                    error = "fixture injection failed"
             agent_res = agent_runner(session, prompt, progress_prefix=progress_prefix, **full_agent_kwargs)
             try:
                 log_payload = session.scrape_log()
