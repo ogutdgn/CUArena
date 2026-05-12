@@ -45,7 +45,7 @@ export function commitTransaction(tid: string): void {
   openTransactions.delete(tid);
   if (tx.ops.length === 0) return;
 
-  const undoableOps = tx.ops.filter((op) => UNDOABLE_KINDS.has(op.kind));
+  const undoableOps = compactTransactionOps(tx.ops.filter((op) => UNDOABLE_KINDS.has(op.kind)));
   if (undoableOps.length === 0) return;
 
   const state = useStore.getState();
@@ -62,6 +62,45 @@ export function commitTransaction(tid: string): void {
     focusContextBefore: tx.focusContextBefore,
     focusContextAfter,
   });
+}
+
+function compactTransactionOps(ops: Op[]): Op[] {
+  const compacted: Op[] = [];
+  for (const op of ops) {
+    const prev = compacted[compacted.length - 1];
+    if (prev && canCompactOps(prev, op)) {
+      if (prev.kind === "set_transform" && op.kind === "set_transform") {
+        prev.after = { ...op.after };
+        prev.timestamp = op.timestamp;
+        continue;
+      }
+      if (prev.kind === "set_property" && op.kind === "set_property") {
+        prev.after = { ...op.after };
+        prev.timestamp = op.timestamp;
+        continue;
+      }
+    }
+    compacted.push(op);
+  }
+  return compacted;
+}
+
+function canCompactOps(a: Op, b: Op): boolean {
+  if (a.kind === "set_transform" && b.kind === "set_transform") {
+    return a.pageId === b.pageId && sameIds(a.ids, b.ids);
+  }
+  if (a.kind === "set_property" && b.kind === "set_property") {
+    return a.pageId === b.pageId && a.path === b.path && sameIds(a.ids, b.ids);
+  }
+  return false;
+}
+
+function sameIds(a: string[], b: string[]): boolean {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
 }
 
 export function abortTransaction(tid: string): void {

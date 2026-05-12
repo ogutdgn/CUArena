@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Section } from "./sectionShell";
 import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
@@ -9,6 +9,7 @@ import {
 } from "@/engine/propertyCommands";
 import { ColorPicker, colorToHex, parseHex, swatchBackground } from "@/ui/overlays/ColorPicker";
 import { OpacityScrubber } from "./OpacityScrubber";
+import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import { Eye, EyeClosed, Minus } from "lucide-react";
 import type { Stroke, Color } from "@/types/scene";
 
@@ -17,6 +18,7 @@ export function StrokeSection() {
   const layer = layers[0];
   const [openPickerIndex, setOpenPickerIndex] = useState<number | null>(null);
   const [pickerAnchor, setPickerAnchor] = useState<{ right: number; top: number } | null>(null);
+  const pickerTxRef = useRef<string | null>(null);
 
   if (!layer || !("strokes" in layer)) return null;
   const strokes: Stroke[] = (layer as { strokes: Stroke[] }).strokes;
@@ -39,7 +41,12 @@ export function StrokeSection() {
       {openPickerIndex != null && pickerAnchor && strokes[openPickerIndex]?.paint.kind === "solid" && (
         <ColorPicker
           value={(strokes[openPickerIndex].paint as Extract<Stroke["paint"], { kind: "solid" }>).color}
-          onChange={(c: Color) => setStrokeColor(openPickerIndex, c)}
+          onChange={(c: Color) => setStrokeColor(openPickerIndex, c, pickerTxRef.current ? { transactionId: pickerTxRef.current } : undefined)}
+          onChangeStart={() => { pickerTxRef.current = openTransaction(); }}
+          onChangeEnd={() => {
+            if (pickerTxRef.current) commitTransaction(pickerTxRef.current);
+            pickerTxRef.current = null;
+          }}
           onClose={() => setOpenPickerIndex(null)}
           anchor={pickerAnchor}
         />
@@ -49,9 +56,11 @@ export function StrokeSection() {
           <span style={{ flex: 1, color: "var(--color-text-muted)", fontSize: "var(--fs-xs)" }}>Weight</span>
           <NumericInput
             value={strokes[0].weight}
-            onCommit={(v) => setStrokeWeight(v)}
+            onCommit={(v, context) => setStrokeWeight(v, context)}
             min={0}
             width={80}
+            onScrubStart={openTransaction}
+            onScrubEnd={commitTransaction}
           />
         </div>
       )}
@@ -87,9 +96,9 @@ function StrokeRow({
     else setHexDraft(hex);
   }
 
-  function commitOpacityPct(pct: number) {
+  function commitOpacityPct(pct: number, context?: { transactionId?: string }) {
     if (!isSolid || !color) return;
-    setStrokeColor(index, { ...color, a: pct / 100 });
+    setStrokeColor(index, { ...color, a: pct / 100 }, context);
   }
 
   return (
@@ -109,7 +118,7 @@ function StrokeRow({
         }}
         style={{ flex: 1, minWidth: 0, background: "transparent", border: 0, color: "var(--color-text-primary)", fontSize: "var(--fs-sm)", fontFamily: "monospace", outline: 0, padding: 0, cursor: "text" }}
       />
-      <OpacityScrubber value={opacityPct} onCommit={commitOpacityPct} />
+      <OpacityScrubber value={opacityPct} onCommit={commitOpacityPct} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
       <button onClick={onToggle} title={stroke.paint.visible ? "Hide" : "Show"} style={{ width: 20, height: 20, color: "var(--color-text-secondary)", display: "grid", placeItems: "center", flexShrink: 0 }}>
         {stroke.paint.visible ? <Eye size={12} /> : <EyeClosed size={12} />}
       </button>

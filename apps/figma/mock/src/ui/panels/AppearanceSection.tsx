@@ -7,6 +7,7 @@ import {
   setOpacity, setVisibility, setCornerRadius,
   setPolygonSides, setStarPoints, setStarInnerRatio,
 } from "@/engine/propertyCommands";
+import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import { Eye, EyeOff, Asterisk, Hexagon } from "lucide-react";
 
 // Inline icons matching Figma's small monochrome glyphs that don't have a
@@ -133,13 +134,13 @@ function TopRow({ opacityPct, cornerEnabled, perCornerEnabled, layers }: {
     ? 0
     : !allMatch ? "Mixed" : isUniformTuple ? tuple[0] : "Mixed";
 
-  function commitUniform(v: number) {
-    setCornerRadius(v);
+  function commitUniform(v: number, context?: { transactionId?: string }) {
+    setCornerRadius(v, context);
   }
-  function commitCorner(idx: 0 | 1 | 2 | 3, v: number) {
+  function commitCorner(idx: 0 | 1 | 2 | 3, v: number, context?: { transactionId?: string }) {
     const next: [number, number, number, number] = [...tuple] as [number, number, number, number];
     next[idx] = Math.max(0, v);
-    setCornerRadius(next);
+    setCornerRadius(next, context);
   }
 
   return (
@@ -151,17 +152,22 @@ function TopRow({ opacityPct, cornerEnabled, perCornerEnabled, layers }: {
         <NumericInput
           prefix={<OpacityGridIcon />}
           value={opacityPct}
-          onCommit={(v) => setOpacity(v)}
+          onCommit={(v, context) => setOpacity(v, context)}
           min={0}
           max={100}
           suffix="%"
+          onScrubStart={openTransaction}
+          onScrubEnd={commitTransaction}
         />
         <NumericInput
           prefix={<CornerBracketsIcon />}
           value={crVal}
+          scrubBaseValue={crVal === "Mixed" ? 0 : undefined}
           onCommit={commitUniform}
           min={0}
           disabled={!cornerEnabled}
+          onScrubStart={openTransaction}
+          onScrubEnd={commitTransaction}
         />
         {perCornerEnabled ? (
           <button
@@ -184,11 +190,11 @@ function TopRow({ opacityPct, cornerEnabled, perCornerEnabled, layers }: {
 
       {perCornerEnabled && perCorner && (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", columnGap: 6, rowGap: 6, marginTop: 6 }}>
-          <NumericInput prefix={<CornerGlyph corner="tl" />} value={tuple[0]} onCommit={(v) => commitCorner(0, v)} min={0} />
-          <NumericInput prefix={<CornerGlyph corner="tr" />} value={tuple[1]} onCommit={(v) => commitCorner(1, v)} min={0} />
+          <NumericInput prefix={<CornerGlyph corner="tl" />} value={tuple[0]} onCommit={(v, context) => commitCorner(0, v, context)} min={0} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
+          <NumericInput prefix={<CornerGlyph corner="tr" />} value={tuple[1]} onCommit={(v, context) => commitCorner(1, v, context)} min={0} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
           <span />
-          <NumericInput prefix={<CornerGlyph corner="bl" />} value={tuple[3]} onCommit={(v) => commitCorner(3, v)} min={0} />
-          <NumericInput prefix={<CornerGlyph corner="br" />} value={tuple[2]} onCommit={(v) => commitCorner(2, v)} min={0} />
+          <NumericInput prefix={<CornerGlyph corner="bl" />} value={tuple[3]} onCommit={(v, context) => commitCorner(3, v, context)} min={0} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
+          <NumericInput prefix={<CornerGlyph corner="br" />} value={tuple[2]} onCommit={(v, context) => commitCorner(2, v, context)} min={0} onScrubStart={openTransaction} onScrubEnd={commitTransaction} />
           <span />
         </div>
       )}

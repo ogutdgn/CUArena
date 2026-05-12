@@ -2,7 +2,7 @@ import { Section } from "./sectionShell";
 import { NumericInput } from "./NumericInput";
 import { useStore } from "@/engine/store";
 import { getSelectedLayers } from "@/engine/selectors";
-import { applyPanelFrameContainmentForSelection, setTransformField } from "@/engine/propertyCommands";
+import { applyPanelFrameContainmentForSelection, nudgeTransformField, setTransformField } from "@/engine/propertyCommands";
 import { commitTransaction, openTransaction } from "@/engine/dispatch";
 import { Ratio } from "lucide-react";
 
@@ -25,18 +25,26 @@ export function LayoutSection() {
     commitTransaction(transactionId);
   }
 
-  function commitW(v: number, context?: { transactionId?: string }) {
+  function commitW(v: number, context?: { transactionId?: string; scrubDelta?: number }) {
     const opts = { ...context, deferFrameContainment: !!context?.transactionId };
-    setTransformField("w", v, opts);
+    if (wVal === "Mixed" && typeof context?.scrubDelta === "number") {
+      nudgeTransformField("w", context.scrubDelta, opts);
+    } else {
+      setTransformField("w", v, opts);
+    }
     if (locked && typeof wVal === "number" && typeof hVal === "number" && wVal > 0) {
       const ratio = hVal / wVal;
       setTransformField("h", Math.max(1, Math.round(v * ratio)), opts);
     }
   }
 
-  function commitH(v: number, context?: { transactionId?: string }) {
+  function commitH(v: number, context?: { transactionId?: string; scrubDelta?: number }) {
     const opts = { ...context, deferFrameContainment: !!context?.transactionId };
-    setTransformField("h", v, opts);
+    if (hVal === "Mixed" && typeof context?.scrubDelta === "number") {
+      nudgeTransformField("h", context.scrubDelta, opts);
+    } else {
+      setTransformField("h", v, opts);
+    }
     if (locked && typeof wVal === "number" && typeof hVal === "number" && hVal > 0) {
       const ratio = wVal / hVal;
       setTransformField("w", Math.max(1, Math.round(v * ratio)), opts);
@@ -60,18 +68,18 @@ export function LayoutSection() {
             }}
           >
             <div style={{ flex: 1, minWidth: 0 }}>
-              <NumericInput prefix={<DimGlyph>W</DimGlyph>} value={wVal} onCommit={commitW} min={1} noBg onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
+              <NumericInput prefix={<DimGlyph>W</DimGlyph>} value={wVal} scrubBaseValue={wVal === "Mixed" ? 0 : undefined} onCommit={commitW} min={1} noBg onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
             </div>
             <div style={{ width: 1, height: 16, background: "var(--color-border)", flexShrink: 0 }} />
             <div style={{ flex: 1, minWidth: 0 }}>
-              <NumericInput prefix={<DimGlyph>H</DimGlyph>} value={hVal} onCommit={commitH} min={1} noBg onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
+              <NumericInput prefix={<DimGlyph>H</DimGlyph>} value={hVal} scrubBaseValue={hVal === "Mixed" ? 0 : undefined} onCommit={commitH} min={1} noBg onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
             </div>
           </div>
         ) : (
           // Separate — two independent inputs
           <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-            <NumericInput prefix={<DimGlyph>W</DimGlyph>} value={wVal} onCommit={commitW} min={1} onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
-            <NumericInput prefix={<DimGlyph>H</DimGlyph>} value={hVal} onCommit={commitH} min={1} onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
+            <NumericInput prefix={<DimGlyph>W</DimGlyph>} value={wVal} scrubBaseValue={wVal === "Mixed" ? 0 : undefined} onCommit={commitW} min={1} onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
+            <NumericInput prefix={<DimGlyph>H</DimGlyph>} value={hVal} scrubBaseValue={hVal === "Mixed" ? 0 : undefined} onCommit={commitH} min={1} onScrubStart={openTransaction} onScrubEnd={commitTransformScrub} />
           </div>
         )}
 
