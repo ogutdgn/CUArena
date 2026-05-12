@@ -1,18 +1,18 @@
-# Task 9 — Arrange 12 same-size colored squares in a 4x3 grid using Tidy up.
+# Task 9 — Arrange 12 same-size colored squares in a 4x3 grid.
 
 **Difficulty:** Easy  •  **Time horizon:** 16 min
 
 ## Thorough description
 
-Inside a frame, arrange 12 same-size squares in a 4x3 grid. Each square is filled a different color. Use Tidy up to lock the grid arrangement.
+Inside a frame, arrange 12 same-size squares in a 4x3 grid. Each square is filled a different color.
 
 ## Simplified prompt
 
-> Arrange 12 same-size colored squares in a 4x3 grid using Tidy up.
+> Arrange 12 same-size colored squares in a 4x3 grid.
 
 ## Step-by-step
 
-1. Click Frame tool. 2. Click Rectangle tool. 3. Drag the first square. 4. Right-click then Duplicate, drag right. 5. Repeat to fill the first row. 6. Continue duplicating to fill rows 2 and 3 for 12 total. 7. Pick distinct colors for each. 8. Marquee all then click Tidy up.
+1. Click Frame tool. 2. Click Rectangle tool. 3. Drag the first square. 4. Right-click then Duplicate, drag right. 5. Repeat to fill the first row. 6. Continue duplicating to fill rows 2 and 3 for 12 total. 7. Pick distinct colors for each.
 
 ## Verifier
 

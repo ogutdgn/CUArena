@@ -1,8 +1,10 @@
 """
 Task 29 — Polka dot grid (IN SCOPE).
 
-Off-white frame + 4 same-color circles in a 2×2 grid, aligned via Tidy up
-(align_layers / distribute_layers events).
+Prompt: "Inside a frame with off-white fill, draw 4 same-size circles
+arranged in a 2x2 grid pattern. Make each circle the same color."
+
+Off-white frame + 4 same-color same-size circles in a 2×2 grid.
 """
 from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
@@ -22,13 +24,13 @@ from verifier.checks.fill_checks   import (
 )
 from verifier.checks.property_checks import NoLayerFlipped
 from verifier.checks.structure_checks import LayerGroupAllInSameFrame
-from verifier.checks.event_checks  import ToolUsed, EventTypeCount, AlignToolUsed
+from verifier.checks.event_checks  import ToolUsed, EventTypeCount
 
 OFF_WHITE = {"r": 0.97, "g": 0.95, "b": 0.92}
 
 task = Task(
     id="task_29_polka_dot_grid",
-    description="Off-white frame + 4 same-color circles in a 2×2 grid via Tidy up.",
+    description="Off-white frame + 4 same-color same-size circles in a 2×2 grid.",
     rubrics=[
         # critical: 4 circles inside a frame
         FundamentalsRubric([
@@ -38,7 +40,7 @@ task = Task(
 
         # critical: same-size, 2x2 grid, circular
         AlignmentRubric([
-            LayersSameDimensions(layer_type="ellipse", tolerance=25.0),      # 0 ★ prompt: "4 same-size circles"
+            LayersSameDimensions(layer_type="ellipse", tolerance=10.0),      # 0 ★ prompt: "4 same-size circles"  (tightened 25 → 10; same-size should be visually obvious)
             LayersInGrid(layer_type="ellipse", rows=2, cols=2, tolerance=25.0),  # 1 ★ prompt: "arranged in a 2x2 grid pattern"
             LayerIsCircular(layer_type="ellipse", tolerance=8.0),           # 2 ★ prompt: "circles"
             LayerRotationEquals(layer_type="ellipse", degrees=0, tolerance=5.0),  # 3 upright
@@ -51,24 +53,26 @@ task = Task(
                                  tolerance=10.0),                            # 8 on-frame
         ], weight=0.2, critical=[0, 1, 2]),
 
-        # critical: off-white frame fill
+        # critical: same-color circles AND off-white frame fill
         ColorRubric([
-            AllFillTypeIs("ellipse", kind="solid"),                         # 0 circle solid fill
-            LayersAllSameColor(layer_type="ellipse", tolerance=0.05),       # 1 (optional per prompt)
-            SolidColorEquals(layer_type="frame", expected_rgb=OFF_WHITE, tolerance=0.35),  # 2 ★ prompt: "off-white fill" — loose tol for modifier+color
-        ], weight=0.2, critical=[2]),
+            AllFillTypeIs("ellipse", kind="solid"),                         # 0 circles have a solid fill
+            LayersAllSameColor(layer_type="ellipse", tolerance=0.05),       # 1 ★ prompt: "Make each circle the same color"
+            SolidColorEquals(layer_type="frame", expected_rgb=OFF_WHITE, tolerance=0.35),  # 2 ★ prompt: "off-white fill" (loose tol so the model has wiggle room hitting the swatch)
+        ], weight=0.2, critical=[1, 2]),
 
-        # all dots in same frame (structural)
+        # critical: all 4 circles share one frame
         StructureRubric([
             LayerGroupAllInSameFrame(layer_type="ellipse", minimum=4),      # 0 ★ prompt: "Inside a frame ... draw 4 ... circles"
         ], weight=0.2, critical=[0]),
 
-        # critical: Tidy up (AlignToolUsed)
+        # critical: 4 ellipse-create events
         EventRubric([
             ToolUsed("ellipse"),                                            # 0
-            EventTypeCount("create_ellipse", equals=4),                     # 1
-            AlignToolUsed(),                                                # 2 ★ prompt: "Use Tidy up"
-        ], weight=0.2, critical=[2]),
+            EventTypeCount("create_ellipse", equals=4),                     # 1 ★ prompt: "draw 4 ... circles"
+        ], weight=0.2, critical=[1]),
     ],
-    efficiency=EfficiencyRubric(target_turns=16),
+    # 25 turns is the efficient-agent path without Tidy up: draw 1 circle +
+    # color it, duplicate ×3, drag into rough 2×2 layout, then row-align +
+    # distribute-horizontal × 2 rows and col-align × 2 cols.
+    efficiency=EfficiencyRubric(target_turns=25),
 )
