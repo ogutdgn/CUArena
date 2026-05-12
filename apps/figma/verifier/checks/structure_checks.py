@@ -162,3 +162,89 @@ class LayerTotalCount:
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"Total layers: expected {self.equals}, got {count}",
         )
+
+
+def _find_layer_by_name(document: dict, name: str) -> dict | None:
+    for layer in find_all_layers(document):
+        if layer.get("name") == name:
+            return layer
+    return None
+
+
+@dataclass
+class NoLayerCreated:
+    """Pass iff the agent emitted zero create_* events."""
+
+    def run(self, log: dict) -> CheckResult:
+        creates = [e for e in log.get("semantic", [])
+                   if e.get("name", "").startswith("create_")]
+        passed = len(creates) == 0
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"create events: {len(creates)} (expected 0)",
+        )
+
+
+@dataclass
+class NoLayerDeleted:
+    """Pass iff the agent emitted zero delete_layer events."""
+
+    def run(self, log: dict) -> CheckResult:
+        deletes = [e for e in log.get("semantic", [])
+                   if e.get("name") == "delete_layer"]
+        passed = len(deletes) == 0
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"delete_layer events: {len(deletes)} (expected 0)",
+        )
+
+
+@dataclass
+class NoLayerMoved:
+    """Pass iff no move_layer events were emitted beyond tolerance pixels."""
+    tolerance: float = 2.0
+
+    def run(self, log: dict) -> CheckResult:
+        moves = [e for e in log.get("semantic", [])
+                 if e.get("name") == "move_layer"]
+        if not moves:
+            return CheckResult(passed=True, score=1.0, max_score=1.0,
+                               message="No move_layer events")
+        for e in moves:
+            dx = abs(e.get("dx", 0))
+            dy = abs(e.get("dy", 0))
+            if dx > self.tolerance or dy > self.tolerance:
+                return CheckResult(
+                    passed=False, score=0.0, max_score=1.0,
+                    message=f"Layer moved by ({dx:.1f}, {dy:.1f}) > tolerance {self.tolerance}",
+                )
+        return CheckResult(passed=True, score=1.0, max_score=1.0,
+                           message=f"All moves within tolerance ({self.tolerance}px)")
+
+
+@dataclass
+class NamedLayerDeleted:
+    """Pass iff the named layer no longer exists in the end-state document."""
+    name: str
+
+    def run(self, log: dict) -> CheckResult:
+        layer = _find_layer_by_name(log["outcome"]["document"], self.name)
+        passed = layer is None
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"Layer '{self.name}' {'deleted' if passed else 'still exists'}",
+        )
+
+
+@dataclass
+class NamedLayerExists:
+    """Pass iff the named layer still exists in the end-state document."""
+    name: str
+
+    def run(self, log: dict) -> CheckResult:
+        layer = _find_layer_by_name(log["outcome"]["document"], self.name)
+        passed = layer is not None
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"Layer '{self.name}' {'exists' if passed else 'not found'}",
+        )

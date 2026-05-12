@@ -11,9 +11,11 @@ import { installRawCapture } from "@/logger/raw";
 import { installPersist } from "@/logger/persist";
 import { emitSemantic } from "@/logger/semantic";
 import { downloadLogAsJson } from "@/logger/export";
+import { installFixtureLoader } from "@/engine/fixture";
 
 const persist = installPersist();
 installRawCapture();
+installFixtureLoader();
 
 if (import.meta.env.DEV) {
   (window as any).__exportLog = downloadLogAsJson;

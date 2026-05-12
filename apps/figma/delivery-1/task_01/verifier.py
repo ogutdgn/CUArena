@@ -1,5 +1,5 @@
 """
-Comprehensive Task 1 verifier (two-story house) — normalized to max score 1.0.
+Comprehensive Task 1 verifier — normalized to max score 1.0.
 
 5 rubrics, each weighted to 0.2 (sum = 1.0):
   1. Fundamentals — shape primitive counts
@@ -44,7 +44,7 @@ from verifier.checks.property_checks import NoLayerFlipped, CornerRadiusFraction
 task = Task(
     id="house_task_comprehensive",
     description=(
-        "Two-story house: 2 rectangles (body + door), 2 ellipses (windows), 1 polygon (roof). "
+        "Simple one-story house: 2 rectangles (body + door), 2 ellipses (windows), 1 polygon (roof). "
         "Windows aligned, same size, symmetric. Roof bottom touches body top. "
         "Distinct colors used. Shapes inside one frame. Correct tools used in action log."
     ),

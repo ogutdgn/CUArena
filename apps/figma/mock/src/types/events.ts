@@ -596,6 +596,11 @@ export type SemanticEvent =
       connectionId: string;
       sourceLayerId: string;
       destinationFrameId: string;
+    })
+  | (SemanticEventBase & {
+      name: "fixture_loaded";
+      frameName: string;
+      layerCount: number;
     });
 
 export type SemanticEventName = SemanticEvent["name"];
