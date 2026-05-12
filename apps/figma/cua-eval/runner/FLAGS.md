@@ -23,7 +23,7 @@ groups flags by purpose with the *why* alongside.
 | `--smoke` | off | Shortcut: run only `05 10 12` — three short, mouse-only tasks for cheap end-to-end validation. Overrides `--tasks`. |
 | `--k N` | `1` | Attempts per task. pass@k = 1.0 if any of the k attempts cleared `--threshold`. |
 | `--threshold X` | `0.7` | `final_score` threshold to count an attempt as passed. |
-| `--step-cap N` | `60` | Hard cap on model turns per attempt. Hitting it ends the attempt with `stop_reason=step_cap`. |
+| `--step-cap N` | `0` (unlimited) | Hard cap on model turns per attempt. `0` (default) lets the model run until it emits a final message or errors out. Set to e.g. `60` to cut runaway loops short — attempts that hit the cap end with `stop_reason=step_cap`. |
 
 ---
 

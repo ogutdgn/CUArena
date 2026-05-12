@@ -11,6 +11,7 @@ Uses the Messages API + `computer_20250124` tool. Each turn:
 from __future__ import annotations
 
 import base64
+import itertools
 import json
 import os
 import sys
@@ -349,7 +350,10 @@ def run_anthropic_agent(
     usage_total = {"input_tokens": 0, "output_tokens": 0}
     stop_reason = "step_cap"
 
-    for turn in range(step_cap):
+    # step_cap <= 0 means unlimited — let the model run until it emits a
+    # final message or errors out.
+    turn_iter = itertools.count() if step_cap <= 0 else range(step_cap)
+    for turn in turn_iter:
         if turn > 0 and turn_delay_s > 0:
             time.sleep(turn_delay_s)
 

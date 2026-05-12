@@ -8,6 +8,7 @@ chained via `previous_response_id`. Stop when the response has no
 from __future__ import annotations
 
 import base64
+import itertools
 import json
 import os
 import time
@@ -182,8 +183,11 @@ def run_openai_agent(
     previous_response_id: str | None = None
     next_input: list[dict[str, Any]] | None = initial_input
 
+    # step_cap <= 0 means unlimited — let the model run until it emits a
+    # final message or errors out.
+    turn_iter = itertools.count() if step_cap <= 0 else range(step_cap)
     try:
-        for turn in range(step_cap):
+        for turn in turn_iter:
             if turn > 0 and turn_delay_s > 0:
                 time.sleep(turn_delay_s)
 
