@@ -271,10 +271,10 @@ def run_attempt(
     full_agent_kwargs["system_prompt"] = effective_system
     full_agent_kwargs["attempt_dir"] = out_dir
 
+    fixture_path = task_dir / "fixture.json"
     fixture_dict = None
-    if hasattr(task, "fixture") and task.fixture is not None:
-        from dataclasses import asdict as _fixture_asdict
-        fixture_dict = _fixture_asdict(task.fixture)
+    if fixture_path.is_file():
+        fixture_dict = json.loads(fixture_path.read_text(encoding="utf-8"))
 
     try:
         with launch_browser(mock_url, headless=headless) as session:

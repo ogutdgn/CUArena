@@ -10,9 +10,27 @@ def _find_layer_by_name(document: dict, name: str) -> dict | None:
     return None
 
 
+def _collect_descendant_ids(document: dict, layer_id: str) -> set[str]:
+    """Return {layer_id} plus the IDs of all its descendants."""
+    ids: set[str] = set()
+
+    def walk(nodes: list[dict], collecting: bool) -> None:
+        for node in nodes:
+            is_target = node.get("id") == layer_id
+            if collecting or is_target:
+                ids.add(node["id"])
+            children = node.get("children", [])
+            if children:
+                walk(children, collecting or is_target)
+
+    for page in document.get("pages", []):
+        walk(page.get("children", []), False)
+    return ids
+
+
 @dataclass
 class LayerSelected:
-    """End-state: the named layer is in the active selection set."""
+    """End-state: the named layer (or one of its children) is in the active selection."""
     layer_name: str
 
     def run(self, log: dict) -> CheckResult:
@@ -21,8 +39,10 @@ class LayerSelected:
         if not layer:
             return CheckResult(passed=False, score=0.0, max_score=1.0,
                                message=f"Layer '{self.layer_name}' not found in document")
-        selected_ids = log["outcome"].get("selectedLayerIds", [])
-        passed = layer["id"] in selected_ids
+        family_ids = _collect_descendant_ids(doc, layer["id"])
+        selected_ids = set(log["outcome"].get("selectedLayerIds", []))
+        overlap = family_ids & selected_ids
+        passed = bool(overlap)
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"Layer '{self.layer_name}' {'is' if passed else 'is not'} selected",
@@ -31,7 +51,7 @@ class LayerSelected:
 
 @dataclass
 class ClickedLayer:
-    """Event-log: at least one click event targeted the named layer."""
+    """Event-log: at least one click_select event targeted the named layer or a child of it."""
     layer_name: str
 
     def run(self, log: dict) -> CheckResult:
@@ -40,14 +60,16 @@ class ClickedLayer:
         if not layer:
             return CheckResult(passed=False, score=0.0, max_score=1.0,
                                message=f"Layer '{self.layer_name}' not found in document")
-        layer_id = layer["id"]
+        family_ids = _collect_descendant_ids(doc, layer["id"])
         for event in log.get("semantic", []):
-            if event.get("name") == "click" and event.get("targetLayerId") == layer_id:
+            if event.get("name") == "click_select" and event.get("targetLayerId") in family_ids:
                 return CheckResult(passed=True, score=1.0, max_score=1.0,
                                    message=f"Click on '{self.layer_name}' found in event log")
         for event in log.get("semantic", []):
-            if event.get("name") == "select_layer" and layer_id in event.get("layerIds", []):
-                return CheckResult(passed=True, score=1.0, max_score=1.0,
-                                   message=f"Selection of '{self.layer_name}' found in event log")
+            if event.get("name") == "selection_change":
+                after_ids = set(event.get("after", []))
+                if family_ids & after_ids:
+                    return CheckResult(passed=True, score=1.0, max_score=1.0,
+                                       message=f"Selection of '{self.layer_name}' found in event log")
         return CheckResult(passed=False, score=0.0, max_score=1.0,
                            message=f"No click/selection event for '{self.layer_name}' in event log")
