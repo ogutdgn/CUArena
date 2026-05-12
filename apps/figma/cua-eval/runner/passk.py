@@ -110,8 +110,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--k", type=int, default=1, help="Attempts per task (default 1).")
     p.add_argument("--threshold", type=float, default=0.7,
                    help="final_score threshold to count as a pass (default 0.7).")
-    p.add_argument("--step-cap", type=int, default=60,
-                   help="Max model turns per attempt (default 60).")
+    p.add_argument("--step-cap", type=int, default=0,
+                   help="Max model turns per attempt. 0 (default) = unlimited; "
+                        "the loop runs until the model emits a final message "
+                        "or errors out. Set e.g. 60 to cut runaway loops short.")
     p.add_argument("--mock-url", default="http://localhost:5173",
                    help="URL of the running figma mock.")
     p.add_argument("--anthropic-model", default=os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-5"))
