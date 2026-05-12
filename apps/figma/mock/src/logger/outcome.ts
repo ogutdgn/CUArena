@@ -22,6 +22,7 @@ export interface OutcomeSnapshot {
   sessionId: string;
   capturedAt: number;
   activePageId: string;
+  selectedLayerIds: string[];
   summary: OutcomeSummary;
   document: DocumentNode;
 }
@@ -49,6 +50,7 @@ export function buildOutcomeSnapshot(): OutcomeSnapshot {
     sessionId: state.sessionId,
     capturedAt: Date.now(),
     activePageId: state.activePageId,
+    selectedLayerIds: state.selectionByPage[state.activePageId] ?? [],
     summary: buildSummary(state.document),
     document: state.document,
   };
