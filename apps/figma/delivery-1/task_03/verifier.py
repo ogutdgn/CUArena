@@ -27,7 +27,12 @@ task = Task(
         ], weight=0.25, critical=[0]),
 
         AlignmentRubric([
-            RadialDistributionExcludeCentral(layer_type="ellipse", n=8, tolerance_deg=15.0),
+            RadialDistributionExcludeCentral(
+                layer_type="ellipse",
+                n=8,
+                tolerance_deg=15.0,
+                radius_tolerance_frac=0.35,
+            ),
         ], weight=0.25, critical=[0]),
 
         ColorRubric([

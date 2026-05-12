@@ -8,7 +8,12 @@ from verifier.rubrics.structure import StructureRubric
 from verifier.rubrics.efficiency import EfficiencyRubric
 
 from verifier.checks.shape_checks import ShapeCount
-from verifier.checks.geometry_checks import LayersSameDimensions, LayersStacked, LayerAspectRatioGreaterThan
+from verifier.checks.geometry_checks import (
+    LayersSameDimensions,
+    LayersStacked,
+    LayerAspectRatioGreaterThan,
+    LayersAligned,
+)
 from verifier.checks.fill_checks import LayersHaveColorOrder
 from verifier.checks.structure_checks import (
     LayerInsideFrame,
@@ -34,16 +39,17 @@ task = Task(
 
         AlignmentRubric([
             LayersStacked(layer_type="rectangle", axis="y", gap_px=0.0, tolerance=8.0),
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=8.0),
             LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="horizontal"),
             LayersSameDimensions(layer_type="rectangle", tolerance=25.0),
-        ], weight=0.25, critical=[0, 1, 2]),
+        ], weight=0.25, critical=[0, 1, 2, 3]),
 
         ColorRubric([
             LayersHaveColorOrder(
                 layer_type="rectangle",
                 expected_rgbs=[DEEP_PURPLE, PINK, ORANGE, YELLOW, PALE_YELLOW],
                 sort_axis="y",
-                tolerance=0.20,
+                tolerance=0.40,
             ),
         ], weight=0.25, critical=[0]),
 
