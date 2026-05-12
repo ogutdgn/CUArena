@@ -1,0 +1,2 @@
+provider,model,task_id,passed,final_score,base_score,max_score,efficiency,turns,elapsed_s,stop_reason,input_tokens,output_tokens,cost_input_usd,cost_output_usd,cost_total_usd,error
+anthropic,claude-sonnet-4-5,task_52_read_click_giftbox,yes,0.8033,1.0000,1.00,0.8033,20,103.3,done,144896,2971,0.434688,0.044565,0.479253,
