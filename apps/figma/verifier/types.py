@@ -54,5 +54,4 @@ class Task:
     description: str
     rubrics:     list   # list of rubric objects
     efficiency:  Any    # EfficiencyRubric instance
-    fixture:     Fixture | None = None
     scope:       str = "in_scope"  # "in_scope" | "planned" | "out_of_scope"
