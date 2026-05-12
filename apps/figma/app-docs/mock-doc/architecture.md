@@ -269,6 +269,18 @@ Frame containment uses shared overlap logic in `engine/frameContainment.ts`. Can
 
 Canvas drag and panel scrub can combine `set_transform` and `reparent` in one transaction. Panel scrub defers the containment check until pointer-up so the panel value does not change coordinate reference mid-gesture; the final `reparent` still lands in the same undo transaction. Panel transforms use the shared overlap calculation with a more responsive exit threshold than live canvas drag, because no mid-drag reparent jitter can occur.
 
+Batch frame containment treats same-parent multi-selection moves atomically. The enter/exit decision is based on the selected root layers' visual union bounds, so a few overlapping children cannot become frame children before the whole selected set qualifies. When the set does qualify, all reparent moves are dispatched as one `reparent` op, and target insertion indices are normalized against drag-start scene order to preserve z-order inside the target parent.
+
+### Selection transform invariant
+
+Single-layer rotate/flip commands use the layer's own center. Multi-selection rotation uses `engine/selectionTransforms.ts` to rotate each selected layer's world matrix around the visual union center, then re-express the result in the layer's current parent space. This keeps the selected bounding area behaving as one object while preserving the existing per-layer transform model.
+
+Right-panel numeric fields may display `Mixed` for multi-selection, but glyph drag-scrubbing remains active. Typed commits still set absolute values, while Mixed scrub gestures emit a relative delta and route through `nudgeTransformField` so X/Y/W/H/rotation edits preserve the selection's internal offsets.
+
+Pointer-drag scrub gestures are one undoable user event. Controls open a transaction on pointerdown and commit on pointerup; the dispatcher compacts consecutive `set_transform` ops and same-path `set_property` ops to first-before/final-after so undo reverts the whole drag, not a single pointermove tick. Mixed scrub deltas are calculated before display clamping and emitted as incremental tick deltas so min/max UI bounds do not distort the relative edit rate.
+
+Ctrl+Z / Ctrl+Y are application-level undo/redo even when focus is inside a right-panel input, color picker field, or interaction modal control. Other text-field shortcuts still stay native, but undo must reach the central dispatcher because property edits are document mutations, not local input history.
+
 ### Smart-snap invariant
 
 Smart-snap compares visual bounds, not raw stored rectangles.
