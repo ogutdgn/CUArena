@@ -19,7 +19,8 @@ import { resizeSingleTransformedLayer } from "../src/engine/resizeGeometry";
 import { resizeLineEndpointFromWorld } from "../src/engine/lineGeometry";
 import { applyReparent, applySetTransform } from "../src/engine/ops";
 import { deleteSelection } from "../src/engine/commands";
-import { dispatch, makeOpId, undo } from "../src/engine/dispatch";
+import { commitTransaction, dispatch, makeOpId, openTransaction, undo } from "../src/engine/dispatch";
+import { setFillColor } from "../src/engine/propertyCommands";
 import { placementForPastedLayer } from "../src/engine/pastePlacement";
 import { frameLabelGeometry } from "../src/engine/frameLabelsGeometry";
 import { pannedViewportFromClientDelta } from "../src/engine/viewportPan";
@@ -208,6 +209,76 @@ const pan1 = pannedViewportFromClientDelta({ x: 100, y: 200, zoom: 2 }, { x: 10,
 assert(pan1.x === 90 && pan1.y === 185, "hand pan should derive viewport from stable client-pixel delta");
 const pan2 = pannedViewportFromClientDelta({ x: 100, y: 200, zoom: 2 }, { x: 10, y: 20 }, { x: 50, y: 80 });
 assert(pan2.x === 80 && pan2.y === 170, "hand pan should keep accumulating smoothly as client delta grows");
+
+const fillUndoRect: Rectangle = {
+  ...rect,
+  id: "fill-undo-rect",
+  rotation: 0,
+  fills: [{ kind: "solid", visible: true, opacity: 1, color: { r: 1, g: 0, b: 0, a: 1 } }],
+};
+resetStoreForRegression(makeState(fillUndoRect));
+setFillColor(0, { r: 0, g: 1, b: 0, a: 1 });
+assert(((useStore.getState().nodesById["fill-undo-rect"] as Rectangle).fills[0] as Extract<Rectangle["fills"][number], { kind: "solid" }>).color.g === 1, "fill color should change before undo");
+undo();
+assert(((useStore.getState().nodesById["fill-undo-rect"] as Rectangle).fills[0] as Extract<Rectangle["fills"][number], { kind: "solid" }>).color.r === 1, "fill color undo should restore the original color");
+
+resetStoreForRegression(makeState({
+  ...fillUndoRect,
+  id: "fill-undo-transaction-rect",
+  fills: [{ kind: "solid", visible: true, opacity: 1, color: { r: 1, g: 0, b: 0, a: 1 } }],
+}));
+const fillTx = openTransaction();
+setFillColor(0, { r: 0, g: 1, b: 0, a: 1 }, { transactionId: fillTx });
+setFillColor(0, { r: 0, g: 0, b: 1, a: 1 }, { transactionId: fillTx });
+commitTransaction(fillTx);
+assert(((useStore.getState().nodesById["fill-undo-transaction-rect"] as Rectangle).fills[0] as Extract<Rectangle["fills"][number], { kind: "solid" }>).color.b === 1, "transaction fill color should end at the last color");
+undo();
+assert(((useStore.getState().nodesById["fill-undo-transaction-rect"] as Rectangle).fills[0] as Extract<Rectangle["fills"][number], { kind: "solid" }>).color.r === 1, "transaction fill color undo should restore the original color");
+
+const frameFillUndo: Frame = {
+  id: "frame-fill-undo",
+  parentId: "page-1",
+  type: "frame",
+  name: "Frame Fill Undo",
+  x: 0,
+  y: 0,
+  w: 100,
+  h: 100,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  visible: true,
+  locked: false,
+  opacity: 1,
+  constraints: { horizontal: "left", vertical: "top" },
+  fills: [{ kind: "solid", visible: true, opacity: 1, color: { r: 1, g: 1, b: 1, a: 1 } }],
+  strokes: [],
+  effects: [],
+  cornerRadius: 0,
+  clipsContent: true,
+  children: [],
+};
+resetStoreForRegression(makeState(frameFillUndo));
+setFillColor(0, { r: 0.25, g: 0.5, b: 0.75, a: 1 });
+undo();
+assert(((useStore.getState().nodesById["frame-fill-undo"] as Frame).fills[0] as Extract<Frame["fills"][number], { kind: "solid" }>).color.r === 1, "frame fill color undo should restore the original color");
+
+const pageBgState = makeState({ ...rect, id: "page-bg-rect", rotation: 0 });
+resetStoreForRegression(pageBgState);
+const pageBefore = useStore.getState().document.pages[0].backgroundColor;
+dispatch({
+  id: makeOpId(),
+  timestamp: performance.now(),
+  kind: "set_property",
+  pageId: "page-1",
+  ids: ["page-1"],
+  path: "backgroundColor",
+  before: { "page-1": { ...pageBefore } },
+  after: { "page-1": { r: 0, g: 0, b: 0, a: 1 } },
+});
+assert(useStore.getState().document.pages[0].backgroundColor.r === 0, "page background should change before undo");
+undo();
+assert(useStore.getState().document.pages[0].backgroundColor.r === 1, "page background color undo should restore the original color");
 
 withMockedBrowserStorage(() => {
   const sessionPath = require.resolve("../src/util/session.ts");
