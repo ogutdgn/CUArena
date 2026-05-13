@@ -195,6 +195,26 @@ Files:
 
 **Verifier impact:** Positive outcome-document correctness change. Existing checks that inspect transforms now observe the intended visual flip behavior.
 
+#### 46. 🟡 P1 — Color property undo writes to the flat node index instead of the document tree
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/ops.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** After changing the page background color, a shape fill color, or a frame fill color, Undo should restore the previous color. The same should hold when the color picker emits several drag updates inside a single transaction.
+
+**What happened:** The color changed visually, but Undo did not restore the prior color for page background, normal shapes, or frames.
+
+**Root cause verified in code:** Forward `set_property` applies by finding the target in the document tree, which is the source that renders and exports. The inverse path used `state.nodesById[id]` directly. Under Immer, that can mutate the flat lookup entry without updating the corresponding object in the document tree, so the undo stack was consumed but the rendered/document color stayed at the new value.
+
+**Fix:** `applyInverse` now resolves `set_property` targets through the same document-tree lookup used by the forward apply path. Regression coverage checks page background color, shape fill color, frame fill color, and transaction-compacted color picker updates.
+
+**Logger impact:** None. Semantic event names and payloads are unchanged; only undo application is corrected.
+
+**Verifier impact:** Positive outcome-document correctness change. Existing color verifiers now see the restored document color after an undo.
+
 ### 2026-05-11 — User-reported: trackpad pinch in canvas page-zooms the whole webpage
 
 #### 37. 🟢 P2 — Pinch-zoom inside canvas also zooms the browser page
