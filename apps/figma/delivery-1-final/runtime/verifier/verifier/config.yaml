@@ -1,0 +1,9 @@
+efficiency:
+  lambda: 0.05
+
+alignment:
+  default_tolerance_px: 5.0
+
+property:
+  default_opacity_tolerance: 0.02
+  default_radius_tolerance: 1.0
