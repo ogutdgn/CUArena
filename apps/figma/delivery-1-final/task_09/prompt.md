@@ -1,0 +1,6 @@
+**Difficulty:** Easy
+
+## Prompt
+
+Inside a frame, arrange 12 same-size squares in a 4x3 grid. Each square is filled a different color.
+

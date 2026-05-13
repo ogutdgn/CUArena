@@ -1,0 +1,6 @@
+**Difficulty:** Easy
+
+## Prompt
+
+Build a plus-sign emblem from 2 rectangles. The horizontal rectangle is wide and short; the vertical rectangle is narrow and tall. Place them so they cross at the center, with their center points aligned.
+
