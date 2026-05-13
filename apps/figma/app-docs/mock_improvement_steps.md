@@ -133,6 +133,88 @@ Files:
 
 **Verifier impact:** None. This is a UI reachability improvement for an existing command.
 
+#### 43. 🟡 P1 — Delete undo stores revoked Immer draft snapshots
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/ops.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+- `apps/figma/mock/scripts/run-transform-regression.cjs`
+
+**What I expected:** If a user creates a layer, deletes it, then invokes Undo, the deleted layer should be restored with its subtree and related prototype connections intact.
+
+**What happened:** A create -> delete -> undo flow could fail to restore the deleted layer. In the regression harness this reproduced as an Immer error: `Cannot perform 'isExtensible' on a proxy that has been revoked`.
+
+**Root cause verified in code:** `applyDeleteNodes` saved removed layer objects directly from the Immer draft tree into `op.snapshot`. That put draft/proxy objects into the undo stack. Once the producer finalized, those proxies were revoked, so undo could not reliably reinsert them. The same risk existed for create/page replay paths that inserted op payload objects directly into state.
+
+**Fix:** Scene snapshot payloads are now cloned as plain JSON data before being stored in undo snapshots or inserted into the document tree. Delete undo restores clones of the stored layer and prototype-connection snapshots, keeping the undo/redo entries independent from Immer draft lifetimes.
+
+**Logger impact:** None. Semantic event names and fields are unchanged; only undo snapshot storage changes.
+
+**Verifier impact:** Positive outcome-document correctness change for sessions where agents delete and undo layers. Existing verifiers read the restored `outcome.document`; no checker changes required.
+
+#### 44. 🟡 P1 — QuotaExceededError in session lease crashes app bootstrap
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/util/session.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** If browser storage quota is exhausted, the mock should still boot with a valid session id. Session leasing is a collision-avoidance helper and should not be able to crash initial store creation.
+
+**What happened:** `localStorage.setItem("__figma_mock_lease_<sessionId>", ...)` threw `QuotaExceededError`, bubbling through `resolveSessionInfo()` during `store.ts` module initialization and preventing the app from loading.
+
+**Root cause verified in code:** `startLeaseHeartbeat()` called `writeLease()` during its first synchronous `touch()` and neither function caught storage quota failures. The later heartbeat path had the same issue.
+
+**Fix:** Lease writes are now best-effort and return success/failure instead of throwing. Session resolution sets the resolved session before attempting the heartbeat, and heartbeat stops itself if future lease writes fail.
+
+**Logger impact:** None. Session ids and log schemas are unchanged; only storage failure handling changes.
+
+**Verifier impact:** None. This prevents app startup crashes under full localStorage; verifier inputs are unchanged.
+
+#### 45. 🟡 P2 — Flip horizontal and vertical are inconsistent across selection shapes
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/transformCommands.ts`
+- `apps/figma/mock/src/engine/selectionTransforms.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** Flip horizontal should mirror left/right across a vertical mirror line through the visual selection center, and flip vertical should mirror top/bottom across a horizontal mirror line through that center. The same world-mirror rule should apply to one selected layer, multiple selected layers, a selected child inside a frame, a selected frame with children, and mixed ancestor/descendant selections. Rotated or directional shapes should update their stored transform/rotation so their visible points cross the mirror line.
+
+**What happened:** The simple axis mapping was reversed: `flipSelection("vertical")` toggled `scaleX`, while `flipSelection("horizontal")` toggled `scaleY`. Even after the axis mapping was corrected, the single-layer path still toggled local scale instead of reflecting the layer's world transform, so a rotated/right-pointing triangle did not turn to face the other side. Multi-selection also flipped every layer around its own center instead of mirroring the selection bounds as one visual object. If a frame and one of its children were selected together, both received transforms, so the child inherited the frame flip and then got flipped again by its own transform.
+
+**Root cause verified in code:** `transformCommands.ts` directly mapped every selected layer to a per-layer scale toggle. The helper had a single-layer shortcut that bypassed the world-space reflection matrix, it did not filter selected descendants whose ancestor was also selected, and it did not use a shared selection-center transform for multi-selection flips.
+
+**Fix:** All flip paths now use the same world-space reflection matrix around the selected transform roots' visual bounds, including single-layer flips. Mixed ancestor/descendant selections are reduced to selected transform roots, so a frame+child selection flips the frame once and lets children inherit it. Multi-root selections mirror around the union of the selected roots' visual bounds, so selected shapes swap sides/top-bottom consistently. Regression coverage checks actual world-space point reflection for single layers, rotated triangles, multi-selection, and frame+child selection.
+
+**Logger impact:** None. The `flip_layer` semantic event still reports the user-facing axis.
+
+**Verifier impact:** Positive outcome-document correctness change. Existing checks that inspect transforms now observe the intended visual flip behavior.
+
+#### 46. 🟡 P1 — Color property undo writes to the flat node index instead of the document tree
+
+**Status:** Fixed in working tree (commit pending).
+
+Files:
+- `apps/figma/mock/src/engine/ops.ts`
+- `apps/figma/mock/scripts/transform-regression.test.ts`
+
+**What I expected:** After changing the page background color, a shape fill color, or a frame fill color, Undo should restore the previous color. The same should hold when the color picker emits several drag updates inside a single transaction.
+
+**What happened:** The color changed visually, but Undo did not restore the prior color for page background, normal shapes, or frames.
+
+**Root cause verified in code:** Forward `set_property` applies by finding the target in the document tree, which is the source that renders and exports. The inverse path used `state.nodesById[id]` directly. Under Immer, that can mutate the flat lookup entry without updating the corresponding object in the document tree, so the undo stack was consumed but the rendered/document color stayed at the new value.
+
+**Fix:** `applyInverse` now resolves `set_property` targets through the same document-tree lookup used by the forward apply path. Regression coverage checks page background color, shape fill color, frame fill color, and transaction-compacted color picker updates.
+
+**Logger impact:** None. Semantic event names and payloads are unchanged; only undo application is corrected.
+
+**Verifier impact:** Positive outcome-document correctness change. Existing color verifiers now see the restored document color after an undo.
+
 ### 2026-05-11 — User-reported: trackpad pinch in canvas page-zooms the whole webpage
 
 #### 37. 🟢 P2 — Pinch-zoom inside canvas also zooms the browser page

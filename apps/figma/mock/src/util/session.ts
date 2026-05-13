@@ -39,9 +39,14 @@ function readLease(key: string, st: Storage): LeaseRecord | null {
   }
 }
 
-function writeLease(key: string, st: Storage, instanceId: string): void {
+function writeLease(key: string, st: Storage, instanceId: string): boolean {
   const lease: LeaseRecord = { instanceId, updatedAt: Date.now() };
-  st.setItem(key, JSON.stringify(lease));
+  try {
+    st.setItem(key, JSON.stringify(lease));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function isLeaseAlive(lease: LeaseRecord | null): boolean {
@@ -99,7 +104,7 @@ export function parseRequestedSessionId(): string | null {
   return null;
 }
 
-function startLeaseHeartbeat(st: Storage, leaseKey: string, instanceId: string): void {
+function startLeaseHeartbeat(st: Storage, leaseKey: string, instanceId: string): boolean {
   const touch = () => {
     const current = readLease(leaseKey, st);
     if (current && current.instanceId !== instanceId && isLeaseAlive(current)) {
@@ -108,14 +113,19 @@ function startLeaseHeartbeat(st: Storage, leaseKey: string, instanceId: string):
         clearInterval(heartbeat);
         heartbeat = null;
       }
-      return;
+      return true;
     }
-    writeLease(leaseKey, st, instanceId);
+    return writeLease(leaseKey, st, instanceId);
   };
 
-  touch();
+  if (!touch()) return false;
   if (heartbeat) clearInterval(heartbeat);
-  heartbeat = setInterval(touch, LEASE_HEARTBEAT_MS);
+  heartbeat = setInterval(() => {
+    if (!touch() && heartbeat) {
+      clearInterval(heartbeat);
+      heartbeat = null;
+    }
+  }, LEASE_HEARTBEAT_MS);
 
   const release = () => {
     try {
@@ -127,6 +137,7 @@ function startLeaseHeartbeat(st: Storage, leaseKey: string, instanceId: string):
   };
   window.addEventListener("beforeunload", release);
   window.addEventListener("pagehide", release);
+  return true;
 }
 
 function allocateDivergedId(st: Storage, baseId: string): string {
@@ -165,24 +176,24 @@ export function resolveSessionInfo(): ResolvedSessionInfo {
   const primaryLeaseKey = `${LEASE_PREFIX}${requested}`;
   const existing = readLease(primaryLeaseKey, st);
   if (!isLeaseAlive(existing) || existing?.instanceId === instanceId) {
-    startLeaseHeartbeat(st, primaryLeaseKey, instanceId);
     resolved = {
       sessionId: requested,
       requestedSessionId: requested,
       isDiverged: false,
     };
+    startLeaseHeartbeat(st, primaryLeaseKey, instanceId);
     syncSessionIdToUrl(resolved.sessionId);
     return resolved;
   }
 
   const diverged = allocateDivergedId(st, requested);
   const divergedLeaseKey = `${LEASE_PREFIX}${diverged}`;
-  startLeaseHeartbeat(st, divergedLeaseKey, instanceId);
   resolved = {
     sessionId: diverged,
     requestedSessionId: requested,
     isDiverged: true,
   };
+  startLeaseHeartbeat(st, divergedLeaseKey, instanceId);
   syncSessionIdToUrl(resolved.sessionId);
   return resolved;
 }
