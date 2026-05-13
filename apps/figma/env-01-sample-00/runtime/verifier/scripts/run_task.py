@@ -24,6 +24,7 @@ import importlib.util
 import json
 import os
 import re
+import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -31,12 +32,13 @@ from urllib.parse import urlencode
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
 
-APP_ROOT     = Path(__file__).resolve().parent.parent       # apps/figma/
-SCRIPTS_DIR  = Path(__file__).resolve().parent              # apps/figma/scripts/
-DELIVERY_DIR = APP_ROOT / "delivery-1"
-OUTPUT_ROOT  = Path(os.getenv("FIGMA_OUTPUT_DIR", str(SCRIPTS_DIR)))
+APP_ROOT     = Path(__file__).resolve().parent.parent       # delivery-1-final/runtime/verifier/
+SCRIPTS_DIR  = Path(__file__).resolve().parent
+DELIVERY_DIR = Path(os.getenv("FIGMA_DELIVERY_DIR", str(APP_ROOT / "tasks")))
+OUTPUT_ROOT  = Path(os.getenv("FIGMA_OUTPUT_DIR", str(APP_ROOT / "output")))
 LOGS_DIR     = OUTPUT_ROOT / "logs"
 SCORES_DIR   = OUTPUT_ROOT / "scores"
+MOCK_DEVLOG_DIR = Path(os.getenv("FIGMA_MOCK_DEVLOG_DIR", str(OUTPUT_ROOT / "mock-devlog")))
 
 # Make `from verifier... import ...` work inside delivery-1/task_NN/verifier.py
 sys.path.insert(0, str(APP_ROOT))
@@ -139,10 +141,39 @@ def fetch_log(host: str, port: int, session_id: str | None = None) -> dict:
         sys.exit(1)
 
 
-def save_log(log: dict, prefix: str) -> Path:
-    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+def _task_output_dirs(task_dir_name: str) -> tuple[Path, Path, Path]:
+    base = OUTPUT_ROOT / "by-task" / task_dir_name
+    logs = base / "logs"
+    scores = base / "scores"
+    devlogs = base / "mock-devlog"
+    logs.mkdir(parents=True, exist_ok=True)
+    scores.mkdir(parents=True, exist_ok=True)
+    devlogs.mkdir(parents=True, exist_ok=True)
+    return logs, scores, devlogs
+
+
+def _copy_mock_devlog_snapshot(session_id: str | None, task_dir_name: str) -> Path | None:
+    if not session_id:
+        return None
+    source = MOCK_DEVLOG_DIR / f"{session_id}.json"
+    if not source.exists():
+        return None
+    _, _, devlogs = _task_output_dirs(task_dir_name)
+    target = devlogs / f"{session_id}.json"
+    try:
+        shutil.copy2(source, target)
+        return target
+    except Exception:
+        return None
+
+
+def save_log(log: dict, prefix: str, task_dir_name: str | None = None) -> Path:
+    out_dir = LOGS_DIR
+    if task_dir_name:
+        out_dir, _, _ = _task_output_dirs(task_dir_name)
+    out_dir.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = LOGS_DIR / f"{prefix}_{ts}.json"
+    path = out_dir / f"{prefix}_{ts}.json"
     with open(path, "w", encoding="utf-8") as f:
         json.dump(log, f, indent=2)
     return path
@@ -265,9 +296,10 @@ def print_result(result) -> None:
 
 
 def save_result(result, task_dir: Path) -> Path:
-    SCORES_DIR.mkdir(parents=True, exist_ok=True)
+    _, score_dir, _ = _task_output_dirs(task_dir.name)
+    score_dir.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = SCORES_DIR / f"{task_dir.name}_{ts}.json"
+    path = score_dir / f"{task_dir.name}_{ts}.json"
     with open(path, "w", encoding="utf-8") as f:
         json.dump(dataclasses.asdict(result), f, indent=2)
     return path
@@ -287,7 +319,8 @@ def cmd_full_pipeline(task_input: str, host: str, port: int, session_id: str | N
     print(f"Fetching log from {fetch_url} …")
     try:
         log = fetch_log(host, port, session_id=resolved_session_id)
-        log_path = save_log(log, task_dir.name)
+        log_path = save_log(log, task_dir.name, task_dir_name=task_dir.name)
+        _copy_mock_devlog_snapshot(log.get("sessionId"), task_dir.name)
         print_log_details(log, log_path)
         result = score_log(task, log_path)
     except MissingDevLogError as e:
@@ -326,7 +359,7 @@ def cmd_full_pipeline(task_input: str, host: str, port: int, session_id: str | N
                 "document": {"id": "document_missing_dev_log", "schemaVersion": 1, "pages": []},
             },
         }
-        log_path = save_log(empty_log, f"{task_dir.name}_missing")
+        log_path = save_log(empty_log, f"{task_dir.name}_missing", task_dir_name=task_dir.name)
         print_log_details(empty_log, log_path)
         result = forced_zero_result(
             task,
@@ -340,11 +373,13 @@ def cmd_full_pipeline(task_input: str, host: str, port: int, session_id: str | N
 
 def cmd_export_only(task_input: str | None, host: str, port: int, session_id: str | None = None) -> None:
     prefix = "log"
+    task_dir_name: str | None = None
     if task_input:
         task_dir = resolve_task(task_input)
         if task_dir.name != task_input:
             print(f"Resolved '{task_input}' → {task_dir.name}")
         prefix = task_dir.name
+        task_dir_name = task_dir.name
 
     resolved_session_id = resolve_session_id(host, port, session_id)
     if session_id is None and resolved_session_id:
@@ -352,7 +387,8 @@ def cmd_export_only(task_input: str | None, host: str, port: int, session_id: st
     fetch_url = _build_url(host, port, "/dev-log", session_id=resolved_session_id)
     print(f"Fetching log from {fetch_url} …")
     log = fetch_log(host, port, session_id=resolved_session_id)
-    log_path = save_log(log, prefix)
+    log_path = save_log(log, prefix, task_dir_name=task_dir_name)
+    _copy_mock_devlog_snapshot(log.get("sessionId"), task_dir_name or "export-log")
     print_log_details(log, log_path)
 
 
