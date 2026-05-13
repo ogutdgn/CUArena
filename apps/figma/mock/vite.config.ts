@@ -1,6 +1,8 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath, URL } from "node:url";
+import fs from "node:fs";
+import path from "node:path";
 
 // Dev-only relay: mock POSTs the current log here; run_task.py GETs it.
 function devLogRelayPlugin(): Plugin {
@@ -113,8 +115,85 @@ function devLogRelayPlugin(): Plugin {
   };
 }
 
+// Dev-only: serves env-01-sample-00 style task fixtures/prompts from TASKS_DIR
+// and injects a bootstrap script that loads them based on ?task=task_NN URL param.
+// No-op if TASKS_DIR is not set, so default cua-bench mock behavior is unchanged.
+function taskBootstrapPlugin(): Plugin {
+  const tasksDir = process.env.TASKS_DIR ? path.resolve(process.env.TASKS_DIR) : null;
+
+  const bootstrapScript = `(() => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const task = params.get("task");
+    if (!task) return;
+    const normalized = /^task_\\d{2}$/i.test(task)
+      ? task.toLowerCase()
+      : /^\\d+$/.test(task)
+        ? \`task_\${task.padStart(2, "0")}\`
+        : null;
+    if (!normalized) return;
+    fetch(\`/task/\${normalized}/fixture\`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((fixture) => {
+        if (!fixture) return;
+        let tries = 0;
+        const maxTries = 50;
+        const timer = setInterval(() => {
+          tries += 1;
+          if (typeof window.__loadFixture === "function") {
+            try { window.__loadFixture(fixture); } catch {}
+            clearInterval(timer);
+            return;
+          }
+          if (tries >= maxTries) clearInterval(timer);
+        }, 100);
+      })
+      .catch(() => {});
+  } catch {}
+})();`;
+
+  return {
+    name: "task-bootstrap",
+    apply: "serve",
+    configureServer(server) {
+      if (!tasksDir) return;
+      server.middlewares.use((req, res, next) => {
+        if (!req.url) return next();
+        const u = new URL(req.url, "http://task.local");
+        const m = u.pathname.match(/^\/task\/(task_\d{2})\/(fixture|prompt)$/i);
+        if (!m) return next();
+        const taskId = m[1].toLowerCase();
+        const kind = m[2].toLowerCase();
+        const fileName = kind === "fixture" ? "fixture.json" : "prompt.md";
+        const filePath = path.join(tasksDir, taskId, fileName);
+        if (!filePath.startsWith(tasksDir) || !fs.existsSync(filePath)) {
+          res.statusCode = 404;
+          res.setHeader("Access-Control-Allow-Origin", "*");
+          res.end(`${kind} not found for ${taskId}`);
+          return;
+        }
+        const body = fs.readFileSync(filePath);
+        res.statusCode = 200;
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader(
+          "Content-Type",
+          kind === "fixture" ? "application/json; charset=utf-8" : "text/markdown; charset=utf-8",
+        );
+        res.end(body);
+      });
+    },
+    transformIndexHtml(html) {
+      if (!tasksDir) return html;
+      const tag = `<script>${bootstrapScript}</script>`;
+      return html.includes("/* task-bootstrap */")
+        ? html
+        : html.replace("</head>", `  ${tag}\n  <!-- /* task-bootstrap */ -->\n</head>`);
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), devLogRelayPlugin()],
+  plugins: [react(), devLogRelayPlugin(), taskBootstrapPlugin()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
