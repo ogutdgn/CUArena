@@ -1,0 +1,1683 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_1d45cb00-9820-4bf1-a823-049aa8fc6242",
+  "exportedAt": 1778646477926,
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_1d45cb00-9820-4bf1-a823-049aa8fc6242",
+    "capturedAt": 1778646469569,
+    "activePageId": "page_mp3k4sce_4_x2jpxv",
+    "selectedLayerIds": [
+      "fix_mp3k4scf_31_xvwnp9"
+    ],
+    "summary": {
+      "semanticEventCount": 10,
+      "shapeCounts": {
+        "frame": 1,
+        "rectangle": 8,
+        "ellipse": 11,
+        "star": 3,
+        "group": 8,
+        "text": 8
+      }
+    },
+    "document": {
+      "id": "doc_mp3k4scf_44_ddfk9g",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3k4sce_4_x2jpxv",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "frame_mp3k4sce_5_vrfdms",
+              "type": "frame",
+              "name": "scene",
+              "parentId": "page_mp3k4sce_4_x2jpxv",
+              "x": 0,
+              "y": 0,
+              "w": 1200,
+              "h": 800,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": [],
+              "cornerRadius": 0,
+              "clipsContent": true,
+              "children": [
+                {
+                  "id": "fix_mp3k4sce_6_vynmx2",
+                  "type": "rectangle",
+                  "name": "blue_rect_01",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 100,
+                  "y": 120,
+                  "w": 120,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.12941176470588237,
+                        "g": 0.5882352941176471,
+                        "b": 0.9529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_7_vntvwa",
+                  "type": "rectangle",
+                  "name": "blue_rect_02",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 500,
+                  "y": 250,
+                  "w": 100,
+                  "h": 130,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.12941176470588237,
+                        "g": 0.5882352941176471,
+                        "b": 0.9529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_8_9radbw",
+                  "type": "rectangle",
+                  "name": "blue_rect_03",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 800,
+                  "y": 100,
+                  "w": 140,
+                  "h": 90,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.12941176470588237,
+                        "g": 0.5882352941176471,
+                        "b": 0.9529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_9_ymqs9j",
+                  "type": "rectangle",
+                  "name": "blue_rect_04",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 350,
+                  "y": 400,
+                  "w": 110,
+                  "h": 70,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.12941176470588237,
+                        "g": 0.5882352941176471,
+                        "b": 0.9529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_10_9dh86w",
+                  "type": "rectangle",
+                  "name": "red_rect_01",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 700,
+                  "y": 350,
+                  "w": 100,
+                  "h": 120,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9058823529411765,
+                        "g": 0.2980392156862745,
+                        "b": 0.23529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_11_casw1o",
+                  "type": "rectangle",
+                  "name": "red_rect_02",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 250,
+                  "y": 200,
+                  "w": 90,
+                  "h": 110,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9058823529411765,
+                        "g": 0.2980392156862745,
+                        "b": 0.23529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_12_sl55o6",
+                  "type": "ellipse",
+                  "name": "red_circle_01",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 60,
+                  "y": 350,
+                  "w": 100,
+                  "h": 100,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9058823529411765,
+                        "g": 0.2980392156862745,
+                        "b": 0.23529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_13_lg1edz",
+                  "type": "ellipse",
+                  "name": "red_circle_02",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 460,
+                  "y": 220,
+                  "w": 90,
+                  "h": 90,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9058823529411765,
+                        "g": 0.2980392156862745,
+                        "b": 0.23529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_14_17459x",
+                  "type": "ellipse",
+                  "name": "red_circle_03",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 950,
+                  "y": 300,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9058823529411765,
+                        "g": 0.2980392156862745,
+                        "b": 0.23529411764705882,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_15_ln9dhv",
+                  "type": "star",
+                  "name": "pink_star_01",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 600,
+                  "y": 80,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 1,
+                        "g": 0.4117647058823529,
+                        "b": 0.7058823529411765,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "points": 5,
+                  "innerRatio": 0.38,
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_16_yaji18",
+                  "type": "star",
+                  "name": "pink_star_02",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 780,
+                  "y": 80,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 1,
+                        "g": 0.4117647058823529,
+                        "b": 0.7058823529411765,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "points": 5,
+                  "innerRatio": 0.38,
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_17_rwz4a9",
+                  "type": "star",
+                  "name": "pink_star_03",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 180,
+                  "y": 430,
+                  "w": 90,
+                  "h": 90,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 1,
+                        "g": 0.4117647058823529,
+                        "b": 0.7058823529411765,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "points": 5,
+                  "innerRatio": 0.38,
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_18_jzvu7r",
+                  "type": "rectangle",
+                  "name": "yellow_rect_01",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 950,
+                  "y": 150,
+                  "w": 100,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9450980392156862,
+                        "g": 0.7686274509803922,
+                        "b": 0.058823529411764705,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_19_3n3osk",
+                  "type": "rectangle",
+                  "name": "yellow_rect_02",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 550,
+                  "y": 430,
+                  "w": 120,
+                  "h": 90,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9450980392156862,
+                        "g": 0.7686274509803922,
+                        "b": 0.058823529411764705,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "cornerRadius": 0
+                },
+                {
+                  "id": "fix_mp3k4sce_20_14gw1v",
+                  "type": "group",
+                  "name": "label_1",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 120,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4sce_21_qrvjqk",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4sce_20_14gw1v",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4sce_22_g1ant4",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4sce_20_14gw1v",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "1",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                },
+                {
+                  "id": "fix_mp3k4sce_23_o2ar3l",
+                  "type": "group",
+                  "name": "label_2",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 250,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4scf_24_3qfqfp",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4sce_23_o2ar3l",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4scf_25_v4vx55",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4sce_23_o2ar3l",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "2",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                },
+                {
+                  "id": "fix_mp3k4scf_26_fp4xu8",
+                  "type": "group",
+                  "name": "label_3",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 380,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4scf_27_6wcdac",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4scf_26_fp4xu8",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4scf_28_nby8pj",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4scf_26_fp4xu8",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "3",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                },
+                {
+                  "id": "fix_mp3k4scf_29_rnp4xe",
+                  "type": "group",
+                  "name": "label_4",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 510,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4scf_30_18a8xy",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4scf_29_rnp4xe",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4scf_31_xvwnp9",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4scf_29_rnp4xe",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "4",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                },
+                {
+                  "id": "fix_mp3k4scf_32_4nubp3",
+                  "type": "group",
+                  "name": "label_5",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 640,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4scf_33_6mfxxv",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4scf_32_4nubp3",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4scf_34_giqnq1",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4scf_32_4nubp3",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "5",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                },
+                {
+                  "id": "fix_mp3k4scf_35_shx84w",
+                  "type": "group",
+                  "name": "label_6",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 770,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4scf_36_b45mux",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4scf_35_shx84w",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4scf_37_gxn09e",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4scf_35_shx84w",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "6",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                },
+                {
+                  "id": "fix_mp3k4scf_38_haswmr",
+                  "type": "group",
+                  "name": "label_7",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 900,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4scf_39_e05v10",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4scf_38_haswmr",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4scf_40_jzil99",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4scf_38_haswmr",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "7",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                },
+                {
+                  "id": "fix_mp3k4scf_41_oe6wrx",
+                  "type": "group",
+                  "name": "label_8",
+                  "parentId": "frame_mp3k4sce_5_vrfdms",
+                  "x": 1030,
+                  "y": 700,
+                  "w": 60,
+                  "h": 60,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "effects": [],
+                  "children": [
+                    {
+                      "id": "fix_mp3k4scf_42_by4p6u",
+                      "type": "ellipse",
+                      "name": "ellipse",
+                      "parentId": "fix_mp3k4scf_41_oe6wrx",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [
+                        {
+                          "paint": {
+                            "kind": "solid",
+                            "color": {
+                              "r": 0,
+                              "g": 0,
+                              "b": 0,
+                              "a": 1
+                            },
+                            "opacity": 1,
+                            "visible": true
+                          },
+                          "weight": 2,
+                          "alignment": "center",
+                          "dash": null
+                        }
+                      ],
+                      "effects": [],
+                      "arcStartAngle": 0,
+                      "arcEndAngle": 360,
+                      "innerRadius": 0
+                    },
+                    {
+                      "id": "fix_mp3k4scf_43_i5ca31",
+                      "type": "text",
+                      "name": "text",
+                      "parentId": "fix_mp3k4scf_41_oe6wrx",
+                      "x": 0,
+                      "y": 0,
+                      "w": 60,
+                      "h": 60,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "visible": true,
+                      "locked": false,
+                      "opacity": 1,
+                      "constraints": {
+                        "horizontal": "left",
+                        "vertical": "top"
+                      },
+                      "content": "8",
+                      "runs": [
+                        {
+                          "range": [
+                            0,
+                            1
+                          ]
+                        }
+                      ],
+                      "fontFamily": "Inter",
+                      "fontWeight": 400,
+                      "fontSize": 32,
+                      "lineHeight": {
+                        "type": "auto"
+                      },
+                      "letterSpacing": {
+                        "type": "px",
+                        "value": 0
+                      },
+                      "hAlign": "center",
+                      "vAlign": "middle",
+                      "fills": [
+                        {
+                          "kind": "solid",
+                          "color": {
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
+                            "a": 1
+                          },
+                          "opacity": 1,
+                          "visible": true
+                        }
+                      ],
+                      "strokes": [],
+                      "effects": [],
+                      "resizingMode": "fixed"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "raw_event_count": 64,
+  "semantic_event_count": 10
+}

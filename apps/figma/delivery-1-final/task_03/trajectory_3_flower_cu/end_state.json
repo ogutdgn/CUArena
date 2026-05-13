@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_54b6516b-1d7d-4e3c-939c-5be0feaa4425",
+  "exportedAt": 1778647014460,
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_54b6516b-1d7d-4e3c-939c-5be0feaa4425",
+    "capturedAt": 1778647007776,
+    "activePageId": "page_mp3kav62_1_z5v5hf",
+    "selectedLayerIds": [
+      "frame_mp3kbibm_34_aeg9jw"
+    ],
+    "summary": {
+      "semanticEventCount": 68,
+      "shapeCounts": {
+        "frame": 1,
+        "ellipse": 9
+      }
+    },
+    "document": {
+      "id": "doc_mp3kav62_2_i4am8r",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3kav62_1_z5v5hf",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "frame_mp3kbibm_34_aeg9jw",
+              "parentId": "page_mp3kav62_1_z5v5hf",
+              "x": -290,
+              "y": -200,
+              "w": 400,
+              "h": 400,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "frame",
+              "name": "Frame 1",
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.92,
+                    "g": 0.92,
+                    "b": 0.92,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": [],
+              "cornerRadius": 0,
+              "clipsContent": true,
+              "children": [
+                {
+                  "id": "ellipse_mp3kbqto_60_b4ipqa",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 160,
+                  "y": 160,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 1",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9066666666666666,
+                        "g": 0.8154055468341183,
+                        "b": 0.07619047619047625,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3kchmz_115_rxerev",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 180,
+                  "y": 80,
+                  "w": 40,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 2",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9066666666666666,
+                        "g": 0.07619047619047625,
+                        "b": 0.07619047619047625,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3kd33m_156_knvxwc",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 230,
+                  "y": 100,
+                  "w": 60,
+                  "h": 40,
+                  "rotation": 45,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 3",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9066666666666666,
+                        "g": 0.5142438513867085,
+                        "b": 0.07619047619047625,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3kdxpy_227_3atw8n",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 240,
+                  "y": 180,
+                  "w": 80,
+                  "h": 40,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 4",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.6420094191522765,
+                        "g": 0.07619047619047625,
+                        "b": 0.9066666666666666,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3keh28_277_r5v4h2",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 230,
+                  "y": 220,
+                  "w": 60,
+                  "h": 40,
+                  "rotation": 315,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 5",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.07619047619047625,
+                        "g": 0.9066666666666666,
+                        "b": 0.9066666666666666,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3kfc02_346_s0ozps",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 180,
+                  "y": 240,
+                  "w": 40,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 6",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.1218210361067503,
+                        "g": 0.9066666666666666,
+                        "b": 0.07619047619047625,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3kfveq_396_3junta",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 110,
+                  "y": 220,
+                  "w": 60,
+                  "h": 40,
+                  "rotation": 315,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 7",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.07619047619047625,
+                        "g": 0.359099947671376,
+                        "b": 0.9066666666666666,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3kgs25_467_jw6auh",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 80,
+                  "y": 180,
+                  "w": 80,
+                  "h": 40,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 8",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9066666666666666,
+                        "g": 0.07619047619047625,
+                        "b": 0.7058922030350602,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3khea6_515_i24ryo",
+                  "parentId": "frame_mp3kbibm_34_aeg9jw",
+                  "x": 110,
+                  "y": 100,
+                  "w": 60,
+                  "h": 40,
+                  "rotation": 45,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 9",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.39560439560439525,
+                        "g": 0.07619047619047625,
+                        "b": 0.9066666666666666,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                }
+              ]
+            }
+          ],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "raw_event_count": 396,
+  "semantic_event_count": 68
+}

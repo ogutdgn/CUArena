@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_6a473b56-616e-4821-9792-63cba11e344e",
+  "exportedAt": 1778641566049,
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_6a473b56-616e-4821-9792-63cba11e344e",
+    "capturedAt": 1778641556361,
+    "activePageId": "page_mp3h0w62_1_ap3jv0",
+    "selectedLayerIds": [
+      "vector_mp3h7j82_340_udutr6"
+    ],
+    "summary": {
+      "semanticEventCount": 47,
+      "shapeCounts": {
+        "frame": 1,
+        "vector": 2
+      }
+    },
+    "document": {
+      "id": "doc_mp3h0w63_2_7m8mmc",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3h0w62_1_ap3jv0",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "frame_mp3h16bh_14_wcrlkm",
+              "parentId": "page_mp3h0w62_1_ap3jv0",
+              "x": -740,
+              "y": -300,
+              "w": 1000,
+              "h": 400,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "frame",
+              "name": "Frame 1",
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.92,
+                    "g": 0.92,
+                    "b": 0.92,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": [],
+              "cornerRadius": 0,
+              "clipsContent": true,
+              "children": [
+                {
+                  "id": "vector_mp3h5nzc_230_gea8ej",
+                  "type": "vector",
+                  "name": "Vector 1",
+                  "parentId": "frame_mp3h16bh_14_wcrlkm",
+                  "x": 380,
+                  "y": 70,
+                  "w": 590,
+                  "h": 310,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "network": {
+                    "vertices": [
+                      {
+                        "x": 0,
+                        "y": 310,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 140,
+                        "y": 30,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 310,
+                        "y": 180,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 470,
+                        "y": 0,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 590,
+                        "y": 310,
+                        "handleType": "corner"
+                      }
+                    ],
+                    "segments": [
+                      {
+                        "fromIndex": 0,
+                        "toIndex": 1,
+                        "handleFrom": null,
+                        "handleTo": null
+                      },
+                      {
+                        "fromIndex": 1,
+                        "toIndex": 2,
+                        "handleFrom": null,
+                        "handleTo": null
+                      },
+                      {
+                        "fromIndex": 2,
+                        "toIndex": 3,
+                        "handleFrom": null,
+                        "handleTo": null
+                      },
+                      {
+                        "fromIndex": 3,
+                        "toIndex": 4,
+                        "handleFrom": null,
+                        "handleTo": null
+                      }
+                    ],
+                    "closed": true
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.24,
+                        "g": 0.2168067226890756,
+                        "b": 0.2168067226890756,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [
+                    {
+                      "paint": {
+                        "kind": "solid",
+                        "color": {
+                          "r": 1,
+                          "g": 1,
+                          "b": 1,
+                          "a": 1
+                        },
+                        "opacity": 1,
+                        "visible": true
+                      },
+                      "weight": 1,
+                      "alignment": "center",
+                      "dash": null
+                    }
+                  ],
+                  "effects": []
+                },
+                {
+                  "id": "vector_mp3h7j82_340_udutr6",
+                  "type": "vector",
+                  "name": "Vector 2",
+                  "parentId": "frame_mp3h16bh_14_wcrlkm",
+                  "x": 420,
+                  "y": 200,
+                  "w": 540,
+                  "h": 180,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "network": {
+                    "vertices": [
+                      {
+                        "x": 0,
+                        "y": 180,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 130,
+                        "y": 20,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 260,
+                        "y": 100,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 400,
+                        "y": 0,
+                        "handleType": "corner"
+                      },
+                      {
+                        "x": 540,
+                        "y": 180,
+                        "handleType": "corner"
+                      }
+                    ],
+                    "segments": [
+                      {
+                        "fromIndex": 0,
+                        "toIndex": 1,
+                        "handleFrom": null,
+                        "handleTo": null
+                      },
+                      {
+                        "fromIndex": 1,
+                        "toIndex": 2,
+                        "handleFrom": null,
+                        "handleTo": null
+                      },
+                      {
+                        "fromIndex": 2,
+                        "toIndex": 3,
+                        "handleFrom": null,
+                        "handleTo": null
+                      },
+                      {
+                        "fromIndex": 3,
+                        "toIndex": 4,
+                        "handleFrom": null,
+                        "handleTo": null
+                      }
+                    ],
+                    "closed": true
+                  },
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.4392156862745098,
+                        "g": 0.4392156862745098,
+                        "b": 0.4392156862745098,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [
+                    {
+                      "paint": {
+                        "kind": "solid",
+                        "color": {
+                          "r": 1,
+                          "g": 1,
+                          "b": 1,
+                          "a": 1
+                        },
+                        "opacity": 1,
+                        "visible": true
+                      },
+                      "weight": 1,
+                      "alignment": "center",
+                      "dash": null
+                    }
+                  ],
+                  "effects": []
+                }
+              ]
+            }
+          ],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "raw_event_count": 311,
+  "semantic_event_count": 47
+}

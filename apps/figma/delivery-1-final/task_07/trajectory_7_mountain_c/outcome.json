@@ -1,0 +1,33 @@
+{
+  "task_id": "task_07_mountain_range",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "started_at": 1778641160672,
+  "ended_at": 1778641566210,
+  "ended_at_iso": "2026-05-13T03:06:06.210000+00:00",
+  "elapsed_s": 405.54,
+  "turns": 74,
+  "stop_reason": "done",
+  "finished": true,
+  "error": null,
+  "usage": {
+    "input_tokens": 911183,
+    "output_tokens": 12768
+  },
+  "cost_estimate": {
+    "input_usd": 2.733549,
+    "output_usd": 0.19152,
+    "total_usd": 2.925069,
+    "input_rate_per_mtok_usd": 3.0,
+    "output_rate_per_mtok_usd": 15.0
+  },
+  "score": {
+    "final": 1.0,
+    "base": 1.0,
+    "max": 1.0,
+    "efficiency": 1.0,
+    "passed": true,
+    "threshold": 0.7
+  },
+  "log_session_id": "session_6a473b56-616e-4821-9792-63cba11e344e"
+}

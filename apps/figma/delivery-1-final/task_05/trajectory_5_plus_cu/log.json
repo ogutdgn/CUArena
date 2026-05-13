@@ -1,0 +1,1315 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+  "exportedAt": 1778641109337,
+  "raw": [
+    {
+      "eventId": "raw_mp3gz0z2_4_ppjns9",
+      "type": "pointermove",
+      "timestamp": 765.6999999880791,
+      "sessionTime": 632,
+      "fields": {
+        "clientX": 773.55078125,
+        "clientY": 629.97265625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz3cv_5_mbhep3",
+      "type": "pointerdown",
+      "timestamp": 3854.699999988079,
+      "sessionTime": 3721,
+      "fields": {
+        "clientX": 619,
+        "clientY": 760,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz3cw_6_j2y3cr",
+      "type": "pointerup",
+      "timestamp": 3856.2999999821186,
+      "sessionTime": 3722.5999999940395,
+      "fields": {
+        "clientX": 619,
+        "clientY": 760,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz3cw_7_mzfkq0",
+      "type": "click",
+      "timestamp": 3856.399999976158,
+      "sessionTime": 3722.699999988079,
+      "fields": {
+        "clientX": 619,
+        "clientY": 760,
+        "button": 0
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz3dj_10_5rpm7s",
+      "type": "pointermove",
+      "timestamp": 3878.5,
+      "sessionTime": 3744.800000011921,
+      "fields": {
+        "clientX": 619,
+        "clientY": 760,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz3j2_11_il35z9",
+      "type": "pointermove",
+      "timestamp": 4078,
+      "sessionTime": 3944.300000011921,
+      "fields": {
+        "clientX": 773.55078125,
+        "clientY": 629.97265625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz5yd_12_u5q7qj",
+      "type": "keydown",
+      "timestamp": 7220.5999999940395,
+      "sessionTime": 7086.9000000059605,
+      "fields": {
+        "key": "r",
+        "code": "KeyR",
+        "repeat": false,
+        "targetTag": "BUTTON"
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz5yg_13_88rd2b",
+      "type": "keyup",
+      "timestamp": 7224.399999976158,
+      "sessionTime": 7090.699999988079,
+      "fields": {
+        "key": "r",
+        "code": "KeyR"
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz64m_14_ze1vi0",
+      "type": "pointermove",
+      "timestamp": 7445.5999999940395,
+      "sessionTime": 7311.9000000059605,
+      "fields": {
+        "clientX": 773.55078125,
+        "clientY": 629.97265625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9rk_15_ft75vn",
+      "type": "pointermove",
+      "timestamp": 12160,
+      "sessionTime": 12026.300000011921,
+      "fields": {
+        "clientX": 450,
+        "clientY": 380,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9rn_16_0z9m9f",
+      "type": "pointerdown",
+      "timestamp": 12162.59999999404,
+      "sessionTime": 12028.90000000596,
+      "fields": {
+        "clientX": 450,
+        "clientY": 380,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9s5_17_b698fm",
+      "type": "pointermove",
+      "timestamp": 12180.799999982119,
+      "sessionTime": 12047.09999999404,
+      "fields": {
+        "clientX": 484,
+        "clientY": 385,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9sk_18_u495ss",
+      "type": "pointermove",
+      "timestamp": 12196,
+      "sessionTime": 12062.300000011921,
+      "fields": {
+        "clientX": 518,
+        "clientY": 390,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9sz_19_mmgcxv",
+      "type": "pointermove",
+      "timestamp": 12211.09999999404,
+      "sessionTime": 12077.40000000596,
+      "fields": {
+        "clientX": 552,
+        "clientY": 395,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9tg_20_a1u57e",
+      "type": "pointermove",
+      "timestamp": 12227.899999976158,
+      "sessionTime": 12094.199999988079,
+      "fields": {
+        "clientX": 586,
+        "clientY": 400,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9tx_21_qva5vr",
+      "type": "pointermove",
+      "timestamp": 12244.699999988079,
+      "sessionTime": 12111,
+      "fields": {
+        "clientX": 620,
+        "clientY": 405,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9ue_22_umir7j",
+      "type": "pointermove",
+      "timestamp": 12261.5,
+      "sessionTime": 12127.800000011921,
+      "fields": {
+        "clientX": 654,
+        "clientY": 410,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9uw_23_qhzbdy",
+      "type": "pointermove",
+      "timestamp": 12279.899999976158,
+      "sessionTime": 12146.199999988079,
+      "fields": {
+        "clientX": 688,
+        "clientY": 415,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9vc_24_hcjxll",
+      "type": "pointermove",
+      "timestamp": 12295.799999982119,
+      "sessionTime": 12162.09999999404,
+      "fields": {
+        "clientX": 722,
+        "clientY": 420,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9vt_25_guy9nj",
+      "type": "pointermove",
+      "timestamp": 12312.699999988079,
+      "sessionTime": 12179,
+      "fields": {
+        "clientX": 756,
+        "clientY": 425,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9wa_26_ggtmgp",
+      "type": "pointermove",
+      "timestamp": 12329.59999999404,
+      "sessionTime": 12195.90000000596,
+      "fields": {
+        "clientX": 790,
+        "clientY": 430,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9we_27_mr9jfr",
+      "type": "pointerup",
+      "timestamp": 12333.699999988079,
+      "sessionTime": 12200,
+      "fields": {
+        "clientX": 790,
+        "clientY": 430,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gz9wy_36_cu89nx",
+      "type": "click",
+      "timestamp": 12354.299999982119,
+      "sessionTime": 12220.59999999404,
+      "fields": {
+        "clientX": 790,
+        "clientY": 430,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gza38_37_xo6eij",
+      "type": "pointermove",
+      "timestamp": 12580.399999976158,
+      "sessionTime": 12446.699999988079,
+      "fields": {
+        "clientX": 773.55078125,
+        "clientY": 629.97265625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzd0y_38_ad4g4y",
+      "type": "keydown",
+      "timestamp": 16386.09999999404,
+      "sessionTime": 16252.40000000596,
+      "fields": {
+        "key": "r",
+        "code": "KeyR",
+        "repeat": false,
+        "targetTag": "BODY"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzd1a_41_lqx4oo",
+      "type": "keyup",
+      "timestamp": 16397.899999976158,
+      "sessionTime": 16264.199999988079,
+      "fields": {
+        "key": "r",
+        "code": "KeyR"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzd79_42_r98cic",
+      "type": "pointermove",
+      "timestamp": 16613.09999999404,
+      "sessionTime": 16479.40000000596,
+      "fields": {
+        "clientX": 773.55078125,
+        "clientY": 629.97265625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzdkk_43_my4vhl",
+      "type": "pointermove",
+      "timestamp": 17092.09999999404,
+      "sessionTime": 16958.40000000596,
+      "fields": {
+        "clientX": 769.1640625,
+        "clientY": 632.046875,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzdlc_44_q36nlp",
+      "type": "pointermove",
+      "timestamp": 17119.69999998808,
+      "sessionTime": 16986,
+      "fields": {
+        "clientX": 747.0703125,
+        "clientY": 655.00390625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzdlr_45_h48zpf",
+      "type": "pointermove",
+      "timestamp": 17135,
+      "sessionTime": 17001.30000001192,
+      "fields": {
+        "clientX": 720.86328125,
+        "clientY": 682.89453125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzdm4_46_0s9tgw",
+      "type": "pointermove",
+      "timestamp": 17147.59999999404,
+      "sessionTime": 17013.90000000596,
+      "fields": {
+        "clientX": 696.34765625,
+        "clientY": 707.40234375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzdmj_47_9abax1",
+      "type": "pointermove",
+      "timestamp": 17163.09999999404,
+      "sessionTime": 17029.40000000596,
+      "fields": {
+        "clientX": 678,
+        "clientY": 727.20703125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzdmx_48_dfqmcz",
+      "type": "pointermove",
+      "timestamp": 17177.09999999404,
+      "sessionTime": 17043.40000000596,
+      "fields": {
+        "clientX": 646.3203125,
+        "clientY": 762.546875,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhva_49_u01ola",
+      "type": "pointermove",
+      "timestamp": 22661.399999976158,
+      "sessionTime": 22527.69999998808,
+      "fields": {
+        "clientX": 595,
+        "clientY": 235,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhvd_50_6ncpae",
+      "type": "pointerdown",
+      "timestamp": 22664.79999998212,
+      "sessionTime": 22531.09999999404,
+      "fields": {
+        "clientX": 595,
+        "clientY": 235,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhvw_51_ns5jbp",
+      "type": "pointermove",
+      "timestamp": 22683.59999999404,
+      "sessionTime": 22549.90000000596,
+      "fields": {
+        "clientX": 600,
+        "clientY": 269,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhw9_52_0hj2pe",
+      "type": "pointermove",
+      "timestamp": 22696.79999998212,
+      "sessionTime": 22563.09999999404,
+      "fields": {
+        "clientX": 605,
+        "clientY": 303,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhwr_53_koccsc",
+      "type": "pointermove",
+      "timestamp": 22714.399999976158,
+      "sessionTime": 22580.69999998808,
+      "fields": {
+        "clientX": 610,
+        "clientY": 337,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhx5_54_vhlobw",
+      "type": "pointermove",
+      "timestamp": 22729.09999999404,
+      "sessionTime": 22595.40000000596,
+      "fields": {
+        "clientX": 615,
+        "clientY": 371,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhxm_55_iq7p9v",
+      "type": "pointermove",
+      "timestamp": 22745.69999998808,
+      "sessionTime": 22612,
+      "fields": {
+        "clientX": 620,
+        "clientY": 405,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhy3_56_9bchpm",
+      "type": "pointermove",
+      "timestamp": 22762.5,
+      "sessionTime": 22628.80000001192,
+      "fields": {
+        "clientX": 625,
+        "clientY": 439,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhyk_57_wh6tdb",
+      "type": "pointermove",
+      "timestamp": 22779.59999999404,
+      "sessionTime": 22645.90000000596,
+      "fields": {
+        "clientX": 630,
+        "clientY": 473,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhz0_58_ksi2an",
+      "type": "pointermove",
+      "timestamp": 22795.69999998808,
+      "sessionTime": 22662,
+      "fields": {
+        "clientX": 635,
+        "clientY": 507,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhzh_59_c01zl9",
+      "type": "pointermove",
+      "timestamp": 22812.899999976158,
+      "sessionTime": 22679.19999998808,
+      "fields": {
+        "clientX": 640,
+        "clientY": 541,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzhzx_60_f2tyex",
+      "type": "pointermove",
+      "timestamp": 22829.29999998212,
+      "sessionTime": 22695.59999999404,
+      "fields": {
+        "clientX": 645,
+        "clientY": 575,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzi00_61_1rl6qp",
+      "type": "pointerup",
+      "timestamp": 22831.69999998808,
+      "sessionTime": 22698,
+      "fields": {
+        "clientX": 645,
+        "clientY": 575,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzi06_70_2cckc2",
+      "type": "click",
+      "timestamp": 22837.399999976158,
+      "sessionTime": 22703.69999998808,
+      "fields": {
+        "clientX": 645,
+        "clientY": 575,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzmrs_71_oqycoz",
+      "type": "keydown",
+      "timestamp": 29015.59999999404,
+      "sessionTime": 28881.90000000596,
+      "fields": {
+        "key": "Escape",
+        "code": "Escape",
+        "repeat": false,
+        "targetTag": "BODY"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3gzms1_75_1jje5s",
+      "type": "keyup",
+      "timestamp": 29024.5,
+      "sessionTime": 28890.80000001192,
+      "fields": {
+        "key": "Escape",
+        "code": "Escape"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    }
+  ],
+  "semantic": [
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gz0hi_3_gdz614",
+      "timestamp": 133.89999997615814,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": null,
+      "name": "session_start",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gz3cx_9_t4xymm",
+      "timestamp": 3857,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gz0z2_4_ppjns9",
+        "raw_mp3gz3cw_7_mzfkq0"
+      ],
+      "name": "tool_change",
+      "before": "move",
+      "after": "rectangle",
+      "trigger": "toolbar_click"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gz9wh_31_x8f1vy",
+      "timestamp": 12336.899999976158,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gz3dj_10_5rpm7s",
+        "raw_mp3gz9we_27_mr9jfr"
+      ],
+      "name": "create_rectangle",
+      "layerId": "rect_mp3gz9wf_29_3xgxij",
+      "x": -190,
+      "y": -20,
+      "w": 340,
+      "h": 50,
+      "parentId": "page_mp3gz0h5_1_0dx9th",
+      "modifiers": {
+        "shift": false,
+        "alt": false
+      },
+      "trigger": "shortcut_R"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gz9wh_33_bvb84t",
+      "timestamp": 12337.399999976158,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gz3dj_10_5rpm7s",
+        "raw_mp3gz9we_27_mr9jfr"
+      ],
+      "name": "selection_change",
+      "before": [],
+      "after": [
+        "rect_mp3gz9wf_29_3xgxij"
+      ],
+      "triggerMethod": "implicit_after_create",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gz9wi_35_mfh0i6",
+      "timestamp": 12337.5,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gz3dj_10_5rpm7s",
+        "raw_mp3gz9we_27_mr9jfr"
+      ],
+      "name": "tool_change",
+      "before": "rectangle",
+      "after": "move",
+      "trigger": "auto_revert_after_create"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gzd0z_40_n8mrn0",
+      "timestamp": 16386.79999998212,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gz9wy_36_cu89nx",
+        "raw_mp3gzd0y_38_ad4g4y"
+      ],
+      "name": "tool_change",
+      "before": "move",
+      "after": "rectangle",
+      "trigger": "shortcut"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gzi00_65_eu9v5g",
+      "timestamp": 22832.29999998212,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gzd1a_41_lqx4oo",
+        "raw_mp3gzi00_61_1rl6qp"
+      ],
+      "name": "create_rectangle",
+      "layerId": "rect_mp3gzi00_63_1qpp4d",
+      "x": -45,
+      "y": -165,
+      "w": 50,
+      "h": 340,
+      "parentId": "page_mp3gz0h5_1_0dx9th",
+      "modifiers": {
+        "shift": false,
+        "alt": false
+      },
+      "trigger": "shortcut_R"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gzi01_67_6zsyom",
+      "timestamp": 22832.399999976158,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gzd1a_41_lqx4oo",
+        "raw_mp3gzi00_61_1rl6qp"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3gz9wf_29_3xgxij"
+      ],
+      "after": [
+        "rect_mp3gzi00_63_1qpp4d"
+      ],
+      "triggerMethod": "implicit_after_create",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gzi01_69_6curxq",
+      "timestamp": 22832.5,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gzd1a_41_lqx4oo",
+        "raw_mp3gzi00_61_1rl6qp"
+      ],
+      "name": "tool_change",
+      "before": "rectangle",
+      "after": "move",
+      "trigger": "auto_revert_after_create"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gzmrt_73_nk4flz",
+      "timestamp": 29016.5,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gzi06_70_2cckc2",
+        "raw_mp3gzmrs_71_oqycoz"
+      ],
+      "name": "deselect",
+      "trigger": "escape"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+      "eventId": "sem_mp3gzmrt_74_k28o54",
+      "timestamp": 29016.5,
+      "pageId": "page_mp3gz0h5_1_0dx9th",
+      "rawEventIdRange": [
+        "raw_mp3gzi06_70_2cckc2",
+        "raw_mp3gzmrs_71_oqycoz"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3gzi00_63_1qpp4d"
+      ],
+      "after": [],
+      "triggerMethod": "deselect",
+      "cause": null
+    }
+  ],
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+    "capturedAt": 1778641103619,
+    "activePageId": "page_mp3gz0h5_1_0dx9th",
+    "selectedLayerIds": [],
+    "summary": {
+      "semanticEventCount": 11,
+      "shapeCounts": {
+        "rectangle": 2
+      }
+    },
+    "document": {
+      "id": "doc_mp3gz0h5_2_b2eeqo",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3gz0h5_1_0dx9th",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "rect_mp3gz9wf_29_3xgxij",
+              "parentId": "page_mp3gz0h5_1_0dx9th",
+              "x": -190,
+              "y": -20,
+              "w": 340,
+              "h": 50,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 1",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.851,
+                    "g": 0.851,
+                    "b": 0.851,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            },
+            {
+              "id": "rect_mp3gzi00_63_1qpp4d",
+              "parentId": "page_mp3gz0h5_1_0dx9th",
+              "x": -45,
+              "y": -165,
+              "w": 50,
+              "h": 340,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 2",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.851,
+                    "g": 0.851,
+                    "b": 0.851,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            }
+          ],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          }
+        }
+      ]
+    }
+  }
+}
