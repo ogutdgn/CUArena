@@ -3,7 +3,7 @@
 ## 1) Run the env / Docker images
 
 ```bash
-cd delivery-1-final
+cd env-01-sample-00
 MOCK_PORT=5173 docker compose up -d --build
 ```
 
