@@ -25,30 +25,41 @@ docker compose down
 After doing an attempt on canvas, run:
 
 ```bash
-docker compose run --rm verifier python3 scripts/run_task.py --host mock task_51
+docker compose run --rm verifier python3 scripts/run_task.py --host figma-env task_51
 ```
 
 If you have run multiple instances of the canvas & want to test a specific session:
 
 ```bash
-docker compose run --rm verifier python3 scripts/run_task.py --host mock task_51  --session-id <SESSION_ID>
+docker compose run --rm verifier python3 scripts/run_task.py --host figma-env task_51 --session-id <SESSION_ID>
 ```
 
 Score an existing log file:
 
 ```bash
-docker compose run --rm verifier python3 scripts/score_log.py --task task_51 --log runtime/output/by-task/task_51/logs/<log_file>.json
+docker compose run --rm verifier python3 scripts/score_log.py --task task_51 --log runtime/output/Competitor-logs-scores/task_51/runs/<run_id>/log.json
 ```
 
 ## 3) Review logs
 
 All outputs are outside containers in `runtime/output/`:
 
-- Raw mock relay logs (all sessions):
-  - `runtime/output/mock-devlog/<sessionId>.json`
-- Per-task verifier logs:
-  - `runtime/output/by-task/task_XX/logs/*.json`
-- Per-task scores:
-  - `runtime/output/by-task/task_XX/scores/*.json`
-- Per-task copy of raw session payload:
-  - `runtime/output/by-task/task_XX/mock-devlog/<sessionId>.json`
+- Environment session logs:
+  - `runtime/output/environment-devlog/<sessionId>.json`
+- Competitor rollouts + scores:
+  - `runtime/output/Competitor-logs-scores/task_XX/runs/<run_id>/`
+  - Each run folder has `trajectory`, `screenshots`, `log.json`, `end_state.json`, `score.json`, etc.
+- Re-scored verifier outputs:
+  - `runtime/output/Competitor-logs-scores/task_XX/scores/*.json`
+
+## 4) Sonnet rollout overview
+
+See:
+
+- `runtime/output/Competitor-logs-scores/README.md`
+
+It includes:
+
+- how Sonnet runs were executed
+- per-task original score vs re-score
+- verifier deltas (if any)

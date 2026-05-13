@@ -6,8 +6,8 @@ Usage:
   python scripts/score_log.py --task 01            --log scripts/logs/<file>.json
   python scripts/score_log.py --task task_01       --log scripts/logs/<file>.json
 
-Loads the verifier from delivery-1/task_NN/verifier.py.
-Saves the score to scripts/scores/<task>_<timestamp>.json and prints both
+Loads the verifier from delivery task_NN/verifier.py.
+Saves the score to runtime/output/Competitor-logs-scores/task_XX/scores/<task>_<timestamp>.json and prints both
 the log details and the score breakdown to stdout.
 
 Run with the verifier venv's python (it has pyyaml):
@@ -155,7 +155,7 @@ def main() -> None:
     )
     print_result(result)
 
-    out_dir = OUTPUT_ROOT / "by-task" / task_dir.name / "scores"
+    out_dir = OUTPUT_ROOT / "Competitor-logs-scores" / task_dir.name / "scores"
     out_dir.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_path = out_dir / f"{task_dir.name}_{ts}.json"

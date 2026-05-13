@@ -12,6 +12,8 @@ import { resolveSessionInfo } from "@/util/session";
 
 const FLUSH_INTERVAL_MS = 250;
 const LOG_KEY_TAIL = "_data";
+const MAX_PERSIST_RAW_EVENTS = 1500;
+const MAX_PERSIST_SEMANTIC_EVENTS = 3000;
 type StreamName = "raw" | "semantic" | "outcome";
 
 let installed = false;
@@ -39,21 +41,51 @@ function resolveStorage(): Storage | null {
   }
   const probe = "__figma_mock_storage_probe";
   try {
-    localStorage.setItem(probe, "1");
-    localStorage.removeItem(probe);
-    selectedStorage = localStorage;
-    return selectedStorage;
-  } catch {
-    // fall through to sessionStorage
-  }
-  try {
     sessionStorage.setItem(probe, "1");
     sessionStorage.removeItem(probe);
     selectedStorage = sessionStorage;
     return selectedStorage;
   } catch {
+    // fall through to localStorage
+  }
+  try {
+    localStorage.setItem(probe, "1");
+    localStorage.removeItem(probe);
+    selectedStorage = localStorage;
+    return selectedStorage;
+  } catch {
     selectedStorage = null;
     return selectedStorage;
+  }
+}
+
+function isPersistLogKey(key: string): boolean {
+  return (
+    key.endsWith(LOG_KEY_TAIL) &&
+    (key.includes("_raw_") || key.includes("_semantic_") || key.includes("_outcome_"))
+  );
+}
+
+function evictPersistLogKeys(st: Storage, protectedKeys: Set<string>, maxToRemove = 12): void {
+  const candidates: string[] = [];
+  try {
+    for (let i = 0; i < st.length; i++) {
+      const key = st.key(i);
+      if (!key) continue;
+      if (protectedKeys.has(key)) continue;
+      if (!isPersistLogKey(key)) continue;
+      candidates.push(key);
+    }
+  } catch {
+    return;
+  }
+  candidates.sort(); // older YYYY-MM-DD prefixed keys first
+  for (const key of candidates.slice(0, maxToRemove)) {
+    try {
+      st.removeItem(key);
+    } catch {
+      // best effort
+    }
   }
 }
 
@@ -63,15 +95,29 @@ function flush(): void {
   dirty = false;
   const raw = logger.rawEvents.toArray();
   const semantic = logger.semanticEvents.toArray();
+  const rawForStorage =
+    raw.length > MAX_PERSIST_RAW_EVENTS ? raw.slice(raw.length - MAX_PERSIST_RAW_EVENTS) : raw;
+  const semanticForStorage =
+    semantic.length > MAX_PERSIST_SEMANTIC_EVENTS
+      ? semantic.slice(semantic.length - MAX_PERSIST_SEMANTIC_EVENTS)
+      : semantic;
   const outcome = buildOutcomeSnapshot();
   const st = resolveStorage();
   if (st) {
     try {
-      st.setItem(rawKey, JSON.stringify(raw));
-      st.setItem(semanticKey, JSON.stringify(semantic));
+      st.setItem(rawKey, JSON.stringify(rawForStorage));
+      st.setItem(semanticKey, JSON.stringify(semanticForStorage));
       st.setItem(outcomeKey, JSON.stringify(outcome));
     } catch {
-      // Quota exceeded or storage unavailable: drop this flush silently.
+      // Quota exceeded: evict old persisted logs from other sessions and retry once.
+      evictPersistLogKeys(st, new Set([rawKey, semanticKey, outcomeKey]));
+      try {
+        st.setItem(rawKey, JSON.stringify(rawForStorage));
+        st.setItem(semanticKey, JSON.stringify(semanticForStorage));
+        st.setItem(outcomeKey, JSON.stringify(outcome));
+      } catch {
+        // Storage still full/unavailable: keep running without local persistence.
+      }
     }
   }
   if (import.meta.env.DEV) {

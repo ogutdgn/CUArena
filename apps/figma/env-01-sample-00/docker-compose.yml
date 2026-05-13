@@ -1,11 +1,11 @@
 name: figma-delivery-final
 
 services:
-  mock:
+  figma-env:
     build:
       context: ./runtime
-      dockerfile: mock/Dockerfile
-    image: figma-delivery-final-mock:latest
+      dockerfile: figma-env/Dockerfile
+    image: figma-delivery-final-figma-env:latest
     ports:
       - "${MOCK_PORT:-5173}:5173"
     healthcheck:
@@ -14,11 +14,15 @@ services:
       timeout: 3s
       retries: 20
     environment:
-      DEVLOG_DIR: /workspace/mock/dev-logs
+      DEVLOG_DIR: /workspace/figma-env/dev-logs
       TASKS_DIR: /workspace/package
     volumes:
-      - ./runtime/output/mock-devlog:/workspace/mock/dev-logs
+      - ./runtime/output/environment-devlog:/workspace/figma-env/dev-logs
       - ./:/workspace/package:ro
+    networks:
+      default:
+        aliases:
+          - mock
 
   verifier:
     build:
@@ -26,13 +30,14 @@ services:
       dockerfile: Dockerfile
     image: figma-delivery-final-verifier:latest
     depends_on:
-      mock:
+      figma-env:
         condition: service_healthy
     working_dir: /workspace
     environment:
       FIGMA_DELIVERY_DIR: /workspace/package
       FIGMA_OUTPUT_DIR: /workspace/output
-      FIGMA_MOCK_DEVLOG_DIR: /workspace/output/mock-devlog
+      FIGMA_ENV_DEVLOG_DIR: /workspace/output/environment-devlog
+      FIGMA_MOCK_DEVLOG_DIR: /workspace/output/environment-devlog
     volumes:
       - ./runtime/output:/workspace/output
       - ./:/workspace/package:ro
