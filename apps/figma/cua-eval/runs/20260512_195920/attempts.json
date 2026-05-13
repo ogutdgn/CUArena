@@ -1,0 +1,30 @@
+[
+  {
+    "task_id": "task_07_mountain_range",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5",
+    "final_score": 1.0,
+    "base_score": 1.0,
+    "max_score": 1.0,
+    "efficiency": 1.0,
+    "passed": true,
+    "turns": 74,
+    "stop_reason": "done",
+    "error": null,
+    "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_195920/anthropic/task_07/attempt_1/log.json",
+    "score_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_195920/anthropic/task_07/attempt_1/score.json",
+    "trajectory_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_195920/anthropic/task_07/attempt_1/trajectory.json",
+    "usage": {
+      "input_tokens": 911183,
+      "output_tokens": 12768
+    },
+    "cost_estimate": {
+      "input_usd": 2.733549,
+      "output_usd": 0.19152,
+      "total_usd": 2.925069,
+      "input_rate_per_mtok_usd": 3.0,
+      "output_rate_per_mtok_usd": 15.0
+    },
+    "elapsed_s": 405.54
+  }
+]

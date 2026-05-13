@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_faac950c-48f7-47b1-ab8c-edcdc3800839",
+  "exportedAt": 1778643549739,
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_faac950c-48f7-47b1-ab8c-edcdc3800839",
+    "capturedAt": 1778643536864,
+    "activePageId": "page_mp3hbs4j_1_ur9uaj",
+    "selectedLayerIds": [
+      "rectangle_mp3hd66x_134_o0nxs2"
+    ],
+    "summary": {
+      "semanticEventCount": 218,
+      "shapeCounts": {
+        "frame": 1,
+        "rectangle": 12
+      }
+    },
+    "document": {
+      "id": "doc_mp3hbs4j_2_gm214k",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3hbs4j_1_ur9uaj",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "frame_mp3hc4ax_26_ms4o0t",
+              "parentId": "page_mp3hbs4j_1_ur9uaj",
+              "x": 85,
+              "y": -110,
+              "w": 400,
+              "h": 350,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "frame",
+              "name": "Frame 1",
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.92,
+                    "g": 0.92,
+                    "b": 0.92,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": [],
+              "cornerRadius": 0,
+              "clipsContent": true,
+              "children": [
+                {
+                  "id": "rect_mp3hcbyx_52_etkjp8",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 260,
+                  "y": 0,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.8,
+                        "g": 0.638655462184874,
+                        "b": 0.638655462184874,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hknbz_733_x8ysc8",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 120,
+                  "y": 175,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.8,
+                        "g": 0.6792870994551666,
+                        "b": 0.6554621848739496,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hco0v_77_i8zibl",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 40,
+                  "y": 150,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.7105088189121802,
+                        "g": 0.9,
+                        "b": 0.037815126050420145,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hd66x_134_o0nxs2",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 360,
+                  "y": 190,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.037815126050420145,
+                        "g": 0.3031027795733676,
+                        "b": 0.9,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hdlln_184_v3hpy5",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 440,
+                  "y": 190,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.6536614645858337,
+                        "g": 0.037815126050420145,
+                        "b": 0.9,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hf7zo_324_hz86dc",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 260,
+                  "y": 175,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.11344537815126055,
+                        "g": 0.9,
+                        "b": 0.1480192076830735,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hg1ge_415_33lhid",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 175,
+                  "y": 190,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.8508403361344538,
+                        "g": 0.9,
+                        "b": 0.8983793517406963,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hgkr0_465_g0aefh",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 180,
+                  "y": 0,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.3386554621848745,
+                        "g": 0.12745098039215685,
+                        "b": 0.8666666666666667,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hhc5u_522_9psifk",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 15,
+                  "y": 95,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.09999999999999998,
+                        "g": 0.09390525440945607,
+                        "b": 0.08613445378151259,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hi1l1_595_sq1cc5",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 95,
+                  "y": 95,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.18207282913165262,
+                        "g": 0.21796718687474986,
+                        "b": 0.43333333333333335,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hiwyy_645_33dgoh",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 270,
+                  "y": 88,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.9,
+                        "g": 0.0756302521008404,
+                        "b": 0.890940991781328,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rectangle_mp3hjtzw_702_du7c7i",
+                  "parentId": "frame_mp3hc4ax_26_ms4o0t",
+                  "x": 190,
+                  "y": 95,
+                  "w": 80,
+                  "h": 80,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.8666666666666667,
+                        "g": 0.2188875550220088,
+                        "b": 0.09103641456582634,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                }
+              ]
+            }
+          ],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "raw_event_count": 1193,
+  "semantic_event_count": 218
+}
