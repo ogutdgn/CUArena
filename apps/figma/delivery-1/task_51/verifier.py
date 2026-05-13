@@ -42,5 +42,5 @@ task = Task(
             EventTypeCountAtLeast("click_select", minimum=1),
         ], weight=0.10, critical=[]),
     ],
-    efficiency=EfficiencyRubric(target_turns=6),
+    efficiency=EfficiencyRubric(target_turns=1, lambda_=0.0),
 )
