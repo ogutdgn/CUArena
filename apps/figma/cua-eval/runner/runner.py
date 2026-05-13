@@ -127,14 +127,14 @@ def build_task_prompt(task_dir: Path, mode: str) -> str:
 
     _title, sections = _split_sections(md)
     if mode == "bare":
-        body = sections.get("simplified prompt", "")
+        body = sections.get("simplified prompt", "") or sections.get("prompt", "")
         # The simplified prompt is conventionally a markdown blockquote.
         # Strip the leading "> " so the model sees plain text.
         lines = [l[2:] if l.startswith("> ") else l.lstrip("> ") if l.startswith(">") else l
                  for l in body.splitlines()]
         return "\n".join(lines).strip()
-    # description
-    return sections.get("thorough description", "").strip()
+    # description — fall back to "prompt" for older tasks without "thorough description"
+    return (sections.get("thorough description", "") or sections.get("prompt", "")).strip()
 
 
 def score_log(task, log_path: Path):
