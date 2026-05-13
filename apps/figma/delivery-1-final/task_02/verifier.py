@@ -1,0 +1,64 @@
+"""Task 02 — Sunset stripe band (end-state only)."""
+
+from verifier.types import Task
+from verifier.rubrics.fundamentals import FundamentalsRubric
+from verifier.rubrics.alignment import AlignmentRubric
+from verifier.rubrics.color import ColorRubric
+from verifier.rubrics.structure import StructureRubric
+from verifier.rubrics.efficiency import EfficiencyRubric
+
+from verifier.checks.shape_checks import ShapeCount
+from verifier.checks.geometry_checks import (
+    LayersSameDimensions,
+    LayersStacked,
+    LayerAspectRatioGreaterThan,
+    LayersAligned,
+)
+from verifier.checks.fill_checks import LayersHaveColorOrder
+from verifier.checks.structure_checks import (
+    LayerInsideFrame,
+    ChildCount,
+    LayerTotalCount,
+    NoUnexpectedLayerTypes,
+)
+
+DEEP_PURPLE = {"r": 0.30, "g": 0.10, "b": 0.50}
+PINK = {"r": 1.00, "g": 0.50, "b": 0.70}
+ORANGE = {"r": 1.00, "g": 0.60, "b": 0.20}
+YELLOW = {"r": 1.00, "g": 0.90, "b": 0.20}
+PALE_YELLOW = {"r": 1.00, "g": 1.00, "b": 0.70}
+
+
+task = Task(
+    id="task_02_sunset_gradient",
+    description="5 horizontal rectangle bands in sunset colors (purple, pink, orange, yellow, pale yellow).",
+    rubrics=[
+        FundamentalsRubric([
+            ShapeCount("rectangle", equals=5),
+        ], weight=0.25, critical=[0]),
+
+        AlignmentRubric([
+            LayersStacked(layer_type="rectangle", axis="y", gap_px=0.0, tolerance=8.0),
+            LayersAligned(layer_type="rectangle", axis="center_x", tolerance=8.0),
+            LayerAspectRatioGreaterThan(layer_type="rectangle", ratio=2.0, axis="horizontal"),
+            LayersSameDimensions(layer_type="rectangle", tolerance=25.0),
+        ], weight=0.25, critical=[0, 1, 2, 3]),
+
+        ColorRubric([
+            LayersHaveColorOrder(
+                layer_type="rectangle",
+                expected_rgbs=[DEEP_PURPLE, PINK, ORANGE, YELLOW, PALE_YELLOW],
+                sort_axis="y",
+                tolerance=0.40,
+            ),
+        ], weight=0.25, critical=[0]),
+
+        StructureRubric([
+            LayerInsideFrame("rectangle"),
+            ChildCount("frame", equals=5),
+            LayerTotalCount(equals=6),
+            NoUnexpectedLayerTypes(allowed_types=["rectangle"]),
+        ], weight=0.25, critical=[0, 1, 2, 3]),
+    ],
+    efficiency=EfficiencyRubric(target_turns=1, lambda_=0.0),
+)

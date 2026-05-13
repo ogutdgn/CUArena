@@ -68,20 +68,31 @@ function sanitizeSessionId(id: string | null): string | null {
   return clean;
 }
 
-function parsePathSessionId(pathname: string): string | null {
-  const m = pathname.match(/\/id=([^/?#]+)/i);
-  if (!m) return null;
-  return sanitizeSessionId(m[1]);
+function syncSessionIdToUrl(sessionId: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    const url = new URL(window.location.href);
+    const next = sanitizeSessionId(sessionId);
+    if (!next) return;
+
+    const currentSessionId = sanitizeSessionId(url.searchParams.get("sessionId"));
+    if (currentSessionId === next && !url.searchParams.has("id")) return;
+
+    // Canonical URL param for sessions.
+    url.searchParams.set("sessionId", next);
+    url.searchParams.delete("id");
+    window.history.replaceState(window.history.state, "", url.toString());
+  } catch {
+    // Best-effort only.
+  }
 }
 
 export function parseRequestedSessionId(): string | null {
   if (typeof window === "undefined") return null;
   try {
     const url = new URL(window.location.href);
-    const fromQuery = sanitizeSessionId(url.searchParams.get("id"));
-    if (fromQuery) return fromQuery;
-    const fromPath = parsePathSessionId(url.pathname);
-    if (fromPath) return fromPath;
+    const fromSessionIdQuery = sanitizeSessionId(url.searchParams.get("sessionId"));
+    if (fromSessionIdQuery) return fromSessionIdQuery;
   } catch {
     return null;
   }
@@ -146,6 +157,7 @@ export function resolveSessionInfo(): ResolvedSessionInfo {
       requestedSessionId: requested,
       isDiverged: false,
     };
+    syncSessionIdToUrl(resolved.sessionId);
     return resolved;
   }
 
@@ -159,6 +171,7 @@ export function resolveSessionInfo(): ResolvedSessionInfo {
       requestedSessionId: requested,
       isDiverged: false,
     };
+    syncSessionIdToUrl(resolved.sessionId);
     return resolved;
   }
 
@@ -170,5 +183,6 @@ export function resolveSessionInfo(): ResolvedSessionInfo {
     requestedSessionId: requested,
     isDiverged: true,
   };
+  syncSessionIdToUrl(resolved.sessionId);
   return resolved;
 }

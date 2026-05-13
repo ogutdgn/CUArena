@@ -125,7 +125,7 @@ apps/figma/
 ├── verifier/                  framework library: checks, rubrics, types, loader, config
 ├── delivery-1/                canonical task prompts + verifier.py files
 └── scripts/                   CLI runners, QA harnesses, logs, and scores
-    ├── qa_verifiers.py        synthetic perfect/empty smoke test for all tasks
+    ├── qa_verifiers.py        3-case QA (correct=1.0, improper<1.0, correct+trash<1.0)
     ├── qa_verifier_framework.py
     └── qa_per_task/           delivery-1 hardening stress batteries
 ```

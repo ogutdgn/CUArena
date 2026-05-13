@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from verifier.types import CheckResult
 from verifier.math_utils import find_layers_by_type, find_all_layers
@@ -161,6 +163,39 @@ class LayerTotalCount:
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"Total layers: expected {self.equals}, got {count}",
+        )
+
+
+@dataclass
+class NoUnexpectedLayerTypes:
+    """Every layer must be in the allowed set (optionally allowing frame/group).
+
+    Useful for end-state-only anti-trash checks: exact ShapeCount checks enforce
+    expected counts, while this check rejects unrelated extra objects.
+    """
+    allowed_types: list[str]
+    allow_frame: bool = True
+    allow_group: bool = False
+
+    def run(self, log: dict) -> CheckResult:
+        allowed = set(self.allowed_types)
+        if self.allow_frame:
+            allowed.add("frame")
+        if self.allow_group:
+            allowed.add("group")
+
+        layers = find_all_layers(log["outcome"]["document"])
+        unexpected = [l.get("type", "?") for l in layers if l.get("type") not in allowed]
+        if not unexpected:
+            return CheckResult(
+                passed=True, score=1.0, max_score=1.0,
+                message=f"No unexpected layer types (allowed: {sorted(allowed)})",
+            )
+
+        kinds = sorted(set(unexpected))
+        return CheckResult(
+            passed=False, score=0.0, max_score=1.0,
+            message=f"Unexpected layer types: {kinds} (allowed: {sorted(allowed)})",
         )
 
 

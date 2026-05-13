@@ -1,9 +1,5 @@
-"""
-Task 03 — Radial flower with petals (in-scope replacement).
+"""Task 03 — Radial flower with petals (end-state only)."""
 
-1 yellow center circle + 8 elliptical petals arranged radially around it,
-each petal a different color.
-"""
 from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment    import AlignmentRubric
@@ -30,8 +26,8 @@ task = Task(
     description="1 yellow center circle + 8 elliptical petals arranged radially around it.",
     rubrics=[
         FundamentalsRubric([
-            ShapeCount("ellipse", equals=9),                                          # 0 ★ prompt: "1 yellow center circle and ... 8 elliptical petals"
-        ], weight=0.20, critical=[0]),
+            ShapeCount("ellipse", equals=9),
+        ], weight=0.25, critical=[0]),
 
         AlignmentRubric([
             RadialDistributionExcludeCentral(layer_type="ellipse", n=8,
@@ -57,5 +53,5 @@ task = Task(
             ToolUsed("ellipse"),                                                      # 0 ★ prompt: "Click Ellipse tool" — duplicate/paste paths covered by ShapeCount outcome check
         ], weight=0.10, critical=[]),
     ],
-    efficiency=EfficiencyRubric(target_turns=30),
+    efficiency=EfficiencyRubric(target_turns=1, lambda_=0.0),
 )
