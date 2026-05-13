@@ -1521,6 +1521,184 @@ class RadialDistributionExcludeCentral:
 
 
 @dataclass
+class LayersSameDimensionsExcludeCentral:
+    """Among layers of layer_type (≥3 total), the layer closest to the centroid
+    is the 'core' and is skipped. The remaining layers must all have the same
+    w/h within tolerance. Use for petal-and-core flowers where petals must be
+    uniform but the core is a different element."""
+    layer_type: str
+    tolerance: float = 6.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 3:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥3 {self.layer_type}, found {len(layers)}")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        core = min(layers, key=lambda l: (l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2)
+        ring = [l for l in layers if l is not core]
+        ref_w, ref_h = ring[0]["w"], ring[0]["h"]
+        failures = [
+            f"{l['id'][:8]}: {l['w']:.0f}×{l['h']:.0f} ≠ {ref_w:.0f}×{ref_h:.0f}"
+            for l in ring[1:]
+            if abs(l["w"] - ref_w) > self.tolerance or abs(l["h"] - ref_h) > self.tolerance
+        ]
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(f"All {len(ring)} non-central {self.layer_type} same size "
+                     f"({ref_w:.0f}×{ref_h:.0f}, tol {self.tolerance:.0f}px)") if passed
+                    else f"non-central {self.layer_type} mismatched: " + "; ".join(failures),
+        )
+
+
+@dataclass
+class LayersElongatedExcludeCentral:
+    """Among layers of layer_type (≥3 total), the centermost is treated as 'core'
+    and skipped. Every other layer must have max(w,h)/min(w,h) ≥ min_ratio.
+    Orientation-agnostic — works for petals at any rotation."""
+    layer_type: str
+    min_ratio: float = 1.5
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 3:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥3 {self.layer_type}, found {len(layers)}")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        core = min(layers, key=lambda l: (l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2)
+        ring = [l for l in layers if l is not core]
+        failures = []
+        for l in ring:
+            w, h = l["w"], l["h"]
+            if w == 0 or h == 0:
+                failures.append(f"{l['id'][:8]}: zero dimension")
+                continue
+            ratio = max(w, h) / min(w, h)
+            if ratio < self.min_ratio:
+                failures.append(f"{l['id'][:8]}: ratio={ratio:.2f} < {self.min_ratio}")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(f"All {len(ring)} non-central {self.layer_type} elongated "
+                     f"(long/short ≥ {self.min_ratio})") if passed
+                    else "non-central {self.layer_type} not elongated enough: " + "; ".join(failures),
+        )
+
+
+@dataclass
+class LayersSmallerThanCentralLayer:
+    """Among layers of layer_type (≥2 total), the centermost is the 'core' and
+    every other layer must have area (w*h) ≤ core_area * max_ratio. Defaults to
+    0.95 — small buffer for measurement noise but still enforces visibly-smaller."""
+    layer_type: str
+    max_ratio: float = 0.95
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type}, found {len(layers)}")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        core = min(layers, key=lambda l: (l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2)
+        core_area = core["w"] * core["h"]
+        if core_area <= 0:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"central {self.layer_type} has zero area")
+        max_allowed = core_area * self.max_ratio
+        ring = [l for l in layers if l is not core]
+        failures = []
+        for l in ring:
+            a = l["w"] * l["h"]
+            if a > max_allowed:
+                failures.append(f"{l['id'][:8]}: area {a:.0f} > {max_allowed:.0f} ({a / core_area:.0%} of core)")
+        passed = not failures
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(f"All {len(ring)} non-central {self.layer_type} smaller than core "
+                     f"(≤ {self.max_ratio:.0%} of {core_area:.0f}px²)") if passed
+                    else "non-central {self.layer_type} too large: " + "; ".join(failures),
+        )
+
+
+@dataclass
+class CentralLayerIsCircular:
+    """Among layers of layer_type (≥2 total), the centermost has w ≈ h within
+    tolerance. Use to enforce a round center against ring elements that are
+    intentionally not round."""
+    layer_type: str
+    tolerance: float = 4.0
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type}, found {len(layers)}")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        core = min(layers, key=lambda l: (l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2)
+        diff = abs(core["w"] - core["h"])
+        passed = diff <= self.tolerance
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(f"central {self.layer_type} circular ({core['w']:.0f}×{core['h']:.0f})") if passed
+                    else f"central {self.layer_type} not circular: "
+                         f"{core['w']:.0f}×{core['h']:.0f} (diff {diff:.1f}px > {self.tolerance:.0f})",
+        )
+
+
+@dataclass
+class LayersTouchCentralLayer:
+    """Among layers of layer_type (≥2 total), the layer closest to the centroid
+    is the 'core'. Every other layer's inner tip must approximately touch the
+    core's outer edge.
+
+    Geometry: petal_center_distance ≈ core_radius + petal_long_half_axis.
+    Treats the core as a circle (radius = avg of w/2, h/2). Treats each ring
+    petal as oriented with its long axis pointing radially outward (which is
+    the standard rotate-duplicate flower construction).
+
+    tolerance: allowed gap in pixels (both inward overlap and outward space).
+    """
+    layer_type: str
+    tolerance: float = 18.0
+
+    def run(self, log: dict) -> CheckResult:
+        import math
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type}, found {len(layers)}")
+        cx_all = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy_all = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        core = min(layers, key=lambda l: (l["x"] + l["w"] / 2 - cx_all) ** 2 + (l["y"] + l["h"] / 2 - cy_all) ** 2)
+        ring = [l for l in layers if l is not core]
+        ccx = core["x"] + core["w"] / 2
+        ccy = core["y"] + core["h"] / 2
+        core_r = (core["w"] + core["h"]) / 4
+        misses = []
+        for l in ring:
+            pcx = l["x"] + l["w"] / 2
+            pcy = l["y"] + l["h"] / 2
+            actual_d = math.hypot(pcx - ccx, pcy - ccy)
+            long_half = max(l["w"], l["h"]) / 2
+            expected_d = core_r + long_half
+            gap = actual_d - expected_d
+            if abs(gap) > self.tolerance:
+                misses.append(f"{l['id'][:8]}: gap {gap:+.0f}px from core edge")
+        passed = not misses
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=(f"All {len(ring)} ring {self.layer_type} touch core edge "
+                     f"(tol {self.tolerance:.0f}px)") if passed
+                    else "petal-to-core gap mismatch: " + "; ".join(misses),
+        )
+
+
+@dataclass
 class LinesOnDiagonal:
     """Two lines run corner-to-corner across a rectangle (one TL→BR, one TR→BL),
     forming an X. Uses Line.p1, p2 in absolute canvas coordinates."""

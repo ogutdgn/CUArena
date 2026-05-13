@@ -266,6 +266,86 @@ class LayersHaveColorOrder:
 
 
 @dataclass
+class NthLayerByAxisInColorRange:
+    """Pick the Nth layer of layer_type sorted along sort_axis and check its solid
+    fill falls inside an RGB range (or close enough by euclidean distance).
+
+    Scoring is a hybrid:
+      • In range on all 3 channels → PASS (distance 0).
+      • Outside the range but euclidean distance to the box's nearest face is
+        ≤ softness → PASS as a near-miss. Multi-channel deviations add up
+        quadratically so diagonal misses fail faster than single-channel misses.
+      • Beyond softness → FAIL.
+
+    A precondition rejects fills near the canvas default (0.85, 0.85, 0.85) —
+    these are "no color picked" cases that some high-R/G/B ranges (e.g. pale
+    yellow) would otherwise accept at the corner.
+
+    rgb_range: {"r": (min, max), "g": (min, max), "b": (min, max)} in 0..1.
+    softness:  max euclidean distance allowed outside the range box (RGB units).
+    sort_axis: 'x' / 'y' for linear order, 'size' for largest→smallest.
+    """
+    layer_type: str
+    index: int
+    rgb_range: dict
+    sort_axis: str = "y"
+    softness: float = 0.08
+    label: str = ""
+
+    _DEFAULT_FILL = (0.85, 0.85, 0.85)
+    _DEFAULT_EPSILON = 0.015
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if self.sort_axis == "y":
+            ordered = sorted(layers, key=lambda l: l["y"] + l["h"] / 2)
+        elif self.sort_axis == "size":
+            ordered = sorted(layers, key=lambda l: -(l["w"] * l["h"]))
+        else:
+            ordered = sorted(layers, key=lambda l: l["x"] + l["w"] / 2)
+        tag = f" ({self.label})" if self.label else ""
+        if self.index >= len(ordered):
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"slot {self.index}{tag}: no {self.layer_type} at position (found {len(ordered)})")
+        l = ordered[self.index]
+        fills = l.get("fills", [])
+        if not fills or fills[0].get("kind") != "solid":
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"slot {self.index}{tag}: no solid fill")
+        c = fills[0].get("color", {})
+        cr, cg, cb = c.get("r", 0), c.get("g", 0), c.get("b", 0)
+        dr, dg, db = self._DEFAULT_FILL
+        if (abs(cr - dr) <= self._DEFAULT_EPSILON and
+            abs(cg - dg) <= self._DEFAULT_EPSILON and
+            abs(cb - db) <= self._DEFAULT_EPSILON):
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"slot {self.index}{tag}: fill is canvas default (no color picked)")
+        # Per-channel signed offset from the range box (0 if in range).
+        d2 = 0.0
+        offsets = []
+        for k, v in (("r", cr), ("g", cg), ("b", cb)):
+            lo, hi = self.rgb_range[k]
+            if v < lo:
+                off = lo - v
+                d2 += off * off
+                offsets.append(f"{k}={v:.2f} {off:+.2f} below [{lo:.2f},{hi:.2f}]")
+            elif v > hi:
+                off = v - hi
+                d2 += off * off
+                offsets.append(f"{k}={v:.2f} {off:+.2f} above [{lo:.2f},{hi:.2f}]")
+        dist = d2 ** 0.5
+        fill_str = f"({cr:.2f},{cg:.2f},{cb:.2f})"
+        if dist == 0:
+            return CheckResult(passed=True, score=1.0, max_score=1.0,
+                               message=f"slot {self.index}{tag}: fill {fill_str} in range")
+        if dist <= self.softness:
+            return CheckResult(passed=True, score=1.0, max_score=1.0,
+                               message=f"slot {self.index}{tag}: fill {fill_str} near range (dist {dist:.2f} ≤ {self.softness}); " + "; ".join(offsets))
+        return CheckResult(passed=False, score=0.0, max_score=1.0,
+                           message=f"slot {self.index}{tag}: fill {fill_str} outside range (dist {dist:.2f} > {self.softness}); " + "; ".join(offsets))
+
+
+@dataclass
 class CentermostLayerHasColor:
     """Among layers of layer_type, the one closest to the layer-set centroid
     has a solid fill matching expected_rgb. Used to verify a 'center' role."""
@@ -444,6 +524,44 @@ class DistinctTypedSolidColors:
         return CheckResult(
             passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
             message=f"distinct {self.layer_type} colors: expected ≥{self.minimum}, got {len(seen)}",
+        )
+
+
+@dataclass
+class DistinctTypedSolidColorsExcludeCentral:
+    """Like DistinctTypedSolidColors, but the layer closest to the centroid
+    of the layer_type set is treated as a 'core' and excluded. Use for petal
+    flowers where the center circle should not count toward the petal palette."""
+    layer_type: str
+    minimum: int
+    tolerance: float = 0.05
+
+    def run(self, log: dict) -> CheckResult:
+        layers = find_layers_by_type(log["outcome"]["document"], self.layer_type)
+        if len(layers) < 2:
+            return CheckResult(passed=False, score=0.0, max_score=1.0,
+                               message=f"Need ≥2 {self.layer_type}, found {len(layers)}")
+        cx = sum(l["x"] + l["w"] / 2 for l in layers) / len(layers)
+        cy = sum(l["y"] + l["h"] / 2 for l in layers) / len(layers)
+        core = min(layers, key=lambda l: (l["x"] + l["w"] / 2 - cx) ** 2 + (l["y"] + l["h"] / 2 - cy) ** 2)
+        ring = [l for l in layers if l is not core]
+        seen: list[tuple[float, float, float]] = []
+        for l in ring:
+            for fill in l.get("fills", []):
+                if fill.get("kind") != "solid":
+                    continue
+                c = fill.get("color", {})
+                rgb = (c.get("r", 0), c.get("g", 0), c.get("b", 0))
+                close = any(
+                    max(abs(rgb[0] - d[0]), abs(rgb[1] - d[1]), abs(rgb[2] - d[2])) <= self.tolerance
+                    for d in seen
+                )
+                if not close:
+                    seen.append(rgb)
+        passed = len(seen) >= self.minimum
+        return CheckResult(
+            passed=passed, score=1.0 if passed else 0.0, max_score=1.0,
+            message=f"distinct non-central {self.layer_type} colors: expected ≥{self.minimum}, got {len(seen)}",
         )
 
 
