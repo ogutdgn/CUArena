@@ -23,6 +23,10 @@ function rotate(deg: number): Matrix {
   return { a: cos, b: sin, c: -sin, d: cos, e: 0, f: 0 };
 }
 
+function scale(x: number, y: number): Matrix {
+  return { a: x, b: 0, c: 0, d: y, e: 0, f: 0 };
+}
+
 function unionRects(rects: RectLike[]): RectLike | null {
   if (rects.length === 0) return null;
   let minX = Infinity;
@@ -36,6 +40,22 @@ function unionRects(rects: RectLike[]): RectLike | null {
     maxY = Math.max(maxY, r.y + r.h);
   }
   return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+}
+
+function hasSelectedAncestor(state: AppState, layer: Layer, selectedIds: Set<string>): boolean {
+  let parentId = layer.parentId;
+  while (parentId) {
+    if (selectedIds.has(parentId)) return true;
+    const parent = state.nodesById[parentId];
+    if (!parent || !("parentId" in parent)) return false;
+    parentId = parent.parentId;
+  }
+  return false;
+}
+
+export function selectedTransformRoots(state: AppState, layers: Layer[]): Layer[] {
+  const selectedIds = new Set(layers.map((layer) => layer.id));
+  return layers.filter((layer) => !hasSelectedAncestor(state, layer, selectedIds));
 }
 
 export function rotateSelectionAroundVisualCenter(
@@ -66,6 +86,31 @@ export function rotateSelectionAroundVisualCenter(
   const aroundSelection = multiplyMatrices(multiplyMatrices(translate(cx, cy), rotate(deltaDeg)), translate(-cx, -cy));
 
   for (const l of layers) {
+    const nextWorld = multiplyMatrices(aroundSelection, layerToWorldMatrix(state, l));
+    const parentInverse = invertMatrix(parentToWorldMatrix(state, l.parentId));
+    const nextLocal = multiplyMatrices(parentInverse, nextWorld);
+    out[l.id] = transformFromLocalMatrix(l, nextLocal);
+  }
+  return out;
+}
+
+export function flipSelectionAcrossVisualCenter(
+  state: AppState,
+  layers: Layer[],
+  axis: "horizontal" | "vertical",
+): TransformMap {
+  const roots = selectedTransformRoots(state, layers);
+  const out: TransformMap = {};
+  if (roots.length === 0) return out;
+
+  const bbox = unionRects(roots.map((l) => worldAABBOfLayer(state, l)));
+  if (!bbox) return out;
+  const cx = bbox.x + bbox.w / 2;
+  const cy = bbox.y + bbox.h / 2;
+  const reflection = axis === "horizontal" ? scale(-1, 1) : scale(1, -1);
+  const aroundSelection = multiplyMatrices(multiplyMatrices(translate(cx, cy), reflection), translate(-cx, -cy));
+
+  for (const l of roots) {
     const nextWorld = multiplyMatrices(aroundSelection, layerToWorldMatrix(state, l));
     const parentInverse = invertMatrix(parentToWorldMatrix(state, l.parentId));
     const nextLocal = multiplyMatrices(parentInverse, nextWorld);

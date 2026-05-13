@@ -110,6 +110,10 @@ function collectLayerIds(layer: Layer, out: Set<string>) {
   }
 }
 
+function clonePlain<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
 function removeFromTree(state: AppState, id: string): {
   node: Layer;
   parentId: string;
@@ -140,7 +144,7 @@ function insertIntoTree(state: AppState, layer: Layer, parentId: string, index: 
 // ---- apply ----
 
 export function applyCreateNode(state: AppState, op: CreateNodeOp): void {
-  insertIntoTree(state, op.node, op.parentId, op.indexInParent);
+  insertIntoTree(state, clonePlain(op.node), op.parentId, op.indexInParent);
 }
 
 export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
@@ -159,7 +163,13 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
   const snapshot: Array<{ node: Layer; parentId: string; indexInParent: number }> = [];
   for (const { id } of sorted) {
     const removed = removeFromTree(state, id);
-    if (removed) snapshot.unshift(removed);
+    if (removed) {
+      snapshot.unshift({
+        node: clonePlain(removed.node),
+        parentId: removed.parentId,
+        indexInParent: removed.indexInParent,
+      });
+    }
   }
   op.snapshot = snapshot;
 
@@ -192,7 +202,7 @@ export function applyDeleteNodes(state: AppState, op: DeleteNodesOp): void {
       );
       if (filtered.length !== page.prototypeConnections.length) {
         entry = entry ?? { pageId: page.id };
-        entry.connectionsBefore = [...page.prototypeConnections];
+        entry.connectionsBefore = clonePlain(page.prototypeConnections);
         page.prototypeConnections = filtered;
       }
     }
@@ -423,17 +433,18 @@ export function applySetFocusContext(state: AppState, op: SetFocusContextOp): vo
 
 export function applyCreatePage(state: AppState, op: CreatePageOp): void {
   const safe = Math.max(0, Math.min(state.document.pages.length, op.pageIndex));
-  state.document.pages.splice(safe, 0, op.page);
-  state.nodesById[op.page.id] = op.page;
-  for (const c of op.page.children) {
+  const page = clonePlain(op.page);
+  state.document.pages.splice(safe, 0, page);
+  state.nodesById[page.id] = page;
+  for (const c of page.children) {
     state.nodesById[c.id] = c;
     if (c.type === "frame" || c.type === "section" || c.type === "group") {
       walkIndex(state, c);
     }
   }
-  if (!state.viewportByPage[op.page.id]) state.viewportByPage[op.page.id] = { x: 0, y: 0, zoom: 1 };
-  if (!state.selectionByPage[op.page.id]) state.selectionByPage[op.page.id] = [];
-  if (!(op.page.id in state.focusContextByPage)) state.focusContextByPage[op.page.id] = null;
+  if (!state.viewportByPage[page.id]) state.viewportByPage[page.id] = { x: 0, y: 0, zoom: 1 };
+  if (!state.selectionByPage[page.id]) state.selectionByPage[page.id] = [];
+  if (!(page.id in state.focusContextByPage)) state.focusContextByPage[page.id] = null;
 }
 
 export function applyDeletePage(state: AppState, op: DeletePageOp): void {
@@ -494,7 +505,7 @@ export function applyInverse(state: AppState, op: Op): void {
     case "delete_nodes":
       if (op.snapshot) {
         for (const s of op.snapshot) {
-          insertIntoTree(state, s.node, s.parentId, s.indexInParent);
+          insertIntoTree(state, clonePlain(s.node), s.parentId, s.indexInParent);
         }
       }
       if (op.prototypeSnapshot) {
@@ -502,14 +513,14 @@ export function applyInverse(state: AppState, op: Op): void {
           const page = state.document.pages.find((p) => p.id === entry.pageId);
           if (!page) continue;
           if (entry.connectionsBefore !== undefined) {
-            page.prototypeConnections = entry.connectionsBefore as typeof page.prototypeConnections;
+            page.prototypeConnections = clonePlain(entry.connectionsBefore) as typeof page.prototypeConnections;
           }
         }
       }
       break;
     case "set_property":
       for (const id of op.ids) {
-        const node = state.nodesById[id];
+        const node = findNodeInDocument(state, id);
         if (!node) continue;
         const before = op.before[id];
         if (before === undefined) continue;

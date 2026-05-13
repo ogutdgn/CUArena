@@ -5,25 +5,25 @@ import { dispatch, makeOpId } from "./dispatch";
 import { emitSemantic } from "@/logger/semantic";
 import { getActivePage, getSelectedLayers, selectionBbox } from "./selectors";
 import type { TransformMap } from "@/types/ops";
-import { rotateSelectionAroundVisualCenter } from "./selectionTransforms";
+import {
+  flipSelectionAcrossVisualCenter,
+  rotateSelectionAroundVisualCenter,
+  selectedTransformRoots,
+} from "./selectionTransforms";
 
 export function flipSelection(
   axis: "horizontal" | "vertical",
   trigger: "shortcut" | "context_menu" | "main_menu" | "panel_button",
 ) {
   const s = useStore.getState();
-  const layers = getSelectedLayers(s);
+  const selectedLayers = getSelectedLayers(s);
+  const layers = selectedTransformRoots(s, selectedLayers);
   if (layers.length === 0) return;
   const before: TransformMap = {};
-  const after: TransformMap = {};
+  const after = flipSelectionAcrossVisualCenter(s, selectedLayers, axis);
   for (const l of layers) {
     const t = { x: l.x, y: l.y, w: l.w, h: l.h, rotation: l.rotation, scaleX: l.scaleX, scaleY: l.scaleY };
     before[l.id] = t;
-    after[l.id] = {
-      ...t,
-      scaleX: axis === "vertical" ? ((-t.scaleX) as 1 | -1) : t.scaleX,
-      scaleY: axis === "horizontal" ? ((-t.scaleY) as 1 | -1) : t.scaleY,
-    };
   }
   dispatch({
     id: makeOpId(),
