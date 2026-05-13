@@ -5,6 +5,7 @@ from verifier.rubrics.fundamentals import FundamentalsRubric
 from verifier.rubrics.alignment import AlignmentRubric
 from verifier.rubrics.color import ColorRubric
 from verifier.rubrics.structure import StructureRubric
+from verifier.rubrics.event import EventRubric
 from verifier.rubrics.efficiency import EfficiencyRubric
 
 from verifier.checks.shape_checks import ShapeCount
