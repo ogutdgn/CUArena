@@ -1,0 +1,103 @@
+{
+  "task_id": "task_07_mountain_range",
+  "log_path": "/workspace/output/Competitor-logs-scores/task_07/runs/trajectory_7_mountain_c/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector: expected 2, got 2"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector overlaps vector"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All vector aspect ratio \u2265 1.8 (horizontal)"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector has solid fill"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "distinct solid colors: expected \u22652, got 3"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All vector fills are gray-like"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "vector found inside a frame"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "frame has 2 children"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Total layers: expected 3, got 3"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "No unexpected layer types (allowed: ['frame', 'vector'])"
+        }
+      ]
+    }
+  ],
+  "base_score": 1.0,
+  "efficiency": {
+    "multiplier": 1.0,
+    "actual_turns": 47,
+    "target_turns": 1,
+    "lambda_used": 0.0,
+    "message": "47 turns used, target 1, \u03bb=0.0 \u2192 multiplier 1.0"
+  },
+  "final_score": 1.0
+}

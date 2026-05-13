@@ -7,10 +7,10 @@ Usage:
   python scripts/run_task.py 1                                  # numeric prefix also works
   python scripts/run_task.py export-log                         # export only, no scoring
   python scripts/run_task.py export-log task_01                 # export only, prefix filename with task
-  python scripts/run_task.py --host mock task_01                # docker-compose service-to-service
+  python scripts/run_task.py --host figma-env task_01           # docker-compose service-to-service
 
-Loads task verifiers from delivery-1/task_NN/verifier.py (single source of truth).
-Saves logs to scripts/logs/, scores to scripts/scores/.
+Loads task verifiers from delivery task_NN/verifier.py (single source of truth).
+Saves logs and scores under runtime/output/Competitor-logs-scores/task_XX/.
 
 Run with the verifier venv's python (it has pyyaml):
   ../.venv/Scripts/python scripts/run_task.py task_01
@@ -38,7 +38,12 @@ DELIVERY_DIR = Path(os.getenv("FIGMA_DELIVERY_DIR", str(APP_ROOT / "tasks")))
 OUTPUT_ROOT  = Path(os.getenv("FIGMA_OUTPUT_DIR", str(APP_ROOT / "output")))
 LOGS_DIR     = OUTPUT_ROOT / "logs"
 SCORES_DIR   = OUTPUT_ROOT / "scores"
-MOCK_DEVLOG_DIR = Path(os.getenv("FIGMA_MOCK_DEVLOG_DIR", str(OUTPUT_ROOT / "mock-devlog")))
+ENV_DEVLOG_DIR = Path(
+    os.getenv(
+        "FIGMA_ENV_DEVLOG_DIR",
+        os.getenv("FIGMA_MOCK_DEVLOG_DIR", str(OUTPUT_ROOT / "environment-devlog")),
+    )
+)
 
 # Make `from verifier... import ...` work inside delivery-1/task_NN/verifier.py
 sys.path.insert(0, str(APP_ROOT))
@@ -135,17 +140,17 @@ def fetch_log(host: str, port: int, session_id: str | None = None) -> dict:
         reason = str(getattr(e, "reason", e))
         if "Connection refused" in reason or "10061" in reason:
             print(f"\nCould not connect to {url}", file=sys.stderr)
-            print("Make sure the mock is running:  npm run dev  (in mock/)", file=sys.stderr)
+            print("Make sure the figma-env server is running.", file=sys.stderr)
         else:
             print(f"\nHTTP error: {e}", file=sys.stderr)
         sys.exit(1)
 
 
 def _task_output_dirs(task_dir_name: str) -> tuple[Path, Path, Path]:
-    base = OUTPUT_ROOT / "by-task" / task_dir_name
+    base = OUTPUT_ROOT / "Competitor-logs-scores" / task_dir_name
     logs = base / "logs"
     scores = base / "scores"
-    devlogs = base / "mock-devlog"
+    devlogs = base / "environment-devlog"
     logs.mkdir(parents=True, exist_ok=True)
     scores.mkdir(parents=True, exist_ok=True)
     devlogs.mkdir(parents=True, exist_ok=True)
@@ -155,7 +160,7 @@ def _task_output_dirs(task_dir_name: str) -> tuple[Path, Path, Path]:
 def _copy_mock_devlog_snapshot(session_id: str | None, task_dir_name: str) -> Path | None:
     if not session_id:
         return None
-    source = MOCK_DEVLOG_DIR / f"{session_id}.json"
+    source = ENV_DEVLOG_DIR / f"{session_id}.json"
     if not source.exists():
         return None
     _, _, devlogs = _task_output_dirs(task_dir_name)
@@ -339,7 +344,7 @@ def cmd_full_pipeline(task_input: str, host: str, port: int, session_id: str | N
                 print(f"Requested sessionId: {resolved_session_id}")
             if int(status.get("postCount") or 0) == 0:
                 print(
-                    "No browser log POST has reached this mock instance yet."
+                    "No browser log POST has reached this figma-env instance yet."
                     f" Open http://{host}:{port}, hard-refresh, interact once, wait 0.5s, then rerun."
                 )
         print("Returning forced zero score for this run.")
@@ -402,13 +407,13 @@ def main() -> None:
             "  python scripts/run_task.py 1\n"
             "  python scripts/run_task.py export-log\n"
             "  python scripts/run_task.py export-log task_01\n"
-            "  python scripts/run_task.py --host mock task_01\n"
-            "  python scripts/run_task.py --host mock --session-id <uuid> task_01"
+            "  python scripts/run_task.py --host figma-env task_01\n"
+            "  python scripts/run_task.py --host figma-env --session-id <uuid> task_01"
         ),
     )
     parser.add_argument("target", help="task name (e.g. 'task_01' or '1') or the literal 'export-log'")
     parser.add_argument("task", nargs="?", help="optional task name after 'export-log' (used as filename prefix)")
-    parser.add_argument("--host", default="localhost", help="mock dev-server host (default localhost)")
+    parser.add_argument("--host", default="localhost", help="figma-env dev-server host (default localhost)")
     parser.add_argument("--port", type=int, default=5173, help="Vite dev server port (default 5173)")
     parser.add_argument("--session-id", default=None, help="optional sessionId to fetch from /dev-log")
     args = parser.parse_args()

@@ -1,0 +1,72 @@
+{
+  "task_id": "task_52_read_click_giftbox",
+  "log_path": "/workspace/output/Competitor-logs-scores/task_52/runs/trajectory_52_gift_r/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.7,
+      "max_score": 0.7,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Click on 'gift_box' found in event log"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "Layer 'gift_box' is selected"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.2,
+      "max_score": 0.2,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "create events: 0 (expected 0)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "delete_layer events: 0 (expected 0)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "No move_layer events"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "score": 0.1,
+      "max_score": 0.1,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "event 'click_select': expected \u22651, got 1"
+        }
+      ]
+    }
+  ],
+  "base_score": 1.0,
+  "efficiency": {
+    "multiplier": 1.0,
+    "actual_turns": 13,
+    "target_turns": 1,
+    "lambda_used": 0.0,
+    "message": "13 turns used, target 1, \u03bb=0.0 \u2192 multiplier 1.0"
+  },
+  "final_score": 1.0
+}

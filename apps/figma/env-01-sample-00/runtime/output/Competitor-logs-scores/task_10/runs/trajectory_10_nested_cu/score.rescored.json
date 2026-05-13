@@ -1,0 +1,79 @@
+{
+  "task_id": "task_10_apple_avatar",
+  "log_path": "/workspace/output/Competitor-logs-scores/task_10/runs/trajectory_10_nested_cu/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle: expected 4, got 4"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All 4 rectangle square"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle concentric: max diff x=0.0px y=0.0px (tolerance 8.0px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle layers are strictly nested (4 total)"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle colors alternate by area with 2 colors"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "No unexpected layer types (allowed: ['frame', 'rectangle'])"
+        }
+      ]
+    }
+  ],
+  "base_score": 1.0,
+  "efficiency": {
+    "multiplier": 1.0,
+    "actual_turns": 46,
+    "target_turns": 1,
+    "lambda_used": 0.0,
+    "message": "46 turns used, target 1, \u03bb=0.0 \u2192 multiplier 1.0"
+  },
+  "final_score": 1.0
+}

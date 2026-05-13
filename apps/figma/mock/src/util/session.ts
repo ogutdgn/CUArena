@@ -45,7 +45,28 @@ function writeLease(key: string, st: Storage, instanceId: string): boolean {
     st.setItem(key, JSON.stringify(lease));
     return true;
   } catch {
-    return false;
+    // Recover from quota pressure by removing stale lease rows and retrying once.
+    try {
+      const now = Date.now();
+      for (let i = 0; i < st.length; i++) {
+        const candidate = st.key(i);
+        if (!candidate || candidate === key || !candidate.startsWith(LEASE_PREFIX)) continue;
+        const leaseRaw = st.getItem(candidate);
+        if (!leaseRaw) continue;
+        try {
+          const parsed = JSON.parse(leaseRaw) as { updatedAt?: unknown };
+          if (typeof parsed.updatedAt !== "number" || now - parsed.updatedAt > LEASE_TTL_MS * 4) {
+            st.removeItem(candidate);
+          }
+        } catch {
+          st.removeItem(candidate);
+        }
+      }
+      st.setItem(key, JSON.stringify(lease));
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 

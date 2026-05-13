@@ -1,0 +1,83 @@
+{
+  "generated_at_utc": "2026-05-13T07:14:37.992955+00:00",
+  "total_runs": 11,
+  "rows": [
+    {
+      "task": "task_01",
+      "run_id": "trajectory_1_house_c",
+      "old_final_score": 1.0,
+      "rescored_final_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "task": "task_02",
+      "run_id": "trajectory_2_sunset_c",
+      "old_final_score": 0.0937,
+      "rescored_final_score": 0.0937,
+      "delta": 0.0
+    },
+    {
+      "task": "task_03",
+      "run_id": "trajectory_3_flower_cu",
+      "old_final_score": 0.75,
+      "rescored_final_score": 0.75,
+      "delta": 0.0
+    },
+    {
+      "task": "task_04",
+      "run_id": "trajectory_4_squares_cu",
+      "old_final_score": 0.375,
+      "rescored_final_score": 0.375,
+      "delta": 0.0
+    },
+    {
+      "task": "task_05",
+      "run_id": "trajectory_5_plus_cu",
+      "old_final_score": 1.0,
+      "rescored_final_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "task": "task_07",
+      "run_id": "trajectory_7_mountain_c",
+      "old_final_score": 1.0,
+      "rescored_final_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "task": "task_09",
+      "run_id": "trajectory_9_grid_cu",
+      "old_final_score": 0.5833,
+      "rescored_final_score": 0.5833,
+      "delta": 0.0
+    },
+    {
+      "task": "task_10",
+      "run_id": "trajectory_10_nested_cu",
+      "old_final_score": 1.0,
+      "rescored_final_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "task": "task_51",
+      "run_id": "trajectory_51_count_r",
+      "old_final_score": 1.0,
+      "rescored_final_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "task": "task_52",
+      "run_id": "trajectory_52_gift_r",
+      "old_final_score": 1.0,
+      "rescored_final_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "task": "task_53",
+      "run_id": "trajectory_53_red_d",
+      "old_final_score": 1.0,
+      "rescored_final_score": 1.0,
+      "delta": 0.0
+    }
+  ]
+}
