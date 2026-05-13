@@ -520,7 +520,7 @@ export function applyInverse(state: AppState, op: Op): void {
       break;
     case "set_property":
       for (const id of op.ids) {
-        const node = state.nodesById[id];
+        const node = findNodeInDocument(state, id);
         if (!node) continue;
         const before = op.before[id];
         if (before === undefined) continue;
