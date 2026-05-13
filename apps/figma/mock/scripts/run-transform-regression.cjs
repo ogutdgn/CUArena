@@ -14,7 +14,9 @@ Module._resolveFilename = function resolveAlias(request, parent, isMain, options
 
 function register(ext) {
   Module._extensions[ext] = function compileTs(module, filename) {
-    const source = require("fs").readFileSync(filename, "utf8");
+    const source = require("fs")
+      .readFileSync(filename, "utf8")
+      .replace(/import\.meta\.env\.DEV/g, "false");
     const output = ts.transpileModule(source, {
       compilerOptions: {
         module: ts.ModuleKind.CommonJS,

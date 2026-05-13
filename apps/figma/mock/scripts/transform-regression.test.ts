@@ -18,13 +18,16 @@ import { selectionOutlineGeometry } from "../src/ui/overlays/selectionOverlayGeo
 import { resizeSingleTransformedLayer } from "../src/engine/resizeGeometry";
 import { resizeLineEndpointFromWorld } from "../src/engine/lineGeometry";
 import { applyReparent, applySetTransform } from "../src/engine/ops";
+import { deleteSelection } from "../src/engine/commands";
+import { dispatch, makeOpId, undo } from "../src/engine/dispatch";
 import { placementForPastedLayer } from "../src/engine/pastePlacement";
 import { frameLabelGeometry } from "../src/engine/frameLabelsGeometry";
 import { pannedViewportFromClientDelta } from "../src/engine/viewportPan";
 import { textEditorCssMatrix } from "../src/ui/overlays/textEditorGeometry";
 import { applyFrameContainmentForLayers, getFrameContainmentMoves } from "../src/engine/frameContainment";
 import { rotateSelectionAroundVisualCenter } from "../src/engine/selectionTransforms";
-import type { AppState } from "../src/engine/store";
+import { flipSelection } from "../src/engine/transformCommands";
+import { useStore, type AppState } from "../src/engine/store";
 import type { Frame, Layer, Line, Page, Polygon, Rectangle, Text } from "../src/types/scene";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -95,6 +98,72 @@ function makeMultiSelectionState(layers: Layer[]): AppState {
   return state;
 }
 
+function resetStoreForRegression(state: AppState): void {
+  useStore.setState((s) => {
+    Object.assign(s, state);
+  });
+}
+
+function withMockedBrowserStorage<T>(run: () => T): T {
+  const previousWindow = (globalThis as { window?: unknown }).window;
+  const previousLocalStorage = (globalThis as { localStorage?: unknown }).localStorage;
+  const previousSessionStorage = (globalThis as { sessionStorage?: unknown }).sessionStorage;
+  const local: Storage = {
+    length: 0,
+    clear() {},
+    getItem() { return null; },
+    key() { return null; },
+    removeItem() {},
+    setItem() {
+      throw new DOMException("quota", "QuotaExceededError");
+    },
+  };
+  const session = new Map<string, string>();
+  const sessionStorageMock: Storage = {
+    get length() { return session.size; },
+    clear() { session.clear(); },
+    getItem(key) { return session.get(key) ?? null; },
+    key(index) { return Array.from(session.keys())[index] ?? null; },
+    removeItem(key) { session.delete(key); },
+    setItem(key, value) { session.set(key, value); },
+  };
+  const windowMock = {
+    location: { href: "http://localhost:5173/?sessionId=quota-test" },
+    history: { state: null, replaceState() {} },
+    addEventListener() {},
+  };
+  (globalThis as { window?: unknown }).window = windowMock;
+  (globalThis as { localStorage?: unknown }).localStorage = local;
+  (globalThis as { sessionStorage?: unknown }).sessionStorage = sessionStorageMock;
+  try {
+    return run();
+  } finally {
+    (globalThis as { window?: unknown }).window = previousWindow;
+    (globalThis as { localStorage?: unknown }).localStorage = previousLocalStorage;
+    (globalThis as { sessionStorage?: unknown }).sessionStorage = previousSessionStorage;
+  }
+}
+
+function assertClose(actual: number, expected: number, message: string): void {
+  assert(Math.abs(actual - expected) < 0.001, `${message}: expected ${expected}, got ${actual}`);
+}
+
+function assertMirroredPoint(
+  before: { x: number; y: number },
+  after: { x: number; y: number },
+  center: { x: number; y: number },
+  axis: "horizontal" | "vertical",
+  message: string,
+): void {
+  if (axis === "horizontal") {
+    assertClose(after.x, 2 * center.x - before.x, `${message} x`);
+    assertClose(after.y, before.y, `${message} y`);
+  } else {
+    assertClose(after.x, before.x, `${message} x`);
+    assertClose(after.y, 2 * center.y - before.y, `${message} y`);
+  }
+}
+
 const rect: Rectangle = {
   id: "rect-1",
   parentId: "page-1",
@@ -139,6 +208,170 @@ const pan1 = pannedViewportFromClientDelta({ x: 100, y: 200, zoom: 2 }, { x: 10,
 assert(pan1.x === 90 && pan1.y === 185, "hand pan should derive viewport from stable client-pixel delta");
 const pan2 = pannedViewportFromClientDelta({ x: 100, y: 200, zoom: 2 }, { x: 10, y: 20 }, { x: 50, y: 80 });
 assert(pan2.x === 80 && pan2.y === 170, "hand pan should keep accumulating smoothly as client delta grows");
+
+withMockedBrowserStorage(() => {
+  const sessionPath = require.resolve("../src/util/session.ts");
+  delete require.cache[sessionPath];
+  const { resolveSessionInfo } = require("../src/util/session.ts") as typeof import("../src/util/session");
+  const info = resolveSessionInfo();
+  assert(info.sessionId.length > 0, "session resolution should survive localStorage quota errors");
+  assert(info.requestedSessionId === "quota-test", "session resolution should still report the requested id");
+});
+
+const flipVerticalState = makeState({ ...rect, id: "flip-vertical-rect", rotation: 0, scaleX: 1, scaleY: 1 });
+resetStoreForRegression(flipVerticalState);
+const flipVerticalBefore = localPointToWorld(useStore.getState(), useStore.getState().nodesById["flip-vertical-rect"] as Rectangle, { x: 12, y: 7 });
+flipSelection("vertical", "panel_button");
+const verticallyFlipped = useStore.getState().nodesById["flip-vertical-rect"] as Rectangle;
+const flipVerticalAfter = localPointToWorld(useStore.getState(), verticallyFlipped, { x: 12, y: 7 });
+assertMirroredPoint(flipVerticalBefore, flipVerticalAfter, { x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 }, "vertical", "single-layer vertical flip should mirror across the horizontal centerline");
+
+const flipHorizontalState = makeState({ ...rect, id: "flip-horizontal-rect", rotation: 0, scaleX: 1, scaleY: 1 });
+resetStoreForRegression(flipHorizontalState);
+const flipHorizontalBefore = localPointToWorld(useStore.getState(), useStore.getState().nodesById["flip-horizontal-rect"] as Rectangle, { x: 12, y: 7 });
+flipSelection("horizontal", "panel_button");
+const horizontallyFlipped = useStore.getState().nodesById["flip-horizontal-rect"] as Rectangle;
+const flipHorizontalAfter = localPointToWorld(useStore.getState(), horizontallyFlipped, { x: 12, y: 7 });
+assertMirroredPoint(flipHorizontalBefore, flipHorizontalAfter, { x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 }, "horizontal", "single-layer horizontal flip should mirror across the vertical centerline");
+
+const pointingTriangle: Polygon = {
+  id: "pointing-triangle",
+  parentId: "page-1",
+  type: "polygon",
+  name: "Pointing Triangle",
+  x: 0,
+  y: 0,
+  w: 100,
+  h: 80,
+  rotation: 90,
+  scaleX: 1,
+  scaleY: 1,
+  visible: true,
+  locked: false,
+  opacity: 1,
+  constraints: { horizontal: "left", vertical: "top" },
+  fills: [],
+  strokes: [],
+  effects: [],
+  sides: 3,
+};
+const pointingState = makeState(pointingTriangle as unknown as Rectangle);
+resetStoreForRegression(pointingState);
+const triangleTipBefore = localPointToWorld(useStore.getState(), useStore.getState().nodesById["pointing-triangle"] as Polygon, { x: 50, y: 0 });
+flipSelection("horizontal", "panel_button");
+const mirroredTriangle = useStore.getState().nodesById["pointing-triangle"] as Polygon;
+const triangleTipAfter = localPointToWorld(useStore.getState(), mirroredTriangle, { x: 50, y: 0 });
+assertMirroredPoint(triangleTipBefore, triangleTipAfter, { x: pointingTriangle.x + pointingTriangle.w / 2, y: pointingTriangle.y + pointingTriangle.h / 2 }, "horizontal", "rotated triangle horizontal flip should move its tip to the other side");
+assert(mirroredTriangle.rotation !== pointingTriangle.rotation, "rotated triangle horizontal flip should update stored rotation, not only scale");
+
+const multiFlipLeft: Rectangle = { ...rect, id: "multi-flip-left", x: 0, y: 0, w: 50, h: 40, rotation: 0, scaleX: 1, scaleY: 1 };
+const multiFlipRight: Rectangle = { ...rect, id: "multi-flip-right", x: 200, y: 0, w: 50, h: 40, rotation: 0, scaleX: 1, scaleY: 1 };
+const multiHorizontalFlipState = makeMultiSelectionState([multiFlipLeft, multiFlipRight]);
+resetStoreForRegression(multiHorizontalFlipState);
+flipSelection("horizontal", "panel_button");
+const flippedLeft = useStore.getState().nodesById["multi-flip-left"] as Rectangle;
+const flippedRight = useStore.getState().nodesById["multi-flip-right"] as Rectangle;
+assert(Math.abs(flippedLeft.x - 200) < 0.001, "multi-selection horizontal flip should mirror left item across selection center");
+assert(Math.abs(flippedRight.x - 0) < 0.001, "multi-selection horizontal flip should mirror right item across selection center");
+assert(flippedLeft.scaleX === -1 && flippedRight.scaleX === -1, "multi-selection horizontal flip should mirror each selected root");
+
+const multiFlipTop: Rectangle = { ...rect, id: "multi-flip-top", x: 0, y: 0, w: 50, h: 40, rotation: 0, scaleX: 1, scaleY: 1 };
+const multiFlipBottom: Rectangle = { ...rect, id: "multi-flip-bottom", x: 0, y: 160, w: 50, h: 40, rotation: 0, scaleX: 1, scaleY: 1 };
+const multiVerticalFlipState = makeMultiSelectionState([multiFlipTop, multiFlipBottom]);
+resetStoreForRegression(multiVerticalFlipState);
+flipSelection("vertical", "panel_button");
+const flippedTopBox = worldAABBOfLayer(useStore.getState(), useStore.getState().nodesById["multi-flip-top"] as Rectangle);
+const flippedBottomBox = worldAABBOfLayer(useStore.getState(), useStore.getState().nodesById["multi-flip-bottom"] as Rectangle);
+assert(Math.abs(flippedTopBox.y - 160) < 0.001, "multi-selection vertical flip should mirror top item across selection center");
+assert(Math.abs(flippedBottomBox.y - 0) < 0.001, "multi-selection vertical flip should mirror bottom item across selection center");
+
+const flipFrame: Frame = {
+  id: "flip-frame",
+  parentId: "page-1",
+  type: "frame",
+  name: "Flip Frame",
+  x: 0,
+  y: 0,
+  w: 200,
+  h: 200,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  visible: true,
+  locked: false,
+  opacity: 1,
+  constraints: { horizontal: "left", vertical: "top" },
+  fills: [],
+  strokes: [],
+  effects: [],
+  cornerRadius: 0,
+  clipsContent: true,
+  children: [],
+};
+const flipTriangle: Polygon = {
+  id: "flip-triangle",
+  parentId: "flip-frame",
+  type: "polygon",
+  name: "Triangle",
+  x: 40,
+  y: 30,
+  w: 80,
+  h: 70,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  visible: true,
+  locked: false,
+  opacity: 1,
+  constraints: { horizontal: "left", vertical: "top" },
+  fills: [],
+  strokes: [],
+  effects: [],
+  sides: 3,
+};
+flipFrame.children = [flipTriangle];
+const frameAndChildFlipState = makeNestedState(flipFrame, flipTriangle as unknown as Rectangle);
+frameAndChildFlipState.selectionByPage[frameAndChildFlipState.activePageId] = ["flip-frame", "flip-triangle"];
+resetStoreForRegression(frameAndChildFlipState);
+const framePointBefore = localPointToWorld(useStore.getState(), useStore.getState().nodesById["flip-frame"] as Frame, { x: 20, y: 30 });
+flipSelection("vertical", "panel_button");
+const rootFlippedFrame = useStore.getState().nodesById["flip-frame"] as Frame;
+const nestedTriangle = useStore.getState().nodesById["flip-triangle"] as Polygon;
+const framePointAfter = localPointToWorld(useStore.getState(), rootFlippedFrame, { x: 20, y: 30 });
+assertMirroredPoint(framePointBefore, framePointAfter, { x: flipFrame.x + flipFrame.w / 2, y: flipFrame.y + flipFrame.h / 2 }, "vertical", "frame+child vertical flip should mirror the selected root frame");
+assert(nestedTriangle.scaleX === 1, "frame+child vertical flip should not additionally flip the nested child horizontally");
+assert(nestedTriangle.scaleY === 1, "frame+child vertical flip should not double-apply vertical flip to the nested child");
+assert(nestedTriangle.rotation === 0, "frame+child vertical flip should leave the nested child's own rotation untouched");
+
+const deleteUndoState = makeState({
+  ...rect,
+  id: "delete-undo-rect",
+  parentId: "page-1",
+  rotation: 0,
+});
+deleteUndoState.document.pages[0].children = [];
+deleteUndoState.nodesById = { [deleteUndoState.activePageId]: deleteUndoState.document.pages[0] };
+deleteUndoState.selectionByPage[deleteUndoState.activePageId] = [];
+resetStoreForRegression(deleteUndoState);
+dispatch({
+  id: makeOpId(),
+  timestamp: 0,
+  kind: "create_node",
+  pageId: deleteUndoState.activePageId,
+  parentId: deleteUndoState.activePageId,
+  indexInParent: 0,
+  node: { ...rect, id: "delete-undo-rect", parentId: deleteUndoState.activePageId, rotation: 0 },
+});
+useStore.setState((s) => {
+  s.selectionByPage[s.activePageId] = ["delete-undo-rect"];
+});
+deleteSelection("keyboard_canvas");
+assert(useStore.getState().document.pages[0].children.length === 0, "delete should remove the created layer before undo");
+undo();
+assert(
+  useStore.getState().document.pages[0].children.some((layer) => layer.id === "delete-undo-rect"),
+  "undo after deleting a freshly created layer should restore that layer",
+);
 
 const geom = selectionOutlineGeometry(makeState(rect));
 assert(geom.kind === "single_oriented", "rotated single selection should render an oriented outline");
