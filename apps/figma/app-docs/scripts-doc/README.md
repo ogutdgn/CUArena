@@ -120,7 +120,7 @@ old `test-verifier/qa_per_task` layout. The runner loads canonical tasks from
 |---|---|
 | `run_task.py` | Full pipeline: fetch live log via `GET /dev-log`, save it, score it against `delivery-1/<task>/verifier.py`, save and print result. Subcommand `export-log` exports without scoring. |
 | `score_log.py` | Score an existing saved log file against a `delivery-1/` task verifier. |
-| `qa_verifiers.py` | Smoke-test every `delivery-1/task_NN/verifier.py` against synthetic perfect/empty logs and flag CRASH / TOO STRICT / TOO LENIENT. |
+| `qa_verifiers.py` | QA every `delivery-1/task_NN/verifier.py` with 3 synthetic runs: CORRECT must score `1.0`, IMPROPER must score `<1.0`, and CORRECT+TRASH must score `<1.0`; flags `FAIL_CORRECT`, `FAIL_IMPROPER`, `FAIL_TRASH`, or `CRASH`. |
 | `qa_verifier_framework.py` | Smoke-test shared checker primitives that support newer mock features but may not be referenced by `delivery-1/` yet. |
 | `qa_per_task/_runner.py` | Run targeted or full delivery-1 stress batteries from `qa_per_task/task_NN.py` against the canonical `delivery-1/task_NN/verifier.py` files. |
 | `generate_delivery_1.py` | (Legacy) regenerator for `delivery-1/` package. |

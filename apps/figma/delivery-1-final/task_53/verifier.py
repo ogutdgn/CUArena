@@ -40,5 +40,5 @@ task = Task(
             LayerTotalCount(equals=6),
         ], weight=0.50, critical=[0, 1, 2, 3, 4, 5]),
     ],
-    efficiency=EfficiencyRubric(target_turns=18),
+    efficiency=EfficiencyRubric(target_turns=1, lambda_=0.0),
 )

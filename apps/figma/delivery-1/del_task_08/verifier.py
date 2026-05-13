@@ -1,4 +1,4 @@
-"""Task 07 — Layered mountain range (end-state only)."""
+"""Task 08 — Layered water waves (end-state only)."""
 
 from verifier.types import Task
 from verifier.rubrics.fundamentals import FundamentalsRubric
@@ -8,8 +8,8 @@ from verifier.rubrics.structure import StructureRubric
 from verifier.rubrics.efficiency import EfficiencyRubric
 
 from verifier.checks.shape_checks import ShapeCount
-from verifier.checks.geometry_checks import LayersOverlap, LayerAspectRatioGreaterThan
-from verifier.checks.fill_checks import FillTypeIs, DistinctSolidColors, AllSolidColorsNearGray
+from verifier.checks.geometry_checks import LayerAspectRatioGreaterThan, VectorsCurvedCountAtLeast
+from verifier.checks.stroke_checks import DistinctStrokeColors, AllStrokeWeightsEqual
 from verifier.checks.structure_checks import (
     LayerInsideFrame,
     ChildCount,
@@ -19,23 +19,22 @@ from verifier.checks.structure_checks import (
 
 
 task = Task(
-    id="task_07_mountain_range",
-    description="Two overlapping mountain vector paths in different gray shades.",
+    id="task_08_water_waves",
+    description="Two smooth Bezier wave vectors in different blue shades.",
     rubrics=[
         FundamentalsRubric([
             ShapeCount("vector", equals=2),
         ], weight=0.25, critical=[0]),
 
         AlignmentRubric([
-            LayersOverlap(type_a="vector", type_b="vector"),
-            LayerAspectRatioGreaterThan(layer_type="vector", ratio=1.8, axis="horizontal"),
+            LayerAspectRatioGreaterThan(layer_type="vector", ratio=2.0, axis="horizontal"),
+            VectorsCurvedCountAtLeast(minimum=2),
         ], weight=0.25, critical=[0, 1]),
 
         ColorRubric([
-            FillTypeIs("vector", kind="solid"),
-            DistinctSolidColors(minimum=2, tolerance=0.12),
-            AllSolidColorsNearGray(layer_type="vector", tolerance=0.14),
-        ], weight=0.25, critical=[0, 1, 2]),
+            DistinctStrokeColors(minimum=2, tolerance=0.12),
+            AllStrokeWeightsEqual(layer_type="vector", weight=4.0, tolerance=2.0),
+        ], weight=0.25, critical=[0, 1]),
 
         StructureRubric([
             LayerInsideFrame("vector"),

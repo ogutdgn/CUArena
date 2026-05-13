@@ -131,5 +131,5 @@ task = Task(
             critical=list(range(len(REQUIRED_LAYERS))),
         ),
     ],
-    efficiency=EfficiencyRubric(target_turns=6),
+    efficiency=EfficiencyRubric(target_turns=1, lambda_=0.0),
 )

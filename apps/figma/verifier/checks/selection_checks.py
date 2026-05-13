@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from verifier.types import CheckResult
 from verifier.math_utils import find_all_layers

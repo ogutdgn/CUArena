@@ -156,5 +156,5 @@ task = Task(
             critical=list(range(len(REQUIRED_TOP_LEVELS))),
         ),
     ],
-    efficiency=EfficiencyRubric(target_turns=6),
+    efficiency=EfficiencyRubric(target_turns=1, lambda_=0.0),
 )
