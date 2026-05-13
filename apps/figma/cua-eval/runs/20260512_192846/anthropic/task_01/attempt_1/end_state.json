@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_57eaed0d-8872-472b-b6cc-bd8ab1b924ed",
+  "exportedAt": 1778639607730,
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_57eaed0d-8872-472b-b6cc-bd8ab1b924ed",
+    "capturedAt": 1778639597794,
+    "activePageId": "page_mp3fxlab_1_8k03yt",
+    "selectedLayerIds": [],
+    "summary": {
+      "semanticEventCount": 51,
+      "shapeCounts": {
+        "frame": 1,
+        "rectangle": 2,
+        "polygon": 1,
+        "ellipse": 2
+      }
+    },
+    "document": {
+      "id": "doc_mp3fxlab_2_uh3e7t",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3fxlab_1_8k03yt",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "frame_mp3fy35x_32_52fbch",
+              "parentId": "page_mp3fxlab_1_8k03yt",
+              "type": "frame",
+              "name": "MacBook Air",
+              "x": -640,
+              "y": -416,
+              "w": 1280,
+              "h": 832,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.92,
+                    "g": 0.92,
+                    "b": 0.92,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": [],
+              "cornerRadius": 0,
+              "clipsContent": true,
+              "children": [
+                {
+                  "id": "rect_mp3fyb4c_58_k0iu0d",
+                  "parentId": "frame_mp3fy35x_32_52fbch",
+                  "x": 440,
+                  "y": 366,
+                  "w": 280,
+                  "h": 230,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 1",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.8,
+                        "g": 0.7221350078492936,
+                        "b": 0.5714285714285715,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "polygon_mp3fz67a_120_c02ind",
+                  "parentId": "frame_mp3fy35x_32_52fbch",
+                  "x": 420,
+                  "y": 296,
+                  "w": 320,
+                  "h": 85,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "polygon",
+                  "name": "Polygon 1",
+                  "sides": 3,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.5466666666666666,
+                        "g": 0.045938375350140115,
+                        "b": 0.045938375350140115,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "rect_mp3fzpdi_162_yimdto",
+                  "parentId": "frame_mp3fy35x_32_52fbch",
+                  "x": 550,
+                  "y": 456,
+                  "w": 60,
+                  "h": 120,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "rectangle",
+                  "name": "Rectangle 2",
+                  "cornerRadius": 0,
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.19999999999999996,
+                        "g": 0.1857789269553975,
+                        "b": 0.17647058823529407,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": []
+                },
+                {
+                  "id": "ellipse_mp3g0fu9_211_z7ni2g",
+                  "parentId": "frame_mp3fy35x_32_52fbch",
+                  "x": 475,
+                  "y": 421,
+                  "w": 40,
+                  "h": 40,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 1",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.1355742296918767,
+                        "g": 0.8066666666666666,
+                        "b": 0.6517991812109458,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                },
+                {
+                  "id": "ellipse_mp3g14zw_260_is6fz8",
+                  "parentId": "frame_mp3fy35x_32_52fbch",
+                  "x": 645,
+                  "y": 421,
+                  "w": 40,
+                  "h": 40,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "visible": true,
+                  "locked": false,
+                  "opacity": 1,
+                  "constraints": {
+                    "horizontal": "left",
+                    "vertical": "top"
+                  },
+                  "type": "ellipse",
+                  "name": "Ellipse 2",
+                  "fills": [
+                    {
+                      "kind": "solid",
+                      "color": {
+                        "r": 0.7307482993197278,
+                        "g": 0.8733333333333333,
+                        "b": 0.11008403361344532,
+                        "a": 1
+                      },
+                      "opacity": 1,
+                      "visible": true
+                    }
+                  ],
+                  "strokes": [],
+                  "effects": [],
+                  "arcStartAngle": 0,
+                  "arcEndAngle": 360,
+                  "innerRadius": 0
+                }
+              ]
+            }
+          ],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "raw_event_count": 242,
+  "semantic_event_count": 51
+}

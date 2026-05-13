@@ -1,0 +1,30 @@
+[
+  {
+    "task_id": "task_02_sunset_gradient",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-5",
+    "final_score": 0.0937,
+    "base_score": 0.0937,
+    "max_score": 1.0,
+    "efficiency": 1.0,
+    "passed": false,
+    "turns": 38,
+    "stop_reason": "done",
+    "error": null,
+    "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_213058/anthropic/task_02/attempt_1/log.json",
+    "score_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_213058/anthropic/task_02/attempt_1/score.json",
+    "trajectory_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_213058/anthropic/task_02/attempt_1/trajectory.json",
+    "usage": {
+      "input_tokens": 330413,
+      "output_tokens": 5393
+    },
+    "cost_estimate": {
+      "input_usd": 0.991239,
+      "output_usd": 0.080895,
+      "total_usd": 1.072134,
+      "input_rate_per_mtok_usd": 3.0,
+      "output_rate_per_mtok_usd": 15.0
+    },
+    "elapsed_s": 193.55
+  }
+]

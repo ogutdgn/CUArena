@@ -1,0 +1,79 @@
+{
+  "task_id": "task_05_red_heart_union",
+  "log_path": "/Users/v/Repos/figma-mock/apps/figma/cua-eval/runs/20260512_195752/anthropic/task_05/attempt_1/log.json",
+  "rubrics": [
+    {
+      "name": "fundamentals",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle: expected 2, got 2"
+        }
+      ]
+    },
+    {
+      "name": "alignment",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle aligned on center_x: max diff 0.0px (tolerance 25.0px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle aligned on center_y: max diff 0.0px (tolerance 25.0px)"
+        },
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "rectangle: 1 horizontal, 1 vertical (need \u22651H, \u22651V at ratio\u22652.0)"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "All 2 rectangle share one color"
+        }
+      ]
+    },
+    {
+      "name": "structure",
+      "score": 0.25,
+      "max_score": 0.25,
+      "checks": [
+        {
+          "passed": true,
+          "score": 1.0,
+          "max_score": 1.0,
+          "message": "No unexpected layer types (allowed: ['frame', 'rectangle'])"
+        }
+      ]
+    }
+  ],
+  "base_score": 1.0,
+  "efficiency": {
+    "multiplier": 1.0,
+    "actual_turns": 11,
+    "target_turns": 1,
+    "lambda_used": 0.0,
+    "message": "11 turns used, target 1, \u03bb=0.0 \u2192 multiplier 1.0"
+  },
+  "final_score": 1.0
+}

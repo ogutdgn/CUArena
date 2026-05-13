@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+  "exportedAt": 1778641109337,
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_081b347a-6925-4f10-bb72-d50869e40345",
+    "capturedAt": 1778641103619,
+    "activePageId": "page_mp3gz0h5_1_0dx9th",
+    "selectedLayerIds": [],
+    "summary": {
+      "semanticEventCount": 11,
+      "shapeCounts": {
+        "rectangle": 2
+      }
+    },
+    "document": {
+      "id": "doc_mp3gz0h5_2_b2eeqo",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3gz0h5_1_0dx9th",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "rect_mp3gz9wf_29_3xgxij",
+              "parentId": "page_mp3gz0h5_1_0dx9th",
+              "x": -190,
+              "y": -20,
+              "w": 340,
+              "h": 50,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 1",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.851,
+                    "g": 0.851,
+                    "b": 0.851,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            },
+            {
+              "id": "rect_mp3gzi00_63_1qpp4d",
+              "parentId": "page_mp3gz0h5_1_0dx9th",
+              "x": -45,
+              "y": -165,
+              "w": 50,
+              "h": 340,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 2",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.851,
+                    "g": 0.851,
+                    "b": 0.851,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            }
+          ],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "raw_event_count": 49,
+  "semantic_event_count": 11
+}
