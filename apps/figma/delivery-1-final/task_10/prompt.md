@@ -1,0 +1,6 @@
+**Difficulty:** Easy
+
+## Prompt
+
+Draw 4 same-style nested squares of decreasing size, all sharing the same center, alternating two colors (outermost color A, next color B, next A, innermost B). Use alignment buttons to center them perfectly.
+
