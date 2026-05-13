@@ -1,0 +1,5 @@
+**Difficulty:** Easy
+
+## Prompt
+
+A scene contains a mix of colored shapes scattered across the canvas: blue rectangles, red rectangles, yellow rectangles, red circles, and pink stars. Some shapes overlap the blue rectangles, so the agent may need to click on a blue shape to confirm it is a rectangle rather than another shape type hidden underneath. Along the bottom of the frame is a row of 8 number labels (1–8). The agent must count how many blue rectangles are in the scene, then click the number label corresponding to that count.

@@ -1,0 +1,5 @@
+**Difficulty:** Easy
+
+## Prompt
+
+A scene contains several plain colored shapes scattered across the canvas and one gift box. The gift box is the only composite object — it is made of a colored rectangle (the box body) with two crossing ribbon strips and an oval bow on top. The other shapes are simple solid-colored rectangles of various sizes and colors. The agent must find the gift box and click on it.
