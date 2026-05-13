@@ -1,0 +1,7084 @@
+{
+  "schemaVersion": 1,
+  "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+  "exportedAt": 1778643037103,
+  "raw": [
+    {
+      "eventId": "raw_mp3hyrfu_4_qfkkla",
+      "type": "pointermove",
+      "timestamp": 232.80000001192093,
+      "sessionTime": 9,
+      "fields": {
+        "clientX": 1066.625,
+        "clientY": 447.05859375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyrh0_5_2yc9a7",
+      "type": "pointermove",
+      "timestamp": 274.80000001192093,
+      "sessionTime": 51,
+      "fields": {
+        "clientX": 1110.796875,
+        "clientY": 473.28515625,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyrhf_6_jr4to9",
+      "type": "pointermove",
+      "timestamp": 289.30000001192093,
+      "sessionTime": 65.5,
+      "fields": {
+        "clientX": 1146.6640625,
+        "clientY": 478.18359375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyrhv_7_ie0lhg",
+      "type": "pointermove",
+      "timestamp": 305.5,
+      "sessionTime": 81.69999998807907,
+      "fields": {
+        "clientX": 1193.1640625,
+        "clientY": 478.18359375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyrvk_8_kaf2jt",
+      "type": "pointermove",
+      "timestamp": 798,
+      "sessionTime": 574.1999999880791,
+      "fields": {
+        "clientX": 1259.625,
+        "clientY": 470.3125,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hys3n_9_06cjos",
+      "type": "pointermove",
+      "timestamp": 1089.4000000059605,
+      "sessionTime": 865.5999999940395,
+      "fields": {
+        "clientX": 667.5546875,
+        "clientY": 712.4375,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyukc_10_mnk1gj",
+      "type": "pointerdown",
+      "timestamp": 4282.600000023842,
+      "sessionTime": 4058.800000011921,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyukd_11_522v06",
+      "type": "pointerup",
+      "timestamp": 4283.700000017881,
+      "sessionTime": 4059.9000000059605,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyukd_12_haetzo",
+      "type": "click",
+      "timestamp": 4283.9000000059605,
+      "sessionTime": 4060.0999999940395,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyuki_15_y2yzyq",
+      "type": "pointermove",
+      "timestamp": 4288.600000023842,
+      "sessionTime": 4064.800000011921,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyx7u_16_lnzdfo",
+      "type": "keydown",
+      "timestamp": 7720.600000023842,
+      "sessionTime": 7496.800000011921,
+      "fields": {
+        "key": "r",
+        "code": "KeyR",
+        "repeat": false,
+        "targetTag": "BUTTON"
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hyx7x_17_lc1sw5",
+      "type": "keyup",
+      "timestamp": 7723.5,
+      "sessionTime": 7499.699999988079,
+      "fields": {
+        "key": "r",
+        "code": "KeyR"
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0up_18_m382bq",
+      "type": "pointermove",
+      "timestamp": 12431,
+      "sessionTime": 12207.199999988079,
+      "fields": {
+        "clientX": 400,
+        "clientY": 250,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0ut_19_w6v8q2",
+      "type": "pointerdown",
+      "timestamp": 12435.40000000596,
+      "sessionTime": 12211.59999999404,
+      "fields": {
+        "clientX": 400,
+        "clientY": 250,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0vi_20_sx5y4p",
+      "type": "pointermove",
+      "timestamp": 12460.300000011921,
+      "sessionTime": 12236.5,
+      "fields": {
+        "clientX": 430,
+        "clientY": 280,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0vw_21_a066y6",
+      "type": "pointermove",
+      "timestamp": 12474.200000017881,
+      "sessionTime": 12250.40000000596,
+      "fields": {
+        "clientX": 460,
+        "clientY": 310,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0wb_22_a9zzsu",
+      "type": "pointermove",
+      "timestamp": 12489.700000017881,
+      "sessionTime": 12265.90000000596,
+      "fields": {
+        "clientX": 490,
+        "clientY": 340,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0ws_23_8nzlzv",
+      "type": "pointermove",
+      "timestamp": 12506.800000011921,
+      "sessionTime": 12283,
+      "fields": {
+        "clientX": 520,
+        "clientY": 370,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0x9_24_9foanf",
+      "type": "pointermove",
+      "timestamp": 12523.40000000596,
+      "sessionTime": 12299.59999999404,
+      "fields": {
+        "clientX": 550,
+        "clientY": 400,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0xr_25_dbd30k",
+      "type": "pointermove",
+      "timestamp": 12541.300000011921,
+      "sessionTime": 12317.5,
+      "fields": {
+        "clientX": 580,
+        "clientY": 430,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0y8_26_n1ptbb",
+      "type": "pointermove",
+      "timestamp": 12558.300000011921,
+      "sessionTime": 12334.5,
+      "fields": {
+        "clientX": 610,
+        "clientY": 460,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0yp_27_gplz8u",
+      "type": "pointermove",
+      "timestamp": 12574.90000000596,
+      "sessionTime": 12351.09999999404,
+      "fields": {
+        "clientX": 640,
+        "clientY": 490,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0z5_28_s8ttd1",
+      "type": "pointermove",
+      "timestamp": 12591.5,
+      "sessionTime": 12367.699999988079,
+      "fields": {
+        "clientX": 670,
+        "clientY": 520,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0zm_29_7hw1j2",
+      "type": "pointermove",
+      "timestamp": 12608.5,
+      "sessionTime": 12384.699999988079,
+      "fields": {
+        "clientX": 700,
+        "clientY": 550,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz0zq_30_0vo3ex",
+      "type": "pointerup",
+      "timestamp": 12612.300000011921,
+      "sessionTime": 12388.5,
+      "fields": {
+        "clientX": 700,
+        "clientY": 550,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz10f_39_uhjjnm",
+      "type": "click",
+      "timestamp": 12637.200000017881,
+      "sessionTime": 12413.40000000596,
+      "fields": {
+        "clientX": 700,
+        "clientY": 550,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz4p9_40_nycwrl",
+      "type": "pointerdown",
+      "timestamp": 17419.5,
+      "sessionTime": 17195.69999998808,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz4p9_41_4q5drv",
+      "type": "pointerup",
+      "timestamp": 17419.80000001192,
+      "sessionTime": 17196,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz4pa_42_spaxw1",
+      "type": "click",
+      "timestamp": 17419.90000000596,
+      "sessionTime": 17196.09999999404,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hz4pd_43_9hbsan",
+      "type": "pointermove",
+      "timestamp": 17423.20000001788,
+      "sessionTime": 17199.40000000596,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzaxs_44_p03fr0",
+      "type": "pointerdown",
+      "timestamp": 25502,
+      "sessionTime": 25278.19999998808,
+      "fields": {
+        "clientX": 966,
+        "clientY": 451,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzaxx_48_zhpnm7",
+      "type": "pointerup",
+      "timestamp": 25507.40000000596,
+      "sessionTime": 25283.59999999404,
+      "fields": {
+        "clientX": 966,
+        "clientY": 451,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzaxz_49_ozin73",
+      "type": "click",
+      "timestamp": 25509.5,
+      "sessionTime": 25285.69999998808,
+      "fields": {
+        "clientX": 966,
+        "clientY": 451,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzaxz_50_8p1ohx",
+      "type": "pointermove",
+      "timestamp": 25509.600000023842,
+      "sessionTime": 25285.80000001192,
+      "fields": {
+        "clientX": 966,
+        "clientY": 451,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzg1r_51_v70pdr",
+      "type": "pointerdown",
+      "timestamp": 32124.80000001192,
+      "sessionTime": 31901,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzg1y_55_mv978d",
+      "type": "pointerup",
+      "timestamp": 32131.80000001192,
+      "sessionTime": 31908,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzg22_56_a9lt8a",
+      "type": "click",
+      "timestamp": 32136.30000001192,
+      "sessionTime": 31912.5,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzg22_57_vwkhc5",
+      "type": "pointermove",
+      "timestamp": 32136.40000000596,
+      "sessionTime": 31912.59999999404,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzjhx_58_7ueawt",
+      "type": "pointerdown",
+      "timestamp": 36595,
+      "sessionTime": 36371.19999998808,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzjhx_59_d3wfea",
+      "type": "pointerup",
+      "timestamp": 36595.5,
+      "sessionTime": 36371.69999998808,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzjhx_60_kahi1k",
+      "type": "click",
+      "timestamp": 36595.60000002384,
+      "sessionTime": 36371.80000001192,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzji0_61_6xfq7l",
+      "type": "pointermove",
+      "timestamp": 36598.10000002384,
+      "sessionTime": 36374.30000001192,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznji_62_9z1sz8",
+      "type": "pointermove",
+      "timestamp": 41836.60000002384,
+      "sessionTime": 41612.80000001192,
+      "fields": {
+        "clientX": 435,
+        "clientY": 285,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznjm_63_fz6gd1",
+      "type": "pointerdown",
+      "timestamp": 41839.80000001192,
+      "sessionTime": 41616,
+      "fields": {
+        "clientX": 435,
+        "clientY": 285,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznk8_66_rvvphm",
+      "type": "pointermove",
+      "timestamp": 41862.5,
+      "sessionTime": 41638.69999998808,
+      "fields": {
+        "clientX": 458,
+        "clientY": 308,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznkm_68_rya7b8",
+      "type": "pointermove",
+      "timestamp": 41875.80000001192,
+      "sessionTime": 41652,
+      "fields": {
+        "clientX": 481,
+        "clientY": 331,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznl1_70_p2dx5w",
+      "type": "pointermove",
+      "timestamp": 41891.30000001192,
+      "sessionTime": 41667.5,
+      "fields": {
+        "clientX": 504,
+        "clientY": 354,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznlj_72_axafed",
+      "type": "pointermove",
+      "timestamp": 41909,
+      "sessionTime": 41685.19999998808,
+      "fields": {
+        "clientX": 527,
+        "clientY": 377,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznly_74_26g0hy",
+      "type": "pointermove",
+      "timestamp": 41924.30000001192,
+      "sessionTime": 41700.5,
+      "fields": {
+        "clientX": 550,
+        "clientY": 400,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznmg_76_ot2o3d",
+      "type": "pointermove",
+      "timestamp": 41941.80000001192,
+      "sessionTime": 41718,
+      "fields": {
+        "clientX": 573,
+        "clientY": 423,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznmw_78_d1fmwh",
+      "type": "pointermove",
+      "timestamp": 41957.90000000596,
+      "sessionTime": 41734.09999999404,
+      "fields": {
+        "clientX": 596,
+        "clientY": 446,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznnd_80_whk95x",
+      "type": "pointermove",
+      "timestamp": 41975.40000000596,
+      "sessionTime": 41751.59999999404,
+      "fields": {
+        "clientX": 619,
+        "clientY": 469,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznns_82_loud9k",
+      "type": "pointermove",
+      "timestamp": 41990.40000000596,
+      "sessionTime": 41766.59999999404,
+      "fields": {
+        "clientX": 642,
+        "clientY": 492,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznoa_84_5430ey",
+      "type": "pointermove",
+      "timestamp": 42008.20000001788,
+      "sessionTime": 41784.40000000596,
+      "fields": {
+        "clientX": 665,
+        "clientY": 515,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznod_85_bq1k9d",
+      "type": "pointerup",
+      "timestamp": 42011.10000002384,
+      "sessionTime": 41787.30000001192,
+      "fields": {
+        "clientX": 665,
+        "clientY": 515,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hznog_87_l05jyd",
+      "type": "click",
+      "timestamp": 42013.90000000596,
+      "sessionTime": 41790.09999999404,
+      "fields": {
+        "clientX": 665,
+        "clientY": 515,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzs6t_88_jsimce",
+      "type": "keydown",
+      "timestamp": 47859,
+      "sessionTime": 47635.19999998808,
+      "fields": {
+        "key": "Escape",
+        "code": "Escape",
+        "repeat": false,
+        "targetTag": "BODY"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzs70_92_ybi9n2",
+      "type": "keyup",
+      "timestamp": 47866.20000001788,
+      "sessionTime": 47642.40000000596,
+      "fields": {
+        "key": "Escape",
+        "code": "Escape"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzwm2_93_aj3z15",
+      "type": "pointerdown",
+      "timestamp": 53592.40000000596,
+      "sessionTime": 53368.59999999404,
+      "fields": {
+        "clientX": 780,
+        "clientY": 610,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzwme_97_8upcqx",
+      "type": "pointerup",
+      "timestamp": 53603.90000000596,
+      "sessionTime": 53380.09999999404,
+      "fields": {
+        "clientX": 780,
+        "clientY": 610,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzwme_98_7xtqys",
+      "type": "click",
+      "timestamp": 53604.10000002384,
+      "sessionTime": 53380.30000001192,
+      "fields": {
+        "clientX": 780,
+        "clientY": 610,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3hzwme_99_30h2dy",
+      "type": "pointermove",
+      "timestamp": 53604.30000001192,
+      "sessionTime": 53380.5,
+      "fields": {
+        "clientX": 780,
+        "clientY": 610,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i00ax_100_yn52sy",
+      "type": "pointerdown",
+      "timestamp": 58374.5,
+      "sessionTime": 58150.69999998808,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i00ax_101_9lcrov",
+      "type": "pointerup",
+      "timestamp": 58375,
+      "sessionTime": 58151.19999998808,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i00ax_102_j88bi1",
+      "type": "click",
+      "timestamp": 58375,
+      "sessionTime": 58151.19999998808,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i00b5_105_pbtq4l",
+      "type": "pointermove",
+      "timestamp": 58382.80000001192,
+      "sessionTime": 58159,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04r2_106_ztel9l",
+      "type": "pointermove",
+      "timestamp": 64140.40000000596,
+      "sessionTime": 63916.59999999404,
+      "fields": {
+        "clientX": 460,
+        "clientY": 310,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04r5_107_59f9im",
+      "type": "pointerdown",
+      "timestamp": 64143,
+      "sessionTime": 63919.19999998808,
+      "fields": {
+        "clientX": 460,
+        "clientY": 310,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04rn_108_ng6993",
+      "type": "pointermove",
+      "timestamp": 64161.30000001192,
+      "sessionTime": 63937.5,
+      "fields": {
+        "clientX": 484,
+        "clientY": 334,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04rz_109_yf150n",
+      "type": "pointermove",
+      "timestamp": 64173.10000002384,
+      "sessionTime": 63949.30000001192,
+      "fields": {
+        "clientX": 508,
+        "clientY": 358,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04sg_110_d6nrt8",
+      "type": "pointermove",
+      "timestamp": 64189.70000001788,
+      "sessionTime": 63965.90000000596,
+      "fields": {
+        "clientX": 532,
+        "clientY": 382,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04sx_111_n2zg4p",
+      "type": "pointermove",
+      "timestamp": 64206.70000001788,
+      "sessionTime": 63982.90000000596,
+      "fields": {
+        "clientX": 556,
+        "clientY": 406,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04te_112_r1f164",
+      "type": "pointermove",
+      "timestamp": 64223.70000001788,
+      "sessionTime": 63999.90000000596,
+      "fields": {
+        "clientX": 580,
+        "clientY": 430,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04tv_113_pp0l01",
+      "type": "pointermove",
+      "timestamp": 64241,
+      "sessionTime": 64017.30000001192,
+      "fields": {
+        "clientX": 604,
+        "clientY": 454,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04uh_114_4l9set",
+      "type": "pointermove",
+      "timestamp": 64262.70000001788,
+      "sessionTime": 64038.90000000596,
+      "fields": {
+        "clientX": 628,
+        "clientY": 478,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04ur_115_d19zbb",
+      "type": "pointermove",
+      "timestamp": 64273.40000000596,
+      "sessionTime": 64049.59999999404,
+      "fields": {
+        "clientX": 652,
+        "clientY": 502,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04v8_116_fjzwa0",
+      "type": "pointermove",
+      "timestamp": 64289.80000001192,
+      "sessionTime": 64066,
+      "fields": {
+        "clientX": 676,
+        "clientY": 526,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04vp_117_myymei",
+      "type": "pointermove",
+      "timestamp": 64306.5,
+      "sessionTime": 64082.69999998808,
+      "fields": {
+        "clientX": 700,
+        "clientY": 550,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04vq_118_kqt23q",
+      "type": "pointerup",
+      "timestamp": 64308.20000001788,
+      "sessionTime": 64084.40000000596,
+      "fields": {
+        "clientX": 700,
+        "clientY": 550,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i04vu_127_79esa8",
+      "type": "click",
+      "timestamp": 64311.5,
+      "sessionTime": 64087.69999998808,
+      "fields": {
+        "clientX": 700,
+        "clientY": 550,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i091p_128_0bcprm",
+      "type": "pointerdown",
+      "timestamp": 69707.40000000596,
+      "sessionTime": 69483.59999999404,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i091q_129_5qplw3",
+      "type": "pointerup",
+      "timestamp": 69708,
+      "sessionTime": 69484.19999998808,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i091q_130_hjjlm4",
+      "type": "click",
+      "timestamp": 69708.10000002384,
+      "sessionTime": 69484.30000001192,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i091v_131_mmhnar",
+      "type": "pointermove",
+      "timestamp": 69712.60000002384,
+      "sessionTime": 69488.80000001192,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0cdk_132_fi94df",
+      "type": "pointerdown",
+      "timestamp": 74022,
+      "sessionTime": 73798.19999998808,
+      "fields": {
+        "clientX": 893,
+        "clientY": 451,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0cds_136_2rk0k7",
+      "type": "pointerup",
+      "timestamp": 74030,
+      "sessionTime": 73806.19999998808,
+      "fields": {
+        "clientX": 893,
+        "clientY": 451,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0cdy_137_bp6007",
+      "type": "click",
+      "timestamp": 74035.80000001192,
+      "sessionTime": 73812,
+      "fields": {
+        "clientX": 893,
+        "clientY": 451,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0cdy_138_7y2e2z",
+      "type": "pointermove",
+      "timestamp": 74036.10000002384,
+      "sessionTime": 73812.30000001192,
+      "fields": {
+        "clientX": 893,
+        "clientY": 451,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0fl4_139_3vnyhx",
+      "type": "pointerdown",
+      "timestamp": 78182.10000002384,
+      "sessionTime": 77958.30000001192,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0fle_143_o9nkch",
+      "type": "pointerup",
+      "timestamp": 78191.60000002384,
+      "sessionTime": 77967.80000001192,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0flj_144_4s8r62",
+      "type": "click",
+      "timestamp": 78196.80000001192,
+      "sessionTime": 77973,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0flj_145_5dujt1",
+      "type": "pointermove",
+      "timestamp": 78196.90000000596,
+      "sessionTime": 77973.09999999404,
+      "fields": {
+        "clientX": 1030,
+        "clientY": 300,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0ix9_146_wl12bn",
+      "type": "pointerdown",
+      "timestamp": 82507.30000001192,
+      "sessionTime": 82283.5,
+      "fields": {
+        "clientX": 865,
+        "clientY": 451,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0ixi_150_jyrhir",
+      "type": "pointerup",
+      "timestamp": 82516,
+      "sessionTime": 82292.19999998808,
+      "fields": {
+        "clientX": 865,
+        "clientY": 451,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0ixn_151_0nth7x",
+      "type": "click",
+      "timestamp": 82521,
+      "sessionTime": 82297.19999998808,
+      "fields": {
+        "clientX": 865,
+        "clientY": 451,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0ixn_152_33idvf",
+      "type": "pointermove",
+      "timestamp": 82521,
+      "sessionTime": 82297.19999998808,
+      "fields": {
+        "clientX": 865,
+        "clientY": 451,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0msn_153_1a4b7i",
+      "type": "pointerdown",
+      "timestamp": 87524.80000001192,
+      "sessionTime": 87301,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0mso_154_0ffvze",
+      "type": "pointerup",
+      "timestamp": 87525.40000000596,
+      "sessionTime": 87301.59999999404,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0mso_155_2wm5i4",
+      "type": "click",
+      "timestamp": 87525.5,
+      "sessionTime": 87301.69999998808,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0msq_156_ppgbn2",
+      "type": "pointermove",
+      "timestamp": 87527.70000001788,
+      "sessionTime": 87303.90000000596,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0qet_157_h0didq",
+      "type": "pointerdown",
+      "timestamp": 92210.90000000596,
+      "sessionTime": 91987.09999999404,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0qet_158_fgy2fk",
+      "type": "pointerup",
+      "timestamp": 92211.20000001788,
+      "sessionTime": 91987.40000000596,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0qeu_159_nbo3az",
+      "type": "click",
+      "timestamp": 92211.20000001788,
+      "sessionTime": 91987.40000000596,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0qf0_162_r7v7yy",
+      "type": "pointermove",
+      "timestamp": 92218.10000002384,
+      "sessionTime": 91994.30000001192,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tu9_163_94i29d",
+      "type": "pointermove",
+      "timestamp": 96654.90000000596,
+      "sessionTime": 96431.09999999404,
+      "fields": {
+        "clientX": 490,
+        "clientY": 340,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3i04vq_120_ut45is",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tub_164_hd5u7x",
+      "type": "pointerdown",
+      "timestamp": 96656.5,
+      "sessionTime": 96432.69999998808,
+      "fields": {
+        "clientX": 490,
+        "clientY": 340,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3i04vq_120_ut45is",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tut_165_6mo1np",
+      "type": "pointermove",
+      "timestamp": 96674.90000000596,
+      "sessionTime": 96451.09999999404,
+      "fields": {
+        "clientX": 508,
+        "clientY": 358,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tv9_166_umdhl8",
+      "type": "pointermove",
+      "timestamp": 96690.60000002384,
+      "sessionTime": 96466.80000001192,
+      "fields": {
+        "clientX": 526,
+        "clientY": 376,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tvo_167_1zrrsd",
+      "type": "pointermove",
+      "timestamp": 96705.60000002384,
+      "sessionTime": 96481.80000001192,
+      "fields": {
+        "clientX": 544,
+        "clientY": 394,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tw5_168_n1jrv6",
+      "type": "pointermove",
+      "timestamp": 96722.70000001788,
+      "sessionTime": 96498.90000000596,
+      "fields": {
+        "clientX": 562,
+        "clientY": 412,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0two_169_o2tdhd",
+      "type": "pointermove",
+      "timestamp": 96741.20000001788,
+      "sessionTime": 96517.40000000596,
+      "fields": {
+        "clientX": 580,
+        "clientY": 430,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tx4_170_264un6",
+      "type": "pointermove",
+      "timestamp": 96757.30000001192,
+      "sessionTime": 96533.5,
+      "fields": {
+        "clientX": 598,
+        "clientY": 448,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0txj_171_09aj33",
+      "type": "pointermove",
+      "timestamp": 96772.80000001192,
+      "sessionTime": 96549,
+      "fields": {
+        "clientX": 616,
+        "clientY": 466,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0ty0_172_ij8wtf",
+      "type": "pointermove",
+      "timestamp": 96789.70000001788,
+      "sessionTime": 96565.90000000596,
+      "fields": {
+        "clientX": 634,
+        "clientY": 484,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tyg_173_z0dp1h",
+      "type": "pointermove",
+      "timestamp": 96806.20000001788,
+      "sessionTime": 96582.40000000596,
+      "fields": {
+        "clientX": 652,
+        "clientY": 502,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tyx_174_jz1mn5",
+      "type": "pointermove",
+      "timestamp": 96822.80000001192,
+      "sessionTime": 96599,
+      "fields": {
+        "clientX": 670,
+        "clientY": 520,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tyz_175_c0xt33",
+      "type": "pointerup",
+      "timestamp": 96824.70000001788,
+      "sessionTime": 96600.90000000596,
+      "fields": {
+        "clientX": 670,
+        "clientY": 520,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0tz3_184_3qzfwa",
+      "type": "click",
+      "timestamp": 96828.5,
+      "sessionTime": 96604.69999998808,
+      "fields": {
+        "clientX": 670,
+        "clientY": 520,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0xvp_185_49k9mw",
+      "type": "pointerdown",
+      "timestamp": 101890.20000001788,
+      "sessionTime": 101666.40000000596,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0xvp_186_h16flc",
+      "type": "pointerup",
+      "timestamp": 101891,
+      "sessionTime": 101667.19999998808,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0xvq_187_hth28d",
+      "type": "click",
+      "timestamp": 101891.10000002384,
+      "sessionTime": 101667.30000001192,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i0xvu_188_ys0cie",
+      "type": "pointermove",
+      "timestamp": 101895.80000001192,
+      "sessionTime": 101672,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wv_189_qtzid4",
+      "type": "pointerdown",
+      "timestamp": 107116.20000001788,
+      "sessionTime": 106892.40000000596,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wx_190_5ojd03",
+      "type": "pointerup",
+      "timestamp": 107118.10000002384,
+      "sessionTime": 106894.30000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wx_191_jzqubl",
+      "type": "click",
+      "timestamp": 107118.60000002384,
+      "sessionTime": 106894.80000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wx_192_1fnuno",
+      "type": "pointerdown",
+      "timestamp": 107118.80000001192,
+      "sessionTime": 106895,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wy_193_ml9l5e",
+      "type": "pointerup",
+      "timestamp": 107119.70000001788,
+      "sessionTime": 106895.90000000596,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wy_194_a4sd88",
+      "type": "click",
+      "timestamp": 107119.90000000596,
+      "sessionTime": 106896.09999999404,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wy_195_l2wbm5",
+      "type": "dblclick",
+      "timestamp": 107120,
+      "sessionTime": 106896.19999998808,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wz_196_gruuno",
+      "type": "pointerdown",
+      "timestamp": 107120.10000002384,
+      "sessionTime": 106896.30000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wz_197_k99a46",
+      "type": "pointerup",
+      "timestamp": 107120.60000002384,
+      "sessionTime": 106896.80000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wz_198_s7h2u2",
+      "type": "click",
+      "timestamp": 107120.60000002384,
+      "sessionTime": 106896.80000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i11wz_199_zqcbml",
+      "type": "pointermove",
+      "timestamp": 107120.90000000596,
+      "sessionTime": 106897.09999999404,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15du_200_8fk13g",
+      "type": "keydown",
+      "timestamp": 111615.90000000596,
+      "sessionTime": 111392.09999999404,
+      "fields": {
+        "key": "1",
+        "code": "Digit1",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15ea_201_o8x76k",
+      "type": "keyup",
+      "timestamp": 111631.60000002384,
+      "sessionTime": 111407.80000001192,
+      "fields": {
+        "key": "1",
+        "code": "Digit1"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15eb_202_7ndarl",
+      "type": "keydown",
+      "timestamp": 111632.40000000596,
+      "sessionTime": 111408.59999999404,
+      "fields": {
+        "key": "3",
+        "code": "Digit3",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15eo_203_ll1u8z",
+      "type": "keyup",
+      "timestamp": 111645.30000001192,
+      "sessionTime": 111421.5,
+      "fields": {
+        "key": "3",
+        "code": "Digit3"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15ep_204_xk06oe",
+      "type": "keydown",
+      "timestamp": 111646.5,
+      "sessionTime": 111422.69999998808,
+      "fields": {
+        "key": "7",
+        "code": "Digit7",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15f2_205_kpbnoq",
+      "type": "keyup",
+      "timestamp": 111659.70000001788,
+      "sessionTime": 111435.90000000596,
+      "fields": {
+        "key": "7",
+        "code": "Digit7"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15f3_206_w6emfa",
+      "type": "keydown",
+      "timestamp": 111660.30000001192,
+      "sessionTime": 111436.5,
+      "fields": {
+        "key": "0",
+        "code": "Digit0",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15ff_207_okktw3",
+      "type": "keyup",
+      "timestamp": 111672.60000002384,
+      "sessionTime": 111448.80000001192,
+      "fields": {
+        "key": "0",
+        "code": "Digit0"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15ff_208_i4d0gg",
+      "type": "keydown",
+      "timestamp": 111673,
+      "sessionTime": 111449.19999998808,
+      "fields": {
+        "key": "E",
+        "code": "KeyE",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15fs_209_jptvmg",
+      "type": "keyup",
+      "timestamp": 111685.10000002384,
+      "sessionTime": 111461.30000001192,
+      "fields": {
+        "key": "E",
+        "code": "KeyE"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15fs_210_54ry2g",
+      "type": "keydown",
+      "timestamp": 111685.40000000596,
+      "sessionTime": 111461.59999999404,
+      "fields": {
+        "key": "6",
+        "code": "Digit6",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i15g4_211_pck6cd",
+      "type": "keyup",
+      "timestamp": 111697.20000001788,
+      "sessionTime": 111473.40000000596,
+      "fields": {
+        "key": "6",
+        "code": "Digit6"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i17xk_212_8skoib",
+      "type": "keydown",
+      "timestamp": 114917.70000001788,
+      "sessionTime": 114693.90000000596,
+      "fields": {
+        "key": "Enter",
+        "code": "Enter",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i17xx_215_5yshef",
+      "type": "keyup",
+      "timestamp": 114930.10000002384,
+      "sessionTime": 114706.30000001192,
+      "fields": {
+        "key": "Enter",
+        "code": "Enter"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1c52_216_cjk5dt",
+      "type": "pointerdown",
+      "timestamp": 120371.40000000596,
+      "sessionTime": 120147.59999999404,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1c53_217_seee3k",
+      "type": "pointerup",
+      "timestamp": 120372.20000001788,
+      "sessionTime": 120148.40000000596,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1c53_218_337i6u",
+      "type": "click",
+      "timestamp": 120372.30000001192,
+      "sessionTime": 120148.5,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1c57_219_w02oym",
+      "type": "pointermove",
+      "timestamp": 120376.30000001192,
+      "sessionTime": 120152.5,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1g26_220_2fipts",
+      "type": "pointerdown",
+      "timestamp": 125451.10000002384,
+      "sessionTime": 125227.30000001192,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1g26_221_yn42ic",
+      "type": "pointerup",
+      "timestamp": 125451.30000001192,
+      "sessionTime": 125227.5,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1g26_222_u23aqh",
+      "type": "click",
+      "timestamp": 125451.40000000596,
+      "sessionTime": 125227.59999999404,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1g2g_225_bnkrp7",
+      "type": "pointermove",
+      "timestamp": 125461.70000001788,
+      "sessionTime": 125237.90000000596,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kib_226_kbirzf",
+      "type": "pointermove",
+      "timestamp": 131216.70000001788,
+      "sessionTime": 130992.90000000596,
+      "fields": {
+        "clientX": 520,
+        "clientY": 370,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3i0tyz_177_0hvh36",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kig_227_pckr0t",
+      "type": "pointerdown",
+      "timestamp": 131221.40000000596,
+      "sessionTime": 130997.59999999404,
+      "fields": {
+        "clientX": 520,
+        "clientY": 370,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "rect_mp3i0tyz_177_0hvh36",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kj0_228_p6pv8l",
+      "type": "pointermove",
+      "timestamp": 131241.5,
+      "sessionTime": 131017.69999998808,
+      "fields": {
+        "clientX": 532,
+        "clientY": 382,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kje_229_crxr4i",
+      "type": "pointermove",
+      "timestamp": 131255.40000000596,
+      "sessionTime": 131031.59999999404,
+      "fields": {
+        "clientX": 544,
+        "clientY": 394,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kju_230_t9yr14",
+      "type": "pointermove",
+      "timestamp": 131271.60000002384,
+      "sessionTime": 131047.80000001192,
+      "fields": {
+        "clientX": 556,
+        "clientY": 406,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kkc_231_w8czmb",
+      "type": "pointermove",
+      "timestamp": 131289.60000002384,
+      "sessionTime": 131065.80000001192,
+      "fields": {
+        "clientX": 568,
+        "clientY": 418,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kkt_232_etbqr7",
+      "type": "pointermove",
+      "timestamp": 131306.5,
+      "sessionTime": 131082.69999998808,
+      "fields": {
+        "clientX": 580,
+        "clientY": 430,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kla_233_0blkgf",
+      "type": "pointermove",
+      "timestamp": 131323,
+      "sessionTime": 131099.19999998808,
+      "fields": {
+        "clientX": 592,
+        "clientY": 442,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1klq_234_cntnqn",
+      "type": "pointermove",
+      "timestamp": 131339.60000002384,
+      "sessionTime": 131115.80000001192,
+      "fields": {
+        "clientX": 604,
+        "clientY": 454,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1km7_235_hvnq4c",
+      "type": "pointermove",
+      "timestamp": 131356.20000001788,
+      "sessionTime": 131132.40000000596,
+      "fields": {
+        "clientX": 616,
+        "clientY": 466,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kmn_236_1k16x7",
+      "type": "pointermove",
+      "timestamp": 131372.70000001788,
+      "sessionTime": 131148.90000000596,
+      "fields": {
+        "clientX": 628,
+        "clientY": 478,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kn4_237_qjixk2",
+      "type": "pointermove",
+      "timestamp": 131389.40000000596,
+      "sessionTime": 131165.59999999404,
+      "fields": {
+        "clientX": 640,
+        "clientY": 490,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1kn6_238_8nkz17",
+      "type": "pointerup",
+      "timestamp": 131391.80000001192,
+      "sessionTime": 131168,
+      "fields": {
+        "clientX": 640,
+        "clientY": 490,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1knc_247_23oy2f",
+      "type": "click",
+      "timestamp": 131397.70000001788,
+      "sessionTime": 131173.90000000596,
+      "fields": {
+        "clientX": 640,
+        "clientY": 490,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1oj6_248_x9kfhl",
+      "type": "pointerdown",
+      "timestamp": 136431.60000002384,
+      "sessionTime": 136207.80000001192,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1oj7_249_u8q5f0",
+      "type": "pointerup",
+      "timestamp": 136432.30000001192,
+      "sessionTime": 136208.5,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1oj7_250_fmop6t",
+      "type": "click",
+      "timestamp": 136432.30000001192,
+      "sessionTime": 136208.5,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1oja_251_ktltlk",
+      "type": "pointermove",
+      "timestamp": 136435.30000001192,
+      "sessionTime": 136211.5,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rn4_252_ytrpiw",
+      "type": "pointerdown",
+      "timestamp": 140461.10000002384,
+      "sessionTime": 140237.30000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rng_253_1emyqm",
+      "type": "pointerup",
+      "timestamp": 140472.90000000596,
+      "sessionTime": 140249.09999999404,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rng_254_v5kgvn",
+      "type": "click",
+      "timestamp": 140473.10000002384,
+      "sessionTime": 140249.30000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rng_255_7gg4kc",
+      "type": "pointerdown",
+      "timestamp": 140473.20000001788,
+      "sessionTime": 140249.40000000596,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rnk_256_bvojy9",
+      "type": "pointerup",
+      "timestamp": 140477.80000001192,
+      "sessionTime": 140254,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rnk_257_02fnxo",
+      "type": "click",
+      "timestamp": 140477.80000001192,
+      "sessionTime": 140254,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rnl_258_a851ss",
+      "type": "dblclick",
+      "timestamp": 140477.80000001192,
+      "sessionTime": 140254,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rnl_259_2lbiqx",
+      "type": "pointerdown",
+      "timestamp": 140477.90000000596,
+      "sessionTime": 140254.09999999404,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rnl_260_izkxgd",
+      "type": "pointerup",
+      "timestamp": 140478,
+      "sessionTime": 140254.19999998808,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rnl_261_kgc0p1",
+      "type": "click",
+      "timestamp": 140478,
+      "sessionTime": 140254.19999998808,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1rnl_262_3w3c6n",
+      "type": "pointermove",
+      "timestamp": 140478.10000002384,
+      "sessionTime": 140254.30000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u05_263_cbo5z1",
+      "type": "keydown",
+      "timestamp": 143522.20000001788,
+      "sessionTime": 143298.40000000596,
+      "fields": {
+        "key": "E",
+        "code": "KeyE",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u0n_264_ffh7zt",
+      "type": "keyup",
+      "timestamp": 143540.60000002384,
+      "sessionTime": 143316.80000001192,
+      "fields": {
+        "key": "E",
+        "code": "KeyE"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u0p_265_97u9o4",
+      "type": "keydown",
+      "timestamp": 143541.80000001192,
+      "sessionTime": 143318,
+      "fields": {
+        "key": "6",
+        "code": "Digit6",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u13_266_wfo1zx",
+      "type": "keyup",
+      "timestamp": 143556.60000002384,
+      "sessionTime": 143332.80000001192,
+      "fields": {
+        "key": "6",
+        "code": "Digit6"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u14_267_gjw2sk",
+      "type": "keydown",
+      "timestamp": 143557.40000000596,
+      "sessionTime": 143333.59999999404,
+      "fields": {
+        "key": "4",
+        "code": "Digit4",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u1g_268_7f1sex",
+      "type": "keyup",
+      "timestamp": 143569.70000001788,
+      "sessionTime": 143345.90000000596,
+      "fields": {
+        "key": "4",
+        "code": "Digit4"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u1h_269_avk6fz",
+      "type": "keydown",
+      "timestamp": 143570.40000000596,
+      "sessionTime": 143346.59999999404,
+      "fields": {
+        "key": "4",
+        "code": "Digit4",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u1u_270_gbtkcv",
+      "type": "keyup",
+      "timestamp": 143583.60000002384,
+      "sessionTime": 143359.80000001192,
+      "fields": {
+        "key": "4",
+        "code": "Digit4"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u1v_271_o2qz96",
+      "type": "keydown",
+      "timestamp": 143584.20000001788,
+      "sessionTime": 143360.40000000596,
+      "fields": {
+        "key": "1",
+        "code": "Digit1",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u27_272_haae9b",
+      "type": "keyup",
+      "timestamp": 143596.60000002384,
+      "sessionTime": 143372.80000001192,
+      "fields": {
+        "key": "1",
+        "code": "Digit1"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u28_273_vkrkty",
+      "type": "keydown",
+      "timestamp": 143596.90000000596,
+      "sessionTime": 143373.09999999404,
+      "fields": {
+        "key": "3",
+        "code": "Digit3",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1u2l_274_cdiofq",
+      "type": "keyup",
+      "timestamp": 143610.70000001788,
+      "sessionTime": 143386.90000000596,
+      "fields": {
+        "key": "3",
+        "code": "Digit3"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1yj7_275_o5ae4v",
+      "type": "keydown",
+      "timestamp": 149392.60000002384,
+      "sessionTime": 149168.80000001192,
+      "fields": {
+        "key": "Enter",
+        "code": "Enter",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i1yjd_278_u4b5b5",
+      "type": "keyup",
+      "timestamp": 149398.10000002384,
+      "sessionTime": 149174.30000001192,
+      "fields": {
+        "key": "Enter",
+        "code": "Enter"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i22xf_279_js2spc",
+      "type": "pointerdown",
+      "timestamp": 155087.80000001192,
+      "sessionTime": 154864,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i22xf_280_0fljql",
+      "type": "pointerup",
+      "timestamp": 155088.5,
+      "sessionTime": 154864.69999998808,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i22xf_281_l9x0jb",
+      "type": "click",
+      "timestamp": 155088.60000002384,
+      "sessionTime": 154864.80000001192,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i22xk_282_vhk8ev",
+      "type": "pointermove",
+      "timestamp": 155093.60000002384,
+      "sessionTime": 154869.80000001192,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i27le_283_02v18m",
+      "type": "pointerdown",
+      "timestamp": 161134.70000001788,
+      "sessionTime": 160910.90000000596,
+      "fields": {
+        "clientX": 71,
+        "clientY": 221,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "layer-row.rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i27lf_284_fbe6iz",
+      "type": "pointerup",
+      "timestamp": 161136.20000001788,
+      "sessionTime": 160912.40000000596,
+      "fields": {
+        "clientX": 71,
+        "clientY": 221,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "layer-row.rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i27lf_285_ovai4j",
+      "type": "click",
+      "timestamp": 161136.20000001788,
+      "sessionTime": 160912.40000000596,
+      "fields": {
+        "clientX": 71,
+        "clientY": 221,
+        "button": 0
+      },
+      "targetId": "layer-row.rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i27lo_288_182hv5",
+      "type": "pointermove",
+      "timestamp": 161145.5,
+      "sessionTime": 160921.69999998808,
+      "fields": {
+        "clientX": 71,
+        "clientY": 221,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "layer-row.rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2g14_289_3v7xbh",
+      "type": "keydown",
+      "timestamp": 172068.80000001192,
+      "sessionTime": 171845,
+      "fields": {
+        "key": "Delete",
+        "code": "Delete",
+        "repeat": false,
+        "targetTag": "BUTTON"
+      },
+      "targetId": "layer-row.rect_mp3hz0zr_32_33jr2o",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2g1c_291_2wcw1p",
+      "type": "keyup",
+      "timestamp": 172076.90000000596,
+      "sessionTime": 171853.09999999404,
+      "fields": {
+        "key": "Delete",
+        "code": "Delete"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2kpf_292_l2r63p",
+      "type": "pointerdown",
+      "timestamp": 178127.90000000596,
+      "sessionTime": 177904.09999999404,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2kpg_293_9nvu2c",
+      "type": "pointerup",
+      "timestamp": 178128.80000001192,
+      "sessionTime": 177905,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2kpg_294_wnnnqn",
+      "type": "click",
+      "timestamp": 178128.90000000596,
+      "sessionTime": 177905.09999999404,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": 0
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2kpl_297_s8px1t",
+      "type": "pointermove",
+      "timestamp": 178134.10000002384,
+      "sessionTime": 177910.30000001192,
+      "fields": {
+        "clientX": 619,
+        "clientY": 761,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "toolbar",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2p87_298_yhdmla",
+      "type": "pointermove",
+      "timestamp": 183987.60000002384,
+      "sessionTime": 183763.80000001192,
+      "fields": {
+        "clientX": 430,
+        "clientY": 280,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2p8e_299_58ownr",
+      "type": "pointerdown",
+      "timestamp": 183995.20000001788,
+      "sessionTime": 183771.40000000596,
+      "fields": {
+        "clientX": 430,
+        "clientY": 280,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2p94_300_vbwdud",
+      "type": "pointermove",
+      "timestamp": 184021.20000001788,
+      "sessionTime": 183797.40000000596,
+      "fields": {
+        "clientX": 460,
+        "clientY": 310,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2p9l_301_tizvje",
+      "type": "pointermove",
+      "timestamp": 184037.70000001788,
+      "sessionTime": 183813.90000000596,
+      "fields": {
+        "clientX": 490,
+        "clientY": 340,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pa1_302_z8hm6z",
+      "type": "pointermove",
+      "timestamp": 184053.80000001192,
+      "sessionTime": 183830,
+      "fields": {
+        "clientX": 520,
+        "clientY": 370,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pai_303_55i4jw",
+      "type": "pointermove",
+      "timestamp": 184070.60000002384,
+      "sessionTime": 183846.80000001192,
+      "fields": {
+        "clientX": 550,
+        "clientY": 400,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2paz_304_saa6vl",
+      "type": "pointermove",
+      "timestamp": 184087.60000002384,
+      "sessionTime": 183863.80000001192,
+      "fields": {
+        "clientX": 580,
+        "clientY": 430,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pbf_305_uyux38",
+      "type": "pointermove",
+      "timestamp": 184103.90000000596,
+      "sessionTime": 183880.09999999404,
+      "fields": {
+        "clientX": 610,
+        "clientY": 460,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pbw_306_0p63oc",
+      "type": "pointermove",
+      "timestamp": 184120.70000001788,
+      "sessionTime": 183896.90000000596,
+      "fields": {
+        "clientX": 640,
+        "clientY": 490,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pcd_307_x2f64c",
+      "type": "pointermove",
+      "timestamp": 184138.10000002384,
+      "sessionTime": 183914.30000001192,
+      "fields": {
+        "clientX": 670,
+        "clientY": 520,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pcu_308_bt14ys",
+      "type": "pointermove",
+      "timestamp": 184155.40000000596,
+      "sessionTime": 183931.59999999404,
+      "fields": {
+        "clientX": 700,
+        "clientY": 550,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pdb_309_5wf7uq",
+      "type": "pointermove",
+      "timestamp": 184172.30000001192,
+      "sessionTime": 183948.5,
+      "fields": {
+        "clientX": 730,
+        "clientY": 580,
+        "button": -1,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pdf_310_lnuhou",
+      "type": "pointerup",
+      "timestamp": 184176.10000002384,
+      "sessionTime": 183952.30000001192,
+      "fields": {
+        "clientX": 730,
+        "clientY": 580,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2pdv_319_a27b8j",
+      "type": "click",
+      "timestamp": 184192.20000001788,
+      "sessionTime": 183968.40000000596,
+      "fields": {
+        "clientX": 730,
+        "clientY": 580,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2vxt_320_7fnvwd",
+      "type": "pointerdown",
+      "timestamp": 192685.60000002384,
+      "sessionTime": 192461.80000001192,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2vxv_321_is73s9",
+      "type": "pointerup",
+      "timestamp": 192688,
+      "sessionTime": 192464.19999998808,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2vxv_322_9fz2cf",
+      "type": "click",
+      "timestamp": 192688.10000002384,
+      "sessionTime": 192464.30000001192,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": 0
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2vy0_323_2j1yww",
+      "type": "pointermove",
+      "timestamp": 192692.40000000596,
+      "sessionTime": 192468.59999999404,
+      "fields": {
+        "clientX": 1067,
+        "clientY": 529,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "fill.row.0.swatch",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxs_324_ekrn33",
+      "type": "pointerdown",
+      "timestamp": 197868.90000000596,
+      "sessionTime": 197645.09999999404,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxu_325_6y73jr",
+      "type": "pointerup",
+      "timestamp": 197871.20000001788,
+      "sessionTime": 197647.40000000596,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxv_326_5np1kk",
+      "type": "click",
+      "timestamp": 197871.30000001192,
+      "sessionTime": 197647.5,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxv_327_nkwu52",
+      "type": "pointerdown",
+      "timestamp": 197871.70000001788,
+      "sessionTime": 197647.90000000596,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxw_328_2l9829",
+      "type": "pointerup",
+      "timestamp": 197872.5,
+      "sessionTime": 197648.69999998808,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxw_329_7mwj3d",
+      "type": "click",
+      "timestamp": 197872.60000002384,
+      "sessionTime": 197648.80000001192,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxw_330_currw0",
+      "type": "dblclick",
+      "timestamp": 197872.70000001788,
+      "sessionTime": 197648.90000000596,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxw_331_ktaiy7",
+      "type": "pointerdown",
+      "timestamp": 197873,
+      "sessionTime": 197649.19999998808,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxw_332_1t2uaj",
+      "type": "pointerup",
+      "timestamp": 197873.30000001192,
+      "sessionTime": 197649.5,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxx_333_5dpfoh",
+      "type": "click",
+      "timestamp": 197873.40000000596,
+      "sessionTime": 197649.59999999404,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i2zxx_334_2iyy6i",
+      "type": "pointermove",
+      "timestamp": 197873.40000000596,
+      "sessionTime": 197649.59999999404,
+      "fields": {
+        "clientX": 953,
+        "clientY": 497,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32jr_335_cni9ip",
+      "type": "keydown",
+      "timestamp": 201252.10000002384,
+      "sessionTime": 201028.30000001192,
+      "fields": {
+        "key": "1",
+        "code": "Digit1",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32k6_336_h2esbd",
+      "type": "keyup",
+      "timestamp": 201266.30000001192,
+      "sessionTime": 201042.5,
+      "fields": {
+        "key": "1",
+        "code": "Digit1"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32k6_337_sc5xv1",
+      "type": "keydown",
+      "timestamp": 201267,
+      "sessionTime": 201043.19999998808,
+      "fields": {
+        "key": "3",
+        "code": "Digit3",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32kj_338_rtsu1o",
+      "type": "keyup",
+      "timestamp": 201279.70000001788,
+      "sessionTime": 201055.90000000596,
+      "fields": {
+        "key": "3",
+        "code": "Digit3"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32kk_339_pwl2xl",
+      "type": "keydown",
+      "timestamp": 201280.70000001788,
+      "sessionTime": 201056.90000000596,
+      "fields": {
+        "key": "7",
+        "code": "Digit7",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32kx_340_uziqbf",
+      "type": "keyup",
+      "timestamp": 201294,
+      "sessionTime": 201070.19999998808,
+      "fields": {
+        "key": "7",
+        "code": "Digit7"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32ky_341_6zx4fm",
+      "type": "keydown",
+      "timestamp": 201294.80000001192,
+      "sessionTime": 201071,
+      "fields": {
+        "key": "0",
+        "code": "Digit0",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32la_342_am8437",
+      "type": "keyup",
+      "timestamp": 201306.5,
+      "sessionTime": 201082.69999998808,
+      "fields": {
+        "key": "0",
+        "code": "Digit0"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32la_343_02ehma",
+      "type": "keydown",
+      "timestamp": 201307,
+      "sessionTime": 201083.19999998808,
+      "fields": {
+        "key": "E",
+        "code": "KeyE",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32lm_344_iabj4s",
+      "type": "keyup",
+      "timestamp": 201319.10000002384,
+      "sessionTime": 201095.30000001192,
+      "fields": {
+        "key": "E",
+        "code": "KeyE"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32ln_345_v6vy39",
+      "type": "keydown",
+      "timestamp": 201320.10000002384,
+      "sessionTime": 201096.30000001192,
+      "fields": {
+        "key": "6",
+        "code": "Digit6",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i32m0_346_vj4nr9",
+      "type": "keyup",
+      "timestamp": 201332.40000000596,
+      "sessionTime": 201108.59999999404,
+      "fields": {
+        "key": "6",
+        "code": "Digit6"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3576_347_2qsaqg",
+      "type": "keydown",
+      "timestamp": 204686.90000000596,
+      "sessionTime": 204463.09999999404,
+      "fields": {
+        "key": "Enter",
+        "code": "Enter",
+        "repeat": false,
+        "targetTag": "INPUT"
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i357j_350_r6ro7d",
+      "type": "keyup",
+      "timestamp": 204699.60000002384,
+      "sessionTime": 204475.80000001192,
+      "fields": {
+        "key": "Enter",
+        "code": "Enter"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i39ag_351_y9wmij",
+      "type": "pointerdown",
+      "timestamp": 209989,
+      "sessionTime": 209765.19999998808,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i39ah_352_btfwnr",
+      "type": "pointerup",
+      "timestamp": 209989.40000000596,
+      "sessionTime": 209765.59999999404,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i39ah_353_qzmsql",
+      "type": "click",
+      "timestamp": 209989.40000000596,
+      "sessionTime": 209765.59999999404,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": 0
+      },
+      "targetId": "right-panel",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i39aj_354_4kypw3",
+      "type": "pointermove",
+      "timestamp": 209992,
+      "sessionTime": 209768.19999998808,
+      "fields": {
+        "clientX": 1028,
+        "clientY": 266,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3dan_355_nale8t",
+      "type": "pointerdown",
+      "timestamp": 215179.80000001192,
+      "sessionTime": 214956,
+      "fields": {
+        "clientX": 71,
+        "clientY": 143,
+        "button": 2,
+        "buttons": 2,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "layer-row.rect_mp3i2pdf_312_zvgqdm",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3dao_356_n4rrpk",
+      "type": "contextmenu",
+      "timestamp": 215180.80000001192,
+      "sessionTime": 214957,
+      "fields": {
+        "clientX": 71,
+        "clientY": 143
+      },
+      "targetId": "layer-row.rect_mp3i2pdf_312_zvgqdm",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3db7_357_t9gto2",
+      "type": "pointerup",
+      "timestamp": 215199.80000001192,
+      "sessionTime": 214976,
+      "fields": {
+        "clientX": 71,
+        "clientY": 143,
+        "button": 2,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "layer-row.rect_mp3i2pdf_312_zvgqdm",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3db8_358_trzal6",
+      "type": "pointermove",
+      "timestamp": 215200.10000002384,
+      "sessionTime": 214976.30000001192,
+      "fields": {
+        "clientX": 71,
+        "clientY": 143,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "layer-row.rect_mp3i2pdf_312_zvgqdm",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3g97_359_se3jvy",
+      "type": "pointerdown",
+      "timestamp": 219015.80000001192,
+      "sessionTime": 218792,
+      "fields": {
+        "clientX": 121,
+        "clientY": 448,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "ctx.send-back",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3g98_360_y9s0g3",
+      "type": "pointerup",
+      "timestamp": 219016.5,
+      "sessionTime": 218792.69999998808,
+      "fields": {
+        "clientX": 121,
+        "clientY": 448,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "ctx.send-back",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3g98_361_68i0ka",
+      "type": "click",
+      "timestamp": 219016.60000002384,
+      "sessionTime": 218792.80000001192,
+      "fields": {
+        "clientX": 121,
+        "clientY": 448,
+        "button": 0
+      },
+      "targetId": "ctx.send-back",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3g9k_365_dlnnuh",
+      "type": "pointermove",
+      "timestamp": 219028.20000001788,
+      "sessionTime": 218804.40000000596,
+      "fields": {
+        "clientX": 121,
+        "clientY": 448,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "ctx.send-back",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3m59_366_v2cnsg",
+      "type": "keydown",
+      "timestamp": 226648.80000001192,
+      "sessionTime": 226425,
+      "fields": {
+        "key": "Control",
+        "code": "ControlLeft",
+        "repeat": false,
+        "targetTag": "BODY"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3m5a_367_f2cze8",
+      "type": "keydown",
+      "timestamp": 226649.70000001788,
+      "sessionTime": 226425.90000000596,
+      "fields": {
+        "key": "a",
+        "code": "KeyA",
+        "repeat": false,
+        "targetTag": "BODY"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3m5i_371_k0ygjg",
+      "type": "keyup",
+      "timestamp": 226657.90000000596,
+      "sessionTime": 226434.09999999404,
+      "fields": {
+        "key": "a",
+        "code": "KeyA"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3m5k_372_pjr33b",
+      "type": "keyup",
+      "timestamp": 226659.70000001788,
+      "sessionTime": 226435.90000000596,
+      "fields": {
+        "key": "Control",
+        "code": "ControlLeft"
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3rfb_373_fcpu0z",
+      "type": "pointerdown",
+      "timestamp": 233490.60000002384,
+      "sessionTime": 233266.80000001192,
+      "fields": {
+        "clientX": 1097,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.center-x",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3rfb_374_ufhi9x",
+      "type": "pointerup",
+      "timestamp": 233491.30000001192,
+      "sessionTime": 233267.5,
+      "fields": {
+        "clientX": 1097,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.center-x",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3rfb_375_9nil2d",
+      "type": "click",
+      "timestamp": 233491.30000001192,
+      "sessionTime": 233267.5,
+      "fields": {
+        "clientX": 1097,
+        "clientY": 140,
+        "button": 0
+      },
+      "targetId": "alignment.center-x",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3rfi_378_fps59o",
+      "type": "pointermove",
+      "timestamp": 233497.70000001788,
+      "sessionTime": 233273.90000000596,
+      "fields": {
+        "clientX": 1097,
+        "clientY": 140,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.center-x",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3ulx_379_a81ird",
+      "type": "pointerdown",
+      "timestamp": 237616.80000001192,
+      "sessionTime": 237393,
+      "fields": {
+        "clientX": 1127,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3uly_380_hoq83d",
+      "type": "pointerup",
+      "timestamp": 237617.60000002384,
+      "sessionTime": 237393.80000001192,
+      "fields": {
+        "clientX": 1127,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3uly_381_t9ueax",
+      "type": "click",
+      "timestamp": 237617.70000001788,
+      "sessionTime": 237393.90000000596,
+      "fields": {
+        "clientX": 1127,
+        "clientY": 140,
+        "button": 0
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i3um7_384_7glxda",
+      "type": "pointermove",
+      "timestamp": 237626.60000002384,
+      "sessionTime": 237402.80000001192,
+      "fields": {
+        "clientX": 1127,
+        "clientY": 140,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i40tb_385_8o5y4q",
+      "type": "keydown",
+      "timestamp": 245658.40000000596,
+      "sessionTime": 245434.59999999404,
+      "fields": {
+        "key": "Control",
+        "code": "ControlLeft",
+        "repeat": false,
+        "targetTag": "BUTTON"
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i40tc_386_mibaqm",
+      "type": "keydown",
+      "timestamp": 245659.30000001192,
+      "sessionTime": 245435.5,
+      "fields": {
+        "key": "z",
+        "code": "KeyZ",
+        "repeat": false,
+        "targetTag": "BUTTON"
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i40ti_388_x08rx8",
+      "type": "keyup",
+      "timestamp": 245665.90000000596,
+      "sessionTime": 245442.09999999404,
+      "fields": {
+        "key": "z",
+        "code": "KeyZ"
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i40tj_389_hxafg1",
+      "type": "keyup",
+      "timestamp": 245666.70000001788,
+      "sessionTime": 245442.90000000596,
+      "fields": {
+        "key": "Control",
+        "code": "ControlLeft"
+      },
+      "targetId": "alignment.right",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4h8v_390_6awzyz",
+      "type": "pointerdown",
+      "timestamp": 266954.90000000596,
+      "sessionTime": 266731.09999999404,
+      "fields": {
+        "clientX": 1157,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4h8w_391_x5koxm",
+      "type": "pointerup",
+      "timestamp": 266955.7000000179,
+      "sessionTime": 266731.90000000596,
+      "fields": {
+        "clientX": 1157,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4h8w_392_rkap26",
+      "type": "click",
+      "timestamp": 266955.7000000179,
+      "sessionTime": 266731.90000000596,
+      "fields": {
+        "clientX": 1157,
+        "clientY": 140,
+        "button": 0
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4h95_395_crdqia",
+      "type": "pointermove",
+      "timestamp": 266964.8000000119,
+      "sessionTime": 266741,
+      "fields": {
+        "clientX": 1157,
+        "clientY": 140,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4kri_396_whyfcy",
+      "type": "keydown",
+      "timestamp": 271513.2000000179,
+      "sessionTime": 271289.40000000596,
+      "fields": {
+        "key": "Control",
+        "code": "ControlLeft",
+        "repeat": false,
+        "targetTag": "BUTTON"
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4krj_397_ftlrex",
+      "type": "keydown",
+      "timestamp": 271514.3000000119,
+      "sessionTime": 271290.5,
+      "fields": {
+        "key": "z",
+        "code": "KeyZ",
+        "repeat": false,
+        "targetTag": "BUTTON"
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4krs_399_0iydxn",
+      "type": "keyup",
+      "timestamp": 271523.40000000596,
+      "sessionTime": 271299.59999999404,
+      "fields": {
+        "key": "z",
+        "code": "KeyZ"
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": true,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4krt_400_b4niiv",
+      "type": "keyup",
+      "timestamp": 271524.60000002384,
+      "sessionTime": 271300.8000000119,
+      "fields": {
+        "key": "Control",
+        "code": "ControlLeft"
+      },
+      "targetId": "alignment.top",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4s73_401_m2do89",
+      "type": "pointerdown",
+      "timestamp": 281146.10000002384,
+      "sessionTime": 280922.3000000119,
+      "fields": {
+        "clientX": 1187,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.center-y",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4s73_402_biz6si",
+      "type": "pointerup",
+      "timestamp": 281146.5,
+      "sessionTime": 280922.6999999881,
+      "fields": {
+        "clientX": 1187,
+        "clientY": 140,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.center-y",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4s73_403_4gfgf9",
+      "type": "click",
+      "timestamp": 281146.60000002384,
+      "sessionTime": 280922.8000000119,
+      "fields": {
+        "clientX": 1187,
+        "clientY": 140,
+        "button": 0
+      },
+      "targetId": "alignment.center-y",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4s7b_406_1l3rkk",
+      "type": "pointermove",
+      "timestamp": 281154.3000000119,
+      "sessionTime": 280930.5,
+      "fields": {
+        "clientX": 1187,
+        "clientY": 140,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "alignment.center-y",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4xne_407_erfytd",
+      "type": "pointerdown",
+      "timestamp": 288213.3000000119,
+      "sessionTime": 287989.5,
+      "fields": {
+        "clientX": 800,
+        "clientY": 400,
+        "button": 0,
+        "buttons": 1,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4xne_408_um4opm",
+      "type": "pointerup",
+      "timestamp": 288213.5,
+      "sessionTime": 287989.6999999881,
+      "fields": {
+        "clientX": 800,
+        "clientY": 400,
+        "button": 0,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4xng_412_n6cqo7",
+      "type": "click",
+      "timestamp": 288215.10000002384,
+      "sessionTime": 287991.3000000119,
+      "fields": {
+        "clientX": 800,
+        "clientY": 400,
+        "button": 0
+      },
+      "targetId": null,
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    },
+    {
+      "eventId": "raw_mp3i4xng_413_u18omx",
+      "type": "pointermove",
+      "timestamp": 288215.2000000179,
+      "sessionTime": 287991.40000000596,
+      "fields": {
+        "clientX": 800,
+        "clientY": 400,
+        "button": -1,
+        "buttons": 0,
+        "pointerType": "mouse",
+        "pointerId": 1
+      },
+      "targetId": "canvas-backdrop",
+      "modifiers": {
+        "alt": false,
+        "shift": false,
+        "ctrl": false,
+        "meta": false
+      }
+    }
+  ],
+  "semantic": [
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hyrfl_3_ucwdap",
+      "timestamp": 224,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": null,
+      "name": "session_start",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hyuke_14_wresxq",
+      "timestamp": 4284.800000011921,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hyrfu_4_qfkkla",
+        "raw_mp3hyukd_12_haetzo"
+      ],
+      "name": "tool_change",
+      "before": "move",
+      "after": "rectangle",
+      "trigger": "toolbar_click"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hz0zt_34_43tkgk",
+      "timestamp": 12615.200000017881,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hyuki_15_y2yzyq",
+        "raw_mp3hz0zq_30_0vo3ex"
+      ],
+      "name": "create_rectangle",
+      "layerId": "rect_mp3hz0zr_32_33jr2o",
+      "x": -240,
+      "y": -150,
+      "w": 300,
+      "h": 300,
+      "parentId": "page_mp3hyrf8_1_draure",
+      "modifiers": {
+        "shift": false,
+        "alt": false
+      },
+      "trigger": "shortcut_R"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hz0zt_36_mm7hcy",
+      "timestamp": 12615.600000023842,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hyuki_15_y2yzyq",
+        "raw_mp3hz0zq_30_0vo3ex"
+      ],
+      "name": "selection_change",
+      "before": [],
+      "after": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "triggerMethod": "implicit_after_create",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hz0zt_38_a7x350",
+      "timestamp": 12615.90000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hyuki_15_y2yzyq",
+        "raw_mp3hz0zq_30_0vo3ex"
+      ],
+      "name": "tool_change",
+      "before": "rectangle",
+      "after": "move",
+      "trigger": "auto_revert_after_create"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hzaxt_47_jtye1n",
+      "timestamp": 25503.30000001192,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hz10f_39_uhjjnm",
+        "raw_mp3hzaxs_44_p03fr0"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      },
+      "after": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hzg1r_54_8y29v0",
+      "timestamp": 32125.600000023842,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hzaxx_48_zhpnm7",
+        "raw_mp3hzg1r_51_v70pdr"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      },
+      "after": {
+        "r": 0.0756302521008404,
+        "g": 0.4379905808477236,
+        "b": 0.9,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hznoe_86_pyscqk",
+      "timestamp": 42012,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hzg1y_55_mv978d",
+        "raw_mp3hznod_85_bq1k9d"
+      ],
+      "name": "move_layer",
+      "layerIds": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "before": {
+        "rect_mp3hz0zr_32_33jr2o": {
+          "x": -240,
+          "y": -150
+        }
+      },
+      "after": {
+        "rect_mp3hz0zr_32_33jr2o": {
+          "x": -10,
+          "y": 80
+        }
+      },
+      "trigger": "drag",
+      "modifiers": {
+        "shift": false,
+        "alt": false,
+        "ctrl": false
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hzs6u_90_q1qe76",
+      "timestamp": 47859.90000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hznog_87_l05jyd",
+        "raw_mp3hzs6t_88_jsimce"
+      ],
+      "name": "deselect",
+      "trigger": "escape"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hzs6u_91_001b1l",
+      "timestamp": 47859.90000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hznog_87_l05jyd",
+        "raw_mp3hzs6t_88_jsimce"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "after": [],
+      "triggerMethod": "deselect",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hzwm3_95_03iruq",
+      "timestamp": 53593,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hzs70_92_ybi9n2",
+        "raw_mp3hzwm2_93_aj3z15"
+      ],
+      "name": "selection_change",
+      "before": [],
+      "after": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "triggerMethod": "click_select",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3hzwm3_96_p388yv",
+      "timestamp": 53593,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hzs70_92_ybi9n2",
+        "raw_mp3hzwm2_93_aj3z15"
+      ],
+      "name": "click_select",
+      "targetLayerId": "rect_mp3hz0zr_32_33jr2o",
+      "pointer": {
+        "x": 140,
+        "y": 210
+      },
+      "source": "canvas"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i00ay_104_6g7nfk",
+      "timestamp": 58375.80000001192,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3hzwme_97_8upcqx",
+        "raw_mp3i00ax_102_j88bi1"
+      ],
+      "name": "tool_change",
+      "before": "move",
+      "after": "rectangle",
+      "trigger": "toolbar_click"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i04vr_122_kdg32d",
+      "timestamp": 64308.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i00b5_105_pbtq4l",
+        "raw_mp3i04vq_118_kqt23q"
+      ],
+      "name": "create_rectangle",
+      "layerId": "rect_mp3i04vq_120_ut45is",
+      "x": -180,
+      "y": -90,
+      "w": 240,
+      "h": 240,
+      "parentId": "page_mp3hyrf8_1_draure",
+      "modifiers": {
+        "shift": false,
+        "alt": false
+      },
+      "trigger": "shortcut_R"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i04vr_124_3u7h8r",
+      "timestamp": 64308.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i00b5_105_pbtq4l",
+        "raw_mp3i04vq_118_kqt23q"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "after": [
+        "rect_mp3i04vq_120_ut45is"
+      ],
+      "triggerMethod": "implicit_after_create",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i04vr_126_3wzosi",
+      "timestamp": 64308.80000001192,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i00b5_105_pbtq4l",
+        "raw_mp3i04vq_118_kqt23q"
+      ],
+      "name": "tool_change",
+      "before": "rectangle",
+      "after": "move",
+      "trigger": "auto_revert_after_create"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i0cdl_135_viuvk2",
+      "timestamp": 74022.90000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i04vu_127_79esa8",
+        "raw_mp3i0cdk_132_fi94df"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3i04vq_120_ut45is"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      },
+      "after": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i0fl5_142_jvv2o5",
+      "timestamp": 78182.90000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i0cds_136_2rk0k7",
+        "raw_mp3i0fl4_139_3vnyhx"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3i04vq_120_ut45is"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      },
+      "after": {
+        "r": 0.7731738849385907,
+        "g": 0.9,
+        "b": 0.0756302521008404,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i0ixb_149_hkftio",
+      "timestamp": 82508.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i0fle_143_o9nkch",
+        "raw_mp3i0ix9_146_wl12bn"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3i04vq_120_ut45is"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.7731738849385907,
+        "g": 0.9,
+        "b": 0.0756302521008404,
+        "a": 1
+      },
+      "after": {
+        "r": 0.9,
+        "g": 0.2658694246929542,
+        "b": 0.0756302521008404,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i0qeu_161_3b49oo",
+      "timestamp": 92211.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i0ixi_150_jyrhir",
+        "raw_mp3i0qeu_159_nbo3az"
+      ],
+      "name": "tool_change",
+      "before": "move",
+      "after": "rectangle",
+      "trigger": "toolbar_click"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i0tyz_179_n6spd7",
+      "timestamp": 96825.20000001788,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i0qf0_162_r7v7yy",
+        "raw_mp3i0tyz_175_c0xt33"
+      ],
+      "name": "create_rectangle",
+      "layerId": "rect_mp3i0tyz_177_0hvh36",
+      "x": -150,
+      "y": -60,
+      "w": 180,
+      "h": 180,
+      "parentId": "page_mp3hyrf8_1_draure",
+      "modifiers": {
+        "shift": false,
+        "alt": false
+      },
+      "trigger": "shortcut_R"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i0tz0_181_mcsyah",
+      "timestamp": 96825.20000001788,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i0qf0_162_r7v7yy",
+        "raw_mp3i0tyz_175_c0xt33"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3i04vq_120_ut45is"
+      ],
+      "after": [
+        "rect_mp3i0tyz_177_0hvh36"
+      ],
+      "triggerMethod": "implicit_after_create",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i0tz0_183_bwfd6t",
+      "timestamp": 96825.20000001788,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i0qf0_162_r7v7yy",
+        "raw_mp3i0tyz_175_c0xt33"
+      ],
+      "name": "tool_change",
+      "before": "rectangle",
+      "after": "move",
+      "trigger": "auto_revert_after_create"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i17xn_214_g4lqbw",
+      "timestamp": 114920.30000001192,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i0tz3_184_3qzfwa",
+        "raw_mp3i17xk_212_8skoib"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3i0tyz_177_0hvh36"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      },
+      "after": {
+        "r": 0.07450980392156858,
+        "g": 0.4392156862745096,
+        "b": 0.9019607843137255,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i1g28_224_92hj7k",
+      "timestamp": 125453.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i17xx_215_5yshef",
+        "raw_mp3i1g26_222_u23aqh"
+      ],
+      "name": "tool_change",
+      "before": "move",
+      "after": "rectangle",
+      "trigger": "toolbar_click"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i1kn7_242_s6he2g",
+      "timestamp": 131392.5,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i1g2g_225_bnkrp7",
+        "raw_mp3i1kn6_238_8nkz17"
+      ],
+      "name": "create_rectangle",
+      "layerId": "rect_mp3i1kn7_240_i6h3v3",
+      "x": -120,
+      "y": -30,
+      "w": 120,
+      "h": 120,
+      "parentId": "page_mp3hyrf8_1_draure",
+      "modifiers": {
+        "shift": false,
+        "alt": false
+      },
+      "trigger": "shortcut_R"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i1kn7_244_imnqq4",
+      "timestamp": 131392.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i1g2g_225_bnkrp7",
+        "raw_mp3i1kn6_238_8nkz17"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3i0tyz_177_0hvh36"
+      ],
+      "after": [
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "triggerMethod": "implicit_after_create",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i1kn7_246_j016rj",
+      "timestamp": 131392.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i1g2g_225_bnkrp7",
+        "raw_mp3i1kn6_238_8nkz17"
+      ],
+      "name": "tool_change",
+      "before": "rectangle",
+      "after": "move",
+      "trigger": "auto_revert_after_create"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i1yj9_277_io467u",
+      "timestamp": 149394,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i1knc_247_23oy2f",
+        "raw_mp3i1yj7_275_o5ae4v"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      },
+      "after": {
+        "r": 0.9019607843137255,
+        "g": 0.2666666666666666,
+        "b": 0.07450980392156858,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i27lg_287_118exg",
+      "timestamp": 161137.40000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i1yjd_278_u4b5b5",
+        "raw_mp3i27lf_285_ovai4j"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "after": [
+        "rect_mp3hz0zr_32_33jr2o"
+      ],
+      "triggerMethod": "panel_row_click",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i2kph_296_q3r64f",
+      "timestamp": 178130,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i27lo_288_182hv5",
+        "raw_mp3i2kpg_294_wnnnqn"
+      ],
+      "name": "tool_change",
+      "before": "move",
+      "after": "rectangle",
+      "trigger": "toolbar_click"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i2pdh_314_j8c7pa",
+      "timestamp": 184177.5,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i2kpl_297_s8px1t",
+        "raw_mp3i2pdf_310_lnuhou"
+      ],
+      "name": "create_rectangle",
+      "layerId": "rect_mp3i2pdf_312_zvgqdm",
+      "x": -210,
+      "y": -120,
+      "w": 300,
+      "h": 300,
+      "parentId": "page_mp3hyrf8_1_draure",
+      "modifiers": {
+        "shift": false,
+        "alt": false
+      },
+      "trigger": "shortcut_R"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i2pdh_316_b0b5ug",
+      "timestamp": 184177.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i2kpl_297_s8px1t",
+        "raw_mp3i2pdf_310_lnuhou"
+      ],
+      "name": "selection_change",
+      "before": [],
+      "after": [
+        "rect_mp3i2pdf_312_zvgqdm"
+      ],
+      "triggerMethod": "implicit_after_create",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i2pdh_318_xao41x",
+      "timestamp": 184177.70000001788,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i2kpl_297_s8px1t",
+        "raw_mp3i2pdf_310_lnuhou"
+      ],
+      "name": "tool_change",
+      "before": "rectangle",
+      "after": "move",
+      "trigger": "auto_revert_after_create"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i3578_349_g7etfh",
+      "timestamp": 204689.10000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i2pdv_319_a27b8j",
+        "raw_mp3i3576_347_2qsaqg"
+      ],
+      "name": "set_fill_color",
+      "layerIds": [
+        "rect_mp3i2pdf_312_zvgqdm"
+      ],
+      "fillIndex": 0,
+      "before": {
+        "r": 0.851,
+        "g": 0.851,
+        "b": 0.851,
+        "a": 1
+      },
+      "after": {
+        "r": 0.07450980392156858,
+        "g": 0.4392156862745096,
+        "b": 0.9019607843137255,
+        "a": 1
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i3g9a_364_6zb072",
+      "timestamp": 219018.70000001788,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i357j_350_r6ro7d",
+        "raw_mp3i3g98_361_68i0ka"
+      ],
+      "name": "reorder_layer",
+      "layerIds": [
+        "rect_mp3i2pdf_312_zvgqdm"
+      ],
+      "before": [
+        {
+          "parentId": "page_mp3hyrf8_1_draure",
+          "index": 3
+        }
+      ],
+      "after": [
+        {
+          "parentId": "page_mp3hyrf8_1_draure",
+          "index": 0
+        }
+      ],
+      "trigger": "shortcut_cmd_alt_open_bracket"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i3m5b_369_1rq36y",
+      "timestamp": 226650.80000001192,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i3g9k_365_dlnnuh",
+        "raw_mp3i3m5a_367_f2cze8"
+      ],
+      "name": "select_all",
+      "scope": "page",
+      "layerIds": [
+        "rect_mp3i2pdf_312_zvgqdm",
+        "rect_mp3i04vq_120_ut45is",
+        "rect_mp3i0tyz_177_0hvh36",
+        "rect_mp3i1kn7_240_i6h3v3"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i3m5b_370_5kguj0",
+      "timestamp": 226650.90000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i3g9k_365_dlnnuh",
+        "raw_mp3i3m5a_367_f2cze8"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3i2pdf_312_zvgqdm"
+      ],
+      "after": [
+        "rect_mp3i2pdf_312_zvgqdm",
+        "rect_mp3i04vq_120_ut45is",
+        "rect_mp3i0tyz_177_0hvh36",
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "triggerMethod": "select_all",
+      "cause": null
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i3rfe_377_m4v7rp",
+      "timestamp": 233493.40000000596,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i3m5i_371_k0ygjg",
+        "raw_mp3i3rfb_375_9nil2d"
+      ],
+      "name": "align_layers",
+      "layerIds": [
+        "rect_mp3i2pdf_312_zvgqdm",
+        "rect_mp3i04vq_120_ut45is",
+        "rect_mp3i0tyz_177_0hvh36",
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "axis": "center-x",
+      "trigger": "panel_button"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i3um1_383_4hrp9b",
+      "timestamp": 237620.30000001192,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i3rfi_378_fps59o",
+        "raw_mp3i3uly_381_t9ueax"
+      ],
+      "name": "align_layers",
+      "layerIds": [
+        "rect_mp3i2pdf_312_zvgqdm",
+        "rect_mp3i04vq_120_ut45is",
+        "rect_mp3i0tyz_177_0hvh36",
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "axis": "right",
+      "trigger": "panel_button"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i40td_387_ge5btl",
+      "timestamp": 245661,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i3um7_384_7glxda",
+        "raw_mp3i40tc_386_mibaqm"
+      ],
+      "name": "undo",
+      "revertedOpKind": "set_transform",
+      "revertedOpId": "op_mp3i3uly_382_v0dwyy"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i4h8z_394_fwvcil",
+      "timestamp": 266958.3000000119,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i40ti_388_x08rx8",
+        "raw_mp3i4h8w_392_rkap26"
+      ],
+      "name": "align_layers",
+      "layerIds": [
+        "rect_mp3i2pdf_312_zvgqdm",
+        "rect_mp3i04vq_120_ut45is",
+        "rect_mp3i0tyz_177_0hvh36",
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "axis": "top",
+      "trigger": "panel_button"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i4krk_398_cc57ha",
+      "timestamp": 271515.2000000179,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i4h95_395_crdqia",
+        "raw_mp3i4krj_397_ftlrex"
+      ],
+      "name": "undo",
+      "revertedOpKind": "set_transform",
+      "revertedOpId": "op_mp3i4h8x_393_1q13if"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i4s76_405_tysk98",
+      "timestamp": 281149.10000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i4krs_399_0iydxn",
+        "raw_mp3i4s73_403_4gfgf9"
+      ],
+      "name": "align_layers",
+      "layerIds": [
+        "rect_mp3i2pdf_312_zvgqdm",
+        "rect_mp3i04vq_120_ut45is",
+        "rect_mp3i0tyz_177_0hvh36",
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "axis": "center-y",
+      "trigger": "panel_button"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i4xne_410_be1qkj",
+      "timestamp": 288213.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i4s7b_406_1l3rkk",
+        "raw_mp3i4xne_408_um4opm"
+      ],
+      "name": "deselect",
+      "trigger": "click_empty_canvas"
+    },
+    {
+      "schemaVersion": 1,
+      "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+      "eventId": "sem_mp3i4xne_411_l9s0uo",
+      "timestamp": 288213.60000002384,
+      "pageId": "page_mp3hyrf8_1_draure",
+      "rawEventIdRange": [
+        "raw_mp3i4s7b_406_1l3rkk",
+        "raw_mp3i4xne_408_um4opm"
+      ],
+      "name": "selection_change",
+      "before": [
+        "rect_mp3i2pdf_312_zvgqdm",
+        "rect_mp3i04vq_120_ut45is",
+        "rect_mp3i0tyz_177_0hvh36",
+        "rect_mp3i1kn7_240_i6h3v3"
+      ],
+      "after": [],
+      "triggerMethod": "deselect",
+      "cause": null
+    }
+  ],
+  "outcome": {
+    "schemaVersion": 1,
+    "sessionId": "session_763260b1-3b1d-4778-898e-19c3414965d3",
+    "capturedAt": 1778643030613,
+    "activePageId": "page_mp3hyrf8_1_draure",
+    "selectedLayerIds": [],
+    "summary": {
+      "semanticEventCount": 46,
+      "shapeCounts": {
+        "rectangle": 4
+      }
+    },
+    "document": {
+      "id": "doc_mp3hyrf8_2_cf05op",
+      "schemaVersion": 1,
+      "name": "Untitled",
+      "pages": [
+        {
+          "id": "page_mp3hyrf8_1_draure",
+          "type": "page",
+          "name": "Page 1",
+          "backgroundColor": {
+            "r": 0.118,
+            "g": 0.118,
+            "b": 0.118,
+            "a": 1
+          },
+          "backgroundHidden": false,
+          "children": [
+            {
+              "id": "rect_mp3i2pdf_312_zvgqdm",
+              "parentId": "page_mp3hyrf8_1_draure",
+              "x": -210,
+              "y": -120,
+              "w": 300,
+              "h": 300,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 4",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.07450980392156858,
+                    "g": 0.4392156862745096,
+                    "b": 0.9019607843137255,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            },
+            {
+              "id": "rect_mp3i04vq_120_ut45is",
+              "parentId": "page_mp3hyrf8_1_draure",
+              "x": -180,
+              "y": -90,
+              "w": 240,
+              "h": 240,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 2",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.9,
+                    "g": 0.2658694246929542,
+                    "b": 0.0756302521008404,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            },
+            {
+              "id": "rect_mp3i0tyz_177_0hvh36",
+              "parentId": "page_mp3hyrf8_1_draure",
+              "x": -150,
+              "y": -60,
+              "w": 180,
+              "h": 180,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 3",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.07450980392156858,
+                    "g": 0.4392156862745096,
+                    "b": 0.9019607843137255,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            },
+            {
+              "id": "rect_mp3i1kn7_240_i6h3v3",
+              "parentId": "page_mp3hyrf8_1_draure",
+              "x": -120,
+              "y": -30,
+              "w": 120,
+              "h": 120,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true,
+              "locked": false,
+              "opacity": 1,
+              "constraints": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "type": "rectangle",
+              "name": "Rectangle 4",
+              "cornerRadius": 0,
+              "fills": [
+                {
+                  "kind": "solid",
+                  "color": {
+                    "r": 0.9019607843137255,
+                    "g": 0.2666666666666666,
+                    "b": 0.07450980392156858,
+                    "a": 1
+                  },
+                  "opacity": 1,
+                  "visible": true
+                }
+              ],
+              "strokes": [],
+              "effects": []
+            }
+          ],
+          "prototypeSettings": {
+            "device": null,
+            "backgroundColor": {
+              "r": 0.055,
+              "g": 0.051,
+              "b": 0.051,
+              "a": 1
+            }
+          }
+        }
+      ]
+    }
+  }
+}

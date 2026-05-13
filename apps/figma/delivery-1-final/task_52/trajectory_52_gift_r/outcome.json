@@ -1,0 +1,33 @@
+{
+  "task_id": "task_52_read_click_giftbox",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-5",
+  "started_at": 1778646404168,
+  "ended_at": 1778646510222,
+  "ended_at_iso": "2026-05-13T04:28:30.222000+00:00",
+  "elapsed_s": 106.05,
+  "turns": 20,
+  "stop_reason": "done",
+  "finished": true,
+  "error": null,
+  "usage": {
+    "input_tokens": 146938,
+    "output_tokens": 3024
+  },
+  "cost_estimate": {
+    "input_usd": 0.440814,
+    "output_usd": 0.04536,
+    "total_usd": 0.486174,
+    "input_rate_per_mtok_usd": 3.0,
+    "output_rate_per_mtok_usd": 15.0
+  },
+  "score": {
+    "final": 1.0,
+    "base": 1.0,
+    "max": 1.0,
+    "efficiency": 1.0,
+    "passed": true,
+    "threshold": 0.7
+  },
+  "log_session_id": "session_03b5d644-3798-411b-96e2-3734bfa5a7f6"
+}
