@@ -1,20 +1,23 @@
 # Cross-App Log Contract
 
-> **Status: PLACEHOLDER.** This document specifies the log shape that every mock in `cua-bench` must emit, as a cross-app contract. It will be promoted from "describes figma" to "describes all three apps" once we have at least two apps emitting logs.
+> **Status: PARTIAL.** Two apps emit logs against this contract: figma (TS mock) and libreoffice (real binary via the [rllogger](../apps/libreoffice/libreoffice-codebase/rllogger/) module). Sheets and Docs are still placeholders. The contract section below will be promoted from "two implementations" to "canonical source of truth" once one more app ships.
 
 ---
 
-## Current state of the contract
+## Apps producing logs today
 
-Today, only the figma app produces logs. Its schema is fully specified at:
-[apps/figma/app-docs/logging-documentation.md](../apps/figma/app-docs/logging-documentation.md).
+**figma** — TypeScript mock. Schema fully specified at [apps/figma/app-docs/logging-documentation.md](../apps/figma/app-docs/logging-documentation.md). Defines:
+- Three streams (`raw`, `semantic`, `outcome`) and their storage layout
+- Per-event schemas for figma semantic events
+- The full `OutcomeSnapshot` shape for figma's scene graph
 
-That document defines:
-- The three streams (`raw`, `semantic`, `outcome`) and their storage layout.
-- Per-event schemas for the figma app's semantic events.
-- The full `OutcomeSnapshot` shape for figma's scene graph.
+**libreoffice** — real Linux binary (stripped LibreOffice fork). Schema specified at [apps/libreoffice/docs/architecture/PHASE3_LOGGER_DESIGN.md](../apps/libreoffice/docs/architecture/PHASE3_LOGGER_DESIGN.md) and [apps/libreoffice/AGENTS.md §4.3](../apps/libreoffice/AGENTS.md). Defines:
+- `raw.jsonl` — VCL key/mouse/focus/command/gesture events
+- `semantic.jsonl` — `.uno:*` dispatches mapped to RL-friendly names with `args`, `trigger`, `rawEventIdRange`
+- `outcome.jsonl` — document URL, modified flag, counts, cursor, selection, format-at-cursor; rewritten every 250 ms
+- Default base directory: `~/.lo-rl-logs/<sessionId>/` (Linux/macOS) or `%LOCALAPPDATA%\lo-rl-logs\<sessionId>\` (Windows). Override via `LO_RL_LOG_DIR=<path>`. Opt-out via `LO_RL_LOG_DISABLE=1`. A `rllogger-export.py` consolidator merges a session into the single-file `exportLog()` shape that matches figma's JSON.
 
-When Sheets is implemented, this `log-contract.md` will be promoted to **the cross-app source of truth** for the parts of the schema that all mocks share. Per-app extensions (figma's scene-graph, sheets' grid model, docs' text model) will live in each app's `app-docs/logging-documentation.md`.
+Both apps follow the same three-stream split, so a verifier built against the contract works against either log set with at most an app-specific CommandMap (figma's `create_rectangle` vs libreoffice's `.uno:InsertTable`, etc.).
 
 ---
 

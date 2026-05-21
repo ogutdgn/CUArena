@@ -110,17 +110,19 @@ When you see a LibreOffice build error:
 After the cua-bench import, branches live in the cua-bench repo (not the
 old libreoffice-core-rl-env fork). Work happens on short-lived feature
 branches off cua-bench `main`, scoped to `feat/libreoffice-*` or
-`fix/libreoffice-*`. All paths below assume you `cd` into
-`apps/libreoffice/` first (where soffice / make expect to be).
+`fix/libreoffice-*`. The build itself runs from inside
+`apps/libreoffice/libreoffice-codebase/` — that's where Makefile.in,
+autogen.sh, configure.ac, and the entire vendored LO tree live. Docs
+(this file, AGENTS.md, docs/) are one level up at `apps/libreoffice/`.
 
 ```sh
 # At the repo root (cua-bench), sync first:
 git pull origin main
 
-# Move into the libreoffice app sub-tree:
-cd apps/libreoffice
+# Move into the vendored LO tree (where soffice / make expect to be):
+cd apps/libreoffice/libreoffice-codebase
 
-# Edit (if any):
+# Edit (if any — Phase 4 UI work lives in sw/, logger in rllogger/):
 vim sw/source/uibase/...
 
 # Build (in WSL — Windows checkout is edit-mirror only):
@@ -130,7 +132,7 @@ make sw sc sd
 instdir/program/soffice --writer
 
 # Commit (back at cua-bench root so the diff is rooted there):
-cd ../..
+cd ../../..
 git add apps/libreoffice
 git commit -m "feat(libreoffice): ..."
 git push origin <your-feature-branch>
@@ -142,7 +144,7 @@ Do not start the next change without seeing the build pass.
 
 This project lives as **one app inside the `cua-bench` monorepo**:
 
-- Claude (Windows): `c:/Users/ogutd/OneDrive/Desktop/new-coding/cua-bench/apps/libreoffice`
+- Claude (Windows): `c:/Users/ogutd/OneDrive/Desktop/new-coding/cua-bench/apps/libreoffice/libreoffice-codebase` (build runs here; docs are one level up at `apps/libreoffice/`)
 - Owner (WSL Ubuntu): `/home/ogutd/lo-dev` (or similar — kept separate from the cua-bench checkout to avoid OneDrive sync churn during builds)
 - GitHub: source of truth is now [`ogutdgn/cua-bench`](https://github.com/ogutdgn/cua-bench) (private repo). The old standalone `ogutdgn/libreoffice-core-rl-env` fork is **frozen as a baseline archive** — it has the full Phase 1/3/4 commit history that wasn't carried over in the import. Code archaeology (`git blame`, when-was-this-changed) for pre-import lines should consult that repo.
 - Builds happen **on the WSL Linux fs**; `/mnt/c` is slow and OneDrive doubles that cost

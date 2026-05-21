@@ -14,7 +14,7 @@ add a structured user-action **logger** for RL training/replay, and
 **redesign the UI** to mimic MS Word / Excel / PowerPoint so that
 agent skills transfer cleanly between Office and this open stack.
 
-Home: this directory (`apps/libreoffice/`) inside the [`ogutdgn/cua-bench`](https://github.com/ogutdgn/cua-bench) monorepo (private). Historical archive of the original LibreOffice fork (pre-cua-bench import, with the full Phase 1/3/4 commit history): <https://github.com/ogutdgn/libreoffice-core-rl-env> — frozen, do not push to.
+Home: this directory (`apps/libreoffice/`) inside the [`ogutdgn/cua-bench`](https://github.com/ogutdgn/cua-bench) monorepo (private). The vendored LibreOffice fork itself sits one level deeper at `apps/libreoffice/libreoffice-codebase/` — that's where `make`, `autogen.sh`, `instdir/`, `sw/` etc. all live. Docs (this file, CLAUDE.md, docs/) are at the app root. Historical archive of the original standalone LibreOffice fork (pre-cua-bench import, with the full Phase 1/3/4 commit history): <https://github.com/ogutdgn/libreoffice-core-rl-env> — frozen, do not push to.
 
 ### Roadmap at a glance
 
@@ -374,7 +374,7 @@ for the full sketch of each):
 
 - Host OS: Windows 11
 - Dev env: WSL2 + Ubuntu 24.04
-- IDE: Cursor / VS Code (Windows-side, sees `/mnt/c/.../cua-bench/apps/libreoffice`)
+- IDE: Cursor / VS Code (Windows-side, sees `/mnt/c/.../cua-bench/apps/libreoffice` for docs and `/mnt/c/.../cua-bench/apps/libreoffice/libreoffice-codebase` for the LO source tree)
 - Build location: **WSL native filesystem** (`/home/<user>/...`), NOT `/mnt/c`
   — NTFS-through-9P is ~10x slower than ext4 for many-small-files
   workloads
@@ -410,12 +410,12 @@ sudo chmod 0440 /etc/sudoers.d/claude-apt
 
 ### First-time setup (vanilla / Phase 0)
 
-The source-of-truth is now [`ogutdgn/cua-bench`](https://github.com/ogutdgn/cua-bench) (private monorepo). Builds still happen on the WSL ext4 filesystem to avoid the 10x slowdown of NTFS-through-9P. The cua-bench checkout in WSL is the build root; you `cd apps/libreoffice/` inside it before running `make`.
+The source-of-truth is now [`ogutdgn/cua-bench`](https://github.com/ogutdgn/cua-bench) (private monorepo). Builds still happen on the WSL ext4 filesystem to avoid the 10x slowdown of NTFS-through-9P. The vendored LO source tree lives at `apps/libreoffice/libreoffice-codebase/` inside the cua-bench checkout; you `cd` there before running `make`.
 
 ```sh
 cd ~
 git clone https://github.com/ogutdgn/cua-bench.git lo-dev
-cd lo-dev/apps/libreoffice
+cd lo-dev/apps/libreoffice/libreoffice-codebase
 
 # Clean PATH first or configure may mis-detect this as a
 # Windows-as-helper build (see §10 pitfall #4).
@@ -470,8 +470,8 @@ changes, slot handlers): `make sw sc sd` is sufficient because the
 edit cannot affect build artifacts outside that subtree.
 
 ```sh
-# At cua-bench root: sync, then move into the app sub-tree
-(cd ../..; git pull origin main)
+# At cua-bench root: sync, then move back into the libreoffice-codebase build tree
+(cd ../../..; git pull origin main)
 make sw sc sd                # 5-30 min depending on scope
 instdir/program/soffice --writer    # GUI smoke (or use headless set below)
 ```

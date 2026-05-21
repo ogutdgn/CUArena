@@ -10,10 +10,11 @@ log output. For full build setup, branch flow, and conventions see
 ## Running soffice
 
 After a successful build (`make` in the WSL workspace), launch from
-`instdir/program/`:
+`instdir/program/`. All commands below assume cwd =
+`apps/libreoffice/libreoffice-codebase/` — `cd` there first.
 
 ```sh
-cd ~/lo-dev
+cd ~/cua-bench-lo/apps/libreoffice/libreoffice-codebase
 instdir/program/soffice --writer            # open Writer
 instdir/program/soffice --calc              # open Calc
 instdir/program/soffice --impress           # open Impress
@@ -189,7 +190,7 @@ in `desktop`, not the app modules.
 
 | Symptom | Likely cause |
 |---|---|
-| `instdir/program/soffice` not found | Build didn't finish or you're outside `~/lo-dev` |
+| `instdir/program/soffice` not found | Build didn't finish or you're outside `apps/libreoffice/libreoffice-codebase/` |
 | Session dir created but logs empty | Logger crashed during `initialize` — check stderr for `rllogger:` lines |
 | `semantic.jsonl` has events but `trigger: "menu"` for shortcuts | Stale binary — rebuild with `make rllogger desktop` |
 | `outcome.jsonl` empty in headless smoke | Expected — `--terminate_after_init` exits before the 250 ms timer fires |
