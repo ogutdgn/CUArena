@@ -11,3 +11,8 @@
 *.odt binary
 *.rtf diff
 schema/*/* export-ignore
+
+# Patch files for external/ tarballs must preserve their original line endings
+# (some patches target Windows files with CRLF; autocrlf would break them)
+external/**/*.patch binary
+external/**/*.patch.* binary

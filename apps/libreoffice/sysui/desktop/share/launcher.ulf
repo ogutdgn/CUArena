@@ -28,12 +28,6 @@ en-US = "Create and edit drawings, flow charts and logos."
 [calc_Comment]
 en-US = "Perform calculations, analyze information and manage lists in spreadsheets."
 
-[math_Comment]
-en-US = "Create and edit scientific formulas and equations."
-
-[base_Comment]
-en-US = "Manage databases, create queries and reports to track and manage your information."
-
 [startcenter_Comment]
 en-US = "Launch applications to create text documents, spreadsheets, presentations, drawings, formulas, and databases, or open recently used documents."
 
@@ -45,12 +39,6 @@ en-US = "Presentation"
 
 [calc_GenericName]
 en-US = "Spreadsheet"
-
-[base_GenericName]
-en-US = "Database Development"
-
-[math_GenericName]
-en-US = "Formula Editor"
 
 [draw_GenericName]
 en-US = "Drawing Program"
@@ -69,12 +57,6 @@ en-US = "New Presentation"
 
 [calc_UnityQuickList]
 en-US = "New Spreadsheet"
-
-[base_UnityQuickList]
-en-US = "New Database"
-
-[math_UnityQuickList]
-en-US = "New Formula"
 
 [draw_UnityQuickList]
 en-US = "New Drawing"
