@@ -1,6 +1,6 @@
 # System Overview
 
-`cua-bench` is a benchmark for Computer Use Agents. It contains three mock applications — Figma, Google Sheets, Google Docs — each paired with a logger and a verifier. Agents interact with the mocks; logs are scored.
+`cua-bench` is a benchmark for Computer Use Agents. It contains four CUA environments — three TypeScript browser mocks (Figma, Google Sheets, Google Docs) and one real Linux binary (a stripped LibreOffice fork covering Writer / Calc / Impress) — each paired with a logger. Mocks have verifiers shipping alongside; the libreoffice runtime is logger-only for now (verifier planned for a later phase). Agents interact with the environments; logs are scored.
 
 The point of the system is to evaluate **how** an agent achieves a goal, not just whether the final state is right. Two agents can both produce "a square inside a frame", but one did it via direct creation in a frame context (3 actions) and another did it via copy-paste-reparent (8 actions). The semantic event stream and the efficiency multiplier in the verifier surface that difference.
 
@@ -44,17 +44,23 @@ The full schema for figma is at [apps/figma/app-docs/logging-documentation.md](.
 
 ---
 
-## Why three apps
+## Why four apps
 
-A single mock would test agents only against one UI archetype. The three chosen here are deliberately different:
+A single mock would test agents only against one UI archetype. The four chosen here are deliberately different:
 
-| App | Primary primitives | What it stresses |
-|---|---|---|
-| **Figma** | shapes on a canvas, properties panel, frames | spatial reasoning, drag/drop, geometry, fills/strokes |
-| **Sheets** | grid, cells, formulas, ranges | tabular reasoning, formula composition, range selection |
-| **Docs** | text runs, paragraphs, lists, comments | text editing, caret/range, formatting persistence |
+| App | Shape | Primary primitives | What it stresses |
+|---|---|---|---|
+| **Figma** | TS mock | shapes on a canvas, properties panel, frames | spatial reasoning, drag/drop, geometry, fills/strokes |
+| **Sheets** | TS mock | grid, cells, formulas, ranges | tabular reasoning, formula composition, range selection |
+| **Docs** | TS mock | text runs, paragraphs, lists, comments | text editing, caret/range, formatting persistence |
+| **LibreOffice** | real Linux binary | Writer / Calc / Impress UI (MS-Office-parity ribbon) | transferring agent skills trained on real Office to an open-source equivalent — real OS-level windows, menus, keyboard focus, GTK widgets |
 
-Together they cover the bulk of office-style CUA evaluation surface area.
+Together they cover the bulk of office-style CUA evaluation surface area, plus the real-binary case that catches behaviours specific to native UIs (window manager interaction, OS clipboard, focus-stealing dialogs) that browser mocks abstract away.
+
+**Real binary vs TS mock — what's different about the libreoffice app:**
+- Built from a vendored LibreOffice fork at [apps/libreoffice/libreoffice-codebase/](../apps/libreoffice/libreoffice-codebase/), not from TypeScript. Requires a WSL/Linux build (~30 min with cached tarballs, ~3 h cold).
+- Logger is a C++ module ([rllogger/](../apps/libreoffice/libreoffice-codebase/rllogger/)) linked into the binary, default-on, writes to `~/.lo-rl-logs/<sessionId>/`. Same three-stream contract as the TS mocks.
+- No verifier yet — Phase 5/6 will add Calc and Impress equivalents of Phase 4's Writer UI parity; verifier framework comes after that.
 
 ---
 

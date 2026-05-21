@@ -35,10 +35,14 @@ cua-bench/
 │       │                          as a real-binary CUA runtime, instrumented with rllogger
 │       ├── CLAUDE.md             ← READ THIS when working on the libreoffice app
 │       ├── AGENTS.md             full project guide (workflow, build, gotchas)
+│       ├── README.md             app entry point
 │       ├── docs/architecture/    ROADMAP.md, PHASE3_LOGGER_DESIGN.md, PHASE4_*.md
 │       ├── docs/USAGE.md         day-to-day commands (launching soffice, logs, export)
-│       ├── rllogger/             three-stream event logger (raw / semantic / outcome)
-│       └── sw/, sc/, sd/ ...     LibreOffice source modules (Writer / Calc / Impress + deps)
+│       └── libreoffice-codebase/ vendored 143k-file LO tree + our LO-internal mods
+│           ├── rllogger/         three-stream event logger (raw / semantic / outcome)
+│           ├── sw/, sc/, sd/ ... LibreOffice source modules (Writer / Calc / Impress + deps)
+│           ├── Makefile.in       build entry (cd here before running make)
+│           └── instdir/, workdir/  build outputs (gitignored)
 └── shared/                       future: extracted shared verifier framework
                                   (intentionally empty until a 2nd app is shipped)
 ```
