@@ -1,0 +1,18 @@
+*.doc binary
+*.ppt binary
+*.xls binary
+*.sdw binary
+*.jcs binary
+*.docx binary
+*.ppts binary
+*.xlsx binary
+*.odp binary
+*.ods binary
+*.odt binary
+*.rtf diff
+schema/*/* export-ignore
+
+# Patch files for external/ tarballs must preserve their original line endings
+# (some patches target Windows files with CRLF; autocrlf would break them)
+external/**/*.patch binary
+external/**/*.patch.* binary

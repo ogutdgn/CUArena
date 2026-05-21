@@ -1,6 +1,6 @@
 # cua-bench — Repo-Root Agent Guide
 
-You are working in `cua-bench`, a monorepo for CUA evaluation. There are **three apps** here (figma, sheets, docs); each has its own mock + verifier + helper corpus. Cross-app conventions live at the repo root.
+You are working in `cua-bench`, a monorepo for CUA evaluation. There are **four apps** here (figma, sheets, docs, libreoffice); each is a CUA environment with its own logger + (where applicable) verifier + helper corpus. Cross-app conventions live at the repo root.
 
 If you were dispatched to work on a single app, read that app's CLAUDE.md instead and treat this file as the wider context.
 
@@ -30,10 +30,20 @@ cua-bench/
 │   │   ├── delivery-1/           50-task source of truth (prompt.md + verifier.py per task)
 │   │   └── scripts/              CLI entry-points + logs/scores output
 │   ├── sheets/                   planned — skeleton only
-│   └── docs/                     planned — skeleton only
+│   ├── docs/                     planned — skeleton only
+│   └── libreoffice/              active — stripped LibreOffice fork (Writer + Calc + Impress)
+│       │                          as a real-binary CUA runtime, instrumented with rllogger
+│       ├── CLAUDE.md             ← READ THIS when working on the libreoffice app
+│       ├── AGENTS.md             full project guide (workflow, build, gotchas)
+│       ├── docs/architecture/    ROADMAP.md, PHASE3_LOGGER_DESIGN.md, PHASE4_*.md
+│       ├── docs/USAGE.md         day-to-day commands (launching soffice, logs, export)
+│       ├── rllogger/             three-stream event logger (raw / semantic / outcome)
+│       └── sw/, sc/, sd/ ...     LibreOffice source modules (Writer / Calc / Impress + deps)
 └── shared/                       future: extracted shared verifier framework
                                   (intentionally empty until a 2nd app is shipped)
 ```
+
+Note: **libreoffice is shaped differently** from figma/sheets/docs — it's a real LibreOffice binary instrumented with a logger, not a TypeScript mock. No verifier yet (planned for a later phase). The three-stream log contract still applies (see [apps/libreoffice/docs/architecture/ROADMAP.md](apps/libreoffice/docs/architecture/ROADMAP.md)).
 
 ---
 
@@ -44,6 +54,7 @@ For app-specific work, **start at the app's CLAUDE.md** — it is the source of 
 | App | Status | Entry point |
 |---|---|---|
 | **figma** | active | [apps/figma/CLAUDE.md](apps/figma/CLAUDE.md) |
+| **libreoffice** | active (Phase 4 done; logger V1.1) | [apps/libreoffice/CLAUDE.md](apps/libreoffice/CLAUDE.md) |
 | **sheets** | planned | (skeleton not yet created) |
 | **docs** | planned | (skeleton not yet created) |
 
