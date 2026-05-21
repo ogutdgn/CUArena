@@ -46,9 +46,10 @@ Full contract: [`AGENTS.md`](AGENTS.md) §4.3.
 Design + verification: [`docs/architecture/PHASE3_LOGGER_DESIGN.md`](docs/architecture/PHASE3_LOGGER_DESIGN.md).
 Day-to-day commands: [`docs/USAGE.md`](docs/USAGE.md).
 
-Typical logger-change smoke test:
+Typical logger-change smoke test (run from `apps/libreoffice/libreoffice-codebase/`):
 
 ```sh
+cd apps/libreoffice/libreoffice-codebase
 rm -rf /tmp/rl-test && LO_RL_LOG_DIR=/tmp/rl-test \
   instdir/program/soffice --writer --norestore
 # Do a few things in Writer, close it
@@ -57,8 +58,9 @@ cat /tmp/rl-test/$SESSION/semantic.jsonl
 cat /tmp/rl-test/$SESSION/outcome.jsonl
 ```
 
-`make rllogger desktop` is enough for incremental rebuild (sofficemain
-links rllogger, so desktop also needs to relink; sw/sc/sd do not).
+`make rllogger desktop` (from inside `libreoffice-codebase/`) is enough for
+incremental rebuild (sofficemain links rllogger, so desktop also needs to
+relink; sw/sc/sd do not).
 
 ---
 
