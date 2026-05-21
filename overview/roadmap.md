@@ -7,10 +7,11 @@
 ## Sequence
 
 1. **Figma** — active. Mock + verifier shipping. Pending work tracked in `apps/figma/app-docs/execution-map.md`.
-2. **Sheets** — next. Will start with a research cycle (Google Sheets help docs → filtered helper → architecture decision), then mock skeleton, then verifier.
-3. **Docs** — last. Text editing has the hardest semantic-event design (caret/range/run model); doing it after Figma's `text-range` work and Sheets' verifier-framework lessons gives the best foundation.
+2. **LibreOffice** — active in parallel, decoupled. Real Linux binary (stripped LibreOffice fork). Phases 1-4 done (module strip, rllogger V1.1, Writer UI parity vs MS Word). Phases 5 (Calc + Excel UI parity), 6 (Impress + PowerPoint UI parity), and 7 (Docker multi-stage image) pending. Tracked in [apps/libreoffice/docs/architecture/ROADMAP.md](../apps/libreoffice/docs/architecture/ROADMAP.md).
+3. **Sheets** — next TS mock. Will start with a research cycle (Google Sheets help docs → filtered helper → architecture decision), then mock skeleton, then verifier.
+4. **Docs** — last. Text editing has the hardest semantic-event design (caret/range/run model); doing it after Figma's `text-range` work and Sheets' verifier-framework lessons gives the best foundation.
 
-The sequence is **chained, not parallel**: we may do small overlapping work on the next app while finishing the current one (e.g. begin Sheets research while figma fills/gradients ship), but full implementation of two apps in parallel is out of scope.
+The TS-mock sequence (figma → sheets → docs) is **chained**: we may do small overlapping work on the next app while finishing the current one, but full implementation of two TS mocks in parallel is out of scope. LibreOffice runs **independently** — its phases are LO-internal and don't compete with the TS-mock work for verifier-framework attention.
 
 ---
 
@@ -28,6 +29,12 @@ The sequence is **chained, not parallel**: we may do small overlapping work on t
 
 Tracked in [apps/figma/app-docs/execution-map.md](../apps/figma/app-docs/execution-map.md).
 Open priorities: outcome-stream correlation IDs, unsupported-button toast / rename UX hardening, fill/color expansion (gradient + image), vector finishing, prototype panel, right-sidebar parity, text-range edit-state.
+
+### LibreOffice — current (Phases 5-7 pending)
+
+Tracked in [apps/libreoffice/docs/architecture/ROADMAP.md](../apps/libreoffice/docs/architecture/ROADMAP.md).
+Done: Phase 1 (module strip), Phase 3 (rllogger V1.1 — default-on, three-stream), Phase 4 (Writer UI parity vs MS Word — tabbed notebookbar, dark theme, sifr_dark icons, sidebar suppressed, Home group restructure). Phase 2 cancelled (Docker ships binary, source restructure cost > benefit).
+Open: **Phase 5** — Calc logger additions + UI parity vs Excel. **Phase 6** — same for Impress vs PowerPoint. **Phase 7** — Docker multi-stage image with pre-built `instdir/` baked in; this is the ship vehicle for downstream RL agents.
 
 ### Sheets — pending
 
