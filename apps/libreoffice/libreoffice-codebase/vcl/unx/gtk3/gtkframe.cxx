@@ -33,6 +33,7 @@
 #include <headless/svpgdi.hxx>
 #include <sal/log.hxx>
 #include <comphelper/diagnose_ex.hxx>
+#include <comphelper/dispatchcommand.hxx>
 #include <vcl/toolkit/floatwin.hxx>
 #include <vcl/toolkit/unowrap.hxx>
 #include <vcl/svapp.hxx>
@@ -365,6 +366,26 @@ guint8 GtkSalFrame::GetBestAccelKeyGroup(GdkKeymap* keymap, guint8 group)
 #endif
 
 namespace {
+
+// cua-bench: Quick Access Toolbar callbacks for the HeaderBar buttons.
+// Each handler dispatches a UNO command against the active LO frame;
+// comphelper::dispatchCommand resolves the frame at call time so the
+// click always targets the focused document, even with multiple
+// Writer / Calc / Impress windows open.
+void on_qat_save_clicked(GtkButton*, gpointer)
+{
+    comphelper::dispatchCommand(u".uno:Save"_ustr, {});
+}
+
+void on_qat_undo_clicked(GtkButton*, gpointer)
+{
+    comphelper::dispatchCommand(u".uno:Undo"_ustr, {});
+}
+
+void on_qat_redo_clicked(GtkButton*, gpointer)
+{
+    comphelper::dispatchCommand(u".uno:Redo"_ustr, {});
+}
 
 // F10 means either KEY_F10 or KEY_MENU, which has to be decided
 // in the independent part.
@@ -1760,26 +1781,76 @@ void GtkSalFrame::Init( SalFrame* pParent, SalFrameStyleFlags nStyle )
         gtk_window_set_resizable( GTK_WINDOW(m_pWindow), bool(nStyle & SalFrameStyleFlags::SIZEABLE) );
 
 #if !GTK_CHECK_VERSION(4,0,0)
-#if defined(GDK_WINDOWING_WAYLAND)
-        //rhbz#1392145 under wayland/csd if we've overridden the default widget direction in order to set LibreOffice's
-        //UI to the configured ui language but the system ui locale is a different text direction, then the toplevel
-        //built-in close button of the titlebar follows the overridden direction rather than continue in the same
-        //direction as every other titlebar on the user's desktop. So if they don't match set an explicit
-        //header bar with the desired 'outside' direction
-        if ((eType == GDK_WINDOW_TYPE_HINT_NORMAL || eType == GDK_WINDOW_TYPE_HINT_DIALOG) && DLSYM_GDK_IS_WAYLAND_DISPLAY(GtkSalFrame::getGdkDisplay()))
+        // cua-bench: unconditionally install a custom GtkHeaderBar for normal
+        // document toplevels (Writer / Calc / Impress main windows). This
+        // switches the window into GTK Client-Side Decoration mode so we can
+        // host a Word-style unified title strip later (W icon + doc name +
+        // QAT + window controls). Folds rhbz#1392145's Wayland/RTL fix into
+        // the broader rule: the explicit direction is still set so the close
+        // button mirrors the desktop's text direction, not the app's UI
+        // language override.
+        // cua-bench: only install the document-style CSD HeaderBar on real
+        // document workspace toplevels. `eType == NORMAL` alone is too broad
+        // — a parentless `SalFrameStyleFlags::DIALOG` frame also lands here
+        // (see line 1752: DIALOG only collapses to TYPE_HINT_DIALOG when it
+        // has a parent). Excluding DIALOG / TOOLWINDOW / OWNERDRAWDECORATION
+        // / INTRO keeps the HeaderBar scoped to the Writer / Calc / Impress
+        // main windows and parentless tool helpers, not to chrome-free
+        // dialogs or splash frames.
+        if (eType == GDK_WINDOW_TYPE_HINT_NORMAL
+            && !(nStyle & (SalFrameStyleFlags::DIALOG
+                           | SalFrameStyleFlags::TOOLWINDOW
+                           | SalFrameStyleFlags::INTRO
+                           | SalFrameStyleFlags::OWNERDRAWDECORATION)))
         {
             const bool bDesktopIsRTL = MsLangId::isRightToLeft(MsLangId::getConfiguredSystemUILanguage());
-            const bool bAppIsRTL = gtk_widget_get_default_direction() == GTK_TEXT_DIR_RTL;
-            if (bDesktopIsRTL != bAppIsRTL)
+            m_pHeaderBar = GTK_HEADER_BAR(gtk_header_bar_new());
+            gtk_widget_set_direction(GTK_WIDGET(m_pHeaderBar), bDesktopIsRTL ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
+            gtk_header_bar_set_show_close_button(m_pHeaderBar, true);
+            // cua-bench: force min/max/close trio on the right edge regardless
+            // of the user's GNOME `button-layout` preference. Word always shows
+            // all three; default GTK layout on bare desktops can be close-only.
+            gtk_header_bar_set_decoration_layout(m_pHeaderBar, ":minimize,maximize,close");
+            // cua-bench: no subtitle line under the document name. Word's
+            // titlebar is a single text baseline.
+            gtk_header_bar_set_has_subtitle(m_pHeaderBar, false);
+            // cua-bench: branding-light variant — no app icon at the left.
+            // The literal Word "W" glyph would need a bundled asset (legal /
+            // trademark issues), and the LO Writer icon renders inconsistently
+            // at titlebar sizes; matching Word's M365 minimalist title.
+            //
+            // cua-bench: Quick Access Toolbar packed at the start of the
+            // HeaderBar. Save / Undo / Redo replace the in-tab-strip QAT
+            // toolbox that NotebookbarTabControlBase used to display
+            // (NotebookbarTabControlBase::SetToolBox now hides it). Click
+            // handlers go through comphelper::dispatchCommand so the action
+            // targets the focused frame.
             {
-                m_pHeaderBar = GTK_HEADER_BAR(gtk_header_bar_new());
-                gtk_widget_set_direction(GTK_WIDGET(m_pHeaderBar), bDesktopIsRTL ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
-                gtk_header_bar_set_show_close_button(m_pHeaderBar, true);
-                gtk_window_set_titlebar(GTK_WINDOW(m_pWindow), GTK_WIDGET(m_pHeaderBar));
-                gtk_widget_set_visible(GTK_WIDGET(m_pHeaderBar), true);
+                GtkWidget* pSaveBtn = gtk_button_new_from_icon_name("document-save", GTK_ICON_SIZE_MENU);
+                gtk_button_set_relief(GTK_BUTTON(pSaveBtn), GTK_RELIEF_NONE);
+                gtk_widget_set_tooltip_text(pSaveBtn, "Save (Ctrl+S)");
+                g_signal_connect(pSaveBtn, "clicked", G_CALLBACK(on_qat_save_clicked), nullptr);
+
+                GtkWidget* pUndoBtn = gtk_button_new_from_icon_name("edit-undo", GTK_ICON_SIZE_MENU);
+                gtk_button_set_relief(GTK_BUTTON(pUndoBtn), GTK_RELIEF_NONE);
+                gtk_widget_set_tooltip_text(pUndoBtn, "Undo (Ctrl+Z)");
+                g_signal_connect(pUndoBtn, "clicked", G_CALLBACK(on_qat_undo_clicked), nullptr);
+
+                GtkWidget* pRedoBtn = gtk_button_new_from_icon_name("edit-redo", GTK_ICON_SIZE_MENU);
+                gtk_button_set_relief(GTK_BUTTON(pRedoBtn), GTK_RELIEF_NONE);
+                gtk_widget_set_tooltip_text(pRedoBtn, "Redo (Ctrl+Y)");
+                g_signal_connect(pRedoBtn, "clicked", G_CALLBACK(on_qat_redo_clicked), nullptr);
+
+                gtk_header_bar_pack_start(m_pHeaderBar, pSaveBtn);
+                gtk_header_bar_pack_start(m_pHeaderBar, pUndoBtn);
+                gtk_header_bar_pack_start(m_pHeaderBar, pRedoBtn);
+                gtk_widget_show(pSaveBtn);
+                gtk_widget_show(pUndoBtn);
+                gtk_widget_show(pRedoBtn);
             }
+            gtk_window_set_titlebar(GTK_WINDOW(m_pWindow), GTK_WIDGET(m_pHeaderBar));
+            gtk_widget_set_visible(GTK_WIDGET(m_pHeaderBar), true);
         }
-#endif
 #endif
     }
 #if !GTK_CHECK_VERSION(4,0,0)

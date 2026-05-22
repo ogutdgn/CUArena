@@ -2204,7 +2204,10 @@ NotebookbarTabControlBase::NotebookbarTabControlBase(vcl::Window* pParent)
     m_pOpenMenu->SetClickHdl(LINK(this, NotebookbarTabControlBase, OpenMenu));
     m_pOpenMenu->SetModeImage(Image(StockImage::Yes, SV_RESID_BITMAP_NOTEBOOKBAR));
     m_pOpenMenu->SetSizePixel(m_pOpenMenu->GetOptimalSize());
-    m_pOpenMenu->Show();
+    // cua-bench: hide the tab-strip hamburger menu (Word/Excel/PowerPoint
+    // have no equivalent). Kept allocated so GetOpenMenu()/ArrowStops still
+    // resolve safely; ImplPlaceTabs treats it as zero-width while hidden.
+    m_pOpenMenu->Hide();
 }
 
 NotebookbarTabControlBase::~NotebookbarTabControlBase()
@@ -2272,6 +2275,13 @@ void NotebookbarTabControlBase::dispose()
 
 void NotebookbarTabControlBase::SetToolBox( ToolBox* pToolBox )
 {
+    // cua-bench: hide the in-tab-strip Quick Access Toolbar — its functions
+    // (Save / Undo / Redo) now live in the window HeaderBar (GTK CSD setup
+    // in GtkSalFrame::InitCommon). The toolbox is kept allocated so
+    // NotebookbarTabControl::ArrowStops can still walk through it for
+    // keyboard navigation; ImplPlaceTabs treats it as zero-width below.
+    if (pToolBox)
+        pToolBox->Hide();
     m_pShortcuts.reset( pToolBox );
 }
 
@@ -2320,9 +2330,13 @@ bool NotebookbarTabControlBase::ImplPlaceTabs( tools::Long nWidth )
     if (!m_pOpenMenu || m_pOpenMenu->isDisposed())
         return false;
 
-    const tools::Long nHamburgerWidth = m_pOpenMenu->GetSizePixel().Width();
+    const tools::Long nHamburgerWidth = m_pOpenMenu->IsVisible()
+        ? m_pOpenMenu->GetSizePixel().Width()
+        : 0;
     tools::Long nMaxWidth = nWidth - nHamburgerWidth;
-    tools::Long nShortcutsWidth = m_pShortcuts != nullptr ? m_pShortcuts->GetSizePixel().getWidth() + 1 : 0;
+    tools::Long nShortcutsWidth = (m_pShortcuts && m_pShortcuts->IsVisible())
+        ? m_pShortcuts->GetSizePixel().getWidth() + 1
+        : 0;
     tools::Long nFullWidth = nShortcutsWidth;
 
     const tools::Long nOffsetX = 2 + nShortcutsWidth;

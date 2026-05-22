@@ -10,8 +10,8 @@ description: Use before any git commit in cua-bench. Defines subject-line scope 
 Format: `<type>(<scope>): <imperative summary>`
 
 `<scope>` is one of:
-- `figma`, `sheets`, `docs` — app-specific code or doc changes.
-- `figma-verifier`, `sheets-verifier` etc. — verifier-only changes.
+- `figma`, `sheets`, `docs`, `libreoffice` — app-specific code or doc changes.
+- `figma-verifier`, `sheets-verifier` etc. — verifier-only changes (libreoffice has no verifier yet).
 - `overview`, `skills`, `repo` — cross-app or repo-root changes.
 - `restructure` — large structural changes (rare).
 

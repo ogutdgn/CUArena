@@ -623,6 +623,20 @@ docs(architecture): document apps vs core split
 | Config schemas | `officecfg/registry/` |
 | Public headers | `include/<module>/` |
 | Strip analysis (what to delete and why) | [`docs/architecture/WRITER_CALC_EXTRACTION.md`](docs/architecture/WRITER_CALC_EXTRACTION.md) |
+| Canonical phase plans + decision log | [`docs/architecture/ROADMAP.md`](docs/architecture/ROADMAP.md), `docs/architecture/PHASE*_*.md` |
+| Day-to-day commands (launch, logs, export) | [`docs/USAGE.md`](docs/USAGE.md) |
+| **In-flight branch work** (owner specs + per-branch progress / decision log) | [`docs/plan/`](docs/plan/) — current: [`lo-ui-improve-plan.md`](docs/plan/lo-ui-improve-plan.md) |
+
+### 9.1 Where docs live (and what goes where)
+
+| Path | Holds |
+|---|---|
+| `docs/architecture/` | **Canonical, durable** plans — ROADMAP, per-phase design docs (`PHASE3_LOGGER_DESIGN.md`, `PHASE4_WRITER_UI_DESIGN.md`, …), cross-app side-effect catalogues, strip / extraction analysis. Updated when a phase contract changes or a new phase begins. |
+| `docs/plan/` | **In-flight, branch-scoped** work — one set of files per active feature branch (e.g. `lo/ui-improve`). Owner-supplied UI specs (`*-tasks*.md`) sit alongside the agent-maintained progress + decision log (`*-plan.md`). After the branch merges, the plan doc may graduate to `docs/architecture/` if its decisions outlive the branch, or be deleted if it was purely a working scratchpad. |
+| `docs/USAGE.md` | Day-to-day commands for running soffice, the logger, and exports. |
+
+Skim `docs/plan/` first if a feature branch is active — it records what's
+decided, what's done, and what's blocked, so you don't re-litigate.
 
 ---
 
