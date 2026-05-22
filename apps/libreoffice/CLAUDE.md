@@ -15,7 +15,13 @@
    here; this is the single source of truth.
 3. **[`docs/USAGE.md`](docs/USAGE.md)** — day-to-day operational
    commands (launching soffice, inspecting logs, exporting).
-4. Then start the task.
+4. **[`docs/plan/`](docs/plan/)** — owner-supplied specs + per-branch
+   progress / decision logs for **in-flight UI work**. Skim this if a
+   feature branch is active; the per-branch plan doc records what was
+   decided, what's done, and what's blocked, so you don't relitigate.
+   Current example: [`docs/plan/lo-ui-improve-plan.md`](docs/plan/lo-ui-improve-plan.md)
+   for the `lo/ui-improve` branch.
+5. Then start the task.
 
 ---
 
