@@ -625,18 +625,23 @@ docs(architecture): document apps vs core split
 | Strip analysis (what to delete and why) | [`docs/architecture/WRITER_CALC_EXTRACTION.md`](docs/architecture/WRITER_CALC_EXTRACTION.md) |
 | Canonical phase plans + decision log | [`docs/architecture/ROADMAP.md`](docs/architecture/ROADMAP.md), `docs/architecture/PHASE*_*.md` |
 | Day-to-day commands (launch, logs, export) | [`docs/USAGE.md`](docs/USAGE.md) |
-| **In-flight branch work** (owner specs + per-branch progress / decision log) | [`docs/plan/`](docs/plan/) — current: [`lo-ui-improve-plan.md`](docs/plan/lo-ui-improve-plan.md) |
+| **Current state** (what's shipped on `main`) | [`docs/last-point.md`](docs/last-point.md) — auto-maintained by the `update-last-point` skill |
+| **Next up** (what's queued) | [`docs/execution-map.md`](docs/execution-map.md) — auto-maintained by the `update-execution-map` skill |
 
-### 9.1 Where docs live (and what goes where)
+### 9.1 Where docs live
 
 | Path | Holds |
 |---|---|
-| `docs/architecture/` | **Canonical, durable** plans — ROADMAP, per-phase design docs (`PHASE3_LOGGER_DESIGN.md`, `PHASE4_WRITER_UI_DESIGN.md`, …), cross-app side-effect catalogues, strip / extraction analysis. Updated when a phase contract changes or a new phase begins. |
-| `docs/plan/` | **In-flight, branch-scoped** work — one set of files per active feature branch (e.g. `lo/ui-improve`). Owner-supplied UI specs (`*-tasks*.md`) sit alongside the agent-maintained progress + decision log (`*-plan.md`). After the branch merges, the plan doc may graduate to `docs/architecture/` if its decisions outlive the branch, or be deleted if it was purely a working scratchpad. |
-| `docs/USAGE.md` | Day-to-day commands for running soffice, the logger, and exports. |
+| `docs/last-point.md` | **Current state** — what's shipped on `main`. Auto-maintained. Read first when starting a session. |
+| `docs/execution-map.md` | **Next up** — concrete queued tasks. Auto-maintained. Read second. |
+| `docs/architecture/` | **Canonical, durable** plans — ROADMAP, per-phase design docs, cross-app side-effect catalogues, strip / extraction analysis. Updated when a phase contract changes. |
+| `docs/USAGE.md` | Day-to-day commands. |
 
-Skim `docs/plan/` first if a feature branch is active — it records what's
-decided, what's done, and what's blocked, so you don't re-litigate.
+The two auto-maintained docs are kept in sync by the `update-last-point`
+and `update-execution-map` skills in `.claude/skills/`. Refresh them
+after every shipped change and at session end. **No long-form
+in-flight planning docs in this tree** — keep the chat short, let the
+maintained docs carry state across sessions.
 
 ---
 

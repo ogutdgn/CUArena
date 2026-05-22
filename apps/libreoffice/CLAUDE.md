@@ -8,20 +8,21 @@
 
 ## Read this first
 
-1. **[`AGENTS.md`](AGENTS.md)** — full project context, workflow,
+1. **[`docs/last-point.md`](docs/last-point.md)** — what's shipped on
+   `main` right now. Read this first to know the current state.
+2. **[`docs/execution-map.md`](docs/execution-map.md)** — what's
+   queued next. Read this second to know what to work on.
+3. **[`AGENTS.md`](AGENTS.md)** — full project context, workflow,
    build steps, conventional commits, known gotchas.
-2. **[`docs/architecture/ROADMAP.md`](docs/architecture/ROADMAP.md)** —
-   canonical plan for all phases + decision log. AGENTS.md §4 points
-   here; this is the single source of truth.
-3. **[`docs/USAGE.md`](docs/USAGE.md)** — day-to-day operational
+4. **[`docs/architecture/ROADMAP.md`](docs/architecture/ROADMAP.md)** —
+   canonical plan for all phases + decision log.
+5. **[`docs/USAGE.md`](docs/USAGE.md)** — day-to-day operational
    commands (launching soffice, inspecting logs, exporting).
-4. **[`docs/plan/`](docs/plan/)** — owner-supplied specs + per-branch
-   progress / decision logs for **in-flight UI work**. Skim this if a
-   feature branch is active; the per-branch plan doc records what was
-   decided, what's done, and what's blocked, so you don't relitigate.
-   Current example: [`docs/plan/lo-ui-improve-plan.md`](docs/plan/lo-ui-improve-plan.md)
-   for the `lo/ui-improve` branch.
-5. Then start the task.
+6. Then start the task.
+
+The first two files are auto-maintained by the `update-last-point`
+and `update-execution-map` skills — refresh them after big changes
+and at session end.
 
 ---
 
