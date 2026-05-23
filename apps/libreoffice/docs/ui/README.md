@@ -20,9 +20,9 @@
 | 1.1 | ribbon-anatomy.md | done (2026-05-22) |
 | 1.2 | sync-ui.sh + USAGE.md hot-reload section | done (2026-05-22) — functional verify OK in lo-dev WSL |
 | 1.3 | notebookbar_cua.ui fork + ToolbarMode.xcu + UIConfig + a11y mirror | done (2026-05-22) — WSL build green; runtime: soffice launches with CUA default (rllogger sessions + profile registry confirmed); screenshot deferred (xvfb render issue, functional evidence sufficient) |
-| 2.1 | Office.UI ColorScheme overrides (Word palette) | pending — needs owner light/dark decision |
-| 2.2 | GTK CSS retarget (auto-flows from 2.1) | pending |
-| 2.3 | Icon strategy (try sifr_dark/colibre_dark first, cua_word only if needed) | pending — needs owner existing-theme-first decision |
+| 2.1 | Office.UI ColorScheme — CUA Word Dark palette | done (2026-05-23) — WSL build green; xcd contains `COLOR_SCHEME_CUA_WORD_DARK` + AccentColor `#2B5797`; soffice launches with our default. See [`word-palette.md`](word-palette.md) + [`build-cua-palette.py`](../../scripts/build-cua-palette.py) |
+| 2.2 | GTK CSS retarget (auto-flows from 2.1 via `custom-theme.cxx`) | done implicitly — `custom-theme.cxx` reads `ThemeColors` which now sources from CUA Word Dark; no separate code change needed |
+| 2.3 | Icon strategy (defer — current `sifr_dark` stays for now) | pending — owner decides after Phase 2.1 visual review |
 | 3.x | DSL transpiler / file watcher / VCL patches | optional / on-demand |
 
 ## Phase 1 verification (owner WSL)
