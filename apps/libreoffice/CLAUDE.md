@@ -18,7 +18,10 @@
    canonical plan for all phases + decision log.
 5. **[`docs/USAGE.md`](docs/USAGE.md)** — day-to-day operational
    commands (launching soffice, inspecting logs, exporting).
-6. Then start the task.
+6. **[`docs/ui/README.md`](docs/ui/README.md)** — if the task touches
+   the Writer UI / ribbon / theming. Active 3-week UI flexibility
+   plan plus per-button ribbon map. Skip if the task is unrelated.
+7. Then start the task.
 
 The first two files are auto-maintained by the `update-last-point`
 and `update-execution-map` skills — refresh them after big changes
