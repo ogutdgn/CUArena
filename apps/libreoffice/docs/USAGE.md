@@ -235,6 +235,35 @@ ignored**. `sync-ui.sh` warns when this is the case:
 To resolve: `rm ~/.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/ui/notebookbar*.ui`
 and re-run the sync.
 
+### Important caveat — `View → User Interface` picker overwrites CUA
+
+The `View → User Interface` picker dialog (`cui/source/dialogs/uipickerdlg.cxx`)
+is hardcoded to 7 built-in modes (Standard Toolbar / Tabbed / Single
+Toolbar / Sidebar / Tabbed Compact / Groupedbar Compact / Contextual
+Single) as fixed radio buttons. **Custom XCU variants (including our
+CUA mode) do not appear in the picker**, and the dialog defaults its
+selection to "Standard Toolbar" when the active variant isn't
+recognized.
+
+**Do not click "Apply to Writer" or "Apply to All" in this dialog
+while CUA is active** — it will silently overwrite the CUA default
+with whatever radio button is selected. Recovery is a removal of the
+user-profile override in
+`~/.config/libreoffice/4/user/registrymodifications.xcu` (any
+`ActiveWriter` line) followed by a soffice restart.
+
+To verify the currently-active Writer variant from terminal (no UI
+needed):
+
+```sh
+grep ActiveWriter ~/.config/libreoffice/4/user/registrymodifications.xcu 2>/dev/null
+# empty result = using XCU shipped default = notebookbar_cua.ui
+# any value = user-profile override is winning
+```
+
+See [`docs/ui/README.md`](ui/README.md) §Gotcha for the full picker
+discussion.
+
 ### What does NOT work in the no-rebuild loop
 
 - **New icon SVG files**: icons are packed into `images_<theme>.zip`

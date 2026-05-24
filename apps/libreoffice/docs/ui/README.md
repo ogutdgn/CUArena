@@ -24,7 +24,7 @@
 | 1.3 | notebookbar_cua.ui fork + ToolbarMode.xcu + UIConfig + a11y mirror | shipped on main (PR #58, 2026-05-24) |
 | 2.1 | Office.UI ColorScheme — CUA Word Dark palette | shipped on main (PR #59, 2026-05-24) |
 | 2.2 | GTK CSS retarget (auto-flows from 2.1 via `custom-theme.cxx`) | shipped on main (PR #59, 2026-05-24) |
-| 2.3 | Icon strategy (current `sifr_dark` vs. forked `cua_word`) | pending — awaiting owner visual review of 2.1 |
+| 2.3 | Icon strategy (current `sifr_dark` vs. forked `cua_word`) | **deferred** — revisit after Phase 3 (owner decision: ship as-is, decide post-Phase-3 visual review) |
 | 3.x | DSL transpiler / file watcher / VCL patches | optional / on-demand |
 
 ## Visual verification (owner WSL)
