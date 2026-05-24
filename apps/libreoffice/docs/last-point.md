@@ -4,7 +4,7 @@
 > `main`** — nothing else. Auto-maintained by the `update-last-point`
 > skill.
 
-Last updated: 2026-05-22
+Last updated: 2026-05-24
 
 ---
 
@@ -28,12 +28,9 @@ Last updated: 2026-05-22
   - Tab-strip hamburger menu (`m_pOpenMenu`) and in-tab-strip
     shortcuts ToolBox (`m_pShortcuts`) hidden; tab row reclaims the
     full strip.
-
-## On feature branches, pending PR / merge
-
-- **Phase 4 V2 — UI flexibility foundation** (branch
-  `feat/libreoffice-ui-phase1`, 2026-05-22). Owner-iterable ribbon
-  via fork + hot-reload. See [`docs/ui/`](ui/README.md) and
+- **Phase 4 V2 — UI flexibility foundation** (PR #58, merged
+  2026-05-24, `be3303759`). Owner-iterable ribbon via fork +
+  hot-reload. See [`docs/ui/`](ui/README.md) and
   [`docs/ui/ui-plan.md`](ui/ui-plan.md).
   - Ribbon anatomy map ([`docs/ui/ribbon-anatomy.md`](ui/ribbon-anatomy.md)) —
     every Home-tab button → file:line + UNO command + icon/label
@@ -46,32 +43,30 @@ Last updated: 2026-05-22
     `Applications/Writer/Modes/CUA`, set as Writer default. Build
     integration via `sw/UIConfig_swriter.mk` +
     `solenv/sanitizers/ui/modules/swriter.{false,suppr}` mirrors.
-  - WSL smoke test green: `make` RC=0, instdir packaged
-    notebookbar_cua.ui, xcd registry has CUA entry, soffice launches
-    with CUA default (functional verified; visual screenshot
-    deferred due to xvfb/soffice GTK render compatibility).
-
-- **Phase 4 V2.1 — CUA Word Dark palette** (branch
-  `feat/libreoffice-ui-phase2`, branched off phase1, 2026-05-23).
+- **Phase 4 V2.1 — CUA Word Dark palette** (PR #59, merged
+  2026-05-24, `5b2d935f2`).
   New `Office.UI/ColorScheme` named `COLOR_SCHEME_CUA_WORD_DARK`,
   set as the default `CurrentColorScheme`. Vanilla schemes
   (AUTOMATIC / LIGHT / DARK) preserved. Built by idempotent
-  generator script [`scripts/build-cua-palette.py`](scripts/build-cua-palette.py);
+  generator script [`scripts/build-cua-palette.py`](../scripts/build-cua-palette.py);
   32 high-impact ThemeColors keys pinned (ribbon `#2B2B2B`,
   AccentColor `#2B5797` Word blue, ActiveColor `#4A9EFF`, etc.).
   Full palette table in [`docs/ui/word-palette.md`](ui/word-palette.md).
   Affects both VCL paint and GTK paint (via
   `custom-theme.cxx`'s auto-flow from `ThemeColors`).
-  WSL smoke test green; xcd registry has CUA scheme + AccentColor
-  int; soffice loads with our scheme as default.
+
+## On feature branches, pending PR / merge
+
+_(none — between phases on `main`)_
 
 ## Current branch
 
-`feat/libreoffice-ui-phase2` — Phase 4 V2.1 dark palette on top of
-phase1, pending owner PR review of phase1 first (phase2 branches
-off phase1, so merge order matters).
+`main` — Phase 4 V2 and V2.1 both shipped. Next feature work branches
+off `main`. Current open item: owner visual review of V2.1 palette on
+WSLg to decide whether to fork a `cua_word` icon theme (Phase 2.3) or
+keep `sifr_dark`.
 
 ## Code touchpoints (last shipped change on `main`)
 
-- `apps/libreoffice/libreoffice-codebase/vcl/unx/gtk3/gtkframe.cxx`
-- `apps/libreoffice/libreoffice-codebase/vcl/source/control/tabctrl.cxx`
+- `apps/libreoffice/libreoffice-codebase/officecfg/registry/data/org/openoffice/Office/UI.xcu` (CUA Word Dark scheme + `CurrentColorScheme` flip)
+- `apps/libreoffice/scripts/build-cua-palette.py` (idempotent palette generator)
