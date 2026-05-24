@@ -16,6 +16,8 @@ agent skills transfer cleanly between Office and this open stack.
 
 Home: this directory (`apps/libreoffice/`) inside the [`ogutdgn/cua-bench`](https://github.com/ogutdgn/cua-bench) monorepo (private). The vendored LibreOffice fork itself sits one level deeper at `apps/libreoffice/libreoffice-codebase/` — that's where `make`, `autogen.sh`, `instdir/`, `sw/` etc. all live. Docs (this file, CLAUDE.md, docs/) are at the app root. Historical archive of the original standalone LibreOffice fork (pre-cua-bench import, with the full Phase 1/3/4 commit history): <https://github.com/ogutdgn/libreoffice-core-rl-env> — frozen, do not push to.
 
+**Active working area: UI flexibility.** A 3-week plan to make ribbon, theming, and icons easily iterable lives in [`docs/ui/`](docs/ui/README.md). If your task touches the Writer UI / notebookbar / theming / icons, start there.
+
 ### Roadmap at a glance
 
 The work proceeds in tightly ordered stages — finish each before
@@ -139,7 +141,7 @@ phase moves.
 | **1** | Incremental module deletions (1A–1G, build verified each) | ✓ done — `d38f631d4` |
 | **2** | (Optional) folder restructure into `apps/` + `core/` | **cancelled — see note below** |
 | **3** | Writer: structured user-action logger | ✓ V1.1 done — `e2515c989` (see §4.3) |
-| **4** | Writer UI redesign (→ MS Word visual/interaction parity) | ✓ V1 done — `e5604fdcd` (see §4.4) |
+| **4** | Writer UI redesign (→ MS Word visual/interaction parity) | ✓ V1 done — `e5604fdcd` (see §4.4). V2 UI-flexibility plan active — see [`docs/ui/`](docs/ui/README.md). |
 | **5** | Calc: logger + UI redesign (→ MS Excel) | future |
 | **6** | Impress: logger + UI redesign (→ MS PowerPoint) | future |
 | **7** | Docker multi-stage image for distribution | future |
