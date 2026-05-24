@@ -320,7 +320,7 @@
             <value>Arrow</value>
           </prop>
           <prop oor:name="HasMenubar">
-            <value>true</value>
+            <value>false</value>
           </prop>
         </node>
       </node>
