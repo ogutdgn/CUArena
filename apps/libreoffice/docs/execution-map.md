@@ -38,16 +38,34 @@ status tracked in [`ui/README.md`](ui/README.md).
      xvfb/soffice render compatibility (functional verification
      deemed sufficient — owner can visual-verify on next launch).
 
-After Phase 1 verify: Phase 2 (Word palette via
-`Office.UI/ColorScheme` overrides + GTK CSS auto-flow + icon
-strategy decision), then Phase 3 (DSL transpiler, watcher,
-optional VCL paint patches).
+**Phase 2.1 + 2.2 done on `feat/libreoffice-ui-phase2` (2026-05-23):**
 
-Open decisions blocking Phase 2 start (see [`ui/ui-plan.md`](ui/ui-plan.md) §13):
+- `COLOR_SCHEME_CUA_WORD_DARK` added to
+  `officecfg/.../Office/UI.xcu` via
+  [`scripts/build-cua-palette.py`](../scripts/build-cua-palette.py)
+  (idempotent generator, 32 pinned color overrides on top of
+  duplicated DARK scheme; rest nil to fall back to system).
+  `CurrentColorScheme` flipped to it. Palette documented in
+  [`ui/word-palette.md`](ui/word-palette.md).
+- `vcl/unx/gtk3/custom-theme.cxx` auto-flows the new palette into
+  GTK paint surfaces (no separate code change — it reads
+  `ThemeColors`).
+- WSL smoke test green: build RC=0; xcd has CUA scheme + Word
+  AccentColor int; soffice launches; user profile registry
+  uses XCU defaults (= CUA Word Dark is the active scheme).
+
+Phase 2.3 (icons) deferred — current `sifr_dark` stays until owner
+visual-reviews Phase 2.1 result and decides whether to fork a
+`cua_word` icon theme.
+
+Then Phase 3 (DSL transpiler, watcher, optional VCL paint patches).
+
+Open decisions:
 
 - ~~Light + dark palette both or only dark?~~ — **dark only** (decided 2026-05-22)
 - Existing icon theme first (`sifr_dark` / `colibre_dark`) or
-  build `cua_word` from scratch?
+  build `cua_word` from scratch? — **pending owner visual review
+  of Phase 2.1**
 
 ## Future (from ROADMAP)
 
