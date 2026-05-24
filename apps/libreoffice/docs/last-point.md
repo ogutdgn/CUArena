@@ -29,11 +29,34 @@ Last updated: 2026-05-22
     shortcuts ToolBox (`m_pShortcuts`) hidden; tab row reclaims the
     full strip.
 
+## On feature branch, pending PR / merge
+
+- **Phase 4 V2 — UI flexibility foundation** (branch
+  `feat/libreoffice-ui-phase1`, 2026-05-22). Owner-iterable ribbon
+  via fork + hot-reload. See [`docs/ui/`](ui/README.md) and
+  [`docs/ui/ui-plan.md`](ui/ui-plan.md).
+  - Ribbon anatomy map ([`docs/ui/ribbon-anatomy.md`](ui/ribbon-anatomy.md)) —
+    every Home-tab button → file:line + UNO command + icon/label
+    source. Other tabs at group-level.
+  - Hot-reload workflow — `scripts/sync-ui.sh` (with user-profile
+    shadow check) + USAGE.md "Ribbon iteration" section. Edit
+    `.ui` + sync + restart = ~5s loop, no rebuild.
+  - CUA notebookbar variant — `notebookbar_cua.ui` forked from
+    vanilla (17,349 lines). Registered in `ToolbarMode.xcu` as
+    `Applications/Writer/Modes/CUA`, set as Writer default. Build
+    integration via `sw/UIConfig_swriter.mk` +
+    `solenv/sanitizers/ui/modules/swriter.{false,suppr}` mirrors.
+  - WSL smoke test green: `make` RC=0, instdir packaged
+    notebookbar_cua.ui, xcd registry has CUA entry, soffice launches
+    with CUA default (functional verified; visual screenshot
+    deferred due to xvfb/soffice GTK render compatibility).
+
 ## Current branch
 
-`main` — clean.
+`feat/libreoffice-ui-phase1` — Phase 4 V2 UI flexibility foundation,
+pending owner PR review.
 
-## Code touchpoints (last shipped change)
+## Code touchpoints (last shipped change on `main`)
 
 - `apps/libreoffice/libreoffice-codebase/vcl/unx/gtk3/gtkframe.cxx`
 - `apps/libreoffice/libreoffice-codebase/vcl/source/control/tabctrl.cxx`

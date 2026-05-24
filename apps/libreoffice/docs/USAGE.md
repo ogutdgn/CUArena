@@ -186,6 +186,74 @@ in `desktop`, not the app modules.
 
 ---
 
+## Ribbon iteration (no-rebuild loop)
+
+When editing the Writer notebookbar (ribbon) — adding / removing /
+renaming buttons, swapping icons, restructuring groups — **no rebuild
+is needed**. The `.ui` XML is read from `instdir/` at startup. Inner
+loop is ~5 seconds.
+
+Files involved (see also [`docs/ui/ribbon-anatomy.md`](ui/ribbon-anatomy.md)):
+
+- **Edit:** `sw/uiconfig/swriter/ui/notebookbar_cua.ui` (forked variant
+  — the one we own). Do NOT edit vanilla `notebookbar.ui` directly.
+- **Synced to (runtime location):** `instdir/share/config/soffice.cfg/modules/swriter/ui/notebookbar_cua.ui`
+- **Sync helper:** [`apps/libreoffice/scripts/sync-ui.sh`](../scripts/sync-ui.sh)
+
+Workflow:
+
+```sh
+# 1. Edit
+$EDITOR apps/libreoffice/libreoffice-codebase/sw/uiconfig/swriter/ui/notebookbar_cua.ui
+
+# 2. Sync source -> instdir (script handles default filename, paths)
+./apps/libreoffice/scripts/sync-ui.sh
+
+# 3. Restart soffice
+pkill -f soffice 2>/dev/null
+apps/libreoffice/libreoffice-codebase/instdir/program/soffice --writer --norestore
+```
+
+### Important caveat — user-profile UI shadowing
+
+`vcl/source/control/notebookbar.cxx:32-44,86-89` — LibreOffice
+checks the **user-profile** UI path *before* the shared `instdir/`
+path:
+
+```
+${HOME}/.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/ui/
+```
+
+If any `notebookbar*.ui` file ever ended up there (manual drop, prior
+LO customization), **all your `instdir/` edits will be silently
+ignored**. `sync-ui.sh` warns when this is the case:
+
+```sh
+./apps/libreoffice/scripts/sync-ui.sh --check-only
+```
+
+To resolve: `rm ~/.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/ui/notebookbar*.ui`
+and re-run the sync.
+
+### What does NOT work in the no-rebuild loop
+
+- **New icon SVG files**: icons are packed into `images_<theme>.zip`
+  at build time; swapping a file in `icon-themes/` requires `make sw`.
+  Pointing an existing button to a **different** already-installed
+  icon (XML `icon-name` swap) is rebuild-free.
+- **Registry / .xcu / .xcs changes** (e.g. variant registration,
+  palette tuning): need `make sw` to pick up changes to
+  `officecfg/`.
+- **VCL paint code** (border radius, padding, focus rect): C++ change
+  + rebuild.
+- **In-process reload of the same file**: `SfxNotebookBar::StateMethod`
+  skips reload when the active variant XML file hasn't changed name
+  (`sfx2/source/notebookbar/SfxNotebookBar.cxx:465-470`). Restart is
+  the reliable path; in-process you can re-switch the variant via
+  Tools → Toolbar Layout to force a reload.
+
+---
+
 ## Troubleshooting
 
 | Symptom | Likely cause |
