@@ -1,0 +1,3819 @@
+{
+  "schemaVersion": 1,
+  "source": "sw/uiconfig/swriter/menubar/menubar.xml",
+  "topLevelMenus": [
+    "File",
+    "Edit",
+    "View",
+    "Insert",
+    "Format",
+    "Styles",
+    "Table",
+    "Form",
+    "Tools",
+    "Window",
+    "Help"
+  ],
+  "stats": {
+    "menus": 61,
+    "items": 497,
+    "itemsInCatalog": 496,
+    "itemsMissingFromCatalog": 1
+  },
+  "menubar": [
+    {
+      "type": "menu",
+      "id": ".uno:PickList",
+      "label": "File",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:AddDirect",
+          "label": "New Document",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:OpenFromWriter",
+          "label": "Open...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:OpenRemote",
+          "label": "Open Remote...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:RecentFileList",
+          "label": "Recent Documents",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:CloseDoc",
+          "label": "Close",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:AutoPilotMenu",
+          "label": "Wizards",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:TemplateMenu",
+          "label": "Templates",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:OpenTemplate",
+              "label": "Edit Template...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SaveAsTemplate",
+              "label": "Save as Template...",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:NewDoc",
+              "label": "Templates",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:CompareDocuments",
+          "label": "Compare",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:MergeDocuments",
+          "label": "Merge",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Reload",
+          "label": "Reload",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:VersionDialog",
+          "label": "Versions...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Save",
+          "label": "Save",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SaveAs",
+          "label": "Save As...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SaveAsRemote",
+          "label": "Save Remote...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SaveACopy",
+          "label": "Save a Copy...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SaveAll",
+          "label": "Save All",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:CheckOut",
+          "label": "Check Out",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:CancelCheckOut",
+          "label": "Cancel Checkout...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:CheckIn",
+          "label": "Check In...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ExportTo",
+          "label": "Export...",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ExportAsMenu",
+          "label": "Export As",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:ExportToPDF",
+              "label": "Export as PDF",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ExportDirectToPDF",
+              "label": "Export Directly as PDF",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ExportToEPUB",
+              "label": "EPUB",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ExportDirectToEPUB",
+              "label": "EPUB",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:SendToMenu",
+          "label": "Send",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:SendMail",
+              "label": "Email",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendMailDocAsOOo",
+              "label": "Email as OpenDocument Text...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendMailDocAsMS",
+              "label": "Email as Microsoft Word...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendMailDocAsPDF",
+              "label": "Email as PDF...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendViaBluetooth",
+              "label": "Send via Bluetooth...",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:NewGlobalDoc",
+              "label": "Create Master Document",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:NewHtmlDoc",
+              "label": "Create HTML Document",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendOutlineToStarImpress",
+              "label": "Outline to Presentation",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendOutlineToClipboard",
+              "label": "Outline to Clipboard",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:CreateAbstract",
+              "label": "Create AutoAbstract...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendAbstractToStarImpress",
+              "label": "AutoAbstract to Presentation...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:WebHtml",
+          "label": "Preview in Web Browser",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:PrintPreview",
+          "label": "Print Preview",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Print",
+          "label": "Print...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:PrinterSetup",
+          "label": "Printer Settings...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:SetDocumentProperties",
+          "label": "Properties...",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:SignaturesMenu",
+          "label": "Digital Signatures",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:Signature",
+              "label": "Digital Signatures...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SignPDF",
+              "label": "Sign Existing PDF...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Quit",
+          "label": "Exit",
+          "inCatalog": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:EditMenu",
+      "label": "Edit",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:Undo",
+          "label": "Undo",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Redo",
+          "label": "Redo",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Repeat",
+          "label": "Repeat",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Cut",
+          "label": "Cut",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Copy",
+          "label": "Copy",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Paste",
+          "label": "Paste",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:PasteSpecialMenu",
+          "label": "Paste Special",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:PasteUnformatted",
+              "label": "Paste Unformatted Text",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:PasteSpecial",
+              "label": "Paste Special...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:PasteNestedTable",
+              "label": "Paste as Nested Table",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:PasteRowsBefore",
+              "label": "Paste as Rows Above",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:PasteColumnsBefore",
+              "label": "Paste as Columns Before",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:SelectAll",
+          "label": "Select All",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:SelectionModeMenu",
+          "label": "Selection Mode",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:SelectionModeDefault",
+              "label": "Standard",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SelectionModeBlock",
+              "label": "Block Area",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:SelectTextMode",
+          "label": "Select Text",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": "vnd.sun.star.findbar:FocusToFindbar",
+          "label": null,
+          "inCatalog": false
+        },
+        {
+          "type": "item",
+          "id": ".uno:SearchDialog",
+          "label": "Find and Replace...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:GotoPage",
+          "label": "Go to Page...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ChangesMenu",
+          "label": "Track Changes",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:TrackChanges",
+              "label": "Record",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ShowTrackedChanges",
+              "label": "Show Tracked Changes",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:AcceptTrackedChanges",
+              "label": "Manage...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:PreviousTrackedChange",
+              "label": "Previous",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:NextTrackedChange",
+              "label": "Next",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:AcceptTrackedChange",
+              "label": "Accept",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:AcceptTrackedChangeToNext",
+              "label": "Accept and Move to Next",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:AcceptAllTrackedChanges",
+              "label": "Accept All",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:RejectTrackedChange",
+              "label": "Reject",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:RejectTrackedChangeToNext",
+              "label": "Reject and Move to Next",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:RejectAllTrackedChanges",
+              "label": "Reject All",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ReinstateTrackedChange",
+              "label": "Reject but Track",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ReinstateTrackedChangeToNext",
+              "label": "Reject but Track and Move to Next",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ReinstateAllTrackedChanges",
+              "label": "Reject but Track All",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommentChangeTracking",
+              "label": "Comment...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ProtectTraceChangeMode",
+              "label": "Protect...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:EditCommentsMenu",
+          "label": "Comment",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:ReplyComment",
+              "label": "Reply Comment",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ResolveComment",
+              "label": "Resolved",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ResolveCommentThread",
+              "label": "Resolved Thread",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:PromoteComment",
+              "label": "Promote Comment To Root",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DeleteComment",
+              "label": "Delete Comment",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DeleteCommentThread",
+              "label": "Delete Comment Thread",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DeleteAuthor",
+              "label": "Delete All Comments by This Author",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DeleteAllNotes",
+              "label": "Delete All Comments",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:EditHyperlink",
+          "label": "Hyperlink",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:EditLinksMenu",
+          "label": "Reference",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:EditFootnote",
+              "label": "Footnote or Endnote...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:IndexEntryDialog",
+              "label": "Edit Index Entry",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:AuthoritiesEntryDialog",
+              "label": "Citation...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:FieldDialog",
+          "label": "Fields...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:LinkDialog",
+          "label": "External Links...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ObjectMenue",
+          "label": "OLE Object",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ChangeDatabaseField",
+          "label": "Exchange Database...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShadowCursor",
+          "label": "Toggle Direct Cursor Mode",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:EditDoc",
+          "label": "Edit Mode",
+          "inCatalog": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:ViewMenu",
+      "label": "View",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:PrintLayout",
+          "label": "Normal View",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:BrowseView",
+          "label": "Web View",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:DraftView",
+          "label": "Draft View",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:PagesLayout",
+          "label": "Page Layout",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:SinglePagePerRow",
+              "label": "Single Page per Row",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:MultiplePagesPerRow",
+              "label": "Multiple Pages per Row",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:BookView",
+              "label": "Book View",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:UIPicker",
+          "label": "User Interface...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AvailableToolbars",
+          "label": "Toolbars",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:StatusBarVisible",
+          "label": "Status Bar",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:RulerMenu",
+          "label": "Rulers",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:Ruler",
+              "label": "Rulers",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:VRuler",
+              "label": "Vertical Ruler",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ScrollBarMenu",
+          "label": "Scrollbars",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:HScroll",
+              "label": "Horizontal Scroll Bar",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:VScroll",
+              "label": "Vertical Scroll Bar",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:GridsMenu",
+          "label": "Grids and Helplines",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:GridVisible",
+              "label": "Grid",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:GridUse",
+              "label": "Snap to Grid",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:HelplinesMove",
+              "label": "Helplines While Moving",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:BaselineGridVisible",
+              "label": "Display Baseline Grid",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ControlCodes",
+          "label": "Formatting Marks",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowBoundaries",
+          "label": "Show Boundaries",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowGraphics",
+          "label": "View Images and Charts",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowWhitespace",
+          "label": "Show Whitespace",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ViewTrackChanges",
+          "label": "Show Tracked Changes",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowAnnotations",
+          "label": "Show Comments",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowResolvedAnnotations",
+          "label": "Show resolved comments",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Marks",
+          "label": "Field Shadings",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Fieldnames",
+          "label": "Field Names",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowHiddenParagraphs",
+          "label": "Field Hidden Paragraphs",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Sidebar",
+          "label": "Sidebar",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ViewSidebarStyles",
+          "label": "Styles",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Gallery",
+          "label": "Gallery",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Navigator",
+          "label": "Navigator",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ViewDataSourceBrowser",
+          "label": "Data Sources",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:FullScreen",
+          "label": "Full Screen",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ZoomMenu",
+          "label": "Zoom",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:ZoomPage",
+              "label": "Entire Page",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ZoomPageWidth",
+              "label": "Page Width",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ZoomOptimal",
+              "label": "Optimal",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:Zoom50Percent",
+              "label": "50%",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Zoom75Percent",
+              "label": "75%",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Zoom100Percent",
+              "label": "100%",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Zoom150Percent",
+              "label": "150%",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Zoom200Percent",
+              "label": "200%",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:Zoom",
+              "label": "Zoom...",
+              "inCatalog": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:InsertMenu",
+      "label": "Insert",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:InsertPagebreak",
+          "label": "Page Break",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:BreaksMenu",
+          "label": "More Breaks",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertLinebreak",
+              "label": "Insert Manual Row Break",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertColumnBreak",
+              "label": "Insert Column Break",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertLandscapePage",
+              "label": "Insert Landscape Page Break",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertBreak",
+              "label": "Manual Break...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertGraphic",
+          "label": "Image...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertObjectChart",
+          "label": "Chart...",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:GraphicMenu",
+          "label": "Media",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:Gallery",
+              "label": "Gallery",
+              "inCatalog": true
+            },
+            {
+              "type": "menu",
+              "id": ".uno:Scan",
+              "label": "Scan",
+              "inCatalog": true,
+              "children": [
+                {
+                  "type": "item",
+                  "id": ".uno:TwainSelect",
+                  "label": "Select Source...",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:TwainTransfer",
+                  "label": "Request...",
+                  "inCatalog": true
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertAVMedia",
+              "label": "Media",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ObjectMenu",
+          "label": "OLE Object",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertObjectStarMath",
+              "label": "Formula Object...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertQrCode",
+              "label": "QR and Barcode...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertObject",
+              "label": "Insert OLE Object",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ShapesMenu",
+          "label": "Shape",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "menu",
+              "id": ".uno:ShapesLineMenu",
+              "label": "Line",
+              "inCatalog": true,
+              "children": [
+                {
+                  "type": "item",
+                  "id": ".uno:Line",
+                  "label": "Line",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:Freeline_Unfilled",
+                  "label": "Freeform Line",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:Freeline",
+                  "label": "Freeform Line, Filled",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:Bezier_Unfilled",
+                  "label": "Curve",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:BezierFill",
+                  "label": "Curve, Filled",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:Polygon_Unfilled",
+                  "label": "Polygon",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:Polygon_Diagonal_Unfilled",
+                  "label": "Polygon (45°)",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:Polygon_Diagonal",
+                  "label": "Polygon (45°), Filled",
+                  "inCatalog": true
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "id": ".uno:ConnectorToolbox",
+              "label": "Connectors",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:BasicShapes",
+              "label": "Basic Shapes",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ArrowShapes",
+              "label": "Arrow Shapes",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SymbolShapes",
+              "label": "Symbol Shapes",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:StarShapes",
+              "label": "Star Shapes",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CalloutShapes",
+              "label": "Callout Shapes",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:FlowChartShapes",
+              "label": "Flowchart Shapes",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertSection",
+          "label": "Columns",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertDoc",
+          "label": "Content from Document...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:DrawText",
+          "label": "Text Box",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertAnnotation",
+          "label": "Comment",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:InsertFrameMenu",
+          "label": "Frame",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertFrameInteract",
+              "label": "Insert Frame Interactively",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertFrame",
+              "label": "Frame",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:FontworkGalleryFloater",
+          "label": "Insert Fontwork",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertCaptionDialog",
+          "label": "Caption...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:HyperlinkDialog",
+          "label": "Hyperlink...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertBookmark",
+          "label": "Bookmark...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertReferenceField",
+          "label": "Cross-reference...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertSymbol",
+          "label": "Symbol",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:FormattingMarkMenu",
+          "label": "Formatting Mark",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertNonBreakingSpace",
+              "label": "Insert No-break Space",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertHardHyphen",
+              "label": "Insert Non-breaking Hyphen",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertSoftHyphen",
+              "label": "Insert Soft Hyphen",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertNarrowNobreakSpace",
+              "label": "Insert Narrow No-break Space",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertZWSP",
+              "label": "Insert Zero-width Space",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertWJ",
+              "label": "Insert Word Joiner",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertLRM",
+              "label": "Insert Left-to-Right Mark",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertRLM",
+              "label": "Insert Right-to-Left Mark",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:InsertFootnotesMenu",
+          "label": "Footnote and Endnote",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertFootnote",
+              "label": "Footnote",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertEndnote",
+              "label": "Endnote",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertFootnoteDialog",
+              "label": "Insert Special Footnote/Endnote...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:IndexesMenu",
+          "label": "Table of Contents and Index",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertMultiIndex",
+              "label": "Table of Contents",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertIndexesEntry",
+              "label": "Insert Index Entry",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertAuthoritiesEntry",
+              "label": "Citation...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:PageNumberWizard",
+          "label": "Page Number...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertFieldCtrl",
+          "label": "Field",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:InsertHeaderFooterMenu",
+          "label": "Header and Footer",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertPageHeader",
+              "label": "Header",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertPageFooter",
+              "label": "Footer",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UseHeaderFooterMenu",
+              "label": "Use header/footer menu",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertEnvelope",
+          "label": "Envelope...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertSignatureLine",
+          "label": "Signature Line...",
+          "inCatalog": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:FormatMenu",
+      "label": "Format",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "menu",
+          "id": ".uno:FormatTextMenu",
+          "label": "Text",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:Bold",
+              "label": "Bold",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Italic",
+              "label": "Italic",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UnderlineSingle",
+              "label": "Single Underline",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UnderlineDouble",
+              "label": "Double Underline",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Strikeout",
+              "label": "Strikethrough",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Overline",
+              "label": "Overline",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:SuperScript",
+              "label": "Superscript",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SubScript",
+              "label": "Subscript",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:Shadowed",
+              "label": "Shadow",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:OutlineFont",
+              "label": "Outline Font Effect",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:Grow",
+              "label": "Increase",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Shrink",
+              "label": "Decrease",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToUpper",
+              "label": "UPPERCASE",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToLower",
+              "label": "lowercase",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseRotateCase",
+              "label": "Cycle Case",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToSentenceCase",
+              "label": "Sentence case",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToTitleCase",
+              "label": "Capitalize Every Word",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToToggleCase",
+              "label": "tOGGLE cASE",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:SmallCaps",
+              "label": "Small capitals",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToHalfWidth",
+              "label": "Half-width",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToFullWidth",
+              "label": "Full-width",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToHiragana",
+              "label": "Hiragana",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangeCaseToKatakana",
+              "label": "Katakana",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:FormatSpacingMenu",
+          "label": "Spacing",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:SpacePara1",
+              "label": "Line Spacing: 1",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SpacePara115",
+              "label": "Line Spacing: 1.15",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SpacePara15",
+              "label": "Line Spacing: 1.5",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SpacePara2",
+              "label": "Line Spacing: 2",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:ParaspaceIncrease",
+              "label": "Increase",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ParaspaceDecrease",
+              "label": "Decrease",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:IncrementIndent",
+              "label": "Increase",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DecrementIndent",
+              "label": "Decrease",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:TextAlign",
+          "label": "Align Text",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignStart",
+              "label": "Start",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignHorizontalCenter",
+              "label": "Centered",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignEnd",
+              "label": "End",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignJustified",
+              "label": "Justified",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignLeft",
+              "label": "Left",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignRight",
+              "label": "Right",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignTop",
+              "label": "Top",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignVerticalCenter",
+              "label": "Center",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CommonAlignBottom",
+              "label": "Bottom",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:FormatPaintbrush",
+          "label": "Clone Formatting",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ResetAttributes",
+          "label": "Clear",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:SpotlightMenu",
+          "label": "Spotlight",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:HighlightCharDF",
+              "label": "Spotlight Character Direct Formatting",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SpotlightParaStyles",
+              "label": "Spotlight Paragraph Styles",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SpotlightCharStyles",
+              "label": "Spotlight Character Styles",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:FontDialog",
+          "label": "Character...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ParagraphDialog",
+          "label": "Paragraph...",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:FormatBulletsMenu",
+          "label": "Lists",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:RemoveBullets",
+              "label": "No List",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DefaultBullet",
+              "label": "Unordered List",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DefaultNumbering",
+              "label": "Ordered List",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:DecrementLevel",
+              "label": "Demote Outline Level",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:IncrementLevel",
+              "label": "Promote Outline Level",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DecrementSubLevels",
+              "label": "Demote Outline Level with Subpoints",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:IncrementSubLevels",
+              "label": "Promote Outline Level with Subpoints",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:MoveDown",
+              "label": "Move Item Down",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:MoveUp",
+              "label": "Move Item Up",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:MoveDownSubItems",
+              "label": "Move Item Down with Subpoints",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:MoveUpSubItems",
+              "label": "Move Item Up with Subpoints",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertNeutralParagraph",
+              "label": "Insert Unnumbered Entry",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:NumberingStart",
+              "label": "Restart Numbering",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ContinueNumbering",
+              "label": "Add to List",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:JumpDownThisLevel",
+              "label": "To Next Paragraph in Level",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:JumpUpThisLevel",
+              "label": "To Previous Paragraph in Level",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:OutlineBullet",
+          "label": "Bullets and Numbering...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ThemeDialog",
+          "label": "Theme...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:PageDialog",
+          "label": "Page Style...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:TitlePageDialog",
+          "label": "Title Page...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:FormatAllNotes",
+          "label": "Comments...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:RubyDialog",
+          "label": "Asian Phonetic Guide...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:FormatColumns",
+          "label": "Columns...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Watermark",
+          "label": "Watermark...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:EditRegion",
+          "label": "Sections...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:FormatImageMenu",
+          "label": "Image",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:Crop",
+              "label": "Crop",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:ExternalEdit",
+              "label": "Edit with External Tool",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChangePicture",
+              "label": "Replace Image",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CompressGraphic",
+              "label": "Compress Image",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SaveGraphic",
+              "label": "Save Image",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "menu",
+              "id": ".uno:FormatImageFilterMenu",
+              "label": "Filter",
+              "inCatalog": true,
+              "children": [
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterSepia",
+                  "label": "Aging",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterSobel",
+                  "label": "Charcoal Sketch",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterInvert",
+                  "label": "Invert",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterMosaic",
+                  "label": "Mosaic",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterPopart",
+                  "label": "Pop Art",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterPoster",
+                  "label": "Posterize",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterRelief",
+                  "label": "Relief",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterRemoveNoise",
+                  "label": "Remove Noise",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterSharpen",
+                  "label": "Sharpen",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterSmooth",
+                  "label": "Smooth",
+                  "inCatalog": true
+                },
+                {
+                  "type": "item",
+                  "id": ".uno:GraphicFilterSolarize",
+                  "label": "Solarization",
+                  "inCatalog": true
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "id": ".uno:ColorSettings",
+              "label": "Color",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:GraphicDialog",
+              "label": "Image Properties",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:GraphicSizeCheck",
+              "label": "Graphic Size Check...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:FormatObjectMenu",
+          "label": "Text Box and Shape",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:TransformDialog",
+              "label": "Position and Size...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:FormatLine",
+              "label": "Line...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:FormatArea",
+              "label": "Area...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:TextAttributes",
+              "label": "Text Attributes...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:FontWork",
+              "label": "Text along Path",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:FormatFrameMenu",
+          "label": "Frame and Object",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:ChainFrames",
+              "label": "Link Frames",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UnhainFrames",
+              "label": "Unlink Frames",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:FrameDialog",
+              "label": "Frame or Object Properties",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:NameGroup",
+          "label": "Name...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ObjectTitleDescription",
+          "label": "Alt Text...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:AnchorMenu",
+          "label": "Anchor Menu",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:WrapMenu",
+          "label": "Wrap",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:WrapOff",
+              "label": "None",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapOn",
+              "label": "Parallel",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapIdeal",
+              "label": "Optimal",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapLeft",
+              "label": "Before",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapRight",
+              "label": "After",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapThrough",
+              "label": "Through",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapThroughTransparencyToggle",
+              "label": "In Background",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapContour",
+              "label": "Wrap Contour On",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ContourDialog",
+              "label": "Edit Contour...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:WrapAnchorOnly",
+              "label": "Wrap First Paragraph",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:TextWrap",
+              "label": "Text Wrap...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ArrangeMenu",
+          "label": "Arrange",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:BringToFront",
+              "label": "Bring to Front",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ObjectForwardOne",
+              "label": "Forward One",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ObjectBackOne",
+              "label": "Back One",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SendToBack",
+              "label": "Send to Back",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetObjectToForeground",
+              "label": "To Foreground",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetObjectToBackground",
+              "label": "To Background",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:RotateFlipMenu",
+          "label": "Rotate or Flip",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:ToggleObjectRotateMode",
+              "label": "Rotate",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:RotateLeft",
+              "label": "Rotate 90° Left",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:RotateRight",
+              "label": "Rotate 90° Right",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:Rotate180",
+              "label": "Rotate 180°",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:RotateReset",
+              "label": "Reset Rotation",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:FlipVertical",
+              "label": "Flip Vertically",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:FlipHorizontal",
+              "label": "Flip Horizontally",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:GroupMenu",
+          "label": "Group Shapes",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:FormatGroup",
+              "label": "Group",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:FormatUngroup",
+              "label": "Ungroup",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:EnterGroup",
+              "label": "Enter Group",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:LeaveGroup",
+              "label": "Exit Group",
+              "inCatalog": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:FormatStylesMenu",
+      "label": "Styles",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:TextBodyParaStyle",
+          "label": "Body Text",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:TitleParaStyle",
+          "label": "Title",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SubtitleParaStyle",
+          "label": "Subtitle",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Heading1ParaStyle",
+          "label": "Heading 1",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Heading2ParaStyle",
+          "label": "Heading 2",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Heading3ParaStyle",
+          "label": "Heading 3",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:QuoteParaStyle",
+          "label": "Block Quotation",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:PreformattedParaStyle",
+          "label": "Preformatted Text",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:HorizontalLine",
+          "label": "Horizontal Line",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:DefaultCharStyle",
+          "label": "No Character Style",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:EmphasisCharStyle",
+          "label": "Emphasis",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:StrongEmphasisCharStyle",
+          "label": "Strong Emphasis",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:QuoteCharStyle",
+          "label": "Quotation",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SourceCharStyle",
+          "label": "Source Text",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:RemoveBullets",
+          "label": "No List",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:BulletListStyle",
+          "label": "Bullet • List Style",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:NumberListStyle",
+          "label": "Numbering 123 List Style",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AlphaListStyle",
+          "label": "Numbering ABC List Style",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AlphaLowListStyle",
+          "label": "Numbering abc List Style",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:RomanListStyle",
+          "label": "Numbering IVX List Style",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:RomanLowListStyle",
+          "label": "Numbering ivx List Style",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:EditStyle",
+          "label": "Edit",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:StyleUpdateByExample",
+          "label": "Update",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:StyleNewByExample",
+          "label": "New Style from Selection",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:LoadStyles",
+          "label": "Load Styles from Template",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:DesignerDialog",
+          "label": "Styles",
+          "inCatalog": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:TableMenu",
+      "label": "Table",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:InsertTable",
+          "label": "Table",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:TableInsertMenu",
+          "label": "Insert",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertRowsBefore",
+              "label": "Insert Rows Above",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertRowsAfter",
+              "label": "Insert Rows Below",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertRowDialog",
+              "label": "Rows...",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertColumnsBefore",
+              "label": "Insert Columns Before",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertColumnsAfter",
+              "label": "Insert Columns After",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertColumnDialog",
+              "label": "Columns...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:TableDeleteMenu",
+          "label": "Delete",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:DeleteRows",
+              "label": "Delete Rows",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DeleteColumns",
+              "label": "Delete Columns",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DeleteTable",
+              "label": "Delete Table",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:TableSelectMenu",
+          "label": "Select",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:EntireCell",
+              "label": "Select Cell",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:EntireRow",
+              "label": "Select Row",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:EntireColumn",
+              "label": "Select Column",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SelectTable",
+              "label": "Select Table",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:TableAutoFitMenu",
+          "label": "Size",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:SetRowHeight",
+              "label": "Row Height...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetMinimalRowHeight",
+              "label": "Minimal Row Height",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetOptimalRowHeight",
+              "label": "Optimal Row Height",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DistributeRows",
+              "label": "Distribute Rows Evenly",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetColumnWidth",
+              "label": "Column Width...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetMinimalColumnWidth",
+              "label": "Minimal Column Width",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetOptimalColumnWidth",
+              "label": "Optimal Column Width",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:DistributeColumns",
+              "label": "Distribute Columns Evenly",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:MergeCells",
+          "label": "Merge Cells",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SplitCell",
+          "label": "Split Cells...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:MergeTable",
+          "label": "Merge Table",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SplitTable",
+          "label": "Split Table...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Protect",
+          "label": "Protect Cells",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:UnsetCellsReadOnly",
+          "label": "Unprotect Cells",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:AutoFormat",
+          "label": "Table Styles",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:TableNumberFormatDialog",
+          "label": "Number Format...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:TableNumberRecognition",
+          "label": "Number Recognition",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:HeadingRowsRepeat",
+          "label": "Header Rows Repeat Across Pages",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:RowSplit",
+          "label": "Row to Break Across Pages",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:TableConvertMenu",
+          "label": "Convert",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:ConvertTextToTable",
+              "label": "Text to Table...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ConvertTableToText",
+              "label": "Table to Text...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:InsertFormula",
+          "label": "Edit Formula",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:TableSort",
+          "label": "Sort...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:TableDialog",
+          "label": "Table Properties...",
+          "inCatalog": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:FormatFormMenu",
+      "label": "Form",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:SwitchControlDesignMode",
+          "label": "Toggle Design Mode",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:UseWizards",
+          "label": "Form Control Wizards",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Label",
+          "label": "Label",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Edit",
+          "label": "Text Box",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:CheckBox",
+          "label": "Check Box",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:RadioButton",
+          "label": "Option Button",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ListBox",
+          "label": "List Box",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ComboBox",
+          "label": "Combo Box",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Pushbutton",
+          "label": "Push Button",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Imagebutton",
+          "label": "Image Button",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:FormattedField",
+          "label": "Formatted Field",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:FormMoreFieldsMenu",
+          "label": "More Fields",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:DateField",
+              "label": "Date Field",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:TimeField",
+              "label": "Time Field",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:NumericField",
+              "label": "Numerical Field",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:CurrencyField",
+              "label": "Currency Field",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:PatternField",
+              "label": "Pattern Field",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:GroupBox",
+          "label": "Group Box",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ImageControl",
+          "label": "Image Control",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:FileControl",
+          "label": "File Selection",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Grid",
+          "label": "Table Control",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:NavigationBar",
+          "label": "Navigation Bar",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ControlProperties",
+          "label": "Control Properties...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:FormProperties",
+          "label": "Form Properties...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowFmExplorer",
+          "label": "Form Navigator...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:TabDialog",
+          "label": "Activation Order...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:OpenReadOnly",
+          "label": "Open in Design Mode",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AutoControlFocus",
+          "label": "Automatic Control Focus",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ContentControlsMenu",
+          "label": "Content Controls",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:InsertContentControl",
+              "label": "Rich Text Content Control",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertPlainTextContentControl",
+              "label": "Plain Text Content Control",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertPictureContentControl",
+              "label": "Picture Content Control",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertCheckboxContentControl",
+              "label": "Check Box Content Control",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertComboBoxContentControl",
+              "label": "Combo Box Content Control",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertDropdownContentControl",
+              "label": "Drop-Down List Content Control",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:InsertDateContentControl",
+              "label": "Date Content Control",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ContentControlProperties",
+              "label": "Content Control Properties",
+              "inCatalog": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:ToolsMenu",
+      "label": "Tools",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:SpellingAndGrammarDialog",
+          "label": "Spelling",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SpellOnline",
+          "label": "Auto Spellcheck",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ThesaurusDialog",
+          "label": "Thesaurus...",
+          "inCatalog": true
+        },
+        {
+          "type": "menu",
+          "id": ".uno:LanguageMenu",
+          "label": "Language",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:SetLanguageSelectionMenu",
+              "label": "For Selection",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetLanguageParagraphMenu",
+              "label": "For Paragraph",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:SetLanguageAllTextMenu",
+              "label": "For All Text",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:Hyphenate",
+              "label": "Hyphenation...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ChineseConversion",
+              "label": "Chinese Conversion...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:HangulHanjaConversion",
+              "label": "Hangul/Hanja Conversion...",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:MoreDictionaries",
+              "label": "More Dictionaries Online...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:WordCountDialog",
+          "label": "Word Count...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AccessibilityCheck",
+          "label": "Accessibility Check...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AccessibilityCheckOnline",
+          "label": "Automatic Accessibility Checking",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:Translate",
+          "label": "Translate...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:AutoFormatMenu",
+          "label": "AutoCorrect",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:OnlineAutoFormat",
+              "label": "While Typing",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:AutoFormatApply",
+              "label": "Apply",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:AutoFormatRedlineApply",
+              "label": "Apply and Edit Changes",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:AutoCorrectDlg",
+              "label": "AutoCorrect Options...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:EditGlossary",
+          "label": "AutoText...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ImageMapDialog",
+          "label": "ImageMap",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:RedactDoc",
+          "label": "Redact",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AutoRedactDoc",
+          "label": "Auto-Redact",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ChapterNumberingDialog",
+          "label": "Heading Numbering...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:LineNumberingDialog",
+          "label": "Line Numbering...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:FootnoteDialog",
+          "label": "Footnote/Endnote Settings...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:MailMergeWizard",
+          "label": "Mail Merge Wizard...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:BibliographyComponent",
+          "label": "Bibliography Database",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:AddressBookSource",
+          "label": "Address Book Source...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:UpdateMenu",
+          "label": "Update",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:UpdateAll",
+              "label": "Update All",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:Repaginate",
+              "label": "Page Formatting",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UpdateSelectedField",
+              "label": "Update Selected Field",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ConvertSelectedField",
+              "label": "Convert Field To Text",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UpdateFields?UnlockSoftFixed:bool=1",
+              "label": "Fields",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UpdateAllIndexes",
+              "label": "Update All",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UpdateCurIndex",
+              "label": "Update Index",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UpdateAllLinks",
+              "label": "Links",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:UpdateCharts",
+              "label": "Charts",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "menu",
+          "id": ".uno:ProtectMenu",
+          "label": "Protect Document",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:ProtectFields",
+              "label": "Protect Fields",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ProtectBookmarks",
+              "label": "Protect Bookmarks",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:CalculateSel",
+          "label": "Calculate",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SortDialog",
+          "label": "Sort...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "menu",
+          "id": ".uno:MacrosMenu",
+          "label": "Macros",
+          "inCatalog": true,
+          "children": [
+            {
+              "type": "item",
+              "id": ".uno:MacroManager",
+              "label": "Macro Manager...",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:MacroRecorder",
+              "label": "Record Macro",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:RunMacro",
+              "label": "Run Macro...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:BasicIDEAppear",
+              "label": "Edit Macros...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:ScriptOrganizer",
+              "label": "Organize Macros",
+              "inCatalog": true
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "item",
+              "id": ".uno:MacroSignature",
+              "label": "Digital Signature...",
+              "inCatalog": true
+            },
+            {
+              "type": "item",
+              "id": ".uno:MacroOrganizer?TabId:short=1",
+              "label": "Organize Dialogs...",
+              "inCatalog": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "id": ".uno:DevelopmentToolsDockingWindow",
+          "label": "Development Tools",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:OpenXMLFilterSettings",
+          "label": "XML Filter Settings...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ExtensionManager",
+          "label": "Extensions...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ConfigureDialog",
+          "label": "Customize...",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:OptionsTreeDialog",
+          "label": "Options...",
+          "inCatalog": true
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:WindowList",
+      "label": "Window",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:NewWindow",
+          "label": "New Window",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:CloseWin",
+          "label": "Close Window",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "id": ".uno:HelpMenu",
+      "label": "Help",
+      "inCatalog": true,
+      "children": [
+        {
+          "type": "item",
+          "id": ".uno:HelpIndex",
+          "label": "%PRODUCTNAME Help",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:ExtendedHelp",
+          "label": "What's This?",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Documentation",
+          "label": "User Guides",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:TipOfTheDay",
+          "label": "Tip of the day",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:CommandPopup",
+          "label": "Search Commands",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:QuestionAnswers",
+          "label": "Get Help Online",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:SendFeedback",
+          "label": "Send Feedback",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:SafeMode",
+          "label": "Restart in Troubleshoot Mode...",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:GetInvolved",
+          "label": "Get Involved",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:Donation",
+          "label": "Donate to LibreOffice",
+          "inCatalog": true
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "type": "item",
+          "id": ".uno:ShowLicense",
+          "label": "License Information",
+          "inCatalog": true
+        },
+        {
+          "type": "item",
+          "id": ".uno:About",
+          "label": "About %PRODUCTNAME",
+          "inCatalog": true
+        }
+      ]
+    }
+  ],
+  "missingFromCatalog": [
+    "vnd.sun.star.findbar:FocusToFindbar"
+  ]
+}
