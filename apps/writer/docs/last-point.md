@@ -32,32 +32,39 @@
 - **Repo plumbing:** branch `improve-lo-test`; `apps/writer/` doc scaffold;
   `.claude/settings.local.json` permission allowlist (gitignored).
 
-**Phase W1 — Engine (in progress, committed):**
+**Phase W1 — Engine (DONE — built + proof-of-life passed):**
 
-- Engine build recipe finalized →
-  [`architecture/ENGINE_BUILD.md`](architecture/ENGINE_BUILD.md) (headless
-  Writer-only LOK; flags verified vs `configure.ac`; `--disable-gtk3/qt*` +
-  `--enable-mergelibs`, core LOK C API not gtk glue).
-- **Command catalog built** — `tools/gen_command_catalog.py` →
-  `resources/command-catalog.json`, **1520 commands** (977 generic + 543
-  writer) with labels/tooltips/semanticName/propertiesRaw. Build-independent,
-  verified. Feeds UI + dispatch + logger + MCP.
+- **Engine built**: LibreOfficeDev **26.8.0.0.alpha0**, headless, Writer-focused
+  flags (gtk/qt/kf/avmedia disabled). `instdir` ~622 MB, 188 `.so`, LOK headers
+  present. Recipe + gotchas in
+  [`architecture/ENGINE_BUILD.md`](architecture/ENGINE_BUILD.md) §6.
+- **LOK proof-of-life PASSED** (`tests/lok_proof_of_life.cpp`): headless init →
+  load Writer → paintTile (rendered) → `.uno:InsertText`+`.uno:Bold` →
+  saveAs docx+odt; verified docx has our text + `<w:b/>` bold.
+  **Boundary A proven end-to-end.**
+- Engine smoke: `--version` + txt→docx + txt→pdf all OK.
+- **Command catalog** — `tools/gen_command_catalog.py` →
+  `resources/command-catalog.json`, **1520 commands**. Feeds UI/dispatch/logger/MCP.
+- **Writer functionality map** — `tools/extract_menu_tree.py` →
+  `resources/writer-menu-tree.json`, 11 menus / 497 items, 496/497 in catalog.
 
 ## Built / code
 
-- `apps/writer/tools/gen_command_catalog.py` (+ generated
-  `resources/command-catalog.json`). No compiled code yet (engine build +
-  Qt app skeleton are blocked on deps — see below).
+- `tests/lok_proof_of_life.cpp` (LOK integration smoke, header-only `-ldl`).
+- `tools/gen_command_catalog.py` + `tools/extract_menu_tree.py` (+ generated JSON).
+- Engine `instdir/` built (gitignored, not committed).
 
-## Blocked on
+## Environment notes (for next session)
 
-- **Build deps (owner sudo).** Engine build + Qt6 not installable by me.
-  Exact `sudo apt` commands in
-  [`progress/2026-05-25-w0-w1-kickoff.md`](progress/2026-05-25-w0-w1-kickoff.md).
+- Build toolchain installed (owner): `libtool`/`ccache` + Qt6
+  (`qt6-base-dev`/`qt6-declarative-dev`/`cmake`/`ninja`, Qt **6.4.2**).
+- LOK usage: compile `-I <engine>/include ... -ldl`; `#define LOK_USE_UNSTABLE_API`;
+  run with `SAL_USE_VCLPLUGIN=svp LO_RL_LOG_DISABLE=1`; `saveAs` format = extension.
+- Strip (Calc/Impress/Math) NOT yet done — deferred optimization.
 
 ## Current branch
 
-`improve-lo-test` — W0 done; W1 design + command catalog done; engine build
-blocked on owner deps. Next: configure+build engine, then Qt skeleton +
-LOK proof-of-life. See [`execution-map.md`](execution-map.md).
+`improve-lo-test` — W0 done; **W1 done** (engine + LOK proof-of-life). Next:
+**W2** — Qt app skeleton + LOK binding (Qt6 ready). See
+[`execution-map.md`](execution-map.md).
 ```

@@ -12,24 +12,30 @@
 
 ## 1. Configure line
 
-Base (proven, from the app README) + LOK/headless optimizations:
+**ACTUAL working line (W1, 2026-05-25, built LO 26.8.0.0.alpha0):**
 
 ```sh
 cd apps/libreoffice/libreoffice-codebase
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin   # strip mingw if present
 ./autogen.sh \
-  --enable-release-build \
-  --enable-mergelibs \
   --without-java --enable-python=no \
   --without-help --disable-xmlhelp \
   --disable-gtk3 --disable-gtk4 --disable-qt5 --disable-qt6 --disable-kf5 --disable-kf6 \
-  --disable-cups --disable-dbus \
-  --disable-avmedia --disable-gstreamer \
+  --disable-avmedia \
   --disable-libcmis --disable-firebird-sdbc --disable-postgresql-sdbc \
   --disable-mariadb-sdbc --disable-online-update --disable-extension-update \
   --disable-pdfimport --disable-librelogo --disable-opencl
-make            # full first build (LOK is built as part of a normal make)
+make            # LOK is built as part of a normal make
 ```
+
+**Flags dropped from the original plan** (configure rejected or unconfirmed,
+under `--enable-option-checking=fatal`): `--disable-gstreamer` (not a valid
+option), `--disable-cups`, `--disable-dbus`, `--enable-mergelibs`,
+`--enable-release-build` (no `AC_ARG_ENABLE` / rejected). These are deferred
+optimizations — the baseline build works without them. Revisit `mergelibs`
+(smaller/faster LOK) in a later pass. Note: **without mergelibs there is no
+`libmergedlo.so`** — LOK loads via `libsofficeapp.so` + the individual libs
+(188 `.so` in `instdir/program`, ~622 MB). `lok_init` dlopens them at runtime.
 
 ### Why each addition (vs the README base)
 
@@ -113,4 +119,48 @@ separately for **our** app (W2), independent of the engine.
 
 Cold first build ≈ 3 h (the local `external/tarballs` cache is empty, so all
 externals download + compile). Incremental: `make sw` etc.
+
+---
+
+## 6. W1 RESULT — built + proof-of-life PASSED (2026-05-25)
+
+Engine built: **LibreOfficeDev 26.8.0.0.alpha0**, `instdir` ~622 MB, 188
+`.so`. Headless smoke (`SAL_USE_VCLPLUGIN=svp`): `--version` OK; txt→docx
+(filter "Office Open XML Text") and txt→pdf both OK.
+
+**LOK proof-of-life** (`apps/writer/tests/lok_proof_of_life.cpp`) PASSED:
+headless `lok_cpp_init` → `documentLoad(private:factory/swriter)` →
+`getDocumentSize` (12808×16408 twips) → `postUnoCommand(.uno:InsertText, .uno:Bold)`
+→ `paintTile` (256×256, rendered content) → `saveAs` docx+odt. Verified the
+saved **docx contains our exact text + `<w:b/>` bold run** → `.uno` dispatch
+takes effect and docx fidelity is preserved. **Boundary A proven end-to-end.**
+
+### Gotchas / lessons (for reproducibility + Docker, Phase W7)
+
+- **Missing gitignored files had to be restored** (dropped in the vendored
+  import because LO's own `.gitignore` ignores them):
+  - `config.guess` + `missing` → copied from `/usr/share/automake-1.16/`.
+  - `.vscode/vs-code-template.code-workspace.in` → created as `{}` (IDE
+    template referenced by `AC_CONFIG_FILES`; non-essential).
+  - `desktop/scripts/soffice.sh` (`.gitignore` line 105) → fetched from LO
+    upstream (`raw.githubusercontent.com/LibreOffice/core/master`). This is
+    the launcher copied to `instdir/program/soffice`; the build's final
+    `Package.mk` step fails without it. **A Docker build must restore these
+    four files before `make`.**
+- **autogen caches flags in `autogen.lastrun`** — `rm autogen.lastrun` before
+  re-running with changed flags, or it reuses the old set.
+- **LOK client compiles header-only**: `g++ -I <engine>/include foo.cpp -ldl`
+  — `lok_init` dlopens the engine at runtime; **no linking against LO libs**.
+- **Tiled-rendering API is behind `#define LOK_USE_UNSTABLE_API`** (before
+  including the header) — else `paintTile`/`postUnoCommand`/`getDocumentSize`
+  are not declared.
+- **`saveAs` format is the extension** (`"docx"`, `"odt"`, `"pdf"`), NOT the
+  full filter name.
+- **Dev-build LOK teardown (`delete office`) aborts (SIGABRT)** on shutdown —
+  a known dev-build quirk, irrelevant to functionality. The real app keeps the
+  `Office` alive for its lifetime; the harness bypasses teardown with `_exit(0)`.
+- **Engine `rllogger` is compiled in and on by default** — set
+  `LO_RL_LOG_DISABLE=1` when driving via LOK (our own logger replaces it, D7).
+- **Strip (Calc/Impress/Math) NOT yet done** — baseline built full; strip is
+  deferred (optimization, not a blocker). See §4.
 ```

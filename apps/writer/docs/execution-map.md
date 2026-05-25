@@ -13,8 +13,8 @@
 | Phase | Goal | Status |
 |---|---|---|
 | **W0** | Foundations: decisions locked, LOK feasibility research, docs scaffold, permissions, branch | **done** |
-| **W1** | Engine: Writer-only deep-strip + headless LOK build + SDK boundary; LOK proof-of-life | **in progress** (recipe + command catalog done; build **blocked on owner deps**) |
-| **W2** | Qt app skeleton + LOK binding: CMake, C++ `Office`/`Document` wrapper, tile render→QML canvas, load/save, key/mouse injection, core callbacks **+ logger raw-stream scaffold** | |
+| **W1** | Engine: headless LOK build + proof-of-life (strip deferred) | **DONE** — engine built (26.8 alpha), LOK proof-of-life passed end-to-end |
+| **W2** | Qt app skeleton + LOK binding: CMake, C++ `Office`/`Document` wrapper, tile render→QML canvas, load/save, key/mouse injection, core callbacks **+ logger raw-stream scaffold** | **next** (Qt6 6.4.2 ready) |
 | **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch (**native semantic emit**), Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | |
 | **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | |
 | **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | |
@@ -24,31 +24,34 @@
 
 ---
 
-## W1 — Engine (Writer-only LOK) — in progress
+## W1 — Engine (LOK) — ✅ DONE
 
-Done:
-- ✅ Build recipe finalized → [`architecture/ENGINE_BUILD.md`](architecture/ENGINE_BUILD.md)
-  (flags verified vs `configure.ac`; headless `svp`, core LOK C API).
-- ✅ Engine location: keep at `apps/libreoffice/libreoffice-codebase/`,
-  demarcated as engine (resolves ARCHITECTURE §11 open Q for now).
-- ✅ Command catalog (`tools/gen_command_catalog.py` → 1520 cmds) —
-  build-independent, done.
+- Engine built (LO 26.8.0.0.alpha0, headless), recipe + gotchas in
+  [`architecture/ENGINE_BUILD.md`](architecture/ENGINE_BUILD.md) §6.
+- LOK proof-of-life passed end-to-end (`tests/lok_proof_of_life.cpp`):
+  load → paintTile → `.uno` dispatch → saveAs docx/odt, content verified.
+- Command catalog + Writer menu/functionality map generated.
+- **Deferred (W1-tail, optimization, not blocking):** strip Calc/Impress/Math;
+  `--enable-mergelibs` rebuild. Do opportunistically after W2 is moving.
 
-**BLOCKED on owner deps (sudo)** — exact `sudo apt` in
-[`progress/2026-05-25-w0-w1-kickoff.md`](progress/2026-05-25-w0-w1-kickoff.md).
+## Next: W2 — Qt app skeleton + LOK binding
 
-Remaining (the moment deps land):
-1. `autogen.sh` (ENGINE_BUILD.md line) → `make` (background, ~3 h).
-2. **LOK proof-of-life** (exit gate): `tiledrendering` cppunit test or our
-   own C harness — headless load `.docx` → `paintTile` (non-empty) →
-   `postUnoCommand` → `saveAs` round-trip. Log in `progress/`.
-3. **Strip** Calc (`sc`) / Impress (`sd`) / Math (`starmath`) + peers, after
-   the first green baseline; build-verify each group; reversible. Never the
-   shared core (D5).
-4. **Record** the LOK link surface for W2.
+1. **CMake project** (`apps/writer/CMakeLists.txt`) — Qt6 6.4.2 (Core/Gui/Qml/
+   Quick/QuickControls2/Svg), C++20, ninja. `src/` layout per ARCHITECTURE §8.
+2. **Qt shell** — `QGuiApplication` + `QQmlApplicationEngine`, a Word-like
+   `ApplicationWindow` (ribbon tab strip placeholder, document canvas area,
+   status bar). Compiles + runs (WSLg or `QT_QPA_PLATFORM=offscreen`).
+3. **LOK binding** (`src/engine/`) — C++ `LokEngine` (wraps `Office`/`Document`)
+   as a `QObject`: load/save, `getDocumentSize`, `postUnoCommand`,
+   key/mouse inject; LOK callback pump → Qt signals (engine thread).
+4. **Tile → canvas** — a `QQuickItem`/`QQuickPaintedItem` that blits
+   `paintTile` output; repaint on `INVALIDATE_TILES`; `setClientZoom` mapping.
+5. **Logger raw-stream scaffold** (`src/logging/`) — session dir + raw events
+   from the input layer (grows into W5).
+6. Lifecycle: keep `Office` alive for app lifetime (avoid the teardown abort).
 
-**W1 exit criteria:** Writer-only engine builds; LOK loads+paints+dispatches
-+saves a .docx headless; link surface documented.
+**W2 exit:** app window opens a .docx, renders it (LOK tiles), accepts typing,
+saves; one `.uno` command wired through the binding.
 
 ---
 
