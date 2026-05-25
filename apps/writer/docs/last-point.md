@@ -32,12 +32,32 @@
 - **Repo plumbing:** branch `improve-lo-test`; `apps/writer/` doc scaffold;
   `.claude/settings.local.json` permission allowlist (gitignored).
 
+**Phase W1 — Engine (in progress, committed):**
+
+- Engine build recipe finalized →
+  [`architecture/ENGINE_BUILD.md`](architecture/ENGINE_BUILD.md) (headless
+  Writer-only LOK; flags verified vs `configure.ac`; `--disable-gtk3/qt*` +
+  `--enable-mergelibs`, core LOK C API not gtk glue).
+- **Command catalog built** — `tools/gen_command_catalog.py` →
+  `resources/command-catalog.json`, **1520 commands** (977 generic + 543
+  writer) with labels/tooltips/semanticName/propertiesRaw. Build-independent,
+  verified. Feeds UI + dispatch + logger + MCP.
+
 ## Built / code
 
-_(none yet — W0 is docs + decisions only. First code lands in W1/W2.)_
+- `apps/writer/tools/gen_command_catalog.py` (+ generated
+  `resources/command-catalog.json`). No compiled code yet (engine build +
+  Qt app skeleton are blocked on deps — see below).
+
+## Blocked on
+
+- **Build deps (owner sudo).** Engine build + Qt6 not installable by me.
+  Exact `sudo apt` commands in
+  [`progress/2026-05-25-w0-w1-kickoff.md`](progress/2026-05-25-w0-w1-kickoff.md).
 
 ## Current branch
 
-`improve-lo-test` — W0 in progress. Next: **W1** (engine Writer-only strip +
-headless LOK build + proof-of-life). See [`execution-map.md`](execution-map.md).
+`improve-lo-test` — W0 done; W1 design + command catalog done; engine build
+blocked on owner deps. Next: configure+build engine, then Qt skeleton +
+LOK proof-of-life. See [`execution-map.md`](execution-map.md).
 ```

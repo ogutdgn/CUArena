@@ -12,8 +12,8 @@
 
 | Phase | Goal | Status |
 |---|---|---|
-| **W0** | Foundations: decisions locked, LOK feasibility research, docs scaffold, permissions, branch | **in progress** |
-| **W1** | Engine: Writer-only deep-strip + headless LOK build + SDK boundary; LOK proof-of-life | next |
+| **W0** | Foundations: decisions locked, LOK feasibility research, docs scaffold, permissions, branch | **done** |
+| **W1** | Engine: Writer-only deep-strip + headless LOK build + SDK boundary; LOK proof-of-life | **in progress** (recipe + command catalog done; build **blocked on owner deps**) |
 | **W2** | Qt app skeleton + LOK binding: CMake, C++ `Office`/`Document` wrapper, tile render→QML canvas, load/save, key/mouse injection, core callbacks **+ logger raw-stream scaffold** | |
 | **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch (**native semantic emit**), Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | |
 | **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | |
@@ -24,26 +24,28 @@
 
 ---
 
-## Next: W1 — Engine (Writer-only LOK)
+## W1 — Engine (Writer-only LOK) — in progress
 
-Concrete steps (build-verified; smoke-tested):
+Done:
+- ✅ Build recipe finalized → [`architecture/ENGINE_BUILD.md`](architecture/ENGINE_BUILD.md)
+  (flags verified vs `configure.ac`; headless `svp`, core LOK C API).
+- ✅ Engine location: keep at `apps/libreoffice/libreoffice-codebase/`,
+  demarcated as engine (resolves ARCHITECTURE §11 open Q for now).
+- ✅ Command catalog (`tools/gen_command_catalog.py` → 1520 cmds) —
+  build-independent, done.
 
-1. **Decide engine physical location & strip depth** (resolve
-   ARCHITECTURE §11 open Q). Default: keep at
-   `apps/libreoffice/libreoffice-codebase/`, demarcate as engine.
-2. **Configure a headless, Writer-only LOK build.** Establish the
-   `autogen.sh`/`configure` flags for LOK (`--enable-...`? `--disable-*`
-   set from the existing build line), build LOK + `instdir/`.
-3. **Strip Calc (`sc`), Impress (`sd`), Math (`starmath`)** + remaining
-   peer modules (continue old Phase 1). Build-verify after each removal
-   group; keep reversible. Do **not** touch shared core (D5).
-4. **LOK proof-of-life** (the W1 exit gate): a tiny harness (or
-   `gtktiledviewer`/`tiledrendering` test as the reference) that
-   headlessly: loads a `.docx`, calls `paintTile` (non-empty bitmap),
-   posts `.uno:Bold`, and `saveAs` round-trips. Document the exact
-   commands in `progress/`.
-5. **Record** the LOK link surface (lib paths, headers, init entrypoint)
-   the Qt app (W2) will consume.
+**BLOCKED on owner deps (sudo)** — exact `sudo apt` in
+[`progress/2026-05-25-w0-w1-kickoff.md`](progress/2026-05-25-w0-w1-kickoff.md).
+
+Remaining (the moment deps land):
+1. `autogen.sh` (ENGINE_BUILD.md line) → `make` (background, ~3 h).
+2. **LOK proof-of-life** (exit gate): `tiledrendering` cppunit test or our
+   own C harness — headless load `.docx` → `paintTile` (non-empty) →
+   `postUnoCommand` → `saveAs` round-trip. Log in `progress/`.
+3. **Strip** Calc (`sc`) / Impress (`sd`) / Math (`starmath`) + peers, after
+   the first green baseline; build-verify each group; reversible. Never the
+   shared core (D5).
+4. **Record** the LOK link surface for W2.
 
 **W1 exit criteria:** Writer-only engine builds; LOK loads+paints+dispatches
 +saves a .docx headless; link surface documented.
