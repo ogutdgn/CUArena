@@ -1,6 +1,6 @@
 # cua-bench — Repo-Root Agent Guide
 
-You are working in `cua-bench`, a monorepo for CUA evaluation. There are **four apps** here (figma, sheets, docs, libreoffice); each is a CUA environment with its own logger + (where applicable) verifier + helper corpus. Cross-app conventions live at the repo root.
+You are working in `cua-bench`, a monorepo for CUA evaluation. There are **five apps** here (figma, sheets, docs, libreoffice, writer); each is a CUA environment with its own logger + (where applicable) verifier + helper corpus. Cross-app conventions live at the repo root.
 
 If you were dispatched to work on a single app, read that app's CLAUDE.md instead and treat this file as the wider context.
 
@@ -59,6 +59,7 @@ For app-specific work, **start at the app's CLAUDE.md** — it is the source of 
 |---|---|---|
 | **figma** | active | [apps/figma/CLAUDE.md](apps/figma/CLAUDE.md) |
 | **libreoffice** | active (Phase 4 done; logger V1.1) | [apps/libreoffice/CLAUDE.md](apps/libreoffice/CLAUDE.md) |
+| **writer** | active (Phase W0 — foundations; modern native Qt6 app on LOK, supersedes libreoffice Phase-4 reskin) | [apps/writer/CLAUDE.md](apps/writer/CLAUDE.md) |
 | **sheets** | planned | (skeleton not yet created) |
 | **docs** | planned | (skeleton not yet created) |
 

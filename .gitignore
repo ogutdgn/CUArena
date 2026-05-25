@@ -13,3 +13,6 @@ apps/figma/scripts/scores/*.json
 !apps/figma/scripts/scores/.gitkeep
 apps/figma/cua-eval/.env
 apps/figma/cua-eval/runs/
+
+# Claude Code local (per-machine) permission overrides
+.claude/settings.local.json

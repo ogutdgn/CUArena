@@ -1,0 +1,96 @@
+# Writer — Logging design (raw / semantic / outcome)
+
+> Mandatory, cross-cutting subsystem. Must reach **figma-parity** (the
+> figma TS logger is the detail bar) and conform to the cross-app
+> [`overview/log-contract.md`](../../../overview/log-contract.md) so a
+> single verifier works against figma and Writer logs alike.
+>
+> Last updated: 2026-05-25 (W0 — design). Implementation: scaffold in W2,
+> native semantic in W3, figma-parity milestone in W5.
+
+---
+
+## 1. Why our architecture makes this *better* than the old rllogger
+
+The previous app embedded `rllogger` deep in LibreOffice (VCL events + the
+UNO dispatcher) because the UI was LO's. Here, **Boundary A** means every
+user action passes through *our* code first, so each stream has a clean,
+authoritative source:
+
+| Stream | Sourced from (ours) |
+|---|---|
+| `raw[]` | the input layer (`src/engine/` input) — every key/mouse/focus event before it is posted to LOK |
+| `semantic[]` | the command dispatch (`src/commands/`) — every `.uno:*` we send, with resolved args + `rawEventIdRange` back-link |
+| `outcome{}` | the state model (`src/document/`) — built from LOK callbacks (`INVALIDATE_VISIBLE_CURSOR`, `TEXT_SELECTION`, `STATE_CHANGED`, `DOCUMENT_SIZE_CHANGED`) + `getCommandValues` pulls |
+
+No engine instrumentation needed → the engine's `rllogger` is **retired**
+for this app (DECISIONS D7).
+
+---
+
+## 2. Streams & schema (contract-conformant)
+
+Top-level packaged shape (matches figma `exportLog()`):
+
+```json
+{
+  "schemaVersion": "<n>",
+  "sessionId": "<uuid>",
+  "exportedAt": "<iso8601>",
+  "raw": [ ... ],
+  "semantic": [ ... ],
+  "outcome": { ... }
+}
+```
+
+**raw[]** — base fields per contract: `eventId`, `type`, `timestamp`,
+`sessionTime`, `targetId`, `modifiers`, `fields`. Writer `type`s: `key`,
+`mouse`, `focus`, `wheel`, `gesture`.
+
+**semantic[]** — base fields: `schemaVersion`, `sessionId`, `eventId`,
+`timestamp`, `docId`, `rawEventIdRange`, `name`, plus `args`. The `name`
+registry is the per-app extension — for Writer it is the `.uno:*` command
+mapped to an RL-friendly name (e.g. `.uno:Bold` → `toggle_bold`,
+`.uno:InsertTable` → `insert_table`). `args` carries the dispatch
+arguments (the JSON we pass to `postUnoCommand`).
+
+**outcome{}** — `schemaVersion`, `sessionId`, `capturedAt`, `summary`,
+`document`. Rewritten on a fixed cadence (old app used 250 ms; revisit).
+- `summary.semanticEventCount` — **drives the verifier efficiency rubric**
+  (required by contract).
+- `summary.<writer aggregates>` — e.g. `paragraphCount`, `wordCount`,
+  `charCount`, `tableCount`, `imageCount` (derived via `getCommandValues`
+  e.g. `.uno:WordCount`, or text extraction).
+- `document` (per-app shape) — `url`, `modified`, `cursor`, `selection`,
+  `formatAtCursor` (bold/italic/font/size/... from `STATE_CHANGED`),
+  `part`/`page` info.
+
+---
+
+## 3. Storage & lifecycle
+
+- Per-session directory; default base platform-dependent (Linux:
+  `~/.writer-rl-logs/<sessionId>/`), overridable by env var, opt-out by env
+  var (mirror the old `LO_RL_LOG_DIR` / `LO_RL_LOG_DISABLE` ergonomics —
+  exact names TBD in W2).
+- Three JSONL files while live (`raw.jsonl`, `semantic.jsonl`,
+  `outcome.jsonl`); a consolidator produces the single packaged
+  `session.json` above (figma `exportLog()` shape) for training/replay.
+- Bounded footprint (N-session cleanup), as the old logger did.
+- **On by default** in the shipped Docker image (W7).
+
+---
+
+## 4. Parity checklist (W5 exit criteria)
+
+- [ ] all three streams emitted, contract base fields present
+- [ ] `semantic.rawEventIdRange` correctly links to raw events
+- [ ] Writer `name` registry covers the high-frequency command set
+- [ ] `outcome.summary.semanticEventCount` present & correct
+- [ ] outcome `document` shape documented & stable
+- [ ] consolidator emits figma-shaped `session.json`
+- [ ] a verifier built against `log-contract.md` reads Writer logs with at
+      most an app-specific CommandMap
+- [ ] reference cross-check against `apps/figma/mock/src/logger/` for detail
+      parity (`raw.ts/semantic.ts/outcome.ts/buffer.ts/persist.ts/export.ts`)
+```
