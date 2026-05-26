@@ -45,19 +45,25 @@ Done (code + headless verification):
 - ✅ Verified headless: render path → valid page PNG; `postUno` dispatch
   confirmed via binding-saved docx.
 
-Remaining:
-1. **Owner: install QtQuick QML runtime modules** (see last-point "Blocked on").
-2. **Run the GUI** (WSLg or `QT_QPA_PLATFORM=offscreen` + screenshot) → verify
-   the live invalidate→repaint loop shows text as you type.
-3. **Input wiring** — forward Qt key/mouse events from `DocumentCanvas` to
-   `postKey`/`postMouse` (twip mapping, `setClientZoom`); cursor/selection from
-   callbacks.
-4. **Tiling + scroll + zoom** — replace whole-page render with a tile cache;
-   `Flickable` viewport; HiDPI.
-5. **Logger raw-stream scaffold** (`src/logging/`) — grows into W5.
+Also done:
+- ✅ QtQuick QML runtime modules installed (owner); **GUI runs** — verified by
+  offscreen screenshot: Word-like shell + LOK-rendered (blank) page + status bar.
+- ✅ Input wiring code — `DocumentCanvas` forwards key/mouse to
+  `postKey`/`postMouse` (Qt→awt key map, px→twip), `LokEngine::typeText`.
 
-**W2 exit:** GUI opens a doc, renders via LOK tiles, accepts typing (live
-render updates), saves; `.uno` dispatch wired through the binding.
+Remaining (in priority order):
+1. **LOK scheduler / event-loop integration (D9) — THE gating task.** Model
+   updates don't render: edits/typing update the doc model but layout +
+   `INVALIDATE_TILES` + tile re-render don't run without pumping LO's scheduler.
+   Implement the dedicated engine thread + `runLoop` (ARCHITECTURE §4); then
+   live typing renders and the canvas repaints on invalidation.
+2. **Verify live edit/render** (screenshot demo: `WRITER_DEMO_TEXT`) once (1) lands.
+3. **Tiling + scroll + zoom** — tile cache, `Flickable` viewport, HiDPI,
+   `setClientZoom`; cursor/selection overlays from callbacks.
+4. **Logger raw-stream scaffold** (`src/logging/`) — grows into W5.
+
+**W2 exit:** GUI opens a doc, renders via LOK tiles, accepts typing with
+**live render updates**, saves; `.uno` dispatch wired through the binding.
 
 ---
 

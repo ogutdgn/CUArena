@@ -55,7 +55,16 @@ int main(int argc, char* argv[])
     if (qEnvironmentVariableIsSet("WRITER_SHOT")) {
         const QString shot = qEnvironmentVariable("WRITER_SHOT");
         auto* win = qobject_cast<QQuickWindow*>(engine.rootObjects().constFirst());
-        QTimer::singleShot(1800, win, [win, shot]() {
+        // Optionally type a demo string so the screenshot proves the live
+        // type -> invalidate -> repaint loop (text rendered by LOK).
+        if (qEnvironmentVariableIsSet("WRITER_DEMO_TEXT")) {
+            const QString demo = qEnvironmentVariable("WRITER_DEMO_TEXT");
+            // NOTE: this updates the document model but does NOT yet show in the
+            // render — LOK's scheduler (layout + INVALIDATE_TILES) is not pumped.
+            // Pending the LOK event-loop integration (DECISIONS D9, W2 #1 task).
+            QTimer::singleShot(700, &lok, [&lok, demo]() { lok.typeText(demo); });
+        }
+        QTimer::singleShot(2800, win, [win, shot]() {
             if (win) {
                 const QImage img = win->grabWindow();
                 img.save(shot);

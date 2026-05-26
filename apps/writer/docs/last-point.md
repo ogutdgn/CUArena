@@ -73,11 +73,21 @@
 - `tools/gen_command_catalog.py` + `tools/extract_menu_tree.py` (+ generated JSON).
 - Engine `instdir/` built (gitignored). Qt app `build/` gitignored.
 
-## Blocked on (to RUN the GUI)
+**GUI runs (verified):** QtQuick QML runtime modules installed; offscreen
+screenshot shows the Word-like shell + the LOK-rendered (blank) page + status
+bar. Input wiring added (`DocumentCanvas` key/mouse → `postKey`/`postMouse`,
+Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
+(`WRITER_SHOT=<png>`, optional `WRITER_DEMO_TEXT`) is built in.
 
-- **Base QtQuick QML runtime modules** (owner sudo) — `QtQml.WorkerScript` etc.
-  missing; the app compiles + LOK works, but `Main.qml` won't load until:
-  `sudo apt install -y qml6-module-qtquick qml6-module-qtqml-workerscript qml6-module-qtqml-models qml6-module-qtquick-window qml6-module-qtquick-templates qml6-module-qtquick-shapes`
+## Gating finding (D9) — next task
+
+Driving LOK by method calls updates the document **model** (binding-saved
+docx contains inserted text) but **does not render edits**: layout +
+`INVALIDATE_TILES` + tile re-render need LO's scheduler pumped. Static blank
+page renders (no layout needed); **live typing/edits won't render until the
+LOK event-loop integration** (dedicated engine thread + `runLoop`,
+ARCHITECTURE §4) lands. This is W2's #1 task — see
+[`DECISIONS.md`](DECISIONS.md) D9 + [`execution-map.md`](execution-map.md).
 
 ## Environment notes (for next session)
 
@@ -89,8 +99,8 @@
 
 ## Current branch
 
-`improve-lo-test` — W0 done; W1 done (engine + LOK proof-of-life); **W2 binding
-code done + verified headless**. Next: install QtQuick QML modules (owner) →
-run GUI → verify live render/typing; then tiling/scroll/zoom + input wiring,
-then W3 (ribbon). See [`execution-map.md`](execution-map.md).
+`improve-lo-test` — W0 done; W1 done; **W2: GUI runs with a LOK-rendered page,
+binding + input wiring done.** Next (W2 #1): LOK event-loop integration (D9) so
+live edits render; then tiling/scroll/zoom, then W3 (ribbon). See
+[`execution-map.md`](execution-map.md).
 ```

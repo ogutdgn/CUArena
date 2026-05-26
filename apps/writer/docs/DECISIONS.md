@@ -104,6 +104,30 @@ dependency, not a shipped artifact.
 
 ---
 
+## D9 — LOK needs its scheduler pumped (event-loop integration); model updates ≠ render updates
+**Date:** 2026-05-25 · **Status:** open — W2 #1 task
+
+W2 finding: driving LOK purely by calling its methods from the Qt thread is
+**not enough**. `postUnoCommand`/`postKeyEvent` update the document *model*
+(verified: a binding-saved docx contains inserted text), but the **layout +
+tile rendering + `INVALIDATE_TILES` callbacks do not run** — so the canvas
+never reflects edits and live typing doesn't render. LO's internal scheduler
+(SolarMutex / `Application::Yield`) must be pumped.
+
+**Decision:** integrate LOK's event loop properly — the previously-deferred
+"dedicated engine thread" (ARCHITECTURE §4). Likely `office->runLoop(poll,
+wake, data)` on a worker thread, with GUI-thread input/dispatch marshalled in,
+and `INVALIDATE_TILES` → canvas repaint. This is the gating task for live
+edit/render and must be done carefully (threading + SolarMutex correctness),
+not rushed. The static blank-page render works because a blank doc needs no
+layout pass; edits need the scheduler.
+
+**Why not a synchronous flush hack:** forcing a one-off process/yield around
+each call would be fragile and fight LO's threading model — rejected for the
+proper loop integration (quality > speed).
+
+---
+
 ## D-icons — Microsoft Fluent UI System Icons
 **Date:** 2026-05-25 · **Status:** locked
 

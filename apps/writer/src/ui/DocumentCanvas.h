@@ -24,6 +24,14 @@ public:
 signals:
     void engineChanged();
 
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+
 private:
+    double twipsPerPixel() const; // current uniform scale (whole-page-to-width)
+
     LokEngine* m_engine = nullptr;
 };

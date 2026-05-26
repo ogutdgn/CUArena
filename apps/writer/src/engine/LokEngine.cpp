@@ -9,6 +9,12 @@
 #include <QDebug>
 #include <QMetaObject>
 
+static_assert(LokEngine::KeyInput == LOK_KEYEVENT_KEYINPUT, "key enum drift");
+static_assert(LokEngine::KeyUp == LOK_KEYEVENT_KEYUP, "key enum drift");
+static_assert(LokEngine::MouseDown == LOK_MOUSEEVENT_MOUSEBUTTONDOWN, "mouse enum drift");
+static_assert(LokEngine::MouseUp == LOK_MOUSEEVENT_MOUSEBUTTONUP, "mouse enum drift");
+static_assert(LokEngine::MouseMove == LOK_MOUSEEVENT_MOUSEMOVE, "mouse enum drift");
+
 LokEngine::LokEngine(QObject* parent) : QObject(parent) {}
 
 LokEngine::~LokEngine()
@@ -111,6 +117,17 @@ void LokEngine::postKey(int type, int charCode, int keyCode)
 {
     if (m_doc)
         m_doc->postKeyEvent(type, charCode, keyCode);
+}
+
+void LokEngine::typeText(const QString& text)
+{
+    if (!m_doc)
+        return;
+    for (const QChar c : text) {
+        const int u = c.unicode();
+        m_doc->postKeyEvent(LOK_KEYEVENT_KEYINPUT, u, 0);
+        m_doc->postKeyEvent(LOK_KEYEVENT_KEYUP, u, 0);
+    }
 }
 
 void LokEngine::postMouse(int type, int xTwips, int yTwips, int count, int buttons, int modifier)

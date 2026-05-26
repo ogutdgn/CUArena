@@ -26,6 +26,12 @@ class LokEngine : public QObject
     Q_PROPERTY(bool ready READ isReady NOTIFY readyChanged)
 
 public:
+    // Mirror LOK_KEYEVENT_* / LOK_MOUSEEVENT_* (asserted equal in the .cpp).
+    enum KeyType { KeyInput = 0, KeyUp = 1 };
+    enum MouseType { MouseDown = 0, MouseUp = 1, MouseMove = 2 };
+    Q_ENUM(KeyType)
+    Q_ENUM(MouseType)
+
     explicit LokEngine(QObject* parent = nullptr);
     ~LokEngine() override;
 
@@ -47,6 +53,7 @@ public:
     // Input + command dispatch (the logger/MCP seam).
     Q_INVOKABLE void postUno(const QString& command, const QString& argsJson = QString());
     Q_INVOKABLE void postKey(int type, int charCode, int keyCode);
+    Q_INVOKABLE void typeText(const QString& text); // convenience: KEYINPUT+KEYUP per char
     Q_INVOKABLE void postMouse(int type, int xTwips, int yTwips, int count,
                                int buttons, int modifier);
 
