@@ -15,12 +15,38 @@
 | **W0** | Foundations: decisions locked, LOK feasibility research, docs scaffold, permissions, branch | **done** |
 | **W1** | Engine: headless LOK build + proof-of-life (strip deferred) | **DONE** — engine built (26.8 alpha), LOK proof-of-life passed end-to-end |
 | **W2** | Qt app + LOK binding: CMake, `LokEngine`, tile canvas, load/save, dispatch, **live edit render (D9 resolved)** | mostly done — live typing renders; remaining: tiling/scroll/zoom, cursor/selection overlays |
-| **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch (**native semantic emit**), Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | |
+| **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch (**native semantic emit**), Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | **in progress** |
 | **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | |
 | **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | |
 | **W6** | MCP surface: dispatch + state + document ops as MCP tools | |
 | **W7** | Docker multi-stage: engine→LOK + app → binary runtime, logger default-on | |
 | **W8** | Theming/polish: Word palette, Fluent refinement, context menus, a11y | |
+
+---
+
+## Open problems / backlog (durable — don't lose these)
+
+Tracked so nothing is forgotten while moving between phases. Tick when done.
+
+**W2 tail (after ribbon, or interleaved):**
+- [ ] **Zoom** controls (`setClientZoom`); currently fixed fit-width (~100%).
+- [ ] **Cursor + selection overlays** — we receive `INVALIDATE_VISIBLE_CURSOR`
+      (type 1) + `TEXT_SELECTION` (type 2) callbacks but don't draw the caret /
+      selection yet. (Editor feel.)
+- [ ] **Tile cache** — currently re-renders the whole doc per paint; fine for
+      1–few pages, needs tiling for big docs.
+- [ ] **Status bar wiring** — "Page 1 / 0 words" in Main.qml are hardcoded
+      placeholders; wire to real page/word count (`getCommandValues`).
+
+**Engine / config:**
+- [ ] **Strip** Calc(`sc`)/Impress(`sd`)/Math(`starmath`) + peers (Writer-only).
+- [ ] **Light color scheme** is currently seeded per-profile as a stopgap; fold
+      into our own theming model (Boundary A) — we may later offer doc dark mode.
+- [ ] **`Properties` bitmask** in command-catalog stored raw; verify bit meanings
+      vs officecfg `.xcs` (needed for checkable ribbon buttons — W3).
+
+**Phases:** W3 ribbon (in progress) · W4 dialogs/D6 · W5 logger · W6 MCP ·
+W7 Docker · W8 theming. (See the phase table + D-entries in DECISIONS.md.)
 
 ---
 
