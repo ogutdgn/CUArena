@@ -7,7 +7,38 @@
 
 #include <QByteArray>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
 #include <QMetaObject>
+#include <QUrl>
+
+#include <dlfcn.h>
+
+namespace {
+// The engine's officecfg ships COLOR_SCHEME_CUA_WORD_DARK as the default (old
+// Phase-4 work) → document text renders in dark-mode (light) colours, faint on
+// the white page. We own theming (Boundary A), so force a light scheme for the
+// document render by seeding the LOK user profile before init. Black on white.
+void seedProfileColorScheme(const QString& userProfileUrl)
+{
+    const QString dir = QUrl(userProfileUrl).toLocalFile();
+    if (dir.isEmpty())
+        return;
+    QDir().mkpath(dir + "/user");
+    QFile f(dir + "/user/registrymodifications.xcu");
+    if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        return;
+    f.write(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        "<oor:items xmlns:oor=\"http://openoffice.org/2001/registry\""
+        " xmlns:xs=\"http://www.w3.org/2001/XMLSchema\""
+        " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+        " <item oor:path=\"/org.openoffice.Office.UI/ColorScheme\">"
+        "<prop oor:name=\"CurrentColorScheme\" oor:op=\"fuse\">"
+        "<value>COLOR_SCHEME_LIBREOFFICE_LIGHT</value></prop></item>\n"
+        "</oor:items>\n");
+}
+} // namespace
 
 static_assert(LokEngine::KeyInput == LOK_KEYEVENT_KEYINPUT, "key enum drift");
 static_assert(LokEngine::KeyUp == LOK_KEYEVENT_KEYUP, "key enum drift");
@@ -27,6 +58,8 @@ bool LokEngine::initialize(const QString& installPath, const QString& userProfil
 {
     if (m_office)
         return true;
+    if (!userProfileUrl.isEmpty())
+        seedProfileColorScheme(userProfileUrl); // light scheme → black-on-white doc
     m_office = lok::lok_cpp_init(installPath.toUtf8().constData(),
                                  userProfileUrl.isEmpty() ? nullptr
                                                           : userProfileUrl.toUtf8().constData());
@@ -34,7 +67,23 @@ bool LokEngine::initialize(const QString& installPath, const QString& userProfil
         qWarning() << "LokEngine: lok_cpp_init failed for" << installPath;
         return false;
     }
+    // The engine exports this (vcl/source/app/svapp.cxx); now that lok init has
+    // dlopen'd the libs it is resolvable in the global symbol table.
+    m_pump = reinterpret_cast<void (*)()>(dlsym(RTLD_DEFAULT, "unit_lok_process_events_to_idle"));
+    if (!m_pump)
+        qWarning() << "LokEngine: scheduler pump symbol not found — edits may not render";
     return true;
+}
+
+void LokEngine::pumpScheduler()
+{
+    if (m_pump)
+        m_pump(); // Scheduler::ProcessEventsToIdle: run layout for the edit
+    // This headless tiled setup does NOT emit LOK_CALLBACK_INVALIDATE_TILES on
+    // edits (only cursor/selection callbacks fire), so drive the re-render
+    // ourselves: the layout is now done, ask the canvas to repaint the page.
+    emit tilesInvalidated(QRect());
+    refreshDocSize();
 }
 
 bool LokEngine::loadBlankWriter()
@@ -63,6 +112,7 @@ bool LokEngine::finishLoad()
     m_doc->initializeForRendering();
     m_doc->registerCallback(&LokEngine::callbackThunk, this);
     refreshDocSize();
+    pumpScheduler(); // initial layout pass
     emit readyChanged();
     return true;
 }
@@ -111,12 +161,15 @@ void LokEngine::postUno(const QString& command, const QString& argsJson)
     const QByteArray cmd = command.toUtf8();
     const QByteArray args = argsJson.toUtf8();
     m_doc->postUnoCommand(cmd.constData(), argsJson.isEmpty() ? nullptr : args.constData(), false);
+    pumpScheduler();
 }
 
 void LokEngine::postKey(int type, int charCode, int keyCode)
 {
-    if (m_doc)
-        m_doc->postKeyEvent(type, charCode, keyCode);
+    if (!m_doc)
+        return;
+    m_doc->postKeyEvent(type, charCode, keyCode);
+    pumpScheduler();
 }
 
 void LokEngine::typeText(const QString& text)
@@ -128,12 +181,15 @@ void LokEngine::typeText(const QString& text)
         m_doc->postKeyEvent(LOK_KEYEVENT_KEYINPUT, u, 0);
         m_doc->postKeyEvent(LOK_KEYEVENT_KEYUP, u, 0);
     }
+    pumpScheduler();
 }
 
 void LokEngine::postMouse(int type, int xTwips, int yTwips, int count, int buttons, int modifier)
 {
-    if (m_doc)
-        m_doc->postMouseEvent(type, xTwips, yTwips, count, buttons, modifier);
+    if (!m_doc)
+        return;
+    m_doc->postMouseEvent(type, xTwips, yTwips, count, buttons, modifier);
+    pumpScheduler();
 }
 
 // static — may run on a LOK-internal thread; marshal to this object's thread.

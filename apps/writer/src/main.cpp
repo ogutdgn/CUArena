@@ -24,6 +24,10 @@ int main(int argc, char* argv[])
     // engine's built-in rllogger (DECISIONS D7).
     qputenv("SAL_USE_VCLPLUGIN", "svp");
     qputenv("LO_RL_LOG_DISABLE", "1");
+    // Basic (GUI-thread) render loop: update() after a tile invalidation
+    // reliably triggers a repaint (the threaded loop doesn't re-paint a dirty
+    // QQuickPaintedItem on demand in headless/grab contexts).
+    qputenv("QSG_RENDER_LOOP", "basic");
 
     QGuiApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("Writer"));

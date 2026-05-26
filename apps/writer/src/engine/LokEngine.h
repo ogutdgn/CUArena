@@ -68,8 +68,13 @@ private:
     void refreshDocSize();
     void handleCallback(int type, const QByteArray& payload);
     static void callbackThunk(int type, const char* payload, void* data);
+    // Pump LO's scheduler so edits lay out + invalidate + re-render (D9). Uses
+    // the engine's exported unit_lok_process_events_to_idle (= Scheduler::
+    // ProcessEventsToIdle); resolved via dlsym after lok init.
+    void pumpScheduler();
 
     lok::Office* m_office = nullptr;
     lok::Document* m_doc = nullptr;
     QSize m_docSizeTwips;
+    void (*m_pump)() = nullptr;
 };
