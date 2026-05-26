@@ -2,9 +2,12 @@
 // W2: opens the shell, starts the LOK engine, loads a blank Writer document
 // and renders it on the canvas. See docs/architecture/ARCHITECTURE.md.
 #include <QGuiApplication>
+#include <QImage>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
+#include <QQuickWindow>
+#include <QTimer>
 #include <QUrl>
 #include <QtQml>
 
@@ -45,6 +48,21 @@ int main(int argc, char* argv[])
     engine.load(QUrl(QStringLiteral("qrc:/src/ui/qml/Main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
+
+    // Headless verification / CI: WRITER_SHOT=<png> grabs the window once the
+    // first frame + LOK page have rendered, then quits. (Useful for the RL /
+    // Docker headless flow too.)
+    if (qEnvironmentVariableIsSet("WRITER_SHOT")) {
+        const QString shot = qEnvironmentVariable("WRITER_SHOT");
+        auto* win = qobject_cast<QQuickWindow*>(engine.rootObjects().constFirst());
+        QTimer::singleShot(1800, win, [win, shot]() {
+            if (win) {
+                const QImage img = win->grabWindow();
+                img.save(shot);
+            }
+            QCoreApplication::quit();
+        });
+    }
 
     return app.exec();
 }
