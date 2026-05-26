@@ -153,14 +153,26 @@ Loader {
 
     Component {
         id: spinComp
+        // QML SpinBox is integer-only; formatted/metric fields carry 2-decimal
+        // values (e.g. 0.79″) so we scale them by 100, while plain spinbuttons
+        // (table rows/cols) are integers (scale 1).
         SpinBox {
-            from: root.node.min !== undefined ? Math.round(root.node.min * 100) : 0
-            to: root.node.max !== undefined ? Math.round(root.node.max * 100) : 100000
-            value: root.node.value !== undefined ? Math.round(root.node.value * 100) : 0
-            stepSize: root.node.step !== undefined ? Math.max(1, Math.round(root.node.step * 100)) : 1
+            id: sb
+            // Decide integer vs 2-decimal from the step (counts use step 1;
+            // measurements like margins use step 0.02), not the widget type —
+            // table rows/cols are formattedfields but integer-valued.
+            readonly property int factor: (root.node.step !== undefined &&
+                                            !Number.isInteger(root.node.step)) ? 100 : 1
+            from: root.node.min !== undefined ? Math.round(root.node.min * factor) : 0
+            to: root.node.max !== undefined ? Math.round(root.node.max * factor) : 1000000
+            value: root.node.value !== undefined ? Math.round(root.node.value * factor) : 0
+            stepSize: root.node.step !== undefined ? Math.max(1, Math.round(root.node.step * factor)) : 1
             enabled: root.enabled_
             editable: true
-            onValueModified: root.host.send(root.nid, "spinfield", "value", (value / 100.0).toFixed(2))
+            textFromValue: function (v) { return factor === 1 ? ("" + v) : (v / factor).toFixed(2); }
+            valueFromText: function (txt) { return Math.round(parseFloat(txt) * factor); }
+            onValueModified: root.host.send(root.nid, "spinfield", "value",
+                                            factor === 1 ? ("" + value) : (value / factor).toFixed(2))
         }
     }
 

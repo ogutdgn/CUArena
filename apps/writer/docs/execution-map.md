@@ -16,7 +16,7 @@
 | **W1** | Engine: headless LOK build + proof-of-life (strip deferred) | **DONE** — engine built (26.8 alpha), LOK proof-of-life passed end-to-end |
 | **W2** | Qt app + LOK binding: CMake, `LokEngine`, tile canvas, load/save, dispatch, **live edit render (D9 resolved)** | mostly done — live typing renders; remaining: tiling/scroll/zoom, cursor/selection overlays |
 | **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch, Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | **DONE** — data-driven ribbon (8 tabs / 29 groups / 83 cmds), 80 Fluent icons, toggle state live (D10). Semantic emit → W5; dialog targets → W4 |
-| **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | **core DONE** — generic JSDialog→QML renderer (WordCount/PageDialog verified), round-trip proven, audit written (D11). Remaining: `enabled.cxx` patches for WINDOW-only (InsertTable/Bookmark/Hyperlink) |
+| **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | **DONE** — generic JSDialog→QML renderer (WordCount/PageDialog/InsertTable verified), round-trip proven, audit (D11); `enabled.cxx` patched for InsertTable+Bookmark. Tail: Hyperlink/About enable, OS-picker dialogs, renderer polish |
 | **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | |
 | **W6** | MCP surface: dispatch + state + document ops as MCP tools | |
 | **W7** | Docker multi-stage: engine→LOK + app → binary runtime, logger default-on | |
@@ -55,17 +55,18 @@ Tracked so nothing is forgotten while moving between phases. Tick when done.
       from the curated spec in `build_ribbon.py`, not the raw bitmask.
 
 **W4 tail (remaining dialog work):**
-- [ ] **`enabled.cxx` patches (D6)** for WINDOW-only dialogs: InsertTable
-      (priority), InsertBookmark, HyperlinkDialog, About. Register each in
-      `vcl/jsdialog/enabled.cxx`, rebuild `vcl`, re-audit.
+- [x] **`enabled.cxx` patches (D6)** — InsertTable + InsertBookmark enabled
+      (rebuilt vcl, verified JSDIALOG + native render).
+- [ ] **`enabled.cxx`** remaining: HyperlinkDialog (cui), About.
 - [ ] **OS-native pickers as our own Qt dialogs**: InsertGraphic (Picture),
       File ▸ Open/Save — wire a native `FileDialog`, not a JSDialog.
 - [ ] **Renderer polish**: grid alignment for value columns, formattedfield
       units (″/cm), combobox `change` for editable combos, treeview/listbox
       multi-column, color pickers; re-verify Spelling/Zoom in GUI.
 
-**Phases:** W3 ribbon ✅ · W4 dialogs core ✅ (enabled.cxx tail) · W5 logger ·
-W6 MCP · W7 Docker · W8 theming. (See the phase table + D-entries in DECISIONS.md.)
+**Phases:** W3 ribbon ✅ · W4 dialogs ✅ (Hyperlink/About + polish tail) ·
+W5 logger (next) · W6 MCP · W7 Docker · W8 theming.
+(See the phase table + D-entries in DECISIONS.md.)
 
 ---
 

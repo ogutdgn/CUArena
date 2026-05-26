@@ -117,8 +117,11 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
   Probes: `tests/dialog_{probe,audit,roundtrip}.cpp`.
 - **Engine gotcha found+documented**: `lok_cpp_init` needs an absolute
   `instdir/program` path (ENGINE_BUILD.md) — relative crashes UNO bootstrap.
-- **Remaining (W4 tail):** `enabled.cxx` patches for the WINDOW-only dialogs;
-  OS-picker Qt dialogs; renderer polish (units, color pickers, multi-col lists).
+- **`enabled.cxx` patch landed (D6)**: added `inserttable.ui` +
+  `insertbookmark.ui` to `SwriterDialogList`, rebuilt `vcl` → both now render
+  natively (Insert Table verified: Columns/Rows/Header spinners correct).
+- **Remaining (W4 tail):** enable Hyperlink/About dialogs; OS-picker Qt dialogs;
+  renderer polish (formattedfield units, color pickers, multi-col lists).
 
 ## D9 — RESOLVED (live edit render works)
 

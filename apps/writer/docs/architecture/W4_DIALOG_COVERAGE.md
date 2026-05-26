@@ -31,9 +31,9 @@
 | `.uno:InsertReferenceField` (Cross-ref) | **JSDIALOG** | ✅ |
 | `.uno:InsertMultiIndex` (TOC) | **JSDIALOG** | ✅ |
 | `.uno:InsertIndexesEntry` | **JSDIALOG** | ✅ |
-| `.uno:InsertTable` | **WINDOW-only** | ⚠ D6: register in `enabled.cxx` |
-| `.uno:InsertBookmark` | **WINDOW-only** | ⚠ D6 |
-| `.uno:HyperlinkDialog` | **WINDOW-only** | ⚠ D6 (emits some JSDIALOG updates but the tree is a WINDOW) |
+| `.uno:InsertTable` | **JSDIALOG** | ✅ enabled via D6 `enabled.cxx` patch (was WINDOW-only) |
+| `.uno:InsertBookmark` | **JSDIALOG** | ✅ enabled via D6 `enabled.cxx` patch (was WINDOW-only) |
+| `.uno:HyperlinkDialog` | **WINDOW-only** | ⚠ D6 remaining (cui dialog; emits some JSDIALOG updates but the shell is a WINDOW) |
 | `.uno:About` | **WINDOW-only** | ⚠ low priority; we may render our own About |
 | `.uno:InsertGraphic` (Picture) | **NONE** | OS-native file picker → use **our own** Qt file dialog |
 | `.uno:InsertObjectChart` / `.uno:InsertDraw` / `.uno:InsertTextFrame` / `.uno:InsertObjectStarMath` | **NONE** | insert object / enter edit mode directly (no modal dialog) |
@@ -52,10 +52,12 @@
    native JSON→QML renderer unlocks them with **no engine patch**. Build the
    renderer against these first; **Word Count** is the simplest end-to-end
    target.
-2. **WINDOW-only gap list (D6 `enabled.cxx` patches):** `InsertTable`,
-   `InsertBookmark`, `HyperlinkDialog`, `About`. Each is the one sanctioned
-   engine edit — register the dialog's `.ui`/SfxTabDialog in `enabled.cxx`,
-   rebuild `vcl`, re-audit. Prioritise **Insert Table** (common).
+2. **WINDOW-only gap list (D6 `enabled.cxx` patches):** **DONE** for
+   `InsertTable` + `InsertBookmark` — added `modules/swriter/ui/inserttable.ui`
+   and `insertbookmark.ui` to `SwriterDialogList` in `vcl/jsdialog/enabled.cxx`,
+   rebuilt `vcl`; both now surface as JSDIALOG and render natively (verified).
+   **Remaining:** `HyperlinkDialog` (cui), `About` (low priority; we may render
+   our own). Same recipe: register the `.ui`, `make vcl`, re-audit.
 3. **OS-native pickers** (`InsertGraphic`, Open/Save) are *ours* anyway — wire a
    native Qt `FileDialog`, not a JSDialog. Consistent with Boundary A.
 4. **`NONE`/hang/timeout rows are headless artifacts** for several commands
