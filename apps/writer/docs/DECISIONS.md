@@ -114,29 +114,38 @@ tile rendering + `INVALIDATE_TILES` callbacks do not run** — so the canvas
 never reflects edits and live typing doesn't render. LO's internal scheduler
 (SolarMutex / `Application::Yield`) must be pumped.
 
-**Attempt 1 (2026-05-25): `runLoop` on a dedicated worker thread — FAILED.**
-Implemented the threaded Unipoll model (`office->runLoop(poll, wake)` on a
-`std::thread`, task queue drained in the poll callback, results via queued Qt
-signals). Tracing showed: `lok_cpp_init` succeeds, but **`runLoop` returns
-immediately** (poll is never called). Root cause: `lo_runLoop` →
-`soffice_main()` **requires the process MAIN thread** (it bails on a secondary
-thread). Reverted to the working synchronous binding. This is the classic
-**Qt ⇄ LO "both want to own the main thread + its event loop"** conflict.
+**Investigated 2026-05-25/26 — `runLoop` does not take over the loop in our
+embedding (both attempts reverted; synchronous binding kept working):**
 
-**Viable paths (next push):**
-1. **Inverted loop (recommended, try first):** run `office->runLoop()` on the
-   **main thread**; inside the poll callback, pump Qt
-   (`QGuiApplication::processEvents`) instead of calling `app.exec()`. Single
-   LO+Qt thread → no marshalling. Risk: QQuickWindow rendering under a
-   manually-pumped loop — likely needs `QSG_RENDER_LOOP=basic`. Reuses the
-   poll/task/render logic from attempt 1.
-2. **Two processes (robust fallback):** a headless LOK process (its `runLoop`
-   owns its main thread) + the Qt GUI process, over IPC — exactly Collabora
-   Online's WSD/Kit design. Heaviest; the proven production architecture.
+- *Attempt 1 — `runLoop` on a worker `std::thread`:* traced — `lok_cpp_init`
+  succeeds but **`runLoop` returns immediately, poll never called**.
+- *Attempt 2 — "inverted loop": `runLoop` on the MAIN thread, pump Qt
+  (`processEvents`, `QSG_RENDER_LOOP=basic`) in the poll callback:* traced —
+  **`runLoop` STILL returns immediately on the main thread** (`[lok] runLoop
+  RETURNED`). So it is *not* purely a wrong-thread issue.
 
-**Rejected:** synchronous per-call flush hack (no public LOK "tick"; fragile,
-fights LO's model). The static blank page renders today because a blank doc
-needs no layout pass; edits need the scheduler.
+**Refined root cause:** `lo_runLoop` → `soffice_main()` → `Desktop::Main` /
+`Application::Execute()` returns immediately in our context — most likely
+because, in headless LOK with **no top-level VCL window and no loaded document
+at runLoop time**, there is nothing to keep `Execute()` alive. (`app.cxx` has
+`comphelper::LibreOfficeKit::isActive()` branches that change startup.) This
+needs deeper LO-internals work to confirm the exact precondition.
+
+**Viable paths (next push — needs focused investigation, not a quick fix):**
+1. **Make `runLoop` actually run:** study `Desktop::Main`/`Execute()` under
+   `LibreOfficeKit::isActive()`; replicate Collabora COOL's exact init order
+   (it may load a doc and/or set options/`setOptionalFeatures` before runLoop,
+   or keep the loop alive via the poll source). Possibly load the document
+   *before* `runLoop`, or set a feature flag. Then poll fires → layout +
+   `INVALIDATE_TILES` run → edits render.
+2. **Two processes (robust fallback):** headless LOK process (its `runLoop`
+   owns its own main thread, nothing else competing) + the Qt GUI process over
+   IPC — exactly COOL's WSD/Kit design. Heaviest; proven in production.
+
+**Rejected:** synchronous per-call flush hack (no public LOK "tick"; fragile).
+The static blank page renders today because a blank doc needs no layout pass;
+edits need the scheduler. **This is a genuine sub-project**, deliberately not
+rushed at session end.
 
 ---
 

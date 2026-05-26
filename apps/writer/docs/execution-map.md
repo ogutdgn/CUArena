@@ -54,11 +54,13 @@ Also done:
 Remaining (in priority order):
 1. **LOK scheduler / event-loop integration (D9) — THE gating task.** Model
    updates don't render (edits update the doc model but layout +
-   `INVALIDATE_TILES` + re-render need LO's scheduler pumped). **Attempt 1
-   (runLoop on a worker thread) FAILED** — `soffice_main` needs the main
-   thread. **Next: the "inverted loop"** — run `office->runLoop()` on the main
-   thread, pump Qt (`processEvents`, likely `QSG_RENDER_LOOP=basic`) in the
-   poll callback. Fallback: two-process IPC (Collabora WSD/Kit). See D9.
+   `INVALIDATE_TILES` + re-render need LO's scheduler pumped). **Two attempts
+   reverted:** `runLoop` returns immediately on BOTH a worker thread AND the
+   main thread (`soffice_main`/`Execute()` doesn't stay alive in headless,
+   no-window, no-doc-at-runLoop LOK). **Next (focused sub-project):** study
+   `Desktop::Main`/`Execute()` under `LibreOfficeKit::isActive()` + replicate
+   COOL's exact init order (load doc and/or set features before `runLoop`), OR
+   go two-process (Collabora WSD/Kit IPC). See D9 for the full trace.
 2. **Verify live edit/render** (screenshot demo: `WRITER_DEMO_TEXT`) once (1) lands.
 3. **Tiling + scroll + zoom** — tile cache, `Flickable` viewport, HiDPI,
    `setClientZoom`; cursor/selection overlays from callbacks.
