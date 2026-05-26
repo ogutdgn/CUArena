@@ -55,8 +55,9 @@ int main(int argc, char** argv)
 
     renderTop("/tmp/pump-before.png");
 
-    // A) typing via postKeyEvent (the app's real path via the canvas)
-    const char* typed = "KEYEVENT TYPING 999";
+    // Type a line (the app's real path), then SelectAll + Bold (what a ribbon
+    // Bold click does) → confirm the formatting command applies + renders.
+    const char* typed = "Ribbon Bold render test";
     for (const char* p = typed; *p; ++p) {
         doc->postKeyEvent(LOK_KEYEVENT_KEYINPUT, *p, 0);
         doc->postKeyEvent(LOK_KEYEVENT_KEYUP, *p, 0);
@@ -64,10 +65,8 @@ int main(int argc, char** argv)
     if (pump) pump();
     renderTop("/tmp/pump-after-keyevent.png");
 
-    // B) then a paragraph break + .uno:InsertText on the next line
-    doc->postUnoCommand(".uno:InsertPara", nullptr, false);
-    doc->postUnoCommand(".uno:InsertText",
-        "{\"Text\":{\"type\":\"string\",\"value\":\"UNO INSERTTEXT 888\"}}", false);
+    doc->postUnoCommand(".uno:SelectAll", nullptr, false);
+    doc->postUnoCommand(".uno:Bold", nullptr, false);
     if (pump) pump();
     renderTop("/tmp/pump-after-both.png");
 

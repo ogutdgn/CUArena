@@ -102,8 +102,9 @@ write-up in [`DECISIONS.md`](DECISIONS.md) D9. Commit `7177b9f29`.
 ## Current branch
 
 `improve-lo-test` — **pushed to `origin/improve-lo-test`** (GitHub). W0/W1 done;
-**W2 substantially done**: GUI runs, live edit render WORKS (D9 resolved),
-binding + input wiring, **scrollable document view with correct page aspect**.
-Next: zoom + cursor/selection overlays + tile cache (W2 tail), then W3 (ribbon)
-or D6 (dialogs). See [`execution-map.md`](execution-map.md).
+W2 substantially done (live edit render D9-resolved + scrollable page);
+**W3 started — Word ribbon Home tab live** (Clipboard/Font/Paragraph/Editing
+wired to real `.uno` commands; verified end-to-end: ribbon Bold applies +
+renders bold text). Next: wire remaining tabs + Fluent icons (W3 tail), W2 tail
+(zoom/cursor overlays), D6 dialogs. See [`execution-map.md`](execution-map.md).
 ```
