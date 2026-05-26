@@ -101,8 +101,9 @@ write-up in [`DECISIONS.md`](DECISIONS.md) D9. Commit `7177b9f29`.
 
 ## Current branch
 
-`improve-lo-test` — W0 done; W1 done; **W2: GUI runs, live edit render WORKS
-(D9 resolved), binding + input wiring done.** Next: tiling/scroll/zoom (text is
-currently rendered whole-page-to-width — readable but small), then W3 (ribbon).
-See [`execution-map.md`](execution-map.md).
+`improve-lo-test` — **pushed to `origin/improve-lo-test`** (GitHub). W0/W1 done;
+**W2 substantially done**: GUI runs, live edit render WORKS (D9 resolved),
+binding + input wiring, **scrollable document view with correct page aspect**.
+Next: zoom + cursor/selection overlays + tile cache (W2 tail), then W3 (ribbon)
+or D6 (dialogs). See [`execution-map.md`](execution-map.md).
 ```
