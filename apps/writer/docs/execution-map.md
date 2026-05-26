@@ -14,7 +14,7 @@
 |---|---|---|
 | **W0** | Foundations: decisions locked, LOK feasibility research, docs scaffold, permissions, branch | **done** |
 | **W1** | Engine: headless LOK build + proof-of-life (strip deferred) | **DONE** — engine built (26.8 alpha), LOK proof-of-life passed end-to-end |
-| **W2** | Qt app skeleton + LOK binding: CMake, `LokEngine` wrapper, tile render→QML canvas, load/save, dispatch, callbacks→signals | **code done + verified headless**; GUI run pending owner QtQuick QML modules |
+| **W2** | Qt app + LOK binding: CMake, `LokEngine`, tile canvas, load/save, dispatch, **live edit render (D9 resolved)** | mostly done — live typing renders; remaining: tiling/scroll/zoom, cursor/selection overlays |
 | **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch (**native semantic emit**), Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | |
 | **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | |
 | **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | |
@@ -52,19 +52,14 @@ Also done:
   `postKey`/`postMouse` (Qt→awt key map, px→twip), `LokEngine::typeText`.
 
 Remaining (in priority order):
-1. **LOK scheduler / event-loop integration (D9) — THE gating task.** Model
-   updates don't render (edits update the doc model but layout +
-   `INVALIDATE_TILES` + re-render need LO's scheduler pumped). **Two attempts
-   reverted:** `runLoop` returns immediately on BOTH a worker thread AND the
-   main thread (`soffice_main`/`Execute()` doesn't stay alive in headless,
-   no-window, no-doc-at-runLoop LOK). **Next (focused sub-project):** study
-   `Desktop::Main`/`Execute()` under `LibreOfficeKit::isActive()` + replicate
-   COOL's exact init order (load doc and/or set features before `runLoop`), OR
-   go two-process (Collabora WSD/Kit IPC). See D9 for the full trace.
-2. **Verify live edit/render** (screenshot demo: `WRITER_DEMO_TEXT`) once (1) lands.
-3. **Tiling + scroll + zoom** — tile cache, `Flickable` viewport, HiDPI,
-   `setClientZoom`; cursor/selection overlays from callbacks.
-4. **Logger raw-stream scaffold** (`src/logging/`) — grows into W5.
+1. ✅ **DONE — LOK scheduler / live edit render (D9).** Solved via synchronous
+   scheduler pump (`unit_lok_process_events_to_idle`) + self-driven repaint +
+   light color scheme. Typed text renders live. See D9.
+2. **Tiling + scroll + zoom** — currently the whole page is rendered into the
+   item width (readable but small); want a tile cache + `Flickable` viewport +
+   zoom (`setClientZoom`) so text is comfortably legible, + cursor/selection
+   overlays from callbacks. (Next W2 task.)
+3. **Logger raw-stream scaffold** (`src/logging/`) — grows into W5.
 
 **W2 exit:** GUI opens a doc, renders via LOK tiles, accepts typing with
 **live render updates**, saves; `.uno` dispatch wired through the binding.

@@ -142,10 +142,31 @@ needs deeper LO-internals work to confirm the exact precondition.
    owns its own main thread, nothing else competing) + the Qt GUI process over
    IPC — exactly COOL's WSD/Kit design. Heaviest; proven in production.
 
-**Rejected:** synchronous per-call flush hack (no public LOK "tick"; fragile).
-The static blank page renders today because a blank doc needs no layout pass;
-edits need the scheduler. **This is a genuine sub-project**, deliberately not
-rushed at session end.
+**RESOLVED 2026-05-26 — synchronous scheduler pump (no runLoop, no threads).**
+`runLoop` was a dead end (returns immediately in our embedding, both threads).
+The actual fix turned out NOT to need runLoop at all:
+
+1. **Scheduler:** the engine exports `unit_lok_process_events_to_idle`
+   (= `Scheduler::ProcessEventsToIdle`, `SAL_DLLPUBLIC_EXPORT` in
+   `vcl/source/app/svapp.cxx`). `dlsym(RTLD_DEFAULT, ...)` it after lok init and
+   call it after every dispatch → the edit lays out synchronously. (The earlier
+   "edits don't render" was partly this + #2 + #3 below masking each other.)
+2. **Repaint:** this headless tiled setup does **not** emit
+   `LOK_CALLBACK_INVALIDATE_TILES` (value 0) on edits — only cursor/selection
+   callbacks fire. So we drive the canvas repaint ourselves: `pumpScheduler()`
+   emits our `tilesInvalidated` after the pump; the canvas re-renders via
+   `paintTile`. Plus `QSG_RENDER_LOOP=basic` so `update()` reliably repaints in
+   headless/grab contexts.
+3. **Contrast:** the engine officecfg defaults to `COLOR_SCHEME_CUA_WORD_DARK`
+   (old Phase-4) → light "automatic" doc-text colour, faint on the white page.
+   We own theming (Boundary A), so seed the LOK user profile's
+   `registrymodifications.xcu` with `COLOR_SCHEME_LIBREOFFICE_LIGHT` before init
+   → black on white.
+
+Verified headless (WRITER_SHOT + WRITER_DEMO_TEXT): typed text renders black on
+the page. No engine-source changes. Commit `7177b9f29`. **Rejected:** runLoop
+(both threads), two-process IPC (unnecessary now), per-call flush "hack" — the
+pump IS the supported synchronous mechanism the LOK unit tests use.
 
 ---
 

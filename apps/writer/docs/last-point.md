@@ -79,19 +79,17 @@ bar. Input wiring added (`DocumentCanvas` key/mouse → `postKey`/`postMouse`,
 Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 (`WRITER_SHOT=<png>`, optional `WRITER_DEMO_TEXT`) is built in.
 
-## Gating finding (D9) — next task
+## D9 — RESOLVED (live edit render works)
 
-Driving LOK by method calls updates the document **model** (binding-saved
-docx contains inserted text) but **does not render edits**: layout +
-`INVALIDATE_TILES` + tile re-render need LO's scheduler pumped. Static blank
-page renders (no layout needed); live typing/edits won't render until the LOK
-event-loop integration lands. **Two attempts reverted: `runLoop` returns
-immediately on BOTH a worker thread and the main thread** — `soffice_main`/
-`Execute()` doesn't stay alive in headless/no-window/no-doc LOK. Next is a
-focused sub-project: replicate COOL's exact `runLoop` init order (study
-`Desktop::Main` under `LibreOfficeKit::isActive()`) or go two-process. See
-[`DECISIONS.md`](DECISIONS.md) D9. The committed app builds + runs + renders
-the static page + has input wiring.
+Typed/edited text now renders live in the GUI (verified: black text on the
+white page via headless screenshot). `runLoop` was a dead end (returns
+immediately); the fix needs no runLoop/threads — a **synchronous scheduler
+pump**: dlsym the engine's exported `unit_lok_process_events_to_idle`
+(= `Scheduler::ProcessEventsToIdle`) and call it after each dispatch; drive the
+canvas repaint ourselves (this headless tiled setup doesn't emit
+`INVALIDATE_TILES`); seed the LOK profile with `COLOR_SCHEME_LIBREOFFICE_LIGHT`
+for black-on-white; `QSG_RENDER_LOOP=basic`. No engine-source changes. Full
+write-up in [`DECISIONS.md`](DECISIONS.md) D9. Commit `7177b9f29`.
 
 ## Environment notes (for next session)
 
@@ -103,8 +101,8 @@ the static page + has input wiring.
 
 ## Current branch
 
-`improve-lo-test` — W0 done; W1 done; **W2: GUI runs with a LOK-rendered page,
-binding + input wiring done.** Next (W2 #1): LOK event-loop integration (D9) so
-live edits render; then tiling/scroll/zoom, then W3 (ribbon). See
-[`execution-map.md`](execution-map.md).
+`improve-lo-test` — W0 done; W1 done; **W2: GUI runs, live edit render WORKS
+(D9 resolved), binding + input wiring done.** Next: tiling/scroll/zoom (text is
+currently rendered whole-page-to-width — readable but small), then W3 (ribbon).
+See [`execution-map.md`](execution-map.md).
 ```
