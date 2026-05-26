@@ -78,19 +78,32 @@ ApplicationWindow {
         }
     }
 
-    // document workspace — LOK-rendered page (DocumentCanvas blits paintTile).
+    // document workspace — scrollable LOK-rendered page(s).
     Rectangle {
         anchors.fill: parent
         color: "#3a3a3a"
-        DocumentCanvas {
-            id: canvas
-            engine: lokEngine
-            width: 820
-            height: parent.height - 56
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 28
+
+        Flickable {
+            id: flick
+            anchors.fill: parent
+            anchors.topMargin: 20
+            contentWidth: width
+            contentHeight: canvas.height + 40
+            clip: true
+            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
+
+            DocumentCanvas {
+                id: canvas
+                engine: lokEngine
+                width: 820
+                // full page height at fit-width scale (preserve aspect ratio)
+                height: (lokEngine.documentSize.width > 0)
+                        ? width * lokEngine.documentSize.height / lokEngine.documentSize.width
+                        : 1060
+                x: Math.max(0, (flick.width - width) / 2)
+            }
         }
+
         Label {
             anchors.centerIn: parent
             visible: !lokEngine.ready

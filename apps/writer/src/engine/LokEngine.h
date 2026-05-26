@@ -24,6 +24,7 @@ class LokEngine : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool ready READ isReady NOTIFY readyChanged)
+    Q_PROPERTY(QSize documentSize READ documentSizeTwips NOTIFY documentSizeChanged)
 
 public:
     // Mirror LOK_KEYEVENT_* / LOK_MOUSEEVENT_* (asserted equal in the .cpp).
