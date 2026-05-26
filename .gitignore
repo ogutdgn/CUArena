@@ -16,3 +16,6 @@ apps/figma/cua-eval/runs/
 
 # Claude Code local (per-machine) permission overrides
 .claude/settings.local.json
+
+# Writer app build output
+apps/writer/build/
