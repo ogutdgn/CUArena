@@ -70,6 +70,12 @@ ApplicationWindow {
         }
     }
 
+    // LOK JSDialogs rendered natively in-app (W4), on top of the workspace.
+    DialogHost {
+        anchors.fill: parent
+        engine: lokEngine
+    }
+
     footer: Rectangle {
         height: 24
         color: "#2b5797"

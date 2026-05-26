@@ -99,6 +99,27 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
   JSDialogs are wired in W4; composite controls (font combo, colour palettes,
   dropdowns) need W4 popups (see execution-map W3 tail).
 
+**Phase W4 — Dialogs (core DONE):**
+
+- **Generic JSDialog→QML renderer** (DECISIONS D11): `DialogWidget.qml`
+  (recursive, Loader-by-URL) + `DialogHost.qml` (in-app modal overlay) render
+  any LOK `LOK_CALLBACK_JSDIALOG` widget tree natively — one renderer, not
+  per-dialog QML. Verified headless: **Word Count** (grid) and **Page Style**
+  (10-tab tabcontrol with labels) render cleanly with real data.
+- **Round-trip proven** (`tests/dialog_roundtrip.cpp`): open Page Style →
+  `sendDialogEvent(windowId=lokWindowId, {"id":"cancel","type":"responsebutton",
+  "cmd":"click"})` → engine acks `action:"close"`. `LokEngine` captures
+  JSDIALOG/WINDOW callbacks + exposes `sendDialogEvent`.
+- **Coverage audit** ([`architecture/W4_DIALOG_COVERAGE.md`](architecture/W4_DIALOG_COVERAGE.md)):
+  most formatting dialogs are JSDIALOG (native-renderable, no engine patch);
+  InsertTable/Bookmark/Hyperlink/About are WINDOW-only (D6 `enabled.cxx`
+  candidates); pickers (InsertGraphic) are OS-native → our own Qt dialog.
+  Probes: `tests/dialog_{probe,audit,roundtrip}.cpp`.
+- **Engine gotcha found+documented**: `lok_cpp_init` needs an absolute
+  `instdir/program` path (ENGINE_BUILD.md) — relative crashes UNO bootstrap.
+- **Remaining (W4 tail):** `enabled.cxx` patches for the WINDOW-only dialogs;
+  OS-picker Qt dialogs; renderer polish (units, color pickers, multi-col lists).
+
 ## D9 — RESOLVED (live edit render works)
 
 Typed/edited text now renders live in the GUI (verified: black text on the

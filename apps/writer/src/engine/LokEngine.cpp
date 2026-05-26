@@ -164,6 +164,15 @@ void LokEngine::postUno(const QString& command, const QString& argsJson)
     pumpScheduler();
 }
 
+void LokEngine::sendDialogEvent(qulonglong windowId, const QString& argsJson)
+{
+    if (!m_doc)
+        return;
+    const QByteArray args = argsJson.toUtf8();
+    m_doc->sendDialogEvent(windowId, args.constData());
+    pumpScheduler();
+}
+
 void LokEngine::postKey(int type, int charCode, int keyCode)
 {
     if (!m_doc)
@@ -222,6 +231,12 @@ void LokEngine::handleCallback(int type, const QByteArray& payload)
         break;
     case LOK_CALLBACK_STATE_CHANGED:
         emit unoStateChanged(QString::fromUtf8(payload));
+        break;
+    case LOK_CALLBACK_JSDIALOG:
+        emit jsDialog(QString::fromUtf8(payload));
+        break;
+    case LOK_CALLBACK_WINDOW:
+        emit windowEvent(QString::fromUtf8(payload));
         break;
     default:
         break;

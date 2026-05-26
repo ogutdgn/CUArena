@@ -53,6 +53,10 @@ public:
 
     // Input + command dispatch (the logger/MCP seam).
     Q_INVOKABLE void postUno(const QString& command, const QString& argsJson = QString());
+    // Drive a JSDialog control back into the engine (W4). windowId = the
+    // dialog's lokWindowId; argsJson = {"id":"<ctrl>","type":"<widget>",
+    // "cmd":"<action>","data":"<value>"}. See docs/architecture/W4_*.
+    Q_INVOKABLE void sendDialogEvent(qulonglong windowId, const QString& argsJson);
     Q_INVOKABLE void postKey(int type, int charCode, int keyCode);
     Q_INVOKABLE void typeText(const QString& text); // convenience: KEYINPUT+KEYUP per char
     Q_INVOKABLE void postMouse(int type, int xTwips, int yTwips, int count,
@@ -63,6 +67,8 @@ signals:
     void documentSizeChanged(QSize twips);
     void tilesInvalidated(QRect twips); // null/empty rect = whole document
     void unoStateChanged(QString payload); // ".uno:Bold=true"
+    void jsDialog(QString payload);     // LOK_CALLBACK_JSDIALOG — JSON widget tree / update / action
+    void windowEvent(QString payload);  // LOK_CALLBACK_WINDOW — created/close/destroy (tiled dialogs)
 
 private:
     bool finishLoad();

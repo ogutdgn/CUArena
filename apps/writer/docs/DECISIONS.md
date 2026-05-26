@@ -207,3 +207,36 @@ event emit on dispatch (mentioned in the W3 roadmap line) is logging and is
 folded into **W5** (logger), not done here. Dialog targets (Find&Replace,
 Insert Table, Page Setup, …) dispatch correctly but their JSDialogs are wired
 in **W4**.
+
+---
+
+## D11 — Dialogs: generic JSDialog→QML renderer, in-app modal, confirmed protocol
+**Date:** 2026-05-26 · **Status:** locked (W4)
+
+LOK serialises most Writer dialogs to a **JSON widget tree** via
+`LOK_CALLBACK_JSDIALOG`. We render it with a **single generic, recursive QML
+renderer** (`DialogWidget.qml`) hosted by `DialogHost.qml` — *not* a
+hand-written QML dialog per LO dialog. One renderer covers Page Setup, Font,
+Paragraph, Find & Replace, Word Count, Symbol, Columns, indices, … (audit in
+[`architecture/W4_DIALOG_COVERAGE.md`](architecture/W4_DIALOG_COVERAGE.md)).
+
+- **In-app modal, not an OS window** (Boundary A): the dialog is an overlay on
+  our canvas — owned UI, themable, and capturable in headless screenshots.
+- **Confirmed round-trip** (proved by `tests/dialog_roundtrip.cpp`):
+  `sendDialogEvent(windowId, json)` where **windowId = tree root `lokWindowId`**
+  and `json = {"id":<ctrl>,"type":<widget>,"cmd":<action>,"data":<v>}`; the
+  engine replies `{"jsontype":"dialog","action":"close",...}`. Per-widget verbs
+  are in the coverage doc. `DialogHost` also applies incremental
+  `update`/`action` messages and dismisses optimistically for modeless dialogs.
+- **Engine empirically probed first** (`tests/dialog_probe.cpp` /
+  `dialog_audit.cpp`) — schema + windowId + event format were nailed against the
+  real engine before building the renderer.
+
+**Recursion:** QML forbids a component instantiating itself by type name;
+recursive child nodes load via **Loader-by-URL** (`qrc:/…/DialogWidget.qml`).
+
+**WINDOW-only gap (D6):** `InsertTable`, `InsertBookmark`, `HyperlinkDialog`,
+`About` surface as tiled `LOK_CALLBACK_WINDOW` (not in `enabled.cxx`) → each
+needs the one sanctioned engine patch (register in `vcl/jsdialog/enabled.cxx`).
+**Rejected:** rendering the tiled WINDOW bitmap (defeats native UI); per-dialog
+hand-coded QML (doesn't scale, drifts from the engine).

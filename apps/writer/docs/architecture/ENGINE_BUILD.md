@@ -156,6 +156,11 @@ takes effect and docx fidelity is preserved. **Boundary A proven end-to-end.**
   are not declared.
 - **`saveAs` format is the extension** (`"docx"`, `"odt"`, `"pdf"`), NOT the
   full filter name.
+- **`lok_cpp_init` needs an ABSOLUTE `instdir/program` path.** A relative path
+  (e.g. `../libreoffice/.../instdir/program`) crashes UNO bootstrap with
+  *"component context fails to supply singleton …theDefaultProvider"*. CMake
+  passes an absolute `WRITER_ENGINE_INSTALL`; standalone probes must
+  `cd … && pwd` the path first.
 - **Dev-build LOK teardown (`delete office`) aborts (SIGABRT)** on shutdown —
   a known dev-build quirk, irrelevant to functionality. The real app keeps the
   `Office` alive for its lifetime; the harness bypasses teardown with `_exit(0)`.
@@ -163,4 +168,3 @@ takes effect and docx fidelity is preserved. **Boundary A proven end-to-end.**
   `LO_RL_LOG_DISABLE=1` when driving via LOK (our own logger replaces it, D7).
 - **Strip (Calc/Impress/Math) NOT yet done** — baseline built full; strip is
   deferred (optimization, not a blocker). See §4.
-```

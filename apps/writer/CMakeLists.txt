@@ -39,6 +39,8 @@ qt_add_resources(writer "app_qml"
         src/ui/qml/Ribbon.qml
         src/ui/qml/RibbonGroup.qml
         src/ui/qml/RibbonButton.qml
+        src/ui/qml/DialogHost.qml
+        src/ui/qml/DialogWidget.qml
         resources/ribbon.json
         ${WRITER_ICON_FILES}
 )
