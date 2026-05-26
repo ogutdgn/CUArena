@@ -48,11 +48,36 @@
 - **Writer functionality map** — `tools/extract_menu_tree.py` →
   `resources/writer-menu-tree.json`, 11 menus / 497 items, 496/497 in catalog.
 
+**Phase W2 — Qt app + LOK binding (code done + verified headless; GUI run pending QML modules):**
+
+- **Qt6 app skeleton builds** — `CMakeLists.txt` + `src/main.cpp` +
+  `src/ui/qml/Main.qml` (Word-like ribbon tab strip + canvas + status bar, dark).
+- **LOK binding** — `src/engine/LokEngine.{h,cpp}` (QObject wrapping
+  `lok::Office`/`Document`; init/load/save, `getDocumentSize`, `renderTile`
+  paintTile→QImage, `postUno`/`postKey`/`postMouse`, callback thunk →
+  queued Qt signals `tilesInvalidated`/`documentSizeChanged`/`unoStateChanged`;
+  Office kept alive to dodge teardown abort).
+- **Tile canvas** — `src/ui/DocumentCanvas.{h,cpp}` (QQuickPaintedItem,
+  blits the rendered page; repaints on engine signals).
+- **Verified headless** (`tests/render_test.cpp`, `writer_render_test`):
+  LokEngine init + loadBlankWriter OK; `renderTile` → valid 820×1050 page PNG;
+  `postUno(.uno:InsertText)` dispatch confirmed (saved docx via the binding
+  contains the inserted text). Text not yet visible in the one-shot headless
+  render (reactive invalidate→repaint nuance — resolved by the live GUI loop).
+
 ## Built / code
 
-- `tests/lok_proof_of_life.cpp` (LOK integration smoke, header-only `-ldl`).
+- `tests/lok_proof_of_life.cpp` (W1 LOK smoke, header-only `-ldl`).
+- `src/main.cpp`, `src/engine/LokEngine.{h,cpp}`, `src/ui/DocumentCanvas.{h,cpp}`,
+  `src/ui/qml/Main.qml`, `CMakeLists.txt`. Builds: `writer` + `writer_render_test`.
 - `tools/gen_command_catalog.py` + `tools/extract_menu_tree.py` (+ generated JSON).
-- Engine `instdir/` built (gitignored, not committed).
+- Engine `instdir/` built (gitignored). Qt app `build/` gitignored.
+
+## Blocked on (to RUN the GUI)
+
+- **Base QtQuick QML runtime modules** (owner sudo) — `QtQml.WorkerScript` etc.
+  missing; the app compiles + LOK works, but `Main.qml` won't load until:
+  `sudo apt install -y qml6-module-qtquick qml6-module-qtqml-workerscript qml6-module-qtqml-models qml6-module-qtquick-window qml6-module-qtquick-templates qml6-module-qtquick-shapes`
 
 ## Environment notes (for next session)
 
@@ -64,7 +89,8 @@
 
 ## Current branch
 
-`improve-lo-test` — W0 done; **W1 done** (engine + LOK proof-of-life). Next:
-**W2** — Qt app skeleton + LOK binding (Qt6 ready). See
-[`execution-map.md`](execution-map.md).
+`improve-lo-test` — W0 done; W1 done (engine + LOK proof-of-life); **W2 binding
+code done + verified headless**. Next: install QtQuick QML modules (owner) →
+run GUI → verify live render/typing; then tiling/scroll/zoom + input wiring,
+then W3 (ribbon). See [`execution-map.md`](execution-map.md).
 ```

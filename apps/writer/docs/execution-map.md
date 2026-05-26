@@ -14,7 +14,7 @@
 |---|---|---|
 | **W0** | Foundations: decisions locked, LOK feasibility research, docs scaffold, permissions, branch | **done** |
 | **W1** | Engine: headless LOK build + proof-of-life (strip deferred) | **DONE** — engine built (26.8 alpha), LOK proof-of-life passed end-to-end |
-| **W2** | Qt app skeleton + LOK binding: CMake, C++ `Office`/`Document` wrapper, tile render→QML canvas, load/save, key/mouse injection, core callbacks **+ logger raw-stream scaffold** | **next** (Qt6 6.4.2 ready) |
+| **W2** | Qt app skeleton + LOK binding: CMake, `LokEngine` wrapper, tile render→QML canvas, load/save, dispatch, callbacks→signals | **code done + verified headless**; GUI run pending owner QtQuick QML modules |
 | **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch (**native semantic emit**), Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | |
 | **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | |
 | **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | |
@@ -34,24 +34,30 @@
 - **Deferred (W1-tail, optimization, not blocking):** strip Calc/Impress/Math;
   `--enable-mergelibs` rebuild. Do opportunistically after W2 is moving.
 
-## Next: W2 — Qt app skeleton + LOK binding
+## W2 — Qt app + LOK binding
 
-1. **CMake project** (`apps/writer/CMakeLists.txt`) — Qt6 6.4.2 (Core/Gui/Qml/
-   Quick/QuickControls2/Svg), C++20, ninja. `src/` layout per ARCHITECTURE §8.
-2. **Qt shell** — `QGuiApplication` + `QQmlApplicationEngine`, a Word-like
-   `ApplicationWindow` (ribbon tab strip placeholder, document canvas area,
-   status bar). Compiles + runs (WSLg or `QT_QPA_PLATFORM=offscreen`).
-3. **LOK binding** (`src/engine/`) — C++ `LokEngine` (wraps `Office`/`Document`)
-   as a `QObject`: load/save, `getDocumentSize`, `postUnoCommand`,
-   key/mouse inject; LOK callback pump → Qt signals (engine thread).
-4. **Tile → canvas** — a `QQuickItem`/`QQuickPaintedItem` that blits
-   `paintTile` output; repaint on `INVALIDATE_TILES`; `setClientZoom` mapping.
-5. **Logger raw-stream scaffold** (`src/logging/`) — session dir + raw events
-   from the input layer (grows into W5).
-6. Lifecycle: keep `Office` alive for app lifetime (avoid the teardown abort).
+Done (code + headless verification):
+- ✅ CMake project (Qt6 6.4.2) — `writer` + `writer_render_test` build clean.
+- ✅ Qt shell (`main.cpp` + `Main.qml`) — Word-like window placeholders.
+- ✅ `LokEngine` binding — init/load/save, `renderTile` (paintTile→QImage),
+  `postUno`/`postKey`/`postMouse`, callbacks→queued Qt signals.
+- ✅ `DocumentCanvas` (QQuickPaintedItem) blits the page, repaints on signals.
+- ✅ Verified headless: render path → valid page PNG; `postUno` dispatch
+  confirmed via binding-saved docx.
 
-**W2 exit:** app window opens a .docx, renders it (LOK tiles), accepts typing,
-saves; one `.uno` command wired through the binding.
+Remaining:
+1. **Owner: install QtQuick QML runtime modules** (see last-point "Blocked on").
+2. **Run the GUI** (WSLg or `QT_QPA_PLATFORM=offscreen` + screenshot) → verify
+   the live invalidate→repaint loop shows text as you type.
+3. **Input wiring** — forward Qt key/mouse events from `DocumentCanvas` to
+   `postKey`/`postMouse` (twip mapping, `setClientZoom`); cursor/selection from
+   callbacks.
+4. **Tiling + scroll + zoom** — replace whole-page render with a tile cache;
+   `Flickable` viewport; HiDPI.
+5. **Logger raw-stream scaffold** (`src/logging/`) — grows into W5.
+
+**W2 exit:** GUI opens a doc, renders via LOK tiles, accepts typing (live
+render updates), saves; `.uno` dispatch wired through the binding.
 
 ---
 

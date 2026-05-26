@@ -19,7 +19,13 @@ set(WRITER_ENGINE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../libreoffice/libreoffice-co
 
 qt_add_executable(writer
     src/main.cpp
+    src/engine/LokEngine.h
+    src/engine/LokEngine.cpp
+    src/ui/DocumentCanvas.h
+    src/ui/DocumentCanvas.cpp
 )
+
+target_include_directories(writer PRIVATE src)
 
 qt_add_resources(writer "app_qml"
     PREFIX "/"
@@ -40,3 +46,17 @@ target_link_libraries(writer PRIVATE
     Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2 Qt6::Svg
     ${CMAKE_DL_LIBS}                 # dlopen for lok_init at runtime
 )
+
+# Headless render-path test: LokEngine -> PNG, no QML (verifies the LOK->QImage
+# path independent of QtQuick runtime modules). Run: ./build/writer_render_test
+qt_add_executable(writer_render_test
+    tests/render_test.cpp
+    src/engine/LokEngine.cpp
+    src/engine/LokEngine.h
+)
+target_include_directories(writer_render_test PRIVATE src "${WRITER_ENGINE_DIR}/include")
+target_compile_definitions(writer_render_test PRIVATE
+    LOK_USE_UNSTABLE_API
+    WRITER_ENGINE_INSTALL="${WRITER_ENGINE_DIR}/instdir/program"
+)
+target_link_libraries(writer_render_test PRIVATE Qt6::Core Qt6::Gui ${CMAKE_DL_LIBS})

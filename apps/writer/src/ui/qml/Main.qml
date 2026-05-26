@@ -4,6 +4,7 @@
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
+import WriterApp
 
 ApplicationWindow {
     id: win
@@ -77,24 +78,25 @@ ApplicationWindow {
         }
     }
 
-    // document workspace (LOK tiles blit onto the page in the W2 binding step)
+    // document workspace — LOK-rendered page (DocumentCanvas blits paintTile).
     Rectangle {
         anchors.fill: parent
         color: "#3a3a3a"
-        Rectangle {
-            id: page
-            width: 794            // ~A4 width @ 96dpi (real size from LOK getDocumentSize)
-            height: 1123
+        DocumentCanvas {
+            id: canvas
+            engine: lokEngine
+            width: 820
+            height: parent.height - 56
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: 28
-            color: "white"
-            Label {
-                anchors.centerIn: parent
-                color: "#bdbdbd"
-                font.pixelSize: 12
-                text: "document canvas — LOK tiled render (W2 binding)"
-            }
+        }
+        Label {
+            anchors.centerIn: parent
+            visible: !lokEngine.ready
+            color: "#bdbdbd"
+            font.pixelSize: 12
+            text: "engine not ready — LOK failed to start"
         }
     }
 
