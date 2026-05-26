@@ -175,4 +175,35 @@ pump IS the supported synchronous mechanism the LOK unit tests use.
 
 MIT-licensed, ~2000 icons, exact Word M365 visual match. **Rejected:**
 Lucide/Tabler (not a 1:1 Word match), mixed set (unnecessary complexity now).
-```
+
+---
+
+## D10 — Data-driven ribbon: JSON model + generated icon set, zero hard-coded UI
+**Date:** 2026-05-26 · **Status:** locked (W3)
+
+The ribbon is **100% data-driven** so iterating on the Word layout never edits
+QML (core value #2). Pipeline:
+
+1. **`tools/build_ribbon.py`** holds the curated, Word-faithful spec
+   (tab → group → item). It validates every `.uno:` against
+   `resources/command-catalog.json` (the real engine surface) and every icon
+   against the Fluent name set, pulls clean labels from the catalog, and emits
+   **`resources/ribbon.json`** (+ `ribbon-icons.txt`, the icon manifest).
+2. **`tools/fetch_icons.py`** downloads the manifest's icons from the pinned
+   `@fluentui/svg-icons@1.1.328` package (jsDelivr) and **recolours** the
+   single-tone path fill to the ribbon tint, writing `resources/icons/<name>.svg`.
+3. **QML** (`Ribbon`/`RibbonGroup`/`RibbonButton`) renders `ribbonData` (the
+   JSON, exposed by `main.cpp` from the qrc). Toggle buttons light up from
+   `STATE_CHANGED` (`unoState[cmd] === "true"`); `disabled` greys them.
+
+**Icon recolour, not runtime tint:** Word keeps icon colour constant and lets
+the *background* show hover/active; Qt 6.4 lacks `MultiEffect` and Qt5Compat
+`ColorOverlay` isn't guaranteed present, so we bake the tint at fetch time
+(re-theming = re-run `fetch_icons.py --color`). **Rejected:** per-button
+`ColorOverlay` (extra dep, runtime cost), `currentColor` (QSvg ignores it).
+
+**Scope note:** W3 covers dispatch + ribbon + icons + state. The *semantic*
+event emit on dispatch (mentioned in the W3 roadmap line) is logging and is
+folded into **W5** (logger), not done here. Dialog targets (Find&Replace,
+Insert Table, Page Setup, …) dispatch correctly but their JSDialogs are wired
+in **W4**.

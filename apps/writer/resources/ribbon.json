@@ -1,0 +1,710 @@
+{
+ "schemaVersion": 1,
+ "tabs": [
+  {
+   "name": "Home",
+   "groups": [
+    {
+     "name": "Clipboard",
+     "items": [
+      {
+       "cmd": ".uno:Paste",
+       "label": "Paste",
+       "icon": "clipboard_paste",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:Cut",
+       "label": "Cut",
+       "icon": "cut",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Copy",
+       "label": "Copy",
+       "icon": "copy",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FormatPaintbrush",
+       "label": "Format Paintbrush",
+       "icon": "paint_brush",
+       "size": "sm",
+       "toggle": true
+      }
+     ]
+    },
+    {
+     "name": "Undo",
+     "items": [
+      {
+       "cmd": ".uno:Undo",
+       "label": "Undo",
+       "icon": "arrow_undo",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Redo",
+       "label": "Redo",
+       "icon": "arrow_redo",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Font",
+     "items": [
+      {
+       "cmd": ".uno:Bold",
+       "label": "Bold",
+       "icon": "text_bold",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:Italic",
+       "label": "Italic",
+       "icon": "text_italic",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:Underline",
+       "label": "Underline",
+       "icon": "text_underline",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:Strikeout",
+       "label": "Strikethrough",
+       "icon": "text_strikethrough",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:SubScript",
+       "label": "Subscript",
+       "icon": "text_subscript",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:SuperScript",
+       "label": "Superscript",
+       "icon": "text_superscript",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:Grow",
+       "label": "Increase Size",
+       "icon": "font_increase",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Shrink",
+       "label": "Decrease Size",
+       "icon": "font_decrease",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FontColor",
+       "label": "Font Color",
+       "icon": "text_color",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:BackColor",
+       "label": "Highlight Color",
+       "icon": "highlight",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ResetAttributes",
+       "label": "Clear Formatting",
+       "icon": "clear_formatting",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Paragraph",
+     "items": [
+      {
+       "cmd": ".uno:DefaultBullet",
+       "label": "Bullet List",
+       "icon": "text_bullet_list",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:DefaultNumbering",
+       "label": "Numbered List",
+       "icon": "text_number_list_ltr",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:DecrementIndent",
+       "label": "Decrease Indent",
+       "icon": "text_indent_decrease_ltr",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:IncrementIndent",
+       "label": "Increase Indent",
+       "icon": "text_indent_increase_ltr",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:LeftPara",
+       "label": "Align Left",
+       "icon": "text_align_left",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:CenterPara",
+       "label": "Center",
+       "icon": "text_align_center",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:RightPara",
+       "label": "Align Right",
+       "icon": "text_align_right",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:JustifyPara",
+       "label": "Justify",
+       "icon": "text_align_justify",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:LineSpacing",
+       "label": "Line Spacing",
+       "icon": "text_line_spacing",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Styles",
+     "items": [
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "Default",
+       "icon": "text_t",
+       "size": "sm",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Default Paragraph Style\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "Heading 1",
+       "icon": "text_header_1",
+       "size": "sm",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Heading 1\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "Heading 2",
+       "icon": "text_header_2",
+       "size": "sm",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Heading 2\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "Title",
+       "icon": "text_header_3",
+       "size": "sm",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Title\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      }
+     ]
+    },
+    {
+     "name": "Editing",
+     "items": [
+      {
+       "cmd": ".uno:SearchDialog",
+       "label": "Find & Replace",
+       "icon": "search",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:SelectAll",
+       "label": "Select All",
+       "icon": "select_all_on",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Insert",
+   "groups": [
+    {
+     "name": "Pages",
+     "items": [
+      {
+       "cmd": ".uno:InsertPagebreak",
+       "label": "Page Break",
+       "icon": "document_page_break",
+       "size": "lg"
+      }
+     ]
+    },
+    {
+     "name": "Tables",
+     "items": [
+      {
+       "cmd": ".uno:InsertTable",
+       "label": "Table",
+       "icon": "table_add",
+       "size": "lg"
+      }
+     ]
+    },
+    {
+     "name": "Illustrations",
+     "items": [
+      {
+       "cmd": ".uno:InsertGraphic",
+       "label": "Picture",
+       "icon": "image_add",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertObjectChart",
+       "label": "Chart",
+       "icon": "chart_multiple",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertDraw",
+       "label": "Shapes",
+       "icon": "shapes",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Links",
+     "items": [
+      {
+       "cmd": ".uno:HyperlinkDialog",
+       "label": "Hyperlink",
+       "icon": "link",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertBookmark",
+       "label": "Bookmark",
+       "icon": "bookmark",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertReferenceField",
+       "label": "Cross-reference",
+       "icon": "document_link",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Header & Footer",
+     "items": [
+      {
+       "cmd": ".uno:InsertPageHeader",
+       "label": "Header",
+       "icon": "document_header",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertPageFooter",
+       "label": "Footer",
+       "icon": "document_footer",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertPageNumberField",
+       "label": "Page Number",
+       "icon": "document_page_number",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Text",
+     "items": [
+      {
+       "cmd": ".uno:InsertTextFrame",
+       "label": "Text Box",
+       "icon": "textbox",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertFieldCtrl",
+       "label": "Field",
+       "icon": "text_field",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertDateField",
+       "label": "Date",
+       "icon": "calendar_ltr",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Symbols",
+     "items": [
+      {
+       "cmd": ".uno:InsertObjectStarMath",
+       "label": "Equation",
+       "icon": "math_formula",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertSymbol",
+       "label": "Symbol",
+       "icon": "math_symbols",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Layout",
+   "groups": [
+    {
+     "name": "Page Setup",
+     "items": [
+      {
+       "cmd": ".uno:PageDialog",
+       "label": "Page Setup",
+       "icon": "document_landscape",
+       "size": "lg"
+      }
+     ]
+    },
+    {
+     "name": "Paragraph",
+     "items": [
+      {
+       "cmd": ".uno:ParaspaceIncrease",
+       "label": "Add Space",
+       "icon": "arrow_expand",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ParaspaceDecrease",
+       "label": "Remove Space",
+       "icon": "arrow_collapse_all",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:IncrementIndent",
+       "label": "Indent",
+       "icon": "text_indent_increase_ltr",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:DecrementIndent",
+       "label": "Outdent",
+       "icon": "text_indent_decrease_ltr",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Page Background",
+     "items": [
+      {
+       "cmd": ".uno:FormatColumns",
+       "label": "Columns",
+       "icon": "column_triple",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertBreak",
+       "label": "Breaks",
+       "icon": "document_page_break",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "References",
+   "groups": [
+    {
+     "name": "Table of Contents",
+     "items": [
+      {
+       "cmd": ".uno:InsertMultiIndex",
+       "label": "Table of Contents",
+       "icon": "text_bullet_list_tree",
+       "size": "lg"
+      }
+     ]
+    },
+    {
+     "name": "Footnotes",
+     "items": [
+      {
+       "cmd": ".uno:InsertFootnote",
+       "label": "Insert Footnote",
+       "icon": "text_footnote",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertEndnote",
+       "label": "Insert Endnote",
+       "icon": "document_endnote",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Captions",
+     "items": [
+      {
+       "cmd": ".uno:InsertCaptionDialog",
+       "label": "Insert Caption",
+       "icon": "text_description",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertIndexesEntry",
+       "label": "Index Entry",
+       "icon": "bookmark_add",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Review",
+   "groups": [
+    {
+     "name": "Proofing",
+     "items": [
+      {
+       "cmd": ".uno:SpellingAndGrammarDialog",
+       "label": "Spelling & Grammar",
+       "icon": "text_grammar_checkmark",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:ThesaurusDialog",
+       "label": "Thesaurus",
+       "icon": "book_question_mark",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:WordCountDialog",
+       "label": "Word Count",
+       "icon": "text_word_count",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Comments",
+     "items": [
+      {
+       "cmd": ".uno:InsertAnnotation",
+       "label": "New Comment",
+       "icon": "comment_add",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Tracking",
+     "items": [
+      {
+       "cmd": ".uno:TrackChanges",
+       "label": "Record Changes",
+       "icon": "edit",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:ShowTrackedChanges",
+       "label": "Show Changes",
+       "icon": "eye",
+       "size": "sm",
+       "toggle": true
+      }
+     ]
+    },
+    {
+     "name": "Changes",
+     "items": [
+      {
+       "cmd": ".uno:AcceptTrackedChange",
+       "label": "Accept",
+       "icon": "checkmark",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:RejectTrackedChange",
+       "label": "Reject",
+       "icon": "dismiss",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "View",
+   "groups": [
+    {
+     "name": "Views",
+     "items": [
+      {
+       "cmd": ".uno:PrintLayout",
+       "label": "Print Layout",
+       "icon": "document_one_page",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:BrowseView",
+       "label": "Web Layout",
+       "icon": "globe",
+       "size": "sm",
+       "toggle": true
+      }
+     ]
+    },
+    {
+     "name": "Show",
+     "items": [
+      {
+       "cmd": ".uno:ControlCodes",
+       "label": "Formatting Marks",
+       "icon": "text_paragraph",
+       "size": "sm",
+       "toggle": true
+      }
+     ]
+    },
+    {
+     "name": "Zoom",
+     "items": [
+      {
+       "cmd": ".uno:Zoom",
+       "label": "Zoom",
+       "icon": "zoom_fit",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:ZoomPlus",
+       "label": "Zoom In",
+       "icon": "zoom_in",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ZoomMinus",
+       "label": "Zoom Out",
+       "icon": "zoom_out",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "File",
+   "groups": [
+    {
+     "name": "File",
+     "items": [
+      {
+       "cmd": ".uno:NewDoc",
+       "label": "New",
+       "icon": "document_add",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:Open",
+       "label": "Open",
+       "icon": "folder_open",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Save",
+       "label": "Save",
+       "icon": "save",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:SaveAs",
+       "label": "Save As",
+       "icon": "save_edit",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Print & Share",
+     "items": [
+      {
+       "cmd": ".uno:Print",
+       "label": "Print",
+       "icon": "print",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ExportToPDF",
+       "label": "Export PDF",
+       "icon": "document_pdf",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:CloseDoc",
+       "label": "Close",
+       "icon": "dismiss_circle",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Help",
+   "groups": [
+    {
+     "name": "Help",
+     "items": [
+      {
+       "cmd": ".uno:HelpIndex",
+       "label": "Help",
+       "icon": "question_circle",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:About",
+       "label": "About",
+       "icon": "info",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -27,10 +27,20 @@ qt_add_executable(writer
 
 target_include_directories(writer PRIVATE src)
 
+# All ribbon icons (Fluent, recoloured by tools/fetch_icons.py) are bundled
+# into the binary so the app is self-contained (Docker / CUA runtime).
+file(GLOB WRITER_ICON_FILES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+     "resources/icons/*.svg")
+
 qt_add_resources(writer "app_qml"
     PREFIX "/"
     FILES
         src/ui/qml/Main.qml
+        src/ui/qml/Ribbon.qml
+        src/ui/qml/RibbonGroup.qml
+        src/ui/qml/RibbonButton.qml
+        resources/ribbon.json
+        ${WRITER_ICON_FILES}
 )
 
 target_include_directories(writer PRIVATE

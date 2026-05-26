@@ -1,8 +1,10 @@
 // Writer — modern native Qt6/QML Word-like CUA app entry point.
 // W2: opens the shell, starts the LOK engine, loads a blank Writer document
 // and renders it on the canvas. See docs/architecture/ARCHITECTURE.md.
+#include <QFile>
 #include <QGuiApplication>
 #include <QImage>
+#include <QJsonDocument>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
@@ -46,6 +48,23 @@ int main(int argc, char* argv[])
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty(QStringLiteral("lokEngine"), &lok);
+
+    // The ribbon UI is fully data-driven from resources/ribbon.json (built by
+    // tools/build_ribbon.py, validated against the engine command catalog).
+    QVariant ribbonData;
+    if (QFile rf(QStringLiteral(":/resources/ribbon.json")); rf.open(QIODevice::ReadOnly)) {
+        const QJsonDocument doc = QJsonDocument::fromJson(rf.readAll());
+        ribbonData = doc.toVariant();
+    } else {
+        qWarning() << "Writer: ribbon.json not found in resources — ribbon will be empty";
+    }
+    engine.rootContext()->setContextProperty(QStringLiteral("ribbonData"), ribbonData);
+
+    // Verification/CI affordance: WRITER_TAB picks the ribbon tab to open on.
+    engine.rootContext()->setContextProperty(
+        QStringLiteral("initialTab"),
+        qEnvironmentVariableIsSet("WRITER_TAB") ? qEnvironmentVariable("WRITER_TAB").toInt() : 0);
+
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreationFailed, &app,
         []() { qFatal("Writer: QML root failed to load"); }, Qt::QueuedConnection);
@@ -63,10 +82,15 @@ int main(int argc, char* argv[])
         // type -> invalidate -> repaint loop (text rendered by LOK).
         if (qEnvironmentVariableIsSet("WRITER_DEMO_TEXT")) {
             const QString demo = qEnvironmentVariable("WRITER_DEMO_TEXT");
-            // NOTE: this updates the document model but does NOT yet show in the
-            // render — LOK's scheduler (layout + INVALIDATE_TILES) is not pumped.
-            // Pending the LOK event-loop integration (DECISIONS D9, W2 #1 task).
             QTimer::singleShot(700, &lok, [&lok, demo]() { lok.typeText(demo); });
+        }
+        // WRITER_DEMO_UNO=".uno:Bold,.uno:Italic" dispatches commands before the
+        // grab — used to verify ribbon toggle state lights up from STATE_CHANGED.
+        if (qEnvironmentVariableIsSet("WRITER_DEMO_UNO")) {
+            const QStringList cmds = qEnvironmentVariable("WRITER_DEMO_UNO").split(',', Qt::SkipEmptyParts);
+            QTimer::singleShot(1100, &lok, [&lok, cmds]() {
+                for (const QString& c : cmds) lok.postUno(c.trimmed());
+            });
         }
         QTimer::singleShot(2800, win, [win, shot]() {
             if (win) {

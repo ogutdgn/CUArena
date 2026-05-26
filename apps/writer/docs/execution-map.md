@@ -15,7 +15,7 @@
 | **W0** | Foundations: decisions locked, LOK feasibility research, docs scaffold, permissions, branch | **done** |
 | **W1** | Engine: headless LOK build + proof-of-life (strip deferred) | **DONE** — engine built (26.8 alpha), LOK proof-of-life passed end-to-end |
 | **W2** | Qt app + LOK binding: CMake, `LokEngine`, tile canvas, load/save, dispatch, **live edit render (D9 resolved)** | mostly done — live typing renders; remaining: tiling/scroll/zoom, cursor/selection overlays |
-| **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch (**native semantic emit**), Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | **in progress** |
+| **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch, Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | **DONE** — data-driven ribbon (8 tabs / 29 groups / 83 cmds), 80 Fluent icons, toggle state live (D10). Semantic emit → W5; dialog targets → W4 |
 | **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | |
 | **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | |
 | **W6** | MCP surface: dispatch + state + document ops as MCP tools | |
@@ -38,14 +38,23 @@ Tracked so nothing is forgotten while moving between phases. Tick when done.
 - [ ] **Status bar wiring** — "Page 1 / 0 words" in Main.qml are hardcoded
       placeholders; wire to real page/word count (`getCommandValues`).
 
+**W3 tail / polish (optional, after W4 starts paying off):**
+- [ ] **Composite controls** — Font name + size combo boxes, Font/Highlight
+      colour split-buttons with palettes, line-spacing/bullets dropdowns. W3
+      renders these as plain buttons (dispatch-only); the dropdown/palette UI
+      needs W4 (popups) to be useful.
+- [ ] **Quick Access Toolbar** (Save/Undo/Redo in the title area) — Word has it;
+      we put Undo/Redo in a Home group for now.
+- [ ] **Keyboard accelerators / mnemonics** on the ribbon (Alt-key tips).
+
 **Engine / config:**
 - [ ] **Strip** Calc(`sc`)/Impress(`sd`)/Math(`starmath`) + peers (Writer-only).
 - [ ] **Light color scheme** is currently seeded per-profile as a stopgap; fold
       into our own theming model (Boundary A) — we may later offer doc dark mode.
-- [ ] **`Properties` bitmask** in command-catalog stored raw; verify bit meanings
-      vs officecfg `.xcs` (needed for checkable ribbon buttons — W3).
+- [x] **`Properties` bitmask** — not needed for W3: ribbon toggle flags come
+      from the curated spec in `build_ribbon.py`, not the raw bitmask.
 
-**Phases:** W3 ribbon (in progress) · W4 dialogs/D6 · W5 logger · W6 MCP ·
+**Phases:** W3 ribbon ✅ · W4 dialogs/D6 (next) · W5 logger · W6 MCP ·
 W7 Docker · W8 theming. (See the phase table + D-entries in DECISIONS.md.)
 
 ---

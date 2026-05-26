@@ -4,7 +4,7 @@
 > aspirational. Pairs with [`execution-map.md`](execution-map.md) (what's
 > next). Refresh at session end.
 >
-> Last updated: 2026-05-25.
+> Last updated: 2026-05-26.
 
 ---
 
@@ -79,6 +79,26 @@ bar. Input wiring added (`DocumentCanvas` key/mouse → `postKey`/`postMouse`,
 Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 (`WRITER_SHOT=<png>`, optional `WRITER_DEMO_TEXT`) is built in.
 
+**Phase W3 — Command mechanism + ribbon UI (DONE):**
+
+- **Data-driven ribbon** (DECISIONS D10) — `tools/build_ribbon.py` emits
+  `resources/ribbon.json` (8 tabs / 29 groups / **83 commands**), every `.uno:`
+  validated against the command catalog, labels auto-pulled. UI is generic QML
+  (`Ribbon`/`RibbonGroup`/`RibbonButton`) — adding commands never touches QML.
+- **80 Fluent icons** — `tools/fetch_icons.py` pulls them from pinned
+  `@fluentui/svg-icons@1.1.328`, recolours to the ribbon tint, bundles into the
+  binary via qrc. All 8 tabs render with Word-faithful icons + group labels.
+- **Live toggle state** — `STATE_CHANGED` → `unoState` → buttons light up
+  (verified: `.uno:Bold` lights blue after dispatch; "Show Changes" reflects
+  the engine default). `disabled` state greys buttons.
+- **Verified headless** (offscreen screenshots, all 8 tabs): ribbon renders,
+  Bold toggle round-trips, dispatch wired through `lokEngine.postUno(cmd,args)`.
+  Build clean; `writer_render_test` regression still green.
+- **Deferred (correctly):** semantic-event emit on dispatch → W5 (logger);
+  dialog targets (Find&Replace, Insert Table, Page Setup…) dispatch but their
+  JSDialogs are wired in W4; composite controls (font combo, colour palettes,
+  dropdowns) need W4 popups (see execution-map W3 tail).
+
 ## D9 — RESOLVED (live edit render works)
 
 Typed/edited text now renders live in the GUI (verified: black text on the
@@ -101,10 +121,10 @@ write-up in [`DECISIONS.md`](DECISIONS.md) D9. Commit `7177b9f29`.
 
 ## Current branch
 
-`improve-lo-test` — **pushed to `origin/improve-lo-test`** (GitHub). W0/W1 done;
-W2 substantially done (live edit render D9-resolved + scrollable page);
-**W3 started — Word ribbon Home tab live** (Clipboard/Font/Paragraph/Editing
-wired to real `.uno` commands; verified end-to-end: ribbon Bold applies +
-renders bold text). Next: wire remaining tabs + Fluent icons (W3 tail), W2 tail
-(zoom/cursor overlays), D6 dialogs. See [`execution-map.md`](execution-map.md).
+`improve-lo-test` — local commits only (not pushed this session, per owner).
+W0/W1 done; W2 substantially done (live edit render D9-resolved + scrollable
+page); **W3 DONE — full data-driven Word ribbon** (8 tabs, 83 commands, 80
+Fluent icons, live toggle state; D10). Next: **W4 dialogs/D6** (JSDialog →
+native Qt, wire dialog targets), then W2 tail (zoom/cursor overlays), W5 logger.
+See [`execution-map.md`](execution-map.md).
 ```
