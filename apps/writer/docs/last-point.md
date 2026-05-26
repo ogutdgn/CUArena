@@ -84,10 +84,13 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 Driving LOK by method calls updates the document **model** (binding-saved
 docx contains inserted text) but **does not render edits**: layout +
 `INVALIDATE_TILES` + tile re-render need LO's scheduler pumped. Static blank
-page renders (no layout needed); **live typing/edits won't render until the
-LOK event-loop integration** (dedicated engine thread + `runLoop`,
-ARCHITECTURE §4) lands. This is W2's #1 task — see
-[`DECISIONS.md`](DECISIONS.md) D9 + [`execution-map.md`](execution-map.md).
+page renders (no layout needed); live typing/edits won't render until the LOK
+event-loop integration lands. **Attempt 1 (runLoop on a worker thread) failed
+— `soffice_main` needs the main thread.** Next: the "inverted loop" (runLoop on
+the main thread, pump Qt in the poll callback); fallback two-process IPC. This
+is W2's #1 task — see [`DECISIONS.md`](DECISIONS.md) D9 +
+[`execution-map.md`](execution-map.md). The threaded attempt was reverted; the
+committed app builds + runs + renders the static page + has input wiring.
 
 ## Environment notes (for next session)
 

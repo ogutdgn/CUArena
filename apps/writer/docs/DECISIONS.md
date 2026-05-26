@@ -114,17 +114,29 @@ tile rendering + `INVALIDATE_TILES` callbacks do not run** — so the canvas
 never reflects edits and live typing doesn't render. LO's internal scheduler
 (SolarMutex / `Application::Yield`) must be pumped.
 
-**Decision:** integrate LOK's event loop properly — the previously-deferred
-"dedicated engine thread" (ARCHITECTURE §4). Likely `office->runLoop(poll,
-wake, data)` on a worker thread, with GUI-thread input/dispatch marshalled in,
-and `INVALIDATE_TILES` → canvas repaint. This is the gating task for live
-edit/render and must be done carefully (threading + SolarMutex correctness),
-not rushed. The static blank-page render works because a blank doc needs no
-layout pass; edits need the scheduler.
+**Attempt 1 (2026-05-25): `runLoop` on a dedicated worker thread — FAILED.**
+Implemented the threaded Unipoll model (`office->runLoop(poll, wake)` on a
+`std::thread`, task queue drained in the poll callback, results via queued Qt
+signals). Tracing showed: `lok_cpp_init` succeeds, but **`runLoop` returns
+immediately** (poll is never called). Root cause: `lo_runLoop` →
+`soffice_main()` **requires the process MAIN thread** (it bails on a secondary
+thread). Reverted to the working synchronous binding. This is the classic
+**Qt ⇄ LO "both want to own the main thread + its event loop"** conflict.
 
-**Why not a synchronous flush hack:** forcing a one-off process/yield around
-each call would be fragile and fight LO's threading model — rejected for the
-proper loop integration (quality > speed).
+**Viable paths (next push):**
+1. **Inverted loop (recommended, try first):** run `office->runLoop()` on the
+   **main thread**; inside the poll callback, pump Qt
+   (`QGuiApplication::processEvents`) instead of calling `app.exec()`. Single
+   LO+Qt thread → no marshalling. Risk: QQuickWindow rendering under a
+   manually-pumped loop — likely needs `QSG_RENDER_LOOP=basic`. Reuses the
+   poll/task/render logic from attempt 1.
+2. **Two processes (robust fallback):** a headless LOK process (its `runLoop`
+   owns its main thread) + the Qt GUI process, over IPC — exactly Collabora
+   Online's WSD/Kit design. Heaviest; the proven production architecture.
+
+**Rejected:** synchronous per-call flush hack (no public LOK "tick"; fragile,
+fights LO's model). The static blank page renders today because a blank doc
+needs no layout pass; edits need the scheduler.
 
 ---
 
