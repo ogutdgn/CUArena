@@ -123,6 +123,25 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 - **Remaining (W4 tail):** enable Hyperlink/About dialogs; OS-picker Qt dialogs;
   renderer polish (formattedfield units, color pickers, multi-col lists).
 
+**Phase W5 — Logger figma-parity (DONE; verifier deferred):**
+
+- **`SessionLogger`** (`src/logging/`) emits the three contract streams as JSONL
+  under `~/.writer-rl-logs/<sessionId>/` (env `WRITER_LOG_DIR`/`WRITER_LOG_DISABLE`):
+  - **raw[]** — input from `LokEngine` (`postKey`/`typeText`/`postMouse`); base
+    fields (eventId/type/timestamp/sessionTime/targetId/modifiers/fields).
+  - **semantic[]** — every `postUno` dispatch, mapped to an RL name via
+    `resources/uno-names.json` (1520 cmds, `tools/gen_uno_names.py`), with
+    `rawEventIdRange` back-link + `args`.
+  - **outcome{}** — 1 s cadence: `summary.semanticEventCount` (+ wordCount/
+    charCount/page from `StateWordCount`/`StatePageNumber`), `document`
+    {modified, pageStyle, formatAtCursor (curated), cursor, size}.
+- **Consolidator** `tools/consolidate_log.py` → figma-shaped `session.json`
+  ({schemaVersion, sessionId, exportedAt, raw[], semantic[], outcome{}}).
+- Verified headless (demo text + `.uno:Bold,.uno:CenterPara`): streams + ranges
+  + aggregates correct; `WRITER_LOG_DISABLE` opt-out works; render_test green.
+- **Deferred:** a Writer *verifier* (reads these logs) — a later phase; the log
+  shape is contract-conformant. Parity checklist in LOGGING.md §4.
+
 ## D9 — RESOLVED (live edit render works)
 
 Typed/edited text now renders live in the GUI (verified: black text on the

@@ -11,14 +11,18 @@
 
 #include <QObject>
 #include <QImage>
+#include <QJsonObject>
 #include <QRect>
 #include <QSize>
 #include <QString>
+
+#include "logging/SessionLogger.h"
 
 namespace lok {
 class Office;
 class Document;
 }
+class QTimer;
 
 class LokEngine : public QObject
 {
@@ -75,6 +79,7 @@ private:
     void refreshDocSize();
     void handleCallback(int type, const QByteArray& payload);
     static void callbackThunk(int type, const char* payload, void* data);
+    void emitOutcome(); // build + write an outcome snapshot (logger cadence)
     // Pump LO's scheduler so edits lay out + invalidate + re-render (D9). Uses
     // the engine's exported unit_lok_process_events_to_idle (= Scheduler::
     // ProcessEventsToIdle); resolved via dlsym after lok init.
@@ -84,4 +89,10 @@ private:
     lok::Document* m_doc = nullptr;
     QSize m_docSizeTwips;
     void (*m_pump)() = nullptr;
+
+    // Logging (W5): raw from input, semantic from dispatch, outcome on a timer.
+    SessionLogger m_logger;
+    QTimer* m_outcomeTimer = nullptr;
+    QJsonObject m_formatAtCursor;       // .uno toggle states from STATE_CHANGED
+    QRect m_cursorTwips;                // from INVALIDATE_VISIBLE_CURSOR
 };

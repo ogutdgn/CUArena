@@ -20,6 +20,7 @@ int main(int argc, char* argv[])
 {
     qputenv("SAL_USE_VCLPLUGIN", "svp");
     qputenv("LO_RL_LOG_DISABLE", "1");
+    qputenv("WRITER_LOG_DISABLE", "1"); // don't spawn session logs from the render test
     qputenv("QT_QPA_PLATFORM", "offscreen");
     QGuiApplication app(argc, argv);
 

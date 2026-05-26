@@ -17,7 +17,7 @@
 | **W2** | Qt app + LOK binding: CMake, `LokEngine`, tile canvas, load/save, dispatch, **live edit render (D9 resolved)** | mostly done — live typing renders; remaining: tiling/scroll/zoom, cursor/selection overlays |
 | **W3** | Command mechanism + ribbon UI: catalog from `*.xcu`, dispatch, Word-like QML ribbon + Fluent icons, `STATE_CHANGED` state | **DONE** — data-driven ribbon (8 tabs / 29 groups / 83 cmds), 80 Fluent icons, toggle state live (D10). Semantic emit → W5; dialog targets → W4 |
 | **W4** | Dialogs: `JSDIALOG`→native Qt/QML, `sendDialogEvent`, coverage audit + extend engine `enabled.cxx` for gaps | **DONE** — generic JSDialog→QML renderer (WordCount/PageDialog/InsertTable verified), round-trip proven, audit (D11); `enabled.cxx` patched for InsertTable+Bookmark. Tail: Hyperlink/About enable, OS-picker dialogs, renderer polish |
-| **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | |
+| **W5** | Logger figma-parity: full semantic registry, outcome snapshot, `semanticEventCount`, consolidator, contract conformance | **DONE** — `SessionLogger` (raw/semantic/outcome JSONL), 1520-cmd name registry, rawEventIdRange, outcome aggregates, consolidator → figma `session.json`; verified. Verifier itself deferred to a later phase |
 | **W6** | MCP surface: dispatch + state + document ops as MCP tools | |
 | **W7** | Docker multi-stage: engine→LOK + app → binary runtime, logger default-on | |
 | **W8** | Theming/polish: Word palette, Fluent refinement, context menus, a11y | |
@@ -65,7 +65,7 @@ Tracked so nothing is forgotten while moving between phases. Tick when done.
       multi-column, color pickers; re-verify Spelling/Zoom in GUI.
 
 **Phases:** W3 ribbon ✅ · W4 dialogs ✅ (Hyperlink/About + polish tail) ·
-W5 logger (next) · W6 MCP · W7 Docker · W8 theming.
+W5 logger ✅ (verifier deferred) · W6 MCP (next) · W7 Docker · W8 theming.
 (See the phase table + D-entries in DECISIONS.md.)
 
 ---

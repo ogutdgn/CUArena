@@ -21,6 +21,8 @@ qt_add_executable(writer
     src/main.cpp
     src/engine/LokEngine.h
     src/engine/LokEngine.cpp
+    src/logging/SessionLogger.h
+    src/logging/SessionLogger.cpp
     src/ui/DocumentCanvas.h
     src/ui/DocumentCanvas.cpp
 )
@@ -42,6 +44,7 @@ qt_add_resources(writer "app_qml"
         src/ui/qml/DialogHost.qml
         src/ui/qml/DialogWidget.qml
         resources/ribbon.json
+        resources/uno-names.json
         ${WRITER_ICON_FILES}
 )
 
@@ -65,6 +68,8 @@ qt_add_executable(writer_render_test
     tests/render_test.cpp
     src/engine/LokEngine.cpp
     src/engine/LokEngine.h
+    src/logging/SessionLogger.cpp
+    src/logging/SessionLogger.h
 )
 target_include_directories(writer_render_test PRIVATE src "${WRITER_ENGINE_DIR}/include")
 target_compile_definitions(writer_render_test PRIVATE

@@ -9,7 +9,11 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
 #include <QMetaObject>
+#include <QRegularExpression>
+#include <QTimer>
 #include <QUrl>
 
 #include <dlfcn.h>
@@ -72,7 +76,56 @@ bool LokEngine::initialize(const QString& installPath, const QString& userProfil
     m_pump = reinterpret_cast<void (*)()>(dlsym(RTLD_DEFAULT, "unit_lok_process_events_to_idle"));
     if (!m_pump)
         qWarning() << "LokEngine: scheduler pump symbol not found — edits may not render";
+
+    // Start the session logger + the outcome-snapshot cadence (W5).
+    m_logger.start();
+    if (m_logger.enabled()) {
+        m_outcomeTimer = new QTimer(this);
+        m_outcomeTimer->setInterval(1000);
+        connect(m_outcomeTimer, &QTimer::timeout, this, &LokEngine::emitOutcome);
+        m_outcomeTimer->start();
+    }
     return true;
+}
+
+void LokEngine::emitOutcome()
+{
+    if (!m_doc || !m_logger.enabled())
+        return;
+
+    // formatAtCursor: just the real character/paragraph format (not the whole
+    // command-enabled map STATE_CHANGED also streams).
+    static const char* kFormatKeys[] = {
+        "Bold", "Italic", "Underline", "Strikeout", "SubScript", "SuperScript",
+        "CharFontName", "FontHeight", "LeftPara", "CenterPara", "RightPara",
+        "JustifyPara", "DefaultBullet", "DefaultNumbering", "StyleApply"};
+    QJsonObject fmt;
+    for (const char* k : kFormatKeys)
+        if (m_formatAtCursor.contains(QLatin1String(k)))
+            fmt.insert(QLatin1String(k), m_formatAtCursor.value(QLatin1String(k)));
+
+    QJsonObject doc{
+        {"modified", m_formatAtCursor.value(QStringLiteral("ModifiedStatus")).toString() == "true"},
+        {"pageStyle", m_formatAtCursor.value(QStringLiteral("PageStyleName"))},
+        {"formatAtCursor", fmt},
+        {"cursor", QJsonObject{{"x", m_cursorTwips.x()}, {"y", m_cursorTwips.y()},
+                               {"w", m_cursorTwips.width()}, {"h", m_cursorTwips.height()}}},
+        {"size", QJsonObject{{"w", m_docSizeTwips.width()}, {"h", m_docSizeTwips.height()}}},
+    };
+
+    // summary aggregates parsed from the engine's StateWordCount / StatePageNumber.
+    QJsonObject summary;
+    const QString wc = m_formatAtCursor.value(QStringLiteral("StateWordCount")).toString();
+    static const QRegularExpression re(QStringLiteral("(\\d+)\\s+words?,\\s+(\\d+)\\s+characters?"));
+    if (const auto m = re.match(wc); m.hasMatch()) {
+        summary.insert("wordCount", m.captured(1).toInt());
+        summary.insert("charCount", m.captured(2).toInt());
+    }
+    const QString pg = m_formatAtCursor.value(QStringLiteral("StatePageNumber")).toString();
+    if (!pg.isEmpty())
+        summary.insert("page", pg);
+
+    m_logger.writeOutcome(doc, summary);
 }
 
 void LokEngine::pumpScheduler()
@@ -161,6 +214,10 @@ void LokEngine::postUno(const QString& command, const QString& argsJson)
     const QByteArray cmd = command.toUtf8();
     const QByteArray args = argsJson.toUtf8();
     m_doc->postUnoCommand(cmd.constData(), argsJson.isEmpty() ? nullptr : args.constData(), false);
+    QJsonObject argObj;
+    if (!argsJson.isEmpty())
+        argObj = QJsonDocument::fromJson(args).object();
+    m_logger.logSemantic(command, argObj); // semantic[] — the dispatch seam (D7)
     pumpScheduler();
 }
 
@@ -178,6 +235,8 @@ void LokEngine::postKey(int type, int charCode, int keyCode)
     if (!m_doc)
         return;
     m_doc->postKeyEvent(type, charCode, keyCode);
+    m_logger.logRaw(QStringLiteral("key"),
+                    QJsonObject{{"keyEvent", type}, {"charCode", charCode}, {"keyCode", keyCode}});
     pumpScheduler();
 }
 
@@ -190,6 +249,7 @@ void LokEngine::typeText(const QString& text)
         m_doc->postKeyEvent(LOK_KEYEVENT_KEYINPUT, u, 0);
         m_doc->postKeyEvent(LOK_KEYEVENT_KEYUP, u, 0);
     }
+    m_logger.logRaw(QStringLiteral("text"), QJsonObject{{"text", text}, {"length", text.size()}});
     pumpScheduler();
 }
 
@@ -198,6 +258,9 @@ void LokEngine::postMouse(int type, int xTwips, int yTwips, int count, int butto
     if (!m_doc)
         return;
     m_doc->postMouseEvent(type, xTwips, yTwips, count, buttons, modifier);
+    m_logger.logRaw(QStringLiteral("mouse"),
+                    QJsonObject{{"mouseEvent", type}, {"x", xTwips}, {"y", yTwips},
+                                {"count", count}, {"buttons", buttons}});
     pumpScheduler();
 }
 
@@ -229,9 +292,26 @@ void LokEngine::handleCallback(int type, const QByteArray& payload)
     case LOK_CALLBACK_DOCUMENT_SIZE_CHANGED:
         refreshDocSize();
         break;
-    case LOK_CALLBACK_STATE_CHANGED:
-        emit unoStateChanged(QString::fromUtf8(payload));
+    case LOK_CALLBACK_STATE_CHANGED: {
+        const QString s = QString::fromUtf8(payload);
+        emit unoStateChanged(s);
+        // Mirror toggle/format state into the outcome snapshot (".uno:Bold=true").
+        const int eq = s.indexOf('=');
+        if (eq > 0) {
+            QString key = s.left(eq);
+            if (key.startsWith(QStringLiteral(".uno:")))
+                key = key.mid(5);
+            m_formatAtCursor.insert(key, s.mid(eq + 1));
+        }
         break;
+    }
+    case LOK_CALLBACK_INVALIDATE_VISIBLE_CURSOR: {
+        const auto p = payload.split(',');
+        if (p.size() >= 4)
+            m_cursorTwips = QRect(p[0].trimmed().toInt(), p[1].trimmed().toInt(),
+                                  p[2].trimmed().toInt(), p[3].trimmed().toInt());
+        break;
+    }
     case LOK_CALLBACK_JSDIALOG:
         emit jsDialog(QString::fromUtf8(payload));
         break;
