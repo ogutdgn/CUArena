@@ -301,15 +301,38 @@ void LokEngine::handleCallback(int type, const QByteArray& payload)
             QString key = s.left(eq);
             if (key.startsWith(QStringLiteral(".uno:")))
                 key = key.mid(5);
-            m_formatAtCursor.insert(key, s.mid(eq + 1));
+            const QString val = s.mid(eq + 1);
+            m_formatAtCursor.insert(key, val);
+            if (key == QLatin1String("StatePageNumber")) { m_pageStatus = val; emit statusChanged(); }
+            else if (key == QLatin1String("StateWordCount")) { m_wordStatus = val; emit statusChanged(); }
         }
         break;
     }
     case LOK_CALLBACK_INVALIDATE_VISIBLE_CURSOR: {
         const auto p = payload.split(',');
-        if (p.size() >= 4)
+        if (p.size() >= 4) {
             m_cursorTwips = QRect(p[0].trimmed().toInt(), p[1].trimmed().toInt(),
                                   p[2].trimmed().toInt(), p[3].trimmed().toInt());
+            emit cursorChanged();
+        }
+        break;
+    }
+    case LOK_CALLBACK_CURSOR_VISIBLE:
+        m_cursorVisible = (payload == "true");
+        emit cursorChanged();
+        break;
+    case LOK_CALLBACK_TEXT_SELECTION: {
+        m_selectionTwips.clear();
+        if (!payload.isEmpty() && payload != "EMPTY") {
+            const auto rects = payload.split(';');
+            for (const QByteArray& r : rects) {
+                const auto c = r.split(',');
+                if (c.size() >= 4)
+                    m_selectionTwips.append(QRect(c[0].trimmed().toInt(), c[1].trimmed().toInt(),
+                                                  c[2].trimmed().toInt(), c[3].trimmed().toInt()));
+            }
+        }
+        emit selectionChanged();
         break;
     }
     case LOK_CALLBACK_JSDIALOG:

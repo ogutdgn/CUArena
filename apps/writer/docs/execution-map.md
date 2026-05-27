@@ -30,13 +30,14 @@ Tracked so nothing is forgotten while moving between phases. Tick when done.
 
 **W2 tail (after ribbon, or interleaved):**
 - [ ] **Zoom** controls (`setClientZoom`); currently fixed fit-width (~100%).
-- [ ] **Cursor + selection overlays** — we receive `INVALIDATE_VISIBLE_CURSOR`
-      (type 1) + `TEXT_SELECTION` (type 2) callbacks but don't draw the caret /
-      selection yet. (Editor feel.)
+- [x] **Cursor + selection overlays** — DONE: `DocumentCanvas` draws the blinking
+      caret (`INVALIDATE_VISIBLE_CURSOR`/`CURSOR_VISIBLE`) + translucent selection
+      (`TEXT_SELECTION`); drag-select (`mouseMove`→MOUSEMOVE) + double-click word
+      select wired.
 - [ ] **Tile cache** — currently re-renders the whole doc per paint; fine for
       1–few pages, needs tiling for big docs.
-- [ ] **Status bar wiring** — "Page 1 / 0 words" in Main.qml are hardcoded
-      placeholders; wire to real page/word count (`getCommandValues`).
+- [x] **Status bar wiring** — DONE: footer bound to engine `pageStatus` /
+      `wordStatus` (live from STATE_CHANGED; shows selection counts too).
 
 **W3 tail / polish (optional, after W4 starts paying off):**
 - [ ] **Composite controls** — Font name + size combo boxes, Font/Highlight

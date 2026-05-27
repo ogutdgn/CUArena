@@ -7,6 +7,7 @@
 #include <QQuickPaintedItem>
 
 class LokEngine;
+class QTimer;
 
 class DocumentCanvas : public QQuickPaintedItem
 {
@@ -29,9 +30,15 @@ protected:
     void keyReleaseEvent(QKeyEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseDoubleClickEvent(QMouseEvent* event) override;
 
 private:
     double twipsPerPixel() const; // current uniform scale (whole-page-to-width)
+    double pxPerTwip() const;     // inverse: twip -> canvas px
 
     LokEngine* m_engine = nullptr;
+    QTimer* m_blink = nullptr;    // caret blink
+    bool m_caretOn = true;
+    bool m_mouseDown = false;     // drag-select in progress
 };

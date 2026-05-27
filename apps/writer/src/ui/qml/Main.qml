@@ -53,6 +53,7 @@ ApplicationWindow {
             DocumentCanvas {
                 id: canvas
                 engine: lokEngine
+                focus: true   // take keyboard focus so typing works without a click first
                 width: 820
                 height: (lokEngine.documentSize.width > 0)
                         ? width * lokEngine.documentSize.height / lokEngine.documentSize.width
@@ -85,7 +86,12 @@ ApplicationWindow {
             anchors.leftMargin: 10
             color: "white"
             font.pixelSize: 11
-            text: "Page 1   ·   0 words   ·   Writer (LOK engine)"
+            // Live page / word-count from the engine (STATE_CHANGED); falls back
+            // to placeholders before the first state arrives.
+            text: (lokEngine.pageStatus !== "" ? lokEngine.pageStatus : "Page 1")
+                  + "   ·   "
+                  + (lokEngine.wordStatus !== "" ? lokEngine.wordStatus : "0 words")
+                  + "   ·   Writer (LOK engine)"
         }
     }
 }

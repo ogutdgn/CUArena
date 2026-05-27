@@ -29,6 +29,8 @@ class LokEngine : public QObject
     Q_OBJECT
     Q_PROPERTY(bool ready READ isReady NOTIFY readyChanged)
     Q_PROPERTY(QSize documentSize READ documentSizeTwips NOTIFY documentSizeChanged)
+    Q_PROPERTY(QString pageStatus READ pageStatus NOTIFY statusChanged)
+    Q_PROPERTY(QString wordStatus READ wordStatus NOTIFY statusChanged)
 
 public:
     // Mirror LOK_KEYEVENT_* / LOK_MOUSEEVENT_* (asserted equal in the .cpp).
@@ -50,6 +52,14 @@ public:
 
     bool isReady() const { return m_doc != nullptr; }
     QSize documentSizeTwips() const { return m_docSizeTwips; }
+
+    // Editor overlays (drawn by DocumentCanvas), all in document twips.
+    QRect cursorTwips() const { return m_cursorTwips; }
+    bool cursorVisible() const { return m_cursorVisible; }
+    QVector<QRect> selectionTwips() const { return m_selectionTwips; }
+
+    QString pageStatus() const { return m_pageStatus; }   // "Page 1 of 1"
+    QString wordStatus() const { return m_wordStatus; }   // "3 words, 19 characters"
 
     // Render a twip rectangle of the document into an (wPx x hPx) image.
     QImage renderTile(int posXTwips, int posYTwips, int wTwips, int hTwips,
@@ -73,6 +83,9 @@ signals:
     void unoStateChanged(QString payload); // ".uno:Bold=true"
     void jsDialog(QString payload);     // LOK_CALLBACK_JSDIALOG — JSON widget tree / update / action
     void windowEvent(QString payload);  // LOK_CALLBACK_WINDOW — created/close/destroy (tiled dialogs)
+    void cursorChanged();               // caret rect / visibility changed
+    void selectionChanged();            // text-selection rects changed
+    void statusChanged();               // page / word-count status changed
 
 private:
     bool finishLoad();
@@ -95,4 +108,8 @@ private:
     QTimer* m_outcomeTimer = nullptr;
     QJsonObject m_formatAtCursor;       // .uno toggle states from STATE_CHANGED
     QRect m_cursorTwips;                // from INVALIDATE_VISIBLE_CURSOR
+    bool m_cursorVisible = true;        // from CURSOR_VISIBLE
+    QVector<QRect> m_selectionTwips;    // from TEXT_SELECTION
+    QString m_pageStatus;               // StatePageNumber
+    QString m_wordStatus;               // StateWordCount
 };

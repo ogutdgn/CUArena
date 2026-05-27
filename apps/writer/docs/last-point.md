@@ -142,6 +142,16 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 - **Deferred:** a Writer *verifier* (reads these logs) — a later phase; the log
   shape is contract-conformant. Parity checklist in LOGGING.md §4.
 
+**Editor feel (W2 tail — DONE):** the base-editing gaps that made the app feel
+skeletal are fixed:
+- **Caret** renders + blinks (`DocumentCanvas` overlay from
+  `INVALIDATE_VISIBLE_CURSOR`/`CURSOR_VISIBLE`).
+- **Text selection** renders (translucent highlight from `TEXT_SELECTION`);
+  **drag-select** wired (`mouseMove`→MOUSEMOVE) + double-click word select.
+- **Live status bar** — page + word/char count from STATE_CHANGED (incl.
+  "Selected: N words" when a selection exists).
+Verified headless (select-all highlight + live counts + caret).
+
 ## D9 — RESOLVED (live edit render works)
 
 Typed/edited text now renders live in the GUI (verified: black text on the
