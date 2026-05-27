@@ -52,13 +52,23 @@ Item {
             }
         }
 
-        // small: icon only
-        Image {
+        // small: icon only (+ a colour swatch for the Font Color / Highlight buttons)
+        Column {
             visible: !root.isLarge
             anchors.centerIn: parent
-            source: "qrc:/resources/icons/" + root.item.icon + ".svg"
-            sourceSize.width: 16; sourceSize.height: 16
-            opacity: root.disabled ? 0.35 : 1.0
+            spacing: 1
+            Image {
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: "qrc:/resources/icons/" + root.item.icon + ".svg"
+                sourceSize.width: 16; sourceSize.height: 16
+                opacity: root.disabled ? 0.35 : 1.0
+            }
+            Rectangle {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: root.item.kind === "fontcolor" || root.item.kind === "highlight"
+                width: 16; height: 3; radius: 1
+                color: root.item.kind === "highlight" ? "#ffd400" : "#c0392b"
+            }
         }
     }
 

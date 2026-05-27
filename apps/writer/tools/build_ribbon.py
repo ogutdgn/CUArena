@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 """Build resources/ribbon.json — the data-driven, Word-faithful ribbon model.
 
-The ribbon UI (src/ui/qml) is fully data-driven from the JSON this emits, so
-iterating on the Word layout never touches QML (CLAUDE.md core value #2). Each
-item is validated against resources/command-catalog.json (the real engine
-`.uno:` surface) and, when the Fluent name list is present, its icon is
-validated against the Microsoft Fluent UI System Icons set (DECISIONS D-icons).
+Curated tab → group → item spec, with command coverage drawn from LibreOffice's
+own Writer notebookbar (sw/uiconfig/swriter/ui/notebookbar.ui) so we match its
+ribbon depth, but organised into clean Word-style groups (not LO's dense flat
+toolbars). Labels come from the command catalog; icons are auto-assigned from
+the Microsoft Fluent set (DECISIONS D-icons) via a semantic-name matcher, with
+curated overrides for the high-frequency / visually-important commands.
+
+Item kinds (rendered specially by the QML — DialogWidget/RibbonButton):
+  button (default) · toggle · fontname · fontsize · fontcolor · highlight
 
 Run from apps/writer/:  python3 tools/build_ribbon.py
-
-Output: resources/ribbon.json  + a validation report on stderr.
-Icons referenced here are downloaded/recoloured by tools/fetch_icons.py.
+Output: resources/ribbon.json + resources/ribbon-icons.txt (icon manifest).
 """
 from __future__ import annotations
 
@@ -21,196 +23,175 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CATALOG = ROOT / "resources" / "command-catalog.json"
+FLUENT = ROOT / "tools" / "fluent-icon-names.txt"
 OUT = ROOT / "resources" / "ribbon.json"
-FLUENT_NAMES = Path("/tmp/fluent_names_24reg.txt")  # optional dev-time validation
 
-# --- the curated spec -------------------------------------------------------
-# item = dict(cmd, icon, [label], [size="lg"|"sm"], [toggle=True], [args=json])
-# A group = (group_name, [items]). A tab = (tab_name, [groups]).
-# Labels auto-pull from the catalog (mnemonic '~' + %PRODUCTNAME stripped) unless
-# overridden. `toggle` items light up from STATE_CHANGED (.uno:Cmd=true).
+# --- icon overrides: curated, known-good Fluent names for key commands -------
+ICON = {
+    ".uno:Paste": "clipboard_paste", ".uno:Cut": "cut", ".uno:Copy": "copy",
+    ".uno:FormatPaintbrush": "paint_brush",
+    ".uno:Undo": "arrow_undo", ".uno:Redo": "arrow_redo",
+    ".uno:Bold": "text_bold", ".uno:Italic": "text_italic",
+    ".uno:Underline": "text_underline", ".uno:Strikeout": "text_strikethrough",
+    ".uno:SubScript": "text_subscript", ".uno:SuperScript": "text_superscript",
+    ".uno:Grow": "font_increase", ".uno:Shrink": "font_decrease",
+    ".uno:FontColor": "text_color", ".uno:BackColor": "highlight",
+    ".uno:ResetAttributes": "clear_formatting", ".uno:ChangeCaseRotateCase": "text_case_title",
+    ".uno:CharFontName": "text_font", ".uno:FontHeight": "text_font_size",
+    ".uno:DefaultBullet": "text_bullet_list", ".uno:DefaultNumbering": "text_number_list_ltr",
+    ".uno:DecrementIndent": "text_indent_decrease_ltr", ".uno:IncrementIndent": "text_indent_increase_ltr",
+    ".uno:LeftPara": "text_align_left", ".uno:CenterPara": "text_align_center",
+    ".uno:RightPara": "text_align_right", ".uno:JustifyPara": "text_align_justify",
+    ".uno:LineSpacing": "text_line_spacing", ".uno:BackgroundColor": "color_background",
+    ".uno:BorderDialog": "border_all", ".uno:ControlCodes": "text_paragraph",
+    ".uno:SortDialog": "arrow_sort", ".uno:ChapterNumberingDialog": "text_number_list_ltr",
+    ".uno:StyleApply": "text_t", ".uno:DesignerDialog": "text_effects",
+    ".uno:SearchDialog": "search", ".uno:SelectAll": "select_all_on",
+    ".uno:SpellingDialog": "text_grammar_checkmark", ".uno:SpellingAndGrammarDialog": "text_grammar_checkmark",
+    ".uno:InsertPagebreak": "document_page_break", ".uno:InsertBreak": "document_page_break",
+    ".uno:InsertTable": "table_add", ".uno:InsertGraphic": "image_add",
+    ".uno:InsertObjectChart": "chart_multiple", ".uno:InsertDraw": "shapes",
+    ".uno:BasicShapes": "shapes", ".uno:Gallery": "image_multiple",
+    ".uno:InsertAVMedia": "video_clip", ".uno:HyperlinkDialog": "link",
+    ".uno:InsertBookmark": "bookmark", ".uno:InsertReferenceField": "document_link",
+    ".uno:InsertPageHeader": "document_header", ".uno:InsertPageFooter": "document_footer",
+    ".uno:InsertPageNumberField": "document_page_number", ".uno:InsertPageCountField": "document_page_number",
+    ".uno:DrawText": "textbox", ".uno:InsertFieldCtrl": "text_field",
+    ".uno:InsertDateField": "calendar_ltr", ".uno:EditGlossary": "text_expand",
+    ".uno:FontworkGalleryFloater": "text_effects", ".uno:CharmapControl": "math_symbols",
+    ".uno:InsertObjectStarMath": "math_formula", ".uno:InsertObject": "cube",
+    ".uno:PageMargin": "document_margins", ".uno:Orientation": "document_landscape",
+    ".uno:AttributePageSize": "document_one_page", ".uno:PageColumnType": "column_triple",
+    ".uno:InsertSection": "column_triple", ".uno:PageDialog": "document_landscape",
+    ".uno:Watermark": "drop", ".uno:Hyphenate": "text_word_count",
+    ".uno:LineNumberingDialog": "text_number_format", ".uno:PageNumberWizard": "document_page_number",
+    ".uno:TitlePageDialog": "document_one_page", ".uno:BringToFront": "position_to_front",
+    ".uno:SendToBack": "position_backward", ".uno:ObjectForwardOne": "arrow_up",
+    ".uno:ObjectBackOne": "arrow_down", ".uno:TextWrap": "text_wrap",
+    ".uno:InsertMultiIndex": "text_bullet_list_tree", ".uno:InsertIndexesEntry": "bookmark_add",
+    ".uno:UpdateCurIndex": "arrow_sync", ".uno:UpdateAll": "arrow_sync",
+    ".uno:InsertFootnote": "text_footnote", ".uno:InsertEndnote": "document_endnote",
+    ".uno:FootnoteDialog": "text_footnote", ".uno:InsertCaptionDialog": "text_description",
+    ".uno:InsertAuthoritiesEntry": "book", ".uno:BibliographyComponent": "book_database",
+    ".uno:ThesaurusDialog": "book_question_mark", ".uno:WordCountDialog": "text_word_count",
+    ".uno:SpellOnline": "text_grammar_settings", ".uno:InsertAnnotation": "comment_add",
+    ".uno:ReplyComment": "comment_arrow_left", ".uno:DeleteComment": "comment_dismiss",
+    ".uno:TrackChanges": "edit", ".uno:ShowTrackedChanges": "eye",
+    ".uno:NextTrackedChange": "arrow_next", ".uno:PreviousTrackedChange": "arrow_previous",
+    ".uno:AcceptTrackedChange": "checkmark", ".uno:RejectTrackedChange": "dismiss",
+    ".uno:AcceptAllTrackedChanges": "checkmark_circle", ".uno:RejectAllTrackedChanges": "dismiss_circle",
+    ".uno:CompareDocuments": "document_arrow_right", ".uno:MergeDocuments": "document_sync",
+    ".uno:EditDoc": "edit", ".uno:ProtectTraceChangeMode": "lock_closed",
+    ".uno:AcceptTrackedChanges": "task_list_square_ltr",
+    ".uno:PrintLayout": "document_one_page", ".uno:BrowseView": "globe",
+    ".uno:PrintPreview": "print", ".uno:ShowWhitespace": "document_one_page",
+    ".uno:ChangeTheme": "weather_moon", ".uno:Zoom": "zoom_fit",
+    ".uno:ZoomOptimal": "zoom_fit", ".uno:Zoom100Percent": "zoom_in",
+    ".uno:ZoomPage": "document_one_page", ".uno:ZoomPageWidth": "arrow_autofit_width",
+    ".uno:FullScreen": "full_screen_maximize", ".uno:Sidebar": "panel_right",
+    ".uno:Ruler": "ruler", ".uno:GridVisible": "grid", ".uno:Navigator": "navigation",
+    ".uno:NewWindow": "window_new", ".uno:Menubar": "navigation",
+    ".uno:NewDoc": "document_add", ".uno:Open": "folder_open", ".uno:Save": "save",
+    ".uno:SaveAs": "save_edit", ".uno:Print": "print", ".uno:ExportToPDF": "document_pdf",
+    ".uno:CloseDoc": "dismiss_circle", ".uno:HelpIndex": "question_circle", ".uno:About": "info",
+}
+FALLBACK_ICON = "square"  # neutral; flags an un-mapped command in the UI
 
+# --- the curated spec --------------------------------------------------------
+# Each item: a bare ".uno:Cmd" string, or a dict {cmd, [size], [toggle], [kind],
+# [icon], [label], [args]}. size "lg" = large icon+label button.
 
-def I(cmd, icon, label=None, size="sm", toggle=False, args=None):
-    d = {"cmd": cmd, "icon": icon, "size": size}
-    if label:
-        d["label"] = label
-    if toggle:
-        d["toggle"] = True
-    if args:
-        d["args"] = args
-    return d
-
+def T(cmd):  # a toggle button
+    return {"cmd": cmd, "toggle": True}
 
 SPEC = [
-    ("Home", [
-        ("Clipboard", [
-            I(".uno:Paste", "clipboard_paste", "Paste", size="lg"),
-            I(".uno:Cut", "cut", "Cut"),
-            I(".uno:Copy", "copy", "Copy"),
-            I(".uno:FormatPaintbrush", "paint_brush", "Format Paintbrush", toggle=True),
-        ]),
-        ("Undo", [
-            I(".uno:Undo", "arrow_undo", "Undo"),
-            I(".uno:Redo", "arrow_redo", "Redo"),
-        ]),
-        ("Font", [
-            I(".uno:Bold", "text_bold", "Bold", toggle=True),
-            I(".uno:Italic", "text_italic", "Italic", toggle=True),
-            I(".uno:Underline", "text_underline", "Underline", toggle=True),
-            I(".uno:Strikeout", "text_strikethrough", "Strikethrough", toggle=True),
-            I(".uno:SubScript", "text_subscript", "Subscript", toggle=True),
-            I(".uno:SuperScript", "text_superscript", "Superscript", toggle=True),
-            I(".uno:Grow", "font_increase", "Increase Size"),
-            I(".uno:Shrink", "font_decrease", "Decrease Size"),
-            I(".uno:FontColor", "text_color", "Font Color"),
-            I(".uno:BackColor", "highlight", "Highlight Color"),
-            I(".uno:ResetAttributes", "clear_formatting", "Clear Formatting"),
-        ]),
-        ("Paragraph", [
-            I(".uno:DefaultBullet", "text_bullet_list", "Bullet List", toggle=True),
-            I(".uno:DefaultNumbering", "text_number_list_ltr", "Numbered List", toggle=True),
-            I(".uno:DecrementIndent", "text_indent_decrease_ltr", "Decrease Indent"),
-            I(".uno:IncrementIndent", "text_indent_increase_ltr", "Increase Indent"),
-            I(".uno:LeftPara", "text_align_left", "Align Left", toggle=True),
-            I(".uno:CenterPara", "text_align_center", "Center", toggle=True),
-            I(".uno:RightPara", "text_align_right", "Align Right", toggle=True),
-            I(".uno:JustifyPara", "text_align_justify", "Justify", toggle=True),
-            I(".uno:LineSpacing", "text_line_spacing", "Line Spacing"),
-        ]),
-        ("Styles", [
-            I(".uno:StyleApply", "text_t", "Default",
-              args='{"Style":{"type":"string","value":"Default Paragraph Style"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'),
-            I(".uno:StyleApply", "text_header_1", "Heading 1",
-              args='{"Style":{"type":"string","value":"Heading 1"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'),
-            I(".uno:StyleApply", "text_header_2", "Heading 2",
-              args='{"Style":{"type":"string","value":"Heading 2"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'),
-            I(".uno:StyleApply", "text_header_3", "Title",
-              args='{"Style":{"type":"string","value":"Title"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'),
-        ]),
-        ("Editing", [
-            I(".uno:SearchDialog", "search", "Find & Replace", size="lg"),
-            I(".uno:SelectAll", "select_all_on", "Select All"),
-        ]),
-    ]),
-
-    ("Insert", [
-        ("Pages", [
-            I(".uno:InsertPagebreak", "document_page_break", "Page Break", size="lg"),
-        ]),
-        ("Tables", [
-            I(".uno:InsertTable", "table_add", "Table", size="lg"),
-        ]),
-        ("Illustrations", [
-            I(".uno:InsertGraphic", "image_add", "Picture"),
-            I(".uno:InsertObjectChart", "chart_multiple", "Chart"),
-            I(".uno:InsertDraw", "shapes", "Shapes"),
-        ]),
-        ("Links", [
-            I(".uno:HyperlinkDialog", "link", "Hyperlink"),
-            I(".uno:InsertBookmark", "bookmark", "Bookmark"),
-            I(".uno:InsertReferenceField", "document_link", "Cross-reference"),
-        ]),
-        ("Header & Footer", [
-            I(".uno:InsertPageHeader", "document_header", "Header"),
-            I(".uno:InsertPageFooter", "document_footer", "Footer"),
-            I(".uno:InsertPageNumberField", "document_page_number", "Page Number"),
-        ]),
-        ("Text", [
-            I(".uno:InsertTextFrame", "textbox", "Text Box"),
-            I(".uno:InsertFieldCtrl", "text_field", "Field"),
-            I(".uno:InsertDateField", "calendar_ltr", "Date"),
-        ]),
-        ("Symbols", [
-            I(".uno:InsertObjectStarMath", "math_formula", "Equation"),
-            I(".uno:InsertSymbol", "math_symbols", "Symbol"),
-        ]),
-    ]),
-
-    ("Layout", [
-        ("Page Setup", [
-            I(".uno:PageDialog", "document_landscape", "Page Setup", size="lg"),
-        ]),
-        ("Paragraph", [
-            I(".uno:ParaspaceIncrease", "arrow_expand", "Add Space"),
-            I(".uno:ParaspaceDecrease", "arrow_collapse_all", "Remove Space"),
-            I(".uno:IncrementIndent", "text_indent_increase_ltr", "Indent"),
-            I(".uno:DecrementIndent", "text_indent_decrease_ltr", "Outdent"),
-        ]),
-        ("Page Background", [
-            I(".uno:FormatColumns", "column_triple", "Columns"),
-            I(".uno:InsertBreak", "document_page_break", "Breaks"),
-        ]),
-    ]),
-
-    ("References", [
-        ("Table of Contents", [
-            I(".uno:InsertMultiIndex", "text_bullet_list_tree", "Table of Contents", size="lg"),
-        ]),
-        ("Footnotes", [
-            I(".uno:InsertFootnote", "text_footnote", "Insert Footnote"),
-            I(".uno:InsertEndnote", "document_endnote", "Insert Endnote"),
-        ]),
-        ("Captions", [
-            I(".uno:InsertCaptionDialog", "text_description", "Insert Caption"),
-            I(".uno:InsertIndexesEntry", "bookmark_add", "Index Entry"),
-        ]),
-    ]),
-
-    ("Review", [
-        ("Proofing", [
-            I(".uno:SpellingAndGrammarDialog", "text_grammar_checkmark", "Spelling & Grammar", size="lg"),
-            I(".uno:ThesaurusDialog", "book_question_mark", "Thesaurus"),
-            I(".uno:WordCountDialog", "text_word_count", "Word Count"),
-        ]),
-        ("Comments", [
-            I(".uno:InsertAnnotation", "comment_add", "New Comment"),
-        ]),
-        ("Tracking", [
-            I(".uno:TrackChanges", "edit", "Record Changes", toggle=True),
-            I(".uno:ShowTrackedChanges", "eye", "Show Changes", toggle=True),
-        ]),
-        ("Changes", [
-            I(".uno:AcceptTrackedChange", "checkmark", "Accept"),
-            I(".uno:RejectTrackedChange", "dismiss", "Reject"),
-        ]),
-    ]),
-
-    ("View", [
-        ("Views", [
-            I(".uno:PrintLayout", "document_one_page", "Print Layout", toggle=True),
-            I(".uno:BrowseView", "globe", "Web Layout", toggle=True),
-        ]),
-        ("Show", [
-            I(".uno:ControlCodes", "text_paragraph", "Formatting Marks", toggle=True),
-        ]),
-        ("Zoom", [
-            I(".uno:Zoom", "zoom_fit", "Zoom", size="lg"),
-            I(".uno:ZoomPlus", "zoom_in", "Zoom In"),
-            I(".uno:ZoomMinus", "zoom_out", "Zoom Out"),
-        ]),
-    ]),
-
-    ("File", [
-        ("File", [
-            I(".uno:NewDoc", "document_add", "New", size="lg"),
-            I(".uno:Open", "folder_open", "Open"),
-            I(".uno:Save", "save", "Save"),
-            I(".uno:SaveAs", "save_edit", "Save As"),
-        ]),
-        ("Print & Share", [
-            I(".uno:Print", "print", "Print"),
-            I(".uno:ExportToPDF", "document_pdf", "Export PDF"),
-            I(".uno:CloseDoc", "dismiss_circle", "Close"),
-        ]),
-    ]),
-
-    ("Help", [
-        ("Help", [
-            I(".uno:HelpIndex", "question_circle", "Help", size="lg"),
-            I(".uno:About", "info", "About"),
-        ]),
-    ]),
+ ("File", [
+   ("File", [{"cmd": ".uno:NewDoc", "size": "lg"}, ".uno:Open", ".uno:Save", ".uno:SaveAs"]),
+   ("Print & Share", [".uno:Print", ".uno:ExportToPDF", ".uno:CloseDoc"]),
+ ]),
+ ("Home", [
+   ("Clipboard", [{"cmd": ".uno:Paste", "size": "lg"}, ".uno:Cut", ".uno:Copy",
+                  T(".uno:FormatPaintbrush")]),
+   ("Undo", [".uno:Undo", ".uno:Redo"]),
+   ("Font", [{"cmd": ".uno:CharFontName", "kind": "fontname"},
+             {"cmd": ".uno:FontHeight", "kind": "fontsize"},
+             ".uno:Grow", ".uno:Shrink", ".uno:ChangeCaseRotateCase", ".uno:ResetAttributes",
+             T(".uno:Bold"), T(".uno:Italic"), T(".uno:Underline"), T(".uno:Strikeout"),
+             T(".uno:SubScript"), T(".uno:SuperScript"),
+             {"cmd": ".uno:FontColor", "kind": "fontcolor"},
+             {"cmd": ".uno:BackColor", "kind": "highlight"}]),
+   ("Paragraph", [T(".uno:DefaultBullet"), T(".uno:DefaultNumbering"),
+                  ".uno:DecrementIndent", ".uno:IncrementIndent",
+                  T(".uno:LeftPara"), T(".uno:CenterPara"), T(".uno:RightPara"), T(".uno:JustifyPara"),
+                  ".uno:LineSpacing", T(".uno:ControlCodes"), ".uno:BorderDialog",
+                  ".uno:BackgroundColor", ".uno:SortDialog"]),
+   ("Styles", [{"cmd": ".uno:StyleApply", "icon": "text_t", "label": "Default", "size": "lg",
+                "args": '{"Style":{"type":"string","value":"Default Paragraph Style"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'},
+               {"cmd": ".uno:StyleApply", "icon": "text_header_1", "label": "Heading 1",
+                "args": '{"Style":{"type":"string","value":"Heading 1"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'},
+               {"cmd": ".uno:StyleApply", "icon": "text_header_2", "label": "Heading 2",
+                "args": '{"Style":{"type":"string","value":"Heading 2"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'},
+               {"cmd": ".uno:StyleApply", "icon": "text_header_3", "label": "Title",
+                "args": '{"Style":{"type":"string","value":"Title"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'},
+               ".uno:DesignerDialog"]),
+   ("Editing", [{"cmd": ".uno:SearchDialog", "size": "lg"}, ".uno:SelectAll", ".uno:SpellingDialog"]),
+ ]),
+ ("Insert", [
+   ("Pages", [{"cmd": ".uno:InsertPagebreak", "size": "lg"}, ".uno:TitlePageDialog"]),
+   ("Tables", [{"cmd": ".uno:InsertTable", "size": "lg"}]),
+   ("Illustrations", [".uno:InsertGraphic", ".uno:InsertObjectChart", ".uno:InsertDraw",
+                      ".uno:BasicShapes", ".uno:Gallery"]),
+   ("Media", [".uno:InsertAVMedia", ".uno:InsertObject"]),
+   ("Links", [".uno:HyperlinkDialog", ".uno:InsertBookmark", ".uno:InsertReferenceField"]),
+   ("Header & Footer", [".uno:InsertPageHeader", ".uno:InsertPageFooter", ".uno:InsertPageNumberField"]),
+   ("Text", [".uno:DrawText", ".uno:InsertFieldCtrl", ".uno:EditGlossary", ".uno:FontworkGalleryFloater"]),
+   ("Symbols", [".uno:InsertObjectStarMath", ".uno:CharmapControl"]),
+ ]),
+ ("Design", [
+   ("Page Background", [{"cmd": ".uno:Watermark", "size": "lg"}, ".uno:BackgroundColor", ".uno:BorderDialog"]),
+   ("Page", [".uno:TitlePageDialog", ".uno:PageColumnType"]),
+ ]),
+ ("Layout", [
+   ("Page Setup", [{"cmd": ".uno:PageMargin", "size": "lg"}, ".uno:Orientation",
+                   ".uno:AttributePageSize", ".uno:PageColumnType", ".uno:PageDialog"]),
+   ("Breaks", [".uno:InsertPagebreak", ".uno:InsertBreak"]),
+   ("Paragraph", [".uno:IncrementIndent", ".uno:DecrementIndent", ".uno:Hyphenate"]),
+   ("Page Setup 2", [".uno:Watermark", ".uno:LineNumberingDialog", ".uno:PageNumberWizard"]),
+   ("Arrange", [".uno:BringToFront", ".uno:SendToBack", ".uno:ObjectForwardOne",
+                ".uno:ObjectBackOne", ".uno:TextWrap"]),
+ ]),
+ ("References", [
+   ("Table of Contents", [{"cmd": ".uno:InsertMultiIndex", "size": "lg"},
+                          ".uno:InsertIndexesEntry", ".uno:UpdateCurIndex"]),
+   ("Footnotes", [".uno:InsertFootnote", ".uno:InsertEndnote", ".uno:FootnoteDialog"]),
+   ("Captions", [".uno:InsertCaptionDialog", ".uno:InsertReferenceField", ".uno:InsertBookmark"]),
+   ("Citations", [".uno:InsertAuthoritiesEntry", ".uno:BibliographyComponent"]),
+   ("Fields", [".uno:InsertFieldCtrl", ".uno:InsertPageNumberField",
+               ".uno:InsertPageCountField", ".uno:InsertDateField", ".uno:UpdateAll"]),
+ ]),
+ ("Review", [
+   ("Proofing", [{"cmd": ".uno:SpellingAndGrammarDialog", "size": "lg"},
+                 ".uno:ThesaurusDialog", ".uno:WordCountDialog", T(".uno:SpellOnline")]),
+   ("Comments", [".uno:InsertAnnotation", ".uno:ReplyComment", ".uno:DeleteComment"]),
+   ("Tracking", [T(".uno:TrackChanges"), T(".uno:ShowTrackedChanges")]),
+   ("Changes", [".uno:AcceptTrackedChange", ".uno:RejectTrackedChange",
+                ".uno:PreviousTrackedChange", ".uno:NextTrackedChange",
+                ".uno:AcceptAllTrackedChanges", ".uno:RejectAllTrackedChanges"]),
+   ("Compare", [".uno:CompareDocuments", ".uno:MergeDocuments"]),
+   ("Protect", [T(".uno:EditDoc"), ".uno:ProtectTraceChangeMode"]),
+ ]),
+ ("View", [
+   ("Views", [T(".uno:PrintLayout"), T(".uno:BrowseView"), ".uno:PrintPreview"]),
+   ("Show", [T(".uno:ControlCodes"), T(".uno:ShowWhitespace"), T(".uno:Ruler"),
+             T(".uno:GridVisible"), T(".uno:Sidebar"), T(".uno:Navigator")]),
+   ("Zoom", [{"cmd": ".uno:Zoom", "size": "lg"}, ".uno:ZoomOptimal",
+             ".uno:Zoom100Percent", ".uno:ZoomPage", ".uno:ZoomPageWidth"]),
+   ("Theme", [T(".uno:ChangeTheme")]),
+   ("Window", [".uno:NewWindow", T(".uno:FullScreen")]),
+ ]),
+ ("Help", [
+   ("Help", [{"cmd": ".uno:HelpIndex", "size": "lg"}, ".uno:About"]),
+ ]),
 ]
 
 
@@ -221,55 +202,82 @@ def clean_label(raw: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+def make_matcher(catalog, fluent):
+    def best(cmd):
+        if cmd in ICON:
+            return ICON[cmd]
+        sn = (catalog.get(cmd, {}).get("semanticName") or "").strip("_")
+        if not sn:
+            return FALLBACK_ICON
+        if sn in fluent:
+            return sn
+        toks = sn.split("_")
+        for n in range(len(toks), 0, -1):
+            for cand in ("_".join(toks[:n]), "_".join(toks[-n:])):
+                if cand in fluent:
+                    return cand
+        tokset = set(toks)
+        best_f, best_s = None, 0
+        for f in fluent:
+            s = len(tokset & set(f.split("_")))
+            if s > best_s:
+                best_f, best_s = f, s
+        return best_f or FALLBACK_ICON
+    return best
+
+
 def main() -> int:
     catalog = json.loads(CATALOG.read_text())["commands"]
-    fluent = set()
-    if FLUENT_NAMES.exists():
-        fluent = set(FLUENT_NAMES.read_text().split())
+    fluent = set(FLUENT.read_text().split()) if FLUENT.exists() else set()
+    icon_for = make_matcher(catalog, fluent)
 
-    missing_cmd, missing_icon, used_icons = [], [], set()
+    missing_cmd, used_icons, fallback_cmds = [], set(), []
     tabs = []
     for tab_name, groups in SPEC:
         out_groups = []
         for group_name, items in groups:
             out_items = []
-            for it in items:
+            for raw in items:
+                it = {"cmd": raw} if isinstance(raw, str) else dict(raw)
                 cmd = it["cmd"]
                 meta = catalog.get(cmd)
                 if meta is None:
                     missing_cmd.append((tab_name, group_name, cmd))
-                label = it.get("label") or clean_label(meta["label"] if meta else cmd)
-                used_icons.add(it["icon"])
-                if fluent and it["icon"] not in fluent:
-                    missing_icon.append((tab_name, cmd, it["icon"]))
-                entry = {"cmd": cmd, "label": label, "icon": it["icon"], "size": it["size"]}
+                icon = it.get("icon") or icon_for(cmd)
+                if icon == FALLBACK_ICON:
+                    fallback_cmds.append(cmd)
+                used_icons.add(icon)
+                entry = {
+                    "cmd": cmd,
+                    "label": it.get("label") or clean_label(meta["label"] if meta else cmd),
+                    "icon": icon,
+                    "size": it.get("size", "sm"),
+                }
                 if it.get("toggle"):
                     entry["toggle"] = True
+                if it.get("kind"):
+                    entry["kind"] = it["kind"]
                 if it.get("args"):
                     entry["args"] = it["args"]
                 out_items.append(entry)
             out_groups.append({"name": group_name, "items": out_items})
         tabs.append({"name": tab_name, "groups": out_groups})
 
-    model = {"schemaVersion": 1, "tabs": tabs}
-    OUT.write_text(json.dumps(model, indent=1) + "\n")
+    OUT.write_text(json.dumps({"schemaVersion": 1, "tabs": tabs}, indent=1) + "\n")
+    (ROOT / "resources" / "ribbon-icons.txt").write_text("\n".join(sorted(used_icons)) + "\n")
 
     n_items = sum(len(g["items"]) for t in tabs for g in t["groups"])
-    print(f"wrote {OUT.relative_to(ROOT)}: {len(tabs)} tabs, "
-          f"{sum(len(t['groups']) for t in tabs)} groups, {n_items} items, "
-          f"{len(used_icons)} distinct icons", file=sys.stderr)
+    n_groups = sum(len(t["groups"]) for t in tabs)
+    print(f"wrote {OUT.relative_to(ROOT)}: {len(tabs)} tabs, {n_groups} groups, "
+          f"{n_items} items, {len(used_icons)} icons", file=sys.stderr)
     if missing_cmd:
         print(f"\n!! {len(missing_cmd)} commands NOT in catalog:", file=sys.stderr)
         for t, g, c in missing_cmd:
             print(f"   [{t}/{g}] {c}", file=sys.stderr)
-    if missing_icon:
-        print(f"\n!! {len(missing_icon)} icons NOT in Fluent set:", file=sys.stderr)
-        for t, c, ic in missing_icon:
-            print(f"   [{t}] {c} -> {ic}", file=sys.stderr)
-    # dump the icon list for the fetch step
-    (ROOT / "resources" / "ribbon-icons.txt").write_text(
-        "\n".join(sorted(used_icons)) + "\n")
-    return 1 if (missing_cmd or missing_icon) else 0
+    if fallback_cmds:
+        print(f"\n~~ {len(fallback_cmds)} commands using the fallback icon "
+              f"(add an ICON override): {sorted(set(fallback_cmds))}", file=sys.stderr)
+    return 1 if missing_cmd else 0
 
 
 if __name__ == "__main__":

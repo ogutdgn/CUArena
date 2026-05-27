@@ -9,8 +9,10 @@ Item {
     property var engine
     property var stateMap: ({})
 
-    readonly property var largeItems: (group.items || []).filter(function (i) { return i.size === "lg"; })
-    readonly property var smallItems: (group.items || []).filter(function (i) { return i.size !== "lg"; })
+    function isCombo(i) { return i.kind === "fontname" || i.kind === "fontsize"; }
+    readonly property var comboItems: (group.items || []).filter(function (i) { return root.isCombo(i); })
+    readonly property var largeItems: (group.items || []).filter(function (i) { return i.size === "lg" && !root.isCombo(i); })
+    readonly property var smallItems: (group.items || []).filter(function (i) { return i.size !== "lg" && !root.isCombo(i); })
 
     // wide enough for the buttons OR the group label, whichever is wider
     implicitWidth: Math.max(body.implicitWidth, nameLabel.implicitWidth) + 18
@@ -25,6 +27,22 @@ Item {
             id: body
             spacing: 3
             anchors.horizontalCenter: parent.horizontalCenter
+
+            // editable combos (font name / size) stacked, vertically centred
+            Column {
+                spacing: 3
+                anchors.verticalCenter: parent.verticalCenter
+                visible: root.comboItems.length > 0
+                Repeater {
+                    model: root.comboItems
+                    delegate: RibbonCombo {
+                        required property var modelData
+                        item: modelData
+                        engine: root.engine
+                        stateMap: root.stateMap
+                    }
+                }
+            }
 
             Repeater {
                 model: root.largeItems

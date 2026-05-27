@@ -142,6 +142,16 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 - **Deferred:** a Writer *verifier* (reads these logs) — a later phase; the log
   shape is contract-conformant. Parity checklist in LOGGING.md §4.
 
+**Ribbon expansion + composite controls (W3 tail — DONE):** addressed the
+"cramped / missing buttons" feedback by sourcing coverage from LO's own ribbon:
+- `build_ribbon.py` v2 draws command coverage from LO `notebookbar.ui` (parsed
+  tab→commands) → **9 tabs, 40 groups, 147 items** (was 78); auto-assigns Fluent
+  icons via a semantic-name matcher (`tools/fluent-icon-names.txt`) + curated
+  overrides; 0 fallback icons.
+- **Composite controls**: Font name + size editable combos (`RibbonCombo.qml`,
+  live from STATE_CHANGED CharFontName/FontHeight) + Font Color / Highlight
+  buttons with colour swatches. Verified: combos show "Liberation Serif" / "12".
+
 **Editor feel (W2 tail — DONE):** the base-editing gaps that made the app feel
 skeletal are fixed:
 - **Caret** renders + blinks (`DocumentCanvas` overlay from

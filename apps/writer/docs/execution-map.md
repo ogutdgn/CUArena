@@ -39,14 +39,18 @@ Tracked so nothing is forgotten while moving between phases. Tick when done.
 - [x] **Status bar wiring** — DONE: footer bound to engine `pageStatus` /
       `wordStatus` (live from STATE_CHANGED; shows selection counts too).
 
-**W3 tail / polish (optional, after W4 starts paying off):**
-- [ ] **Composite controls** — Font name + size combo boxes, Font/Highlight
-      colour split-buttons with palettes, line-spacing/bullets dropdowns. W3
-      renders these as plain buttons (dispatch-only); the dropdown/palette UI
-      needs W4 (popups) to be useful.
-- [ ] **Quick Access Toolbar** (Save/Undo/Redo in the title area) — Word has it;
-      we put Undo/Redo in a Home group for now.
-- [ ] **Keyboard accelerators / mnemonics** on the ribbon (Alt-key tips).
+**W3 tail / polish:**
+- [x] **Ribbon expanded to LO depth** — `build_ribbon.py` v2 sources command
+      coverage from LO's `notebookbar.ui` (9 tabs, 40 groups, **147 items**) and
+      auto-assigns Fluent icons via a semantic-name matcher + curated overrides.
+- [x] **Composite controls** — Font name + size editable combos (live from
+      STATE_CHANGED), Font Color / Highlight buttons with colour swatches
+      (`RibbonCombo.qml` + RibbonButton swatch).
+- [ ] **Colour palette popups** for Font/Highlight (currently dispatch the
+      picker); line-spacing/bullets dropdowns.
+- [ ] **Contextual tabs** (Table/Image/Draw/Object/Media/Form) — LO has them;
+      add when an object/table is selected (Word shows them contextually).
+- [ ] **Quick Access Toolbar**; ribbon **mnemonics** (Alt-key tips).
 
 **Engine / config:**
 - [ ] **Strip** Calc(`sc`)/Impress(`sd`)/Math(`starmath`) + peers (Writer-only).

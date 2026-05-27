@@ -2,6 +2,63 @@
  "schemaVersion": 1,
  "tabs": [
   {
+   "name": "File",
+   "groups": [
+    {
+     "name": "File",
+     "items": [
+      {
+       "cmd": ".uno:NewDoc",
+       "label": "Templates",
+       "icon": "document_add",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:Open",
+       "label": "Open...",
+       "icon": "folder_open",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Save",
+       "label": "Save",
+       "icon": "save",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:SaveAs",
+       "label": "Save As...",
+       "icon": "save_edit",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Print & Share",
+     "items": [
+      {
+       "cmd": ".uno:Print",
+       "label": "Print...",
+       "icon": "print",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ExportToPDF",
+       "label": "Export as PDF",
+       "icon": "document_pdf",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:CloseDoc",
+       "label": "Close",
+       "icon": "dismiss_circle",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
    "name": "Home",
    "groups": [
     {
@@ -27,7 +84,7 @@
       },
       {
        "cmd": ".uno:FormatPaintbrush",
-       "label": "Format Paintbrush",
+       "label": "Clone Formatting",
        "icon": "paint_brush",
        "size": "sm",
        "toggle": true
@@ -54,6 +111,44 @@
     {
      "name": "Font",
      "items": [
+      {
+       "cmd": ".uno:CharFontName",
+       "label": "Font Name",
+       "icon": "text_font",
+       "size": "sm",
+       "kind": "fontname"
+      },
+      {
+       "cmd": ".uno:FontHeight",
+       "label": "Font Size",
+       "icon": "text_font_size",
+       "size": "sm",
+       "kind": "fontsize"
+      },
+      {
+       "cmd": ".uno:Grow",
+       "label": "Increase",
+       "icon": "font_increase",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Shrink",
+       "label": "Decrease",
+       "icon": "font_decrease",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ChangeCaseRotateCase",
+       "label": "Cycle Case",
+       "icon": "text_case_title",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ResetAttributes",
+       "label": "Clear",
+       "icon": "clear_formatting",
+       "size": "sm"
+      },
       {
        "cmd": ".uno:Bold",
        "label": "Bold",
@@ -97,34 +192,18 @@
        "toggle": true
       },
       {
-       "cmd": ".uno:Grow",
-       "label": "Increase Size",
-       "icon": "font_increase",
-       "size": "sm"
-      },
-      {
-       "cmd": ".uno:Shrink",
-       "label": "Decrease Size",
-       "icon": "font_decrease",
-       "size": "sm"
-      },
-      {
        "cmd": ".uno:FontColor",
        "label": "Font Color",
        "icon": "text_color",
-       "size": "sm"
+       "size": "sm",
+       "kind": "fontcolor"
       },
       {
        "cmd": ".uno:BackColor",
-       "label": "Highlight Color",
+       "label": "Character Highlighting Color",
        "icon": "highlight",
-       "size": "sm"
-      },
-      {
-       "cmd": ".uno:ResetAttributes",
-       "label": "Clear Formatting",
-       "icon": "clear_formatting",
-       "size": "sm"
+       "size": "sm",
+       "kind": "highlight"
       }
      ]
     },
@@ -133,33 +212,33 @@
      "items": [
       {
        "cmd": ".uno:DefaultBullet",
-       "label": "Bullet List",
+       "label": "Unordered List",
        "icon": "text_bullet_list",
        "size": "sm",
        "toggle": true
       },
       {
        "cmd": ".uno:DefaultNumbering",
-       "label": "Numbered List",
+       "label": "Ordered List",
        "icon": "text_number_list_ltr",
        "size": "sm",
        "toggle": true
       },
       {
        "cmd": ".uno:DecrementIndent",
-       "label": "Decrease Indent",
+       "label": "Decrease",
        "icon": "text_indent_decrease_ltr",
        "size": "sm"
       },
       {
        "cmd": ".uno:IncrementIndent",
-       "label": "Increase Indent",
+       "label": "Increase",
        "icon": "text_indent_increase_ltr",
        "size": "sm"
       },
       {
        "cmd": ".uno:LeftPara",
-       "label": "Align Left",
+       "label": "Left",
        "icon": "text_align_left",
        "size": "sm",
        "toggle": true
@@ -173,14 +252,14 @@
       },
       {
        "cmd": ".uno:RightPara",
-       "label": "Align Right",
+       "label": "Right",
        "icon": "text_align_right",
        "size": "sm",
        "toggle": true
       },
       {
        "cmd": ".uno:JustifyPara",
-       "label": "Justify",
+       "label": "Justified",
        "icon": "text_align_justify",
        "size": "sm",
        "toggle": true
@@ -189,6 +268,31 @@
        "cmd": ".uno:LineSpacing",
        "label": "Line Spacing",
        "icon": "text_line_spacing",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ControlCodes",
+       "label": "Formatting Marks",
+       "icon": "text_paragraph",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:BorderDialog",
+       "label": "Borders",
+       "icon": "border_all",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:BackgroundColor",
+       "label": "Background Color",
+       "icon": "color_background",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:SortDialog",
+       "label": "Sort...",
+       "icon": "arrow_sort",
        "size": "sm"
       }
      ]
@@ -200,7 +304,7 @@
        "cmd": ".uno:StyleApply",
        "label": "Default",
        "icon": "text_t",
-       "size": "sm",
+       "size": "lg",
        "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Default Paragraph Style\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
       },
       {
@@ -223,6 +327,12 @@
        "icon": "text_header_3",
        "size": "sm",
        "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Title\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:DesignerDialog",
+       "label": "Styles",
+       "icon": "text_effects",
+       "size": "sm"
       }
      ]
     },
@@ -231,7 +341,7 @@
      "items": [
       {
        "cmd": ".uno:SearchDialog",
-       "label": "Find & Replace",
+       "label": "Find and Replace...",
        "icon": "search",
        "size": "lg"
       },
@@ -239,6 +349,12 @@
        "cmd": ".uno:SelectAll",
        "label": "Select All",
        "icon": "select_all_on",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:SpellingDialog",
+       "label": "Spelling...",
+       "icon": "text_grammar_checkmark",
        "size": "sm"
       }
      ]
@@ -256,6 +372,12 @@
        "label": "Page Break",
        "icon": "document_page_break",
        "size": "lg"
+      },
+      {
+       "cmd": ".uno:TitlePageDialog",
+       "label": "Title Page...",
+       "icon": "document_one_page",
+       "size": "sm"
       }
      ]
     },
@@ -275,20 +397,49 @@
      "items": [
       {
        "cmd": ".uno:InsertGraphic",
-       "label": "Picture",
+       "label": "Image...",
        "icon": "image_add",
        "size": "sm"
       },
       {
        "cmd": ".uno:InsertObjectChart",
-       "label": "Chart",
+       "label": "Chart...",
        "icon": "chart_multiple",
        "size": "sm"
       },
       {
        "cmd": ".uno:InsertDraw",
-       "label": "Shapes",
+       "label": "Draw Functions",
        "icon": "shapes",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:BasicShapes",
+       "label": "Basic Shapes",
+       "icon": "shapes",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Gallery",
+       "label": "Gallery",
+       "icon": "image_multiple",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Media",
+     "items": [
+      {
+       "cmd": ".uno:InsertAVMedia",
+       "label": "Media",
+       "icon": "video_clip",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertObject",
+       "label": "Insert OLE Object",
+       "icon": "cube",
        "size": "sm"
       }
      ]
@@ -298,19 +449,19 @@
      "items": [
       {
        "cmd": ".uno:HyperlinkDialog",
-       "label": "Hyperlink",
+       "label": "Hyperlink...",
        "icon": "link",
        "size": "sm"
       },
       {
        "cmd": ".uno:InsertBookmark",
-       "label": "Bookmark",
+       "label": "Bookmark...",
        "icon": "bookmark",
        "size": "sm"
       },
       {
        "cmd": ".uno:InsertReferenceField",
-       "label": "Cross-reference",
+       "label": "Cross-reference...",
        "icon": "document_link",
        "size": "sm"
       }
@@ -333,7 +484,7 @@
       },
       {
        "cmd": ".uno:InsertPageNumberField",
-       "label": "Page Number",
+       "label": "Page Number Field",
        "icon": "document_page_number",
        "size": "sm"
       }
@@ -343,7 +494,7 @@
      "name": "Text",
      "items": [
       {
-       "cmd": ".uno:InsertTextFrame",
+       "cmd": ".uno:DrawText",
        "label": "Text Box",
        "icon": "textbox",
        "size": "sm"
@@ -355,9 +506,15 @@
        "size": "sm"
       },
       {
-       "cmd": ".uno:InsertDateField",
-       "label": "Date",
-       "icon": "calendar_ltr",
+       "cmd": ".uno:EditGlossary",
+       "label": "AutoText...",
+       "icon": "text_expand",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FontworkGalleryFloater",
+       "label": "Insert Fontwork",
+       "icon": "text_effects",
        "size": "sm"
       }
      ]
@@ -367,14 +524,59 @@
      "items": [
       {
        "cmd": ".uno:InsertObjectStarMath",
-       "label": "Equation",
+       "label": "Formula Object...",
        "icon": "math_formula",
        "size": "sm"
       },
       {
-       "cmd": ".uno:InsertSymbol",
+       "cmd": ".uno:CharmapControl",
        "label": "Symbol",
        "icon": "math_symbols",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Design",
+   "groups": [
+    {
+     "name": "Page Background",
+     "items": [
+      {
+       "cmd": ".uno:Watermark",
+       "label": "Watermark...",
+       "icon": "drop",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:BackgroundColor",
+       "label": "Background Color",
+       "icon": "color_background",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:BorderDialog",
+       "label": "Borders",
+       "icon": "border_all",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Page",
+     "items": [
+      {
+       "cmd": ".uno:TitlePageDialog",
+       "label": "Title Page...",
+       "icon": "document_one_page",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:PageColumnType",
+       "label": "Page Columns",
+       "icon": "column_triple",
        "size": "sm"
       }
      ]
@@ -388,10 +590,51 @@
      "name": "Page Setup",
      "items": [
       {
-       "cmd": ".uno:PageDialog",
-       "label": "Page Setup",
-       "icon": "document_landscape",
+       "cmd": ".uno:PageMargin",
+       "label": "Page Margins",
+       "icon": "document_margins",
        "size": "lg"
+      },
+      {
+       "cmd": ".uno:Orientation",
+       "label": "Orientation",
+       "icon": "document_landscape",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:AttributePageSize",
+       "label": "Page Size",
+       "icon": "document_one_page",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:PageColumnType",
+       "label": "Page Columns",
+       "icon": "column_triple",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:PageDialog",
+       "label": "Page Style...",
+       "icon": "document_landscape",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Breaks",
+     "items": [
+      {
+       "cmd": ".uno:InsertPagebreak",
+       "label": "Page Break",
+       "icon": "document_page_break",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertBreak",
+       "label": "Manual Break...",
+       "icon": "document_page_break",
+       "size": "sm"
       }
      ]
     },
@@ -399,44 +642,79 @@
      "name": "Paragraph",
      "items": [
       {
-       "cmd": ".uno:ParaspaceIncrease",
-       "label": "Add Space",
-       "icon": "arrow_expand",
-       "size": "sm"
-      },
-      {
-       "cmd": ".uno:ParaspaceDecrease",
-       "label": "Remove Space",
-       "icon": "arrow_collapse_all",
-       "size": "sm"
-      },
-      {
        "cmd": ".uno:IncrementIndent",
-       "label": "Indent",
+       "label": "Increase",
        "icon": "text_indent_increase_ltr",
        "size": "sm"
       },
       {
        "cmd": ".uno:DecrementIndent",
-       "label": "Outdent",
+       "label": "Decrease",
        "icon": "text_indent_decrease_ltr",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Hyphenate",
+       "label": "Hyphenation...",
+       "icon": "text_word_count",
        "size": "sm"
       }
      ]
     },
     {
-     "name": "Page Background",
+     "name": "Page Setup 2",
      "items": [
       {
-       "cmd": ".uno:FormatColumns",
-       "label": "Columns",
-       "icon": "column_triple",
+       "cmd": ".uno:Watermark",
+       "label": "Watermark...",
+       "icon": "drop",
        "size": "sm"
       },
       {
-       "cmd": ".uno:InsertBreak",
-       "label": "Breaks",
-       "icon": "document_page_break",
+       "cmd": ".uno:LineNumberingDialog",
+       "label": "Line Numbering...",
+       "icon": "text_number_format",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:PageNumberWizard",
+       "label": "Page Number...",
+       "icon": "document_page_number",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Arrange",
+     "items": [
+      {
+       "cmd": ".uno:BringToFront",
+       "label": "Bring to Front",
+       "icon": "position_to_front",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:SendToBack",
+       "label": "Send to Back",
+       "icon": "position_backward",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ObjectForwardOne",
+       "label": "Forward One",
+       "icon": "arrow_up",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ObjectBackOne",
+       "label": "Back One",
+       "icon": "arrow_down",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:TextWrap",
+       "label": "Text Wrap...",
+       "icon": "text_wrap",
        "size": "sm"
       }
      ]
@@ -454,6 +732,18 @@
        "label": "Table of Contents",
        "icon": "text_bullet_list_tree",
        "size": "lg"
+      },
+      {
+       "cmd": ".uno:InsertIndexesEntry",
+       "label": "Insert Index Entry",
+       "icon": "bookmark_add",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:UpdateCurIndex",
+       "label": "Update Index",
+       "icon": "arrow_sync",
+       "size": "sm"
       }
      ]
     },
@@ -462,14 +752,20 @@
      "items": [
       {
        "cmd": ".uno:InsertFootnote",
-       "label": "Insert Footnote",
+       "label": "Footnote",
        "icon": "text_footnote",
        "size": "sm"
       },
       {
        "cmd": ".uno:InsertEndnote",
-       "label": "Insert Endnote",
+       "label": "Endnote",
        "icon": "document_endnote",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FootnoteDialog",
+       "label": "Footnote/Endnote Settings...",
+       "icon": "text_footnote",
        "size": "sm"
       }
      ]
@@ -479,14 +775,72 @@
      "items": [
       {
        "cmd": ".uno:InsertCaptionDialog",
-       "label": "Insert Caption",
+       "label": "Caption...",
        "icon": "text_description",
        "size": "sm"
       },
       {
-       "cmd": ".uno:InsertIndexesEntry",
-       "label": "Index Entry",
-       "icon": "bookmark_add",
+       "cmd": ".uno:InsertReferenceField",
+       "label": "Cross-reference...",
+       "icon": "document_link",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertBookmark",
+       "label": "Bookmark...",
+       "icon": "bookmark",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Citations",
+     "items": [
+      {
+       "cmd": ".uno:InsertAuthoritiesEntry",
+       "label": "Citation...",
+       "icon": "book",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:BibliographyComponent",
+       "label": "Bibliography Database",
+       "icon": "book_database",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Fields",
+     "items": [
+      {
+       "cmd": ".uno:InsertFieldCtrl",
+       "label": "Field",
+       "icon": "text_field",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertPageNumberField",
+       "label": "Page Number Field",
+       "icon": "document_page_number",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertPageCountField",
+       "label": "Page Count",
+       "icon": "document_page_number",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertDateField",
+       "label": "Date (fixed)",
+       "icon": "calendar_ltr",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:UpdateAll",
+       "label": "Update All",
+       "icon": "arrow_sync",
        "size": "sm"
       }
      ]
@@ -501,21 +855,28 @@
      "items": [
       {
        "cmd": ".uno:SpellingAndGrammarDialog",
-       "label": "Spelling & Grammar",
+       "label": "Spelling",
        "icon": "text_grammar_checkmark",
        "size": "lg"
       },
       {
        "cmd": ".uno:ThesaurusDialog",
-       "label": "Thesaurus",
+       "label": "Thesaurus...",
        "icon": "book_question_mark",
        "size": "sm"
       },
       {
        "cmd": ".uno:WordCountDialog",
-       "label": "Word Count",
+       "label": "Word Count...",
        "icon": "text_word_count",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:SpellOnline",
+       "label": "Auto Spellcheck",
+       "icon": "text_grammar_settings",
+       "size": "sm",
+       "toggle": true
       }
      ]
     },
@@ -524,8 +885,20 @@
      "items": [
       {
        "cmd": ".uno:InsertAnnotation",
-       "label": "New Comment",
+       "label": "Comment",
        "icon": "comment_add",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ReplyComment",
+       "label": "Reply Comment",
+       "icon": "comment_arrow_left",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:DeleteComment",
+       "label": "Delete Comment",
+       "icon": "comment_dismiss",
        "size": "sm"
       }
      ]
@@ -535,14 +908,14 @@
      "items": [
       {
        "cmd": ".uno:TrackChanges",
-       "label": "Record Changes",
+       "label": "Record",
        "icon": "edit",
        "size": "sm",
        "toggle": true
       },
       {
        "cmd": ".uno:ShowTrackedChanges",
-       "label": "Show Changes",
+       "label": "Show Tracked Changes",
        "icon": "eye",
        "size": "sm",
        "toggle": true
@@ -563,6 +936,65 @@
        "label": "Reject",
        "icon": "dismiss",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:PreviousTrackedChange",
+       "label": "Previous",
+       "icon": "arrow_previous",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:NextTrackedChange",
+       "label": "Next",
+       "icon": "arrow_next",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:AcceptAllTrackedChanges",
+       "label": "Accept All",
+       "icon": "checkmark_circle",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:RejectAllTrackedChanges",
+       "label": "Reject All",
+       "icon": "dismiss_circle",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Compare",
+     "items": [
+      {
+       "cmd": ".uno:CompareDocuments",
+       "label": "Compare",
+       "icon": "document_arrow_right",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:MergeDocuments",
+       "label": "Merge",
+       "icon": "document_sync",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Protect",
+     "items": [
+      {
+       "cmd": ".uno:EditDoc",
+       "label": "Edit Mode",
+       "icon": "edit",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:ProtectTraceChangeMode",
+       "label": "Protect...",
+       "icon": "lock_closed",
+       "size": "sm"
       }
      ]
     }
@@ -576,17 +1008,23 @@
      "items": [
       {
        "cmd": ".uno:PrintLayout",
-       "label": "Print Layout",
+       "label": "Normal View",
        "icon": "document_one_page",
        "size": "sm",
        "toggle": true
       },
       {
        "cmd": ".uno:BrowseView",
-       "label": "Web Layout",
+       "label": "Web View",
        "icon": "globe",
        "size": "sm",
        "toggle": true
+      },
+      {
+       "cmd": ".uno:PrintPreview",
+       "label": "Print Preview",
+       "icon": "print",
+       "size": "sm"
       }
      ]
     },
@@ -599,6 +1037,41 @@
        "icon": "text_paragraph",
        "size": "sm",
        "toggle": true
+      },
+      {
+       "cmd": ".uno:ShowWhitespace",
+       "label": "Show Whitespace",
+       "icon": "document_one_page",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:Ruler",
+       "label": "Rulers",
+       "icon": "ruler",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:GridVisible",
+       "label": "Grid",
+       "icon": "grid",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:Sidebar",
+       "label": "Sidebar",
+       "icon": "panel_right",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:Navigator",
+       "label": "Navigator",
+       "icon": "navigation",
+       "size": "sm",
+       "toggle": true
       }
      ]
     },
@@ -607,78 +1080,63 @@
      "items": [
       {
        "cmd": ".uno:Zoom",
-       "label": "Zoom",
+       "label": "Zoom...",
        "icon": "zoom_fit",
        "size": "lg"
       },
       {
-       "cmd": ".uno:ZoomPlus",
-       "label": "Zoom In",
+       "cmd": ".uno:ZoomOptimal",
+       "label": "Optimal",
+       "icon": "zoom_fit",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Zoom100Percent",
+       "label": "100%",
        "icon": "zoom_in",
        "size": "sm"
       },
       {
-       "cmd": ".uno:ZoomMinus",
-       "label": "Zoom Out",
-       "icon": "zoom_out",
-       "size": "sm"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "name": "File",
-   "groups": [
-    {
-     "name": "File",
-     "items": [
-      {
-       "cmd": ".uno:NewDoc",
-       "label": "New",
-       "icon": "document_add",
-       "size": "lg"
-      },
-      {
-       "cmd": ".uno:Open",
-       "label": "Open",
-       "icon": "folder_open",
+       "cmd": ".uno:ZoomPage",
+       "label": "Entire Page",
+       "icon": "document_one_page",
        "size": "sm"
       },
       {
-       "cmd": ".uno:Save",
-       "label": "Save",
-       "icon": "save",
-       "size": "sm"
-      },
-      {
-       "cmd": ".uno:SaveAs",
-       "label": "Save As",
-       "icon": "save_edit",
+       "cmd": ".uno:ZoomPageWidth",
+       "label": "Page Width",
+       "icon": "arrow_autofit_width",
        "size": "sm"
       }
      ]
     },
     {
-     "name": "Print & Share",
+     "name": "Theme",
      "items": [
       {
-       "cmd": ".uno:Print",
-       "label": "Print",
-       "icon": "print",
+       "cmd": ".uno:ChangeTheme",
+       "label": "Dark Mode",
+       "icon": "weather_moon",
+       "size": "sm",
+       "toggle": true
+      }
+     ]
+    },
+    {
+     "name": "Window",
+     "items": [
+      {
+       "cmd": ".uno:NewWindow",
+       "label": "New Window",
+       "icon": "window_new",
        "size": "sm"
       },
       {
-       "cmd": ".uno:ExportToPDF",
-       "label": "Export PDF",
-       "icon": "document_pdf",
-       "size": "sm"
-      },
-      {
-       "cmd": ".uno:CloseDoc",
-       "label": "Close",
-       "icon": "dismiss_circle",
-       "size": "sm"
+       "cmd": ".uno:FullScreen",
+       "label": "Full Screen",
+       "icon": "full_screen_maximize",
+       "size": "sm",
+       "toggle": true
       }
      ]
     }
@@ -692,13 +1150,13 @@
      "items": [
       {
        "cmd": ".uno:HelpIndex",
-       "label": "Help",
+       "label": "Writer Help",
        "icon": "question_circle",
        "size": "lg"
       },
       {
        "cmd": ".uno:About",
-       "label": "About",
+       "label": "About Writer",
        "icon": "info",
        "size": "sm"
       }
