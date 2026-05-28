@@ -142,6 +142,25 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 - **Deferred:** a Writer *verifier* (reads these logs) — a later phase; the log
   shape is contract-conformant. Parity checklist in LOGGING.md §4.
 
+**Ribbon popups: dropdowns + colour pickers (W3 tail polish — DONE):**
+addressed the "buttons like .uno:LineSpacing don't change anything / can't
+change colours" feedback. New control kinds:
+- `RibbonDropdown.qml` — generic button + ▾ popup menu of options
+  (label + checkmark for active). Wired for **LineSpacing** (Single / 1.15 /
+  1.5 / 2.0 + Options…), **Zoom** (50/75/100/150/200 % + Page Width / Whole /
+  Optimal), **PageMargin** / **Orientation** / **AttributePageSize** /
+  **PageColumnType** / **TextWrap** (the last four open `.uno:PageDialog` /
+  `.uno:FormatColumns` / wrap-mode `.uno:` slots), **ChangeCase** options.
+- `RibbonColorButton.qml` — split colour-picker: icon applies the last colour;
+  ▾ opens an 8-column palette + Automatic + More Colours… Wired for
+  **FontColor** (`FontColor.Color`), **BackColor / Highlight**
+  (`BackColor.Color`), **BackgroundColor** (paragraph + page).
+- Tooling: `build_ribbon.py` helpers `DD(...)` / `CP(...)`; `main()` carries
+  `options` / `argName` / `swatchColor` / `defaultColor` through to ribbon.json.
+- Audit: [`architecture/AUDIT.md`](architecture/AUDIT.md) (full taxonomy +
+  per-item gap list + prioritised plan; cross-checked against a Codex parallel
+  pass).
+
 **Ribbon expansion + composite controls (W3 tail — DONE):** addressed the
 "cramped / missing buttons" feedback by sourcing coverage from LO's own ribbon:
 - `build_ribbon.py` v2 draws command coverage from LO `notebookbar.ui` (parsed

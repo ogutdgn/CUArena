@@ -192,18 +192,30 @@
        "toggle": true
       },
       {
+       "cmd": ".uno:ChangeCaseRotateCase",
+       "label": "Cycle Case",
+       "icon": "text_case_title",
+       "size": "sm"
+      },
+      {
        "cmd": ".uno:FontColor",
        "label": "Font Color",
        "icon": "text_color",
        "size": "sm",
-       "kind": "fontcolor"
+       "kind": "colorpicker",
+       "argName": "FontColor.Color",
+       "swatchColor": "#c0392b",
+       "defaultColor": -1
       },
       {
        "cmd": ".uno:BackColor",
        "label": "Character Highlighting Color",
        "icon": "highlight",
        "size": "sm",
-       "kind": "highlight"
+       "kind": "colorpicker",
+       "argName": "BackColor.Color",
+       "swatchColor": "#ffd400",
+       "defaultColor": -1
       }
      ]
     },
@@ -268,7 +280,41 @@
        "cmd": ".uno:LineSpacing",
        "label": "Line Spacing",
        "icon": "text_line_spacing",
-       "size": "sm"
+       "size": "sm",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "Single (1.0)",
+         "cmd": ".uno:SpacePara1",
+         "args": null,
+         "checkKey": ".uno:SpacePara1"
+        },
+        {
+         "label": "1.15",
+         "cmd": ".uno:SpacePara115",
+         "args": null,
+         "checkKey": ".uno:SpacePara115"
+        },
+        {
+         "label": "1.5",
+         "cmd": ".uno:SpacePara15",
+         "args": null,
+         "checkKey": ".uno:SpacePara15"
+        },
+        {
+         "label": "Double (2.0)",
+         "cmd": ".uno:SpacePara2",
+         "args": null,
+         "checkKey": ".uno:SpacePara2"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "Line Spacing Options\u2026",
+         "cmd": ".uno:ParagraphDialog"
+        }
+       ]
       },
       {
        "cmd": ".uno:ControlCodes",
@@ -287,7 +333,11 @@
        "cmd": ".uno:BackgroundColor",
        "label": "Background Color",
        "icon": "color_background",
-       "size": "sm"
+       "size": "sm",
+       "kind": "colorpicker",
+       "argName": "BackgroundColor.Color",
+       "swatchColor": "#cce5ff",
+       "defaultColor": -1
       },
       {
        "cmd": ".uno:SortDialog",
@@ -554,7 +604,11 @@
        "cmd": ".uno:BackgroundColor",
        "label": "Background Color",
        "icon": "color_background",
-       "size": "sm"
+       "size": "sm",
+       "kind": "colorpicker",
+       "argName": "BackgroundColor.Color",
+       "swatchColor": "#ffeb3b",
+       "defaultColor": -1
       },
       {
        "cmd": ".uno:BorderDialog",
@@ -577,7 +631,29 @@
        "cmd": ".uno:PageColumnType",
        "label": "Page Columns",
        "icon": "column_triple",
-       "size": "sm"
+       "size": "sm",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "One",
+         "cmd": ".uno:FormatColumns"
+        },
+        {
+         "label": "Two",
+         "cmd": ".uno:FormatColumns"
+        },
+        {
+         "label": "Three",
+         "cmd": ".uno:FormatColumns"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "More Columns\u2026",
+         "cmd": ".uno:FormatColumns"
+        }
+       ]
       }
      ]
     }
@@ -593,25 +669,114 @@
        "cmd": ".uno:PageMargin",
        "label": "Page Margins",
        "icon": "document_margins",
-       "size": "lg"
+       "size": "lg",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "Normal (1\u2033)",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "Narrow (0.5\u2033)",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "Wide (2\u2033)",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "Mirrored",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "Custom Margins\u2026",
+         "cmd": ".uno:PageDialog"
+        }
+       ]
       },
       {
        "cmd": ".uno:Orientation",
        "label": "Orientation",
        "icon": "document_landscape",
-       "size": "sm"
+       "size": "sm",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "Portrait",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "Landscape",
+         "cmd": ".uno:PageDialog"
+        }
+       ]
       },
       {
        "cmd": ".uno:AttributePageSize",
        "label": "Page Size",
        "icon": "document_one_page",
-       "size": "sm"
+       "size": "sm",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "Letter (US)",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "A4",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "Legal",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "A3",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "label": "Tabloid",
+         "cmd": ".uno:PageDialog"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "More Paper Sizes\u2026",
+         "cmd": ".uno:PageDialog"
+        }
+       ]
       },
       {
        "cmd": ".uno:PageColumnType",
        "label": "Page Columns",
        "icon": "column_triple",
-       "size": "sm"
+       "size": "sm",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "One",
+         "cmd": ".uno:FormatColumns"
+        },
+        {
+         "label": "Two",
+         "cmd": ".uno:FormatColumns"
+        },
+        {
+         "label": "Three",
+         "cmd": ".uno:FormatColumns"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "More Columns\u2026",
+         "cmd": ".uno:FormatColumns"
+        }
+       ]
       },
       {
        "cmd": ".uno:PageDialog",
@@ -715,7 +880,45 @@
        "cmd": ".uno:TextWrap",
        "label": "Text Wrap...",
        "icon": "text_wrap",
-       "size": "sm"
+       "size": "sm",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "None",
+         "cmd": ".uno:WrapOff"
+        },
+        {
+         "label": "Parallel",
+         "cmd": ".uno:WrapOn"
+        },
+        {
+         "label": "Optimal",
+         "cmd": ".uno:WrapIdeal"
+        },
+        {
+         "label": "Before",
+         "cmd": ".uno:WrapLeft"
+        },
+        {
+         "label": "After",
+         "cmd": ".uno:WrapRight"
+        },
+        {
+         "label": "Through",
+         "cmd": ".uno:WrapThrough"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "Edit Contour\u2026",
+         "cmd": ".uno:ContourDialog"
+        },
+        {
+         "label": "Text Wrap\u2026",
+         "cmd": ".uno:TextWrap"
+        }
+       ]
       }
      ]
     }
@@ -1082,7 +1285,54 @@
        "cmd": ".uno:Zoom",
        "label": "Zoom...",
        "icon": "zoom_fit",
-       "size": "lg"
+       "size": "lg",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "50%",
+         "cmd": ".uno:Zoom",
+         "args": "{\"Zoom.Value\":{\"type\":\"long\",\"value\":50}}"
+        },
+        {
+         "label": "75%",
+         "cmd": ".uno:Zoom",
+         "args": "{\"Zoom.Value\":{\"type\":\"long\",\"value\":75}}"
+        },
+        {
+         "label": "100%",
+         "cmd": ".uno:Zoom",
+         "args": "{\"Zoom.Value\":{\"type\":\"long\",\"value\":100}}"
+        },
+        {
+         "label": "150%",
+         "cmd": ".uno:Zoom",
+         "args": "{\"Zoom.Value\":{\"type\":\"long\",\"value\":150}}"
+        },
+        {
+         "label": "200%",
+         "cmd": ".uno:Zoom",
+         "args": "{\"Zoom.Value\":{\"type\":\"long\",\"value\":200}}"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "Page Width",
+         "cmd": ".uno:ZoomPageWidth"
+        },
+        {
+         "label": "Whole Page",
+         "cmd": ".uno:ZoomPage"
+        },
+        {
+         "label": "Optimal",
+         "cmd": ".uno:ZoomOptimal"
+        },
+        {
+         "label": "Zoom\u2026",
+         "cmd": ".uno:Zoom"
+        }
+       ]
       },
       {
        "cmd": ".uno:ZoomOptimal",

@@ -104,6 +104,101 @@ FALLBACK_ICON = "square"  # neutral; flags an un-mapped command in the UI
 def T(cmd):  # a toggle button
     return {"cmd": cmd, "toggle": True}
 
+
+def CP(cmd, arg, swatch):           # a colour-picker (split palette popup)
+    return {"cmd": cmd, "kind": "colorpicker", "argName": arg,
+            "swatchColor": swatch, "defaultColor": -1}
+
+
+def DD(cmd, options, size="sm"):    # a dropdown — options = [(label,cmd,args?,checkKey?,divider?), …]
+    opts = []
+    for o in options:
+        if o is None or o == "---":
+            opts.append({"divider": True}); continue
+        if len(o) == 2:
+            opts.append({"label": o[0], "cmd": o[1]})
+        elif len(o) == 3:
+            opts.append({"label": o[0], "cmd": o[1], "args": o[2]})
+        elif len(o) == 4:
+            opts.append({"label": o[0], "cmd": o[1], "args": o[2], "checkKey": o[3]})
+    d = {"cmd": cmd, "kind": "dropdown", "options": opts, "size": size}
+    return d
+
+
+# Re-usable option sets ------------------------------------------------------
+LINE_SPACING_OPTS = [
+    ("Single (1.0)",  ".uno:SpacePara1",  None, ".uno:SpacePara1"),
+    ("1.15",          ".uno:SpacePara115",None, ".uno:SpacePara115"),
+    ("1.5",           ".uno:SpacePara15", None, ".uno:SpacePara15"),
+    ("Double (2.0)",  ".uno:SpacePara2",  None, ".uno:SpacePara2"),
+    "---",
+    ("Line Spacing Options…", ".uno:ParagraphDialog"),
+]
+ZOOM_OPTS = [
+    ("50%",  ".uno:Zoom", '{"Zoom.Value":{"type":"long","value":50}}'),
+    ("75%",  ".uno:Zoom", '{"Zoom.Value":{"type":"long","value":75}}'),
+    ("100%", ".uno:Zoom", '{"Zoom.Value":{"type":"long","value":100}}'),
+    ("150%", ".uno:Zoom", '{"Zoom.Value":{"type":"long","value":150}}'),
+    ("200%", ".uno:Zoom", '{"Zoom.Value":{"type":"long","value":200}}'),
+    "---",
+    ("Page Width",       ".uno:ZoomPageWidth"),
+    ("Whole Page",       ".uno:ZoomPage"),
+    ("Optimal",          ".uno:ZoomOptimal"),
+    ("Zoom…",            ".uno:Zoom"),
+]
+CASE_OPTS = [
+    ("Sentence case",       ".uno:ChangeCaseToSentenceCase"),
+    ("lowercase",           ".uno:ChangeCaseToLower"),
+    ("UPPERCASE",           ".uno:ChangeCaseToUpper"),
+    ("Capitalize Each Word",".uno:ChangeCaseToTitleCase"),
+    ("tOGGLE cASE",         ".uno:ChangeCaseToToggleCase"),
+]
+WRAP_OPTS = [
+    ("None",     ".uno:WrapOff"),
+    ("Parallel", ".uno:WrapOn"),
+    ("Optimal",  ".uno:WrapIdeal"),
+    ("Before",   ".uno:WrapLeft"),
+    ("After",    ".uno:WrapRight"),
+    ("Through",  ".uno:WrapThrough"),
+    "---",
+    ("Edit Contour…", ".uno:ContourDialog"),
+    ("Text Wrap…",    ".uno:TextWrap"),
+]
+COLUMN_OPTS = [
+    # LO has no direct `.uno:Columns` with a count arg — fall back to the
+    # FormatColumns dialog (works via DialogHost). Refinement (a popup that
+    # dispatches via SfxItemSet) is a tail item.
+    ("One",          ".uno:FormatColumns"),
+    ("Two",          ".uno:FormatColumns"),
+    ("Three",        ".uno:FormatColumns"),
+    "---",
+    ("More Columns…", ".uno:FormatColumns"),
+]
+# For Margins / Orientation / Page Size LO has no single-uno arg switch —
+# the dropdown items open the Page Style dialog (which our DialogHost renders
+# natively). This still beats a plain button that does nothing.
+MARGIN_OPTS = [
+    ("Normal (1″)",   ".uno:PageDialog"),
+    ("Narrow (0.5″)", ".uno:PageDialog"),
+    ("Wide (2″)",     ".uno:PageDialog"),
+    ("Mirrored",      ".uno:PageDialog"),
+    "---",
+    ("Custom Margins…", ".uno:PageDialog"),
+]
+ORIENT_OPTS = [
+    ("Portrait",  ".uno:PageDialog"),
+    ("Landscape", ".uno:PageDialog"),
+]
+SIZE_OPTS = [
+    ("Letter (US)", ".uno:PageDialog"),
+    ("A4",          ".uno:PageDialog"),
+    ("Legal",       ".uno:PageDialog"),
+    ("A3",          ".uno:PageDialog"),
+    ("Tabloid",     ".uno:PageDialog"),
+    "---",
+    ("More Paper Sizes…", ".uno:PageDialog"),
+]
+
 SPEC = [
  ("File", [
    ("File", [{"cmd": ".uno:NewDoc", "size": "lg"}, ".uno:Open", ".uno:Save", ".uno:SaveAs"]),
@@ -118,13 +213,16 @@ SPEC = [
              ".uno:Grow", ".uno:Shrink", ".uno:ChangeCaseRotateCase", ".uno:ResetAttributes",
              T(".uno:Bold"), T(".uno:Italic"), T(".uno:Underline"), T(".uno:Strikeout"),
              T(".uno:SubScript"), T(".uno:SuperScript"),
-             {"cmd": ".uno:FontColor", "kind": "fontcolor"},
-             {"cmd": ".uno:BackColor", "kind": "highlight"}]),
+             ".uno:ChangeCaseRotateCase",  # cycles via direct dispatch; dropdown below in a polish pass
+             CP(".uno:FontColor", "FontColor.Color", "#c0392b"),
+             CP(".uno:BackColor", "BackColor.Color", "#ffd400")]),
    ("Paragraph", [T(".uno:DefaultBullet"), T(".uno:DefaultNumbering"),
                   ".uno:DecrementIndent", ".uno:IncrementIndent",
                   T(".uno:LeftPara"), T(".uno:CenterPara"), T(".uno:RightPara"), T(".uno:JustifyPara"),
-                  ".uno:LineSpacing", T(".uno:ControlCodes"), ".uno:BorderDialog",
-                  ".uno:BackgroundColor", ".uno:SortDialog"]),
+                  DD(".uno:LineSpacing", LINE_SPACING_OPTS),
+                  T(".uno:ControlCodes"), ".uno:BorderDialog",
+                  CP(".uno:BackgroundColor", "BackgroundColor.Color", "#cce5ff"),
+                  ".uno:SortDialog"]),
    ("Styles", [{"cmd": ".uno:StyleApply", "icon": "text_t", "label": "Default", "size": "lg",
                 "args": '{"Style":{"type":"string","value":"Default Paragraph Style"},"FamilyName":{"type":"string","value":"ParagraphStyles"}}'},
                {"cmd": ".uno:StyleApply", "icon": "text_header_1", "label": "Heading 1",
@@ -148,17 +246,22 @@ SPEC = [
    ("Symbols", [".uno:InsertObjectStarMath", ".uno:CharmapControl"]),
  ]),
  ("Design", [
-   ("Page Background", [{"cmd": ".uno:Watermark", "size": "lg"}, ".uno:BackgroundColor", ".uno:BorderDialog"]),
-   ("Page", [".uno:TitlePageDialog", ".uno:PageColumnType"]),
+   ("Page Background", [{"cmd": ".uno:Watermark", "size": "lg"},
+                        CP(".uno:BackgroundColor", "BackgroundColor.Color", "#ffeb3b"),
+                        ".uno:BorderDialog"]),
+   ("Page", [".uno:TitlePageDialog", DD(".uno:PageColumnType", COLUMN_OPTS)]),
  ]),
  ("Layout", [
-   ("Page Setup", [{"cmd": ".uno:PageMargin", "size": "lg"}, ".uno:Orientation",
-                   ".uno:AttributePageSize", ".uno:PageColumnType", ".uno:PageDialog"]),
+   ("Page Setup", [DD(".uno:PageMargin", MARGIN_OPTS, size="lg"),
+                   DD(".uno:Orientation", ORIENT_OPTS),
+                   DD(".uno:AttributePageSize", SIZE_OPTS),
+                   DD(".uno:PageColumnType", COLUMN_OPTS),
+                   ".uno:PageDialog"]),
    ("Breaks", [".uno:InsertPagebreak", ".uno:InsertBreak"]),
    ("Paragraph", [".uno:IncrementIndent", ".uno:DecrementIndent", ".uno:Hyphenate"]),
    ("Page Setup 2", [".uno:Watermark", ".uno:LineNumberingDialog", ".uno:PageNumberWizard"]),
    ("Arrange", [".uno:BringToFront", ".uno:SendToBack", ".uno:ObjectForwardOne",
-                ".uno:ObjectBackOne", ".uno:TextWrap"]),
+                ".uno:ObjectBackOne", DD(".uno:TextWrap", WRAP_OPTS)]),
  ]),
  ("References", [
    ("Table of Contents", [{"cmd": ".uno:InsertMultiIndex", "size": "lg"},
@@ -184,7 +287,7 @@ SPEC = [
    ("Views", [T(".uno:PrintLayout"), T(".uno:BrowseView"), ".uno:PrintPreview"]),
    ("Show", [T(".uno:ControlCodes"), T(".uno:ShowWhitespace"), T(".uno:Ruler"),
              T(".uno:GridVisible"), T(".uno:Sidebar"), T(".uno:Navigator")]),
-   ("Zoom", [{"cmd": ".uno:Zoom", "size": "lg"}, ".uno:ZoomOptimal",
+   ("Zoom", [DD(".uno:Zoom", ZOOM_OPTS, size="lg"), ".uno:ZoomOptimal",
              ".uno:Zoom100Percent", ".uno:ZoomPage", ".uno:ZoomPageWidth"]),
    ("Theme", [T(".uno:ChangeTheme")]),
    ("Window", [".uno:NewWindow", T(".uno:FullScreen")]),
@@ -259,6 +362,10 @@ def main() -> int:
                     entry["kind"] = it["kind"]
                 if it.get("args"):
                     entry["args"] = it["args"]
+                # carry colorpicker / dropdown payloads through
+                for k in ("options", "argName", "swatchColor", "defaultColor", "autoLabel"):
+                    if k in it:
+                        entry[k] = it[k]
                 out_items.append(entry)
             out_groups.append({"name": group_name, "items": out_items})
         tabs.append({"name": tab_name, "groups": out_groups})

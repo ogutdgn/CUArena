@@ -14,6 +14,17 @@ Item {
     readonly property var largeItems: (group.items || []).filter(function (i) { return i.size === "lg" && !root.isCombo(i); })
     readonly property var smallItems: (group.items || []).filter(function (i) { return i.size !== "lg" && !root.isCombo(i); })
 
+    // Render an item with the right QML by `kind`. Loader-by-URL with
+    // initialProperties keeps each control's `required` props happy.
+    function delegateUrl(it) {
+        var k = it ? it.kind : "";
+        if (k === "colorpicker" || k === "fontcolor" || k === "highlight")
+            return "qrc:/src/ui/qml/RibbonColorButton.qml";
+        if (k === "dropdown")
+            return "qrc:/src/ui/qml/RibbonDropdown.qml";
+        return "qrc:/src/ui/qml/RibbonButton.qml";
+    }
+
     // wide enough for the buttons OR the group label, whichever is wider
     implicitWidth: Math.max(body.implicitWidth, nameLabel.implicitWidth) + 18
     implicitHeight: 108
@@ -46,11 +57,11 @@ Item {
 
             Repeater {
                 model: root.largeItems
-                delegate: RibbonButton {
+                delegate: Loader {
                     required property var modelData
-                    item: modelData
-                    engine: root.engine
-                    stateMap: root.stateMap
+                    Component.onCompleted: setSource(
+                        root.delegateUrl(modelData),
+                        { item: modelData, engine: root.engine, stateMap: root.stateMap })
                 }
             }
 
@@ -61,11 +72,11 @@ Item {
                 columnSpacing: 2
                 Repeater {
                     model: root.smallItems
-                    delegate: RibbonButton {
+                    delegate: Loader {
                         required property var modelData
-                        item: modelData
-                        engine: root.engine
-                        stateMap: root.stateMap
+                        Component.onCompleted: setSource(
+                            root.delegateUrl(modelData),
+                            { item: modelData, engine: root.engine, stateMap: root.stateMap })
                     }
                 }
             }
