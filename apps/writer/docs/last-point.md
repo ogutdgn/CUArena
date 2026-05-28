@@ -142,6 +142,25 @@ Qt→awt key map, px→twip; `LokEngine::typeText`). A headless screenshot mode
 - **Deferred:** a Writer *verifier* (reads these logs) — a later phase; the log
   shape is contract-conformant. Parity checklist in LOGGING.md §4.
 
+**Ribbon coverage rewrite — Word-faithful (W3 tail expansion — DONE):**
+- Pulled the **MS Word 365 ribbon structure** authoritatively from public docs
+  (Microsoft Support / addbalance.com): exact tabs + groups + control kinds.
+- Restructured the SPEC in `build_ribbon.py` so every tab/group mirrors Word's
+  organisation. Added the **Draw** and **Mailings** tabs that were missing.
+- Population uses LO's `notebookbar.ui` (434 cmds), `writer-menu-tree.json`
+  (497 items) and `command-catalog.json` (1520) as completeness sources.
+- New totals: **11 tabs, 53 groups, 213 items** (was 148), **10 dropdowns +
+  4 colour pickers + 29 toggles + 2 combos**. All 213 commands verified present
+  in the catalog; all 138 icons valid in the Fluent set (0 fallbacks).
+- Word-feature additions: PasteSpecial, more Styles (No Spacing / Subtitle /
+  Quote), proper Change-Case dropdown, FontDialog/ParagraphDialog/OutlineBullet,
+  full Shapes family (Arrow/Symbol/Star/Callout/Flow), Comments group in
+  Insert, InsertSection/InsertColumnBreak, ParaspaceIncrease/Decrease,
+  HelplinesMove, ZoomPlus/Minus, DeleteCommentThread/ResolveComment/
+  ShowAnnotations toggle, RedactDoc, Mail Merge group.
+- Codex parallel pass confirmed coverage (sandbox blocked it from writing the
+  file but the in-memory grounding agreed with this restructure).
+
 **Ribbon popups: dropdowns + colour pickers (W3 tail polish — DONE):**
 addressed the "buttons like .uno:LineSpacing don't change anything / can't
 change colours" feedback. New control kinds:

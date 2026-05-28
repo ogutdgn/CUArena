@@ -30,18 +30,41 @@
        "label": "Save As...",
        "icon": "save_edit",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:SaveAll",
+       "label": "Save All",
+       "icon": "save_multiple",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Reload",
+       "label": "Reload",
+       "icon": "arrow_sync",
+       "size": "sm"
       }
      ]
     },
     {
-     "name": "Print & Share",
+     "name": "Print",
      "items": [
+      {
+       "cmd": ".uno:PrintPreview",
+       "label": "Print Preview",
+       "icon": "document_one_page",
+       "size": "lg"
+      },
       {
        "cmd": ".uno:Print",
        "label": "Print...",
        "icon": "print",
        "size": "sm"
-      },
+      }
+     ]
+    },
+    {
+     "name": "Share",
+     "items": [
       {
        "cmd": ".uno:ExportToPDF",
        "label": "Export as PDF",
@@ -49,8 +72,25 @@
        "size": "sm"
       },
       {
+       "cmd": ".uno:ExportTo",
+       "label": "Export...",
+       "icon": "share",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Close",
+     "items": [
+      {
        "cmd": ".uno:CloseDoc",
        "label": "Close",
+       "icon": "dismiss_circle",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Quit",
+       "label": "Exit",
        "icon": "dismiss_circle",
        "size": "sm"
       }
@@ -69,6 +109,12 @@
        "label": "Paste",
        "icon": "clipboard_paste",
        "size": "lg"
+      },
+      {
+       "cmd": ".uno:PasteSpecial",
+       "label": "Paste Special...",
+       "icon": "clipboard_paste",
+       "size": "sm"
       },
       {
        "cmd": ".uno:Cut",
@@ -103,6 +149,12 @@
       {
        "cmd": ".uno:Redo",
        "label": "Redo",
+       "icon": "arrow_redo",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Repeat",
+       "label": "Repeat",
        "icon": "arrow_redo",
        "size": "sm"
       }
@@ -141,7 +193,30 @@
        "cmd": ".uno:ChangeCaseRotateCase",
        "label": "Cycle Case",
        "icon": "text_case_title",
-       "size": "sm"
+       "size": "sm",
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "Sentence case",
+         "cmd": ".uno:ChangeCaseToSentenceCase"
+        },
+        {
+         "label": "lowercase",
+         "cmd": ".uno:ChangeCaseToLower"
+        },
+        {
+         "label": "UPPERCASE",
+         "cmd": ".uno:ChangeCaseToUpper"
+        },
+        {
+         "label": "Capitalize Each Word",
+         "cmd": ".uno:ChangeCaseToTitleCase"
+        },
+        {
+         "label": "tOGGLE cASE",
+         "cmd": ".uno:ChangeCaseToToggleCase"
+        }
+       ]
       },
       {
        "cmd": ".uno:ResetAttributes",
@@ -192,12 +267,6 @@
        "toggle": true
       },
       {
-       "cmd": ".uno:ChangeCaseRotateCase",
-       "label": "Cycle Case",
-       "icon": "text_case_title",
-       "size": "sm"
-      },
-      {
        "cmd": ".uno:FontColor",
        "label": "Font Color",
        "icon": "text_color",
@@ -216,6 +285,12 @@
        "argName": "BackColor.Color",
        "swatchColor": "#ffd400",
        "defaultColor": -1
+      },
+      {
+       "cmd": ".uno:FontDialog",
+       "label": "Character...",
+       "icon": "text_font",
+       "size": "sm"
       }
      ]
     },
@@ -227,14 +302,46 @@
        "label": "Unordered List",
        "icon": "text_bullet_list",
        "size": "sm",
-       "toggle": true
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "Default bullet",
+         "cmd": ".uno:DefaultBullet"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "Bullets and Numbering\u2026",
+         "cmd": ".uno:BulletsAndNumberingDialog"
+        }
+       ]
       },
       {
        "cmd": ".uno:DefaultNumbering",
        "label": "Ordered List",
        "icon": "text_number_list_ltr",
        "size": "sm",
-       "toggle": true
+       "kind": "dropdown",
+       "options": [
+        {
+         "label": "Default numbering",
+         "cmd": ".uno:DefaultNumbering"
+        },
+        {
+         "divider": true
+        },
+        {
+         "label": "Bullets and Numbering\u2026",
+         "cmd": ".uno:BulletsAndNumberingDialog"
+        }
+       ]
+      },
+      {
+       "cmd": ".uno:OutlineBullet",
+       "label": "Bullets and Numbering...",
+       "icon": "text_bullet_list_tree",
+       "size": "sm"
       },
       {
        "cmd": ".uno:DecrementIndent",
@@ -344,6 +451,12 @@
        "label": "Sort...",
        "icon": "arrow_sort",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:ParagraphDialog",
+       "label": "Paragraph...",
+       "icon": "text_paragraph",
+       "size": "sm"
       }
      ]
     },
@@ -355,6 +468,13 @@
        "label": "Default",
        "icon": "text_t",
        "size": "lg",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Default Paragraph Style\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "No Spacing",
+       "icon": "text_paragraph",
+       "size": "sm",
        "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Default Paragraph Style\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
       },
       {
@@ -373,10 +493,31 @@
       },
       {
        "cmd": ".uno:StyleApply",
-       "label": "Title",
+       "label": "Heading 3",
        "icon": "text_header_3",
        "size": "sm",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Heading 3\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "Title",
+       "icon": "text_t",
+       "size": "sm",
        "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Title\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "Subtitle",
+       "icon": "text_t",
+       "size": "sm",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Subtitle\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
+      },
+      {
+       "cmd": ".uno:StyleApply",
+       "label": "Quote",
+       "icon": "text_quote",
+       "size": "sm",
+       "args": "{\"Style\":{\"type\":\"string\",\"value\":\"Quotations\"},\"FamilyName\":{\"type\":\"string\",\"value\":\"ParagraphStyles\"}}"
       },
       {
        "cmd": ".uno:DesignerDialog",
@@ -428,6 +569,12 @@
        "label": "Title Page...",
        "icon": "document_one_page",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertSection",
+       "label": "Columns",
+       "icon": "column_triple",
+       "size": "sm"
       }
      ]
     },
@@ -467,6 +614,36 @@
        "cmd": ".uno:BasicShapes",
        "label": "Basic Shapes",
        "icon": "shapes",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ArrowShapes",
+       "label": "Arrow Shapes",
+       "icon": "arrow_right",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:SymbolShapes",
+       "label": "Symbol Shapes",
+       "icon": "shapes",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:StarShapes",
+       "label": "Star Shapes",
+       "icon": "star",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:CalloutShapes",
+       "label": "Callout Shapes",
+       "icon": "comment",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FlowChartShapes",
+       "label": "Flowchart Shapes",
+       "icon": "flowchart",
        "size": "sm"
       },
       {
@@ -518,6 +695,23 @@
      ]
     },
     {
+     "name": "Comments",
+     "items": [
+      {
+       "cmd": ".uno:InsertAnnotation",
+       "label": "Comment",
+       "icon": "comment_add",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ShowAnnotations",
+       "label": "Show Comments",
+       "icon": "eye",
+       "size": "sm"
+      }
+     ]
+    },
+    {
      "name": "Header & Footer",
      "items": [
       {
@@ -535,6 +729,12 @@
       {
        "cmd": ".uno:InsertPageNumberField",
        "label": "Page Number Field",
+       "icon": "document_page_number",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertPageCountField",
+       "label": "Page Count",
        "icon": "document_page_number",
        "size": "sm"
       }
@@ -566,6 +766,18 @@
        "label": "Insert Fontwork",
        "icon": "text_effects",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertDateField",
+       "label": "Date (fixed)",
+       "icon": "calendar_ltr",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertTitleField",
+       "label": "Title",
+       "icon": "slide_text_title_edit",
+       "size": "sm"
       }
      ]
     },
@@ -583,6 +795,133 @@
        "label": "Symbol",
        "icon": "math_symbols",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertSymbol",
+       "label": "Symbol",
+       "icon": "math_symbols",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Draw",
+   "groups": [
+    {
+     "name": "Shapes",
+     "items": [
+      {
+       "cmd": ".uno:BasicShapes",
+       "label": "Basic Shapes",
+       "icon": "shapes",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:SymbolShapes",
+       "label": "Symbol Shapes",
+       "icon": "shapes",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ArrowShapes",
+       "label": "Arrow Shapes",
+       "icon": "arrow_right",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:StarShapes",
+       "label": "Star Shapes",
+       "icon": "star",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:CalloutShapes",
+       "label": "Callout Shapes",
+       "icon": "comment",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FlowChartShapes",
+       "label": "Flowchart Shapes",
+       "icon": "flowchart",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:Line",
+       "label": "Line",
+       "icon": "line_horizontal_1",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Lines",
+     "items": [
+      {
+       "cmd": ".uno:ConnectorToolbox",
+       "label": "Connectors",
+       "icon": "branch",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ArrowsToolbox",
+       "label": "Lines and Arrows",
+       "icon": "arrow_right",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:LineToolbox",
+       "label": "Curves and Polygons",
+       "icon": "line_horizontal_1",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:DrawCaption",
+       "label": "Callouts",
+       "icon": "comment",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Edit",
+     "items": [
+      {
+       "cmd": ".uno:SelectObject",
+       "label": "Select",
+       "icon": "select_object",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FormatGroup",
+       "label": "Group",
+       "icon": "group",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Text",
+     "items": [
+      {
+       "cmd": ".uno:DrawText",
+       "label": "Text Box",
+       "icon": "textbox",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:VerticalText",
+       "label": "Vertical Text",
+       "icon": "text_align_center_rotate_270",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:FontworkGalleryFloater",
+       "label": "Insert Fontwork",
+       "icon": "text_effects",
+       "size": "sm"
       }
      ]
     }
@@ -592,13 +931,31 @@
    "name": "Design",
    "groups": [
     {
+     "name": "Document Formatting",
+     "items": [
+      {
+       "cmd": ".uno:DesignerDialog",
+       "label": "Styles",
+       "icon": "text_effects",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:ChangeTheme",
+       "label": "Dark Mode",
+       "icon": "weather_moon",
+       "size": "sm",
+       "toggle": true
+      }
+     ]
+    },
+    {
      "name": "Page Background",
      "items": [
       {
        "cmd": ".uno:Watermark",
        "label": "Watermark...",
        "icon": "drop",
-       "size": "lg"
+       "size": "sm"
       },
       {
        "cmd": ".uno:BackgroundColor",
@@ -619,6 +976,23 @@
      ]
     },
     {
+     "name": "Paragraph Spacing",
+     "items": [
+      {
+       "cmd": ".uno:ParaspaceIncrease",
+       "label": "Increase",
+       "icon": "arrow_expand",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ParaspaceDecrease",
+       "label": "Decrease",
+       "icon": "arrow_collapse_all",
+       "size": "sm"
+      }
+     ]
+    },
+    {
      "name": "Page",
      "items": [
       {
@@ -626,34 +1000,6 @@
        "label": "Title Page...",
        "icon": "document_one_page",
        "size": "sm"
-      },
-      {
-       "cmd": ".uno:PageColumnType",
-       "label": "Page Columns",
-       "icon": "column_triple",
-       "size": "sm",
-       "kind": "dropdown",
-       "options": [
-        {
-         "label": "One",
-         "cmd": ".uno:FormatColumns"
-        },
-        {
-         "label": "Two",
-         "cmd": ".uno:FormatColumns"
-        },
-        {
-         "label": "Three",
-         "cmd": ".uno:FormatColumns"
-        },
-        {
-         "divider": true
-        },
-        {
-         "label": "More Columns\u2026",
-         "cmd": ".uno:FormatColumns"
-        }
-       ]
       }
      ]
     }
@@ -800,6 +1146,18 @@
        "label": "Manual Break...",
        "icon": "document_page_break",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertColumnBreak",
+       "label": "Insert Column Break",
+       "icon": "document_page_break",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:InsertSection",
+       "label": "Columns",
+       "icon": "column_triple",
+       "size": "sm"
       }
      ]
     },
@@ -819,15 +1177,33 @@
        "size": "sm"
       },
       {
+       "cmd": ".uno:ParaspaceIncrease",
+       "label": "Increase",
+       "icon": "arrow_expand",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ParaspaceDecrease",
+       "label": "Decrease",
+       "icon": "arrow_collapse_all",
+       "size": "sm"
+      },
+      {
        "cmd": ".uno:Hyphenate",
        "label": "Hyphenation...",
-       "icon": "text_word_count",
+       "icon": "text_indent_increase_ltr",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ParagraphDialog",
+       "label": "Paragraph...",
+       "icon": "text_paragraph",
        "size": "sm"
       }
      ]
     },
     {
-     "name": "Page Setup 2",
+     "name": "Page",
      "items": [
       {
        "cmd": ".uno:Watermark",
@@ -919,6 +1295,18 @@
          "cmd": ".uno:TextWrap"
         }
        ]
+      },
+      {
+       "cmd": ".uno:FormatGroup",
+       "label": "Group",
+       "icon": "group",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:SelectObject",
+       "label": "Select",
+       "icon": "select_object",
+       "size": "sm"
       }
      ]
     }
@@ -945,6 +1333,12 @@
       {
        "cmd": ".uno:UpdateCurIndex",
        "label": "Update Index",
+       "icon": "arrow_sync",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:UpdateAll",
+       "label": "Update All",
        "icon": "arrow_sync",
        "size": "sm"
       }
@@ -974,6 +1368,23 @@
      ]
     },
     {
+     "name": "Citations & Bibliography",
+     "items": [
+      {
+       "cmd": ".uno:InsertAuthoritiesEntry",
+       "label": "Citation...",
+       "icon": "book",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:BibliographyComponent",
+       "label": "Bibliography Database",
+       "icon": "book_database",
+       "size": "sm"
+      }
+     ]
+    },
+    {
      "name": "Captions",
      "items": [
       {
@@ -992,23 +1403,6 @@
        "cmd": ".uno:InsertBookmark",
        "label": "Bookmark...",
        "icon": "bookmark",
-       "size": "sm"
-      }
-     ]
-    },
-    {
-     "name": "Citations",
-     "items": [
-      {
-       "cmd": ".uno:InsertAuthoritiesEntry",
-       "label": "Citation...",
-       "icon": "book",
-       "size": "sm"
-      },
-      {
-       "cmd": ".uno:BibliographyComponent",
-       "label": "Bibliography Database",
-       "icon": "book_database",
        "size": "sm"
       }
      ]
@@ -1041,9 +1435,64 @@
        "size": "sm"
       },
       {
-       "cmd": ".uno:UpdateAll",
-       "label": "Update All",
-       "icon": "arrow_sync",
+       "cmd": ".uno:InsertTitleField",
+       "label": "Title",
+       "icon": "slide_text_title_edit",
+       "size": "sm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Mailings",
+   "groups": [
+    {
+     "name": "Create",
+     "items": [
+      {
+       "cmd": ".uno:InsertEnvelope",
+       "label": "Envelope...",
+       "icon": "mail",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Start Mail Merge",
+     "items": [
+      {
+       "cmd": ".uno:MailMergeWizard",
+       "label": "Mail Merge Wizard...",
+       "icon": "mail_arrow_double_back",
+       "size": "lg"
+      },
+      {
+       "cmd": ".uno:ViewDataSourceBrowser",
+       "label": "Data Sources",
+       "icon": "database",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Write & Insert Fields",
+     "items": [
+      {
+       "cmd": ".uno:InsertFieldCtrl",
+       "label": "Field",
+       "icon": "text_field",
+       "size": "sm"
+      }
+     ]
+    },
+    {
+     "name": "Finish",
+     "items": [
+      {
+       "cmd": ".uno:Print",
+       "label": "Print...",
+       "icon": "print",
        "size": "sm"
       }
      ]
@@ -1103,6 +1552,25 @@
        "label": "Delete Comment",
        "icon": "comment_dismiss",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:DeleteCommentThread",
+       "label": "Delete Comment Thread",
+       "icon": "comment_dismiss",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ResolveComment",
+       "label": "Resolved",
+       "icon": "comment_checkmark",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ShowAnnotations",
+       "label": "Show Comments",
+       "icon": "eye",
+       "size": "sm",
+       "toggle": true
       }
      ]
     },
@@ -1163,6 +1631,12 @@
        "label": "Reject All",
        "icon": "dismiss_circle",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:AcceptTrackedChanges",
+       "label": "Manage...",
+       "icon": "task_list_square_ltr",
+       "size": "sm"
       }
      ]
     },
@@ -1198,6 +1672,12 @@
        "label": "Protect...",
        "icon": "lock_closed",
        "size": "sm"
+      },
+      {
+       "cmd": ".uno:RedactDoc",
+       "label": "Redact",
+       "icon": "eye_off",
+       "size": "sm"
       }
      ]
     }
@@ -1226,7 +1706,7 @@
       {
        "cmd": ".uno:PrintPreview",
        "label": "Print Preview",
-       "icon": "print",
+       "icon": "document_one_page",
        "size": "sm"
       }
      ]
@@ -1259,6 +1739,13 @@
        "cmd": ".uno:GridVisible",
        "label": "Grid",
        "icon": "grid",
+       "size": "sm",
+       "toggle": true
+      },
+      {
+       "cmd": ".uno:HelplinesMove",
+       "label": "Helplines While Moving",
+       "icon": "ruler",
        "size": "sm",
        "toggle": true
       },
@@ -1357,18 +1844,18 @@
        "label": "Page Width",
        "icon": "arrow_autofit_width",
        "size": "sm"
-      }
-     ]
-    },
-    {
-     "name": "Theme",
-     "items": [
+      },
       {
-       "cmd": ".uno:ChangeTheme",
-       "label": "Dark Mode",
-       "icon": "weather_moon",
-       "size": "sm",
-       "toggle": true
+       "cmd": ".uno:ZoomPlus",
+       "label": "Zoom In",
+       "icon": "zoom_in",
+       "size": "sm"
+      },
+      {
+       "cmd": ".uno:ZoomMinus",
+       "label": "Zoom Out",
+       "icon": "zoom_out",
+       "size": "sm"
       }
      ]
     },
@@ -1385,6 +1872,18 @@
        "cmd": ".uno:FullScreen",
        "label": "Full Screen",
        "icon": "full_screen_maximize",
+       "size": "sm",
+       "toggle": true
+      }
+     ]
+    },
+    {
+     "name": "Theme",
+     "items": [
+      {
+       "cmd": ".uno:ChangeTheme",
+       "label": "Dark Mode",
+       "icon": "weather_moon",
        "size": "sm",
        "toggle": true
       }
