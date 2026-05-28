@@ -22,7 +22,7 @@ Item {
     // Track the most-recent picked colour (hex like "#ff0000"; "" = automatic).
     property string lastColor: item.swatchColor || ""
 
-    implicitWidth: 38
+    implicitWidth: 44     // a touch wider so the ▾ click zone is comfortable
     implicitHeight: 28
 
     // Convert "#rrggbb" -> long int 0xRRGGBB; "" -> defaultColor (default -1).
@@ -48,7 +48,7 @@ Item {
         Rectangle {
             id: primary
             anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom
-            width: parent.width - 12
+            width: parent.width - 16
             color: "transparent"
             Column {
                 anchors.centerIn: parent
@@ -70,14 +70,14 @@ Item {
         Rectangle {                            // right ▾ click-zone
             id: arrowArea
             anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom
-            width: 12
+            width: 16
             color: arrowHov.hovered ? "#2f2f2f" : "transparent"
             Label {
                 anchors.centerIn: parent
                 text: "▾"; color: "#bdbdbd"; font.pixelSize: 9
             }
             HoverHandler { id: arrowHov }
-            TapHandler { onTapped: palette.popup(0, root.height) }
+            TapHandler { onTapped: palette.open() }
         }
 
         HoverHandler { id: hov }
