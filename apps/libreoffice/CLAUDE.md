@@ -21,7 +21,15 @@
 6. **[`docs/ui/README.md`](docs/ui/README.md)** — if the task touches
    the Writer UI / ribbon / theming. Active 3-week UI flexibility
    plan plus per-button ribbon map. Skip if the task is unrelated.
-7. Then start the task.
+7. **[`docs/ribbon/README.md`](docs/ribbon/README.md)** — **MS Word ↔
+   LibreOffice ribbon comparison** (clone decision-research): a
+   per-tab inventory of every Word control mapped to its LO `.uno:`
+   equivalent, with a verdict (`same`/`differs`/`LO-missing`/`UI-only`)
+   and a **work-bucket** classification, used to decide the clone's
+   engine/core structure and parity scope. Distinct from `docs/ui/`
+   (which documents LO's *own* ribbon). Read if the task touches the
+   Word-clone feature comparison or the engine decision.
+8. Then start the task.
 
 The first two files are auto-maintained by the `update-last-point`
 and `update-execution-map` skills — refresh them after big changes

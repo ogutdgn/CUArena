@@ -638,6 +638,7 @@ docs(architecture): document apps vs core split
 | `docs/execution-map.md` | **Next up** — concrete queued tasks. Auto-maintained. Read second. |
 | `docs/architecture/` | **Canonical, durable** plans — ROADMAP, per-phase design docs, cross-app side-effect catalogues, strip / extraction analysis. Updated when a phase contract changes. |
 | `docs/USAGE.md` | Day-to-day commands. |
+| `docs/ribbon/` | **MS Word ↔ LibreOffice ribbon comparison** (clone decision-research) — a per-tab inventory of every Word control mapped to its LO `.uno:` equivalent, with a verdict (`same`/`differs`/`LO-missing`/`UI-only`) and a **work-bucket** classification (Free / Our-layer UI / Behavior shim / Cut / Engine gap / Optional). Drives the Word-clone **engine + scope** decision. See [`docs/ribbon/README.md`](docs/ribbon/README.md). Distinct from `docs/ui/` (which documents LO's *own* ribbon). |
 
 The two auto-maintained docs are kept in sync by the `update-last-point`
 and `update-execution-map` skills in `.claude/skills/`. Refresh them
