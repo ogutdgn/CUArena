@@ -53,6 +53,10 @@ and research below are locked; the build then starts on a fresh branch off `main
 | **6 — Distribution** | Run headless in a container. | Docker / headless distribution; parallel RL rollouts run as parallel processes / containers (LOK is single-threaded per document). |
 | **Optional — Engine strip** | Shrink the rented engine. | Strip the LO engine to Writer-only. |
 
+> **Every phase is gated by the [verification protocol](verification.md).** A deliverable is
+> *done* only when its required tests are green headless and **fail when the claim is false**;
+> the per-phase verification bar and the per-feature definition of done live there.
+
 ---
 
 ## Research streams → phases

@@ -53,6 +53,7 @@ boundary.
 |---|---|
 | `docs/last-point.md` | current state (refresh at session end) |
 | `docs/execution-map.md` | phased build roadmap |
+| `docs/verification.md` | verification protocol — how every phase/feature proves it works (definition of done, test types, banned anti-patterns) |
 | `docs/architecture/ARCHITECTURE.md` | the clone's canonical architecture |
 | `docs/architecture/WRITER_CALC_EXTRACTION.md` | engine strip reference (which LO modules can be removed) |
 | `docs/research/` | all research: catalog + #1 ribbon (`ribbon/`) + #2 tech-stack (`tech-stack.md`); #3–#6 written at build time |
@@ -70,3 +71,6 @@ boundary.
 - **Reply in Turkish** to Turkish questions (owner preference); docs stay English.
 - Owner wants **trade-offs stated explicitly** and **push-back when warranted** — don't
   blindly agree, and prioritize **quality over speed**.
+- **Verification:** every phase/feature meets the definition of done in
+  [`docs/verification.md`](docs/verification.md) — *done* = green tests that fail when the
+  claim is false.
