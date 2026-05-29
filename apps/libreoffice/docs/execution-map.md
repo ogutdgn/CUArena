@@ -1,67 +1,86 @@
-# LibreOffice — Execution Map
+# Execution map — MS Word clone
 
-> What's queued. **What we're going to do next** — nothing else.
-> Auto-maintained by the `update-execution-map` skill.
-
-Last updated: 2026-05-24
+> **Purpose.** The phased build roadmap: what ships in each phase, the key
+> deliverables, and where each research stream lands. This is the *what's next*
+> companion to the locked decision record + research under [`research/`](research/)
+> (engine, tech-stack, scope) and the grounding inventory at
+> [`research/ribbon/README.md`](research/ribbon/README.md).
+>
+> Note on location: this lives under `apps/libreoffice/` because the LibreOffice
+> **engine** (rented via LOK) lives here. From now on this app directory is *the
+> rented LibreOffice engine + the MS-Word-clone decision record & research*; the
+> prior LibreOffice-reskin approach is superseded.
 
 ---
 
-## Next
+## Immediate next action
 
-**Active effort: Writer UI flexibility (3-week plan).** Full plan
-and per-phase detail in [`ui/ui-plan.md`](ui/ui-plan.md). Phase
-status tracked in [`ui/README.md`](ui/README.md).
+**Merge the decision branch (`ms-word/decision-making`) to `main`.** The decisions
+and research below are locked; the build then starts on a fresh branch off `main`.
 
-**Shipped to `main` 2026-05-24** (PR #58 + #59): Phase 1.1–1.3
-(ribbon anatomy + hot-reload + CUA notebookbar variant) and
-Phase 2.1–2.2 (CUA Word Dark palette + auto-flow to GTK). See
-[`last-point.md`](last-point.md) for the full shipped feature set.
+---
 
-**Queued (in priority order):**
+## What's decided (one-line recap)
 
-1. **Phase 3 — comfort + optional depth.** All three items optional;
-   pick what hurt during Phases 1+2:
-   - **3.1 DSL transpiler** — YAML/TS → `notebookbar_cua.ui` XML
-     generator. Skip unless structural edits felt painful at raw-XML
-     level.
-   - **3.2 File watcher daemon** — `inotifywait` + auto-sync +
-     soffice restart. Skip unless manual `sync-ui.sh` loop is a
-     friction point.
-   - **3.3 Targeted VCL paint patches** — border radius / focus
-     ring / padding (C++ rebuild, scoped per change). Only if
-     V2.1 visual review surfaces specific gaps the CUA agent will
-     notice.
+- **Engine:** rent LibreOffice's real engine via **LibreOfficeKit (LOK), in-process** —
+  "Boundary A": we own the UI + command dispatch + document state + an always-on
+  raw/semantic/outcome logger + an MCP server; we rent the engine only for layout, text
+  shaping, and `.docx`/`.odt` I/O. Discipline = scoped parity + a **no-core-edits**
+  guardrail (the engine source stays committed and fully buildable; deeper patches are
+  possible later as tracked patches if a feature justifies it).
+- **Tech stack ("Option A"):** native **C++/Qt6** core driving LOK on one dedicated
+  LOK-owning thread, **QML Fluent** UI for the chrome, and the **MCP server as a separate
+  Python/TypeScript sidecar** over a local socket.
+- **Scope (v1):** build the **~487-control** build surface (Free + Our-layer UI +
+  Behavior shim + Optional, ≈70% of 692). Engine-gap / cloud-AI / niche families are
+  **deferred and documented, not deleted**.
+- **Why a rewrite:** the prior Qt6/QML prototype proved Boundary A works but audited as
+  PoC-grade. We keep the proven architecture + this research + the audit's lessons and
+  rebuild clean; the engine stays fully editable.
 
-**Deferred (revisit after Phase 3):**
+---
 
-- **Phase 2.3 — icon theme decision.** Owner decision 2026-05-24:
-  ship as-is on `sifr_dark`, revisit after Phase 3 work lands so
-  the visual review can happen against the more complete UI (incl.
-  whatever VCL paint patches end up in 3.3). Open question
-  unchanged: is `sifr_dark` close enough to Word M365, or do we
-  fork a `cua_word` icon theme? Spec for the fork path lives in
-  [`ui/ui-plan.md`](ui/ui-plan.md) §5.3 (50-100 SVG replacements
-  from Fluent UI / Lucide, plus `configure.ac` `WITH_THEMES`
-  allow-list edit and `postprocess/CustomTarget_images.mk`
-  confirm).
+## Build phases
 
-## Open decisions
+| Phase | Goal (one line) | Key deliverables |
+|---|---|---|
+| **0 — Merge & scaffold** | Land the decisions, stand up the fresh app. | Merge `ms-word/decision-making` → `main`; scaffold the clone app (new app dir) on a build branch off `main`. |
+| **1 — Foundations** | Get the LOK render/scheduler path and the test harness right this time. | A correct LOK render path: a real idle mechanism honoring the `INVALIDATE_TILES` dirty rect, a tile cache, and zoom / scroll / HiDPI (no test-only engine symbols, no full-repaint-per-keystroke); a real **CMake/CTest** harness with committed fixtures — tests that fail when the claim is false. |
+| **2 — UI kit** | Build the Word-faithful chrome on a token system. | UI design-token extraction (Word M365 exact colors / metrics / typography, measured at known DPI) as QML singletons; the bespoke custom QML control kit — ribbon, galleries, menus; Microsoft Fluent UI System Icons recolored to Word tints; the JSDialog → native QML dialog renderer, themed by the same tokens. |
+| **3 — Feature build loop** | Ship the in-scope controls, group by group. | Per feature-group: behavior + state spec → implement → verify, walked in scope order across core editing / formatting + Insert / References / Mailings (full mail-merge via orchestrating LO's wizard) / Review (full Track Changes) / Layout / Design / View. |
+| **4 — MCP server** | Expose the command/state surface as MCP. | The Python (FastMCP) or TypeScript **sidecar** over a local socket — Tools (`postUnoCommand` / `sendDialogEvent`) + Resources (`getCommandValues` / state). The core stays the single source of truth; the sidecar holds no state. |
+| **5 — Verifier** | Grade RL tasks. | The verifier for the RL environment, fed by the Phase-3 behavior + state specs. |
+| **6 — Distribution** | Run headless in a container. | Docker / headless distribution; parallel RL rollouts run as parallel processes / containers (LOK is single-threaded per document). |
+| **Optional — Engine strip** | Shrink the rented engine. | Strip the LO engine to Writer-only. |
 
-- ~~Light + dark palette both or only dark?~~ — **dark only**
-  (decided 2026-05-22).
-- ~~Existing icon theme first (`sifr_dark` / `colibre_dark`) or
-  build `cua_word` from scratch?~~ — **deferred to post-Phase-3**
-  (decided 2026-05-24, see "Deferred" above).
-- ~~Hide vanilla LO menubar to match Word M365?~~ — **yes, hide**
-  (decided + shipped on main 2026-05-24: `ToolbarMode.xcu` CUA
-  entry `HasMenubar=false`).
-- ~~`View → User Interface` picker overwrites CUA — document the
-  risk?~~ — **documented 2026-05-24** in [`USAGE.md`](USAGE.md)
-  "Important caveat" section.
+---
 
-## Future (from ROADMAP)
+## Research streams → phases
 
-- **Phase 5** — Calc logger + UI redesign (→ Excel).
-- **Phase 6** — Impress logger + UI redesign (→ PowerPoint).
-- **Phase 7** — Docker multi-stage distribution image.
+Two of the six streams are done and locked; the rest are scheduled just-in-time.
+
+| # | Stream | Status | Lands in |
+|---|---|---|---|
+| **#1** | Ribbon structure (Word ↔ LO, 692 controls) | ✅ done — [`research/ribbon/`](research/ribbon/) | grounds scope (Phase 0 / 3) |
+| **#2** | Tech-stack decision | ✅ done — [`research/tech-stack.md`](research/tech-stack.md) | grounds Phases 1–6 |
+| **#3** | Per-feature behavior + state specs (what each in-scope control does, how/where used, edge cases, and enabled/disabled/checked rules — e.g. Copy disabled with no selection) | future — just-in-time per feature-group | **Phase 3** (also feeds the verifier) |
+| **#4** | UI design-token extraction (Word colors / metrics / icons / typography → QML tokens) | future | **Phase 2** |
+| **#5** | MCP tool-surface design (map command/state surface to MCP tools + resources) | future | **Phase 4** |
+| **#6** | Verifier design (how the RL env grades a task; fed by #3) | future | **Phase 5** |
+
+---
+
+## Deferred & documented (not deleted)
+
+Doors kept open; the engine stays patchable. Per-tab cut rationale lives in each ribbon
+tab doc's "Out of scope" section.
+
+- **Group A — engine-gap families:** Draw/ink, SmartArt / Icons / 3D, WordArt text-effects,
+  Building-Blocks galleries, Table of Authorities, APA/MLA style-citations, Style Sets.
+  Future-add cost tiers: our-layer / cheap (Style Sets, Building Blocks) · bounded engine
+  patch (Table of Authorities, style-citations) · huge even with engine work (ink/Draw,
+  SmartArt, 3D).
+- **Group B — cloud/AI:** Copilot, Dictate, Transcribe, AI Editor, Smart Lookup, Researcher,
+  Acronyms, OneNote, Outlook, online pictures. Mostly our-layer additions later.
+- **Group C — niche:** CJK envelopes/postcards, postal barcodes, M365 reading modes,
+  Activation. Mostly our-layer additions later.

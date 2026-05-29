@@ -1,108 +1,118 @@
-# docs/ui — UI Flexibility Work
+# UI approach — the Word-clone chrome
 
-> Working area for the Writer UI flexibility / Word-parity effort.
-> Everything related to "make it easy to play with the UI" lives here.
+> **Purpose.** This doc records **how the Word clone's interface is built**: the
+> rendering split between our QML chrome and the engine's document pixels, the icon
+> and control toolkit, the design-token system that carries Word fidelity, font
+> substitution for a distributable image, and how engine dialogs surface as native
+> QML. It is a **decision record** for the UI layer, grounded in the locked
+> tech-stack and engine decisions (see [`../research/tech-stack.md`](../research/tech-stack.md)
+> and [`../research/ribbon/README.md`](../research/ribbon/README.md)).
+>
+> Scope note: under **Boundary A** we own the UI, command dispatch, document state,
+> the always-on logger, and the MCP server; we rent the LibreOffice engine via
+> **LOK** (in-process) only for layout, text shaping, and `.docx`/`.odt` I/O. This
+> doc covers the **UI half of Boundary A**.
 
-## Read order
+---
 
-1. **[ui-plan.md](ui-plan.md)** — the 3-week plan. Phases, principles,
-   deferred decisions, risks. Read this first to understand WHY each
-   doc here exists.
-2. **[ribbon-anatomy.md](ribbon-anatomy.md)** — source-of-truth map
-   for every button in the Writer notebookbar. Use this when you need
-   to find "where do I change X?" — file, line, UNO command, label
-   source, icon name. Phase 1.1 deliverable.
-3. **[word-palette.md](word-palette.md)** — Phase 2.1 palette
-   reference. Full hex table + registry paths.
+## 1. Principle — QML chrome, LOK document pixels
 
-## Phase status
+The interface splits cleanly in two:
 
-| Phase | Item | Status |
-|---|---|---|
-| 1.1 | ribbon-anatomy.md | shipped on main (PR #58, 2026-05-24) |
-| 1.2 | sync-ui.sh + USAGE.md hot-reload section | shipped on main (PR #58, 2026-05-24) |
-| 1.3 | notebookbar_cua.ui fork + ToolbarMode.xcu + UIConfig + a11y mirror | shipped on main (PR #58, 2026-05-24) |
-| 2.1 | Office.UI ColorScheme — CUA Word Dark palette | shipped on main (PR #59, 2026-05-24) |
-| 2.2 | GTK CSS retarget (auto-flows from 2.1 via `custom-theme.cxx`) | shipped on main (PR #59, 2026-05-24) |
-| 2.3 | Icon strategy (current `sifr_dark` vs. forked `cua_word`) | **deferred** — revisit after Phase 3 (owner decision: ship as-is, decide post-Phase-3 visual review) |
-| 3.x | DSL transpiler / file watcher / VCL patches | optional / on-demand |
+- **Chrome** — ribbon, galleries, menus, dialogs, status bar, rulers — is **QML**,
+  owned entirely by us.
+- **Document canvas** — the page the user edits — is **not** drawn by QML. The
+  pixels come from **LOK's tile buffer**: the engine renders tiles via `paintTile`,
+  and we `memcpy` that buffer onto the canvas surface.
 
-## Visual verification (owner WSL)
+This split is the foundation of the whole UI strategy. Because the document pixels
+originate in the engine's tile buffer, they are **toolkit-independent** — the canvas
+looks the same regardless of which UI toolkit hosts it. QML is therefore a free
+choice for the chrome: it carries no fidelity risk for the document itself, and the
+chrome is where Word's look actually lives. We invest the fidelity effort exactly
+where it pays off — in the chrome — and let the engine own the pixels it already
+knows how to draw.
 
-After pulling main:
+## 2. Icons — Microsoft Fluent UI System Icons, recolored
 
-```sh
-cd ~/lo-dev
-git checkout main && git pull origin main
-cd apps/libreoffice/libreoffice-codebase
+The clone uses the **Microsoft Fluent UI System Icons** — the real M365 icon family,
+released by Microsoft under the **MIT** license. These are the same glyphs that ship
+in Word, so the ribbon reads as Word rather than as a look-alike.
 
-# Build (full make is safest; if only officecfg changed since the
-# last build, `make postprocess` suffices)
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-make
+Icons are **recolored to Word tints** to match the M365 palette (the Word brand blue,
+the neutral grays of the chrome) rather than used in their default coloring.
+Recoloring is a presentation step in our layer; the glyph geometry is Microsoft's.
 
-# Confirm no user-profile shadow
-../scripts/sync-ui.sh --check-only
+## 3. Controls — FluentWinUI3 baseline, bespoke ribbon
 
-# Launch
-pkill -f soffice 2>/dev/null
-instdir/program/soffice --writer --norestore
-```
+The **base control style is Qt's `FluentWinUI3`**, which gives standard widgets
+(buttons, checkboxes, fields, combo boxes) a Fluent appearance for free.
 
-**What to look for:**
+The Word-specific surfaces, however, are **bespoke custom QML controls**: the
+**ribbon, the galleries, and the menus** are all built by us. There is **no stock
+"Word ribbon"** in any toolkit — the tabbed ribbon, the live-preview galleries, and
+the M365 menu styling do not exist off the shelf and must be authored as custom
+components. `FluentWinUI3` handles the ordinary widgets; we build the rest.
 
-- **Phase 1.3 ribbon evidence:** tab order is `File / Home / Insert /
-  Design / Layout / References / Mailings / Review / View / Help`
-  (Word M365). Vanilla "Tabbed" has different tabs (no Design, no
-  Mailings) — seeing Design + Mailings is the proof CUA variant is
-  active.
-- **Phase 2.1 palette evidence:** ribbon background `#2B2B2B`
-  (slightly lighter than vanilla DARK), accent (selection / active
-  tab underline) Word blue `#2B5797`, hover/active state bright blue
-  `#4A9EFF`. Both VCL and GTK paint surfaces should match.
-- **Quick Access Toolbar:** Save / Undo / Redo buttons in the GTK
-  HeaderBar (top-left of titlebar) — from `lo/ui-improve`.
+## 4. The design-token system — the key to fidelity
 
-**Hot-reload smoke test (Phase 1.2):**
+**This is the mechanism that makes the clone read as Word.** Fidelity does not come
+from any single control; it comes from every control drawing from one shared set of
+**design tokens**, implemented as **QML singletons**. Three token families:
 
-```sh
-$EDITOR sw/uiconfig/swriter/ui/notebookbar_cua.ui
-# rename a button label, e.g. label="Bold" -> label="Kalın"
+- **Colors** — the Word M365 **exact palette**, plus theme variants. Every surface,
+  border, hover, and accent references a named color token, never a hard-coded value.
+- **Metrics** — paddings, margins, button sizes, **ribbon height**, and the rest of
+  the spatial system. These are **measured from real Word at a known DPI** so the
+  layout matches Word's proportions rather than approximating them.
+- **Typography** — the type ramp for the chrome (sizes, weights, line metrics).
 
-../scripts/sync-ui.sh
-pkill -f soffice 2>/dev/null
-instdir/program/soffice --writer --norestore
-# Expect: renamed label visible. ~5s total, no rebuild.
-```
+Because every control reads from the same singletons, the look is consistent by
+construction and tunable in one place. Getting the tokens right — especially the
+measured metrics — is what separates "looks like Word" from "looks roughly like a
+ribbon."
 
-**Gotcha — `View → User Interface` picker (`uipickerdlg.cxx`):**
-the picker dialog UI is hardcoded to 7 built-in modes as radio
-buttons; **custom variants like CUA do not appear in the list**,
-and the dialog defaults to "Standard Toolbar" as the radio selection
-regardless of what's actually loaded. **Do not click "Apply to
-Writer" or "Apply to All" in this dialog with CUA active** — it
-will silently overwrite the CUA default with whatever radio is
-selected. Verify the active variant from terminal instead:
+## 5. Fonts — Microsoft families, open substitutes for distribution
 
-```sh
-grep ActiveWriter ~/.config/libreoffice/4/user/registrymodifications.xcu 2>/dev/null
-# (empty = using XCU shipped default = notebookbar_cua.ui)
-```
+Word uses **Segoe UI** for the chrome and **Aptos** as the document default. Both are
+**Microsoft fonts** and are not freely redistributable.
 
-## How this folder relates to the rest of `apps/libreoffice/docs/`
+For a **distributed RL image**, the clone therefore uses **open, metric-compatible
+substitutes** — **Selawik** stands in for Segoe UI — so the chrome keeps Word's
+spacing and proportions without shipping a licensed font. Where the Microsoft fonts
+**are** licensed for the deployment, they can be used directly. Metric compatibility
+is the point: the substitute must occupy the same space so the token-driven metrics
+in §4 still hold.
 
-- **`docs/last-point.md`** — what has shipped on `main`.
-- **`docs/execution-map.md`** — what's queued next.
-- **`docs/architecture/ROADMAP.md`** — owns Phase 4 (Writer UI redesign).
-  This folder is the working detail for that phase.
-- **`docs/USAGE.md`** — Phase 1.2 "Ribbon iteration" section is the
-  user-facing entry; this folder remains the developer reference.
+## 6. Dialogs — JSDialog JSON to native QML
 
-## Conventions
+Engine dialogs are not rendered by the engine. LOK emits its dialogs as **JSDialog
+JSON widget trees**, and we render those trees as **native QML dialogs**, themed by
+the **same design tokens** as the rest of the chrome. A dialog therefore looks like
+part of the Word clone, not like a LibreOffice dialog embedded in it.
 
-- New UI docs go here, not in `docs/architecture/`. Architecture is for
-  one-time decisions (phase design, mode contracts). This folder is the
-  ongoing working area.
-- Each new doc gets an entry in the read-order list above.
-- After any ribbon structural edit, regenerate `ribbon-anatomy.md` —
-  see §8 of that doc.
+This is the one place the engine source is touched: registering a dialog in
+`vcl/jsdialog/enabled.cxx` so it emits its JSON tree. That registration is the only
+sanctioned engine edit under the **no-core-edits** guardrail — it exposes an existing
+dialog, it does not change engine logic.
+
+## 7. Where the token values come from
+
+This doc specifies the **system**; it does not contain the **values**. The concrete
+color codes, the measured metrics, the type ramp, and the recolored icon set are the
+output of **research stream #4 (UI design-token extraction)**, produced **at build
+time, early in the build**, from **real Word and the Fluent specs**. The build phase
+extracts those values into the QML singletons described in §4. Until then, the token
+system is the contract; #4 fills it.
+
+## 8. Honest parity bar
+
+The target is **indistinguishable at a glance** — scoped parity, consistent with the
+fidelity bar used throughout this project: the clone reads as Word within the build
+surface, and entry points outside scope are simply absent.
+
+A prior Qt6/QML prototype felt unprofessional. That feel was a matter of
+**implementation and metrics discipline** — unmeasured spacing, ad-hoc values, no
+token system — **not a ceiling of Qt or QML**. With the measured-token system in §4
+and the bespoke controls in §3, the same toolkit reaches the parity bar. The work is
+in the discipline, not the toolkit.
