@@ -11,10 +11,10 @@ log output. For full build setup, branch flow, and conventions see
 
 After a successful build (`make` in the WSL workspace), launch from
 `instdir/program/`. All commands below assume cwd =
-`apps/libreoffice/libreoffice-codebase/` — `cd` there first.
+`apps/ms-word/libreoffice-codebase/` — `cd` there first.
 
 ```sh
-cd ~/cua-bench-lo/apps/libreoffice/libreoffice-codebase
+cd ~/cua-bench-lo/apps/ms-word/libreoffice-codebase
 instdir/program/soffice --writer            # open Writer
 instdir/program/soffice --calc              # open Calc
 instdir/program/soffice --impress           # open Impress
@@ -198,20 +198,20 @@ Files involved (see also [`docs/ui/ribbon-anatomy.md`](ui/ribbon-anatomy.md)):
 - **Edit:** `sw/uiconfig/swriter/ui/notebookbar_cua.ui` (forked variant
   — the one we own). Do NOT edit vanilla `notebookbar.ui` directly.
 - **Synced to (runtime location):** `instdir/share/config/soffice.cfg/modules/swriter/ui/notebookbar_cua.ui`
-- **Sync helper:** [`apps/libreoffice/scripts/sync-ui.sh`](../scripts/sync-ui.sh)
+- **Sync helper:** [`apps/ms-word/scripts/sync-ui.sh`](../scripts/sync-ui.sh)
 
 Workflow:
 
 ```sh
 # 1. Edit
-$EDITOR apps/libreoffice/libreoffice-codebase/sw/uiconfig/swriter/ui/notebookbar_cua.ui
+$EDITOR apps/ms-word/libreoffice-codebase/sw/uiconfig/swriter/ui/notebookbar_cua.ui
 
 # 2. Sync source -> instdir (script handles default filename, paths)
-./apps/libreoffice/scripts/sync-ui.sh
+./apps/ms-word/scripts/sync-ui.sh
 
 # 3. Restart soffice
 pkill -f soffice 2>/dev/null
-apps/libreoffice/libreoffice-codebase/instdir/program/soffice --writer --norestore
+apps/ms-word/libreoffice-codebase/instdir/program/soffice --writer --norestore
 ```
 
 ### Important caveat — user-profile UI shadowing
@@ -229,7 +229,7 @@ LO customization), **all your `instdir/` edits will be silently
 ignored**. `sync-ui.sh` warns when this is the case:
 
 ```sh
-./apps/libreoffice/scripts/sync-ui.sh --check-only
+./apps/ms-word/scripts/sync-ui.sh --check-only
 ```
 
 To resolve: `rm ~/.config/libreoffice/4/user/config/soffice.cfg/modules/swriter/ui/notebookbar*.ui`
@@ -287,7 +287,7 @@ discussion.
 
 | Symptom | Likely cause |
 |---|---|
-| `instdir/program/soffice` not found | Build didn't finish or you're outside `apps/libreoffice/libreoffice-codebase/` |
+| `instdir/program/soffice` not found | Build didn't finish or you're outside `apps/ms-word/libreoffice-codebase/` |
 | Session dir created but logs empty | Logger crashed during `initialize` — check stderr for `rllogger:` lines |
 | `semantic.jsonl` has events but `trigger: "menu"` for shortcuts | Stale binary — rebuild with `make rllogger desktop` |
 | `outcome.jsonl` empty in headless smoke | Expected — `--terminate_after_init` exits before the 250 ms timer fires |

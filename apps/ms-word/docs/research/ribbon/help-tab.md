@@ -93,7 +93,7 @@ One subsection per Word ribbon group. `LO .uno:` is the mapped LibreOffice comma
 ## LO-source verification
 
 These mappings were checked against the vendored LibreOffice tree at
-`apps/libreoffice/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
+`apps/ms-word/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
 Two are **material corrections** (the project Help-tab control count; the F1 binding mechanism);
 the rest **confirm** the mapped command, label, tooltip, slot, and (where cited) behavior. All
 Help-related commands live in `GenericCommands.xcu` (shared/generic), **not** `WriterCommands.xcu`
@@ -106,7 +106,7 @@ Help-related commands live in `GenericCommands.xcu` (shared/generic), **not** `W
   **THREE** controls, not two: `.uno:HelpIndex` (Help-HelpIndex), `.uno:SendFeedback`
   (Help-SendFeedback), and `.uno:About` (Help-About) — for both the stock `notebookbar.ui` and
   the project's `notebookbar_cua.ui`. The claim omits SendFeedback. (`ribbon.json` itself was not
-  found anywhere under `apps/libreoffice/`, so that external artifact could not be verified
+  found anywhere under `apps/ms-word/`, so that external artifact could not be verified
   directly; the LO UI source it should mirror has 3 controls.) Evidence:
   `sw/uiconfig/swriter/ui/notebookbar_cua.ui:10038-10060` (HelpIndex, SendFeedback, About); same
   in `sw/uiconfig/swriter/ui/notebookbar.ui:10038-10058`.
@@ -181,7 +181,7 @@ Help-related commands live in `GenericCommands.xcu` (shared/generic), **not** `W
 > SendFeedback/QuestionAnswers/WhatsNew all route through `sfx2::openUriExternally` (external
 > default browser); HelpIndex routes through `SfxHelp` (offline viewer if a help pack is installed,
 > else the online help link in the browser). `ribbon.json` and `command-catalog.json` could **not**
-> be found anywhere under `apps/libreoffice/`, so the mapping's references to '1520 commands' and
+> be found anywhere under `apps/ms-word/`, so the mapping's references to '1520 commands' and
 > exact `ribbon.json` membership are external artifacts not validated against the source tree;
 > verification used the canonical LO UI config (`notebookbar*.ui` / `menubar.xml`) instead. The
 > Word-side claims (docked task pane, smile/frown, MS support agent, File>Account home for About,

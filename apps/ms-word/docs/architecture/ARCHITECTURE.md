@@ -9,8 +9,8 @@
 > ribbon comparison, 692 controls) and [`../research/tech-stack.md`](../research/tech-stack.md)
 > (the tech-stack decision). This doc assumes both.
 >
-> Note on location: this lives under `apps/libreoffice/` because the LibreOffice **engine**
-> (rented via LOK) lives here. `apps/libreoffice/` is now the rented engine **plus** the
+> Note on location: this lives under `apps/ms-word/` because the LibreOffice **engine**
+> (rented via LOK) lives here. `apps/ms-word/` is now the rented engine **plus** the
 > Word-clone decision record and research — the earlier LibreOffice-reskin approach is
 > superseded (git history retains it).
 

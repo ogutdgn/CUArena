@@ -6,7 +6,7 @@
 > doc is the ribbon comparison at [`ribbon/README.md`](ribbon/README.md), which establishes *what*
 > we build (the ~487-control build surface); this doc establishes *how* it is built.
 >
-> Note on location: this lives under `apps/libreoffice/` because the LibreOffice **engine** (rented
+> Note on location: this lives under `apps/ms-word/` because the LibreOffice **engine** (rented
 > via LOK) lives here. The eventual home may move to wherever the clone app lives.
 
 ---

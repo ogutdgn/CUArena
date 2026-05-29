@@ -284,7 +284,7 @@ One subsection per Word ribbon group. `LO .uno:` is the mapped LibreOffice comma
 ## LO-source verification
 
 These mappings were checked against the vendored LibreOffice tree at
-`apps/libreoffice/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
+`apps/ms-word/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
 One is a **material correction** (Page Number); the rest **confirm** the mapped command, label,
 tooltip, slot, and (where cited) shortcut. The single **UNCERTAIN** item (Document Property) is
 noted but not treated as authoritative.
