@@ -6,8 +6,8 @@
 > difference implies — so we can decide the clone's **engine / core structure** on evidence
 > and lock the **parity scope** (what we build now vs. what we cut).
 >
-> Not to be confused with [`../ui/ribbon-anatomy.md`](../ui/ribbon-anatomy.md), which documents
-> *LibreOffice's own* ribbon. **This folder is the Word↔LO comparison.**
+> This is the **Word↔LibreOffice comparison** (Word's ribbon vs. LO's `.uno:` command
+> surface) — not LibreOffice's own UI documentation.
 >
 > Note on location: it lives under `apps/ms-word/` because the LibreOffice **engine**
 > (kept via LOK) lives here. The eventual home may move to wherever the clone app lives.
