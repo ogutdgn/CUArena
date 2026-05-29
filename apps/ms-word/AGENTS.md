@@ -32,6 +32,8 @@ command dispatch, document state, an always-on logger, and an **MCP server** —
    no-core-edits guardrail, distribution.
 4. [`docs/research/README.md`](docs/research/README.md) — the research catalog.
 5. [`docs/ui/README.md`](docs/ui/README.md) — the UI approach.
+6. [`docs/verification.md`](docs/verification.md) — the verification protocol: the definition
+   of done for every phase / feature.
 
 ---
 
@@ -101,4 +103,7 @@ Engine build recipe details belong with the build tooling on the build branch.
 - **Owner preferences:** reply in **Turkish** to Turkish questions (docs stay English); state
   **trade-offs explicitly**; **push back** with a counter-view when warranted; **quality over
   speed**.
+- **Verification:** every phase / feature meets the definition of done in
+  [`docs/verification.md`](docs/verification.md) — *done* = green tests that fail when the
+  claim is false.
 - Keep `docs/last-point.md` and `docs/execution-map.md` current at session end.
