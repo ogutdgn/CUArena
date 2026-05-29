@@ -52,6 +52,9 @@ All foundational decisions are made and recorded on this branch.
   Style Sets), (B) cloud/AI (Copilot, Dictate, Transcribe, AI Editor, Smart Lookup,
   Researcher, online pictures), and (C) niche (CJK envelopes/postcards, postal barcodes,
   M365 reading modes, Activation).
+- **Verification discipline.** Every phase / feature meets the definition of done in
+  [`verification.md`](verification.md) — *done* = green tests (CMake/CTest, headless) that
+  fail when the claim is false. The per-phase bar and per-feature DoD live there.
 
 ---
 
