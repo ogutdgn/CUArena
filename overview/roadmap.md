@@ -7,7 +7,7 @@
 ## Sequence
 
 1. **Figma** — active. Mock + verifier shipping. Pending work tracked in `apps/figma/app-docs/execution-map.md`.
-2. **LibreOffice** — active in parallel, decoupled. Real Linux binary (stripped LibreOffice fork). Phases 1-4 done (module strip, rllogger V1.1, Writer UI parity vs MS Word). Phases 5 (Calc + Excel UI parity), 6 (Impress + PowerPoint UI parity), and 7 (Docker multi-stage image) pending. Tracked in [apps/libreoffice/docs/architecture/ROADMAP.md](../apps/libreoffice/docs/architecture/ROADMAP.md).
+2. **LibreOffice** — active in parallel, decoupled. Real Linux binary (stripped LibreOffice fork). Phases 1-4 done (module strip, rllogger V1.1, Writer UI parity vs MS Word). Phases 5 (Calc + Excel UI parity), 6 (Impress + PowerPoint UI parity), and 7 (Docker multi-stage image) pending. Tracked in [apps/ms-word/docs/architecture/ROADMAP.md](../apps/ms-word/docs/architecture/ROADMAP.md).
 3. **Sheets** — next TS mock. Will start with a research cycle (Google Sheets help docs → filtered helper → architecture decision), then mock skeleton, then verifier.
 4. **Docs** — last. Text editing has the hardest semantic-event design (caret/range/run model); doing it after Figma's `text-range` work and Sheets' verifier-framework lessons gives the best foundation.
 
@@ -32,7 +32,7 @@ Open priorities: outcome-stream correlation IDs, unsupported-button toast / rena
 
 ### LibreOffice — current (Phases 5-7 pending)
 
-Tracked in [apps/libreoffice/docs/architecture/ROADMAP.md](../apps/libreoffice/docs/architecture/ROADMAP.md).
+Tracked in [apps/ms-word/docs/architecture/ROADMAP.md](../apps/ms-word/docs/architecture/ROADMAP.md).
 Done: Phase 1 (module strip), Phase 3 (rllogger V1.1 — default-on, three-stream), Phase 4 (Writer UI parity vs MS Word — tabbed notebookbar, dark theme, sifr_dark icons, sidebar suppressed, Home group restructure). Phase 2 cancelled (Docker ships binary, source restructure cost > benefit).
 Open: **Phase 5** — Calc logger additions + UI parity vs Excel. **Phase 6** — same for Impress vs PowerPoint. **Phase 7** — Docker multi-stage image with pre-built `instdir/` baked in; this is the ship vehicle for downstream RL agents.
 

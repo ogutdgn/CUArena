@@ -1,6 +1,6 @@
-# CLAUDE.md — `apps/libreoffice/`
+# CLAUDE.md — `apps/ms-word/`
 
-> Context file for Claude Code (and other agents) working in `apps/libreoffice/`.
+> Context file for Claude Code (and other agents) working in `apps/ms-word/`.
 > **Short by design** — the real content lives in [`docs/`](docs/). Mirror for
 > non-Claude tooling: [`AGENTS.md`](AGENTS.md).
 
@@ -8,7 +8,7 @@
 
 ## What this folder is now
 
-`apps/libreoffice/` is **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`,
+`apps/ms-word/` is **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`,
 driven headlessly via **LibreOfficeKit / LOK**) **and (2) the MS-Word-clone _decision record
 & research_.** We are building a native **Qt6 Microsoft-Word clone** as a CUA (computer-using-
 agent) RL environment; LibreOffice is rented purely as a document engine behind the LOK

@@ -182,7 +182,7 @@ marked **✓ verified vs LO source** in the note.
 ## LO-source verification
 
 These mappings were checked against the vendored LibreOffice tree at
-`apps/libreoffice/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
+`apps/ms-word/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
 The pass returned **no material LO correction** for this tab (unlike Insert's Page-Number defect):
 the mail-merge command surface the mapping asserted is real and was confirmed end-to-end. Two
 **descriptive** corrections (neither changes a verdict) and the headline F4 fix are folded in

@@ -1,6 +1,6 @@
 # cua-bench — Repo-Root Agent Guide
 
-You are working in `cua-bench`, a monorepo for CUA evaluation. There are **four apps** here (figma, sheets, docs, libreoffice); each is a CUA environment with its own logger + (where applicable) verifier + helper corpus. Cross-app conventions live at the repo root.
+You are working in `cua-bench`, a monorepo for CUA evaluation. There are **four apps** here (figma, sheets, docs, ms-word); each is a CUA environment with its own logger + (where applicable) verifier + helper corpus. Cross-app conventions live at the repo root.
 
 If you were dispatched to work on a single app, read that app's CLAUDE.md instead and treat this file as the wider context.
 
@@ -31,23 +31,20 @@ cua-bench/
 │   │   └── scripts/              CLI entry-points + logs/scores output
 │   ├── sheets/                   planned — skeleton only
 │   ├── docs/                     planned — skeleton only
-│   └── libreoffice/              active — stripped LibreOffice fork (Writer + Calc + Impress)
-│       │                          as a real-binary CUA runtime, instrumented with rllogger
-│       ├── CLAUDE.md             ← READ THIS when working on the libreoffice app
-│       ├── AGENTS.md             full project guide (workflow, build, gotchas)
+│   └── ms-word/                  active — MS Word clone (native Qt6 + LOK; decisions locked, build pending)
+│       ├── CLAUDE.md             ← READ THIS when working on the ms-word app
+│       ├── AGENTS.md             full guide (decisions, doc map, conventions)
 │       ├── README.md             app entry point
-│       ├── docs/architecture/    ROADMAP.md, PHASE3_LOGGER_DESIGN.md, PHASE4_*.md
-│       ├── docs/USAGE.md         day-to-day commands (launching soffice, logs, export)
-│       └── libreoffice-codebase/ vendored 143k-file LO tree + our LO-internal mods
-│           ├── rllogger/         three-stream event logger (raw / semantic / outcome)
-│           ├── sw/, sc/, sd/ ... LibreOffice source modules (Writer / Calc / Impress + deps)
-│           ├── Makefile.in       build entry (cd here before running make)
-│           └── instdir/, workdir/  build outputs (gitignored)
+│       ├── docs/architecture/ARCHITECTURE.md   Boundary A · in-process LOK · Qt6+QML · MCP sidecar
+│       ├── docs/research/        all research — ribbon (Word↔LO, 692 controls) + tech-stack
+│       ├── docs/ui/              UI approach (QML + Fluent icons + design tokens)
+│       ├── docs/{last-point,execution-map}.md   current state + phased roadmap
+│       └── libreoffice-codebase/ vendored LibreOffice engine (rented via LOK; not edited day-to-day)
 └── shared/                       future: extracted shared verifier framework
                                   (intentionally empty until a 2nd app is shipped)
 ```
 
-Note: **libreoffice is shaped differently** from figma/sheets/docs — it's a real LibreOffice binary instrumented with a logger, not a TypeScript mock. No verifier yet (planned for a later phase). The three-stream log contract still applies (see [apps/libreoffice/docs/architecture/ROADMAP.md](apps/libreoffice/docs/architecture/ROADMAP.md)).
+Note: **ms-word is shaped differently** from figma/sheets/docs — it's a native Qt6 app that rents LibreOffice's real engine via LOK (not a TypeScript mock), built as an MS Word clone. The engine decision + the 692-control Word↔LO ribbon research are locked; the build hasn't started. No verifier yet (planned for a later phase). The three-stream log contract still applies (see [apps/ms-word/docs/architecture/ARCHITECTURE.md](apps/ms-word/docs/architecture/ARCHITECTURE.md)).
 
 ---
 
@@ -58,7 +55,7 @@ For app-specific work, **start at the app's CLAUDE.md** — it is the source of 
 | App | Status | Entry point |
 |---|---|---|
 | **figma** | active | [apps/figma/CLAUDE.md](apps/figma/CLAUDE.md) |
-| **libreoffice** | active (Phase 4 done; logger V1.1) | [apps/libreoffice/CLAUDE.md](apps/libreoffice/CLAUDE.md) |
+| **ms-word** | active — MS Word clone (decisions locked; build pending) | [apps/ms-word/CLAUDE.md](apps/ms-word/CLAUDE.md) |
 | **sheets** | planned | (skeleton not yet created) |
 | **docs** | planned | (skeleton not yet created) |
 

@@ -6,7 +6,7 @@
 > (engine, tech-stack, scope) and the grounding inventory at
 > [`research/ribbon/README.md`](research/ribbon/README.md).
 >
-> Note on location: this lives under `apps/libreoffice/` because the LibreOffice
+> Note on location: this lives under `apps/ms-word/` because the LibreOffice
 > **engine** (rented via LOK) lives here. From now on this app directory is *the
 > rented LibreOffice engine + the MS-Word-clone decision record & research*; the
 > prior LibreOffice-reskin approach is superseded.

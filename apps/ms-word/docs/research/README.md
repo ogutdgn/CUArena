@@ -7,8 +7,8 @@
 > comparison. Decisions cite this folder; this folder does not speculate beyond what's
 > verified.
 >
-> Note on location: it lives under `apps/libreoffice/` because the LibreOffice **engine**
-> (rented via LOK) lives here. `apps/libreoffice/` is now the rented LibreOffice **engine**
+> Note on location: it lives under `apps/ms-word/` because the LibreOffice **engine**
+> (rented via LOK) lives here. `apps/ms-word/` is now the rented LibreOffice **engine**
 > plus the MS Word clone **decision record & research**; the eventual home may move to
 > wherever the clone app lives.
 

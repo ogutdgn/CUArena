@@ -167,7 +167,7 @@ One subsection per Word ribbon group. `LO .uno:` is the mapped LibreOffice comma
 ## LO-source verification
 
 These mappings were checked against the vendored LibreOffice tree at
-`apps/libreoffice/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
+`apps/ms-word/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
 Every row whose `loUno` is non-null, plus the menu/container labels and the suspect `differs`
 behavior claims, were verified directly against `officecfg` `.xcu` command/label files,
 `Accelerators.xcu`, `sw/sdi/swriter.sdi`, and one `.cxx` source (`viewling.cxx` for Hyphenate

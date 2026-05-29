@@ -1,14 +1,14 @@
-# AGENTS.md — `apps/libreoffice/`
+# AGENTS.md — `apps/ms-word/`
 
 > Canonical guide for AI coding agents (Codex, Cursor, Copilot, Claude, …) working in
-> `apps/libreoffice/`. Mirror of [`CLAUDE.md`](CLAUDE.md), with a bit more detail. **Read the
+> `apps/ms-word/`. Mirror of [`CLAUDE.md`](CLAUDE.md), with a bit more detail. **Read the
 > `docs/` set before starting any task** (order below).
 
 ---
 
 ## 1. What this folder is
 
-`apps/libreoffice/` = **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`, driven
+`apps/ms-word/` = **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`, driven
 headlessly via **LibreOfficeKit / LOK**) **+ (2) the MS-Word-clone _decision record & research_.**
 
 We are building a **native Qt6 Microsoft-Word clone** as a CUA (computer-using-agent) RL

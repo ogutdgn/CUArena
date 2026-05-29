@@ -9,9 +9,9 @@ Last updated: 2026-05-29
 
 ---
 
-## What `apps/libreoffice/` is now
+## What `apps/ms-word/` is now
 
-`apps/libreoffice/` is **the rented LibreOffice engine + the MS-Word-clone decision
+`apps/ms-word/` is **the rented LibreOffice engine + the MS-Word-clone decision
 record & research**. The project is a Microsoft Word clone built as a CUA
 (computer-using-agent) RL environment inside the `cua-bench` monorepo.
 

@@ -9,7 +9,7 @@
 > Not to be confused with [`../ui/ribbon-anatomy.md`](../ui/ribbon-anatomy.md), which documents
 > *LibreOffice's own* ribbon. **This folder is the Word↔LO comparison.**
 >
-> Note on location: it lives under `apps/libreoffice/` because the LibreOffice **engine**
+> Note on location: it lives under `apps/ms-word/` because the LibreOffice **engine**
 > (kept via LOK) lives here. The eventual home may move to wherever the clone app lives.
 
 ---

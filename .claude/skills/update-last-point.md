@@ -1,11 +1,11 @@
 ---
 name: update-last-point
-description: Use after every commit / branch merge / push to main that lands real work, AND at session end. Refreshes apps/libreoffice/docs/last-point.md with what is currently shipped on main. Triggered whenever the user says "session bitti", "last-point güncelle", or anything is squash-merged.
+description: Use after every commit / branch merge / push to main that lands real work, AND at session end. Refreshes apps/ms-word/docs/last-point.md with what is currently shipped on main. Triggered whenever the user says "session bitti", "last-point güncelle", or anything is squash-merged.
 ---
 
 # Update Last Point
 
-Refresh `apps/libreoffice/docs/last-point.md` so it accurately reflects
+Refresh `apps/ms-word/docs/last-point.md` so it accurately reflects
 what is shipped on `main` right now. Used by future agents to learn
 the current state without reading commit history.
 
@@ -13,7 +13,7 @@ the current state without reading commit history.
 
 1. Read `git log --oneline -30` to see what has landed on `main`
    recently.
-2. Cross-reference `apps/libreoffice/docs/architecture/ROADMAP.md`
+2. Cross-reference `apps/ms-word/docs/architecture/ROADMAP.md`
    for phase context.
 3. Rewrite the `## Shipped on \`main\`` and `## Code touchpoints`
    sections. Update the `Last updated` date.

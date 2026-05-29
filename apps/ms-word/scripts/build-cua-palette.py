@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-UI_XCU = REPO_ROOT / "apps/libreoffice/libreoffice-codebase/officecfg/registry/data/org/openoffice/Office/UI.xcu"
+UI_XCU = REPO_ROOT / "apps/ms-word/libreoffice-codebase/officecfg/registry/data/org/openoffice/Office/UI.xcu"
 
 NEW_SCHEME = "COLOR_SCHEME_CUA_WORD_DARK"
 
