@@ -58,8 +58,8 @@ A single mock would test agents only against one UI archetype. The four chosen h
 Together they cover the bulk of office-style CUA evaluation surface area, plus the real-binary case that catches behaviours specific to native UIs (window manager interaction, OS clipboard, focus-stealing dialogs) that browser mocks abstract away.
 
 **Real binary vs TS mock — what's different about the libreoffice app:**
-- Built from a vendored LibreOffice fork at [apps/libreoffice/libreoffice-codebase/](../apps/libreoffice/libreoffice-codebase/), not from TypeScript. Requires a WSL/Linux build (~30 min with cached tarballs, ~3 h cold).
-- Logger is a C++ module ([rllogger/](../apps/libreoffice/libreoffice-codebase/rllogger/)) linked into the binary, default-on, writes to `~/.lo-rl-logs/<sessionId>/`. Same three-stream contract as the TS mocks.
+- Built from a vendored LibreOffice fork at [apps/ms-word/libreoffice-codebase/](../apps/ms-word/libreoffice-codebase/), not from TypeScript. Requires a WSL/Linux build (~30 min with cached tarballs, ~3 h cold).
+- Logger is a C++ module ([rllogger/](../apps/ms-word/libreoffice-codebase/rllogger/)) linked into the binary, default-on, writes to `~/.lo-rl-logs/<sessionId>/`. Same three-stream contract as the TS mocks.
 - No verifier yet — Phase 5/6 will add Calc and Impress equivalents of Phase 4's Writer UI parity; verifier framework comes after that.
 
 ---

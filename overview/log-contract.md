@@ -1,6 +1,6 @@
 # Cross-App Log Contract
 
-> **Status: PARTIAL.** Two apps emit logs against this contract: figma (TS mock) and libreoffice (real binary via the [rllogger](../apps/libreoffice/libreoffice-codebase/rllogger/) module). Sheets and Docs are still placeholders. The contract section below will be promoted from "two implementations" to "canonical source of truth" once one more app ships.
+> **Status: PARTIAL.** Two apps emit logs against this contract: figma (TS mock) and libreoffice (real binary via the [rllogger](../apps/ms-word/libreoffice-codebase/rllogger/) module). Sheets and Docs are still placeholders. The contract section below will be promoted from "two implementations" to "canonical source of truth" once one more app ships.
 
 ---
 
@@ -11,7 +11,7 @@
 - Per-event schemas for figma semantic events
 - The full `OutcomeSnapshot` shape for figma's scene graph
 
-**libreoffice** — real Linux binary (stripped LibreOffice fork). Schema specified at [apps/libreoffice/docs/architecture/PHASE3_LOGGER_DESIGN.md](../apps/libreoffice/docs/architecture/PHASE3_LOGGER_DESIGN.md) and [apps/libreoffice/AGENTS.md §4.3](../apps/libreoffice/AGENTS.md). Defines:
+**libreoffice** — real Linux binary (stripped LibreOffice fork). Schema specified at [apps/ms-word/docs/architecture/PHASE3_LOGGER_DESIGN.md](../apps/ms-word/docs/architecture/PHASE3_LOGGER_DESIGN.md) and [apps/ms-word/AGENTS.md §4.3](../apps/ms-word/AGENTS.md). Defines:
 - `raw.jsonl` — VCL key/mouse/focus/command/gesture events
 - `semantic.jsonl` — `.uno:*` dispatches mapped to RL-friendly names with `args`, `trigger`, `rawEventIdRange`
 - `outcome.jsonl` — document URL, modified flag, counts, cursor, selection, format-at-cursor; rewritten every 250 ms

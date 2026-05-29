@@ -12,7 +12,7 @@
 #   sync-ui.sh --check-only    # only check for user-profile shadowing
 #
 # WSL caveat: this is bash, designed to run inside WSL alongside the build.
-# Owner build path: ~/lo-dev/apps/libreoffice/... (separate from cua-bench
+# Owner build path: ~/lo-dev/apps/ms-word/... (separate from cua-bench
 # OneDrive checkout). Either checkout works as long as the build's instdir
 # exists.
 
