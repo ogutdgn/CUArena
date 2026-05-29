@@ -57,7 +57,6 @@ boundary.
 | `docs/architecture/WRITER_CALC_EXTRACTION.md` | engine strip reference (which LO modules can be removed) |
 | `docs/research/` | all research: catalog + #1 ribbon (`ribbon/`) + #2 tech-stack (`tech-stack.md`); #3–#6 written at build time |
 | `docs/ui/README.md` | UI approach (QML + Fluent + design tokens) |
-| `docs/USAGE.md` | engine day-to-day commands |
 | `libreoffice-codebase/` | the vendored LibreOffice engine (built to LOK; not edited day-to-day) |
 
 ---

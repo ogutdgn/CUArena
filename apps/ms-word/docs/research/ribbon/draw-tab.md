@@ -309,13 +309,13 @@ underlying command/slot facts it depends on are confirmed.
 
 - **`ribbon.json` artifact referenced in the Page Color / BackgroundColor and 'Draw'-tab notes.**
   No file literally named `ribbon.json` exists anywhere under `apps/ms-word/` — the ribbon
-  comparison is maintained as per-tab markdown (`apps/ms-word/docs/ribbon/{home,insert,
+  comparison is maintained as per-tab markdown (`apps/ms-word/docs/research/ribbon/{home,insert,
   references,mailings,review}-tab.md`), and this `draw-tab.md` is the previously-missing entry. The
   DOWNSTREAM facts those notes rely on are independently confirmed against the LO source (a 'Draw'
   tab exists in `notebookbar_cua.ui`; `.uno:BackgroundColor` is bound there; the argName `.Color` is
   consistent with the `SvxColorItem` slot). So the commands/behaviors are CONFIRMED; only the
   existence of an artifact literally named `ribbon.json` is UNCERTAIN. Evidence: Glob `**/ribbon.json`
-  → no files; `apps/ms-word/docs/ribbon/` contains only README.md + the per-tab markdown files.
+  → no files; `apps/ms-word/docs/research/ribbon/` contains only README.md + the per-tab markdown files.
 
 ---
 

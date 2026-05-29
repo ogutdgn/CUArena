@@ -1,32 +1,31 @@
-# libreoffice — stripped LibreOffice fork as a CUA runtime
+# ms-word — Microsoft Word clone (CUA RL environment)
 
-Real-binary CUA environment. Writer / Calc / Impress, instrumented with the [rllogger](libreoffice-codebase/rllogger/) module that emits a three-stream raw/semantic/outcome log per session (same contract as figma's TS mock — see [../../overview/log-contract.md](../../overview/log-contract.md)).
+A native **Qt6** Microsoft-Word-like editor, built as a CUA (computer-using-agent) RL
+environment. It **owns** the UI, command dispatch, document state, an always-on
+raw/semantic/outcome logger, and an MCP server; it **rents** LibreOffice's real engine via
+**LibreOfficeKit (LOK)** for layout, text shaping, and `.docx`/`.odt` I/O. We call this line
+**Boundary A**.
+
+> **Status: decisions locked; build not started.** The engine choice, the 692-control
+> Word↔LibreOffice ribbon research, the tech stack, and the parity scope are all decided and
+> recorded. The earlier "reskin LibreOffice's notebookbar" approach is **superseded** (git
+> history retains it).
+
+## Start here
+
+1. [CLAUDE.md](CLAUDE.md) — agent guide, read-order, and locked decisions (read first).
+2. [docs/last-point.md](docs/last-point.md) — current state.
+3. [docs/execution-map.md](docs/execution-map.md) — phased build roadmap.
+4. [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) — Boundary A, process model, components.
+5. [docs/research/README.md](docs/research/README.md) — the research catalog (ribbon + tech-stack done; per-feature / UI-tokens / MCP / verifier happen at build time).
 
 ## What's where
 
 | Path | What |
 |---|---|
-| [CLAUDE.md](CLAUDE.md) | Claude-specific agent guide — read first when working here |
-| [AGENTS.md](AGENTS.md) | Full project guide (workflow, build, conventions, gotchas) |
-| [docs/architecture/ROADMAP.md](docs/architecture/ROADMAP.md) | Canonical phase plan + decision log |
-| [docs/USAGE.md](docs/USAGE.md) | Day-to-day commands (launch, logs, export) |
-| [libreoffice-codebase/](libreoffice-codebase/) | Vendored LibreOffice fork (143k files) + our LO-internal additions ([rllogger/](libreoffice-codebase/rllogger/), Phase 4 UI mods in [sw/](libreoffice-codebase/sw/), build aux files) |
+| [CLAUDE.md](CLAUDE.md) / [AGENTS.md](AGENTS.md) | agent guides — decisions, doc map, conventions |
+| [docs/](docs/) | decisions + research: `architecture/`, `research/` (ribbon, tech-stack), `ui/`, `last-point.md`, `execution-map.md` |
+| [libreoffice-codebase/](libreoffice-codebase/) | vendored LibreOffice engine — rented via LOK, not edited day-to-day |
 
-## Build (WSL ext4 only — never on /mnt/c)
-
-```sh
-cd apps/ms-word/libreoffice-codebase
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-./autogen.sh --without-java --without-help --disable-xmlhelp \
-    --disable-libcmis --disable-firebird-sdbc --disable-postgresql-sdbc \
-    --disable-mariadb-sdbc --disable-online-update --disable-extension-update \
-    --disable-pdfimport --disable-librelogo --disable-opencl
-make
-instdir/program/soffice --writer
-```
-
-Full first build: ~3 h cold, ~30 min if `external/tarballs` is pre-populated. `make sw sc sd` for incremental.
-
-## Status
-
-Phase 4 done (Writer UI parity with MS Word). Phase 3 logger V1.1 default-on. Calc + Impress equivalents (Phases 5–6) and Docker distribution (Phase 7) pending. See [docs/architecture/ROADMAP.md](docs/architecture/ROADMAP.md).
+The clone's app code does not exist yet; it is built on a fresh branch off `main` following
+the phases in [docs/execution-map.md](docs/execution-map.md).
