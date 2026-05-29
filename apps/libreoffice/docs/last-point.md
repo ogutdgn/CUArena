@@ -1,93 +1,93 @@
-# LibreOffice — Last Point
+# Last point — MS Word clone
 
-> Current state of the cua-bench LibreOffice fork. **What's shipped on
-> `main`** — nothing else. Auto-maintained by the `update-last-point`
-> skill.
+> **Current state, present tense.** This file records what is *true now* on the
+> `ms-word/decision-making` branch — decisions locked and research committed — and
+> nothing aspirational. For what comes next, see
+> [`execution-map.md`](execution-map.md).
 
-Last updated: 2026-05-24
+Last updated: 2026-05-29
 
 ---
 
-## Shipped on `main`
+## What `apps/libreoffice/` is now
 
-- **Phase 0** — Vanilla build verified.
-- **Phase 1** — Module deletions, 7 groups (1A–1G).
-- **Phase 3** — Writer logger V1.1 (raw / semantic / outcome streams,
-  always-on, `~/.lo-rl-logs/<session>/`).
-- **Phase 4 V1** — Writer UI redesign: Tabbed notebookbar default,
-  Word tab order (File / Home / Insert / Design / Layout / References
-  / Mailings / Review / View / Help), dark theme, `sifr_dark` icons,
-  Home tab restructured to Word's 8 groups, sidebar suppressed.
-- **lo/ui-improve** (squash-merged `5d5d6db39`) —
-  - GTK Client-Side Decoration: `GtkHeaderBar` titlebar on every
-    document workspace toplevel (Writer / Calc / Impress).
-  - Quick Access Toolbar in the HeaderBar: Save / Undo / Redo
-    GtkButtons dispatching through `comphelper::dispatchCommand`.
-  - HeaderBar decoration layout forced to
-    `:minimize,maximize,close`, no subtitle slot.
-  - Tab-strip hamburger menu (`m_pOpenMenu`) and in-tab-strip
-    shortcuts ToolBox (`m_pShortcuts`) hidden; tab row reclaims the
-    full strip.
-- **Phase 4 V2 — UI flexibility foundation** (PR #58, merged
-  2026-05-24, `be3303759`). Owner-iterable ribbon via fork +
-  hot-reload. See [`docs/ui/`](ui/README.md) and
-  [`docs/ui/ui-plan.md`](ui/ui-plan.md).
-  - Ribbon anatomy map ([`docs/ui/ribbon-anatomy.md`](ui/ribbon-anatomy.md)) —
-    every Home-tab button → file:line + UNO command + icon/label
-    source. Other tabs at group-level.
-  - Hot-reload workflow — `scripts/sync-ui.sh` (with user-profile
-    shadow check) + USAGE.md "Ribbon iteration" section. Edit
-    `.ui` + sync + restart = ~5s loop, no rebuild.
-  - CUA notebookbar variant — `notebookbar_cua.ui` forked from
-    vanilla (17,349 lines). Registered in `ToolbarMode.xcu` as
-    `Applications/Writer/Modes/CUA`, set as Writer default. Build
-    integration via `sw/UIConfig_swriter.mk` +
-    `solenv/sanitizers/ui/modules/swriter.{false,suppr}` mirrors.
-- **Phase 4 V2.1 — CUA Word Dark palette** (PR #59, merged
-  2026-05-24, `5b2d935f2`).
-  New `Office.UI/ColorScheme` named `COLOR_SCHEME_CUA_WORD_DARK`,
-  set as the default `CurrentColorScheme`. Vanilla schemes
-  (AUTOMATIC / LIGHT / DARK) preserved. Built by idempotent
-  generator script [`scripts/build-cua-palette.py`](../scripts/build-cua-palette.py);
-  32 high-impact ThemeColors keys pinned (ribbon `#2B2B2B`,
-  AccentColor `#2B5797` Word blue, ActiveColor `#4A9EFF`, etc.).
-  Full palette table in [`docs/ui/word-palette.md`](ui/word-palette.md).
-  Affects both VCL paint and GTK paint (via
-  `custom-theme.cxx`'s auto-flow from `ThemeColors`).
-- **Phase 2 tail cleanup** (merged direct to `main` 2026-05-24).
-  - **Hide vanilla menubar in CUA notebookbar variant** —
-    `ToolbarMode.xcu` CUA entry `HasMenubar=true → false` for Word
-    M365 parity (Word has no menubar above the ribbon). Schema
-    default for `HasMenubar` is `false`, so the compiled `main.xcd`
-    omits the property post-flip; same effect, leaner config.
-    Visually confirmed by owner on WSLg.
-  - **`View → User Interface` picker overwrite risk documented**
-    in [`docs/USAGE.md`](USAGE.md). Picker dialog is hardcoded to
-    7 built-in modes (CUA absent); "Apply" silently overwrites
-    the CUA default. Section includes terminal-only verification
-    snippet (`grep ActiveWriter registrymodifications.xcu`).
-  - **Phase 2.3 (icon strategy decision) deferred** to post-Phase-3
-    per owner decision. Visual review of the icon gap is more
-    informative against the more complete UI after Phase 3 lands.
-    See [`docs/execution-map.md`](execution-map.md) "Deferred".
-  - **Restore exec bit on `apps/libreoffice/scripts/sync-ui.sh`
-    and `build-cua-palette.py`** — git mode regression from the
-    Windows-side import, same class of bug as commit `32aa78b04`.
+`apps/libreoffice/` is **the rented LibreOffice engine + the MS-Word-clone decision
+record & research**. The project is a Microsoft Word clone built as a CUA
+(computer-using-agent) RL environment inside the `cua-bench` monorepo.
 
-## On feature branches, pending PR / merge
+The previous **LibreOffice-reskin approach is superseded** — the old Phase 1–4 work
+(stripping LibreOffice, an `rllogger` embedded inside the engine, reskinning LO's
+notebookbar) is no longer the plan, and its docs were removed. Git history retains
+them; do not treat the reskin as current.
 
-_(none — between phases on `main`)_
+---
 
-## Current branch
+## Locked decisions
 
-`main` — Phase 4 V2 + V2.1 + Phase 2 tail cleanup all shipped.
-Next feature work begins Phase 3 (DSL transpiler / watcher daemon /
-VCL paint patches — all optional, owner picks based on what hurt
-during Phases 1+2). Phase 2.3 (icon strategy) deferred until after
-Phase 3 visual review.
+All foundational decisions are made and recorded on this branch.
 
-## Code touchpoints (last shipped change on `main`)
+- **Engine — LibreOffice via LOK (in-process), "Boundary A."** We rent LibreOffice's
+  real engine through LibreOfficeKit (in-process C/C++) for layout, text shaping, and
+  `.docx`/`.odt` I/O. We **own** the UI, command dispatch, document state, an always-on
+  raw/semantic/outcome logger, and an MCP server.
+- **Discipline — scoped parity + no-core-edits.** Indistinguishable within scope, entry
+  points removed outside it. We do not edit LO engine logic to chase a feature; the only
+  sanctioned engine touch is registering dialogs in `vcl/jsdialog/enabled.cxx`. The
+  guardrail is policy, not a wall — the engine source is committed and fully buildable,
+  so deeper patches remain possible later as tracked changes if a feature justifies the
+  fork-maintenance cost.
+- **Clean rewrite.** A prior Qt6/QML prototype (the `writer` app on branch
+  `ms-word-mvp`) proved Boundary A works but was found PoC-grade by audit. The verdict is
+  a clean rewrite that keeps the proven architecture, this research, and the audit's
+  lessons.
+- **Tech stack — "Option A."** Native C++/Qt6 core driving LOK in-process on one
+  dedicated LOK-owning thread, with a synchronous scheduler-pump step boundary for
+  determinism; QML Fluent UI for all chrome (document pixels come from LOK's tile
+  buffer); and the MCP server as a separate Python (FastMCP) or TypeScript sidecar over a
+  local socket. The core stays the single source of truth; the sidecar holds no state.
+- **Scope.** v1 builds the **~487-control build surface** (core editing/formatting +
+  Insert/References/Mailings/Review/Layout/Design/View). Three families are **deferred
+  and documented** (not deleted, door kept open): (A) engine-gap families (Draw/ink,
+  SmartArt/Icons/3D, WordArt, Building Blocks, Table of Authorities, style citations,
+  Style Sets), (B) cloud/AI (Copilot, Dictate, Transcribe, AI Editor, Smart Lookup,
+  Researcher, online pictures), and (C) niche (CJK envelopes/postcards, postal barcodes,
+  M365 reading modes, Activation).
 
-- `apps/libreoffice/libreoffice-codebase/officecfg/registry/data/org/openoffice/Office/UI/ToolbarMode.xcu` (Phase 2 tail — CUA `HasMenubar` flip)
-- `apps/libreoffice/docs/USAGE.md` (picker overwrite caveat)
-- `apps/libreoffice/scripts/{sync-ui.sh, build-cua-palette.py}` (exec bit restore)
+---
+
+## Committed research
+
+- **Ribbon structure** — [`research/ribbon/`](research/ribbon/) (committed `ea97f7039`).
+  A verified Word ↔ LibreOffice comparison across all 10 Word ribbon tabs, **692
+  controls**. Work-bucket totals: Free 89 (13%), Our-layer UI 231 (33%), Behavior shim
+  144 (21%), Engine gap 114 (16%), Cut 91 (13%), Optional 23 (3%). The build surface we
+  own (Free + Our-layer UI + Behavior shim + Optional) = **487 (~70%)**. Engine gap is
+  **zero in core document work** — editing, formatting, Track Changes, Mail Merge,
+  References, and Layout all map to LO commands — and is entirely cuttable feature
+  families.
+- **Tech-stack decision** — [`research/tech-stack.md`](research/tech-stack.md). The
+  "Option A" rationale, with web/two-process and single-language Rust/Go/Python FFI
+  rejected.
+- **Writer-app audit** — a one-off investigation of the prior Qt6/QML prototype. Verdict:
+  **rewrite** (PoC-grade render path, non-credible test ledger, broken dialog
+  metric-fields, non-scaling ribbon).
+
+---
+
+## Not yet done
+
+- **No clone code exists yet.** This branch holds decisions and research only.
+- **Per-feature behavior + state specs (stream #3)** — done at build time, just-in-time
+  per feature group; feeds both the build and the verifier.
+- **UI design-token extraction (stream #4)** — done early in the build (Word M365 exact
+  colors/metrics/icons/typography → QML tokens).
+- **MCP tool-surface design (stream #5)** — done in the MCP phase.
+- **Verifier design (stream #6)** — done in the verifier phase.
+
+---
+
+## Next
+
+1. **Merge** `ms-word/decision-making` to `main`.
+2. **Build the clone on a fresh branch** off `main` — a new app directory, following the
+   build phases in [`execution-map.md`](execution-map.md).
