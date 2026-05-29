@@ -95,6 +95,17 @@ The skills under `.claude/skills/` encode **how to work in this repo**. Most are
 
 ---
 
+## Decision-making guidelines
+
+Behavioral guidelines for every agent working in this repo, derived from [Andrej Karpathy's notes on common LLM coding pitfalls](https://x.com/karpathy/status/2015883857489522876). Installed as the `andrej-karpathy-skills:karpathy-guidelines` skill — invoke it when writing, reviewing, or refactoring code. They bias toward caution over speed; for trivial tasks, use judgment.
+
+1. **Think before coding.** State assumptions explicitly; if uncertain, ask. If multiple interpretations exist, present them — don't pick silently. If a simpler approach exists, say so and push back. If something is unclear, stop, name what's confusing, and ask.
+2. **Simplicity first.** Write the minimum code that solves the problem — nothing speculative. No features beyond what was asked, no abstractions for single-use code, no unrequested "flexibility," no error handling for impossible scenarios. If 200 lines could be 50, rewrite it.
+3. **Surgical changes.** Touch only what you must. Don't "improve" adjacent code, comments, or formatting; don't refactor what isn't broken; match existing style even if you'd do it differently. Remove only the imports/variables/functions your own changes orphaned — mention pre-existing dead code, don't delete it. Every changed line should trace directly to the request.
+4. **Goal-driven execution.** Turn tasks into verifiable goals ("fix the bug" → "write a test that reproduces it, then make it pass"). For multi-step work, state a brief plan with a verify check per step, and loop until verified.
+
+---
+
 ## When in doubt
 
 1. The user's instructions in the conversation override anything in this file.
