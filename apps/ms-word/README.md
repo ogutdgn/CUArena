@@ -15,7 +15,7 @@ Real-binary CUA environment. Writer / Calc / Impress, instrumented with the [rll
 ## Build (WSL ext4 only — never on /mnt/c)
 
 ```sh
-cd apps/libreoffice/libreoffice-codebase
+cd apps/ms-word/libreoffice-codebase
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ./autogen.sh --without-java --without-help --disable-xmlhelp \
     --disable-libcmis --disable-firebird-sdbc --disable-postgresql-sdbc \
