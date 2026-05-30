@@ -17,6 +17,20 @@ add_compile_options(-Wall -Wextra)
 
 include(CTest)  # defines BUILD_TESTING (default ON) and calls enable_testing()
 
+# --- LibreOfficeKit engine integration (Boundary A) ---
+# The engine binding + B/C tests build ONLY when a built LibreOffice instdir is present, so the
+# our-layer A-tests still build and run on a machine without the (multi-hour) engine build.
+set(MW_LO_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../libreoffice-codebase" CACHE PATH "Vendored LibreOffice tree")
+set(MW_LOK_INCLUDE "${MW_LO_DIR}/include")
+set(MW_LOK_INSTDIR "${MW_LO_DIR}/instdir/program")
+if(EXISTS "${MW_LOK_INSTDIR}/libsofficeapp.so" AND EXISTS "${MW_LOK_INCLUDE}/LibreOfficeKit/LibreOfficeKit.hxx")
+    set(MW_HAVE_LOK ON)
+    message(STATUS "LOK engine found (${MW_LOK_INSTDIR}) — building engine binding + B/C tests")
+else()
+    set(MW_HAVE_LOK OFF)
+    message(STATUS "LOK engine not built — engine binding + B/C tests skipped (A-tests only)")
+endif()
+
 add_subdirectory(src)
 
 if(BUILD_TESTING)

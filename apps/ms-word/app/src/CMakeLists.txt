@@ -11,3 +11,13 @@ add_library(mwcore STATIC
 )
 target_include_directories(mwcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_features(mwcore PUBLIC cxx_std_20)
+
+# mwengine — the LOK engine binding (the ONLY code that calls LibreOfficeKit). Built only when
+# the engine instdir exists. Links libdl for the dlopen/dlsym init + pump-symbol resolution.
+if(MW_HAVE_LOK)
+    add_library(mwengine STATIC engine/LokEngine.cpp)
+    target_include_directories(mwengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${MW_LOK_INCLUDE})
+    target_compile_definitions(mwengine PRIVATE LOK_USE_UNSTABLE_API)
+    target_compile_features(mwengine PUBLIC cxx_std_20)
+    target_link_libraries(mwengine PUBLIC ${CMAKE_DL_LIBS})
+endif()
