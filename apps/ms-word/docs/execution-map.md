@@ -15,8 +15,11 @@
 
 ## Immediate next action
 
-**Merge the decision branch (`ms-word/decision-making`) to `main`.** The decisions
-and research below are locked; the build then starts on a fresh branch off `main`.
+**Phase 2 — the live UI kit.** Phases 0–1 are **built and verified** on the `ms-word/build`
+branch: the engine was re‑vendored to pristine LibreOffice, the LOK render/scheduler path + the
+CMake/CTest harness are in, and the **A + B + C** verification bar is green (`ctest` → 5/5 — see
+[`last-point.md`](last-point.md#build-status)). Next is the interactive QML window (Qt‑GUI ⇄
+dedicated‑LOK‑thread tile canvas) and the design‑token control kit.
 
 ---
 
@@ -44,8 +47,8 @@ and research below are locked; the build then starts on a fresh branch off `main
 
 | Phase | Goal (one line) | Key deliverables |
 |---|---|---|
-| **0 — Merge & scaffold** | Land the decisions, stand up the fresh app. | Merge `ms-word/decision-making` → `main`; scaffold the clone app (new app dir) on a build branch off `main`. |
-| **1 — Foundations** | Get the LOK render/scheduler path and the test harness right this time. | A correct LOK render path: a real idle mechanism honoring the `INVALIDATE_TILES` dirty rect, a tile cache, and zoom / scroll / HiDPI (no test-only engine symbols, no full-repaint-per-keystroke); a real **CMake/CTest** harness with committed fixtures — tests that fail when the claim is false. |
+| **0 — Merge & scaffold** ✅ | Land the decisions, stand up the fresh app. | Done: decisions/research merged to `main`; clone app scaffolded in `app/` on `ms-word/build`. |
+| **1 — Foundations** ✅ | Get the LOK render/scheduler path and the test harness right this time. | Done: engine re-vendored to pristine LO; LOK binding + render path; deterministic pump (`Scheduler::ProcessEventsToIdle` under the SolarMutex — no test-only symbol); tile cache honoring the `INVALIDATE_TILES` dirty rect; real **CMake/CTest** harness + fixtures. Verified A+B+C green (`tst_tilegrid`/`tilecache`/`rendercontroller`, `tst_lok_smoke`, `tst_render_golden`). Live QML window + scroll/zoom/HiDPI carry into Phase 2. |
 | **2 — UI kit** | Build the Word-faithful chrome on a token system. | UI design-token extraction (Word M365 exact colors / metrics / typography, measured at known DPI) as QML singletons; the bespoke custom QML control kit — ribbon, galleries, menus; Microsoft Fluent UI System Icons recolored to Word tints; the JSDialog → native QML dialog renderer, themed by the same tokens. |
 | **3 — Feature build loop** | Ship the in-scope controls, group by group. | Per feature-group: behavior + state spec → implement → verify, walked in scope order across core editing / formatting + Insert / References / Mailings (full mail-merge via orchestrating LO's wizard) / Review (full Track Changes) / Layout / Design / View. |
 | **4 — MCP server** | Expose the command/state surface as MCP. | The Python (FastMCP) or TypeScript **sidecar** over a local socket — Tools (`postUnoCommand` / `sendDialogEvent`) + Resources (`getCommandValues` / state). The core stays the single source of truth; the sidecar holds no state. |
