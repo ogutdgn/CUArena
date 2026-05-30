@@ -146,6 +146,26 @@ bool LokEngine::saveAs(const std::string& fileUrl, const std::string& filterName
     return impl_->doc->saveAs(fileUrl.c_str(), filterName.c_str(), nullptr);
 }
 
+TwipRect LokEngine::documentSize() const {
+    long w = 0, h = 0;
+    if (impl_->doc) {
+        impl_->doc->getDocumentSize(&w, &h);
+    }
+    return TwipRect{0, 0, w, h};
+}
+
+TileCache::Bytes LokEngine::paintTile(const TwipRect& r, int pixelW, int pixelH) {
+    // BGRA (premultiplied on Linux), tightly packed pixelW*pixelH*4. paintTile is synchronous
+    // under the engine's own SolarMutex; the caller settles layout (dispatch pumps, load formats).
+    TileCache::Bytes buf(static_cast<std::size_t>(pixelW) * pixelH * 4, 0);
+    if (impl_->doc) {
+        impl_->doc->paintTile(buf.data(), pixelW, pixelH,
+                              static_cast<int>(r.x), static_cast<int>(r.y),
+                              static_cast<int>(r.width), static_cast<int>(r.height));
+    }
+    return buf;
+}
+
 bool LokEngine::isReady() const { return impl_->office && impl_->doc; }
 
 }  // namespace mw
