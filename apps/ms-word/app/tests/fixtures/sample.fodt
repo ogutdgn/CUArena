@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Real-content fixture for the Phase-1 type-B (headless LOK) test. NOT a blank document:
+     it has a known paragraph so load -> dispatch -> save can assert a real effect. -->
+<office:document
+    xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
+    xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
+    office:version="1.3"
+    office:mimetype="application/vnd.oasis.opendocument.text">
+ <office:body>
+  <office:text>
+   <text:p>The quick brown fox jumps over the lazy dog.</text:p>
+  </office:text>
+ </office:body>
+</office:document>
