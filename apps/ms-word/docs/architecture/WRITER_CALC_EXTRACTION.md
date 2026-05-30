@@ -4,6 +4,8 @@
 >
 > Note: Impress and Draw share a single module (`sd/`). Building Impress always also builds Draw — they are two UI modes over the same code.
 >
+> Baseline: this targets the **re-vendored pristine LibreOffice tree @ `1f1121d1`** (the old reskin's hacked/stripped tree is gone). Slimming is therefore done via **configure flags, not file deletion** — see §12; only **Math** has no clean disable.
+>
 > Methodology: this analysis was produced by reading the LibreOffice build manifests (`Module_*.mk`, `Library_*.mk`, `Repository.mk`, `RepositoryModule_host.mk`, `configure.ac`) for every directory listed in `RepositoryModule_host.mk`. Each module's `gb_Library_use_libraries`, `gb_Library_use_externals`, and `gb_Library_use_api` lines were resolved to build a dependency graph rooted at `sw`, `sc`, and `sd`.
 
 ---
@@ -1053,9 +1055,11 @@ You'll have a working LibreOffice with no scripting engines that the user can in
 
 It's pulled in by `sfx2` for displaying the document signature status bar item. Dropping it requires patching `sfx2/source/appl/appserv.cxx` and a few others. Easier to leave it (small library) than to strip cleanly.
 
-### G16. `qadevOOo/` has a stray uncommitted `.project` change
+### G16. Work from a pristine tree, not a stray git state
 
-The current git state shows `M qadevOOo/.project` and `?? qadevOOo/bin/`. This is unrelated to extraction. Investigate before you commit any extraction patch.
+This procedure targets the **re-vendored pristine LibreOffice baseline @ `1f1121d1`** (the old reskin's
+hacked/stripped tree, with its `rllogger` and `qadevOOo` edits, has been replaced). Start any extraction
+from a clean `git status` so the diff you commit is the extraction and nothing else.
 
 ### G17. `connectivity/dbtools` vs full `connectivity/`
 
