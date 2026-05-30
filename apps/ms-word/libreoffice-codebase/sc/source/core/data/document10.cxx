@@ -650,7 +650,7 @@ bool ScDocument::FindRangeNamesReferencingSheet( sc::UpdatedRangeNames& rIndexes
         {
             if (p->GetOpCode() == ocName)
             {
-                bRef |= FindRangeNamesReferencingSheet( rIndexes, p->GetSheet(), p->GetIndex(),
+                bRef |= FindRangeNamesReferencingSheet( rIndexes, static_cast<const formula::FormulaIndexToken*>(p)->GetSheet(), p->GetIndex(),
                         nGlobalRefTab, nLocalRefTab, nOldTokenTab, nOldTokenTabReplacement, bSameDoc, nRecursion+1);
             }
         }
@@ -941,10 +941,10 @@ bool ScDocument::CopyAdjustRangeName( SCTAB& rSheet, sal_uInt16& rIndex, ScRange
                     {
                         if (p->GetOpCode() == ocName)
                         {
-                            auto it = aSheetIndexMap.find( SheetIndex( p->GetSheet(), p->GetIndex()));
+                            auto it = aSheetIndexMap.find( SheetIndex( static_cast<formula::FormulaIndexToken*>(p)->GetSheet(), p->GetIndex()));
                             if (it != aSheetIndexMap.end())
                             {
-                                p->SetSheet( it->second.mnSheet);
+                                static_cast<formula::FormulaIndexToken*>(p)->SetSheet( it->second.mnSheet);
                                 p->SetIndex( it->second.mnIndex);
                             }
                             else if (!bSameDoc)
@@ -1138,6 +1138,27 @@ bool ScDocument::IsSheetViewHolder(SCTAB nTab) const
         return pTable->IsSheetViewHolder();
     }
     return false;
+}
+
+SCTAB ScDocument::GetDefaultViewTableNumber(SCTAB nTab) const
+{
+    if (ScTable const* pTable = FetchTable(nTab))
+    {
+        if (ScTable const* pDefaultTable = pTable->GetDefaultViewTable())
+            return pDefaultTable->GetTab();
+    }
+    return nTab;
+}
+
+sc::SheetViewID ScDocument::GetTableSheetViewID(SCTAB nTab) const
+{
+    if (ScTable const* pTable = FetchTable(nTab))
+    {
+        sc::SheetViewID nID = pTable->GetSheetViewID();
+        if (nID != sc::InvalidSheetViewID)
+            return nID;
+    }
+    return sc::DefaultSheetViewID;
 }
 
 std::pair<sc::SheetViewID, SCTAB> ScDocument::CreateNewSheetView(SCTAB nTab)

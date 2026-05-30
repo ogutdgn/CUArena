@@ -107,7 +107,7 @@ static bool lcl_HasRelRef( ScDocument& rDoc, const ScTokenArray* pFormula, sal_u
                 case svIndex:
                 {
                     if( t->GetOpCode() == ocName )      // DB areas always absolute
-                        if( ScRangeData* pRangeData = rDoc.FindRangeNameBySheetAndIndex( t->GetSheet(), t->GetIndex()) )
+                        if( ScRangeData* pRangeData = rDoc.FindRangeNameBySheetAndIndex( static_cast<FormulaIndexToken*>(t)->GetSheet(), t->GetIndex()) )
                             if( (nRecursion < 42) && lcl_HasRelRef( rDoc, pRangeData->GetCode(), nRecursion + 1 ) )
                                 return true;
                 }
@@ -331,7 +331,7 @@ void ScConditionEntry::SimplifyCompiledFormula( std::unique_ptr<ScTokenArray>& r
 
     if ( pToken->GetType() == svDouble )
     {
-        rVal = pToken->GetDouble();
+        rVal = static_cast<FormulaDoubleToken*>(pToken)->GetDouble();
         rFormula.reset();             // Do not remember as formula
     }
     else if ( pToken->GetType() == svString )

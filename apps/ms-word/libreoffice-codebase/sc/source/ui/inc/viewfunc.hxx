@@ -53,7 +53,7 @@ namespace com::sun::star::embed { class XEmbeddedObject; }
 namespace sc
 {
     struct ColRowSpan;
-    enum class Operation;
+    enum class OperationType;
 }
 
 namespace com::sun::star::datatransfer { class XTransferable; }
@@ -69,13 +69,6 @@ struct ScDataFormFragment
 
 namespace sc
 {
-
-/** Direction of searching for the sheet view to switch to relative to the current sheet view. */
-enum class SwitchSheetViewDirection
-{
-    Next,
-    Previous
-};
 
 }
 
@@ -369,7 +362,6 @@ public:
     // SheetView methods
     void MakeNewSheetView();
     void RemoveCurrentSheetView();
-    void SwitchSheetView(sc::SwitchSheetViewDirection eDirection);
     void ExitSheetView(); // Switch to default view
     void SelectSheetView(sc::SheetViewID nSelectSheetViewID);
 
@@ -417,7 +409,7 @@ private:
     void            CopyAutoSpellData( FillDir eDir, SCCOL nStartCol, SCROW nStartRow,
                                        SCCOL nEndCol, SCROW nEndRow, sal_uLong nCount );
 
-    bool CheckSheetViewProtection(sc::Operation eOperation);
+    bool CheckSheetViewProtection(sc::OperationType eOperationType);
 
     void PasteFromExcelClip(ScDocument& rClipDoc, SCTAB nSrcTab, SCCOL nPosX, SCROW nPosY,
                             const Point* pLogicPos, bool bAllowDialogs);

@@ -14,6 +14,7 @@ gb_MERGE_LIBRARY_LIST := \
 		$(if $(filter WNT,$(OS)),avmediawin) \
 	) \
 	$(call gb_Helper_optional,SCRIPTING, \
+		basctl \
 		basprov \
 	) \
 	basegfx \
@@ -44,6 +45,7 @@ gb_MERGE_LIBRARY_LIST := \
 	for \
 	forui \
 	fps_office \
+	frm \
 	fsstorage \
 	fwk \
 	$(if $(filter WNT,$(OS)),gdipluscanvas) \
@@ -133,10 +135,13 @@ gb_MERGE_LIBRARY_LIST += \
 	$(if $(ENABLE_CAIRO_CANVAS),cairocanvas) \
 	cui \
 	date \
+	dba \
+	dbahsql \
 	$(call gb_Helper_optional,DBCONNECTIVITY, \
 		dbase \
 		dbaxml) \
 	$(call gb_Helper_optional,DBCONNECTIVITY,dbpool2) \
+	$(call gb_Helper_optional,DBCONNECTIVITY,dbu) \
 	dlgprov \
 	$(if $(ENABLE_EVOAB2),evoab) \
 	$(call gb_Helper_optional,DBCONNECTIVITY, \
@@ -150,7 +155,9 @@ gb_MERGE_LIBRARY_LIST += \
 		fps_aqua \
 	) \
 	graphicfilter \
+	hwp \
 	log \
+	$(if $(ENABLE_LWP),lwpft) \
 	$(if $(filter $(OS),MACOSX), \
 		macab1 \
 	) \
@@ -164,6 +171,8 @@ gb_MERGE_LIBRARY_LIST += \
 	$(if $(BUILD_POSTGRESQL_SDBC),postgresql-sdbc) \
 	pricing \
 	$(call gb_Helper_optional,SCRIPTING,protocolhandler) \
+	rpt \
+	rptui \
 	$(call gb_Helper_optional,SCRIPTING,scriptframe) \
 	sdbc2 \
 	$(call gb_Helper_optional,DBCONNECTIVITY,sdbt) \

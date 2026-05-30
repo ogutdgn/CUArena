@@ -181,6 +181,9 @@ class SwAutoFormat
     bool DeleteJoinCurNextPara(SwTextFrame const* pNextFrame, bool bIgnoreLeadingBlanks = false);
     /// delete in the node start and/or end
     void DeleteLeadingTrailingBlanks( bool bStart = true, bool bEnd = true );
+    // deletes trailing blanks regardless of what the config says. returns whether any blanks were
+    // actually removed.
+    bool DeleteTrailingBlanksNoConfig();
     void DelEmptyLine( bool bTstNextPara = true );
     /// when using multiline paragraphs delete the "left" and/or
     /// "right" margins
@@ -1083,6 +1086,24 @@ bool SwAutoFormat::IsSentenceAtEnd(const SwTextFrame & rTextFrame)
     return '.' == rStr[ n ];
 }
 
+bool SwAutoFormat::DeleteTrailingBlanksNoConfig()
+{
+    TextFrameIndex nPos(TextFrameIndex(GetTrailingBlanks(m_pCurTextFrame->GetText())));
+
+    if (TextFrameIndex(m_pCurTextFrame->GetText().getLength()) != nPos)
+    {
+        *m_aDelPam.GetPoint() = m_pCurTextFrame->MapViewToModelPos(
+                TextFrameIndex(m_pCurTextFrame->GetText().getLength()));
+        m_aDelPam.SetMark();
+        *m_aDelPam.GetPoint() = m_pCurTextFrame->MapViewToModelPos(nPos);
+        DeleteSel( m_aDelPam );
+        m_aDelPam.DeleteMark();
+        return true;
+    }
+
+    return false;
+}
+
 /// Delete beginning and/or end in a node
 void SwAutoFormat::DeleteLeadingTrailingBlanks(bool bStart, bool bEnd)
 {
@@ -1107,17 +1128,8 @@ void SwAutoFormat::DeleteLeadingTrailingBlanks(bool bStart, bool bEnd)
         m_aDelPam.DeleteMark();
         bHasDeleted = true;
     }
-    nPos = TextFrameIndex(GetTrailingBlanks(m_pCurTextFrame->GetText()));
-    if (bEnd && TextFrameIndex(m_pCurTextFrame->GetText().getLength()) != nPos)
-    {
-        *m_aDelPam.GetPoint() = m_pCurTextFrame->MapViewToModelPos(
-                TextFrameIndex(m_pCurTextFrame->GetText().getLength()));
-        m_aDelPam.SetMark();
-        *m_aDelPam.GetPoint() = m_pCurTextFrame->MapViewToModelPos(nPos);
-        DeleteSel( m_aDelPam );
-        m_aDelPam.DeleteMark();
-        bHasDeleted = true;
-    }
+    if (bEnd)
+        bHasDeleted |= DeleteTrailingBlanksNoConfig();
 
     // feedback via infobar
     if (bHasDeleted)
@@ -1528,7 +1540,7 @@ void SwAutoFormat::BuildEnum( sal_uInt16 nLvl, sal_uInt16 nDigitLevel )
 
     // only delete blanks if something else (numbering or style) is going to be changed
     if (m_aFlags.bSetNumRule || !m_aFlags.bAFormatByInput || m_aFlags.bReplaceStyles)
-        DeleteLeadingTrailingBlanks();
+        DeleteTrailingBlanksNoConfig();
 
     bool bChgBullet = false, bChgEnum = false;
     TextFrameIndex nAutoCorrPos(0);
@@ -1973,7 +1985,7 @@ void SwAutoFormat::AutoCorrect(TextFrameIndex nPos)
     m_aDelPam.DeleteMark();
     *m_aDelPam.GetPoint() = m_pCurTextFrame->MapViewToModelPos(TextFrameIndex(0));
 
-    SwAutoCorrDoc aACorrDoc( *m_pEditShell, m_aDelPam );
+    SwAutoCorrDoc aACorrDoc( *m_pEditShell, m_aDelPam, *m_pCurTextFrame );
 
     SwTextFrameInfo aFInfo( nullptr );
 
@@ -2274,7 +2286,7 @@ void SwAutoFormat::AutoCorrect(TextFrameIndex nPos)
                     pATst->FnChgOrdinalNumber(aACorrDoc, *pText, sal_Int32(nSttPos), sal_Int32(nPos), eLang)) ||
                 ( m_aFlags.bChgToEnEmDash &&
                     SetRedlineText( STR_AUTOFMTREDL_DASH ) &&
-                    pATst->FnChgToEnEmDash(aACorrDoc, *pText, sal_Int32(nSttPos), sal_Int32(nPos), eLang)) ||
+                    pATst->FnChgToEnEmDash(aACorrDoc, sal_Int32(nSttPos), sal_Int32(nPos), eLang)) ||
                 ( m_aFlags.bSetINetAttr &&
                     (nPos == TextFrameIndex(pText->getLength()) || IsSpace((*pText)[sal_Int32(nPos)])) &&
                     SetRedlineText( STR_AUTOFMTREDL_DETECT_URL ) &&
@@ -2292,14 +2304,15 @@ void SwAutoFormat::AutoCorrect(TextFrameIndex nPos)
                 if( m_aFlags.bEsperantoHats && eLang == LANGUAGE_USER_ESPERANTO )
                 {
                     SetRedlineText( STR_AUTOFMTREDL_ESPERANTOHAT );
-                    sal_Int32 nOldTextLength = pText->getLength();
+                    sal_Int32 nOldTextLength = aACorrDoc.GetText().getLength();
                     sal_Int32 nEnd = sal_Int32(nPos);
-                    pATst->FnAddEsperantoHats(aACorrDoc, *pText, sal_Int32(nSttPos), nEnd);
-                    // If red lining is being applied then any replacements will increase the length
-                    // of the text instead of reducing it because both the X version and the
-                    // circumflex version will appear in it.
-                    if( m_aFlags.bWithRedlining )
-                        nPos += TextFrameIndex(pText->getLength() - nOldTextLength);
+                    pATst->FnAddEsperantoHats(aACorrDoc, sal_Int32(nSttPos), nEnd);
+                    // If red lining is being applied and deletes are visible then any replacements
+                    // will increase the length of the text instead of reducing it because both the
+                    // X version and the circumflex version will appear in it.
+                    sal_Int32 nNewTextLength = aACorrDoc.GetText().getLength();
+                    if ( nNewTextLength > nOldTextLength )
+                        nPos += TextFrameIndex(nNewTextLength - nOldTextLength);
                     else
                         nPos = TextFrameIndex(nEnd);
                 }
@@ -2307,13 +2320,13 @@ void SwAutoFormat::AutoCorrect(TextFrameIndex nPos)
                 if( m_aFlags.bCapitalStartWord )
                 {
                     SetRedlineText( STR_AUTOFMTREDL_CPTL_STT_WORD );
-                    pATst->FnCapitalStartWord(aACorrDoc, *pText, sal_Int32(nSttPos), sal_Int32(nPos), eLang);
+                    pATst->FnCapitalStartWord(aACorrDoc, sal_Int32(nSttPos), sal_Int32(nPos), eLang);
                 }
                 // capital letter at the beginning of a sentence?
                 if( m_aFlags.bCapitalStartSentence && bFirst )
                 {
                     SetRedlineText( STR_AUTOFMTREDL_CPTL_STT_SENT );
-                    pATst->FnCapitalStartSentence(aACorrDoc, *pText, true, sal_Int32(nSttPos), sal_Int32(nPos), eLang);
+                    pATst->FnCapitalStartSentence(aACorrDoc, true, sal_Int32(nSttPos), sal_Int32(nPos), eLang);
                 }
 
                 bFirst = bFirstSent;

@@ -180,30 +180,6 @@ void FormulaToken::SetInForceArray( ParamClass )
     assert( !"virtual dummy called" );
 }
 
-double FormulaToken::GetDouble() const
-{
-    // This Get is worth an assert.
-    assert( !"virtual dummy called" );
-    return 0.0;
-}
-
-void FormulaToken::SetDouble(double)
-{
-    // This Get is worth an assert.
-    assert( !"virtual dummy called" );
-}
-
-sal_Int16 FormulaToken::GetDoubleType() const
-{
-    SAL_WARN( "formula.core", "FormulaToken::GetDoubleType: virtual dummy called" );
-    return 0;
-}
-
-void FormulaToken::SetDoubleType( sal_Int16 )
-{
-    assert( !"virtual dummy called" );
-}
-
 const svl::SharedString INVALID_STRING;
 
 const svl::SharedString & FormulaToken::GetString() const
@@ -227,49 +203,6 @@ void FormulaToken::SetIndex( sal_uInt16 )
 {
     assert( !"virtual dummy called" );
 }
-
-sal_Int16 FormulaToken::GetSheet() const
-{
-    SAL_WARN( "formula.core", "FormulaToken::GetSheet: virtual dummy called" );
-    return -1;
-}
-
-void FormulaToken::SetSheet( sal_Int16 )
-{
-    assert( !"virtual dummy called" );
-}
-
-short* FormulaToken::GetJump() const
-{
-    SAL_WARN( "formula.core", "FormulaToken::GetJump: virtual dummy called" );
-    return nullptr;
-}
-
-
-const OUString& FormulaToken::GetExternal() const
-{
-    SAL_WARN( "formula.core", "FormulaToken::GetExternal: virtual dummy called" );
-    static  OUString              aDummyString;
-    return aDummyString;
-}
-
-FormulaToken* FormulaToken::GetFAPOrigToken() const
-{
-    SAL_WARN( "formula.core", "FormulaToken::GetFAPOrigToken: virtual dummy called" );
-    return nullptr;
-}
-
-FormulaError FormulaToken::GetError() const
-{
-    SAL_WARN( "formula.core", "FormulaToken::GetError: virtual dummy called" );
-    return FormulaError::NONE;
-}
-
-void FormulaToken::SetError( FormulaError )
-{
-    assert( !"virtual dummy called" );
-}
-
 const ScSingleRefData* FormulaToken::GetSingleRef() const
 {
     OSL_FAIL( "FormulaToken::GetSingleRef: virtual dummy called" );
@@ -306,35 +239,6 @@ ScSingleRefData* FormulaToken::GetSingleRef2()
     return nullptr;
 }
 
-const ScMatrix* FormulaToken::GetMatrix() const
-{
-    OSL_FAIL( "FormulaToken::GetMatrix: virtual dummy called" );
-    return nullptr;
-}
-
-ScMatrix* FormulaToken::GetMatrix()
-{
-    OSL_FAIL( "FormulaToken::GetMatrix: virtual dummy called" );
-    return nullptr;
-}
-
-ScJumpMatrix* FormulaToken::GetJumpMatrix() const
-{
-    OSL_FAIL( "FormulaToken::GetJumpMatrix: virtual dummy called" );
-    return nullptr;
-}
-const std::vector<ScComplexRefData>* FormulaToken::GetRefList() const
-{
-    OSL_FAIL( "FormulaToken::GetRefList: virtual dummy called" );
-    return nullptr;
-}
-
-std::vector<ScComplexRefData>* FormulaToken::GetRefList()
-{
-    OSL_FAIL( "FormulaToken::GetRefList: virtual dummy called" );
-    return nullptr;
-}
-
 bool FormulaToken::TextEqual( const FormulaToken& rToken ) const
 {
     return *this == rToken;
@@ -366,18 +270,21 @@ bool FormulaByteToken::operator==( const FormulaToken& r ) const
 FormulaToken* FormulaFAPToken::GetFAPOrigToken() const  { return pOrigToken.get(); }
 bool FormulaFAPToken::operator==( const FormulaToken& r ) const
 {
-    return FormulaByteToken::operator==( r ) && pOrigToken == r.GetFAPOrigToken();
+    return FormulaByteToken::operator==( r )
+        && pOrigToken == static_cast<const FormulaFAPToken&>(r).GetFAPOrigToken();
 }
 
 
-short*      FormulaJumpToken::GetJump() const                   { return pJump.get(); }
 ParamClass  FormulaJumpToken::GetInForceArray() const           { return eInForceArray; }
 void        FormulaJumpToken::SetInForceArray( ParamClass c )   { eInForceArray = c; }
 bool FormulaJumpToken::operator==( const FormulaToken& r ) const
 {
-    return FormulaToken::operator==( r ) && pJump[0] == r.GetJump()[0] &&
-        memcmp( pJump.get()+1, r.GetJump()+1, pJump[0] * sizeof(short) ) == 0 &&
-        eInForceArray == r.GetInForceArray();
+    if (!FormulaToken::operator==( r ))
+        return false;
+    auto const & rhs = static_cast<const FormulaJumpToken&>(r);
+    return pJump[0] == rhs.GetJump()[0] &&
+        memcmp( pJump.get()+1, rhs.GetJump()+1, pJump[0] * sizeof(short) ) == 0 &&
+        eInForceArray == rhs.GetInForceArray();
 }
 FormulaJumpToken::~FormulaJumpToken()
 {
@@ -1328,7 +1235,7 @@ void FormulaMissingContext::AddMoreArgs( FormulaTokenArray *pNewArr, const Missi
                         break;
 
                     case ocExternal:
-                        if (mpFunc->GetExternal().equalsIgnoreAsciiCase(
+                        if (static_cast<const FormulaExternalToken*>(mpFunc)->GetExternal().equalsIgnoreAsciiCase(
                                 "com.sun.star.sheet.addin.Analysis.getAccrintm"))
                         {
                             if (mnCurArg == 2)
@@ -1362,7 +1269,7 @@ bool FormulaMissingContext::AddMissingExternal( FormulaTokenArray *pNewArr ) con
 {
     // Only called for PODF, not ODFF. No need to distinguish.
 
-    const OUString &rName = mpFunc->GetExternal();
+    const OUString &rName = static_cast<const FormulaExternalToken*>(mpFunc)->GetExternal();
 
     // initial (fast) checks:
     sal_Int32 nLength = rName.getLength();
@@ -1542,7 +1449,7 @@ FormulaTokenArray * FormulaTokenArray::RewriteMissing( const MissingConvention &
             {
                 // Omit only a literal 0 value, nothing else.
                 if (pOcds[ i ] == nFn && pCur->GetOpCode() == ocPush && pCur->GetType() == svDouble &&
-                        pCur->GetDouble() == 0.0)
+                        static_cast<FormulaDoubleToken*>(pCur)->GetDouble() == 0.0)
                 {
                     // No other expression, between separators.
                     FormulaToken* p = aIter.PeekPrevNoSpaces();
@@ -2066,7 +1973,7 @@ sal_Int16 FormulaDoubleToken::GetDoubleType() const
 
 bool FormulaDoubleToken::operator==( const FormulaToken& r ) const
 {
-    return FormulaToken::operator==( r ) && fDouble == r.GetDouble();
+    return FormulaToken::operator==( r ) && fDouble == static_cast<const FormulaDoubleToken&>(r).GetDouble();
 }
 
 sal_Int16 FormulaTypedDoubleToken::GetDoubleType() const
@@ -2081,7 +1988,8 @@ void FormulaTypedDoubleToken::SetDoubleType( sal_Int16 nType )
 
 bool FormulaTypedDoubleToken::operator==( const FormulaToken& r ) const
 {
-    return FormulaDoubleToken::operator==( r ) && mnType == r.GetDoubleType();
+    return FormulaDoubleToken::operator==( r )
+        && mnType == static_cast<const FormulaTypedDoubleToken&>(r).GetDoubleType();
 }
 
 FormulaStringToken::FormulaStringToken( svl::SharedString r ) :
@@ -2173,13 +2081,15 @@ sal_Int16   FormulaIndexToken::GetSheet() const             { return mnSheet; }
 void        FormulaIndexToken::SetSheet( sal_Int16 n )      { mnSheet = n; }
 bool FormulaIndexToken::operator==( const FormulaToken& r ) const
 {
-    return FormulaToken::operator==( r ) && nIndex == r.GetIndex() &&
-        mnSheet == r.GetSheet();
+    return FormulaToken::operator==( r )
+        && nIndex == static_cast<const FormulaIndexToken&>(r).GetIndex()
+        && mnSheet == static_cast<const FormulaIndexToken&>(r).GetSheet();
 }
 const OUString& FormulaExternalToken::GetExternal() const       { return aExternal; }
 bool FormulaExternalToken::operator==( const FormulaToken& r ) const
 {
-    return FormulaByteToken::operator==( r ) && aExternal == r.GetExternal();
+    return FormulaByteToken::operator==( r )
+        && aExternal == static_cast<const FormulaExternalToken&>(r).GetExternal();
 }
 
 
@@ -2190,7 +2100,6 @@ bool FormulaErrorToken::operator==( const FormulaToken& r ) const
     return FormulaToken::operator==( r ) &&
         nError == static_cast< const FormulaErrorToken & >(r).GetError();
 }
-double          FormulaMissingToken::GetDouble() const       { return 0.0; }
 
 const svl::SharedString & FormulaMissingToken::GetString() const
 {

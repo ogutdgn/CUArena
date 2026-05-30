@@ -155,11 +155,8 @@ LibreOffice.VC.VC.opendb
 .qtc_clangd
 .cache
 
-# Note: '/docs' was previously gitignored for upstream LibreOffice's
-# Doxygen output. In this fork we use /docs/ to hold project
-# documentation (architecture notes, extraction analysis, etc.).
-# If Doxygen output is ever re-enabled, point it elsewhere (e.g.
-# /apidocs).
+# doxygen output
+/docs
 
 # make dump-deps output
 /lo.png
@@ -205,7 +202,3 @@ gdb.txt
 
 # xml unit tests sometimes leave these lying around
 **/secmod.db
-
-# Claude Code workspace state (local user settings) — but skills are tracked
-.claude/settings.json
-.claude/settings.local.json

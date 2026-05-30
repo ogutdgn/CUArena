@@ -40,7 +40,12 @@
 #include <officecfg/Office/Draw.hxx>
 
 #include <sfx2/linkmgr.hxx>
+#include <sfx2/docfile.hxx>
+#include <sfx2/sfxsids.hrc>
 #include <sfx2/lokhelper.hxx>
+#include <svl/intitem.hxx>
+#include <com/sun/star/document/UpdateDocMode.hpp>
+#include <unotools/securityoptions.hxx>
 #include <Outliner.hxx>
 #include <sdmod.hxx>
 #include <editeng/editstat.hxx>
@@ -985,18 +990,63 @@ void SdDrawDocument::UpdateAllLinks()
     if (s_pDocLockedInsertingLinks || !m_pLinkManager || m_pLinkManager->GetLinks().empty())
         return;
 
-    s_pDocLockedInsertingLinks = this; // lock inserting links. only links in this document should by resolved
+    ::sd::DrawDocShell* pDocShell = GetDocSh();
+    if (!pDocShell)
+        return;
 
-    if (mpDocSh)
+    comphelper::EmbeddedObjectContainer& rEmbeddedObjectContainer
+        = pDocShell->getEmbeddedObjectContainer();
+
+    if (rEmbeddedObjectContainer.getUserAllowsLinkUpdate())
     {
-        comphelper::EmbeddedObjectContainer& rEmbeddedObjectContainer = mpDocSh->getEmbeddedObjectContainer();
-        rEmbeddedObjectContainer.setUserAllowsLinkUpdate(true);
+        s_pDocLockedInsertingLinks = this;
+        m_pLinkManager->UpdateAllLinks(false, false, nullptr, u""_ustr);
+        if (s_pDocLockedInsertingLinks == this)
+            s_pDocLockedInsertingLinks = nullptr;
+        return;
     }
 
-    m_pLinkManager->UpdateAllLinks(true, false, nullptr, u""_ustr);  // query box: update all links?
+    SfxMedium* pMedium = pDocShell->GetMedium();
+    const SfxUInt16Item* pUpdateDocItem = pMedium
+        ? pMedium->GetItemSet().GetItem(SID_UPDATEDOCMODE, false)
+        : nullptr;
+    sal_uInt16 nUpdateDocMode = pUpdateDocItem
+        ? pUpdateDocItem->GetValue()
+        : css::document::UpdateDocMode::NO_UPDATE;
 
-    if (s_pDocLockedInsertingLinks == this)
-        s_pDocLockedInsertingLinks = nullptr;  // unlock inserting links
+    if (nUpdateDocMode == css::document::UpdateDocMode::NO_UPDATE)
+        return;
+
+    bool bAskUpdate = true;
+    switch (nUpdateDocMode)
+    {
+        case css::document::UpdateDocMode::QUIET_UPDATE:
+            bAskUpdate = false;
+            break;
+        case css::document::UpdateDocMode::FULL_UPDATE:
+            bAskUpdate = false;
+            break;
+        case css::document::UpdateDocMode::ACCORDING_TO_CONFIG:
+            bAskUpdate = !pMedium
+                || !SvtSecurityOptions::isTrustedLocationUriForUpdatingLinks(
+                       pMedium->GetName());
+            break;
+    }
+
+    if (bAskUpdate)
+    {
+        rEmbeddedObjectContainer.setUserAllowsLinkUpdate(false);
+        pDocShell->SetPendingLinkUpdateInfobar();
+    }
+    else
+    {
+        rEmbeddedObjectContainer.setUserAllowsLinkUpdate(true);
+        s_pDocLockedInsertingLinks = this;
+        m_pLinkManager->UpdateAllLinks(false, false, nullptr,
+            pMedium ? pMedium->GetName() : OUString());
+        if (s_pDocLockedInsertingLinks == this)
+            s_pDocLockedInsertingLinks = nullptr;
+    }
 }
 
 /** this loops over the presentation objects of a page and repairs some new settings

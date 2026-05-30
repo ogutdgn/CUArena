@@ -420,7 +420,7 @@ void ScTokenConversion::ConvertToTokenSequence( const ScDocument& rDoc,
                         rAPI.Data.clear();      // no data
                     break;
                 case formula::svDouble:
-                    rAPI.Data <<= rToken.GetDouble();
+                    rAPI.Data <<= static_cast<const FormulaDoubleToken&>(rToken).GetDouble();
                     break;
                 case formula::svString:
                     rAPI.Data <<= rToken.GetString().getString();
@@ -428,7 +428,7 @@ void ScTokenConversion::ConvertToTokenSequence( const ScDocument& rDoc,
                 case svExternal:
                     // Function name is stored as string.
                     // Byte (parameter count) is ignored.
-                    rAPI.Data <<= rToken.GetExternal();
+                    rAPI.Data <<= static_cast<const FormulaExternalToken&>(rToken).GetExternal();
                     break;
                 case svSingleRef:
                     {
@@ -447,9 +447,9 @@ void ScTokenConversion::ConvertToTokenSequence( const ScDocument& rDoc,
                     break;
                 case svIndex:
                     {
-                        const ScTableRefToken* pTR;
-                        if (rToken.GetOpCode() == ocTableRef && (pTR = dynamic_cast<const ScTableRefToken*>(&rToken)))
+                        if (rToken.GetOpCode() == ocTableRef)
                         {
+                            const ScTableRefToken* pTR = static_cast<const ScTableRefToken*>(&rToken);
                             sheet::TableRefToken aTableRefToken;
                             aTableRefToken.Index = static_cast<sal_Int32>( pTR->GetIndex());
                             aTableRefToken.Item = static_cast<sal_Int16>( pTR->GetItem());
@@ -477,15 +477,16 @@ void ScTokenConversion::ConvertToTokenSequence( const ScDocument& rDoc,
                         }
                         else
                         {
+                            auto const & rIndexToken = static_cast<const FormulaIndexToken&>(rToken);
                             sheet::NameToken aNameToken;
-                            aNameToken.Index = static_cast<sal_Int32>( rToken.GetIndex() );
-                            aNameToken.Sheet = rToken.GetSheet();
+                            aNameToken.Index = static_cast<sal_Int32>( rIndexToken.GetIndex() );
+                            aNameToken.Sheet = rIndexToken.GetSheet();
                             rAPI.Data <<= aNameToken;
                         }
                     }
                     break;
                 case svMatrix:
-                    if (!ScRangeToSequence::FillMixedArray( rAPI.Data, rToken.GetMatrix(), true))
+                    if (!ScRangeToSequence::FillMixedArray( rAPI.Data, static_cast<const ScMatrixToken&>(rToken).GetMatrix(), true))
                         rAPI.Data.clear();
                     break;
                 case svExternalSingleRef:

@@ -272,6 +272,7 @@ $(eval $(call gb_Helper_register_executables_for_install,UREBIN,ure,\
 $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,base, \
 	abp \
 	dbp \
+	dbu \
 ))
 
 $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,calc, \
@@ -339,6 +340,11 @@ $(eval $(call gb_Helper_register_executables_for_install,OOO,$(gb_haiku_or_kde),
     $(if $(ENABLE_GTK3_KDE5),lo_kde5filepicker) \
 ))
 
+$(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,math, \
+	sm \
+	smd \
+))
+
 $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,ogltrans, \
 	OGLTrans \
 ))
@@ -389,6 +395,7 @@ $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,ooo, \
 	) \
     ) \
 	$(call gb_Helper_optional,SCRIPTING, \
+		basctl \
 		basprov \
 	) \
 	basegfx \
@@ -399,6 +406,8 @@ $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,ooo, \
 	$(if $(filter $(OS),WNT),,cmdmail) \
 	configmgr \
 	ctl \
+	dba \
+	dbahsql \
 	$(call gb_Helper_optional,DBCONNECTIVITY, \
 		dbase \
 		dbaxml) \
@@ -420,11 +429,14 @@ $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,ooo, \
 	fps_office \
 	for \
 	forui \
+	frm \
 	fsstorage \
 	fwk \
+    $(call gb_Helper_optionals_or,HELPTOOLS XMLHELP,helplinker) \
 	i18npool \
 	i18nsearch \
 	$(if $(ENABLE_JAVA),jdbc) \
+	$(if $(ENABLE_QUICKJS),jsuno) \
 	$(if $(filter WNT,$(OS)),jumplist) \
 	$(if $(ENABLE_LDAP),ldapbe2) \
 	$(if $(filter WNT,$(OS)),WinUserInfoBe) \
@@ -451,6 +463,7 @@ $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,ooo, \
 	passwordcontainer \
 	pcr \
 	pdffilter \
+	$(if $(ENABLE_RUST_UNO),rust_uno-cpp) \
 	$(call gb_Helper_optional,SCRIPTING,protocolhandler) \
 	sax \
 	sb \
@@ -540,7 +553,23 @@ $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,pdfimport, \
 ))
 endif
 
+$(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,python, \
+	pythonloader \
+))
+
+$(eval $(call gb_Helper_register_libraries_for_install,PLAINLIBS_OOO,python, \
+	pyuno \
+	$(if $(filter-out WNT,$(OS)),pyuno_wrapper) \
+))
+
+$(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,reportbuilder, \
+	rpt \
+	rptui \
+))
+
 $(eval $(call gb_Helper_register_libraries_for_install,OOOLIBS,writer, \
+	hwp \
+	$(if $(ENABLE_LWP),lwpft) \
 	msword \
 	swd \
 	t602filter \
@@ -556,6 +585,7 @@ $(eval $(call gb_Helper_register_plugins_for_install,OOOLIBS,writer, \
 
 # cli_cppuhelper is NONE even though it is actually in URE because it is CliNativeLibrary
 $(eval $(call gb_Helper_register_libraries,PLAINLIBS_NONE, \
+	smoketest \
 	subsequenttest \
 	test \
 	test-setupvcl \
@@ -615,6 +645,8 @@ $(eval $(call gb_Helper_register_libraries_for_install,PRIVATELIBS_URE,ure, \
 	io \
 	$(if $(ENABLE_JAVA),javaloader) \
 	$(if $(ENABLE_JAVA),javavm) \
+	$(if $(ENABLE_JAVA),jvmaccess) \
+	$(if $(ENABLE_JAVA),jvmfwk) \
 	namingservice \
 	proxyfac \
 	reflection \
@@ -630,6 +662,13 @@ $(eval $(call gb_Helper_register_plugins_for_install,PRIVATELIBS_URE,ure, \
     $(call gb_CondLibSalTextenc,sal_textenc) \
 ))
 
+ifneq ($(ENABLE_WASM_STRIP_ACCESSIBILITY),TRUE)
+$(eval $(call gb_Helper_register_libraries_for_install,PLAINLIBS_OOO,ooo, \
+	$(if $(filter WNT,$(OS)), \
+		winaccessibility \
+	) \
+))
+endif
 
 $(eval $(call gb_Helper_register_libraries_for_install,PLAINLIBS_OOO,ooo, \
     $(call gb_Helper_optional,AVMEDIA, \
@@ -638,7 +677,6 @@ $(eval $(call gb_Helper_register_libraries_for_install,PLAINLIBS_OOO,ooo, \
         $(if $(ENABLE_QT6_MULTIMEDIA),avmediaqt6) \
         $(if $(filter WNT,$(OS)),avmediawin) \
     ) \
-	rllogger \
 	cached1 \
 	comphelper \
 	$(call gb_Helper_optional,DBCONNECTIVITY,dbpool2) \
@@ -746,6 +784,7 @@ $(eval $(call gb_Helper_register_libraries,EXTENSIONLIBS, \
 	active_native \
 	passive_native \
 	crashextension \
+	rust_uno-example \
 ))
 
 ifneq ($(ENABLE_JAVA),)
@@ -767,8 +806,14 @@ $(eval $(call gb_Helper_register_jars_for_install,OOO,ooo, \
 	query \
 	report \
 	sdbc_hsqldb \
+	smoketest \
 	table \
 	unoil \
+))
+
+$(eval $(call gb_Helper_register_jars_for_install,OOO,reportbuilder, \
+	reportbuilder \
+	reportbuilderwizard \
 ))
 
 ifneq ($(ENABLE_SCRIPTING_BEANSHELL),)
@@ -787,6 +832,7 @@ $(eval $(call gb_Helper_register_jars,OXT, \
 	EvolutionarySolver \
 	active_java \
 	mediawiki \
+	nlpsolver \
 	passive_java \
 ))
 
@@ -978,6 +1024,13 @@ $(eval $(call gb_Helper_register_packages_for_install,ooo,\
 	) \
 	$(if $(filter SKIA,$(BUILD_TYPE)), \
 		vcl_skia_denylist ) \
+	$(if $(DISABLE_PYTHON),, \
+		Pyuno/commonwizards \
+		Pyuno/fax \
+		Pyuno/letter \
+		Pyuno/agenda \
+		Pyuno/mailmerge \
+	) \
 	sfx2_classification \
 	svx_document_themes \
     $(if $(filter OPENCL,$(BUILD_TYPE)),sc_opencl_runtimetest) \
@@ -1053,6 +1106,10 @@ $(eval $(call gb_Helper_register_packages_for_install,pdfimport, \
 ))
 endif
 
+$(eval $(call gb_Helper_register_packages_for_install,reportbuilder,\
+	reportbuilder_templates \
+))
+
 $(eval $(call gb_Helper_register_packages_for_install,xsltfilter,\
 	filter_docbook \
 	filter_xhtml \
@@ -1105,7 +1162,26 @@ $(eval $(call gb_Helper_register_packages_for_install,onlineupdate,\
 	$(if $(ENABLE_ONLINE_UPDATE),$(if $(filter LINUX SOLARIS,$(OS)),setup_native_scripts)) \
 ))
 
+ifneq ($(DISABLE_PYTHON),TRUE)
+$(eval $(call gb_Helper_register_packages_for_install,python, \
+    pyuno_pythonloader_ini \
+	pyuno_python_scripts \
+	$(if $(SYSTEM_PYTHON),,$(if $(filter-out WNT,$(OS)),python_shell)) \
+	scripting_ScriptsPython \
+))
 
+$(eval $(call gb_Helper_register_packages_for_install,python_scriptprovider, \
+    scripting_scriptproviderforpython \
+))
+
+ifeq (LIBRELOGO,$(filter LIBRELOGO,$(BUILD_TYPE)))
+$(eval $(call gb_Helper_register_packages_for_install,python_librelogo, \
+	librelogo \
+	librelogo_properties \
+))
+endif # LIBRELOGO
+
+endif # DISABLE_PYTHON
 
 # External executables
 $(eval $(call gb_ExternalExecutable_register_executables,\
@@ -1120,24 +1196,30 @@ $(eval $(call gb_ExternalExecutable_register_executables,\
 # Resources
 $(eval $(call gb_Helper_register_mos,\
     $(call gb_Helper_optional,AVMEDIA,avmedia) \
+	$(call gb_Helper_optional,SCRIPTING,basctl) \
 	chart \
 	cnr \
 	cui \
+	dba \
 	dkt \
 	editeng \
 	flt \
 	for \
 	$(call gb_Helper_optional,DESKTOP,fps) \
+	frm \
 	fwk \
 	oox \
 	pcr \
+	rpt \
 	$(call gb_Helper_optional,SCRIPTING,sb) \
 	sc \
 	sca \
 	scc \
 	sd \
+	sdext \
 	sfx \
 	shell \
+	sm \
 	svl \
 	svt \
 	svx \
@@ -1150,6 +1232,12 @@ $(eval $(call gb_Helper_register_mos,\
 ))
 
 # UI configuration
+ifneq ($(ENABLE_WASM_STRIP_DBACCESS),TRUE)
+$(eval $(call gb_Helper_register_uiconfigs,\
+	$(call gb_Helper_optional,DBCONNECTIVITY,dbaccess) \
+))
+endif
+
 $(eval $(call gb_Helper_register_uiconfigs,\
 	cui \
 	desktop \

@@ -501,14 +501,8 @@ void SidebarController::NotifyResize()
 
         // Now place the tab bar.
         mpTabBar->setPosSizePixel(nTabX, 0, nTabBarDefaultWidth, nHeight);
-        // Phase 4 (Writer UI parity with MS Word): the persistent
-        // right-edge tab bar isn't part of Word's blank-doc UI. Keep
-        // the tab bar hidden by default; users can still summon the
-        // sidebar via View → Sidebar (.uno:Sidebar) or Ctrl+F5.
-        // LOK already skipped showing it; we extend that to native UI.
-        // Side effect for Calc/Impress: same hiding applies — see
-        // docs/architecture/PHASE4_SIDE_EFFECTS_CALC_IMPRESS.md.
-        // mpTabBar->Show(); // intentionally not called.
+        if (!comphelper::LibreOfficeKit::isActive())
+            mpTabBar->Show(); // Don't show TabBar in LOK.
     }
 
     // Determine if the closer of the deck can be shown.
@@ -1260,16 +1254,13 @@ void SidebarController::RequestCloseDeck()
 
 void SidebarController::RequestOpenDeck()
 {
-    // Phase 4 (Writer UI parity with MS Word): the sidebar deck is
-    // suppressed entirely. Word's blank-doc UI has no auto-summoned
-    // task pane; LO would otherwise pop the Properties / Styles /
-    // Navigator deck on certain context changes. Make every
-    // RequestOpenDeck a no-op so the deck never paints. Users that
-    // genuinely need a sidebar can still trigger one through the
-    // specific deck UNO commands (F11 Designer, F5 Navigator) which
-    // call openDeck directly; this hook only blocks the implicit
-    // path.
-    return;
+    SfxSplitWindow* pSplitWindow = GetSplitWindow();
+    if ( pSplitWindow && !pSplitWindow->IsFadeIn() )
+        // tdf#83546 Collapsed sidebar should expand first
+        pSplitWindow->FadeIn();
+
+    mbIsDeckRequestedOpen = true;
+    UpdateDeckOpenState();
 }
 
 bool SidebarController::IsDeckOpen(const sal_Int32 nIndex)

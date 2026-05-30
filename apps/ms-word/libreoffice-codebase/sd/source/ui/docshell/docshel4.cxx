@@ -33,6 +33,7 @@
 #include <editeng/editstat.hxx>
 #include <editeng/flstitem.hxx>
 #include <svl/flagitem.hxx>
+#include <svl/intitem.hxx>
 #include <sot/storage.hxx>
 #include <sfx2/dinfdlg.hxx>
 #include <sfx2/docfile.hxx>
@@ -48,6 +49,7 @@
 #include <sfx2/viewfrm.hxx>
 #include <vcl/syswin.hxx>
 #include <vcl/svapp.hxx>
+#include <vcl/weld/Window.hxx>
 #include <com/sun/star/drawing/XDrawPage.hpp>
 #include <com/sun/star/drawing/XDrawView.hpp>
 #include <tools/debug.hxx>
@@ -80,7 +82,6 @@
 #include <o3tl/string_view.hxx>
 
 #include <Window.hxx>
-#include <svl/intitem.hxx>
 #include <DrawController.hxx>
 #include <ResourceId.hxx>
 
@@ -293,10 +294,12 @@ bool DrawDocShell::Load( SfxMedium& rMedium )
     bRet = SfxObjectShell::Load( rMedium );
     if (bRet)
     {
-        comphelper::EmbeddedObjectContainer& rEmbeddedObjectContainer = getEmbeddedObjectContainer();
-        rEmbeddedObjectContainer.setUserAllowsLinkUpdate(false);
+        getEmbeddedObjectContainer().setUserAllowsLinkUpdate(false);
         bRet = SdXMLFilter( rMedium, *this, SdXMLFilterMode::Normal, SotStorage::GetVersion( rMedium.GetStorage() ) ).Import( nError );
     }
+
+    if (bRet)
+        UpdateLinks();
 
     if( bRet )
     {
@@ -453,11 +456,15 @@ bool DrawDocShell::ImportFrom(SfxMedium &rMedium,
     else // initial loading of the document
     {
         mpDoc->EnableUndo(false);
+        getEmbeddedObjectContainer().setUserAllowsLinkUpdate(false);
     }
 
     mpDoc->incImportExport();
     const bool bRet = SfxObjectShell::ImportFrom(rMedium, xInsertPosition);
     mpDoc->decImportExport();
+
+    if (bRet && !xInsertPosition)
+        UpdateLinks();
 
     SfxItemSet& rSet = rMedium.GetItemSet();
     if (SfxItemState::SET == rSet.GetItemState(SID_DOC_STARTPRESENTATION))
@@ -523,6 +530,8 @@ bool DrawDocShell::ConvertFrom( SfxMedium& rMedium )
         mpDoc->SetStartWithPresentation(nStartingSlide);
     }
 
+    getEmbeddedObjectContainer().setUserAllowsLinkUpdate(false);
+
     if( aFilterName == pFilterPowerPoint97
         || aFilterName == pFilterPowerPoint97Template
         || aFilterName == pFilterPowerPoint97AutoPlay)
@@ -570,6 +579,9 @@ bool DrawDocShell::ConvertFrom( SfxMedium& rMedium )
 
     FinishedLoading();
 
+    if (bRet)
+        UpdateLinks();
+
     // tell SFX to change viewshell when in preview mode
     if( IsPreview() )
     {
@@ -584,6 +596,11 @@ bool DrawDocShell::ConvertFrom( SfxMedium& rMedium )
     }
 
     return bRet;
+}
+
+void DrawDocShell::UpdateLinks()
+{
+    mpDoc->UpdateAllLinks();
 }
 
 /**

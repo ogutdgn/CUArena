@@ -35,15 +35,34 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
 ))
 endif
 
+ifneq ($(ENABLE_WASM_STRIP_DBACCESS),TRUE)
 $(eval $(call gb_Module_add_moduledirs,libreoffice,\
+	dbaccess \
+))
+endif
+
+ifneq ($(ENABLE_WASM_STRIP_ACCESSIBILITY),TRUE)
+$(eval $(call gb_Module_add_moduledirs,libreoffice,\
+	winaccessibility \
+))
+endif
+
+$(eval $(call gb_Module_add_moduledirs,libreoffice,\
+	android \
     $(if $(ENABLE_WASM_STRIP_BASIC_DRAW_MATH_IMPRESS),, \
 	animations \
     ) \
+	apple_remote \
 	avmedia \
+	$(if $(ENABLE_WASM_STRIP_CALC),, \
+	basctl \
+	) \
 	basegfx \
 	basic \
+	bean \
 	binaryurp \
 	bridges \
+	cli_ure \
     codemaker \
 	comphelper \
 	configmgr \
@@ -64,20 +83,32 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
 	external \
 	extras \
 	filter \
+	$(call gb_Helper_optional,DBCONNECTIVITY,forms) \
 	formula \
 	$(call gb_Helper_optional,DESKTOP,fpicker) \
 	framework \
+    $(call gb_Helper_optionals_or,HELPTOOLS XMLHELP,helpcompiler) \
 	$(call gb_Helper_optional,HELP,helpcontent2) \
+	hwpfilter \
 	i18nlangtag \
 	i18npool \
 	i18nutil \
 	idl \
 	instsetoo_native \
 	io \
+	javaunohelper \
+	$(if $(ENABLE_QUICKJS),jsuno) \
+	jurt \
+	jvmaccess \
+	jvmfwk \
+	$(call gb_Helper_optional,LIBRELOGO,librelogo) \
 	libreofficekit \
 	lingucomponent \
 	linguistic \
+	lotuswordpro \
 	$(call gb_Helper_optional,DESKTOP,l10ntools) \
+	net_ure \
+	$(call gb_Helper_optional,NLPSOLVER,nlpsolver) \
 	o3tl \
 	$(call gb_Helper_optional,ODK,odk) \
 	offapi \
@@ -88,9 +119,15 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
 	package \
 	pch \
 	postprocess \
+	$(call gb_Helper_optional,PYUNO,pyuno) \
+	$(call gb_Helper_optional,QADEVOOO,qadevOOo) \
 	readlicense_oo \
 	registry \
-	rllogger \
+	remotebridges \
+	reportbuilder \
+	$(call gb_Helper_optional,DBCONNECTIVITY,reportdesign) \
+	ridljar \
+	rust_uno \
 	sal \
 	salhelper \
 	sax \
@@ -103,6 +140,7 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
 	scripting \
     $(if $(ENABLE_WASM_STRIP_BASIC_DRAW_MATH_IMPRESS),, \
 	sd \
+	sdext \
     ) \
 	$(call gb_Helper_optional,DESKTOP,setup_native) \
 	sfx2 \
@@ -110,9 +148,13 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
     $(if $(ENABLE_WASM_STRIP_BASIC_DRAW_MATH_IMPRESS),, \
 	slideshow \
     ) \
+	smoketest \
 	solenv \
 	soltools \
 	sot \
+    $(if $(ENABLE_WASM_STRIP_BASIC_DRAW_MATH_IMPRESS),, \
+	starmath \
+    ) \
     $(if $(ENABLE_CUSTOMTARGET_COMPONENTS),static) \
 	stoc \
 	store \
@@ -123,6 +165,7 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
 	svx \
 	$(if $(ENABLE_WASM_STRIP_WRITER),, \
 	sw \
+	swext \
 	) \
 	sysui \
 	test \
@@ -146,6 +189,7 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
 	vcl \
 	wizards \
 	writerperfect \
+    $(call gb_Helper_optional,XMLHELP,xmlhelp) \
 	xmloff \
 	xmlreader \
 	xmlscript \
@@ -188,6 +232,7 @@ $(eval $(call repositorymodule_serialize,\
 	sw \
 	$(if $(MERGELIBS_MORE),, \
 		sd \
+		$(call gb_Helper_optional,DBCONNECTIVITY,dbu) \
 		cui) \
 	$(if $(MERGELIBS), merged, \
 		chart2 oox svx svxcore xo sfx fwk svt vcl) \

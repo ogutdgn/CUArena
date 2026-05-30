@@ -12,13 +12,16 @@ $(eval $(call gb_Module_Module,scp2))
 $(eval $(call gb_Module_add_targets,scp2,\
 	AutoInstall \
 	CustomTarget_langmacros \
+	InstallModule_base \
 	InstallModule_calc \
 	InstallModule_draw \
 	InstallModule_extensions \
 	InstallModule_graphicfilter \
 	InstallModule_impress \
+	InstallModule_math \
 	InstallModule_onlineupdate \
 	InstallModule_ooo \
+	InstallModule_python \
 	InstallModule_spsupp \
 	InstallModule_ure \
 	InstallModule_writer \

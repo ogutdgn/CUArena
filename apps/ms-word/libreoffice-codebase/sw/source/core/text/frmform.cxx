@@ -1486,22 +1486,21 @@ void SwTextFrame::FormatAdjust( SwTextFormatter &rLine,
         SwTwips nContentBottom = nFrameBottom;
         for (auto* pObj : *GetDrawObjs())
         {
-            auto pFly = pObj ? pObj->DynCastFlyFrame() : nullptr;
-            auto pContentFly = pFly ? pFly->DynCastFlyAtContentFrame() : nullptr;
-            if (!pContentFly)
+            auto pFly = pObj ? pObj->DynCastFlyAtContentFrame() : nullptr;
+            if (!pFly)
                 continue;
-            if (pContentFly->IsInMakeAll())
+            if (pFly->IsInMakeAll())
             {
                 // We are called from inside one of our own flys' MakeAll - do not grow at all
                 nContentBottom = nFrameBottom;
                 break;
             }
-            if (!pContentFly->Lower() || !pContentFly->isFrameAreaPositionValid()
-                || !pContentFly->IsFlySplitAllowed())
+            const SwFrame* pLower =  pFly->Lower();
+            if (!pLower || !pFly->isFrameAreaPositionValid() || !pFly->IsFlySplitAllowed())
                 continue;
 
             SwTwips nFlyHeight = aRectFnSet.GetHeight(pFly->getFrameArea());
-            SwTwips nContentHeight = aRectFnSet.GetHeight(pFly->Lower()->getFrameArea());
+            SwTwips nContentHeight = aRectFnSet.GetHeight(pLower->getFrameArea());
             // Only grow when the content overflows the fly frame (i.e. the fly needs splitting)
             if (nContentHeight > nFlyHeight)
             {

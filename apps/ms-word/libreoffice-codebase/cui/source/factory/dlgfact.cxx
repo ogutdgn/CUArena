@@ -100,6 +100,8 @@
 #include <querydialog.hxx>
 #include <welcomedlg.hxx>
 
+#include <MacroManagerDialog.hxx>
+
 using namespace ::com::sun::star::frame;
 using namespace ::com::sun::star::container;
 
@@ -490,12 +492,31 @@ VclPtr<AbstractScriptSelectorDialog> AbstractDialogFactory_Impl::CreateScriptSel
     return VclPtr<AbstractScriptSelectorDialog_Impl>::Create(pParent, rxFrame);
 }
 
-VclPtr<AbstractMacroManagerDialog>
-AbstractDialogFactory_Impl::CreateMacroManagerDialog(weld::Window* /*pParent*/,
-                                                     const Reference<frame::XFrame>& /*rxFrame*/)
+#if HAVE_FEATURE_SCRIPTING
+namespace
 {
-    // No backing implementation: the BASIC IDE (basctl) is not part of this build.
+class AbstractMacroManagerDialog_Impl final
+    : public vcl::AbstractDialogImpl_Async<AbstractMacroManagerDialog, MacroManagerDialog>
+{
+public:
+    using AbstractDialogImpl_BASE::AbstractDialogImpl_BASE;
+    OUString GetScriptURL() const override { return m_pDlg->GetScriptURL(); }
+    void LoadLastUsedMacro() const override { m_pDlg->LoadLastUsedMacro(); }
+};
+}
+#endif
+
+VclPtr<AbstractMacroManagerDialog>
+AbstractDialogFactory_Impl::CreateMacroManagerDialog(weld::Window* pParent,
+                                                     const Reference<frame::XFrame>& rxFrame)
+{
+#if HAVE_FEATURE_SCRIPTING
+    return VclPtr<AbstractMacroManagerDialog_Impl>::Create(pParent, rxFrame);
+#else
+    (void)pParent;
+    (void)rxFrame;
     return nullptr;
+#endif
 }
 
 VclPtr<VclAbstractDialog> AbstractDialogFactory_Impl::CreateSvxScriptOrgDialog(weld::Window* pParent,

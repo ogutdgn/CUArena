@@ -1,0 +1,48 @@
+# Headless LOK dev build for the MS Word clone (Boundary A engine).
+#
+# Tree is PRISTINE LibreOffice @ commit 1f1121d1 (re-vendored 2026-05-29, replacing the
+# old reskin's hacked/stripped tree). Slimming to a Writer-focused engine is done HERE via
+# supported configure flags -- NOT by deleting modules, which is exactly what broke the
+# old tree (dangling refs to opencl/helplinker/etc.). See docs/engine-revendor-impact.md.
+#
+# OOM-safe caps for the 15 GB box are load-bearing: no LTO, no mergelibs, parallelism 8.
+
+# --- headless: no desktop/UI integration (we only render via LOK tiles) ---
+--disable-gui
+--disable-gtk3
+--disable-gtk4
+--disable-qt5
+--disable-qt6
+--disable-kf5
+--disable-dbus
+--disable-gio
+--disable-randr
+--disable-cups
+--disable-gstreamer-1-0
+
+# --- cut subsystems not needed for Writer layout / shaping / .docx I/O ---
+--without-java
+--without-junit
+--without-help
+--without-myspell-dicts
+--disable-odk
+--disable-online-update
+# NOTE: do NOT --disable-database-connectivity — svx's form layer links against the
+# connectivity/dbtools library, so disabling it breaks libsvxcorelo.so (a core module).
+# We still drop the heavy SDBC backends below; that part is cleanly optional.
+--disable-firebird-sdbc
+--disable-postgresql-sdbc
+--disable-report-builder
+--disable-lpsolve
+--disable-lotuswordpro
+--disable-scripting-beanshell
+--disable-scripting-javascript
+--disable-python
+--disable-opencl
+
+# --- build shape: product build, no packaging, en-US only, capped parallelism ---
+--enable-release-build
+--with-package-format=no
+--with-lang=en-US
+--with-parallelism=8
+--with-vendor=cua-bench

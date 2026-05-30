@@ -205,23 +205,22 @@ void FixedText::Paint( vcl::RenderContext& rRenderContext, const tools::Rectangl
     ImplDraw(&rRenderContext, SystemTextColorFlags::NONE, Point(), GetOutputSizePixel());
 }
 
-void FixedText::Draw( OutputDevice* pDev, const Point& rPos,
-                      SystemTextColorFlags nFlags )
+void FixedText::Draw(OutputDevice& rDev, const Point& rPos, SystemTextColorFlags nFlags)
 {
-    ApplySettings(*pDev);
+    ApplySettings(rDev);
 
-    Point       aPos  = pDev->LogicToPixel( rPos );
+    Point aPos = rDev.LogicToPixel(rPos);
     Size        aSize = GetSizePixel();
-    vcl::Font   aFont = GetDrawPixelFont( pDev );
+    vcl::Font aFont = GetDrawPixelFont(&rDev);
 
-    auto popIt = pDev->ScopedPush();
-    pDev->SetMapMode();
-    pDev->SetFont( aFont );
+    auto popIt = rDev.ScopedPush();
+    rDev.SetMapMode();
+    rDev.SetFont(aFont);
     if ( nFlags & SystemTextColorFlags::Mono )
-        pDev->SetTextColor( COL_BLACK );
+        rDev.SetTextColor(COL_BLACK);
     else
-        pDev->SetTextColor( GetTextColor() );
-    pDev->SetTextFillColor();
+        rDev.SetTextColor(GetTextColor());
+    rDev.SetTextFillColor();
 
     bool bBorder = (GetStyle() & WB_BORDER);
     bool bBackground = IsControlBackground();
@@ -230,21 +229,30 @@ void FixedText::Draw( OutputDevice* pDev, const Point& rPos,
         tools::Rectangle aRect( aPos, aSize );
         if ( bBorder )
         {
-            ImplDrawFrame( pDev, aRect );
+            ImplDrawFrame(&rDev, aRect);
         }
         if ( bBackground )
         {
-            pDev->SetFillColor( GetControlBackground() );
-            pDev->DrawRect( aRect );
+            rDev.SetFillColor(GetControlBackground());
+            rDev.DrawRect(aRect);
         }
     }
 
-    ImplDraw( pDev, nFlags, aPos, aSize );
+    ImplDraw(&rDev, nFlags, aPos, aSize);
 }
 
 void FixedText::Resize()
 {
     Control::Resize();
+    if (GetStyle() & WB_WORDBREAK)
+    {
+        tools::Long nNewWidth = GetSizePixel().Width();
+        if (nNewWidth != m_nLastAllocatedWidth && nNewWidth > 0)
+        {
+            m_nLastAllocatedWidth = nNewWidth;
+            queue_resize();
+        }
+    }
     Invalidate();
 }
 
@@ -334,13 +342,36 @@ Size FixedText::CalcMinimumSize( tools::Long nMaxWidth ) const
 
 Size FixedText::GetOptimalSize() const
 {
-    sal_Int32 nMaxAvailWidth = 0x7fffffff;
+    sal_Int32 nMaxWidthCharsPx = -1;
     if (m_nMaxWidthChars != -1)
     {
         OUString aBuf(OUString::Concat(RepeatedUChar('x', m_nMaxWidthChars)));
-        nMaxAvailWidth = getTextDimensions(this, aBuf, 0x7fffffff).Width();
+        nMaxWidthCharsPx = getTextDimensions(this, aBuf, 0x7fffffff).Width();
     }
-    Size aRet = CalcMinimumSize(nMaxAvailWidth);
+
+    sal_Int32 nWrapWidth = 0x7fffffff;
+    // Height for width: Use last allocated width to calculate the needed height
+    // - fall back to max width chars if set, otherwise no limit
+    if ((GetStyle() & WB_WORDBREAK) && m_nLastAllocatedWidth > 0)
+        nWrapWidth = m_nLastAllocatedWidth;
+    else if (nMaxWidthCharsPx > 0)
+        nWrapWidth = nMaxWidthCharsPx;
+
+    Size aRet = CalcMinimumSize(nWrapWidth);
+
+    // Keep the wrapped height from CalcMinimumSize(cache), but report the
+    // unwrapped width as preferred width. Reporting the wrapped-text bounding-box width
+    // (or the cached allocation) creates a loop where the parent container progressively
+    // shrinks the column to match a shrinking preferred width.
+    if ((GetStyle() & WB_WORDBREAK) && m_nLastAllocatedWidth > 0)
+    {
+        Size aUnwrapped = CalcMinimumSize(0x7fffffff);
+        aRet.setWidth(aUnwrapped.Width());
+    }
+
+    if (nMaxWidthCharsPx > 0)
+        aRet.setWidth(std::min<tools::Long>(aRet.Width(), nMaxWidthCharsPx));
+
     if (m_nMinWidthChars != -1)
     {
         OUString aBuf(OUString::Concat(RepeatedUChar('x', m_nMinWidthChars)));
@@ -598,9 +629,7 @@ void FixedLine::Paint(vcl::RenderContext& rRenderContext, const tools::Rectangle
     ImplDraw(rRenderContext);
 }
 
-void FixedLine::Draw( OutputDevice*, const Point&, SystemTextColorFlags )
-{
-}
+void FixedLine::Draw(OutputDevice&, const Point&, SystemTextColorFlags) {}
 
 void FixedLine::Resize()
 {
@@ -734,24 +763,23 @@ void FixedBitmap::Paint(vcl::RenderContext& rRenderContext, const tools::Rectang
     ImplDraw(&rRenderContext, Point(), GetOutputSizePixel());
 }
 
-void FixedBitmap::Draw( OutputDevice* pDev, const Point& rPos,
-                        SystemTextColorFlags )
+void FixedBitmap::Draw(OutputDevice& rDev, const Point& rPos, SystemTextColorFlags)
 {
-    Point       aPos  = pDev->LogicToPixel( rPos );
+    Point aPos = rDev.LogicToPixel(rPos);
     Size        aSize = GetSizePixel();
     tools::Rectangle   aRect( aPos, aSize );
 
-    auto popIt = pDev->ScopedPush();
-    pDev->SetMapMode();
+    auto popIt = rDev.ScopedPush();
+    rDev.SetMapMode();
 
     // Border
     if ( GetStyle() & WB_BORDER )
     {
-        DecorationView aDecoView( pDev );
+        DecorationView aDecoView(&rDev);
         aRect = aDecoView.DrawFrame( aRect, DrawFrameStyle::DoubleIn );
     }
-    pDev->IntersectClipRegion( aRect );
-    ImplDraw( pDev, aRect.TopLeft(), aRect.GetSize() );
+    rDev.IntersectClipRegion(aRect);
+    ImplDraw(&rDev, aRect.TopLeft(), aRect.GetSize());
 }
 
 void FixedBitmap::Resize()
@@ -879,23 +907,22 @@ Size FixedImage::GetOptimalSize() const
     return maImage.GetSizePixel();
 }
 
-void FixedImage::Draw( OutputDevice* pDev, const Point& rPos,
-                       SystemTextColorFlags )
+void FixedImage::Draw(OutputDevice& rDev, const Point& rPos, SystemTextColorFlags)
 {
-    Point       aPos  = pDev->LogicToPixel( rPos );
+    Point aPos = rDev.LogicToPixel(rPos);
     Size        aSize = GetSizePixel();
     tools::Rectangle   aRect( aPos, aSize );
 
-    auto popIt = pDev->ScopedPush();
-    pDev->SetMapMode();
+    auto popIt = rDev.ScopedPush();
+    rDev.SetMapMode();
 
     // Border
     if ( GetStyle() & WB_BORDER )
     {
-        ImplDrawFrame( pDev, aRect );
+        ImplDrawFrame(&rDev, aRect);
     }
-    pDev->IntersectClipRegion( aRect );
-    ImplDraw( pDev, aRect.TopLeft(), aRect.GetSize() );
+    rDev.IntersectClipRegion(aRect);
+    ImplDraw(&rDev, aRect.TopLeft(), aRect.GetSize());
 }
 
 void FixedImage::Resize()

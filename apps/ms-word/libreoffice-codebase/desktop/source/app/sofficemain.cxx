@@ -40,8 +40,6 @@
 #include <tools/extendapplicationenvironment.hxx>
 #include <vcl/svmain.hxx>
 
-#include <rllogger/rllogger.hxx>
-
 #if HAVE_FEATURE_BREAKPAD
 #include <desktop/crashreport.hxx>
 #endif
@@ -66,9 +64,6 @@ extern "C" int DESKTOP_DLLPUBLIC soffice_main()
 #endif
 
     sal_detail_initialize(sal::detail::InitializeSoffice, nullptr);
-
-    // Probes LO_RL_LOG_DIR; no-op if unset.
-    rllogger::initialize();
 
 #if HAVE_FEATURE_BREAKPAD
     CrashReporter::installExceptionHandler();

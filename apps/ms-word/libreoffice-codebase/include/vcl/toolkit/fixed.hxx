@@ -33,6 +33,7 @@ class VCL_DLLPUBLIC FixedText : public Control
 private:
     sal_Int32 m_nMaxWidthChars;
     sal_Int32 m_nMinWidthChars;
+    mutable tools::Long m_nLastAllocatedWidth {-1};
     VclPtr<vcl::Window> m_pMnemonicWindow;
 
     using Control::ImplInitSettings;
@@ -62,7 +63,7 @@ public:
     virtual void    ApplySettings(vcl::RenderContext& rRenderContext) override;
 
     virtual void    Paint( vcl::RenderContext& rRenderContext, const tools::Rectangle& rRect ) override;
-    virtual void    Draw( OutputDevice* pDev, const Point& rPos, SystemTextColorFlags nFlags ) override;
+    virtual void Draw(OutputDevice& rDev, const Point& rPos, SystemTextColorFlags nFlags) override;
     virtual void    Resize() override;
     virtual void    StateChanged( StateChangedType nType ) override;
     virtual void    DataChanged( const DataChangedEvent& rDCEvt ) override;
@@ -109,7 +110,7 @@ public:
     virtual void    ApplySettings(vcl::RenderContext&) override;
 
     virtual void    Paint( vcl::RenderContext& rRenderContext, const tools::Rectangle& rRect ) override;
-    virtual void    Draw( OutputDevice* pDev, const Point& rPos, SystemTextColorFlags nFlags ) override;
+    virtual void Draw(OutputDevice& rDev, const Point& rPos, SystemTextColorFlags nFlags) override;
     virtual void    Resize() override;
     virtual void    StateChanged( StateChangedType nType ) override;
     virtual void    DataChanged( const DataChangedEvent& rDCEvt ) override;
@@ -135,7 +136,8 @@ public:
     SAL_DLLPRIVATE virtual void ApplySettings(vcl::RenderContext&) override;
 
     SAL_DLLPRIVATE virtual void Paint( vcl::RenderContext& rRenderContext, const tools::Rectangle& rRect ) override;
-    SAL_DLLPRIVATE virtual void Draw( OutputDevice* pDev, const Point& rPos, SystemTextColorFlags nFlags ) override;
+    SAL_DLLPRIVATE virtual void Draw(OutputDevice& rDev, const Point& rPos,
+                                     SystemTextColorFlags nFlags) override;
     SAL_DLLPRIVATE virtual void Resize() override;
     SAL_DLLPRIVATE virtual void StateChanged( StateChangedType nType ) override;
     SAL_DLLPRIVATE virtual void DataChanged( const DataChangedEvent& rDCEvt ) override;
@@ -163,7 +165,8 @@ public:
     SAL_DLLPRIVATE virtual void    ApplySettings(vcl::RenderContext&) override;
 
     SAL_DLLPRIVATE virtual void    Paint( vcl::RenderContext& rRenderContext, const tools::Rectangle& rRect ) override;
-    SAL_DLLPRIVATE virtual void    Draw( OutputDevice* pDev, const Point& rPos, SystemTextColorFlags nFlags ) override;
+    SAL_DLLPRIVATE virtual void Draw(OutputDevice& rDev, const Point& rPos,
+                                     SystemTextColorFlags nFlags) override;
     SAL_DLLPRIVATE virtual void    Resize() override;
     SAL_DLLPRIVATE virtual void    StateChanged( StateChangedType nType ) override;
     SAL_DLLPRIVATE virtual void    DataChanged( const DataChangedEvent& rDCEvt ) override;

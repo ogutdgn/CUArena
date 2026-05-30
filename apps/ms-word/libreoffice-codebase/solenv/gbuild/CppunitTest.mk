@@ -363,8 +363,9 @@ $(filter-out \
 	    sw/util/vbaswobj \
 	    scripting/source/basprov/basprov \
 	    scripting/util/scriptframe) \
-	dbaccess/util/dba \
-	forms/util/frm,$(1))
+	$(if $(filter DBCONNECTIVITY,$(BUILD_TYPE)),, \
+	    dbaccess/util/dba \
+		forms/util/frm),$(1))
 endef
 
 define gb_CppunitTest_use_components

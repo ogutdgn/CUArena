@@ -5381,7 +5381,7 @@ std::unique_ptr<ScTokenArray> ScCompiler::CompileString( const OUString& rFormul
     return CompileString( rFormula );
 }
 
-ScRangeData* ScCompiler::GetRangeData( const FormulaToken& rToken ) const
+ScRangeData* ScCompiler::GetRangeData( const FormulaIndexToken& rToken ) const
 {
     return rDoc.FindRangeNameBySheetAndIndex( rToken.GetSheet(), rToken.GetIndex());
 }
@@ -5405,7 +5405,7 @@ bool ScCompiler::HandleDPFieldName()
 bool ScCompiler::HandleRange()
 {
     ScTokenArray* pNew;
-    const ScRangeData* pRangeData = GetRangeData( *mpToken);
+    const ScRangeData* pRangeData = GetRangeData( static_cast<FormulaIndexToken&>(*mpToken));
     if (pRangeData)
     {
         FormulaError nErr = pRangeData->GetErrCode();
@@ -5441,7 +5441,8 @@ bool ScCompiler::HandleRange()
                 // shall still point to the same sheet as if used on the
                 // original sheet, not shifted to the current position where
                 // they are used.
-                SCTAB nSheetTab = mpToken->GetSheet();
+                assert(dynamic_cast<FormulaIndexToken*>(mpToken.get()));
+                SCTAB nSheetTab = static_cast<FormulaIndexToken*>(mpToken.get())->GetSheet();
                 if (nSheetTab >= 0 && nSheetTab != aPos.Tab())
                     AdjustSheetLocalNameRelReferences( nSheetTab - aPos.Tab());
 
@@ -5702,7 +5703,7 @@ void ScCompiler::CreateStringFromExternal( OUStringBuffer& rBuffer, const Formul
 
 void ScCompiler::CreateStringFromMatrix( OUStringBuffer& rBuffer, const FormulaToken* pTokenP ) const
 {
-    const ScMatrix* pMatrix = pTokenP->GetMatrix();
+    const ScMatrix* pMatrix = static_cast<const ScMatrixToken*>(pTokenP)->GetMatrix();
     SCSIZE nC, nMaxC, nR, nMaxR;
 
     pMatrix->GetDimensions( nMaxC, nMaxR);
@@ -6082,10 +6083,10 @@ void ScCompiler::CreateStringFromIndex( OUStringBuffer& rBuffer, const FormulaTo
     {
         case ocName:
         {
-            const ScRangeData* pData = GetRangeData( *_pTokenP);
+            const ScRangeData* pData = GetRangeData( static_cast<const FormulaIndexToken&>(*_pTokenP));
             if (pData)
             {
-                SCTAB nTab = _pTokenP->GetSheet();
+                SCTAB nTab = static_cast<const FormulaIndexToken*>(_pTokenP)->GetSheet();
                 if (nTab >= 0 && (nTab != aPos.Tab() || mbRefConventionChartOOXML))
                 {
                     // Sheet-local on other sheet.
@@ -6140,7 +6141,7 @@ void ScCompiler::CreateStringFromIndex( OUStringBuffer& rBuffer, const FormulaTo
                                 CreateStringFromDoubleRef( aBuffer, pRef);
                                 break;
                             case svError:
-                                AppendErrorConstant( aBuffer, pRef->GetError());
+                                AppendErrorConstant( aBuffer, static_cast<const FormulaErrorToken*>(pRef)->GetError());
                                 break;
                             default:
                                 AppendErrorConstant( aBuffer, FormulaError::NoCode);
@@ -7081,7 +7082,7 @@ void ScCompiler::AnnotateTrimOnDoubleRefs()
                         if (!pTok->IsInForceArray())
                             return;
 
-                        const short nJumpCount = pTok->GetJump()[0];
+                        const short nJumpCount = static_cast<const FormulaJumpToken*>(pTok)->GetJump()[0];
                         if (nJumpCount != 2) // Should have THEN but no ELSE.
                             return;
 
@@ -7212,7 +7213,7 @@ void ScCompiler::AnnotateTrimOnDoubleRefs()
                         if (!pTok->IsInForceArray())
                             return;
 
-                        const short nJumpCount = pTok->GetJump()[0];
+                        const short nJumpCount = static_cast<FormulaJumpToken*>(pTok)->GetJump()[0];
                         if (nJumpCount != 2) // Should have THEN but no ELSE.
                             return;
 

@@ -102,7 +102,7 @@ void ScFormulaResult::ResolveToken( const formula::FormulaToken * p )
         switch (p->GetType())
         {
             case formula::svError:
-                mnError = p->GetError();
+                mnError = static_cast<const formula::FormulaErrorToken*>(p)->GetError();
                 p->DecRef();
                 mbToken = false;
                 // set in case mnError is 0 now, which shouldn't happen but ...
@@ -121,7 +121,7 @@ void ScFormulaResult::ResolveToken( const formula::FormulaToken * p )
                 mbValueCached = true;
                 break;
             case formula::svDouble:
-                mfValue = p->GetDouble();
+                mfValue = static_cast<const formula::FormulaDoubleToken*>(p)->GetDouble();
                 p->DecRef();
                 mbToken = false;
                 meMultiline = MULTILINE_FALSE;
@@ -380,12 +380,13 @@ bool ScFormulaResult::GetErrorOrDouble( FormulaError& rErr, double& rVal ) const
         if (GetType() == formula::svMatrixCell)
         {
             // don't need to test for mpToken here, GetType() already did it
-            rErr = static_cast<const ScMatrixCellResultToken*>(mpToken)->
-                GetUpperLeftToken()->GetError();
+            auto pMCRToken = static_cast<const ScMatrixCellResultToken*>(mpToken);
+            auto pFEToken = static_cast<const formula::FormulaErrorToken*>(pMCRToken->GetUpperLeftToken().get());
+            rErr = pFEToken->GetError();
         }
         else if (mpToken)
         {
-            rErr = mpToken->GetError();
+            rErr = static_cast<const formula::FormulaErrorToken*>(mpToken)->GetError();
         }
     }
 
@@ -414,12 +415,13 @@ sc::FormulaResultValue ScFormulaResult::GetResult() const
         if (GetType() == formula::svMatrixCell)
         {
             // don't need to test for mpToken here, GetType() already did it
-            nErr = static_cast<const ScMatrixCellResultToken*>(mpToken)->
-                GetUpperLeftToken()->GetError();
+            auto pMCRToken = static_cast<const ScMatrixCellResultToken*>(mpToken);
+            auto pFEToken = static_cast<const formula::FormulaErrorToken*>(pMCRToken->GetUpperLeftToken().get());
+            nErr = pFEToken->GetError();
         }
         else if (mpToken)
         {
-            nErr = mpToken->GetError();
+            nErr = static_cast<const formula::FormulaErrorToken*>(mpToken)->GetError();
         }
     }
 
@@ -448,11 +450,14 @@ FormulaError ScFormulaResult::GetResultError() const
     if (sv == formula::svError)
     {
         if (GetType() == formula::svMatrixCell)
+        {
             // don't need to test for mpToken here, GetType() already did it
-            return static_cast<const ScMatrixCellResultToken*>(mpToken)->
-                GetUpperLeftToken()->GetError();
+            auto pMCRToken = static_cast<const ScMatrixCellResultToken*>(mpToken);
+            auto pFEToken = static_cast<const formula::FormulaErrorToken*>(pMCRToken->GetUpperLeftToken().get());
+            return pFEToken->GetError();
+        }
         if (mpToken)
-            return mpToken->GetError();
+            return static_cast<const formula::FormulaErrorToken*>(mpToken)->GetError();
     }
     return FormulaError::NONE;
 }
@@ -492,13 +497,13 @@ double ScFormulaResult::GetDouble() const
             switch (mpToken->GetType())
             {
                 case formula::svHybridCell:
-                    return mpToken->GetDouble();
+                    return static_cast<const ScHybridCellToken*>(mpToken)->GetDouble();
                 case formula::svMatrixCell:
                     {
                         const ScMatrixCellResultToken* p =
                             static_cast<const ScMatrixCellResultToken*>(mpToken);
                         if (p->GetUpperLeftType() == formula::svDouble)
-                            return p->GetUpperLeftToken()->GetDouble();
+                            return static_cast<const formula::FormulaDoubleToken*>(p->GetUpperLeftToken().get())->GetDouble();
                     }
                     break;
                 default:
@@ -541,7 +546,7 @@ const svl::SharedString & ScFormulaResult::GetString() const
 ScConstMatrixRef ScFormulaResult::GetMatrix() const
 {
     if (GetType() == formula::svMatrixCell)
-        return mpToken->GetMatrix();
+        return static_cast<const ScMatrixCellResultToken*>(mpToken)->GetMatrix();
     return nullptr;
 }
 

@@ -643,7 +643,7 @@ void ScInterpreter::PushTempToken( FormulaToken* p )
         {
             if (p->GetType() == svError)
             {
-                p->SetError( nGlobalError);
+                static_cast<FormulaErrorToken*>(p)->SetError( nGlobalError);
                 PushTempTokenWithoutError( p);
             }
             else
@@ -688,7 +688,7 @@ void ScInterpreter::PushTokenRef( const formula::FormulaConstTokenRef& x )
     {
         if (nGlobalError != FormulaError::NONE)
         {
-            if (x->GetType() == svError && x->GetError() == nGlobalError)
+            if (x->GetType() == svError && static_cast<const FormulaErrorToken*>(x.get())->GetError() == nGlobalError)
                 PushTempTokenWithoutError( x.get());
             else
                 PushTempTokenWithoutError( new FormulaErrorToken( nGlobalError));
@@ -771,20 +771,20 @@ void ScInterpreter::PopError()
     {
         sp--;
         if (pStack[sp]->GetType() == svError)
-            nGlobalError = pStack[sp]->GetError();
+            nGlobalError = static_cast<const FormulaErrorToken*>(pStack[sp])->GetError();
     }
     else
         SetError(FormulaError::UnknownStackVariable);
 }
 
-FormulaConstTokenRef ScInterpreter::PopToken()
+FormulaConstTokenRef ScInterpreter::PopTokenImpl()
 {
     if (sp)
     {
         sp--;
         const FormulaToken* p = pStack[ sp ];
         if (p->GetType() == svError)
-            nGlobalError = p->GetError();
+            nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
         return p;
     }
     else
@@ -803,14 +803,15 @@ double ScInterpreter::PopDouble()
         switch (p->GetType())
         {
             case svError:
-                nGlobalError = p->GetError();
+                nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
                 break;
             case svDouble:
                 {
-                    SvNumFormatType nType = static_cast<SvNumFormatType>(p->GetDoubleType());
+                    auto pDToken = static_cast<const FormulaDoubleToken*>(p);
+                    SvNumFormatType nType = static_cast<SvNumFormatType>(pDToken->GetDoubleType());
                     if (nType != SvNumFormatType::ALL && nType != SvNumFormatType::UNDEFINED)
                         nCurFmtType = nType;
-                    return p->GetDouble();
+                    return static_cast<const FormulaDoubleToken*>(p)->GetDouble();
                 }
             case svEmptyCell:
             case svMissing:
@@ -835,7 +836,7 @@ const svl::SharedString & ScInterpreter::PopString()
         switch (p->GetType())
         {
             case svError:
-                nGlobalError = p->GetError();
+                nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
                 break;
             case svString:
             case svStringName:
@@ -929,7 +930,7 @@ void ScInterpreter::PopSingleRef( ScAddress& rAdr )
         switch (p->GetType())
         {
             case svError:
-                nGlobalError = p->GetError();
+                nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
                 break;
             case svSingleRef:
                 {
@@ -1026,7 +1027,7 @@ void ScInterpreter::PopDoubleRef(SCCOL& rCol1, SCROW &rRow1, SCTAB& rTab1,
         switch (p->GetType())
         {
             case svError:
-                nGlobalError = p->GetError();
+                nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
                 break;
             case svDoubleRef:
                 DoubleRefToVars( p, rCol1, rRow1, rTab1, rCol2, rRow2, rTab2);
@@ -1065,7 +1066,7 @@ void ScInterpreter::PopDoubleRef( ScRange & rRange, short & rParam, size_t & rRe
         switch (pToken->GetType())
         {
             case svError:
-                nGlobalError = pToken->GetError();
+                nGlobalError = static_cast<const FormulaErrorToken*>(pToken)->GetError();
                 break;
             case svDoubleRef:
             {
@@ -1081,7 +1082,7 @@ void ScInterpreter::PopDoubleRef( ScRange & rRange, short & rParam, size_t & rRe
             }
             case svRefList:
                 {
-                    const ScRefList* pList = pToken->GetRefList();
+                    const ScRefList* pList = static_cast<const ScRefListToken*>(pToken)->GetRefList();
                     if (rRefInList < pList->size())
                     {
                         DoubleRefToRange( (*pList)[rRefInList], rRange);
@@ -1118,7 +1119,7 @@ void ScInterpreter::PopDoubleRef( ScRange& rRange, bool bDontCheckForTableOp )
         switch (p->GetType())
         {
             case svError:
-                nGlobalError = p->GetError();
+                nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
                 break;
             case svDoubleRef:
                 DoubleRefToRange( *p->GetDoubleRef(), rRange, bDontCheckForTableOp);
@@ -1142,7 +1143,7 @@ const ScComplexRefData* ScInterpreter::GetStackDoubleRef(size_t rRefInList)
                 return p->GetDoubleRef();
             case svRefList:
             {
-                const ScRefList* pList = p->GetRefList();
+                const ScRefList* pList = static_cast<const ScRefListToken*>(p)->GetRefList();
                 if (rRefInList < pList->size())
                     return &(*pList)[rRefInList];
                 break;
@@ -1168,7 +1169,7 @@ void ScInterpreter::PopExternalSingleRef(sal_uInt16& rFileId, OUString& rTabName
 
     if (eType == svError)
     {
-        nGlobalError = p->GetError();
+        nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
         return;
     }
 
@@ -1226,7 +1227,7 @@ void ScInterpreter::PopExternalSingleRef(
     }
 
     if (xNew->GetType() == svError)
-        SetError( xNew->GetError());
+        SetError( static_cast<FormulaErrorToken*>(xNew.get())->GetError());
 
     rToken = std::move(xNew);
     if (pFmt)
@@ -1247,7 +1248,7 @@ void ScInterpreter::PopExternalDoubleRef(sal_uInt16& rFileId, OUString& rTabName
 
     if (eType == svError)
     {
-        nGlobalError = p->GetError();
+        nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
         return;
     }
 
@@ -1291,7 +1292,7 @@ void ScInterpreter::PopExternalDoubleRef(ScMatrixRef& rMat)
         SetError( FormulaError::IllegalParameter);
     else
     {
-        rMat = p->GetMatrix();
+        rMat = static_cast<ScMatrixToken*>(p)->GetMatrix();
         if (!rMat)
             SetError( FormulaError::UnknownVariable);
     }
@@ -1336,7 +1337,7 @@ void ScInterpreter::GetExternalDoubleRef(
     assert(pToken);
     if (pToken->GetType() == svError)
     {
-        SetError( pToken->GetError());
+        SetError( static_cast<FormulaErrorToken*>(pToken)->GetError());
         return;
     }
     if (pToken->GetType() != svMatrix)
@@ -1395,7 +1396,7 @@ void ScInterpreter::PopRefListPushMatrixOrRef()
 {
     if ( GetStackType() == svRefList )
     {
-        FormulaConstTokenRef xTok = pStack[sp-1];
+        ::boost::intrusive_ptr<const ScRefListToken> xTok = static_cast<const ScRefListToken*>(pStack[sp-1]);
         const std::vector<ScComplexRefData>* pv = xTok->GetRefList();
         if (pv)
         {
@@ -1504,7 +1505,7 @@ bool ScInterpreter::ConvertMatrixParameters()
                     if ( ScParameterClassification::GetParameterType( pCur, nParams - i)
                             == formula::ParamClass::Value )
                     {   // only if single value expected
-                        ScConstMatrixRef pMat = p->GetMatrix();
+                        ScConstMatrixRef pMat = static_cast<const ScMatrixToken*>(p)->GetMatrix();
                         if ( !pMat )
                             SetError( FormulaError::UnknownVariable);
                         else
@@ -1586,7 +1587,8 @@ bool ScInterpreter::ConvertMatrixParameters()
                         if (!pTemp)
                             break;
 
-                        ScMatrixRef pMat = pTemp->GetMatrix();
+                        assert(dynamic_cast<ScMatrixToken*>(pTemp));
+                        ScMatrixRef pMat = static_cast<ScMatrixToken*>(pTemp)->GetMatrix();
                         if (pMat)
                         {
                             if (eType == formula::ParamClass::Value)
@@ -1679,14 +1681,14 @@ ScMatrixRef ScInterpreter::PopMatrix()
         switch (p->GetType())
         {
             case svError:
-                nGlobalError = p->GetError();
+                nGlobalError = static_cast<const FormulaErrorToken*>(p)->GetError();
                 break;
             case svMatrix:
                 {
                     // ScMatrix itself maintains an im/mutable flag that should
                     // be obeyed where necessary... so we can return ScMatrixRef
                     // here instead of ScConstMatrixRef.
-                    ScMatrix* pMat = const_cast<FormulaToken*>(p)->GetMatrix();
+                    ScMatrix* pMat = static_cast<ScMatrixToken*>(const_cast<FormulaToken*>(p))->GetMatrix();
                     if ( pMat )
                         pMat->SetErrorInterpreter( this);
                     else
@@ -1713,11 +1715,11 @@ sc::RangeMatrix ScInterpreter::PopRangeMatrix()
             {
                 --sp;
                 const FormulaToken* p = pStack[sp];
-                aRet.mpMat = const_cast<FormulaToken*>(p)->GetMatrix();
+                aRet.mpMat = static_cast<ScMatrixToken*>(const_cast<FormulaToken*>(p))->GetMatrix();
                 if (aRet.mpMat)
                 {
                     aRet.mpMat->SetErrorInterpreter(this);
-                    if (p->GetByte() == MATRIX_TOKEN_HAS_RANGE)
+                    if (static_cast<const ScMatrixToken*>(p)->IsMatrixRangeToken())
                     {
                         const ScComplexRefData& rRef = *p->GetDoubleRef();
                         if (!rRef.Ref1.IsColRel() && !rRef.Ref1.IsRowRel() && !rRef.Ref2.IsColRel() && !rRef.Ref2.IsRowRel())
@@ -2184,8 +2186,10 @@ double ScInterpreter::GetDouble()
                 break;
             }
 
-            if (pToken->GetType() == svDouble || pToken->GetType() == svEmptyCell)
-                nVal = pToken->GetDouble();
+            if (pToken->GetType() == svDouble)
+                nVal = static_cast<FormulaDoubleToken*>(pToken.get())->GetDouble();
+            else if (pToken->GetType() == svEmptyCell)
+                nVal = 0.0;
             else
                 nVal = ConvertStringToValue( pToken->GetString().getString());
         }
@@ -2435,7 +2439,7 @@ svl::SharedString ScInterpreter::GetString()
 
             if (pToken->GetType() == svDouble)
             {
-                return GetStringFromDouble( pToken->GetDouble() );
+                return GetStringFromDouble( static_cast<FormulaDoubleToken*>(pToken.get())->GetDouble() );
             }
             else // svString or svEmpty
                 return pToken->GetString();
@@ -2589,7 +2593,7 @@ void ScInterpreter::ScExternal()
 {
     sal_uInt8 nParamCount = GetByte();
     OUString aUnoName;
-    OUString aFuncName( pCur->GetExternal().toAsciiUpperCase());    // programmatic name
+    OUString aFuncName( static_cast<const FormulaExternalToken*>(pCur)->GetExternal().toAsciiUpperCase());    // programmatic name
     LegacyFuncData* pLegacyFuncData = ScGlobal::GetLegacyFuncCollection()->findByName(aFuncName);
     if (pLegacyFuncData)
     {
@@ -3273,7 +3277,7 @@ void ScInterpreter::ScMacro()
     SbxBase::ResetError();
 
     sal_uInt8 nParamCount = GetByte();
-    OUString aMacro( pCur->GetExternal() );
+    OUString aMacro( static_cast<const FormulaExternalToken*>(pCur)->GetExternal() );
 
     ScDocShell* pDocSh = mrDoc.GetDocumentShell();
     if ( !pDocSh )
@@ -3363,7 +3367,7 @@ void ScInterpreter::ScMacro()
                     if ( pToken->GetType() == svString )
                         pPar->PutString( pToken->GetString().getString() );
                     else if ( pToken->GetType() == svDouble )
-                        pPar->PutDouble( pToken->GetDouble() );
+                        pPar->PutDouble( static_cast<FormulaDoubleToken*>(pToken.get())->GetDouble() );
                     else
                     {
                         SetError( FormulaError::IllegalArgument );
@@ -4700,15 +4704,16 @@ StackVar ScInterpreter::Interpret()
                     ;   // nothing
                 break;
                 case svError:
-                    nGlobalError = pCur->GetError();
+                    nGlobalError = static_cast<const FormulaErrorToken*>(pCur)->GetError();
                 break;
                 case svDouble :
                     {
+                        auto pDToken = static_cast<const FormulaDoubleToken*>(pCur);
                         // If typed, pop token to obtain type information and
                         // push a plain untyped double so the result token to
                         // be transferred to the formula cell result does not
                         // unnecessarily duplicate the information.
-                        if (pCur->GetDoubleType() != 0)
+                        if (pDToken->GetDoubleType() != 0)
                         {
                             double fVal = PopDouble();
                             if (!bForcedResultType)
@@ -4856,7 +4861,7 @@ StackVar ScInterpreter::Interpret()
     if (eType == svMatrix)
         // Results are immutable in case they would be reused as input for new
         // interpreters.
-        xResult->GetMatrix()->SetImmutable();
+        static_cast<const ScMatrixToken*>(xResult.get())->GetMatrix()->SetImmutable();
     return eType;
 }
 
