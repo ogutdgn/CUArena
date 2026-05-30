@@ -67,8 +67,9 @@ boundary.
 
 ## Workflow + conventions
 
-- Decisions + research merged to `main` (was `ms-word/decision-making`); the clone is now
-  **built on `ms-word/build`** (cut from `main`), which merges back to `main`.
+- Decisions + research + **Phases 0–1 (the clone app + the in-tree pristine engine)** are
+  merged to `main` (branch history: `ms-word/decision-making` → `ms-word/build`, both merged).
+  **Phase 2 continues on a fresh branch off `main`** (e.g. `ms-word/ui-kit`).
 - **Commits:** Conventional Commits, short messages, **never** a `Co-Authored-By` /
   AI-attribution trailer.
 - **Reply in Turkish** to Turkish questions (owner preference); docs stay English.
