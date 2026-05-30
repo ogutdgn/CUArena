@@ -1,9 +1,9 @@
 # Last point — MS Word clone
 
-> **Current state, present tense.** This file records what is *true now* on the
-> `ms-word/build` branch — decisions locked, research committed, and **Phases 0–1 built
-> and verified** — and nothing aspirational. For what comes next, see
-> [`execution-map.md`](execution-map.md).
+> **Current state, present tense.** This file records what is *true now* on
+> `main` — decisions locked, research committed, and **Phases 0–1 built, verified, and
+> merged** (from the `ms-word/build` branch) — and nothing aspirational. For what comes
+> next, see [`execution-map.md`](execution-map.md).
 
 Last updated: 2026-05-30
 
@@ -82,7 +82,7 @@ All foundational decisions are made and recorded on this branch.
 
 ## Build status
 
-Built on the `ms-word/build` branch (cut from `main`); the clone app lives in
+Built and **merged to `main`** (via the now‑merged `ms-word/build` branch); the clone app lives in
 [`app/`](../app/) — a CMake project with plain‑C++ `mwcore` (tile geometry / cache / render
 orchestration) and `mwengine` (the LOK engine binding), driven by a real CTest harness +
 committed fixtures.
@@ -93,9 +93,13 @@ would not build. It was **re‑vendored to pristine LibreOffice @ `1f1121d1`** (
 built headless to a **LOK‑capable** `instdir/program/libsofficeapp.so`, and verified to run (a
 real `.docx` round‑trip). The architecture's "engine source committed and fully buildable" is now
 actually true. Slimming is done via **configure flags, not file deletion** (full analysis:
-[`engine-revendor-impact.md`](engine-revendor-impact.md)). **The ~1.4 GB pristine engine swap is
-built locally but intentionally left uncommitted**, pending an in‑tree‑vs‑submodule‑vs‑artifact
-decision.
+[`engine-revendor-impact.md`](engine-revendor-impact.md)). **The pristine engine is committed
+in‑tree on `main`** (`9f56ad44e` — 6,653 files; +1.09M/−77K vs the hacked tree) after the
+in‑tree‑vs‑submodule decision was resolved in favour of **in‑tree**: the engine is still actively
+edited in coming phases (`vcl/jsdialog/enabled.cxx` dialog registration, the Writer‑strip phase,
+justified tracked patches — `no‑core‑edits` is a discipline, not a read‑only lock), so it lives as
+ordinary tracked files. **Submodule is the planned exit, but only once the engine is frozen**
+(post Writer‑strip), to avoid cross‑repo edit friction while we are still patching it.
 
 **Phase 0 — merge & scaffold.** ✅ Decisions/research merged to `main`; the clone app scaffolded.
 
@@ -137,11 +141,20 @@ is the **synchronous pump** (no wall‑clock sleep).
 
 ## Next
 
-1. **Phase 2 — the live UI kit:** the interactive QML window (Qt‑GUI ⇄ dedicated‑LOK‑thread; a
-   tile canvas with scroll / zoom / HiDPI over the now‑working `paintTile` path), the design‑token
-   system, and the bespoke ribbon / galleries / JSDialog‑to‑QML dialogs.
-2. **Decide the engine‑commit strategy** (in‑tree vs. git‑submodule vs. fetched artifact) and land
-   the pristine engine accordingly.
-3. **Reconcile the remaining engine‑state docs** per
-   [`engine-revendor-impact.md`](engine-revendor-impact.md) (the "committed / fully buildable" claims
-   are now true; the ribbon‑research re‑anchoring to stock `notebookbar.ui` is already done).
+**Next session starts here → Phase 2, the live UI kit.** Branch off `main` (e.g. `ms-word/ui-kit`)
+and build, in order:
+
+1. **The live interactive QML window** — the Qt‑GUI ⇄ dedicated‑LOK‑thread structure (a
+   `QGuiApplication` conflicts with LO's VCL app singleton), a tile canvas with scroll / zoom /
+   HiDPI over the now‑working `paintTile` path. First thing you can *see* run.
+2. **The UI design‑token system** (research stream #4) — Word M365 exact colors / metrics /
+   typography measured at known DPI, as QML singletons.
+3. **The bespoke QML control kit** — ribbon, galleries, menus + the JSDialog → native QML dialog
+   renderer (this is where `vcl/jsdialog/enabled.cxx` registration — the one sanctioned engine
+   edit — first happens).
+
+Each deliverable is gated by the [verification protocol](verification.md): green headless tests
+that fail when the claim is false.
+
+**Resolved this session (no longer pending):** the engine‑commit strategy (→ committed in‑tree on
+`main`; submodule deferred until the engine is frozen) and the engine‑state doc reconcile.
