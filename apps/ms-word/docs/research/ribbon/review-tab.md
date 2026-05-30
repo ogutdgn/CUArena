@@ -333,23 +333,32 @@ UNCERTAIN** and are not treated as authoritative.
 
 **Uncertain (UNCERTAIN) — not treated as authoritative:**
 
-- **Track Changes → Ctrl+Shift+C** — the *positive* shortcut value could **not** be confirmed in-tree:
-  `.uno:TrackChanges` / FN_REDLINE_ON has no `Accelerators.xcu` entry, and the only Ctrl+Shift+C
-  (`C_SHIFT_MOD1`) binding maps to `.uno:Combine` (German locale only). Ctrl+Shift+C is documented LO
-  behavior but unevidenced in this stripped checkout — confirm in a running build (Tools > Customize >
-  Keyboard, or the Record tooltip). Evidence: `Accelerators.xcu:1742-1746`; no TrackChanges entry.
+- **Track Changes → Ctrl+Shift+C** — re-checked against the now-pristine engine tree
+  (LibreOffice @1f1121d1). The *positive* shortcut value is still not bound in config:
+  `.uno:TrackChanges` / FN_REDLINE_ON has **no `Accelerators.xcu` entry at all**, and the only
+  Ctrl+Shift+C (`C_SHIFT_MOD1`) binding maps to `.uno:Combine` (German locale only) — confirmed in
+  the full tree, so this is no longer a "stripped checkout" artifact but a genuine fact of the
+  source: no static `Accelerators.xcu` shortcut ties Ctrl+Shift+C to Record Track Changes. The
+  shortcut Word users know may still be a runtime/locale default or customization, so the *positive*
+  value remains UNCERTAIN — confirm in a running build (Tools > Customize > Keyboard, or the Record
+  tooltip). Evidence: `Accelerators.xcu:1742-1747` (C_SHIFT_MOD1 → `.uno:Combine`, `de`); no
+  TrackChanges entry; `swriter.sdi:56` (TrackChanges FN_REDLINE_ON, no shortcut).
 - **The many "LO-missing" negative claims (Read Aloud / TTS, Ink, co-authoring locks, per-author
-  scope, balloons, per-category/per-reviewer markup filters)** — absence cannot be positively proven
-  from a stripped tree. Spot-searches of GenericCommands.xcu / WriterCommands.xcu found **no contrary
-  commands** (no ReadAloud/TTS, no ink-comment, no co-authoring/balloon/markup-filter commands), and
-  `.uno:ShowResolvedAnnotations` (cited in the Filter-All-Markup row) is confirmed to exist — but the
-  negatives are marked UNCERTAIN since proving non-existence is not definitive.
+  scope, balloons, per-category/per-reviewer markup filters)** — re-checked against the pristine
+  (full, non-stripped) engine tree. An exhaustive search of all UI command/config files under
+  `officecfg/registry/data/org/openoffice/Office/UI/` found **no contrary commands** — zero
+  ReadAloud/TTS, zero ink-comment / Start-Inking, and no co-authoring/balloon/markup-filter commands
+  — and `.uno:ShowResolvedAnnotations` (cited in the Filter-All-Markup row) is confirmed to exist (in
+  `WriterCommands.xcu`). With the tree now full, the absence claims are positively supported rather
+  than blocked by stripping; they are retained here only because proving universal non-existence is
+  never fully definitive.
 
 > **Scope caveat from the LO-verify pass.** Present-command facts and the three suspect claims
-> (Thesaurus shortcut, Delete-All loUno, Translate scope) were re-derived from primary sources; the
-> numerous MS-only "LO-missing" rows (Ink, Read Aloud, co-authoring, balloons, markup filters) were
-> **not exhaustively re-verified** against the LO tree — no matching `.uno` nodes were found in
-> targeted searches, and the absence claims are consistent with the catalog.
+> (Thesaurus shortcut, Delete-All loUno, Translate scope) were re-derived from primary sources. After
+> the engine re-vendor to pristine LibreOffice @1f1121d1, the numerous MS-only "LO-missing" rows (Ink,
+> Read Aloud, co-authoring, balloons, markup filters) were re-checked against the **full** UI command
+> tree (`officecfg/.../Office/UI/`) — no matching `.uno` nodes were found, so the absence claims are
+> now positively consistent with the complete catalog rather than resting on a partial tree.
 
 ---
 
@@ -419,7 +428,7 @@ defects. Because there is **no owner screenshot for this tab**, several structur
 | Thesaurus shortcut Shift+F7? | **Resolved (LO source)** | Wrong — LO binds Thesaurus to **Ctrl+F7** (`F7_MOD1`); Shift+F7 is `.uno:SpellOnline`. Word's Shift+F7 was carried over. Behavior text fixed. |
 | Delete All Comments loUno `.uno:DeleteAllAnnotation`? | **Resolved (LO source)** | Wrong for Writer — the Writer command is `.uno:DeleteAllNotes` (FN_DELETE_ALL_NOTES); `.uno:DeleteAllAnnotation` is Draw/Impress only (SID_DELETEALL_POSTIT). loUno corrected. |
 | Translate rows overstate the LO gap? | **Resolved (LO source)** | Yes — `.uno:Translate` is not selection-only and does not translate directly: it does whole-document when no selection and opens a target-language dialog first. The two Translate-Document rows softened LO-missing → Behavior shim. DeepL/no-pane claims stand. |
-| Track Changes LO shortcut = Ctrl+Shift+C? | **Open (LO-side, UNCERTAIN)** | Unverifiable in the stripped tree (no `Accelerators.xcu` entry for `.uno:TrackChanges`; only Ctrl+Shift+C → `.uno:Combine`, de-locale). The negative (NOT Ctrl+Shift+E) **is** confirmed. Confirm in a running build. |
+| Track Changes LO shortcut = Ctrl+Shift+C? | **Open (LO-side, UNCERTAIN — positive value only)** | Re-checked against the pristine tree (LibreOffice @1f1121d1): the config-level absence is now a confirmed fact, not a stripping artifact — `.uno:TrackChanges` has no `Accelerators.xcu` entry, and Ctrl+Shift+C → `.uno:Combine` (de-locale only). The negative (NOT Ctrl+Shift+E → `.uno:JumpToFootnoteOrAnchor`) **is** confirmed. The *positive* Ctrl+Shift+C could be a runtime/locale default; confirm in a running build. |
 | `ShowCommentGutter` appears twice? | **Open (screenshot-pending)** | It is the only official control that appears twice on `TabReviewWord` (standalone + under `ShowCommentsMenu`); the Comments-group layout has changed across recent M365 builds. A screenshot confirms both rows are still live. Does not change buckets. |
-| Exhaustiveness of the many "LO-missing" absence claims (Read Aloud, Ink, co-authoring, balloons, per-category/per-reviewer filters)? | **Open (LO-side, medium confidence)** | Not exhaustively re-audited; targeted searches found no matching `.uno` nodes and the claims are consistent with the catalog. `completenessConfidence`: **HIGH** on the Word/idMso side (0 missing, 1 fabricated idMso, ReadAloud type re-derived), **MEDIUM** on LO-mapping exhaustiveness; one residual UNCERTAIN (Track Changes shortcut). |
+| Exhaustiveness of the many "LO-missing" absence claims (Read Aloud, Ink, co-authoring, balloons, per-category/per-reviewer filters)? | **Resolved (LO source, full tree)** | After the re-vendor to pristine LibreOffice @1f1121d1, the full UI command tree (`officecfg/.../Office/UI/`) was searched exhaustively — no Read-Aloud/TTS, ink-comment, co-authoring, balloon, or markup-filter `.uno` nodes exist — so the absence claims are now positively supported by the complete catalog. `completenessConfidence`: **HIGH** on the Word/idMso side (0 missing, 1 fabricated idMso, ReadAloud type re-derived) and **HIGH** on LO-mapping exhaustiveness; one residual UNCERTAIN (the *positive* Track Changes Ctrl+Shift+C shortcut, runtime-only). |
 | Null-idMso "Source C only" / "Filter All Markup" row? | **Resolved (source) — non-catalog** | Newer/experimental control absent from the Current-Channel snapshot; correctly null-idMso and flagged non-standard. Cannot be confirmed against the official list. |

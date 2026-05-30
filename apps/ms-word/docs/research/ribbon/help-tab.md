@@ -93,7 +93,10 @@ One subsection per Word ribbon group. `LO .uno:` is the mapped LibreOffice comma
 ## LO-source verification
 
 These mappings were checked against the vendored LibreOffice tree at
-`apps/ms-word/libreoffice-codebase/` and **override** the mapped rows where they conflicted.
+`apps/ms-word/libreoffice-codebase/` (now **pristine LibreOffice @1f1121d1** — re-vendored from
+the earlier hacked/stripped tree; the project-custom `notebookbar_cua.ui` no longer exists, so
+notebookbar citations below were re-anchored to stock `sw/uiconfig/swriter/ui/notebookbar.ui`)
+and **override** the mapped rows where they conflicted.
 Two are **material corrections** (the project Help-tab control count; the F1 binding mechanism);
 the rest **confirm** the mapped command, label, tooltip, slot, and (where cited) behavior. All
 Help-related commands live in `GenericCommands.xcu` (shared/generic), **not** `WriterCommands.xcu`
@@ -102,14 +105,17 @@ Help-related commands live in `GenericCommands.xcu` (shared/generic), **not** `W
 **Material corrections (CORRECTED):**
 
 - **Help tab membership — project Help tab "only 2 controls (Writer Help + About Writer)"** — the
-  mapping's claim is wrong. LO's notebookbar Help tab (the actual LO ribbon source) contains
-  **THREE** controls, not two: `.uno:HelpIndex` (Help-HelpIndex), `.uno:SendFeedback`
-  (Help-SendFeedback), and `.uno:About` (Help-About) — for both the stock `notebookbar.ui` and
-  the project's `notebookbar_cua.ui`. The claim omits SendFeedback. (`ribbon.json` itself was not
-  found anywhere under `apps/ms-word/`, so that external artifact could not be verified
-  directly; the LO UI source it should mirror has 3 controls.) Evidence:
-  `sw/uiconfig/swriter/ui/notebookbar_cua.ui:10038-10060` (HelpIndex, SendFeedback, About); same
-  in `sw/uiconfig/swriter/ui/notebookbar.ui:10038-10058`.
+  mapping's claim is wrong. LO's notebookbar Help source contains
+  **THREE** controls, not two: `.uno:HelpIndex` (MenuHelp-HelpIndex), `.uno:SendFeedback`
+  (MenuHelp-SendFeedback), and `.uno:About` (MenuHelp-About). The claim omits SendFeedback.
+  (`ribbon.json` itself was not found anywhere under `apps/ms-word/`, so that external artifact
+  could not be verified directly; the LO UI source it should mirror has 3 controls.) Evidence
+  (re-verify: prior cite was to the removed project-custom `notebookbar_cua.ui:10038-10060`, which
+  had a dedicated Help **tab** with a `HelpToolBox` of `GtkToolButton`s; pristine
+  `notebookbar.ui` differs — it has **no** Help tab/`HelpToolBox`. The three commands instead
+  live in a `GtkMenu id="Menu Help"` dropdown hung off the `_Help` menu button):
+  `sw/uiconfig/swriter/ui/notebookbar.ui:489` (`Menu Help` menu), with `MenuHelp-HelpIndex:493`,
+  `MenuHelp-SendFeedback:534`, `MenuHelp-About:593` — the three Help controls confirmed.
 - **Help button — "bound to F1"** — F1 is NOT bound to `.uno:HelpIndex` via `Accelerators.xcu`
   (no HelpIndex entry exists there). F1 (and `KEY_HELP`) is **hardcoded in VCL's key handler**
   (`winproc.cxx:1295`), which raises a HelpEvent / routes into the help system rather than
@@ -123,15 +129,23 @@ Help-related commands live in `GenericCommands.xcu` (shared/generic), **not** `W
 
 - **Help tab / `.uno:HelpMenu`** — `.uno:HelpMenu` is the menu container (label '~Help',
   `GenericCommands.xcu:7145-7152`); the classic menubar Help menu mixes help with
-  SafeMode/License/About (`menubar.xml:848-866`); the notebookbar defines a 'Help Tab' (label
-  '~Help', `notebookbar_cua.ui:10013/10094` and `notebookbar.ui:10013/10094`) but no `.uno` 'is'
-  the tab itself. Evidence: `officecfg/registry/data/org/openoffice/Office/UI/GenericCommands.xcu:7145`;
-  `sw/uiconfig/swriter/menubar/menubar.xml:848-866`; `sw/uiconfig/swriter/ui/notebookbar_cua.ui:10013`.
+  SafeMode/License/About (`menubar.xml:848-866`); the notebookbar surfaces Help as a `_Help`
+  menu button (`File-HelpButton:Menu Help`, `notebookbar.ui:3155`) opening the `Menu Help`
+  dropdown, but no `.uno` 'is' the menu/tab itself. Evidence:
+  `officecfg/registry/data/org/openoffice/Office/UI/GenericCommands.xcu:7145`;
+  `sw/uiconfig/swriter/menubar/menubar.xml:848-866`; `sw/uiconfig/swriter/ui/notebookbar.ui:3155`
+  (re-verify: prior cite was to the removed project-custom `notebookbar_cua.ui:10013/10094`, a
+  '~Help' notebookbar **tab** label; pristine `notebookbar.ui` differs — it has no such Help tab,
+  only the `_Help` ManagedMenuButton labelled `_Help` plus the `Menu Help` GtkMenu at line 489).
 - **Help & Support group (no named group)** — the classic Help menu uses `<menu:menuseparator/>`
-  elements (`menubar.xml:855,858,860,863`) with no named group nodes; the notebookbar Help tab
-  uses an unnamed toolbox (`HelpToolBox`) with bare `GtkToolButton` children, no idMso-style group
-  identifier. Evidence: `sw/uiconfig/swriter/menubar/menubar.xml:855-863`;
-  `sw/uiconfig/swriter/ui/notebookbar_cua.ui:10029`.
+  elements (`menubar.xml:855,858,860,863`) with no named group nodes; the notebookbar groups the
+  Help commands as bare `GtkMenuItem` children of the `Menu Help` GtkMenu, with no idMso-style
+  group identifier. Evidence: `sw/uiconfig/swriter/menubar/menubar.xml:855-863`;
+  `sw/uiconfig/swriter/ui/notebookbar.ui:489` (`Menu Help`)
+  (re-verify: prior cite was to the removed project-custom `notebookbar_cua.ui:10029`, an unnamed
+  `HelpToolBox` of bare `GtkToolButton`s on the Help tab; pristine `notebookbar.ui` differs — it
+  has no `HelpToolBox`/Help tab, so the 'unnamed group' point now rests on the `Menu Help`
+  dropdown's bare menu items instead. The conclusion — no named group identifier — still holds).
 - **Help button / `.uno:HelpIndex` — command & label** — `.uno:HelpIndex` is the command; its
   label is literally '%PRODUCTNAME ~Help' (the ~ marks the mnemonic; resolves to e.g. 'LibreOffice
   Help', not 'Writer Help'). Slot is `SfxVoidItem HelpIndex SID_HELPINDEX` (`sfx.sdi:1909`).
@@ -258,7 +272,7 @@ this tab**, several runtime/render items remain **screenshot-pending**.
 | `HelpTab` (ribbon, 27543) vs `TabHelp` (backstage, 20802) namespace collision? | **Resolved (source) — documented** | Distinct entities. `TabHelp` is the File>Account/Help backstage page (About / What's New / update-channel groups), NOT the on-ribbon `HelpTab`. The inventory's notes that 'About lives in File>Account' and What's New mirrors File>Account are correct and trace to this backstage `TabHelp`; documented in [Out of scope](#out-of-scope) to avoid future idMso mix-ups. |
 | `WhatsNewRecentUpdates` appears twice in the catalog (ribbon + 'Not in the Ribbon')? | **Resolved (source)** | Same command (Policy ID 27055) surfaced both on the Help ribbon tab and as a non-ribbon/backstage command — harmless; confirms the note that What's New mirrors File>Account behavior. Not a contradiction. |
 | Smile/frown feedback UI attributed to `OfficeFeedbackHelpTab`? | **Resolved (source)** | The smile/frown/suggestion UI belongs to the backstage `TabOfficeFeedback` (27265, groups GroupOfficeSendSmile/SendFrown/SendSuggestion), reached VIA the Help-tab Feedback buttons. The OfficeFeedback family also includes OfficeFeedback (26904), OfficeFeedbackBackstage (27302), TextPredictionsFeedback (34160) — all backstage/non-ribbon, for context, not Help-tab gaps. |
-| Project Help-tab "only 2 controls (Writer Help + About Writer)"? | **Resolved (LO source)** | Wrong — LO's notebookbar Help tab has THREE controls (HelpIndex, SendFeedback, About) in both stock `notebookbar.ui` and the project's `notebookbar_cua.ui`; the claim omits SendFeedback. (`ribbon.json` not found in the tree; verified against the LO UI source it should mirror.) |
+| Project Help-tab "only 2 controls (Writer Help + About Writer)"? | **Resolved (LO source)** | Wrong — LO's notebookbar Help source has THREE controls (HelpIndex, SendFeedback, About); the claim omits SendFeedback. In pristine `notebookbar.ui` these live in the `Menu Help` dropdown (lines 493/534/593), not a dedicated Help tab. (`ribbon.json` not found in the tree; verified against the LO UI source it should mirror.) (Re-verify note: prior cite was to the removed project-custom `notebookbar_cua.ui`, which had a Help **tab**/`HelpToolBox`; pristine `notebookbar.ui` differs — no Help tab, the 3 commands are menu items — but the FACT (three Help controls, SendFeedback included) is unchanged.) |
 | Help button "bound to F1"? | **Resolved (LO source)** | Functionally true but mechanistically corrected: F1/`KEY_HELP` is hardcoded in `vcl/source/window/winproc.cxx:1295`, not a config accelerator in `Accelerators.xcu` (no HelpIndex entry). The slot allows an accelerator (`AccelConfig=TRUE`) but none is set by default. |
 | Help button behavior — does current Word still render a DOCKED in-app pane? | **Open (screenshot-pending)** | Docs say 'Displays the Help task pane displaying the home page', but recent M365 builds have shifted some Help to a browser/embedded-web surface. A screenshot confirms the docked-pane assumption that the LO 'differs: external browser/viewer' contrast rests on. Does not change the bucket. |
 | Contact Support / Show Training — current label & live presence? | **Open (screenshot-pending)** | ContactUs label is 'Contact Support' per docs (older ref 'Contact Us…'); ShowTraining is a candidate for version/tenant gating and removal. Screenshots would confirm rendered labels and whether each still opens its in-app pane. Buckets (both Cut) unchanged. |

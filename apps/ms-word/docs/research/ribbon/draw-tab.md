@@ -6,7 +6,7 @@
 > Word/idMso side was cross-checked against the official `wordcontrols.xlsx` (M365 Current Channel),
 > against which the **core tab `TabDrawInk` is a 100% exact-match** (all 13 groups + 34 distinct
 > idMso controls, correct types and parent nesting, zero invented idMsos). The LO command facts were
-> checked against the vendored LO tree. **No owner screenshot exists for this tab yet** — and the
+> checked against the vendored LO tree (now **pristine LibreOffice @1f1121d1**). **No owner screenshot exists for this tab yet** — and the
 > Draw tab is itself **hidden by default in Word** (M365 / Office 2019+; enable via File > Options >
 > Customize Ribbon > check Draw) and **stylus/touch-gated**, so the controls below are *web-sourced,
 > unverified against a live build*. **No mapping carried a material LO-source correction** — every
@@ -59,7 +59,7 @@ supports **LO-via-LOK + scoped parity**, with the whole Draw/ink surface explici
 
 > **Recurring theme: the false friends.** LO ships several controls whose *names* collide with
 > Word's ink controls but solve unrelated problems — and they are the trap to avoid when mapping.
-> LO has a tab literally named **"Draw"** (in `notebookbar_cua.ui`), but it is a **vector-shape**
+> LO has a tab literally named **"Draw"** (in `notebookbar.ui`), but it is a **vector-shape**
 > tab (Text Box, Fontwork, Basic/Arrow/Star/Callout/Flowchart shapes, `.uno:InsertDraw`), not pen
 > inking. `.uno:SelectObject` ("Select") is a draw-object selection cursor, not an ink-stroke
 > selector. `.uno:Ruler` ("Rulers") toggles the window-chrome margin ruler, not a rotatable
@@ -169,7 +169,7 @@ One subsection per Word ribbon group. `LO .uno:` is the mapped LibreOffice comma
 | Format Background (dropdown) | FormatBackgroundDropdown | menu | `.uno:BackgroundDialog` | differs | Behavior shim | Dropdown menu grouping page/background formatting: rule lines, full-page rule lines, and page color (with More Colors and Fill Effects sub-actions). — **LO:** LO's nearest is the page background via `.uno:BackgroundDialog` / Page Style dialog (`.uno:PageDialog`), reached from Format > Page Style or the Design tab's Page Background group — never from a Draw/ink tab. It DIFFERS: it is a full page-style background (color/image/area) dialog, and it has no rule-lines submenu. Word groups this here only because the official file reuses an Excel-derived id. ✓ verified vs LO source. |
 | Rule Lines (menu) | RuleLinesMenu | gallery | — | LO-missing | Engine gap | Child of FormatBackgroundDropdown; gallery of rule-line styles for the page. — **LO:** No rule-lines (notebook-line background) feature in LO Writer; this is a OneNote/Word inking-paper feature with no LO analog. |
 | Rule Lines Full Page | RuleLineFullPage | toggleButton | — | LO-missing | Engine gap | Child of FormatBackgroundDropdown; toggles full-page rule lines. — **LO:** No full-page rule-lines toggle in LO. |
-| Page Color (picker) | PageColorPicker | gallery | `.uno:BackgroundColor` | differs | Behavior shim | Child of FormatBackgroundDropdown; page background color picker with More Colors and Fill Effects sub-items. — **LO:** LO `.uno:BackgroundColor` ('Background Color') is wired in the CUA notebookbar to the Design tab's Page Background group as a color picker (argName BackgroundColor.Color) and sets the page background color. Concept overlaps but DIFFERS: it lives on Design (not a Draw/ink tab), and it is a single color picker without the Word picker's integrated More Colors + Fill Effects sub-actions in one dropdown (LO splits fill effects into separate Area/Page-Style dialogs). ✓ verified vs LO source. |
+| Page Color (picker) | PageColorPicker | gallery | `.uno:BackgroundColor` | differs | Behavior shim | Child of FormatBackgroundDropdown; page background color picker with More Colors and Fill Effects sub-items. — **LO:** LO `.uno:BackgroundColor` ('Background Color') is wired in the stock notebookbar (argName BackgroundColor.Color) and sets the page background color. Concept overlaps but DIFFERS: it lives on a non-Draw tab, and it is a single color picker without the Word picker's integrated More Colors + Fill Effects sub-actions in one dropdown (LO splits fill effects into separate Area/Page-Style dialogs). *(re-verify: prior cite was to the removed project-custom notebookbar_cua.ui, where it sat in a "Design tab Page Background group"; stock notebookbar.ui differs — there is no Design tab and no Page Background group; `.uno:BackgroundColor` is bound as a `GtkToolButton` id=`Home-BackgroundColor1` in the **Home** tab's Paragraph section, `notebookbar.ui:4098`. The command/argName facts still hold; the tab/group placement claim does not.)* ✓ verified vs LO source. |
 | More Colors... (page color) | PageColorMoreColorsDialog | button | — | LO-missing | Behavior shim | Child of PageColorPicker (under FormatBackgroundDropdown); opens the More Colors dialog for the page background. — **LO:** No dedicated page-color More-Colors launcher exposed as a command; LO reaches custom colors through the generic color-dropdown 'Custom Color' entry, not a discrete page-color dialog command. |
 | Fill Effects... (page color) | PageColorFillEffects | button | — | LO-missing | Behavior shim | Child of PageColorPicker (under FormatBackgroundDropdown); opens the Fill Effects dialog for the page background. — **LO:** No page-color Fill Effects command. Gradient/pattern page backgrounds are set via the Page Style > Area dialog, not a discrete fill-effects command on a Draw tab. |
 
@@ -213,7 +213,9 @@ One subsection per Word ribbon group. `LO .uno:` is the mapped LibreOffice comma
 ## LO-source verification
 
 These mappings were checked against the vendored LibreOffice tree at
-`apps/ms-word/libreoffice-codebase/`. **No CORRECTED verdicts were warranted** — the LO-verify
+`apps/ms-word/libreoffice-codebase/` (now **pristine LibreOffice @1f1121d1**, re-vendored from the
+earlier hacked/stripped tree; the project-custom `notebookbar_cua.ui` no longer exists and the stock
+ribbon is `sw/uiconfig/swriter/ui/notebookbar.ui`). **No CORRECTED verdicts were warranted** — the LO-verify
 pass found no factual errors in the loUno names, labels, slot mappings, or behavior claims (the
 closest to a discrepancy is the cosmetic mnemonic '~' difference, e.g. mapping 'Rulers' vs source
 '~Rulers', 'Background Color'/'Formula Object...' carrying the '~' mnemonic in source). The central
@@ -233,15 +235,20 @@ underlying command/slot facts it depends on are confirmed.
   The 'false friend' framing is exactly right. Evidence: `GenericCommands.xcu:3679,3821,3829,3840,3851`;
   `WriterCommands.xcu:379,723,1325,1834`; `CalcCommands.xcu:2511,2939`; empty grep for `.uno:Ink*`
   and `SID_INK`.
-- **Draw (tab) — LO 'Draw' tab is a vector-shape tab, not ink.** The CUA notebookbar
-  (`sw/uiconfig/swriter/ui/notebookbar_cua.ui`) defines a tab labelled '~Draw' (GtkLabel id=DrawLabel,
+- **Draw (tab) — LO 'Draw' tab is a vector-shape tab, not ink.** The stock notebookbar
+  (`sw/uiconfig/swriter/ui/notebookbar.ui`) defines a tab labelled '~Draw' (GtkLabel id=DrawLabel,
   style classes context-Draw / context-DrawLine). The actions there are vector/graphic commands:
   `.uno:DrawText` (Text Box), `.uno:FontworkGalleryFloater`, `.uno:BasicShapes(.rectangle/.ellipse)`,
   `.uno:InsertDraw`, plus shape-format commands (FormatLine, FillStyle, Extrusion*, group/align/wrap/
   bezier). No ink commands — a same-name false friend to Word's ink Draw tab. Evidence:
-  `notebookbar_cua.ui:14067-14074` (DrawLabel '~Draw'); action-names at `5108` (`.uno:DrawText`),
-  `5160/5584` (`.uno:FontworkGalleryFloater`), `5293/5303/5388` (`.uno:BasicShapes*`), `5652`
-  (`.uno:InsertDraw`); `GenericCommands.xcu:4366` (`.uno:DrawText` label 'Text Box').
+  `notebookbar.ui:13723-13730` (DrawLabel '~Draw' + context-Draw/context-DrawLine); Draw-tab
+  action-names at `5174` (`.uno:DrawText`), `5226` (`.uno:FontworkGalleryFloater`),
+  `5359/5369/5454` (`.uno:BasicShapes.rectangle/.ellipse/BasicShapes`), `5718`
+  (`.uno:InsertDraw`); `GenericCommands.xcu:4366` (`.uno:DrawText` label 'Text Box'). *(re-verify:
+  prior cite was to the removed project-custom notebookbar_cua.ui at different line numbers
+  (14067-14074, 5108, 5160/5584, 5293/5303/5388, 5652); stock notebookbar.ui differs only in line
+  positions — the Draw tab, its '~Draw' label, context classes, and every vector action-name above
+  are all present and the claim holds.)*
 - **InkSelect / LassoSelect → `.uno:SelectObject`** (label 'Select', `differs`). Slot:
   `SfxBoolItem SelectObject SID_OBJECT_SELECT`. In Writer it activates a drawing-function
   (DrawSelection) and sets `m_nDrawSfxId`/`m_nFormSfxId` — the draw-mode object-selection cursor for
@@ -280,10 +287,14 @@ underlying command/slot facts it depends on are confirmed.
   Draw/ink context. Evidence: `WriterCommands.xcu:1566-1568`; `:1571-1573`.
 - **Page Color (picker) → `.uno:BackgroundColor`** (label 'Background Color', argName
   BackgroundColor.Color). Slot: `SvxColorItem BackgroundColor SID_BACKGROUND_COLOR` with arg item
-  named 'BackgroundColor' (UNO property `.Color`), so the argName is consistent with the slot. The
-  'wired to the Design tab Page Background group' claim is corroborated by the CUA notebookbar
-  (GtkMenuToolButton action-name `.uno:BackgroundColor`). Evidence: `GenericCommands.xcu:3797-3799`;
-  `svx/sdi/svx.sdi:456-457`; `notebookbar_cua.ui:3839-3841`.
+  named 'BackgroundColor' (UNO property `.Color`), so the argName is consistent with the slot.
+  `.uno:BackgroundColor` is wired into the stock notebookbar (GtkToolButton action-name
+  `.uno:BackgroundColor`). Evidence: `GenericCommands.xcu:3797-3799`; `svx/sdi/svx.sdi:456-457`;
+  `notebookbar.ui:4098`. *(re-verify: prior cite was to the removed project-custom notebookbar_cua.ui
+  (`:3839-3841`, claimed 'wired to the Design tab Page Background group' as a GtkMenuToolButton);
+  stock notebookbar.ui differs — it has no Design tab and no Page Background group, and binds
+  `.uno:BackgroundColor` as a plain `GtkToolButton` id=`Home-BackgroundColor1` in the **Home** tab's
+  Paragraph section. The command/slot/argName facts hold; the Design-tab placement claim does not.)*
 - **Ink to Math → `.uno:InsertObjectStarMath`** (label '~Formula Object...'; also `.uno:InsertMath`).
   These embed a LibreOffice Math OLE object; there is no handwriting/ink recognition command. Matches
   the `differs` verdict. Evidence: `WriterCommands.xcu:1111-1113`; `GenericCommands.xcu:3869-3871`;
@@ -312,7 +323,7 @@ underlying command/slot facts it depends on are confirmed.
   comparison is maintained as per-tab markdown (`apps/ms-word/docs/research/ribbon/{home,insert,
   references,mailings,review}-tab.md`), and this `draw-tab.md` is the previously-missing entry. The
   DOWNSTREAM facts those notes rely on are independently confirmed against the LO source (a 'Draw'
-  tab exists in `notebookbar_cua.ui`; `.uno:BackgroundColor` is bound there; the argName `.Color` is
+  tab exists in `notebookbar.ui`; `.uno:BackgroundColor` is bound there; the argName `.Color` is
   consistent with the `SvxColorItem` slot). So the commands/behaviors are CONFIRMED; only the
   existence of an artifact literally named `ribbon.json` is UNCERTAIN. Evidence: Glob `**/ribbon.json`
   → no files; `apps/ms-word/docs/research/ribbon/` contains only README.md + the per-tab markdown files.
@@ -391,5 +402,5 @@ several structural items remain **screenshot-pending**.
 | `InkEquation` (dedicated handwriting-math idMso) cross-reference? | **Open (scoping)** | 'Ink to Math' was mapped only to `SelectionToMathConvert`; the dedicated `InkEquation` idMso (on TabInsert>GroupInsertSymbols and TabEquationToolsDesign) is the closer 'Math Input Control' analog and should at least be cross-referenced. Bucket (Engine gap) unaffected. |
 | `InkSelect` vs `ObjectsSelect` → `.uno:SelectObject`? | **Open (screenshot-pending)** | Two different idMsos (InkSelect on TabDrawInk; ObjectsSelect on TabInkToolsPens + TabHome) both plausibly map to `.uno:SelectObject`; only InkSelect was considered. A screenshot showing both select tools in context would confirm the better LO analog. |
 | Other off-tab ink controls (Review/Conflicts `GroupInk`, not-in-ribbon ink commands)? | **Open (scoping)** | `InkingStart` + `InkDeleteAll` on TabReviewWord>GroupInk and TabConflicts>GroupInk, plus QAT-addable InkDrawingAndWriting / InkToolsClose / InkDeleteAllInk, are outside this tab's scope. Round out Word's full ink command surface; lower priority. |
-| `ribbon.json` artifact cited in LO notes? | **Resolved → UNCERTAIN (artifact only)** | No `ribbon.json` exists in the tree; the ribbon mapping is per-tab markdown and this `draw-tab.md` is the new entry. The underlying LO command/slot facts (Draw tab in notebookbar_cua.ui; `.uno:BackgroundColor` binding; `.Color` arg) are independently CONFIRMED — only the literal artifact is UNCERTAIN. |
+| `ribbon.json` artifact cited in LO notes? | **Resolved → UNCERTAIN (artifact only)** | No `ribbon.json` exists in the tree; the ribbon mapping is per-tab markdown and this `draw-tab.md` is the new entry. The underlying LO command/slot facts (Draw tab in notebookbar.ui; `.uno:BackgroundColor` binding; `.Color` arg) are independently CONFIRMED — only the literal artifact is UNCERTAIN. |
 | Overall completeness confidence | **HIGH (included scope) / MODERATE-LOW (whole feature)** | For the literal `TabDrawInk` tab, the inventory is essentially complete and exactly correct (parsed against the authoritative OfficeDev `wordcontrols.xlsx`). For 'Word's whole ink/Draw command surface', several real controls are missing (the `TabInkToolsPens` pen instruments and the Ink-to-Text concept being the biggest). LO-side: HIGH — every present-command fact confirmed at the slot level; the all-ink-absent thesis confirmed three ways. |
