@@ -1,0 +1,4 @@
+# Out-of-source build trees and CMake/CTest artifacts — never committed.
+build/
+build-*/
+*.user
