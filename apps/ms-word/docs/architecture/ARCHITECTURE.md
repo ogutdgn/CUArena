@@ -152,10 +152,13 @@ We **rent** the engine; we do not fork its behavior to chase features. The guard
 - **The one sanctioned engine touch** is registering dialogs in
   `vcl/jsdialog/enabled.cxx` — i.e. *exposing* existing engine dialogs to the JSDialog path so
   our QML dialog renderer can present them. This exposes, it doesn't change behavior.
-- **The guardrail is policy, not a wall.** The engine source is committed and fully
-  buildable/patchable. Deeper engine patches remain possible later as **tracked patches** if a
-  specific feature justifies the cost — accepting that each patch adds fork-maintenance burden.
-  The default is to stay off the engine; deviating is a deliberate, recorded decision.
+- **The guardrail is policy, not a wall.** The engine source is fully
+  buildable/patchable — it was **re-vendored to pristine LibreOffice @ `1f1121d1`** (the old
+  reskin's hacked/stripped tree, carrying `rllogger`, is gone) and now actually builds headless to
+  a LOK-capable binary, so this claim is real rather than aspirational. Deeper engine patches remain
+  possible later as **tracked patches** if a specific feature justifies the cost — accepting that
+  each patch adds fork-maintenance burden. The default is to stay off the engine; deviating is a
+  deliberate, recorded decision.
 
 This is what keeps the project a **front-end + orchestration build**, not an engine
 reimplementation, and what keeps the rented engine cheap to carry.
@@ -184,7 +187,9 @@ research, and the audit's lessons while treating two foundations as things we mu
   ~487-control surface.
 
 The verdict was a **clean rewrite**, not a salvage: keep the architecture, the research, and
-the lessons; rebuild the implementation; the engine stays fully editable.
+the lessons; rebuild the implementation; the engine stays fully editable — and, as part of the
+rewrite, was **re-vendored to pristine LibreOffice @ `1f1121d1`** and built headless (LOK-capable),
+so "fully editable" is now an actual, verified property of the tree rather than an aspiration.
 
 ---
 

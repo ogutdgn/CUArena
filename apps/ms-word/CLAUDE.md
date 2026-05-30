@@ -9,8 +9,9 @@
 ## What this folder is now
 
 `apps/ms-word/` is **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`,
-driven headlessly via **LibreOfficeKit / LOK**) **and (2) the MS-Word-clone _decision record
-& research_.** We are building a native **Qt6 Microsoft-Word clone** as a CUA (computer-using-
+driven headlessly via **LibreOfficeKit / LOK**), **(2) the MS-Word-clone _decision record
+& research_**, **and (3) the clone _app_ itself** (`app/` — Phases 0–1 built & verified).
+We are building a native **Qt6 Microsoft-Word clone** as a CUA (computer-using-
 agent) RL environment; LibreOffice is rented purely as a document engine behind the LOK
 boundary.
 
@@ -57,15 +58,17 @@ boundary.
 | `docs/architecture/ARCHITECTURE.md` | the clone's canonical architecture |
 | `docs/architecture/WRITER_CALC_EXTRACTION.md` | engine strip reference (which LO modules can be removed) |
 | `docs/research/` | all research: catalog + #1 ribbon (`ribbon/`) + #2 tech-stack (`tech-stack.md`); #3–#6 written at build time |
+| `docs/engine-revendor-impact.md` | the pristine engine re-vendor: why, what changed, which doc claims it makes true |
 | `docs/ui/README.md` | UI approach (QML + Fluent + design tokens) |
-| `libreoffice-codebase/` | the vendored LibreOffice engine (built to LOK; not edited day-to-day) |
+| `app/` | the clone app — Phases 0–1 (C++/Qt6; `mwcore` logic + `mwengine` LOK binding; CMake/CTest) |
+| `libreoffice-codebase/` | the vendored LibreOffice engine — pristine LO @ `1f1121d1`, built to LOK, rented unmodified |
 
 ---
 
 ## Workflow + conventions
 
-- This branch (`ms-word/decision-making`) holds the decisions + research; it **merges to
-  `main`**, then the clone is **built on a fresh branch off `main`**.
+- Decisions + research merged to `main` (was `ms-word/decision-making`); the clone is now
+  **built on `ms-word/build`** (cut from `main`), which merges back to `main`.
 - **Commits:** Conventional Commits, short messages, **never** a `Co-Authored-By` /
   AI-attribution trailer.
 - **Reply in Turkish** to Turkish questions (owner preference); docs stay English.

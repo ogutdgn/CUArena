@@ -6,9 +6,11 @@ raw/semantic/outcome logger, and an MCP server; it **rents** LibreOffice's real 
 **LibreOfficeKit (LOK)** for layout, text shaping, and `.docx`/`.odt` I/O. We call this line
 **Boundary A**.
 
-> **Status: decisions locked; build not started.** The engine choice, the 692-control
+> **Status: decisions locked; Phases 0–1 built & verified.** The engine choice, the 692-control
 > Word↔LibreOffice ribbon research, the tech stack, and the parity scope are all decided and
-> recorded. The earlier "reskin LibreOffice's notebookbar" approach is **superseded** (git
+> recorded; the clone app (`app/`) is scaffolded with the LOK render/scheduler foundations green
+> under CMake/CTest, and the engine has been re-vendored to pristine LibreOffice (built, verified
+> running). The earlier "reskin LibreOffice's notebookbar" approach is **superseded** (git
 > history retains it).
 
 ## Start here
@@ -24,8 +26,10 @@ raw/semantic/outcome logger, and an MCP server; it **rents** LibreOffice's real 
 | Path | What |
 |---|---|
 | [CLAUDE.md](CLAUDE.md) / [AGENTS.md](AGENTS.md) | agent guides — decisions, doc map, conventions |
-| [docs/](docs/) | decisions + research: `architecture/`, `research/` (ribbon, tech-stack), `ui/`, `last-point.md`, `execution-map.md` |
-| [libreoffice-codebase/](libreoffice-codebase/) | vendored LibreOffice engine — rented via LOK, not edited day-to-day |
+| [docs/](docs/) | decisions + research: `architecture/`, `research/` (ribbon, tech-stack), `ui/`, `last-point.md`, `execution-map.md`, `engine-revendor-impact.md` |
+| [app/](app/) | the clone app — Phases 0–1 (C++/Qt6; `mwcore` logic + `mwengine` LOK binding; CMake/CTest) |
+| [libreoffice-codebase/](libreoffice-codebase/) | vendored LibreOffice engine — pristine LO @ `1f1121d1`, rented via LOK, unmodified |
 
-The clone's app code does not exist yet; it is built on a fresh branch off `main` following
-the phases in [docs/execution-map.md](docs/execution-map.md).
+The clone app (`app/`) is built on `ms-word/build` (cut from `main`) following the phases in
+[docs/execution-map.md](docs/execution-map.md); Phases 0–1 are done, Phase 2 (live QML window +
+UI kit) is next.

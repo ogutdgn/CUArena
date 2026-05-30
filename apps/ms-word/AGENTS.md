@@ -9,7 +9,8 @@
 ## 1. What this folder is
 
 `apps/ms-word/` = **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`, driven
-headlessly via **LibreOfficeKit / LOK**) **+ (2) the MS-Word-clone _decision record & research_.**
+headlessly via **LibreOfficeKit / LOK**) **+ (2) the MS-Word-clone _decision record & research_
++ (3) the clone _app_** (`app/` — Phases 0–1 built & verified).
 
 We are building a **native Qt6 Microsoft-Word clone** as a CUA (computer-using-agent) RL
 environment. LibreOffice is **rented** purely as a document engine (layout, text shaping,
@@ -18,8 +19,10 @@ command dispatch, document state, an always-on logger, and an **MCP server** —
 (this is "Boundary A").
 
 > The earlier approach — fork LibreOffice, strip it, embed an `rllogger`, and reskin its
-> notebookbar to look like Word (old Phase 1–4) — is **superseded**. Its docs were removed;
-> git history retains them. Do not treat the reskin as current.
+> notebookbar to look like Word (old Phase 1–4) — is **superseded**. Its docs were removed **and
+> its damage to the engine tree was undone**: the stripped/`rllogger`-carrying tree was
+> re-vendored to pristine LibreOffice (see §6). Git history retains the old work. Do not treat
+> the reskin as current.
 
 ---
 
@@ -34,6 +37,8 @@ command dispatch, document state, an always-on logger, and an **MCP server** —
 5. [`docs/ui/README.md`](docs/ui/README.md) — the UI approach.
 6. [`docs/verification.md`](docs/verification.md) — the verification protocol: the definition
    of done for every phase / feature.
+7. [`docs/engine-revendor-impact.md`](docs/engine-revendor-impact.md) — the pristine engine
+   re-vendor (what changed in `libreoffice-codebase/` and why); the built app lives in `app/`.
 
 ---
 
@@ -44,8 +49,8 @@ command dispatch, document state, an always-on logger, and an **MCP server** —
   layout/shaping/file I/O. **Scoped parity** (indistinguishable within scope; out-of-scope
   entry points removed). **No-core-edits guardrail**: never edit engine logic to chase a
   feature; the one sanctioned touch is registering dialogs in `vcl/jsdialog/enabled.cxx`. The
-  guardrail is policy, not a wall — the engine is committed, buildable, and patchable as
-  tracked patches if a feature ever justifies it.
+  guardrail is policy, not a wall — the engine source is pristine, fully buildable (verified),
+  and patchable as tracked patches if a feature ever justifies it.
 - **Rewrite, not reuse:** the `ms-word-mvp` `writer` prototype proved Boundary A works but a
   multi-agent audit found it PoC-grade (test-only render symbol, full-repaint per keystroke,
   non-credible tests, broken dialog metrics, non-scaling ribbon). Verdict: **clean rewrite**
@@ -76,28 +81,34 @@ command dispatch, document state, an always-on logger, and an **MCP server** —
 
 ## 5. Build phases (full detail in `docs/execution-map.md`)
 
-**0** merge decisions to `main` + scaffold the fresh clone app on a build branch → **1**
-refactor-grade foundations (correct LOK render/scheduler path + a real CMake/CTest harness) →
+**0** merge decisions to `main` + scaffold the fresh clone app on a build branch ✅ → **1**
+refactor-grade foundations (correct LOK render/scheduler path + a real CMake/CTest harness) ✅ →
 **2** UI design-tokens + bespoke control kit → **3** per-feature build loop (spec → implement →
 verify, group by group) → **4** MCP sidecar → **5** verifier → **6** Docker/headless
-distribution. (Optional: strip the engine to Writer-only.)
+distribution. (Optional: strip the engine to Writer-only.) Phases 0–1 are **built & verified**
+(app in `app/`); next is Phase 2.
 
 ---
 
 ## 6. The engine
 
-`libreoffice-codebase/` is the vendored LibreOffice tree. It is built to **LOK** (the headless
-`instdir/` + LOK headers) and **not edited day-to-day** (the guardrail in §3). The clone links
-the engine only at the LOK C API — no LO library at link time (header-only LOK client +
-runtime `dlopen` of `instdir/program`), so the engine stays a swappable, patchable dependency.
-Engine build recipe details belong with the build tooling on the build branch.
+`libreoffice-codebase/` is the vendored LibreOffice tree. The old reskin had left it
+**stripped + carrying `rllogger`** (it would not build); it was **re-vendored to pristine
+LibreOffice @ `1f1121d1`** (v26.8.0.0.alpha0+) and built headless to a LOK-capable
+`instdir/program/libsofficeapp.so`, verified running (a real `.docx` round-trip). It is rented
+**unmodified** (the guardrail in §3) — slimming is done via configure flags, not file deletion.
+The clone links the engine only at the LOK C API — no LO library at link time (header-only LOK
+client + runtime `dlopen` of `instdir/program`), so the engine stays a swappable, patchable
+dependency. The ~1.4 GB pristine swap is built locally; an in-tree-vs-submodule-vs-artifact
+commit decision is **deferred until the engine is frozen**. Full analysis:
+[`docs/engine-revendor-impact.md`](docs/engine-revendor-impact.md).
 
 ---
 
 ## 7. Conventions
 
-- **Branch flow:** decisions/research on `ms-word/decision-making` → merge to `main` → build on
-  a fresh branch off `main`.
+- **Branch flow:** decisions/research merged to `main` (was `ms-word/decision-making`); the
+  build now happens on `ms-word/build` (cut from `main`), which merges back to `main`.
 - **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) `<type>(<scope>): <subject>`;
   short messages; **NEVER** a `Co-Authored-By` / AI-attribution trailer.
 - **Owner preferences:** reply in **Turkish** to Turkish questions (docs stay English); state
