@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "core/RenderEngine.h"  // IRenderEngine, TwipRect, TileCache::Bytes
+
 namespace mw {
 
 // The LOK engine binding — the ONLY code that talks to LibreOfficeKit (Boundary A). Meant to
@@ -13,12 +15,19 @@ namespace mw {
 // desktop/qa/desktop_lib reference): one Office per process; the pump is the REAL public
 // Scheduler::ProcessEventsToIdle() — explicitly NOT the banned test-only
 // `unit_lok_process_events_to_idle` symbol the prior prototype dlsym'd.
-class LokEngine {
+class LokEngine : public IRenderEngine {
 public:
     LokEngine();
-    ~LokEngine();
+    ~LokEngine() override;
     LokEngine(const LokEngine&) = delete;
     LokEngine& operator=(const LokEngine&) = delete;
+
+    // --- IRenderEngine: the render-path seam RenderController consumes ---
+    // Document size in twips (0, 0, width, height).
+    TwipRect documentSize() const override;
+    // Render the document region `tileRectTwips` into a pixelW x pixelH buffer (BGRA, premul on
+    // Linux) and return its bytes. The caller (RenderController) chooses the px/twip ratio == zoom.
+    TileCache::Bytes paintTile(const TwipRect& tileRectTwips, int pixelW, int pixelH) override;
 
     // Boot LOK against the built engine. installPath = ".../instdir/program";
     // profileUrl = a writable "file://" URL for the user profile. One Office per process.
