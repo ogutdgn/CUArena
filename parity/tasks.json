@@ -552,6 +552,36 @@
       "note": "1.5in -> w:pgMar w:left=2160 (others 1440). Same single-uniform-field dialog limitation."
     },
     {
+      "id": "fd-double-strike",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Double strikethrough",
+      "tab": "Home",
+      "usage_tier": "G3",
+      "action": "Font dialog: Double strikethrough",
+      "realword_method": "com",
+      "note": "w:dstrike (spec 026 FIXED)."
+    },
+    {
+      "id": "fd-hidden",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Hidden",
+      "tab": "Home",
+      "usage_tier": "G3",
+      "action": "Font dialog: Hidden",
+      "realword_method": "com",
+      "note": "w:vanish (spec 026 FIXED)."
+    },
+    {
+      "id": "fd-kerning",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Kerning >= 8pt",
+      "tab": "Home",
+      "usage_tier": "G3",
+      "action": "Font dialog (Advanced): Kerning >= 8pt",
+      "realword_method": "com",
+      "note": "Kerning threshold 8pt -> w:kern w:val=16 (half-points). spec 026 FIXED."
+    },
+    {
       "id": "pagenum",
       "control_id": "insert.header-footer.pageNumber",
       "feature": "Page Number",

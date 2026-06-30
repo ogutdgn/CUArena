@@ -477,6 +477,26 @@
     "note": "w:caps. Dialog Effects checkbox (advFxAttrs)."
   },
   {
+    "task": "fd-double-strike",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-double-strike",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: Double strikethrough",
+    "tab": "Home",
+    "usage_tier": "G3",
+    "note": "w:dstrike (spec 026 FIXED)."
+  },
+  {
     "task": "fd-fontcolor-custom",
     "baselined": true,
     "baseline_divergence": [],
@@ -515,6 +535,26 @@
     "tab": "Home",
     "usage_tier": "CD",
     "note": "THEME GAP: Word writes w:color w:val=156082 w:themeColor=accent1; the clone is sRGB-only (no w:themeColor). Expect a 'missing themeColor' delta = real fidelity gap."
+  },
+  {
+    "task": "fd-hidden",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-hidden",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: Hidden",
+    "tab": "Home",
+    "usage_tier": "G3",
+    "note": "w:vanish (spec 026 FIXED)."
   },
   {
     "task": "fd-indent-firstline",
@@ -595,6 +635,26 @@
     "tab": "Home",
     "usage_tier": "PD",
     "note": "0.5in -> w:ind w:right=720."
+  },
+  {
+    "task": "fd-kerning",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-kerning",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog (Advanced): Kerning >= 8pt",
+    "tab": "Home",
+    "usage_tier": "G3",
+    "note": "Kerning threshold 8pt -> w:kern w:val=16 (half-points). spec 026 FIXED."
   },
   {
     "task": "fd-ligatures",

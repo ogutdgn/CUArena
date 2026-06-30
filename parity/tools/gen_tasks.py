@@ -230,6 +230,21 @@ INSERT_LAYOUT = [
          note="1.5in -> w:pgMar w:left=2160 (others 1440). Same single-uniform-field dialog limitation."),
 ]
 
+# ---------------------------------------------------------------- BATCH 7: GROUP-3 FIX acceptance (tier G3)
+# The 3 "missing Font effects" gaps, now FIXED (spec 026): owned textStyle attrs + the fork v3 dstrike/vanish/kern
+# translators + the run-export/import whitelist. Each must reach 0/0 vs the Word-COM ground truth.
+GROUP3_FONT = [
+    dict(id="fd-double-strike", feature="Font dialog: Double strikethrough",
+         clone_call="PM.cmd('setMark', 'textStyle', { dstrike: true })",
+         com_action="$r.Font.DoubleStrikeThrough = $true", note="w:dstrike (spec 026 FIXED)."),
+    dict(id="fd-hidden", feature="Font dialog: Hidden",
+         clone_call="PM.cmd('setMark', 'textStyle', { vanish: true })",
+         com_action="$r.Font.Hidden = $true", note="w:vanish (spec 026 FIXED)."),
+    dict(id="fd-kerning", feature="Font dialog (Advanced): Kerning >= 8pt",
+         clone_call="PM.cmd('setMark', 'textStyle', { kern: 16 })",
+         com_action="$r.Font.Kerning = 8", note="Kerning threshold 8pt -> w:kern w:val=16 (half-points). spec 026 FIXED."),
+]
+
 # Each batch: (tier, control_id, tab, descriptors)
 BATCHES = [
     ("TV", "home.font/paragraph.variation", "Home", VARIATIONS),
@@ -238,6 +253,7 @@ BATCHES = [
     ("CD", "home.font.color-dialog", "Home", COLOR),
     ("RD", "home.editing.find-replace", "Home", REPLACE),
     ("ID", "insert/layout.dialog", "Insert", INSERT_LAYOUT),
+    ("G3", "home.font.dialog", "Home", GROUP3_FONT),
 ]
 
 # ---------------------------------------------------------------- Intentionally NOT captured (logged honestly)

@@ -615,6 +615,29 @@ python parity/engines/run.py --only fd-spacing   # expect: semantic-pass, missin
 
 ---
 
+## Font dialog (Advanced): Kerning >= 8pt  (Home · G3)
+
+**Goal:** make the clone's `Font dialog (Advanced): Kerning >= 8pt` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-kerning`
+**Ground truth:** `parity/fixtures/rw-fd-kerning.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-kerning   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
 ## Font dialog (Advanced): Ligatures (OpenType)  (Home · FD)
 
 **Goal:** make the clone's `Font dialog (Advanced): Ligatures (OpenType)` output match real Microsoft Word.
@@ -654,6 +677,52 @@ python parity/engines/run.py --only fd-ligatures   # expect: semantic-pass, miss
 ### Acceptance (regression gate)
 ```
 python parity/engines/run.py --only fd-allcaps   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: Double strikethrough  (Home · G3)
+
+**Goal:** make the clone's `Font dialog: Double strikethrough` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-double-strike`
+**Ground truth:** `parity/fixtures/rw-fd-double-strike.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-double-strike   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: Hidden  (Home · G3)
+
+**Goal:** make the clone's `Font dialog: Hidden` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-hidden`
+**Ground truth:** `parity/fixtures/rw-fd-hidden.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-hidden   # expect: semantic-pass, missing = 0
 ```
 
 ### Next steps

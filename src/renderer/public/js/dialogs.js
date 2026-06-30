@@ -546,10 +546,13 @@
     colorBtn.addEventListener('click', () => WC.flyout(colorBtn, (f) => f.appendChild(WC.colorPalette((c, label) => { colorVal = c === 'inherit' ? '' : c; colorBtn.textContent = (label || 'Color') + ' ▾'; colorBtn.style.color = colorVal || ''; update(); }))));
     const underline = el('select', {}, [['(none)', 'none'], ['Single', 'single'], ['Double', 'double'], ['Dotted', 'dotted'], ['Dashed', 'dashed'], ['Wavy', 'wavy']].map(([l, v]) => el('option', { value: v, text: l })));
     const cb = (label) => { const c = el('input', { type: 'checkbox' }); c.addEventListener('change', update); return { c, row: el('label', { style: { display: 'flex', gap: '6px', alignItems: 'center' } }, [c, el('span', { text: label })]) }; };
-    const strike = cb('Strikethrough'), sup = cb('Superscript'), sub = cb('Subscript'), small = cb('Small caps'), allc = cb('All caps');
+    const strike = cb('Strikethrough'), dstrike = cb('Double strikethrough'), sup = cb('Superscript'), sub = cb('Subscript'), small = cb('Small caps'), allc = cb('All caps'), hidden = cb('Hidden');
     if (st.subscript) sub.c.checked = true; if (st.superscript) sup.c.checked = true; if (st.strikethrough) strike.c.checked = true;
     sup.c.addEventListener('change', () => { if (sup.c.checked) sub.c.checked = false; });
     sub.c.addEventListener('change', () => { if (sub.c.checked) sup.c.checked = false; });
+    // 026: Word's Font dialog makes Strikethrough / Double strikethrough mutually exclusive (same as sup/sub).
+    strike.c.addEventListener('change', () => { if (strike.c.checked) dstrike.c.checked = false; });
+    dstrike.c.addEventListener('change', () => { if (dstrike.c.checked) strike.c.checked = false; });
     [fam, styleSel, size, underline].forEach((n) => n.addEventListener('change', update));
     size.addEventListener('input', update);
 
@@ -559,12 +562,18 @@
     const spacingBy = el('input', { type: 'number', value: '1', step: '0.1', style: { width: '60px' } });
     const position = el('select', {}, ['Normal', 'Raised', 'Lowered'].map((v) => el('option', { text: v })));
     const positionBy = el('input', { type: 'number', value: '3', step: '1', style: { width: '60px' } });
-    [scale, spacing, spacingBy, position, positionBy].forEach((n) => { n.addEventListener('change', update); n.addEventListener('input', update); });
+    // 026: Kerning for fonts ≥ N points (checkbox + size). Off → no <w:kern>.
+    const kernOn = el('input', { type: 'checkbox' });
+    const kernBy = el('input', { type: 'number', value: '8', step: '0.5', min: '1', style: { width: '60px' } });
+    [scale, spacing, spacingBy, position, positionBy, kernOn, kernBy].forEach((n) => { n.addEventListener('change', update); n.addEventListener('input', update); });
 
-    // 015: prefill the five advanced effects from the current run state (FR-006).
-    const fx = pm.ready ? pm.getAdvancedFontEffects() : { allCaps: false, smallCaps: false, spacingPt: null, positionPt: null, scalePct: null };
+    // 015/026: prefill the advanced effects from the current run state (FR-006).
+    const fx = pm.ready ? pm.getAdvancedFontEffects() : { allCaps: false, smallCaps: false, spacingPt: null, positionPt: null, scalePct: null, doubleStrike: false, hidden: false, kerningPt: null };
     if (fx.smallCaps) small.c.checked = true;
     if (fx.allCaps) allc.c.checked = true;
+    if (fx.doubleStrike) dstrike.c.checked = true;
+    if (fx.hidden) hidden.c.checked = true;
+    if (fx.kerningPt != null) { kernOn.checked = true; kernBy.value = String(fx.kerningPt); }
     // Preserve a non-preset scale (e.g. an imported 120%) — add it as an option so OK doesn't
     // silently clear it (the dialog always re-applies the control state).
     if (fx.scalePct != null && fx.scalePct !== 100) {
@@ -584,9 +593,11 @@
       s.fontWeight = /Bold/.test(styleSel.value) ? 'bold' : 'normal';
       s.fontStyle = /Italic/.test(styleSel.value) ? 'italic' : 'normal';
       if (colorVal) s.color = colorVal;
-      const deco = []; if (underline.value !== 'none') deco.push('underline'); if (strike.c.checked) deco.push('line-through');
+      const deco = []; if (underline.value !== 'none') deco.push('underline'); if (strike.c.checked || dstrike.c.checked) deco.push('line-through');
       s.textDecorationLine = deco.join(' ') || 'none';
       if (underline.value !== 'none' && underline.value !== 'single') s.textDecorationStyle = underline.value;
+      else if (dstrike.c.checked) s.textDecorationStyle = 'double';
+      if (hidden.c.checked) s.opacity = '0.45';
       s.fontVariant = small.c.checked ? 'small-caps' : 'normal';
       s.textTransform = allc.c.checked ? 'uppercase' : 'none';
       if (scale.value !== '100') { s.display = 'inline-block'; s.transform = 'scaleX(' + (parseInt(scale.value, 10) / 100) + ')'; }
@@ -601,12 +612,13 @@
       el('div', { class: 'row' }, [el('label', { text: 'Font:', style: { width: '70px' } }), fam, el('label', { text: 'Style:' }), styleSel, el('label', { text: 'Size:' }), size]),
       el('div', { class: 'row' }, [el('label', { text: 'Font color:', style: { width: '70px' } }), colorBtn, el('label', { text: 'Underline:' }), underline]),
       el('div', { style: { fontWeight: '600', margin: '8px 0 4px' }, text: 'Effects' }),
-      el('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 16px' } }, [strike.row, small.row, sup.row, allc.row, sub.row]),
+      el('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 16px' } }, [strike.row, dstrike.row, small.row, sup.row, allc.row, sub.row, hidden.row]),
     ]);
     const advTab = el('div', { style: { display: 'none' } }, [
       el('div', { class: 'row' }, [el('label', { text: 'Scale:', style: { width: '90px' } }), scale]),
       el('div', { class: 'row' }, [el('label', { text: 'Spacing:', style: { width: '90px' } }), spacing, el('label', { text: 'By:' }), spacingBy, el('span', { text: 'pt' })]),
       el('div', { class: 'row' }, [el('label', { text: 'Position:', style: { width: '90px' } }), position, el('label', { text: 'By:' }), positionBy, el('span', { text: 'pt' })]),
+      el('div', { class: 'row' }, [el('label', { text: 'Kerning:', style: { width: '90px' } }), kernOn, el('span', { text: 'for fonts ≥' }), kernBy, el('span', { text: 'pt' })]),
     ]);
     const tabs = el('div', { class: 'tabs' }, [
       el('div', { class: 't active', text: 'Font', onclick: (e) => { sw(e.target, fontTab); } }),
@@ -624,7 +636,8 @@
         // set-or-cleared from its control. Normal/100% clears the property (no stale carryover).
         const spPt = spacing.value === 'Normal' ? 0 : (spacing.value === 'Expanded' ? 1 : -1) * (parseFloat(spacingBy.value) || 1);
         const poPt = position.value === 'Normal' ? 0 : (position.value === 'Raised' ? 1 : -1) * (parseFloat(positionBy.value) || 3);
-        const advFx = pm.advFxAttrs({ allCaps: allc.c.checked, smallCaps: small.c.checked, spacingPt: spPt, positionPt: poPt, scalePct: parseInt(scale.value, 10) });
+        const advFx = pm.advFxAttrs({ allCaps: allc.c.checked, smallCaps: small.c.checked, spacingPt: spPt, positionPt: poPt, scalePct: parseInt(scale.value, 10),
+          doubleStrike: dstrike.c.checked, hidden: hidden.c.checked, kerningPt: kernOn.checked ? (parseFloat(kernBy.value) || 8) : null });
         const steps = [['setFontFamily', fam.value], ['setMark', 'textStyle', Object.assign({ fontSize: szPt + 'pt' }, advFx)]];
         steps.push([/Bold/.test(styleSel.value) ? 'setBold' : 'unsetBold']);
         steps.push([/Italic/.test(styleSel.value) ? 'setItalic' : 'unsetItalic']);

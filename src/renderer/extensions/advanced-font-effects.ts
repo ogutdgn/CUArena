@@ -48,6 +48,39 @@ export const AdvancedFontEffects = Extension.create({
               return { style: `display: inline-block; transform: scaleX(${n / 100}); transform-origin: left;`, 'data-wc-scale': String(n) }
             },
           },
+          // 026 (parity) — three more Font-dialog effects whose v3 rPr translators ship in the fork but whose
+          // textStyle attrs were never declared (so setMark dropped them). Same NO-FORK-extension pattern as
+          // smallCaps/w above; the run-export whitelist (decodeRPrFromMarks) + import (encodeMarksFromRPr) forward them.
+          // w:dstrike — double strikethrough. true → <w:dstrike/>; null → omitted.
+          dstrike: {
+            default: null,
+            parseDOM: (el) =>
+              el.style?.textDecorationLine?.includes('line-through') && el.style?.textDecorationStyle === 'double' ? true : null,
+            renderDOM: (attrs) =>
+              attrs.dstrike ? { style: 'text-decoration: line-through; text-decoration-style: double;' } : {},
+          },
+          // w:vanish — hidden text. true → <w:vanish/>. Shown DIMMED in-app (Word hides it unless "show all"); the
+          // OOXML export is the fidelity contract.
+          vanish: {
+            default: null,
+            parseDOM: (el) => (el.getAttribute?.('data-wc-vanish') ? true : null),
+            renderDOM: (attrs) =>
+              attrs.vanish ? { style: 'opacity: 0.45;', 'data-wc-vanish': '1', title: 'Hidden text' } : {},
+          },
+          // w:kern — kerning threshold in HALF-POINTS (Word's "Kerning for fonts ≥ N points" → 2N). Layout hint,
+          // no faithful CSS — model metadata only (data-* for in-app round-trip). N → <w:kern w:val="N"/>.
+          kern: {
+            default: null,
+            parseDOM: (el) => {
+              const d = el.getAttribute?.('data-wc-kern')
+              const n = d ? Number(d) : NaN
+              return Number.isFinite(n) && n > 0 ? n : null
+            },
+            renderDOM: (attrs) => {
+              const n = Number(attrs.kern)
+              return Number.isFinite(n) && n > 0 ? { 'data-wc-kern': String(n) } : {}
+            },
+          },
         },
       },
     ]
