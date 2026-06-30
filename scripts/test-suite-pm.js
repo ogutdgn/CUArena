@@ -2805,6 +2805,18 @@
     if (rel.attributes.TargetMode !== 'External') return 'Relationship TargetMode not External: ' + rel.attributes.TargetMode;
     return true;
   });
+  await t('[6] 024 EXPORT: hyperlink run = rStyle Hyperlink + NO redundant direct <w:u> (matches Word)', async () => {
+    // Word's hyperlink run carries only <w:rStyle w:val="Hyperlink"/> (the char style supplies u single);
+    // the clone auto-adds a VISUAL underline mark (autoAdded:true) for the in-app link look — which must NOT
+    // export as a redundant direct <w:u>. The autoAdded mark stays in the PM model (in-app underline intact).
+    setDoc('click here please'); selectText('click here'); await sleep(60);
+    PM().insertLink({ href: 'https://example.com/', text: 'click here' }); await sleep(120);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const hl = (xml.match(/<w:hyperlink\b[\s\S]*?<\/w:hyperlink>/) || [])[0];
+    if (!hl) return 'no <w:hyperlink> in export';
+    if (!/<w:rStyle w:val="Hyperlink"\s*\/>/.test(hl)) return 'hyperlink run missing rStyle Hyperlink: ' + hl;
+    return /<w:u\b/.test(hl) ? 'hyperlink run over-emits a direct <w:u> (Word relies on the Hyperlink style): ' + hl : true;
+  });
   await t('[6] insertImage inserts an image node with the data-url src', async () => {
     setDoc('photo: ');
     const px = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';

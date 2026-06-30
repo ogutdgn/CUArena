@@ -449,6 +449,16 @@ project tsconfig instead — matching the other vendored packages, which also sh
   and OFF keeps an explicit `w:val="0"` (so a turned-off-against-inheritance state stays distinguishable); `encode`
   already treats a missing `w:val` as `'1'`, so round-trip is unaffected. Gated by `specs/024-t0t1-overemit-fixes`
   + a `test:pm` regression (`024 All Caps exports BARE <w:caps/>`) + the parity `--only fd-allcaps` 0/0 semantic-pass.
+- **Hyperlink redundant `<w:u>` over-emission fixed (parity feature 024, group 1 FR-2, 2026-06-30, user-authorized):**
+  the link extension auto-adds a VISUAL underline mark (`underlineMarkType.create({ autoAdded: true })`, `link.js`) for
+  the in-app hyperlink look, but real Word emits NO direct `<w:u>` on a hyperlink run (the `Hyperlink` CHARACTER STYLE
+  supplies `u single`). Two minimal EXPORT-side edits suppress the auto-added underline (the mark stays in the PM model,
+  so the in-app underline is unchanged; an EXPLICIT user underline on a link is never `autoAdded` — `link.js` only
+  auto-adds when no visible underline exists — so it is preserved): (1) `decodeRPrFromMarks` case `'underline'` in
+  `core/super-converter/styles.js` (the body run rPr path) `if (mark.attrs.autoAdded === true) break;`; (2) the
+  `translateMark` case `'underline'` in `core/super-converter/exporter.js` `if (attrs?.autoAdded === true) return {}`.
+  Gated by `specs/024-t0t1-overemit-fixes` + a `test:pm` regression (`024 EXPORT: hyperlink run ... NO redundant
+  direct <w:u>`) + the differ styles styleId-presence refactor + the parity `--only fd-link` 0/0 semantic-pass.
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
