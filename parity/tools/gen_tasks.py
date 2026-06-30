@@ -201,8 +201,8 @@ COLOR = [
          clone_call="PM.cmd('setColor', '#3A7BD5')", com_action="$r.Font.TextColor.RGB = 0xD57B3A",
          note="Custom #3A7BD5 -> w:color w:val=3A7BD5. Normalize hex case before diff."),
     dict(id="fd-fontcolor-theme", feature="Font color: THEME color (Accent 2)",
-         clone_call="PM.cmd('setColor', '#E97132')", com_action="$r.Font.TextColor.ObjectThemeColor = 5",
-         note="THEME GAP: ObjectThemeColor=5 is wdThemeColorAccent2 (resolved hex E97132 in the Aptos theme). Word writes w:color w:val=E97132 w:themeColor=accent2; the clone is sRGB-only (no w:themeColor). The hex is matched here so the ONLY delta is the missing w:themeColor = the isolated fidelity gap."),
+         clone_call="PM.cmd('setColor', '#E97132', { themeColor: 'accent2' })", com_action="$r.Font.TextColor.ObjectThemeColor = 5",
+         note="THEME color (spec 025 FIXED): ObjectThemeColor=5 is wdThemeColorAccent2 (resolved hex E97132 in the Aptos theme). Word writes w:color w:val=E97132 w:themeColor=accent2; the clone now carries the theme binding (color mark themeColor attr) -> emits w:themeColor=accent2. Expect 0/0."),
 ]
 
 # ---------------------------------------------------------------- BATCH 5: FIND/REPLACE doc-delta (tier RD)

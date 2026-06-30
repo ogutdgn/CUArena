@@ -124,6 +124,11 @@ export function encodeMarksFromRPr(runProperties, docx) {
         } else {
           textStyleAttrs[key] = `#${value['val'].replace('#', '').toUpperCase()}`;
         }
+        // Parity fix (spec 025): preserve the theme binding so a Theme-Colors run round-trips (the v3
+        // color-translator decodes w:themeColor/tint/shade into these SD keys on the color object).
+        if (value.themeColor != null) textStyleAttrs.themeColor = value.themeColor;
+        if (value.themeTint != null) textStyleAttrs.themeTint = value.themeTint;
+        if (value.themeShade != null) textStyleAttrs.themeShade = value.themeShade;
         break;
       case 'underline':
         let underlineType = value['w:val'];
@@ -712,6 +717,11 @@ export function decodeRPrFromMarks(marks) {
             case 'color':
               if (value != null) {
                 runProperties.color = { val: value.replace('#', '') };
+                // Parity fix (spec 025): carry the theme binding so the v3 color-translator emits
+                // w:themeColor/themeTint/themeShade alongside w:val (Word's Theme-Colors output).
+                if (mark.attrs.themeColor != null) runProperties.color.themeColor = mark.attrs.themeColor;
+                if (mark.attrs.themeTint != null) runProperties.color.themeTint = mark.attrs.themeTint;
+                if (mark.attrs.themeShade != null) runProperties.color.themeShade = mark.attrs.themeShade;
               }
               break;
             case 'fontSize': {

@@ -505,13 +505,13 @@ python parity/engines/run.py --only fd-replace-all   # expect: semantic-pass, mi
 **Goal:** make the clone's `Font color: THEME color (Accent 1)` output match real Microsoft Word.
 **Sub-tasks covered:** `fd-fontcolor-theme`
 **Ground truth:** `parity/fixtures/rw-fd-fontcolor-theme.docx`
-**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (fd-fontcolor-theme): emit `body:color[('themeColor', 'accent2'), ('val', 'E97132')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (fd-fontcolor-theme): stop emitting (or justify) `body:color[('val', 'E97132')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```

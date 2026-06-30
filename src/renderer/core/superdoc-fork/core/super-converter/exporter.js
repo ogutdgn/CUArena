@@ -605,6 +605,10 @@ function translateMark(mark) {
         processedColor = rgbToHex(processedColor);
       }
       markElement.attributes['w:val'] = processedColor;
+      // Parity fix (spec 025): carry the theme binding (Word's Theme-Colors output) on this export path too.
+      if (attrs.themeColor != null) markElement.attributes['w:themeColor'] = attrs.themeColor;
+      if (attrs.themeTint != null) markElement.attributes['w:themeTint'] = attrs.themeTint;
+      if (attrs.themeShade != null) markElement.attributes['w:themeShade'] = attrs.themeShade;
       break;
     }
 

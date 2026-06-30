@@ -500,18 +500,14 @@
     "task": "fd-fontcolor-theme",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "semantic-pass",
     "counts": {
-      "match": 3,
-      "missing": 1,
-      "extra": 1
+      "match": 4,
+      "missing": 0,
+      "extra": 0
     },
-    "missing_nodes": [
-      "body:color[('themeColor', 'accent2'), ('val', 'E97132')]"
-    ],
-    "extra_nodes": [
-      "body:color[('val', 'E97132')]"
-    ],
+    "missing_nodes": [],
+    "extra_nodes": [],
     "part_counts": {},
     "id": "fd-fontcolor-theme",
     "control_id": "home.font.color-dialog",

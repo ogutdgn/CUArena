@@ -459,6 +459,17 @@ project tsconfig instead — matching the other vendored packages, which also sh
   `translateMark` case `'underline'` in `core/super-converter/exporter.js` `if (attrs?.autoAdded === true) return {}`.
   Gated by `specs/024-t0t1-overemit-fixes` + a `test:pm` regression (`024 EXPORT: hyperlink run ... NO redundant
   direct <w:u>`) + the differ styles styleId-presence refactor + the parity `--only fd-link` 0/0 semantic-pass.
+- **Theme font colors added (parity feature 025, group 2, 2026-06-30, user-authorized):** the run font-color was
+  sRGB-only — a Theme-Colors pick baked the resolved hex and dropped the theme link, exporting `<w:color w:val="HEX"/>`
+  where Word writes `<w:color w:val="HEX" w:themeColor="accentN"/>`. Fork edits add a theme binding:
+  - `extensions/color/color.js`: `themeColor`/`themeTint`/`themeShade` attrs on the `textStyle` mark (model metadata,
+    `data-*` renderDOM); `setColor(color, options)` writes them (null when absent → clears a stale link); `unsetColor` clears.
+  - `core/super-converter/styles.js`: `decodeRPrFromMarks` threads the keys onto `runProperties.color` (the existing v3
+    `w:color` translator already emits `w:themeColor`/tint/shade); `encodeMarksFromRPr` reads them back on import (round-trip).
+  - `core/super-converter/exporter.js`: `translateMark` case `'color'` writes them on the hyperlink/run export path too.
+  The Theme-Colors picker wiring (slot → `setColor`) is NO-FORK in `src/renderer/public/js/` (util.js + commands.js).
+  Gated by `specs/025-theme-color` + a `test:pm` regression + the parity `--only fd-fontcolor-theme` 0/0 semantic-pass.
+  v1 limitation: tint/shade swatches stay sRGB (the `w:themeTint`/`themeShade` byte computation is deferred).
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
