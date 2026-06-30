@@ -21,6 +21,10 @@ W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 # attribute LOCAL names that are per-save noise (random every save) -> stripped
 NOISE_ATTRS = {"rsid", "rsidr", "rsidrpr", "rsidrdefault", "rsidp", "rsidtr",
                "rsiddel", "rsidsect", "paraid", "textid"}
+# element LOCAL names that are per-save revision bookkeeping -> skipped entirely. The
+# <w:rsids> list (rsidRoot + many <w:rsid w:val=...>) lives in styles.xml and is random
+# every save; without this, diffing styles.xml leaks the rsid VALUES as false differences.
+NOISE_ELEMENTS = {"rsid", "rsidroot", "rsids"}
 # Relationship-id VALUES (r:id="rId9", r:embed="rId4"...) are per-doc pointers assigned
 # arbitrarily per save: Word emits rId9 where the clone emits rId7 for the SAME semantic
 # reference. Canonicalize the VALUE to a constant so references match on their real
@@ -51,6 +55,10 @@ def part_kind(name):
         return "header"
     if re.match(r"word/footer\d*\.xml", name):
         return "footer"
+    if name == "word/numbering.xml":
+        return "numbering"   # list/bullet definitions (Define New Bullet/Number Format)
+    if name == "word/styles.xml":
+        return "styles"      # style definitions (Create/Modify a Style)
     return None
 
 
@@ -86,6 +94,8 @@ def collect(docx_path):
             scope = root
         for el in scope.iter():
             ln = local(el.tag)
+            if ln.lower() in NOISE_ELEMENTS:
+                continue   # per-save revision bookkeeping (<w:rsids>/<w:rsid>) — not feature signal
             attrs = meaningful_attrs(el)
             txt = ""
             if ln in TEXT_NODES and el.text:
@@ -103,12 +113,16 @@ def _signed_delta(action, baseline):
 
 
 def _divergence(rb, cb):
-    """Signatures where the two empty-doc baselines disagree in multiplicity. The baselines
-    come from different engines (Word COM vs the clone probe); when they diverge, the
-    net-of-baseline deltas reflect a blank-document gap, not only the feature — so report it
-    loudly here instead of silently folding it into every task's missing/extra."""
+    """Signatures where the two empty-doc baselines disagree in multiplicity, for the parts
+    where blank-equivalence is a SOUNDNESS concern (body/header/footer). The baselines come
+    from different engines (Word COM vs the clone probe); a body/header/footer divergence
+    means the net-of-baseline deltas reflect a blank-document gap, not only the feature — so
+    report it. styles.xml/numbering.xml are EXCLUDED: the clone's default styles/numbering
+    legitimately differ from Word's (their per-task deltas still cancel via signed subtraction),
+    so flagging them here would just flood the report with default-template differences."""
     return [f"{s} (word_blank={rb.get(s, 0)}, clone_blank={cb.get(s, 0)})"
-            for s in sorted(set(rb) | set(cb)) if rb.get(s, 0) != cb.get(s, 0)]
+            for s in sorted(set(rb) | set(cb))
+            if not s.startswith(("styles:", "numbering:")) and rb.get(s, 0) != cb.get(s, 0)]
 
 
 def _bucket(rw, cl, rw_parts, cl_parts, task_id, baselined, baseline_divergence=None):

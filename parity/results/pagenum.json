@@ -5,7 +5,7 @@
   "verdict": "gap",
   "counts": {
     "match": 7,
-    "missing": 17,
+    "missing": 38,
     "extra": 3
   },
   "missing_nodes": [
@@ -25,7 +25,28 @@
     "header:hdr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
     "header:pPr[]",
     "header:pStyle[('val', 'Header')]",
-    "header:p[]"
+    "header:p[]",
+    "styles:basedOn[('val', 'DefaultParagraphFont')]",
+    "styles:basedOn[('val', 'Normal')]",
+    "styles:link[('val', 'Footer')]",
+    "styles:link[('val', 'FooterChar')]",
+    "styles:link[('val', 'Header')]",
+    "styles:link[('val', 'HeaderChar')]",
+    "styles:name[('val', 'Footer Char')]",
+    "styles:name[('val', 'Header Char')]",
+    "styles:name[('val', 'footer')]",
+    "styles:name[('val', 'header')]",
+    "styles:pPr[]",
+    "styles:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+    "styles:style[('customStyle', '1'), ('styleId', 'FooterChar'), ('type', 'character')]",
+    "styles:style[('customStyle', '1'), ('styleId', 'HeaderChar'), ('type', 'character')]",
+    "styles:style[('styleId', 'Footer'), ('type', 'paragraph')]",
+    "styles:style[('styleId', 'Header'), ('type', 'paragraph')]",
+    "styles:tab[('pos', '4680'), ('val', 'center')]",
+    "styles:tab[('pos', '9360'), ('val', 'right')]",
+    "styles:tabs[]",
+    "styles:uiPriority[('val', '99')]",
+    "styles:unhideWhenUsed[]"
   ],
   "extra_nodes": [
     "footer:ftr[]",
@@ -33,13 +54,13 @@
     "footer:rPr[]"
   ],
   "part_counts": {
-    "footer": {
-      "word": 3,
-      "clone": 1
-    },
     "header": {
       "word": 3,
       "clone": 0
+    },
+    "footer": {
+      "word": 3,
+      "clone": 1
     }
   },
   "id": "pagenum",

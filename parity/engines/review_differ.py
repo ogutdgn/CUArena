@@ -54,6 +54,16 @@ def ftr_part(text):
             f'<w:ftr {WNS}><w:p><w:r><w:t>{text}</w:t></w:r></w:p></w:ftr>')
 
 
+def num_part(inner):
+    return (f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            f'<w:numbering {WNS}>{inner}</w:numbering>')
+
+
+def styles_part(inner):
+    return (f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            f'<w:styles {WNS}>{inner}</w:styles>')
+
+
 def build_golden():
     os.makedirs(GOLDEN_DIR, exist_ok=True)
     cases = []  # (name, expected_missing, expected_extra, a_body, b_body, a_extra, b_extra)
@@ -71,6 +81,12 @@ def build_golden():
         ("multiplicity", 1, 0, '<w:tbl><w:tblGrid><w:gridCol w:w="100"/><w:gridCol w:w="100"/><w:gridCol w:w="100"/></w:tblGrid></w:tbl>',
                                '<w:tbl><w:tblGrid><w:gridCol w:w="100"/><w:gridCol w:w="100"/></w:tblGrid></w:tbl>', None, None),
         ("part_collapse", 0, 0, '', '', {"word/footer1.xml": ftr_part("X")}, {"word/footer2.xml": ftr_part("X")}),
+        # numbering.xml is now in scope: a numbering definition node present on one side must be caught.
+        ("numbering_part", 1, 0, '', '', {"word/numbering.xml": num_part('<w:abstractNum w:abstractNumId="0"/>')},
+                                          {"word/numbering.xml": num_part('')}),
+        # styles.xml is now in scope: a style definition present on one side must be caught.
+        ("styles_part", 1, 0, '', '', {"word/styles.xml": styles_part('<w:style w:styleId="Foo"/>')},
+                                       {"word/styles.xml": styles_part('')}),
         # rId VALUES are per-doc relationship pointers (Word rId9 vs clone rId7): the SAME
         # default footer ref under different rIds must diff to 0 (match on type, not the id value).
         ("rid_canon", 0, 0, P('<w:footerReference w:type="default" r:id="rId9"/>'),

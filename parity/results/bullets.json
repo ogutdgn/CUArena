@@ -4,19 +4,67 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 6,
-    "missing": 1,
-    "extra": 0
+    "match": 15,
+    "missing": 8,
+    "extra": 35
   },
   "missing_nodes": [
-    "body:pStyle[('val', 'ListParagraph')]"
+    "body:pStyle[('val', 'ListParagraph')]",
+    "numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]",
+    "numbering:lvl[('ilvl', '0')]",
+    "numbering:multiLevelType[('val', 'singleLevel')]",
+    "numbering:nsid[('val', '1314181C')]",
+    "numbering:num[('durableId', '1735197339'), ('numId', '1')]",
+    "numbering:numbering[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
+    "numbering:tmpl[('val', '04090001')]"
   ],
-  "extra_nodes": [],
-  "part_counts": {},
+  "extra_nodes": [
+    "numbering:abstractNum[('abstractNumId', '3'), ('restartNumberingAfterBreak', '0')]",
+    "numbering:ind[('hanging', '360'), ('left', '1440')]",
+    "numbering:ind[('hanging', '360'), ('left', '2160')]",
+    "numbering:ind[('hanging', '360'), ('left', '2880')]",
+    "numbering:ind[('hanging', '360'), ('left', '3600')]",
+    "numbering:ind[('hanging', '360'), ('left', '4320')]",
+    "numbering:ind[('hanging', '360'), ('left', '5040')]",
+    "numbering:ind[('hanging', '360'), ('left', '5760')]",
+    "numbering:ind[('hanging', '360'), ('left', '6480')]",
+    "numbering:lvlJc[('val', 'left')]",
+    "numbering:lvlText[('val', '\\uf0a7')]",
+    "numbering:lvlText[('val', 'o')]",
+    "numbering:lvlText[('val', '•')]",
+    "numbering:lvlText[('val', '▪')]",
+    "numbering:lvlText[('val', '◦')]",
+    "numbering:lvl[('ilvl', '0'), ('tplc', '04090001')]",
+    "numbering:lvl[('ilvl', '1'), ('tentative', '1'), ('tplc', '04090003')]",
+    "numbering:lvl[('ilvl', '2'), ('tentative', '1'), ('tplc', '04090005')]",
+    "numbering:lvl[('ilvl', '3'), ('tentative', '1'), ('tplc', '04090001')]",
+    "numbering:lvl[('ilvl', '4'), ('tentative', '1'), ('tplc', '04090003')]",
+    "numbering:lvl[('ilvl', '5'), ('tentative', '1'), ('tplc', '04090005')]",
+    "numbering:lvl[('ilvl', '6'), ('tentative', '1'), ('tplc', '04090001')]",
+    "numbering:lvl[('ilvl', '7'), ('tentative', '1'), ('tplc', '04090003')]",
+    "numbering:lvl[('ilvl', '8'), ('tentative', '1'), ('tplc', '04090005')]",
+    "numbering:multiLevelType[('val', 'hybridMultilevel')]",
+    "numbering:nsid[('val', 'EE0E535A')]",
+    "numbering:numFmt[('val', 'bullet')]",
+    "numbering:num[('numId', '4')]",
+    "numbering:pPr[]",
+    "numbering:rFonts[('ascii', 'Courier New'), ('cs', 'Courier New'), ('hAnsi', 'Courier New'), ('hint', 'default')]",
+    "numbering:rFonts[('ascii', 'Symbol'), ('hAnsi', 'Symbol'), ('hint', 'default')]",
+    "numbering:rFonts[('ascii', 'Wingdings'), ('hAnsi', 'Wingdings'), ('hint', 'default')]",
+    "numbering:rPr[]",
+    "numbering:start[('val', '1')]",
+    "numbering:tmpl[('val', '9CAC74EA')]"
+  ],
+  "part_counts": {
+    "numbering": {
+      "word": 1,
+      "clone": 0
+    }
+  },
   "id": "bullets",
   "control_id": "home.paragraph.bullets",
   "feature": "Bullets",
   "tab": "Home",
   "usage_tier": "T0",
-  "note": "WARNING: like Insert Table, COM ListFormat.ApplyBulletDefault() may differ from the ribbon's exact list template (numId/abstractNum/indents). This rw fixture is the COM baseline; recapture via vsto if the divergence looks like a method artifact, not a clone gap."
+  "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — the real clone gap there is the missing pStyle ListParagraph."
 }

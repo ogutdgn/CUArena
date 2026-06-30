@@ -137,12 +137,19 @@ action-specific noise — Word-vs-self auto-surfaces it). Baseline state: all su
   PHANTOM `missing rFonts[ascii,hAnsi]` alongside the real `extra` (the clone already emits ascii+hAnsi). The real
   delta is the cs/eastAsia over-spec. Candidate: attribute-level/subset matching for multi-attr property elements
   (rFonts, ind, spacing…) so an attribute-set superset reads as "extra attrs", not a missing+extra pair.
-- 🔜 **numbering.xml / styles.xml resolution:** the differ reads only document.xml + headers/footers, so it can't
-  compare list KIND (bullet vs numbered — both are just `numId` refs) or resolve `pStyle`/`tblStyle` definitions.
-  Bringing numbering.xml + styles.xml in as RESOLUTION sources (numId → numFmt; styleId → its rPr/pPr) would let
-  the differ compare list type and style content. (Also: the ribbon Bullets button emits a 9-level
-  `hybridMultilevel` abstractNum vs COM `ApplyBulletDefault`'s `singleLevel` — a numbering.xml-only divergence,
-  invisible today; recapture bullets via vsto if/when numbering.xml enters the diff.)
+- ✅ **numbering.xml + styles.xml now DIFFED (part-scope extension, DONE):** `part_kind` adds `word/numbering.xml`
+  → `numbering` and `word/styles.xml` → `styles`, so list/bullet definitions (Define New Bullet/Number Format) and
+  style definitions (Create/Modify a Style) are caught. Per-save `<w:rsids>`/`<w:rsid>` bookkeeping is stripped via
+  `NOISE_ELEMENTS` (the leak the reviewer's "add `val` to NOISE_ATTRS" would have over-stripped). The baseline-
+  divergence guard EXCLUDES `styles:`/`numbering:` (the clone's default templates legitimately differ from Word's;
+  per-task deltas still cancel them). Locked by golden `numbering_part`/`styles_part` + Word-vs-self on the new parts.
+  **CONSEQUENCE:** bullets/numbering now show a large `numbering.xml` delta that is a COM-method ARTIFACT — COM
+  `ApplyBulletDefault`/`ApplyNumberDefault` writes a singleLevel abstractNum, the ribbon (and the clone) write a
+  MULTIlevel one, so the clone reads as "extra" while being MORE ribbon-faithful than the COM ground truth. A true
+  numbering.xml comparison for these needs the **vsto/UIA ribbon ground-truth** (deferred).
+- 🔜 **numId → numFmt RESOLUTION:** even with numbering.xml diffed, the differ compares definitions structurally, not
+  by list KIND. Resolving `numId` → its abstractNum `numFmt` (bullet vs decimal vs …) would let same-KIND lists match
+  regardless of definition shape — the principled successor to the current numId-value canonicalization.
 - 🔜 **Sibling-order sensitivity:** node signatures are multiset counts keyed on tag+attrs, so a WRONG CHILD
   ORDER is invisible. The T1 numbering task surfaced the clone emitting `<w:numPr>` children as `numId` then
   `ilvl` (OOXML/Word use `ilvl` then `numId`) — a real clone bug the differ does NOT flag. Candidate: an

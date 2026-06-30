@@ -96,15 +96,21 @@ def main():
         # The two empty-doc baselines come from different engines; if they DIVERGE, every task's
         # delta is net of that blank-doc gap (not pure feature parity) — so surface it loudly.
         bvb = ooxml_diff.diff(RW_BASELINE, WC_BASELINE)
-        div = bvb["missing_nodes"] + bvb["extra_nodes"]
+        # styles.xml/numbering.xml default templates legitimately differ between the clone and Word
+        # (expected; per-task deltas still cancel them via signed subtraction), so the divergence guard
+        # tracks only body/header/footer — where blank-equivalence is a soundness concern.
+        div = [s for s in (bvb["missing_nodes"] + bvb["extra_nodes"])
+               if not s.startswith(("styles:", "numbering:"))]
         if div:
-            print(f"  [!!] BASELINE DIVERGENCE: clone vs Word empty-doc baselines differ in {len(div)} signature(s) "
-                  "— task deltas are NET of this blank-doc gap, not pure feature parity:")
-            for s in div:
+            print(f"  [!!] BASELINE DIVERGENCE: clone vs Word empty-doc baselines differ in {len(div)} "
+                  "body/header/footer signature(s) — task deltas are NET of this blank-doc gap:")
+            for s in div[:15]:
                 print(f"        {s}")
+            if len(div) > 15:
+                print(f"        ... (+{len(div) - 15} more)")
             print("       -> fix the clone's blank export, or record these as a separate blank-doc finding.")
         else:
-            print("  [i] baselines equivalent — clean delta subtraction.")
+            print("  [i] baselines equivalent on body/header/footer (styles/numbering defaults differ as expected).")
 
     results = []
     for t in tasks:
