@@ -659,6 +659,11 @@ export function decodeRPrFromMarks(marks) {
         // SD-2912 change in `calculateInlineRunPropertiesPlugin.js`).
         break;
       case 'underline': {
+        // Parity fix (spec 024 FR-2): suppress the link extension's auto-added VISUAL underline on EXPORT —
+        // real Word emits no direct <w:u> on a hyperlink run (the Hyperlink CHARACTER STYLE supplies u single).
+        // The autoAdded mark stays in the PM model (in-app underline intact); an explicit user underline on a
+        // link is never autoAdded (link.js only auto-adds when no visible underline exists) so it is preserved.
+        if (mark.attrs.autoAdded === true) break;
         const { underlineType, underlineColor, underlineThemeColor, underlineThemeTint, underlineThemeShade } =
           mark.attrs;
         const underlineAttrs = {};

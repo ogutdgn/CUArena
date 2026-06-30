@@ -850,13 +850,13 @@ python parity/engines/run.py --only sz-8   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Insert Hyperlink (text + address)` output match real Microsoft Word.
 **Sub-tasks covered:** `fd-link`
 **Ground truth:** `parity/fixtures/rw-fd-link.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 1 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (fd-link): stop emitting (or justify) `body:u[('val', 'single')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```

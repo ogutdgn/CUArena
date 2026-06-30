@@ -31,6 +31,13 @@ Branch: `parity-pipeline` (no feature branch; per the user's merge directive). I
   so `--only fd-link` cannot reach 0/0 until the styles diff is sound (report §4c). Order: allcaps → engine refactor → link.
 - **Acceptance:** after the engine refactor, `python parity/engines/run.py --only fd-link` reaches **0/0** (only the
   extra `body:u` remains, then cleared by this fix); a regression test asserts a hyperlink run has no direct `<w:u>`.
+- **DONE.** Suppress the `autoAdded` underline on EXPORT in `decodeRPrFromMarks` (styles.js) + `translateMark`
+  (exporter.js). Acceptance 0/0; test:pm 510; review SOUND (no visual/round-trip regression — imported links get
+  their underline from the resolved Hyperlink style via `resolveRunProperties`).
+  - **Residual (logged, not a regression):** a DOUBLE round-trip (author → export-clean → re-import → re-export)
+    re-emits `<w:u>` because re-import mints a NON-autoAdded underline mark from the style that export no longer
+    suppresses. Strictly improves the fresh-authoring case the pipeline measures; full round-trip parity would need
+    the hyperlink export path to apply the v3 run-translator's style-key underline dedup. Out of scope for FR-2.
 
 ## Out of scope
 The 8 other verified gaps (theme-color, double-strike/hidden/kerning, bullet-font/align, special-replace, margins)

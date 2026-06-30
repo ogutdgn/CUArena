@@ -550,6 +550,12 @@ function translateMark(mark) {
       break;
 
     case 'underline': {
+      // Parity fix (spec 024 FR-2): the link extension auto-adds a VISUAL underline mark (autoAdded:true)
+      // for the in-app hyperlink look; real Word emits no direct <w:u> on a hyperlink run (the Hyperlink
+      // CHARACTER STYLE supplies u single). Suppress the auto-added underline on EXPORT only — the mark stays
+      // in the PM model so the in-app underline is unchanged. An EXPLICIT user underline on a link is preserved
+      // (link.js only auto-adds when there is no visible underline already, so it is never autoAdded).
+      if (attrs?.autoAdded === true) return {};
       const translated = wUnderlineTranslator.decode({
         node: {
           attrs: {
