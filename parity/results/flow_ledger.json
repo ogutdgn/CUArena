@@ -1,0 +1,226 @@
+[
+  {
+    "id": "home.font.bold",
+    "type": "toggle",
+    "kind": "apply",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.font.italic",
+    "type": "toggle",
+    "kind": "apply",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.font.underline",
+    "type": "split",
+    "kind": "flyout",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [
+      "Underline styles",
+      "More Underlines...",
+      "Underline Color"
+    ],
+    "actual_items": [
+      "No Underline",
+      "Single",
+      "Double",
+      "Dotted",
+      "Dashed",
+      "Wavy",
+      "Thick",
+      "Dot Dash",
+      "Dot Dot Dash",
+      "Words only",
+      "More Underlines…",
+      "Underline Color"
+    ],
+    "actual_item_count": 12,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.font.font",
+    "type": "combo",
+    "kind": "combo",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.font.font-size",
+    "type": "combo",
+    "kind": "combo",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.paragraph.bullets",
+    "type": "split",
+    "kind": "flyout",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [
+      "Bullet Library",
+      "Document Bullets",
+      "Change List Level",
+      "Define New Bullet..."
+    ],
+    "actual_items": [
+      "Change List Level",
+      "Define New Bullet…"
+    ],
+    "actual_item_count": 2,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.paragraph.align-left",
+    "type": "toggle",
+    "kind": "apply",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.paragraph.center",
+    "type": "toggle",
+    "kind": "apply",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.font.font-color",
+    "type": "split",
+    "kind": "flyout",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [
+      "Automatic",
+      "Theme Colors",
+      "Standard Colors",
+      "More Colors...",
+      "Gradient"
+    ],
+    "actual_items": [
+      "Gradient…"
+    ],
+    "actual_item_count": 1,
+    "swatch_count": 2,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.font.text-highlight-color",
+    "type": "split",
+    "kind": "flyout",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [
+      "Color swatches",
+      "No Color",
+      "Stop Highlighting"
+    ],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 1,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.paragraph.numbering",
+    "type": "split",
+    "kind": "flyout",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [
+      "Numbering Library",
+      "Change List Level",
+      "Define New Number Format...",
+      "Set Numbering Value..."
+    ],
+    "actual_items": [
+      "Change List Level",
+      "Set Numbering Value…",
+      "Define New Number Format…"
+    ],
+    "actual_item_count": 3,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.paragraph.justify",
+    "type": "toggle",
+    "kind": "apply",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [],
+    "actual_items": [],
+    "actual_item_count": 0,
+    "swatch_count": 0,
+    "possibly_missing_items": []
+  },
+  {
+    "id": "home.paragraph.line-and-paragraph-spacing",
+    "type": "dropdown",
+    "kind": "flyout",
+    "verdict": "flow-pass",
+    "flags": [],
+    "declared_items": [
+      "1.0",
+      "1.15",
+      "1.5",
+      "2.0",
+      "2.5",
+      "3.0",
+      "Line Spacing Options...",
+      "Add Space Before Paragraph",
+      "Remove Space After Paragraph"
+    ],
+    "actual_items": [
+      "1.0",
+      "1.15",
+      "1.5",
+      "2.0",
+      "2.5",
+      "3.0",
+      "Line Spacing Options…",
+      "Add Space Before Paragraph",
+      "Add Space After Paragraph"
+    ],
+    "actual_item_count": 9,
+    "swatch_count": 0,
+    "possibly_missing_items": [
+      "Remove Space After Paragraph"
+    ]
+  }
+]

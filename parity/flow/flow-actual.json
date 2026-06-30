@@ -1,0 +1,214 @@
+{
+  "ready": true,
+  "controls": [
+    {
+      "id": "home.font.bold",
+      "found": true,
+      "cmd": "bold",
+      "type": "toggle",
+      "items": null,
+      "rendered": true,
+      "kind": "apply",
+      "actual_items": []
+    },
+    {
+      "id": "home.font.italic",
+      "found": true,
+      "cmd": "italic",
+      "type": "toggle",
+      "items": null,
+      "rendered": true,
+      "kind": "apply",
+      "actual_items": []
+    },
+    {
+      "id": "home.font.underline",
+      "found": true,
+      "cmd": "underline",
+      "type": "split",
+      "items": [
+        "Underline styles",
+        "More Underlines...",
+        "Underline Color"
+      ],
+      "rendered": true,
+      "kind": "flyout",
+      "actual_items": [
+        "No Underline",
+        "Single",
+        "Double",
+        "Dotted",
+        "Dashed",
+        "Wavy",
+        "Thick",
+        "Dot Dash",
+        "Dot Dot Dash",
+        "Words only",
+        "More Underlines…",
+        "Underline Color"
+      ],
+      "actual_item_count": 12,
+      "swatch_count": 0
+    },
+    {
+      "id": "home.font.font",
+      "found": true,
+      "cmd": "font",
+      "type": "combo",
+      "items": null,
+      "rendered": true,
+      "kind": "combo",
+      "actual_items": []
+    },
+    {
+      "id": "home.font.font-size",
+      "found": true,
+      "cmd": "fontSize",
+      "type": "combo",
+      "items": null,
+      "rendered": true,
+      "kind": "combo",
+      "actual_items": []
+    },
+    {
+      "id": "home.paragraph.bullets",
+      "found": true,
+      "cmd": "bullets",
+      "type": "split",
+      "items": [
+        "Bullet Library",
+        "Document Bullets",
+        "Change List Level",
+        "Define New Bullet..."
+      ],
+      "rendered": true,
+      "kind": "flyout",
+      "actual_items": [
+        "Change List Level",
+        "Define New Bullet…"
+      ],
+      "actual_item_count": 2,
+      "swatch_count": 0
+    },
+    {
+      "id": "home.paragraph.align-left",
+      "found": true,
+      "cmd": "alignLeft",
+      "type": "toggle",
+      "items": null,
+      "rendered": true,
+      "kind": "apply",
+      "actual_items": []
+    },
+    {
+      "id": "home.paragraph.center",
+      "found": true,
+      "cmd": "center",
+      "type": "toggle",
+      "items": null,
+      "rendered": true,
+      "kind": "apply",
+      "actual_items": []
+    },
+    {
+      "id": "home.font.font-color",
+      "found": true,
+      "cmd": "fontColor",
+      "type": "split",
+      "items": [
+        "Automatic",
+        "Theme Colors",
+        "Standard Colors",
+        "More Colors...",
+        "Gradient"
+      ],
+      "rendered": true,
+      "kind": "flyout",
+      "actual_items": [
+        "Gradient…"
+      ],
+      "actual_item_count": 1,
+      "swatch_count": 2
+    },
+    {
+      "id": "home.font.text-highlight-color",
+      "found": true,
+      "cmd": "textHighlightColor",
+      "type": "split",
+      "items": [
+        "Color swatches",
+        "No Color",
+        "Stop Highlighting"
+      ],
+      "rendered": true,
+      "kind": "flyout",
+      "actual_items": [],
+      "actual_item_count": 0,
+      "swatch_count": 1
+    },
+    {
+      "id": "home.paragraph.numbering",
+      "found": true,
+      "cmd": "numbering",
+      "type": "split",
+      "items": [
+        "Numbering Library",
+        "Change List Level",
+        "Define New Number Format...",
+        "Set Numbering Value..."
+      ],
+      "rendered": true,
+      "kind": "flyout",
+      "actual_items": [
+        "Change List Level",
+        "Set Numbering Value…",
+        "Define New Number Format…"
+      ],
+      "actual_item_count": 3,
+      "swatch_count": 0
+    },
+    {
+      "id": "home.paragraph.justify",
+      "found": true,
+      "cmd": "justify",
+      "type": "toggle",
+      "items": null,
+      "rendered": true,
+      "kind": "apply",
+      "actual_items": []
+    },
+    {
+      "id": "home.paragraph.line-and-paragraph-spacing",
+      "found": true,
+      "cmd": "lineAndParagraphSpacing",
+      "type": "dropdown",
+      "items": [
+        "1.0",
+        "1.15",
+        "1.5",
+        "2.0",
+        "2.5",
+        "3.0",
+        "Line Spacing Options...",
+        "Add Space Before Paragraph",
+        "Remove Space After Paragraph"
+      ],
+      "rendered": true,
+      "kind": "flyout",
+      "actual_items": [
+        "1.0",
+        "1.15",
+        "1.5",
+        "2.0",
+        "2.5",
+        "3.0",
+        "Line Spacing Options…",
+        "Add Space Before Paragraph",
+        "Add Space After Paragraph"
+      ],
+      "actual_item_count": 9,
+      "swatch_count": 0
+    }
+  ],
+  "ribbonControlCount": 209
+}
