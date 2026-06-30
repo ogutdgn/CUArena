@@ -534,6 +534,20 @@
     setDoc('plainclrX body'); selectText('plainclrX'); PM().cmd('setColor', '#FF0000'); await sleep(40);
     return /w:themeColor/i.test(runFor(await xmlNow(), 'plainclrX')) ? 'plain color leaked a w:themeColor' : true;
   });
+  await t('[home] 026 double-strike/hidden/kerning apply → element; CLEAR → dropped (no stale leak)', async () => {
+    setDoc('dsX body'); selectText('dsX'); PM().cmd('setMark', 'textStyle', { dstrike: true }); await sleep(40);
+    if (!/<w:dstrike\b/.test(runFor(await xmlNow(), 'dsX'))) return 'no <w:dstrike> after apply';
+    selectText('dsX'); PM().cmd('setMark', 'textStyle', { dstrike: null }); await sleep(40);
+    if (/<w:dstrike\b/.test(runFor(await xmlNow(), 'dsX'))) return '<w:dstrike> not cleared (stale-value leak)';
+    setDoc('hidX body'); selectText('hidX'); PM().cmd('setMark', 'textStyle', { vanish: true }); await sleep(40);
+    if (!/<w:vanish\b/.test(runFor(await xmlNow(), 'hidX'))) return 'no <w:vanish> after apply';
+    selectText('hidX'); PM().cmd('setMark', 'textStyle', { vanish: null }); await sleep(40);
+    if (/<w:vanish\b/.test(runFor(await xmlNow(), 'hidX'))) return '<w:vanish> not cleared (stale-value leak)';
+    setDoc('kernX body'); selectText('kernX'); PM().cmd('setMark', 'textStyle', { kern: 16 }); await sleep(40);
+    if (!/<w:kern\b[^>]*w:val="16"/.test(runFor(await xmlNow(), 'kernX'))) return 'no <w:kern w:val="16"/> after apply';
+    selectText('kernX'); PM().cmd('setMark', 'textStyle', { kern: null }); await sleep(40);
+    return /<w:kern\b/.test(runFor(await xmlNow(), 'kernX')) ? '<w:kern> not cleared (stale-value leak)' : true;
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);

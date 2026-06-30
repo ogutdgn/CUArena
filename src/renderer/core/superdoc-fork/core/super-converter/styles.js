@@ -179,6 +179,20 @@ export function encodeMarksFromRPr(runProperties, docx) {
         if (!isNaN(wPct)) textStyleAttrs[key] = wPct;
         break;
       }
+      // MS-WORD-CLONE FORK EDIT (026, user-authorized): IMPORT side for Double strikethrough / Hidden / Kerning —
+      // map the decoded runProperties (dstrike/vanish boolean, kern half-point int) onto the owned textStyle attrs
+      // so an imported docx's <w:dstrike/>/<w:vanish/>/<w:kern> renders + round-trips. PURELY ADDITIVE (mirrors 015).
+      case 'dstrike':
+        if (value) textStyleAttrs[key] = true;
+        break;
+      case 'vanish':
+        if (value) textStyleAttrs[key] = true;
+        break;
+      case 'kern': {
+        const kHalfPts = parseInt(value, 10);
+        if (!isNaN(kHalfPts) && kHalfPts > 0) textStyleAttrs[key] = kHalfPts;
+        break;
+      }
       // MS-WORD-CLONE FORK EDIT (019, user-authorized): IMPORT side for the run-level border — map an imported
       // run's <w:bdr> (decoded to runProperty 'borders') onto the owned textStyle.borders attr so it renders +
       // round-trips. PURELY ADDITIVE (mirrors the 015 import cases above).
@@ -797,6 +811,21 @@ export function decodeRPrFromMarks(marks) {
             case 'w': {
               const pct = parseInt(value, 10);
               if (!isNaN(pct)) runProperties.w = pct;
+              break;
+            }
+            // MS-WORD-CLONE FORK EDIT (026, user-authorized — Constitution P1): Double strikethrough / Hidden /
+            // Kerning. The OWNED advanced-font-effects extension declares these textStyle attrs and the fork's v3 rPr
+            // translators (w/dstrike + w/vanish + w/kern) already emit them; this run-export whitelist forwards the
+            // three attrs. PURELY ADDITIVE — all three no-op'd here before, so this cannot regress any run property.
+            case 'dstrike':
+              if (value) runProperties.dstrike = true;
+              break;
+            case 'vanish':
+              if (value) runProperties.vanish = true;
+              break;
+            case 'kern': {
+              const halfPts = parseInt(value, 10);
+              if (!isNaN(halfPts) && halfPts > 0) runProperties.kern = halfPts;
               break;
             }
             // MS-WORD-CLONE FORK EDIT (019, user-authorized): run-level border ("Apply to: Text"). The owned

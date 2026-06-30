@@ -470,6 +470,22 @@ project tsconfig instead — matching the other vendored packages, which also sh
   The Theme-Colors picker wiring (slot → `setColor`) is NO-FORK in `src/renderer/public/js/` (util.js + commands.js).
   Gated by `specs/025-theme-color` + a `test:pm` regression + the parity `--only fd-fontcolor-theme` 0/0 semantic-pass.
   v1 limitation: tint/shade swatches stay sRGB (the `w:themeTint`/`themeShade` byte computation is deferred).
+- **Double strikethrough / Hidden / Kerning added (parity feature 026, group 3, 2026-06-30, user-authorized):** the
+  fork ships v3 rPr translators for `w:dstrike` / `w:vanish` / `w:kern` but the `textStyle` mark never declared the
+  attrs (setMark dropped them), so the Font dialog's Double strikethrough / Hidden / Kerning effects were unreachable.
+  Same additive pattern as the 015 smallCaps/scale edits — the attrs are declared in the OWNED
+  `src/renderer/extensions/advanced-font-effects.ts` (NO fork edit); the two fork edits below are the run-export +
+  import whitelists in `core/super-converter/styles.js`:
+  - `decodeRPrFromMarks`: forward `dstrike`→`runProperties.dstrike` (bool), `vanish`→`runProperties.vanish` (bool),
+    `kern`→`runProperties.kern` (half-point int) so the v3 translators emit `<w:dstrike/>`/`<w:vanish/>`/`<w:kern w:val=N/>`.
+  - `encodeMarksFromRPr`: map the decoded run properties back onto the owned textStyle attrs (import round-trip).
+  - `extensions/run/calculateInlineRunPropertiesPlugin.js`: add `dstrike`/`vanish`/`kern` to
+    `RUN_PROPERTIES_DERIVED_FROM_MARKS` so CLEARING the mark (Font-dialog uncheck / setMark null) re-derives from the
+    mark and DROPS the property instead of preserving the stale value and re-exporting it (the same defect class the
+    015 smallCaps/w + 019 borders + 020 textGradient entries each fixed; caught by the per-fix adversarial review).
+  PURELY ADDITIVE (all three no-op'd before). Gated by `specs/026-font-effects-batch` + a `test:pm` regression +
+  the parity `--only fd-double-strike`/`fd-hidden`/`fd-kerning` 0/0 semantic-pass. The Font-dialog controls + bridge
+  advFxAttrs/getAdvancedFontEffects wiring are NO-FORK (`src/renderer/public/js/` + `src/renderer/bridge/`).
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 

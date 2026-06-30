@@ -39,6 +39,13 @@ const RUN_PROPERTIES_DERIVED_FROM_MARKS = new Set([
   // mark (setMark{smallCaps:null}/{w:null}) leaves the stale value preserved and it re-exports.
   'smallCaps',
   'w',
+  // MS-WORD-CLONE FORK EDIT (026, user-authorized): Double strikethrough / Hidden / Kerning are mark-derived (the
+  // owned advanced-font-effects extension), so list them here too — otherwise clearing the mark
+  // (setMark{dstrike:null}/{vanish:null}/{kern:null}, or the Font dialog uncheck) leaves the stale value preserved
+  // and it re-exports <w:dstrike/>/<w:vanish/>/<w:kern>. Same defect class as the 015 smallCaps/w entries above.
+  'dstrike',
+  'vanish',
+  'kern',
   // Text Effects & Typography (Phase 3): mark-derived so user edits re-export.
   'numForm',
   'numSpacing',
