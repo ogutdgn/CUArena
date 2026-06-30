@@ -251,6 +251,18 @@ IDENTIFIED_GAPS = [
      "Word Font.Hidden -> w:vanish. No clone checkbox and no WC.PM verb; vanish round-trips on import only."),
     ("fd-kerning", "Font", "Kerning for fonts >= N pt", "GAP",
      "Word Font.Kerning -> w:kern (min-size threshold, half-points). No clone control and no textStyle.kern attr."),
+    # --- Dialog-COMPLETENESS flow gaps: the EFFECT works (0/0 OOXML via the bridge) but Word's dialog has a
+    #     control the clone's dialog omits (so the field is unreachable from the clone UI). Recorded as FINDINGS
+    #     per the completeness check (were previously only in DIALOG_FLOW_LEDGER.md). ---
+    ("fd-underline-color-ui", "Font", "Underline-color dropdown (dialog control)", "FLOW",
+     "The underline-color EFFECT is faithful (fd-underline-color = 0/0 via the bridge), but Word's Font dialog has an "
+     "Underline-color dropdown the clone's dialog omits (dialogs.js Underline row sets style only). Dialog-completeness gap."),
+    ("fd-ligatures-ui", "Font", "Ligatures dropdown (Advanced tab control)", "FLOW",
+     "The ligatures EFFECT is faithful (fd-ligatures = 0/0), but Word's Advanced tab has an OpenType Ligatures dropdown "
+     "the clone's Advanced tab (Scale/Spacing/Position only) omits. Dialog-completeness gap."),
+    ("fd-paragraph-pagination-ui", "Paragraph", "Line-and-Page-Breaks tab (widow/keepNext/keepLines/pageBreakBefore)", "FLOW",
+     "All 4 pagination EFFECTS are faithful (fd-pag-widow/keepnext/keeplines/pagebreak = 0/0 via the bridge), but the "
+     "clone's Paragraph dialog has NO Line-and-Page-Breaks tab — Word does. Dialog-completeness gap (016 scoped to add it)."),
     # --- Bullets/Numbering: numbering.xml-only (COM ApplyListTemplate singleLevel vs clone 9-level + minted numId) ---
     ("fd-bullet-font", "Define New Bullet", "Bullet font", "GAP",
      "Word writes abstractNum/lvl/rPr/rFonts; the clone has NO font picker AND applyListDefinition.js:77-78 STRIPS rFonts -> clone never emits a bullet font. numbering.xml-only."),
@@ -285,6 +297,24 @@ IDENTIFIED_GAPS = [
      "COM Tables.Add auto-creates an AutoFit-to-window TableGrid (+tblLook/default borders); the clone builds equal-width gridCols. Row/col COUNTS match; gridCol widths/tblW/borders diverge. (Covered by the existing 'table' pilot.)"),
     ("fd-margin-uniform", "Page Setup", "Independent T/B/L/R margins via the dialog", "GAP",
      "The clone's Custom Margins dialog exposes ONE uniform 'Margin (inches)' input applied to all four sides; Word's Page Setup sets top/bottom/left/right independently. (The bridge dePageMargins verb + presets do support distinct sides — measured via fd-margin-top/left — but the DIALOG cannot.)"),
+]
+
+
+# ---------------------------------------------------------------- Explicitly skipped fields (honest coverage)
+# Per the completeness check: meaningful dialog fields deliberately NOT measured, with why. Confirms Font-dialog
+# coverage is exhaustive (every field measured, recorded as a gap, or explicitly skipped here).
+SKIP_LOG = [
+    ("Font / Advanced", "Number spacing (Proportional / Tabular figures)", "Niche OpenType feature; the clone does "
+     "not implement it (no textStyle attr) and usage is very low. Word's Advanced tab exposes it. Skipped (not a gap "
+     "worth tracking now)."),
+    ("Font / Advanced", "Number forms (Lining / Old-style figures)", "Niche OpenType; clone unimplemented, very low usage. Skipped."),
+    ("Font / Advanced", "Stylistic sets", "Niche OpenType; clone unimplemented, very low usage. Skipped."),
+    ("Font / Advanced", "Use Contextual Alternates (checkbox)", "Folded into the ligatures handling (the 022 "
+     "fontVariantLigatures / contextualAlternates work) — no separate dialog control measured."),
+    ("Font dialog", "Set As Default button", "A settings action (writes the run props to the Normal style / template), "
+     "not a per-run field — out of scope for per-run OOXML parity."),
+    ("All dialogs", "Cartesian value sweeps", "Only DISTINCT-OOXML representative values per field; symmetric twins "
+     "(left/right indent, before/after spacing, raised/lowered position) measured once each."),
 ]
 
 
@@ -335,6 +365,7 @@ def main():
                            "styleId presence/content, not baseline-subtracted signatures. See report 4c.",
         "report": "parity/results/DEEP_T0_T1_REPORT.md",
     }
+    data["_dialog_skip_log"] = [dict(scope=s[0], field=s[1], why=s[2]) for s in SKIP_LOG]
     json.dump(data, open(TASKS, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
     print(f"generated {total} probe+COM pairs across {len(BATCHES)} batches; merged {len(new_tasks)} new tasks into tasks.json")
     print(f"recorded {len(IDENTIFIED_GAPS)} identified gaps (not captured) in tasks.json._dialog_identified_gaps")

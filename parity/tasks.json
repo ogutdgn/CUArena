@@ -600,6 +600,27 @@
       "detail": "Word Font.Kerning -> w:kern (min-size threshold, half-points). No clone control and no textStyle.kern attr."
     },
     {
+      "id": "fd-underline-color-ui",
+      "dialog": "Font",
+      "field": "Underline-color dropdown (dialog control)",
+      "kind": "FLOW",
+      "detail": "The underline-color EFFECT is faithful (fd-underline-color = 0/0 via the bridge), but Word's Font dialog has an Underline-color dropdown the clone's dialog omits (dialogs.js Underline row sets style only). Dialog-completeness gap."
+    },
+    {
+      "id": "fd-ligatures-ui",
+      "dialog": "Font",
+      "field": "Ligatures dropdown (Advanced tab control)",
+      "kind": "FLOW",
+      "detail": "The ligatures EFFECT is faithful (fd-ligatures = 0/0), but Word's Advanced tab has an OpenType Ligatures dropdown the clone's Advanced tab (Scale/Spacing/Position only) omits. Dialog-completeness gap."
+    },
+    {
+      "id": "fd-paragraph-pagination-ui",
+      "dialog": "Paragraph",
+      "field": "Line-and-Page-Breaks tab (widow/keepNext/keepLines/pageBreakBefore)",
+      "kind": "FLOW",
+      "detail": "All 4 pagination EFFECTS are faithful (fd-pag-widow/keepnext/keeplines/pagebreak = 0/0 via the bridge), but the clone's Paragraph dialog has NO Line-and-Page-Breaks tab — Word does. Dialog-completeness gap (016 scoped to add it)."
+    },
+    {
       "id": "fd-bullet-font",
       "dialog": "Define New Bullet",
       "field": "Bullet font",
@@ -713,5 +734,37 @@
     ],
     "engine_followup": "styles.xml baseline-subtraction is unsound for PRELOADED-vs-LAZY styles (the clone preloads its full styles.xml; Word lazily materializes on use) -> false-missing on fd-link's Hyperlink style. body/header/footer/numbering unaffected. Fix: diff styles by styleId presence/content, not baseline-subtracted signatures. See report 4c.",
     "report": "parity/results/DEEP_T0_T1_REPORT.md"
-  }
+  },
+  "_dialog_skip_log": [
+    {
+      "scope": "Font / Advanced",
+      "field": "Number spacing (Proportional / Tabular figures)",
+      "why": "Niche OpenType feature; the clone does not implement it (no textStyle attr) and usage is very low. Word's Advanced tab exposes it. Skipped (not a gap worth tracking now)."
+    },
+    {
+      "scope": "Font / Advanced",
+      "field": "Number forms (Lining / Old-style figures)",
+      "why": "Niche OpenType; clone unimplemented, very low usage. Skipped."
+    },
+    {
+      "scope": "Font / Advanced",
+      "field": "Stylistic sets",
+      "why": "Niche OpenType; clone unimplemented, very low usage. Skipped."
+    },
+    {
+      "scope": "Font / Advanced",
+      "field": "Use Contextual Alternates (checkbox)",
+      "why": "Folded into the ligatures handling (the 022 fontVariantLigatures / contextualAlternates work) — no separate dialog control measured."
+    },
+    {
+      "scope": "Font dialog",
+      "field": "Set As Default button",
+      "why": "A settings action (writes the run props to the Normal style / template), not a per-run field — out of scope for per-run OOXML parity."
+    },
+    {
+      "scope": "All dialogs",
+      "field": "Cartesian value sweeps",
+      "why": "Only DISTINCT-OOXML representative values per field; symmetric twins (left/right indent, before/after spacing, raised/lowered position) measured once each."
+    }
+  ]
 }

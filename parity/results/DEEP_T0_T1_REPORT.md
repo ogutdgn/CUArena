@@ -100,6 +100,18 @@ artifact, reading the clone source + the fixtures). Verdicts: **CONFIRMED real g
 | `fd-num-format/style-text/gallery/start-at/restart/continue` (6) | COM-method | COM `ApplyNumberDefault` writes a **singleLevel** abstractNum; the clone (ribbon-faithful) mints a **hybridMultilevel** 9-level def → numbering.xml diverges, but the document.xml body (`w:numPr`) is at parity. A true numbering.xml comparison needs a **vsto/UIA** ribbon ground truth. |
 | `fd-highlight-custom` | NOT A GAP | Word's highlighter is **also 15-keyword-only** (no custom-RGB path); the clone restricts to the same 15. The `w:shd` downgrade is **import-only dead code**. Clone == Word. |
 
+### 4b-bis. Dialog-completeness flow gaps (3) — effect works, the dialog control is absent
+
+Recorded as findings per the completeness check (previously only in `DIALOG_FLOW_LEDGER.md`). The OOXML effect
+is faithful (0/0) but Word's dialog exposes a control the clone's dialog omits, so the field is unreachable
+from the clone UI:
+
+| id | gap | OOXML status |
+|---|---|---|
+| `fd-underline-color-ui` | Font dialog Underline row sets style only — no Underline-color dropdown | effect 0/0 (`fd-underline-color`) |
+| `fd-ligatures-ui` | Advanced tab has Scale/Spacing/Position only — no OpenType Ligatures dropdown | effect 0/0 (`fd-ligatures`) |
+| `fd-paragraph-pagination-ui` | Paragraph dialog has no Line-and-Page-Breaks tab | all 4 effects 0/0 (`fd-pag-*`) |
+
 ### 4c. Engine limitation surfaced (differ) — top engine follow-up
 
 The `fd-link` false-13 exposed a **soundness gap in the styles.xml diff**: the clone **preloads its full
@@ -124,6 +136,12 @@ by checking whether the clone's blank already carries that style.**
 - **Find + search modifiers** (match-case, whole-word, wildcards, Format) produce **no document delta** → flow axis only.
 - **Cartesian value sweeps** — only DISTINCT-OOXML representative values per field (e.g. one Expanded spacing, not
   every point value); symmetric twins (left/right indent, before/after, raised/lowered) measured once each.
+- **Font/Advanced niche OpenType** — Number spacing (proportional/tabular), Number forms (lining/old-style),
+  Stylistic sets: clone-unimplemented, very low usage → explicitly skipped (`tasks.json._dialog_skip_log`).
+  "Use Contextual Alternates" folds into the ligatures/022 handling; "Set As Default" is a settings action, not a field.
+
+**Coverage is now provably exhaustive:** every meaningful Font-dialog field is measured, recorded as a gap, or in
+the skip log; the 3 non-flow-complete dialogs' (Font/Paragraph/Color) flow gaps are all recorded as findings (§4a/§4b-bis).
 
 ---
 
