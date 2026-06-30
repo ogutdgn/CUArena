@@ -33,10 +33,15 @@
 > order (no xmlOrder) — a rebuilt pPr must order keys per CT_PPr; and a default-omit remap must distinguish direct vs
 > style-inherited values.
 >
-> **REMAINING:** (B) DEEP ENUMERATION — per control: dialog options (Font/Paragraph/Bullets-Numbering/Color dialogs = one
-> task per meaningful field) + variations (representative DISTINCT-OOXML values), run all 3 axes per sub-task; log skips.
-> (C) COMBINED deep T0/T1 fidelity report. The MAIN-ACTION T0/T1 slice is now fully closed across all 3 axes — the
-> end-to-end proof is complete; (B) is the depth broadening.
+> **(B) DEEP ENUMERATION — IDENTIFY-ONLY (user directive: measure ALL T0/T1 gaps first, NO fixing; fixes batched after).**
+> Tool: `parity/tools/gen_tasks.py` (descriptor → probe + COM + tasks.json). **🏁 Batch 1 — VARIATIONS DONE** (`e419f5f`,
+> tier 'TV'): underline single/double/dotted/dashed/wavy/words + font size 10.5/8/72 + line spacing 1.0/1.5 =
+> **11/11 semantic-pass 0/0** (byte-identical to Word); flow covered by the verified menus; visual spot-checked
+> (sz-72, ul-double). NO gaps. DEFERRED + logged (`tasks.json._deferred_variations`): numbering formats
+> (numbering.xml COM-artifact, vsto); line-spacing exact/at-least/multiple + indentation (→ Paragraph-dialog batch).
+> **NEXT batches (per dialog, all 3 axes incl. the dialog-open/field/OK flow check):** Font dialog → Paragraph dialog →
+> Bullets/Numbering (Define New) → Color (More Colors) → Find/Replace → T1 Insert/Layout dialogs (Insert Table/Hyperlink/
+> Page Setup). Then (C) the COMBINED deep T0/T1 fidelity report → THEN the dedicated FIX pass (batched, like w14/023).
 >
 > **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
 > `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
