@@ -517,6 +517,13 @@
     selectText('allcapsX'); PM().setAdvancedFontEffects({ allCaps: false }); await sleep(40);
     return /<w:caps\b/.test(runFor(await xmlNow(), 'allcapsX')) ? '<w:caps> not cleared' : true;
   });
+  await t('[home] 024 All Caps exports BARE <w:caps/> (no redundant w:val="1") — matches Word', async () => {
+    setDoc('capsbareX body'); selectText('capsbareX');
+    PM().setAdvancedFontEffects({ allCaps: true }); await sleep(40);
+    const run = runFor(await xmlNow(), 'capsbareX');
+    if (!/<w:caps\b/.test(run)) return 'no <w:caps> after apply';
+    return /<w:caps[^>]*w:val="1"/.test(run) ? 'over-emits <w:caps w:val="1"/> (Word writes bare <w:caps/>): ' + run : true;
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);
