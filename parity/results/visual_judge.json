@@ -1,0 +1,131 @@
+{
+  "judged": [
+    {
+      "id": "bold",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "The word \"Revenue\" appears in heavy/thick strokes consistent with bold weight, and it is selected (blue highlight). The Bold (B) button in the Home ribbon's Font group is shown active/highlighted.",
+      "verdict": "pass",
+      "notes": "\"Revenue\" is rendered with noticeably thicker glyph strokes than a regular weight, matching bold. Corroborated by the active-state highlight on the ribbon Bold button. The overall chrome (title bar \"Document1 - Word\", Home ribbon with Aptos 12, Font/Paragraph/Styles groups, ruler, page sheet, status bar \"Page 1 of 1 / 1 of 1 words\") is a faithful match to real Microsoft Word."
+    },
+    {
+      "id": "italic",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "The word \"Revenue\" is rendered in slanted/oblique glyphs â€” clearly italic â€” and is selected (blue highlight). The Italic (I) button in the Home ribbon is shown active/highlighted.",
+      "verdict": "pass",
+      "notes": "\"Revenue\" is visibly italic (slanted strokes), distinct from upright text. The ribbon's Italic button is toggled on, confirming the applied state. Overall chrome (ribbon, tabs, ruler, status bar, page sheet) matches real Microsoft Word closely."
+    },
+    {
+      "id": "underline",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" shows a single horizontal underline beneath the full word. The text is selected (blue highlight) and the Underline (U) button in the Font group is active/highlighted, confirming underline is applied.",
+      "verdict": "pass",
+      "notes": "The word \"Revenue\" is clearly single-underlined and the ribbon's U button is in its active (toggled-on) state. Chrome matches real Word: File/Home/Insert tabs, Aptos 12 font, Styles gallery, \"Document1 - Word\" title, status bar \"1 of 1 words\". The single-underline is visually distinguishable here. Clean pass."
+    },
+    {
+      "id": "fontface",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" is rendered in a clean sans-serif typeface (consistent with Arial) and is selected (blue highlight). The Font name box in the ribbon reads \"Arial\" at size 12, confirming the applied font.",
+      "verdict": "pass",
+      "notes": "The word \"Revenue\" shows sans-serif letterforms distinct from the serif/Aptos default, and the ribbon Font box explicitly displays \"Arial\" for the selection. The overall chrome (ribbon tabs, Font/Paragraph/Styles groups, ruler, page sheet, status bar) closely matches real Microsoft Word. Single short word makes the font-family difference subtle but the sans-serif rendering plus the ribbon confirmation make this a clear pass."
+    },
+    {
+      "id": "fontsize",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "The word \"Revenue\" is selected (blue highlight) and rendered in a normal upright sans-serif font at a size that looks slightly larger than typical body text. The font-size box in the ribbon reads \"14\", and the font name is \"Aptos\". No bold/italic/underline/color is applied.",
+      "verdict": "pass",
+      "notes": "The ribbon font-size selector explicitly shows 14, confirming 14pt is applied to the selected word \"Revenue\", matching the EXPECTED larger-than-default size. The on-canvas glyph size is consistent with ~14pt and appears slightly larger than a default 12pt would. The overall chrome (ribbon tabs, Font/Paragraph/Styles groups, ruler, single page sheet, status bar \"1 of 1 words\", title \"Document1 - Word\") is a faithful Microsoft Word rendering. The size difference between 12 and 14pt is subtle on a single word, but the ribbon readout removes ambiguity, so I rate this pass rather than not-visually-distinguishable."
+    },
+    {
+      "id": "bullets",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" (highlighted/selected) sits as a bulleted list item: a round bullet â€¢ appears to its left and the text is indented from the margin. The Bullets button in the Paragraph group is also active/highlighted.",
+      "verdict": "pass",
+      "notes": "The bullet list feature is clearly and visibly applied: there is a â€¢ bullet glyph immediately left of the indented word \"Revenue\", matching standard Word bullet-list rendering. The ribbon's Bullets toolbar button shows an active (highlighted) state, corroborating the applied list format. Overall chrome (title bar \"Document1 - Word\", Home ribbon, ruler, page sheet, status bar \"1 of 1 words\", Aptos 12pt default) reads as authentic Microsoft Word. This is not an ambiguous alignment case â€” the bullet and indent are unmistakable."
+    },
+    {
+      "id": "alignleft",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" sits flush against the left margin, selected (highlighted blue), in the default body font (Aptos 12). The Align Left button in the Paragraph group is highlighted/active. No bold/italic/underline or other character formatting.",
+      "verdict": "pass",
+      "notes": "The word is at the left margin and the Align Left ribbon button shows as active, which is consistent with left alignment. Since left is the default and this is a single short line, alignment is not strongly distinguishable visually from un-aligned text, but the active toolbar state plus left-margin position make it plausibly correct. The overall chrome (ribbon, tabs, ruler, status bar, title \"Document1 - Word\") faithfully resembles real Microsoft Word."
+    },
+    {
+      "id": "center",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" (selected, highlighted blue) sits horizontally centered on the page, roughly at the page's horizontal midpoint between the left and right margins. The Center-alignment button in the Paragraph group is highlighted as active.",
+      "verdict": "pass",
+      "notes": "The word is clearly horizontally centered on the page (not left at the margin), which matches the expected center-alignment. The active center-align toolbar button corroborates it. The overall chrome (ribbon tabs, Paragraph alignment group, ruler, page sheet, status bar showing \"1 of 1 words\", title \"Document1 - Word\") faithfully resembles real Microsoft Word. Center alignment is visually distinguishable here because the single word is offset from the left margin to the page center."
+    },
+    {
+      "id": "fontcolor",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "The word \"Revenue\" is rendered in red font color. It is currently selected (blue selection highlight over it), through which the red glyph color is clearly visible.",
+      "verdict": "pass",
+      "notes": "Chrome is a faithful Word clone: title bar \"Document1 - Word\", Home tab active, Aptos 12pt, full ribbon, ruler, page sheet, and status bar \"1 of 1 words\". The single word \"Revenue\" sits at the top-left of the page, colored red, under the active text selection. Red font color matches the EXPECTED result."
+    },
+    {
+      "id": "highlight",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "The word \"Revenue\" has a solid yellow highlight swatch behind the text, covering the full word. Text remains default black on the yellow background.",
+      "verdict": "pass",
+      "notes": "Yellow highlight is visibly applied to \"Revenue\" exactly as expected. The chrome (title bar \"Document1 - Word\", Home ribbon with Font/Paragraph/Styles groups, ruler, page sheet, status bar \"Page 1 of 1 / 1 of 1 words\", Aptos 12pt) renders convincingly like real Microsoft Word. No visual bug observed."
+    },
+    {
+      "id": "numbering",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" (selected/highlighted blue) appears as a numbered list item with a \"1.\" marker to its left and the text indented from the margin. The Numbering button in the ribbon's Paragraph group is also highlighted/active.",
+      "verdict": "pass",
+      "notes": "The numbered-list feature is clearly visibly applied: there is a \"1.\" number to the left of \"Revenue\" with proper hanging indentation, exactly as a Word numbered list renders. The ribbon's Numbering toggle shows an active/highlighted state, consistent with the applied formatting. Overall chrome (ribbon tabs, Aptos 12pt font box, page sheet, ruler, status bar \"1 of 1 words\", title \"Document1 - Word\") is a faithful match to real Microsoft Word."
+    },
+    {
+      "id": "justify",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" appears as a single selected (highlighted) word at the top-left of the page in the default Aptos 12pt font. It sits flush at the left margin on one short line. No visible distinction from left alignment is possible because the text occupies less than one full line. The Justify button in the Paragraph group is shown highlighted/active in the ribbon.",
+      "verdict": "not-visually-distinguishable",
+      "notes": "The ribbon's Justify alignment button shows as active (highlighted), which indicates the formatting command was applied to the paragraph. However, since \"Revenue\" is a single word on one short line, justified alignment produces output identical in appearance to left alignment â€” there is no trailing text to stretch across the line width. Therefore the alignment cannot be visually confirmed in the document body itself; only the ribbon state hints at it. Overall UI renders faithfully like real Microsoft Word (title bar, ribbon tabs, ruler, page sheet, status bar all correct)."
+    },
+    {
+      "id": "linespacing",
+      "applied_correctly": true,
+      "looks_word_like": true,
+      "observed_formatting": "The single word \"Revenue\" sits on one line near the top of the page, selected (blue highlight), in the default Aptos 12pt left-aligned style. No visible difference in line spacing because there is only one line of text.",
+      "verdict": "not-visually-distinguishable",
+      "notes": "Line spacing (single vs double) only manifests as vertical gap BETWEEN lines. With a single one-word line, double line spacing produces no observable visual change, so it cannot be confirmed or denied from this screenshot. The UI is a faithful Word clone: correct ribbon (File/Home/Insert..., Font/Paragraph/Styles groups), title \"Document1 - Word\", ruler, page sheet, status bar \"1 of 1 words\", and the Word User avatar. Nothing looks wrong."
+    }
+  ],
+  "golden": [
+    {
+      "shot": "bold",
+      "claim": "the word \"Revenue\" should be ITALIC (slanted)",
+      "expect_absent": "italic",
+      "applied_correctly": false,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" is rendered bold (heavy weight) and upright, with no slant. It is also selected/highlighted. The ribbon shows the Bold (B) button active, not Italic.",
+      "verdict": "concern",
+      "notes": "The expected claim to test was italic (slanted) on \"Revenue\". The word is clearly bold and upright, not italic. The Italic ribbon button is inactive while Bold is highlighted. Discrimination check: italic is NOT present, so applied_correctly=false. Rendering otherwise looks like authentic Word."
+    },
+    {
+      "shot": "center",
+      "claim": "the word \"Revenue\" should be RED",
+      "expect_absent": "red color",
+      "applied_correctly": false,
+      "looks_word_like": true,
+      "observed_formatting": "\"Revenue\" is centered and shown with a blue selection highlight; the glyph color is the default dark/near-black, not red.",
+      "verdict": "concern",
+      "notes": "The expected feature is red font color on \"Revenue\". The rendering looks like genuine Microsoft Word (Home ribbon, Aptos font, page sheet). The word is centered and selected, but its text color is default black, not red. No red coloring is visible, so the red-color claim does not hold."
+    }
+  ],
+  "golden_pass": 2
+}
