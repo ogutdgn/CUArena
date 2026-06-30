@@ -97,6 +97,10 @@
   const THEME_COLORS = [
     '#FFFFFF', '#000000', '#E8E8E8', '#0E2841', '#156082', '#E97132', '#196B24', '#0F9ED5', '#A02B93', '#4EA72E',
   ];
+  // Parity (spec 025): the OOXML w:themeColor slot for each base Theme-Colors swatch (positions match Word's
+  // Theme Colors top row + COM ObjectThemeColor). Picking a base swatch carries the theme link; tints/shades stay
+  // resolved sRGB for v1 (their w:themeTint/w:themeShade computation is deferred — no regression, that's today's behavior).
+  const THEME_SLOTS = ['background1', 'text1', 'background2', 'text2', 'accent1', 'accent2', 'accent3', 'accent4', 'accent5', 'accent6'];
   const THEME_TINTS = [
     ['#F2F2F2', '#7F7F7F', '#D0CECE', '#D6DCE5', '#D9E2F3', '#FBE5D6', '#EDEDED', '#FFF2CC', '#DEEAF7', '#E2EFDA'],
     ['#D9D9D9', '#595959', '#AEAAAA', '#ACB9CA', '#B4C7E7', '#F8CBAD', '#DBDBDB', '#FFE699', '#BDD7EE', '#C6E0B4'],
@@ -116,7 +120,7 @@
     }
     wrap.appendChild(el('div', { class: 'color-section-title', text: 'Theme Colors' }));
     const tg = el('div', { class: 'color-grid' });
-    THEME_COLORS.forEach((c) => tg.appendChild(swatch(c, onPick)));
+    THEME_COLORS.forEach((c, i) => tg.appendChild(swatch(c, onPick, THEME_SLOTS[i] ? { themeColor: THEME_SLOTS[i] } : undefined)));
     wrap.appendChild(tg);
     const tints = el('div', { class: 'color-grid', style: { marginTop: '3px' } });
     THEME_TINTS.forEach((row) => row.forEach((c) => tints.appendChild(swatch(c, onPick))));
@@ -138,8 +142,8 @@
     } }, [el('span', { class: 'sw', html: WC.icon('_generic', 14) }), el('span', { text: 'More Colors…' })]));
     return wrap;
   };
-  function swatch(c, onPick) {
-    return el('div', { class: 'color-swatch', title: c, style: { background: c }, onclick: () => { WC.closeFlyouts(); onPick(c, c); } });
+  function swatch(c, onPick, meta) {
+    return el('div', { class: 'color-swatch', title: c, style: { background: c }, onclick: () => { WC.closeFlyouts(); onPick(c, c, meta); } });
   }
 
   // RB-022: Word's Text Highlight Color gallery is a FIXED 15-keyword set (NOT the full

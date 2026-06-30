@@ -23,6 +23,7 @@
     'Courier New', 'Consolas', 'Comic Sans MS', 'Garamond', 'Trebuchet MS', 'Segoe UI', 'Helvetica', 'Carlito', 'Aptos'];
 
   let lastFontColor = '#FF0000'; // standard "Red" (matches real Word)
+  let lastFontColorMeta = null;  // 025: the theme link of the last font color (null for a standard/custom color)
   let lastHighlight = '#FFFF00';
   let lastShade = null;          // shading split button: no fill until one is picked
   let lastBorderEdge = 'bottom'; // borders split button: Word defaults to Bottom Border
@@ -55,7 +56,7 @@
   // withSelection restores THIS range, not a stale savedSel left by a prior combo
   // focus / color-picker open (the "color lands on previously-touched text" bug).
   H.textHighlightColor = (c, node) => { WC.PM.captureSelection(); applyColor('hilite', lastHighlight); };
-  H.fontColor = (c, node) => { WC.PM.captureSelection(); applyColor('fore', lastFontColor); };
+  H.fontColor = (c, node) => { WC.PM.captureSelection(); applyColor('fore', lastFontColor, lastFontColorMeta); };
 
   // ---- Paragraph ----
   H.alignLeft = () => { WC.PM.cmd('setTextAlign', 'left'); };
@@ -2085,7 +2086,7 @@
     WC.Ribbon.setComboValue('font', name);
   }
 
-  function applyColor(kind, color) {
+  function applyColor(kind, color, themeMeta) {
     const pm = WC.PM;
     // withSelection: the color picker is a body-level flyout, so committing a swatch
     // can arrive with the PM selection already disturbed — the fork's CustomSelection
@@ -2098,7 +2099,8 @@
     pm.withSelection(() => {
       if (kind === 'fore') {
         lastFontColor = color;
-        pm.cmd('setColor', color);
+        lastFontColorMeta = themeMeta || null;   // 025: remember the theme link for the main-face re-apply
+        pm.cmd('setColor', color, themeMeta || undefined);
         WC.Ribbon.setColorBar('fontColor', color);
       } else if (kind === 'hilite') {
         lastHighlight = color;
@@ -2134,9 +2136,9 @@
         }));
         return;
       }
-      fly.appendChild(WC.colorPalette((color, label) => {
+      fly.appendChild(WC.colorPalette((color, label, themeMeta) => {
         if (color === null) { const pm = WC.PM; pm.withSelection(() => { if (kind === 'fore') pm.cmd('unsetColor'); else if (kind === 'shade') pm.clearShading(); else { pm.dePageColorClear(); } }); return; }
-        applyColor(kind, color === 'inherit' ? '#000000' : color);
+        applyColor(kind, color === 'inherit' ? '#000000' : color, themeMeta);
       }, { noColor: kind !== 'fore', autoLabel: kind === 'fore' ? 'Automatic' : 'No Color', automatic: kind === 'fore' }));
       // 020: Font Color gradient fill (w14:textFill) — only on the font-color (fore) palette.
       if (kind === 'fore') {

@@ -524,6 +524,16 @@
     if (!/<w:caps\b/.test(run)) return 'no <w:caps> after apply';
     return /<w:caps[^>]*w:val="1"/.test(run) ? 'over-emits <w:caps w:val="1"/> (Word writes bare <w:caps/>): ' + run : true;
   });
+  await t('[home] 025 theme font color exports <w:color w:themeColor> + round-trips (Word theme link)', async () => {
+    setDoc('themeclrX body'); selectText('themeclrX');
+    PM().cmd('setColor', '#E97132', { themeColor: 'accent2' }); await sleep(40);
+    const run = runFor(await xmlNow(), 'themeclrX');
+    if (!/<w:color\b[^>]*w:val="E97132"/i.test(run)) return 'no w:color val=E97132: ' + run;
+    if (!/<w:color\b[^>]*w:themeColor="accent2"/i.test(run)) return 'missing w:themeColor=accent2 (theme link not exported): ' + run;
+    // a plain (non-theme) color must NOT gain a themeColor
+    setDoc('plainclrX body'); selectText('plainclrX'); PM().cmd('setColor', '#FF0000'); await sleep(40);
+    return /w:themeColor/i.test(runFor(await xmlNow(), 'plainclrX')) ? 'plain color leaked a w:themeColor' : true;
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);
