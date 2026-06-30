@@ -64,8 +64,8 @@
   // Word stores justify as w:jc="both"; setTextAlign('justify') does that mapping —
   // never pass 'both' (the alignments whitelist rejects it).
   H.justify = () => { WC.PM.cmd('setTextAlign', 'justify'); };
-  H.bullets = () => { WC.PM.cmd('toggleBulletList'); };
-  H.numbering = () => { WC.PM.cmd('toggleOrderedList'); };
+  H.bullets = () => { WC.PM.toggleBulletList(); };   // 023: bridge wrapper (adds pStyle=ListParagraph + numPr order)
+  H.numbering = () => { WC.PM.toggleOrderedList(); };
   H.decreaseIndent = () => stepIndent(-48);
   H.increaseIndent = () => stepIndent(48);
   function stepIndent(px) {
@@ -2293,8 +2293,8 @@
         cell.addEventListener('click', () => {
           WC.closeFlyouts();
           const pm = WC.PM;
-          if (ordered) pm.cmd('toggleOrderedListStyle', ORDERED_STYLE[b]);
-          else if (BULLET_STYLE[b]) pm.cmd('toggleBulletListStyle', BULLET_STYLE[b]);
+          if (ordered) pm.toggleOrderedListStyle(ORDERED_STYLE[b]);   // 023: bridge wrapper (ListParagraph + numPr order)
+          else if (BULLET_STYLE[b]) pm.toggleBulletListStyle(BULLET_STYLE[b]);
           else pm.cmd('applyListDefinition', { listType: 'bulletList', levels: [{ fmt: 'bullet', text: b }] });
         });
         grid.appendChild(cell);

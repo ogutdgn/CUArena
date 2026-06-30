@@ -714,7 +714,12 @@ export function decodeRPrFromMarks(marks) {
               if (!isNaN(points)) {
                 const halfPoints = points * 2;
                 runProperties.fontSize = halfPoints;
-                runProperties.fontSizeCs = halfPoints;
+                // MS-WORD-CLONE FORK EDIT (023, user-authorized; NOTICE'd): do NOT auto-sync fontSizeCs.
+                // Real Word emits only <w:sz> for a simple-script size change; the auto-sync over-emitted
+                // <w:szCs> on every authored run (the same class as the SD-2912 bCs/iCs auto-propagation
+                // removal, which left fontSizeCs behind). Imported complex-script szCs (differing from sz)
+                // is preserved by the existing-runProperties branch in calculateInlineRunPropertiesPlugin,
+                // once 'fontSizeCs' is dropped from RUN_PROPERTIES_DERIVED_FROM_MARKS.
               }
               break;
             }
@@ -729,11 +734,13 @@ export function decodeRPrFromMarks(marks) {
             case 'fontFamily':
               if (value != null) {
                 const cleanValue = value.split(',')[0].trim();
-                const result = {};
-                ['ascii', 'eastAsia', 'hAnsi', 'cs'].forEach((attr) => {
-                  result[attr] = cleanValue;
-                });
-                runProperties.fontFamily = result;
+                // MS-WORD-CLONE FORK EDIT (023, user-authorized; NOTICE'd): emit only ascii+hAnsi for a
+                // freshly-picked Latin font — real Word does NOT fill the eastAsia/cs slots from a single
+                // Latin pick (it over-emitted <w:rFonts w:eastAsia w:cs> on every font change). The eastAsia/cs
+                // slots are still restored from the per-script companion marks (eastAsiaFontFamily/csFontFamily
+                // below) when an imported run carried differing per-script fonts (SD-2517), so per-script
+                // round-trip is unaffected — only the over-spec on a plain Latin pick is removed.
+                runProperties.fontFamily = { ascii: cleanValue, hAnsi: cleanValue };
               }
               break;
             case 'eastAsiaFontFamily':

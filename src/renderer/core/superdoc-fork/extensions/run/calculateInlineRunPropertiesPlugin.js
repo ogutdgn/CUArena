@@ -25,7 +25,11 @@ const RUN_PROPERTIES_DERIVED_FROM_MARKS = new Set([
   'textTransform',
   'color',
   'fontSize',
-  'fontSizeCs',
+  // MS-WORD-CLONE FORK EDIT (023, user-authorized): 'fontSizeCs' removed from this set (joins boldCs/italicCs
+  // per the SD-2912 note above). With the styles.js fontSize case no longer auto-syncing fontSizeCs, a clone-
+  // authored size emits <w:sz> only (Word-matching); an IMPORTED run's complex-script szCs is now preserved
+  // verbatim by the existing-runProperties branch below instead of being dropped as a stale mark-derived key.
+  // (COMPANION_INLINE_KEYS.fontSizeCs is KEPT, so removing the base fontSize mark still drops the companion.)
   'letterSpacing',
   'fontFamily',
   'vertAlign',
