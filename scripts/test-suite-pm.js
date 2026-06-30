@@ -393,6 +393,29 @@
     const ascii = (rf.match(/w:ascii="([^"]*)"/) || [])[1];
     return (ascii === 'Georgia') || ('w:rFonts w:ascii not "Georgia": ' + rf);
   });
+  await t('[home] EXPORT (022): an authored run has NO inline w14:ligatures/cntxtAlts (they live only in docDefaults, like Word)', async () => {
+    // Parity finding (T0 batch): the clone promoted the docDefault <w14:ligatures w14:val="standardContextual"/>
+    // to INLINE run rPr on EVERY authored run (as <w14:ligatures w14:val="standard"/><w14:cntxtAlts/>); real Word
+    // keeps it in docDefaults only. Fix 022 (CSS-normalized ligatures override gate) stops the inline promotion.
+    // exportXmlOnly returns document.xml (no styles part), so this checks the inline run rPr, not docDefaults.
+    setDoc('Revenue'); selectText('Revenue'); WC.PM.cmd('toggleBold'); await sleep(80);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    if (!/<w:b\b/.test(xml)) return 'bold not applied (no <w:b/>)';
+    if (/w14:ligatures/.test(xml)) return 'run rPr still has inline w14:ligatures: ' + ((xml.match(/<w14:ligatures[^>]*>/) || [])[0] || '');
+    if (/w14:cntxtAlts/.test(xml)) return 'run rPr still has inline w14:cntxtAlts';
+    return true;
+  });
+  await t('[home] EXPORT (022): an EXPLICIT non-default ligature pick ("None") still exports <w14:ligatures> (no over-suppression)', async () => {
+    // Guards Fix 022 against over-suppression: a deliberate pick that DIFFERS from the docDefault must still
+    // export the w14:ligatures run property. "None" composes to 'none' != the docDefault 'common-ligatures
+    // contextual', so it is a genuine override and MUST emit <w14:ligatures w14:val="none"/>.
+    setDoc('Ligated'); selectText('Ligated');
+    WC.PM.cmd('setMark', 'textStyle', { fontVariantLigatures: 'none' }); await sleep(80);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    if (!/<w14:ligatures\b/.test(xml)) return 'explicit "None" ligature pick did not export <w14:ligatures>';
+    const val = (xml.match(/<w14:ligatures[^>]*w14:val="([^"]*)"/) || [])[1];
+    return val === 'none' || ('w14:ligatures val not "none": ' + (val || '(none found)'));
+  });
   await t('[1] EXPORT: sub/superscript → <w:vertAlign w:val="subscript"|"superscript"> (Word: Font.Subscript/Superscript)', async () => {
     // The vertAlign MARK is covered above; this guards the EXPORT. Two paragraphs (sub, sup); the export
     // must emit <w:vertAlign w:val="subscript"> then "superscript" in order. Word COM-validated:
@@ -2299,8 +2322,12 @@
     const attr = (() => { let a = null; doc().descendants((n) => { if (a || !n.isText || !n.text) return; if (n.text.indexOf('numrt') >= 0) { const ts = n.marks.find((m) => m.type.name === 'textStyle'); a = ts?.attrs?.fontVariantNumeric; } }); return a; })();
     return /oldstyle-nums/.test(attr || '') || ('round-trip lost the attr: ' + attr);
   });
-  await t('[home] Text Effects: ligatures (Standard+Contextual) export + round-trip', async () => {
-    setDoc('ligrt text'); selectText('ligrt'); PM().cmd('setMark', 'textStyle', { fontVariantLigatures: 'common-ligatures contextual' }); await sleep(80);
+  await t('[home] Text Effects: ligatures (All — a NON-default pick) export + round-trip', async () => {
+    // 022: a ligature pick that DIFFERS from the docDefault (standardContextual) is a genuine per-run override
+    // and exports inline <w14:ligatures>. (The "Standard+Contextual" pick == the docDefault, so post-022 it is
+    // INHERITED not inline — Word-faithful — covered by the 022 negative test. Use "All" here to exercise the
+    // feature's inline export path without colliding with the default.)
+    setDoc('ligrt text'); selectText('ligrt'); PM().cmd('setMark', 'textStyle', { fontVariantLigatures: 'common-ligatures discretionary-ligatures historical-ligatures contextual' }); await sleep(80);
     const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
     if (!(/w14:ligatures/.test(xml) && /w14:cntxtAlts/.test(xml))) return 'w14:ligatures/cntxtAlts missing from export';
     const b = await PM().exportDocxBytes(); await PM().openDocx(b); await sleep(220);

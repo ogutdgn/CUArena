@@ -415,6 +415,20 @@ project tsconfig instead — matching the other vendored packages, which also sh
   drifted a page behind Word on long docs. `line-height: normal` can't be used
   (Chromium's Aptos metrics give 18px, ≠ Word). Paragraphs with explicit w:spacing
   line rules still override this default (set inline by ParagraphNodeView).
+- **Inline w14:ligatures/cntxtAlts over-emission fixed (parity feature 022, 2026-06-30):**
+  `extensions/run/calculateInlineRunPropertiesPlugin.js` `getInlineRunProperties` — the docDefault
+  ligatures value `standardContextual` round-trips lossily through the textStyle mark to
+  `ligatures:'standard'` + `contextualAlternates:true`, so the marks-vs-styles override gate's RAW
+  value compare (`'standard' !== 'standardContextual'`) misclassified it as a per-run override and
+  promoted `<w14:ligatures>`/`<w14:cntxtAlts>` INLINE onto every authored run — real Word keeps the
+  value in docDefaults only (confirmed by the parity differ across all 8 T0 Home controls). Added a
+  `ligatures`/`contextualAlternates` branch (mirroring the existing `fontFamily` branch) that compares
+  the CSS-NORMALIZED forms via `encodeMarksFromRPr(...).attrs.fontVariantLigatures`, so a value equal
+  to the resolved docDefault is no longer promoted inline, while an explicit non-default pick
+  (All/None/standard-only) still differs and exports. User-authorized; gated by
+  `specs/022-w14-ligatures-inline` + a `test:pm` regression (negative: a plain authored run carries no
+  inline w14 ligatures; positive: an explicit "None"/"All" pick still exports `<w14:ligatures>`).
+  Parity result: bold/italic/underline/center now reach 0 missing / 0 extra vs real Word.
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
