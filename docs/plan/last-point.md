@@ -7,10 +7,21 @@
 
 ---
 
-## 2026-06-30 (PARITY PIPELINE — v2 differ = baseline subtraction LANDED on branch `parity-pipeline`)
+## 2026-06-30 (PARITY PIPELINE — v2 baseline subtraction + engine refinements LANDED on `parity-pipeline`)
 
-> **Branch:** `parity-pipeline` @ `e94dad7` (committed, **NOT merged** — user decides). Phase: parity
+> **Branch:** `parity-pipeline` @ `0a8a4b9` (3 commits this session, **NOT merged** — user decides). Phase: parity
 > measurement harness. **Entry point: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+>
+> **Engine refinements (2nd pass, `0a8a4b9`, user-requested before enumeration):** (1) **rId-value normalization** —
+> `meaningful_attrs` canonicalizes per-doc relationship-id values (`^rId\d+$` → `rId#`) so header/footer refs match
+> on `w:type` not the arbitrary per-doc id (the attribute is KEPT so a clone that DROPS the rel still surfaces);
+> removed the pagenum artifact where the default footer ref read as BOTH missing (Word rId9) and extra (clone rId7),
+> **pagenum 18/4 → 17/3**; golden `rid_canon`/`rid_type_differs` lock it (golden now **9/9**). (2) **`--only` no longer
+> clobbers the ledger** — `run.py --only <id>` MERGES its row into the aggregate `ledger.json`/`LEDGER.md` instead of
+> overwriting with one task, so the develop-phase acceptance gate is non-destructive. Reviewer ALL GREEN; pagenum
+> residual (17/3) is now all genuine signal. **NEXT = Step 2 enumeration — PAUSED pending user scope** (which usage
+> tiers, rough task count, whether to build the real-Word UIA contextual-tab inventory now). Do NOT start enumeration
+> until scoped.
 >
 > **Done this session — Step 1 (v2 differ = baseline subtraction):** `ooxml_diff.diff()` now compares each
 > side's **signed** delta-vs-its-own-empty-doc baseline (`rw-blank.docx`/`wc-blank.docx`) before bucketing, so
@@ -32,11 +43,11 @@
 > deterministic, exit 0). **LESSON:** baseline subtraction must use SIGNED deltas (not Counter floor) and must SURFACE
 > baseline divergence, else it can hide reductions / invent signal — and that diff IS the RL reward.
 >
-> **NEXT (per RUNBOOK, user picks):** Step 2 = **enumerator** — main tabs from `ribbon-data.js`; contextual tabs
+> **Step 2 (the enumerator) plan, when the user scopes it:** main tabs from `ribbon-data.js`; contextual tabs
 > (Table Design/Layout) from a real-Word **UIA inventory** (the clone's `table-tools-pm.js` is only a subset). Then
 > batch capture+diff in usage-tier order → develop via spec-kit (`SPEC_SEEDS.md` → `/speckit-specify` → fix →
-> `run.py --only <id>` acceptance gate). Engine refinement on deck: **rId-value normalization** (header/footer refs
-> key on `type`, not the per-doc `id`).
+> `run.py --only <id>` acceptance gate, now non-destructive). The differ foundation is now sound (baseline
+> subtraction + signed deltas + divergence guard + rId normalization), so enumeration can scale on it.
 
 ## 2026-06-29 (PARITY PIPELINE — clone-vs-real-Word measurement harness BUILT on branch `parity-pipeline`)
 
