@@ -1,0 +1,20 @@
+{
+  "task": "fd-fontcolor-custom",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-fontcolor-custom",
+  "control_id": "home.font.color-dialog",
+  "feature": "Font color: custom RGB (More Colors)",
+  "tab": "Home",
+  "usage_tier": "CD",
+  "note": "Custom #3A7BD5 -> w:color w:val=3A7BD5. Normalize hex case before diff."
+}

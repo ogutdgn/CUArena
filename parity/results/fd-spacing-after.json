@@ -1,0 +1,23 @@
+{
+  "task": "fd-spacing-after",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 2,
+    "missing": 0,
+    "extra": 2
+  },
+  "missing_nodes": [],
+  "extra_nodes": [
+    "body:pPr[]",
+    "body:spacing[('after', '160')]"
+  ],
+  "part_counts": {},
+  "id": "fd-spacing-after",
+  "control_id": "home.paragraph.dialog",
+  "feature": "Paragraph dialog: Spacing after",
+  "tab": "Home",
+  "usage_tier": "PD",
+  "note": "8pt -> w:spacing w:after=160."
+}

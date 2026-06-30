@@ -1,0 +1,20 @@
+{
+  "task": "fd-ls-multiple",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-ls-multiple",
+  "control_id": "home.paragraph.dialog",
+  "feature": "Paragraph dialog: Line spacing Multiple",
+  "tab": "Home",
+  "usage_tier": "PD",
+  "note": "Multiple 1.15 -> w:spacing w:line=276 w:lineRule=auto. ARTIFACT: 'Multiple' has no distinct OOXML marker (== auto-multiple)."
+}

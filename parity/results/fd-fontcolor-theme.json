@@ -1,0 +1,24 @@
+{
+  "task": "fd-fontcolor-theme",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 3,
+    "missing": 1,
+    "extra": 1
+  },
+  "missing_nodes": [
+    "body:color[('themeColor', 'accent2'), ('val', 'E97132')]"
+  ],
+  "extra_nodes": [
+    "body:color[('val', 'E97132')]"
+  ],
+  "part_counts": {},
+  "id": "fd-fontcolor-theme",
+  "control_id": "home.font.color-dialog",
+  "feature": "Font color: THEME color (Accent 1)",
+  "tab": "Home",
+  "usage_tier": "CD",
+  "note": "THEME GAP: Word writes w:color w:val=156082 w:themeColor=accent1; the clone is sRGB-only (no w:themeColor). Expect a 'missing themeColor' delta = real fidelity gap."
+}

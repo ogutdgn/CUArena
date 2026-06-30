@@ -1,0 +1,20 @@
+{
+  "task": "fd-replace-all",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 2,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-replace-all",
+  "control_id": "home.editing.find-replace",
+  "feature": "Find/Replace: Replace All (Revenue->Income)",
+  "tab": "Home",
+  "usage_tier": "RD",
+  "note": "Text-only delta: <w:t>Revenue</w:t> -> <w:t>Income</w:t>, run rPr preserved. Expect 0/0."
+}

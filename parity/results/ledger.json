@@ -466,6 +466,537 @@
     "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session. (T1 pilot — kept for reference.)"
   },
   {
+    "task": "fd-allcaps",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 3,
+      "missing": 1,
+      "extra": 1
+    },
+    "missing_nodes": [
+      "body:caps[]"
+    ],
+    "extra_nodes": [
+      "body:caps[('val', '1')]"
+    ],
+    "part_counts": {},
+    "id": "fd-allcaps",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: All caps",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "w:caps. Dialog Effects checkbox (advFxAttrs)."
+  },
+  {
+    "task": "fd-fontcolor-custom",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-fontcolor-custom",
+    "control_id": "home.font.color-dialog",
+    "feature": "Font color: custom RGB (More Colors)",
+    "tab": "Home",
+    "usage_tier": "CD",
+    "note": "Custom #3A7BD5 -> w:color w:val=3A7BD5. Normalize hex case before diff."
+  },
+  {
+    "task": "fd-fontcolor-theme",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 3,
+      "missing": 1,
+      "extra": 1
+    },
+    "missing_nodes": [
+      "body:color[('themeColor', 'accent2'), ('val', 'E97132')]"
+    ],
+    "extra_nodes": [
+      "body:color[('val', 'E97132')]"
+    ],
+    "part_counts": {},
+    "id": "fd-fontcolor-theme",
+    "control_id": "home.font.color-dialog",
+    "feature": "Font color: THEME color (Accent 1)",
+    "tab": "Home",
+    "usage_tier": "CD",
+    "note": "THEME GAP: Word writes w:color w:val=156082 w:themeColor=accent1; the clone is sRGB-only (no w:themeColor). Expect a 'missing themeColor' delta = real fidelity gap."
+  },
+  {
+    "task": "fd-indent-firstline",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-indent-firstline",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: First-line indent",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "0.5in -> w:ind w:firstLine=720."
+  },
+  {
+    "task": "fd-indent-hanging",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-indent-hanging",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Hanging indent",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "0.5in -> w:ind w:hanging=720. COM encodes hanging as NEGATIVE FirstLineIndent + may add a paired w:left."
+  },
+  {
+    "task": "fd-indent-left",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-indent-left",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Indent left",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "0.5in -> w:ind w:left=720."
+  },
+  {
+    "task": "fd-indent-right",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-indent-right",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Indent right",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "0.5in -> w:ind w:right=720."
+  },
+  {
+    "task": "fd-ligatures",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-ligatures",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog (Advanced): Ligatures (OpenType)",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "Standard ligatures -> w14:ligatures. NOT IN DIALOG (Word's Advanced tab has a Ligatures dropdown the clone omits)."
+  },
+  {
+    "task": "fd-ls-atleast",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-ls-atleast",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Line spacing At least",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "At least 12pt -> w:spacing w:line=240 w:lineRule=atLeast. Folds a deferred variation."
+  },
+  {
+    "task": "fd-ls-exactly",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-ls-exactly",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Line spacing Exactly",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "Exactly 12pt -> w:spacing w:line=240 w:lineRule=exact (COM wdLineSpaceExactly). Folds a deferred variation."
+  },
+  {
+    "task": "fd-ls-multiple",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-ls-multiple",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Line spacing Multiple",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "Multiple 1.15 -> w:spacing w:line=276 w:lineRule=auto. ARTIFACT: 'Multiple' has no distinct OOXML marker (== auto-multiple)."
+  },
+  {
+    "task": "fd-pag-keeplines",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-pag-keeplines",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Keep lines together",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "w:keepLines (COM .KeepTogether == OOXML keepLines). NOT IN DIALOG (016)."
+  },
+  {
+    "task": "fd-pag-keepnext",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-pag-keepnext",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Keep with next",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "w:keepNext. NOT IN DIALOG (016)."
+  },
+  {
+    "task": "fd-pag-pagebreak",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-pag-pagebreak",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Page break before",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "w:pageBreakBefore. NOT IN DIALOG (016)."
+  },
+  {
+    "task": "fd-pag-widow",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-pag-widow",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Widow/Orphan control off",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "w:widowControl w:val=0. NOT IN DIALOG (016 adds the Line-and-Page-Breaks tab) — driveable now."
+  },
+  {
+    "task": "fd-position",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-position",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog (Advanced): Character position",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "Raised 3pt -> w:position w:val=6 (half-points). VERIFY pt->half-point export."
+  },
+  {
+    "task": "fd-replace-all",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 2,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-replace-all",
+    "control_id": "home.editing.find-replace",
+    "feature": "Find/Replace: Replace All (Revenue->Income)",
+    "tab": "Home",
+    "usage_tier": "RD",
+    "note": "Text-only delta: <w:t>Revenue</w:t> -> <w:t>Income</w:t>, run rPr preserved. Expect 0/0."
+  },
+  {
+    "task": "fd-scale",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-scale",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog (Advanced): Character scale",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "150% -> w:w w:val=150 (percent). 015 owned attr."
+  },
+  {
+    "task": "fd-smallcaps",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-smallcaps",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: Small caps",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "w:smallCaps. 015 owned AdvancedFontEffects attr."
+  },
+  {
+    "task": "fd-spacing",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-spacing",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog (Advanced): Character spacing",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "Expanded by 1pt -> w:spacing w:val=20 (twentieths). VERIFY pt->twips export."
+  },
+  {
+    "task": "fd-spacing-after",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 2,
+      "missing": 0,
+      "extra": 2
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:pPr[]",
+      "body:spacing[('after', '160')]"
+    ],
+    "part_counts": {},
+    "id": "fd-spacing-after",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Spacing after",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "8pt -> w:spacing w:after=160."
+  },
+  {
+    "task": "fd-spacing-before",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-spacing-before",
+    "control_id": "home.paragraph.dialog",
+    "feature": "Paragraph dialog: Spacing before",
+    "tab": "Home",
+    "usage_tier": "PD",
+    "note": "12pt -> w:spacing w:before=240. COM may add *Auto flags."
+  },
+  {
+    "task": "fd-strike",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-strike",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: Strikethrough",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "w:strike. Dialog Effects checkbox."
+  },
+  {
+    "task": "fd-subscript",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-subscript",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: Subscript",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "w:vertAlign w:val=subscript. Dialog Effects checkbox."
+  },
+  {
+    "task": "fd-superscript",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-superscript",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: Superscript",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "w:vertAlign w:val=superscript. Dialog Effects checkbox."
+  },
+  {
+    "task": "fd-underline-color",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-underline-color",
+    "control_id": "home.font.dialog",
+    "feature": "Font dialog: Underline color",
+    "tab": "Home",
+    "usage_tier": "FD",
+    "note": "w:u w:val=single w:color=FF0000. NOT IN DIALOG (Word has an Underline-color dropdown the clone omits) — driveable via bridge."
+  },
+  {
     "task": "ls-1p0",
     "baselined": true,
     "baseline_divergence": [],
@@ -684,5 +1215,81 @@
     "tab": "Home",
     "usage_tier": "TV",
     "note": "w:u w:val=words (underline words, not spaces)."
+  },
+  {
+    "task": "fd-link",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 5,
+      "missing": 13,
+      "extra": 1
+    },
+    "missing_nodes": [
+      "styles:basedOn[('val', 'DefaultParagraphFont')]",
+      "styles:color[('themeColor', 'hyperlink'), ('val', '467886')]",
+      "styles:color[('val', '605E5C')]",
+      "styles:name[('val', 'Hyperlink')]",
+      "styles:name[('val', 'Unresolved Mention')]",
+      "styles:rPr[]",
+      "styles:semiHidden[]",
+      "styles:shd[('color', 'auto'), ('fill', 'E1DFDD'), ('val', 'clear')]",
+      "styles:style[('styleId', 'Hyperlink'), ('type', 'character')]",
+      "styles:style[('styleId', 'UnresolvedMention'), ('type', 'character')]",
+      "styles:u[('val', 'single')]",
+      "styles:uiPriority[('val', '99')]",
+      "styles:unhideWhenUsed[]"
+    ],
+    "extra_nodes": [
+      "body:u[('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "fd-link",
+    "control_id": "insert/layout.dialog",
+    "feature": "Insert Hyperlink (text + address)",
+    "tab": "Insert",
+    "usage_tier": "ID",
+    "note": "w:hyperlink r:id + rels Target. COM!=ribbon FIDELITY: clone uses a DIRECT w:u/color; Word applies the Hyperlink CHARACTER STYLE (w:rStyle Hyperlink). rId differs (match by Target)."
+  },
+  {
+    "task": "fd-margin-left",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 3,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-margin-left",
+    "control_id": "insert/layout.dialog",
+    "feature": "Page Setup: Left margin 1.5in",
+    "tab": "Insert",
+    "usage_tier": "ID",
+    "note": "1.5in -> w:pgMar w:left=2160 (others 1440). Same single-uniform-field dialog limitation."
+  },
+  {
+    "task": "fd-margin-top",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 3,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fd-margin-top",
+    "control_id": "insert/layout.dialog",
+    "feature": "Page Setup: Top margin 1.25in",
+    "tab": "Insert",
+    "usage_tier": "ID",
+    "note": "1.25in -> w:pgMar w:top=1800 (others default 1in=1440). DIALOG LIMITATION: the Custom Margins dialog is a single uniform field — top not independently settable via the dialog."
   }
 ]

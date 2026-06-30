@@ -1,0 +1,20 @@
+{
+  "task": "fd-ligatures",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-ligatures",
+  "control_id": "home.font.dialog",
+  "feature": "Font dialog (Advanced): Ligatures (OpenType)",
+  "tab": "Home",
+  "usage_tier": "FD",
+  "note": "Standard ligatures -> w14:ligatures. NOT IN DIALOG (Word's Advanced tab has a Ligatures dropdown the clone omits)."
+}

@@ -1,0 +1,36 @@
+{
+  "task": "fd-link",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 5,
+    "missing": 13,
+    "extra": 1
+  },
+  "missing_nodes": [
+    "styles:basedOn[('val', 'DefaultParagraphFont')]",
+    "styles:color[('themeColor', 'hyperlink'), ('val', '467886')]",
+    "styles:color[('val', '605E5C')]",
+    "styles:name[('val', 'Hyperlink')]",
+    "styles:name[('val', 'Unresolved Mention')]",
+    "styles:rPr[]",
+    "styles:semiHidden[]",
+    "styles:shd[('color', 'auto'), ('fill', 'E1DFDD'), ('val', 'clear')]",
+    "styles:style[('styleId', 'Hyperlink'), ('type', 'character')]",
+    "styles:style[('styleId', 'UnresolvedMention'), ('type', 'character')]",
+    "styles:u[('val', 'single')]",
+    "styles:uiPriority[('val', '99')]",
+    "styles:unhideWhenUsed[]"
+  ],
+  "extra_nodes": [
+    "body:u[('val', 'single')]"
+  ],
+  "part_counts": {},
+  "id": "fd-link",
+  "control_id": "insert/layout.dialog",
+  "feature": "Insert Hyperlink (text + address)",
+  "tab": "Insert",
+  "usage_tier": "ID",
+  "note": "w:hyperlink r:id + rels Target. COM!=ribbon FIDELITY: clone uses a DIRECT w:u/color; Word applies the Hyperlink CHARACTER STYLE (w:rStyle Hyperlink). rId differs (match by Target)."
+}

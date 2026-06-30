@@ -1,0 +1,20 @@
+{
+  "task": "fd-ls-atleast",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-ls-atleast",
+  "control_id": "home.paragraph.dialog",
+  "feature": "Paragraph dialog: Line spacing At least",
+  "tab": "Home",
+  "usage_tier": "PD",
+  "note": "At least 12pt -> w:spacing w:line=240 w:lineRule=atLeast. Folds a deferred variation."
+}

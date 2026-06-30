@@ -486,6 +486,305 @@ python parity/engines/run.py --only highlight   # expect: semantic-pass, missing
 
 ---
 
+## Find/Replace: Replace All (Revenue->Income)  (Home · RD)
+
+**Goal:** make the clone's `Find/Replace: Replace All (Revenue->Income)` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-replace-all`
+**Ground truth:** `parity/fixtures/rw-fd-replace-all.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-replace-all   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font color: THEME color (Accent 1)  (Home · CD)
+
+**Goal:** make the clone's `Font color: THEME color (Accent 1)` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-fontcolor-theme`
+**Ground truth:** `parity/fixtures/rw-fd-fontcolor-theme.docx`
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- FR (fd-fontcolor-theme): emit `body:color[('themeColor', 'accent2'), ('val', 'E97132')]`
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- FID (fd-fontcolor-theme): stop emitting (or justify) `body:color[('val', 'E97132')]`
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-fontcolor-theme   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font color: custom RGB (More Colors)  (Home · CD)
+
+**Goal:** make the clone's `Font color: custom RGB (More Colors)` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-fontcolor-custom`
+**Ground truth:** `parity/fixtures/rw-fd-fontcolor-custom.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-fontcolor-custom   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog (Advanced): Character position  (Home · FD)
+
+**Goal:** make the clone's `Font dialog (Advanced): Character position` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-position`
+**Ground truth:** `parity/fixtures/rw-fd-position.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-position   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog (Advanced): Character scale  (Home · FD)
+
+**Goal:** make the clone's `Font dialog (Advanced): Character scale` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-scale`
+**Ground truth:** `parity/fixtures/rw-fd-scale.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-scale   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog (Advanced): Character spacing  (Home · FD)
+
+**Goal:** make the clone's `Font dialog (Advanced): Character spacing` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-spacing`
+**Ground truth:** `parity/fixtures/rw-fd-spacing.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-spacing   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog (Advanced): Ligatures (OpenType)  (Home · FD)
+
+**Goal:** make the clone's `Font dialog (Advanced): Ligatures (OpenType)` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-ligatures`
+**Ground truth:** `parity/fixtures/rw-fd-ligatures.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-ligatures   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: All caps  (Home · FD)
+
+**Goal:** make the clone's `Font dialog: All caps` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-allcaps`
+**Ground truth:** `parity/fixtures/rw-fd-allcaps.docx`
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- FR (fd-allcaps): emit `body:caps[]`
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- FID (fd-allcaps): stop emitting (or justify) `body:caps[('val', '1')]`
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-allcaps   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: Small caps  (Home · FD)
+
+**Goal:** make the clone's `Font dialog: Small caps` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-smallcaps`
+**Ground truth:** `parity/fixtures/rw-fd-smallcaps.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-smallcaps   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: Strikethrough  (Home · FD)
+
+**Goal:** make the clone's `Font dialog: Strikethrough` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-strike`
+**Ground truth:** `parity/fixtures/rw-fd-strike.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-strike   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: Subscript  (Home · FD)
+
+**Goal:** make the clone's `Font dialog: Subscript` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-subscript`
+**Ground truth:** `parity/fixtures/rw-fd-subscript.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-subscript   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: Superscript  (Home · FD)
+
+**Goal:** make the clone's `Font dialog: Superscript` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-superscript`
+**Ground truth:** `parity/fixtures/rw-fd-superscript.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-superscript   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font dialog: Underline color  (Home · FD)
+
+**Goal:** make the clone's `Font dialog: Underline color` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-underline-color`
+**Ground truth:** `parity/fixtures/rw-fd-underline-color.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-underline-color   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
 ## Font size 10.5  (Home · TV)
 
 **Goal:** make the clone's `Font size 10.5` output match real Microsoft Word.
@@ -555,6 +854,41 @@ python parity/engines/run.py --only sz-8   # expect: semantic-pass, missing = 0
 
 ---
 
+## Insert Hyperlink (text + address)  (Insert · ID)
+
+**Goal:** make the clone's `Insert Hyperlink (text + address)` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-link`
+**Ground truth:** `parity/fixtures/rw-fd-link.docx`
+**Current parity:** GAP — 13 missing node(s), 1 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- FR (fd-link): emit `styles:basedOn[('val', 'DefaultParagraphFont')]`
+- FR (fd-link): emit `styles:color[('themeColor', 'hyperlink'), ('val', '467886')]`
+- FR (fd-link): emit `styles:color[('val', '605E5C')]`
+- FR (fd-link): emit `styles:name[('val', 'Hyperlink')]`
+- FR (fd-link): emit `styles:name[('val', 'Unresolved Mention')]`
+- FR (fd-link): emit `styles:rPr[]`
+- FR (fd-link): emit `styles:semiHidden[]`
+- FR (fd-link): emit `styles:shd[('color', 'auto'), ('fill', 'E1DFDD'), ('val', 'clear')]`
+- FR (fd-link): emit `styles:style[('styleId', 'Hyperlink'), ('type', 'character')]`
+- FR (fd-link): emit `styles:style[('styleId', 'UnresolvedMention'), ('type', 'character')]`
+- FR (fd-link): emit `styles:u[('val', 'single')]`
+- FR (fd-link): emit `styles:uiPriority[('val', '99')]`
+- FR (fd-link): emit `styles:unhideWhenUsed[]`
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- FID (fd-link): stop emitting (or justify) `body:u[('val', 'single')]`
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-link   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
 ## Line spacing 1.0  (Home · TV)
 
 **Goal:** make the clone's `Line spacing 1.0` output match real Microsoft Word.
@@ -594,6 +928,352 @@ python parity/engines/run.py --only ls-1p0   # expect: semantic-pass, missing = 
 ### Acceptance (regression gate)
 ```
 python parity/engines/run.py --only ls-1p5   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Page Setup: Left margin 1.5in  (Insert · ID)
+
+**Goal:** make the clone's `Page Setup: Left margin 1.5in` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-margin-left`
+**Ground truth:** `parity/fixtures/rw-fd-margin-left.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-margin-left   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Page Setup: Top margin 1.25in  (Insert · ID)
+
+**Goal:** make the clone's `Page Setup: Top margin 1.25in` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-margin-top`
+**Ground truth:** `parity/fixtures/rw-fd-margin-top.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-margin-top   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: First-line indent  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: First-line indent` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-indent-firstline`
+**Ground truth:** `parity/fixtures/rw-fd-indent-firstline.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-indent-firstline   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Hanging indent  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Hanging indent` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-indent-hanging`
+**Ground truth:** `parity/fixtures/rw-fd-indent-hanging.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-indent-hanging   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Indent left  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Indent left` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-indent-left`
+**Ground truth:** `parity/fixtures/rw-fd-indent-left.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-indent-left   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Indent right  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Indent right` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-indent-right`
+**Ground truth:** `parity/fixtures/rw-fd-indent-right.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-indent-right   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Keep lines together  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Keep lines together` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-pag-keeplines`
+**Ground truth:** `parity/fixtures/rw-fd-pag-keeplines.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-pag-keeplines   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Keep with next  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Keep with next` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-pag-keepnext`
+**Ground truth:** `parity/fixtures/rw-fd-pag-keepnext.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-pag-keepnext   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Line spacing At least  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Line spacing At least` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-ls-atleast`
+**Ground truth:** `parity/fixtures/rw-fd-ls-atleast.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-ls-atleast   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Line spacing Exactly  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Line spacing Exactly` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-ls-exactly`
+**Ground truth:** `parity/fixtures/rw-fd-ls-exactly.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-ls-exactly   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Line spacing Multiple  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Line spacing Multiple` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-ls-multiple`
+**Ground truth:** `parity/fixtures/rw-fd-ls-multiple.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-ls-multiple   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Page break before  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Page break before` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-pag-pagebreak`
+**Ground truth:** `parity/fixtures/rw-fd-pag-pagebreak.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-pag-pagebreak   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Spacing after  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Spacing after` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-spacing-after`
+**Ground truth:** `parity/fixtures/rw-fd-spacing-after.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 2 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- FID (fd-spacing-after): stop emitting (or justify) `body:pPr[]`
+- FID (fd-spacing-after): stop emitting (or justify) `body:spacing[('after', '160')]`
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-spacing-after   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Spacing before  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Spacing before` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-spacing-before`
+**Ground truth:** `parity/fixtures/rw-fd-spacing-before.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-spacing-before   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Paragraph dialog: Widow/Orphan control off  (Home · PD)
+
+**Goal:** make the clone's `Paragraph dialog: Widow/Orphan control off` output match real Microsoft Word.
+**Sub-tasks covered:** `fd-pag-widow`
+**Ground truth:** `parity/fixtures/rw-fd-pag-widow.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fd-pag-widow   # expect: semantic-pass, missing = 0
 ```
 
 ### Next steps

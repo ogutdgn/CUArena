@@ -1,0 +1,20 @@
+{
+  "task": "fd-position",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-position",
+  "control_id": "home.font.dialog",
+  "feature": "Font dialog (Advanced): Character position",
+  "tab": "Home",
+  "usage_tier": "FD",
+  "note": "Raised 3pt -> w:position w:val=6 (half-points). VERIFY pt->half-point export."
+}

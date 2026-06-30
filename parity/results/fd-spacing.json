@@ -1,0 +1,20 @@
+{
+  "task": "fd-spacing",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-spacing",
+  "control_id": "home.font.dialog",
+  "feature": "Font dialog (Advanced): Character spacing",
+  "tab": "Home",
+  "usage_tier": "FD",
+  "note": "Expanded by 1pt -> w:spacing w:val=20 (twentieths). VERIFY pt->twips export."
+}

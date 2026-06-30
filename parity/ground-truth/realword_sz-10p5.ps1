@@ -1,4 +1,4 @@
-# Font size 10.5 variation ground truth via COM (generated). SAFE ONLY WHEN NO OTHER WORD IS OPEN.
+# Font size 10.5 ground truth via COM (generated). SAFE ONLY WHEN NO OTHER WORD IS OPEN.
 param([Parameter(Mandatory=$true)][string]$Out)
 $ErrorActionPreference = 'Stop'
 $pre = @(Get-Process WINWORD -ErrorAction SilentlyContinue | Select-Object -Expand Id)

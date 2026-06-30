@@ -1,0 +1,385 @@
+[
+  {
+    "dialog": "font",
+    "opened": true,
+    "ok_present": true,
+    "verdict": "flow-gap",
+    "fields": [
+      {
+        "field": "style",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "size",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "font-color",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "underline-style",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "underline-color",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "strikethrough",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "double-strikethrough",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "superscript",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "subscript",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "small-caps",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "all-caps",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "hidden",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "scale",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "spacing",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "position",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "ligatures",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "kerning",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      }
+    ],
+    "missing_fields": [
+      "underline-color",
+      "double-strikethrough",
+      "hidden",
+      "ligatures",
+      "kerning"
+    ],
+    "field_count": 17,
+    "present_count": 12
+  },
+  {
+    "dialog": "paragraph",
+    "opened": true,
+    "ok_present": true,
+    "verdict": "flow-gap",
+    "fields": [
+      {
+        "field": "alignment",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "indent-left",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "indent-right",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "special",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "spacing-before",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "spacing-after",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "line-spacing",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "widow-orphan",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "keep-with-next",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "keep-lines",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "page-break-before",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      }
+    ],
+    "missing_fields": [
+      "widow-orphan",
+      "keep-with-next",
+      "keep-lines",
+      "page-break-before"
+    ],
+    "field_count": 11,
+    "present_count": 7
+  },
+  {
+    "dialog": "find-replace",
+    "opened": true,
+    "ok_present": true,
+    "verdict": "flow-pass",
+    "fields": [
+      {
+        "field": "find",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "replace",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "match-case",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "whole-word",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "wildcards",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "special",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "format",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      }
+    ],
+    "missing_fields": [],
+    "field_count": 7,
+    "present_count": 7
+  },
+  {
+    "dialog": "insert-table",
+    "opened": true,
+    "ok_present": true,
+    "verdict": "flow-pass",
+    "fields": [
+      {
+        "field": "rows",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "columns",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      }
+    ],
+    "missing_fields": [],
+    "field_count": 2,
+    "present_count": 2
+  },
+  {
+    "dialog": "insert-hyperlink",
+    "opened": true,
+    "ok_present": true,
+    "verdict": "flow-pass",
+    "fields": [
+      {
+        "field": "text",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      },
+      {
+        "field": "address",
+        "present": true,
+        "word_has": true,
+        "expected_in_clone": true,
+        "status": "present"
+      }
+    ],
+    "missing_fields": [],
+    "field_count": 2,
+    "present_count": 2
+  },
+  {
+    "dialog": "page-margins",
+    "opened": false,
+    "ok_present": false,
+    "verdict": "flow-gap",
+    "fields": [
+      {
+        "field": "top",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "bottom",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "left",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      },
+      {
+        "field": "right",
+        "present": false,
+        "word_has": true,
+        "expected_in_clone": false,
+        "status": "gap-missing-field"
+      }
+    ],
+    "missing_fields": [
+      "top",
+      "bottom",
+      "left",
+      "right"
+    ],
+    "field_count": 4,
+    "present_count": 0
+  }
+]

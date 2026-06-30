@@ -1,0 +1,20 @@
+{
+  "task": "fd-superscript",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-superscript",
+  "control_id": "home.font.dialog",
+  "feature": "Font dialog: Superscript",
+  "tab": "Home",
+  "usage_tier": "FD",
+  "note": "w:vertAlign w:val=superscript. Dialog Effects checkbox."
+}

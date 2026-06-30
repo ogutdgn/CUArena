@@ -1,0 +1,24 @@
+{
+  "task": "fd-allcaps",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 3,
+    "missing": 1,
+    "extra": 1
+  },
+  "missing_nodes": [
+    "body:caps[]"
+  ],
+  "extra_nodes": [
+    "body:caps[('val', '1')]"
+  ],
+  "part_counts": {},
+  "id": "fd-allcaps",
+  "control_id": "home.font.dialog",
+  "feature": "Font dialog: All caps",
+  "tab": "Home",
+  "usage_tier": "FD",
+  "note": "w:caps. Dialog Effects checkbox (advFxAttrs)."
+}

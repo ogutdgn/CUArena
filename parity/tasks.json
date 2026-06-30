@@ -262,6 +262,296 @@
       "note": "1.5 lines → w:spacing w:line=360 w:lineRule=auto. COM wdLineSpace1pt5=1."
     },
     {
+      "id": "fd-strike",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Strikethrough",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Strikethrough",
+      "realword_method": "com",
+      "note": "w:strike. Dialog Effects checkbox."
+    },
+    {
+      "id": "fd-underline-color",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Underline color",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Underline color",
+      "realword_method": "com",
+      "note": "w:u w:val=single w:color=FF0000. NOT IN DIALOG (Word has an Underline-color dropdown the clone omits) — driveable via bridge."
+    },
+    {
+      "id": "fd-superscript",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Superscript",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Superscript",
+      "realword_method": "com",
+      "note": "w:vertAlign w:val=superscript. Dialog Effects checkbox."
+    },
+    {
+      "id": "fd-subscript",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Subscript",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Subscript",
+      "realword_method": "com",
+      "note": "w:vertAlign w:val=subscript. Dialog Effects checkbox."
+    },
+    {
+      "id": "fd-allcaps",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: All caps",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: All caps",
+      "realword_method": "com",
+      "note": "w:caps. Dialog Effects checkbox (advFxAttrs)."
+    },
+    {
+      "id": "fd-smallcaps",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Small caps",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Small caps",
+      "realword_method": "com",
+      "note": "w:smallCaps. 015 owned AdvancedFontEffects attr."
+    },
+    {
+      "id": "fd-spacing",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Character spacing",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Character spacing",
+      "realword_method": "com",
+      "note": "Expanded by 1pt -> w:spacing w:val=20 (twentieths). VERIFY pt->twips export."
+    },
+    {
+      "id": "fd-scale",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Character scale",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Character scale",
+      "realword_method": "com",
+      "note": "150% -> w:w w:val=150 (percent). 015 owned attr."
+    },
+    {
+      "id": "fd-position",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Character position",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Character position",
+      "realword_method": "com",
+      "note": "Raised 3pt -> w:position w:val=6 (half-points). VERIFY pt->half-point export."
+    },
+    {
+      "id": "fd-ligatures",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Ligatures (OpenType)",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Ligatures (OpenType)",
+      "realword_method": "com",
+      "note": "Standard ligatures -> w14:ligatures. NOT IN DIALOG (Word's Advanced tab has a Ligatures dropdown the clone omits)."
+    },
+    {
+      "id": "fd-indent-left",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Indent left",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Indent left",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:left=720."
+    },
+    {
+      "id": "fd-indent-right",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Indent right",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Indent right",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:right=720."
+    },
+    {
+      "id": "fd-indent-firstline",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: First-line indent",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: First-line indent",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:firstLine=720."
+    },
+    {
+      "id": "fd-indent-hanging",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Hanging indent",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Hanging indent",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:hanging=720. COM encodes hanging as NEGATIVE FirstLineIndent + may add a paired w:left."
+    },
+    {
+      "id": "fd-spacing-before",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Spacing before",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Spacing before",
+      "realword_method": "com",
+      "note": "12pt -> w:spacing w:before=240. COM may add *Auto flags."
+    },
+    {
+      "id": "fd-spacing-after",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Spacing after",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Spacing after",
+      "realword_method": "com",
+      "note": "8pt -> w:spacing w:after=160."
+    },
+    {
+      "id": "fd-ls-atleast",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Line spacing At least",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Line spacing At least",
+      "realword_method": "com",
+      "note": "At least 12pt -> w:spacing w:line=240 w:lineRule=atLeast. Folds a deferred variation."
+    },
+    {
+      "id": "fd-ls-exactly",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Line spacing Exactly",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Line spacing Exactly",
+      "realword_method": "com",
+      "note": "Exactly 12pt -> w:spacing w:line=240 w:lineRule=exact (COM wdLineSpaceExactly). Folds a deferred variation."
+    },
+    {
+      "id": "fd-ls-multiple",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Line spacing Multiple",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Line spacing Multiple",
+      "realword_method": "com",
+      "note": "Multiple 1.15 -> w:spacing w:line=276 w:lineRule=auto. ARTIFACT: 'Multiple' has no distinct OOXML marker (== auto-multiple)."
+    },
+    {
+      "id": "fd-pag-widow",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Widow/Orphan control off",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Widow/Orphan control off",
+      "realword_method": "com",
+      "note": "w:widowControl w:val=0. NOT IN DIALOG (016 adds the Line-and-Page-Breaks tab) — driveable now."
+    },
+    {
+      "id": "fd-pag-keepnext",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Keep with next",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Keep with next",
+      "realword_method": "com",
+      "note": "w:keepNext. NOT IN DIALOG (016)."
+    },
+    {
+      "id": "fd-pag-keeplines",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Keep lines together",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Keep lines together",
+      "realword_method": "com",
+      "note": "w:keepLines (COM .KeepTogether == OOXML keepLines). NOT IN DIALOG (016)."
+    },
+    {
+      "id": "fd-pag-pagebreak",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Page break before",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Page break before",
+      "realword_method": "com",
+      "note": "w:pageBreakBefore. NOT IN DIALOG (016)."
+    },
+    {
+      "id": "fd-fontcolor-custom",
+      "control_id": "home.font.color-dialog",
+      "feature": "Font color: custom RGB (More Colors)",
+      "tab": "Home",
+      "usage_tier": "CD",
+      "action": "Font color: custom RGB (More Colors)",
+      "realword_method": "com",
+      "note": "Custom #3A7BD5 -> w:color w:val=3A7BD5. Normalize hex case before diff."
+    },
+    {
+      "id": "fd-fontcolor-theme",
+      "control_id": "home.font.color-dialog",
+      "feature": "Font color: THEME color (Accent 1)",
+      "tab": "Home",
+      "usage_tier": "CD",
+      "action": "Font color: THEME color (Accent 1)",
+      "realword_method": "com",
+      "note": "THEME GAP: Word writes w:color w:val=156082 w:themeColor=accent1; the clone is sRGB-only (no w:themeColor). Expect a 'missing themeColor' delta = real fidelity gap."
+    },
+    {
+      "id": "fd-replace-all",
+      "control_id": "home.editing.find-replace",
+      "feature": "Find/Replace: Replace All (Revenue->Income)",
+      "tab": "Home",
+      "usage_tier": "RD",
+      "action": "Find/Replace: Replace All (Revenue->Income)",
+      "realword_method": "com",
+      "note": "Text-only delta: <w:t>Revenue</w:t> -> <w:t>Income</w:t>, run rPr preserved. Expect 0/0."
+    },
+    {
+      "id": "fd-link",
+      "control_id": "insert/layout.dialog",
+      "feature": "Insert Hyperlink (text + address)",
+      "tab": "Insert",
+      "usage_tier": "ID",
+      "action": "Insert Hyperlink (text + address)",
+      "realword_method": "com",
+      "note": "w:hyperlink r:id + rels Target. COM!=ribbon FIDELITY: clone uses a DIRECT w:u/color; Word applies the Hyperlink CHARACTER STYLE (w:rStyle Hyperlink). rId differs (match by Target)."
+    },
+    {
+      "id": "fd-margin-top",
+      "control_id": "insert/layout.dialog",
+      "feature": "Page Setup: Top margin 1.25in",
+      "tab": "Insert",
+      "usage_tier": "ID",
+      "action": "Page Setup: Top margin 1.25in",
+      "realword_method": "com",
+      "note": "1.25in -> w:pgMar w:top=1800 (others default 1in=1440). DIALOG LIMITATION: the Custom Margins dialog is a single uniform field — top not independently settable via the dialog."
+    },
+    {
+      "id": "fd-margin-left",
+      "control_id": "insert/layout.dialog",
+      "feature": "Page Setup: Left margin 1.5in",
+      "tab": "Insert",
+      "usage_tier": "ID",
+      "action": "Page Setup: Left margin 1.5in",
+      "realword_method": "com",
+      "note": "1.5in -> w:pgMar w:left=2160 (others 1440). Same single-uniform-field dialog limitation."
+    },
+    {
       "id": "pagenum",
       "control_id": "insert.header-footer.pageNumber",
       "feature": "Page Number",
@@ -283,8 +573,122 @@
     }
   ],
   "_deferred_variations": [
-    "numbering formats (1./a)/i./A.) — live in numbering.xml (abstractNum numFmt), which is COM!=ribbon-dominated; needs the vsto ribbon ground truth.",
-    "line spacing exactly/at-least/2.5/3.0(multiple) — Paragraph-dialog modes (wdLineSpaceExactly/AtLeast/Multiple); enumerate in the Paragraph dialog batch.",
-    "indentation left/right/first-line/hanging — Paragraph-dialog fields; enumerate in the Paragraph dialog batch."
+    "numbering formats (1./a)/i./A.) -> folded into the Bullets/Numbering batch as numbering.xml-only ARTIFACTS (see _dialog_identified_gaps).",
+    "line spacing exactly/at-least/multiple -> ENUMERATED in the Paragraph batch (fd-ls-atleast/exactly/multiple).",
+    "indentation left/right/first-line/hanging -> ENUMERATED in the Paragraph batch (fd-indent-*)."
+  ],
+  "_dialog_identified_gaps": [
+    {
+      "id": "fd-double-strike",
+      "dialog": "Font",
+      "field": "Double strikethrough",
+      "kind": "GAP",
+      "detail": "Word Font.DoubleStrikeThrough -> w:dstrike. The clone has NO checkbox AND no textStyle attr; the w:dstrike translator round-trips on import only. Cannot author via dialog or bridge."
+    },
+    {
+      "id": "fd-hidden",
+      "dialog": "Font",
+      "field": "Hidden",
+      "kind": "GAP",
+      "detail": "Word Font.Hidden -> w:vanish. No clone checkbox and no WC.PM verb; vanish round-trips on import only."
+    },
+    {
+      "id": "fd-kerning",
+      "dialog": "Font",
+      "field": "Kerning for fonts >= N pt",
+      "kind": "GAP",
+      "detail": "Word Font.Kerning -> w:kern (min-size threshold, half-points). No clone control and no textStyle.kern attr."
+    },
+    {
+      "id": "fd-bullet-font",
+      "dialog": "Define New Bullet",
+      "field": "Bullet font",
+      "kind": "GAP",
+      "detail": "Word writes abstractNum/lvl/rPr/rFonts; the clone has NO font picker AND applyListDefinition.js:77-78 STRIPS rFonts -> clone never emits a bullet font. numbering.xml-only."
+    },
+    {
+      "id": "fd-bullet-align",
+      "dialog": "Define New Bullet",
+      "field": "Bullet alignment",
+      "kind": "GAP",
+      "detail": "Word writes w:lvlJc; the clone has no alignment control and never emits lvlJc. numbering.xml-only."
+    },
+    {
+      "id": "fd-num-format",
+      "dialog": "Define New Number Format",
+      "field": "Number format (decimal/letter/roman)",
+      "kind": "ARTIFACT",
+      "detail": "Defining signal lives ONLY in numbering.xml (abstractNum numFmt/lvlText); document.xml has just w:numPr (numId canonicalized). COM ApplyListTemplate writes a singleLevel template vs the clone's 9-level abstract + a minted numId value -> needs a vsto/numbering.xml ground truth."
+    },
+    {
+      "id": "fd-num-style-text",
+      "dialog": "Define New Number Format",
+      "field": "Number format string (lvlText, e.g. %1) )",
+      "kind": "ARTIFACT",
+      "detail": "lvlText is numbering.xml-only; same single-vs-9-level + numId-value divergence as fd-num-format."
+    },
+    {
+      "id": "fd-num-gallery",
+      "dialog": "Numbering gallery",
+      "field": "Format variations 1./1)/A./a)/i./I.",
+      "kind": "ARTIFACT",
+      "detail": "Routes through the fork's toggleOrderedListStyle (own style->numFmt map), mints a new numId; numbering.xml-only, document.xml signal is only w:numPr + 023 pStyle."
+    },
+    {
+      "id": "fd-start-at",
+      "dialog": "Set Numbering Value",
+      "field": "Start at N",
+      "kind": "ARTIFACT",
+      "detail": "Start value lives in a num-instance lvlOverride/startOverride (numbering.xml); Word COM has no exact 'set value to N' verb (template-oriented). Mid-list restart mints a new numId (only document.xml signal, canonicalized)."
+    },
+    {
+      "id": "fd-restart",
+      "dialog": "Set Numbering Value",
+      "field": "Restart / Start new list",
+      "kind": "ARTIFACT",
+      "detail": "numbering.xml lvlOverride/startOverride=1; clone-pins-startOverride vs Word-fresh-num is a structural numbering.xml divergence."
+    },
+    {
+      "id": "fd-continue",
+      "dialog": "Set Numbering Value",
+      "field": "Continue from previous",
+      "kind": "ARTIFACT",
+      "detail": "numbering.xml: absence of lvlOverride (counter continues); document.xml signal = only the numId reference."
+    },
+    {
+      "id": "fd-highlight-custom",
+      "dialog": "Highlight",
+      "field": "Custom (non-keyword) highlight color",
+      "kind": "FIDELITY",
+      "detail": "The highlight gallery is a FIXED 15-keyword set with no custom path; the clone silently DOWNGRADES a custom highlight to character shading (w:shd), a semantically different feature. Word's highlighter has no custom-RGB path at all (nearest = Format>Shading). No clean oracle."
+    },
+    {
+      "id": "fd-find",
+      "dialog": "Find/Replace",
+      "field": "Find / Match case / Whole word / Wildcards / Format",
+      "kind": "FLOW",
+      "detail": "Find + all search modifiers produce ZERO document delta (decorations/navigation only) -> flow-verifier axis, not OOXML. Wildcard grammar + whole-word definition differ COM-vs-clone (count, not identity)."
+    },
+    {
+      "id": "fd-special-replace",
+      "dialog": "Find/Replace",
+      "field": "Special codes in the REPLACE box (^p/^t/^l)",
+      "kind": "GAP",
+      "detail": "Word translates ^p/^t/^l in the replacement (new w:p / w:tab / w:br); the clone passes replInput.value LITERALLY (search.ts) so it inserts the literal text '^p' instead of a paragraph break. Real clone gap on the replace path."
+    },
+    {
+      "id": "fd-table",
+      "dialog": "Insert Table",
+      "field": "Rows x Cols",
+      "kind": "ARTIFACT",
+      "detail": "COM Tables.Add auto-creates an AutoFit-to-window TableGrid (+tblLook/default borders); the clone builds equal-width gridCols. Row/col COUNTS match; gridCol widths/tblW/borders diverge. (Covered by the existing 'table' pilot.)"
+    },
+    {
+      "id": "fd-margin-uniform",
+      "dialog": "Page Setup",
+      "field": "Independent T/B/L/R margins via the dialog",
+      "kind": "GAP",
+      "detail": "The clone's Custom Margins dialog exposes ONE uniform 'Margin (inches)' input applied to all four sides; Word's Page Setup sets top/bottom/left/right independently. (The bridge dePageMargins verb + presets do support distinct sides — measured via fd-margin-top/left — but the DIALOG cannot.)"
+    }
   ]
 }
