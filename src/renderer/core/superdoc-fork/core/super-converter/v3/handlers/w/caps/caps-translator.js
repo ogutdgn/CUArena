@@ -10,8 +10,14 @@ export const translator = NodeTranslator.from({
   xmlName: 'w:caps',
   sdNodeOrKeyName: 'textTransform',
   encode: ({ nodes }) => (parseBoolean(nodes[0].attributes?.['w:val'] ?? '1') ? 'uppercase' : 'none'),
-  decode: ({ node }) =>
-    node.attrs['textTransform'] != null
-      ? { name: 'w:caps', attributes: { 'w:val': booleanToString(node.attrs['textTransform'] === 'uppercase') } }
-      : undefined,
+  decode: ({ node }) => {
+    const tt = node.attrs['textTransform'];
+    if (tt == null) return undefined;
+    // Parity fix (spec 024): on ON, emit a BARE <w:caps/> like Word (and like the strike/smallCaps boolean
+    // handlers) instead of the redundant <w:caps w:val="1"/>; keep an explicit <w:caps w:val="0"/> for OFF so a
+    // turned-off-against-inheritance state stays distinguishable. encode treats a missing w:val as '1' (round-trips).
+    return tt === 'uppercase'
+      ? { name: 'w:caps', attributes: {} }
+      : { name: 'w:caps', attributes: { 'w:val': booleanToString(false) } };
+  },
 });

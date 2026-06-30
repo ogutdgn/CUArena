@@ -442,6 +442,13 @@ project tsconfig instead — matching the other vendored packages, which also sh
     per SD-2912) so an imported run's complex-script `szCs` is preserved verbatim instead of dropped. `COMPANION_INLINE_KEYS.fontSizeCs` is kept.
   Gated by `specs/023-t0t1-ooxml-fidelity` + `test:pm` regressions + the parity `--only fontface`/`--only fontsize`
   semantic-pass. (The list ListParagraph + Align-Left fixes in 023 are NO-FORK, in `src/renderer/bridge/`.)
+- **w:caps over-emission fixed (parity feature 024, group 1, 2026-06-30, user-authorized):** one minimal
+  `decode` edit in `core/super-converter/v3/handlers/w/caps/caps-translator.js`. The decode hand-wrote
+  `<w:caps w:val="1"/>` on every ON case (`booleanToString(true)='1'`); real Word writes a **bare** `<w:caps/>`
+  (like the `strike` strict-toggle + `smallCaps` single-boolean handlers). Now ON emits `{ attributes: {} }` (bare)
+  and OFF keeps an explicit `w:val="0"` (so a turned-off-against-inheritance state stays distinguishable); `encode`
+  already treats a missing `w:val` as `'1'`, so round-trip is unaffected. Gated by `specs/024-t0t1-overemit-fixes`
+  + a `test:pm` regression (`024 All Caps exports BARE <w:caps/>`) + the parity `--only fd-allcaps` 0/0 semantic-pass.
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
