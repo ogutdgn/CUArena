@@ -6,7 +6,7 @@
   "counts": {
     "match": 9,
     "missing": 7,
-    "extra": 2
+    "extra": 14
   },
   "missing_nodes": [
     "body:bottom[('type', 'dxa'), ('w', '0')]",
@@ -19,7 +19,19 @@
   ],
   "extra_nodes": [
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-    "body:tblStyle[('val', 'TableGrid')]"
+    "body:tblStyle[('val', 'TableGrid')]",
+    "styles:TableGrid:@type=table",
+    "styles:TableGrid:basedOn[('val', 'TableNormal')]",
+    "styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:insideH[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:name[('val', 'Table Grid')]",
+    "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:tblBorders[]",
+    "styles:TableGrid:tblPr[]",
+    "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:uiPriority[('val', '39')]"
   ],
   "part_counts": {},
   "id": "table",

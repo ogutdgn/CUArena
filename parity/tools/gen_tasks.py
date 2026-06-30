@@ -359,10 +359,11 @@ def main():
         "artifacts_not_gaps": ["fd-spacing-after(default-value)", "fd-link(Hyperlink-style: differ-limitation)",
                                "fd-link(UnresolvedMention: Word-boilerplate)", "fd-num-*(COM singleLevel)",
                                "fd-highlight-custom(clone==Word, 15-keyword-only)"],
-        "engine_followup": "styles.xml baseline-subtraction is unsound for PRELOADED-vs-LAZY styles (the clone "
-                           "preloads its full styles.xml; Word lazily materializes on use) -> false-missing on "
-                           "fd-link's Hyperlink style. body/header/footer/numbering unaffected. Fix: diff styles by "
-                           "styleId presence/content, not baseline-subtracted signatures. See report 4c.",
+        "engine_followup": "RESOLVED: styles.xml is now diffed by styleId presence/content scoped to referenced "
+                           "styleIds (ooxml_diff._styles_diff), not baseline-subtracted — so a preloaded-but-identical "
+                           "style matches a lazily-materialized one and unreferenced boilerplate is ignored. "
+                           "Regression-locked by 4 review_differ golden cases (incl. styles_preloaded_match). fd-link "
+                           "false-13-missing -> 1 real (body:u). See report 4c.",
         "report": "parity/results/DEEP_T0_T1_REPORT.md",
     }
     data["_dialog_skip_log"] = [dict(scope=s[0], field=s[1], why=s[2]) for s in SKIP_LOG]

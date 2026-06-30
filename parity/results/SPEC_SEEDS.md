@@ -257,7 +257,7 @@ python parity/engines/run.py --only fontcolor   # expect: semantic-pass, missing
 **Goal:** make the clone's `Insert Table` output match real Microsoft Word.
 **Sub-tasks covered:** `table`
 **Ground truth:** `parity/fixtures/rw-table.docx`
-**Current parity:** GAP — 7 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 7 missing node(s), 14 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (table): emit `body:bottom[('type', 'dxa'), ('w', '0')]`
@@ -271,6 +271,18 @@ python parity/engines/run.py --only fontcolor   # expect: semantic-pass, missing
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (table): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (table): stop emitting (or justify) `body:tblStyle[('val', 'TableGrid')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:@type=table`
+- FID (table): stop emitting (or justify) `styles:TableGrid:basedOn[('val', 'TableNormal')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:insideH[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:name[('val', 'Table Grid')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:tblBorders[]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:tblPr[]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (table): stop emitting (or justify) `styles:TableGrid:uiPriority[('val', '39')]`
 
 ### Acceptance (regression gate)
 ```
@@ -400,7 +412,7 @@ python parity/engines/run.py --only numbering   # expect: semantic-pass, missing
 **Goal:** make the clone's `Page Number` output match real Microsoft Word.
 **Sub-tasks covered:** `pagenum`
 **Ground truth:** `parity/fixtures/rw-pagenum.docx`
-**Current parity:** GAP — 38 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 17 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (pagenum): emit `body:footerReference[('id', 'rId#'), ('type', 'even')]`
@@ -420,27 +432,6 @@ python parity/engines/run.py --only numbering   # expect: semantic-pass, missing
 - FR (pagenum): emit `header:pPr[]`
 - FR (pagenum): emit `header:pStyle[('val', 'Header')]`
 - FR (pagenum): emit `header:p[]`
-- FR (pagenum): emit `styles:basedOn[('val', 'DefaultParagraphFont')]`
-- FR (pagenum): emit `styles:basedOn[('val', 'Normal')]`
-- FR (pagenum): emit `styles:link[('val', 'Footer')]`
-- FR (pagenum): emit `styles:link[('val', 'FooterChar')]`
-- FR (pagenum): emit `styles:link[('val', 'Header')]`
-- FR (pagenum): emit `styles:link[('val', 'HeaderChar')]`
-- FR (pagenum): emit `styles:name[('val', 'Footer Char')]`
-- FR (pagenum): emit `styles:name[('val', 'Header Char')]`
-- FR (pagenum): emit `styles:name[('val', 'footer')]`
-- FR (pagenum): emit `styles:name[('val', 'header')]`
-- FR (pagenum): emit `styles:pPr[]`
-- FR (pagenum): emit `styles:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (pagenum): emit `styles:style[('customStyle', '1'), ('styleId', 'FooterChar'), ('type', 'character')]`
-- FR (pagenum): emit `styles:style[('customStyle', '1'), ('styleId', 'HeaderChar'), ('type', 'character')]`
-- FR (pagenum): emit `styles:style[('styleId', 'Footer'), ('type', 'paragraph')]`
-- FR (pagenum): emit `styles:style[('styleId', 'Header'), ('type', 'paragraph')]`
-- FR (pagenum): emit `styles:tab[('pos', '4680'), ('val', 'center')]`
-- FR (pagenum): emit `styles:tab[('pos', '9360'), ('val', 'right')]`
-- FR (pagenum): emit `styles:tabs[]`
-- FR (pagenum): emit `styles:uiPriority[('val', '99')]`
-- FR (pagenum): emit `styles:unhideWhenUsed[]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (pagenum): stop emitting (or justify) `footer:ftr[]`
@@ -652,13 +643,13 @@ python parity/engines/run.py --only fd-ligatures   # expect: semantic-pass, miss
 **Goal:** make the clone's `Font dialog: All caps` output match real Microsoft Word.
 **Sub-tasks covered:** `fd-allcaps`
 **Ground truth:** `parity/fixtures/rw-fd-allcaps.docx`
-**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (fd-allcaps): emit `body:caps[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (fd-allcaps): stop emitting (or justify) `body:caps[('val', '1')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -859,22 +850,10 @@ python parity/engines/run.py --only sz-8   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Insert Hyperlink (text + address)` output match real Microsoft Word.
 **Sub-tasks covered:** `fd-link`
 **Ground truth:** `parity/fixtures/rw-fd-link.docx`
-**Current parity:** GAP — 13 missing node(s), 1 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (fd-link): emit `styles:basedOn[('val', 'DefaultParagraphFont')]`
-- FR (fd-link): emit `styles:color[('themeColor', 'hyperlink'), ('val', '467886')]`
-- FR (fd-link): emit `styles:color[('val', '605E5C')]`
-- FR (fd-link): emit `styles:name[('val', 'Hyperlink')]`
-- FR (fd-link): emit `styles:name[('val', 'Unresolved Mention')]`
-- FR (fd-link): emit `styles:rPr[]`
-- FR (fd-link): emit `styles:semiHidden[]`
-- FR (fd-link): emit `styles:shd[('color', 'auto'), ('fill', 'E1DFDD'), ('val', 'clear')]`
-- FR (fd-link): emit `styles:style[('styleId', 'Hyperlink'), ('type', 'character')]`
-- FR (fd-link): emit `styles:style[('styleId', 'UnresolvedMention'), ('type', 'character')]`
-- FR (fd-link): emit `styles:u[('val', 'single')]`
-- FR (fd-link): emit `styles:uiPriority[('val', '99')]`
-- FR (fd-link): emit `styles:unhideWhenUsed[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (fd-link): stop emitting (or justify) `body:u[('val', 'single')]`

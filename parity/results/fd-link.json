@@ -2,27 +2,13 @@
   "task": "fd-link",
   "baselined": true,
   "baseline_divergence": [],
-  "verdict": "gap",
+  "verdict": "semantic-pass",
   "counts": {
-    "match": 5,
-    "missing": 13,
+    "match": 13,
+    "missing": 0,
     "extra": 1
   },
-  "missing_nodes": [
-    "styles:basedOn[('val', 'DefaultParagraphFont')]",
-    "styles:color[('themeColor', 'hyperlink'), ('val', '467886')]",
-    "styles:color[('val', '605E5C')]",
-    "styles:name[('val', 'Hyperlink')]",
-    "styles:name[('val', 'Unresolved Mention')]",
-    "styles:rPr[]",
-    "styles:semiHidden[]",
-    "styles:shd[('color', 'auto'), ('fill', 'E1DFDD'), ('val', 'clear')]",
-    "styles:style[('styleId', 'Hyperlink'), ('type', 'character')]",
-    "styles:style[('styleId', 'UnresolvedMention'), ('type', 'character')]",
-    "styles:u[('val', 'single')]",
-    "styles:uiPriority[('val', '99')]",
-    "styles:unhideWhenUsed[]"
-  ],
+  "missing_nodes": [],
   "extra_nodes": [
     "body:u[('val', 'single')]"
   ],

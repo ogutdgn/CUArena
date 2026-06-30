@@ -84,7 +84,11 @@ def collect(docx_path):
     z = zipfile.ZipFile(docx_path)
     for name in z.namelist():
         kind = part_kind(name)
-        if not kind:
+        if not kind or kind == "styles":
+            # styles.xml is diffed SEPARATELY by _styles_diff (styleId presence/content, NOT
+            # baseline-subtracted) because the clone PRELOADS its full styles.xml while Word LAZILY
+            # materializes styles on use — baseline-subtraction would false-flag a preloaded-but-
+            # identical style as 'missing'. See report 4c.
             continue
         parts_seen[kind] += 1
         root = ET.fromstring(z.read(name))
@@ -103,6 +107,63 @@ def collect(docx_path):
             sig = f"{kind}:{ln}{list(attrs)}{txt}"
             sigs[sig] += 1
     return sigs, parts_seen
+
+
+def collect_styles(docx_path):
+    """Parse styles.xml into {styleId: Counter(child-signatures)} + the set of styleIds the
+    document body REFERENCES (via w:rStyle / w:pStyle / w:tblStyle w:val). The referenced set
+    scopes the styles diff to styles the task actually USES — so latent template/boilerplate
+    styles (which the clone preloads or Word lazily adds but nobody references) are ignored."""
+    styles_map = {}
+    referenced = set()
+    z = zipfile.ZipFile(docx_path)
+    names = z.namelist()
+    if "word/styles.xml" in names:
+        root = ET.fromstring(z.read("word/styles.xml"))
+        for style in root.iter(W + "style"):
+            sid = style.get(W + "styleId")
+            if not sid:
+                continue
+            sigs = Counter()
+            sigs[f"@type={style.get(W + 'type')}"] += 1   # the style's own type (character/paragraph/table)
+            for el in style.iter():
+                ln = local(el.tag)
+                if ln == "style" or ln.lower() in NOISE_ELEMENTS:
+                    continue   # skip the wrapper + per-save rsid bookkeeping
+                sigs[f"{ln}{list(meaningful_attrs(el))}"] += 1
+            styles_map[sid] = sigs
+    if "word/document.xml" in names:
+        root = ET.fromstring(z.read("word/document.xml"))
+        for el in root.iter():
+            if local(el.tag) in ("rStyle", "pStyle", "tblStyle"):
+                v = el.get(W + "val")
+                if v:
+                    referenced.add(v)
+    return styles_map, referenced
+
+
+def _styles_diff(real_path, clone_path):
+    """styleId-presence/content diff of styles.xml — the preloaded-vs-lazy-safe replacement for
+    baseline-subtracted styles signatures. Compares ONLY styleIds referenced by either body
+    (action-to-action, no baseline): a referenced style present in both with equal content is a
+    MATCH regardless of which side added it lazily; a referenced style Word has + clone lacks/differs
+    is MISSING; clone-only referenced is EXTRA. Returns (missing, extra, match_count)."""
+    rstyles, rrefs = collect_styles(real_path)
+    cstyles, crefs = collect_styles(clone_path)
+    relevant = rrefs | crefs
+    missing, extra, match = [], [], 0
+    for sid in sorted(relevant):
+        rc = rstyles.get(sid, Counter())
+        cc = cstyles.get(sid, Counter())
+        for sig in set(rc) | set(cc):
+            r, c = rc.get(sig, 0), cc.get(sig, 0)
+            if min(r, c) > 0:
+                match += 1
+            if r > c:
+                missing.append(f"styles:{sid}:{sig}")
+            if c > r:
+                extra.append(f"styles:{sid}:{sig}")
+    return sorted(missing), sorted(extra), match
 
 
 def _signed_delta(action, baseline):
@@ -177,7 +238,17 @@ def diff(real_path, clone_path, task_id=None, real_baseline=None, clone_baseline
         divergence = _divergence(rb, cb)
         rw, cl = _signed_delta(rw, rb), _signed_delta(cl, cb)
         rw_parts, cl_parts = _signed_delta(rw_parts, rb_parts), _signed_delta(cl_parts, cb_parts)
-    return _bucket(rw, cl, rw_parts, cl_parts, task_id, baselined, divergence)
+    result = _bucket(rw, cl, rw_parts, cl_parts, task_id, baselined, divergence)
+    # styles.xml: merge the styleId-presence diff (NOT baseline-subtracted — preloaded-vs-lazy safe).
+    s_missing, s_extra, s_match = _styles_diff(real_path, clone_path)
+    if s_missing or s_extra or s_match:
+        result["missing_nodes"] = sorted(result["missing_nodes"] + s_missing)
+        result["extra_nodes"] = sorted(result["extra_nodes"] + s_extra)
+        result["counts"]["match"] += s_match
+        result["counts"]["missing"] += len(s_missing)
+        result["counts"]["extra"] += len(s_extra)
+        result["verdict"] = "semantic-pass" if result["counts"]["missing"] == 0 else "gap"
+    return result
 
 
 if __name__ == "__main__":

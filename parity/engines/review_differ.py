@@ -68,6 +68,11 @@ def build_golden():
     os.makedirs(GOLDEN_DIR, exist_ok=True)
     cases = []  # (name, expected_missing, expected_extra, a_body, b_body, a_extra, b_extra)
     P = lambda inner: f'<w:p>{inner}</w:p>'
+    # styles.xml is diffed by styleId presence/content scoped to REFERENCED styleIds (preloaded-vs-lazy safe).
+    REF = P('<w:r><w:rPr><w:rStyle w:val="Foo"/></w:rPr><w:t>Hi</w:t></w:r>')   # body references style 'Foo'
+    PLAIN_P = P('<w:r><w:t>Hi</w:t></w:r>')                                     # body references NO style
+    STY = lambda inner='': {"word/styles.xml": styles_part(f'<w:style w:styleId="Foo" w:type="character">{inner}</w:style>')}
+    STY_EMPTY = {"word/styles.xml": styles_part('')}
     spec = [
         ("identity", 0, 0, P('<w:r><w:t>Hi</w:t></w:r>'), P('<w:r><w:t>Hi</w:t></w:r>'), None, None),
         ("noise", 0, 0, '<w:p w:rsidR="AAAA"><w:r><w:t>Hi</w:t></w:r></w:p>',
@@ -84,9 +89,17 @@ def build_golden():
         # numbering.xml is now in scope: a numbering definition node present on one side must be caught.
         ("numbering_part", 1, 0, '', '', {"word/numbering.xml": num_part('<w:abstractNum w:abstractNumId="0"/>')},
                                           {"word/numbering.xml": num_part('')}),
-        # styles.xml is now in scope: a style definition present on one side must be caught.
-        ("styles_part", 1, 0, '', '', {"word/styles.xml": styles_part('<w:style w:styleId="Foo"/>')},
-                                       {"word/styles.xml": styles_part('')}),
+        # styles.xml: diffed by styleId presence/content, scoped to REFERENCED styleIds (preloaded-vs-lazy safe).
+        # A referenced style Word has + the clone lacks -> missing (real gap).
+        ("styles_referenced_missing", 1, 0, REF, REF, STY(), STY_EMPTY),
+        # A style present on ONE side but referenced by NEITHER body -> ignored (latent template/boilerplate,
+        # e.g. Word's UnresolvedMention). This is the false-missing the old baseline-subtraction produced.
+        ("styles_unreferenced_ignored", 0, 0, PLAIN_P, PLAIN_P, STY(), STY_EMPTY),
+        # A style PRELOADED on both sides (content-equal) + referenced by both -> MATCH regardless of which side
+        # added it lazily. This is the fd-link Hyperlink regression case (the whole point of the refactor).
+        ("styles_preloaded_match", 0, 0, REF, REF, STY(), STY()),
+        # A referenced style present on both but with DIFFERING content -> missing(real attr)+extra(clone attr).
+        ("styles_content_differs", 1, 1, REF, REF, STY('<w:color w:val="FF0000"/>'), STY('<w:color w:val="00FF00"/>')),
         # rId VALUES are per-doc relationship pointers (Word rId9 vs clone rId7): the SAME
         # default footer ref under different rIds must diff to 0 (match on type, not the id value).
         ("rid_canon", 0, 0, P('<w:footerReference w:type="default" r:id="rId9"/>'),

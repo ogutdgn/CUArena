@@ -45,7 +45,7 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 16,
+      "match": 24,
       "missing": 7,
       "extra": 35
     },
@@ -298,7 +298,7 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 14,
+      "match": 22,
       "missing": 7,
       "extra": 36
     },
@@ -369,7 +369,7 @@
     "verdict": "gap",
     "counts": {
       "match": 7,
-      "missing": 38,
+      "missing": 17,
       "extra": 3
     },
     "missing_nodes": [
@@ -389,28 +389,7 @@
       "header:hdr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
       "header:pPr[]",
       "header:pStyle[('val', 'Header')]",
-      "header:p[]",
-      "styles:basedOn[('val', 'DefaultParagraphFont')]",
-      "styles:basedOn[('val', 'Normal')]",
-      "styles:link[('val', 'Footer')]",
-      "styles:link[('val', 'FooterChar')]",
-      "styles:link[('val', 'Header')]",
-      "styles:link[('val', 'HeaderChar')]",
-      "styles:name[('val', 'Footer Char')]",
-      "styles:name[('val', 'Header Char')]",
-      "styles:name[('val', 'footer')]",
-      "styles:name[('val', 'header')]",
-      "styles:pPr[]",
-      "styles:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
-      "styles:style[('customStyle', '1'), ('styleId', 'FooterChar'), ('type', 'character')]",
-      "styles:style[('customStyle', '1'), ('styleId', 'HeaderChar'), ('type', 'character')]",
-      "styles:style[('styleId', 'Footer'), ('type', 'paragraph')]",
-      "styles:style[('styleId', 'Header'), ('type', 'paragraph')]",
-      "styles:tab[('pos', '4680'), ('val', 'center')]",
-      "styles:tab[('pos', '9360'), ('val', 'right')]",
-      "styles:tabs[]",
-      "styles:uiPriority[('val', '99')]",
-      "styles:unhideWhenUsed[]"
+      "header:p[]"
     ],
     "extra_nodes": [
       "footer:ftr[]",
@@ -442,7 +421,7 @@
     "counts": {
       "match": 9,
       "missing": 7,
-      "extra": 2
+      "extra": 14
     },
     "missing_nodes": [
       "body:bottom[('type', 'dxa'), ('w', '0')]",
@@ -455,7 +434,19 @@
     ],
     "extra_nodes": [
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-      "body:tblStyle[('val', 'TableGrid')]"
+      "body:tblStyle[('val', 'TableGrid')]",
+      "styles:TableGrid:@type=table",
+      "styles:TableGrid:basedOn[('val', 'TableNormal')]",
+      "styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:insideH[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:name[('val', 'Table Grid')]",
+      "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:tblBorders[]",
+      "styles:TableGrid:tblPr[]",
+      "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:uiPriority[('val', '39')]"
     ],
     "part_counts": {},
     "id": "table",
@@ -469,18 +460,14 @@
     "task": "fd-allcaps",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "semantic-pass",
     "counts": {
-      "match": 3,
-      "missing": 1,
-      "extra": 1
+      "match": 4,
+      "missing": 0,
+      "extra": 0
     },
-    "missing_nodes": [
-      "body:caps[]"
-    ],
-    "extra_nodes": [
-      "body:caps[('val', '1')]"
-    ],
+    "missing_nodes": [],
+    "extra_nodes": [],
     "part_counts": {},
     "id": "fd-allcaps",
     "control_id": "home.font.dialog",
@@ -1220,27 +1207,13 @@
     "task": "fd-link",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "semantic-pass",
     "counts": {
-      "match": 5,
-      "missing": 13,
+      "match": 13,
+      "missing": 0,
       "extra": 1
     },
-    "missing_nodes": [
-      "styles:basedOn[('val', 'DefaultParagraphFont')]",
-      "styles:color[('themeColor', 'hyperlink'), ('val', '467886')]",
-      "styles:color[('val', '605E5C')]",
-      "styles:name[('val', 'Hyperlink')]",
-      "styles:name[('val', 'Unresolved Mention')]",
-      "styles:rPr[]",
-      "styles:semiHidden[]",
-      "styles:shd[('color', 'auto'), ('fill', 'E1DFDD'), ('val', 'clear')]",
-      "styles:style[('styleId', 'Hyperlink'), ('type', 'character')]",
-      "styles:style[('styleId', 'UnresolvedMention'), ('type', 'character')]",
-      "styles:u[('val', 'single')]",
-      "styles:uiPriority[('val', '99')]",
-      "styles:unhideWhenUsed[]"
-    ],
+    "missing_nodes": [],
     "extra_nodes": [
       "body:u[('val', 'single')]"
     ],

@@ -112,7 +112,13 @@ from the clone UI:
 | `fd-ligatures-ui` | Advanced tab has Scale/Spacing/Position only — no OpenType Ligatures dropdown | effect 0/0 (`fd-ligatures`) |
 | `fd-paragraph-pagination-ui` | Paragraph dialog has no Line-and-Page-Breaks tab | all 4 effects 0/0 (`fd-pag-*`) |
 
-### 4c. Engine limitation surfaced (differ) — top engine follow-up
+### 4c. Engine limitation surfaced (differ) — ✅ RESOLVED (styles styleId-presence diff)
+
+**Status: FIXED** (`ooxml_diff.py` `_styles_diff` + `collect_styles`; regression-locked by 4 new `review_differ`
+golden cases incl. `styles_preloaded_match`). `styles.xml` is now diffed by **styleId presence/content scoped to
+the styleIds the bodies reference** — NOT baseline-subtracted — so a preloaded-but-identical style (clone) matches
+a lazily-materialized one (Word), and unreferenced latent styles (UnresolvedMention) are ignored. `fd-link`'s false
+13-missing collapsed to its one real signature (`body:u`). The original limitation, for the record:
 
 The `fd-link` false-13 exposed a **soundness gap in the styles.xml diff**: the clone **preloads its full
 styles.xml** in the blank template while Word **lazily materializes** styles on first use. Baseline-subtraction
