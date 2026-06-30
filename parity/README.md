@@ -42,8 +42,9 @@ parity/
 - ✅ **v2 differ: baseline subtraction** — diff each side's delta-vs-empty-doc so blank-document boilerplate
   cancels (pagenum `extra` 18→4: the ListParagraph cluster dropped). Noise list proven complete; do NOT add
   `Ignorable` (a `<w:ftr>` without `mc:Ignorable` is a real gap, not noise).
+- ✅ **rId-value normalization** — per-doc relationship-id values (`r:id="rId9"`) canonicalized to `rId#` so
+  header/footer refs match on `type`, not the per-doc id (removed the pagenum default-footer-ref artifact; 18/4 → 17/3)
 - 🔜 task enumeration over the locked scope (main ribbon from `ribbon-data.js`; contextual tabs via UIA inventory)
-- 🔜 rId-value normalization (header/footer refs keyed on `type`, not the per-doc `id`)
 - 🔜 2nd verifier: UI-flow fidelity (DOM introspection vs `ribbon-data.js` spec)
 
 See `docs/SCOPE_LOCKED.md` for the 111 locked features this pipeline targets.

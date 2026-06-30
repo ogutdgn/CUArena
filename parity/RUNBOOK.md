@@ -35,7 +35,9 @@ python parity/engines/run.py --only <id> --capture    # single task
 python parity/engines/run.py --no-baseline        # v1 full-doc diff (debug / no baselines)
 ```
 Output: `parity/results/LEDGER.md` (+ `ledger.json` + per-task `<id>.json`). The ledger header states
-whether **baseline subtraction** is ON (delta-vs-empty-doc) or OFF (v1 full-doc).
+whether **baseline subtraction** is ON (delta-vs-empty-doc) or OFF (v1 full-doc). `--only <id>` **merges**
+its result into the aggregate ledger (it does NOT clobber the other tasks' rows), so the develop-phase
+acceptance gate can re-run one task repeatedly without wiping the ledger.
 
 ## How to ADD a feature/sub-task (this is the bulk of the full operation)
 For each control / sub-feature in `docs/SCOPE_LOCKED.md` (the 111 locked features, expanded into sub-tasks):
@@ -114,10 +116,13 @@ action-specific noise — Word-vs-self auto-surfaces it). Baseline state: all su
   ground-truth were normalized for this.
 - **Noise list:** proven COMPLETE by Word-vs-self (do NOT add `Ignorable` to `NOISE_ATTRS` — a `<w:ftr>`
   WITHOUT `mc:Ignorable` is a real clone fidelity gap, surfaced in the pagenum ledger, not noise).
-- 🔜 **Relationship-id (rId) normalization:** node signatures include the `id`/rId attribute, so Word's
-  default footer ref (`rId9`) reads as `missing` while the clone's (`rId7`) reads as `extra` even though
-  both are the same semantic `type="default"` ref. Word-vs-self is clean (Word reuses rIds deterministically),
-  so this only bites cross-tool. Candidate next refinement: canonicalize rId VALUES (like rsid) before
-  comparison, keying header/footer refs on `type` not `id`.
+- ✅ **Relationship-id (rId) normalization (DONE):** rId VALUES (`r:id="rId9"`, `r:embed="rId4"`…) are
+  per-doc relationship pointers assigned arbitrarily per save — Word emits `rId9` where the clone emits
+  `rId7` for the SAME semantic reference. `meaningful_attrs` canonicalizes any `^rId\d+$` value to `rId#`
+  (kept as an attribute, not dropped — so a clone that DROPS the relationship entirely still surfaces), so
+  references match on their real discriminator (e.g. footerReference `w:type`). Removed the pagenum artifact
+  where the default footer ref read as BOTH `missing` (Word rId9) and `extra` (clone rId7); pagenum 18/4 → 17/3.
+  Locked by golden cases `rid_canon` (same ref, different rId → 0 diff) + `rid_type_differs` (different `type`
+  → still surfaces).
 - 🔜 **Flow verifier** (separate): DOM-introspect the clone (dropdown/dialog/contextual-tab/items) and
   diff against the `ribbon-data.js` declared `type`/`items[]` — UI-flow fidelity, not OOXML.

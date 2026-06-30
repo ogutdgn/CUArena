@@ -4,17 +4,16 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 6,
-    "missing": 18,
-    "extra": 4
+    "match": 7,
+    "missing": 17,
+    "extra": 3
   },
   "missing_nodes": [
-    "body:footerReference[('id', 'rId11'), ('type', 'first')]",
-    "body:footerReference[('id', 'rId8'), ('type', 'even')]",
-    "body:footerReference[('id', 'rId9'), ('type', 'default')]",
-    "body:headerReference[('id', 'rId10'), ('type', 'first')]",
-    "body:headerReference[('id', 'rId6'), ('type', 'even')]",
-    "body:headerReference[('id', 'rId7'), ('type', 'default')]",
+    "body:footerReference[('id', 'rId#'), ('type', 'even')]",
+    "body:footerReference[('id', 'rId#'), ('type', 'first')]",
+    "body:headerReference[('id', 'rId#'), ('type', 'default')]",
+    "body:headerReference[('id', 'rId#'), ('type', 'even')]",
+    "body:headerReference[('id', 'rId#'), ('type', 'first')]",
     "footer:ftr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
     "footer:instrText[('space', 'preserve')]|text=PAGE \\* MERGEFORMAT",
     "footer:noProof[]",
@@ -29,19 +28,18 @@
     "header:p[]"
   ],
   "extra_nodes": [
-    "body:footerReference[('id', 'rId7'), ('type', 'default')]",
     "footer:ftr[]",
     "footer:instrText[('space', 'preserve')]|text=PAGE",
     "footer:rPr[]"
   ],
   "part_counts": {
-    "footer": {
-      "word": 3,
-      "clone": 1
-    },
     "header": {
       "word": 3,
       "clone": 0
+    },
+    "footer": {
+      "word": 3,
+      "clone": 1
     }
   },
   "id": "pagenum",

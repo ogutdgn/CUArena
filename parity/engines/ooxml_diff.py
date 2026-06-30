@@ -21,6 +21,13 @@ W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 # attribute LOCAL names that are per-save noise (random every save) -> stripped
 NOISE_ATTRS = {"rsid", "rsidr", "rsidrpr", "rsidrdefault", "rsidp", "rsidtr",
                "rsiddel", "rsidsect", "paraid", "textid"}
+# Relationship-id VALUES (r:id="rId9", r:embed="rId4"...) are per-doc pointers assigned
+# arbitrarily per save: Word emits rId9 where the clone emits rId7 for the SAME semantic
+# reference. Canonicalize the VALUE to a constant so references match on their real
+# discriminator (e.g. footerReference w:type) — but keep the attribute present, so a clone
+# that DROPS the relationship entirely still surfaces as a gap.
+RID_RE = re.compile(r"^rId\d+$")
+RID_CANON = "rId#"
 # text content matters for these (field instructions) -> folded into the signature
 TEXT_NODES = {"instrText"}
 
@@ -45,6 +52,8 @@ def meaningful_attrs(el):
         ln = local(k).lower()
         if ln in NOISE_ATTRS:
             continue
+        if RID_RE.match(v):
+            v = RID_CANON   # canonicalize per-doc relationship-id values
         out.append((local(k), v))
     return tuple(sorted(out))
 

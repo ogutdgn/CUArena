@@ -124,9 +124,27 @@ def main():
         results.append(d)
         print(f"  -> {d['verdict']}  match={d['counts']['match']} missing={d['counts']['missing']} extra={d['counts']['extra']}")
 
-    path = ledger.write_ledger(results, RESULTS)
-    seeds = ledger.write_spec_seeds(results, RESULTS)
-    print(f"\nLedger written: {path}  ({len(results)} tasks)")
+    # When running a SUBSET (--only), MERGE into the existing aggregate ledger instead of
+    # clobbering it with just this task — the develop-phase acceptance gate re-runs one task
+    # repeatedly and must not wipe the other tasks' rows.
+    ledger_results = results
+    if a.only:
+        prev = []
+        lj = os.path.join(RESULTS, "ledger.json")
+        if os.path.exists(lj):
+            try:
+                prev = json.load(open(lj, encoding="utf-8"))
+            except Exception:
+                prev = []
+        merged = {r.get("id"): r for r in prev}
+        for r in results:
+            merged[r.get("id")] = r           # fresh run replaces the stale row for this id
+        ledger_results = list(merged.values())
+
+    path = ledger.write_ledger(ledger_results, RESULTS)
+    seeds = ledger.write_spec_seeds(ledger_results, RESULTS)
+    print(f"\nLedger written: {path}  ({len(ledger_results)} tasks"
+          f"{f'; updated {len(results)} via --only' if a.only else ''})")
     print(f"Spec seeds written: {seeds}  (-> /speckit-specify input)")
 
 

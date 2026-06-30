@@ -29,6 +29,7 @@ SELFTEST = os.path.join(PARITY, "fixtures", "selftest")
 GOLDEN_DIR = os.path.join(SELFTEST, "golden")
 RESULTS = os.path.join(PARITY, "results")
 WNS = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'
+RNS = 'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"'
 CT = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
       '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
       '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
@@ -39,7 +40,7 @@ CT = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
 
 def make_docx(path, body_inner, extra_parts=None):
     doc = (f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-           f'<w:document {WNS}><w:body>{body_inner}</w:body></w:document>')
+           f'<w:document {WNS} {RNS}><w:body>{body_inner}</w:body></w:document>')
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("[Content_Types].xml", CT)
         z.writestr("word/document.xml", doc)
@@ -70,6 +71,13 @@ def build_golden():
         ("multiplicity", 1, 0, '<w:tbl><w:tblGrid><w:gridCol w:w="100"/><w:gridCol w:w="100"/><w:gridCol w:w="100"/></w:tblGrid></w:tbl>',
                                '<w:tbl><w:tblGrid><w:gridCol w:w="100"/><w:gridCol w:w="100"/></w:tblGrid></w:tbl>', None, None),
         ("part_collapse", 0, 0, '', '', {"word/footer1.xml": ftr_part("X")}, {"word/footer2.xml": ftr_part("X")}),
+        # rId VALUES are per-doc relationship pointers (Word rId9 vs clone rId7): the SAME
+        # default footer ref under different rIds must diff to 0 (match on type, not the id value).
+        ("rid_canon", 0, 0, P('<w:footerReference w:type="default" r:id="rId9"/>'),
+                            P('<w:footerReference w:type="default" r:id="rId7"/>'), None, None),
+        # ...but a genuinely different TYPE (default vs even) must still surface as missing+extra.
+        ("rid_type_differs", 1, 1, P('<w:footerReference w:type="default" r:id="rId9"/>'),
+                                   P('<w:footerReference w:type="even" r:id="rId8"/>'), None, None),
     ]
     for name, em, ee, ab, bb, ax, bx in spec:
         pa = os.path.join(GOLDEN_DIR, f"g_{name}_a.docx")

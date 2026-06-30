@@ -61,15 +61,14 @@ python parity/engines/run.py --only table   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Page Number` output match real Microsoft Word.
 **Sub-tasks covered:** `pagenum`
 **Ground truth:** `parity/fixtures/rw-pagenum.docx`
-**Current parity:** GAP — 18 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 17 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (pagenum): emit `body:footerReference[('id', 'rId11'), ('type', 'first')]`
-- FR (pagenum): emit `body:footerReference[('id', 'rId8'), ('type', 'even')]`
-- FR (pagenum): emit `body:footerReference[('id', 'rId9'), ('type', 'default')]`
-- FR (pagenum): emit `body:headerReference[('id', 'rId10'), ('type', 'first')]`
-- FR (pagenum): emit `body:headerReference[('id', 'rId6'), ('type', 'even')]`
-- FR (pagenum): emit `body:headerReference[('id', 'rId7'), ('type', 'default')]`
+- FR (pagenum): emit `body:footerReference[('id', 'rId#'), ('type', 'even')]`
+- FR (pagenum): emit `body:footerReference[('id', 'rId#'), ('type', 'first')]`
+- FR (pagenum): emit `body:headerReference[('id', 'rId#'), ('type', 'default')]`
+- FR (pagenum): emit `body:headerReference[('id', 'rId#'), ('type', 'even')]`
+- FR (pagenum): emit `body:headerReference[('id', 'rId#'), ('type', 'first')]`
 - FR (pagenum): emit `footer:ftr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]`
 - FR (pagenum): emit `footer:instrText[('space', 'preserve')]|text=PAGE \* MERGEFORMAT`
 - FR (pagenum): emit `footer:noProof[]`
@@ -84,14 +83,13 @@ python parity/engines/run.py --only table   # expect: semantic-pass, missing = 0
 - FR (pagenum): emit `header:p[]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (pagenum): stop emitting (or justify) `body:footerReference[('id', 'rId7'), ('type', 'default')]`
 - FID (pagenum): stop emitting (or justify) `footer:ftr[]`
 - FID (pagenum): stop emitting (or justify) `footer:instrText[('space', 'preserve')]|text=PAGE`
 - FID (pagenum): stop emitting (or justify) `footer:rPr[]`
 
 ### Structural requirements
-- STR (pagenum): `footer` parts — Word=3, clone=1
 - STR (pagenum): `header` parts — Word=3, clone=0
+- STR (pagenum): `footer` parts — Word=3, clone=1
 
 ### Acceptance (regression gate)
 ```
