@@ -7,6 +7,32 @@
 
 ---
 
+## 2026-06-30 (PARITY PIPELINE — T0 batch: 8 Home controls enumerated + diffed on `parity-pipeline`)
+
+> **Branch:** `parity-pipeline` @ `15e97db` (committed, **NOT merged** — user decides). Phase: parity harness,
+> Step 2 enumeration STARTED (T0 only, main-ribbon only, UIA deferred — user scope). **Entry: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+>
+> **Done — T0 batch (8 most-used Home controls):** Bold, Italic, Underline, Font, Font Size, Bullets, Align Left,
+> Center. 7 new probes + 7 Word-COM ground-truths (bold was the pilot); `run.py --tier T0` filter (subset runs
+> MERGE the ledger, never clobber). Copy/Cut/Paste DEFERRED to the flow verifier (no clean OOXML delta;
+> `tasks.json._flow_verifier_candidates`). **T0 ledger (baselined, rId+numId normalized):** bold/italic/underline
+> 0/2, center 0/3, fontsize 0/3, alignleft 0/5, fontface 1/3, bullets 1/3.
+>
+> **Real clone gaps surfaced (the develop backlog):** (1) ⭐ SYSTEMIC — clone over-emits `<w14:ligatures>` +
+> `<w14:cntxtAlts>` in EVERY run rPr (all 8); Word emits neither → one clone fix clears an `extra` from every
+> control. (2) bullets: clone omits `pStyle=ListParagraph`. (3) fontface: over-specifies `rFonts` cs+eastAsia.
+> (4) fontsize: over-emits `szCs`. (5) alignleft: emits explicit `jc=left` (Word omits the default).
+>
+> **14-agent adversarial review (11/11 confirmed):** all 8 probes faithful; 7/8 ground-truths COM==ribbon (bullets
+> singleLevel-vs-hybridMultilevel is numbering.xml-only, out of differ scope → no vsto recapture today); every clone
+> gap real. Surfaced + FIXED the `numId` per-doc-id phantom (canonicalize numId/abstractNumId values like rId, NOT
+> ilvl; bullets 2/4→1/3; golden `numid_canon`/`ilvl_not_canon`). DEFERRED differ limitations (RUNBOOK): rFonts
+> whole-tuple tokenization phantom (fontface `missing rFonts[ascii,hAnsi]` is a phantom — real delta is the
+> cs/eastAsia over-spec); numbering.xml/styles.xml resolution (list KIND, style content).
+>
+> **NEXT = user scopes T1** (which T1 controls, task budget; UIA still deferred until contextual tabs). Gates:
+> review_differ.py golden 11/11 + golden-baseline 5/5 + self-tests clean.
+
 ## 2026-06-30 (PARITY PIPELINE — v2 baseline subtraction + engine refinements LANDED on `parity-pipeline`)
 
 > **Branch:** `parity-pipeline` @ `0a8a4b9` (3 commits this session, **NOT merged** — user decides). Phase: parity
