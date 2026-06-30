@@ -255,7 +255,9 @@ IDENTIFIED_GAPS = [
     ("fd-bullet-font", "Define New Bullet", "Bullet font", "GAP",
      "Word writes abstractNum/lvl/rPr/rFonts; the clone has NO font picker AND applyListDefinition.js:77-78 STRIPS rFonts -> clone never emits a bullet font. numbering.xml-only."),
     ("fd-bullet-align", "Define New Bullet", "Bullet alignment", "GAP",
-     "Word writes w:lvlJc; the clone has no alignment control and never emits lvlJc. numbering.xml-only."),
+     "NARROWED by review: the clone DOES emit w:lvlJc=left (Word's default; bullets.json shows it as an 'extra' only "
+     "because the COM singleLevel ground truth omits it). The real gap is only the missing Centered/Right alignment "
+     "FIELD (applyListDefinition writes numFmt/lvlText but no non-default lvlJc; defineNewBulletDialog has no align control)."),
     ("fd-num-format", "Define New Number Format", "Number format (decimal/letter/roman)", "ARTIFACT",
      "Defining signal lives ONLY in numbering.xml (abstractNum numFmt/lvlText); document.xml has just w:numPr (numId canonicalized). COM ApplyListTemplate writes a singleLevel template vs the clone's 9-level abstract + a minted numId value -> needs a vsto/numbering.xml ground truth."),
     ("fd-num-style-text", "Define New Number Format", "Number format string (lvlText, e.g. %1) )", "ARTIFACT",
@@ -269,8 +271,10 @@ IDENTIFIED_GAPS = [
     ("fd-continue", "Set Numbering Value", "Continue from previous", "ARTIFACT",
      "numbering.xml: absence of lvlOverride (counter continues); document.xml signal = only the numId reference."),
     # --- Color ---
-    ("fd-highlight-custom", "Highlight", "Custom (non-keyword) highlight color", "FIDELITY",
-     "The highlight gallery is a FIXED 15-keyword set with no custom path; the clone silently DOWNGRADES a custom highlight to character shading (w:shd), a semantically different feature. Word's highlighter has no custom-RGB path at all (nearest = Format>Shading). No clean oracle."),
+    ("fd-highlight-custom", "Highlight", "Custom (non-keyword) highlight color", "ARTIFACT",
+     "NOT A GAP (review): Word's Text Highlight Color dropdown is ALSO 15-keyword-only (no custom-RGB path), and the "
+     "clone restricts its highlighter to the same fixed 15-keyword gallery — so clone == Word. The w:shd downgrade in "
+     "highlight-translator.js is IMPORT-ONLY dead code (fires only for a non-keyword hex no ribbon path emits)."),
     # --- Find/Replace: flow-only (no doc delta) + one replace-path gap ---
     ("fd-find", "Find/Replace", "Find / Match case / Whole word / Wildcards / Format", "FLOW",
      "Find + all search modifiers produce ZERO document delta (decorations/navigation only) -> flow-verifier axis, not OOXML. Wildcard grammar + whole-word definition differ COM-vs-clone (count, not identity)."),
@@ -316,6 +320,21 @@ def main():
     data["_dialog_identified_gaps"] = [
         dict(id=g[0], dialog=g[1], field=g[2], kind=g[3], detail=g[4]) for g in IDENTIFIED_GAPS
     ]
+    # Adversarial-review verdicts (7 skeptic agents) — the VERIFIED classification of every finding.
+    # Full detail + fix hints in parity/results/DEEP_T0_T1_REPORT.md §4.
+    data["_dialog_review_summary"] = {
+        "verified_real_gaps": ["fd-allcaps", "fd-fontcolor-theme", "fd-link(extra-u)", "fd-double-strike",
+                               "fd-hidden", "fd-kerning", "fd-bullet-font", "fd-bullet-align(narrowed)",
+                               "fd-special-replace", "fd-margin-uniform"],
+        "artifacts_not_gaps": ["fd-spacing-after(default-value)", "fd-link(Hyperlink-style: differ-limitation)",
+                               "fd-link(UnresolvedMention: Word-boilerplate)", "fd-num-*(COM singleLevel)",
+                               "fd-highlight-custom(clone==Word, 15-keyword-only)"],
+        "engine_followup": "styles.xml baseline-subtraction is unsound for PRELOADED-vs-LAZY styles (the clone "
+                           "preloads its full styles.xml; Word lazily materializes on use) -> false-missing on "
+                           "fd-link's Hyperlink style. body/header/footer/numbering unaffected. Fix: diff styles by "
+                           "styleId presence/content, not baseline-subtracted signatures. See report 4c.",
+        "report": "parity/results/DEEP_T0_T1_REPORT.md",
+    }
     json.dump(data, open(TASKS, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
     print(f"generated {total} probe+COM pairs across {len(BATCHES)} batches; merged {len(new_tasks)} new tasks into tasks.json")
     print(f"recorded {len(IDENTIFIED_GAPS)} identified gaps (not captured) in tasks.json._dialog_identified_gaps")
