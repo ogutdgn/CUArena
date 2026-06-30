@@ -39,9 +39,22 @@
 > **11/11 semantic-pass 0/0** (byte-identical to Word); flow covered by the verified menus; visual spot-checked
 > (sz-72, ul-double). NO gaps. DEFERRED + logged (`tasks.json._deferred_variations`): numbering formats
 > (numbering.xml COM-artifact, vsto); line-spacing exact/at-least/multiple + indentation (→ Paragraph-dialog batch).
-> **NEXT batches (per dialog, all 3 axes incl. the dialog-open/field/OK flow check):** Font dialog → Paragraph dialog →
-> Bullets/Numbering (Define New) → Color (More Colors) → Find/Replace → T1 Insert/Layout dialogs (Insert Table/Hyperlink/
-> Page Setup). Then (C) the COMBINED deep T0/T1 fidelity report → THEN the dedicated FIX pass (batched, like w14/023).
+> **🏁 DEEP T0/T1 IDENTIFICATION COMPLETE (all 6 dialog batches + variations, all 3 axes).** Report:
+> `parity/results/DEEP_T0_T1_REPORT.md`. Commits: captures+flow `a3bdf91`, verified report `2284f4f`.
+> - **OOXML** (gen_tasks.py 5 dialog batches → 29 measured tasks): 25/29 clean 0/0; the spacing/scale/position
+>   pt→twips/half-point conversions verified EXACT (resolved the investigation's "VERIFY" flags).
+> - **FLOW** (`dialog_flow.py` + `dialog-flow-probe.js`, golden 4/4): 3/6 dialogs flow-complete; runtime-confirms
+>   the Font/Paragraph missing-field gaps.
+> - **VISUAL**: variations render (sz-72/ul-double); dialog-effect parity = OOXML byte-identity (advanced-effect
+>   in-app paint is approximate — honest note in the report).
+> - **Adversarially verified (7 skeptics):** 10 CONFIRMED real gaps + 5 artifacts. KEY CORRECTIONS: fd-link's
+>   "13 missing" = a DIFFER baseline-subtraction limitation (clone PRELOADS the Hyperlink style; Word lazily
+>   materializes → false-missing; body/header/footer/numbering UNAFFECTED — engine follow-up in report §4c);
+>   fd-highlight-custom NOT a gap (clone==Word, 15-keyword-only); fd-bullet-align narrowed (lvlJc=left IS emitted).
+> **THE 10 REAL GAPS (fix candidates, report §4a):** allcaps w:val=1; theme-color (sRGB-only); hyperlink redundant
+> w:u; double-strike/hidden/kerning (no author path); bullet-font (strips rFonts); bullet-align (Center/Right field);
+> ^p-replace-literal; uniform-margins dialog. **NEXT (user decides): the FIX pass** (batched, like w14/023) +/or the
+> differ styles.xml styleId-presence refactor. NOTHING was fixed in this IDENTIFY phase.
 >
 > **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
 > `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
