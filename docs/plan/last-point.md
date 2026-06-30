@@ -20,11 +20,23 @@
 >   judge DISCRIMINATION golden 2/2 (bold-shot-isnt-italic, center-shot-isnt-red). `VISUAL_LEDGER.md` + `visual/shots/*.png`.
 >
 > **DECISIONS LOCKED (user):** visual = clone-only LLM judge (lightest); the 2 fork edits (fontface rFonts, fontsize szCs)
-> are AUTHORIZED. **REMAINING (sequenced):** (A) the 4 OOXML FIXES — ListParagraph [NO-FORK bridge wrapper in lists.ts,
-> closes bullets+numbering + numPr child-order], Align Left [NO-FORK: remap setTextAlign('left')→unsetTextAlign in
-> commands.ts], Font face rFonts [FORK: styles.js decodeRPrFromMarks → ascii+hAnsi only], Font size szCs [FORK: styles.js
-> drop the fontSizeCs auto-sync, mirrors SD-2912]; investigation `whhkobjn3`; acceptance = run.py --only <id> semantic-pass.
-> (B) DEEP ENUMERATION (dialog options + variations, all 3 axes per sub-task). (C) COMBINED deep T0/T1 report.
+> AUTHORIZED.
+>
+> **🏁 (A) the 4 OOXML FIXES — DONE (feature 023, `fd3153c`):** ListParagraph (NO-FORK lists.ts wrapper — pStyle first +
+> numPr {ilvl,numId} in CT_PPr order; closes bullets+numbering body), Align Left (NO-FORK commands.ts remap
+> setTextAlign('left')→unsetTextAlign, CONDITIONAL on resolved alignment so a styled non-left still overrides), Font face
+> (FORK: styles.js fontFamily→{ascii,hAnsi}), Font size (FORK: drop fontSizeCs sync + RUN_PROPERTIES_DERIVED_FROM_MARKS,
+> mirrors SD-2912). **Result: 11/13 Home controls now FULL body parity 0/0** (+ highlight COM-artifact effectively 0/0);
+> bullets/numbering body at parity (remaining "gap" = the numbering.xml COM-artifact only). Gates test:pm 508 / smoke 9 /
+> roundtrip 27/0; review_differ green. **Adversarial review (4 lenses) found + FIXED 2 edge bugs:** numPr CT_PPr order on a
+> formatted list item; Align Left no-op on a style-inherited non-left paragraph. LESSON: pPr exports in key-insertion
+> order (no xmlOrder) — a rebuilt pPr must order keys per CT_PPr; and a default-omit remap must distinguish direct vs
+> style-inherited values.
+>
+> **REMAINING:** (B) DEEP ENUMERATION — per control: dialog options (Font/Paragraph/Bullets-Numbering/Color dialogs = one
+> task per meaningful field) + variations (representative DISTINCT-OOXML values), run all 3 axes per sub-task; log skips.
+> (C) COMBINED deep T0/T1 fidelity report. The MAIN-ACTION T0/T1 slice is now fully closed across all 3 axes — the
+> end-to-end proof is complete; (B) is the depth broadening.
 >
 > **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
 > `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
