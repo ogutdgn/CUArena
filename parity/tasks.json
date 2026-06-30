@@ -3,9 +3,21 @@
   "_flow_verifier_candidates": {
     "_note": "T0 clipboard/flow controls with NO clean single-action OOXML delta — DEFERRED to the UI-flow verifier, NOT the OOXML diff (would block/pollute the batch).",
     "items": [
-      {"id": "copy", "control_id": "home.clipboard.copy", "why": "Copy produces NO document delta (clipboard only)."},
-      {"id": "cut", "control_id": "home.clipboard.cut", "why": "Needs a selection precondition; the delta is a deletion, not an additive feature."},
-      {"id": "paste", "control_id": "home.clipboard.paste", "why": "Needs a clipboard precondition; output depends on clipboard contents/paste-mode."}
+      {
+        "id": "copy",
+        "control_id": "home.clipboard.copy",
+        "why": "Copy produces NO document delta (clipboard only)."
+      },
+      {
+        "id": "cut",
+        "control_id": "home.clipboard.cut",
+        "why": "Needs a selection precondition; the delta is a deletion, not an additive feature."
+      },
+      {
+        "id": "paste",
+        "control_id": "home.clipboard.paste",
+        "why": "Needs a clipboard precondition; output depends on clipboard contents/paste-mode."
+      }
     ]
   },
   "tasks": [
@@ -140,6 +152,116 @@
       "note": "Line spacing 2.0 (w:spacing w:line=480 w:lineRule=auto). COM ParagraphFormat.LineSpacingRule=2 (wdLineSpaceDouble) == ribbon."
     },
     {
+      "id": "ul-single",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline single",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline single",
+      "realword_method": "com",
+      "note": "w:u w:val=single. Same as the main 'underline' task; kept as the variation baseline."
+    },
+    {
+      "id": "ul-double",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline double",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline double",
+      "realword_method": "com",
+      "note": "w:u w:val=double."
+    },
+    {
+      "id": "ul-dotted",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline dotted",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline dotted",
+      "realword_method": "com",
+      "note": "w:u w:val=dotted."
+    },
+    {
+      "id": "ul-dashed",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline dashed",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline dashed",
+      "realword_method": "com",
+      "note": "w:u w:val=dash."
+    },
+    {
+      "id": "ul-wavy",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline wavy",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline wavy",
+      "realword_method": "com",
+      "note": "w:u w:val=wave."
+    },
+    {
+      "id": "ul-words",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline words-only",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline words-only",
+      "realword_method": "com",
+      "note": "w:u w:val=words (underline words, not spaces)."
+    },
+    {
+      "id": "sz-10p5",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Font size 10.5",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Font size 10.5",
+      "realword_method": "com",
+      "note": "Fractional size → w:sz w:val=21 (10.5pt x2)."
+    },
+    {
+      "id": "sz-8",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Font size 8",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Font size 8",
+      "realword_method": "com",
+      "note": "Small size → w:sz w:val=16."
+    },
+    {
+      "id": "sz-72",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Font size 72",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Font size 72",
+      "realword_method": "com",
+      "note": "Large size → w:sz w:val=144."
+    },
+    {
+      "id": "ls-1p0",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Line spacing 1.0",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Line spacing 1.0",
+      "realword_method": "com",
+      "note": "Single → w:spacing w:line=240 w:lineRule=auto. COM wdLineSpaceSingle=0."
+    },
+    {
+      "id": "ls-1p5",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Line spacing 1.5",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Line spacing 1.5",
+      "realword_method": "com",
+      "note": "1.5 lines → w:spacing w:line=360 w:lineRule=auto. COM wdLineSpace1pt5=1."
+    },
+    {
       "id": "pagenum",
       "control_id": "insert.header-footer.pageNumber",
       "feature": "Page Number",
@@ -159,5 +281,10 @@
       "realword_method": "com",
       "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session. (T1 pilot — kept for reference.)"
     }
+  ],
+  "_deferred_variations": [
+    "numbering formats (1./a)/i./A.) — live in numbering.xml (abstractNum numFmt), which is COM!=ribbon-dominated; needs the vsto ribbon ground truth.",
+    "line spacing exactly/at-least/2.5/3.0(multiple) — Paragraph-dialog modes (wdLineSpaceExactly/AtLeast/Multiple); enumerate in the Paragraph dialog batch.",
+    "indentation left/right/first-line/hanging — Paragraph-dialog fields; enumerate in the Paragraph dialog batch."
   ]
 }

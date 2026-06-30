@@ -464,5 +464,225 @@
     "tab": "Insert",
     "usage_tier": "T1",
     "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session. (T1 pilot — kept for reference.)"
+  },
+  {
+    "task": "ls-1p0",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ls-1p0",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Line spacing 1.0",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "Single → w:spacing w:line=240 w:lineRule=auto. COM wdLineSpaceSingle=0."
+  },
+  {
+    "task": "ls-1p5",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ls-1p5",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Line spacing 1.5",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "1.5 lines → w:spacing w:line=360 w:lineRule=auto. COM wdLineSpace1pt5=1."
+  },
+  {
+    "task": "sz-10p5",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "sz-10p5",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Font size 10.5",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "Fractional size → w:sz w:val=21 (10.5pt x2)."
+  },
+  {
+    "task": "sz-72",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "sz-72",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Font size 72",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "Large size → w:sz w:val=144."
+  },
+  {
+    "task": "sz-8",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "sz-8",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Font size 8",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "Small size → w:sz w:val=16."
+  },
+  {
+    "task": "ul-dashed",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ul-dashed",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Underline dashed",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "w:u w:val=dash."
+  },
+  {
+    "task": "ul-dotted",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ul-dotted",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Underline dotted",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "w:u w:val=dotted."
+  },
+  {
+    "task": "ul-double",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ul-double",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Underline double",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "w:u w:val=double."
+  },
+  {
+    "task": "ul-single",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ul-single",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Underline single",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "w:u w:val=single. Same as the main 'underline' task; kept as the variation baseline."
+  },
+  {
+    "task": "ul-wavy",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ul-wavy",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Underline wavy",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "w:u w:val=wave."
+  },
+  {
+    "task": "ul-words",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "ul-words",
+    "control_id": "home.font/paragraph.variation",
+    "feature": "Underline words-only",
+    "tab": "Home",
+    "usage_tier": "TV",
+    "note": "w:u w:val=words (underline words, not spaces)."
   }
 ]

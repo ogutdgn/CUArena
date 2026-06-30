@@ -1,0 +1,20 @@
+{
+  "task": "ls-1p0",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "ls-1p0",
+  "control_id": "home.font/paragraph.variation",
+  "feature": "Line spacing 1.0",
+  "tab": "Home",
+  "usage_tier": "TV",
+  "note": "Single → w:spacing w:line=240 w:lineRule=auto. COM wdLineSpaceSingle=0."
+}

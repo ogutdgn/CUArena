@@ -485,3 +485,256 @@ python parity/engines/run.py --only highlight   # expect: semantic-pass, missing
 `/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
 
 ---
+
+## Font size 10.5  (Home · TV)
+
+**Goal:** make the clone's `Font size 10.5` output match real Microsoft Word.
+**Sub-tasks covered:** `sz-10p5`
+**Ground truth:** `parity/fixtures/rw-sz-10p5.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only sz-10p5   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font size 72  (Home · TV)
+
+**Goal:** make the clone's `Font size 72` output match real Microsoft Word.
+**Sub-tasks covered:** `sz-72`
+**Ground truth:** `parity/fixtures/rw-sz-72.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only sz-72   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Font size 8  (Home · TV)
+
+**Goal:** make the clone's `Font size 8` output match real Microsoft Word.
+**Sub-tasks covered:** `sz-8`
+**Ground truth:** `parity/fixtures/rw-sz-8.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only sz-8   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Line spacing 1.0  (Home · TV)
+
+**Goal:** make the clone's `Line spacing 1.0` output match real Microsoft Word.
+**Sub-tasks covered:** `ls-1p0`
+**Ground truth:** `parity/fixtures/rw-ls-1p0.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ls-1p0   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Line spacing 1.5  (Home · TV)
+
+**Goal:** make the clone's `Line spacing 1.5` output match real Microsoft Word.
+**Sub-tasks covered:** `ls-1p5`
+**Ground truth:** `parity/fixtures/rw-ls-1p5.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ls-1p5   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Underline dashed  (Home · TV)
+
+**Goal:** make the clone's `Underline dashed` output match real Microsoft Word.
+**Sub-tasks covered:** `ul-dashed`
+**Ground truth:** `parity/fixtures/rw-ul-dashed.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ul-dashed   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Underline dotted  (Home · TV)
+
+**Goal:** make the clone's `Underline dotted` output match real Microsoft Word.
+**Sub-tasks covered:** `ul-dotted`
+**Ground truth:** `parity/fixtures/rw-ul-dotted.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ul-dotted   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Underline double  (Home · TV)
+
+**Goal:** make the clone's `Underline double` output match real Microsoft Word.
+**Sub-tasks covered:** `ul-double`
+**Ground truth:** `parity/fixtures/rw-ul-double.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ul-double   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Underline single  (Home · TV)
+
+**Goal:** make the clone's `Underline single` output match real Microsoft Word.
+**Sub-tasks covered:** `ul-single`
+**Ground truth:** `parity/fixtures/rw-ul-single.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ul-single   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Underline wavy  (Home · TV)
+
+**Goal:** make the clone's `Underline wavy` output match real Microsoft Word.
+**Sub-tasks covered:** `ul-wavy`
+**Ground truth:** `parity/fixtures/rw-ul-wavy.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ul-wavy   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Underline words-only  (Home · TV)
+
+**Goal:** make the clone's `Underline words-only` output match real Microsoft Word.
+**Sub-tasks covered:** `ul-words`
+**Ground truth:** `parity/fixtures/rw-ul-words.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only ul-words   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
