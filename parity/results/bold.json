@@ -6,13 +6,10 @@
   "counts": {
     "match": 4,
     "missing": 0,
-    "extra": 2
+    "extra": 0
   },
   "missing_nodes": [],
-  "extra_nodes": [
-    "body:cntxtAlts[]",
-    "body:ligatures[('val', 'standard')]"
-  ],
+  "extra_nodes": [],
   "part_counts": {},
   "id": "bold",
   "control_id": "home.font.bold",

@@ -7,17 +7,14 @@ Auto-generated from the parity ledger. Each block is a feature whose clone outpu
 **Goal:** make the clone's `Align Left` output match real Microsoft Word.
 **Sub-tasks covered:** `alignleft`
 **Ground truth:** `parity/fixtures/rw-alignleft.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 5 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (alignleft): stop emitting (or justify) `body:cntxtAlts[]`
 - FID (alignleft): stop emitting (or justify) `body:jc[('val', 'left')]`
-- FID (alignleft): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
 - FID (alignleft): stop emitting (or justify) `body:pPr[]`
-- FID (alignleft): stop emitting (or justify) `body:rPr[]`
 
 ### Acceptance (regression gate)
 ```
@@ -34,14 +31,13 @@ python parity/engines/run.py --only alignleft   # expect: semantic-pass, missing
 **Goal:** make the clone's `Bold` output match real Microsoft Word.
 **Sub-tasks covered:** `bold`
 **Ground truth:** `parity/fixtures/rw-bold.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 2 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (bold): stop emitting (or justify) `body:cntxtAlts[]`
-- FID (bold): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -58,15 +54,13 @@ python parity/engines/run.py --only bold   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Bullets` output match real Microsoft Word.
 **Sub-tasks covered:** `bullets`
 **Ground truth:** `parity/fixtures/rw-bullets.docx`
-**Current parity:** GAP — 1 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (bullets): emit `body:pStyle[('val', 'ListParagraph')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (bullets): stop emitting (or justify) `body:cntxtAlts[]`
-- FID (bullets): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
-- FID (bullets): stop emitting (or justify) `body:rPr[]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -83,15 +77,13 @@ python parity/engines/run.py --only bullets   # expect: semantic-pass, missing =
 **Goal:** make the clone's `Center` output match real Microsoft Word.
 **Sub-tasks covered:** `center`
 **Ground truth:** `parity/fixtures/rw-center.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (center): stop emitting (or justify) `body:cntxtAlts[]`
-- FID (center): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
-- FID (center): stop emitting (or justify) `body:rPr[]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -108,14 +100,12 @@ python parity/engines/run.py --only center   # expect: semantic-pass, missing = 
 **Goal:** make the clone's `Font` output match real Microsoft Word.
 **Sub-tasks covered:** `fontface`
 **Ground truth:** `parity/fixtures/rw-fontface.docx`
-**Current parity:** GAP — 1 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (fontface): emit `body:rFonts[('ascii', 'Arial'), ('hAnsi', 'Arial')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (fontface): stop emitting (or justify) `body:cntxtAlts[]`
-- FID (fontface): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
 - FID (fontface): stop emitting (or justify) `body:rFonts[('ascii', 'Arial'), ('cs', 'Arial'), ('eastAsia', 'Arial'), ('hAnsi', 'Arial')]`
 
 ### Acceptance (regression gate)
@@ -133,14 +123,12 @@ python parity/engines/run.py --only fontface   # expect: semantic-pass, missing 
 **Goal:** make the clone's `Font Size` output match real Microsoft Word.
 **Sub-tasks covered:** `fontsize`
 **Ground truth:** `parity/fixtures/rw-fontsize.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (fontsize): stop emitting (or justify) `body:cntxtAlts[]`
-- FID (fontsize): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
 - FID (fontsize): stop emitting (or justify) `body:szCs[('val', '28')]`
 
 ### Acceptance (regression gate)
@@ -158,14 +146,13 @@ python parity/engines/run.py --only fontsize   # expect: semantic-pass, missing 
 **Goal:** make the clone's `Italic` output match real Microsoft Word.
 **Sub-tasks covered:** `italic`
 **Ground truth:** `parity/fixtures/rw-italic.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 2 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (italic): stop emitting (or justify) `body:cntxtAlts[]`
-- FID (italic): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -182,14 +169,13 @@ python parity/engines/run.py --only italic   # expect: semantic-pass, missing = 
 **Goal:** make the clone's `Underline` output match real Microsoft Word.
 **Sub-tasks covered:** `underline`
 **Ground truth:** `parity/fixtures/rw-underline.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 2 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (underline): stop emitting (or justify) `body:cntxtAlts[]`
-- FID (underline): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```

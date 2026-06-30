@@ -6,14 +6,12 @@
   "counts": {
     "match": 3,
     "missing": 1,
-    "extra": 3
+    "extra": 1
   },
   "missing_nodes": [
     "body:rFonts[('ascii', 'Arial'), ('hAnsi', 'Arial')]"
   ],
   "extra_nodes": [
-    "body:cntxtAlts[]",
-    "body:ligatures[('val', 'standard')]",
     "body:rFonts[('ascii', 'Arial'), ('cs', 'Arial'), ('eastAsia', 'Arial'), ('hAnsi', 'Arial')]"
   ],
   "part_counts": {},

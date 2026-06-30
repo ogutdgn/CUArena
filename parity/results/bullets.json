@@ -6,16 +6,12 @@
   "counts": {
     "match": 6,
     "missing": 1,
-    "extra": 3
+    "extra": 0
   },
   "missing_nodes": [
     "body:pStyle[('val', 'ListParagraph')]"
   ],
-  "extra_nodes": [
-    "body:cntxtAlts[]",
-    "body:ligatures[('val', 'standard')]",
-    "body:rPr[]"
-  ],
+  "extra_nodes": [],
   "part_counts": {},
   "id": "bullets",
   "control_id": "home.paragraph.bullets",

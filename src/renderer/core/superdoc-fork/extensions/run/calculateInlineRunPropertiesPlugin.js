@@ -667,6 +667,31 @@ function getInlineRunProperties(
             ? mergeFontFamilyPreservingThemeRefs(valueFromMarks, existingFontFamily)
             : valueFromMarks;
         }
+      } else if (key === 'ligatures' || key === 'contextualAlternates') {
+        // MS-WORD-CLONE FORK EDIT (022, user-authorized; NOTICE'd): the docDefault ligatures value
+        // 'standardContextual' round-trips lossily through the textStyle mark to ligatures:'standard'
+        // + contextualAlternates:true, so a RAW value compare always flags it as a per-run override
+        // and promotes <w14:ligatures>/<w14:cntxtAlts> INLINE on every run — but real Word keeps the
+        // value in docDefaults only. Compare the CSS-NORMALIZED form instead (mirroring the fontFamily
+        // branch above): the (ligatures, contextualAlternates) pair is only a genuine inline override
+        // when its composed font-variant-ligatures differs from the resolved style's. So
+        // 'standardContextual' (style) and 'standard'+cntxtAlts (mark) both normalize to
+        // 'common-ligatures contextual' → not promoted; an explicit pick (All/None/standard-only)
+        // normalizes differently → still emitted. Parity-gated by specs/022-w14-ligatures-inline.
+        // SAME-CLASS FOLLOW-UP (latent, not yet parity-triggered): 'stylisticSets' has the identical
+        // lossy round-trip (mark-decode [{id,val:true}] vs style/import [{id}]) and would over-emit
+        // <w14:stylisticSets> inline if a docDefault/char-style ever carried it; extend this branch with a
+        // composeFontFeatureSettings comparison when the parity pipeline surfaces it. (numForm/numSpacing
+        // round-trip 1:1 and are safe.)
+        const docx = editor.converter?.convertedXml ?? {};
+        const ligCss = (props) =>
+          encodeMarksFromRPr(
+            { ligatures: props.ligatures, contextualAlternates: props.contextualAlternates },
+            docx,
+          ).find((m) => m?.type === 'textStyle')?.attrs?.fontVariantLigatures ?? null;
+        if (ligCss(runPropertiesFromMarks) !== ligCss(runPropertiesFromStyles)) {
+          inlineRunProperties[key] = valueFromMarks;
+        }
       } else {
         inlineRunProperties[key] = valueFromMarks;
       }

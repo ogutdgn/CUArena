@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--only", default=None, help="run a single task id")
     ap.add_argument("--tier", default=None, help="run only tasks of this usage_tier (e.g. T0)")
     ap.add_argument("--capture", action="store_true", help="(re)capture both sides before diffing")
+    ap.add_argument("--capture-clone", action="store_true", help="(re)capture ONLY the clone side (after a clone source fix; real Word unchanged)")
     ap.add_argument("--capture-baseline", action="store_true", help="(re)capture ONLY the empty-doc baselines")
     ap.add_argument("--no-baseline", action="store_true", help="diff full docs without baseline subtraction (v1 behavior)")
     a = ap.parse_args()
@@ -114,6 +115,8 @@ def main():
         if a.capture:
             print("  capturing clone..."); capture_clone(tid)
             print("  capturing real Word..."); capture_realword(tid, t.get("realword_method", "com"))
+        elif a.capture_clone:
+            print("  capturing clone (clone-only)..."); capture_clone(tid)
         rw = os.path.join(FIX, f"rw-{tid}.docx")
         wc = os.path.join(FIX, f"wc-{tid}.docx")
         if not (os.path.exists(rw) and os.path.exists(wc)):

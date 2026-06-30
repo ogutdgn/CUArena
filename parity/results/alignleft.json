@@ -6,15 +6,12 @@
   "counts": {
     "match": 2,
     "missing": 0,
-    "extra": 5
+    "extra": 2
   },
   "missing_nodes": [],
   "extra_nodes": [
-    "body:cntxtAlts[]",
     "body:jc[('val', 'left')]",
-    "body:ligatures[('val', 'standard')]",
-    "body:pPr[]",
-    "body:rPr[]"
+    "body:pPr[]"
   ],
   "part_counts": {},
   "id": "alignleft",
