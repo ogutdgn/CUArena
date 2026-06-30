@@ -7,6 +7,37 @@
 
 ---
 
+## 2026-06-30 (PARITY PIPELINE — v2 differ = baseline subtraction LANDED on branch `parity-pipeline`)
+
+> **Branch:** `parity-pipeline` @ `e94dad7` (committed, **NOT merged** — user decides). Phase: parity
+> measurement harness. **Entry point: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+>
+> **Done this session — Step 1 (v2 differ = baseline subtraction):** `ooxml_diff.diff()` now compares each
+> side's **signed** delta-vs-its-own-empty-doc baseline (`rw-blank.docx`/`wc-blank.docx`) before bucketing, so
+> blank-document boilerplate cancels and only the feature delta is shown. `run.py` captures the baselines once
+> (`--capture`/`--capture-baseline`; `--no-baseline` = v1) and subtracts them from every task. NEW blank probe +
+> `realword_blank.ps1`; normalized the pagenum probe to clear to one empty `<p></p>` (the demo ListParagraph was
+> leaking only there) + dropped incidental body text from `realword_pagenum.ps1`. **Result:** pagenum `extra`
+> **18→4** (the 14-node ListParagraph/numId/numPr demo cluster gone), bold 0/2 + table 7/2 unchanged; spec-seeds
+> now focused. Fixed a Windows cp1252 `print` crash in `review_differ.py` (UTF-8 guard) so the reviewer runs to
+> exit 0.
+>
+> **Adversarial review (Workflow, 4 lenses → verify) caught 2 real soundness holes in the first cut, both FIXED:**
+> (a) `Counter '-'` floors negatives → would HIDE a feature-driven reduction (clear-formatting/delete) → switched to
+> **signed per-signature deltas**; (b) the two baselines come from different engines (Word COM vs clone) → asymmetric
+> blanks could inject **silent** false signal → added a **`baseline_divergence` guard** (reported in `diff()` + a loud
+> `run.py`/ledger warning; the shipped blanks are signature-identical so it's empty today). Both locked by NEW
+> GOLDEN-BASELINE regression cases (now **5**: boilerplate cancels, real missing/extra/reduction survive, divergent
+> baselines flagged). `review_differ.py` ALL GREEN (golden 7/7, golden-baseline 5/5, Word-vs-self clean, clone-vs-self
+> deterministic, exit 0). **LESSON:** baseline subtraction must use SIGNED deltas (not Counter floor) and must SURFACE
+> baseline divergence, else it can hide reductions / invent signal — and that diff IS the RL reward.
+>
+> **NEXT (per RUNBOOK, user picks):** Step 2 = **enumerator** — main tabs from `ribbon-data.js`; contextual tabs
+> (Table Design/Layout) from a real-Word **UIA inventory** (the clone's `table-tools-pm.js` is only a subset). Then
+> batch capture+diff in usage-tier order → develop via spec-kit (`SPEC_SEEDS.md` → `/speckit-specify` → fix →
+> `run.py --only <id>` acceptance gate). Engine refinement on deck: **rId-value normalization** (header/footer refs
+> key on `type`, not the per-doc `id`).
+
 ## 2026-06-29 (PARITY PIPELINE — clone-vs-real-Word measurement harness BUILT on branch `parity-pipeline`)
 
 > **Branch:** `parity-pipeline` (NOT merged to main — user decides later). Phase: building the parity
