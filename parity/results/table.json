@@ -1,0 +1,34 @@
+{
+  "task": "table",
+  "verdict": "gap",
+  "counts": {
+    "match": 15,
+    "missing": 7,
+    "extra": 2
+  },
+  "missing_nodes": [
+    "body:bottom[('type', 'dxa'), ('w', '0')]",
+    "body:tblCellMar[]",
+    "body:tblLayout[('type', 'fixed')]",
+    "body:tblLook[('firstColumn', '0'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '0'), ('val', '0000')]",
+    "body:tblPrEx[]",
+    "body:tblW[('type', 'auto'), ('w', '0')]",
+    "body:top[('type', 'dxa'), ('w', '0')]"
+  ],
+  "extra_nodes": [
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tblStyle[('val', 'TableGrid')]"
+  ],
+  "part_counts": {
+    "body": {
+      "word": 1,
+      "clone": 1
+    }
+  },
+  "id": "table",
+  "control_id": "insert.tables.table",
+  "feature": "Insert Table",
+  "tab": "Insert",
+  "usage_tier": "T1",
+  "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session."
+}

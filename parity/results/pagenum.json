@@ -1,0 +1,69 @@
+{
+  "task": "pagenum",
+  "verdict": "gap",
+  "counts": {
+    "match": 15,
+    "missing": 18,
+    "extra": 18
+  },
+  "missing_nodes": [
+    "body:footerReference[('id', 'rId11'), ('type', 'first')]",
+    "body:footerReference[('id', 'rId8'), ('type', 'even')]",
+    "body:footerReference[('id', 'rId9'), ('type', 'default')]",
+    "body:headerReference[('id', 'rId10'), ('type', 'first')]",
+    "body:headerReference[('id', 'rId6'), ('type', 'even')]",
+    "body:headerReference[('id', 'rId7'), ('type', 'default')]",
+    "footer:ftr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
+    "footer:instrText[('space', 'preserve')]|text=PAGE \\* MERGEFORMAT",
+    "footer:noProof[]",
+    "footer:pPr[]",
+    "footer:pStyle[('val', 'Footer')]",
+    "footer:p[]",
+    "footer:r[]",
+    "footer:t[]",
+    "header:hdr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
+    "header:pPr[]",
+    "header:pStyle[('val', 'Header')]",
+    "header:p[]"
+  ],
+  "extra_nodes": [
+    "body:cntxtAlts[]",
+    "body:footerReference[('id', 'rId7'), ('type', 'default')]",
+    "body:ilvl[('val', '0')]",
+    "body:ilvl[('val', '1')]",
+    "body:ligatures[('val', 'standard')]",
+    "body:numId[('val', '2')]",
+    "body:numId[('val', '3')]",
+    "body:numPr[]",
+    "body:pPr[]",
+    "body:pStyle[('val', 'ListParagraph')]",
+    "body:p[]",
+    "body:rPr[]",
+    "body:r[]",
+    "body:t[('space', 'preserve')]",
+    "body:t[]",
+    "footer:ftr[]",
+    "footer:instrText[('space', 'preserve')]|text=PAGE",
+    "footer:rPr[]"
+  ],
+  "part_counts": {
+    "footer": {
+      "word": 3,
+      "clone": 1
+    },
+    "header": {
+      "word": 3,
+      "clone": 0
+    },
+    "body": {
+      "word": 1,
+      "clone": 1
+    }
+  },
+  "id": "pagenum",
+  "control_id": "insert.header-footer.pageNumber",
+  "feature": "Page Number",
+  "tab": "Insert",
+  "usage_tier": "T1",
+  "note": "PAGE field in footer. Field shape, lands in footer part."
+}

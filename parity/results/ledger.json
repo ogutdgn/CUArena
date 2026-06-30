@@ -1,0 +1,131 @@
+[
+  {
+    "task": "bold",
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 11,
+      "missing": 0,
+      "extra": 2
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:ligatures[('val', 'standard')]"
+    ],
+    "part_counts": {
+      "body": {
+        "word": 1,
+        "clone": 1
+      }
+    },
+    "id": "bold",
+    "control_id": "home.font.bold",
+    "feature": "Bold",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "Bold mark on a run. COM == ribbon."
+  },
+  {
+    "task": "pagenum",
+    "verdict": "gap",
+    "counts": {
+      "match": 15,
+      "missing": 18,
+      "extra": 18
+    },
+    "missing_nodes": [
+      "body:footerReference[('id', 'rId11'), ('type', 'first')]",
+      "body:footerReference[('id', 'rId8'), ('type', 'even')]",
+      "body:footerReference[('id', 'rId9'), ('type', 'default')]",
+      "body:headerReference[('id', 'rId10'), ('type', 'first')]",
+      "body:headerReference[('id', 'rId6'), ('type', 'even')]",
+      "body:headerReference[('id', 'rId7'), ('type', 'default')]",
+      "footer:ftr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
+      "footer:instrText[('space', 'preserve')]|text=PAGE \\* MERGEFORMAT",
+      "footer:noProof[]",
+      "footer:pPr[]",
+      "footer:pStyle[('val', 'Footer')]",
+      "footer:p[]",
+      "footer:r[]",
+      "footer:t[]",
+      "header:hdr[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]",
+      "header:pPr[]",
+      "header:pStyle[('val', 'Header')]",
+      "header:p[]"
+    ],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:footerReference[('id', 'rId7'), ('type', 'default')]",
+      "body:ilvl[('val', '0')]",
+      "body:ilvl[('val', '1')]",
+      "body:ligatures[('val', 'standard')]",
+      "body:numId[('val', '2')]",
+      "body:numId[('val', '3')]",
+      "body:numPr[]",
+      "body:pPr[]",
+      "body:pStyle[('val', 'ListParagraph')]",
+      "body:p[]",
+      "body:rPr[]",
+      "body:r[]",
+      "body:t[('space', 'preserve')]",
+      "body:t[]",
+      "footer:ftr[]",
+      "footer:instrText[('space', 'preserve')]|text=PAGE",
+      "footer:rPr[]"
+    ],
+    "part_counts": {
+      "footer": {
+        "word": 3,
+        "clone": 1
+      },
+      "header": {
+        "word": 3,
+        "clone": 0
+      },
+      "body": {
+        "word": 1,
+        "clone": 1
+      }
+    },
+    "id": "pagenum",
+    "control_id": "insert.header-footer.pageNumber",
+    "feature": "Page Number",
+    "tab": "Insert",
+    "usage_tier": "T1",
+    "note": "PAGE field in footer. Field shape, lands in footer part."
+  },
+  {
+    "task": "table",
+    "verdict": "gap",
+    "counts": {
+      "match": 15,
+      "missing": 7,
+      "extra": 2
+    },
+    "missing_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:tblCellMar[]",
+      "body:tblLayout[('type', 'fixed')]",
+      "body:tblLook[('firstColumn', '0'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '0'), ('val', '0000')]",
+      "body:tblPrEx[]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ],
+    "extra_nodes": [
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tblStyle[('val', 'TableGrid')]"
+    ],
+    "part_counts": {
+      "body": {
+        "word": 1,
+        "clone": 1
+      }
+    },
+    "id": "table",
+    "control_id": "insert.tables.table",
+    "feature": "Insert Table",
+    "tab": "Insert",
+    "usage_tier": "T1",
+    "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session."
+  }
+]

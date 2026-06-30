@@ -1,0 +1,35 @@
+{
+  "_comment": "Task descriptor list. Each task = one minimal action compared clone-vs-real-Word. The runner derives file paths by convention: probe=parity/probes/<id>-pilot-probe.js, com=parity/ground-truth/realword_<id>.ps1, fixtures=parity/fixtures/{wc,rw}-<id>.docx. realword_method: 'com' (scriptable, COM==ribbon) or 'vsto' (gallery/style action where COM != ribbon -> needs real UI capture).",
+  "tasks": [
+    {
+      "id": "bold",
+      "control_id": "home.font.bold",
+      "feature": "Bold",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, toggle bold",
+      "realword_method": "com",
+      "note": "Bold mark on a run. COM == ribbon."
+    },
+    {
+      "id": "pagenum",
+      "control_id": "insert.header-footer.pageNumber",
+      "feature": "Page Number",
+      "tab": "Insert",
+      "usage_tier": "T1",
+      "action": "insert a bottom page-number PAGE field",
+      "realword_method": "com",
+      "note": "PAGE field in footer. Field shape, lands in footer part."
+    },
+    {
+      "id": "table",
+      "control_id": "insert.tables.table",
+      "feature": "Insert Table",
+      "tab": "Insert",
+      "usage_tier": "T1",
+      "action": "insert a plain 3x3 table",
+      "realword_method": "com",
+      "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session."
+    }
+  ]
+}
