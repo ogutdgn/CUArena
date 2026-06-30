@@ -61,9 +61,18 @@
 > styles diffed by referenced-styleId presence/content (not baseline-subtracted); review_differ 16/16; collapsed
 > fd-link's false 13-missing → 1 real. **🏁 GROUP 1 DONE:** fd-allcaps (`a21d38f`, bare <w:caps/>, review SOUND) +
 > fd-link (`9a82452`, suppress autoAdded link <w:u> on export, review SOUND; residual double-round-trip logged).
-> Both 0/0; test:pm 510/510; roundtrip 27. specs/024. **NEXT = GROUP 2: fd-fontcolor-theme** (add w:themeColor to the
-> color mark + exporter + dialog — first meatier fork edit), then GROUP 3 (double-strike/hidden/kerning + bullet-font/
-> bullet-align) + GROUP 4 (special-replace, margin-uniform). 8 real gaps + 3 dialog-completeness UI gaps remain.
+> Both 0/0; test:pm 510; roundtrip 27. specs/024.
+> **🏁 GROUP 2 DONE:** fd-fontcolor-theme (`e2ec38d`, theme colors → w:themeColor; color-mark themeColor/tint/shade
+> attrs + export/import + Theme-Colors picker slot wiring NO-FORK; 0/0; review SOUND; v1 limit: tint/shade stay sRGB).
+> specs/025. **🏁 GROUP 3a DONE:** fd-double-strike + fd-hidden + fd-kerning (`ecadee9`, all 0/0; owned
+> advanced-font-effects attrs + 3 additive fork whitelists incl. the RUN_PROPERTIES_DERIVED_FROM_MARKS **clearing-leak
+> fix the adversarial review caught**; Font dialog Double-strike/Hidden checkboxes + Kerning control; test:pm 512).
+> specs/026. **6 of 10 real gaps fixed + engine.**
+> **NEXT = GROUP 3b: bullet-font + bullet-align** (applyListDefinition: stop stripping rFonts + write lvlJc; Symbol/font
+> picker + align dropdown in Define-New-Bullet — numbering.xml-only → VERIFY via test:pm, NOT run.py 0/0 [COM
+> ApplyBulletDefault singleLevel artifact]). **+ GROUP 4: fd-special-replace** (^p/^t/^l in Replace box → parse a Slice;
+> touches the fork replace cmd) **+ fd-margin-uniform** (Custom Margins dialog → independent T/B/L/R inputs, NO-FORK).
+> 4 real gaps + 3 dialog-completeness UI gaps remain.
 >
 > **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
 > `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
