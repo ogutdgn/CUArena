@@ -690,11 +690,15 @@
     const btn = document.querySelector('.rbtn[data-cmd="center"]');
     return a.paragraphProperties?.justification === 'center' && !!btn && btn.classList.contains('toggled');
   });
-  await t('[2] alignRight then alignLeft round-trips', async () => {
+  await t('[2] alignRight then alignLeft CLEARS justification (023: Word omits jc for default-left)', async () => {
     selectText('align'); run('alignRight'); await sleep(50);
     const r = paraAttrs('align').paragraphProperties?.justification === 'right';
     run('alignLeft'); await sleep(50);
-    return r && paraAttrs('align').paragraphProperties?.justification === 'left';
+    // 023: Align Left maps to CLEARING justification (real Word writes no <w:jc> for the default-left
+    // alignment), not setting an explicit 'left'. The Align Left ribbon button still latches (state-sync
+    // treats null as 'left').
+    const j = paraAttrs('align').paragraphProperties?.justification;
+    return (r && (j === null || j === undefined)) || ('alignLeft did not clear justification (got ' + JSON.stringify(j) + ')');
   });
   await t('[2] justify stores OOXML "both" and lights justifyFull', async () => {
     selectText('align'); run('justify'); await sleep(150);
@@ -1181,6 +1185,61 @@
     const fmt = lvl0 && ((lvl0.elements || []).find((e) => e.name === 'w:numFmt') || {}).attributes?.['w:val'];
     if (fmt !== 'decimal') return 'abstractNum level 0 numFmt not "decimal" (Word would render a bullet, not "1."): ' + fmt;
     return true;
+  });
+  await t('[home] EXPORT (023): bullet list pPr emits <w:pStyle w:val="ListParagraph"/> BEFORE <w:numPr>, ilvl before numId', async () => {
+    setDoc('bulleted item'); selectText('bulleted'); run('bullets'); await sleep(150);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const ppr = (xml.match(/<w:pPr\b[\s\S]*?<\/w:pPr>/) || [])[0] || '';
+    if (!/<w:pStyle w:val="ListParagraph"\s*\/>/.test(ppr)) return 'bullet pPr missing <w:pStyle w:val="ListParagraph">: ' + ppr.slice(0, 220);
+    const ps = ppr.indexOf('<w:pStyle'), np = ppr.indexOf('<w:numPr');
+    if (!(ps >= 0 && np >= 0 && ps < np)) return 'pStyle must precede numPr: ' + ppr.slice(0, 220);
+    const numPr = (ppr.match(/<w:numPr\b[\s\S]*?<\/w:numPr>/) || [''])[0];
+    const il = numPr.indexOf('<w:ilvl'), ni = numPr.indexOf('<w:numId');
+    return (il >= 0 && ni >= 0 && il < ni) ? true : ('numPr: ilvl must precede numId: ' + numPr);
+  });
+  await t('[home] EXPORT (023): numbered list pPr emits <w:pStyle w:val="ListParagraph"/>', async () => {
+    setDoc('numbered023 item'); selectText('numbered023'); run('numbering'); await sleep(150);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const ppr = (xml.match(/<w:pPr\b[\s\S]*?<\/w:pPr>/) || [])[0] || '';
+    return /<w:pStyle w:val="ListParagraph"\s*\/>/.test(ppr) ? true : ('numbered pPr missing ListParagraph pStyle: ' + ppr.slice(0, 220));
+  });
+  await t('[home] EXPORT (023): toggling a list OFF removes the ListParagraph pStyle', async () => {
+    setDoc('toggle023 item'); selectText('toggle023'); run('bullets'); await sleep(130); selectText('toggle023'); run('bullets'); await sleep(130);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    return !/ListParagraph/.test(xml) ? true : 'ListParagraph pStyle remained after toggling the list off';
+  });
+  await t('[home] EXPORT (023): setFontFamily emits <w:rFonts> ascii+hAnsi only (no eastAsia/cs) for a Latin font', async () => {
+    setDoc('fontf023 text'); selectText('fontf023'); WC.PM.cmd('setFontFamily', 'Arial'); await sleep(80);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const rf = (xml.match(/<w:rFonts\b[^>]*\/?>/) || [])[0] || '';
+    if (!/w:ascii="Arial"/.test(rf) || !/w:hAnsi="Arial"/.test(rf)) return 'rFonts missing ascii/hAnsi Arial: ' + rf;
+    return (!/w:eastAsia=/.test(rf) && !/w:cs=/.test(rf)) ? true : ('rFonts over-specifies eastAsia/cs (Word: ascii+hAnsi only): ' + rf);
+  });
+  await t('[home] EXPORT (023): setFontSizePt emits <w:sz> only (no <w:szCs>) for a simple-script size', async () => {
+    setDoc('fonts023 text'); selectText('fonts023'); WC.PM.setFontSizePt(14); await sleep(80);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    if (!/<w:sz w:val="28"/.test(xml)) return 'no <w:sz w:val="28"> (14pt): ' + ((xml.match(/<w:sz[^>]*>/) || [])[0] || '');
+    return !/<w:szCs\b/.test(xml) ? true : ('over-emits <w:szCs> (Word: sz only for simple-script): ' + ((xml.match(/<w:szCs[^>]*>/) || [])[0] || ''));
+  });
+  await t('[home] EXPORT (023): bulleting a CENTERED paragraph keeps <w:numPr> before <w:jc> (CT_PPr schema order)', async () => {
+    // 023 review fix: the list-paragraph rebuild must place numPr at its CT_PPr slot, not last — else a list item
+    // carrying direct jc/spacing/ind exports <w:numPr> after them, which Word rejects (drops the numbering).
+    setDoc('ctrlist023 item'); selectText('ctrlist023'); run('center'); await sleep(80);
+    selectText('ctrlist023'); run('bullets'); await sleep(150);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const ppr = (xml.match(/<w:pPr\b[\s\S]*?<\/w:pPr>/) || [])[0] || '';
+    const np = ppr.indexOf('<w:numPr'), jc = ppr.indexOf('<w:jc');
+    if (np < 0) return 'no <w:numPr> after bulleting a centered paragraph';
+    return (jc < 0 || np < jc) ? true : ('CT_PPr order violated — <w:numPr> after <w:jc>: ' + ppr.slice(0, 280));
+  });
+  await t('[home] (023): Align Left on a non-left paragraph yields LEFT, not a no-op', async () => {
+    // 023 review fix: the setTextAlign('left')->unsetTextAlign remap must be CONDITIONAL — on a paragraph whose
+    // resolved alignment is non-left, Align Left must still result in left (not re-inherit/keep the non-left value).
+    setDoc('alx023 item'); selectText('alx023'); run('center'); await sleep(60);
+    if (paraAttrs('alx023').paragraphProperties?.justification !== 'center') return 'setup: center not applied';
+    selectText('alx023'); run('alignLeft'); await sleep(60);
+    const j = paraAttrs('alx023').paragraphProperties?.justification;
+    return (j !== 'center' && j !== 'right' && j !== 'both') ? true : ('Align Left left the paragraph non-left: ' + JSON.stringify(j));
   });
   await t('[2] ribbon increaseIndent inside a list raises the level (Word behavior)', async () => {
     // self-contained setup (008: the prior numbering test that authored this list was retired with the overlay engine)

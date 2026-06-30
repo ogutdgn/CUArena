@@ -67,7 +67,7 @@
       "usage_tier": "T0",
       "action": "apply a default bullet list to the paragraph",
       "realword_method": "com",
-      "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — the real clone gap there is the missing pStyle ListParagraph."
+      "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
     },
     {
       "id": "alignleft",
@@ -117,7 +117,7 @@
       "usage_tier": "T1",
       "action": "apply a default numbered list to the paragraph",
       "realword_method": "com",
-      "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — the real clone gap there is the missing pStyle ListParagraph."
+      "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
     },
     {
       "id": "justify",

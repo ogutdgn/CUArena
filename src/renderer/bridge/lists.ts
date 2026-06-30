@@ -60,5 +60,59 @@ export function installLists(editor: AnyEditor) {
     return true
   }
 
-  return { setNumberingValue, continueListNumbering }
+  // 023 (List authoring, NO-FORK, parity): the fork's toggleList applies the numbering but never seeds
+  // pStyle=ListParagraph (it only STRIPS it on the remove path), and builds <w:numPr> as numId-then-ilvl;
+  // real Word attaches <w:pStyle w:val="ListParagraph"/> (BEFORE <w:numPr>) to every list item and orders
+  // numPr children ilvl-then-numId. We fix both in the SAME transaction as the toggle via a raw chain
+  // `.command` step (one undo step), so the ribbon Bullets/Numbering + the style gallery all become
+  // Word-faithful. The fork toggle is the ONLY doc-write; this step just normalizes the resulting attrs.
+  function fixListParagraphs({ tr }: any): boolean {
+    const sel = tr.selection
+    const edits: Array<{ pos: number; attrs: any }> = []
+    tr.doc.nodesBetween(sel.from, sel.to, (node: any, pos: number) => {
+      if (node.type?.name !== 'paragraph') return
+      const pp = node.attrs?.paragraphProperties || {}
+      const np = pp.numberingProperties
+      if (np && np.numId != null) {
+        // a list item → ensure pStyle + numPr {ilvl, numId}, both at their CT_PPr slots. The pPr exporter emits
+        // children in paragraphProperties KEY-INSERTION order (no xmlOrder), so we must rebuild in schema order:
+        // pStyle, then the pre-numPr keys (keepNext/keepLines/pageBreakBefore/framePr/widowControl), then numPr,
+        // then everything else (spacing/ind/jc/shd/… all sort AFTER numPr in CT_PPr). Destructure styleId out
+        // first: a fresh paragraph carries `styleId: null` as a PRESENT key, so a spread would clobber it back.
+        // Keep the user's explicit style if any, else ListParagraph. (Putting numPr LAST would make Word reject a
+        // list item that also carries direct jc/spacing/ind/shd as out-of-order CT_PPr.)
+        const orderedNp = { ilvl: np.ilvl ?? 0, numId: np.numId }
+        const { styleId: existingStyle, numberingProperties: _np, ...rest } = pp
+        const rebuilt: any = { styleId: existingStyle || 'ListParagraph' }
+        for (const k of ['keepNext', 'keepLines', 'pageBreakBefore', 'framePr', 'widowControl']) {
+          if (k in rest) { rebuilt[k] = (rest as any)[k]; delete (rest as any)[k] }
+        }
+        rebuilt.numberingProperties = orderedNp
+        Object.assign(rebuilt, rest)
+        edits.push({ pos, attrs: { ...node.attrs, paragraphProperties: rebuilt } })
+      } else if (pp.styleId === 'ListParagraph') {
+        // list toggled OFF but our ListParagraph remained → strip it (defensive; Word leaves no pStyle here)
+        const { styleId, ...rest } = pp
+        edits.push({ pos, attrs: { ...node.attrs, paragraphProperties: rest } })
+      }
+    })
+    edits.forEach(({ pos, attrs }) => tr.setNodeMarkup(pos, undefined, attrs))
+    return true
+  }
+
+  function applyListThenFix(forkCmd: string, arg?: unknown): boolean {
+    const ch: any = editor.chain()
+    if (typeof ch[forkCmd] !== 'function' || typeof ch.command !== 'function') return false
+    const step = arg === undefined ? ch[forkCmd]() : ch[forkCmd](arg)
+    const ok = step.command(fixListParagraphs).run()
+    if (ok !== false) markDirty()
+    return ok !== false
+  }
+
+  const toggleBulletList = () => applyListThenFix('toggleBulletList')
+  const toggleOrderedList = () => applyListThenFix('toggleOrderedList')
+  const toggleBulletListStyle = (style: unknown) => applyListThenFix('toggleBulletListStyle', style)
+  const toggleOrderedListStyle = (style: unknown) => applyListThenFix('toggleOrderedListStyle', style)
+
+  return { setNumberingValue, continueListNumbering, toggleBulletList, toggleOrderedList, toggleBulletListStyle, toggleOrderedListStyle }
 }

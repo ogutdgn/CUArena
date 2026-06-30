@@ -6,13 +6,10 @@
   "counts": {
     "match": 2,
     "missing": 0,
-    "extra": 2
+    "extra": 0
   },
   "missing_nodes": [],
-  "extra_nodes": [
-    "body:jc[('val', 'left')]",
-    "body:pPr[]"
-  ],
+  "extra_nodes": [],
   "part_counts": {},
   "id": "alignleft",
   "control_id": "home.paragraph.align-left",

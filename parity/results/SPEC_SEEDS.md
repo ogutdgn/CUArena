@@ -7,14 +7,13 @@ Auto-generated from the parity ledger. Each block is a feature whose clone outpu
 **Goal:** make the clone's `Align Left` output match real Microsoft Word.
 **Sub-tasks covered:** `alignleft`
 **Ground truth:** `parity/fixtures/rw-alignleft.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 2 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (alignleft): stop emitting (or justify) `body:jc[('val', 'left')]`
-- FID (alignleft): stop emitting (or justify) `body:pPr[]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -54,10 +53,9 @@ python parity/engines/run.py --only bold   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Bullets` output match real Microsoft Word.
 **Sub-tasks covered:** `bullets`
 **Ground truth:** `parity/fixtures/rw-bullets.docx`
-**Current parity:** GAP — 8 missing node(s), 35 fidelity warning(s)
+**Current parity:** GAP — 7 missing node(s), 35 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (bullets): emit `body:pStyle[('val', 'ListParagraph')]`
 - FR (bullets): emit `numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]`
 - FR (bullets): emit `numbering:lvl[('ilvl', '0')]`
 - FR (bullets): emit `numbering:multiLevelType[('val', 'singleLevel')]`
@@ -92,7 +90,7 @@ python parity/engines/run.py --only bold   # expect: semantic-pass, missing = 0
 - FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '7'), ('tentative', '1'), ('tplc', '04090003')]`
 - FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '8'), ('tentative', '1'), ('tplc', '04090005')]`
 - FID (bullets): stop emitting (or justify) `numbering:multiLevelType[('val', 'hybridMultilevel')]`
-- FID (bullets): stop emitting (or justify) `numbering:nsid[('val', 'EE0E535A')]`
+- FID (bullets): stop emitting (or justify) `numbering:nsid[('val', '49CAEF44')]`
 - FID (bullets): stop emitting (or justify) `numbering:numFmt[('val', 'bullet')]`
 - FID (bullets): stop emitting (or justify) `numbering:num[('numId', '4')]`
 - FID (bullets): stop emitting (or justify) `numbering:pPr[]`
@@ -101,7 +99,7 @@ python parity/engines/run.py --only bold   # expect: semantic-pass, missing = 0
 - FID (bullets): stop emitting (or justify) `numbering:rFonts[('ascii', 'Wingdings'), ('hAnsi', 'Wingdings'), ('hint', 'default')]`
 - FID (bullets): stop emitting (or justify) `numbering:rPr[]`
 - FID (bullets): stop emitting (or justify) `numbering:start[('val', '1')]`
-- FID (bullets): stop emitting (or justify) `numbering:tmpl[('val', '9CAC74EA')]`
+- FID (bullets): stop emitting (or justify) `numbering:tmpl[('val', '39C5705B')]`
 
 ### Structural requirements
 - STR (bullets): `numbering` parts — Word=1, clone=0
@@ -144,13 +142,13 @@ python parity/engines/run.py --only center   # expect: semantic-pass, missing = 
 **Goal:** make the clone's `Font` output match real Microsoft Word.
 **Sub-tasks covered:** `fontface`
 **Ground truth:** `parity/fixtures/rw-fontface.docx`
-**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (fontface): emit `body:rFonts[('ascii', 'Arial'), ('hAnsi', 'Arial')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (fontface): stop emitting (or justify) `body:rFonts[('ascii', 'Arial'), ('cs', 'Arial'), ('eastAsia', 'Arial'), ('hAnsi', 'Arial')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -167,13 +165,13 @@ python parity/engines/run.py --only fontface   # expect: semantic-pass, missing 
 **Goal:** make the clone's `Font Size` output match real Microsoft Word.
 **Sub-tasks covered:** `fontsize`
 **Ground truth:** `parity/fixtures/rw-fontsize.docx`
-**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 1 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (fontsize): stop emitting (or justify) `body:szCs[('val', '28')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -335,10 +333,9 @@ python parity/engines/run.py --only linespacing   # expect: semantic-pass, missi
 **Goal:** make the clone's `Numbering` output match real Microsoft Word.
 **Sub-tasks covered:** `numbering`
 **Ground truth:** `parity/fixtures/rw-numbering.docx`
-**Current parity:** GAP — 8 missing node(s), 36 fidelity warning(s)
+**Current parity:** GAP — 7 missing node(s), 36 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (numbering): emit `body:pStyle[('val', 'ListParagraph')]`
 - FR (numbering): emit `numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]`
 - FR (numbering): emit `numbering:lvl[('ilvl', '0')]`
 - FR (numbering): emit `numbering:multiLevelType[('val', 'singleLevel')]`
@@ -383,7 +380,7 @@ python parity/engines/run.py --only linespacing   # expect: semantic-pass, missi
 - FID (numbering): stop emitting (or justify) `numbering:num[('numId', '4')]`
 - FID (numbering): stop emitting (or justify) `numbering:pPr[]`
 - FID (numbering): stop emitting (or justify) `numbering:start[('val', '1')]`
-- FID (numbering): stop emitting (or justify) `numbering:tmpl[('val', '875CDCED')]`
+- FID (numbering): stop emitting (or justify) `numbering:tmpl[('val', '85888E32')]`
 
 ### Structural requirements
 - STR (numbering): `numbering` parts — Word=1, clone=0
@@ -451,8 +448,8 @@ python parity/engines/run.py --only numbering   # expect: semantic-pass, missing
 - FID (pagenum): stop emitting (or justify) `footer:rPr[]`
 
 ### Structural requirements
-- STR (pagenum): `header` parts — Word=3, clone=0
 - STR (pagenum): `footer` parts — Word=3, clone=1
+- STR (pagenum): `header` parts — Word=3, clone=0
 
 ### Acceptance (regression gate)
 ```

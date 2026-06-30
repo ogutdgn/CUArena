@@ -4,12 +4,11 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 13,
-    "missing": 8,
+    "match": 14,
+    "missing": 7,
     "extra": 36
   },
   "missing_nodes": [
-    "body:pStyle[('val', 'ListParagraph')]",
     "numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]",
     "numbering:lvl[('ilvl', '0')]",
     "numbering:multiLevelType[('val', 'singleLevel')]",
@@ -54,7 +53,7 @@
     "numbering:num[('numId', '4')]",
     "numbering:pPr[]",
     "numbering:start[('val', '1')]",
-    "numbering:tmpl[('val', '875CDCED')]"
+    "numbering:tmpl[('val', '85888E32')]"
   ],
   "part_counts": {
     "numbering": {
@@ -67,5 +66,5 @@
   "feature": "Numbering",
   "tab": "Home",
   "usage_tier": "T1",
-  "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — the real clone gap there is the missing pStyle ListParagraph."
+  "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
 }

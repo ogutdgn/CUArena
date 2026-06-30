@@ -11,7 +11,7 @@
     let f = null;
     ed.state.doc.descendants((n, p) => { if (f || !n.isText || !n.text) return; const i = n.text.indexOf('Revenue'); if (i >= 0) f = { from: p + i, to: p + i + 7 }; });
     ed.view.dispatch(ed.view.state.tr.setSelection(TS.create(ed.state.doc, f.from, f.to)));
-    PM.cmd('toggleBulletList'); await sleep(120);
+    PM.toggleBulletList(); await sleep(120);   // 023: the bridge wrapper (mirrors H.bullets) — adds pStyle=ListParagraph + numPr order
     const bytes = await PM.exportDocxBytes();
     out.save = await window.wordAPI.saveBytes({ filePath: OUT, bytes });
   } catch (e) { out.err = String(e && e.message) + '\n' + String(e && e.stack); }

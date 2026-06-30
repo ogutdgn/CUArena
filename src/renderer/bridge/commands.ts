@@ -9,6 +9,22 @@ type AnyEditor = any
 
 export function installCommands(editor: AnyEditor) {
   function cmd(name: string, ...args: unknown[]): boolean {
+    // 023 (NO-FORK, parity): Align Left = Word's DEFAULT alignment, so real Word writes NO <w:jc> for it — CLEAR
+    // the direct justification (the fork's public unsetTextAlign) instead of writing an explicit 'left', so the
+    // jc-translator emits nothing and the empty pPr is dropped. BUT only when the paragraph's RESOLVED alignment is
+    // already left: if a paragraph STYLE sets a non-left alignment, clearing the direct jc would re-inherit the
+    // style's alignment (Align Left would be a no-op), so keep the explicit 'left' to override it (Word writes a
+    // direct w:jc="left" there). Covers the ribbon Align Left button, Ctrl+L, and the Paragraph dialog.
+    if (name === 'setTextAlign' && args[0] === 'left') {
+      const direct = headParagraph(editor)?.node?.attrs?.paragraphProperties?.justification
+      const resolved = getResolvedParaProps()?.justification
+      // Keep an explicit 'left' ONLY when the non-left alignment is INHERITED from a paragraph STYLE (there is no
+      // DIRECT value to clear) — clearing would re-inherit the style's alignment, so we override with a direct
+      // jc=left. Otherwise CLEAR: Word omits <w:jc> for the default-left case AND clears a DIRECT non-left back to
+      // the default. (direct null + resolved non-left ⇒ style-inherited; a direct non-left has `direct` set.)
+      const inheritedNonLeft = direct == null && resolved != null && resolved !== 'left'
+      if (!inheritedNonLeft) { name = 'unsetTextAlign'; args = [] }
+    }
     const c = editor.commands
     const fn = c && c[name]
     if (typeof fn !== 'function') { console.debug('[WC.PM] unknown command:', name); return false }

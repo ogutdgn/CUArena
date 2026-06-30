@@ -433,6 +433,9 @@ export function preinstallBridge() {
     insertSectionBreak: () => false,
     // 017 list-authoring pre-mount stubs (replaced by installLists on mount)
     setNumberingValue: () => false, continueListNumbering: () => false,
+    // 023 list-toggle wrappers pre-mount stubs (replaced by installLists on mount)
+    toggleBulletList: () => false, toggleOrderedList: () => false,
+    toggleBulletListStyle: () => false, toggleOrderedListStyle: () => false,
     // Create-a-Style pre-mount stub (replaced by installStyles on mount)
     createNamedStyle: () => ({ ok: false }),
     // slice 10: mail-merge pre-mount stubs (replaced by installMailMerge on mount)

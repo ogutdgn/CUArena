@@ -7,13 +7,10 @@
     "counts": {
       "match": 2,
       "missing": 0,
-      "extra": 2
+      "extra": 0
     },
     "missing_nodes": [],
-    "extra_nodes": [
-      "body:jc[('val', 'left')]",
-      "body:pPr[]"
-    ],
+    "extra_nodes": [],
     "part_counts": {},
     "id": "alignleft",
     "control_id": "home.paragraph.align-left",
@@ -48,12 +45,11 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 15,
-      "missing": 8,
+      "match": 16,
+      "missing": 7,
       "extra": 35
     },
     "missing_nodes": [
-      "body:pStyle[('val', 'ListParagraph')]",
       "numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]",
       "numbering:lvl[('ilvl', '0')]",
       "numbering:multiLevelType[('val', 'singleLevel')]",
@@ -88,7 +84,7 @@
       "numbering:lvl[('ilvl', '7'), ('tentative', '1'), ('tplc', '04090003')]",
       "numbering:lvl[('ilvl', '8'), ('tentative', '1'), ('tplc', '04090005')]",
       "numbering:multiLevelType[('val', 'hybridMultilevel')]",
-      "numbering:nsid[('val', 'EE0E535A')]",
+      "numbering:nsid[('val', '49CAEF44')]",
       "numbering:numFmt[('val', 'bullet')]",
       "numbering:num[('numId', '4')]",
       "numbering:pPr[]",
@@ -97,7 +93,7 @@
       "numbering:rFonts[('ascii', 'Wingdings'), ('hAnsi', 'Wingdings'), ('hint', 'default')]",
       "numbering:rPr[]",
       "numbering:start[('val', '1')]",
-      "numbering:tmpl[('val', '9CAC74EA')]"
+      "numbering:tmpl[('val', '39C5705B')]"
     ],
     "part_counts": {
       "numbering": {
@@ -110,7 +106,7 @@
     "feature": "Bullets",
     "tab": "Home",
     "usage_tier": "T0",
-    "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — the real clone gap there is the missing pStyle ListParagraph."
+    "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
   },
   {
     "task": "center",
@@ -136,18 +132,14 @@
     "task": "fontface",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "semantic-pass",
     "counts": {
-      "match": 3,
-      "missing": 1,
-      "extra": 1
+      "match": 4,
+      "missing": 0,
+      "extra": 0
     },
-    "missing_nodes": [
-      "body:rFonts[('ascii', 'Arial'), ('hAnsi', 'Arial')]"
-    ],
-    "extra_nodes": [
-      "body:rFonts[('ascii', 'Arial'), ('cs', 'Arial'), ('eastAsia', 'Arial'), ('hAnsi', 'Arial')]"
-    ],
+    "missing_nodes": [],
+    "extra_nodes": [],
     "part_counts": {},
     "id": "fontface",
     "control_id": "home.font.font",
@@ -164,12 +156,10 @@
     "counts": {
       "match": 4,
       "missing": 0,
-      "extra": 1
+      "extra": 0
     },
     "missing_nodes": [],
-    "extra_nodes": [
-      "body:szCs[('val', '28')]"
-    ],
+    "extra_nodes": [],
     "part_counts": {},
     "id": "fontsize",
     "control_id": "home.font.font-size",
@@ -308,12 +298,11 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 13,
-      "missing": 8,
+      "match": 14,
+      "missing": 7,
       "extra": 36
     },
     "missing_nodes": [
-      "body:pStyle[('val', 'ListParagraph')]",
       "numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]",
       "numbering:lvl[('ilvl', '0')]",
       "numbering:multiLevelType[('val', 'singleLevel')]",
@@ -358,7 +347,7 @@
       "numbering:num[('numId', '4')]",
       "numbering:pPr[]",
       "numbering:start[('val', '1')]",
-      "numbering:tmpl[('val', '875CDCED')]"
+      "numbering:tmpl[('val', '85888E32')]"
     ],
     "part_counts": {
       "numbering": {
@@ -371,7 +360,7 @@
     "feature": "Numbering",
     "tab": "Home",
     "usage_tier": "T1",
-    "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — the real clone gap there is the missing pStyle ListParagraph."
+    "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
   },
   {
     "task": "pagenum",
@@ -429,13 +418,13 @@
       "footer:rPr[]"
     ],
     "part_counts": {
-      "header": {
-        "word": 3,
-        "clone": 0
-      },
       "footer": {
         "word": 3,
         "clone": 1
+      },
+      "header": {
+        "word": 3,
+        "clone": 0
       }
     },
     "id": "pagenum",

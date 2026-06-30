@@ -6,12 +6,10 @@
   "counts": {
     "match": 4,
     "missing": 0,
-    "extra": 1
+    "extra": 0
   },
   "missing_nodes": [],
-  "extra_nodes": [
-    "body:szCs[('val', '28')]"
-  ],
+  "extra_nodes": [],
   "part_counts": {},
   "id": "fontsize",
   "control_id": "home.font.font-size",

@@ -2,18 +2,14 @@
   "task": "fontface",
   "baselined": true,
   "baseline_divergence": [],
-  "verdict": "gap",
+  "verdict": "semantic-pass",
   "counts": {
-    "match": 3,
-    "missing": 1,
-    "extra": 1
+    "match": 4,
+    "missing": 0,
+    "extra": 0
   },
-  "missing_nodes": [
-    "body:rFonts[('ascii', 'Arial'), ('hAnsi', 'Arial')]"
-  ],
-  "extra_nodes": [
-    "body:rFonts[('ascii', 'Arial'), ('cs', 'Arial'), ('eastAsia', 'Arial'), ('hAnsi', 'Arial')]"
-  ],
+  "missing_nodes": [],
+  "extra_nodes": [],
   "part_counts": {},
   "id": "fontface",
   "control_id": "home.font.font",

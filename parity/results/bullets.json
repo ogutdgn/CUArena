@@ -4,12 +4,11 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 15,
-    "missing": 8,
+    "match": 16,
+    "missing": 7,
     "extra": 35
   },
   "missing_nodes": [
-    "body:pStyle[('val', 'ListParagraph')]",
     "numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]",
     "numbering:lvl[('ilvl', '0')]",
     "numbering:multiLevelType[('val', 'singleLevel')]",
@@ -44,7 +43,7 @@
     "numbering:lvl[('ilvl', '7'), ('tentative', '1'), ('tplc', '04090003')]",
     "numbering:lvl[('ilvl', '8'), ('tentative', '1'), ('tplc', '04090005')]",
     "numbering:multiLevelType[('val', 'hybridMultilevel')]",
-    "numbering:nsid[('val', 'EE0E535A')]",
+    "numbering:nsid[('val', '49CAEF44')]",
     "numbering:numFmt[('val', 'bullet')]",
     "numbering:num[('numId', '4')]",
     "numbering:pPr[]",
@@ -53,7 +52,7 @@
     "numbering:rFonts[('ascii', 'Wingdings'), ('hAnsi', 'Wingdings'), ('hint', 'default')]",
     "numbering:rPr[]",
     "numbering:start[('val', '1')]",
-    "numbering:tmpl[('val', '9CAC74EA')]"
+    "numbering:tmpl[('val', '39C5705B')]"
   ],
   "part_counts": {
     "numbering": {
@@ -66,5 +65,5 @@
   "feature": "Bullets",
   "tab": "Home",
   "usage_tier": "T0",
-  "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — the real clone gap there is the missing pStyle ListParagraph."
+  "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
 }

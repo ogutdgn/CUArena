@@ -429,6 +429,19 @@ project tsconfig instead — matching the other vendored packages, which also sh
   `specs/022-w14-ligatures-inline` + a `test:pm` regression (negative: a plain authored run carries no
   inline w14 ligatures; positive: an explicit "None"/"All" pick still exports `<w14:ligatures>`).
   Parity result: bold/italic/underline/center now reach 0 missing / 0 extra vs real Word.
+- **rFonts + szCs over-emission fixed (parity feature 023, 2026-06-30, user-authorized):** two minimal
+  `decodeRPrFromMarks` edits in `core/super-converter/styles.js` (the parity differ confirmed both as clone
+  over-emissions vs real Word on the T0 Home controls):
+  - **fontFamily:** the case filled all four `<w:rFonts>` slots (ascii/hAnsi/eastAsia/cs) from one picked font;
+    real Word emits only ascii+hAnsi for a Latin pick. Now sets `{ ascii, hAnsi }`; the per-script companion cases
+    (`eastAsiaFontFamily`/`csFontFamily`) still restore eastAsia/cs for imported per-script fonts (SD-2517), so
+    round-trip is unaffected.
+  - **fontSize:** the case auto-synced `fontSizeCs` (over-emitting `<w:szCs>` on every size change); Word emits only
+    `<w:sz>` for a simple-script size. Removed the sync, and removed `'fontSizeCs'` from
+    `RUN_PROPERTIES_DERIVED_FROM_MARKS` in `extensions/run/calculateInlineRunPropertiesPlugin.js` (joins boldCs/italicCs
+    per SD-2912) so an imported run's complex-script `szCs` is preserved verbatim instead of dropped. `COMPANION_INLINE_KEYS.fontSizeCs` is kept.
+  Gated by `specs/023-t0t1-ooxml-fidelity` + `test:pm` regressions + the parity `--only fontface`/`--only fontsize`
+  semantic-pass. (The list ListParagraph + Align-Left fixes in 023 are NO-FORK, in `src/renderer/bridge/`.)
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
