@@ -82,6 +82,15 @@ Once the ledger is populated, drive fixes through the clone's existing spec-kit 
 > Note: spec-seed quality depends on the v2 differ below — until baseline-subtraction + the noise list land,
 > seeds over-list boilerplate (`Ignorable` attr, body list-paragraph nodes, generic `p`/`r`/`t`). Land v2 first.
 
+## Validating the engine (run BEFORE scaling to hundreds of tasks)
+`python parity/engines/review_differ.py` — objective self-validation of the differ. Three suites:
+- **GOLDEN** — hand-labeled synthetic docx pairs with known expected diffs (logic correctness).
+- **WORD-VS-SELF** — same real-Word action captured twice; diff MUST be 0 (proves the noise list is complete;
+  any leak is, by definition, noise to add to `NOISE_ATTRS`). Capture pairs into `fixtures/selftest/rw-<id>-a/b.docx`.
+- **CLONE-VS-SELF** — same clone action exported twice; diff MUST be 0 (clone export determinism).
+Exit 0 iff all pass. **Re-run whenever you add a new action category** (date fields, drawings, etc. may bring
+action-specific noise — Word-vs-self auto-surfaces it). Baseline state: all suites pass on bold/pagenum/table.
+
 ## Known refinements still TODO on the engine
 - **Baseline subtraction**: diff each side's delta-vs-empty-doc instead of full docs, to drop unrelated
   body boilerplate (e.g. the ListParagraph noise seen in the pagenum pilot's `extra`).
