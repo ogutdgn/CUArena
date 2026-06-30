@@ -53,8 +53,17 @@
 >   fd-highlight-custom NOT a gap (clone==Word, 15-keyword-only); fd-bullet-align narrowed (lvlJc=left IS emitted).
 > **THE 10 REAL GAPS (fix candidates, report §4a):** allcaps w:val=1; theme-color (sRGB-only); hyperlink redundant
 > w:u; double-strike/hidden/kerning (no author path); bullet-font (strips rFonts); bullet-align (Center/Right field);
-> ^p-replace-literal; uniform-margins dialog. **NEXT (user decides): the FIX pass** (batched, like w14/023) +/or the
-> differ styles.xml styleId-presence refactor. NOTHING was fixed in this IDENTIFY phase.
+> ^p-replace-literal; uniform-margins dialog.
+>
+> **🔧 FIX PASS IN PROGRESS (user-directed, on parity-pipeline, NOT merged). Each fix: speckit spec + TDD +
+> run.py --only <id> 0/0 + clone gates + per-fix adversarial review.** Order: 1 cosmetic → 2 fidelity → 3 missing
+> Font effects → 4 behavior. **🏁 PREREQUISITE: differ styles.xml styleId-presence refactor DONE (`43adbcc`)** —
+> styles diffed by referenced-styleId presence/content (not baseline-subtracted); review_differ 16/16; collapsed
+> fd-link's false 13-missing → 1 real. **🏁 GROUP 1 DONE:** fd-allcaps (`a21d38f`, bare <w:caps/>, review SOUND) +
+> fd-link (`9a82452`, suppress autoAdded link <w:u> on export, review SOUND; residual double-round-trip logged).
+> Both 0/0; test:pm 510/510; roundtrip 27. specs/024. **NEXT = GROUP 2: fd-fontcolor-theme** (add w:themeColor to the
+> color mark + exporter + dialog — first meatier fork edit), then GROUP 3 (double-strike/hidden/kerning + bullet-font/
+> bullet-align) + GROUP 4 (special-replace, margin-uniform). 8 real gaps + 3 dialog-completeness UI gaps remain.
 >
 > **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
 > `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
