@@ -78,6 +78,13 @@ def build_golden():
         # ...but a genuinely different TYPE (default vs even) must still surface as missing+extra.
         ("rid_type_differs", 1, 1, P('<w:footerReference w:type="default" r:id="rId9"/>'),
                                    P('<w:footerReference w:type="even" r:id="rId8"/>'), None, None),
+        # numId/abstractNumId VALUES are per-doc numbering indices (Word numId=1 vs clone numId=4 for
+        # the SAME fresh list): they must canonicalize to 0 diff, like rId.
+        ("numid_canon", 0, 0, P('<w:pPr><w:numPr><w:numId w:val="1"/></w:numPr></w:pPr>'),
+                              P('<w:pPr><w:numPr><w:numId w:val="4"/></w:numPr></w:pPr>'), None, None),
+        # ...but the list LEVEL (w:ilvl) is meaningful and must NOT be canonicalized — level 0 vs 1 surfaces.
+        ("ilvl_not_canon", 1, 1, P('<w:pPr><w:numPr><w:ilvl w:val="0"/></w:numPr></w:pPr>'),
+                                 P('<w:pPr><w:numPr><w:ilvl w:val="1"/></w:numPr></w:pPr>'), None, None),
     ]
     for name, em, ee, ab, bb, ax, bx in spec:
         pa = os.path.join(GOLDEN_DIR, f"g_{name}_a.docx")

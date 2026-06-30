@@ -1,0 +1,26 @@
+{
+  "task": "fontface",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 3,
+    "missing": 1,
+    "extra": 3
+  },
+  "missing_nodes": [
+    "body:rFonts[('ascii', 'Arial'), ('hAnsi', 'Arial')]"
+  ],
+  "extra_nodes": [
+    "body:cntxtAlts[]",
+    "body:ligatures[('val', 'standard')]",
+    "body:rFonts[('ascii', 'Arial'), ('cs', 'Arial'), ('eastAsia', 'Arial'), ('hAnsi', 'Arial')]"
+  ],
+  "part_counts": {},
+  "id": "fontface",
+  "control_id": "home.font.font",
+  "feature": "Font",
+  "tab": "Home",
+  "usage_tier": "T0",
+  "note": "Font family (w:rFonts ascii/hAnsi=Arial). COM Font.Name == ribbon font picker."
+}

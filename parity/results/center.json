@@ -1,0 +1,24 @@
+{
+  "task": "center",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 3
+  },
+  "missing_nodes": [],
+  "extra_nodes": [
+    "body:cntxtAlts[]",
+    "body:ligatures[('val', 'standard')]",
+    "body:rPr[]"
+  ],
+  "part_counts": {},
+  "id": "center",
+  "control_id": "home.paragraph.center",
+  "feature": "Center",
+  "tab": "Home",
+  "usage_tier": "T0",
+  "note": "Center alignment (w:jc w:val=center). COM ParagraphFormat.Alignment=1 == ribbon."
+}

@@ -1,5 +1,31 @@
 [
   {
+    "task": "alignleft",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 2,
+      "missing": 0,
+      "extra": 5
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:jc[('val', 'left')]",
+      "body:ligatures[('val', 'standard')]",
+      "body:pPr[]",
+      "body:rPr[]"
+    ],
+    "part_counts": {},
+    "id": "alignleft",
+    "control_id": "home.paragraph.align-left",
+    "feature": "Align Left",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "Left is Word's DEFAULT alignment, so Word may emit NO explicit w:jc — a clone that emits jc=left over-emits (real signal)."
+  },
+  {
     "task": "bold",
     "baselined": true,
     "baseline_divergence": [],
@@ -21,6 +47,152 @@
     "tab": "Home",
     "usage_tier": "T0",
     "note": "Bold mark on a run. COM == ribbon."
+  },
+  {
+    "task": "bullets",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 6,
+      "missing": 1,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:pStyle[('val', 'ListParagraph')]"
+    ],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:ligatures[('val', 'standard')]",
+      "body:rPr[]"
+    ],
+    "part_counts": {},
+    "id": "bullets",
+    "control_id": "home.paragraph.bullets",
+    "feature": "Bullets",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "WARNING: like Insert Table, COM ListFormat.ApplyBulletDefault() may differ from the ribbon's exact list template (numId/abstractNum/indents). This rw fixture is the COM baseline; recapture via vsto if the divergence looks like a method artifact, not a clone gap."
+  },
+  {
+    "task": "center",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 3
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:ligatures[('val', 'standard')]",
+      "body:rPr[]"
+    ],
+    "part_counts": {},
+    "id": "center",
+    "control_id": "home.paragraph.center",
+    "feature": "Center",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "Center alignment (w:jc w:val=center). COM ParagraphFormat.Alignment=1 == ribbon."
+  },
+  {
+    "task": "fontface",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 3,
+      "missing": 1,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:rFonts[('ascii', 'Arial'), ('hAnsi', 'Arial')]"
+    ],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:ligatures[('val', 'standard')]",
+      "body:rFonts[('ascii', 'Arial'), ('cs', 'Arial'), ('eastAsia', 'Arial'), ('hAnsi', 'Arial')]"
+    ],
+    "part_counts": {},
+    "id": "fontface",
+    "control_id": "home.font.font",
+    "feature": "Font",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "Font family (w:rFonts ascii/hAnsi=Arial). COM Font.Name == ribbon font picker."
+  },
+  {
+    "task": "fontsize",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 3
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:ligatures[('val', 'standard')]",
+      "body:szCs[('val', '28')]"
+    ],
+    "part_counts": {},
+    "id": "fontsize",
+    "control_id": "home.font.font-size",
+    "feature": "Font Size",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "Font size (w:sz w:val=28 half-points). COM Font.Size == ribbon size box."
+  },
+  {
+    "task": "italic",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 2
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:ligatures[('val', 'standard')]"
+    ],
+    "part_counts": {},
+    "id": "italic",
+    "control_id": "home.font.italic",
+    "feature": "Italic",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "Italic mark on a run. COM == ribbon."
+  },
+  {
+    "task": "underline",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 2
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:cntxtAlts[]",
+      "body:ligatures[('val', 'standard')]"
+    ],
+    "part_counts": {},
+    "id": "underline",
+    "control_id": "home.font.underline",
+    "feature": "Underline",
+    "tab": "Home",
+    "usage_tier": "T0",
+    "note": "Single underline (w:u w:val=single). COM Font.Underline=1 == ribbon."
   },
   {
     "task": "pagenum",
@@ -71,7 +243,7 @@
     "feature": "Page Number",
     "tab": "Insert",
     "usage_tier": "T1",
-    "note": "PAGE field in footer. Field shape, lands in footer part."
+    "note": "PAGE field in footer. Field shape, lands in footer part. (T1 pilot — kept for reference.)"
   },
   {
     "task": "table",
@@ -102,6 +274,6 @@
     "feature": "Insert Table",
     "tab": "Insert",
     "usage_tier": "T1",
-    "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session."
+    "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session. (T1 pilot — kept for reference.)"
   }
 ]

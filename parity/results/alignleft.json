@@ -1,0 +1,26 @@
+{
+  "task": "alignleft",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 2,
+    "missing": 0,
+    "extra": 5
+  },
+  "missing_nodes": [],
+  "extra_nodes": [
+    "body:cntxtAlts[]",
+    "body:jc[('val', 'left')]",
+    "body:ligatures[('val', 'standard')]",
+    "body:pPr[]",
+    "body:rPr[]"
+  ],
+  "part_counts": {},
+  "id": "alignleft",
+  "control_id": "home.paragraph.align-left",
+  "feature": "Align Left",
+  "tab": "Home",
+  "usage_tier": "T0",
+  "note": "Left is Word's DEFAULT alignment, so Word may emit NO explicit w:jc — a clone that emits jc=left over-emits (real signal)."
+}

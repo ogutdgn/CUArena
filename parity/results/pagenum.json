@@ -47,5 +47,5 @@
   "feature": "Page Number",
   "tab": "Insert",
   "usage_tier": "T1",
-  "note": "PAGE field in footer. Field shape, lands in footer part."
+  "note": "PAGE field in footer. Field shape, lands in footer part. (T1 pilot — kept for reference.)"
 }

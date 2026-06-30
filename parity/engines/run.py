@@ -66,6 +66,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tasks", default=os.path.join(PARITY, "tasks.json"))
     ap.add_argument("--only", default=None, help="run a single task id")
+    ap.add_argument("--tier", default=None, help="run only tasks of this usage_tier (e.g. T0)")
     ap.add_argument("--capture", action="store_true", help="(re)capture both sides before diffing")
     ap.add_argument("--capture-baseline", action="store_true", help="(re)capture ONLY the empty-doc baselines")
     ap.add_argument("--no-baseline", action="store_true", help="diff full docs without baseline subtraction (v1 behavior)")
@@ -74,6 +75,9 @@ def main():
     tasks = json.load(open(a.tasks, encoding="utf-8"))["tasks"]
     if a.only:
         tasks = [t for t in tasks if t["id"] == a.only]
+    if a.tier:
+        tasks = [t for t in tasks if t.get("usage_tier") == a.tier]
+    subset = bool(a.only or a.tier)   # a subset run MERGES into the aggregate, never clobbers it
     os.makedirs(RESULTS, exist_ok=True)
 
     # v2 baseline subtraction: capture the empty-doc baselines once, then subtract them.
@@ -124,11 +128,11 @@ def main():
         results.append(d)
         print(f"  -> {d['verdict']}  match={d['counts']['match']} missing={d['counts']['missing']} extra={d['counts']['extra']}")
 
-    # When running a SUBSET (--only), MERGE into the existing aggregate ledger instead of
-    # clobbering it with just this task — the develop-phase acceptance gate re-runs one task
-    # repeatedly and must not wipe the other tasks' rows.
+    # When running a SUBSET (--only / --tier), MERGE into the existing aggregate ledger instead
+    # of clobbering it with just these tasks — the develop-phase acceptance gate re-runs a task
+    # repeatedly, and a tier batch must not wipe the other tiers' rows.
     ledger_results = results
-    if a.only:
+    if subset:
         prev = []
         lj = os.path.join(RESULTS, "ledger.json")
         if os.path.exists(lj):
@@ -144,7 +148,7 @@ def main():
     path = ledger.write_ledger(ledger_results, RESULTS)
     seeds = ledger.write_spec_seeds(ledger_results, RESULTS)
     print(f"\nLedger written: {path}  ({len(ledger_results)} tasks"
-          f"{f'; updated {len(results)} via --only' if a.only else ''})")
+          f"{f'; updated {len(results)} via subset' if subset else ''})")
     print(f"Spec seeds written: {seeds}  (-> /speckit-specify input)")
 
 

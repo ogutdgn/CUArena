@@ -1,5 +1,13 @@
 {
-  "_comment": "Task descriptor list. Each task = one minimal action compared clone-vs-real-Word. The runner derives file paths by convention: probe=parity/probes/<id>-pilot-probe.js, com=parity/ground-truth/realword_<id>.ps1, fixtures=parity/fixtures/{wc,rw}-<id>.docx. realword_method: 'com' (scriptable, COM==ribbon) or 'vsto' (gallery/style action where COM != ribbon -> needs real UI capture).",
+  "_comment": "Task descriptor list. Each task = one minimal action compared clone-vs-real-Word. The runner derives file paths by convention: probe=parity/probes/<id>-pilot-probe.js, com=parity/ground-truth/realword_<id>.ps1, fixtures=parity/fixtures/{wc,rw}-<id>.docx. realword_method: 'com' (scriptable, COM==ribbon) or 'vsto' (gallery/style action where COM != ribbon -> needs real UI capture). Run a tier batch with: python parity/engines/run.py --tier T0 --capture (Word closed).",
+  "_flow_verifier_candidates": {
+    "_note": "T0 clipboard/flow controls with NO clean single-action OOXML delta — DEFERRED to the UI-flow verifier, NOT the OOXML diff (would block/pollute the batch).",
+    "items": [
+      {"id": "copy", "control_id": "home.clipboard.copy", "why": "Copy produces NO document delta (clipboard only)."},
+      {"id": "cut", "control_id": "home.clipboard.cut", "why": "Needs a selection precondition; the delta is a deletion, not an additive feature."},
+      {"id": "paste", "control_id": "home.clipboard.paste", "why": "Needs a clipboard precondition; output depends on clipboard contents/paste-mode."}
+    ]
+  },
   "tasks": [
     {
       "id": "bold",
@@ -12,6 +20,76 @@
       "note": "Bold mark on a run. COM == ribbon."
     },
     {
+      "id": "italic",
+      "control_id": "home.font.italic",
+      "feature": "Italic",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, toggle italic",
+      "realword_method": "com",
+      "note": "Italic mark on a run. COM == ribbon."
+    },
+    {
+      "id": "underline",
+      "control_id": "home.font.underline",
+      "feature": "Underline",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, apply single underline",
+      "realword_method": "com",
+      "note": "Single underline (w:u w:val=single). COM Font.Underline=1 == ribbon."
+    },
+    {
+      "id": "fontface",
+      "control_id": "home.font.font",
+      "feature": "Font",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, set font family to Arial",
+      "realword_method": "com",
+      "note": "Font family (w:rFonts ascii/hAnsi=Arial). COM Font.Name == ribbon font picker."
+    },
+    {
+      "id": "fontsize",
+      "control_id": "home.font.font-size",
+      "feature": "Font Size",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, set font size to 14pt",
+      "realword_method": "com",
+      "note": "Font size (w:sz w:val=28 half-points). COM Font.Size == ribbon size box."
+    },
+    {
+      "id": "bullets",
+      "control_id": "home.paragraph.bullets",
+      "feature": "Bullets",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "apply a default bullet list to the paragraph",
+      "realword_method": "com",
+      "note": "WARNING: like Insert Table, COM ListFormat.ApplyBulletDefault() may differ from the ribbon's exact list template (numId/abstractNum/indents). This rw fixture is the COM baseline; recapture via vsto if the divergence looks like a method artifact, not a clone gap."
+    },
+    {
+      "id": "alignleft",
+      "control_id": "home.paragraph.align-left",
+      "feature": "Align Left",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "set paragraph alignment to left",
+      "realword_method": "com",
+      "note": "Left is Word's DEFAULT alignment, so Word may emit NO explicit w:jc — a clone that emits jc=left over-emits (real signal)."
+    },
+    {
+      "id": "center",
+      "control_id": "home.paragraph.center",
+      "feature": "Center",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "set paragraph alignment to center",
+      "realword_method": "com",
+      "note": "Center alignment (w:jc w:val=center). COM ParagraphFormat.Alignment=1 == ribbon."
+    },
+    {
       "id": "pagenum",
       "control_id": "insert.header-footer.pageNumber",
       "feature": "Page Number",
@@ -19,7 +97,7 @@
       "usage_tier": "T1",
       "action": "insert a bottom page-number PAGE field",
       "realword_method": "com",
-      "note": "PAGE field in footer. Field shape, lands in footer part."
+      "note": "PAGE field in footer. Field shape, lands in footer part. (T1 pilot — kept for reference.)"
     },
     {
       "id": "table",
@@ -29,7 +107,7 @@
       "usage_tier": "T1",
       "action": "insert a plain 3x3 table",
       "realword_method": "com",
-      "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session."
+      "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session. (T1 pilot — kept for reference.)"
     }
   ]
 }

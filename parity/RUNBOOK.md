@@ -124,5 +124,24 @@ action-specific noise — Word-vs-self auto-surfaces it). Baseline state: all su
   where the default footer ref read as BOTH `missing` (Word rId9) and `extra` (clone rId7); pagenum 18/4 → 17/3.
   Locked by golden cases `rid_canon` (same ref, different rId → 0 diff) + `rid_type_differs` (different `type`
   → still surfaces).
+- ✅ **Numbering-index (numId) canonicalization (DONE):** `<w:numId w:val>` / `<w:abstractNumId w:val>` are
+  per-doc numbering indices assigned arbitrarily (Word's fresh list = numId 1; the clone's = numId 4 because
+  its template predefines a few) — the same opaque-pointer class as rId. `meaningful_attrs` folds the VALUE to
+  `#` (but NOT `w:ilvl`, the list level, which is meaningful). Removed the bullets phantom (`missing numId[1]` /
+  `extra numId[4]`); bullets 2/4 → 1/3, leaving the real gap `missing pStyle[ListParagraph]`. Locked by golden
+  `numid_canon` (numId 1-vs-4 → 0 diff) + `ilvl_not_canon` (level 0-vs-1 → still surfaces). **Limitation:** this
+  is a document.xml-only view — it does NOT resolve numId → abstractNum → numFmt, so it cannot tell a bullet from
+  a numbered list (needs numbering.xml resolution — see below).
+- 🔜 **rFonts attribute-subset matching:** node signatures key on the FULL sorted attribute-tuple, so when the
+  clone emits `rFonts[ascii,hAnsi,cs,eastAsia]` and Word emits `rFonts[ascii,hAnsi]`, the differ fabricates a
+  PHANTOM `missing rFonts[ascii,hAnsi]` alongside the real `extra` (the clone already emits ascii+hAnsi). The real
+  delta is the cs/eastAsia over-spec. Candidate: attribute-level/subset matching for multi-attr property elements
+  (rFonts, ind, spacing…) so an attribute-set superset reads as "extra attrs", not a missing+extra pair.
+- 🔜 **numbering.xml / styles.xml resolution:** the differ reads only document.xml + headers/footers, so it can't
+  compare list KIND (bullet vs numbered — both are just `numId` refs) or resolve `pStyle`/`tblStyle` definitions.
+  Bringing numbering.xml + styles.xml in as RESOLUTION sources (numId → numFmt; styleId → its rPr/pPr) would let
+  the differ compare list type and style content. (Also: the ribbon Bullets button emits a 9-level
+  `hybridMultilevel` abstractNum vs COM `ApplyBulletDefault`'s `singleLevel` — a numbering.xml-only divergence,
+  invisible today; recapture bullets via vsto if/when numbering.xml enters the diff.)
 - 🔜 **Flow verifier** (separate): DOM-introspect the clone (dropdown/dialog/contextual-tab/items) and
   diff against the `ribbon-data.js` declared `type`/`items[]` — UI-flow fidelity, not OOXML.

@@ -28,6 +28,14 @@ NOISE_ATTRS = {"rsid", "rsidr", "rsidrpr", "rsidrdefault", "rsidp", "rsidtr",
 # that DROPS the relationship entirely still surfaces as a gap.
 RID_RE = re.compile(r"^rId\d+$")
 RID_CANON = "rId#"
+# Numbering-instance ids: <w:numId w:val> / <w:abstractNumId w:val> are per-doc indices assigned
+# arbitrarily (Word's fresh list gets numId=1; the clone's gets numId=4 because its template already
+# defines a few) — the same opaque-pointer class as rId. Canonicalize the VALUE so the same list
+# reference matches. NOTE: this is a document.xml-only view — it does NOT resolve numId -> abstractNum
+# -> numFmt, so it cannot tell a bullet from a numbered list (that needs numbering.xml resolution, a
+# future refinement). w:ilvl (the list LEVEL) is meaningful and is deliberately NOT canonicalized.
+NUM_REF_ELEMENTS = {"numid", "abstractnumid"}
+NUM_CANON = "#"
 # text content matters for these (field instructions) -> folded into the signature
 TEXT_NODES = {"instrText"}
 
@@ -47,13 +55,16 @@ def part_kind(name):
 
 
 def meaningful_attrs(el):
+    is_num_ref = local(el.tag).lower() in NUM_REF_ELEMENTS
     out = []
     for k, v in el.attrib.items():
         ln = local(k).lower()
         if ln in NOISE_ATTRS:
             continue
         if RID_RE.match(v):
-            v = RID_CANON   # canonicalize per-doc relationship-id values
+            v = RID_CANON           # canonicalize per-doc relationship-id values
+        elif is_num_ref and ln == "val":
+            v = NUM_CANON           # canonicalize per-doc numbering-index values (not ilvl)
         out.append((local(k), v))
     return tuple(sorted(out))
 

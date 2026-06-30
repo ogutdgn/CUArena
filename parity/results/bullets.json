@@ -1,0 +1,26 @@
+{
+  "task": "bullets",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 6,
+    "missing": 1,
+    "extra": 3
+  },
+  "missing_nodes": [
+    "body:pStyle[('val', 'ListParagraph')]"
+  ],
+  "extra_nodes": [
+    "body:cntxtAlts[]",
+    "body:ligatures[('val', 'standard')]",
+    "body:rPr[]"
+  ],
+  "part_counts": {},
+  "id": "bullets",
+  "control_id": "home.paragraph.bullets",
+  "feature": "Bullets",
+  "tab": "Home",
+  "usage_tier": "T0",
+  "note": "WARNING: like Insert Table, COM ListFormat.ApplyBulletDefault() may differ from the ribbon's exact list template (numId/abstractNum/indents). This rw fixture is the COM baseline; recapture via vsto if the divergence looks like a method artifact, not a clone gap."
+}
