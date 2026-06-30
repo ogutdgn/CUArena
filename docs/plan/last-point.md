@@ -7,6 +7,33 @@
 
 ---
 
+## 2026-06-30 (PARITY PIPELINE — T1 batch: 5 Home controls diffed; post-022 Home is 7/13 full-parity)
+
+> **Branch:** `parity-pipeline` @ `5ecac88` (committed, **NOT merged** — user decides). Phase: parity harness —
+> T0 + 022 fix + T1 done; **STOP before T2** (user decides T2 scope). **Entry: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+>
+> **Done — T1 batch (5 new main-ribbon Home controls, post-022 build):** Font Color, Text Highlight, Numbering,
+> Justify, Line & Paragraph Spacing (+ reused pagenum/table pilots; UIA still deferred). 5 probes + 5 Word-COM
+> ground-truths. **T1 ledger:** fontcolor 0/0, justify 0/0, linespacing 0/0 (FULL parity); numbering 1/0;
+> highlight 3/0; pagenum 17/3; table 7/2.
+>
+> **Adversarial review (3 lenses, all confirmed):** (1) `highlight` 3/0 is a COM `HighlightColorIndex` ground-truth
+> ARTIFACT (it stamps the para-mark rPr; the ribbon doesn't — proven: bold via the same Range(0,7) is 0/0); the
+> clone's run-level `w:highlight` is FAITHFUL, real parity = 0/0; vsto recapture pending (joins table/bullets as the
+> COM≠ribbon set); annotated, NOT a clone fix. (2) `numbering` 1/0 is a REAL gap — clone omits `pStyle=ListParagraph`
+> (SAME as bullets → one clone fix closes both); follow-up: clone emits numPr children in reversed schema order
+> (numId before ilvl). (3) fontcolor/justify/linespacing = genuine full parity.
+>
+> **POST-022 HOME PICTURE (T0+T1, 13 controls):** ✅ FULL parity (0/0) = bold, italic, underline, center, fontcolor,
+> justify, linespacing (**7**); highlight effectively 0/0 (COM artifact). Real clone gaps: bullets+numbering
+> (ListParagraph), fontface (rFonts over-spec + a differ tokenization phantom), fontsize (szCs), alignleft (explicit
+> jc=left). The 022 w14 fix cleared the systemic extra from all of them. **LESSON: a 0-extra "missing-only" diff
+> where the clone clearly emits the node = suspect the GROUND TRUTH (COM≠ribbon), not the clone — unzip both sides.**
+>
+> **NEXT = user decides T2 scope** (or: close the T0/T1 clone gaps via spec-kit — the ListParagraph fix is the
+> highest-leverage, closes bullets+numbering at once; or build the UIA contextual-tab inventory to un-defer
+> highlight/table/bullets ground truth). RUNBOOK "T1 develop backlog" + "Engine refinements" track all follow-ups.
+
 ## 2026-06-30 (PARITY PIPELINE — 🏁 022 w14 ligatures FIX merged-to-branch: the FIX half of the loop, proven)
 
 > **Branch:** `parity-pipeline` @ `3b8ce68` (committed, **NOT merged** — user decides). Phase: parity harness —
