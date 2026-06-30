@@ -14,6 +14,12 @@ from-scratch, faithful Microsoft Word desktop clone (Electron + electron-vite + 
 > - **Start each session at [docs/plan/](docs/plan/):** `last-point.md` (where we are),
 >   `execution-map.md` (what to do now), `plan.md` (the roadmap + dev process). Keep these
 >   current with the **`plan-tracking`** skill (`.claude/skills/plan-tracking/`) at session end.
+> - **PARITY PIPELINE — ACTIVE WORK (branch `parity-pipeline`):** measuring REAL clone-vs-Word feature parity
+>   (diff the clone's `.docx` output against real Word) to find every gap and drive fixes via spec-kit. The
+>   code-traced status in `docs/FEATURE_PARITY_AUDIT.md` is only an ESTIMATE — this pipeline produces the real
+>   numbers. **Entry point: [parity/RUNBOOK.md](parity/RUNBOOK.md)** (+ [parity/README.md](parity/README.md)).
+>   Locked scope: [docs/SCOPE_LOCKED.md](docs/SCOPE_LOCKED.md). Run `python parity/engines/review_differ.py`
+>   (must pass) before scaling.
 > - **LAYOUT ENGINE (Phase 4) — COMPLETE & the SOLE engine (paged-render migration FR-013, 2026-06-21; overlay
 >   retired in 008, general-done).** The paged SuperDoc **PresentationEditor** is the ONLY rendering engine — it
 >   paints real per-page multi-page sheets. The legacy continuous-flow `overlay` engine + the `WC_LAYOUT` toggle

@@ -7,6 +7,31 @@
 
 ---
 
+## 2026-06-29 (PARITY PIPELINE — clone-vs-real-Word measurement harness BUILT on branch `parity-pipeline`)
+
+> **Branch:** `parity-pipeline` (NOT merged to main — user decides later). Phase: building the parity
+> measurement harness that diffs the clone's `.docx` output against REAL Word to find every feature gap,
+> then drives fixes via spec-kit. **Why:** the code-traced parity % (`docs/FEATURE_PARITY_AUDIT.md`) is an
+> ESTIMATE; real gaps only come from comparing actual output to real Word (proven: Bold was code-"full" but
+> over-emits `w14` nodes).
+>
+> **➡️ ENTRY POINT FOR THIS WORK: [parity/RUNBOOK.md](../../parity/RUNBOOK.md)** (+ `parity/README.md`).
+> **Scope:** [docs/SCOPE_LOCKED.md](../SCOPE_LOCKED.md) — 111 locked features (T0–T2 + reward-signal T3 +
+> Layout/Arrange + Mailings), strict-full metric, parity bar = 3-bucket (semantic pass + fidelity ledger).
+>
+> **Done this session:** generic 3-bucket OOXML differ + ledger + runner + spec-seeds (`parity/engines/`),
+> proven on 3 pilots (bold/pagenum/table); differ **reviewer** (golden + Word-vs-self + clone-vs-self) all
+> green → differ is trustworthy. Findings: Bold over-emits `w14`; Page Number drops `\* MERGEFORMAT` /
+> cached-result / 2 footer parts; COM `Tables.Add` ≠ ribbon (auto-`TableGrid`) → ground truth must be HYBRID
+> (COM where ==ribbon, UIA/vsto for galleries). 3 commits: `1e952a9` docs, `f35a3fe` scaffold, `2649ab4` reviewer.
+>
+> **NEXT (per RUNBOOK):** (1) v2 differ = **baseline subtraction only** (noise list proven complete by the
+> reviewer). (2) **enumerator** — main tabs from `ribbon-data.js`; contextual tabs (Table Design/Layout) from a
+> real-Word **UIA inventory** (`table-tools-pm.js` is only a CLONE subset — can't reveal missing buttons). (3)
+> batch capture+diff in usage-tier order (agent/workflow fan-out). (4) develop: `SPEC_SEEDS.md` → `/speckit-specify`
+> → fix → `run.py --only <id>` acceptance gate. **North star:** every locked feature — sub-features, functionality,
+> AND UI flows (dropdowns/dialogs/contextual tabs) — IDENTICAL to real Word.
+
 ## 2026-06-26 (COMPLETENESS PASS — HOME TAB: 🏁 ALL Home features DONE — 019/020/021 merged)
 
 > **Branch:** `main` @ `36ac9ef`, **pushed (in sync)**. Phase: COMPLETENESS PASS — Home tab. The 3 remaining
