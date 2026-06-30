@@ -7,10 +7,24 @@
 
 ---
 
-## 2026-06-30 (PARITY PIPELINE — DEEP T0/T1 SLICE started: differ part-scope + flow verifier built)
+## 2026-06-30 (PARITY PIPELINE — DEEP T0/T1 SLICE: 🏁 ALL 3 AXES built + green on T0/T1 main actions)
 
-> **Branch:** `parity-pipeline` @ `da1cb4a` (committed, **NOT merged**). Phase: deep T0/T1 vertical slice (full depth:
-> main + dialog + variations, across 3 axes — OOXML diff + flow verifier + light visual). **Entry: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+> **Branch:** `parity-pipeline` @ `cf4f563` (committed, **NOT merged**). Phase: deep T0/T1 vertical slice. **Entry: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+>
+> **🏁 ALL 3 PARITY AXES now built + run on the 13 T0/T1 MAIN actions (the end-to-end proof):**
+> - **OOXML** (the differ, + numbering/styles part-scope): bold/italic/underline/center/fontcolor/justify/linespacing =
+>   FULL parity 0/0; gaps = fontface(rFonts)/fontsize(szCs)/alignleft(jc=left)/bullets+numbering(ListParagraph).
+> - **FLOW** (`flow_verify.py` + `flow-probe.js`, `da1cb4a`): **13/13 flow-pass** (correct interaction type, no dead
+>   launchers); GOLDEN 7/7 + self-consistency deterministic. `FLOW_LEDGER.md`.
+> - **VISUAL** (light clone-only LLM judge, `cf4f563`): **11 pass + 2 n/a (justify/linespacing single-line) + 0 concerns**;
+>   judge DISCRIMINATION golden 2/2 (bold-shot-isnt-italic, center-shot-isnt-red). `VISUAL_LEDGER.md` + `visual/shots/*.png`.
+>
+> **DECISIONS LOCKED (user):** visual = clone-only LLM judge (lightest); the 2 fork edits (fontface rFonts, fontsize szCs)
+> are AUTHORIZED. **REMAINING (sequenced):** (A) the 4 OOXML FIXES — ListParagraph [NO-FORK bridge wrapper in lists.ts,
+> closes bullets+numbering + numPr child-order], Align Left [NO-FORK: remap setTextAlign('left')→unsetTextAlign in
+> commands.ts], Font face rFonts [FORK: styles.js decodeRPrFromMarks → ascii+hAnsi only], Font size szCs [FORK: styles.js
+> drop the fontSizeCs auto-sync, mirrors SD-2912]; investigation `whhkobjn3`; acceptance = run.py --only <id> semantic-pass.
+> (B) DEEP ENUMERATION (dialog options + variations, all 3 axes per sub-task). (C) COMBINED deep T0/T1 report.
 >
 > **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
 > `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
