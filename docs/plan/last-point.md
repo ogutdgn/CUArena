@@ -7,6 +7,35 @@
 
 ---
 
+## 2026-06-30 (PARITY PIPELINE — 🏁 022 w14 ligatures FIX merged-to-branch: the FIX half of the loop, proven)
+
+> **Branch:** `parity-pipeline` @ `3b8ce68` (committed, **NOT merged** — user decides). Phase: parity harness —
+> Part A (the systemic w14 fix) DONE; Part B (T1 batch) NEXT. **Entry: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+>
+> **🏁 Feature 022 — w14:ligatures/cntxtAlts inline over-emission FIXED (spec-kit `specs/022-w14-ligatures-inline`).**
+> The clone promoted the docDefault `<w14:ligatures w14:val="standardContextual"/>` to INLINE run rPr on EVERY
+> authored run; real Word keeps it in docDefaults only. ROOT CAUSE (traced + runtime-verified): the docDefault
+> round-trips lossily through the textStyle mark to `ligatures:'standard'`+`contextualAlternates:true`, so
+> `getInlineRunProperties`' marks-vs-styles override gate's RAW compare always flagged it as a per-run override.
+> **FIX B (USER-AUTHORIZED single-file fork edit, Constitution P1 exception, NOTICE'd):** a ligatures/
+> contextualAlternates branch (mirroring the fontFamily branch) comparing the CSS-NORMALIZED form via
+> `encodeMarksFromRPr` — an inherited docDefault value is no longer promoted inline; an explicit non-default pick
+> (All/None/standard-only) still differs and exports. **This is the FIRST clone-source fix driven by the parity loop.**
+>
+> **Acceptance (the FIX-half proof):** re-captured the clone T0 fixtures (NEW `run.py --capture-clone`) → the w14
+> `extra` dropped from ALL 8 T0 controls; **bold/italic/underline/center now 0 missing / 0 extra vs real Word**.
+> Gates: test:pm **501/501** (added negative+positive regression tests; re-pointed the existing "Standard+Contextual"
+> Text Effects test → "All" since Standard+Contextual == the docDefault is now correctly inherited-not-inline),
+> test:smoke 9, test:roundtrip 27. **Adversarial review (3 lenses): 0 defects in the fix**; 1 CONFIRMED same-class
+> LATENT gap — `stylisticSets` has the identical lossy round-trip but no docDefault carries it (not parity-triggered),
+> documented as a follow-up in spec.md + a code comment (NOT fixed — parity ethos = fix MEASURED gaps). **LESSON:**
+> a docDefault value that round-trips lossily (mark shape != style shape) gets mis-promoted inline by the raw-compare
+> override gate; the fix is a CSS-normalized compare (the fontFamily-branch pattern), per w14 property.
+>
+> **NEXT = Part B (T1 batch, user-scoped):** clean OOXML set — Font Color, Text Highlight, Numbering, Justify, Line &
+> Paragraph Spacing (+ reuse pagenum/table). FLAG galleries (Insert Table/Pictures/Link/Header/Footer); DEFER flow-only
+> (Find/Replace/Editor/Spelling) to the flow verifier. STOP + report the T1 ledger before T2.
+
 ## 2026-06-30 (PARITY PIPELINE — T0 batch: 8 Home controls enumerated + diffed on `parity-pipeline`)
 
 > **Branch:** `parity-pipeline` @ `15e97db` (committed, **NOT merged** — user decides). Phase: parity harness,
