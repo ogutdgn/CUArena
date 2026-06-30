@@ -23,14 +23,19 @@ diff them, and record all differences in `parity/results/LEDGER.md`. The pipelin
 
 ## Run it
 ```bash
-# diff existing fixtures only (no capture):
+# diff existing fixtures only (no capture); subtracts rw-blank/wc-blank if present:
 python parity/engines/run.py
 
+# capture the empty-doc BASELINES once (needed for clean deltas; Word closed):
+python parity/engines/run.py --capture-baseline
+
 # capture both sides THEN diff (Electron + Word must be available, Word closed):
-python parity/engines/run.py --capture
+python parity/engines/run.py --capture            # also (re)captures the baselines first
 python parity/engines/run.py --only <id> --capture    # single task
+python parity/engines/run.py --no-baseline        # v1 full-doc diff (debug / no baselines)
 ```
-Output: `parity/results/LEDGER.md` (+ `ledger.json` + per-task `<id>.json`).
+Output: `parity/results/LEDGER.md` (+ `ledger.json` + per-task `<id>.json`). The ledger header states
+whether **baseline subtraction** is ON (delta-vs-empty-doc) or OFF (v1 full-doc).
 
 ## How to ADD a feature/sub-task (this is the bulk of the full operation)
 For each control / sub-feature in `docs/SCOPE_LOCKED.md` (the 111 locked features, expanded into sub-tasks):
@@ -79,8 +84,9 @@ Once the ledger is populated, drive fixes through the clone's existing spec-kit 
 2. Paste a block into **`/speckit-specify`** → `/speckit-plan` → `/speckit-tasks` → implement the fix in the clone.
 3. The spec's **acceptance gate = the parity task**: `python parity/engines/run.py --only <id>` must reach
    `semantic-pass`, `missing = 0`. This is also the regression test.
-> Note: spec-seed quality depends on the v2 differ below — until baseline-subtraction + the noise list land,
-> seeds over-list boilerplate (`Ignorable` attr, body list-paragraph nodes, generic `p`/`r`/`t`). Land v2 first.
+> Note: spec-seed quality depends on the v2 differ (baseline subtraction) — now LANDED, so seeds no longer
+> over-list blank-document boilerplate (the ListParagraph/`numId` cluster is gone). Capture the baselines once
+> (`run.py --capture` or `--capture-baseline`) so every task is diffed as a clean delta.
 
 ## Validating the engine (run BEFORE scaling to hundreds of tasks)
 `python parity/engines/review_differ.py` — objective self-validation of the differ. Three suites:
@@ -91,9 +97,27 @@ Once the ledger is populated, drive fixes through the clone's existing spec-kit 
 Exit 0 iff all pass. **Re-run whenever you add a new action category** (date fields, drawings, etc. may bring
 action-specific noise — Word-vs-self auto-surfaces it). Baseline state: all suites pass on bold/pagenum/table.
 
-## Known refinements still TODO on the engine
-- **Baseline subtraction**: diff each side's delta-vs-empty-doc instead of full docs, to drop unrelated
-  body boilerplate (e.g. the ListParagraph noise seen in the pagenum pilot's `extra`).
-- **Noise list**: add namespace `Ignorable` and other boilerplate attrs to `NOISE_ATTRS` in `ooxml_diff.py`.
-- **Flow verifier** (separate): DOM-introspect the clone (dropdown/dialog/contextual-tab/items) and
+## Engine refinements — status
+- ✅ **Baseline subtraction (v2 — DONE):** `diff()` compares each side's **signed** delta-vs-its-empty-doc
+  baseline (`rw-blank.docx`/`wc-blank.docx`) before bucketing, so blank-document boilerplate cancels and only
+  the feature delta is compared. **Signed (not Counter `-`) deltas** so a feature that REMOVES a node present
+  in the baseline still surfaces (Counter `-` floors negatives → would hide reductions). The two baselines
+  come from different engines (Word COM vs the clone); if they DIVERGE, `diff()` reports it in
+  `baseline_divergence` and `run.py`/the ledger surface it loudly — the divergence is net into every task's
+  delta, so it must be fixed or recorded as a blank-doc finding, never silent. `run.py --capture` captures the
+  baselines; `--capture-baseline` refreshes just them; `--no-baseline` falls back to the v1 full-doc diff.
+  Proven on the 3 pilots: pagenum `extra` 18→4 (the ListParagraph/numId/numPr demo cluster dropped),
+  bold/table findings unchanged; the shipped baselines are signature-identical (divergence empty). Self-validated
+  by `review_differ.py`'s GOLDEN-BASELINE suite (5 cases: boilerplate cancels, real `missing`/`extra`/reduction
+  survive, divergent baselines flagged). **Probes must start from the SAME clean state as the blank baseline**
+  (`selectAll` + insertContent `<p></p>`) so the shared boilerplate cancels exactly — the pagenum probe +
+  ground-truth were normalized for this.
+- **Noise list:** proven COMPLETE by Word-vs-self (do NOT add `Ignorable` to `NOISE_ATTRS` — a `<w:ftr>`
+  WITHOUT `mc:Ignorable` is a real clone fidelity gap, surfaced in the pagenum ledger, not noise).
+- 🔜 **Relationship-id (rId) normalization:** node signatures include the `id`/rId attribute, so Word's
+  default footer ref (`rId9`) reads as `missing` while the clone's (`rId7`) reads as `extra` even though
+  both are the same semantic `type="default"` ref. Word-vs-self is clean (Word reuses rIds deterministically),
+  so this only bites cross-tool. Candidate next refinement: canonicalize rId VALUES (like rsid) before
+  comparison, keying header/footer refs on `type` not `id`.
+- 🔜 **Flow verifier** (separate): DOM-introspect the clone (dropdown/dialog/contextual-tab/items) and
   diff against the `ribbon-data.js` declared `type`/`items[]` — UI-flow fidelity, not OOXML.

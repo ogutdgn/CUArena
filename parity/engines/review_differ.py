@@ -17,6 +17,13 @@ import os, sys, zipfile, glob, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ooxml_diff
 
+# The report contains ✅/❌; the Windows console defaults to cp1252 and crashes on
+# print(). Force UTF-8 so the reviewer runs to completion everywhere (no-op on POSIX).
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
 PARITY = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SELFTEST = os.path.join(PARITY, "fixtures", "selftest")
 GOLDEN_DIR = os.path.join(SELFTEST, "golden")
@@ -84,6 +91,61 @@ def run_golden():
     return out
 
 
+def build_golden_baseline():
+    """Hand-labeled cases for BASELINE SUBTRACTION (v2 differ): diff each side's
+    delta-vs-its-own-baseline so blank-document boilerplate cancels and only the
+    feature delta remains. Each case = (name, exp_missing, exp_extra, ra, ca, rb, cb)
+    where rb/cb are the real/clone baselines and ra/ca the action docs."""
+    os.makedirs(GOLDEN_DIR, exist_ok=True)
+    P = lambda inner: f'<w:p>{inner}</w:p>'
+    PLAIN = P('<w:r><w:t>Hi</w:t></w:r>')
+    TWO_PLAIN = PLAIN + PLAIN
+    LISTPARA = P('<w:pPr><w:pStyle w:val="ListParagraph"/></w:pPr><w:r><w:t>Hi</w:t></w:r>')
+    BOLD = P('<w:r><w:rPr><w:b/></w:rPr><w:t>Hi</w:t></w:r>')
+    BOLD_LISTPARA = P('<w:pPr><w:pStyle w:val="ListParagraph"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Hi</w:t></w:r>')
+    BOLD_CNTXT = P('<w:r><w:rPr><w:b/><w:cntxtAlts/></w:rPr><w:t>Hi</w:t></w:r>')
+    FTRREF = P('<w:r><w:t>Hi</w:t></w:r>') + '<w:footerReference w:type="default" w:id="rId7"/>'
+    # (name, exp_missing, exp_extra, exp_divergent, real_action, clone_action, real_baseline, clone_baseline)
+    spec = [
+        # clone's baseline carries a ListParagraph the real baseline lacks; the feature is
+        # "add bold". After subtraction the ListParagraph cancels -> no spurious extra, and the
+        # baseline divergence (clone blank over-emits ListParagraph) is FLAGGED, not silent.
+        ("cancels_boilerplate", 0, 0, True, BOLD, BOLD_LISTPARA, PLAIN, LISTPARA),
+        # real adds a footerReference the clone never emits -> a real GAP must survive subtraction.
+        ("keeps_real_missing", 1, 0, False, FTRREF, PLAIN, PLAIN, PLAIN),
+        # clone over-emits cntxtAlts (not in its baseline) -> a real over-emission must survive.
+        ("keeps_real_extra", 0, 1, False, BOLD, BOLD_CNTXT, PLAIN, PLAIN),
+        # the feature REMOVES a node present in the baseline on Word's side (action count < baseline)
+        # but the clone keeps it -> a real over-emission. Counter '-' flooring would HIDE this (0/0);
+        # signed per-signature deltas must surface it as extra (the clone over-emits the para/run/text).
+        ("reduction_surfaces_extra", 0, 3, False, "", PLAIN, PLAIN, PLAIN),
+        # the two empty-doc baselines DIVERGE (clone blank has 2 paras, Word blank 1) while the actions
+        # are identical -> the divergence must be FLAGGED loudly (baseline_divergence non-empty), never silent.
+        ("flags_divergent_baseline", 3, 0, True, TWO_PLAIN, TWO_PLAIN, PLAIN, TWO_PLAIN),
+    ]
+    cases = []
+    for name, em, ee, ed, ra, ca, rb, cb in spec:
+        pra = make_docx(os.path.join(GOLDEN_DIR, f"gb_{name}_ra.docx"), ra)
+        pca = make_docx(os.path.join(GOLDEN_DIR, f"gb_{name}_ca.docx"), ca)
+        prb = make_docx(os.path.join(GOLDEN_DIR, f"gb_{name}_rb.docx"), rb)
+        pcb = make_docx(os.path.join(GOLDEN_DIR, f"gb_{name}_cb.docx"), cb)
+        cases.append((name, em, ee, ed, pra, pca, prb, pcb))
+    return cases
+
+
+def run_golden_baseline():
+    out = []
+    for name, exp_m, exp_e, exp_div, ra, ca, rb, cb in build_golden_baseline():
+        d = ooxml_diff.diff(ra, ca, name, real_baseline=rb, clone_baseline=cb)
+        got_m, got_e = d["counts"]["missing"], d["counts"]["extra"]
+        got_div = bool(d.get("baseline_divergence"))
+        ok = (got_m == exp_m and got_e == exp_e and got_div == exp_div and d.get("baselined") is True)
+        out.append({"name": name, "exp": [exp_m, exp_e], "got": [got_m, got_e],
+                    "exp_div": exp_div, "got_div": got_div, "ok": ok, "baselined": d.get("baselined"),
+                    "detail": (d["missing_nodes"] + d["extra_nodes"]) if not ok else []})
+    return out
+
+
 def run_self(prefix):
     out = []
     for a in sorted(glob.glob(os.path.join(SELFTEST, f"{prefix}-*-a.docx"))):
@@ -110,11 +172,14 @@ def leaked_attrs(self_results):
 def main():
     os.makedirs(RESULTS, exist_ok=True)
     golden = run_golden()
+    golden_bl = run_golden_baseline()
     word_self = run_self("rw")
     clone_self = run_self("wc")
 
     g_pass = sum(1 for g in golden if g["ok"])
     g_all = len(golden)
+    gb_pass = sum(1 for g in golden_bl if g["ok"])
+    gb_all = len(golden_bl)
     w_leaks = [r for r in word_self if not r["ok"]]
     c_leaks = [r for r in clone_self if not r["ok"]]
 
@@ -130,6 +195,17 @@ def main():
     for g in golden:
         L.append(f"| {g['name']} | {g['exp'][0]}/{g['exp'][1]} | {g['got'][0]}/{g['got'][1]} | "
                  f"{'✅' if g['ok'] else '❌ ' + '; '.join(g['detail'])} |")
+    L.append("")
+
+    L.append("## GOLDEN-BASELINE — baseline-subtraction correctness (v2)")
+    L.append(f"**{gb_pass}/{gb_all} pass** — signed delta-vs-baseline cancels boilerplate, keeps real "
+             "gaps/over-emissions/reductions, flags divergent baselines\n")
+    L.append("| case | exp miss/extra/div | got miss/extra/div | status |")
+    L.append("|---|---|---|---|")
+    for g in golden_bl:
+        status = "✅" if g["ok"] else "❌ " + "; ".join(g["detail"]) + f" (baselined={g['baselined']})"
+        L.append(f"| {g['name']} | {g['exp'][0]}/{g['exp'][1]}/{str(g['exp_div'])[0]} "
+                 f"| {g['got'][0]}/{g['got'][1]}/{str(g['got_div'])[0]} | {status} |")
     L.append("")
 
     L.append("## WORD-VS-SELF — noise-list completeness (must be empty)")
@@ -156,8 +232,9 @@ def main():
 
     # verdict + actions
     L.append("## VERDICT")
-    ok_all = (g_pass == g_all) and not w_leaks and not c_leaks
+    ok_all = (g_pass == g_all) and (gb_pass == gb_all) and not w_leaks and not c_leaks
     L.append(f"- **Differ logic (golden):** {'PASS' if g_pass == g_all else 'FAIL — fix differ before scaling'}")
+    L.append(f"- **Baseline subtraction (golden-baseline):** {'PASS' if gb_pass == gb_all else 'FAIL — baseline subtraction is unsound'}")
     if word_self:
         if w_leaks:
             L.append(f"- **Noise list:** INCOMPLETE — ACTION: add these attrs to `NOISE_ATTRS` in ooxml_diff.py: "

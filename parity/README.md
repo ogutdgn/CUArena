@@ -37,8 +37,13 @@ parity/
 
 ## Status
 - ✅ 3-bucket differ working, reproduces 3 manual pilots + finds extras (cell margins, header refs)
-- 🔜 v2 differ: baseline subtraction (kill unrelated body boilerplate) + expand noise list
-- 🔜 ledger writer · generic task runner · task enumeration over the locked scope
+- ✅ ledger writer · generic task runner (`run.py`) · spec-seeds generator
+- ✅ differ reviewer (`review_differ.py`): golden + Word-vs-self + clone-vs-self + golden-baseline — all green
+- ✅ **v2 differ: baseline subtraction** — diff each side's delta-vs-empty-doc so blank-document boilerplate
+  cancels (pagenum `extra` 18→4: the ListParagraph cluster dropped). Noise list proven complete; do NOT add
+  `Ignorable` (a `<w:ftr>` without `mc:Ignorable` is a real gap, not noise).
+- 🔜 task enumeration over the locked scope (main ribbon from `ribbon-data.js`; contextual tabs via UIA inventory)
+- 🔜 rId-value normalization (header/footer refs keyed on `type`, not the per-doc `id`)
 - 🔜 2nd verifier: UI-flow fidelity (DOM introspection vs `ribbon-data.js` spec)
 
 See `docs/SCOPE_LOCKED.md` for the 111 locked features this pipeline targets.

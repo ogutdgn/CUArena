@@ -61,7 +61,7 @@ python parity/engines/run.py --only table   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Page Number` output match real Microsoft Word.
 **Sub-tasks covered:** `pagenum`
 **Ground truth:** `parity/fixtures/rw-pagenum.docx`
-**Current parity:** GAP — 18 missing node(s), 18 fidelity warning(s)
+**Current parity:** GAP — 18 missing node(s), 4 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (pagenum): emit `body:footerReference[('id', 'rId11'), ('type', 'first')]`
@@ -84,21 +84,7 @@ python parity/engines/run.py --only table   # expect: semantic-pass, missing = 0
 - FR (pagenum): emit `header:p[]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (pagenum): stop emitting (or justify) `body:cntxtAlts[]`
 - FID (pagenum): stop emitting (or justify) `body:footerReference[('id', 'rId7'), ('type', 'default')]`
-- FID (pagenum): stop emitting (or justify) `body:ilvl[('val', '0')]`
-- FID (pagenum): stop emitting (or justify) `body:ilvl[('val', '1')]`
-- FID (pagenum): stop emitting (or justify) `body:ligatures[('val', 'standard')]`
-- FID (pagenum): stop emitting (or justify) `body:numId[('val', '2')]`
-- FID (pagenum): stop emitting (or justify) `body:numId[('val', '3')]`
-- FID (pagenum): stop emitting (or justify) `body:numPr[]`
-- FID (pagenum): stop emitting (or justify) `body:pPr[]`
-- FID (pagenum): stop emitting (or justify) `body:pStyle[('val', 'ListParagraph')]`
-- FID (pagenum): stop emitting (or justify) `body:p[]`
-- FID (pagenum): stop emitting (or justify) `body:rPr[]`
-- FID (pagenum): stop emitting (or justify) `body:r[]`
-- FID (pagenum): stop emitting (or justify) `body:t[('space', 'preserve')]`
-- FID (pagenum): stop emitting (or justify) `body:t[]`
 - FID (pagenum): stop emitting (or justify) `footer:ftr[]`
 - FID (pagenum): stop emitting (or justify) `footer:instrText[('space', 'preserve')]|text=PAGE`
 - FID (pagenum): stop emitting (or justify) `footer:rPr[]`

@@ -1,10 +1,12 @@
 {
   "task": "pagenum",
+  "baselined": true,
+  "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 15,
+    "match": 6,
     "missing": 18,
-    "extra": 18
+    "extra": 4
   },
   "missing_nodes": [
     "body:footerReference[('id', 'rId11'), ('type', 'first')]",
@@ -27,21 +29,7 @@
     "header:p[]"
   ],
   "extra_nodes": [
-    "body:cntxtAlts[]",
     "body:footerReference[('id', 'rId7'), ('type', 'default')]",
-    "body:ilvl[('val', '0')]",
-    "body:ilvl[('val', '1')]",
-    "body:ligatures[('val', 'standard')]",
-    "body:numId[('val', '2')]",
-    "body:numId[('val', '3')]",
-    "body:numPr[]",
-    "body:pPr[]",
-    "body:pStyle[('val', 'ListParagraph')]",
-    "body:p[]",
-    "body:rPr[]",
-    "body:r[]",
-    "body:t[('space', 'preserve')]",
-    "body:t[]",
     "footer:ftr[]",
     "footer:instrText[('space', 'preserve')]|text=PAGE",
     "footer:rPr[]"
@@ -54,10 +42,6 @@
     "header": {
       "word": 3,
       "clone": 0
-    },
-    "body": {
-      "word": 1,
-      "clone": 1
     }
   },
   "id": "pagenum",

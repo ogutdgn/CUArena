@@ -1,8 +1,10 @@
 {
   "task": "table",
+  "baselined": true,
+  "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 15,
+    "match": 9,
     "missing": 7,
     "extra": 2
   },
@@ -19,12 +21,7 @@
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
     "body:tblStyle[('val', 'TableGrid')]"
   ],
-  "part_counts": {
-    "body": {
-      "word": 1,
-      "clone": 1
-    }
-  },
+  "part_counts": {},
   "id": "table",
   "control_id": "insert.tables.table",
   "feature": "Insert Table",

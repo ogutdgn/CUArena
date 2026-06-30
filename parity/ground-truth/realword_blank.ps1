@@ -1,3 +1,6 @@
+# Real-Word empty-doc baseline via COM. The v2 differ subtracts this from every
+# feature task so Word's blank-document boilerplate cancels and only the feature
+# delta remains. SAFE ONLY WHEN NO OTHER WORD IS OPEN (Quit would close it).
 param([Parameter(Mandatory=$true)][string]$Out)
 $ErrorActionPreference = 'Stop'
 $pre = @(Get-Process WINWORD -ErrorAction SilentlyContinue | Select-Object -Expand Id)
@@ -6,13 +9,9 @@ $w = New-Object -ComObject Word.Application
 $w.Visible = $false
 $w.DisplayAlerts = 0
 try {
-    $doc = $w.Documents.Add()
-    # Empty body (no incidental text): the page-number feature lives in the footer,
-    # so the body cancels against the blank baseline and the delta is purely the field.
-    $footer = $doc.Sections.Item(1).Footers.Item(1).Range   # wdHeaderFooterPrimary
-    $null = $doc.Fields.Add($footer, 33)                     # wdFieldPage = 33
+    $doc = $w.Documents.Add()        # a brand-new blank document, no content
     if (Test-Path $Out) { Remove-Item $Out -Force }
-    $doc.SaveAs2($Out, 16)
+    $doc.SaveAs2($Out, 16)           # wdFormatDocumentDefault = .docx
     $doc.Close($false)
     Write-Output "saved: $Out"
 } finally {

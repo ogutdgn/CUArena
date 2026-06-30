@@ -1,8 +1,10 @@
 {
   "task": "bold",
+  "baselined": true,
+  "baseline_divergence": [],
   "verdict": "semantic-pass",
   "counts": {
-    "match": 11,
+    "match": 4,
     "missing": 0,
     "extra": 2
   },
@@ -11,12 +13,7 @@
     "body:cntxtAlts[]",
     "body:ligatures[('val', 'standard')]"
   ],
-  "part_counts": {
-    "body": {
-      "word": 1,
-      "clone": 1
-    }
-  },
+  "part_counts": {},
   "id": "bold",
   "control_id": "home.font.bold",
   "feature": "Bold",
