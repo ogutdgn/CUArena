@@ -171,6 +171,112 @@
     "note": "Single underline (w:u w:val=single). COM Font.Underline=1 == ribbon."
   },
   {
+    "task": "fontcolor",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "fontcolor",
+    "control_id": "home.font.font-color",
+    "feature": "Font Color",
+    "tab": "Home",
+    "usage_tier": "T1",
+    "note": "Font color (w:color w:val=FF0000). COM Font.Color=255 == ribbon Font Color."
+  },
+  {
+    "task": "highlight",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 4,
+      "missing": 3,
+      "extra": 0
+    },
+    "missing_nodes": [
+      "body:highlight[('val', 'yellow')]",
+      "body:pPr[]",
+      "body:rPr[]"
+    ],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "highlight",
+    "control_id": "home.font.text-highlight-color",
+    "feature": "Text Highlight Color",
+    "tab": "Home",
+    "usage_tier": "T1",
+    "note": "WARNING (COM != ribbon, adversarial-review-confirmed): COM HighlightColorIndex stamps the highlight on the PARAGRAPH-MARK rPr too; the ribbon Highlighter on a word selection does NOT (proven: bold via the same Range(0,7) emits no para-mark rPr and is 0/0). So the 3 'missing' (pPr/rPr/highlight) are a COM-method ground-truth artifact — the clone's run-level w:highlight is FAITHFUL; REAL ribbon parity = 0/0. Recapture via vsto/UIA to confirm."
+  },
+  {
+    "task": "justify",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "justify",
+    "control_id": "home.paragraph.justify",
+    "feature": "Justify",
+    "tab": "Home",
+    "usage_tier": "T1",
+    "note": "Justify (w:jc w:val=both). COM ParagraphFormat.Alignment=3 (wdAlignParagraphJustify) == ribbon."
+  },
+  {
+    "task": "linespacing",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 4,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "linespacing",
+    "control_id": "home.paragraph.line-and-paragraph-spacing",
+    "feature": "Line & Paragraph Spacing",
+    "tab": "Home",
+    "usage_tier": "T1",
+    "note": "Line spacing 2.0 (w:spacing w:line=480 w:lineRule=auto). COM ParagraphFormat.LineSpacingRule=2 (wdLineSpaceDouble) == ribbon."
+  },
+  {
+    "task": "numbering",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 6,
+      "missing": 1,
+      "extra": 0
+    },
+    "missing_nodes": [
+      "body:pStyle[('val', 'ListParagraph')]"
+    ],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "numbering",
+    "control_id": "home.paragraph.numbering",
+    "feature": "Numbering",
+    "tab": "Home",
+    "usage_tier": "T1",
+    "note": "WARNING: like Bullets/Insert Table, COM ListFormat.ApplyNumberDefault() may differ from the ribbon's exact list template in numbering.xml (out of the differ's document.xml scope today). The document.xml ground truth (numPr + pStyle ListParagraph) is faithful."
+  },
+  {
     "task": "pagenum",
     "baselined": true,
     "baseline_divergence": [],
@@ -205,13 +311,13 @@
       "footer:rPr[]"
     ],
     "part_counts": {
-      "header": {
-        "word": 3,
-        "clone": 0
-      },
       "footer": {
         "word": 3,
         "clone": 1
+      },
+      "header": {
+        "word": 3,
+        "clone": 0
       }
     },
     "id": "pagenum",

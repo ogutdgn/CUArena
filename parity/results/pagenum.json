@@ -33,13 +33,13 @@
     "footer:rPr[]"
   ],
   "part_counts": {
-    "header": {
-      "word": 3,
-      "clone": 0
-    },
     "footer": {
       "word": 3,
       "clone": 1
+    },
+    "header": {
+      "word": 3,
+      "clone": 0
     }
   },
   "id": "pagenum",

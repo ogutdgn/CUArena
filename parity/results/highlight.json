@@ -1,0 +1,24 @@
+{
+  "task": "highlight",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 4,
+    "missing": 3,
+    "extra": 0
+  },
+  "missing_nodes": [
+    "body:highlight[('val', 'yellow')]",
+    "body:pPr[]",
+    "body:rPr[]"
+  ],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "highlight",
+  "control_id": "home.font.text-highlight-color",
+  "feature": "Text Highlight Color",
+  "tab": "Home",
+  "usage_tier": "T1",
+  "note": "WARNING (COM != ribbon, adversarial-review-confirmed): COM HighlightColorIndex stamps the highlight on the PARAGRAPH-MARK rPr too; the ribbon Highlighter on a word selection does NOT (proven: bold via the same Range(0,7) emits no para-mark rPr and is 0/0). So the 3 'missing' (pPr/rPr/highlight) are a COM-method ground-truth artifact — the clone's run-level w:highlight is FAITHFUL; REAL ribbon parity = 0/0. Recapture via vsto/UIA to confirm."
+}

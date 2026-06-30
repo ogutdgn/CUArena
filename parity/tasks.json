@@ -90,6 +90,56 @@
       "note": "Center alignment (w:jc w:val=center). COM ParagraphFormat.Alignment=1 == ribbon."
     },
     {
+      "id": "fontcolor",
+      "control_id": "home.font.font-color",
+      "feature": "Font Color",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "select a word, set font color to red",
+      "realword_method": "com",
+      "note": "Font color (w:color w:val=FF0000). COM Font.Color=255 == ribbon Font Color."
+    },
+    {
+      "id": "highlight",
+      "control_id": "home.font.text-highlight-color",
+      "feature": "Text Highlight Color",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "select a word, apply yellow highlight",
+      "realword_method": "com",
+      "note": "WARNING (COM != ribbon, adversarial-review-confirmed): COM HighlightColorIndex stamps the highlight on the PARAGRAPH-MARK rPr too; the ribbon Highlighter on a word selection does NOT (proven: bold via the same Range(0,7) emits no para-mark rPr and is 0/0). So the 3 'missing' (pPr/rPr/highlight) are a COM-method ground-truth artifact — the clone's run-level w:highlight is FAITHFUL; REAL ribbon parity = 0/0. Recapture via vsto/UIA to confirm."
+    },
+    {
+      "id": "numbering",
+      "control_id": "home.paragraph.numbering",
+      "feature": "Numbering",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "apply a default numbered list to the paragraph",
+      "realword_method": "com",
+      "note": "WARNING: like Bullets/Insert Table, COM ListFormat.ApplyNumberDefault() may differ from the ribbon's exact list template in numbering.xml (out of the differ's document.xml scope today). The document.xml ground truth (numPr + pStyle ListParagraph) is faithful."
+    },
+    {
+      "id": "justify",
+      "control_id": "home.paragraph.justify",
+      "feature": "Justify",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "set paragraph alignment to justified",
+      "realword_method": "com",
+      "note": "Justify (w:jc w:val=both). COM ParagraphFormat.Alignment=3 (wdAlignParagraphJustify) == ribbon."
+    },
+    {
+      "id": "linespacing",
+      "control_id": "home.paragraph.line-and-paragraph-spacing",
+      "feature": "Line & Paragraph Spacing",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "set line spacing to 2.0 (double) on the paragraph",
+      "realword_method": "com",
+      "note": "Line spacing 2.0 (w:spacing w:line=480 w:lineRule=auto). COM ParagraphFormat.LineSpacingRule=2 (wdLineSpaceDouble) == ribbon."
+    },
+    {
       "id": "pagenum",
       "control_id": "insert.header-footer.pageNumber",
       "feature": "Page Number",

@@ -1,0 +1,22 @@
+{
+  "task": "numbering",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 6,
+    "missing": 1,
+    "extra": 0
+  },
+  "missing_nodes": [
+    "body:pStyle[('val', 'ListParagraph')]"
+  ],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "numbering",
+  "control_id": "home.paragraph.numbering",
+  "feature": "Numbering",
+  "tab": "Home",
+  "usage_tier": "T1",
+  "note": "WARNING: like Bullets/Insert Table, COM ListFormat.ApplyNumberDefault() may differ from the ribbon's exact list template in numbering.xml (out of the differ's document.xml scope today). The document.xml ground truth (numPr + pStyle ListParagraph) is faithful."
+}

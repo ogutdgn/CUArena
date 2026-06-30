@@ -187,6 +187,29 @@ python parity/engines/run.py --only underline   # expect: semantic-pass, missing
 
 ---
 
+## Font Color  (Home · T1)
+
+**Goal:** make the clone's `Font Color` output match real Microsoft Word.
+**Sub-tasks covered:** `fontcolor`
+**Ground truth:** `parity/fixtures/rw-fontcolor.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only fontcolor   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
 ## Insert Table  (Insert · T1)
 
 **Goal:** make the clone's `Insert Table` output match real Microsoft Word.
@@ -210,6 +233,75 @@ python parity/engines/run.py --only underline   # expect: semantic-pass, missing
 ### Acceptance (regression gate)
 ```
 python parity/engines/run.py --only table   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Justify  (Home · T1)
+
+**Goal:** make the clone's `Justify` output match real Microsoft Word.
+**Sub-tasks covered:** `justify`
+**Ground truth:** `parity/fixtures/rw-justify.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only justify   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Line & Paragraph Spacing  (Home · T1)
+
+**Goal:** make the clone's `Line & Paragraph Spacing` output match real Microsoft Word.
+**Sub-tasks covered:** `linespacing`
+**Ground truth:** `parity/fixtures/rw-linespacing.docx`
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- _(none — clone already emits everything Word does)_
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only linespacing   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Numbering  (Home · T1)
+
+**Goal:** make the clone's `Numbering` output match real Microsoft Word.
+**Sub-tasks covered:** `numbering`
+**Ground truth:** `parity/fixtures/rw-numbering.docx`
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- FR (numbering): emit `body:pStyle[('val', 'ListParagraph')]`
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only numbering   # expect: semantic-pass, missing = 0
 ```
 
 ### Next steps
@@ -249,12 +341,37 @@ python parity/engines/run.py --only table   # expect: semantic-pass, missing = 0
 - FID (pagenum): stop emitting (or justify) `footer:rPr[]`
 
 ### Structural requirements
-- STR (pagenum): `header` parts — Word=3, clone=0
 - STR (pagenum): `footer` parts — Word=3, clone=1
+- STR (pagenum): `header` parts — Word=3, clone=0
 
 ### Acceptance (regression gate)
 ```
 python parity/engines/run.py --only pagenum   # expect: semantic-pass, missing = 0
+```
+
+### Next steps
+`/speckit-specify` (paste this block) → `/speckit-plan` → `/speckit-tasks` → implement → re-run acceptance.
+
+---
+
+## Text Highlight Color  (Home · T1)
+
+**Goal:** make the clone's `Text Highlight Color` output match real Microsoft Word.
+**Sub-tasks covered:** `highlight`
+**Ground truth:** `parity/fixtures/rw-highlight.docx`
+**Current parity:** GAP — 3 missing node(s), 0 fidelity warning(s)
+
+### Functional requirements — clone MUST emit (from `missing`)
+- FR (highlight): emit `body:highlight[('val', 'yellow')]`
+- FR (highlight): emit `body:pPr[]`
+- FR (highlight): emit `body:rPr[]`
+
+### Fidelity requirements — clone over-emits (from `extra`)
+- _(none)_
+
+### Acceptance (regression gate)
+```
+python parity/engines/run.py --only highlight   # expect: semantic-pass, missing = 0
 ```
 
 ### Next steps

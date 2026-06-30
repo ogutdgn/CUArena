@@ -143,5 +143,16 @@ action-specific noise — Word-vs-self auto-surfaces it). Baseline state: all su
   the differ compare list type and style content. (Also: the ribbon Bullets button emits a 9-level
   `hybridMultilevel` abstractNum vs COM `ApplyBulletDefault`'s `singleLevel` — a numbering.xml-only divergence,
   invisible today; recapture bullets via vsto if/when numbering.xml enters the diff.)
+- 🔜 **Sibling-order sensitivity:** node signatures are multiset counts keyed on tag+attrs, so a WRONG CHILD
+  ORDER is invisible. The T1 numbering task surfaced the clone emitting `<w:numPr>` children as `numId` then
+  `ilvl` (OOXML/Word use `ilvl` then `numId`) — a real clone bug the differ does NOT flag. Candidate: an
+  order-aware check for ordered-content elements (numPr, rPr, pPr) where OOXML mandates a child sequence.
 - 🔜 **Flow verifier** (separate): DOM-introspect the clone (dropdown/dialog/contextual-tab/items) and
   diff against the `ribbon-data.js` declared `type`/`items[]` — UI-flow fidelity, not OOXML.
+
+### T1 develop backlog (from the parity ledger)
+- **Lists miss `pStyle=ListParagraph`** — both `bullets` AND `numbering` clone paragraphs omit the `ListParagraph`
+  paragraph style real Word attaches to every list item. One clone fix closes both. (+ the numPr child-order bug above.)
+- **`highlight` ground truth = COM artifact (vsto-pending)** — COM `HighlightColorIndex` stamps the highlight on the
+  paragraph mark; the ribbon doesn't. The clone is faithful (real parity 0/0). Recapture via vsto/UIA when the
+  contextual-tab UIA inventory is built (joins `table` + `bullets`/`numbering` as the COM≠ribbon set).
