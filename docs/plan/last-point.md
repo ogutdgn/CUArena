@@ -7,6 +7,30 @@
 
 ---
 
+## 2026-06-30 (PARITY PIPELINE — DEEP T0/T1 SLICE started: differ part-scope + flow verifier built)
+
+> **Branch:** `parity-pipeline` @ `da1cb4a` (committed, **NOT merged**). Phase: deep T0/T1 vertical slice (full depth:
+> main + dialog + variations, across 3 axes — OOXML diff + flow verifier + light visual). **Entry: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
+>
+> **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
+> `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
+> per-save `<w:rsids>`/`<w:rsid>` list; `_divergence` excludes `styles:`/`numbering:` (clone defaults legitimately
+> differ from Word's; per-task signed deltas cancel them). Golden `numbering_part`/`styles_part` + Word-vs-self lock it.
+> CONSEQUENCE: bullets/numbering numbering.xml is now a visible COM≠ribbon ARTIFACT (COM singleLevel vs clone/ribbon
+> multilevel — the clone is MORE ribbon-faithful; needs vsto). (2) **Flow verifier built** (`da1cb4a`) — axis 2:
+> `parity/flow/flow-probe.js` introspects the live ribbon DOM (what each control OPENS) + `parity/engines/flow_verify.py`
+> compares to ribbon-data type/items[]; flags type-mismatch/dead-launcher/missing-control (items = informational).
+> **T0/T1 = 13/13 flow-pass**; GOLDEN 7/7 + self-consistency deterministic. `FLOW_LEDGER.md`.
+>
+> **NEXT (deep-slice plan, sequenced):** (3) light VISUAL check (axis 3 — clone result/menu screenshot vs Word ref,
+> LLM-judge "broadly matches"; `.oracle-probes` has refs). (4) DEEP ENUMERATION — per control: main (done) + dialog
+> options (Font/Paragraph/Bullets-Numbering/Color/Find-Replace dialogs = one task per meaningful field) + variations
+> (representative DISTINCT-OOXML values; log skips). Run all 3 axes per sub-task. (5) the 4 OOXML FIXES (Bullets/
+> Numbering ListParagraph [NO-FORK bridge], Align Left jc=left [NO-FORK], Font face rFonts + Font size szCs [FORK
+> EDITS — PENDING USER AUTH]); investigation done (`whhkobjn3`). (6) COMBINED deep T0/T1 fidelity report.
+> **PARKED DECISION: authorize the 2 fork edits (fontface rFonts, fontsize szCs)** — both minimal, same styles.js as
+> 015/019/022, round-trip-safe; no-fork impossible (the 4-slot fill / fontSizeCs sync live in decodeRPrFromMarks).
+
 ## 2026-06-30 (PARITY PIPELINE — T1 batch: 5 Home controls diffed; post-022 Home is 7/13 full-parity)
 
 > **Branch:** `parity-pipeline` @ `5ecac88` (committed, **NOT merged** — user decides). Phase: parity harness —
