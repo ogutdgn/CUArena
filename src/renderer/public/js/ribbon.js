@@ -161,6 +161,15 @@
         // Design Document Formatting: Themes button, then the big inline Style Set
         // carousel (Word's dominant element), then Colors/Fonts/Spacing/Set-as-Default.
         this.renderDesignFormattingGroup(body, group);
+      } else if (group.id === 'td-styleopts') {
+        // Table Design → Table Style Options: Word's 2-column LABELED checkbox list.
+        this.renderTableStyleOptions(body, group);
+      } else if (group.id === 'td-styles') {
+        // Table Design → Table Styles: inline style gallery + Shading (like Home Styles).
+        this.renderTableStylesGroup(body, group);
+      } else if (group.id === 'td-borders') {
+        // Table Design → Borders: Border Styles + Line Style/Weight/Pen Color + Borders + Painter.
+        this.renderTableBordersGroup(body, group);
       } else {
         // Pens gallery: inline pen tiles (Word shows the pens directly in the ribbon)
         if (gallery && group.id === 'pens') body.appendChild(this.renderPensGallery(gallery));
@@ -378,6 +387,101 @@
         }, { align: 'right' });
       };
       return this.makeGalleryCarousel(styles.map(cell), { className: 'styles-gallery', onMore: openMore });
+    },
+
+    // Table Design → Table Style Options: Word renders these as a 2-column LABELED checkbox
+    // list (Header Row/Total Row/Banded Rows | First Column/Last Column/Banded Columns), NOT
+    // icon buttons. Each checkbox reflects the live tblLook bit and toggles it on change.
+    renderTableStyleOptions(body, group) {
+      const grid = el('div', { class: 'tbl-styleopts' });
+      let state = {};
+      try { state = (WC.PM && WC.PM.tableStyleOptionState && WC.PM.tableStyleOptionState()) || {}; } catch (e) { state = {}; }
+      const KEY = {
+        tblStyleHeaderRow: 'headerRow', tblStyleTotalRow: 'totalRow', tblStyleBandedRows: 'bandedRows',
+        tblStyleFirstCol: 'firstColumn', tblStyleLastCol: 'lastColumn', tblStyleBandedCols: 'bandedColumns',
+      };
+      group.controls.forEach((c) => {
+        const checked = !!state[KEY[c.cmd]];
+        const cb = el('input', Object.assign({ type: 'checkbox', class: 'tso-cb' }, checked ? { checked: true } : {}));
+        const lab = el('label', { class: 'tbl-styleopt', dataset: { cmd: c.cmd } }, [cb, el('span', { class: 'tso-lbl', text: c.label })]);
+        cb.addEventListener('change', () => WC.Commands.run(c, lab));
+        grid.appendChild(lab);
+        this.controlIndex[c.cmd] = this.controlIndex[c.cmd] || { node: lab, control: c };
+      });
+      body.appendChild(grid);
+    },
+
+    // A small table-style thumbnail (Word's gallery tiles): a 5x4 mini grid with the style's
+    // header shaded in its Accent hue (from the doc theme) + banding for Grid/List families.
+    tableStyleThumb(style) {
+      const wrap = el('div', { class: 'tblstyle-thumb' });
+      const name = (style && style.name) || '';
+      const m = /Accent\s*(\d)/i.exec(name);
+      let head = '#4472C4';
+      try {
+        const tc = (WC.PM && WC.PM.getThemeColors) ? WC.PM.getThemeColors() : null;
+        if (tc && m) { const slot = tc.find((s) => s.themeColor === 'accent' + m[1]); if (slot) head = '#' + slot.rgb; }
+      } catch (e) { /* theme unavailable */ }
+      const plain = /Plain Table|Table Grid|Table Normal/i.test(name);
+      const banded = !plain && /Grid Table|List Table/i.test(name);
+      for (let r = 0; r < 4; r++) {
+        const row = el('div', { class: 'tst-row' });
+        for (let cc = 0; cc < 5; cc++) {
+          const cell = el('div', { class: 'tst-cell' });
+          if (r === 0 && !plain) cell.style.background = head;
+          else if (banded && r % 2 === 0) cell.style.background = 'rgba(0,0,0,.07)';
+          row.appendChild(cell);
+        }
+        wrap.appendChild(row);
+      }
+      return wrap;
+    },
+
+    // Table Design → Table Styles: an inline gallery of table-style tiles (Word's dominant
+    // element in this group) + the Shading control. The More arrow opens the full grid + footer.
+    renderTableStylesGroup(body, group) {
+      const styles = (WC.PM && WC.PM.getTableStyles) ? (WC.PM.getTableStyles() || []) : [];
+      let activeId = '';
+      try { activeId = (WC.PM && WC.PM.tableInfo && (WC.PM.tableInfo().styleId || '')) || ''; } catch (e) { activeId = ''; }
+      const cell = (s) => {
+        const node = el('div', { class: 'tblstyle-cell', title: s.name, dataset: { style: s.id } });
+        if (s.id === activeId) node.classList.add('active');
+        node.appendChild(this.tableStyleThumb(s));
+        node.addEventListener('mousedown', (e) => e.preventDefault());
+        node.addEventListener('click', () => { if (WC.PM && WC.PM.tableSetStyle) WC.PM.tableSetStyle(s.id); if (WC.closeFlyouts) WC.closeFlyouts(); });
+        return node;
+      };
+      const openMore = (anchor) => {
+        WC.flyout(anchor, (fly) => {
+          fly.classList.add('tblstyles-flyout');
+          const fg = el('div', { class: 'tblstyles-grid-expanded' });
+          styles.forEach((s) => fg.appendChild(cell(s)));
+          fly.appendChild(fg);
+          fly.appendChild(WC.flySep());
+          fly.appendChild(WC.flyItem('Modify Table Style…', { onClick: () => WC.toast('Modify Table Style dialog is coming soon.') }));
+          fly.appendChild(WC.flyItem('Clear', { onClick: () => { if (WC.PM && WC.PM.tableSetStyle) WC.PM.tableSetStyle(''); } }));
+          fly.appendChild(WC.flyItem('New Table Style…', { onClick: () => WC.toast('New Table Style dialog is coming soon.') }));
+        }, { align: 'right' });
+      };
+      if (styles.length) body.appendChild(this.makeGalleryCarousel(styles.map(cell), { className: 'tblstyles-gallery', onMore: openMore }));
+      const shading = group.controls.find((c) => c.cmd === 'tblShading');
+      if (shading) body.appendChild(this.renderControl(shading, 'large'));
+    },
+
+    // Table Design → Borders: Border Styles (large) + Line Style/Line Weight/Pen Color (stacked
+    // labeled dropdowns) + Borders (large) + Border Painter (large), matching Word's layout.
+    renderTableBordersGroup(body, group) {
+      const byCmd = (cmd) => group.controls.find((c) => c.cmd === cmd);
+      const large = (cmd) => { const c = byCmd(cmd); if (c) body.appendChild(this.renderControl(c, 'large')); };
+      large('tblBorderStyles');
+      const stack = el('div', { class: 'ctrl-stack' });
+      ['tblLineStyle', 'tblLineWeight', 'tblPenColor'].forEach((cmd) => {
+        const c = byCmd(cmd);
+        if (c) { const row = el('div', { class: 'ctrl-row' }); row.appendChild(this.renderControl(c, 'small', { labeled: true })); stack.appendChild(row); }
+      });
+      body.appendChild(stack);
+      large('tblBorders');
+      large('tblBorderPainter');
     },
 
     // Design tab "Document Formatting": the Themes button, then the big inline
