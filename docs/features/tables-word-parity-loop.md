@@ -43,3 +43,23 @@ UI flows, ribbon buttons, ribbon design — must be **the same as real MS Word**
   conditional-format RENDERING so Table Style Options show banding/header; (e) tblW=pct→auto
   refinement on the overflow fix; (f) round-trip a real-Word styled-table docx; (g) full
   end-to-end sweep of every control + adversarial review.
+
+## Iteration 1 complete (2026-07-01)
+DONE this iteration (all gated test:pm 533 / roundtrip 27, verified LIVE via screenshots):
+- Capture harness (clone `ribbon-shot-probe.js` + real Word `_capture_word_ribbon.ps1`).
+- Table Design tab UI → Word parity (checkboxes / gallery / labeled borders) — `c498c6b`.
+- Table overflow on add-column FIXED (re-fit to page) — `70dd581`.
+- Borders CONFIRMED working live (apply + repaint, direct + ribbon path). No Border now
+  writes val=nil so it actually removes the visible border (was leaving the style border) — `e96434e`.
+
+NEXT ITERATIONS (priority order):
+1. LAYOUT tab UI → Word parity (capture real Word Table Layout, rebuild groups: labeled
+   buttons, Height/Width spinners, Select/Properties, Draw, Data). Same render-method pattern.
+2. Table Styles GALLERY CATALOG — extract Word's ~105 built-in table styles (COM: apply each
+   to a table + save + extract styles.xml) and mint them into the clone so the gallery is full
+   + they apply. Big data task.
+3. Border TOGGLE semantics (Word toggles a border off if already present) + Line Style/Weight/
+   Pen Color affect the drawn border live.
+4. Conditional-format RENDERING so Table Style Options (banding/header/first-col) show live.
+5. Round-trip: import a real-Word styled-table .docx, confirm identical (visual + structure).
+6. Full end-to-end sweep of every table control (live) + adversarial review; fix all bugs.
