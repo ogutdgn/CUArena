@@ -7,6 +7,44 @@
 
 ---
 
+## 2026-06-30 (PARITY PIPELINE — TABLES proven-parity: Design + Layout tabs rebuilt to Word + behaviors)
+
+> **Branch:** `parity-pipeline` @ `5bf5aed` (committed, **NOT merged**). Phase: Tables A–F depth-calibration
+> (floating/relocate = group E REMOVED per user; Excel OLE excluded). Directive: "Table features (general, special
+> tabs, hidden, sub-features, all functionalities) exact same as real MS Word"; "Design & Layout tabs same based on
+> buttons & ribbon design to real Word." Ground truth = the ExecuteMso RIBBON oracle (`parity/oracle/ribbon_oracle.ps1`).
+>
+> **DONE THIS SESSION (5 commits, all gated test:pm 522/522 + roundtrip 27/0):**
+> - **Borders dropdown** (`85cc40b`): expanded from 2 items (All/No Border) to Word's FULL set — Bottom/Top/Left/Right,
+>   No/All/Outside/Inside, Inside-H/V, Diagonal Down/Up, Borders&Shading. Corrected border shape to Word's
+>   single/sz=4(0.5pt)/space=0/color=auto. Bridge `tableSetCellBorders` now takes Word-semantic eighth-point `size`
+>   (÷6→px, the fork stores px). **FORK EDIT** `legacyBorderMigration.js`: `convertBordersToOoxmlFormat` widened
+>   (`ALL_SIDES`) to map insideH/insideV/tl2br/tr2bl (were silently dropped → diagonal/inside now export).
+> - **Layout tab rebuilt** (`2369183`): Word's exact groups — Table (Select/View Gridlines/Properties) | Draw
+>   (Draw Table/Eraser) | Rows&Columns (Delete dropdown + Insert ×4) | Merge | Cell Size (AutoFit/Height/Width/
+>   Distribute) | Alignment (9-way + Text Dir + Cell Margins) | Data (Sort/Repeat Header Rows/Convert to Text/Formula).
+>   Removed the misplaced Header Row/Col (they're Design Table Style Options). **FORK EDIT** `table.js`
+>   `selectTableScope('cell'|'row'|'column'|'table')` — TableMap corner-cell CellSelection (test: row=3/table=6 cells of
+>   a 2×3, `289481a`). NO-FORK: View Gridlines (CSS `.wc-show-table-gridlines`), Repeat Header Rows
+>   (`tableRowProperties.repeatHeader`→`<w:tblHeader/>`).
+> - **Design Borders pen** (`5bf5aed`): added Word's Border Styles / Line Style / Line Weight / Pen Color / Border
+>   Painter to the Design→Borders group, backed by a shared `tblPen{val,size,color}` that `H.tblBorders` applies —
+>   changing the pen changes what the Borders dropdown draws (exactly like Word).
+> - Honest v1 stubs (structurally present, behavior deferred): Draw Table, Eraser, Border Painter, Properties dialog,
+>   Sort dialog, Formula dialog. **DEFERRED-checkmark:** contextual toggle live state (View Gridlines / Repeat Header /
+>   the 6 Table Style Options) — shared with the existing Table Style Options limitation (TOGGLE_MAP/state-tick).
+>
+> **PRIOR (earlier this session, before compaction):** Table insert ground truth (3/4 diffs fixed; gridCol AutoFit
+> ~10-twip remaining), Design tab rebuilt to Word groups, 6 Table Style Options (tblLook bits), cell shading full shape,
+> tblLook `w:val` bitmask fork fix, tblW auto, TableGrid pPr. All in NOTICE.md + gated.
+>
+> **NEXT (remaining Tables worklist):** (a) Batch B — Table Styles GALLERY (apply a real built-in style + styled-table
+> cnfStyle, currently a dropdown). (b) Batch A — creation remainder (Insert-dialog AutoFit selector, Convert-Text
+> separator, Quick Tables). (c) Batch D — cell-level hidden (per-cell themeColor border, per-cell themeFill shading,
+> tcW type, cnfStyle 12-bit). (d) gridCol AutoFit ~10-twip width diff. (e) run.py parity tasks (0/0) for the new
+> behaviors + the ExecuteMso ribbon-structure comparison. **Adversarial review of this session's diff RUNNING**
+> (selectTableScope math / ALL_SIDES / border ÷6 / repeatHeader merge) — address findings before scaling.
+
 ## 2026-06-30 (PARITY PIPELINE — DEEP T0/T1 SLICE: 🏁 ALL 3 AXES built + green on T0/T1 main actions)
 
 > **Branch:** `parity-pipeline` @ `cf4f563` (committed, **NOT merged**). Phase: deep T0/T1 vertical slice. **Entry: [parity/RUNBOOK.md](../../parity/RUNBOOK.md).**
