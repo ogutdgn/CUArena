@@ -62,6 +62,69 @@
     ] });
   };
 
+  // ---- Table Sort (Table Layout > Sort) — Word's dialog: up to 3 sort levels + header option ----
+  D.tableSort = function () {
+    const p = WC.PM;
+    if (!p || !p.tableColumns) { WC.toast('Click inside a table to sort it.'); return; }
+    const info = p.tableColumns();
+    if (!info.count) { WC.toast('Click inside a table to sort it.'); return; }
+    let hasHeader = info.headers.some((h) => h); // default like Word: header row if row 1 has text
+    // Each level: a "Sort by / Then by" row with a column select, type select, and asc/desc radios.
+    const levels = [];
+    const makeLevel = (idx) => {
+      const colSel = el('select', { style: { minWidth: '150px' } });
+      const typeSel = el('select', {}, ['Text', 'Number', 'Date'].map((t) => el('option', { value: t.toLowerCase(), text: t })));
+      const dirName = 'wc-sort-dir-' + idx;
+      const asc = el('input', { type: 'radio', name: dirName, value: 'asc' }); asc.checked = 'checked';
+      const desc = el('input', { type: 'radio', name: dirName, value: 'desc' });
+      const wrap = el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '4px 0' } }, [
+        el('label', { text: idx === 0 ? 'Sort by' : 'Then by', style: { width: '64px' } }),
+        colSel, el('label', { text: 'Type:' }), typeSel,
+        el('label', { style: { gap: '3px' } }, [asc, el('span', { text: 'Ascending' })]),
+        el('label', { style: { gap: '3px' } }, [desc, el('span', { text: 'Descending' })]),
+      ]);
+      const lvl = { wrap, colSel, typeSel, isAsc: () => asc.checked, idx };
+      levels.push(lvl);
+      return lvl;
+    };
+    const l0 = makeLevel(0), l1 = makeLevel(1), l2 = makeLevel(2);
+    // Populate each column select from the current header/hasHeader (re-run when header toggles).
+    function fillCols() {
+      levels.forEach((lvl, i) => {
+        lvl.colSel.innerHTML = '';
+        if (i > 0) lvl.colSel.appendChild(el('option', { value: '', text: '(none)' }));
+        for (let c = 0; c < info.count; c++) {
+          const label = (hasHeader && info.headers[c]) ? info.headers[c] : ('Column ' + (c + 1));
+          lvl.colSel.appendChild(el('option', { value: String(c), text: label }));
+        }
+        lvl.colSel.value = i === 0 ? '0' : '';
+      });
+    }
+    fillCols();
+    const hdrName = 'wc-sort-hdr';
+    const hdrRow = el('input', { type: 'radio', name: hdrName, value: 'header' });
+    const hdrNo = el('input', { type: 'radio', name: hdrName, value: 'no' });
+    (hasHeader ? hdrRow : hdrNo).checked = 'checked';
+    hdrRow.addEventListener('change', () => { hasHeader = true; fillCols(); });
+    hdrNo.addEventListener('change', () => { hasHeader = false; fillCols(); });
+    const myList = el('div', { style: { marginTop: '10px', borderTop: '1px solid #eee', paddingTop: '8px' } }, [
+      el('div', { text: 'My list has', style: { fontWeight: '600', marginBottom: '4px' } }),
+      el('label', { class: 'row', style: { gap: '5px' } }, [hdrRow, el('span', { text: 'Header row' })]),
+      el('label', { class: 'row', style: { gap: '5px' } }, [hdrNo, el('span', { text: 'No header row' })]),
+    ]);
+    const body = el('div', {}, [l0.wrap, l1.wrap, l2.wrap, myList]);
+    WC.dialog({ title: 'Sort', width: '520px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const chosen = levels
+          .filter((lvl) => lvl.colSel.value !== '')
+          .map((lvl) => ({ col: parseInt(lvl.colSel.value, 10), type: lvl.typeSel.value, ascending: lvl.isAsc() }));
+        if (!chosen.length) return;
+        p.tableSort(chosen, hasHeader);
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
   // ---- Insert Link ----
   D.insertLink = function () {
     if (WC.PM.ready) WC.PM.captureSelection(); // dialog steals focus; restore selection before inserting

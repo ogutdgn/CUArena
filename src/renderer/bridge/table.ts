@@ -181,6 +181,59 @@ export function installTable(editor: AnyEditor) {
     return ok !== false
   }
 
+  // The table node + its document position containing the caret (for Sort / whole-table ops).
+  function currentTableInfo(): { node: any; pos: number } | null {
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        if ($from.node(d).type.name === 'table') return { node: $from.node(d), pos: $from.before(d) }
+      }
+    } catch { /* unreadable selection */ }
+    return null
+  }
+
+  // Layout → Data → Sort: the table's column count + first-row cell texts (drive the Sort dialog's
+  // "Sort by" column dropdown — Word shows the header labels when "Header row" is set, else Column N).
+  function tableColumns(): { count: number; headers: string[] } {
+    const info = currentTableInfo()
+    if (!info || !info.node.childCount) return { count: 0, headers: [] }
+    const firstRow = info.node.child(0)
+    const headers: string[] = []
+    firstRow.forEach((cell: any) => headers.push((cell.textContent || '').trim()))
+    return { count: firstRow.childCount, headers }
+  }
+
+  // Layout → Data → Sort: reorder the table's DATA rows by up to 3 levels (Word's Sort dialog).
+  // Each level: { col (0-based), type 'text'|'number'|'date', ascending }. hasHeader keeps row 0 fixed.
+  // NO-FORK: rebuilds the table node with the rows reordered (row/cell attrs preserved). v1 uses
+  // child(col) for the key cell — correct for non-merged tables (Word disables Sort on merged cells too).
+  function tableSort(levels: Array<{ col: number; type: string; ascending: boolean }>, hasHeader: boolean): boolean {
+    const info = currentTableInfo()
+    if (!info || !levels.length) return false
+    const t = info.node
+    const rows: any[] = []
+    t.forEach((row: any) => rows.push(row))
+    const header = hasHeader ? rows.slice(0, 1) : []
+    const data = hasHeader ? rows.slice(1) : rows.slice()
+    const keyOf = (row: any, col: number): string => {
+      const cell = row.child(Math.min(col, row.childCount - 1))
+      return cell ? (cell.textContent || '').trim() : ''
+    }
+    const cmpLevel = (a: any, b: any, lvl: { col: number; type: string; ascending: boolean }): number => {
+      const ka = keyOf(a, lvl.col); const kb = keyOf(b, lvl.col)
+      let r: number
+      if (lvl.type === 'number') r = (parseFloat(ka) || 0) - (parseFloat(kb) || 0)
+      else if (lvl.type === 'date') r = (Date.parse(ka) || 0) - (Date.parse(kb) || 0)
+      else r = ka.localeCompare(kb, undefined, { numeric: true, sensitivity: 'base' })
+      return lvl.ascending ? r : -r
+    }
+    data.sort((a: any, b: any) => { for (const lvl of levels) { const r = cmpLevel(a, b, lvl); if (r !== 0) return r } return 0 })
+    const newTable = t.type.create(t.attrs, header.concat(data))
+    editor.view.dispatch(editor.state.tr.replaceWith(info.pos, info.pos + t.nodeSize, newTable))
+    refocus()
+    return true
+  }
+
   // Layout → Table → View Gridlines: toggle Word's non-printing table gridlines (a view-only
   // CSS class on the editor host; borderless-cell edges show as faint dashed guides).
   function tableViewGridlines(): boolean {
@@ -553,6 +606,8 @@ export function installTable(editor: AnyEditor) {
     tableSetCellVAlign,
     tableSetCellAlign,
     tableSelectScope,
+    tableColumns,
+    tableSort,
     tableViewGridlines,
     tableGridlinesShown,
     tableRepeatHeaderRows,

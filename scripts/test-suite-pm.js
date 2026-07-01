@@ -7004,6 +7004,23 @@
     return (rows === 2 && cells === 6) || ('expected 2 rows / 6 cells, got ' + rows + ' / ' + cells);
   });
 
+  await t('[table] Sort reorders the data rows by a column (Word Sort dialog)', async () => {
+    window.WC.editor.commands.selectAll();
+    window.WC.editor.commands.insertContent('<p>Name,Age</p><p>Charlie,30</p><p>Alice,25</p><p>Bob,35</p>');
+    window.WC.editor.commands.selectAll();
+    window.WC.Insert.convertTextToTable(','); await sleep(150);
+    // Put the caret inside the table (convert may leave a node/edge selection), then sort by col 0 asc.
+    try { window.WC.PM.tableSelectScope && window.WC.PM.tableSelectScope('cell'); } catch (e) {}
+    await sleep(60);
+    const ok = window.WC.PM.tableSort([{ col: 0, type: 'text', ascending: true }], true);
+    if (ok !== true) return 'tableSort returned ' + ok;
+    await sleep(120);
+    const xml = await exportDocumentXml();
+    const texts = (xml.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((m) => m.replace(/<[^>]+>/g, ''));
+    const names = texts.filter((tx) => /^(Name|Alice|Bob|Charlie)$/.test(tx));
+    return names.join(',') === 'Name,Alice,Bob,Charlie' ? true : 'sorted order wrong: ' + names.join(',');
+  });
+
   await t('[ins-chart] Chart: computed SVG inserts a real image (w:drawing), not a toast', async () => {
     // The Insert > Chart dialog built an SVG via Insert.chartSVG but xeChart() only toasted, so nothing
     // inserted. xeChart(svg) now inserts the SVG as a static image (interim until a live chart engine).
