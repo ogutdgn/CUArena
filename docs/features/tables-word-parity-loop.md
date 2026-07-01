@@ -235,3 +235,31 @@ REMAINING (not tractable in this environment — loop stopped here):
   to decide add-vs-remove; the current behavior (apply borders; No Border removes) is reasonable.
 - ⏭ OUT OF SCOPE (large): Modify/New Table Style — full custom table-style authoring (a big feature;
   the honest stubs remain).
+
+## Iteration 11 (2026-07-01) — CORRECTION: "complete" was premature; live-click audit found real bugs
+The Iteration-10 "LOOP COMPLETE" claim was based on export-XML + dialog-opens checks, NOT on
+clicking every control live. A proper live audit (fresh table per control, real ribbon clicks,
+`scripts/table-scorecard.js`) found a SYSTEMIC bug the user reported ("(no options)", "borders
+don't change anything"):
+
+🏛 FIXED (`304c4fc`): six Table dropdowns were DEAD, rendering a "(no options)" placeholder —
+Layout > **Select**, **Delete**; Design > **Line Style**, **Line Weight**, **Pen Color**,
+**Border Styles**. `WC.Commands.dropdown` routed only a hand-kept allow-list of 6 tbl* dropdowns
+to their `H[cmd]` flyout-builder; the other six fell through to the generic renderer. Because
+Line Weight/Pen Color were dead, the borders PEN never changed, so applying Borders always used
+the default ½pt — the "borders don't change anything" symptom. Fix: route every `tbl*` dropdown
+with a handler. Regression test added; test:pm 536 / roundtrip 32 / smoke 9.
+
+VERIFIED after fix (live Electron probes): Delete lists Columns/Rows/Table + removes a column;
+Select Table makes a real CellSelection; Line Weight 3pt now flows to the applied border
+(w:sz=24); whole-table thick borders paint fully (all edges, screenshot-confirmed).
+
+⚠️ KNOWN LESSER-FIDELITY GAP (border-collapse): applying "All Borders" to a SINGLE cell paints
+only that cell's top+left thick; the shared bottom/right edges are owned by the neighbour cell in
+the collapse model and its thin border wins. Word resolves shared edges "thicker wins". Common
+cases (whole-table / multi-cell selection) render fully correct. The fix lives in the fork's
+DomPainter border-collapse resolution (a fork edit) — deferred pending user decision.
+
+LESSON (repeat of the borders-export-vs-render split): export passing the Word-COM oracle does
+NOT prove the live UI works. Every control must be clicked in the running app and the on-screen
+result read, not just the exported XML.
