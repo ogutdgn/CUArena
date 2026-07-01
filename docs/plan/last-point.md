@@ -7,6 +7,41 @@
 
 ---
 
+## 2026-07-01 (PARITY PIPELINE — META-REVIEW + the STRUCTURE & SCORECARD parity axes SHIPPED)
+
+> **Branch:** `parity-pipeline` @ `c185fcf` (committed, **NOT merged**). Phase: 5-axis parity infrastructure
+> (from the user-requested meta-review). **Read first: [docs/reviews/parity-pipeline-review-2026-07-01.md](../reviews/parity-pipeline-review-2026-07-01.md).**
+>
+> **THE DIAGNOSIS (user asked "what's wrong with my pipeline — be honest"):** measurement asymmetry — only
+> OOXML had ground truth + a gate while the goal has 5 axes (UI structure/functionality/behavior/flow/design),
+> so single-axis "COMPLETE" claims collapsed on live inspection (the 6 dead Table dropdowns). The clone's ribbon
+> spec was hand-authored observation (`raw-research.json`), never diffed against a captured target.
+>
+> **BUILT THIS SESSION (6 commits, tasks 1-4 of the 6-item fix plan):**
+> - **idMso inventory** (`f0a3dee`): Microsoft's official `wordcontrols.xlsx` (M365 Current Channel = ADR-0006)
+>   → `parity/oracle/word_ribbon_inventory.json`, 5,439 controls incl. contextual tabs + 969 hidden commands.
+> - **Label enrichment** (`0fcc3c0`): `enrich_labels_mso.ps1` PID-safe GetLabelMso/GetEnabledMso (metadata-only,
+>   ZERO hangs) → 4,978 real display labels from the locked build.
+> - **STRUCTURE axis** (`af91db3`, `d3ae08f`): `structure_verify.py --capture` diffs the LIVE clone ribbon
+>   (probe intercepts showContextualTab) against the inventory → `STRUCTURE_LEDGER.md`: matched 218 /
+>   label≠ 33 / type≠ 5 / **MISSING 38** / extra 5. USER-SIGNED scope-outs (39 ids, reasons recorded):
+>   East-Asian/RTL, Copilot/cloud-AI, licensing/store chrome. KEY missing: Insert Cells… launcher,
+>   Borders and Shading… launcher, Page Setup…/Paragraph… launchers, Footnote dialog launcher, ink comments.
+> - **SCORECARD axis** (`c185fcf`): `scorecard_verify.py --capture` clicks ALL 261 top-level controls live →
+>   `SCORECARD_LEDGER.md`: 228 pass / **2 DEAD** (`insert·3dModels`, `layout·group` — the latter a 012 deferral
+>   rendered dead instead of an honest stub) / 27 triage (SILENT — clipboard/nav/zoom likely fine; font/replace/
+>   newComment/selectionPane suspicious) / 4 skipped-native.
+> - LESSONS: (a) launchers render as bare `span.launcher` (no data-cmd) and Styles/Pens/TableStyles are INLINE
+>   galleries — probe addressing must know this or it reports false NO_NODE deads; (b) GetLabelMso/GetEnabledMso
+>   are hang-free where ExecuteMso/SaveAs COM flaked; (c) Word labels ≠ clone labels in 33 places (Word says
+>   "Insert Above", "Pen Style", "Grow Font") — label fidelity is now measured.
+>
+> **NEXT (tasks 5-6 + the work the ledgers surfaced):** (5) multi-axis ledger in `run.py` (per-feature columns
+> OOXML/STRUCTURE/SCORECARD/VISUAL/FLOW — no more single-axis "complete"); (6) Table-Styles catalog ONE-SHOT
+> capture (visible-Word session: apply all ~113 modern styles in ONE doc, save, extract styles.xml — no COM
+> loop); fix `3dModels` + `group` dead dropdowns; work the 38-missing/33-label lists visibility-first; map
+> TabSetHeaderAndFooterTools + PictureTools into structure_scope; GetImageMso icons → VISUAL axis.
+
 ## 2026-07-01 (PARITY PIPELINE — THEME SYSTEM: dynamic theme colors + shading themeFill)
 
 > **Branch:** `parity-pipeline` @ `679fd3d` (committed, **NOT merged**). Phase: theme-color system (deferred from the
