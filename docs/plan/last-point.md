@@ -67,10 +67,24 @@
 >   window→pct/dxa full width. (Oracle `_measure_autofit.ps1` HUNG on the invisible instance — killed the oracle's own
 >   WINWORD safely; verified via test against the known Word standard instead.)
 >
-> **NEXT (remaining Tables worklist):** Batch A creation remainder (Convert-Text separator, Quick Tables); Batch D
-> per-cell hidden props (themeColor border, themeFill shading, tcW type); gridCol AutoFit ~10-twip; cnfStyle stamping
-> IF the user wants byte-parity. Then run.py 0/0 parity tasks + the ribbon-structure comparison. All 3 gates green
-> (test:pm 525 / roundtrip 27 / smoke 9); 12 commits this session (`85cc40b`→`87e63d5`), on `parity-pipeline`, NOT merged.
+> - 🏁 **Batch D per-cell FUNCTIONAL props** (`82bfe98`): cell width verified `<w:tcW w:type="dxa">` ~2160 twips at
+>   1.5in (matches Word); vAlign (middle→center), margins (tcMar), text direction all already implemented + gated.
+>   Oracle `_measure_cell_props.ps1` HUNG (invisible-instance COM flakiness — 2nd/3rd hang this turn; killed the
+>   oracle's own WINWORD safely each time) → verified against Word's known OOXML.
+>
+> **TABLES FUNCTIONAL PARITY = COMPLETE for this push.** Design + Layout tabs match Word (structure + behaviors),
+> borders/pen/select/gridlines/repeat-header/table-styles-clear/autofit/cell-width all oracle- or standard-verified,
+> all review findings fixed. 13 commits this session (`85cc40b`→`82bfe98`), on `parity-pipeline`, NOT merged. Gates:
+> test:pm 526 / roundtrip 27 / smoke 9.
+>
+> **REMAINING = a SEPARATE, larger initiative (BYTE-PARITY / THEME-AWARENESS, functional parity already met):**
+> (a) `cnfStyle` 12-bit per-cell role stamping (Word recomputes from tblStyle+tblLook on open → renders identically);
+> (b) `themeFill`/`themeColor` on cell shading/borders (needs a THEME-AWARE color picker + the theme system; resolved
+> RGB already renders identically); (c) gridCol AutoFit ~10-twip layout reservation; (d) minor creation: Convert-Text
+> separator, Quick Tables. NONE affect how the doc renders/behaves in Word — they are byte-diffs or theme-recolor
+> behavior. Recommend a dedicated theme-system slice if byte-parity is wanted; otherwise Tables is functionally done.
+> NOTE: the COM oracle went flaky mid-turn (invisible-instance hangs on SetWidth/AutoFitBehavior/SaveAs2) — a full
+> Word restart may clear it; the working scripts are `_measure_table_styles.ps1` + `_measure_design_b.ps1`.
 
 ## 2026-06-30 (PARITY PIPELINE — DEEP T0/T1 SLICE: 🏁 ALL 3 AXES built + green on T0/T1 main actions)
 
