@@ -1,0 +1,41 @@
+{
+  "_comment": "STRUCTURE axis scope: which real-Word tabs (word_ribbon_inventory.json) map to which clone tabs (WC.RIBBON / contextual defs). excluded_idmso = deliberate, user-signed scope-outs ONLY — every exclusion needs a reason; do not add entries just to make the ledger green.",
+  "tab_map": {
+    "TabHome": "home",
+    "TabInsert": "insert",
+    "TabDrawInk": "draw",
+    "TabWordDesign": "design",
+    "TabPageLayoutWord": "layout",
+    "TabReferences": "references",
+    "TabMailings": "mailings",
+    "TabReviewWord": "review",
+    "TabView": "view",
+    "HelpTab": "help",
+    "TabTableToolsDesign": "table-design",
+    "TabTableToolsLayout": "table-layout"
+  },
+  "unmapped_word_tabsets_todo": [
+    "TabSetHeaderAndFooterTools",
+    "TabSetPictureTools",
+    "TabSetDrawingTools",
+    "TabSetSVGTools",
+    "TabSetWordArtTools",
+    "TabSetTextBoxTools",
+    "TabSetEquationTools",
+    "TabSetInkTools",
+    "TabSet3DModelTools"
+  ],
+  "pinned_matches": {
+    "_comment": "human-triaged clone cmd -> Word idMso pairs the fuzzy matcher can't see (synonym labels). A pinned pair whose labels differ is reported as label-differs — Word's label is the ground truth.",
+    "increaseFontSize": "FontSizeIncreaseWord",
+    "decreaseFontSize": "FontSizeDecreaseWord",
+    "clearAllFormatting": "ClearFormatting",
+    "showHide": "ParagraphMarks",
+    "trackChangesOptions": "ReviewChangeTrackingOptions",
+    "tblLineStyle": "TableDrawBorderPenStyle",
+    "tblLineWeight": "TableDrawBorderPenWeight",
+    "researcher": "Researcher",
+    "spellingGrammar": "SpellingAndGrammar"
+  },
+  "excluded_idmso": {}
+}
