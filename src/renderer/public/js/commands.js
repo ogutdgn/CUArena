@@ -106,7 +106,10 @@
   H.select = (c, node) => WC.Commands.dropdown(c, node);
 
   // ---- Insert ----
-  H.table = (c, node) => WC.Dialogs.insertTable();
+  // Insert > Table: open Word's dropdown (grid picker + Insert Table… + Draw Table + Convert Text
+  // to Table… + Excel Spreadsheet + Quick Tables), not the dialog directly. Insert.tableMenu is the
+  // full Word-parity menu (all items implemented); "Insert Table…" inside it opens the dialog.
+  H.table = (c, node) => WC.Insert.tableMenu(node);
 
   // ---- Table Tools (Table Layout + Table Design contextual tabs, PM-only) ----
   // These cmds live only on the runtime-injected contextual tabs (table-tools-pm.js),
