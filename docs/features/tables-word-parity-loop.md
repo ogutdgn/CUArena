@@ -117,3 +117,28 @@ NEXT: (a) ADVERSARIAL REVIEW of the loop's table work (5 iterations: Design/Layo
 No Border, icons, round-trip) — spawn a review subagent, fix findings. (b) border TOGGLE semantics.
 (c) conditional-format RENDERING for the styles we have (GridTable4 banding/header live). (d) revisit
 the catalog if the oracle stabilizes (small reliable batches) or via a byte-accurate reference.
+
+## Iteration 5 (2026-07-01) — REVIEW CLEAN + styled rendering VERIFIED
+- Adversarial review of the loop's table diff (2ad11d3..HEAD): **NO HIGH/MED bugs**. 3 LOW nits
+  (documented, not fixed): (a) addColumn+refit = two undo steps (Word = one; fork constraint
+  blocks a clean atomic fix — addColumn owns its transaction); (b) tableColWidthSumPx under-counts
+  an auto-width column (conservative miss, never a false trigger); (c) autoFitTable('window') flips
+  tblW to pct 5000 on an already-full-width fixed table (matches Word's visual shrink-to-fit).
+- LIVE-VERIFIED styled rendering: applying Grid Table 4 - Accent 1 shows the accent-blue header
+  (white bold text) + banded body rows; toggling Banded Rows OFF removes the banding (body → white).
+  So conditional-format rendering + Table Style Options WORK on a styled table (match Word). The
+  user's "options do nothing" was on a plain Table-Grid table — where Word also shows no change.
+- NOTE: tableStyleOption(option, EXPLICIT bool) has inverted semantics for banded options (maps to
+  noHBand/noVBand); the UI uses the TOGGLE path (no explicit value) which is correct. Latent, not
+  user-facing, pre-existing (out of the loop diff).
+- Gallery catalog: HARD-BLOCKED — even a 3-style COM extraction hangs (the apply-loop, not count).
+  Single-style applies are reliable but 113 single runs is infeasible. Full byte-accurate catalog
+  needs a working oracle or a reference source; constructing defs would be imperfect (not byte-exact).
+
+State: tables now match Word for ribbon UI (both tabs: checkboxes/gallery-structure/labeled buttons/
+icons), overflow, No Border, round-trip, styled rendering + Style Options. Remaining gap = the
+gallery style CATALOG (2 defined styles vs Word's ~113), environmentally blocked.
+
+NEXT: (a) Insert-tab Table menu parity (grid picker / Insert Table dialog / Convert Text to Table /
+Quick Tables / Draw Table) vs Word — tractable, non-oracle. (b) Convert Text to Table if missing.
+(c) revisit the catalog only if the oracle stabilizes.
