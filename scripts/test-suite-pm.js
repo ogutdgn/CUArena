@@ -567,6 +567,22 @@
     if (!/w:left="2160"/.test(pgMar)) return 'left not 2160 (1.5in): ' + pgMar;       // 1.5*1440
     return /w:right="720"/.test(pgMar) ? true : 'right not 720 (0.5in): ' + pgMar;    // 0.5*1440
   });
+  await t('[home] 028 Replace box ^p/^t/^l → paragraph break / tab / line break (not literal text)', async () => {
+    setDoc('Revenue'); await sleep(30); PM().findSession('Revenue', {}); await sleep(30); PM().replaceAll('A^pB'); await sleep(60);
+    let xml = await xmlNow();
+    if (/\^p/.test(xml)) return 'literal ^p left in output (not translated)';
+    const texts = (xml.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((m) => m.replace(/<[^>]+>/g, ''));
+    if (!(texts.includes('A') && texts.includes('B'))) return '^p did not split into A|B paragraphs: ' + JSON.stringify(texts);
+    setDoc('Revenue'); await sleep(30); PM().findSession('Revenue', {}); await sleep(30); PM().replaceAll('E^tF'); await sleep(60);
+    xml = await xmlNow();
+    if (!/<w:tab\b/.test(xml)) return '^t did not produce <w:tab/>';
+    setDoc('Revenue'); await sleep(30); PM().findSession('Revenue', {}); await sleep(30); PM().replaceAll('C^lD'); await sleep(60);
+    xml = await xmlNow();
+    if (!/<w:br\b/.test(xml)) return '^l did not produce <w:br/>';
+    // a plain replacement (no codes) must still be plain text
+    setDoc('Revenue'); await sleep(30); PM().findSession('Revenue', {}); await sleep(30); PM().replaceAll('Income'); await sleep(60);
+    return /<w:t[^>]*>Income<\/w:t>/.test(await xmlNow()) ? true : 'plain replacement broke';
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);
