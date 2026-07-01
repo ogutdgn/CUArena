@@ -52,9 +52,25 @@
 > tblPen init, WC.Dialogs guards. **All 3 gates green: test:pm 523/523 · roundtrip 27/0 · smoke 9/9.** 8 commits this
 > session (`85cc40b`→`39c61b4`), all on `parity-pipeline`, NOT merged.
 >
-> **NEXT items each want the Word ExecuteMso oracle (needs Word CLOSED to run PID-safe):** Table Styles gallery
-> Clear/Modify/New OOXML + styled-cell cnfStyle; Batch A creation-dialog details; Batch D per-cell hidden props;
-> gridCol AutoFit ~10-twip. Then run.py 0/0 parity tasks + the ribbon-structure comparison.
+> **ORACLE-DRIVEN (Word closed by me via COM discard-close of the scratch Document1; user OK'd "Discard & close"):**
+> - 🏁 **Table Styles (Batch B)** (`0ecbfd3`): oracle `_measure_table_styles.ps1` — applying "Grid Table 4 - Accent 1"
+>   = `<w:tblStyle val="GridTable4-Accent1">` + **11 `<w:cnfStyle>` role markers** (firstRow cells `100000000000`,
+>   firstColumn `001000000000`) + **0 direct `<w:shd>`**; Table Style Options flip tblLook → change which cnfStyle
+>   stamps; **Clear → tblStyle element REMOVED + cnfStyle 0**. Added the gallery footer (Modify/**Clear**/New);
+>   Clear=`tableSetStyle('')` (drops tblStyle, oracle-matched). Test proves the clone matches Word on: tblStyle ref,
+>   ZERO direct shd on styled cells, Clear removes tblStyle. **cnfStyle stamping = DEFERRED byte-parity item** —
+>   functional parity IS met (Word recomputes conditional formatting from tblStyle+tblLook on open, so the export
+>   renders identically); the fork explicitly chose not to bake conditional formats; stamping needs per-cell role
+>   computation + edit-time sync (large). RECOMMEND accept functional parity.
+> - 🏁 **Insert-dialog AutoFit (Batch A)** (`87e63d5`): added Word's "AutoFit behavior" radio group (Fixed/Contents/
+>   Window) to the Insert Table dialog, wired to the existing `tableAutoFit`; test asserts contents→`autofit` layout,
+>   window→pct/dxa full width. (Oracle `_measure_autofit.ps1` HUNG on the invisible instance — killed the oracle's own
+>   WINWORD safely; verified via test against the known Word standard instead.)
+>
+> **NEXT (remaining Tables worklist):** Batch A creation remainder (Convert-Text separator, Quick Tables); Batch D
+> per-cell hidden props (themeColor border, themeFill shading, tcW type); gridCol AutoFit ~10-twip; cnfStyle stamping
+> IF the user wants byte-parity. Then run.py 0/0 parity tasks + the ribbon-structure comparison. All 3 gates green
+> (test:pm 525 / roundtrip 27 / smoke 9); 12 commits this session (`85cc40b`→`87e63d5`), on `parity-pipeline`, NOT merged.
 
 ## 2026-06-30 (PARITY PIPELINE — DEEP T0/T1 SLICE: 🏁 ALL 3 AXES built + green on T0/T1 main actions)
 
