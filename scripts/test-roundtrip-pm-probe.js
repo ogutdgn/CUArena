@@ -41,6 +41,10 @@
     { path: 'tests/fixtures/basic-list.docx', name: 'basic-list', greps: [/<w:numPr>/, /<w:numId\b/] },
     { path: 'tests/fixtures/oracle-word-s3-table.docx', name: 's3-table', greps: [/<w:tbl>/, /<w:tblGrid>/] },
     { path: 'tests/fixtures/oracle-word-s6-tablestyles.docx', name: 's6-tablestyles', greps: [/<w:tbl>/, /<w:tblStyle\b/] },
+    // Real-Word styled table (Grid Table 4 - Accent 1, authored by Word COM): the user's core
+    // requirement — a real-Word .docx must round-trip through the clone unchanged. Asserts the
+    // tblStyle ref + the conditional-format markers (cnfStyle) survive import -> export.
+    { path: 'tests/fixtures/realword-gridtable4-accent1.docx', name: 'realword-gt4', greps: [/<w:tblStyle w:val="GridTable4-Accent1"/, /<w:cnfStyle\b/] },
   ];
 
   // Artifact list is single-sourced here and shipped in summary.artifacts: the
