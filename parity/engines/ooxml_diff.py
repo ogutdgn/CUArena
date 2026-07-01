@@ -20,11 +20,18 @@ from collections import Counter
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 # attribute LOCAL names that are per-save noise (random every save) -> stripped
 NOISE_ATTRS = {"rsid", "rsidr", "rsidrpr", "rsidrdefault", "rsidp", "rsidtr",
-               "rsiddel", "rsidsect", "paraid", "textid"}
+               "rsiddel", "rsidsect", "paraid", "textid",
+               # per-doc numbering identifier + the mc:Ignorable namespace list — random/boilerplate per save,
+               # surfaced by the ribbon oracle (a fresh Bullets gallery mints a new durableId every time).
+               "durableid", "ignorable"}
 # element LOCAL names that are per-save revision bookkeeping -> skipped entirely. The
 # <w:rsids> list (rsidRoot + many <w:rsid w:val=...>) lives in styles.xml and is random
 # every save; without this, diffing styles.xml leaks the rsid VALUES as false differences.
-NOISE_ELEMENTS = {"rsid", "rsidroot", "rsids"}
+NOISE_ELEMENTS = {"rsid", "rsidroot", "rsids",
+                  # numbering.xml per-definition opaque identifiers: <w:nsid> (numbering-style id) + <w:tmpl>
+                  # (template code) are random every time a list definition is minted (ribbon or clone), so they
+                  # are the same noise class as rsid — strip them so only the SEMANTIC list structure diffs.
+                  "nsid", "tmpl"}
 # Relationship-id VALUES (r:id="rId9", r:embed="rId4"...) are per-doc pointers assigned
 # arbitrarily per save: Word emits rId9 where the clone emits rId7 for the SAME semantic
 # reference. Canonicalize the VALUE to a constant so references match on their real
@@ -71,8 +78,11 @@ def meaningful_attrs(el):
             continue
         if RID_RE.match(v):
             v = RID_CANON           # canonicalize per-doc relationship-id values
-        elif is_num_ref and ln == "val":
-            v = NUM_CANON           # canonicalize per-doc numbering-index values (not ilvl)
+        elif ln in NUM_REF_ELEMENTS or (is_num_ref and ln == "val"):
+            # canonicalize per-doc numbering INDEX values (not w:ilvl): the numId/abstractNumId ATTRIBUTE on
+            # <w:num w:numId>/<w:abstractNum w:abstractNumId>, AND the <w:val> of a <w:numId>/<w:abstractNumId>
+            # ref element. Word's ribbon and the clone assign these indices arbitrarily per doc.
+            v = NUM_CANON
         out.append((local(k), v))
     return tuple(sorted(out))
 
@@ -97,6 +107,10 @@ def collect(docx_path):
         if scope is None:
             scope = root
         for el in scope.iter():
+            if el is scope:
+                continue   # the part-root container itself (<w:numbering>/<w:hdr>/<w:body>…) — structural, not
+                           # semantic; its bare presence is a preloaded-vs-lazy artifact (the clone preloads
+                           # numbering.xml, Word lazily creates it), not a feature signal.
             ln = local(el.tag)
             if ln.lower() in NOISE_ELEMENTS:
                 continue   # per-save revision bookkeeping (<w:rsids>/<w:rsid>) — not feature signal

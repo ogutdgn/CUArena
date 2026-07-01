@@ -89,6 +89,11 @@ def build_golden():
         # numbering.xml is now in scope: a numbering definition node present on one side must be caught.
         ("numbering_part", 1, 0, '', '', {"word/numbering.xml": num_part('<w:abstractNum w:abstractNumId="0"/>')},
                                           {"word/numbering.xml": num_part('')}),
+        # numbering.xml per-def opaque ids (nsid/tmpl elements + durableId attr) are per-save noise — two defs that
+        # differ ONLY in those must diff to 0/0 (the ribbon oracle mints fresh ones every capture).
+        ("numbering_noise", 0, 0, '', '',
+         {"word/numbering.xml": num_part('<w:abstractNum w:abstractNumId="0"><w:nsid w:val="AAAA"/><w:tmpl w:val="1111"/></w:abstractNum><w:num w:numId="1" w:durableId="99"><w:abstractNumId w:val="0"/></w:num>')},
+         {"word/numbering.xml": num_part('<w:abstractNum w:abstractNumId="0"><w:nsid w:val="BBBB"/><w:tmpl w:val="2222"/></w:abstractNum><w:num w:numId="1" w:durableId="88"><w:abstractNumId w:val="0"/></w:num>')}),
         # styles.xml: diffed by styleId presence/content, scoped to REFERENCED styleIds (preloaded-vs-lazy safe).
         # A referenced style Word has + the clone lacks -> missing (real gap).
         ("styles_referenced_missing", 1, 0, REF, REF, STY(), STY_EMPTY),

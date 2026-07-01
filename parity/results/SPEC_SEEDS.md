@@ -53,53 +53,17 @@ python parity/engines/run.py --only bold   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Bullets` output match real Microsoft Word.
 **Sub-tasks covered:** `bullets`
 **Ground truth:** `parity/fixtures/rw-bullets.docx`
-**Current parity:** GAP — 7 missing node(s), 35 fidelity warning(s)
+**Current parity:** GAP — 3 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (bullets): emit `numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]`
-- FR (bullets): emit `numbering:lvl[('ilvl', '0')]`
-- FR (bullets): emit `numbering:multiLevelType[('val', 'singleLevel')]`
-- FR (bullets): emit `numbering:nsid[('val', '1314181C')]`
-- FR (bullets): emit `numbering:num[('durableId', '1735197339'), ('numId', '1')]`
-- FR (bullets): emit `numbering:numbering[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]`
-- FR (bullets): emit `numbering:tmpl[('val', '04090001')]`
+- FR (bullets): emit `numbering:lvlText[('val', '\uf0a7')]`
+- FR (bullets): emit `numbering:lvlText[('val', '\uf0b7')]`
+- FR (bullets): emit `numbering:lvlText[('val', 'o')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (bullets): stop emitting (or justify) `numbering:abstractNum[('abstractNumId', '3'), ('restartNumberingAfterBreak', '0')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '1440')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '2160')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '2880')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '3600')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '4320')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '5040')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '5760')]`
-- FID (bullets): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '6480')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvlJc[('val', 'left')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvlText[('val', '\uf0a7')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvlText[('val', 'o')]`
 - FID (bullets): stop emitting (or justify) `numbering:lvlText[('val', '•')]`
 - FID (bullets): stop emitting (or justify) `numbering:lvlText[('val', '▪')]`
 - FID (bullets): stop emitting (or justify) `numbering:lvlText[('val', '◦')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '0'), ('tplc', '04090001')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '1'), ('tentative', '1'), ('tplc', '04090003')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '2'), ('tentative', '1'), ('tplc', '04090005')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '3'), ('tentative', '1'), ('tplc', '04090001')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '4'), ('tentative', '1'), ('tplc', '04090003')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '5'), ('tentative', '1'), ('tplc', '04090005')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '6'), ('tentative', '1'), ('tplc', '04090001')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '7'), ('tentative', '1'), ('tplc', '04090003')]`
-- FID (bullets): stop emitting (or justify) `numbering:lvl[('ilvl', '8'), ('tentative', '1'), ('tplc', '04090005')]`
-- FID (bullets): stop emitting (or justify) `numbering:multiLevelType[('val', 'hybridMultilevel')]`
-- FID (bullets): stop emitting (or justify) `numbering:nsid[('val', '49CAEF44')]`
-- FID (bullets): stop emitting (or justify) `numbering:numFmt[('val', 'bullet')]`
-- FID (bullets): stop emitting (or justify) `numbering:num[('numId', '4')]`
-- FID (bullets): stop emitting (or justify) `numbering:pPr[]`
-- FID (bullets): stop emitting (or justify) `numbering:rFonts[('ascii', 'Courier New'), ('cs', 'Courier New'), ('hAnsi', 'Courier New'), ('hint', 'default')]`
-- FID (bullets): stop emitting (or justify) `numbering:rFonts[('ascii', 'Symbol'), ('hAnsi', 'Symbol'), ('hint', 'default')]`
-- FID (bullets): stop emitting (or justify) `numbering:rFonts[('ascii', 'Wingdings'), ('hAnsi', 'Wingdings'), ('hint', 'default')]`
-- FID (bullets): stop emitting (or justify) `numbering:rPr[]`
-- FID (bullets): stop emitting (or justify) `numbering:start[('val', '1')]`
-- FID (bullets): stop emitting (or justify) `numbering:tmpl[('val', '39C5705B')]`
 
 ### Structural requirements
 - STR (bullets): `numbering` parts — Word=1, clone=0
@@ -345,54 +309,13 @@ python parity/engines/run.py --only linespacing   # expect: semantic-pass, missi
 **Goal:** make the clone's `Numbering` output match real Microsoft Word.
 **Sub-tasks covered:** `numbering`
 **Ground truth:** `parity/fixtures/rw-numbering.docx`
-**Current parity:** GAP — 7 missing node(s), 36 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (numbering): emit `numbering:abstractNum[('abstractNumId', '0'), ('restartNumberingAfterBreak', '0')]`
-- FR (numbering): emit `numbering:lvl[('ilvl', '0')]`
-- FR (numbering): emit `numbering:multiLevelType[('val', 'singleLevel')]`
-- FR (numbering): emit `numbering:nsid[('val', '4FDF52CB')]`
-- FR (numbering): emit `numbering:num[('durableId', '1646547401'), ('numId', '1')]`
-- FR (numbering): emit `numbering:numbering[('Ignorable', 'w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14')]`
-- FR (numbering): emit `numbering:tmpl[('val', '0409000F')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (numbering): stop emitting (or justify) `numbering:abstractNum[('abstractNumId', '3'), ('restartNumberingAfterBreak', '0')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '180'), ('left', '2160')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '180'), ('left', '4320')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '180'), ('left', '6480')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '1440')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '2880')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '3600')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '5040')]`
-- FID (numbering): stop emitting (or justify) `numbering:ind[('hanging', '360'), ('left', '5760')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlJc[('val', 'left')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlJc[('val', 'right')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%2.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%3.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%4.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%5.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%6.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%7.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%8.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvlText[('val', '%9.')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '0'), ('tplc', '0409000F')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '1'), ('tentative', '1'), ('tplc', '04090019')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '2'), ('tentative', '1'), ('tplc', '0409001B')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '3'), ('tentative', '1'), ('tplc', '0409000F')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '4'), ('tentative', '1'), ('tplc', '04090019')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '5'), ('tentative', '1'), ('tplc', '0409001B')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '6'), ('tentative', '1'), ('tplc', '0409000F')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '7'), ('tentative', '1'), ('tplc', '04090019')]`
-- FID (numbering): stop emitting (or justify) `numbering:lvl[('ilvl', '8'), ('tentative', '1'), ('tplc', '0409001B')]`
-- FID (numbering): stop emitting (or justify) `numbering:multiLevelType[('val', 'hybridMultilevel')]`
-- FID (numbering): stop emitting (or justify) `numbering:numFmt[('val', 'decimal')]`
-- FID (numbering): stop emitting (or justify) `numbering:numFmt[('val', 'lowerLetter')]`
-- FID (numbering): stop emitting (or justify) `numbering:numFmt[('val', 'lowerRoman')]`
-- FID (numbering): stop emitting (or justify) `numbering:num[('numId', '4')]`
-- FID (numbering): stop emitting (or justify) `numbering:pPr[]`
-- FID (numbering): stop emitting (or justify) `numbering:start[('val', '1')]`
-- FID (numbering): stop emitting (or justify) `numbering:tmpl[('val', '85888E32')]`
+- _(none)_
 
 ### Structural requirements
 - STR (numbering): `numbering` parts — Word=1, clone=0

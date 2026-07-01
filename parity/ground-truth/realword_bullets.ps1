@@ -1,25 +1,7 @@
-# Real-Word bullets ground truth via COM. NOTE: ListFormat.ApplyBulletDefault() is the
-# COM equivalent of the ribbon "Bullets" button; like the table pilot, COM may differ from
-# the ribbon's exact list template (the differ measures any divergence). SAFE ONLY WHEN NO
-# OTHER WORD IS OPEN (Quit would close it).
-param([Parameter(Mandatory=$true)][string]$Out)
-$ErrorActionPreference = 'Stop'
-$pre = @(Get-Process WINWORD -ErrorAction SilentlyContinue | Select-Object -Expand Id)
-if ($pre.Count -gt 0) { Write-Error "WINWORD already running (PIDs: $($pre -join ',')). Close Word first."; exit 2 }
-$w = New-Object -ComObject Word.Application
-$w.Visible = $false
-$w.DisplayAlerts = 0
-try {
-    $doc = $w.Documents.Add()
-    $doc.Content.Text = 'Revenue'
-    $r = $doc.Range(0, 7)            # "Revenue" (paragraph 1)
-    $r.ListFormat.ApplyBulletDefault()
-    if (Test-Path $Out) { Remove-Item $Out -Force }
-    $doc.SaveAs2($Out, 16)
-    $doc.Close($false)
-    Write-Output "saved: $Out"
-} finally {
-    $w.Quit()
-    [Runtime.InteropServices.Marshal]::ReleaseComObject($w) | Out-Null
-    [GC]::Collect(); [GC]::WaitForPendingFinalizers()
-}
+# Real-Word bullets ground truth — RIBBON oracle (real-ribbon ground truth; supersedes the COM version).
+# Drives the ACTUAL Bullets gallery button via CommandBars.ExecuteMso('BulletsGalleryWord') — which writes a
+# MULTILEVEL (hybridMultilevel, 9-level) abstractNum, exactly like the clone. This REPLACES the old COM
+# ListFormat.ApplyBulletDefault() ground truth, which wrote a single-level abstractNum (a COM-scripting artifact,
+# now PROVEN — see parity/oracle/_feasibility_executemso.ps1). Same 'Revenue' selection as the clone bullets probe.
+param([Parameter(Mandatory = $true)][string]$Out)
+& "$PSScriptRoot\..\oracle\ribbon_oracle.ps1" -Out $Out -Text 'Revenue' -Mso 'BulletsGalleryWord'
