@@ -126,6 +126,15 @@
   H.tblDistCols = () => { const p = TPM(); if (p) p.tableDistributeColumns(); };
   H.tblHeaderRow = () => { const p = TPM(); if (p) p.tableToggleHeaderRow(); };
   H.tblHeaderCol = () => { const p = TPM(); if (p) p.tableToggleHeaderColumn(); };
+  // Word Table Design → Table Style Options: each flips a tblLook bit (not a cell-type change). The dropdown-less
+  // toggle buttons refresh the contextual tab so the checkbox state re-reads.
+  const tblStyleOpt = (opt) => { const p = TPM(); if (p) { p.tableStyleOption(opt); WC.Ribbon && WC.Ribbon.refreshContextualTab && WC.Ribbon.refreshContextualTab('table-design'); } };
+  H.tblStyleHeaderRow = () => tblStyleOpt('headerRow');
+  H.tblStyleTotalRow = () => tblStyleOpt('totalRow');
+  H.tblStyleBandedRows = () => tblStyleOpt('bandedRows');
+  H.tblStyleFirstCol = () => tblStyleOpt('firstColumn');
+  H.tblStyleLastCol = () => tblStyleOpt('lastColumn');
+  H.tblStyleBandedCols = () => tblStyleOpt('bandedColumns');
   H.tblToText = () => { const p = TPM(); if (p) p.tableToText('\t'); };
   H.tblVAlignTop = () => { const p = TPM(); if (p) p.tableSetCellVAlign('top'); };
   H.tblVAlignMid = () => { const p = TPM(); if (p) p.tableSetCellVAlign('middle'); };

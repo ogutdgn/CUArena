@@ -61,18 +61,24 @@
 
   // ---- Table Design contextual tab ----
   function designTab() {
+    // Word's Table Design tab groups (ribbon-parity): Table Style Options | Table Styles | Borders.
+    // (Table alignment moved OUT — it lives in Layout/Table Properties in Word, not Design.)
     return {
       id: 'table-design', name: 'Table Design', contextual: true, groups: [
+        { id: 'td-styleopts', name: 'Table Style Options', controls: [
+          { cmd: 'tblStyleHeaderRow', label: 'Header Row', type: 'toggle' },
+          { cmd: 'tblStyleTotalRow', label: 'Total Row', type: 'toggle' },
+          { cmd: 'tblStyleBandedRows', label: 'Banded Rows', type: 'toggle' },
+          { cmd: 'tblStyleFirstCol', label: 'First Column', type: 'toggle' },
+          { cmd: 'tblStyleLastCol', label: 'Last Column', type: 'toggle' },
+          { cmd: 'tblStyleBandedCols', label: 'Banded Columns', type: 'toggle' },
+        ] },
         { id: 'td-styles', name: 'Table Styles', controls: [
           { cmd: 'tblStyles', label: 'Table Styles', type: 'dropdown' },
           { cmd: 'tblShading', label: 'Shading', type: 'dropdown' },
-          { cmd: 'tblBorders', label: 'Borders', type: 'dropdown' },
         ] },
-        { id: 'td-align', name: 'Alignment', controls: [
-          { cmd: 'tblAlignLeft', label: 'Align Left', type: 'button' },
-          { cmd: 'tblAlignCenter', label: 'Align Center', type: 'button' },
-          { cmd: 'tblAlignRight', label: 'Align Right', type: 'button' },
-          { cmd: 'tblIndent', label: 'Indent', type: 'dropdown' },
+        { id: 'td-borders', name: 'Borders', controls: [
+          { cmd: 'tblBorders', label: 'Borders', type: 'dropdown' },
         ] },
       ],
     };

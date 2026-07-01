@@ -603,6 +603,17 @@
     const rFonts = rPr && (rPr.elements || []).find((e) => e.name === 'w:rFonts');
     return (rFonts && (rFonts.attributes || {})['w:ascii'] === 'Wingdings') ? true : 'no <w:rFonts w:ascii="Wingdings"/> in the bullet level rPr (font stripped)';
   });
+  await t('[table] B Table Style Options flip tblLook bits (Banded Rows->06A0, Header Row->firstRow off)', async () => {
+    setDoc(''); PM().insertTable({ rows: 3, cols: 3 }); await sleep(90);
+    const look = async () => ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tblLook\b[^>]*\/?>/) || [])[0] || '';
+    if (!/w:val="04A0"/.test(await look())) return 'fresh table tblLook not 04A0: ' + (await look());
+    PM().tableStyleOption('bandedRows'); await sleep(60);
+    if (!/w:val="06A0"/.test(await look())) return 'Banded Rows toggle: tblLook not 06A0 (Word ground truth): ' + (await look());
+    PM().tableStyleOption('headerRow'); await sleep(60);
+    const l = await look();
+    if (!/w:firstRow="0"/.test(l)) return 'Header Row toggle did not clear firstRow: ' + l;
+    return /w:val="0680"/.test(l) ? true : 'tblLook val after banded+header not 0680: ' + l;
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);

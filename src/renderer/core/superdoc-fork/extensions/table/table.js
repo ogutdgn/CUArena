@@ -1685,6 +1685,42 @@ export const Table = Node.create({
         },
 
       /**
+       * MS-WORD-CLONE FORK EDIT (parity — Table Design tab): toggle one of Word's 6 Table Style Options, each of
+       * which flips a bit in the table's tblLook bitmask (verified via the ribbon oracle: on a plain Table Grid the
+       * toggle changes ONLY tblLook, no per-cell cnfStyle). Header Row=firstRow, Total Row=lastRow, Banded Rows=
+       * noHBand, First Column=firstColumn, Last Column=lastColumn, Banded Columns=noVBand.
+       * @category Command
+       * @param {'headerRow'|'totalRow'|'bandedRows'|'firstColumn'|'lastColumn'|'bandedColumns'} option
+       * @param {boolean} [on] - explicit state; omit to toggle
+       * @returns {Function} Command
+       */
+      setTableStyleOption:
+        (option, on) =>
+        ({ state, tr, dispatch }) => {
+          if (!isInTable(state)) return false;
+          const table = resolveCommandTargetTable(state.selection);
+          if (!table) return false;
+          const BIT = {
+            headerRow: 'firstRow',
+            totalRow: 'lastRow',
+            bandedRows: 'noHBand',
+            firstColumn: 'firstColumn',
+            lastColumn: 'lastColumn',
+            bandedColumns: 'noVBand',
+          };
+          const key = BIT[option];
+          if (!key) return false;
+          if (dispatch) {
+            const nextProps = { ...(table.node.attrs.tableProperties || {}) };
+            const look = { ...(nextProps.tblLook || {}) };
+            look[key] = on === undefined ? !(look[key] === true) : !!on;
+            nextProps.tblLook = look;
+            tr.setNodeMarkup(table.pos, undefined, { ...table.node.attrs, tableProperties: nextProps });
+          }
+          return true;
+        },
+
+      /**
        * Set the horizontal alignment of the table.
        * @category Command
        * @param {'left' | 'center' | 'right'} align - Table justification

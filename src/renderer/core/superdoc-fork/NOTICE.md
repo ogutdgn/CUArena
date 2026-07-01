@@ -518,6 +518,14 @@ project tsconfig instead — matching the other vendored packages, which also sh
   KNOWN remaining insert diff: gridCol/tcW column WIDTHS — the clone splits the full 9360-twip text width evenly
   (3120 each) vs Word's 9350-twip AutoFit-to-window split (3116/3117/3117); a ~10-twip layout-engine reservation
   to refine. Gated by test:pm 515/roundtrip 27 + the parity `--only table` re-diff.
+- **Table Design tab — Table Style Options (parity — Tables B, 2026-06-30, user-authorized):** a new
+  `setTableStyleOption(option, on)` command in `extensions/table/table.js` toggles the table's tblLook bit for each of
+  Word's 6 Table Style Options (Header Row=firstRow, Total Row=lastRow, Banded Rows=noHBand, First Column=firstColumn,
+  Last Column=lastColumn, Banded Columns=noVBand) via `setNodeMarkup` on the resolved table's tableProperties — verified
+  against the ribbon oracle (on a plain Table Grid the toggle changes ONLY tblLook, no per-cell cnfStyle). ADDITIVE
+  (mirrors the existing setTableStyle command). The bridge `tableStyleOption`/`tableStyleOptionState` + the Design-tab
+  ribbon group (Table Style Options / Table Styles / Borders, matching Word) are NO-FORK (`src/renderer/*`). Gated by
+  `test:pm` (Banded Rows->tblLook 06A0, Header Row->firstRow off->0680, = the measured Word output).
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 

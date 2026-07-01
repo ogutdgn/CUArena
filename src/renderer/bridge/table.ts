@@ -104,6 +104,25 @@ export function installTable(editor: AnyEditor) {
     return ok !== false
   }
 
+  // Word's 6 Table Style Options (Design tab) — each flips a tblLook bit (NOT a cell-type change like
+  // toggleHeaderRow). option ∈ headerRow|totalRow|bandedRows|firstColumn|lastColumn|bandedColumns.
+  function tableStyleOption(option: string, on?: boolean): boolean {
+    const ok = editor.commands.setTableStyleOption(option, on)
+    refocus()
+    return ok !== false
+  }
+  // Read the current tblLook flags (for the Design-tab checkbox states).
+  function tableStyleOptionState(): Record<string, boolean> {
+    const sel: any = editor.state?.selection
+    let node: any = null
+    editor.state?.doc?.nodesBetween?.(sel.from, sel.to, (n: any) => { if (n.type?.name === 'table') { node = n; return false } return true })
+    const look = node?.attrs?.tableProperties?.tblLook || {}
+    return {
+      headerRow: look.firstRow === true, totalRow: look.lastRow === true, bandedRows: look.noHBand !== true,
+      firstColumn: look.firstColumn === true, lastColumn: look.lastColumn === true, bandedColumns: look.noVBand !== true,
+    }
+  }
+
   function tableSetCellShading(color: string): boolean {
     // No CellSelection gate (T3 fix, Word parity): with a plain caret in a cell the
     // fork's setCellBackground falls back to setCellAttr (shades the caret cell, like
@@ -422,6 +441,8 @@ export function installTable(editor: AnyEditor) {
     tableSplitCell,
     tableToggleHeaderRow,
     tableToggleHeaderColumn,
+    tableStyleOption,
+    tableStyleOptionState,
     tableSetCellShading,
     tableSetCellVAlign,
     isInTable,
