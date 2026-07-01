@@ -2442,10 +2442,24 @@
     });
   }
   function customMarginsDialog() {
+    // 027 (parity): Word's Page Setup → Margins sets Top/Bottom/Left/Right independently. The clone's dialog used a
+    // single uniform field (the bridge dePageMargins already supports distinct sides — only the UI was the gap).
     const cur = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-margin')) || 96) / 96;
-    const inp = el('input', { type: 'number', step: '0.1', min: '0', value: String(cur), style: { width: '70px' } });
-    WC.dialog({ title: 'Page Setup — Margins', width: '380px', body: el('div', {}, [el('div', { class: 'row' }, [el('label', { text: 'Margin (inches):', style: { width: '120px' } }), inp])]), footer: [
-      { label: 'OK', primary: true, onClick: () => { const v = parseFloat(inp.value); if (v >= 0) { setPageVar('--page-margin', Math.round(v * 96) + 'px'); if (typeof WC.PM.dePageMargins === 'function') WC.PM.dePageMargins({ top: v, right: v, bottom: v, left: v }); } } },
+    const mk = () => el('input', { type: 'number', step: '0.1', min: '0', value: String(cur), style: { width: '70px' } });
+    const top = mk(), bottom = mk(), left = mk(), right = mk();
+    const row = (label, inp) => el('div', { class: 'row' }, [el('label', { text: label, style: { width: '56px' } }), inp, el('span', { text: 'in' })]);
+    WC.dialog({ title: 'Page Setup — Margins', width: '380px', body: el('div', {}, [
+      el('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 16px' } }, [row('Top:', top), row('Bottom:', bottom), row('Left:', left), row('Right:', right)]),
+    ]), footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const t = parseFloat(top.value), b = parseFloat(bottom.value), l = parseFloat(left.value), r = parseFloat(right.value);
+        if ([t, b, l, r].every((x) => Number.isFinite(x) && x >= 0)) {
+          // dePageMargins (body sectPr w:pgMar) is the faithful per-side export + paged relayout; the uniform
+          // --page-margin CSS var is a best-effort visual fallback (set to the smallest side).
+          setPageVar('--page-margin', Math.round(Math.min(t, b, l, r) * 96) + 'px');
+          if (typeof WC.PM.dePageMargins === 'function') WC.PM.dePageMargins({ top: t, bottom: b, left: l, right: r });
+        }
+      } },
       { label: 'Cancel' },
     ] });
   }
@@ -2642,6 +2656,9 @@
 
   WC.Commands = Commands;
   WC.FONTS = FONTS; WC.SIZES = SIZES;
+  // 027: expose the Custom Margins dialog like the other WC.Dialogs.* (was reachable only via the Layout ›
+  // Margins flyout). Keyboard/programmatic callers + tests can now open it directly.
+  if (WC.Dialogs) WC.Dialogs.customMargins = customMarginsDialog;
 
   // Home › Font name — lazily pull the OS-installed font catalog from the main process (replacing the built-in
   // 17-font fallback), cache it, and keep WC.FONTS in sync (the Font dialog reads it). Falls back to FONTS if the

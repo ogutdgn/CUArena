@@ -548,6 +548,25 @@
     selectText('kernX'); PM().cmd('setMark', 'textStyle', { kern: null }); await sleep(40);
     return /<w:kern\b/.test(runFor(await xmlNow(), 'kernX')) ? '<w:kern> not cleared (stale-value leak)' : true;
   });
+  await t('[layout] 027 Custom Margins dialog sets independent Top/Bottom/Left/Right → distinct w:pgMar', async () => {
+    setDoc('marginX body'); await sleep(30);
+    if (!WC.Dialogs || typeof WC.Dialogs.customMargins !== 'function') return 'WC.Dialogs.customMargins missing';
+    WC.Dialogs.customMargins(); await sleep(50);
+    const dlg = document.querySelector('#modal-root .dialog');
+    if (!dlg) return 'Custom Margins dialog did not open';
+    const nums = dlg.querySelectorAll('input[type=number]');
+    if (nums.length < 4) { document.querySelectorAll('#modal-root .modal-backdrop').forEach((b) => b.remove()); return 'dialog has ' + nums.length + ' number input(s), expected 4 independent T/B/L/R'; }
+    nums[0].value = '1.25'; nums[1].value = '0.75'; nums[2].value = '1.5'; nums[3].value = '0.5';   // top/bottom/left/right (in)
+    const ok = Array.from(dlg.querySelectorAll('.dlg-footer .btn')).find((b) => /^OK$/.test(b.textContent.trim()));
+    ok.click(); await sleep(90);
+    document.querySelectorAll('#modal-root .modal-backdrop').forEach((b) => b.remove());
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const pgMar = (xml.match(/<w:pgMar\b[^>]*>/) || [])[0] || '';
+    if (!/w:top="1800"/.test(pgMar)) return 'top not 1800 (1.25in): ' + pgMar;       // 1.25*1440
+    if (!/w:bottom="1080"/.test(pgMar)) return 'bottom not 1080 (0.75in): ' + pgMar;  // 0.75*1440
+    if (!/w:left="2160"/.test(pgMar)) return 'left not 2160 (1.5in): ' + pgMar;       // 1.5*1440
+    return /w:right="720"/.test(pgMar) ? true : 'right not 720 (0.5in): ' + pgMar;    // 0.5*1440
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);
