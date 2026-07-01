@@ -181,7 +181,7 @@
       grpTitle('Size'), rowEl('Preferred width:', [tWidthOn, tWidth, sp('Measure in: Inches')]),
       grpTitle('Alignment'), rowEl('Alignment:', [tAlign, sp('Indent from left:'), tIndent]),
       grpTitle('Text wrapping'), rowEl('Wrapping:', [tWrap]),
-      rowEl('', [el('button', { class: 'btn', text: 'Borders and Shading…', onclick: () => WC.Dialogs.bordersAndShading && WC.Dialogs.bordersAndShading() }), el('button', { class: 'btn', text: 'Options…', onclick: () => WC.toast('Table Options (default cell margins/spacing) — coming soon.') })]),
+      rowEl('', [el('button', { class: 'btn', text: 'Borders and Shading…', onclick: () => WC.Dialogs.bordersAndShading && WC.Dialogs.bordersAndShading() }), el('button', { class: 'btn', text: 'Options…', onclick: () => D.tableOptions && D.tableOptions() })]),
     ]);
     // Row tab
     const rHeightOn = check(false), rHeight = num(0.2, 70);
