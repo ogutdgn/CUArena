@@ -2229,7 +2229,7 @@
         // sub-paragraph selection; pPr/w:shd for an empty caret / whole / multi-paragraph
         // selection) like Word's Borders & Shading "Apply to" — not a paragraph flood.
         if (!color || color === 'transparent') pm.clearShading();
-        else pm.setShading(color);
+        else pm.setShading(color, themeMeta || undefined);
         WC.Ribbon.setColorBar && WC.Ribbon.setColorBar('shading', color);
       } else if (kind === 'page') {
         pm.dePageColor(color); // design area — slice 10 PR2 (real w:background)

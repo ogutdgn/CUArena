@@ -120,15 +120,20 @@ export function installCommands(editor: AnyEditor) {
     if (from <= $from.start() && to >= $from.end()) return 'paragraph'
     return 'run'
   }
-  function setShading(color: string): boolean {
+  function setShading(color: string, opts?: { themeColor?: string | null }): boolean {
     if (!color || color === 'transparent') return clearShading()
     const fill = String(color).replace(/^#/, '').toUpperCase()
     if (shadingScope() === 'run') {
       // run-level character shading via the highlight mark (exports rPr/w:shd for a
       // non-keyword colour; a keyword colour serialises as w:highlight — same visual).
+      // (Theme-fill provenance for run-level shading is deferred — v1 resolved sRGB.)
       return cmd('setHighlight', '#' + fill)
     }
-    return cmd('updateAttributes', 'paragraph', { 'paragraphProperties.shading': { val: 'clear', color: 'auto', fill } })
+    // Theme system: a Theme-Colors pick carries its slot → <w:shd w:themeFill="accentN"> alongside
+    // the resolved w:fill (the shd translator maps shading.themeFill → w:themeFill), so paragraph
+    // shading recolors on a theme change like Word. A plain/custom colour clears any stale themeFill.
+    const shading: Record<string, unknown> = { val: 'clear', color: 'auto', fill, themeFill: opts?.themeColor || null }
+    return cmd('updateAttributes', 'paragraph', { 'paragraphProperties.shading': shading })
   }
   function clearShading(): boolean {
     // "No Color" clears BOTH paragraph shading and any run-level character shading in
