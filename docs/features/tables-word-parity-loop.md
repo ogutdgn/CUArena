@@ -173,3 +173,16 @@ NEXT: (2) FORMULA dialog (Layout > Formula, H.tblFormula) — =SUM(ABOVE/LEFT), 
 result (bridge: read the ABOVE/LEFT cells' numbers, compute, insert the field). (3) Table
 PROPERTIES dialog (Layout > Properties) — Table/Row/Column/Cell/Alt Text tabs wired to existing
 bridge verbs. Then final sweep + report. Gallery catalog still BLOCKED.
+
+## Iteration 8 (2026-07-01) — Formula dialog + computation
+- Layout > Formula → Word parity (`d5eb977`): dialog (Formula field defaulted via context to
+  =SUM(ABOVE)/=SUM(LEFT), Number format, Paste function) + NO-FORK bridge tableFormula/
+  formulaContext/tableFormulaDefault — reads ABOVE/LEFT/BELOW/RIGHT cell numbers, computes
+  SUM/AVERAGE/COUNT/PRODUCT/MAX/MIN, formats, inserts the result. Verified: dialog mirrors Word;
+  SUM(ABOVE) over 10/20/30 → 60. test:pm 535 / rt 32. v1 inserts the value (real w:fldSimple = v2).
+
+NEXT: (1) Table PROPERTIES dialog (Layout > Properties + right-click, H.tblProperties) — Word's
+tabbed dialog: Table (preferred width, alignment, text wrapping, Borders&Shading, Options),
+Row (height, options), Column (width), Cell (width, vertical alignment, Options margins), Alt Text.
+Wire to existing bridge verbs (tableSetAlignment/tableSetRowHeight/tableSetCellWidth/tableSetCellVAlign/
+tableSetCellMargins). Then final full sweep vs Word + report to the user. Gallery catalog still BLOCKED.
