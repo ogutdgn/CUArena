@@ -84,7 +84,11 @@ export function generateTableCellProperties(node) {
     !!background?.color &&
     String(background.color).toUpperCase() === String(attrs.styleBakedBackground).toUpperCase();
   if (background?.color && !isStyleBakedFill && tableCellProperties.shading?.fill !== background?.color) {
-    tableCellProperties['shading'] = { fill: background.color };
+    // MS-WORD-CLONE FORK EDIT (parity — Tables B shading): real Word writes the full
+    // <w:shd w:val="clear" w:color="auto" w:fill="RRGGBB"/> for a cell fill, not just w:fill. Preserve any
+    // existing shading's val/color, defaulting to Word's clear/auto, so a cell fill byte-matches Word.
+    const prevShd = tableCellProperties.shading || {};
+    tableCellProperties['shading'] = { val: prevShd.val || 'clear', color: prevShd.color || 'auto', fill: background.color };
   } else if ((!background?.color || isStyleBakedFill) && tableCellProperties?.shading?.fill) {
     delete tableCellProperties.shading;
   }

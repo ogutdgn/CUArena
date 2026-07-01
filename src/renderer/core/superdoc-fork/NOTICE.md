@@ -526,6 +526,10 @@ project tsconfig instead — matching the other vendored packages, which also sh
   (mirrors the existing setTableStyle command). The bridge `tableStyleOption`/`tableStyleOptionState` + the Design-tab
   ribbon group (Table Style Options / Table Styles / Borders, matching Word) are NO-FORK (`src/renderer/*`). Gated by
   `test:pm` (Banded Rows->tblLook 06A0, Header Row->firstRow off->0680, = the measured Word output).
+- **Table cell shading full shape (parity — Tables B, 2026-06-30, user-authorized):** `translate-table-cell.js`
+  built the cell fill's `w:shd` with only `w:fill` (`<w:shd w:fill="RRGGBB"/>`); real Word writes the full
+  `<w:shd w:val="clear" w:color="auto" w:fill="RRGGBB"/>`. Now sets `{ val:'clear', color:'auto', fill }` (preserving
+  any existing shading's val/color). ADDITIVE. Gated by `test:pm` (`B cell shading`) + roundtrip.
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 

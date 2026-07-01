@@ -625,6 +625,15 @@
     if (!/<w:vAlign w:val="top"/.test(tc)) return 'no <w:vAlign top> after re-align: ' + tc.slice(0, 220);
     return /<w:jc\b/.test(tc) ? 'Align-Top-Left did not clear jc (should, left is default): ' + tc.slice(0, 220) : true;
   });
+  await t('[table] B cell shading → <w:shd w:val="clear" w:color="auto" w:fill=RRGGBB> (Word)', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    PM().tableSetCellShading('#FFC000'); await sleep(60);
+    const tc = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tc>[\s\S]*?<\/w:tc>/) || [])[0] || '';
+    const shd = (tc.match(/<w:shd\b[^>]*\/?>/) || [])[0] || '';
+    if (!shd) return 'no <w:shd> in shaded cell: ' + tc.slice(0, 220);
+    if (!/w:fill="FFC000"/i.test(shd)) return 'shd fill not FFC000: ' + shd;
+    return (/w:val="clear"/.test(shd) && /w:color="auto"/.test(shd)) ? true : 'shd not val=clear color=auto (Word shape): ' + shd;
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);
