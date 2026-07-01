@@ -63,3 +63,23 @@ NEXT ITERATIONS (priority order):
 4. Conditional-format RENDERING so Table Style Options (banding/header/first-col) show live.
 5. Round-trip: import a real-Word styled-table .docx, confirm identical (visual + structure).
 6. Full end-to-end sweep of every table control (live) + adversarial review; fix all bugs.
+
+## Iteration 2 (2026-07-01)
+DONE: Table LAYOUT tab UI → Word parity (`a31fd01`) — labeled large buttons for Table/Draw/
+Rows&Columns/Merge/Data, AutoFit+Height/Width+Distribute Cell Size, 3x3 align grid + Text
+Direction/Cell Margins, Word's exact labels (Insert Row Above etc.). Added `--shot-maximize`
+so captures reflect the maximized window (labels condense only when narrow, like Word).
+Verified maximized clone Layout tab mirrors real Word. test:pm 533.
+
+KEY FINDING: the ribbon condenses (hides large labels) when the window is narrow (1440px);
+at maximized (1920px) it shows labels like Word. So capture with --shot-maximize.
+
+NEXT (updated priority):
+1. ICONS — both table tabs use generic minus-in-box icons; Word has specific per-command icons
+   (Select/Properties/Insert/Merge/Split/AutoFit/Align/Sort/Formula…). Map the ~40 tbl* cmds to
+   Fluent icons (WC.icon / icons-fluent). HIGH visual impact ("random icon" complaint).
+2. Table Styles GALLERY CATALOG (~105 built-in styles).
+3. Border TOGGLE semantics + Line Style/Weight/Pen Color affect the drawn border.
+4. Conditional-format RENDERING (banding/header live).
+5. Round-trip a real-Word styled-table .docx.
+6. Full sweep + adversarial review.
