@@ -75,7 +75,15 @@ Every finding below was **adversarially verified** (7 skeptic agents, each tryin
 artifact, reading the clone source + the fixtures). Verdicts: **CONFIRMED real gap** vs **artifact**
 (COM-method / my-value-choice / differ-limitation). Two of my initial classifications were corrected.
 
-### 4a. CONFIRMED real clone gaps (10) — fix candidates for the later pass
+### 4a. CONFIRMED real clone gaps (10) — ✅ ALL FIXED (specs 024–029)
+
+> **🏁 Fix pass complete (2026-06-30, on `parity-pipeline`, NOT merged).** All 10 fixed with TDD (RED→GREEN) +
+> a `run.py --only`-0/0 or `test:pm`-numbering.xml acceptance + the 3 clone gates + a per-fix adversarial review.
+> Two reviews caught real bugs that were then fixed: the `fd-link` "13 missing" was mostly a differ baseline-
+> subtraction artifact (→ the styles styleId-presence refactor, §4c) and the 026 effects had a clearing-leak
+> (`RUN_PROPERTIES_DERIVED_FROM_MARKS`). Commits: 024 `a21d38f`/`9a82452`, 025 `e2ec38d`, 026 `ecadee9`,
+> 027 `9334cfd`, 028 `65bf229`, 029 `1522b37`. Gates: test:pm 515/515, roundtrip 27/0.
+
 
 | # | id | the gap | severity | smallest fix (later) |
 |---|---|---|---|---|

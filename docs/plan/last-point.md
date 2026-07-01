@@ -67,12 +67,18 @@
 > specs/025. **🏁 GROUP 3a DONE:** fd-double-strike + fd-hidden + fd-kerning (`ecadee9`, all 0/0; owned
 > advanced-font-effects attrs + 3 additive fork whitelists incl. the RUN_PROPERTIES_DERIVED_FROM_MARKS **clearing-leak
 > fix the adversarial review caught**; Font dialog Double-strike/Hidden checkboxes + Kerning control; test:pm 512).
-> specs/026. **6 of 10 real gaps fixed + engine.**
-> **NEXT = GROUP 3b: bullet-font + bullet-align** (applyListDefinition: stop stripping rFonts + write lvlJc; Symbol/font
-> picker + align dropdown in Define-New-Bullet — numbering.xml-only → VERIFY via test:pm, NOT run.py 0/0 [COM
-> ApplyBulletDefault singleLevel artifact]). **+ GROUP 4: fd-special-replace** (^p/^t/^l in Replace box → parse a Slice;
-> touches the fork replace cmd) **+ fd-margin-uniform** (Custom Margins dialog → independent T/B/L/R inputs, NO-FORK).
-> 4 real gaps + 3 dialog-completeness UI gaps remain.
+> specs/026. **🏁 GROUP 4 DONE:** fd-margin-uniform (`9334cfd`, Custom Margins dialog → independent T/B/L/R, NO-FORK,
+> specs/027) + fd-special-replace (`65bf229`, Replace box ^p/^t/^l → parse a Slice: paragraph/tab/line break; fork
+> buildReplacementSlice; review SOUND; ^n/^m column/page deferred; specs/028). **🏁 GROUP 3b DONE:** fd-bullet-font +
+> fd-bullet-align (`1522b37`, applyListDefinition writes w:rFonts + w:lvlJc; Define-New-Bullet Font + Alignment selects;
+> verified via test:pm numbering.xml since COM ApplyBulletDefault is a singleLevel artifact; review SOUND — no
+> regression to plain bullets/numbering; specs/029).
+> **🏁🏁 ALL 10 verified real T0/T1 gaps FIXED + the differ made sound. Each: TDD (RED→GREEN) + run.py-or-test:pm
+> acceptance + clone gates + a per-fix adversarial review (2 reviews caught real bugs: fd-link differ-artifact split,
+> 026 clearing-leak — both fixed).** test:pm 515/515, roundtrip 27/0 throughout. All on parity-pipeline (NOT merged).
+> **NEXT (user's call):** the 3 dialog-completeness UI gaps (Font underline-color/ligatures controls, Paragraph
+> Line-and-Page-Breaks tab — effects already 0/0, only the dialog controls missing); OR the VSTO/UIA oracle to turn the
+> bullets/numbering/highlight/table COM-artifacts into proven-green numbers; OR T2/T3 enumeration; OR merge decision.
 >
 > **Done — the deep-slice foundation:** (1) **Differ part-scope extended** (`5703556`): `ooxml_diff` now diffs
 > `numbering.xml` + `styles.xml` (catches Define-New-Bullet + Create-a-Style options). `NOISE_ELEMENTS` strips the
