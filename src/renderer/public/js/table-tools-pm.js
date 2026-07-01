@@ -20,16 +20,25 @@
   // .oracle-probes/slice6/results.md shows 'Table Design' + 'Layout'; id stays
   // 'table-layout' so it can't collide with the standard Layout tab id) ----
   function layoutTab() {
+    // Word's Table Layout tab groups, in order: Table | Draw | Rows & Columns |
+    // Merge | Cell Size | Alignment | Data.
     return {
       id: 'table-layout', name: 'Layout', contextual: true, groups: [
+        { id: 'tl-table', name: 'Table', controls: [
+          { cmd: 'tblSelect', label: 'Select', type: 'dropdown' },
+          { cmd: 'tblViewGridlines', label: 'View Gridlines', type: 'toggle' },
+          { cmd: 'tblProperties', label: 'Properties', type: 'button' },
+        ] },
+        { id: 'tl-draw', name: 'Draw', controls: [
+          { cmd: 'tblDrawTable', label: 'Draw Table', type: 'button' },
+          { cmd: 'tblEraser', label: 'Eraser', type: 'button' },
+        ] },
         { id: 'tl-rowscols', name: 'Rows & Columns', controls: [
+          { cmd: 'tblDelete', label: 'Delete', type: 'dropdown' },
           { cmd: 'tblInsertAbove', label: 'Insert Above', type: 'button' },
           { cmd: 'tblInsertBelow', label: 'Insert Below', type: 'button' },
           { cmd: 'tblInsertLeft', label: 'Insert Left', type: 'button' },
           { cmd: 'tblInsertRight', label: 'Insert Right', type: 'button' },
-          { cmd: 'tblDeleteRow', label: 'Delete Row', type: 'button' },
-          { cmd: 'tblDeleteColumn', label: 'Delete Column', type: 'button' },
-          { cmd: 'tblDeleteTable', label: 'Delete Table', type: 'button' },
         ] },
         { id: 'tl-merge', name: 'Merge', controls: [
           { cmd: 'tblMerge', label: 'Merge Cells', type: 'button' },
@@ -37,11 +46,11 @@
           { cmd: 'tblSplitTable', label: 'Split Table', type: 'button' },
         ] },
         { id: 'tl-cellsize', name: 'Cell Size', controls: [
-          { cmd: 'tblRowHeight', label: 'Row Height', type: 'dropdown' },
-          { cmd: 'tblColWidth', label: 'Column Width', type: 'dropdown' },
+          { cmd: 'tblAutoFit', label: 'AutoFit', type: 'dropdown' },
+          { cmd: 'tblRowHeight', label: 'Height', type: 'dropdown' },
+          { cmd: 'tblColWidth', label: 'Width', type: 'dropdown' },
           { cmd: 'tblDistRows', label: 'Distribute Rows', type: 'button' },
           { cmd: 'tblDistCols', label: 'Distribute Columns', type: 'button' },
-          { cmd: 'tblAutoFit', label: 'AutoFit', type: 'dropdown' },
         ] },
         { id: 'tl-align', name: 'Alignment', controls: [
           // Word's 3×3 alignment grid (vertical vAlign × horizontal jc).
@@ -58,9 +67,10 @@
           { cmd: 'tblCellMargins', label: 'Cell Margins', type: 'button' },
         ] },
         { id: 'tl-data', name: 'Data', controls: [
+          { cmd: 'tblSort', label: 'Sort', type: 'button' },
+          { cmd: 'tblRepeatHeader', label: 'Repeat Header Rows', type: 'toggle' },
           { cmd: 'tblToText', label: 'Convert to Text', type: 'button' },
-          { cmd: 'tblHeaderRow', label: 'Header Row', type: 'button' },
-          { cmd: 'tblHeaderCol', label: 'Header Column', type: 'button' },
+          { cmd: 'tblFormula', label: 'Formula', type: 'button' },
         ] },
       ],
     };

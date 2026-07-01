@@ -539,6 +539,14 @@ project tsconfig instead — matching the other vendored packages, which also sh
   (the px-default shape is physical-only). The bridge `tableSetCellBorders` converts the Word-semantic eighth-point
   `size` (w:sz units) to the fork's px border-width (÷6). ADDITIVE. Gated by `test:pm`
   (`B cell borders … single sz=4 space=0 color=auto`, `B diagonal + inside borders export`) + roundtrip.
+- **Table Layout tab — Select scope (parity — Tables C, 2026-06-30, user-authorized):** a new
+  `selectTableScope(scope)` command in `extensions/table/table.js` (`'cell'|'row'|'column'|'table'`) for Word's
+  Table Layout → Table → Select menu. Resolves the caret cell via `cellAround` + `TableMap`, then builds a
+  rectangular `CellSelection` spanning the corner cells of the requested scope. ADDITIVE (mirrors the existing
+  `setCellSelection` idiom). The bridge `tableSelectScope` + the Layout-tab wiring (Select/View Gridlines/
+  Properties, Draw, Data groups) are NO-FORK (`src/renderer/*`); View Gridlines is a view-only CSS class and
+  Repeat Header Rows sets `tableRowProperties.repeatHeader` (→ `<w:trPr><w:tblHeader/>`) via `updateAttributes`.
+  Gated by `test:pm` (`C Select scope builds a CellSelection`, `C Repeat Header Rows exports <w:tblHeader/>`).
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 

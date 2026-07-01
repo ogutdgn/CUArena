@@ -148,6 +148,50 @@ export function installTable(editor: AnyEditor) {
     return ok !== false
   }
 
+  // Layout → Table → Select: select the cell / row / column / whole table (Word's Select menu).
+  function tableSelectScope(scope: 'cell' | 'row' | 'column' | 'table'): boolean {
+    const ok = editor.commands.selectTableScope(scope)
+    refocus()
+    return ok !== false
+  }
+
+  // Layout → Table → View Gridlines: toggle Word's non-printing table gridlines (a view-only
+  // CSS class on the editor host; borderless-cell edges show as faint dashed guides).
+  function tableViewGridlines(): boolean {
+    const host = document.getElementById('pm-editor')
+    if (!host) return false
+    return host.classList.toggle('wc-show-table-gridlines')
+  }
+  function tableGridlinesShown(): boolean {
+    return !!document.getElementById('pm-editor')?.classList.contains('wc-show-table-gridlines')
+  }
+
+  // Layout → Data → Repeat Header Rows: mark the current row as a header row that repeats at
+  // the top of each page (<w:trPr><w:tblHeader/></w:trPr> via the row's repeatHeader attr).
+  function currentRowNode(): any {
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        if ($from.node(d).type.name === 'tableRow') return $from.node(d)
+      }
+    } catch { /* unreadable selection */ }
+    return null
+  }
+  function tableRepeatHeaderState(): boolean {
+    return currentRowNode()?.attrs?.tableRowProperties?.repeatHeader === true
+  }
+  function tableRepeatHeaderRows(on?: boolean): boolean {
+    const row = currentRowNode()
+    if (!row) return false
+    const next = on === undefined ? !(row.attrs?.tableRowProperties?.repeatHeader === true) : !!on
+    // repeatHeader lives inside tableRowProperties (→ <w:trPr><w:tblHeader/>), not a top-level
+    // row attr — merge so other row props (rowHeight, cantSplit) survive the update.
+    const props = { ...(row.attrs?.tableRowProperties || {}), repeatHeader: next }
+    const ok = editor.commands.updateAttributes('tableRow', { tableRowProperties: props })
+    refocus()
+    return ok !== false
+  }
+
   // Is the selection inside a table? (drives contextual-tab show/hide + Table Tools state)
   // Walk $from ancestors for a node of type 'table'.
   function isInTable(): boolean {
@@ -467,6 +511,11 @@ export function installTable(editor: AnyEditor) {
     tableSetCellShading,
     tableSetCellVAlign,
     tableSetCellAlign,
+    tableSelectScope,
+    tableViewGridlines,
+    tableGridlinesShown,
+    tableRepeatHeaderRows,
+    tableRepeatHeaderState,
     isInTable,
     tableInfo,
     // 6b: net-new Table Tools verbs

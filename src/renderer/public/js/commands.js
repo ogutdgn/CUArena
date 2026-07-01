@@ -154,6 +154,32 @@
   H.tblAlignLeft = () => { const p = TPM(); if (p) p.tableSetAlignment('left'); };
   H.tblAlignCenter = () => { const p = TPM(); if (p) p.tableSetAlignment('center'); };
   H.tblAlignRight = () => { const p = TPM(); if (p) p.tableSetAlignment('right'); };
+  // Word Table Layout → Table group: Select (Cell/Column/Row/Table), View Gridlines, Properties.
+  H.tblSelect = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Select'));
+    const sel = (scope, label) => fly.appendChild(WC.flyItem(label, { onClick: () => { const p = TPM(); if (p) p.tableSelectScope(scope); } }));
+    sel('cell', 'Select Cell');
+    sel('column', 'Select Column');
+    sel('row', 'Select Row');
+    sel('table', 'Select Table');
+  });
+  H.tblViewGridlines = () => { const p = TPM(); if (p) { p.tableViewGridlines(); WC.Ribbon && WC.Ribbon.refreshContextualTab && WC.Ribbon.refreshContextualTab('table-layout'); } };
+  H.tblProperties = () => { const p = TPM(); if (!p) return; (WC.Dialogs && WC.Dialogs.tableProperties) ? WC.Dialogs.tableProperties() : WC.toast('Table Properties dialog is coming soon.'); };
+  // Word Table Layout → Data group: Sort, Repeat Header Rows, Formula.
+  H.tblRepeatHeader = () => { const p = TPM(); if (p) { p.tableRepeatHeaderRows(); WC.Ribbon && WC.Ribbon.refreshContextualTab && WC.Ribbon.refreshContextualTab('table-layout'); } };
+  H.tblSort = () => { const p = TPM(); if (!p) return; (WC.Dialogs && WC.Dialogs.tableSort) ? WC.Dialogs.tableSort() : WC.toast('Table Sort dialog is coming soon.'); };
+  H.tblFormula = () => { const p = TPM(); if (!p) return; (WC.Dialogs && WC.Dialogs.tableFormula) ? WC.Dialogs.tableFormula() : WC.toast('Table Formula dialog is coming soon.'); };
+  // Word Table Layout → Draw group: Draw Table, Eraser (freehand modes — honest v1 stubs).
+  H.tblDrawTable = () => WC.toast('Draw Table mode is coming soon — use Insert ▸ Table for now.');
+  H.tblEraser = () => WC.toast('Eraser mode is coming soon — use Merge Cells / Delete for now.');
+  // Word Table Layout → Rows & Columns → Delete (a dropdown: Delete Columns/Rows/Table).
+  H.tblDelete = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Delete'));
+    const it = (label, fn) => fly.appendChild(WC.flyItem(label, { onClick: fn }));
+    it('Delete Columns', () => { const p = TPM(); if (p) p.tableDeleteColumn(); });
+    it('Delete Rows', () => { const p = TPM(); if (p) p.tableDeleteRow(); });
+    it('Delete Table', () => { const p = TPM(); if (p) p.tableDeleteTable(); });
+  });
   // Cell Margins (Table Layout → Alignment group). Word's button opens the Cell Options dialog; we
   // open an inches flyout (4 sides) anchored to the control, mirroring the Row Height / Column Width
   // size flyouts. px = inches × 96 (the fork clamps ≥0 and the exporter converts px → twips for

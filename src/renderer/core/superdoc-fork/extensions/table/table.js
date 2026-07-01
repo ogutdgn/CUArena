@@ -1448,6 +1448,51 @@ export const Table = Node.create({
         },
 
       /**
+       * MS-WORD-CLONE FORK EDIT (parity — Tables C, Table Layout → Table → Select).
+       * Select a scope within the current table: 'cell' | 'row' | 'column' | 'table'.
+       * Resolves the caret cell via TableMap and builds a rectangular CellSelection
+       * spanning the appropriate corner cells (Word's Select Cell/Column/Row/Table).
+       * @category Command
+       * @param {'cell'|'row'|'column'|'table'} scope
+       * @returns {Function} Command
+       * @example
+       * editor.commands.selectTableScope('row')
+       */
+      selectTableScope:
+        (scope) =>
+        ({ state, tr, dispatch }) => {
+          if (!isInTable(state)) return false;
+          const $cell = cellAround(state.selection.$from);
+          if (!$cell) return false;
+          const table = resolveCommandTargetTable(state.selection);
+          if (!table) return false;
+          const map = TableMap.get(table.node);
+          const tableStart = table.pos + 1; // position just inside the table node
+          const cellRel = $cell.pos - tableStart; // cell node pos relative to table content start
+          const rect = map.findCell(cellRel);
+          let anchorRel;
+          let headRel;
+          if (scope === 'row') {
+            anchorRel = map.map[rect.top * map.width];
+            headRel = map.map[rect.top * map.width + (map.width - 1)];
+          } else if (scope === 'column') {
+            anchorRel = map.map[rect.left];
+            headRel = map.map[(map.height - 1) * map.width + rect.left];
+          } else if (scope === 'table') {
+            anchorRel = map.map[0];
+            headRel = map.map[map.width * map.height - 1];
+          } else {
+            anchorRel = cellRel;
+            headRel = cellRel;
+          }
+          if (dispatch) {
+            tr.setSelection(CellSelection.create(tr.doc, tableStart + anchorRel, tableStart + headRel));
+            dispatch(tr);
+          }
+          return true;
+        },
+
+      /**
        * Set background color for selected cells
        * @category Command
        * @param {string} value - Color value (hex with or without #)

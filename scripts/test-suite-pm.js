@@ -654,6 +654,19 @@
     if (!/<w:tl2br\b/.test(tb)) return 'no <w:tl2br> (diagonal-down): ' + tb.slice(0, 200);
     return /<w:insideH\b/.test(tb) ? true : 'no <w:insideH>: ' + tb.slice(0, 200);
   });
+  await t('[table] C Repeat Header Rows exports <w:tblHeader/> on the caret row', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    PM().tableRepeatHeaderRows(true); await sleep(60);
+    const firstRow = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tr\b[\s\S]*?<\/w:tr>/) || [''])[0];
+    return /<w:tblHeader\b/.test(firstRow) ? true : 'no <w:tblHeader> in first row trPr: ' + firstRow.slice(0, 220);
+  });
+  await t('[table] C Select scope builds a CellSelection (row)', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 3 }); await sleep(90);
+    PM().tableSelectScope('row'); await sleep(40);
+    const sel = window.WC.editor.state.selection;
+    // CellSelection instances carry $anchorCell/$headCell; a TextSelection does not.
+    return (sel && sel.$anchorCell && sel.$headCell) ? true : 'selection is not a CellSelection';
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);

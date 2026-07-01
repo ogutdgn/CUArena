@@ -502,3 +502,9 @@ body.pm-active #pm-editor.show-grid { background-image: linear-gradient(#e9eef5 
 /* (008: the overlay footnote/endnote NOTES REGION styling (#pm-notes-area / .pm-notes-section /
    .pm-note-body, from the retired notes-area.ts) was deleted — the paged PresentationEditor paints
    footnote/endnote bodies per-page at the page foot.) */
+
+/* Table Layout → View Gridlines (parity — Tables C): Word's non-printing table gridlines.
+   Toggled by bridge tableViewGridlines() (the .wc-show-table-gridlines class on #pm-editor).
+   Drawn as a faint dashed outline inset by 1px so it never shifts cell layout and coincides
+   with any real cell borders. View-only — never exported. */
+#pm-editor.wc-show-table-gridlines :is(td, th) { outline: 1px dashed #b9c0c9; outline-offset: -1px; }
