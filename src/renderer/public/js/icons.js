@@ -129,6 +129,24 @@
     _generic: '<rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor"/><path d="M8 12h8" stroke="currentColor" opacity=".55"/>',
   };
 
+  // Table Layout → Alignment: the 9 cell-alignment icons (Word-style). Each is a cell with three
+  // text lines positioned vertically (Top/Mid/Bot) and aligned horizontally (Left/Center/Right).
+  // Fluent has no 9-way combo icons, so these are drawn to match Word's 3x3 alignment grid.
+  (function () {
+    const cell = '<rect x="3.5" y="4" width="17" height="16" rx="1" fill="none" stroke="currentColor" opacity=".8"/>';
+    const yBy = { Top: [7, 9.5, 12], Mid: [9.5, 12, 14.5], Bot: [12, 14.5, 17] };
+    const w = [9, 6, 8];
+    const xBy = { Left: [6, 6, 6], Center: [7.5, 9, 8], Right: [8.5, 11.5, 9.5] };
+    ['Top', 'Mid', 'Bot'].forEach((v) => {
+      ['Left', 'Center', 'Right'].forEach((h) => {
+        const ys = yBy[v]; const xs = xBy[h];
+        let d = '';
+        for (let i = 0; i < 3; i++) d += `M${xs[i]} ${ys[i]}h${w[i]}`;
+        P['tblAlign' + v + h] = cell + `<path d="${d}" stroke="currentColor" stroke-width="1.6"/>`;
+      });
+    });
+  })();
+
   function svg(name, size) {
     const inner = P[name] || P._generic;
     const s = size || 24;
