@@ -139,6 +139,15 @@ export function installTable(editor: AnyEditor) {
     return ok !== false
   }
 
+  // Word's 9-way cell alignment (Layout → Alignment grid): vertical (w:vAlign, cell-level) + horizontal (the cell
+  // paragraphs' w:jc). 'left' CLEARS jc (Word's default) so Align-*-Left matches Word; center/right set it.
+  function tableSetCellAlign(v: 'top' | 'middle' | 'bottom', h: 'left' | 'center' | 'right'): boolean {
+    const chain = editor.chain().setCellAttr('verticalAlign', v)
+    const ok = (h === 'left' ? chain.unsetTextAlign() : chain.setTextAlign(h)).run()
+    refocus()
+    return ok !== false
+  }
+
   // Is the selection inside a table? (drives contextual-tab show/hide + Table Tools state)
   // Walk $from ancestors for a node of type 'table'.
   function isInTable(): boolean {
@@ -445,6 +454,7 @@ export function installTable(editor: AnyEditor) {
     tableStyleOptionState,
     tableSetCellShading,
     tableSetCellVAlign,
+    tableSetCellAlign,
     isInTable,
     tableInfo,
     // 6b: net-new Table Tools verbs

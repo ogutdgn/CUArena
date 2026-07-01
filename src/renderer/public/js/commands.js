@@ -139,6 +139,17 @@
   H.tblVAlignTop = () => { const p = TPM(); if (p) p.tableSetCellVAlign('top'); };
   H.tblVAlignMid = () => { const p = TPM(); if (p) p.tableSetCellVAlign('middle'); };
   H.tblVAlignBottom = () => { const p = TPM(); if (p) p.tableSetCellVAlign('bottom'); };
+  // Word Table Layout → Alignment: the 9-way grid (vertical vAlign + horizontal jc per cell).
+  const tblAlign = (v, h) => { const p = TPM(); if (p) p.tableSetCellAlign(v, h); };
+  H.tblAlignTopLeft = () => tblAlign('top', 'left');
+  H.tblAlignTopCenter = () => tblAlign('top', 'center');
+  H.tblAlignTopRight = () => tblAlign('top', 'right');
+  H.tblAlignMidLeft = () => tblAlign('middle', 'left');
+  H.tblAlignMidCenter = () => tblAlign('middle', 'center');
+  H.tblAlignMidRight = () => tblAlign('middle', 'right');
+  H.tblAlignBotLeft = () => tblAlign('bottom', 'left');
+  H.tblAlignBotCenter = () => tblAlign('bottom', 'center');
+  H.tblAlignBotRight = () => tblAlign('bottom', 'right');
   H.tblTextDir = () => { const p = TPM(); if (p) p.tableSetTextDirection('tbRl'); };
   H.tblAlignLeft = () => { const p = TPM(); if (p) p.tableSetAlignment('left'); };
   H.tblAlignCenter = () => { const p = TPM(); if (p) p.tableSetAlignment('center'); };

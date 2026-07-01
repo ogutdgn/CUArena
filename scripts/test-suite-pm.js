@@ -614,6 +614,17 @@
     if (!/w:firstRow="0"/.test(l)) return 'Header Row toggle did not clear firstRow: ' + l;
     return /w:val="0680"/.test(l) ? true : 'tblLook val after banded+header not 0680: ' + l;
   });
+  await t('[table] C 9-way cell alignment → w:vAlign (cell) + w:jc (cell paragraph); left clears jc', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    PM().tableSetCellAlign('bottom', 'right'); await sleep(60);
+    let tc = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tc>[\s\S]*?<\/w:tc>/) || [])[0] || '';
+    if (!/<w:vAlign w:val="bottom"/.test(tc)) return 'no <w:vAlign bottom> in first cell: ' + tc.slice(0, 220);
+    if (!/<w:jc w:val="right"/.test(tc)) return 'no <w:jc right> in first cell: ' + tc.slice(0, 220);
+    PM().tableSetCellAlign('top', 'left'); await sleep(60);
+    tc = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tc>[\s\S]*?<\/w:tc>/) || [])[0] || '';
+    if (!/<w:vAlign w:val="top"/.test(tc)) return 'no <w:vAlign top> after re-align: ' + tc.slice(0, 220);
+    return /<w:jc\b/.test(tc) ? 'Align-Top-Left did not clear jc (should, left is default): ' + tc.slice(0, 220) : true;
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);
