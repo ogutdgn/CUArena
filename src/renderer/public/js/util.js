@@ -120,7 +120,17 @@
     }
     wrap.appendChild(el('div', { class: 'color-section-title', text: 'Theme Colors' }));
     const tg = el('div', { class: 'color-grid' });
-    THEME_COLORS.forEach((c, i) => tg.appendChild(swatch(c, onPick, THEME_SLOTS[i] ? { themeColor: THEME_SLOTS[i] } : undefined)));
+    // Theme-system foundation: prefer the OPEN document's real theme palette (bridge getThemeColors,
+    // parsed from word/theme/theme1.xml) so both the swatches AND the themeColor provenance stamped on a
+    // pick match the doc's theme — not a hardcoded scheme. Falls back to the built-in Aptos row (the
+    // user's Word default) when the palette is absent/partial. (The tint/shade rows below stay the
+    // built-in v1 resolved-sRGB set — their recompute from a dynamic base is the next theme slice.)
+    let themeRow = null;
+    try { themeRow = (WC.PM && WC.PM.getThemeColors) ? WC.PM.getThemeColors() : null; } catch (e) { themeRow = null; }
+    const useDoc = Array.isArray(themeRow) && themeRow.length === THEME_COLORS.length;
+    const baseColors = useDoc ? themeRow.map((t) => '#' + t.rgb) : THEME_COLORS;
+    const baseSlots = useDoc ? themeRow.map((t) => t.themeColor) : THEME_SLOTS;
+    baseColors.forEach((c, i) => tg.appendChild(swatch(c, onPick, baseSlots[i] ? { themeColor: baseSlots[i] } : undefined)));
     wrap.appendChild(tg);
     const tints = el('div', { class: 'color-grid', style: { marginTop: '3px' } });
     THEME_TINTS.forEach((row) => row.forEach((c) => tints.appendChild(swatch(c, onPick))));

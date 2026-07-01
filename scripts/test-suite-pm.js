@@ -669,6 +669,23 @@
     if (!/<w:tl2br\b/.test(tb)) return 'no <w:tl2br> (diagonal-down): ' + tb.slice(0, 200);
     return /<w:insideH\b/.test(tb) ? true : 'no <w:insideH>: ' + tb.slice(0, 200);
   });
+  await t('[theme] getThemeColors returns the doc theme palette (10 slots incl. accent1)', async () => {
+    setDoc('x'); await sleep(60);
+    const tc = window.WC.PM.getThemeColors && window.WC.PM.getThemeColors();
+    if (!Array.isArray(tc)) return 'getThemeColors returned non-array: ' + JSON.stringify(tc);
+    if (tc.length !== 10) return 'expected 10 theme slots, got ' + tc.length;
+    const a1 = tc.find((s) => s.themeColor === 'accent1');
+    return (a1 && /^[0-9A-F]{6}$/.test(a1.rgb)) ? true : 'accent1 slot missing/invalid rgb: ' + JSON.stringify(a1);
+  });
+  await t('[theme] theme font color exports <w:color w:val=DOC-RGB w:themeColor="accent1">', async () => {
+    setDoc('Hello'); await sleep(60);
+    const a1 = window.WC.PM.getThemeColors().find((s) => s.themeColor === 'accent1');
+    window.WC.editor.commands.selectAll();
+    window.WC.PM.cmd('setColor', '#' + a1.rgb, { themeColor: 'accent1' }); await sleep(50);
+    const col = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:color\b[^>]*\/?>/) || ['none'])[0];
+    if (!/w:themeColor="accent1"/.test(col)) return 'no themeColor=accent1: ' + col;
+    return new RegExp('w:val="' + a1.rgb + '"', 'i').test(col) ? true : 'val != doc accent1 (' + a1.rgb + '): ' + col;
+  });
   await t('[table] D cell width exports <w:tcW w:type="dxa"> at 1.5in (~2160 twips, Word)', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
     PM().tableSetCellWidth(144); await sleep(60); // 1.5in * 96px/in

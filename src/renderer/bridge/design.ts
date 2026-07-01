@@ -307,7 +307,33 @@ export function installDesign(editor: AnyEditor) {
   // ---- setAsDefault (D10t.8 clone-owned toast no-op) ----
   function deSetAsDefault(): boolean { toast('Current theme/spacing set as the default for new documents (session).'); return true }
 
+  // ---- theme colors (theme-system foundation) ----
+  // The document's ACTUAL theme palette (converter.themeColors, parsed from word/theme/theme1.xml
+  // by getThemeColorPalette at import) mapped to Word's Theme-Colors picker row: 10 base swatches
+  // in Word's left→right order, each with its OOXML w:themeColor slot name. Lets the color pickers
+  // show the OPEN document's real theme (not a hardcoded scheme) so both the swatches AND the
+  // themeColor provenance stamped on a pick match the doc. Returns null on an absent/partial palette
+  // so the picker falls back to its built-in default row.
+  function getThemeColors(): Array<{ rgb: string; themeColor: string }> | null {
+    const pal = converter()?.themeColors
+    if (!pal || typeof pal !== 'object') return null
+    // [clrScheme key, OOXML w:themeColor slot] in Word's Theme-Colors row order (bg1/tx1/bg2/tx2/accent1..6).
+    const order: Array<[string, string]> = [
+      ['lt1', 'background1'], ['dk1', 'text1'], ['lt2', 'background2'], ['dk2', 'text2'],
+      ['accent1', 'accent1'], ['accent2', 'accent2'], ['accent3', 'accent3'],
+      ['accent4', 'accent4'], ['accent5', 'accent5'], ['accent6', 'accent6'],
+    ]
+    const out: Array<{ rgb: string; themeColor: string }> = []
+    for (const [key, slot] of order) {
+      const hex = pal[key]
+      if (!hex) return null // incomplete palette — let the picker use its default row
+      out.push({ rgb: bareHex(hex), themeColor: slot })
+    }
+    return out
+  }
+
   return {
+    getThemeColors,
     deApplyTheme, deApplyColors, deApplyFonts, deApplyStyleSet, deParagraphSpacing,
     dePreviewTheme, dePreviewRestore, dePreviewCommit, dePreviewEnd,
     dePageColor, dePageColorClear, dePageBorders, dePageBordersRemove,
