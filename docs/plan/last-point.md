@@ -7,6 +7,47 @@
 
 ---
 
+## 2026-07-01 (PARITY V2 RESTART — meta-review verdict executed: archive + clean branch + gates green)
+
+> **Branch: `parity-v2` @ `571c315` — the ACTIVE branch (pushed).** `parity-pipeline` = the ARCHIVE
+> (102 commits incl. the full T0/T1 measurement era, the Tables push, the theme system, and the
+> meta-review-era plan-doc entries — ALL pushed to origin; recover anything via cherry-pick).
+> ⚠️ CLAUDE.md still names `parity-pipeline` as the active parity branch — v2 supersedes it.
+>
+> **CONTEXT (this day, on the archive branch first):** the user asked for an honest meta-review of the
+> replication pipeline → **[docs/reviews/parity-pipeline-review-2026-07-01.md](../reviews/parity-pipeline-review-2026-07-01.md)**
+> (diagnosis: measurement asymmetry — only OOXML was gated; UI/behavior/design had no ground truth, so
+> single-axis "COMPLETE" claims collapsed, e.g. the 6 dead Table dropdowns). Then 4 of the 6 fix-plan items
+> were built on the archive branch and CARRIED into v2's baseline: the official **idMso ribbon inventory**
+> (5,439 controls, M365 Current Channel) + **GetLabelMso enrichment** (4,978 real labels, PID-safe, zero
+> hangs) + the **STRUCTURE axis** (`structure_verify.py`) + the **SCORECARD axis** (`scorecard_verify.py`).
+> Findings on the OLD clone state: STRUCTURE missing 38 (after 39 user-signed scope-outs in
+> `structure_scope.json`: East-Asian/RTL, Copilot/cloud-AI, store chrome) / label≠ 33; SCORECARD 261
+> clicked → 2 DEAD (`insert·3dModels`, `layout·group`). Those NUMBERS are now STALE (captured pre-restart)
+> — re-measure on v2.
+>
+> **THE RESTART (user decision):** keep the pipeline + locked scope (`docs/SCOPE_LOCKED.md`, 111 controls);
+> KEEP the 10 verified OOXML fixes (specs 022-029 — cherry-picked as 9 commits, parity/-path hunks dropped);
+> REMOVE the Tables UI push + theme system from the working state (weak-axis-verified; rebuilt later through
+> the certified pipeline — the app intentionally regressed on tables). Baseline `571c315`: full parity/ tree +
+> scope/audit/ranking/reviews docs + ribbon-shot-probe; stale measurements PRUNED (wc-* fixtures, results/,
+> flow captures); 59 rw-* real-Word ground truths + 13 differ selftests KEPT.
+> **Gates green on v2: test:pm 515/515 (paged) · smoke 9/9 · roundtrip 27/0 · review_differ ALL PASS.**
+>
+> **NEXT — the agreed 3-phase plan:**
+> **Phase A (pipeline redesign, finite):** (1) multi-axis ledger keyed to the 111 locked controls
+> (OOXML/STRUCTURE/SCORECARD/VISUAL/FLOW — no single-axis "complete"); (2) menu-item-level STRUCTURE diff
+> (the inventory has parent nesting; clone declares items[]); (3) dialog-field completeness via UIA;
+> (4) VISUAL = clone-vs-WORD screenshot judge (both capture halves exist); (5) BEHAVIOR = ~10 scripted
+> Tables flows vs real Word; (6) Table-Styles catalog ONE-SHOT (visible-Word session: ~113 modern styles
+> into ONE doc → its styles.xml = the byte-accurate catalog; pilot 3 styles first).
+> **Phase B (certification):** run ALL axes on Tables; ACCEPTANCE = rediscovers the KNOWN gaps (2/247
+> gallery, cnfStyle stamping, Draw/Eraser/Painter stubs, Insert Cells…, the label mismatches) with zero
+> false full-parity verdicts on hand spot-checks; every miss = a pipeline bug → fix → re-run.
+> **Phase C (scale):** autonomous re-measurement sweep T0-T2 then T3 → regenerate SCOPE_LOCKED's stale
+> status column from MEASURED verdicts → visibility-first fix loops. Measurement autonomous; fixes stay
+> loop-gated (spec → fix → re-measure → adversarial review).
+
 ## 2026-06-26 (COMPLETENESS PASS — HOME TAB: 🏁 ALL Home features DONE — 019/020/021 merged)
 
 > **Branch:** `main` @ `36ac9ef`, **pushed (in sync)**. Phase: COMPLETENESS PASS — Home tab. The 3 remaining

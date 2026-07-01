@@ -506,6 +506,13 @@ hold the single-PM-copy + telemetry-off invariants.
 
 ## Daily work log (newest first — check off what got done)
 
+### 2026-07-01 (PARITY V2 RESTART — meta-review → new axes → archive + clean branch)
+- [x] **Honest META-REVIEW of the parity pipeline** (user-requested; `docs/reviews/parity-pipeline-review-2026-07-01.md`): diagnosis = measurement asymmetry — only OOXML was gated; the fix = UI ground truth + a 5-axis definition of done.
+- [x] **Built on the (now-archived) parity-pipeline branch, carried into v2:** the official **idMso inventory** (5,439 controls, M365 Current Channel) + **GetLabelMso label enrichment** (4,978, PID-safe, zero hangs) + the **STRUCTURE axis** (`parity/engines/structure_verify.py` + `structure_scope.json` with 39 USER-SIGNED scope-outs) + the **SCORECARD axis** (`parity/engines/scorecard_verify.py`, 261 controls clicked live). Old-clone findings (now stale): 38 missing / 33 label≠ / 2 DEAD (`3dModels`, `group`).
+- [x] **PARITY V2 RESTART (user decision):** `parity-pipeline` ARCHIVED (102 commits, all pushed); **`parity-v2`** = `main` + the 10 OOXML fixes (9 cherry-picks, specs 022→029) + the pipeline v2 baseline (`571c315`; stale measurements pruned, 59 rw-* ground truths kept). Tables UI + theme system removed from the working state (recoverable from the archive).
+- [x] **Gates green on v2:** test:pm 515/515 (paged) · smoke 9/9 · roundtrip 27/0 · `review_differ.py` ALL PASS.
+- [ ] **NEXT — Phase A (pipeline redesign):** multi-axis ledger keyed to the 111 locked controls; menu-item-level STRUCTURE; dialog-field UIA capture; VISUAL clone-vs-Word; ~10 scripted BEHAVIOR flows; Table-Styles catalog one-shot. **Then Phase B: Tables pilot w/ the known-truth acceptance test. Then Phase C: autonomous re-measure T0-T2 + T3** → regenerate SCOPE_LOCKED's status from measured verdicts.
+
 ### 2026-06-26 (COMPLETENESS PASS — Home tab: 018 Find/Replace advanced + ultracode "finish all")
 - [x] **🏁 018 Find/Replace advanced COMPLETE + ff-merged → main** (`feat(home)` @ `dd33a2a`, pushed): special chars ^p/^t/^l (NO-FORK regexSource seam), Go To Page (NO-FORK coords.pageIndexOfPos), find-by-formatting (NO-FORK navigation `findFormatting`), wildcard {n,m}/() (2 minimal additive fork edits). Built off a 5-reader spike Workflow. Gates pm 473 / smoke 9 / roundtrip 27 / bundle 4. /code-review high → 8 fixes.
 - [x] **User directive: "finish all" + ultracode ON** → autonomous workflow-orchestrated execution of the remaining Home direct-TDD features.
