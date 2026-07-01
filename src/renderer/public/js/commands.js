@@ -227,9 +227,26 @@
   });
   H.tblBorders = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Borders'));
-    const B = () => ({ val: 'single', color: '000000', size: 4 });
-    fly.appendChild(WC.flyItem('All Borders', { onClick: () => { const p = TPM(); if (p) p.tableSetCellBorders({ top: B(), bottom: B(), left: B(), right: B() }); } }));
-    fly.appendChild(WC.flyItem('No Border', { onClick: () => { const p = TPM(); if (p) p.tableSetCellBorders({}); } }));
+    // Word's standard cell border: single, 0.5pt (w:sz=4 eighth-points), space 0, color auto.
+    const B = () => ({ val: 'single', color: 'auto', size: 4, space: 0 });
+    const set = (b) => { const p = TPM(); if (p) p.tableSetCellBorders(b); };
+    const item = (label, b) => fly.appendChild(WC.flyItem(label, { onClick: () => set(b) }));
+    item('Bottom Border', { bottom: B() });
+    item('Top Border', { top: B() });
+    item('Left Border', { left: B() });
+    item('Right Border', { right: B() });
+    fly.appendChild(WC.flySep());
+    item('No Border', {});
+    item('All Borders', { top: B(), bottom: B(), left: B(), right: B(), insideH: B(), insideV: B() });
+    item('Outside Borders', { top: B(), bottom: B(), left: B(), right: B() });
+    item('Inside Borders', { insideH: B(), insideV: B() });
+    fly.appendChild(WC.flySep());
+    item('Inside Horizontal Border', { insideH: B() });
+    item('Inside Vertical Border', { insideV: B() });
+    item('Diagonal Down Border', { tl2br: B() });
+    item('Diagonal Up Border', { tr2bl: B() });
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Borders and Shading…', { onClick: () => WC.Dialogs.bordersAndShading && WC.Dialogs.bordersAndShading() }));
   });
   H.tblAutoFit = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('AutoFit'));

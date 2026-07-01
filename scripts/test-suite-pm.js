@@ -634,6 +634,26 @@
     if (!/w:fill="FFC000"/i.test(shd)) return 'shd fill not FFC000: ' + shd;
     return (/w:val="clear"/.test(shd) && /w:color="auto"/.test(shd)) ? true : 'shd not val=clear color=auto (Word shape): ' + shd;
   });
+  await t('[table] B cell borders emit <w:tcBorders> single sz=4 space=0 color=auto (Word shape)', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    const B = { val: 'single', color: 'auto', size: 4, space: 0 };
+    PM().tableSetCellBorders({ top: B, bottom: B, left: B, right: B }); await sleep(60);
+    const tc = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tc>[\s\S]*?<\/w:tc>/) || [])[0] || '';
+    const top = ((tc.match(/<w:tcBorders>[\s\S]*?<\/w:tcBorders>/) || [''])[0].match(/<w:top\b[^>]*\/?>/) || [])[0] || '';
+    if (!top) return 'no <w:tcBorders>/<w:top> in cell: ' + tc.slice(0, 220);
+    if (!/w:val="single"/.test(top)) return 'top not single: ' + top;
+    if (!/w:sz="4"/.test(top)) return 'top not sz=4: ' + top;
+    if (!/w:color="auto"/.test(top)) return 'top color not auto (Word): ' + top;
+    return /w:space="0"/.test(top) ? true : 'top no space=0 (Word): ' + top;
+  });
+  await t('[table] B diagonal + inside borders export (<w:tl2br>/<w:insideH>)', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    const B = { val: 'single', color: 'auto', size: 4, space: 0 };
+    PM().tableSetCellBorders({ tl2br: B, insideH: B }); await sleep(60);
+    const tb = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tcBorders>[\s\S]*?<\/w:tcBorders>/) || [''])[0];
+    if (!/<w:tl2br\b/.test(tb)) return 'no <w:tl2br> (diagonal-down): ' + tb.slice(0, 200);
+    return /<w:insideH\b/.test(tb) ? true : 'no <w:insideH>: ' + tb.slice(0, 200);
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);

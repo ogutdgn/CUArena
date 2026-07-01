@@ -229,7 +229,19 @@ export function installTable(editor: AnyEditor) {
   }
 
   function tableSetCellBorders(b: Record<string, unknown>): boolean {
-    const ok = editor.commands.setCellBorders(b)
+    // The fork's setCellBorders stores border `size` in PIXELS (the DOM border-width),
+    // and the exporter maps px → eighth-points via ×6 (0.66665px → w:sz="4" = 0.5pt).
+    // Accept Word-semantic eighth-points here (w:sz units) and convert to px so callers
+    // pass `size: 4` for Word's default 0.5pt border rather than a magic 0.66665.
+    const toPx = (side: unknown): unknown => {
+      if (!side || typeof side !== 'object') return side
+      const s = side as Record<string, unknown>
+      if (typeof s.size === 'number') return { ...s, size: s.size / 6 }
+      return side
+    }
+    const converted: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(b)) converted[k] = toPx(v)
+    const ok = editor.commands.setCellBorders(converted)
     refocus()
     return ok !== false
   }

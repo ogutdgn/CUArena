@@ -16,6 +16,14 @@ const pxToEighthPoints = (px) => Math.round((px / PX_PER_PT) * 8);
 
 const SIDES = ['top', 'right', 'bottom', 'left'];
 
+// MS-WORD-CLONE FORK EDIT (parity — Tables B borders): the OOXML CT_TcBorders schema
+// also carries insideH/insideV (interior borders of a multi-cell selection) and
+// tl2br/tr2bl (diagonal borders) — all reachable from Word's Borders dropdown. The
+// converter must map them too, or setCellBorders({ tl2br, insideH, ... }) is silently
+// dropped. isLegacySchemaDefaultBorders stays on the 4 PHYSICAL sides (the px-default
+// shape is defined by top/right/bottom/left), so only the converter's loop widens.
+const ALL_SIDES = [...SIDES, 'insideH', 'insideV', 'tl2br', 'tr2bl'];
+
 /**
  * Detects the old `createCellBorders()` schema-default shape.
  * These borders have `{ size, color }` without a `val` property on every side.
@@ -40,7 +48,7 @@ export function isLegacySchemaDefaultBorders(borders) {
  */
 export function convertBordersToOoxmlFormat(borders) {
   const result = {};
-  for (const side of SIDES) {
+  for (const side of ALL_SIDES) {
     const b = borders[side];
     if (!b || typeof b !== 'object') continue;
     result[side] = {

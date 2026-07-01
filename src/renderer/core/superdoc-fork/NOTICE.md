@@ -530,6 +530,15 @@ project tsconfig instead — matching the other vendored packages, which also sh
   built the cell fill's `w:shd` with only `w:fill` (`<w:shd w:fill="RRGGBB"/>`); real Word writes the full
   `<w:shd w:val="clear" w:color="auto" w:fill="RRGGBB"/>`. Now sets `{ val:'clear', color:'auto', fill }` (preserving
   any existing shading's val/color). ADDITIVE. Gated by `test:pm` (`B cell shading`) + roundtrip.
+- **Table cell borders — inside/diagonal sides (parity — Tables B, 2026-06-30, user-authorized):**
+  `extensions/table-cell/helpers/legacyBorderMigration.js` `convertBordersToOoxmlFormat` only mapped the 4 PHYSICAL
+  sides (`SIDES` = top/right/bottom/left), so `setCellBorders({ insideH, insideV, tl2br, tr2bl })` from Word's Borders
+  dropdown (Inside Horizontal/Vertical, Diagonal Down/Up) was silently dropped. Added an `ALL_SIDES` list
+  (SIDES + insideH/insideV/tl2br/tr2bl) that the converter's loop iterates; the OOXML CT_TcBorders schema carries all
+  eight and the tcBorders translator already encodes them. `isLegacySchemaDefaultBorders` stays on the 4 physical sides
+  (the px-default shape is physical-only). The bridge `tableSetCellBorders` converts the Word-semantic eighth-point
+  `size` (w:sz units) to the fork's px border-width (÷6). ADDITIVE. Gated by `test:pm`
+  (`B cell borders … single sz=4 space=0 color=auto`, `B diagonal + inside borders export`) + roundtrip.
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
