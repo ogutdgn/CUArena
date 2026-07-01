@@ -27,13 +27,34 @@
       el('label', { text: 'Rows:' }), el('input', { type: 'number', value: '2', min: '1', id: 'trows', style: { width: '60px' } }),
     ]);
     body.appendChild(custom);
+    // Word's Insert Table dialog "AutoFit behavior" group (Fixed column width is Word's default).
+    const afName = 'tbl-autofit';
+    const afRadio = (label, value, checked) => el('label', { class: 'row', style: { gap: '6px', margin: '2px 0' } }, [
+      el('input', Object.assign({ type: 'radio', name: afName, value }, checked ? { checked: true } : {})),
+      el('span', { text: label }),
+    ]);
+    const autofit = el('div', { style: { marginTop: '10px', borderTop: '1px solid #eee', paddingTop: '8px' } }, [
+      el('div', { text: 'AutoFit behavior', style: { fontWeight: '600', marginBottom: '4px' } }),
+      afRadio('Fixed column width', 'fixed', true),
+      afRadio('AutoFit to contents', 'contents'),
+      afRadio('AutoFit to window', 'window'),
+    ]);
+    body.appendChild(autofit);
+    function selectedAutoFit() {
+      const r = autofit.querySelector('input[name="' + afName + '"]:checked');
+      return r ? r.value : 'fixed';
+    }
     function build(rows, cols) {
       rows = Math.floor(Number(rows)); cols = Math.floor(Number(cols));
       if (!Number.isFinite(rows) || !Number.isFinite(cols) || rows < 1 || cols < 1 || rows > 1000 || cols > 1000) {
         WC.toast('Rows and columns must be whole numbers between 1 and 1000.');
         return false; // keep dialog open
       }
-      WC.PM.insertTable({ rows, cols }); return true;
+      WC.PM.insertTable({ rows, cols });
+      // Fixed column width is the default insert geometry; only Contents/Window need an AutoFit pass.
+      const mode = selectedAutoFit();
+      if (mode !== 'fixed' && WC.PM.tableAutoFit) WC.PM.tableAutoFit(mode);
+      return true;
     }
     const dlg = WC.dialog({ title: 'Insert Table', body, footer: [
       { label: 'OK', primary: true, onClick: () => build(+document.getElementById('trows').value, +document.getElementById('tcols').value) === false },

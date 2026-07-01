@@ -669,6 +669,18 @@
     if (!/<w:tl2br\b/.test(tb)) return 'no <w:tl2br> (diagonal-down): ' + tb.slice(0, 200);
     return /<w:insideH\b/.test(tb) ? true : 'no <w:insideH>: ' + tb.slice(0, 200);
   });
+  await t('[table] A AutoFit behavior: contents=autofit layout, window=pct/full width (Word)', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 3 }); await sleep(90);
+    PM().tableAutoFit('contents'); await sleep(70);
+    let xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const cLay = (xml.match(/<w:tblLayout\b[^>]*\/?>/) || ['none'])[0];
+    if (!/w:type="autofit"/.test(cLay)) return 'AutoFit contents: tblLayout not autofit: ' + cLay;
+    PM().tableAutoFit('window'); await sleep(70);
+    xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const wW = (xml.match(/<w:tblW\b[^>]*\/?>/) || ['none'])[0];
+    // Word AutoFit-to-window = full page width — either pct 5000 or a dxa width filling the text column.
+    return (/w:type="pct"/.test(wW) || /w:type="dxa"/.test(wW)) ? true : 'AutoFit window: unexpected tblW: ' + wW;
+  });
   await t('[table] B apply table style = <w:tblStyle> ref + no direct <w:shd>; Clear removes it (Word oracle)', async () => {
     setDoc(''); PM().insertTable({ rows: 3, cols: 3 }); await sleep(90);
     const styles = PM().getTableStyles();
