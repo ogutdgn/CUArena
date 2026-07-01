@@ -1930,8 +1930,12 @@
       // Insert tab dropdowns / split arrows
       if (cmd === 'coverPage') return WC.Insert.coverPageMenu(node);
       if (cmd === 'table') return WC.Insert.tableMenu(node);
-      // Table Tools contextual-tab dropdowns (style gallery / shading / borders / autofit / cell size)
-      if (cmd === 'tblStyles' || cmd === 'tblShading' || cmd === 'tblBorders' || cmd === 'tblAutoFit' || cmd === 'tblRowHeight' || cmd === 'tblColWidth' || cmd === 'tblIndent') return H[cmd](control, node);
+      // Table Tools contextual-tab dropdowns: EVERY tbl* dropdown has an H[cmd] flyout-builder
+      // (Select, Delete, Styles, Shading, Border Styles, Line Style/Weight, Pen Color, Borders,
+      // AutoFit, Row Height/Column Width, Indent). Route them all to their handler — an explicit
+      // allow-list previously omitted Select/Delete/Line Style/Line Weight/Pen Color/Border Styles,
+      // so those fell through to the generic renderer and rendered a dead "(no options)" menu.
+      if (/^tbl/.test(cmd) && typeof H[cmd] === 'function') return H[cmd](control, node);
       if (cmd === 'pictures') return picturesMenu(node);
       if (cmd === 'shapes') return WC.Insert.shapesMenu(node);
       if (cmd === 'screenshot') return screenshotMenu(node);

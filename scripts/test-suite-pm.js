@@ -7039,6 +7039,39 @@
     return joined.includes('60') ? true : 'expected 60 (10+20+30) in the table, got: ' + joined;
   });
 
+  await t('[table] Layout/Design dropdowns open real menus, not "(no options)" (dispatch allow-list)', async () => {
+    // Regression: WC.Commands.dropdown routed only 6 tbl* dropdowns to their H[cmd] flyout-builder;
+    // tblSelect/tblDelete/tblLineStyle/tblLineWeight/tblPenColor/tblBorderStyles fell through to the
+    // generic items renderer and showed a single "(no options)" placeholder — so Delete, Select, and
+    // the whole borders PEN workflow (Line Weight → Borders) were dead in the UI.
+    window.WC.editor.commands.selectAll();
+    window.WC.editor.commands.insertContent('<p>x</p>');
+    window.WC.PM.insertTable({ rows: 3, cols: 3 }); await sleep(200);
+    let fc = 0; window.WC.editor.state.doc.descendants((n, p) => { if ((n.type.name === 'tableCell' || n.type.name === 'tableHeader') && !fc) fc = p; });
+    window.WC.editor.view.dispatch(window.WC.editor.state.tr.setSelection(window.__PM_TextSelection.create(window.WC.editor.state.doc, fc + 2)));
+    await sleep(60);
+    const itemsFor = (cmd) => {
+      window.WC.closeFlyouts();
+      window.WC.Commands.dropdown({ cmd, type: 'dropdown' }, document.body);
+      const items = Array.from(document.querySelectorAll('.flyout .fly-item')).map((i) => (i.textContent || '').trim());
+      const hasPalette = !!document.querySelector('.flyout .wc-color-palette, .flyout .color-swatch, .flyout .swatch');
+      window.WC.closeFlyouts();
+      return { items, hasPalette };
+    };
+    // item-based dropdowns: must contain the named item and NEVER the "(no options)" placeholder.
+    const checks = [['tblDelete', 'Delete Columns'], ['tblSelect', 'Select Table'], ['tblLineWeight', '3 pt'], ['tblLineStyle', 'Double'], ['tblBorderStyles', 'Single, 1 pt']];
+    for (const [cmd, needle] of checks) {
+      const { items } = itemsFor(cmd);
+      if (items.length === 1 && /no options/i.test(items[0])) return cmd + ' is a dead dropdown: "(no options)"';
+      if (!items.some((x) => x.includes(needle))) return cmd + ' menu missing "' + needle + '" (got: ' + items.join('|') + ')';
+    }
+    // Pen Color opens the theme/standard color palette (not fly-items) — must not be "(no options)".
+    const pc = itemsFor('tblPenColor');
+    if (pc.items.some((x) => /no options/i.test(x))) return 'tblPenColor is a dead dropdown: "(no options)"';
+    if (!pc.hasPalette) return 'tblPenColor did not open a color palette';
+    return true;
+  });
+
   await t('[ins-chart] Chart: computed SVG inserts a real image (w:drawing), not a toast', async () => {
     // The Insert > Chart dialog built an SVG via Insert.chartSVG but xeChart() only toasted, so nothing
     // inserted. xeChart(svg) now inserts the SVG as a static image (interim until a live chart engine).
