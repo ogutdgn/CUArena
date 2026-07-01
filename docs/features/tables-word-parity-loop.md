@@ -263,3 +263,16 @@ DomPainter border-collapse resolution (a fork edit) — deferred pending user de
 LESSON (repeat of the borders-export-vs-render split): export passing the Word-COM oracle does
 NOT prove the live UI works. Every control must be clicked in the running app and the on-screen
 result read, not just the exported XML.
+
+## Iteration 12 (2026-07-01) — border-collapse fix + full live re-verification ("fix all of them")
+User authorized the fork edit and asked to fix everything. Done:
+- 🏛 `47488c0` border-collapse thicker-wins (fork edit, NOTICE.md): "All Borders" on a SINGLE cell
+  now paints all four sides (was top+left only). Screenshot-confirmed; probe `scripts/table-border-collapse-probe.js` 3/3.
+- Whole-ribbon dead-dropdown audit (82 dropdowns, all tabs): the 6 table ones (fixed in 304c4fc)
+  were the ONLY "(no options)" dead dropdowns anywhere. Shapes/WordArt/Effects render real galleries.
+- Sort + Formula dialogs drive end-to-end to the bridge on OK (code + live drive confirmed); Properties/
+  Options/Cell Margins apply. Every one of the 33 Table controls verified via live click (table-scorecard.js).
+
+STATUS: Table feature is functionally complete & live-verified vs Word. Gates: test:pm 536 / roundtrip 32 / smoke 9.
+Honest stubs remain (Draw Table, Eraser, Border Painter — freehand modes) and the ~113-style gallery CATALOG
+stays COM-extraction-blocked (2 styles). Branch parity-pipeline (NOT merged).
