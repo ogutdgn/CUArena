@@ -142,3 +142,21 @@ gallery style CATALOG (2 defined styles vs Word's ~113), environmentally blocked
 NEXT: (a) Insert-tab Table menu parity (grid picker / Insert Table dialog / Convert Text to Table /
 Quick Tables / Draw Table) vs Word — tractable, non-oracle. (b) Convert Text to Table if missing.
 (c) revisit the catalog only if the oracle stabilizes.
+
+## Iteration 6 (2026-07-01) — Insert>Table menu → Word parity
+- Insert > Table now opens Word's DROPDOWN (`50ddfb3`): grid picker "Insert Table" header + Insert
+  Table… / Draw Table / Convert Text to Table… / Excel Spreadsheet / Quick Tables. One-line wire
+  (H.table -> WC.Insert.tableMenu; the full menu already existed, incl. Draw Table drag-to-draw +
+  Quick Tables + Convert Text to Table). Verified maximized vs real Word (pixel match). test:pm 533/rt 32.
+- Convert Text to Table: already implemented + tested (2 tests incl. WC.Insert.convertTextToTable menu
+  fn); now menu-accessible.
+
+REMAINING TRACTABLE (non-oracle) — the loop is NOT exhausted: Layout-tab dialogs are STUBS (toasts):
+- Table PROPERTIES dialog (Layout > Properties, also right-click) — Word's multi-tab dialog
+  (Table/Row/Column/Cell/Alt Text: size, alignment, text-wrap, borders/shading, options). Big build.
+- SORT dialog (Layout > Sort) — reorder table rows by a column (asc/desc, header row, by type). Real behavior.
+- FORMULA dialog (Layout > Formula) — cell formulas (=SUM(ABOVE), number format). Real behavior.
+- Cell Margins uses a flyout (Word = Cell Options dialog); Modify/New Table Style stubs.
+Also still: gallery catalog (BLOCKED), border toggle (uncertain/risky).
+
+NEXT: build the SORT dialog (self-contained, testable), then FORMULA, then Table PROPERTIES.
