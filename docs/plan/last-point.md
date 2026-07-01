@@ -42,8 +42,19 @@
 > cnfStyle, currently a dropdown). (b) Batch A — creation remainder (Insert-dialog AutoFit selector, Convert-Text
 > separator, Quick Tables). (c) Batch D — cell-level hidden (per-cell themeColor border, per-cell themeFill shading,
 > tcW type, cnfStyle 12-bit). (d) gridCol AutoFit ~10-twip width diff. (e) run.py parity tasks (0/0) for the new
-> behaviors + the ExecuteMso ribbon-structure comparison. **Adversarial review of this session's diff RUNNING**
-> (selectTableScope math / ALL_SIDES / border ÷6 / repeatHeader merge) — address findings before scaling.
+> behaviors + the ExecuteMso ribbon-structure comparison. **Adversarial review of this session's diff DONE + fixed**
+> (`39c61b4`): 3 confirmed → (1) tcBorders emitted out of CT_TcBorders order → reordered `ALL_SIDES` to schema order;
+> (2) Repeat Header whole-object-replaced tableRowProperties (clobbered other rows' rowHeight/cantSplit / nested-table
+> outer row) → dot-notation per-row merge; (3) per-side Borders REPLACED the set (Top then Bottom wiped Top) because
+> setCellBorders→attrs.borders is migrated to tableCellProperties.borders by the appendTransaction → bridge now
+> reads/writes `tableCellProperties.borders` DIRECTLY (OOXML eighth-points, schema order, dot-notation merge; No Border
+> clears). Reviewer CLEARED: selectTableScope TableMap math, the ÷6 round-trip (now removed), ALL_SIDES widening,
+> tblPen init, WC.Dialogs guards. **All 3 gates green: test:pm 523/523 · roundtrip 27/0 · smoke 9/9.** 8 commits this
+> session (`85cc40b`→`39c61b4`), all on `parity-pipeline`, NOT merged.
+>
+> **NEXT items each want the Word ExecuteMso oracle (needs Word CLOSED to run PID-safe):** Table Styles gallery
+> Clear/Modify/New OOXML + styled-cell cnfStyle; Batch A creation-dialog details; Batch D per-cell hidden props;
+> gridCol AutoFit ~10-twip. Then run.py 0/0 parity tasks + the ribbon-structure comparison.
 
 ## 2026-06-30 (PARITY PIPELINE — DEEP T0/T1 SLICE: 🏁 ALL 3 AXES built + green on T0/T1 main actions)
 
