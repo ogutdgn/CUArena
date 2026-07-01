@@ -160,3 +160,16 @@ REMAINING TRACTABLE (non-oracle) — the loop is NOT exhausted: Layout-tab dialo
 Also still: gallery catalog (BLOCKED), border toggle (uncertain/risky).
 
 NEXT: build the SORT dialog (self-contained, testable), then FORMULA, then Table PROPERTIES.
+
+## Iteration 7 (2026-07-01) — Sort dialog + reorder
+- Layout > Sort → Word parity (`61bf9e2`): dialog (Sort by / Then by / Then by, column dropdowns
+  with header labels, Type Text/Number/Date, Asc/Desc, Header row/No header row) + NO-FORK
+  bridge tableSort(levels, hasHeader) that reorders the data rows (compound comparator, header
+  fixed, row/cell attrs preserved) + tableColumns() for the dropdowns. Verified: dialog mirrors
+  Word (screenshot); Charlie/Alice/Bob sort asc → Name,Alice,Bob,Charlie. test:pm 534 / rt 32.
+
+NEXT: (2) FORMULA dialog (Layout > Formula, H.tblFormula) — =SUM(ABOVE/LEFT), =AVERAGE, =COUNT,
+=PRODUCT, number format; insert a real w:fldSimple/instrText formula field with the computed
+result (bridge: read the ABOVE/LEFT cells' numbers, compute, insert the field). (3) Table
+PROPERTIES dialog (Layout > Properties) — Table/Row/Column/Cell/Alt Text tabs wired to existing
+bridge verbs. Then final sweep + report. Gallery catalog still BLOCKED.
