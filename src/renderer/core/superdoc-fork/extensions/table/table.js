@@ -1551,7 +1551,7 @@ export const Table = Node.create({
           }
 
           if (dispatch) {
-            const ok = commands.setCellAttr('background', { color });
+            const ok = commands.setCellAttr('background', { color, themeFill });
             if (ok) selection.forEachCell((_cell, pos) => clearBakeMarker(pos));
             return ok;
           }

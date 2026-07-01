@@ -714,6 +714,15 @@
     if (!/w:themeFill="accent1"/.test(shd)) return 'no themeFill=accent1 in cell shd: ' + shd;
     return new RegExp('w:fill="' + a1.rgb + '"', 'i').test(shd) ? true : 'fill != doc accent1: ' + shd;
   });
+  await t('[theme] multi-cell (CellSelection) theme shading carries w:themeFill on every cell', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 3 }); await sleep(90);
+    const a1 = window.WC.PM.getThemeColors().find((s) => s.themeColor === 'accent1');
+    PM().tableSelectScope('row'); await sleep(40); // CellSelection over row 1's 3 cells
+    PM().tableSetCellShading('#' + a1.rgb, { themeColor: 'accent1' }); await sleep(60);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const n = (xml.match(/<w:shd\b[^>]*w:themeFill="accent1"[^>]*\/?>/g) || []).length;
+    return n >= 3 ? true : 'expected >=3 cells with themeFill (CellSelection branch), got ' + n;
+  });
   await t('[table] D cell width exports <w:tcW w:type="dxa"> at 1.5in (~2160 twips, Word)', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
     PM().tableSetCellWidth(144); await sleep(60); // 1.5in * 96px/in
