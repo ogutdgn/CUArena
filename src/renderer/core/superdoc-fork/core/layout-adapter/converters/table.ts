@@ -738,6 +738,61 @@ const parseTableRow = (args: ParseTableRowArgs): TableRow | null => {
   };
 };
 
+// MS-WORD-CLONE FORK EDIT (parity — Tables B borders, border-collapse thicker-wins).
+// The DOM painter draws each cell's TOP + LEFT edges (plus the table's outer bottom/right
+// frame), so an INTERIOR shared edge is painted only from the lower/right cell's top/left.
+// Word's border-collapse resolves a shared edge to the THICKER of the two adjoining borders
+// (ECMA-376 §17.4 conflict resolution) — so applying "All Borders" to a SINGLE cell must show
+// all four sides: its bottom must win on the cell-below's top, its right on the cell-to-the-
+// right's left. This pass resolves each shared interior edge to the wider border BEFORE the
+// painter runs, entirely in the fork's layout adapter (no vendored-painter change). It is a
+// no-op when adjoining borders are equal (the default thin grid, or a uniformly bordered
+// table), so it only ever ADDS the missing thick edge. Guarded to simple (unmerged, uniform)
+// grids so column mapping is trivially correct by index; merged/ragged tables keep prior
+// behavior (the pre-existing gap, never a regression).
+const collapsedBorderWidth = (b?: { style?: string; width?: number } | null): number => {
+  if (!b || b.style === 'none') return 0;
+  return typeof b.width === 'number' ? b.width : 0;
+};
+
+const thickerCollapsedBorder = <T extends { style?: string; width?: number } | undefined>(own: T, neighbor: T): T =>
+  collapsedBorderWidth(neighbor as { width?: number }) > collapsedBorderWidth(own as { width?: number })
+    ? neighbor
+    : (own ?? neighbor);
+
+const resolveCollapsedCellBorders = (rows: TableRow[]): void => {
+  if (rows.length === 0) return;
+  const width = rows[0].cells.length;
+  if (width === 0) return;
+  // Simple-grid guard: uniform column count, no row/col spans.
+  for (const row of rows) {
+    if (row.cells.length !== width) return;
+    for (const cell of row.cells) {
+      if ((cell.colSpan ?? 1) > 1 || (cell.rowSpan ?? 1) > 1) return;
+    }
+  }
+  // Snapshot originals so propagation reads pre-pass borders (no cascade).
+  const orig = rows.map((row) =>
+    row.cells.map((c) => {
+      const b = (c.attrs?.borders ?? {}) as CellBorders;
+      return { top: b.top, right: b.right, bottom: b.bottom, left: b.left };
+    }),
+  );
+  for (let r = 0; r < rows.length; r++) {
+    for (let c = 0; c < width; c++) {
+      const o = orig[r][c];
+      const top = r > 0 ? thickerCollapsedBorder(o.top, orig[r - 1][c].bottom) : o.top;
+      const left = c > 0 ? thickerCollapsedBorder(o.left, orig[r][c - 1].right) : o.left;
+      if (top === o.top && left === o.left) continue;
+      const cell = rows[r].cells[c];
+      const attrs = (cell.attrs = (cell.attrs ?? {}) as TableCellAttrs);
+      const borders = (attrs.borders = { ...(attrs.borders ?? {}) } as CellBorders);
+      if (top) borders.top = top;
+      if (left) borders.left = left;
+    }
+  }
+};
+
 /**
  * Floating table properties from OOXML w:tblpPr.
  * Values are in twips.
@@ -940,6 +995,9 @@ export function tableNodeToBlock(
   });
 
   if (rows.length === 0) return null;
+
+  // Border-collapse thicker-wins on shared interior edges (see resolveCollapsedCellBorders).
+  resolveCollapsedCellBorders(rows);
 
   const tableAttrs: Record<string, unknown> = {};
 

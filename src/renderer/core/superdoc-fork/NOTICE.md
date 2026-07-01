@@ -559,6 +559,18 @@ project tsconfig instead — matching the other vendored packages, which also sh
   Properties, Draw, Data groups) are NO-FORK (`src/renderer/*`); View Gridlines is a view-only CSS class and
   Repeat Header Rows sets `tableRowProperties.repeatHeader` (→ `<w:trPr><w:tblHeader/>`) via `updateAttributes`.
   Gated by `test:pm` (`C Select scope builds a CellSelection`, `C Repeat Header Rows exports <w:tblHeader/>`).
+- **Table cell borders — border-collapse thicker-wins (parity — Tables B borders, 2026-07-01,
+  user-authorized):** a `resolveCollapsedCellBorders(rows)` pass in
+  `core/layout-adapter/converters/table.ts`, run after the table's rows are parsed. The DOM painter
+  draws each cell's TOP + LEFT edges plus the table's outer bottom/right frame, so an INTERIOR shared
+  edge is painted only from the lower/right cell — meaning "All Borders" on a SINGLE cell showed only
+  its top+left. Word resolves a shared edge to the THICKER of the two adjoining borders (ECMA-376
+  §17.4 conflict resolution). The pass sets each cell's `top = thicker(own top, cell-above bottom)`
+  and `left = thicker(own left, cell-left right)` from a pre-pass snapshot, so it only ever ADDS the
+  missing thick edge (no-op when adjoining borders are equal — the default thin grid or a uniformly
+  bordered table). Guarded to simple (unmerged, uniform-width) grids; merged/ragged tables keep prior
+  behavior. Layout-paint only — export (`tableCellProperties.borders`) is untouched. Gated by the
+  `table-border-collapse` probe (single cell → all four sides paint; whole-table + default grid intact).
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
