@@ -7,6 +7,37 @@
 
 ---
 
+## 2026-07-01 (PARITY PIPELINE — THEME SYSTEM: dynamic theme colors + shading themeFill)
+
+> **Branch:** `parity-pipeline` @ `679fd3d` (committed, **NOT merged**). Phase: theme-color system (deferred from the
+> Tables push — theme-awareness / byte-parity, functional parity was already met). Directive: user said "go ahead
+> with theme system."
+>
+> **DISCOVERY — font-color theme binding is ALREADY DONE (spec 025):** the `textStyle` mark carries
+> `themeColor`/`themeTint`/`themeShade` (`extensions/color/color.js` addGlobalAttributes), `setColor(color, {themeColor,…})`
+> writes them, and the `w:color` translator exports them. The picker (`util.js WC.colorPalette`) already attaches
+> `themeColor` to base Theme-Colors swatches. The fork's `w:shd` + `w:color` translators already accept all theme attrs.
+> GAPS were: (1) picker colors HARDCODED (Aptos), not the doc's theme; (2) tint/shade rows = resolved sRGB (no
+> provenance); (3) shading/borders didn't thread theme provenance.
+>
+> **DONE THIS SESSION (2 slices, gated test:pm 529/529 + roundtrip 27/0):**
+> - 🏁 **Dynamic theme colors** (`1973458`): bridge `design.ts getThemeColors()` maps `converter.themeColors` (parsed
+>   from the doc's `word/theme/theme1.xml` by `getThemeColorPalette` at import) → Word's 10-swatch Theme-Colors row
+>   (bg1/tx1/bg2/tx2/accent1..6) each with its OOXML slot. `util.js` picker now prefers the OPEN doc's real palette
+>   (fallback = built-in Aptos), so swatches AND the stamped `themeColor` provenance match the doc. Test: getThemeColors
+>   returns 10 slots; a theme font pick exports `<w:color w:val=DOC-RGB w:themeColor="accent1">`.
+> - 🏁 **Paragraph shading themeFill** (`679fd3d`): `bridge/commands.ts setShading(color, {themeColor})` writes
+>   `paragraphProperties.shading.themeFill` → `<w:shd w:themeFill="accentN">` + resolved fill; picker threads themeMeta.
+>   Run-level (character) shading stays resolved sRGB v1 (rides the highlight mark). Test: pPr shd themeFill + doc RGB.
+>
+> **NEXT theme slices (same proven pattern — picker themeMeta → attr/mark → the fork translator that already supports
+> the attr):** (a) CELL shading themeFill (needs a fork touch: `setCellBackground`/cell `background` attr/
+> `translate-table-cell.js` — H.tblShading also uses a hardcoded swatch grid, swap to WC.colorPalette); (b) table +
+> paragraph BORDER themeColor; (c) run-level character shading themeFill; (d) TINT/SHADE provenance + the lumMod/lumOff
+> RGB math (the 5 variant rows carry themeTint/themeShade computed from the dynamic base — the intricate color-math
+> piece, best oracle-verified). All 3 gates green (test:pm 529 / roundtrip 27 / smoke 9). 16 commits this session on
+> `parity-pipeline`, NOT merged.
+
 ## 2026-06-30 (PARITY PIPELINE — TABLES proven-parity: Design + Layout tabs rebuilt to Word + behaviors)
 
 > **Branch:** `parity-pipeline` @ `5bf5aed` (committed, **NOT merged**). Phase: Tables A–F depth-calibration
