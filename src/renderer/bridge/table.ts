@@ -48,12 +48,37 @@ export function installTable(editor: AnyEditor) {
     return ok !== false
   }
 
+  // Sum of the table's column widths in px (the first row's cells' colwidth entries) — used to
+  // detect when adding a column has pushed the table past the page text width.
+  function tableColWidthSumPx(): number {
+    try {
+      const { $from } = editor.state.selection
+      let table: any = null
+      for (let d = $from.depth; d > 0; d--) { if ($from.node(d).type.name === 'table') { table = $from.node(d); break } }
+      if (!table || !table.childCount) return 0
+      let sum = 0
+      table.child(0).forEach((cell: any) => {
+        const cw = cell.attrs?.colwidth
+        if (Array.isArray(cw)) cw.forEach((w: any) => { if (typeof w === 'number' && w > 0) sum += w })
+      })
+      return sum
+    } catch { return 0 }
+  }
+
   function tableAddColumn(dir: 'left' | 'right'): boolean {
     // addColumnBefore/After: fork's implementation uses chain().run() internally —
     // must NOT wrap in editor.chain().X().run() (double-wrap). Use commands.X() directly.
     const ok = dir === 'left'
       ? editor.commands.addColumnBefore()
       : editor.commands.addColumnAfter()
+    // Word parity: a page-fitting table stays within the page — adding a column shrinks the
+    // others (AutoFit-to-window) instead of pushing the table past the margin. The fork's
+    // addColumn copies the neighbour's width, so re-fit to the page text width when (and only
+    // when) the columns now overflow it — a deliberately narrow table is left untouched.
+    try {
+      const pageW = pageTextWidthPx()
+      if (pageW && tableColWidthSumPx() > pageW + 4) editor.commands.autoFitTable('window', pageW)
+    } catch { /* best-effort re-fit */ }
     refocus()
     return ok !== false
   }
