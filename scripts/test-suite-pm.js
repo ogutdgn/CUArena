@@ -660,12 +660,17 @@
     const firstRow = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tr\b[\s\S]*?<\/w:tr>/) || [''])[0];
     return /<w:tblHeader\b/.test(firstRow) ? true : 'no <w:tblHeader> in first row trPr: ' + firstRow.slice(0, 220);
   });
-  await t('[table] C Select scope builds a CellSelection (row)', async () => {
+  await t('[table] C Select scope selects the right cells (row=3, table=6 of a 2x3)', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 3 }); await sleep(90);
     PM().tableSelectScope('row'); await sleep(40);
-    const sel = window.WC.editor.state.selection;
-    // CellSelection instances carry $anchorCell/$headCell; a TextSelection does not.
-    return (sel && sel.$anchorCell && sel.$headCell) ? true : 'selection is not a CellSelection';
+    const rowSel = window.WC.editor.state.selection;
+    // CellSelection carries $anchorCell/$headCell; .ranges has one range per selected cell.
+    if (!(rowSel && rowSel.$anchorCell && rowSel.$headCell)) return 'row: not a CellSelection';
+    if (rowSel.ranges.length !== 3) return 'row selection spans ' + rowSel.ranges.length + ' cells, expected 3';
+    PM().tableSelectScope('table'); await sleep(40);
+    const tblSel = window.WC.editor.state.selection;
+    if (!(tblSel && tblSel.$anchorCell)) return 'table: not a CellSelection';
+    return tblSel.ranges.length === 6 ? true : 'table selection spans ' + tblSel.ranges.length + ' cells, expected 6';
   });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
