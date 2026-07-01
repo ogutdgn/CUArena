@@ -583,6 +583,26 @@
     setDoc('Revenue'); await sleep(30); PM().findSession('Revenue', {}); await sleep(30); PM().replaceAll('Income'); await sleep(60);
     return /<w:t[^>]*>Income<\/w:t>/.test(await xmlNow()) ? true : 'plain replacement broke';
   });
+  await t('[home] 029 Define New Bullet font + alignment → w:rFonts + w:lvlJc in numbering.xml', async () => {
+    setDoc('bfX item'); selectText('bfX');
+    PM().cmd('applyListDefinition', { listType: 'bulletList', levels: [{ fmt: 'bullet', text: '', font: 'Wingdings', align: 'center' }] }); await sleep(140);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const numId = (xml.match(/<w:numId\b[^>]*w:val="(\d+)"/) || [])[1];
+    if (!numId) return 'no <w:numId> in export';
+    const numXml = window.WC.editor.converter?.convertedXml?.['word/numbering.xml'];
+    const els = (numXml && numXml.elements && numXml.elements[0] && numXml.elements[0].elements) || [];
+    const numDef = els.find((e) => e.name === 'w:num' && (e.attributes || {})['w:numId'] === numId);
+    const absId = numDef && ((numDef.elements || []).find((e) => e.name === 'w:abstractNumId') || {}).attributes?.['w:val'];
+    const absDef = els.find((e) => e.name === 'w:abstractNum' && (e.attributes || {})['w:abstractNumId'] === absId);
+    if (!absDef) return 'no matching <w:abstractNum>';
+    const lvl0 = (absDef.elements || []).filter((e) => e.name === 'w:lvl').find((e) => (e.attributes || {})['w:ilvl'] === '0');
+    if (!lvl0) return 'no level 0';
+    const lvlJc = (lvl0.elements || []).find((e) => e.name === 'w:lvlJc');
+    if (!lvlJc || (lvlJc.attributes || {})['w:val'] !== 'center') return 'no <w:lvlJc w:val="center"/> (bullet alignment): ' + JSON.stringify((lvl0.elements || []).map((e) => e.name));
+    const rPr = (lvl0.elements || []).find((e) => e.name === 'w:rPr');
+    const rFonts = rPr && (rPr.elements || []).find((e) => e.name === 'w:rFonts');
+    return (rFonts && (rFonts.attributes || {})['w:ascii'] === 'Wingdings') ? true : 'no <w:rFonts w:ascii="Wingdings"/> in the bullet level rPr (font stripped)';
+  });
   await t('[home] 015 Small Caps via bridge (owned attr) → <w:smallCaps>; clear drops it', async () => {
     setDoc('scapsX body'); selectText('scapsX');
     PM().setAdvancedFontEffects({ smallCaps: true }); await sleep(40);
