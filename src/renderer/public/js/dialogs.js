@@ -217,6 +217,38 @@
     ] });
   };
 
+  // ---- Table Options (Table Layout > Cell Margins) — Word's "Table Options" dialog ----
+  D.tableOptions = function () {
+    const p = WC.PM;
+    if (!p || !p.tableSetCellMargins || !p.tableInfo || !p.tableInfo().inTable) { WC.toast('Click inside a table to set its options.'); return; }
+    const cur = (p.tableGetCellMargins && p.tableGetCellMargins()) || null;
+    const inch = (pxv, dflt) => (cur && Number.isFinite(pxv) ? Math.round((pxv / 96) * 100) / 100 : dflt);
+    const mk = (v) => el('input', { type: 'number', step: '0.01', min: '0', value: String(v), style: { width: '70px' } });
+    const grp = (t) => el('div', { style: { fontWeight: '600', margin: '8px 0 4px' }, text: t });
+    const rowOf = (label, kids) => el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '4px 0' } }, [label ? el('label', { text: label, style: { width: '70px' } }) : el('span', { style: { width: '70px' } })].concat(kids));
+    const top = mk(inch(cur && cur.top, 0)), bottom = mk(inch(cur && cur.bottom, 0)), left = mk(inch(cur && cur.left, 0.08)), right = mk(inch(cur && cur.right, 0.08));
+    const spacingOn = el('input', { type: 'checkbox' });
+    const spacing = mk(0); spacing.disabled = true;
+    spacingOn.addEventListener('change', () => { spacing.disabled = !spacingOn.checked; });
+    const autoResize = el('input', { type: 'checkbox' });
+    const body = el('div', {}, [
+      grp('Default cell margins'),
+      rowOf('Top:', [top]), rowOf('Bottom:', [bottom]), rowOf('Left:', [left]), rowOf('Right:', [right]),
+      grp('Default cell spacing'),
+      el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [spacingOn, el('span', { text: 'Allow spacing between cells' }), spacing, el('span', { text: 'inches', style: { fontSize: '12px' } })]),
+      grp('Options'),
+      el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [autoResize, el('span', { text: 'Automatically resize to fit contents' })]),
+    ]);
+    WC.dialog({ title: 'Table Options', width: '400px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const toPx = (inp) => { const v = parseFloat(inp.value); return v > 0 ? Math.round(v * 96) : 0; };
+        p.tableSetCellMargins({ top: toPx(top), bottom: toPx(bottom), left: toPx(left), right: toPx(right) });
+        if (autoResize.checked && p.tableAutoFit) p.tableAutoFit('contents');
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
   // ---- Insert Link ----
   D.insertLink = function () {
     if (WC.PM.ready) WC.PM.captureSelection(); // dialog steals focus; restore selection before inserting
