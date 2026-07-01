@@ -534,11 +534,17 @@ project tsconfig instead — matching the other vendored packages, which also sh
   `extensions/table-cell/helpers/legacyBorderMigration.js` `convertBordersToOoxmlFormat` only mapped the 4 PHYSICAL
   sides (`SIDES` = top/right/bottom/left), so `setCellBorders({ insideH, insideV, tl2br, tr2bl })` from Word's Borders
   dropdown (Inside Horizontal/Vertical, Diagonal Down/Up) was silently dropped. Added an `ALL_SIDES` list
-  (SIDES + insideH/insideV/tl2br/tr2bl) that the converter's loop iterates; the OOXML CT_TcBorders schema carries all
-  eight and the tcBorders translator already encodes them. `isLegacySchemaDefaultBorders` stays on the 4 physical sides
-  (the px-default shape is physical-only). The bridge `tableSetCellBorders` converts the Word-semantic eighth-point
-  `size` (w:sz units) to the fork's px border-width (÷6). ADDITIVE. Gated by `test:pm`
-  (`B cell borders … single sz=4 space=0 color=auto`, `B diagonal + inside borders export`) + roundtrip.
+  (insideH/insideV/tl2br/tr2bl added to the 4 physical sides) that the converter's loop iterates; the OOXML
+  CT_TcBorders schema carries all eight and the tcBorders translator already encodes them. `isLegacySchemaDefaultBorders`
+  stays on the 4 physical sides (the px-default shape is physical-only). `ALL_SIDES` is in CT_TcBorders SCHEMA ORDER
+  (top, left, bottom, right, insideH, insideV, tl2br, tr2bl) — `decodeProperties` emits children in the borders object's
+  key order and the translator does not re-sort, so the order is load-bearing (the prior `top, right, bottom, left` was
+  out-of-schema). ADDITIVE (fork). The bridge `tableSetCellBorders` is NO-FORK: it reads/writes
+  `tableCellProperties.borders` DIRECTLY (OOXML eighth-points, schema order) via dot-notation `updateAttributes` —
+  merging per-side (Word's per-edge buttons preserve other edges; No Border clears) — rather than the legacy
+  attrs.borders→setCellBorders path, which the appendTransaction migration drops once a cell has canonical borders.
+  Gated by `test:pm` (`B cell borders … single sz=4 space=0 color=auto` + schema order, `B per-side borders ACCUMULATE`,
+  `B diagonal + inside borders export`) + roundtrip.
 - **Table Layout tab — Select scope (parity — Tables C, 2026-06-30, user-authorized):** a new
   `selectTableScope(scope)` command in `extensions/table/table.js` (`'cell'|'row'|'column'|'table'`) for Word's
   Table Layout → Table → Select menu. Resolves the caret cell via `cellAround` + `TableMap`, then builds a

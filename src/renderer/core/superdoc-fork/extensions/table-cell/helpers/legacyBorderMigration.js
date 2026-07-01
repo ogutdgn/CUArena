@@ -22,7 +22,12 @@ const SIDES = ['top', 'right', 'bottom', 'left'];
 // converter must map them too, or setCellBorders({ tl2br, insideH, ... }) is silently
 // dropped. isLegacySchemaDefaultBorders stays on the 4 PHYSICAL sides (the px-default
 // shape is defined by top/right/bottom/left), so only the converter's loop widens.
-const ALL_SIDES = [...SIDES, 'insideH', 'insideV', 'tl2br', 'tr2bl'];
+//
+// ORDER IS LOAD-BEARING: decodeProperties emits <w:tcBorders> children in this object's
+// key-insertion order and the tcBorders translator does NOT re-sort (no xmlOrder), so
+// ALL_SIDES MUST follow the ECMA-376 CT_TcBorders sequence — top, (start), left, bottom,
+// (end), right, insideH, insideV, tl2br, tr2br — or Word sees out-of-schema children.
+const ALL_SIDES = ['top', 'left', 'bottom', 'right', 'insideH', 'insideV', 'tl2br', 'tr2bl'];
 
 /**
  * Detects the old `createCellBorders()` schema-default shape.

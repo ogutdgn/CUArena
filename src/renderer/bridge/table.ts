@@ -177,17 +177,27 @@ export function installTable(editor: AnyEditor) {
     } catch { /* unreadable selection */ }
     return null
   }
+  function currentCellNode(): any {
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        const name = $from.node(d).type.name
+        if (name === 'tableCell' || name === 'tableHeader') return $from.node(d)
+      }
+    } catch { /* unreadable selection */ }
+    return null
+  }
   function tableRepeatHeaderState(): boolean {
     return currentRowNode()?.attrs?.tableRowProperties?.repeatHeader === true
   }
   function tableRepeatHeaderRows(on?: boolean): boolean {
-    const row = currentRowNode()
-    if (!row) return false
-    const next = on === undefined ? !(row.attrs?.tableRowProperties?.repeatHeader === true) : !!on
-    // repeatHeader lives inside tableRowProperties (→ <w:trPr><w:tblHeader/>), not a top-level
-    // row attr — merge so other row props (rowHeight, cantSplit) survive the update.
-    const props = { ...(row.attrs?.tableRowProperties || {}), repeatHeader: next }
-    const ok = editor.commands.updateAttributes('tableRow', { tableRowProperties: props })
+    if (!currentRowNode()) return false
+    const next = on === undefined ? !tableRepeatHeaderState() : !!on
+    // repeatHeader lives inside tableRowProperties (→ <w:trPr><w:tblHeader/>). Use DOT NOTATION
+    // so updateAttributes merges just this key into EACH selected row's own tableRowProperties —
+    // a whole-object replace would broadcast the caret row's props (rowHeight/cantSplit) onto
+    // every row the selection spans (and, for a nested table, onto the enclosing outer row too).
+    const ok = editor.commands.updateAttributes('tableRow', { 'tableRowProperties.repeatHeader': next })
     refocus()
     return ok !== false
   }
@@ -272,20 +282,25 @@ export function installTable(editor: AnyEditor) {
     return null
   }
 
-  function tableSetCellBorders(b: Record<string, unknown>): boolean {
-    // The fork's setCellBorders stores border `size` in PIXELS (the DOM border-width),
-    // and the exporter maps px → eighth-points via ×6 (0.66665px → w:sz="4" = 0.5pt).
-    // Accept Word-semantic eighth-points here (w:sz units) and convert to px so callers
-    // pass `size: 4` for Word's default 0.5pt border rather than a magic 0.66665.
-    const toPx = (side: unknown): unknown => {
-      if (!side || typeof side !== 'object') return side
-      const s = side as Record<string, unknown>
-      if (typeof s.size === 'number') return { ...s, size: s.size / 6 }
-      return side
-    }
-    const converted: Record<string, unknown> = {}
-    for (const [k, v] of Object.entries(b)) converted[k] = toPx(v)
-    const ok = editor.commands.setCellBorders(converted)
+  // CT_TcBorders child order — decodeProperties emits <w:tcBorders> children in the
+  // borders object's key order and the translator does not re-sort, so build in this order.
+  const TC_BORDER_ORDER = ['top', 'left', 'bottom', 'right', 'insideH', 'insideV', 'tl2br', 'tr2bl']
+  function tableSetCellBorders(b: Record<string, unknown>, opts?: { merge?: boolean }): boolean {
+    // Each side is passed in OOXML shape: { val, size (EIGHTH-POINTS = w:sz), space, color }.
+    // The canonical live store is tableCellProperties.borders (OOXML) — the table
+    // appendTransaction migrates any legacy attrs.borders there and clears attrs.borders, so
+    // writing attrs.borders (via setCellBorders) is silently dropped once a cell already has
+    // canonical borders. Read/write tableCellProperties.borders DIRECTLY (dot notation merges
+    // the key, preserving cellWidth/shading), in eighth-points (no px round-trip), CT_TcBorders
+    // order. Word's per-side buttons ADD one edge (merge:true default); No Border clears (merge:false).
+    const prior = currentCellNode()?.attrs?.tableCellProperties?.borders
+    const existing = (opts?.merge !== false && prior && typeof prior === 'object')
+      ? prior as Record<string, unknown>
+      : {}
+    const combined: Record<string, unknown> = { ...existing, ...b }
+    const merged: Record<string, unknown> = {}
+    for (const side of TC_BORDER_ORDER) if (combined[side]) merged[side] = combined[side]
+    const ok = editor.commands.updateAttributes('tableCell', { 'tableCellProperties.borders': merged })
     refocus()
     return ok !== false
   }

@@ -260,14 +260,16 @@
     fly.appendChild(WC.flyHeader('Borders'));
     // Word applies borders with the current PEN (Line Style/Weight/Pen Color). space is always 0.
     const B = () => ({ val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0 });
-    const set = (b) => { const p = TPM(); if (p) p.tableSetCellBorders(b); };
-    const item = (label, b) => fly.appendChild(WC.flyItem(label, { onClick: () => set(b) }));
+    // merge:true (default) ADDS the side(s) onto the cell's existing borders, like Word's per-side
+    // buttons; No Border passes merge:false to clear every side.
+    const set = (b, merge) => { const p = TPM(); if (p) p.tableSetCellBorders(b, { merge }); };
+    const item = (label, b, merge = true) => fly.appendChild(WC.flyItem(label, { onClick: () => set(b, merge) }));
     item('Bottom Border', { bottom: B() });
     item('Top Border', { top: B() });
     item('Left Border', { left: B() });
     item('Right Border', { right: B() });
     fly.appendChild(WC.flySep());
-    item('No Border', {});
+    item('No Border', {}, false);
     item('All Borders', { top: B(), bottom: B(), left: B(), right: B(), insideH: B(), insideV: B() });
     item('Outside Borders', { top: B(), bottom: B(), left: B(), right: B() });
     item('Inside Borders', { insideH: B(), insideV: B() });

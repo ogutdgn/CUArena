@@ -644,7 +644,22 @@
     if (!/w:val="single"/.test(top)) return 'top not single: ' + top;
     if (!/w:sz="4"/.test(top)) return 'top not sz=4: ' + top;
     if (!/w:color="auto"/.test(top)) return 'top color not auto (Word): ' + top;
-    return /w:space="0"/.test(top) ? true : 'top no space=0 (Word): ' + top;
+    if (!/w:space="0"/.test(top)) return 'top no space=0 (Word): ' + top;
+    // CT_TcBorders schema order: top, (start), left, bottom, (end), right — Word rejects out-of-order children.
+    const tb = (tc.match(/<w:tcBorders>[\s\S]*?<\/w:tcBorders>/) || [''])[0];
+    const iTop = tb.indexOf('<w:top'), iLeft = tb.indexOf('<w:left'), iBot = tb.indexOf('<w:bottom'), iRight = tb.indexOf('<w:right');
+    return (iTop < iLeft && iLeft < iBot && iBot < iRight) ? true : 'tcBorders out of CT order (top<left<bottom<right): ' + tb.slice(0, 240);
+  });
+  await t('[table] B per-side borders ACCUMULATE (Top then Bottom keeps both)', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    const B = { val: 'single', color: 'auto', size: 4, space: 0 };
+    PM().tableSetCellBorders({ top: B }); await sleep(40);
+    PM().tableSetCellBorders({ bottom: B }); await sleep(40); // merge:true default — must NOT wipe top
+    let tb = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tcBorders>[\s\S]*?<\/w:tcBorders>/) || [''])[0];
+    if (!/<w:top\b/.test(tb) || !/<w:bottom\b/.test(tb)) return 'accumulate lost a side: ' + tb.slice(0, 200);
+    PM().tableSetCellBorders({}, { merge: false }); await sleep(40); // No Border — clears all
+    tb = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tc>[\s\S]*?<\/w:tc>/) || [''])[0];
+    return !/<w:tcBorders>\s*<w:(top|bottom|left|right)\b/.test(tb) ? true : 'No Border did not clear: ' + tb.slice(0, 200);
   });
   await t('[table] B diagonal + inside borders export (<w:tl2br>/<w:insideH>)', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
