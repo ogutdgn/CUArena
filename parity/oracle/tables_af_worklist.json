@@ -57,7 +57,7 @@
           "ground_truth": "COM: Selection.InlineShapes.AddOLEObject(ClassType:='Excel.Sheet.12', â€¦) or via ExecuteMso then Save+unzip. Output is NOT a w:tbl â€” it is a <w:object>/<w:drawing> holding an OLE part (word/embeddings/Microsoft_Excel_Worksheet.xlsx) + an EMF/PNG preview in word/media, referenced by <o:OLEObject r:id ProgID='Excel.Sheet.12'>.",
           "clone_action": "Insert.insertExcelSheet() (insert-features.js) â€” HONEST DEGRADE: WC.toast('Embedding an Excel spreadsheet needs a host runtime â€” not available on the new engine yet.'). No object inserted.",
           "expected_ooxml": "<w:object><o:OLEObject Type=\"Embed\" ProgID=\"Excel.Sheet.12\" ShapeID=\"â€¦\" DrawAspect=\"Content\" ObjectID=\"â€¦\" r:id=\"rIdN\"/></w:object> + an embedded xlsx part + media preview. (Not a w:tbl at all.)",
-          "clone_gap": "CLONE-LACKS â€” no OLE/embedding subsystem in the PM engine; genuine build gap (requires an OLE host + xlsx embed + preview render). Out of reach for byte-parity without an embed pipeline; keep as an honest stub or scope out."
+          "clone_gap": "IGNORED (user scope) — CLONE-LACKS â€” no OLE/embedding subsystem in the PM engine; genuine build gap (requires an OLE host + xlsx embed + preview render). Out of reach for byte-parity without an embed pipeline; keep as an honest stub or scope out."
         },
         {
           "name": "Quick Tables gallery (Calendar / Tabular List / Matrix / Double Table / With Subheads building blocks)",
@@ -742,5 +742,9 @@
         }
       ]
     }
+  ],
+  "_scope_adjustments": [
+    "IGNORE: Excel Spreadsheet embedded OLE insert (user, out of scope).",
+    "The clone Table Design + Table Layout contextual tabs must MATCH Word (same controls/groups) — parity = OOXML output AND the control existing in the clone tab."
   ]
 }
