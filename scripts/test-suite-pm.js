@@ -669,6 +669,21 @@
     if (!/<w:tl2br\b/.test(tb)) return 'no <w:tl2br> (diagonal-down): ' + tb.slice(0, 200);
     return /<w:insideH\b/.test(tb) ? true : 'no <w:insideH>: ' + tb.slice(0, 200);
   });
+  await t('[table] B apply table style = <w:tblStyle> ref + no direct <w:shd>; Clear removes it (Word oracle)', async () => {
+    setDoc(''); PM().insertTable({ rows: 3, cols: 3 }); await sleep(90);
+    const styles = PM().getTableStyles();
+    if (!styles.length) return 'no table styles available to apply';
+    const sid = (styles.find((s) => /Grid|List/.test(s.name)) || styles[0]).id;
+    PM().tableSetStyle(sid); await sleep(60);
+    let xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    if (!new RegExp('<w:tblStyle w:val="' + sid + '"').test(xml)) return 'no <w:tblStyle> ref for ' + sid + ': ' + (xml.match(/<w:tblPr>[\s\S]*?<\/w:tblPr>/) || [''])[0].slice(0, 200);
+    // Real Word bakes ZERO direct <w:shd> on a styled table — the style definition owns the fills.
+    if (/<w:tc>[\s\S]*?<w:tcPr>[\s\S]*?<w:shd\b/.test(xml)) return 'clone baked a direct <w:shd> on a styled cell (Word oracle: 0)';
+    // Clear -> Word removes the <w:tblStyle> element entirely (oracle: tblStyle=none, cnfStyle=0).
+    PM().tableSetStyle(''); await sleep(60);
+    xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    return !/<w:tblStyle\b/.test(xml) ? true : 'Clear did not remove <w:tblStyle>';
+  });
   await t('[table] C Repeat Header Rows exports <w:tblHeader/> on the caret row', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
     PM().tableRepeatHeaderRows(true); await sleep(60);

@@ -245,6 +245,12 @@
       return;
     }
     styles.forEach(({ id, name }) => fly.appendChild(WC.flyItem(name, { onClick: () => { const q = TPM(); if (q) q.tableSetStyle(id); } })));
+    // Word's Table Styles gallery footer: Modify Table Style… | Clear | New Table Style…
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Modify Table Style…', { onClick: () => (WC.Dialogs && WC.Dialogs.modifyTableStyle) ? WC.Dialogs.modifyTableStyle() : WC.toast('Modify Table Style dialog is coming soon.') }));
+    // Clear = reset to Table Normal — real Word removes the <w:tblStyle> element (verified via the ExecuteMso oracle).
+    fly.appendChild(WC.flyItem('Clear', { onClick: () => { const q = TPM(); if (q) q.tableSetStyle(''); } }));
+    fly.appendChild(WC.flyItem('New Table Style…', { onClick: () => (WC.Dialogs && WC.Dialogs.newTableStyle) ? WC.Dialogs.newTableStyle() : WC.toast('New Table Style dialog is coming soon.') }));
   });
   H.tblShading = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Shading'));
