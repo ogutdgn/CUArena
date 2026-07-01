@@ -90,7 +90,14 @@ export function normalizeNewTableAttrs(editor) {
     // Also include tableStyleId inside tableProperties so the exporter's
     // decodeProperties loop (which iterates Object.keys(tableProperties))
     // finds it and writes <w:tblStyle> into <w:tblPr>.
-    tableProperties: { tableStyleId: resolved.styleId, tblLook: { ...DEFAULT_TBL_LOOK } },
+    // MS-WORD-CLONE FORK EDIT (parity — Tables insert fidelity): also carry tableWidth {0, auto} so the export
+    // emits <w:tblW w:w="0" w:type="auto"/> like a real ribbon-inserted table (the node default was being dropped
+    // by this override, so a fresh table lost its tblW). ADDITIVE.
+    tableProperties: {
+      tableStyleId: resolved.styleId,
+      tblLook: { ...DEFAULT_TBL_LOOK },
+      tableWidth: { value: 0, type: 'auto' },
+    },
   };
 }
 

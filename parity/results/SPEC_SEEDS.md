@@ -221,21 +221,16 @@ python parity/engines/run.py --only fontcolor   # expect: semantic-pass, missing
 **Goal:** make the clone's `Insert Table` output match real Microsoft Word.
 **Sub-tasks covered:** `table`
 **Ground truth:** `parity/fixtures/rw-table.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 4 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (table): emit `body:gridCol[('w', '3116')]`
 - FR (table): emit `body:gridCol[('w', '3117')]`
-- FR (table): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (table): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (table): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (table): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (table): emit `styles:TableGrid:pPr[]`
-- FR (table): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (table): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (table): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (table): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 
 ### Acceptance (regression gate)

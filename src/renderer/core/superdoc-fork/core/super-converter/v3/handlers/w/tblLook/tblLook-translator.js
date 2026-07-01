@@ -59,7 +59,19 @@ export const translator = NodeTranslator.from({
   },
   decode: function ({ node }, context) {
     void context;
-    const decodedAttrs = this.decodeAttributes({ node: { ...node, attrs: node.attrs.tblLook || {} } });
+    const tblLook = node.attrs.tblLook || {};
+    const decodedAttrs = this.decodeAttributes({ node: { ...node, attrs: tblLook } });
+    // MS-WORD-CLONE FORK EDIT (parity — Tables insert fidelity): real Word writes the w:val bitmask ALONGSIDE
+    // the 6 explicit bit attrs; the clone's DEFAULT_TBL_LOOK carries only the bits (no val), so a freshly inserted
+    // table lost the <w:tblLook w:val="04A0" .../>. Compute the val from the flags when absent (imported tables that
+    // already carry a val are untouched). ADDITIVE.
+    if (Object.keys(decodedAttrs).length > 0 && decodedAttrs['w:val'] == null) {
+      let numeric = 0;
+      for (const [key, mask] of Object.entries(tblLookBitmask)) {
+        if (tblLook[key] === true || tblLook[key] === '1' || tblLook[key] === 1) numeric |= mask;
+      }
+      decodedAttrs['w:val'] = numeric.toString(16).toUpperCase().padStart(4, '0');
+    }
     return Object.keys(decodedAttrs).length > 0 ? { attributes: decodedAttrs } : undefined;
   },
 });

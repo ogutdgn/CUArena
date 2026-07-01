@@ -949,6 +949,20 @@ export const DEFAULT_LINKED_STYLES = {
         },
       },
       {
+        // MS-WORD-CLONE FORK EDIT (parity — Tables insert fidelity): real Word's TableGrid style carries a pPr
+        // with <w:spacing w:after="0" w:line="240" w:lineRule="auto"/> (the "no space after / single line" table
+        // paragraph default). The clone's def omitted it. CT_Style order = rsid -> pPr -> tblPr.
+        type: 'element',
+        name: 'w:pPr',
+        elements: [
+          {
+            type: 'element',
+            name: 'w:spacing',
+            attributes: { 'w:after': '0', 'w:line': '240', 'w:lineRule': 'auto' },
+          },
+        ],
+      },
+      {
         type: 'element',
         name: 'w:tblPr',
         elements: [

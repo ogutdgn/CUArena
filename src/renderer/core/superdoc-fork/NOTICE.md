@@ -505,6 +505,19 @@ project tsconfig instead — matching the other vendored packages, which also sh
   dialog's Font + Alignment selects are NO-FORK (`src/renderer/public/js/commands.js`). NOTE: these land in
   numbering.xml, which the COM `ApplyBulletDefault` ground truth measures as a single-level artifact, so this is
   gated by a `test:pm` numbering.xml assertion (`029 Define New Bullet font + alignment`), not a `run.py` 0/0.
+- **Table insert fidelity (parity — Tables A-F, group F insert defaults, 2026-06-30, user-authorized):** a fresh
+  ribbon-inserted table carries hidden defaults the clone was dropping. Three additive fork edits, each measured
+  against the real ribbon (Tables.Add + Table Grid style) and verified by re-diff (table 8-missing -> 4):
+  - `v3/handlers/w/tblLook/tblLook-translator.js` decode: compute + emit the `w:val` bitmask (e.g. 04A0) from the
+    flags when absent — the clone's DEFAULT_TBL_LOOK carried only the 6 bit attrs, so a new table lost `<w:tblLook
+    w:val=...>` (imported tables that already carry a val are untouched).
+  - `extensions/table/tableHelpers/normalizeNewTableAttrs.js`: carry `tableWidth {0,auto}` in the new table's
+    tableProperties so the export emits `<w:tblW w:w="0" w:type="auto"/>` (the node default was being dropped by the override).
+  - `core/super-converter/exporter-docx-defs.js` TableGrid style: add the `w:pPr` with `<w:spacing w:after="0"
+    w:line="240" w:lineRule="auto"/>` that real Word's TableGrid style carries.
+  KNOWN remaining insert diff: gridCol/tcW column WIDTHS — the clone splits the full 9360-twip text width evenly
+  (3120 each) vs Word's 9350-twip AutoFit-to-window split (3116/3117/3117); a ~10-twip layout-engine reservation
+  to refine. Gated by test:pm 515/roundtrip 27 + the parity `--only table` re-diff.
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
