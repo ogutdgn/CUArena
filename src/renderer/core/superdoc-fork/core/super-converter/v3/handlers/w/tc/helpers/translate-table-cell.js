@@ -88,7 +88,14 @@ export function generateTableCellProperties(node) {
     // <w:shd w:val="clear" w:color="auto" w:fill="RRGGBB"/> for a cell fill, not just w:fill. Preserve any
     // existing shading's val/color, defaulting to Word's clear/auto, so a cell fill byte-matches Word.
     const prevShd = tableCellProperties.shading || {};
-    tableCellProperties['shading'] = { val: prevShd.val || 'clear', color: prevShd.color || 'auto', fill: background.color };
+    tableCellProperties['shading'] = {
+      val: prevShd.val || 'clear',
+      color: prevShd.color || 'auto',
+      fill: background.color,
+      // Theme system: carry the Theme-Colors slot → <w:shd w:themeFill="accentN"> alongside the
+      // resolved fill (set by setCellBackground; null for a plain/custom colour drops the link).
+      ...(background.themeFill ? { themeFill: background.themeFill } : {}),
+    };
   } else if ((!background?.color || isStyleBakedFill) && tableCellProperties?.shading?.fill) {
     delete tableCellProperties.shading;
   }

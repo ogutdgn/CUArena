@@ -1504,11 +1504,15 @@ export const Table = Node.create({
        * editor.commands.setCellBackground('ff0000')
        */
       setCellBackground:
-        (value) =>
+        (value, options = {}) =>
         ({ editor, commands, tr, dispatch }) => {
           const { selection } = editor.state;
 
           const color = value?.startsWith('#') ? value.slice(1) : value;
+          // MS-WORD-CLONE FORK EDIT (theme system): an optional theme-fill slot from a
+          // Theme-Colors pick → stored on the cell background so translate-table-cell emits
+          // <w:shd w:themeFill="accentN">. null (a plain/custom colour) clears any stale link.
+          const themeFill = options.themeFill || null;
 
           // T4 review Minor (2026-06-10): an EXPLICIT user shading OWNS the cell — drop
           // the styleBakedBackground provenance marker so the color exports even when it
@@ -1535,7 +1539,7 @@ export const Table = Node.create({
             }
 
             if (dispatch) {
-              const ok = commands.setCellAttr('background', { color });
+              const ok = commands.setCellAttr('background', { color, themeFill });
               if (ok) {
                 const $cell = cellAround(selection.$from);
                 if ($cell) clearBakeMarker($cell.pos);

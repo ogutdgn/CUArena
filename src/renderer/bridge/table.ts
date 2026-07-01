@@ -123,12 +123,13 @@ export function installTable(editor: AnyEditor) {
     }
   }
 
-  function tableSetCellShading(color: string): boolean {
+  function tableSetCellShading(color: string, opts?: { themeColor?: string | null }): boolean {
     // No CellSelection gate (T3 fix, Word parity): with a plain caret in a cell the
     // fork's setCellBackground falls back to setCellAttr (shades the caret cell, like
     // Word). A CellSelection still shades every selected cell. Outside a table the
-    // fork returns false.
-    const ok = editor.commands.setCellBackground(color)
+    // fork returns false. Theme system: a Theme-Colors pick passes its slot as themeFill →
+    // <w:shd w:themeFill="accentN">; a plain colour clears the link.
+    const ok = editor.commands.setCellBackground(color, { themeFill: opts?.themeColor || null })
     refocus()
     return ok !== false
   }

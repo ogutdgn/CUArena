@@ -253,14 +253,14 @@
     fly.appendChild(WC.flyItem('New Table Style…', { onClick: () => (WC.Dialogs && WC.Dialogs.newTableStyle) ? WC.Dialogs.newTableStyle() : WC.toast('New Table Style dialog is coming soon.') }));
   });
   H.tblShading = (c, node) => WC.flyout(node, (fly) => {
-    fly.appendChild(WC.flyHeader('Shading'));
-    const grid = el('div', { class: 'tbl-shade-grid', style: { padding: '4px' } });
-    ['#FFF2CC', '#DEEAF6', '#E2EFDA', '#FCE4D6', '#D9D9D9', 'transparent'].forEach((col) => {
-      const sw = el('div', { class: 'tbl-shade-sw', style: { width: '22px', height: '22px', margin: '3px', display: 'inline-block', background: col === 'transparent' ? '#fff' : col, border: '1px solid #ccc', cursor: 'pointer' } });
-      sw.addEventListener('click', () => { WC.closeFlyouts(); const p = TPM(); if (p) p.tableSetCellShading(col === 'transparent' ? '' : col); });
-      grid.appendChild(sw);
-    });
-    fly.appendChild(grid);
+    // Word's table Shading dropdown IS the full theme/standard color palette (same as font color),
+    // so cell shading is theme-aware: a Theme-Colors pick carries its slot → <w:shd w:themeFill>.
+    fly.appendChild(WC.colorPalette((color, label, themeMeta) => {
+      const p = TPM();
+      if (!p) return;
+      if (color === null) { p.tableSetCellShading(''); return; } // No Color -> clear
+      p.tableSetCellShading(color === 'inherit' ? '' : color, themeMeta || undefined);
+    }, { noColor: true, noColorLabel: 'No Color', automatic: false }));
   });
   H.tblBorders = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Borders'));

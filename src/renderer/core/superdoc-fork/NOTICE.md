@@ -530,6 +530,12 @@ project tsconfig instead — matching the other vendored packages, which also sh
   built the cell fill's `w:shd` with only `w:fill` (`<w:shd w:fill="RRGGBB"/>`); real Word writes the full
   `<w:shd w:val="clear" w:color="auto" w:fill="RRGGBB"/>`. Now sets `{ val:'clear', color:'auto', fill }` (preserving
   any existing shading's val/color). ADDITIVE. Gated by `test:pm` (`B cell shading`) + roundtrip.
+- **Table cell shading — theme fill (theme system, 2026-07-01, user-authorized):** `setCellBackground(value, options)`
+  in `extensions/table/table.js` gained an optional `options.themeFill` that is stored on the cell `background` attr
+  (`{ color, themeFill }`), and `translate-table-cell.js` emits it as `<w:shd w:themeFill="accentN">` alongside the
+  resolved `w:fill` (null clears the link). Lets a Theme-Colors pick in the table Shading dropdown recolor on a theme
+  change like Word. ADDITIVE. The bridge `tableSetCellShading(color, {themeColor})` + the `H.tblShading` swap to the
+  full `WC.colorPalette` are NO-FORK. Gated by `test:pm` (`cell theme shading … w:themeFill`) + roundtrip.
 - **Table cell borders — inside/diagonal sides (parity — Tables B, 2026-06-30, user-authorized):**
   `extensions/table-cell/helpers/legacyBorderMigration.js` `convertBordersToOoxmlFormat` only mapped the 4 PHYSICAL
   sides (`SIDES` = top/right/bottom/left), so `setCellBorders({ insideH, insideV, tl2br, tr2bl })` from Word's Borders
