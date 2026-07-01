@@ -1,0 +1,746 @@
+{
+  "groups": [
+    {
+      "group": "A â€” CREATION PATHS",
+      "behaviors": [
+        {
+          "name": "Live grid picker (hover NÃ—M, click to insert)",
+          "ribbon_idMso": "TableInsertGallery (the Insert tab 'Table' split-button gallery; the top drop-down whose hover grid inserts an rÃ—c table). UIA-GALLERY â€” ExecuteMso('TableInsertGallery') only OPENS/drops the gallery, it cannot pick a grid cell. Ground truth is captured by COM, not ExecuteMso.",
+          "ground_truth": "COM reproduction (same idiom already proven for Insert): $rng = Doc.Range(); $tbl = Doc.Tables.Add($rng, <rows>, <cols>, DefaultTableBehavior:=wdWord9TableBehavior[=1], AutoFitBehavior:=wdAutoFitFixed[=0]); $tbl.Style = 'Table Grid'; then Save + unzip document.xml. This byte-reproduces the grid-picker output (tblStyle=TableGrid, tblLook=04A0, tblW auto, evenly-computed gridCol w:w). The picker default is Fixed column width AutoFit + Table Grid style â€” identical to the verified Insert path.",
+          "clone_action": "Insert tab Table button â†’ WC.Ribbon flyout Insert.tableMenu() paints an 8Ã—10 grid; click â†’ Insert.buildTable(r+1,c+1) â†’ WC.PM.insertTable({rows,cols}) â†’ bridge/table.ts insertTable() â†’ editor.chain().insertTable({rows,cols,withHeaderRow:false}). Default style baked by fork normalizeNewTableAttrs â†’ tableStyleId='TableGrid' + DEFAULT_TBL_LOOK; column widths via computeColumnWidths.",
+          "expected_ooxml": "<w:tbl><w:tblPr><w:tblStyle w:val=\"TableGrid\"/><w:tblW w:w=\"0\" w:type=\"auto\"/><w:tblLook w:val=\"04A0\" w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/></w:tblPr><w:tblGrid><w:gridCol w:w=\"3116\"/>â€¦</w:tblGrid> â€¦ rows/cells. Each tc has <w:tcW w:w=\"â€¦\" w:type=\"dxa\"/> summing to the text column.",
+          "clone_gap": "LIKELY-OK â€” clone bakes tableStyleId=TableGrid + DEFAULT_TBL_LOOK on every creation path; risk is only exact tblLook bitmask (verify w:val=04A0 + all 6 sub-attrs), tblW type=auto vs dxa, and gridCol rounding vs Word's 3116-per-col split. Measure the differ; small attr deltas likely."
+        },
+        {
+          "name": "Insert Table dialog â€” rows/cols + AutoFit: Fixed column width",
+          "ribbon_idMso": "TableInsertDialog (Insert tab â†’ Table â†’ 'Insert Tableâ€¦'). UIA-DIALOG â€” ExecuteMso('TableInsertDialog') OPENS the modal 'Insert Table' dialog; complete it via UIA/SendKeys. Fields: 'Number of columns' spinner, 'Number of rows' spinner, AutoFit radio group {Fixed column width [Auto|number], AutoFit to contents, AutoFit to window}, 'Remember dimensions for new tables' checkbox.",
+          "ground_truth": "COM: Doc.Tables.Add($rng, rows, cols, DefaultTableBehavior:=wdWord9TableBehavior, AutoFitBehavior:=wdAutoFitFixed[=0]); Style='Table Grid'. For an explicit fixed width also set $tbl.Columns.Width or $tbl.PreferredWidthType=wdPreferredWidthPoints. UIA path: ExecuteMso('TableInsertDialog') â†’ set the two spin edits â†’ select the 'Fixed column width' radio â†’ OK, then Save+unzip.",
+          "clone_action": "Insert.tableMenu â†’ 'Insert Tableâ€¦' â†’ WC.Dialogs.insertTable() (dialogs.js): an 8Ã—10 hover grid PLUS numeric Columns/Rows inputs â†’ build() â†’ WC.PM.insertTable({rows,cols}). Fixed-column-width is the implicit default (fork computeColumnWidths splits the text column evenly).",
+          "expected_ooxml": "Same as grid picker: tblStyle=TableGrid, tblLook=04A0, tblW auto/dxa, evenly-split gridCol/tcW dxa, tblLayout implicit fixed.",
+          "clone_gap": "LIKELY-GAP (AutoFit selector) â€” the clone's Insert Table dialog has NO AutoFit radio group and NO 'Remember dimensions' checkbox; it only takes rows/cols. Fixed-width is fine (it's the default), but the dialog cannot express the other two AutoFit modes at creation time. See next two rows."
+        },
+        {
+          "name": "Insert Table dialog â€” AutoFit to contents",
+          "ribbon_idMso": "TableInsertDialog (UIA-DIALOG), AutoFit radio = 'AutoFit to contents'. ExecuteMso opens; select the radio via UIA then OK.",
+          "ground_truth": "COM: Doc.Tables.Add($rng, rows, cols, DefaultTableBehavior:=wdWord9TableBehavior, AutoFitBehavior:=wdAutoFitContent[=1]); Style='Table Grid'. Yields an autofit table: tblW type=auto, per-cell tcW type=auto, tblLayout type=autofit. Save+unzip.",
+          "clone_action": "NO creation-time control. Post-insert only: Table Tools â†’ AutoFit â†’ 'AutoFit Contents' â†’ bridge/table.ts tableAutoFit('contents') â†’ measureColumnContentWidths() reflows the DOM at table-layout:auto then editor.commands.autoFitTable('contents', 0, contentWidths).",
+          "expected_ooxml": "<w:tblW w:w=\"0\" w:type=\"auto\"/> + <w:tblLayout w:type=\"autofit\"/> + each <w:tcW w:w=\"0\" w:type=\"auto\"/> (columns sized to content).",
+          "clone_gap": "LIKELY-GAP â€” no AutoFit choice inside the Insert-Table dialog (only available as a separate Table Tools command post-insert). Also verify the clone's autoFitTable emits tcW type=auto + tblLayout=autofit rather than baking measured dxa widths (measureColumnContentWidths returns px â†’ risk it writes dxa, not type=auto, diverging from Word)."
+        },
+        {
+          "name": "Insert Table dialog â€” AutoFit to window",
+          "ribbon_idMso": "TableInsertDialog (UIA-DIALOG), AutoFit radio = 'AutoFit to window'. ExecuteMso opens; select radio via UIA then OK.",
+          "ground_truth": "COM: Doc.Tables.Add($rng, rows, cols, DefaultTableBehavior:=wdWord9TableBehavior, AutoFitBehavior:=wdAutoFitWindow[=2]); Style='Table Grid'. Yields a percent-width table: tblW type=pct w:w=5000 (100%), per-cell tcW type=pct. Save+unzip.",
+          "clone_action": "NO creation-time control. Post-insert only: Table Tools â†’ AutoFit â†’ 'AutoFit Window' â†’ bridge/table.ts tableAutoFit('window') â†’ targetWidthPx=pageTextWidthPx() â†’ editor.commands.autoFitTable('window', targetWidthPx).",
+          "expected_ooxml": "<w:tblW w:w=\"5000\" w:type=\"pct\"/> + each <w:tcW w:w=\"â€¦\" w:type=\"pct\"/> (proportional, summing to 5000). tblLayout may be autofit.",
+          "clone_gap": "LIKELY-GAP â€” not in the Insert-Table dialog. Crucially, clone's autoFitTable('window') is fed an absolute targetWidthPx and likely writes dxa/px widths, NOT tblW/tcW type=pct 5000 â€” this will differ from Word byte-wise. Real fix: emit percent widths for window mode."
+        },
+        {
+          "name": "Draw Table (pen â€” drag to draw outer border, then draw row/column lines)",
+          "ribbon_idMso": "TableDrawTable (VALID per prompt; Insertâ†’Tableâ†’'Draw Table' and Table Toolsâ†’Draw group). It is a MODE TOGGLE (enters draw-pen state), not a one-shot insert â€” ExecuteMso('TableDrawTable') flips the pen on but produces no deterministic table; the geometry comes from subsequent mouse drags.",
+          "ground_truth": "Not deterministically capturable via ExecuteMso (mode toggle). Capture the RESULT geometry via COM instead: reproduce the drawn outer rectangle + interior lines with Doc.Tables.Add for the row/col count, DefaultTableBehavior:=wdWord9TableBehavior, AutoFitBehavior:=wdAutoFitFixed, then set Columns.Width/Rows.Height to match the drawn px. Draw Table default = fixed layout, Table Grid style, single 0.5pt borders. Save+unzip for the target OOXML.",
+          "clone_action": "Insert.tableMenu â†’ 'Draw Table' â†’ Insert.drawTableMode() (insert-features.js): crosshair cursor, drag a rubber-band rect; on mouseup derives cols=round(w/90), rows=round(h/36) â†’ Insert.buildTable(rows,cols) â†’ WC.PM.insertTable. It is an APPROXIMATION â€” you cannot draw arbitrary cell partitions/merges, only a uniform grid sized off the drag.",
+          "expected_ooxml": "Same tbl skeleton as grid picker (tblStyle=TableGrid, tblLook=04A0, fixed layout, evenly-split gridCol) â€” but a true Draw-Table would allow uneven gridCol widths + drawn interior borders per drawn line.",
+          "clone_gap": "LIKELY-GAP â€” clone approximates the pen with a uniform-grid heuristic (pxâ†’rows/cols). No freehand cell/line drawing, no eraser-driven merge at draw time, no per-line border geometry. Fine for a uniform table; a real Draw-Table session with uneven partitions is not reproducible. Build gap if byte-parity for hand-drawn geometry is required."
+        },
+        {
+          "name": "Convert Text to Table (separators: paragraphs / commas / tabs / other)",
+          "ribbon_idMso": "ConvertTextToTable (VALID per prompt; Insertâ†’Tableâ†’'Convert Text to Tableâ€¦'). Opens the 'Convert Text to Table' modal â€” treat as UIA-DIALOG for full field control. Fields: 'Number of columns' (auto from separator), AutoFit behavior {Fixed [Auto], AutoFit contents, AutoFit window}, 'Separate text at' radio {Paragraphs, Tabs, Commas, Other:<char>}.",
+          "ground_truth": "COM (bypasses the dialog, faithful): select the source paragraphs â†’ Selection.ConvertToTable(Separator:=<sep>, AutoFitBehavior:=wdAutoFitFixed). Separator constants: wdSeparateByParagraphs=0, wdSeparateByTabs=1, wdSeparateByCommas=2, wdSeparateByDefaultListSeparator=3, or a literal char for 'Other'. Then Style='Table Grid', Save+unzip. UIA path: ExecuteMso('ConvertTextToTable') â†’ pick the 'Separate text at' radio (+ Other char) + AutoFit â†’ OK.",
+          "clone_action": "Insert.tableMenu â†’ 'Convert Text to Tableâ€¦' â†’ Insert.convertTextToTable() (insert-features.js) opens a small dialog to pick the separator (tab/comma/other) â†’ WC.PM.textToTable(delim) â†’ bridge/table.ts textToTable(d) â†’ fork convertTextToTable(delimiter) (table.js:2061): splits each top-level paragraph by the delimiter, maxCols across rows, builds rows with computeColumnWidths.",
+          "expected_ooxml": "A full <w:tbl> (tblStyle=TableGrid, tblLook=04A0, tblW auto, evenly-split gridCol/tcW) with one row per source paragraph and one cell per split segment; short rows padded to maxCols with empty cells (Word left-pads/right-pads to the column count).",
+          "clone_gap": "LIKELY-GAP (partial) â€” clone supports tab/comma/'other' char delimiters, but 'Separate at Paragraphs' (one cell per paragraph â†’ single column) and the AutoFit selector are absent from its convert dialog. Also verify the fork pads ragged rows to maxCols exactly as Word (empty w:tc) and that convert-time style = TableGrid. Fixed/contents/window AutoFit at convert = not exposed."
+        },
+        {
+          "name": "Excel Spreadsheet (embedded OLE worksheet object)",
+          "ribbon_idMso": "TableExcelSpreadsheetInsert (Insertâ†’Tableâ†’'Excel Spreadsheet'). Inserts an embedded Excel OLE object (a live worksheet). ExecuteMso can trigger it, but it launches an in-place OLE server â€” not a plain OOXML table.",
+          "ground_truth": "COM: Selection.InlineShapes.AddOLEObject(ClassType:='Excel.Sheet.12', â€¦) or via ExecuteMso then Save+unzip. Output is NOT a w:tbl â€” it is a <w:object>/<w:drawing> holding an OLE part (word/embeddings/Microsoft_Excel_Worksheet.xlsx) + an EMF/PNG preview in word/media, referenced by <o:OLEObject r:id ProgID='Excel.Sheet.12'>.",
+          "clone_action": "Insert.insertExcelSheet() (insert-features.js) â€” HONEST DEGRADE: WC.toast('Embedding an Excel spreadsheet needs a host runtime â€” not available on the new engine yet.'). No object inserted.",
+          "expected_ooxml": "<w:object><o:OLEObject Type=\"Embed\" ProgID=\"Excel.Sheet.12\" ShapeID=\"â€¦\" DrawAspect=\"Content\" ObjectID=\"â€¦\" r:id=\"rIdN\"/></w:object> + an embedded xlsx part + media preview. (Not a w:tbl at all.)",
+          "clone_gap": "CLONE-LACKS â€” no OLE/embedding subsystem in the PM engine; genuine build gap (requires an OLE host + xlsx embed + preview render). Out of reach for byte-parity without an embed pipeline; keep as an honest stub or scope out."
+        },
+        {
+          "name": "Quick Tables gallery (Calendar / Tabular List / Matrix / Double Table / With Subheads building blocks)",
+          "ribbon_idMso": "TableQuickTablesInsertGallery (Insertâ†’Tableâ†’'Quick Tables'). UIA-GALLERY â€” a Building Blocks (glossary/AutoText) gallery; ExecuteMso only opens it, each entry is a pre-formatted building block, not a parameterized command.",
+          "ground_truth": "COM: Doc.AttachedTemplate.BuildingBlockEntries('Calendar 1').Insert(Range) (or Application.Templates(...).BuildingBlockEntries), then Save+unzip. Each entry carries its OWN full formatting (a specific tblStyle, shading, header rows, sample text) baked into the building-block part; the OOXML is the block's stored w:tbl verbatim.",
+          "clone_action": "Insert.quickTablesMenu() (insert-features.js) â†’ a flyout with Calendarâ†’buildTable(6,7), Tabular Listâ†’buildTable(4,2), Matrixâ†’buildTable(4,4), Double Tableâ†’buildTable(5,3) â†’ plain WC.PM.insertTable. It inserts empty uniform grids named like the gallery entries â€” NO real building-block content/formatting.",
+          "expected_ooxml": "Word emits the building block's stored w:tbl: a specific tblStyle (e.g. a Calendar/List style), shading (w:shd), header-row tblLook bits, merged title cells (w:gridSpan/w:vMerge), and sample text runs â€” all block-specific, not a bare grid.",
+          "clone_gap": "CLONE-LACKS (real building blocks) â€” the clone only fakes the gallery with plain empty tables of a guessed size; it has no Building Blocks store, no preformatted content/styles/sample text. True byte-parity needs a building-blocks catalog. Real build gap; current output will differ wholesale from Word's stored blocks."
+        }
+      ]
+    },
+    {
+      "group": "GROUP B â€” Table Design tab (Table Style Options, Table Styles gallery, Shading, Borders group)",
+      "behaviors": [
+        {
+          "name": "Table Style Options â€” Header Row toggle",
+          "ribbon_idMso": "TableStyleHeaderRowWord (VALID via GetLabelMso = 'Header Row'; toggle button, ExecuteMso togglable)",
+          "ground_truth": "ExecuteMso('TableStyleHeaderRowWord') with caret inside a styled table (apply e.g. 'Grid Table 4 Accent 1' first via Selection.Tables(1).Style). Flips the firstRow bit of w:tblLook AND makes Word re-stamp per-cell w:cnfStyle on the top row. Faithful COM alt: Selection.Tables(1).ApplyStyleHeadingRows = True/False. Save .docx; differ compares w:tblLook + first-row w:cnfStyle.",
+          "clone_action": "PARTIAL. Ribbon H.tblHeaderRow -> WC.PM.tableToggleHeaderRow -> editor.commands.toggleHeaderRow() (table.js:1351, tableHelpers/toggleHeaderRow.js). Comment explicitly notes it does NOT modify tblLook.firstRow â€” it flips PM header-cell semantics (repeat-header) not the tblLook bit or cnfStyle.",
+          "expected_ooxml": "w:tblPr/w:tblLook with firstRow bit 0x0020 set/cleared (modern form also emits w:firstRow=\"1\"); default tblLook val=\"04A0\" = firstRow+firstColumn+noVBand. Each top-row cell gets w:tcPr/w:cnfStyle w:val 12-bit string with bit[0] firstRow=1 (val=\"100000000000\") + w:firstRow=\"1\".",
+          "clone_gap": "REAL GAP: fork CAN import/export tblLook (tblLook-translator.js bitmask) + cnfStyle (cnfStyle-translator.js), but there is NO bridge/command writer that sets the tblLook.firstRow bit or stamps per-cell cnfStyle. toggleHeaderRow is a different semantic. Build a setTblLook/cnfStyle writer."
+        },
+        {
+          "name": "Table Style Options â€” Total Row toggle",
+          "ribbon_idMso": "TableStyleTotalRowWord (VALID = 'Total Row')",
+          "ground_truth": "ExecuteMso('TableStyleTotalRowWord') on a styled table; flips lastRow tblLook bit + stamps last-row cnfStyle. COM alt: Selection.Tables(1).ApplyStyleLastRow = True.",
+          "clone_action": "CLONE-LACKS. No ribbon control, no H.* handler, no WC.PM verb. table.ts has toggleHeaderRow/toggleHeaderColumn only.",
+          "expected_ooxml": "w:tblLook lastRow bit 0x0040 (w:lastRow=\"1\"); each bottom-row cell w:cnfStyle bit[1] lastRow=1 (val=\"010000000000\").",
+          "clone_gap": "REAL GAP: no writer for lastRow tblLook bit or per-row cnfStyle."
+        },
+        {
+          "name": "Table Style Options â€” Banded Rows toggle",
+          "ribbon_idMso": "TableStyleBandedRowsWord (VALID = 'Banded Rows')",
+          "ground_truth": "ExecuteMso('TableStyleBandedRowsWord'); toggles the noHBand tblLook bit (checked=banding ON => noHBand absent/0; unchecked => w:noHBand=\"1\") + stamps oddHBand/evenHBand cnfStyle on alternating rows. COM alt: Selection.Tables(1).ApplyStyleRowBands = True.",
+          "clone_action": "CLONE-LACKS. No control/handler/verb.",
+          "expected_ooxml": "w:tblLook noHBand bit 0x0200 (w:noHBand=\"1\" when OFF); alternating rows w:cnfStyle bit[6] oddHBand / bit[7] evenHBand (val=\"000000100000\"/\"000000010000\").",
+          "clone_gap": "REAL GAP: no noHBand writer; resolveTableStyleVisuals.js explicitly says banded rows/cols are NOT baked (Phase-7 deferral) so live paint also absent â€” export carries nothing user-toggled."
+        },
+        {
+          "name": "Table Style Options â€” First Column toggle",
+          "ribbon_idMso": "TableStyleFirstColumnWord (best-guess by naming pattern; NOTE: GetLabelMso returned INVALID in this build 16.0 for FirstColumn specifically while the other 5 *Word ids resolved â€” likely a label-lookup quirk; verify ExecuteMso still fires, else UIA-CHECKBOX on 'First Column' in the Table Style Options group). COM alt is reliable: Selection.Tables(1).ApplyStyleFirstColumn = True.",
+          "ground_truth": "Prefer COM: Selection.Tables(1).ApplyStyleFirstColumn = True on a styled table; or ExecuteMso('TableStyleFirstColumnWord'). Flips firstColumn tblLook bit + stamps first-column cnfStyle.",
+          "clone_action": "CLONE-LACKS. No control/handler/verb.",
+          "expected_ooxml": "w:tblLook firstColumn bit 0x0080 (w:firstColumn=\"1\"); first-column cells w:cnfStyle bit[2] firstColumn=1 (val=\"001000000000\").",
+          "clone_gap": "REAL GAP: no firstColumn writer. Also resolve the correct idMso (GetLabelMso INVALID here â€” measure with COM ApplyStyleFirstColumn instead)."
+        },
+        {
+          "name": "Table Style Options â€” Last Column toggle",
+          "ribbon_idMso": "TableStyleLastColumnWord (VALID = 'Last Column')",
+          "ground_truth": "ExecuteMso('TableStyleLastColumnWord') or COM Selection.Tables(1).ApplyStyleLastColumn = True. Flips lastColumn bit + last-column cnfStyle.",
+          "clone_action": "CLONE-LACKS.",
+          "expected_ooxml": "w:tblLook lastColumn bit 0x0100 (w:lastColumn=\"1\"); last-column cells w:cnfStyle bit[3] lastColumn=1 (val=\"000100000000\").",
+          "clone_gap": "REAL GAP: no lastColumn writer."
+        },
+        {
+          "name": "Table Style Options â€” Banded Columns toggle",
+          "ribbon_idMso": "TableStyleBandedColumnsWord (VALID = 'Banded Columns')",
+          "ground_truth": "ExecuteMso('TableStyleBandedColumnsWord') or COM Selection.Tables(1).ApplyStyleColumnBands = True. Toggles noVBand bit + oddVBand/evenVBand cnfStyle on alternating columns.",
+          "clone_action": "CLONE-LACKS.",
+          "expected_ooxml": "w:tblLook noVBand bit 0x0400 (w:noVBand=\"1\" when OFF; default 04A0 has it SET so columns are un-banded by default); alternating-column cells w:cnfStyle bit[4] oddVBand / bit[5] evenVBand (val=\"000010000000\"/\"000001000000\").",
+          "clone_gap": "REAL GAP: no noVBand writer; not baked (see resolveTableStyleVisuals.js deferral)."
+        },
+        {
+          "name": "Table Styles gallery (apply a table style)",
+          "ribbon_idMso": "TableStylesGalleryWord (VALID = 'Table Styles') â€” a GALLERY: ExecuteMso only opens/no-ops it, cannot pick an item => UIA-GALLERY. Faithful COM reproduction (like Tables.Add+Style did for Insert): Selection.Tables(1).Style = '<style display name>' (e.g. 'Grid Table 4 - Accent 1'). Related: TableStyleClear (VALID='Clear'), TableStyleModify (VALID='Modify Table Style...' dialog).",
+          "ground_truth": "COM: doc.Tables(1).Style = 'Grid Table 4 - Accent 1' (writes w:tblStyle + Word auto-stamps per-cell w:cnfStyle for the header/banding per the current tblLook, and injects/links the w:style def into styles.xml). Save; differ compares document.xml (tblStyle + cnfStyle) AND styles.xml (the referenced w:style w:type='table' with its w:tblStylePr conditional bands).",
+          "clone_action": "PARTIAL. Ribbon H.tblStyles builds the gallery from WC.PM.getTableStyles() and applies via WC.PM.tableSetStyle(id) -> editor.commands.setTableStyle(id) (table.js:1617). It writes tableProperties.tableStyleId (=> w:tblStyle) and BAKES table-level borders + firstRow fill through resolveTableStyleVisuals.js.",
+          "expected_ooxml": "w:tblPr/w:tblStyle w:val='GridTable4-Accent1' (+ existing w:tblLook). Per-cell w:cnfStyle stamped to match the tblLook (header/banding). styles.xml must contain the linked w:style w:styleId='GridTable4-Accent1' w:type='table' with w:tblStylePr overrides.",
+          "clone_gap": "PARTIAL GAP: tblStyle export works; but setTableStyle does NOT stamp per-cell w:cnfStyle (only bakes firstRow fill + borders as direct attrs), and banded rows/cols are NOT rendered/stamped (deferral). Real Word emits cnfStyle on every cell â€” byte-parity requires adding cnfStyle stamping. Also the applied style def must already exist in the in-memory styles.xml catalog (getTableStyles)."
+        },
+        {
+          "name": "Shading (fill a cell/selection)",
+          "ribbon_idMso": "ShadingColorPicker (VALID = 'Shading') â€” a color GALLERY: ExecuteMso applies the CURRENT/last shading only; picking a specific swatch => UIA-GALLERY. Faithful COM: Selection.Cells.Shading.BackgroundPatternColor = <wdColor int> (or .Texture / .ForegroundPatternColor). Theme colors need the theme index.",
+          "ground_truth": "COM: Selection.Cells.Shading.BackgroundPatternColor = RGB(r,g,b) [or a wdThemeColorIndex via .BackgroundPatternColorIndex]; save; differ compares w:tcPr/w:shd. For theme fills use Word's theme picker (UIA) to get w:themeFill.",
+          "clone_action": "PARTIAL. Ribbon H.tblShading (commands.js:198) shows 6 hardcoded swatches -> WC.PM.tableSetCellShading(color) -> editor.commands.setCellBackground(color) -> setCellAttr('background') (table.js:1461). Exports via shd-translator.js.",
+          "expected_ooxml": "w:tcPr/w:shd w:val='clear' w:color='auto' w:fill='RRGGBB'. Theme form: w:fill='auto' w:themeFill='accent1' [+ w:themeFillTint / w:themeFillShade].",
+          "clone_gap": "PARTIAL GAP: solid RRGGBB fill round-trips (shd translator supports w:fill AND w:themeFill/Tint/Shade on import/export). BUT the UI only offers 6 fixed swatches, no full color picker, no theme colors, and never writes w:themeFill on apply â€” so theme-based shading parity is a gap. Also applies to the caret cell / CellSelection only (no whole-row/table shd)."
+        },
+        {
+          "name": "Borders dropdown â€” All Borders",
+          "ribbon_idMso": "BordersAll (VALID = 'All Borders') â€” button, ExecuteMso works on the selection.",
+          "ground_truth": "Select cells (or whole table), ExecuteMso('BordersAll'); Word writes w:tblBorders at table level when the whole table is selected, or per-cell w:tcBorders for a cell range, using the CURRENT pen (Line Style/Weight/Pen Color). COM alt: iterate Selection.Cells(i).Borders(wdBorder*).LineStyle/LineWidth/Color.",
+          "clone_action": "PARTIAL. Ribbon H.tblBorders (commands.js:208) offers only 'All Borders' and 'No Border'. All -> WC.PM.tableSetCellBorders({top,bottom,left,right: {val:'single',color:'000000',size:4}}) -> setCellBorders -> setCellAttr('borders') (table.js:1858). Per-CELL only.",
+          "expected_ooxml": "Whole-table selection: w:tblPr/w:tblBorders with w:top/w:left/w:bottom/w:right/w:insideH/w:insideV each w:val='single' w:sz='4' w:space='0' w:color='auto'. Cell range: w:tcPr/w:tcBorders same children.",
+          "clone_gap": "PARTIAL GAP: per-cell tcBorders writes (fork tcBorders translator handles top/bottom/left/right/insideH/insideV). But 'All' from the clone omits insideH/insideV, uses a fixed pen, and there is NO table-level w:tblBorders writer (setTableStyle comment: 'Borders flyout has no TABLE-level writer yet'). Word emits tblBorders (incl insideH/insideV) for a full-table selection â€” real gap."
+        },
+        {
+          "name": "Borders dropdown â€” Outside / Inside / Top / Bottom / Left / Right / Inside-H / Inside-V edges",
+          "ribbon_idMso": "BorderOutside (VALID='Outside Borders'), BorderInside ('Inside Borders'), BorderTopWord ('Top Border'), BorderBottomWord ('Bottom Border'), BorderLeftWord ('Left Border'), BorderRightWord ('Right Border'), BorderInsideHorizontal ('Inside Horizontal Border'), BorderInsideVertical ('Inside Vertical Border'). NOTE the split naming: 'All' is plural BordersAll; the rest are singular Border*.",
+          "ground_truth": "Select range, ExecuteMso(<edge idMso>) with the desired pen active; save; differ compares the specific w:tcBorders/w:tblBorders side(s). Each idMso only touches its edge(s): Outside=top+bottom+left+right (outer perimeter of the selection), Inside=insideH+insideV, InsideHorizontal=insideH, etc.",
+          "clone_action": "CLONE-LACKS these specific edges. H.tblBorders only exposes All + None. No Outside/Inside/single-edge/insideH/insideV items and no table-level path.",
+          "expected_ooxml": "Selectively-populated w:tcBorders/w:tblBorders: e.g. Top => only w:top w:val='single' w:sz w:color; Inside => w:insideH + w:insideV; Outside => perimeter sides only; leaving untouched sides absent (or w:nil).",
+          "clone_gap": "REAL GAP: only All/None implemented. Need a full edge-selective border writer (per-cell tcBorders AND table-level tblBorders incl insideH/insideV) honoring the active pen."
+        },
+        {
+          "name": "Borders dropdown â€” No Border",
+          "ribbon_idMso": "BorderNone (VALID = 'No Border')",
+          "ground_truth": "ExecuteMso('BorderNone') on the selection; Word writes each side w:val='nil' (or removes the borders element). COM alt: Borders(wdBorder*).LineStyle = wdLineStyleNone.",
+          "clone_action": "HAS (partial). H.tblBorders 'No Border' -> WC.PM.tableSetCellBorders({}) -> setCellAttr('borders', {}).",
+          "expected_ooxml": "w:tcBorders (or w:tblBorders) with sides w:val='nil', OR the borders element cleared. Per Word: explicit w:top/.. w:val='nil'.",
+          "clone_gap": "PARTIAL GAP: clone clears the attr to {} (drops borders) rather than emitting explicit w:val='nil' sides; per-cell only, no table-level clear. May diverge from Word's explicit nil output â€” verify against differ."
+        },
+        {
+          "name": "Borders dropdown â€” Diagonal Down / Diagonal Up",
+          "ribbon_idMso": "BorderDiagonalDown (VALID='Diagonal Down Border'), BorderDiagonalUp (VALID='Diagonal Up Border')",
+          "ground_truth": "Caret in a cell, ExecuteMso('BorderDiagonalDown'/'BorderDiagonalUp'); Word writes w:tcBorders/w:tl2br (down) or w:tr2bl (up). COM: Cell.Borders(wdBorderDiagonalDown/Up).",
+          "clone_action": "CLONE-LACKS. No diagonal option; fork tcBorders translator imports top/bottom/left/right/insideH/insideV â€” no tl2br/tr2bl handler seen.",
+          "expected_ooxml": "w:tcPr/w:tcBorders/w:tl2br w:val='single' w:sz w:color (Diagonal Down) or w:tr2bl (Diagonal Up).",
+          "clone_gap": "REAL GAP: no diagonal border UI, and likely no tl2br/tr2bl translator (grep of tcBorders showed only the 6 orthogonal side imports) â€” needs both model+export support."
+        },
+        {
+          "name": "Borders group â€” Border Styles gallery (theme border sample / active pen preset)",
+          "ribbon_idMso": "BorderStylesGallery (VALID = 'Border Styles') â€” GALLERY => UIA-GALLERY (ExecuteMso can't select a sample). Selecting a sample sets the ACTIVE PEN (val+sz+color, often themed) that Border Painter / the Borders dropdown then draw with; the sample itself writes NO OOXML until a border is applied.",
+          "ground_truth": "State-setting control: no direct document.xml output. Ground-truth = pick a sample via UIA, then draw a border (BordersAll) and read the resulting w:sz/w:val/w:color/w:themeColor to confirm the pen took effect.",
+          "clone_action": "CLONE-LACKS. No pen-state concept; setCellBorders takes an explicit {val,color,size} each call. No border-style gallery.",
+          "expected_ooxml": "Indirect: the drawn border's w:tcBorders/w:tblBorders side gets w:val (e.g. 'single'/'double'/'dashed'), w:sz, w:color or w:themeColor='accent1' matching the chosen sample.",
+          "clone_gap": "REAL GAP: no active-pen model, no themeColor on written borders (setCellBorders only carries val/color/size â€” no themeColor)."
+        },
+        {
+          "name": "Borders group â€” Pen Color",
+          "ribbon_idMso": "BorderColorPicker (VALID = 'Pen Color') â€” color GALLERY => UIA-GALLERY. Sets the active pen COLOR (incl theme colors) used by Border Painter / Borders dropdown. No OOXML until a border is drawn.",
+          "ground_truth": "State control; ground-truth via draw-then-read: set pen color (UIA), ExecuteMso('BordersAll'), read w:color / w:themeColor on the written borders.",
+          "clone_action": "CLONE-LACKS. No pen-color state; border color is passed literally as '000000' in H.tblBorders.",
+          "expected_ooxml": "Indirect: drawn border side w:color='RRGGBB' or w:themeColor='accent1' [w:themeTint/w:themeShade].",
+          "clone_gap": "REAL GAP: no pen-color state; borders can't carry w:themeColor."
+        },
+        {
+          "name": "Borders group â€” Line Style dropdown",
+          "ribbon_idMso": "UIA-DROPDOWN (no valid idMso found â€” TableStyleLineStyleGallery/BorderLineStyle/BorderStyle/etc. all returned INVALID via GetLabelMso in build 16.0). It is a dropdown of dash/line styles that sets the active pen's w:val. Ground truth requires UIA (dropdown 'Line Style' in the Borders group) or setting Options.DefaultBorderLineStyle via COM.",
+          "ground_truth": "State control; draw-then-read: set line style (UIA or Application.Options.DefaultBorderLineStyle=wdLineStyle*), draw a border, read w:val on the written border side.",
+          "clone_action": "CLONE-LACKS. setCellBorders hardcodes val:'single'; no line-style chooser.",
+          "expected_ooxml": "Indirect: drawn border w:val in {single, double, dashed, dotted, dashSmallGap, thick, wave, ...}.",
+          "clone_gap": "REAL GAP: no line-style selection; only 'single' ever written."
+        },
+        {
+          "name": "Borders group â€” Line Weight dropdown",
+          "ribbon_idMso": "UIA-DROPDOWN (no valid idMso found â€” TableStyleLineWeightGallery/BorderLineWeight/BorderWeight all INVALID). Dropdown of point weights (1/4pt..6pt) setting the active pen sz. COM alt: Application.Options.DefaultBorderLineWidth = wdLineWidth*.",
+          "ground_truth": "State control; draw-then-read: set weight (UIA / Options.DefaultBorderLineWidth), draw a border, read w:sz (eighth-points: 1/2pt=4, 1pt=8, etc.).",
+          "clone_action": "CLONE-LACKS. setCellBorders hardcodes size:4 (px-ish); no weight chooser.",
+          "expected_ooxml": "Indirect: drawn border w:sz in eighth-points (e.g. w:sz='4' = 0.5pt, '8'=1pt, '12'=1.5pt, '24'=3pt).",
+          "clone_gap": "REAL GAP: no weight selection; also verify the clone's size field is eighth-points not px (setCellBorders passes size:4 straight through)."
+        },
+        {
+          "name": "Borders group â€” Border Painter (paint pen onto borders)",
+          "ribbon_idMso": "UIA-TOGGLE (no valid idMso found â€” BorderPainter/TableStyleBorderPainter/etc. all INVALID). A mode toggle: while active, clicking a border segment applies the active pen (style+weight+color) to that edge. ExecuteMso cannot drive the subsequent click targeting => UIA (toggle + click) or scripted COM Borders on the target cell/edge.",
+          "ground_truth": "UIA: toggle Border Painter, click a specific edge; OR reproduce via COM by applying the pen to the exact Cell.Borders(wdBorder*) you clicked. Read the resulting w:tcBorders side.",
+          "clone_action": "CLONE-LACKS. No painter mode, no click-to-edge border drawing.",
+          "expected_ooxml": "w:tcPr/w:tcBorders single side (the clicked edge) w:val/w:sz/w:color/[w:themeColor] = active pen.",
+          "clone_gap": "REAL GAP: no border-painter interaction model at all."
+        },
+        {
+          "name": "Borders group â€” Borders and Shading dialog (launcher)",
+          "ribbon_idMso": "BordersShadingDialog (VALID = 'Borders and Shading...') => UIA-DIALOG (modal). Fields: Setting (None/Box/All/Grid/Custom), Style list, Color, Width, Apply-to (Cell/Table), Shading tab (Fill, Patterns/Style, Apply-to).",
+          "ground_truth": "UIA/SendKeys to open BordersShadingDialog and set Style/Color/Width/Apply-to + Shading Fill, then OK; OR reproduce each field via COM (Selection.Borders + Selection.Shading) and diff. This dialog is the authoritative combined writer for w:tblBorders/w:tcBorders + w:shd.",
+          "clone_action": "CLONE-LACKS a table Borders-and-Shading dialog. (Home has a paragraph 'Borders and Shading...' entry id home.paragraph... but no Table-Design combined dialog wired to tblBorders/tcBorders/shd with Apply-to scope.)",
+          "expected_ooxml": "Combined per chosen Apply-to: w:tblPr/w:tblBorders (Table) or w:tcPr/w:tcBorders (Cell) with full side specs + w:tcPr/w:shd fill.",
+          "clone_gap": "REAL GAP: no modal dialog; borders/shading only reachable via the minimal flyouts (All/None + 6 swatches), so Setting presets (Box/Grid/Custom), width/style/apply-to scope, and pattern shading are all missing."
+        }
+      ]
+    },
+    {
+      "group": "GROUP C â€” TABLE LAYOUT tab (Layout contextual tab: Table / Rows & Columns / Merge / Cell Size / Alignment / Data)",
+      "behaviors": [
+        {
+          "name": "Select Cell",
+          "ribbon_idMso": "TableSelectCell (VALID, label 'Select Cell')",
+          "ground_truth": "Non-modal. Oracle: place caret in a cell, ExecuteMso('TableSelectCell') â€” selects the caret cell. Selection-only op: produces NO document.xml change; verify via Selection.Cells.Count===1. Not differ-visible; capture by COM Selection geometry, not by saved .docx.",
+          "clone_action": "CLONE-LACKS. No ribbon control / H handler / bridge verb for 'select cell'. Fork has editor.commands.setCellSelection({anchorCell,headCell}) (used only by the test helper tableSelectFirstRowPair) but nothing maps a single-cell select onto the Layout>Select menu.",
+          "expected_ooxml": "None â€” selection state only, no persisted OOXML.",
+          "clone_gap": "LIKELY-GAP â€” selection-menu commands (Select Cell/Column/Row/Table) are unwired; only a private test helper exists. Cosmetic (no OOXML) but a missing ribbon control."
+        },
+        {
+          "name": "Select Column",
+          "ribbon_idMso": "TableColumnSelect (VALID, label 'Select Column')",
+          "ground_truth": "Non-modal, selection-only. ExecuteMso('TableColumnSelect') with caret in a cell selects that column. Verify via COM Selection.Columns.Count; no saved-doc delta.",
+          "clone_action": "CLONE-LACKS â€” no bridge verb; fork setCellSelection could implement it but no ribbon wiring.",
+          "expected_ooxml": "None â€” selection state only.",
+          "clone_gap": "LIKELY-GAP â€” unwired selection command."
+        },
+        {
+          "name": "Select Row",
+          "ribbon_idMso": "TableRowSelect (VALID, label 'Select Row')",
+          "ground_truth": "Non-modal, selection-only. ExecuteMso('TableRowSelect'); verify Selection.Rows.Count. No .docx delta.",
+          "clone_action": "CLONE-LACKS â€” no bridge verb.",
+          "expected_ooxml": "None â€” selection state only.",
+          "clone_gap": "LIKELY-GAP â€” unwired selection command."
+        },
+        {
+          "name": "Select Table",
+          "ribbon_idMso": "TableSelect (VALID, label 'Select Table')",
+          "ground_truth": "Non-modal, selection-only. ExecuteMso('TableSelect'); verify Selection.Tables.Count===1. No .docx delta.",
+          "clone_action": "CLONE-LACKS â€” no bridge verb.",
+          "expected_ooxml": "None â€” selection state only.",
+          "clone_gap": "LIKELY-GAP â€” unwired selection command."
+        },
+        {
+          "name": "View Gridlines (table cell boundary gridlines)",
+          "ribbon_idMso": "ViewGridlines (VALID, label 'View Gridlines')",
+          "ground_truth": "Non-modal app-state toggle (ActiveWindow.View.TableGridlines). Shows/hides non-printing dotted cell boundaries when cells have no real borders. Persists in app state ONLY â€” writes NOTHING to document.xml. Not differ-comparable; verify via COM View.TableGridlines property.",
+          "clone_action": "CLONE-LACKS as a TABLE gridlines toggle. The existing H.gridlines (commands.js) is the VIEW-tab page ALIGNMENT grid (view.show.gridlines idMso would differ), not the table cell-boundary gridlines. No table-gridlines toggle exists.",
+          "expected_ooxml": "None â€” view-state only, never serialized.",
+          "clone_gap": "LIKELY-OK to skip for OOXML parity (produces no document.xml) but CLONE-LACKS the control; not a differ target."
+        },
+        {
+          "name": "Table Properties dialog (Table/Row/Column/Cell/Alt Text tabs)",
+          "ribbon_idMso": "TablePropertiesDialog (VALID, label 'Properties...') â€” UIA-DIALOG (modal)",
+          "ground_truth": "UIA-DIALOG: ExecuteMso opens the modal Table Properties dialog; ExecuteMso cannot fill it. Drive fields via UIA/SendKeys OR reproduce each field with COM props that map 1:1: Table tab â†’ Table.PreferredWidth/PreferredWidthType (w:tblW), Table.Rows.Alignment (w:jc), Table.LeftIndent (w:tblInd), Table.Rows.WrapAroundText + tblpPr; Row tab â†’ Rows(i).Height/HeightRule (w:trHeight), .AllowBreakAcrossPages, .HeadingFormat (w:tblHeader); Column tab â†’ Columns(i).PreferredWidth (w:tcW/gridCol); Cell tab â†’ Cells.PreferredWidth (w:tcW), .VerticalAlignment (w:vAlign), cell-margins override (w:tcMar); Alt Text tab â†’ Table.Title (w:tblCaption) + Table.Descr (w:tblDescription).",
+          "clone_action": "PARTIAL / CLONE-LACKS the unified dialog. Individual fields exist piecemeal: tableSetAlignment (w:jc), tableSetIndent (w:tblInd), tableSetRowHeight (w:trHeight), tableSetCellWidth (w:tcW), tableSetCellMargins (w:tcMar), tableSetCellVAlign (w:vAlign). NO unified dialog, NO Alt Text (w:tblCaption/w:tblDescription), NO table PreferredWidth type=pct, NO text-wrap/positioning (tblpPr) surfaced from a dialog, NO 'allow row to break across pages' (w:cantSplit) control.",
+          "expected_ooxml": "w:tblPr/w:tblW[w:type][w:w], w:tblInd[w:w][w:type], w:jc; w:trPr/w:trHeight[w:val][w:hRule], w:cantSplit, w:tblHeader; w:tcPr/w:tcW[w:type][w:w], w:vAlign[w:val], w:tcMar; w:tblPr/w:tblCaption[w:val], w:tblDescription[w:val]; positioning w:tblpPr[w:tblpX][w:tblpY][w:horzAnchor][w:vertAnchor].",
+          "clone_gap": "LIKELY-GAP â€” most sub-fields exist as separate bridge verbs but Alt Text (tblCaption/tblDescription), preferred-width-as-pct, cantSplit, and table positioning tblpPr are missing; no unified dialog."
+        },
+        {
+          "name": "Draw Table (freeform table drawing)",
+          "ribbon_idMso": "TableDrawTable (VALID, label 'Draw Table')",
+          "ground_truth": "Non-modal mode toggle (enters draw-table pointer mode). Actual geometry is produced by dragging; hard to script headlessly. Ground truth better captured by drawing a table via COM (Documents...) â€” but the RIBBON path just enters the mode. For parity, treat as a mode entered before manual cell drawing; the resulting OOXML is an ordinary w:tbl with hand-set gridCol widths.",
+          "clone_action": "CLONE-LACKS. ribbon-data lists 'Draw Table' under insert.tables dropdown but there is no draw-mode implementation (WC.notImplemented). No Layout-tab Draw button, no pointer-driven cell creation.",
+          "expected_ooxml": "Ordinary w:tbl / w:tr / w:tc with explicitly-drawn w:gridCol widths (w:tblGrid) and w:tcBorders per drawn segment.",
+          "clone_gap": "LIKELY-GAP â€” no freeform draw mode; only grid-based insertTable. Full feature to BUILD."
+        },
+        {
+          "name": "Eraser (erase cell borders / merge by erasing)",
+          "ribbon_idMso": "TableEraser (VALID, label 'Eraser')",
+          "ground_truth": "Non-modal mode toggle; erasing a gridline between two cells merges them / removes that w:tcBorders segment. Geometry-driven; script by the underlying result (a merge â†’ w:gridSpan/w:vMerge, or a cleared border â†’ w:tcBorders val='nil').",
+          "clone_action": "CLONE-LACKS. No eraser mode.",
+          "expected_ooxml": "On erasing an internal boundary: w:gridSpan (horizontal) or w:vMerge (vertical) merge; on erasing an outer segment: w:tcBorders/<side> w:val='nil'.",
+          "clone_gap": "LIKELY-GAP â€” no eraser; feature to BUILD (though its effects overlap merge/border commands the clone already has)."
+        },
+        {
+          "name": "Insert Above (row)",
+          "ribbon_idMso": "TableRowsInsertAboveWord (VALID, label 'Insert Above')",
+          "ground_truth": "Non-modal. Oracle: caret in a cell, ExecuteMso('TableRowsInsertAboveWord') inserts a new w:tr before the caret's row (cloning the row's cell structure/props). Compare document.xml.",
+          "clone_action": "H.tblInsertAbove â†’ table.ts tableAddRow('above') â†’ editor.commands.addRowBefore().",
+          "expected_ooxml": "New <w:tr> inserted before caret row; each cell a <w:tc> with matching w:tcW/gridSpan structure; no special attrs.",
+          "clone_gap": "LIKELY-OK â€” implemented via fork addRowBefore; verify cloned cell width/props match Word's row-clone behavior byte-for-byte."
+        },
+        {
+          "name": "Insert Below (row)",
+          "ribbon_idMso": "TableRowsInsertBelowWord (VALID, label 'Insert Below')",
+          "ground_truth": "Non-modal. ExecuteMso('TableRowsInsertBelowWord') inserts w:tr after caret row.",
+          "clone_action": "H.tblInsertBelow â†’ tableAddRow('below') â†’ editor.commands.addRowAfter().",
+          "expected_ooxml": "New <w:tr> after caret row; cells mirror structure.",
+          "clone_gap": "LIKELY-OK â€” verify cloned-cell props parity."
+        },
+        {
+          "name": "Insert Left (column)",
+          "ribbon_idMso": "TableColumnsInsertLeft (VALID, label 'Insert Left')",
+          "ground_truth": "Non-modal. ExecuteMso('TableColumnsInsertLeft') adds a w:gridCol to w:tblGrid and one w:tc to every row, left of caret column; Word re-distributes widths. Compare tblGrid + per-row tc count.",
+          "clone_action": "H.tblInsertLeft â†’ tableAddColumn('left') â†’ editor.commands.addColumnBefore().",
+          "expected_ooxml": "New <w:gridCol w:w=...> in <w:tblGrid> + one <w:tc>(with w:tcW/gridCol) added per <w:tr> at the column index.",
+          "clone_gap": "LIKELY-GAP-RISK â€” verify the new gridCol WIDTH matches Word (Word narrows existing columns to fit; clone's addColumnBefore width policy may differ)."
+        },
+        {
+          "name": "Insert Right (column)",
+          "ribbon_idMso": "TableColumnsInsertRight (VALID, label 'Insert Right')",
+          "ground_truth": "Non-modal. ExecuteMso('TableColumnsInsertRight').",
+          "clone_action": "H.tblInsertRight â†’ tableAddColumn('right') â†’ editor.commands.addColumnAfter().",
+          "expected_ooxml": "New <w:gridCol> + per-row <w:tc> at right of caret column.",
+          "clone_gap": "LIKELY-GAP-RISK â€” same width-distribution parity check as Insert Left."
+        },
+        {
+          "name": "Insert Cells... (with shift-direction dialog)",
+          "ribbon_idMso": "TableInsertCellsDialog (VALID, label 'Insert Cells...') â€” UIA-DIALOG",
+          "ground_truth": "UIA-DIALOG: opens Insert Cells dialog with radios (Shift cells right / Shift cells down / Insert entire row / Insert entire column). Drive via UIA/SendKeys. The 'entire row/column' options equal the Insert Above/Left ops; the shift-right/down options do partial-row/column cell insertion.",
+          "clone_action": "CLONE-LACKS the partial shift-cells insert (only whole-row/whole-column insert exist).",
+          "expected_ooxml": "Shift-right: extra <w:tc> in the target row only (row now has more cells than gridCols â†’ layout jagged, Word writes the raw tc). Shift-down: new cell pushes a column's cells down. Entire row/col: same as Insert Above / Insert Left.",
+          "clone_gap": "LIKELY-GAP â€” no partial cell-insert; rarely used, but a control gap."
+        },
+        {
+          "name": "Delete Rows",
+          "ribbon_idMso": "TableRowsDelete (VALID, label 'Delete Rows')",
+          "ground_truth": "Non-modal. ExecuteMso('TableRowsDelete') removes the caret row(s). Compare document.xml (w:tr removed).",
+          "clone_action": "H.tblDeleteRow â†’ tableDeleteRow() â†’ editor.commands.deleteRow().",
+          "expected_ooxml": "Target <w:tr> element(s) removed.",
+          "clone_gap": "LIKELY-OK."
+        },
+        {
+          "name": "Delete Columns",
+          "ribbon_idMso": "TableColumnsDelete (VALID, label 'Delete Columns')",
+          "ground_truth": "Non-modal. ExecuteMso('TableColumnsDelete') removes the column's gridCol + the tc in each row.",
+          "clone_action": "H.tblDeleteColumn â†’ tableDeleteColumn() â†’ editor.commands.deleteColumn().",
+          "expected_ooxml": "<w:gridCol> removed from tblGrid + matching <w:tc> removed per row; remaining gridCol widths as Word leaves them.",
+          "clone_gap": "LIKELY-OK â€” verify remaining-column width handling matches Word."
+        },
+        {
+          "name": "Delete Table",
+          "ribbon_idMso": "TableDelete (VALID, label 'Delete Table')",
+          "ground_truth": "Non-modal. ExecuteMso('TableDelete') removes the whole w:tbl.",
+          "clone_action": "H.tblDeleteTable â†’ tableDeleteTable() â†’ editor.commands.deleteTable().",
+          "expected_ooxml": "Entire <w:tbl> removed (leaving the following paragraph).",
+          "clone_gap": "LIKELY-OK."
+        },
+        {
+          "name": "Delete Cells... (shift dialog)",
+          "ribbon_idMso": "UIA-DIALOG â€” the 'Delete Cells' dialog (Shift cells left / Shift cells up / Delete entire row / Delete entire column). Parent split idMso not resolved via GetLabelMso (TableCellsDelete* candidates all INVALID); drive the dialog through the Delete flyout via UIA.",
+          "ground_truth": "UIA-DIALOG: open Layout>Delete>Delete Cells, choose radio via UIA/SendKeys. Entire-row/column options == TableRowsDelete/TableColumnsDelete.",
+          "clone_action": "CLONE-LACKS partial shift-cells delete (only whole row/col/table delete exist).",
+          "expected_ooxml": "Shift-left: a <w:tc> removed from the target row only. Shift-up: a cell removed and column contents shift. Entire row/col: as Delete Rows/Columns.",
+          "clone_gap": "LIKELY-GAP â€” no partial cell-delete."
+        },
+        {
+          "name": "Merge Cells",
+          "ribbon_idMso": "MergeCells (VALID, label 'Merge Cells')",
+          "ground_truth": "Non-modal but REQUIRES a multi-cell Word selection. Oracle: select a rectangular Range spanning 2+ cells (Range(cellA.Range.Start, cellB.Range.End).Select or Table.Cell(r1,c1).Range extended), then ExecuteMso('MergeCells'). Horizontal span â†’ w:gridSpan on surviving cell; vertical span â†’ w:vMerge (restart on top, continue below). Compare tcPr.",
+          "clone_action": "H.tblMerge â†’ tableMerge() â†’ gated on isCellSelection then editor.commands.mergeCells() (prosemirror-tables). Toasts 'Select cells first' on a plain caret.",
+          "expected_ooxml": "Horizontal: surviving <w:tc>/w:tcPr/<w:gridSpan w:val='N'>; the merged-away cells removed. Vertical: top cell <w:vMerge w:val='restart'>, lower cells kept as empty <w:tc> with <w:vMerge/> (continue) and matching w:tcW.",
+          "clone_gap": "LIKELY-OK for horizontal gridSpan; GAP-RISK for vertical vMerge â€” confirm the fork emits w:vMerge restart/continue with the continuation cells preserved (PM merge can collapse rows differently than Word)."
+        },
+        {
+          "name": "Split Cells...",
+          "ribbon_idMso": "SplitCells (VALID, label 'Split Cells...') â€” UIA-DIALOG",
+          "ground_truth": "UIA-DIALOG: opens Split Cells dialog (Number of columns, Number of rows, 'Merge cells before split'). ExecuteMso opens it; fill via UIA/SendKeys. Result adds gridCols/rows and removes gridSpan/vMerge accordingly.",
+          "clone_action": "H.tblSplitCell â†’ tableSplitCell() â†’ editor.commands.splitCell(). NOTE: fork splitCell reverses a prior merge (removes gridSpan/vMerge); it does NOT prompt for an arbitrary NxM split like Word's dialog.",
+          "expected_ooxml": "Splitting a spanned cell: remove <w:gridSpan> / add back <w:gridCol>s + <w:tc>s; NxM split adds N-1 gridCols and M-1 rows of cells with proportional w:tcW.",
+          "clone_gap": "LIKELY-GAP â€” clone only un-merges (1-level splitCell); no NxM dialog (choose columns/rows). Feature to extend."
+        },
+        {
+          "name": "Split Table",
+          "ribbon_idMso": "TableSplitTable (VALID, label 'Split Table')",
+          "ground_truth": "Non-modal. ExecuteMso('TableSplitTable') splits the table above the caret row into two tables separated by an empty paragraph. Compare document.xml (two <w:tbl> + a <w:p> between).",
+          "clone_action": "H.tblSplitTable â†’ tableSplit() â†’ editor.commands.splitTableAtRow().",
+          "expected_ooxml": "Two <w:tbl> elements with an empty <w:p> between them; the second table begins at the caret row.",
+          "clone_gap": "LIKELY-OK â€” verify the separating paragraph + that the second table re-emits its own tblPr/tblGrid identically to Word."
+        },
+        {
+          "name": "AutoFit Contents",
+          "ribbon_idMso": "TableAutoFitContents (VALID, label 'AutoFit Contents')",
+          "ground_truth": "Non-modal. ExecuteMso('TableAutoFitContents'): columns shrink/grow to content; Word writes w:tblW type='auto' and w:tblLayout autofit (type usually absent) + content-fit gridCol widths. Compare tblPr + tblGrid.",
+          "clone_action": "H.tblAutoFit flyout â†’ tableAutoFit('contents') â†’ measures DOM content widths then editor.commands.autoFitTable('contents', 0, contentWidths).",
+          "expected_ooxml": "w:tblPr/w:tblW[w:type='auto'] + w:tblLayout autofit; w:tblGrid gridCol widths content-fit; per-cell w:tcW type='auto' or dxa content-fit.",
+          "clone_gap": "LIKELY-GAP-RISK â€” clone measures content via DOM reflow (its own metric), so gridCol widths will differ from Word's text-metric fit; the tblW type='auto'/layout flag should match but exact widths likely diverge (a measure-and-fix target)."
+        },
+        {
+          "name": "AutoFit Window",
+          "ribbon_idMso": "TableAutoFitWindow (VALID, label 'AutoFit Window')",
+          "ground_truth": "Non-modal. ExecuteMso('TableAutoFitWindow'): table stretches to the text column; Word writes w:tblW type='pct' w:w='5000' (100%) + per-column pct gridCol; w:tblLayout autofit. Compare tblPr/tblW + gridCol.",
+          "clone_action": "H.tblAutoFit flyout â†’ tableAutoFit('window') â†’ passes pageTextWidthPx() to editor.commands.autoFitTable('window', targetPx).",
+          "expected_ooxml": "w:tblPr/w:tblW[w:type='pct'][w:w='5000'] + w:tblLayout autofit; each w:gridCol proportional; per-cell w:tcW type='pct'.",
+          "clone_gap": "LIKELY-GAP-RISK â€” clone scales columns proportionally in px (real colwidth) rather than emitting pct 5000/pct per-col; confirm w:tblW pct='5000' and per-col pct vs clone's dxa scaling."
+        },
+        {
+          "name": "Fixed Column Width",
+          "ribbon_idMso": "TableAutoFitFixedColumnWidth (VALID, label 'Fixed Column Width')",
+          "ground_truth": "Non-modal. ExecuteMso('TableAutoFitFixedColumnWidth'): locks columns; Word writes w:tblLayout w:type='fixed' + w:tblW type='auto'. Compare tblPr.",
+          "clone_action": "H.tblAutoFit flyout â†’ tableAutoFit('fixed') â†’ editor.commands.autoFitTable('fixed').",
+          "expected_ooxml": "w:tblPr/w:tblLayout[w:type='fixed'] + w:tblW[w:type='auto']; gridCol widths frozen.",
+          "clone_gap": "LIKELY-OK â€” fork sets tableLayout:'fixed'; verify it emits w:tblLayout type='fixed' (not absent) and w:tblW auto."
+        },
+        {
+          "name": "Distribute Rows",
+          "ribbon_idMso": "TableRowsDistribute (VALID, label 'Distribute Rows')",
+          "ground_truth": "Non-modal. ExecuteMso('TableRowsDistribute') equalizes selected rows' heights; Word writes per-row w:trPr/w:trHeight w:val=<equal> w:hRule='atLeast'. Compare each trPr.",
+          "clone_action": "H.tblDistRows â†’ tableDistributeRows() â†’ editor.commands.distributeRowsEvenly().",
+          "expected_ooxml": "Each affected <w:tr>/w:trPr/<w:trHeight w:val='<equal twips>' w:hRule='atLeast'>.",
+          "clone_gap": "LIKELY-GAP-RISK â€” verify the equalized w:trHeight val + hRule='atLeast' match Word's computed equal height (clone's pxâ†’twips rounding may differ)."
+        },
+        {
+          "name": "Distribute Columns",
+          "ribbon_idMso": "TableColumnsDistribute (VALID, label 'Distribute Columns')",
+          "ground_truth": "Non-modal. ExecuteMso('TableColumnsDistribute') equalizes selected columns' widths; Word rewrites w:tblGrid gridCol widths equal + per-cell w:tcW. Compare tblGrid + tcW.",
+          "clone_action": "H.tblDistCols â†’ tableDistributeColumns() â†’ editor.commands.distributeColumnsEvenly().",
+          "expected_ooxml": "All affected <w:gridCol w:w='<equal>'> + each <w:tc>/w:tcPr/<w:tcW w:w='<equal>' w:type='dxa'>.",
+          "clone_gap": "LIKELY-GAP-RISK â€” equal-width twips rounding vs Word; confirm gridCol AND tcW both updated consistently."
+        },
+        {
+          "name": "Row Height (stepper)",
+          "ribbon_idMso": "TableRowHeight (VALID, label 'Height:') â€” spinner edit-box (not a plain button)",
+          "ground_truth": "The Height: spinner sets Rows.Height/HeightRule. ExecuteMso on an edit-box can't set a value; use COM Selection.Rows.Height = <points> (or the Table Properties Row tab via UIA). w:trHeight val=<twips> hRule: 'atLeast' (default) or 'exact'.",
+          "clone_action": "H.tblRowHeight â†’ sizeFly flyout with preset heights â†’ tableSetRowHeight(px, rule) â†’ editor.commands.setRowHeight(px, rule).",
+          "expected_ooxml": "<w:tr>/w:trPr/<w:trHeight w:val='<twips>' w:hRule='atLeast'|'exact'>.",
+          "clone_gap": "LIKELY-OK for the OOXML shape; GAP: clone offers only preset heights via a flyout, not a free numeric spinner nor the atLeast/exact rule choice from the ribbon (rule comes from Table Properties in Word)."
+        },
+        {
+          "name": "Column Width (stepper)",
+          "ribbon_idMso": "TableColumnWidth (VALID, label 'Width:') â€” spinner edit-box",
+          "ground_truth": "Sets Columns.PreferredWidth/Width. Use COM Selection.Columns.Width = <points> or Cells.PreferredWidth. w:tcW type='dxa' w:w=<twips> + gridCol.",
+          "clone_action": "H.tblColWidth â†’ sizeFly flyout presets â†’ tableSetCellWidth(px) â†’ editor.commands.setCellWidth(px).",
+          "expected_ooxml": "<w:tc>/w:tcPr/<w:tcW w:type='dxa' w:w='<twips>'> + corresponding <w:gridCol w:w='<twips>'>.",
+          "clone_gap": "LIKELY-GAP-RISK â€” clone's setCellWidth: confirm it ALSO syncs w:gridGrid gridCol (Word keeps tblGrid and tcW consistent); a tcW-only write diverges from the ribbon."
+        },
+        {
+          "name": "Cell alignment â€” 9-way grid (Align Top Left â€¦ Align Bottom Right)",
+          "ribbon_idMso": "TableCellAlignTopLeft, TableCellAlignTopCenter, TableCellAlignTopRight, TableCellAlignMiddleLeft (label 'Align Center Left'), TableCellAlignMiddleCenter (label 'Align Center'), TableCellAlignMiddleRight, TableCellAlignBottomLeft, TableCellAlignBottomCenter, TableCellAlignBottomRight â€” ALL VALID",
+          "ground_truth": "Non-modal, each a single ExecuteMso. e.g. ExecuteMso('TableCellAlignMiddleCenter'). Each sets BOTH the cell vertical alignment (w:tcPr/w:vAlign top|center|bottom) AND the horizontal paragraph alignment for the cell's paragraphs (w:pPr/w:jc left|center|right). Compare tcPr + each cell paragraph pPr.",
+          "clone_action": "PARTIAL. H.tblVAlignTop/Mid/Bottom â†’ tableSetCellVAlign('top'|'middle'|'bottom') â†’ setCellAttr('verticalAlign', v) â†’ w:vAlign. There is NO 9-way control and NO per-cell horizontal jc wired to these buttons (horizontal jc only via the generic paragraph-align Home buttons).",
+          "expected_ooxml": "w:tcPr/<w:vAlign w:val='top'|'center'|'bottom'> (note 'middle'â†’'center') AND for every paragraph in the cell w:pPr/<w:jc w:val='left'|'center'|'right'>.",
+          "clone_gap": "LIKELY-GAP â€” clone does the vertical third only (3 of 9) and does not couple horizontal jc into the same command; the 9-way alignment grid is a real gap. Also confirm 'middle'â†’w:vAlign 'center' mapping (prior 4d bug: 'middle' exported literally and Word ignored it â€” reportedly fixed; must re-verify)."
+        },
+        {
+          "name": "Text Direction (cycle horizontal â†’ rotate 270 â†’ rotate 90)",
+          "ribbon_idMso": "TextDirection (VALID, label 'Text Direction'); also TextDirectionGalleryWord / TextDirectionGallery (VALID, 'Text Direction')",
+          "ground_truth": "Non-modal. ExecuteMso('TextDirection') cycles the selected cell's text direction: horizontal (no w:textDirection) â†’ tbRl (rotate 270Â°) â†’ btLr (rotate 90Â°). Compare w:tcPr/w:textDirection across successive ExecuteMso calls.",
+          "clone_action": "H.tblTextDir â†’ tableSetTextDirection('tbRl') â†’ editor.commands.setTextDirection('tbRl'). Hard-coded to tbRl only (single toggle); fork accepts 'tbRl'|'btLr'|null but the ribbon never cycles to btLr or back to horizontal.",
+          "expected_ooxml": "w:tcPr/<w:textDirection w:val='tbRl'> (rotate 270) or <w:textDirection w:val='btLr'> (rotate 90); absent = horizontal.",
+          "clone_gap": "LIKELY-GAP â€” clone only sets tbRl; no 3-state cycle (btLr / back to horizontal). Fork supports both values so it's a wiring gap, not a fork gap."
+        },
+        {
+          "name": "Cell Margins (table default cell margins dialog)",
+          "ribbon_idMso": "TableOptionsDialog (VALID, label 'Cell Margins...') â€” UIA-DIALOG; per-cell override via TableCellOptions (VALID, 'Cell Options...')",
+          "ground_truth": "UIA-DIALOG: 'Cell Margins...' opens Table Options (default top/left/bottom/right cell margins + 'Allow spacing between cells' w:tblCellSpacing). It sets the TABLE-LEVEL default w:tblPr/w:tblCellMar. Per-cell override (Cell Options â†’ w:tcPr/w:tcMar). Drive via UIA/SendKeys or reproduce with COM Table.TopPadding/LeftPadding/BottomPadding/RightPadding (table default) and Cell.TopPadding etc.",
+          "clone_action": "PARTIAL. H.tblCellMargins â†’ tableSetCellMargins(m) â†’ editor.commands.setCellMargins(m). tableGetCellMargins reads a cell's cellMargins attr. This writes PER-CELL w:tcMar, i.e. it maps to Word's Cell Options (per-cell) â€” NOT the Cell Margins ribbon button which sets the TABLE default w:tblCellMar.",
+          "expected_ooxml": "Ribbon 'Cell Margins' â†’ w:tblPr/w:tblCellMar/(w:top,w:start/left,w:bottom,w:end/right)[w:w='<twips>' w:type='dxa'] (+ optional w:tblCellSpacing). Per-cell 'Cell Options' â†’ w:tcPr/w:tcMar/(same 4 sides).",
+          "clone_gap": "LIKELY-GAP â€” clone writes per-cell w:tcMar; the ribbon's Cell Margins button should write table-level w:tblCellMar (default for all cells). Semantic mismatch + missing 'allow spacing between cells' (w:tblCellSpacing)."
+        },
+        {
+          "name": "Sort (table rows by column keys)",
+          "ribbon_idMso": "SortDialogClassic (VALID, label 'Sort...') â€” UIA-DIALOG",
+          "ground_truth": "UIA-DIALOG: 'Sort...' opens the Sort dialog (Sort by column, Type: Text/Number/Date, Asc/Desc, up to 3 keys, 'Header row' toggle). In a table it REORDERS the <w:tr> rows by the chosen column key(s). No persistent sort attribute â€” the effect is the new row order in document.xml. Drive via UIA/SendKeys; verify by comparing the reordered <w:tr> sequence.",
+          "clone_action": "CLONE-LACKS for TABLES. H.sort â†’ sortDialog() â†’ WC.PM.sortParagraphs â€” this sorts PARAGRAPHS (block-level), keyed by tab-separated fields, NOT table rows by column. There is no table-row sort path.",
+          "expected_ooxml": "Reordered <w:tr> elements within <w:tbl> (rows permuted by key); cell contents unchanged; no new sort attribute.",
+          "clone_gap": "LIKELY-GAP â€” the clone's Sort only handles free paragraphs; sorting table rows by a column key is unimplemented (a real feature to BUILD, reusing the multi-key comparator but operating on <w:tr>)."
+        },
+        {
+          "name": "Repeat Header Rows",
+          "ribbon_idMso": "TableRepeatHeaderRows (VALID, label 'Repeat Header Rows')",
+          "ground_truth": "Non-modal. ExecuteMso('TableRepeatHeaderRows') marks the selected header row(s) to repeat at the top of each page: sets w:trPr/w:tblHeader on those rows ONLY (Word COM Rows(1).HeadingFormat = -1). It does NOT change cell types or styling. Compare the first row's trPr for <w:tblHeader/>.",
+          "clone_action": "PARTIAL / OVERREACH. H.tblHeaderRow â†’ tableToggleHeaderRow() â†’ editor.commands.toggleHeaderRow(): this sets tableRowProperties.repeatHeader (â†’ w:tblHeader, correct) BUT ALSO converts the row's cells to tableHeader (<th>) nodes â€” an HTML-header concept Word's Repeat Header Rows never does. It also toggles only the FIRST row via a caret, not the multi-row selection.",
+          "expected_ooxml": "<w:tr>/w:trPr/<w:tblHeader/> (bare element, w:val defaults to true) on each header row. NO cell-type/style change.",
+          "clone_gap": "LIKELY-GAP â€” correct w:tblHeader is emitted, but the extra tableHeader cell-type conversion is non-Word (adds unintended <w:tc> styling differences) and it only handles the first row. Should be a pure repeatHeader-on-selected-rows toggle."
+        },
+        {
+          "name": "Convert to Text",
+          "ribbon_idMso": "ConvertTableToText (VALID, label 'Convert to Text...') â€” UIA-DIALOG (delimiter prompt)",
+          "ground_truth": "UIA-DIALOG: opens 'Convert Table to Text' (separator: Paragraph marks / Tabs / Commas / Other). ExecuteMso opens it; choose delimiter via UIA/SendKeys, or reproduce with COM Table.ConvertToText(Separator:=wdSeparateByTabs). Result: the <w:tbl> is removed and replaced by paragraphs whose cell texts are joined by the delimiter.",
+          "clone_action": "H.tblToText â†’ tableToText('\\t') â†’ editor.commands.convertTableToText('\\t'). Hard-coded to TAB; no delimiter dialog.",
+          "expected_ooxml": "<w:tbl> removed; one <w:p> per former row with cell texts joined by the chosen delimiter (tab = literal U+0009 run text between cells; comma/paragraph variants differ).",
+          "clone_gap": "LIKELY-GAP â€” core convert works but clone hard-codes tab; missing the delimiter dialog (Paragraph/Comma/Other) so non-tab parity fails."
+        },
+        {
+          "name": "Convert Text to Table (Data group is Layout, but ConvertTextToTable lives on Insert; included for completeness)",
+          "ribbon_idMso": "ConvertTextToTable (VALID, label 'Convert Text to Table...') â€” UIA-DIALOG",
+          "ground_truth": "UIA-DIALOG: 'Convert Text to Table' (number of columns, AutoFit behavior, separator). Reproduce with COM Range.ConvertToTable(Separator, NumColumns...). Result: a new <w:tbl> from delimited text.",
+          "clone_action": "table.ts textToTable(d) â†’ editor.commands.convertTextToTable(d) (bridge verb exists; verify ribbon wiring under Insert>Table dropdown).",
+          "expected_ooxml": "New <w:tbl>/<w:tblGrid>(gridCol per column)/<w:tr>/<w:tc> built from the delimited paragraphs; w:tblStyle likely TableGrid, tblW auto.",
+          "clone_gap": "LIKELY-GAP-RISK â€” bridge exists but confirm delimiter + column-count + autofit options match Word's dialog; only default-delimiter path likely wired."
+        },
+        {
+          "name": "Formula (=SUM(ABOVE))",
+          "ribbon_idMso": "TableFormulaDialog (VALID, label 'Formula...') â€” UIA-DIALOG",
+          "ground_truth": "UIA-DIALOG: 'Formula...' opens the Formula dialog (Formula box prefilled '=SUM(ABOVE)', Number format, Paste function). ExecuteMso opens it; set via UIA/SendKeys, or reproduce with COM Selection.Cells or Cell.Range.Fields.Add(..., wdFieldFormula, '=SUM(ABOVE)'). Result: a field in the cell computing the sum, stored as a complex field (fldChar begin/instrText ' =SUM(ABOVE) '/fldChar end) with a cached numeric result run.",
+          "clone_action": "CLONE-LACKS. No formula command in bridge/table.ts or commands.js; the fork has field infrastructure (fldChar/instrText for TOC/PAGE etc.) but no table =formula path.",
+          "expected_ooxml": "In the target <w:tc> a paragraph run sequence: <w:r><w:fldChar w:fldCharType='begin'/></w:r><w:r><w:instrText xml:space='preserve'> =SUM(ABOVE) </w:instrText></w:r><w:r><w:fldChar w:fldCharType='separate'/></w:r><w:r><w:t>&lt;result&gt;</w:t></w:r><w:r><w:fldChar w:fldCharType='end'/></w:r> (simple form: <w:fldSimple w:instr=' =SUM(ABOVE) '>). Optional numeric-format switch in the instruction.",
+          "clone_gap": "LIKELY-GAP / CLONE-LACKS â€” table formula fields are entirely unimplemented; a real feature to BUILD (evaluate ABOVE/LEFT ranges + emit the field + cached result)."
+        }
+      ]
+    },
+    {
+      "group": "D â€” Cell-level hidden behaviors (per-cell borders/shading/vAlign/textDir/margins/width/merge/cnfStyle)",
+      "behaviors": [
+        {
+          "name": "Single-edge cell border with own style/weight/color carrying a themeColor link (e.g. right edge only, accent2)",
+          "ribbon_idMso": "UIA-DIALOG: BordersShadingDialog (valid, label 'Borders and Shading...') â†’ Borders tab. Pen galleries also valid: BorderColorPicker (label 'Pen Color', theme swatches), BorderStylesGallery. NOTE: single-edge toggles (Top/Bottom/Left/Right) are NOT ExecuteMso-addressable â€” BorderTop/BorderBottom/BorderLeft/BorderRight/BordersBottom etc. ALL return INVALID from GetLabelMso; only whole-set toggles resolve (BordersAll, BorderOutside, BorderNone, BorderInsideHorizontal, BorderInsideVertical). So a single edge with a specific weight+themeColor can only be produced via the dialog Preview.",
+          "ground_truth": "Prepare a 1-cell selection in a table, then UIA-drive BordersShadingDialog: Borders tab â†’ Setting=Custom, Style=single, Color dropdown â†’ pick a THEME swatch (Accent 2), Width=1Â½pt, click ONLY the Right edge in the Preview diagram, 'Apply to'=Cell, OK. Save .docx and diff document.xml. (COM alt: doc.Range cell.Borders(wdBorderRight).LineStyle/LineWidth reproduces geometry but CANNOT set themeColor â€” themeColor is OOXML-only, so the dialog+theme-swatch path is the only faithful themeColor source.)",
+          "clone_action": "H.tblBorders flyout (commands.js:208) â†’ p.tableSetCellBorders({...}) â†’ bridge tableSetCellBorders (table.ts:203) â†’ fork editor.commands.setCellBorders â†’ setCellAttr('borders', borders). The bridge passes the object VERBATIM, so a single key {right:{val:'single',color:'...',size:12,themeColor:'accent2'}} WOULD export (the tcBorders/right border-property-handler round-trips w:themeColor/w:themeTint/w:themeShade â€” utils.js createBorderPropertyHandler). BUT the UI only offers 'All Borders' (B()={val:'single',color:'000000',size:4} on all 4 sides) and 'No Border' ({}); no single-edge picker, no themeColor, no weight/style/color controls. CLONE-LACKS the authoring UI.",
+          "expected_ooxml": "<w:tcPr><w:tcBorders><w:right w:val=\"single\" w:sz=\"12\" w:space=\"0\" w:color=\"auto\" w:themeColor=\"accent2\"/></w:tcBorders></w:tcPr> (w:sz in eighths of a point; only the w:right child present â€” no top/left/bottom/insideH/insideV).",
+          "clone_gap": "LIKELY-GAP â€” export/import layer fully supports single-edge + themeColor (createBorderPropertyHandler round-trips w:themeColor/themeTint/themeShade; tcBorders translator has per-side children), but no clone UI/handler ever emits a single edge, a themeColor, or a chosen weight/style; renderCellBorderStyle also can't resolve a themeColor visually. Real authoring gap."
+        },
+        {
+          "name": "Diagonal cell borders (top-leftâ†’bottom-right and bottom-leftâ†’top-right)",
+          "ribbon_idMso": "BorderDiagonalDown (valid, 'Diagonal Down Border') / BorderDiagonalUp (valid, 'Diagonal Up Border') â€” ExecuteMso toggles them with the current Pen (BorderColorPicker + weight/style). Or via BordersShadingDialog Preview (the two diagonal buttons).",
+          "ground_truth": "Selection in a single cell â†’ set Pen via BorderColorPicker/BorderStylesGallery, then $w.CommandBars.ExecuteMso('BorderDiagonalDown') (and/or 'BorderDiagonalUp'). Save + diff. (COM alt: cell.Borders(wdBorderDiagonalDown /-7/ , wdBorderDiagonalUp /-8/).LineStyle=wdLineStyleSingle for geometry.)",
+          "clone_action": "CLONE-LACKS. No ribbon control and no bridge path sets diagonal borders. The cell 'borders' attr keys handled by createCellBorders/parseCellBorders are only top/right/bottom/left; tableSetCellBorders never receives tl2br/tr2bl keys.",
+          "expected_ooxml": "<w:tcPr><w:tcBorders><w:tl2br w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/><w:tr2bl w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/></w:tcBorders></w:tcPr>",
+          "clone_gap": "LIKELY-GAP for authoring; round-trips on IMPORT/EXPORT (tcBorders propertyTranslators include tl2brTranslator + tr2blTranslator via createBorderPropertyHandler), but nothing in the clone can SET diagonal borders on a cell."
+        },
+        {
+          "name": "Per-cell shading with a themeFill link (e.g. fill=accent1 tint)",
+          "ribbon_idMso": "ShadingColorPicker (valid, label 'Shading' â€” the Table Design Shading dropdown/color picker, includes theme swatches) â†’ UIA to pick a Theme Color swatch. (BordersShadingDialog â†’ Shading tab also produces themeFill.)",
+          "ground_truth": "Selection in a cell â†’ UIA open ShadingColorPicker gallery â†’ click a Theme Colors swatch (Accent 1, Lighter 40%). Save + diff. A theme swatch yields w:themeFill; an absolute 'More Colors' hex yields only w:fill (no theme link) â€” so pick the THEME swatch for the themeFill case.",
+          "clone_action": "H.tblShading flyout (commands.js:198) â†’ p.tableSetCellShading(hex) â†’ bridge tableSetCellShading (table.ts:107) â†’ fork setCellBackground â†’ setCellAttr('background', {color:hex}). Only 6 fixed literal hex swatches (#FFF2CCâ€¦) + transparent; export writes w:shd with fill=<hex> only. CLONE-LACKS themeFill (and themeFillTint/Shade).",
+          "expected_ooxml": "<w:tcPr><w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9E2F3\" w:themeFill=\"accent1\" w:themeFillTint=\"66\"/></w:tcPr> (themeFill/themeFillTint present; a plain absolute fill would be just w:fill=\"RRGGBB\" with no themeFill).",
+          "clone_gap": "LIKELY-GAP â€” EXPORT shd-translator supports w:fill/w:themeFill/w:themeFillShade/w:themeFillTint/w:color/w:val, but the clone's background attr is a bare hex so it never emits themeFill; the swatch palette is fixed literals. Absolute-hex shading = LIKELY-OK; themeFill = gap."
+        },
+        {
+          "name": "Per-cell vertical alignment (w:vAlign top/center/bottom)",
+          "ribbon_idMso": "Part of the 9-way Cell Alignment gallery (Table Layout â†’ Alignment). The vertical component maps to w:vAlign. Individual TableAlignment*/CellAlign* idMso are INVALID via GetLabelMso (gallery items, not standalone) â€” drive via the alignment gallery UIA or COM cell.Range.Cells(1).VerticalAlignment = wdCellAlignVerticalTop/Center/Bottom.",
+          "ground_truth": "Selection in a cell â†’ COM cell.VerticalAlignment = wdCellAlignVerticalCenter (1) [top=0, bottom=3], OR UIA the Alignment gallery middle-row buttons. Save + diff document.xml for w:vAlign.",
+          "clone_action": "H.tblVAlignTop/Mid/Bottom (commands.js:130-132) â†’ p.tableSetCellVAlign('top'|'middle'|'bottom') â†’ bridge tableSetCellVAlign (table.ts:117) â†’ setCellAttr('verticalAlign', v). Export maps CSS 'middle'â†’OOXML 'center' (translate-table-cell.js:172-178). Present.",
+          "expected_ooxml": "<w:tcPr><w:vAlign w:val=\"center\"/></w:tcPr> (also 'top' | 'bottom'). Note the clone stores 'middle' internally but exports 'center' â€” verified mapping.",
+          "clone_gap": "LIKELY-OK â€” top/middle/bottom all wired end-to-end with the correct middleâ†’center OOXML normalization. (The full 9-way alignment that ALSO sets paragraph justification is a Group C concern; the vertical w:vAlign leg here is covered.)"
+        },
+        {
+          "name": "Per-cell text direction (w:textDirection btLr / tbRl)",
+          "ribbon_idMso": "TextDirectionGallery (valid, label 'Text Direction') â€” the Table Layout button that cycles horizontal â†’ rotate-90 (tbRl) â†’ rotate-270 (btLr). ExecuteMso cycles one step; UIA the gallery for a specific direction. (COM alt: cell.Range.Orientation = wdTextOrientationUpward/Downward.)",
+          "ground_truth": "Selection in a cell â†’ ExecuteMso('TextDirectionGallery') N times, or UIA-pick the vertical variant. Save + diff for w:textDirection. tbRl = rotate text 90Â° (top-to-bottom, right-to-left); btLr = rotate 270Â°.",
+          "clone_action": "H.tblTextDir (commands.js:133) â†’ p.tableSetTextDirection('tbRl') â†’ bridge tableSetCellVAlign? no â†’ tableSetTextDirection (table.ts:239) â†’ fork setTextDirection('tbRl'). HARDCODED to 'tbRl' only; no UI path for btLr and no toggle-back to horizontal.",
+          "expected_ooxml": "<w:tcPr><w:textDirection w:val=\"tbRl\"/></w:tcPr> (or w:val=\"btLr\"). The fork textDirection-translator round-trips the raw w:val; the cell renderDOM maps tbRlâ†’writing-mode:vertical-rl, btLrâ†’vertical-lr.",
+          "clone_gap": "LIKELY-GAP â€” tbRl works end-to-end and round-trips, but the UI is hardwired to a single direction: btLr is unreachable and there is no clear-back-to-horizontal (Word's control is a 3-state cycle). Partial coverage."
+        },
+        {
+          "name": "Per-cell margins overriding the table default (w:tcMar top/left/bottom/right)",
+          "ribbon_idMso": "UIA-DIALOG: TableCellOptions (valid, label 'Cell Options...') â€” the Cell tab 'Options...' dialog, uncheck 'Same as the whole table', set the 4 side margins. (Also reachable via TablePropertiesDialog â†’ Cell â†’ Options.)",
+          "ground_truth": "Selection in a cell â†’ UIA open TableCellOptions â†’ uncheck 'Same as whole table' â†’ set Top/Bottom/Left/Right (inches) â†’ OK. Save + diff for the cell's w:tcMar. (COM alt: cell.TopPadding/BottomPadding/LeftPadding/RightPadding in points.)",
+          "clone_action": "H.tblCellMargins (commands.js:142) â†’ 4-side inches flyout, prefilled via p.tableGetCellMargins() (table.ts:180) â†’ p.tableSetCellMargins({top,right,bottom,left} in px) â†’ bridge tableSetCellMargins (table.ts:170) â†’ fork setCellMargins â†’ setCellAttr('cellMargins', {...px}). Export converts pxâ†’twips type=dxa (translate-table-cell.js:104-167), preserving logical (start/end) vs physical (left/right) source family. Present.",
+          "expected_ooxml": "<w:tcPr><w:tcMar><w:top w:w=\"120\" w:type=\"dxa\"/><w:left w:w=\"120\" w:type=\"dxa\"/><w:bottom w:w=\"120\" w:type=\"dxa\"/><w:right w:w=\"120\" w:type=\"dxa\"/></w:tcMar></w:tcPr> (w:w in twips; type=dxa).",
+          "clone_gap": "LIKELY-OK â€” full 4-side per-cell override wired end-to-end with prefill and pxâ†”twips(dxa) conversion, plus start/end vs left/right source-family preservation. (The 'Same as whole table' clear-to-inherit toggle and pct/nil margin types are not exposed â€” minor.)"
+        },
+        {
+          "name": "Cell preferred width type dxa / pct / auto (w:tcW)",
+          "ribbon_idMso": "TableColumnWidth (valid, label 'Width:' â€” the Cell Size width spinner) sets a fixed (dxa) preferred width. Percentage/auto types are only settable via TablePropertiesDialog (valid, 'Properties...') â†’ Cell tab â†’ 'Preferred width' Measure-in = Percent/Inches, or Table tab. UIA for pct/auto.",
+          "ground_truth": "Selection in a cell â†’ TableColumnWidth spinner for dxa; UIA TablePropertiesDialog â†’ Cell â†’ Preferred width + 'Measure in: Percent' for pct; clear preferred width for auto. Save + diff for w:tcW type. (COM alt: cell.PreferredWidthType = wdPreferredWidthPoints/Percent/Auto + cell.PreferredWidth.)",
+          "clone_action": "H (cell width Size flyout) â†’ p.tableSetCellWidth(px) â†’ bridge tableSetCellWidth (table.ts:158) â†’ fork setCellWidth (writes colwidth px). The cell has widthType (default 'auto') / widthUnit attrs but the bridge only pushes a pixel width; there is no UI to choose dxa-vs-pct-vs-auto type.",
+          "expected_ooxml": "<w:tcPr><w:tcW w:w=\"1440\" w:type=\"dxa\"/></w:tcPr>  â€” or w:type=\"pct\" (w:w in fiftieths of a percent, e.g. 2500 = 50%) â€” or w:type=\"auto\" w:w=\"0\".",
+          "clone_gap": "LIKELY-GAP â€” tcW-translator round-trips type=dxa/pct/auto on import/export, but the clone can only push a pixel width (effectively dxa geometry); it exposes no way to author a pct or auto preferred-width type, and widthType is not driven from the UI."
+        },
+        {
+          "name": "Horizontally merged cells â†’ w:gridSpan",
+          "ribbon_idMso": "MergeCells (valid, label 'Merge Cells' â€” enabled only with a multi-cell CellSelection spanning columns in one row).",
+          "ground_truth": "Select 2+ side-by-side cells in one row â†’ ExecuteMso('MergeCells') (or COM Selection.Cells.Merge). Save + diff: the surviving cell gains w:gridSpan; the consumed grid columns disappear from that row.",
+          "clone_action": "H.tblMerge (commands.js:122) â†’ p.tableMerge() â†’ bridge tableMerge (table.ts:79) â†’ requires a CellSelection (isCellSelection gate + toast) â†’ fork mergeCells (prosemirror-tables) â†’ sets colspan. Export: translate-table-cell.js:67-71 maps colspan>1 â†’ tableCellProperties.gridSpan â†’ <w:gridSpan>. Present.",
+          "expected_ooxml": "<w:tc><w:tcPr><w:gridSpan w:val=\"2\"/>â€¦</w:tcPr>â€¦</w:tc> (the merged cell); the row's other cells for the spanned columns are omitted; row w:trPr/tblGrid column count unchanged.",
+          "clone_gap": "LIKELY-OK â€” merge requires a CellSelection (bridge gates + toasts on a plain caret), colspanâ†’w:gridSpan export is implemented and unit-tested."
+        },
+        {
+          "name": "Vertically merged cells â†’ w:vMerge restart/continue",
+          "ribbon_idMso": "MergeCells (valid) â€” with a multi-row CellSelection in one column produces the vertical merge. SplitCells (valid, 'Split Cells...') is the inverse dialog.",
+          "ground_truth": "Select 2+ vertically stacked cells in one column â†’ ExecuteMso('MergeCells'). Save + diff: the top cell gets w:vMerge val=restart, each cell below gets an EMPTY placeholder w:tc with w:vMerge val=continue. (COM alt: Selection.Cells.Merge across rows.)",
+          "clone_action": "H.tblMerge â†’ p.tableMerge() â†’ fork mergeCells â†’ sets rowspan. Export: translate-table-cell.js:180-186 maps rowspan>1 â†’ vMerge='restart'; the tr-translator (tr-translator.js:135-147 pendingRowSpans) synthesizes the 'continue' placeholder cells in the rows below. Present.",
+          "expected_ooxml": "Top: <w:tc><w:tcPr><w:vMerge w:val=\"restart\"/>â€¦</w:tcPr>â€¦</w:tc>. Each continuation row: <w:tc><w:tcPr><w:vMerge w:val=\"continue\"/></w:tcPr><w:p/></w:tc>.",
+          "clone_gap": "LIKELY-OK â€” rowspanâ†’vMerge restart + synthesized continue placeholders are implemented (tr-translator pendingRowSpans) and covered by tr-translator tests."
+        },
+        {
+          "name": "12-bit conditional-format bitmask per row/cell (w:cnfStyle)",
+          "ribbon_idMso": "No direct control â€” cnfStyle is DERIVED by Word from the Table Style Options toggles (Header Row/Total Row/Banded Rows/First Column/Last Column/Banded Columns; the standalone TableStyleOptions* idMso are INVALID â€” they are gallery checkboxes) applied against the table's w:tblLook. Word writes per-row/per-cell w:cnfStyle to record which style conditions each row/cell participates in.",
+          "ground_truth": "Prepare a table with a table style, toggle the Table Style Options checkboxes (via UIA on the Design tab, or COM Table.Style + Table.ApplyStyleFirstColumn/HeadingRows/RowBands etc.). Save + diff: rows/cells acquire w:cnfStyle with the 12-bit mask (e.g. first row = 100000000000).",
+          "clone_action": "CLONE-LACKS direct authoring. The clone toggles header/first/banded conditions at the TABLE level (tblLook + w:tblStylePr baked look via setTableStyle / toggleHeaderRow/Column) but never writes a per-row/per-cell w:cnfStyle. The cnfStyle attr exists on the model and round-trips, but no clone command sets it.",
+          "expected_ooxml": "Row: <w:trPr><w:cnfStyle w:val=\"100000000000\"/></w:trPr> and/or Cell: <w:tcPr><w:cnfStyle w:val=\"001000000000\" w:firstColumn=\"1\"/></w:tcPr>. The 12-bit ST_Cnf order: firstRow,lastRow,firstColumn,lastColumn,oddVBand,evenVBand,oddHBand,evenHBand,firstRowFirstColumn,firstRowLastColumn,lastRowFirstColumn,lastRowLastColumn (cnfStyle-translator also emits the named boolean attrs).",
+          "clone_gap": "LIKELY-GAP â€” cnfStyle-translator fully round-trips (importâ†’attrâ†’export) both the w:val bitmask and the named boolean attrs, but the clone never AUTHORS per-row/cell cnfStyle; it relies on table-level tblLook/style options, so a byte-diff against Word (which emits explicit cnfStyle on every conditionally-formatted row/cell) will diverge."
+        }
+      ]
+    },
+    {
+      "group": "E â€” POSITIONING / RELOCATE (floating table tblpPr + table alignment/indent)",
+      "behaviors": [
+        {
+          "name": "Table alignment left/center/right (INLINE table, w:jc)",
+          "ribbon_idMso": "NO single ExecuteMso idMso â€” Word exposes this only in Table Properties dialog (TablePropertiesDialog > Table tab > Alignment) and, when the whole table is selected, via the Home paragraph-align buttons (AlignLeft/AlignCenter/AlignRight) which Word redirects to Rows.Alignment. Faithful non-modal capture = COM property, not ExecuteMso.",
+          "ground_truth": "COM, reproduces the ribbon like Tables.Add+Style did: sel = tbl.Range; tbl.Rows.Alignment = wdAlignRowLeft(0)/wdAlignRowCenter(1)/wdAlignRowRight(2); save; read w:tblPr/w:jc. (Rows.Alignment is exactly what the dialog's Alignment radio writes for a non-floating table.)",
+          "clone_action": "HAVE IT. Ribbon handlers H.tblAlignLeft/tblAlignCenter/tblAlignRight (commands.js:134-136) -> WC.PM table.tableSetAlignment(a) (bridge/table.ts:146) -> editor.commands.setTableAlignment(a) -> fork writes tableProperties.justification -> w:jc (jc emitted in CORRECT tblPr order per tblPr-translator ELEMENT_ORDER).",
+          "expected_ooxml": "w:tblPr/w:jc[w:val=left|center|right], positioned after w:tblStyle/w:tblpPr/w:tblW and before w:tblInd/w:tblBorders/w:tblLook per CT_TblPr order.",
+          "clone_gap": "LIKELY-OK â€” setTableAlignment exists and dual-writes tableProperties.justification; order is guarded. Verify w:jc val strings match Word (left/center/right) and that a floating table forces jc-vs-tblpX precedence like Word."
+        },
+        {
+          "name": "Table left indent from margin (INLINE table, w:tblInd)",
+          "ribbon_idMso": "NO ExecuteMso idMso â€” only in TablePropertiesDialog > Table tab > 'Indent from left' (enabled only when Alignment=Left). Faithful capture via COM property.",
+          "ground_truth": "COM: tbl.Rows.LeftIndent = InchesToPoints(x)  (or tbl.Rows.SetLeftIndent LeftIndent, RulerStyle); save; read w:tblPr/w:tblInd. Rows.LeftIndent is exactly the dialog's 'Indent from left' field.",
+          "clone_action": "HAVE IT (bridge). WC.PM table.tableSetIndent(px) (bridge/table.ts:152) -> editor.commands.setTableIndent(px) -> tableProperties.tableIndent{value,type:dxa} -> w:tblInd. NOTE: no dedicated ribbon control wired to tableSetIndent yet (only align buttons are wired) â€” indent is reachable only programmatically.",
+          "expected_ooxml": "w:tblPr/w:tblInd[w:w=<twips>][w:type=dxa] (e.g. 0.13\" -> w:w=180). Ordered after w:jc, before w:tblBorders.",
+          "clone_gap": "LIKELY-OK at the export layer (translator + setTableIndent exist), LIKELY-GAP at the UI layer (no ribbon/dialog control invokes it). Also verify px->twips conversion matches Word exactly and that indent only applies for Left alignment."
+        },
+        {
+          "name": "Make table FLOATING / Text wrapping = Around (creates w:tblpPr)",
+          "ribbon_idMso": "UIA-DIALOG â€” TablePropertiesDialog (ExecuteMso 'TablePropertiesDialog' opens it) > 'Table' tab > 'Text wrapping' = Around. Modal: ExecuteMso only OPENS it; setting the radio needs UIA/SendKeys (select the 'Around' thumbnail, OK). There is also a COM shortcut below.",
+          "ground_truth": "COM (faithful, non-modal, reproduces the dialog): tbl.Rows.WrapAroundText = True. This flips the table to floating and Word synthesizes a default tblpPr. Then save + read w:tblpPr. Word's defaults on first Around: leftFromText=180, rightFromText=180, topFromText=0, bottomFromText=0 (twips), horzAnchor=margin (tblpXSpec anchoring) / vertAnchor=page (or text), and an initial tblpX/tblpY snapshot of the current position. Confirm exact defaults from the read-back.",
+          "clone_action": "CLONE-LACKS â€” no command sets floatingTableProperties. The fork DOCUMENTS the attr (extensions/table/table.js:47-118 FloatingTableProperties typedef, node attr 'tableProperties.floatingTableProperties') and IMPORTS/EXPORTS it (v3 handler w/tblpPr/tblpPr-translator.js sdNodeOrKeyName='floatingTableProperties'; tblPr ELEMENT_ORDER includes w:tblpPr; layout-adapter converters/table.ts maps tblpPr -> TableAnchor for rendering) â€” but there is NO setTableFloating/setFloatingTableProperties command (table.js addCommands has only setCellAttr/setCellSelection/setCellBackground/setTableStyle/setTableAlignment/setTableIndent/setCellWidth/setRowHeight/setCellMargins/setCellBorders/setTextDirection) and NO ribbon control / Table Properties dialog in the clone.",
+          "expected_ooxml": "w:tblPr/w:tblpPr[w:leftFromText=180][w:rightFromText=180][w:topFromText=0][w:bottomFromText=0][w:horzAnchor=margin][w:vertAnchor=page][w:tblpX=<twips>][w:tblpY=<twips>] as the FIRST child of tblPr (before w:tblW/w:jc per CT_TblPr). Often accompanied by w:tblOverlap[w:val=never].",
+          "clone_gap": "CLONE-LACKS â€” round-trip preserves an imported floating table, but authoring one is a real gap: need (a) a setTableFloating/setFloatingTableProperties command writing tableProperties.floatingTableProperties, (b) a Table Properties dialog or wrap toggle, (c) tblpPr emitted first in tblPr order (translator already orders it)."
+        },
+        {
+          "name": "Absolute table positioning (tblpX/tblpY + horzAnchor/vertAnchor)",
+          "ribbon_idMso": "UIA-DIALOG â€” TablePropertiesDialog > Table tab > 'Positioning...' button > Horizontal 'Position'+'Relative to', Vertical 'Position'+'Relative to'. Modal grandchild dialog; ExecuteMso can't reach the sub-dialog fields. COM shortcut below.",
+          "ground_truth": "COM: tbl.Rows.WrapAroundText=True; tbl.Rows.RelativeHorizontalPosition = wdRelativeHorizontalPositionMargin(0)/Page(1)/Column(2); tbl.Rows.HorizontalPosition = InchesToPoints(x); tbl.Rows.RelativeVerticalPosition = wdRelativeVerticalPositionMargin(0)/Page(1)/Paragraph(2); tbl.Rows.VerticalPosition = InchesToPoints(y). Save; read tblpX/tblpY (twips = pts*20) + horzAnchor/vertAnchor. These COM props are exactly the Positioning dialog's four numeric/relative-to fields.",
+          "clone_action": "CLONE-LACKS â€” same as above; no command sets tblpX/tblpY/horzAnchor/vertAnchor. (Import path DOES read them: converters/table.ts twipsToPx(tblpX)->anchor.offsetH, mapHorzAnchor/mapVertAnchor margin|page|text.)",
+          "expected_ooxml": "w:tblpPr[w:tblpX=<twips>][w:tblpY=<twips>][w:horzAnchor=margin|page|text][w:vertAnchor=margin|page|text]. tblpX/tblpY are absolute from the anchor origin.",
+          "clone_gap": "CLONE-LACKS â€” no authoring path for absolute coordinates or anchors; needs a Positioning dialog + a command mapping into floatingTableProperties.{tblpX,tblpY,horzAnchor,vertAnchor}."
+        },
+        {
+          "name": "Relative table positioning (tblpXSpec/tblpYSpec = left|center|right|inside|outside / top|center|bottom|inside|outside)",
+          "ribbon_idMso": "UIA-DIALOG â€” TablePropertiesDialog > Positioning: choosing a NAMED position (Left/Center/Right/Inside/Outside in the Horizontal 'Position' combo, or Top/Center/Bottom/Inside/Outside in Vertical) instead of a number writes the *Spec attrs.",
+          "ground_truth": "COM: HorizontalPosition / VerticalPosition accept the named constants wdTableRelativePositionLeft/Center/Right/Inside/Outside (e.g. tbl.Rows.HorizontalPosition = wdTableRelativePositionCenter). Save; read w:tblpPr/@tblpXSpec / @tblpYSpec (these SUPERSEDE tblpX/tblpY per the OOXML spec and per fork docs).",
+          "clone_action": "CLONE-LACKS â€” no command; import supports it (converters/table.ts: floatingProps.tblpXSpec -> anchor.alignH, tblpYSpec -> anchor.alignV; tblpPr-translator carries w:tblpXSpec/w:tblpYSpec as attributeHandlers).",
+          "expected_ooxml": "w:tblpPr[w:tblpXSpec=left|center|right|inside|outside][w:tblpYSpec=inline|top|center|bottom|inside|outside] (+ horzAnchor/vertAnchor). Spec attrs take precedence over tblpX/tblpY.",
+          "clone_gap": "CLONE-LACKS â€” authoring gap only; the translator + layout-adapter already understand the *Spec attrs on import."
+        },
+        {
+          "name": "Distance from surrounding text (leftFromText/rightFromText/topFromText/bottomFromText)",
+          "ribbon_idMso": "UIA-DIALOG â€” TablePropertiesDialog > Positioning > 'Distance from surrounding text' Top/Bottom/Left/Right spinners.",
+          "ground_truth": "COM: tbl.Rows.DistanceLeft/DistanceRight/DistanceTop/DistanceBottom = InchesToPoints(d) (points; OOXML stores twips). Save; read w:tblpPr/@leftFromText etc. Word default when Around is first applied: Left=Right=0.13\" (180 twips), Top=Bottom=0.",
+          "clone_action": "CLONE-LACKS â€” no command; tblpPr-translator carries w:leftFromText/w:rightFromText/w:topFromText/w:bottomFromText (measurement handlers) on import/export, but nothing writes them from the UI.",
+          "expected_ooxml": "w:tblpPr[w:leftFromText=180][w:rightFromText=180][w:topFromText=0][w:bottomFromText=0] (twips).",
+          "clone_gap": "CLONE-LACKS â€” authoring gap; round-trip preserves imported values."
+        },
+        {
+          "name": "Move-handle DRAG to reposition a floating table (the four-arrow handle at the table's top-left)",
+          "ribbon_idMso": "NONE â€” pure mouse interaction, not an idMso and not a dialog. In Word, hovering a table shows the âŠž move handle; dragging it (with the table already floating, or it auto-floats) rewrites tblpX/tblpY (and typically switches horzAnchor/vertAnchor to page or margin) live.",
+          "ground_truth": "No ExecuteMso. Reproduce the END STATE via COM (WrapAroundText=True + HorizontalPosition/VerticalPosition + Relative*Position as in the absolute-positioning row) and diff the resulting tblpPr â€” i.e. treat the drag as 'set absolute tblpX/tblpY'. To capture a specific drag geometry, script the COM position that matches the drop point, then read w:tblpPr.",
+          "clone_action": "CLONE-LACKS â€” the fork's Table extension has NO NodeView move handle for repositioning (dragHandle code exists only for structured-content blocks, extensions/structured-content/*, NOT for tables). No pointer-drag pipeline writes floatingTableProperties. (Contrast: floating IMAGES have a full drag/position pipeline in bridge/insert.ts â€” tables do not.)",
+          "expected_ooxml": "Same as absolute positioning: updated w:tblpPr/@tblpX/@tblpY (twips) + horzAnchor/vertAnchor reflecting the drop anchor. First child of w:tblPr.",
+          "clone_gap": "CLONE-LACKS â€” biggest gap in Group E: needs (1) auto-float-on-drag, (2) a table NodeView move handle + pointer pipeline (mirror the image floating pipeline), (3) write into floatingTableProperties, (4) in-app paged repaint (layout-adapter already renders TableAnchor, so display side is partially there)."
+        },
+        {
+          "name": "Move-with-text (vertAnchor=text) + Allow overlap (w:tblOverlap)",
+          "ribbon_idMso": "UIA-DIALOG â€” TablePropertiesDialog > Positioning > checkboxes 'Move with text' and 'Allow overlap'.",
+          "ground_truth": "COM: tbl.Rows.AllowOverlap = True|False -> w:tblOverlap[w:val=overlap|never]; 'Move with text' toggles vertAnchor between text (move-with-text ON) and page/margin (OFF) â€” set via RelativeVerticalPosition=wdRelativeVerticalPositionParagraph for text-anchored. Save; read w:tblpPr/@vertAnchor + w:tblOverlap.",
+          "clone_action": "CLONE-LACKS â€” no command; w:tblOverlap is NOT even in the tblPr ELEMENT_ORDER handler set for authoring (order list mentions 'w:tblOverlap' position but no encoder writes it), and vertAnchor is import-only.",
+          "expected_ooxml": "w:tblPr/w:tblOverlap[w:val=never|overlap] (child after w:tblpPr) + w:tblpPr[@vertAnchor=text] for move-with-text.",
+          "clone_gap": "CLONE-LACKS â€” authoring gap for both toggles; verify w:tblOverlap import round-trips (translator coverage for tblOverlap is thinner than tblpPr)."
+        }
+      ]
+    },
+    {
+      "group": "F â€” HIDDEN DEFAULTS (insert-time OOXML a fresh ribbon table carries unasked)",
+      "behaviors": [
+        {
+          "name": "Auto-apply the TableGrid style (w:tblStyle)",
+          "ribbon_idMso": "N/A â€” byproduct of Insert (idMso TableInsertDialog / the Insert Table gallery); COM oracle = Tables.Add + Range.Rows/Style='Table Grid'",
+          "ground_truth": "In the ribbon oracle: Tables.Add(range, rows, cols) then set the table's Style to 'Table Grid' (matches the ribbon Insert which always applies TableGrid). Read back: table.Style.NameLocal == 'Table Grid'. In OOXML the saved file shows <w:tblStyle w:val=\"TableGrid\"/> as the FIRST child of <w:tblPr>.",
+          "clone_action": "bridge/table.ts insertTable -> fork insertTable -> normalizeNewTableAttrs() resolves TABLE_STYLE_ID_TABLE_GRID (source flips 'none'->'builtin-fallback'); tableProperties.tableStyleId='TableGrid'; exported by tblStyle-translator via TBLPR_XML_ORDER (tblStyle is first).",
+          "expected_ooxml": "<w:tblPr><w:tblStyle w:val=\"TableGrid\"/> ... </w:tblPr>",
+          "clone_gap": "LIKELY-OK â€” normalizeNewTableAttrs bakes tableStyleId='TableGrid' and TBLPR_XML_ORDER puts w:tblStyle first; already VERIFIED in the prompt (tblStyle=TableGrid)."
+        },
+        {
+          "name": "tblW auto â€” the table preferred-width element (w:tblW w:w=\"0\" w:type=\"auto\")",
+          "ribbon_idMso": "N/A â€” Insert byproduct; oracle reads the saved OOXML (COM Table.PreferredWidthType == wdPreferredWidthAuto (1))",
+          "ground_truth": "Author a 3x3 via ribbon Insert, save, unzip: <w:tblPr> always contains <w:tblW w:w=\"0\" w:type=\"auto\"/> immediately after <w:tblStyle>. COM cross-check: tbl.PreferredWidthType.",
+          "clone_action": "NONE â€” fork insertTable builds tableProperties = { tableStyleId, tblLook } only (normalizeNewTableAttrs, non-'none' branch). No tableWidth key, so the tblW-translator in tblPr propertyTranslators has nothing to decode.",
+          "expected_ooxml": "<w:tblW w:w=\"0\" w:type=\"auto\"/> (second child of w:tblPr, per TBLPR_XML_ORDER position between tblStyle and tblLook)",
+          "clone_gap": "CLONE-LACKS â€” confirmed gap: no w:tblW emitted at all. FIX: normalizeNewTableAttrs must add tableProperties.tableWidth = { value: 0, type: 'auto' } so the tblW translator writes <w:tblW w:w=\"0\" w:type=\"auto\"/>. (Prompt already flagged 'missing tblW auto'.)"
+        },
+        {
+          "name": "tblLook bitmask w:val plus the 6 explicit bit attributes (default 0x04A0)",
+          "ribbon_idMso": "N/A â€” Insert byproduct (the 6 Table Style Options toggles read/write these bits post-insert)",
+          "ground_truth": "Fresh ribbon table saves <w:tblLook w:val=\"04A0\" w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/>. 0x04A0 = firstRow(0x20)|firstColumn(0x80)|noVBand(0x400).",
+          "clone_action": "normalizeNewTableAttrs sets tableProperties.tblLook = {...DEFAULT_TBL_LOOK} (firstRow:true, firstColumn:true, noVBand:true, rest false). tblLook-translator.decode maps each to w:firstRow/w:firstColumn/... via booleanToString ('1'/'0'). It does NOT synthesize w:val from the flags.",
+          "expected_ooxml": "<w:tblLook w:val=\"04A0\" w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"1\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/>",
+          "clone_gap": "LIKELY-GAP â€” the 6 bit attrs are emitted with correct '1'/'0' values (booleanToString), but w:val=\"04A0\" is MISSING. FIX in tblLook-translator.decode: compute the hex bitmask from the flags (tblLookBitmask already defines the masks) and emit w:val. (Prompt confirmed 'tblLook missing w:val'.)"
+        },
+        {
+          "name": "Explicit per-column gridCol widths â€” Word's AutoFit-to-window UNEVEN split (e.g. 3116/3117/3117)",
+          "ribbon_idMso": "N/A â€” Insert byproduct; the equivalent ribbon op is TableAutoFitWindow (VALID idMso)",
+          "ground_truth": "Fresh ribbon 3-col table on a 8.5in/1in-margins page = 6.5in content = 9360 twips content width, split as 3116 + 3117 + 3117 (remainder distributed to the trailing columns; not equal). Read from the saved <w:tblGrid>. COM: Table.Columns(i).Width per column.",
+          "clone_action": "bridge/table.ts insertTable -> fork insertTable -> computeColumnWidths(editor, cols) = Array(cols).fill(Math.floor(availableWidth_px / cols)); createTable stamps each cell colwidth=[thatPx]; tblGrid-translator.decode -> pixelsToTwips per column. All columns EQUAL and floored (remainder dropped).",
+          "expected_ooxml": "<w:tblGrid><w:gridCol w:w=\"3116\"/><w:gridCol w:w=\"3117\"/><w:gridCol w:w=\"3117\"/></w:tblGrid> (sum == full content-width twips; uneven remainder split)",
+          "clone_gap": "LIKELY-GAP â€” clone emits EQUAL px-floored widths converted to twips (e.g. 208px*15=3120 each => 9360 sum but 3120/3120/3120, and rounding differs from Word's twips-native 3116/3117/3117). FIX: compute widths in TWIPS from content width and distribute the remainder to the last columns Word-style, not px-floor-equal. (Prompt confirmed 'gridCol equal-vs-autofit'.)"
+        },
+        {
+          "name": "Per-cell tcW preferred width (w:tcW w:w=\"<coltwips>\" w:type=\"dxa\") in every w:tcPr",
+          "ribbon_idMso": "N/A â€” Insert byproduct",
+          "ground_truth": "Each <w:tc> in a fresh ribbon table carries <w:tcPr><w:tcW w:w=\"3116\" w:type=\"dxa\"/></w:tcPr> matching that column's gridCol width. Save+unzip; COM: Cell.PreferredWidthType==wdPreferredWidthPoints & Cell.Width.",
+          "clone_action": "translate-table-cell.js: from cell.attrs.colwidth (px) it sets tableCellProperties.cellWidth = { value: pixelsToTwips(sum), type: 'dxa' } then tcPr-translator writes <w:tcW>. resolvedWidthType defaults to 'dxa'.",
+          "expected_ooxml": "<w:tc><w:tcPr><w:tcW w:w=\"3116\" w:type=\"dxa\"/></w:tcPr>...</w:tc>",
+          "clone_gap": "LIKELY-OK for STRUCTURE (tcW dxa is emitted per cell), but the WIDTH VALUE inherits the equal-split/rounding divergence from computeColumnWidths â€” fixing the gridCol split fixes tcW for free (same colwidth source)."
+        },
+        {
+          "name": "Default cell margins â€” 108-twip left/right, 0 top/bottom (from the TableNormal style's w:tblCellMar, NOT emitted inline)",
+          "ribbon_idMso": "N/A â€” Insert byproduct (inherited from the TableNormal base style, TABLE_FALLBACK_CELL_PADDING = {top:0,bottom:0,left:108,right:108})",
+          "ground_truth": "Word's default table cell padding (0/108/0/108 dxa) is inherited from the TableNormal (Normal Table, w:default=1) style in styles.xml: <w:style w:type=\"table\" w:default=\"1\" w:styleId=\"TableNormal\"><w:tblPr><w:tblInd w:w=\"0\" w:type=\"dxa\"/><w:tblCellMar><w:top w:w=\"0\" .../><w:left w:w=\"108\" .../><w:bottom w:w=\"0\" .../><w:right w:w=\"108\" .../></w:tblCellMar></w:tblPr></w:style>. NOT written per-table in document.xml.",
+          "clone_action": "For a STYLED table (source != 'none') normalizeNewTableAttrs does NOT add inline cellMargins â€” it relies on the base TableNormal style. The 'none' branch (no style catalog) DOES add inline 0/0/108/108 cellMargins + fallback borders. TableNormal itself is NOT in DEFAULT_LINKED_STYLES (addDefaultStylesIfMissing mints Normal/Title/.../TableGrid/GridTable4-Accent1 but NOT TableNormal).",
+          "expected_ooxml": "styles.xml: <w:style w:type=\"table\" w:default=\"1\" w:styleId=\"TableNormal\">...<w:tblCellMar><w:top w:w=\"0\" w:type=\"dxa\"/><w:left w:w=\"108\" w:type=\"dxa\"/><w:bottom w:w=\"0\" w:type=\"dxa\"/><w:right w:w=\"108\" w:type=\"dxa\"/></w:tblCellMar>... (no inline w:tblCellMar in document.xml)",
+          "clone_gap": "LIKELY-GAP (styles.xml risk) â€” TableNormal is NOT minted by addDefaultStylesIfMissing, so if the clone's blank-doc template styles.xml lacks it, the 108-twip margins have no source AND TableGrid's basedOn='TableNormal' dangles. VERIFY the blank template ships TableNormal with the 108-dxa tblCellMar; if not, mint it. This diverges styles.xml against Word."
+        },
+        {
+          "name": "TableGrid style definition carries a pPr spacing block (w:spacing w:after=\"0\" w:line=\"240\" w:lineRule=\"auto\")",
+          "ribbon_idMso": "N/A â€” styles.xml default that ships with any doc containing a TableGrid table",
+          "ground_truth": "Word's real TableGrid style: <w:style w:type=\"table\" w:styleId=\"TableGrid\"><w:name w:val=\"Table Grid\"/><w:basedOn w:val=\"TableNormal\"/><w:uiPriority w:val=\"39\"/><w:pPr><w:spacing w:after=\"0\" w:line=\"240\" w:lineRule=\"auto\"/></w:pPr><w:tblPr><w:tblBorders>...6 sides...</w:tblBorders></w:tblPr></w:style>. Confirm by unzip of any Word-authored table doc.",
+          "clone_action": "exporter-docx-defs.js DEFAULT_LINKED_STYLES.TableGrid â€” has w:name, w:basedOn=TableNormal, w:uiPriority=39, w:rsid, and w:tblPr>w:tblBorders (6 sides single sz=4 space=0 color=auto). It has NO <w:pPr><w:spacing.../>.",
+          "expected_ooxml": "Add to the TableGrid style: <w:pPr><w:spacing w:after=\"0\" w:line=\"240\" w:lineRule=\"auto\"/></w:pPr> before <w:tblPr>.",
+          "clone_gap": "LIKELY-GAP â€” confirmed: minted TableGrid MISSING the pPr/spacing block (prompt: 'TableGrid style pPr spacing'). FIX: add the pPr/spacing element to DEFAULT_LINKED_STYLES.TableGrid in exporter-docx-defs.js. Also note the extra w:rsid the clone emits (w:val='000A29C3') is a fixed literal â€” may or may not match Word's rsid (usually normalized/ignored by the differ)."
+        },
+        {
+          "name": "TableGrid style tblBorders (6 sides single sz=4 space=0 color=auto)",
+          "ribbon_idMso": "N/A â€” styles.xml default",
+          "ground_truth": "TableGrid style's <w:tblPr><w:tblBorders> defines top/left/bottom/right/insideH/insideV each single sz=4 space=0 color=auto. This is what visually renders the grid lines.",
+          "clone_action": "exporter-docx-defs.js DEFAULT_LINKED_STYLES.TableGrid.elements[w:tblPr][w:tblBorders] emits all 6 sides single/sz=4/space=0/color=auto. normalizeNewTableAttrs also bakes px borders onto the table node via resolveTableStyleVisuals (no live style cascade in this fork).",
+          "expected_ooxml": "<w:tblPr><w:tblBorders><w:top w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/> ...left,bottom,right,insideH,insideV... </w:tblBorders></w:tblPr>",
+          "clone_gap": "LIKELY-OK â€” the 6-side single/sz=4 tblBorders block is present in the minted style and matches Word. WATCH: the baked inline px borders on the table node could double-emit borders into document.xml (a per-table w:tblBorders) that Word does NOT write inline â€” verify document.xml has no redundant inline tblBorders."
+        },
+        {
+          "name": "Empty cell content â€” each cell holds exactly one empty paragraph (bare <w:p/>, no pStyle)",
+          "ribbon_idMso": "N/A â€” Insert byproduct",
+          "ground_truth": "Every fresh cell contains one empty <w:p> with no <w:pStyle> and (in modern Word) a w14:paraId/w14:textId. No run, no rPr forced. The cell paragraph inherits Normal + the TableGrid pPr spacing.",
+          "clone_action": "createCell -> createAndFill on the tableCell type yields one empty paragraph; exporter writes <w:p> (paraId identity attrs added). No pStyle stamped.",
+          "expected_ooxml": "<w:tc>...<w:p w14:paraId=\"...\" w14:textId=\"...\"/></w:tc>",
+          "clone_gap": "LIKELY-OK â€” clone emits a single empty paragraph per cell, no spurious pStyle. Identity attrs (paraId/textId) are id-normalized by the differ. Confirm no stray <w:pPr>/<w:rPr> is emitted into the empty cell paragraph."
+        },
+        {
+          "name": "No trPr on plain (non-header) rows; tblGrid present; correct tblPr child ORDER",
+          "ribbon_idMso": "N/A â€” Insert byproduct (ribbon default Insert Table = NO header row)",
+          "ground_truth": "Default ribbon Insert makes NO header row, so each <w:tr> has no <w:trPr> (except identity). document.xml order: <w:tbl> = <w:tblPr>(tblStyle,tblW,tblLook) then <w:tblGrid>(gridCol*) then rows. CT_TblPrBase requires the fixed child sequence.",
+          "clone_action": "insertTable defaults withHeaderRow=false, so createTable rows carry only paraId (no repeatHeader/trPr). tbl-translator.decode unshifts tblGrid then tblPr (order tblGrid-first is corrected at serialize). TBLPR_XML_ORDER enforces tblStyle->tblW->...->tblLook.",
+          "expected_ooxml": "<w:tbl><w:tblPr>...</w:tblPr><w:tblGrid>...</w:tblGrid><w:tr>...</w:tr>...</w:tbl>; rows without <w:trPr>",
+          "clone_gap": "LIKELY-OK â€” non-header rows carry no trPr, tblGrid is emitted, and TBLPR_XML_ORDER guarantees the spec child order (so once tblW is added it lands between tblStyle and tblLook). Residual: verify the row-level paraId the clone stamps doesn't serialize as an unexpected attr (Word uses w14:paraId on w:tr â€” should be id-normalized by the differ)."
+        }
+      ]
+    }
+  ]
+}
