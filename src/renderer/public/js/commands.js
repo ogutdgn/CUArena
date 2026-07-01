@@ -112,6 +112,11 @@
   // These cmds live only on the runtime-injected contextual tabs (table-tools-pm.js),
   // which only appear in PM mode. Each routes straight to a WC.PM table verb.
   const TPM = () => (window.WC.PM && window.WC.PM.active && window.WC.PM.ready) ? window.WC.PM : null;
+  // Word Table Design → Borders group PEN state (Line Style / Line Weight / Pen Color). The
+  // Borders dropdown and Border Painter apply borders using THIS pen, exactly like Word — so
+  // changing the pen changes what the next border application draws. size is in eighth-points
+  // (w:sz units; the bridge converts to px). color 'auto' = Word's automatic (near-black).
+  const tblPen = { val: 'single', size: 4, color: 'auto' };
   H.tblInsertAbove = () => { const p = TPM(); if (p) p.tableAddRow('above'); };
   H.tblInsertBelow = () => { const p = TPM(); if (p) p.tableAddRow('below'); };
   H.tblInsertLeft = () => { const p = TPM(); if (p) p.tableAddColumn('left'); };
@@ -253,8 +258,8 @@
   });
   H.tblBorders = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Borders'));
-    // Word's standard cell border: single, 0.5pt (w:sz=4 eighth-points), space 0, color auto.
-    const B = () => ({ val: 'single', color: 'auto', size: 4, space: 0 });
+    // Word applies borders with the current PEN (Line Style/Weight/Pen Color). space is always 0.
+    const B = () => ({ val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0 });
     const set = (b) => { const p = TPM(); if (p) p.tableSetCellBorders(b); };
     const item = (label, b) => fly.appendChild(WC.flyItem(label, { onClick: () => set(b) }));
     item('Bottom Border', { bottom: B() });
@@ -273,6 +278,40 @@
     item('Diagonal Up Border', { tr2bl: B() });
     fly.appendChild(WC.flySep());
     fly.appendChild(WC.flyItem('Borders and Shading…', { onClick: () => WC.Dialogs.bordersAndShading && WC.Dialogs.bordersAndShading() }));
+  });
+  // Word Table Design → Borders group: the pen controls that feed the Borders dropdown.
+  // Line Style (w:val), Line Weight (w:sz), Pen Color (w:color) — set the shared tblPen.
+  H.tblLineStyle = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Line Style'));
+    // Word's Line Style list maps to OOXML ST_Border values (No Border clears back to single default).
+    [['No Border', 'nil'], ['Single', 'single'], ['Double', 'double'], ['Dotted', 'dotted'],
+      ['Dashed', 'dashed'], ['Dot Dash', 'dotDash'], ['Thick', 'thick'], ['Wave', 'wave']]
+      .forEach(([label, val]) => fly.appendChild(WC.flyItem(label, { onClick: () => { tblPen.val = val; } })));
+  });
+  H.tblLineWeight = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Line Weight'));
+    // Word's weight list in points → eighth-points (w:sz): ¼=2, ½=4, ¾=6, 1=8, 1½=12, 2¼=18, 3=24, 4½=36, 6=48.
+    [['¼ pt', 2], ['½ pt', 4], ['¾ pt', 6], ['1 pt', 8], ['1½ pt', 12], ['2¼ pt', 18], ['3 pt', 24], ['4½ pt', 36], ['6 pt', 48]]
+      .forEach(([label, sz]) => fly.appendChild(WC.flyItem(label, { onClick: () => { tblPen.size = sz; } })));
+  });
+  H.tblPenColor = (c, node) => {
+    // Reuse the shared color picker if present; otherwise a compact swatch flyout. Sets tblPen.color (hex, no #).
+    const apply = (hex) => { tblPen.color = hex ? String(hex).replace(/^#/, '') : 'auto'; };
+    if (WC.pickColor) { WC.pickColor(node, { onPick: apply, allowAuto: true, title: 'Pen Color' }); return; }
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Pen Color'));
+      fly.appendChild(WC.flyItem('Automatic', { onClick: () => apply('auto') }));
+      ['000000', 'FF0000', '00B050', '0070C0', 'FFC000', '7030A0'].forEach((hex) =>
+        fly.appendChild(WC.flyItem('#' + hex, { onClick: () => apply(hex) })));
+    });
+  };
+  H.tblBorderPainter = () => WC.toast('Border Painter (freehand border drawing) is coming soon — use the Borders dropdown with the pen you set.');
+  H.tblBorderStyles = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Border Styles'));
+    // Word's Border Styles gallery = preset pen combos. Each sets the pen (val/size/color).
+    [['Single, ½ pt', 'single', 4, 'auto'], ['Single, 1 pt', 'single', 8, 'auto'], ['Single, 2¼ pt', 'single', 18, 'auto'],
+      ['Double, ½ pt', 'double', 4, 'auto'], ['Dotted, ½ pt', 'dotted', 4, 'auto'], ['Dashed, ½ pt', 'dashed', 4, 'auto']]
+      .forEach(([label, val, sz, col]) => fly.appendChild(WC.flyItem(label, { onClick: () => { tblPen.val = val; tblPen.size = sz; tblPen.color = col; } })));
   });
   H.tblAutoFit = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('AutoFit'));

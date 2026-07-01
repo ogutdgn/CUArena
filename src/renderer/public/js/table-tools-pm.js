@@ -95,7 +95,12 @@
           { cmd: 'tblShading', label: 'Shading', type: 'dropdown' },
         ] },
         { id: 'td-borders', name: 'Borders', controls: [
+          { cmd: 'tblBorderStyles', label: 'Border Styles', type: 'dropdown' },
+          { cmd: 'tblLineStyle', label: 'Line Style', type: 'dropdown' },
+          { cmd: 'tblLineWeight', label: 'Line Weight', type: 'dropdown' },
+          { cmd: 'tblPenColor', label: 'Pen Color', type: 'dropdown' },
           { cmd: 'tblBorders', label: 'Borders', type: 'dropdown' },
+          { cmd: 'tblBorderPainter', label: 'Border Painter', type: 'toggle' },
         ] },
       ],
     };
