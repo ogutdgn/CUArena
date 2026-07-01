@@ -695,6 +695,16 @@
     if (!/w:themeFill="accent1"/.test(shd)) return 'no themeFill=accent1 in pPr shd: ' + shd;
     return new RegExp('w:fill="' + a1.rgb + '"', 'i').test(shd) ? true : 'fill != doc accent1: ' + shd;
   });
+  await t('[theme] plain shading after theme shading CLEARS the stale w:themeFill', async () => {
+    setDoc('para'); await sleep(60);
+    const a1 = window.WC.PM.getThemeColors().find((s) => s.themeColor === 'accent1');
+    window.WC.PM.setShading('#' + a1.rgb, { themeColor: 'accent1' }); await sleep(40);
+    window.WC.PM.setShading('#FF0000'); await sleep(40); // plain colour, no theme link
+    const pPr = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:pPr>[\s\S]*?<\/w:pPr>/) || [''])[0];
+    const shd = (pPr.match(/<w:shd\b[^>]*\/?>/) || ['none'])[0];
+    if (/w:themeFill/.test(shd)) return 'stale themeFill not cleared: ' + shd;
+    return /w:fill="FF0000"/i.test(shd) ? true : 'plain fill not applied: ' + shd;
+  });
   await t('[theme] cell theme shading exports <w:shd w:themeFill="accent1"> + doc RGB', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
     const a1 = window.WC.PM.getThemeColors().find((s) => s.themeColor === 'accent1');
