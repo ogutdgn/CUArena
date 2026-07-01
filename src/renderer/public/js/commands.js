@@ -269,6 +269,9 @@
     const B = () => ({ val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0, themeColor: tblPen.themeColor });
     // merge:true (default) ADDS the side(s) onto the cell's existing borders, like Word's per-side
     // buttons; No Border passes merge:false to clear every side.
+    // No Border writes explicit val=nil on every side so it OVERRIDES the table style's borders
+    // (clearing to {} would leave the Table-Grid style border still visible — Word writes nil).
+    const NIL = () => ({ val: 'none', color: 'auto', size: 0, space: 0 });
     const set = (b, merge) => { const p = TPM(); if (p) p.tableSetCellBorders(b, { merge }); };
     const item = (label, b, merge = true) => fly.appendChild(WC.flyItem(label, { onClick: () => set(b, merge) }));
     item('Bottom Border', { bottom: B() });
@@ -276,7 +279,7 @@
     item('Left Border', { left: B() });
     item('Right Border', { right: B() });
     fly.appendChild(WC.flySep());
-    item('No Border', {}, false);
+    item('No Border', { top: NIL(), bottom: NIL(), left: NIL(), right: NIL(), insideH: NIL(), insideV: NIL() }, false);
     item('All Borders', { top: B(), bottom: B(), left: B(), right: B(), insideH: B(), insideV: B() });
     item('Outside Borders', { top: B(), bottom: B(), left: B(), right: B() });
     item('Inside Borders', { insideH: B(), insideV: B() });
