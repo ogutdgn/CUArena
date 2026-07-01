@@ -7021,6 +7021,24 @@
     return names.join(',') === 'Name,Alice,Bob,Charlie' ? true : 'sorted order wrong: ' + names.join(',');
   });
 
+  await t('[table] Formula =SUM(ABOVE) computes + inserts the column sum (Word Formula dialog)', async () => {
+    window.WC.editor.commands.selectAll();
+    window.WC.editor.commands.insertContent('<p>10</p><p>20</p><p>30</p><p>x</p>');
+    window.WC.editor.commands.selectAll();
+    window.WC.Insert.convertTextToTable('§'); await sleep(150); // non-matching delim → 4 rows × 1 col
+    // caret into the LAST cell (the last tableCell/tableHeader in doc order), so SUM(ABOVE)=10+20+30
+    const ed = window.WC.editor;
+    let lastCell = 0;
+    ed.state.doc.descendants((node, pos) => { if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') lastCell = pos; });
+    ed.view.dispatch(ed.state.tr.setSelection(window.__PM_TextSelection.create(ed.state.doc, lastCell + 2)));
+    await sleep(60);
+    const ok = window.WC.PM.tableFormula('=SUM(ABOVE)', '0');
+    if (ok !== true) return 'tableFormula returned ' + ok;
+    await sleep(120);
+    const joined = ((await exportDocumentXml()).match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map((m) => m.replace(/<[^>]+>/g, '')).join('');
+    return joined.includes('60') ? true : 'expected 60 (10+20+30) in the table, got: ' + joined;
+  });
+
   await t('[ins-chart] Chart: computed SVG inserts a real image (w:drawing), not a toast', async () => {
     // The Insert > Chart dialog built an SVG via Insert.chartSVG but xeChart() only toasted, so nothing
     // inserted. xeChart(svg) now inserts the SVG as a static image (interim until a live chart engine).

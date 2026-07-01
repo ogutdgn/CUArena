@@ -234,6 +234,65 @@ export function installTable(editor: AnyEditor) {
     return true
   }
 
+  // Layout → Data → Formula: the default formula Word proposes for the caret cell — =SUM(ABOVE) when
+  // there are numbers above, else =SUM(LEFT) when there are numbers to the left, else =SUM(ABOVE).
+  function tableFormulaDefault(): string {
+    const ctx = formulaContext()
+    if (!ctx) return '=SUM(ABOVE)'
+    if (ctx.above.some((v) => v !== null)) return '=SUM(ABOVE)'
+    if (ctx.left.some((v) => v !== null)) return '=SUM(LEFT)'
+    return '=SUM(ABOVE)'
+  }
+
+  // Read the numeric values of the cells ABOVE / LEFT / BELOW / RIGHT of the caret cell.
+  function formulaContext(): { above: (number | null)[]; left: (number | null)[]; below: (number | null)[]; right: (number | null)[]; rowIdx: number; colIdx: number } | null {
+    const info = currentTableInfo()
+    const cell = currentCellNode()
+    if (!info || !cell) return null
+    const t = info.node
+    const { $from } = editor.state.selection
+    let cellDepth = -1
+    for (let d = $from.depth; d > 0; d--) { const nm = $from.node(d).type.name; if (nm === 'tableCell' || nm === 'tableHeader') { cellDepth = d; break } }
+    if (cellDepth < 2) return null
+    const rowNode = $from.node(cellDepth - 1)
+    let rowIdx = -1; t.forEach((r: any, _o: number, i: number) => { if (r === rowNode) rowIdx = i })
+    let colIdx = -1; rowNode.forEach((c: any, _o: number, i: number) => { if (c === cell) colIdx = i })
+    const numOf = (c: any): number | null => { if (!c) return null; const v = parseFloat(String(c.textContent || '').replace(/[^0-9.\-]/g, '')); return isNaN(v) ? null : v }
+    const above: (number | null)[] = []; for (let r = 0; r < rowIdx; r++) { const row = t.child(r); above.push(numOf(row.child(Math.min(colIdx, row.childCount - 1)))) }
+    const below: (number | null)[] = []; for (let r = rowIdx + 1; r < t.childCount; r++) { const row = t.child(r); below.push(numOf(row.child(Math.min(colIdx, row.childCount - 1)))) }
+    const left: (number | null)[] = []; for (let c = 0; c < colIdx; c++) left.push(numOf(rowNode.child(c)))
+    const right: (number | null)[] = []; for (let c = colIdx + 1; c < rowNode.childCount; c++) right.push(numOf(rowNode.child(c)))
+    return { above, left, below, right, rowIdx, colIdx }
+  }
+
+  // Layout → Data → Formula: compute the formula for the caret cell and insert the result. v1 inserts
+  // the computed value (Word-visible); a real <w:fldSimple w:instr> formula field is a documented v2.
+  function tableFormula(formula: string, numFormat?: string): boolean {
+    const ctx = formulaContext()
+    if (!ctx) return false
+    const m = /=\s*(SUM|AVERAGE|COUNT|PRODUCT|MAX|MIN)\s*\(\s*(ABOVE|LEFT|BELOW|RIGHT)\s*\)/i.exec(formula || '')
+    const fn = (m ? m[1] : 'SUM').toUpperCase()
+    const dir = (m ? m[2] : 'ABOVE').toUpperCase()
+    const src = dir === 'ABOVE' ? ctx.above : dir === 'BELOW' ? ctx.below : dir === 'LEFT' ? ctx.left : ctx.right
+    const nums = src.filter((v): v is number => v !== null)
+    let result = 0
+    if (fn === 'SUM') result = nums.reduce((a, b) => a + b, 0)
+    else if (fn === 'AVERAGE') result = nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0
+    else if (fn === 'COUNT') result = nums.length
+    else if (fn === 'PRODUCT') result = nums.reduce((a, b) => a * b, 1)
+    else if (fn === 'MAX') result = nums.length ? Math.max(...nums) : 0
+    else if (fn === 'MIN') result = nums.length ? Math.min(...nums) : 0
+    let text: string
+    if (numFormat === '0') text = String(Math.round(result))
+    else if (numFormat && /0\.00/.test(numFormat)) text = result.toFixed(2)
+    else if (numFormat && /%/.test(numFormat)) text = Math.round(result * 100) + '%'
+    else if (numFormat && /\$/.test(numFormat)) text = '$' + result.toFixed(2)
+    else text = Number.isInteger(result) ? String(result) : String(Math.round(result * 100) / 100)
+    editor.commands.insertContent(text)
+    refocus()
+    return true
+  }
+
   // Layout → Table → View Gridlines: toggle Word's non-printing table gridlines (a view-only
   // CSS class on the editor host; borderless-cell edges show as faint dashed guides).
   function tableViewGridlines(): boolean {
@@ -608,6 +667,8 @@ export function installTable(editor: AnyEditor) {
     tableSelectScope,
     tableColumns,
     tableSort,
+    tableFormula,
+    tableFormulaDefault,
     tableViewGridlines,
     tableGridlinesShown,
     tableRepeatHeaderRows,

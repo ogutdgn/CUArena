@@ -125,6 +125,28 @@
     ] });
   };
 
+  // ---- Table Formula (Table Layout > Formula) — Word's dialog: Formula / Number format / Paste function ----
+  D.tableFormula = function () {
+    const p = WC.PM;
+    if (!p || !p.tableFormula) { WC.toast('Click inside a table cell to add a formula.'); return; }
+    const def = (p.tableFormulaDefault && p.tableFormulaDefault()) || '=SUM(ABOVE)';
+    const formulaInput = el('input', { type: 'text', value: def, class: 'grow', style: { width: '220px' } });
+    const NUMFMTS = ['', '0', '0.00', '#,##0', '#,##0.00', '$#,##0.00', '0%'];
+    const numSel = el('select', {}, NUMFMTS.map((f) => el('option', { value: f, text: f })));
+    // Paste function: choosing one seeds the Formula field with =NAME() (Word behavior).
+    const FUNCS = ['', 'ABS', 'AVERAGE', 'COUNT', 'IF', 'INT', 'MAX', 'MIN', 'MOD', 'PRODUCT', 'ROUND', 'SIGN', 'SUM'];
+    const funcSel = el('select', {}, FUNCS.map((f) => el('option', { value: f, text: f || '(Paste function)' })));
+    funcSel.addEventListener('change', () => {
+      if (funcSel.value) { formulaInput.value = '=' + funcSel.value + '(ABOVE)'; funcSel.value = ''; formulaInput.focus(); }
+    });
+    const rowOf = (label, ctrl, w) => el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '5px 0' } }, [el('label', { text: label, style: { width: (w || 110) + 'px' } }), ctrl]);
+    const body = el('div', {}, [rowOf('Formula:', formulaInput, 70), rowOf('Number format:', numSel), rowOf('Paste function:', funcSel)]);
+    WC.dialog({ title: 'Formula', width: '400px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => { p.tableFormula(formulaInput.value, numSel.value); } },
+      { label: 'Cancel' },
+    ] });
+  };
+
   // ---- Insert Link ----
   D.insertLink = function () {
     if (WC.PM.ready) WC.PM.captureSelection(); // dialog steals focus; restore selection before inserting
