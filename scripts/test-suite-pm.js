@@ -723,6 +723,15 @@
     const n = (xml.match(/<w:shd\b[^>]*w:themeFill="accent1"[^>]*\/?>/g) || []).length;
     return n >= 3 ? true : 'expected >=3 cells with themeFill (CellSelection branch), got ' + n;
   });
+  await t('[theme] table border themeColor exports <w:top w:color=RGB w:themeColor="accent1">', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    const a1 = window.WC.PM.getThemeColors().find((s) => s.themeColor === 'accent1');
+    PM().tableSetCellBorders({ top: { val: 'single', color: a1.rgb, size: 4, space: 0, themeColor: 'accent1' } }); await sleep(60);
+    const tb = ((await window.WC.editor.exportDocx({ exportXmlOnly: true })).match(/<w:tcBorders>[\s\S]*?<\/w:tcBorders>/) || [''])[0];
+    const top = (tb.match(/<w:top\b[^>]*\/?>/) || ['none'])[0];
+    if (!/w:themeColor="accent1"/.test(top)) return 'no themeColor on border: ' + top;
+    return new RegExp('w:color="' + a1.rgb + '"', 'i').test(top) ? true : 'color != doc accent1: ' + top;
+  });
   await t('[table] D cell width exports <w:tcW w:type="dxa"> at 1.5in (~2160 twips, Word)', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
     PM().tableSetCellWidth(144); await sleep(60); // 1.5in * 96px/in

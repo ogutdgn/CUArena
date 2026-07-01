@@ -116,7 +116,7 @@
   // Borders dropdown and Border Painter apply borders using THIS pen, exactly like Word — so
   // changing the pen changes what the next border application draws. size is in eighth-points
   // (w:sz units; the bridge converts to px). color 'auto' = Word's automatic (near-black).
-  const tblPen = { val: 'single', size: 4, color: 'auto' };
+  const tblPen = { val: 'single', size: 4, color: 'auto', themeColor: null };
   H.tblInsertAbove = () => { const p = TPM(); if (p) p.tableAddRow('above'); };
   H.tblInsertBelow = () => { const p = TPM(); if (p) p.tableAddRow('below'); };
   H.tblInsertLeft = () => { const p = TPM(); if (p) p.tableAddColumn('left'); };
@@ -265,7 +265,8 @@
   H.tblBorders = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Borders'));
     // Word applies borders with the current PEN (Line Style/Weight/Pen Color). space is always 0.
-    const B = () => ({ val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0 });
+    // themeColor carries a Theme-Colors pen pick → <w:top … w:themeColor="accentN"> (null is dropped on export).
+    const B = () => ({ val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0, themeColor: tblPen.themeColor });
     // merge:true (default) ADDS the side(s) onto the cell's existing borders, like Word's per-side
     // buttons; No Border passes merge:false to clear every side.
     const set = (b, merge) => { const p = TPM(); if (p) p.tableSetCellBorders(b, { merge }); };
@@ -302,17 +303,15 @@
     [['¼ pt', 2], ['½ pt', 4], ['¾ pt', 6], ['1 pt', 8], ['1½ pt', 12], ['2¼ pt', 18], ['3 pt', 24], ['4½ pt', 36], ['6 pt', 48]]
       .forEach(([label, sz]) => fly.appendChild(WC.flyItem(label, { onClick: () => { tblPen.size = sz; } })));
   });
-  H.tblPenColor = (c, node) => {
-    // Reuse the shared color picker if present; otherwise a compact swatch flyout. Sets tblPen.color (hex, no #).
-    const apply = (hex) => { tblPen.color = hex ? String(hex).replace(/^#/, '') : 'auto'; };
-    if (WC.pickColor) { WC.pickColor(node, { onPick: apply, allowAuto: true, title: 'Pen Color' }); return; }
-    WC.flyout(node, (fly) => {
-      fly.appendChild(WC.flyHeader('Pen Color'));
-      fly.appendChild(WC.flyItem('Automatic', { onClick: () => apply('auto') }));
-      ['000000', 'FF0000', '00B050', '0070C0', 'FFC000', '7030A0'].forEach((hex) =>
-        fly.appendChild(WC.flyItem('#' + hex, { onClick: () => apply(hex) })));
-    });
-  };
+  H.tblPenColor = (c, node) => WC.flyout(node, (fly) => {
+    // Word's Pen Color IS the theme/standard palette. A Theme-Colors pick records the slot on the pen
+    // so the drawn border carries <w:themeColor="accentN"> (theme-aware); a plain colour clears it.
+    fly.appendChild(WC.colorPalette((color, label, themeMeta) => {
+      if (!color || color === 'auto' || color === 'inherit') { tblPen.color = 'auto'; tblPen.themeColor = null; return; }
+      tblPen.color = String(color).replace(/^#/, '').toUpperCase();
+      tblPen.themeColor = (themeMeta && themeMeta.themeColor) || null;
+    }, { automatic: true, autoValue: 'auto', autoLabel: 'Automatic' }));
+  });
   H.tblBorderPainter = () => WC.toast('Border Painter (freehand border drawing) is coming soon — use the Borders dropdown with the pen you set.');
   H.tblBorderStyles = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Border Styles'));
