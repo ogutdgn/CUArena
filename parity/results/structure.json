@@ -1,10 +1,10 @@
 {
  "totals": {
   "matched": 218,
-  "label_differs": 31,
+  "label_differs": 33,
   "type_mismatch": 5,
-  "missing": 81,
-  "extra": 7
+  "missing": 38,
+  "extra": 5
  },
  "per_tab": {
   "home": {
@@ -485,6 +485,20 @@
     },
     {
      "word": {
+      "idMso": "WritingAssistanceCheckDocument",
+      "label": "Check Document",
+      "type": "button",
+      "group": "GroupEditor"
+     },
+     "clone": {
+      "cmd": "editor",
+      "label": "Editor",
+      "type": "button"
+     },
+     "pinned": true
+    },
+    {
+     "word": {
       "idMso": "ShowClipboard",
       "label": "Office Clipboard...",
       "type": "button (dialogBoxLauncher)",
@@ -553,12 +567,6 @@
    ],
    "missing": [
     {
-     "idMso": "AsianLayoutPhoneticGuide",
-     "label": "Phonetic Guide...",
-     "type": "button",
-     "group": "GroupFont"
-    },
-    {
      "idMso": "CharacterBorder",
      "label": "Character Border",
      "type": "toggleButton",
@@ -571,54 +579,6 @@
      "group": "GroupFont"
     },
     {
-     "idMso": "AsianLayoutCharactersEnclose",
-     "label": "Enclose Characters...",
-     "type": "button",
-     "group": "GroupFont"
-    },
-    {
-     "idMso": "TextDirectionLeftToRight",
-     "label": "Left-to-Right",
-     "type": "toggleButton",
-     "group": "GroupParagraph"
-    },
-    {
-     "idMso": "TextDirectionRightToLeft",
-     "label": "Right-to-Left",
-     "type": "toggleButton",
-     "group": "GroupParagraph"
-    },
-    {
-     "idMso": "AsianLayoutMenu",
-     "label": "Asian Layout",
-     "type": "menu",
-     "group": "GroupParagraph"
-    },
-    {
-     "idMso": "EastAsianEditingMarks",
-     "label": "Show/Hide Editing Marks",
-     "type": "toggleButton",
-     "group": "GroupParagraph"
-    },
-    {
-     "idMso": "AlignJustifyMenu",
-     "label": "Justify",
-     "type": "menu",
-     "group": "GroupParagraph"
-    },
-    {
-     "idMso": "ParagraphDistributed",
-     "label": "Distributed",
-     "type": "toggleButton",
-     "group": "GroupParagraph"
-    },
-    {
-     "idMso": "AlignJustifyThai",
-     "label": "Thai Distributed",
-     "type": "toggleButton",
-     "group": "GroupParagraph"
-    },
-    {
      "idMso": "AlignTextMenu",
      "label": "",
      "type": "menu",
@@ -629,63 +589,9 @@
      "label": "",
      "type": "menu",
      "group": "GroupEditing"
-    },
-    {
-     "idMso": "SDXQuickstart",
-     "label": "",
-     "type": "button",
-     "group": "GroupAIDemo"
-    },
-    {
-     "idMso": "DictationMenu",
-     "label": "Dictation Menu",
-     "type": "splitButton",
-     "group": "GroupVoiceTools"
-    },
-    {
-     "idMso": "ActivateOffice",
-     "label": "",
-     "type": "button",
-     "group": "GroupActivation"
-    },
-    {
-     "idMso": "ClassifyLabelProtect",
-     "label": "Sensitivity",
-     "type": "menu",
-     "group": "GroupClassifyLabelProtect"
-    },
-    {
-     "idMso": "WritingAssistanceCheckDocument",
-     "label": "Check Document",
-     "type": "button",
-     "group": "GroupEditor"
-    },
-    {
-     "idMso": "Insights",
-     "label": "",
-     "type": "button",
-     "group": "GroupResearch"
-    },
-    {
-     "idMso": "OfficeExtensionsShowAddinFlyout",
-     "label": "Add\u2011ins",
-     "type": "button",
-     "group": "GroupOfficeExtensionsAddinFlyout"
-    },
-    {
-     "idMso": "Copilot",
-     "label": "",
-     "type": "button",
-     "group": "GroupAIAssistance"
     }
    ],
-   "extra": [
-    {
-     "cmd": "editor",
-     "label": "Editor",
-     "type": "button"
-    }
-   ]
+   "extra": []
   },
   "insert": {
    "matched": [
@@ -1097,82 +1003,16 @@
      "group": "GroupInsertIllustrations"
     },
     {
-     "idMso": "LoopComponents",
-     "label": "",
-     "type": "menu",
-     "group": "GroupCollaborate"
-    },
-    {
-     "idMso": "OfficeExtensionsFeaturedApp1",
-     "label": "",
-     "type": "button",
-     "group": "GroupOfficeExtension"
-    },
-    {
-     "idMso": "OfficeExtensionsFeaturedApp2",
-     "label": "",
-     "type": "button",
-     "group": "GroupOfficeExtension"
-    },
-    {
-     "idMso": "OfficeExtensionsFeaturedApp3",
-     "label": "",
-     "type": "button",
-     "group": "GroupOfficeExtension"
-    },
-    {
-     "idMso": "OfficeExtensionsFeaturedApp4",
-     "label": "",
-     "type": "button",
-     "group": "GroupOfficeExtension"
-    },
-    {
-     "idMso": "OfficeExtensionsFeaturedApp5",
-     "label": "",
-     "type": "button",
-     "group": "GroupOfficeExtension"
-    },
-    {
-     "idMso": "OfficeExtensionsFeaturedApp6",
-     "label": "",
-     "type": "button",
-     "group": "GroupOfficeExtension"
-    },
-    {
      "idMso": "HyperlinkInsert",
      "label": "Link",
      "type": "button",
      "group": "GroupInsertLinks"
     },
     {
-     "idMso": "JapaneseGreetingsInsertMenu",
-     "label": "Japanese Greetings",
-     "type": "menu",
-     "group": "GroupInsertText"
-    },
-    {
      "idMso": "WordArtInsertGalleryClassic",
      "label": "WordArt",
      "type": "gallery",
      "group": "GroupInsertText"
-    },
-    {
-     "idMso": "InsertNumberAlternate",
-     "label": "Number...",
-     "type": "button",
-     "group": "GroupInsertSymbols"
-    },
-    {
-     "idMso": "BarcodeInsert",
-     "label": "Barcode",
-     "type": "button",
-     "group": "GroupInsertBarcode"
-    },
-    {
-     "idMso": "LabelInsert",
-     "label": "Label",
-     "type": "button",
-     "group": "GroupInsertBarcode"
     }
    ],
    "extra": []
@@ -2098,18 +1938,6 @@
      "label": "Footnote and Endnote Dialog...",
      "type": "button (dialogBoxLauncher)",
      "group": "GroupFootnotes"
-    },
-    {
-     "idMso": "Insights",
-     "label": "",
-     "type": "button",
-     "group": "GroupResearch"
-    },
-    {
-     "idMso": "Acronyms",
-     "label": "",
-     "type": "button",
-     "group": "GroupAcronyms"
     }
    ],
    "extra": [
@@ -2399,32 +2227,7 @@
     }
    ],
    "type_mismatch": [],
-   "missing": [
-    {
-     "idMso": "EnvelopeChineseDialog",
-     "label": "Chinese Envelope...",
-     "type": "button",
-     "group": "GroupEnvelopeLabelCreate"
-    },
-    {
-     "idMso": "JapaneseGreetingsInsertMenu",
-     "label": "Japanese Greetings",
-     "type": "menu",
-     "group": "GroupEnvelopeLabelCreate"
-    },
-    {
-     "idMso": "JapanesePostcardMenu",
-     "label": "Japanese Postcard",
-     "type": "menu",
-     "group": "GroupEnvelopeLabelCreate"
-    },
-    {
-     "idMso": "MailMergeInsertBarcodeMenu",
-     "label": "Insert Barcode Field",
-     "type": "menu",
-     "group": "GroupMailMergeWriteInsertFields"
-    }
-   ],
+   "missing": [],
    "extra": []
   },
   "review": {
@@ -2707,6 +2510,20 @@
     },
     {
      "word": {
+      "idMso": "WritingAssistanceCheckDocument",
+      "label": "Check Document",
+      "type": "button",
+      "group": "GroupProofing"
+     },
+     "clone": {
+      "cmd": "editor",
+      "label": "Editor",
+      "type": "button"
+     },
+     "pinned": true
+    },
+    {
+     "word": {
       "idMso": "ReviewChangeTrackingOptions",
       "label": "Change Tracking Options...",
       "type": "button (dialogBoxLauncher)",
@@ -2763,54 +2580,6 @@
    ],
    "missing": [
     {
-     "idMso": "WritingAssistanceCheckDocument",
-     "label": "Check Document",
-     "type": "button",
-     "group": "GroupProofing"
-    },
-    {
-     "idMso": "SplitButtonQuickCheck",
-     "label": "Quick Check",
-     "type": "splitButton",
-     "group": "GroupProofing"
-    },
-    {
-     "idMso": "ReviewJapaneseConsistencyChecker",
-     "label": "Japanese Consistency Checker...",
-     "type": "button",
-     "group": "GroupLanguage"
-    },
-    {
-     "idMso": "ImeDictionaryUpdate",
-     "label": "Update IME Dictionary...",
-     "type": "button",
-     "group": "GroupLanguage"
-    },
-    {
-     "idMso": "HangulHanjaConversion",
-     "label": "Hangul Hanja Conversion...",
-     "type": "button",
-     "group": "GroupLanguage"
-    },
-    {
-     "idMso": "TranslateToSimplifiedChinese",
-     "label": "Simplified",
-     "type": "button",
-     "group": "GroupChineseTranslation"
-    },
-    {
-     "idMso": "TranslateToTraditionalChinese",
-     "label": "Traditional",
-     "type": "button",
-     "group": "GroupChineseTranslation"
-    },
-    {
-     "idMso": "ChineseTranslationDialog",
-     "label": "Convert with Options...",
-     "type": "button",
-     "group": "GroupChineseTranslation"
-    },
-    {
      "idMso": "ShowCommentsMenu",
      "label": "Show Comments",
      "type": "splitButton",
@@ -2842,11 +2611,6 @@
     }
    ],
    "extra": [
-    {
-     "cmd": "editor",
-     "label": "Editor",
-     "type": "button"
-    },
     {
      "cmd": "filterMarkup",
      "label": "Filter All Markup",
@@ -3296,14 +3060,7 @@
    ],
    "label_differs": [],
    "type_mismatch": [],
-   "missing": [
-    {
-     "idMso": "OfficeFeedbackHelpTab",
-     "label": "",
-     "type": "button",
-     "group": "GroupHelpAndSupport"
-    }
-   ],
+   "missing": [],
    "extra": []
   },
   "table-design": {
