@@ -20,23 +20,27 @@
 > GAPS were: (1) picker colors HARDCODED (Aptos), not the doc's theme; (2) tint/shade rows = resolved sRGB (no
 > provenance); (3) shading/borders didn't thread theme provenance.
 >
-> **DONE THIS SESSION (2 slices, gated test:pm 529/529 + roundtrip 27/0):**
+> **DONE THIS SESSION (4 provenance slices + dynamic colors, gated test:pm 533/533 + roundtrip 27/0):**
 > - 🏁 **Dynamic theme colors** (`1973458`): bridge `design.ts getThemeColors()` maps `converter.themeColors` (parsed
->   from the doc's `word/theme/theme1.xml` by `getThemeColorPalette` at import) → Word's 10-swatch Theme-Colors row
->   (bg1/tx1/bg2/tx2/accent1..6) each with its OOXML slot. `util.js` picker now prefers the OPEN doc's real palette
->   (fallback = built-in Aptos), so swatches AND the stamped `themeColor` provenance match the doc. Test: getThemeColors
->   returns 10 slots; a theme font pick exports `<w:color w:val=DOC-RGB w:themeColor="accent1">`.
-> - 🏁 **Paragraph shading themeFill** (`679fd3d`): `bridge/commands.ts setShading(color, {themeColor})` writes
->   `paragraphProperties.shading.themeFill` → `<w:shd w:themeFill="accentN">` + resolved fill; picker threads themeMeta.
->   Run-level (character) shading stays resolved sRGB v1 (rides the highlight mark). Test: pPr shd themeFill + doc RGB.
+>   from the doc's `word/theme/theme1.xml` at import) → Word's 10-swatch Theme-Colors row (bg1/tx1/bg2/tx2/accent1..6)
+>   each with its OOXML slot. `util.js` picker prefers the OPEN doc's real palette (fallback = built-in Aptos).
+> - 🏁 **Paragraph shading themeFill** (`679fd3d`): `setShading(color,{themeColor})` → `<w:shd w:themeFill="accentN">`.
+> - 🏁 **Cell shading themeFill** (`67a1cad`): FORK `setCellBackground(value,{themeFill})` + `translate-table-cell.js`
+>   emit `<w:shd w:themeFill>`; `H.tblShading` upgraded to the full `WC.colorPalette`.
+> - 🏁 **Table border themeColor** (`44aaefa`): NO-FORK — the pen (`tblPen`) carries `themeColor`, Pen Color picker →
+>   `WC.colorPalette`, border def → `<w:top … w:themeColor="accentN">` (the border-side translator already supported it).
+> - 🏁 **Null-clearing locked** (`a74419c`): a plain-colour pick after a theme pick drops the stale `themeFill`.
+> - 🏁 **Adversarial review DONE + fixed** (`e988d5e`): 1 MED — `setCellBackground` CellSelection branch dropped
+>   `themeFill` (my replace_all was whitespace-anchored, hit only the caret branch) → both branches now store it
+>   (test: multi-cell CellSelection shading carries themeFill on every cell); 1 LOW — `translate-table-cell` rebuild
+>   now also triggers on a themeFill change (import-seeded staleness edge). Reviewer CLEARED getThemeColors fallback,
+>   the picker guard, the null-clear contract, and setCellAttr replace semantics.
 >
-> **NEXT theme slices (same proven pattern — picker themeMeta → attr/mark → the fork translator that already supports
-> the attr):** (a) CELL shading themeFill (needs a fork touch: `setCellBackground`/cell `background` attr/
-> `translate-table-cell.js` — H.tblShading also uses a hardcoded swatch grid, swap to WC.colorPalette); (b) table +
-> paragraph BORDER themeColor; (c) run-level character shading themeFill; (d) TINT/SHADE provenance + the lumMod/lumOff
-> RGB math (the 5 variant rows carry themeTint/themeShade computed from the dynamic base — the intricate color-math
-> piece, best oracle-verified). All 3 gates green (test:pm 529 / roundtrip 27 / smoke 9). 16 commits this session on
-> `parity-pipeline`, NOT merged.
+> **NEXT theme slices:** (a) run-level (character) shading themeFill (rides the highlight mark — more involved);
+> (b) PARAGRAPH borders themeColor (Home → Borders; the border-side translator already supports it, like tables);
+> (c) TINT/SHADE provenance + the lumMod/lumOff RGB math (the 5 variant rows carry themeTint/themeShade computed from
+> the dynamic base — the intricate color-math piece, best oracle-verified; the DEFERRED spec-025 v1 item). All 3 gates
+> green (test:pm 533 / roundtrip 27 / smoke 9). 22 commits this session on `parity-pipeline`, NOT merged.
 
 ## 2026-06-30 (PARITY PIPELINE — TABLES proven-parity: Design + Layout tabs rebuilt to Word + behaviors)
 
