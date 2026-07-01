@@ -83,3 +83,19 @@ NEXT (updated priority):
 4. Conditional-format RENDERING (banding/header live).
 5. Round-trip a real-Word styled-table .docx.
 6. Full sweep + adversarial review.
+
+## Iteration 3 (2026-07-01) — ICONS DONE
+- Mapped ~16 table commands to Fluent icons (`e9b66c4`): Select=cursor, Properties=settings,
+  View Gridlines=grid_dots, Delete=table_dismiss, Row/Col height/width=arrow_autofit_*, Sort,
+  Repeat Header=table_freeze_row, Formula=math_formula, Border Styles/Line Style/Line Weight/
+  Pen Color/Border Painter/Draw Table/Eraser. gen-icons 254/0 missing.
+- Hand-drew the 9-way cell-alignment icons (`5d4f2c8`) — Fluent has no combos; generator in
+  icons.js builds the 3x3 grid (cell + positioned text lines).
+- Verified maximized: both Table Design + Layout tabs now show Word-like icons + labels +
+  checkboxes + gallery. Very close to real Word. test:pm 533.
+
+NEXT: (2) Table Styles GALLERY CATALOG — the gallery has only 2 tiles (Table Grid + Grid Table 4
+Accent 1) vs Word's ~14 visible / ~105 total. Extract Word's built-in table styles (COM: for each
+built-in table style, apply to a table + save; read styles.xml; collect the w:style defs) and mint
+them into the clone's styles so the gallery is full + they apply. Big data task.
+Then: (3) border toggle, (4) conditional-format rendering, (5) round-trip, (6) full sweep + review.
