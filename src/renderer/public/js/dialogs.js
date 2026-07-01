@@ -147,6 +147,76 @@
     ] });
   };
 
+  // ---- Table Properties (Table Layout > Properties + right-click) — Word's tabbed dialog ----
+  D.tableProperties = function () {
+    const p = WC.PM;
+    if (!p || !p.tableInfo || !p.tableInfo().inTable) { WC.toast('Click inside a table to open its properties.'); return; }
+    const info = p.tableInfo();
+    const px = (inch) => Math.round((parseFloat(inch) || 0) * 96);
+    const num = (v, w) => el('input', { type: 'number', value: String(v), step: '0.05', style: { width: (w || 70) + 'px' } });
+    const sp = (t) => el('span', { text: t, style: { fontSize: '12px' } });
+    const rowEl = (label, kids) => el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '5px 0' } }, [label ? el('label', { text: label, style: { width: '120px' } }) : null].concat(kids));
+    const check = (checked) => { const c = el('input', { type: 'checkbox' }); if (checked) c.checked = true; return c; };
+    const labelRow = (cb, label) => el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [cb, el('span', { text: label })]);
+    const grpTitle = (t) => el('div', { style: { fontWeight: '600', margin: '8px 0 3px' } , text: t });
+    // Manual tab strip (WC.dialog has no built-in tabs).
+    const makeTabbed = (tabs) => {
+      const strip = el('div', { style: { display: 'flex', gap: '2px', borderBottom: '1px solid #d0d0d0', marginBottom: '10px' } });
+      const wrap = el('div', {});
+      tabs.forEach((tb, i) => {
+        const on = () => tabs.forEach((tt, j) => { tt.pane.style.display = j === i ? 'block' : 'none'; strip.children[j].style.borderBottom = j === i ? '2px solid var(--word-blue)' : '2px solid transparent'; strip.children[j].style.color = j === i ? 'var(--word-blue)' : '#333'; });
+        const btn = el('div', { text: tb.name, style: { padding: '6px 14px', cursor: 'pointer', fontSize: '13px', borderBottom: '2px solid transparent' } });
+        btn.addEventListener('click', on);
+        strip.appendChild(btn); wrap.appendChild(tb.pane);
+      });
+      tabs.forEach((tb, i) => { tb.pane.style.display = i === 0 ? 'block' : 'none'; });
+      strip.children[0].style.borderBottom = '2px solid var(--word-blue)'; strip.children[0].style.color = 'var(--word-blue)';
+      return el('div', {}, [strip, wrap]);
+    };
+    // Table tab
+    const tAlign = el('select', {}, [['Left', 'left'], ['Center', 'center'], ['Right', 'right']].map(([l, v]) => el('option', { value: v, text: l, selected: info.alignment === v ? 'selected' : null })));
+    const tIndent = num(0), tWidthOn = check(false), tWidth = num(6, 70);
+    const tWrap = el('select', {}, [['None', 'none'], ['Around', 'around']].map(([l, v]) => el('option', { value: v, text: l })));
+    const tablePane = el('div', {}, [
+      grpTitle('Size'), rowEl('Preferred width:', [tWidthOn, tWidth, sp('Measure in: Inches')]),
+      grpTitle('Alignment'), rowEl('Alignment:', [tAlign, sp('Indent from left:'), tIndent]),
+      grpTitle('Text wrapping'), rowEl('Wrapping:', [tWrap]),
+      rowEl('', [el('button', { class: 'btn', text: 'Borders and Shading…', onclick: () => WC.Dialogs.bordersAndShading && WC.Dialogs.bordersAndShading() }), el('button', { class: 'btn', text: 'Options…', onclick: () => WC.toast('Table Options (default cell margins/spacing) — coming soon.') })]),
+    ]);
+    // Row tab
+    const rHeightOn = check(false), rHeight = num(0.2, 70);
+    const rHeightRule = el('select', {}, ['At least', 'Exactly'].map((s) => el('option', { text: s })));
+    const rBreak = check(true), rHeader = check(false);
+    const rowPane = el('div', {}, [
+      grpTitle('Size'), rowEl('Specify height:', [rHeightOn, rHeight, sp('Row height is:'), rHeightRule]),
+      grpTitle('Options'), labelRow(rBreak, 'Allow row to break across pages'), labelRow(rHeader, 'Repeat as header row at the top of each page'),
+    ]);
+    // Column tab
+    const cWidthOn = check(false), cWidth = num(2, 70);
+    const colPane = el('div', {}, [grpTitle('Size'), rowEl('Preferred width:', [cWidthOn, cWidth, sp('Measure in: Inches')])]);
+    // Cell tab
+    const cellWidthOn = check(false), cellWidth = num(2, 70);
+    const cellVAlign = el('select', {}, [['Top', 'top'], ['Center', 'middle'], ['Bottom', 'bottom']].map(([l, v]) => el('option', { value: v, text: l })));
+    const cellPane = el('div', {}, [grpTitle('Size'), rowEl('Preferred width:', [cellWidthOn, cellWidth, sp('Inches')]), grpTitle('Vertical alignment'), rowEl('Alignment:', [cellVAlign])]);
+    // Alt Text tab
+    const altTitle = el('input', { type: 'text', class: 'grow' }), altDesc = el('textarea', { rows: '4', style: { width: '100%' } });
+    const altPane = el('div', {}, [rowEl('Title:', [altTitle]), rowEl('Description:', [altDesc])]);
+    const body = makeTabbed([
+      { name: 'Table', pane: tablePane }, { name: 'Row', pane: rowPane }, { name: 'Column', pane: colPane }, { name: 'Cell', pane: cellPane }, { name: 'Alt Text', pane: altPane },
+    ]);
+    WC.dialog({ title: 'Table Properties', width: '540px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        if (tAlign.value && p.tableSetAlignment) p.tableSetAlignment(tAlign.value);
+        if (parseFloat(tIndent.value) && p.tableSetIndent) p.tableSetIndent(px(tIndent.value));
+        if (rHeightOn.checked && p.tableSetRowHeight) p.tableSetRowHeight(px(rHeight.value));
+        if (p.tableRepeatHeaderRows) p.tableRepeatHeaderRows(rHeader.checked);
+        if ((cWidthOn.checked || cellWidthOn.checked) && p.tableSetCellWidth) p.tableSetCellWidth(px(cWidthOn.checked ? cWidth.value : cellWidth.value));
+        if (cellVAlign.value && p.tableSetCellVAlign) p.tableSetCellVAlign(cellVAlign.value);
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
   // ---- Insert Link ----
   D.insertLink = function () {
     if (WC.PM.ready) WC.PM.captureSelection(); // dialog steals focus; restore selection before inserting
