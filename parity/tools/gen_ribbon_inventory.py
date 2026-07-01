@@ -34,6 +34,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 XLSX = ROOT / "oracle" / "wordcontrols-m365-current.xlsx"
+LABELS_TSV = ROOT / "oracle" / "_labels_mso.tsv"  # from enrich_labels_mso.ps1 (optional)
 OUT = ROOT / "oracle" / "word_ribbon_inventory.json"
 
 
@@ -66,11 +67,23 @@ def main():
     ws = wb[wb.sheetnames[0]]
     rows = list(ws.iter_rows(min_row=2, values_only=True))
 
+    # Real-Word labels/enablement captured from the locked build via enrich_labels_mso.ps1.
+    labels = {}
+    if LABELS_TSV.exists():
+        for line in LABELS_TSV.read_text(encoding="utf-8").splitlines():
+            parts = line.split("\t")
+            if len(parts) == 3 and parts[0]:
+                labels[parts[0]] = {
+                    "label": parts[1] or None,
+                    "enabledBlankDoc": {"True": True, "False": False}.get(parts[2]),
+                }
+
     controls = []
     for r in rows:
         idmso, ctype, tabset, tab, group, parent, parent2, policy = (r + (None,) * 9)[:8]
         if not idmso:
             continue
+        mso = labels.get(str(idmso), {})
         controls.append({
             "idMso": str(idmso),
             "type": str(ctype) if ctype else None,
@@ -81,6 +94,8 @@ def main():
             "parent": str(parent) if parent else None,
             "parent2": str(parent2) if parent2 else None,
             "policyId": policy,
+            "label": mso.get("label"),
+            "enabledBlankDoc": mso.get("enabledBlankDoc"),
         })
 
     meta = {
@@ -90,6 +105,8 @@ def main():
         "parity_target": "ADR-0006 M365 Word-for-Windows Current Channel x64 en-US",
         "generated_by": "parity/tools/gen_ribbon_inventory.py",
         "row_count": len(controls),
+        "labels_from_real_word": bool(labels),
+        "labeled_count": sum(1 for c in controls if c["label"]),
         "counts_by_scope": dict(Counter(c["scope"] for c in controls)),
         "counts_by_type": dict(Counter(c["type"] for c in controls)),
     }
