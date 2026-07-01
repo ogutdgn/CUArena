@@ -808,14 +808,21 @@
       cell.addEventListener('click', () => { glyph.value = g; });
       palette.appendChild(cell);
     });
+    // 029: bullet Font (a symbol font → w:rFonts) + Alignment (→ w:lvlJc), matching Word's Define New Bullet.
+    const fontSel = el('select', {}, ['(normal text)', 'Symbol', 'Wingdings', 'Wingdings 2', 'Wingdings 3', 'Webdings', 'Arial', 'Courier New'].map((f) => el('option', { value: f === '(normal text)' ? '' : f, text: f })));
+    const alignSel = el('select', {}, [['Left', 'left'], ['Centered', 'center'], ['Right', 'right']].map(([l, v]) => el('option', { value: v, text: l })));
     const body = el('div', {}, [
       el('div', { class: 'row' }, [el('label', { text: 'Bullet character:', style: { width: '110px' } }), glyph]),
       el('div', { style: { fontSize: '11px', color: '#666' }, text: 'Or pick a symbol:' }), palette,
+      el('div', { class: 'row' }, [el('label', { text: 'Font:', style: { width: '110px' } }), fontSel]),
+      el('div', { class: 'row' }, [el('label', { text: 'Alignment:', style: { width: '110px' } }), alignSel]),
     ]);
-    WC.dialog({ title: 'Define New Bullet', width: '320px', body, footer: [
+    WC.dialog({ title: 'Define New Bullet', width: '340px', body, footer: [
       { label: 'OK', primary: true, onClick: () => {
         const g = (glyph.value || '').trim() || '•';
-        WC.PM.withSelection(() => { WC.PM.cmd('applyListDefinition', { listType: 'bulletList', levels: [{ fmt: 'bullet', text: g }] }); });
+        const level = { fmt: 'bullet', text: g, align: alignSel.value };
+        if (fontSel.value) level.font = fontSel.value;
+        WC.PM.withSelection(() => { WC.PM.cmd('applyListDefinition', { listType: 'bulletList', levels: [level] }); });
       } },
       { label: 'Cancel' },
     ] });

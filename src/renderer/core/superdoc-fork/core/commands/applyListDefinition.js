@@ -71,11 +71,25 @@ export const applyListDefinition =
         };
         setChild('w:numFmt', lvl.fmt);
         setChild('w:lvlText', lvl.text);
-        // Strip the template's marker font (Symbol/Wingdings on bullet levels) so the
-        // override's character renders literally — same move as setLvlStyleOnAbstract
-        // (core/parts/adapters/numbering-transforms.ts stripMarkerFont).
+        // MS-WORD-CLONE FORK EDIT (parity 029, user-authorized): Define-New-Bullet ALIGNMENT + FONT.
+        // Word's dialog sets the level's alignment (w:lvlJc left/center/right) and, for a symbol-font bullet,
+        // the marker font (w:rFonts). ADDITIVE — both were unreachable before (align never set; font always stripped).
+        if (lvl.align) setChild('w:lvlJc', lvl.align);
         const rPr = lvlEl.elements.find((el) => el.name === 'w:rPr');
-        if (rPr?.elements) rPr.elements = rPr.elements.filter((el) => el.name !== 'w:rFonts');
+        if (lvl.font) {
+          // A chosen bullet font (Symbol/Wingdings/…) → keep/set w:rFonts so the marker renders in that font.
+          if (rPr) {
+            rPr.elements = rPr.elements || [];
+            const fontsAttr = { 'w:ascii': lvl.font, 'w:hAnsi': lvl.font, 'w:cs': lvl.font, 'w:hint': 'default' };
+            const existingFonts = rPr.elements.find((el) => el.name === 'w:rFonts');
+            if (existingFonts) existingFonts.attributes = { ...(existingFonts.attributes || {}), ...fontsAttr };
+            else rPr.elements.unshift({ type: 'element', name: 'w:rFonts', attributes: fontsAttr });
+          }
+        } else if (rPr?.elements) {
+          // No font chosen → strip the template's marker font so a literal Unicode glyph renders (original behavior;
+          // same move as setLvlStyleOnAbstract / numbering-transforms.ts stripMarkerFont).
+          rPr.elements = rPr.elements.filter((el) => el.name !== 'w:rFonts');
+        }
       });
     });
 

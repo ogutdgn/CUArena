@@ -495,6 +495,16 @@ project tsconfig instead — matching the other vendored packages, which also sh
   single-text-node inline Slice as before, so ordinary replaces are unchanged. Gated by `specs/028-replace-special-codes`
   + a `test:pm` regression (`028 Replace box ^p/^t/^l`). The find/replace pane wiring is NO-FORK (`bridge/search.ts` +
   `dialogs.js` pass the raw Replace-box string through, now correctly interpreted).
+- **Define-New-Bullet font + alignment (parity feature 029, group 3b, 2026-06-30, user-authorized):** the clone's
+  Define New Bullet could not set a marker FONT (`applyListDefinition` always STRIPPED `w:rFonts`) nor an ALIGNMENT
+  (never set `w:lvlJc`). One additive edit in `core/commands/applyListDefinition.js` per overridden level:
+  `if (lvl.align) setChild('w:lvlJc', lvl.align)`; and for the marker font — `if (lvl.font)` keep/set `w:rFonts`
+  (ascii/hAnsi/cs = the font) in the level's `w:rPr`, `else` strip it as before (so a literal Unicode glyph still
+  renders). PURELY ADDITIVE — callers that don't pass `font`/`align` (the plain Bullets button, the numbering gallery
+  `toggleBulletListStyle`/`toggleOrderedListStyle`, Define-New-Number-Format) are unchanged. The Define-New-Bullet
+  dialog's Font + Alignment selects are NO-FORK (`src/renderer/public/js/commands.js`). NOTE: these land in
+  numbering.xml, which the COM `ApplyBulletDefault` ground truth measures as a single-level artifact, so this is
+  gated by a `test:pm` numbering.xml assertion (`029 Define New Bullet font + alignment`), not a `run.py` 0/0.
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
