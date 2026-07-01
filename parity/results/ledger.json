@@ -338,34 +338,24 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 9,
-      "missing": 7,
-      "extra": 14
+      "match": 20,
+      "missing": 8,
+      "extra": 3
     },
     "missing_nodes": [
-      "body:bottom[('type', 'dxa'), ('w', '0')]",
-      "body:tblCellMar[]",
-      "body:tblLayout[('type', 'fixed')]",
-      "body:tblLook[('firstColumn', '0'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '0'), ('val', '0000')]",
-      "body:tblPrEx[]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
       "body:tblW[('type', 'auto'), ('w', '0')]",
-      "body:top[('type', 'dxa'), ('w', '0')]"
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
     ],
     "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-      "body:tblStyle[('val', 'TableGrid')]",
-      "styles:TableGrid:@type=table",
-      "styles:TableGrid:basedOn[('val', 'TableNormal')]",
-      "styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
-      "styles:TableGrid:insideH[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
-      "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
-      "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
-      "styles:TableGrid:name[('val', 'Table Grid')]",
-      "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
-      "styles:TableGrid:tblBorders[]",
-      "styles:TableGrid:tblPr[]",
-      "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
-      "styles:TableGrid:uiPriority[('val', '39')]"
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
     ],
     "part_counts": {},
     "id": "table",
