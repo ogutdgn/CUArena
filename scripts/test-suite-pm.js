@@ -669,6 +669,15 @@
     if (!/<w:tl2br\b/.test(tb)) return 'no <w:tl2br> (diagonal-down): ' + tb.slice(0, 200);
     return /<w:insideH\b/.test(tb) ? true : 'no <w:insideH>: ' + tb.slice(0, 200);
   });
+  await t('[table] D cell width exports <w:tcW w:type="dxa"> at 1.5in (~2160 twips, Word)', async () => {
+    setDoc(''); PM().insertTable({ rows: 2, cols: 2 }); await sleep(90);
+    PM().tableSetCellWidth(144); await sleep(60); // 1.5in * 96px/in
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const tcW = (xml.match(/<w:tcW\b[^>]*\/?>/) || ['none'])[0];
+    if (!/w:type="dxa"/.test(tcW)) return 'tcW not dxa: ' + tcW;
+    const w = (tcW.match(/w:w="(\d+)"/) || [])[1];
+    return (w && Math.abs(+w - 2160) <= 45) ? true : 'tcW w=' + w + ' expected ~2160 (1.5in=1.5*1440): ' + tcW;
+  });
   await t('[table] A AutoFit behavior: contents=autofit layout, window=pct/full width (Word)', async () => {
     setDoc(''); PM().insertTable({ rows: 2, cols: 3 }); await sleep(90);
     PM().tableAutoFit('contents'); await sleep(70);
