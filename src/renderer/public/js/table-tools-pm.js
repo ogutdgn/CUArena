@@ -35,10 +35,10 @@
         ] },
         { id: 'tl-rowscols', name: 'Rows & Columns', controls: [
           { cmd: 'tblDelete', label: 'Delete', type: 'dropdown' },
-          { cmd: 'tblInsertAbove', label: 'Insert Above', type: 'button' },
-          { cmd: 'tblInsertBelow', label: 'Insert Below', type: 'button' },
-          { cmd: 'tblInsertLeft', label: 'Insert Left', type: 'button' },
-          { cmd: 'tblInsertRight', label: 'Insert Right', type: 'button' },
+          { cmd: 'tblInsertAbove', label: 'Insert Row Above', type: 'button' },
+          { cmd: 'tblInsertBelow', label: 'Insert Row Below', type: 'button' },
+          { cmd: 'tblInsertLeft', label: 'Insert Column Left', type: 'button' },
+          { cmd: 'tblInsertRight', label: 'Insert Column Right', type: 'button' },
         ] },
         { id: 'tl-merge', name: 'Merge', controls: [
           { cmd: 'tblMerge', label: 'Merge Cells', type: 'button' },

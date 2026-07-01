@@ -397,3 +397,7 @@ body.pm-active .ribbon-panel .wc-disabled { opacity: 0.45; pointer-events: none;
   display: grid; grid-template-columns: repeat(7, 66px); gap: 3px; padding: 5px; max-height: 340px; overflow-y: auto;
 }
 .tblstyles-grid-expanded .tblstyle-cell { width: 66px; height: 48px; }
+
+/* Table Layout → Alignment: 3x3 icon grid (the 9 cell-alignment buttons). */
+.tbl-align-grid { display: grid; grid-template-columns: repeat(3, auto); gap: 1px; align-content: center; }
+.tbl-align-grid .rbtn.small { width: 20px; height: 20px; }

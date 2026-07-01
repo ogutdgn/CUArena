@@ -199,6 +199,9 @@ function maybeScreenshot() {
   const delay = delayArg ? parseInt(delayArg.split('=')[1], 10) : 1200;
   const evalArg = process.argv.find((a) => a.startsWith('--shot-eval='));
   const evalFileArg = process.argv.find((a) => a.startsWith('--shot-evalfile='));
+  // --shot-maximize: capture at the maximized window size (what a real user sees), so the
+  // responsive-condense ribbon shows the same labels a maximized Word window would.
+  if (process.argv.some((a) => a === '--shot-maximize')) { try { mainWindow.maximize(); } catch (e) { /* no-op */ } }
   setTimeout(async () => {
     try {
       let js = evalArg ? evalArg.slice('--shot-eval='.length) : null;

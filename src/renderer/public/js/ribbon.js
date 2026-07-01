@@ -170,6 +170,15 @@
       } else if (group.id === 'td-borders') {
         // Table Design → Borders: Border Styles + Line Style/Weight/Pen Color + Borders + Painter.
         this.renderTableBordersGroup(body, group);
+      } else if (group.id === 'tl-align') {
+        // Table Layout → Alignment: 3x3 icon grid + Text Direction + Cell Margins (Word layout).
+        this.renderTableLayoutAlignment(body, group);
+      } else if (group.id === 'tl-cellsize') {
+        // Table Layout → Cell Size: AutoFit + Height/Width + Distribute Rows/Columns.
+        this.renderTableLayoutCellSize(body, group);
+      } else if (/^tl-/.test(group.id)) {
+        // Table Layout → Table/Draw/Rows&Columns/Merge/Data: large LABELED buttons like Word.
+        this.renderTableLayoutLargeGroup(body, group);
       } else {
         // Pens gallery: inline pen tiles (Word shows the pens directly in the ribbon)
         if (gallery && group.id === 'pens') body.appendChild(this.renderPensGallery(gallery));
@@ -482,6 +491,44 @@
       body.appendChild(stack);
       large('tblBorders');
       large('tblBorderPainter');
+    },
+
+    // Table Layout → Table/Draw/Rows&Columns/Merge/Data: Word renders these as LARGE labeled
+    // buttons (icon on top, text below), not the icon-only small buttons of the Home Font group.
+    renderTableLayoutLargeGroup(body, group) {
+      group.controls.forEach((c) => body.appendChild(this.renderControl(c, 'large')));
+    },
+
+    // Table Layout → Alignment: the 9 cell-alignment buttons as a compact 3x3 ICON grid (Word
+    // shows them icon-only), then Text Direction + Cell Margins as large labeled buttons.
+    renderTableLayoutAlignment(body, group) {
+      const aligns = group.controls.filter((c) => /^tblAlign(Top|Mid|Bot)/.test(c.cmd));
+      const grid = el('div', { class: 'tbl-align-grid' });
+      aligns.forEach((c) => grid.appendChild(this.renderControl(c, 'small')));
+      body.appendChild(grid);
+      ['tblTextDir', 'tblCellMargins'].forEach((cmd) => {
+        const c = group.controls.find((x) => x.cmd === cmd);
+        if (c) body.appendChild(this.renderControl(c, 'large'));
+      });
+    },
+
+    // Table Layout → Cell Size: AutoFit (large) + Height/Width (labeled) + Distribute Rows/Columns.
+    renderTableLayoutCellSize(body, group) {
+      const byCmd = (cmd) => group.controls.find((c) => c.cmd === cmd);
+      const af = byCmd('tblAutoFit');
+      if (af) body.appendChild(this.renderControl(af, 'large'));
+      const hw = el('div', { class: 'ctrl-stack' });
+      ['tblRowHeight', 'tblColWidth'].forEach((cmd) => {
+        const c = byCmd(cmd);
+        if (c) { const row = el('div', { class: 'ctrl-row' }); row.appendChild(this.renderControl(c, 'small', { labeled: true })); hw.appendChild(row); }
+      });
+      body.appendChild(hw);
+      const dist = el('div', { class: 'ctrl-stack' });
+      ['tblDistRows', 'tblDistCols'].forEach((cmd) => {
+        const c = byCmd(cmd);
+        if (c) { const row = el('div', { class: 'ctrl-row' }); row.appendChild(this.renderControl(c, 'small', { labeled: true })); dist.appendChild(row); }
+      });
+      body.appendChild(dist);
     },
 
     // Design tab "Document Formatting": the Themes button, then the big inline
