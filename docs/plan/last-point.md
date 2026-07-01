@@ -73,6 +73,20 @@
 > fd-bullet-align (`1522b37`, applyListDefinition writes w:rFonts + w:lvlJc; Define-New-Bullet Font + Alignment selects;
 > verified via test:pm numbering.xml since COM ApplyBulletDefault is a singleLevel artifact; review SOUND — no
 > regression to plain bullets/numbering; specs/029).
+> **🏁 PROVEN-PARITY PHASE (user directive: close T0/T1 to byte-identical across OOXML+flow+visual via a REAL-ribbon
+> oracle; no more code-traced "COM artifact"; measure everything, fix/build every gap; HOLD main merge until done).**
+> **MILESTONE 1 — RIBBON ORACLE BUILT (`parity/oracle/`, `3dfca74`):** `ribbon_oracle.ps1` drives the ACTUAL ribbon
+> command via COM `CommandBars.ExecuteMso(idMso)` (the button's real code path, PID-safe) — proves the "COM artifact"
+> hypothesis. `GetLabelMso`/`GetEnabledMso` for control metadata. Differ hardened for numbering.xml (nsid/tmpl/durableId/
+> Ignorable noise + numId/abstractNumId attr canon + part-root skip; review_differ 17/17). RE-MEASURED family: numbering
+> **0/0 PROVEN** (COM's 35-extra was pure artifact); bullets 48-match, real gap = default bullet GLYPHS (Word Symbol-font
+> f0b7/f0a7/o vs clone literal •/▪/◦). **TABLES:** insert ground truth = Tables.Add+Table Grid style (`a22873e`); A-F
+> enumeration = **89 behaviors** worklist (`fca5833`, `parity/oracle/tables_af_worklist.json`: ~22 OK, 57 GAP, 10 LACKS
+> incl. Excel-OLE/Quick-Tables/Formula + the 6 floating-table tblpPr). Table INSERT: **3/4 diffs FIXED** (`f828dcc`:
+> tblLook w:val + tblW auto + TableGrid pPr; KNOWN remaining = gridCol AutoFit widths 3120-vs-3116/3117 ~10tw).
+> **NEXT: fix bullet glyphs; then the A-F batches B(Design,18)/C(Layout,~25 gaps)/D(cell-level,6)/E(floating,BUILD) each
+> measured vs the oracle to 0/0; re-measure highlight/pagenum; build the UIA flow reader (milestone 3) + visual (4).**
+> — (Prior fix-pass ↓.)
 > **🏁🏁 ALL 10 verified real T0/T1 gaps FIXED + the differ made sound. Each: TDD (RED→GREEN) + run.py-or-test:pm
 > acceptance + clone gates + a per-fix adversarial review (2 reviews caught real bugs: fd-link differ-artifact split,
 > 026 clearing-leak — both fixed).** test:pm 515/515, roundtrip 27/0 throughout. All on parity-pipeline (NOT merged).
