@@ -10,6 +10,64 @@ import { v4 as uuidv4 } from 'uuid';
 import { SearchIndex } from './SearchIndex.js';
 
 /**
+ * MS-WORD-CLONE FORK EDIT (parity 028, user-authorized): build the Replace-With payload as a Slice that HONORS
+ * Word's special codes instead of inserting them as literal text — ^p → paragraph break, ^t → a <w:tab/>, ^l → a
+ * <w:br/> line break, ^^ → a literal caret. A plain replacement (no codes) yields the same single-text-node inline
+ * Slice as before, so ordinary replaces are unchanged.
+ * @param {import('prosemirror-model').Schema} schema
+ * @param {string} replacement
+ * @returns {Slice}
+ */
+export function buildReplacementSlice(schema, replacement) {
+  const paragraphType = schema.nodes.paragraph;
+  const tabType = schema.nodes.tab;
+  const brType = schema.nodes.lineBreak || schema.nodes.hardBreak;
+  // Tokenize into paragraph-segments, each a list of inline nodes (text / tab / line-break).
+  const paras = [[]];
+  let buf = '';
+  const flush = () => {
+    if (buf) {
+      paras[paras.length - 1].push(schema.text(buf));
+      buf = '';
+    }
+  };
+  for (let i = 0; i < replacement.length; i++) {
+    const ch = replacement[i];
+    if (ch === '^' && i + 1 < replacement.length) {
+      const code = replacement[++i];
+      if (code === 'p' && paragraphType) {
+        flush();
+        paras.push([]);
+      } else if (code === 'l' && brType) {
+        // ^l = manual line break (<w:br/>). NOTE: Word's ^n = COLUMN break and ^m = PAGE break are deliberately
+        // NOT handled here (they degrade to their literal char) — a follow-up if broader Replace-code parity is wanted.
+        flush();
+        paras[paras.length - 1].push(brType.create());
+      } else if (code === 't' && tabType) {
+        flush();
+        paras[paras.length - 1].push(tabType.create());
+      } else if (code === '^') {
+        buf += '^';
+      } else {
+        // unknown ^x → keep the literal char (Word varies; safest is not to drop input)
+        buf += code;
+      }
+    } else {
+      buf += ch;
+    }
+  }
+  flush();
+  // Single segment (no ^p): inline content, no open depth — identical shape to the pre-028 replace.
+  if (paras.length === 1) {
+    return new Slice(Fragment.fromArray(paras[0]), 0, 0);
+  }
+  // Multiple segments: one paragraph per segment; openStart/openEnd = 1 so the first/last paragraphs merge into
+  // the paragraph the match was replaced within (a mid-paragraph ^p splits it, like Word).
+  const paraNodes = paras.map((nodes) => paragraphType.create(null, Fragment.fromArray(nodes)));
+  return new Slice(Fragment.fromArray(paraNodes), 1, 1);
+}
+
+/**
  * Plugin key for accessing custom search highlight decorations
  */
 export const customSearchHighlightsKey = new PluginKey('customSearchHighlights');
@@ -821,7 +879,7 @@ export const Search = Extension.create({
 
           const tr = state.tr;
           if (replacement) {
-            tr.replace(from, to, new Slice(Fragment.from(state.schema.text(replacement)), 0, 0));
+            tr.replace(from, to, buildReplacementSlice(state.schema, replacement));
           } else {
             tr.replace(from, to, Slice.empty);
           }
@@ -886,7 +944,7 @@ export const Search = Extension.create({
             const to = match.ranges[match.ranges.length - 1].to;
 
             if (replacement) {
-              tr.replace(from, to, new Slice(Fragment.from(schema.text(replacement)), 0, 0));
+              tr.replace(from, to, buildReplacementSlice(schema, replacement));
             } else {
               tr.replace(from, to, Slice.empty);
             }

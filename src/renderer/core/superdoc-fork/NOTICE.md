@@ -486,6 +486,15 @@ project tsconfig instead — matching the other vendored packages, which also sh
   PURELY ADDITIVE (all three no-op'd before). Gated by `specs/026-font-effects-batch` + a `test:pm` regression +
   the parity `--only fd-double-strike`/`fd-hidden`/`fd-kerning` 0/0 semantic-pass. The Font-dialog controls + bridge
   advFxAttrs/getAdvancedFontEffects wiring are NO-FORK (`src/renderer/public/js/` + `src/renderer/bridge/`).
+- **Find/Replace special codes in the Replace box (parity feature 028, group 4, 2026-06-30, user-authorized):** the
+  Replace-With box inserted `^p`/`^t`/`^l` as LITERAL text; real Word translates them. One additive helper
+  `buildReplacementSlice(schema, replacement)` in `extensions/search/search.js` parses the replacement into a Slice —
+  `^p` → paragraph split (paragraph nodes, Slice openStart/openEnd=1 so a mid-paragraph break splits the surrounding
+  paragraph), `^t` → a `tab` node (`<w:tab/>`), `^l`/`^n` → a `lineBreak`/`hardBreak` node (`<w:br/>`), `^^` → a literal
+  caret. Both `replaceSearchMatch` + `replaceAllSearchMatches` call it. A replacement with NO codes yields the same
+  single-text-node inline Slice as before, so ordinary replaces are unchanged. Gated by `specs/028-replace-special-codes`
+  + a `test:pm` regression (`028 Replace box ^p/^t/^l`). The find/replace pane wiring is NO-FORK (`bridge/search.ts` +
+  `dialogs.js` pass the raw Replace-box string through, now correctly interpreted).
 - All other editing-engine logic (ProseMirror schema, extensions, converters, DOCX
   import/export) is unmodified from upstream commit 03ab3f3.
 
