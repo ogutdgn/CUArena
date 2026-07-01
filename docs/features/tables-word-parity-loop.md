@@ -29,3 +29,17 @@ UI flows, ribbon buttons, ribbon design — must be **the same as real MS Word**
 ## Status
 - P0 DONE: capture toolkit built + baseline captured. Clone Table Design tab = unlabeled icons,
   no gallery (confirmed against real Word). Starting P1.
+
+## Progress log
+- **P1 Table Design UI → Word parity DONE** (`c498c6b`): labeled 2-col checkbox Table Style
+  Options, inline Table Styles gallery + Shading, Borders group (Border Styles/Line Style/
+  Line Weight/Pen Color/Borders/Border Painter) all labeled. Verified clone-vs-Word screenshots.
+- **Table overflow on add-column FIXED** (`70dd581`): re-fit to page text width when columns
+  overflow (was 24360 twips on a 9360 page → now 9360). Verified live (13 equal cols in-page).
+- REMAINING: (a) Table Styles GALLERY CATALOG — clone has only 2 table styles vs Word's ~105
+  (extract the built-in catalog from Word + mint into styles.xml); (b) LAYOUT tab UI parity
+  (same per-group render pattern); (c) BORDERS apply-live to the selected cell + REPAINT (user:
+  "don't change anything in selected cell") — investigate the paged repaint/dispatch; (d)
+  conditional-format RENDERING so Table Style Options show banding/header; (e) tblW=pct→auto
+  refinement on the overflow fix; (f) round-trip a real-Word styled-table docx; (g) full
+  end-to-end sweep of every control + adversarial review.
