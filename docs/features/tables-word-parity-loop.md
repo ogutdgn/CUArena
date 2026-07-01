@@ -186,3 +186,31 @@ tabbed dialog: Table (preferred width, alignment, text wrapping, Borders&Shading
 Row (height, options), Column (width), Cell (width, vertical alignment, Options margins), Alt Text.
 Wire to existing bridge verbs (tableSetAlignment/tableSetRowHeight/tableSetCellWidth/tableSetCellVAlign/
 tableSetCellMargins). Then final full sweep vs Word + report to the user. Gallery catalog still BLOCKED.
+
+## Iteration 9 (2026-07-01) — Table Properties dialog → PARITY MILESTONE
+- Layout > Properties → Word parity (`ea7a5ba`): Word's tabbed dialog (Table/Row/Column/Cell/Alt
+  Text) — manual tab strip; Table tab (Preferred width, Alignment+Indent, Text wrapping, Borders
+  and Shading…/Options…), Row (height+rule, break-across-pages, repeat-header), Column (width),
+  Cell (width, vertical alignment), Alt Text (title/desc). OK wires to existing bridge verbs
+  (tableSetAlignment prefilled, tableSetIndent/RowHeight/CellWidth/CellVAlign, tableRepeatHeaderRows).
+  Verified maximized vs real Word. test:pm 535 / rt 32.
+
+## ✅ ACHIEVED-PARITY SUMMARY (2026-07-01, branch parity-pipeline, NOT merged)
+The clone's Table feature now matches real MS Word across (verified LIVE via clone-vs-Word screenshots):
+- Table DESIGN tab: labeled 2-col checkbox Table Style Options; inline Table Styles gallery + Shading;
+  Borders group (Border Styles/Line Style/Line Weight/Pen Color/Borders/Border Painter) — labeled + real icons.
+- Table LAYOUT tab: Table/Draw/Rows&Columns/Merge/Cell Size/Alignment(3x3 grid)/Data — labeled large
+  buttons, Word labels (Insert Row Above…), real icons (incl. hand-drawn 9-way align).
+- INSERT > Table dropdown: grid picker + Insert Table…/Draw Table/Convert Text to Table…/Excel/Quick Tables.
+- DIALOGS: Insert Table (grid + AutoFit), Sort (3 levels + reorder), Formula (compute SUM/AVG/…),
+  Table Properties (5 tabs). All match Word.
+- BEHAVIOR: table stays in the page on add-column; No Border removes borders (val=nil); borders apply +
+  repaint; styled tables render (header+banding) + Table Style Options toggle live; theme colors.
+- ROUND-TRIP: a real-Word styled-table .docx imports unchanged (tblStyle+cnfStyle+def preserved) — gated.
+- Adversarial review CLEAN (no HIGH/MED bugs). Gates: test:pm 535 / roundtrip 32 / smoke 9.
+
+## REMAINING GAPS
+- 🚫 BLOCKED: Table Styles gallery CATALOG — 2 defined styles vs Word's ~113. COM bulk extraction hangs
+  (even 3 styles); no byte-accurate reference source in-repo. Needs a working oracle or a reference file.
+- Minor (tractable, lower value): Cell Margins is a flyout (Word = Cell Options dialog); Modify/New Table
+  Style are stubs (custom-style authoring); border TOGGLE semantics (uncertain — Word toggles vs style borders).
