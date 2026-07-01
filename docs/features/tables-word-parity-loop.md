@@ -99,3 +99,21 @@ Accent 1) vs Word's ~14 visible / ~105 total. Extract Word's built-in table styl
 built-in table style, apply to a table + save; read styles.xml; collect the w:style defs) and mint
 them into the clone's styles so the gallery is full + they apply. Big data task.
 Then: (3) border toggle, (4) conditional-format rendering, (5) round-trip, (6) full sweep + review.
+
+## Iteration 4 (2026-07-01) — catalog BLOCKED, round-trip VERIFIED
+- Table Styles GALLERY CATALOG: BLOCKED. Word has 247 table styles (113 modern Grid/List/Plain).
+  Bulk extraction via COM HANGS (even 6 styles time out) — invisible-instance flakiness applying
+  styles in a loop. The fork only defines TableGrid + GridTable4 (exporter-docx-defs.js). Minimal
+  stubs won't work: the roundtrip gate requires every tblStyle ref DEFINED, and a defined stub
+  overrides Word's built-in. So the full byte-accurate catalog needs a reliable oracle or a
+  byte-accurate reference source. DEFERRED. Tooling committed: _extract_table_styles.ps1 +
+  _extract_batch.ps1 (+ curated C:\tmp\modern-tablestyles.txt, 113 names).
+- ROUND-TRIP VERIFIED (`468b5f0`): the user's core requirement — a real-Word .docx imports to the
+  clone unchanged — is now gated. Added tests/fixtures/realword-gridtable4-accent1.docx (real Word
+  Grid Table 4 - Accent 1). test:roundtrip 32/0: tblStyle + cnfStyle + tblStylePr def all preserved
+  through import->export. (Real-Word docs round-trip because import preserves styles.xml.)
+
+NEXT: (a) ADVERSARIAL REVIEW of the loop's table work (5 iterations: Design/Layout UI, overflow,
+No Border, icons, round-trip) — spawn a review subagent, fix findings. (b) border TOGGLE semantics.
+(c) conditional-format RENDERING for the styles we have (GridTable4 banding/header live). (d) revisit
+the catalog if the oracle stabilizes (small reliable batches) or via a byte-accurate reference.
