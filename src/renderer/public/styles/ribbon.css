@@ -390,3 +390,18 @@ body.pm-active .ribbon-panel .wc-disabled { opacity: 0.45; pointer-events: none;
   display: grid; grid-template-columns: repeat(7, 66px); gap: 3px; padding: 5px; max-height: 300px; overflow-y: auto;
 }
 .tblstyles-grid-expanded .tblstyle-cell { width: 66px; height: 48px; }
+
+/* ---- Table Design → Table Style Options checkboxes (spec 031) ---- */
+/* Word's 2-col x 3-row layout, column-major: left col = Header Row / Total Row / Banded Rows,
+   right col = First Column / Last Column / Banded Columns. grid-auto-flow:column + 3 rows fills
+   the declared order (Header,Total,Banded Rows,First,Last,Banded Cols) down-then-across. */
+.tbl-styleopts {
+  display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column;
+  gap: 1px 14px; align-content: center; padding: 2px 4px;
+}
+.tbl-styleopt {
+  display: flex; align-items: center; gap: 5px; font-size: 12px; cursor: pointer;
+  white-space: nowrap; line-height: 18px;
+}
+.tbl-styleopt .tso-cb { margin: 0; cursor: pointer; }
+.tbl-styleopt .tso-lbl { user-select: none; }

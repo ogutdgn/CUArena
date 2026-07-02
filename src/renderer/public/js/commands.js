@@ -134,6 +134,24 @@
   H.tblAlignLeft = () => { const p = TPM(); if (p) p.tableSetAlignment('left'); };
   H.tblAlignCenter = () => { const p = TPM(); if (p) p.tableSetAlignment('center'); };
   H.tblAlignRight = () => { const p = TPM(); if (p) p.tableSetAlignment('right'); };
+  // Spec 031: Table Style Options checkboxes. `node` is the checkbox INPUT (ribbon.js passes it) — its
+  // .checked is the DESIRED post-toggle state. Each flips the mapped tblLook flag + re-derives cnfStyle
+  // stamps via WC.PM.tableStyleOption(opt, checked). The ribbon re-renders the group after dispatch to
+  // resync every box. Falls back to reading the current state (invert) if no node is supplied.
+  const styleOpt = (opt, node) => {
+    const p = TPM();
+    if (!p || !p.tableStyleOption) return;
+    let checked;
+    if (node && typeof node.checked === 'boolean') checked = node.checked;
+    else { const st = (p.tableStyleOptionState && p.tableStyleOptionState()) || {}; checked = !st[opt]; }
+    p.tableStyleOption(opt, checked);
+  };
+  H.tblStyleHeaderRow = (c, node) => styleOpt('headerRow', node);
+  H.tblStyleTotalRow = (c, node) => styleOpt('totalRow', node);
+  H.tblStyleBandedRows = (c, node) => styleOpt('bandedRows', node);
+  H.tblStyleFirstCol = (c, node) => styleOpt('firstColumn', node);
+  H.tblStyleLastCol = (c, node) => styleOpt('lastColumn', node);
+  H.tblStyleBandedCols = (c, node) => styleOpt('bandedColumns', node);
   // Cell Margins (Table Layout → Alignment group). Word's button opens the Cell Options dialog; we
   // open an inches flyout (4 sides) anchored to the control, mirroring the Row Height / Column Width
   // size flyouts. px = inches × 96 (the fork clamps ≥0 and the exporter converts px → twips for

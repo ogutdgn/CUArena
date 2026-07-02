@@ -151,19 +151,21 @@ T.append(dict(
     wc=WC_BASE + "\n    applyStyleIfInGallery('ListTable3', 'List Table 3');",
     rw=RW_BASE + "\n    $tbl.Style = 'List Table 3'",
 ))
-for sid, prop, val, label in [
-    ("tb-styleopt-headerrow-off", "ApplyStyleHeadingRows", "$false", "Header Row OFF"),
-    ("tb-styleopt-totalrow-on", "ApplyStyleLastRow", "$true", "Total Row ON"),
-    ("tb-styleopt-bandedrows-off", "ApplyStyleRowBands", "$false", "Banded Rows OFF"),
-    ("tb-styleopt-firstcol-off", "ApplyStyleFirstColumn", "$false", "First Column OFF"),
-    ("tb-styleopt-lastcol-on", "ApplyStyleLastColumn", "$true", "Last Column ON"),
-    ("tb-styleopt-bandedcols-on", "ApplyStyleColumnBands", "$true", "Banded Columns ON"),
+# Spec 031: each styleopt task drives the REAL bridge verb PM.tableStyleOption(opt, on) on a styled table
+# (the Table Style Options checkbox route) after the GT4A1 apply — the tblLook bit flips + cnfStyle re-stamps.
+for sid, prop, val, label, opt, on in [
+    ("tb-styleopt-headerrow-off", "ApplyStyleHeadingRows", "$false", "Header Row OFF", "headerRow", "false"),
+    ("tb-styleopt-totalrow-on", "ApplyStyleLastRow", "$true", "Total Row ON", "totalRow", "true"),
+    ("tb-styleopt-bandedrows-off", "ApplyStyleRowBands", "$false", "Banded Rows OFF", "bandedRows", "false"),
+    ("tb-styleopt-firstcol-off", "ApplyStyleFirstColumn", "$false", "First Column OFF", "firstColumn", "false"),
+    ("tb-styleopt-lastcol-on", "ApplyStyleLastColumn", "$true", "Last Column ON", "lastColumn", "true"),
+    ("tb-styleopt-bandedcols-on", "ApplyStyleColumnBands", "$true", "Banded Columns ON", "bandedColumns", "true"),
 ]:
     T.append(dict(
         id=sid, feature=f"Table Style Options: {label}",
         control_id="table-design.styleoptions",
-        note=f"Word: {prop} = {val} on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
-        wc=WC_STYLED + "\n" + unreachable("Table Style Options group absent from the clone Design tab"),
+        note=f"Word: {prop} = {val} on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('{opt}', {on}) via the Table Style Options checkbox (spec 031).",
+        wc=WC_STYLED + f"\n    out.op = PM.tableStyleOption('{opt}', {on});",
         rw=RW_STYLED + f"\n    $tbl.{prop} = {val}",
     ))
 T.append(dict(

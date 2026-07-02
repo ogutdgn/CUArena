@@ -7398,6 +7398,180 @@
   });
 
 
+  // ============================ [031] Table Style Options + tblLook/cnfStyle writer ============================
+  // Ground truth = the rw fixtures (parity/fixtures/rw-tb-style-grid4a1.docx + rw-tb-styleopt-*.docx),
+  // fixture-verified 2026-07-02. Each test exports document.xml and greps the tblLook val + the per-row/cell
+  // cnfStyle placement (spec scenarios 1-4). See specs/031-table-style-options/spec.md.
+  const docXml = () => window.WC.editor.exportDocx({ exportXmlOnly: true });
+  // Per-row trPr cnfStyle val + per-cell tcPr cnfStyle val for the FIRST <w:tbl> in document.xml.
+  // Returns { rows: [{ tr: val|null, cells: [val|null,...] }, ...] }. val === null ⇒ no cnfStyle element.
+  const tableStamps = (xml) => {
+    const tbl = (xml.match(/<w:tbl>[\s\S]*?<\/w:tbl>/) || [])[0] || '';
+    const rows = [];
+    const rowRe = /<w:tr\b[\s\S]*?<\/w:tr>/g;
+    let rm;
+    while ((rm = rowRe.exec(tbl))) {
+      const r = rm[0];
+      const trPr = (r.match(/<w:trPr>[\s\S]*?<\/w:trPr>/) || [])[0] || '';
+      const trVal = (trPr.match(/<w:cnfStyle\b[^>]*w:val="(\d+)"/) || [])[1] || null;
+      const cells = [];
+      const cellRe = /<w:tc>[\s\S]*?(?=<w:tc>|<\/w:tr>)/g;
+      let cm;
+      while ((cm = cellRe.exec(r))) {
+        const tcPr = (cm[0].match(/<w:tcPr>[\s\S]*?<\/w:tcPr>/) || [])[0] || '';
+        cells.push((tcPr.match(/<w:cnfStyle\b[^>]*w:val="(\d+)"/) || [])[1] || null);
+      }
+      rows.push({ tr: trVal, cells });
+    }
+    return { rows };
+  };
+  const firstTblLook = (xml) => (xml.match(/<w:tblLook\b[^>]*\/>/) || [])[0] || '';
+  const stampsEq = (rows, expect) => {
+    if (rows.length !== expect.length) return 'row count ' + rows.length + ' != ' + expect.length;
+    for (let r = 0; r < expect.length; r++) {
+      if ((rows[r].tr || null) !== (expect[r].tr || null)) return 'row ' + r + ' trPr got ' + rows[r].tr + ' want ' + expect[r].tr;
+      const gc = rows[r].cells, wc = expect[r].cells;
+      if (gc.length !== wc.length) return 'row ' + r + ' cell count ' + gc.length + ' != ' + wc.length;
+      for (let c = 0; c < wc.length; c++) if ((gc[c] || null) !== (wc[c] || null)) return 'cell (' + r + ',' + c + ') got ' + gc[c] + ' want ' + wc[c];
+    }
+    return true;
+  };
+  // Build a styled 3x3 (GT4A1) with the caret inside — the shared setup for the OOXML tests.
+  const styledTable = async (tag) => {
+    await PM().newBlank(); await sleep(120);
+    setDoc(tag); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return false;
+    PM().tableSetStyle('GridTable4-Accent1'); await sleep(120);
+    if (!caretIntoTable()) return false;
+    return true;
+  };
+
+  await t('[031] (a) GT4A1 apply → tblLook val=04A0 + 6 flags; row0 trPr 100000000000 + band row1 + firstColumn cells (scenario 1)', async () => {
+    if (!(await styledTable('t031a'))) return 'no styled table';
+    const xml = await docXml();
+    const look = firstTblLook(xml);
+    if (!/w:val="04A0"/.test(look)) return 'tblLook val not 04A0: ' + look;
+    // Assert the six flag attrs are present (both val AND flags — FR-001).
+    for (const [a, v] of [['firstRow', '1'], ['lastRow', '0'], ['firstColumn', '1'], ['lastColumn', '0'], ['noHBand', '0'], ['noVBand', '1']])
+      if (!new RegExp('w:' + a + '="' + v + '"').test(look)) return 'tblLook missing ' + a + '=' + v + ': ' + look;
+    const { rows } = tableStamps(xml);
+    const eq = stampsEq(rows, [
+      { tr: '100000000000', cells: ['001000000000', '100000000000', '100000000000'] },
+      { tr: '000000100000', cells: ['001000000000', '000000100000', '000000100000'] },
+      { tr: null, cells: ['001000000000', '000000000000', '000000000000'] },
+    ]);
+    if (eq !== true) return eq;
+    // Assert BOTH the val attr AND an explicit flag attr on a stamped element (explicit-zero emission).
+    if (!/<w:cnfStyle\b[^>]*w:val="100000000000"[^>]*w:firstRow="1"/.test(xml) && !/<w:cnfStyle\b[^>]*w:firstRow="1"[^>]*w:val="100000000000"/.test(xml))
+      return 'firstRow stamp lacks the explicit w:firstRow="1" flag alongside val';
+    if (!/w:firstColumn="1"/.test(xml)) return 'no explicit w:firstColumn="1" flag on any stamp';
+    return true;
+  });
+
+  await t('[031] (b) Total Row ON → tblLook val=04E0/lastRow=1 + row2 trPr 010000000000 (scenario 2)', async () => {
+    if (!(await styledTable('t031b'))) return 'no styled table';
+    PM().tableStyleOption('totalRow', true); await sleep(120);
+    const xml = await docXml();
+    const look = firstTblLook(xml);
+    if (!/w:val="04E0"/.test(look)) return 'tblLook val not 04E0: ' + look;
+    if (!/w:lastRow="1"/.test(look)) return 'tblLook lastRow not 1: ' + look;
+    const { rows } = tableStamps(xml);
+    return stampsEq(rows, [
+      { tr: '100000000000', cells: ['001000000000', '100000000000', '100000000000'] },
+      { tr: '000000100000', cells: ['001000000000', '000000100000', '000000100000'] },
+      { tr: '010000000000', cells: ['001000000000', '010000000000', '010000000000'] },
+    ]);
+  });
+
+  await t('[031] (c) Header Row OFF → tblLook val=0480/firstRow=0 + banding recounts from row0 (scenario 3)', async () => {
+    if (!(await styledTable('t031c'))) return 'no styled table';
+    PM().tableStyleOption('headerRow', false); await sleep(120);
+    const xml = await docXml();
+    const look = firstTblLook(xml);
+    if (!/w:val="0480"/.test(look)) return 'tblLook val not 0480: ' + look;
+    if (!/w:firstRow="0"/.test(look)) return 'tblLook firstRow not 0: ' + look;
+    const { rows } = tableStamps(xml);
+    // banding now runs from row0: rows 0 and 2 band (oddHBand), row1 nothing.
+    return stampsEq(rows, [
+      { tr: '000000100000', cells: ['001000000000', '000000100000', '000000100000'] },
+      { tr: null, cells: ['001000000000', '000000000000', '000000000000'] },
+      { tr: '000000100000', cells: ['001000000000', '000000100000', '000000100000'] },
+    ]);
+  });
+
+  await t('[031] (d) Banded Columns ON → tblLook val=00A0/noVBand=0 + 2nd cell of every row band1Vert 000010000000 (scenario 4)', async () => {
+    if (!(await styledTable('t031d'))) return 'no styled table';
+    PM().tableStyleOption('bandedColumns', true); await sleep(120);
+    const xml = await docXml();
+    const look = firstTblLook(xml);
+    if (!/w:val="00A0"/.test(look)) return 'tblLook val not 00A0: ' + look;
+    if (!/w:noVBand="0"/.test(look)) return 'tblLook noVBand not 0: ' + look;
+    const { rows } = tableStamps(xml);
+    return stampsEq(rows, [
+      { tr: '100000000000', cells: ['001000000000', '000010000000', '100000000000'] },
+      { tr: '000000100000', cells: ['001000000000', '000010000000', '000000100000'] },
+      { tr: null, cells: ['001000000000', '000010000000', '000000000000'] },
+    ]);
+  });
+
+  await t('[031] (e) TableGrid (unstyled) table → NO cnfStyle anywhere (plain tables carry no markers)', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t031e'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell';
+    // A fresh insertTable is unstyled (Table Grid / no tblStylePr). Nudge the restamp explicitly.
+    PM().restampTableConditionalFormats(); await sleep(80);
+    const xml = await docXml();
+    if (/<w:cnfStyle\b/.test(xml)) return 'unstyled table carries a <w:cnfStyle> (should be none): ' + (xml.match(/<w:cnfStyle\b[^>]*\/>/) || [''])[0];
+    return true;
+  });
+
+  await t('[031] (f) insert row above on styled → stamps re-derived, single firstRow marker (no stale duplicate)', async () => {
+    if (!(await styledTable('t031f'))) return 'no styled table';
+    // Seat the caret in row1 (2nd row) then insert a row ABOVE it → geometry becomes 4 rows.
+    let cellPos = null, seen = 0;
+    doc().descendants((n, pos) => {
+      if (n.type.name === 'tableRow') { if (seen === 1 && cellPos == null) { /* row1 */ } seen++; }
+    });
+    // Simpler: caret into the FIRST cell of row1 via the model (index 3 = row1 col0 in a 3x3).
+    let idx = 0; let target = null;
+    doc().descendants((n, pos) => { if ((n.type.name === 'tableCell' || n.type.name === 'tableHeader')) { if (idx === 3) target = pos; idx++; } });
+    if (target == null) return 'no row1 cell';
+    window.WC.editor.commands.setTextSelection(target + 2); await sleep(40);
+    PM().tableAddRow('above'); await sleep(150);
+    const xml = await docXml();
+    const { rows } = tableStamps(xml);
+    if (rows.length !== 4) return 'expected 4 rows after insert, got ' + rows.length;
+    // Exactly ONE row carries the firstRow marker (100000000000) — no stale duplicate.
+    const firstRowRows = rows.filter((r) => r.tr === '100000000000').length;
+    if (firstRowRows !== 1) return 'expected exactly ONE firstRow trPr marker, got ' + firstRowRows;
+    // row0 is the firstRow row; the inserted blank row + shifted rows re-band correctly (a fresh stamping
+    // of a 4-row geometry: row0=firstRow, then bands on rows 1 and 3, row2 none).
+    if (rows[0].tr !== '100000000000') return 'row0 not firstRow after insert: ' + rows[0].tr;
+    return true;
+  });
+
+  await t('[031] (g) toggle = ONE undo step (reverts both the tblLook flag AND the stamps)', async () => {
+    if (!(await styledTable('t031g'))) return 'no styled table';
+    const before = await docXml();
+    const lookBefore = firstTblLook(before);
+    PM().tableStyleOption('totalRow', true); await sleep(120);
+    const after = await docXml();
+    if (firstTblLook(after) === lookBefore) return 'toggle did not change tblLook';
+    // ONE undo must restore BOTH the tblLook and the stamps to the pre-toggle export.
+    window.WC.editor.commands.undo(); await sleep(120);
+    const undone = await docXml();
+    if (firstTblLook(undone) !== lookBefore) return 'undo did not restore tblLook (got ' + firstTblLook(undone) + ' want ' + lookBefore + ')';
+    const { rows } = tableStamps(undone);
+    // Post-undo stamps must equal the scenario-1 (pre-toggle) pattern.
+    const eq = stampsEq(rows, [
+      { tr: '100000000000', cells: ['001000000000', '100000000000', '100000000000'] },
+      { tr: '000000100000', cells: ['001000000000', '000000100000', '000000100000'] },
+      { tr: null, cells: ['001000000000', '000000000000', '000000000000'] },
+    ]);
+    return eq === true ? true : ('post-undo stamps mismatch: ' + eq);
+  });
+
+
   const pass = results.filter((r) => r.pass).length;
   const pagedKnownGaps = results.filter((r) => /paged known-gap/.test(String(r.detail || ''))).length;
   return JSON.stringify({ summary: { total: results.length, pass, fail: results.length - pass, mode: MODE, pagedKnownGaps }, results }, null, 2);

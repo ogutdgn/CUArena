@@ -161,6 +161,10 @@
         // Design Document Formatting: Themes button, then the big inline Style Set
         // carousel (Word's dominant element), then Colors/Fonts/Spacing/Set-as-Default.
         this.renderDesignFormattingGroup(body, group);
+      } else if (group.id === 'td-styleopts') {
+        // Spec 031: Table Design → Table Style Options — Word's six labeled checkboxes in a 2-col x
+        // 3-row grid (Header Row/First Column, Total Row/Last Column, Banded Rows/Banded Columns).
+        this.renderTableStyleOptions(body, group);
       } else if (group.id === 'td-styles') {
         // Table Design → Table Styles: Word's inline tile GALLERY (mini-table thumbs
         // hued by the style's Accent + hover live-preview) + Shading/Borders dropdowns.
@@ -498,6 +502,34 @@
     // in the same group after the strip (matching Word's Table Styles group). Tiles apply on
     // CLICK (WC.PM.tableSetStyle) and preview on hover (WC.PM.tableStylePreviewEnter/Leave — zero
     // undo pollution). Replaces the old 2-item text flyout (H.tblStyles stays as a fallback).
+    // Spec 031: Table Design → Table Style Options. Six labeled checkboxes whose checked state comes
+    // from WC.PM.tableStyleOptionState() (derived from the caret table's tblLook). onchange dispatches
+    // the control (→ H.tblStyle* → WC.PM.tableStyleOption) then re-renders THIS group so the states
+    // reflect the new tblLook (a toggle can change nothing visible but must keep the box in sync).
+    // Each checkbox INPUT carries a stable [data-cmd] selector so the behavior twins can click it.
+    renderTableStyleOptions(body, group) {
+      const grid = el('div', { class: 'tbl-styleopts' });
+      let state = {};
+      try { state = (WC.PM && WC.PM.tableStyleOptionState && WC.PM.tableStyleOptionState()) || {}; } catch (e) { state = {}; }
+      const KEY = {
+        tblStyleHeaderRow: 'headerRow', tblStyleTotalRow: 'totalRow', tblStyleBandedRows: 'bandedRows',
+        tblStyleFirstCol: 'firstColumn', tblStyleLastCol: 'lastColumn', tblStyleBandedCols: 'bandedColumns',
+      };
+      group.controls.forEach((c) => {
+        const checked = !!state[KEY[c.cmd]];
+        const cb = el('input', Object.assign({ type: 'checkbox', class: 'tso-cb', dataset: { cmd: c.cmd } }, checked ? { checked: true } : {}));
+        const lab = el('label', { class: 'tbl-styleopt' }, [cb, el('span', { class: 'tso-lbl', text: c.label })]);
+        cb.addEventListener('change', () => {
+          WC.Commands.run(c, cb);
+          // Re-render the group so every checkbox reflects the post-toggle tblLook state.
+          this.reRenderContextualGroup('table-design', 'td-styleopts', group);
+        });
+        grid.appendChild(lab);
+        this.controlIndex[c.cmd] = { node: lab, control: c };
+      });
+      body.appendChild(grid);
+    },
+
     renderTableStylesGroup(body, group) {
       const pm = (WC.PM && WC.PM.getTableStyles) ? WC.PM : null;
       const styles = pm ? (pm.getTableStyles() || []) : [];

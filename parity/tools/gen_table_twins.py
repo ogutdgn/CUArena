@@ -233,6 +233,31 @@ TWINS.append(twin("tb-repeatheader",
         {"expect": "docChanged"},
     ]))
 
+# Spec 031: Table Style Options toggle twins. Apply GT4A1 through the 030 tile gallery so the table is
+# STYLED, then click the checkbox INPUT (stable [data-cmd] selector) on the Table Design tab and assert
+# the doc changed (the tblLook flag flip + cnfStyle re-stamp is a real transaction). (The exported
+# stamp/val correctness is the OOXML axis' job — this twin only proves the checkbox click acts on-screen.)
+STYLE_VIA_GALLERY = INSERT_33 + [
+    {"do": "activateTab", "tab": "table-design"},
+    {"do": "clickSelector", "sel": '.ribbon-panel[data-tab="table-design"] .rgallery-more, .ribbon-panel.active .rgallery-more', "waitMs": 400},
+    {"do": "clickSelector", "sel": '.flyout .tblstyle-cell[data-style="GridTable4-Accent1"]', "waitMs": 400},
+]
+for tid, cmd in [
+    ("tb-styleopt-headerrow-off", "tblStyleHeaderRow"),
+    ("tb-styleopt-totalrow-on", "tblStyleTotalRow"),
+    ("tb-styleopt-bandedrows-off", "tblStyleBandedRows"),
+    ("tb-styleopt-firstcol-off", "tblStyleFirstCol"),
+    ("tb-styleopt-lastcol-on", "tblStyleLastCol"),
+    ("tb-styleopt-bandedcols-on", "tblStyleBandedCols"),
+]:
+    TWINS.append(twin(tid,
+        f"Toggle the {cmd} checkbox on a styled (GT4A1) table: the click flips the tblLook flag + re-stamps cnfStyle (doc changes). Stamp/val correctness is judged by the OOXML axis.",
+        STYLE_VIA_GALLERY + [
+            {"do": "activateTab", "tab": "table-design"},
+            {"do": "clickSelector", "sel": 'input[data-cmd="' + cmd + '"]', "waitMs": 300},
+            {"expect": "docChanged"},
+        ]))
+
 TWINS.append(twin("tb-quicktable-calendar",
     "Quick Tables > Calendar paints the clone's 6x7 preset (42 cells). Word inserts the 'Calendar 1' building block — content fidelity is the OOXML task's job.",
     [

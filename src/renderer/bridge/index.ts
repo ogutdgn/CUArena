@@ -9,6 +9,7 @@ import { installInsert } from './insert'
 import { normalizeImportedPageBreaks } from './page-breaks-import'
 import { installTable } from './table'
 import { installTableStyles } from './table-styles'
+import { installTableConditionalFormats } from './table-conditional-formats'
 import { installReview } from './review'
 import { installReferences } from './references'
 import { installHeaderFooter } from './header-footer'
@@ -106,6 +107,9 @@ const AREA: Record<string, string> = {
   tblTextDir: 'insert-basics', tblAlignLeft: 'insert-basics', tblAlignCenter: 'insert-basics',
   tblAlignRight: 'insert-basics', tblCellMargins: 'insert-basics', tblStyles: 'insert-basics',
   tblShading: 'insert-basics', tblBorders: 'insert-basics', tblAutoFit: 'insert-basics',
+  // Table Style Options checkboxes (spec 031) — same insert-basics mapping (never deferred).
+  tblStyleHeaderRow: 'insert-basics', tblStyleTotalRow: 'insert-basics', tblStyleBandedRows: 'insert-basics',
+  tblStyleFirstCol: 'insert-basics', tblStyleLastCol: 'insert-basics', tblStyleBandedCols: 'insert-basics',
   // insert exotica (slice 10) — STAY blocked (carved out of insert-basics in the slice-6 flip)
   onlinePictures: 'insert-exotica', screenshot: 'insert-exotica', icons: 'insert-exotica',
   smartart: 'insert-exotica', chart: 'insert-exotica', onlineVideo: 'insert-exotica',
@@ -400,6 +404,12 @@ export function preinstallBridge() {
     // spec 030: table-style catalog pre-mount stubs (replaced by installTableStyles on mount)
     ensureTableStyleMaterialized: () => false, listCatalogStyles: () => [],
     tableStylePreviewEnter: () => false, tableStylePreviewLeave: () => {},
+    // spec 031: Table Style Options + tblLook/cnfStyle writer pre-mount stubs (replaced by
+    // installTableConditionalFormats on mount). tableStyleOptionState returns Word's fresh-styled-table
+    // defaults so the ribbon can render sensible initial checkbox states before first mount.
+    tableStyleOption: () => false,
+    tableStyleOptionState: () => ({ headerRow: true, totalRow: false, bandedRows: true, firstColumn: true, lastColumn: false, bandedColumns: false }),
+    restampTableConditionalFormats: () => false,
     // slice 8: review pre-mount stubs (replaced by installReview on mount)
     reviewState: () => ({ tracking: false, view: 'all', engineFlags: { onlyOriginalShown: false, onlyModifiedShown: false }, activeCommentId: null }),
     getRevisions: () => [],
@@ -541,7 +551,11 @@ export function installBridge(editor: AnyEditor) {
   // Spec 030: installTableStyles owns the lazy catalog materializer + hover preview; installTable
   // receives its ensureTableStyleMaterialized so tableSetStyle registers a def before applying it.
   const tableStyles = installTableStyles(editor)
-  Object.assign(PM, commands, installIo(editor), installStylePreview(editor), installClipboard(editor), installSearch(editor), installInsert(editor), installTable(editor, tableStyles.ensureTableStyleMaterialized), tableStyles, installReview(editor, commands.cmd), installReferences(editor), installHeaderFooter(editor), installMailMerge(editor), installDesign(editor), installInsertExotica(editor), installDraw(editor), installInkOverlay(editor), installColumns(editor), installLineNumbers(editor), installHyphenation(editor), installSectionBreaks(editor), installLists(editor), installStyles(editor))
+  // Spec 031: installTableConditionalFormats owns the tblLook/cnfStyle writer + the Table Style Options
+  // verbs; installTable receives its restampTableConditionalFormats so the structural verbs + tableSetStyle
+  // re-derive Word's cnfStyle stamps for styled tables (and strip stale stamps when unstyled).
+  const tableCondFmts = installTableConditionalFormats(editor)
+  Object.assign(PM, commands, installIo(editor), installStylePreview(editor), installClipboard(editor), installSearch(editor), installInsert(editor), installTable(editor, tableStyles.ensureTableStyleMaterialized, tableCondFmts.restampTableConditionalFormats), tableStyles, tableCondFmts, installReview(editor, commands.cmd), installReferences(editor), installHeaderFooter(editor), installMailMerge(editor), installDesign(editor), installInsertExotica(editor), installDraw(editor), installInkOverlay(editor), installColumns(editor), installLineNumbers(editor), installHyphenation(editor), installSectionBreaks(editor), installLists(editor), installStyles(editor))
   PM.getState = () => toQueryState(editor)
   PM.debugFormatting = () => getActiveFormatting(editor) // raw entries (probe/verifier aid)
   PM.getEditor = () => current

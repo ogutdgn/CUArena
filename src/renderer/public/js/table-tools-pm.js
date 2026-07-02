@@ -63,6 +63,17 @@
   function designTab() {
     return {
       id: 'table-design', name: 'Table Design', contextual: true, groups: [
+        // Spec 031: Word's FIRST Table Design group — six labeled checkboxes (2 cols x 3 rows:
+        // Header Row/First Column, Total Row/Last Column, Banded Rows/Banded Columns). Each is a
+        // cmd-dispatch control → H.tblStyle* (commands.js) → WC.PM.tableStyleOption(opt, checked).
+        { id: 'td-styleopts', name: 'Table Style Options', controls: [
+          { cmd: 'tblStyleHeaderRow', label: 'Header Row', type: 'checkbox' },
+          { cmd: 'tblStyleTotalRow', label: 'Total Row', type: 'checkbox' },
+          { cmd: 'tblStyleBandedRows', label: 'Banded Rows', type: 'checkbox' },
+          { cmd: 'tblStyleFirstCol', label: 'First Column', type: 'checkbox' },
+          { cmd: 'tblStyleLastCol', label: 'Last Column', type: 'checkbox' },
+          { cmd: 'tblStyleBandedCols', label: 'Banded Columns', type: 'checkbox' },
+        ] },
         { id: 'td-styles', name: 'Table Styles', controls: [
           { cmd: 'tblStyles', label: 'Table Styles', type: 'dropdown' },
           { cmd: 'tblShading', label: 'Shading', type: 'dropdown' },

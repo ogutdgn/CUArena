@@ -1,0 +1,53 @@
+{
+  "id": "twin/tb-styleopt-headerrow-off",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-styleopt-headerrow-off",
+  "note": "Toggle the tblStyleHeaderRow checkbox on a styled (GT4A1) table: the click flips the tblLook flag + re-stamps cnfStyle (doc changes). Stamp/val correctness is judged by the OOXML axis.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "clickSelector",
+      "sel": ".ribbon-panel[data-tab=\"table-design\"] .rgallery-more, .ribbon-panel.active .rgallery-more",
+      "waitMs": 400
+    },
+    {
+      "do": "clickSelector",
+      "sel": ".flyout .tblstyle-cell[data-style=\"GridTable4-Accent1\"]",
+      "waitMs": 400
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "clickSelector",
+      "sel": "input[data-cmd=\"tblStyleHeaderRow\"]",
+      "waitMs": 300
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

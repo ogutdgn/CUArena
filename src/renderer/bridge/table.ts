@@ -25,8 +25,17 @@ type AnyEditor = any
 // tableSetStyle can lazily register the def BEFORE setTableStyle applies it — Word DROPS an
 // orphaned <w:tblStyle> ref on save (exporter-docx-defs.js:905-908), so the def must be in
 // styles.xml first. Optional (pre-mount stubs pass nothing) → a no-op fallback keeps it safe.
-export function installTable(editor: AnyEditor, ensureTableStyleMaterialized?: (id: string) => boolean) {
+// Spec 031: installTable also receives the conditional-format restamper (restampTableConditionalFormats,
+// from installTableConditionalFormats) so the structural verbs + tableSetStyle re-derive Word's cnfStyle
+// stamps for styled tables (and STRIP stale stamps when unstyled). Optional (pre-mount stubs pass nothing)
+// → a no-op fallback keeps it safe.
+export function installTable(
+  editor: AnyEditor,
+  ensureTableStyleMaterialized?: (id: string) => boolean,
+  restampTableConditionalFormats?: (ed?: AnyEditor, tr?: any) => boolean,
+) {
   const materialize = typeof ensureTableStyleMaterialized === 'function' ? ensureTableStyleMaterialized : () => false
+  const restamp = typeof restampTableConditionalFormats === 'function' ? restampTableConditionalFormats : () => false
   // Restore PM focus after each verb (same invariant as commands.ts / insert.ts).
   function refocus() { editor.view?.focus() }
 
@@ -52,6 +61,7 @@ export function installTable(editor: AnyEditor, ensureTableStyleMaterialized?: (
     const ok = dir === 'above'
       ? editor.commands.addRowBefore()
       : editor.commands.addRowAfter()
+    if (ok !== false) restamp(editor) // 031: re-derive cnfStyle stamps (banding renumbers on insert)
     refocus()
     return ok !== false
   }
@@ -62,18 +72,21 @@ export function installTable(editor: AnyEditor, ensureTableStyleMaterialized?: (
     const ok = dir === 'left'
       ? editor.commands.addColumnBefore()
       : editor.commands.addColumnAfter()
+    if (ok !== false) restamp(editor) // 031: re-derive cnfStyle stamps (column banding renumbers)
     refocus()
     return ok !== false
   }
 
   function tableDeleteRow(): boolean {
     const ok = editor.commands.deleteRow()
+    if (ok !== false) restamp(editor) // 031: re-derive cnfStyle stamps
     refocus()
     return ok !== false
   }
 
   function tableDeleteColumn(): boolean {
     const ok = editor.commands.deleteColumn()
+    if (ok !== false) restamp(editor) // 031: re-derive cnfStyle stamps
     refocus()
     return ok !== false
   }
@@ -90,12 +103,14 @@ export function installTable(editor: AnyEditor, ensureTableStyleMaterialized?: (
     // silently. Detect and toast so the user knows what to do.
     if (!requireCellSel('Select cells first', 'Select multiple cells to merge them — click and drag across cells in the table.')) return false
     const ok = editor.commands.mergeCells()
+    if (ok !== false) restamp(editor) // 031: merged cells → re-derive stamps (banding counts grid columns)
     refocus()
     return ok !== false
   }
 
   function tableSplitCell(): boolean {
     const ok = editor.commands.splitCell()
+    if (ok !== false) restamp(editor) // 031: split cells → re-derive stamps
     refocus()
     return ok !== false
   }
@@ -152,6 +167,9 @@ export function installTable(editor: AnyEditor, ensureTableStyleMaterialized?: (
     // no-op here. Then apply via the fork command unchanged.
     if (id) materialize(id)
     const ok = editor.commands.setTableStyle(id)
+    // 031: after the style applies (or clears), re-derive Word's cnfStyle stamps for the new style — a
+    // styled table gets its per-row/cell markers, a cleared (TableGrid/none) table gets them STRIPPED.
+    if (ok !== false) restamp(editor)
     refocus()
     return ok !== false
   }
