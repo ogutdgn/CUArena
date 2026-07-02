@@ -1,0 +1,17 @@
+{
+  "id": "tables/undo-insert-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": false,
+  "note": "Tables pilot journey #4: undo granularity. The clone-side check (ONE undo removes the whole table) runs; whether real Word needs exactly one step is ❓ FROM-RECORDING (D6.3 — never asserted from memory).",
+  "steps": [
+    { "do": "setupText", "text": "Undo journey." },
+    { "do": "activateTab", "tab": "insert" },
+    { "do": "openDropdown", "cmd": "table" },
+    { "do": "gridPick", "rows": 3, "cols": 3 },
+    { "expect": "tableExists" },
+    { "expect": "fromRecording", "q": "does real Word remove the whole just-inserted table with EXACTLY ONE undo step?" },
+    { "do": "undo" },
+    { "expect": "paintedCellCount", "equals": 0 }
+  ]
+}

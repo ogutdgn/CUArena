@@ -1,0 +1,50 @@
+{
+  "id": "twin/tb-shading-cell",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-shading-cell",
+  "note": "Shading swatch #1 (#FFF2CC) paints the caret cell's background ON SCREEN — right cell, right color.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblShading"
+    },
+    {
+      "do": "clickShadeSwatch",
+      "index": 0
+    },
+    {
+      "expect": "paintedCellBg",
+      "index": 0,
+      "anyOf": [
+        "rgb(255,242,204)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "twin/tb-align-center",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-align-center",
+  "note": "Table Align Center from the (clone-only) Design alignment group changes the model.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblAlignCenter"
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "twin/tb-split-cell",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-split-cell",
+  "note": "Split Cells on a PLAIN cell: Word opens the Split Cells dialog (official-inventory ellipsis label). The clone's direct/no-op split MUST fail this — the split-dialog gap live.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblSplitCell"
+    },
+    {
+      "expect": "dialogOpen"
+    }
+  ]
+}

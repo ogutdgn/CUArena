@@ -1,0 +1,34 @@
+{
+  "id": "twin/table",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "table",
+  "note": "Grid insert paints a 3x3 and the caret is inside it.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 9
+    },
+    {
+      "expect": "caretInTable"
+    }
+  ]
+}

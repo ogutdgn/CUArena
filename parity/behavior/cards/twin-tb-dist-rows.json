@@ -1,0 +1,50 @@
+{
+  "id": "twin/tb-dist-rows",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-dist-rows",
+  "note": "Distribute Rows after a 1\" row height: heights equalize (doc changes).",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblRowHeight"
+    },
+    {
+      "do": "clickItem",
+      "match": "1\\.0"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblDistRows"
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

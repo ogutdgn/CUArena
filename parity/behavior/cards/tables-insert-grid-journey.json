@@ -1,0 +1,24 @@
+{
+  "id": "tables/insert-grid-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": false,
+  "note": "Tables pilot journey #2: the grid-picker insert flow end-to-end. Live label is clone-verifiable; the in-document hover LIVE PREVIEW, caret landing cell, and post-insert active-tab are ❓ FROM-RECORDING (D6.3).",
+  "steps": [
+    { "do": "setupText", "text": "Before the table." },
+    { "do": "activateTab", "tab": "insert" },
+    { "do": "openDropdown", "cmd": "table" },
+    { "expect": "flyoutOpen" },
+    { "do": "gridHover", "rows": 2, "cols": 3 },
+    { "expect": "gridLabelIs", "match": "3\\s*[×x]\\s*2 Table" },
+    { "expect": "fromRecording", "q": "does hovering the grid LIVE-PREVIEW the pending table in the document (Word paints it at the caret while hovering)?" },
+    { "do": "gridPick", "rows": 3, "cols": 3 },
+    { "expect": "tableExists" },
+    { "expect": "paintedCellCount", "equals": 9 },
+    { "expect": "caretInTable" },
+    { "expect": "fromRecording", "q": "caret lands in the FIRST cell (row 1, col 1)?" },
+    { "expect": "tabShown", "tab": "table-design" },
+    { "expect": "tabShown", "tab": "table-layout" },
+    { "expect": "fromRecording", "q": "after a grid insert, which ribbon tab is ACTIVE — does Word switch to Table Design, or stay on Insert?" }
+  ]
+}

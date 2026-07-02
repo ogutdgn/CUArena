@@ -1,0 +1,20 @@
+{
+  "id": "tables/style-gallery-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": false,
+  "note": "Tables pilot journey #3: the Table Styles gallery. The galleryItemCount bar (>=100) is Word's modern gallery size (113 modern styles, catalog a3d3566) — the clone's 2-style flyout MUST fail it (the 2/247 rediscovery on the BEHAVIOR axis). Hover live-preview is ❓ FROM-RECORDING.",
+  "steps": [
+    { "do": "setupText", "text": "Styled table journey." },
+    { "do": "activateTab", "tab": "insert" },
+    { "do": "openDropdown", "cmd": "table" },
+    { "do": "gridPick", "rows": 3, "cols": 3 },
+    { "do": "activateTab", "tab": "table-design" },
+    { "do": "openDropdown", "cmd": "tblStyles" },
+    { "expect": "flyoutOpen" },
+    { "expect": "galleryItemCount", "min": 100 },
+    { "expect": "fromRecording", "q": "hovering a style tile LIVE-PREVIEWS it on the table? gallery has Plain/Grid/List sections with visual thumbnails + Modify/Clear/New Table Style footer?" },
+    { "do": "clickItem", "match": "Grid Table 4 Accent 1" },
+    { "expect": "docChanged" }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "twin/tb-delete-col",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-delete-col",
+  "note": "tblDeleteColumn from the ribbon: painted cells 9 -> 6.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblDeleteColumn"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 6
+    }
+  ]
+}

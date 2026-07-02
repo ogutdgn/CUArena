@@ -1,0 +1,42 @@
+{
+  "id": "twin/tb-style-grid4a1",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-style-grid4a1",
+  "note": "Style apply through the gallery flyout changes the doc. (Painted colors are judged by the VISUAL axis L4 side-by-side.)",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblStyles"
+    },
+    {
+      "do": "clickItem",
+      "match": "Grid Table 4 Accent 1"
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

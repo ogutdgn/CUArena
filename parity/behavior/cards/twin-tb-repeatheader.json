@@ -1,0 +1,42 @@
+{
+  "id": "twin/tb-repeatheader",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-repeatheader",
+  "note": "The clone's 'Header Row' button changes the model. (Its SEMANTICS diverge from Word's Repeat Header Rows — the OOXML axis flags that; this twin only proves the click acts.)",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblHeaderRow"
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

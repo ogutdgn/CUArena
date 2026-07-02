@@ -1,0 +1,47 @@
+{
+  "id": "twin/tb-textdir",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-textdir",
+  "note": "Text Direction first click paints vertical writing in the caret cell (tbRl -> CSS vertical-rl). Word's full 3-state cycle is a ❓ recording item.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblTextDir"
+    },
+    {
+      "expect": "paintedCellStyleIs",
+      "index": 0,
+      "prop": "writing-mode",
+      "anyOf": [
+        "vertical-rl"
+      ]
+    }
+  ]
+}

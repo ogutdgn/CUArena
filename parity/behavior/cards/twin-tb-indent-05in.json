@@ -1,0 +1,46 @@
+{
+  "id": "twin/tb-indent-05in",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-indent-05in",
+  "note": "Table Indent 0.5\" preset changes the model.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblIndent"
+    },
+    {
+      "do": "clickItem",
+      "match": "0\\.5"
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

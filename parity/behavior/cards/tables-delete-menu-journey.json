@@ -1,0 +1,16 @@
+{
+  "id": "tables/delete-menu-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": false,
+  "note": "Tables pilot journey #7: Word's Layout > Rows & Columns has a DELETE MENU (Delete Cells... / Delete Columns / Delete Rows / Delete Table — official inventory nesting). The clone has three flat delete buttons and no tblDelete dropdown — this card MUST fail at openDropdown (Delete-menu gap rediscovery).",
+  "steps": [
+    { "do": "setupText", "text": "Delete menu journey." },
+    { "do": "activateTab", "tab": "insert" },
+    { "do": "openDropdown", "cmd": "table" },
+    { "do": "gridPick", "rows": 3, "cols": 3 },
+    { "do": "activateTab", "tab": "table-layout" },
+    { "do": "openDropdown", "cmd": "tblDelete" },
+    { "expect": "flyoutHasItem", "match": "Delete Cells" }
+  ]
+}

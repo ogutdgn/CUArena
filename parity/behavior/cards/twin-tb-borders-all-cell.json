@@ -1,0 +1,67 @@
+{
+  "id": "twin/tb-borders-all-cell",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-borders-all-cell",
+  "note": "THE BORDER-COLLAPSE INSTRUMENT: All Borders on the MIDDLE cell must paint ALL FOUR edges on screen — shared bottom/right edges must not be swallowed by the neighbor's thinner border (archive bug 47488c0 class).",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "clickCellPainted",
+      "index": 4
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblBorders"
+    },
+    {
+      "do": "clickItem",
+      "match": "All Borders"
+    },
+    {
+      "expect": "paintedCellBorder",
+      "index": 4,
+      "edge": "top",
+      "minPx": 1
+    },
+    {
+      "expect": "paintedCellBorder",
+      "index": 4,
+      "edge": "left",
+      "minPx": 1
+    },
+    {
+      "expect": "paintedCellBorder",
+      "index": 4,
+      "edge": "bottom",
+      "minPx": 1
+    },
+    {
+      "expect": "paintedCellBorder",
+      "index": 4,
+      "edge": "right",
+      "minPx": 1
+    }
+  ]
+}
