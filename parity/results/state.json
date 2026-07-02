@@ -1,0 +1,797 @@
+{
+ "compared": {
+  "ctx1": 199,
+  "ctx2": 199,
+  "ctx3": 221
+ },
+ "mismatches": [
+  {
+   "idMso": "IndentDecreaseWord",
+   "cmd": "decreaseIndent",
+   "label": "Decrease Indent",
+   "tab": "home",
+   "diff": {
+    "ctx1": {
+     "word": true,
+     "clone": false
+    },
+    "ctx2": {
+     "word": true,
+     "clone": false
+    },
+    "ctx3": {
+     "word": true,
+     "clone": false
+    }
+   }
+  },
+  {
+   "idMso": "TableInsertGallery",
+   "cmd": "table",
+   "label": "Table",
+   "tab": "insert",
+   "diff": {
+    "ctx2": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "DropCapInsertGallery",
+   "cmd": "dropCap",
+   "label": "Drop Cap",
+   "tab": "insert",
+   "diff": {
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "DiagrammingOnline",
+   "cmd": "inkToShape",
+   "label": "Ink to Shape",
+   "tab": "draw",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "InsertInkDrawingCanvas",
+   "cmd": "drawingCanvas",
+   "label": "Drawing Canvas",
+   "tab": "draw",
+   "diff": {
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "Replay",
+   "cmd": "inkReplay",
+   "label": "Ink Replay",
+   "tab": "draw",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "DrawInkMode",
+   "cmd": "drawWithTrackpad",
+   "label": "Draw",
+   "tab": "draw",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "InkEraser",
+   "cmd": "eraser",
+   "label": "Stroke Eraser",
+   "tab": "draw",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "InkToolboxWithEraserAndLasso",
+   "cmd": "drawing",
+   "label": "Drawing Tools",
+   "tab": "draw",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "PicturePositionGallery",
+   "cmd": "position",
+   "label": "Position",
+   "tab": "layout",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "TextWrapGallery",
+   "cmd": "wrapText",
+   "label": "Wrap Text",
+   "tab": "layout",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "ObjectBringForwardMenu",
+   "cmd": "bringForward",
+   "label": "Bring Forward",
+   "tab": "layout",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "ObjectSendBackwardMenu",
+   "cmd": "sendBackward",
+   "label": "Send Backward",
+   "tab": "layout",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "ObjectRotateGallery",
+   "cmd": "rotate",
+   "label": "Rotate",
+   "tab": "layout",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "ObjectsGroupMenu",
+   "cmd": "group",
+   "label": "Group",
+   "tab": "layout",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "FootnotesEndnotesShow",
+   "cmd": "showNotes",
+   "label": "Show Notes",
+   "tab": "references",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "TableOfFiguresUpdate",
+   "cmd": "updateTable",
+   "label": "Update Table",
+   "tab": "references",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "IndexUpdate",
+   "cmd": "updateIndex",
+   "label": "Update Index",
+   "tab": "references",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "TableOfAuthoritiesUpdate",
+   "cmd": "updateTable",
+   "label": "Update Table",
+   "tab": "references",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeRecipientsEditList",
+   "cmd": "editRecipientList",
+   "label": "Edit Recipient List...",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeHighlightMergeFields",
+   "cmd": "highlightMergeFields",
+   "label": "Highlight Merge Fields",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeAddressBlockInsert",
+   "cmd": "addressBlock",
+   "label": "Address Block...",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeGreetingLineInsert",
+   "cmd": "greetingLine",
+   "label": "Greeting Line...",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeMergeFieldInsertMenu",
+   "cmd": "insertMergeField",
+   "label": "Insert Merge Field",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeMatchFields",
+   "cmd": "matchFields",
+   "label": "Match Fields...",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeUpdateLabels",
+   "cmd": "updateLabels",
+   "label": "Update Labels",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeResultsPreview",
+   "cmd": "previewResults",
+   "label": "Preview Results",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeFindRecipient",
+   "cmd": "findRecipient",
+   "label": "Find Recipient...",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeAutoCheckForErrors",
+   "cmd": "checkForErrors",
+   "label": "Check for Errors...",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeRules",
+   "cmd": "rules",
+   "label": "Rules",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeFinishAndMergeMenu",
+   "cmd": "finishMerge",
+   "label": "Finish & Merge",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeGoToFirstRecord",
+   "cmd": "firstRecord",
+   "label": "First",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeGoToPreviousRecord",
+   "cmd": "previousRecord",
+   "label": "Previous",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeGoToRecord",
+   "cmd": "goToRecord",
+   "label": "Record:",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeGoToNextRecord",
+   "cmd": "nextRecord",
+   "label": "Next",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MailMergeGotToLastRecord",
+   "cmd": "lastRecord",
+   "label": "Last",
+   "tab": "mailings",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "BlockAuthorsMenu",
+   "cmd": "blockAuthors",
+   "label": "Block Authors",
+   "tab": "review",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "WindowSideBySide",
+   "cmd": "viewSideBySide",
+   "label": "View Side by Side",
+   "tab": "view",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "WindowSideBySideSynchronousScrolling",
+   "cmd": "synchronousScrolling",
+   "label": "Synchronous Scrolling",
+   "tab": "view",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "WindowResetPosition",
+   "cmd": "resetWindowPosition",
+   "label": "Reset Window Position",
+   "tab": "view",
+   "diff": {
+    "ctx1": {
+     "word": false,
+     "clone": true
+    },
+    "ctx2": {
+     "word": false,
+     "clone": true
+    },
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  },
+  {
+   "idMso": "MergeCells",
+   "cmd": "tblMerge",
+   "label": "Merge Cells",
+   "tab": "table-layout",
+   "diff": {
+    "ctx3": {
+     "word": false,
+     "clone": true
+    }
+   }
+  }
+ ]
+}
