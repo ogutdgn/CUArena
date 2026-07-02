@@ -1,0 +1,20 @@
+{
+  "task": "fd-link",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 13,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-link",
+  "control_id": "insert/layout.dialog",
+  "feature": "Insert Hyperlink (text + address)",
+  "tab": "Insert",
+  "usage_tier": "ID",
+  "note": "w:hyperlink r:id + rels Target. COM!=ribbon FIDELITY: clone uses a DIRECT w:u/color; Word applies the Hyperlink CHARACTER STYLE (w:rStyle Hyperlink). rId differs (match by Target)."
+}

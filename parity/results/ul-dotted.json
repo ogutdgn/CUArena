@@ -1,0 +1,20 @@
+{
+  "task": "ul-dotted",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "ul-dotted",
+  "control_id": "home.font/paragraph.variation",
+  "feature": "Underline dotted",
+  "tab": "Home",
+  "usage_tier": "TV",
+  "note": "w:u w:val=dotted."
+}

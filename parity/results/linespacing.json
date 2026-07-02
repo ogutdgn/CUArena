@@ -1,0 +1,20 @@
+{
+  "task": "linespacing",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "linespacing",
+  "control_id": "home.paragraph.line-and-paragraph-spacing",
+  "feature": "Line & Paragraph Spacing",
+  "tab": "Home",
+  "usage_tier": "T1",
+  "note": "Line spacing 2.0 (w:spacing w:line=480 w:lineRule=auto). COM ParagraphFormat.LineSpacingRule=2 (wdLineSpaceDouble) == ribbon."
+}

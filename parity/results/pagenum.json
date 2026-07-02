@@ -1,0 +1,48 @@
+{
+  "task": "pagenum",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 7,
+    "missing": 15,
+    "extra": 2
+  },
+  "missing_nodes": [
+    "body:footerReference[('id', 'rId#'), ('type', 'even')]",
+    "body:footerReference[('id', 'rId#'), ('type', 'first')]",
+    "body:headerReference[('id', 'rId#'), ('type', 'default')]",
+    "body:headerReference[('id', 'rId#'), ('type', 'even')]",
+    "body:headerReference[('id', 'rId#'), ('type', 'first')]",
+    "footer:instrText[('space', 'preserve')]|text=PAGE \\* MERGEFORMAT",
+    "footer:noProof[]",
+    "footer:pPr[]",
+    "footer:pStyle[('val', 'Footer')]",
+    "footer:p[]",
+    "footer:r[]",
+    "footer:t[]",
+    "header:pPr[]",
+    "header:pStyle[('val', 'Header')]",
+    "header:p[]"
+  ],
+  "extra_nodes": [
+    "footer:instrText[('space', 'preserve')]|text=PAGE",
+    "footer:rPr[]"
+  ],
+  "part_counts": {
+    "footer": {
+      "word": 3,
+      "clone": 1
+    },
+    "header": {
+      "word": 3,
+      "clone": 0
+    }
+  },
+  "id": "pagenum",
+  "control_id": "insert.header-footer.pageNumber",
+  "feature": "Page Number",
+  "tab": "Insert",
+  "usage_tier": "T1",
+  "note": "PAGE field in footer. Field shape, lands in footer part. (T1 pilot — kept for reference.)"
+}

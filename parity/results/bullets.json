@@ -1,0 +1,33 @@
+{
+  "task": "bullets",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 48,
+    "missing": 3,
+    "extra": 3
+  },
+  "missing_nodes": [
+    "numbering:lvlText[('val', '\\uf0a7')]",
+    "numbering:lvlText[('val', '\\uf0b7')]",
+    "numbering:lvlText[('val', 'o')]"
+  ],
+  "extra_nodes": [
+    "numbering:lvlText[('val', '•')]",
+    "numbering:lvlText[('val', '▪')]",
+    "numbering:lvlText[('val', '◦')]"
+  ],
+  "part_counts": {
+    "numbering": {
+      "word": 1,
+      "clone": 0
+    }
+  },
+  "id": "bullets",
+  "control_id": "home.paragraph.bullets",
+  "feature": "Bullets",
+  "tab": "Home",
+  "usage_tier": "T0",
+  "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
+}

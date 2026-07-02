@@ -2,10 +2,10 @@
  "done": 0,
  "col_stats": {
   "OOXML": {
-   "pass": 0,
-   "gap": 0,
+   "pass": 13,
+   "gap": 4,
    "warn": 0,
-   "unmeasured": 111
+   "unmeasured": 94
   },
   "STRUCT": {
    "pass": 80,
@@ -20,10 +20,10 @@
    "unmeasured": 0
   },
   "SCORE": {
-   "pass": 0,
-   "gap": 0,
-   "warn": 0,
-   "unmeasured": 111
+   "pass": 97,
+   "gap": 1,
+   "warn": 13,
+   "unmeasured": 0
   },
   "VISUAL": {
    "pass": 0,
@@ -47,7 +47,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -60,7 +60,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -70,10 +70,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(4)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -83,10 +83,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -96,10 +96,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -109,10 +109,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(7)",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -122,10 +122,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "GAP(1/1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -135,10 +135,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -148,10 +148,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -164,7 +164,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -174,10 +174,10 @@
    "tab": "home",
    "tier": "T0",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -187,10 +187,10 @@
    "tab": "home",
    "tier": "T1",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "GAP(1/1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -200,10 +200,10 @@
    "tab": "home",
    "tier": "T1",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(3)",
     "STRUCT": "GAP(items:2)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -213,10 +213,10 @@
    "tab": "home",
    "tier": "T1",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -229,7 +229,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -239,10 +239,10 @@
    "tab": "home",
    "tier": "T1",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -255,7 +255,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -265,10 +265,10 @@
    "tab": "home",
    "tier": "T1",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(1)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -281,7 +281,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -294,7 +294,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(type)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -307,7 +307,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -320,7 +320,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -333,7 +333,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -346,7 +346,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -359,7 +359,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -372,7 +372,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -385,7 +385,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -398,7 +398,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -411,7 +411,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -424,7 +424,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(type)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -434,10 +434,10 @@
    "tab": "home",
    "tier": "T2",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(13)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -450,7 +450,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -463,7 +463,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -473,10 +473,10 @@
    "tab": "home",
    "tier": "T2",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "pass(13)",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -489,7 +489,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:2)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -502,7 +502,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -515,7 +515,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -528,7 +528,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -541,7 +541,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:9)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -554,7 +554,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -567,7 +567,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -577,10 +577,10 @@
    "tab": "insert",
    "tier": "T1",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "GAP(1/1)",
     "STRUCT": "GAP(items:1)",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -593,7 +593,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -606,7 +606,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -619,7 +619,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -632,7 +632,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -642,10 +642,10 @@
    "tab": "insert",
    "tier": "T1",
    "cols": {
-    "OOXML": "\u2014",
+    "OOXML": "GAP(1/1)",
     "STRUCT": "GAP(items:4)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -658,7 +658,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -671,7 +671,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -684,7 +684,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -697,7 +697,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -710,7 +710,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -723,7 +723,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -736,7 +736,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -749,7 +749,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -762,7 +762,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -775,7 +775,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -788,7 +788,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -801,7 +801,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -814,7 +814,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -827,7 +827,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -840,7 +840,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -853,7 +853,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -866,7 +866,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -879,7 +879,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -892,7 +892,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -905,7 +905,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -918,7 +918,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -931,7 +931,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -944,7 +944,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -957,7 +957,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -970,7 +970,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -983,7 +983,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -996,7 +996,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1009,7 +1009,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1022,7 +1022,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1035,7 +1035,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:2)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1048,7 +1048,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1061,7 +1061,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "DEAD",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1074,7 +1074,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1087,7 +1087,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1100,7 +1100,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(2)",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1113,7 +1113,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1126,7 +1126,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1139,7 +1139,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1152,7 +1152,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1165,7 +1165,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1178,7 +1178,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1191,7 +1191,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1204,7 +1204,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1217,7 +1217,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1230,7 +1230,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1243,7 +1243,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1256,7 +1256,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1269,7 +1269,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1282,7 +1282,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:1)",
     "STATE": "GAP(1)",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1295,7 +1295,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1308,7 +1308,7 @@
     "OOXML": "\u2014",
     "STRUCT": "warn(label)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1321,7 +1321,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1334,7 +1334,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1347,7 +1347,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1360,7 +1360,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1373,7 +1373,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1386,7 +1386,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1399,7 +1399,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1412,7 +1412,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1425,7 +1425,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:4)",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1438,7 +1438,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1451,7 +1451,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1464,7 +1464,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1477,7 +1477,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "\u2014",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }

@@ -1,0 +1,20 @@
+{
+  "task": "ls-1p5",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "ls-1p5",
+  "control_id": "home.font/paragraph.variation",
+  "feature": "Line spacing 1.5",
+  "tab": "Home",
+  "usage_tier": "TV",
+  "note": "1.5 lines → w:spacing w:line=360 w:lineRule=auto. COM wdLineSpace1pt5=1."
+}

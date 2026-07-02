@@ -1,0 +1,20 @@
+{
+  "task": "fd-indent-left",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-indent-left",
+  "control_id": "home.paragraph.dialog",
+  "feature": "Paragraph dialog: Indent left",
+  "tab": "Home",
+  "usage_tier": "PD",
+  "note": "0.5in -> w:ind w:left=720."
+}

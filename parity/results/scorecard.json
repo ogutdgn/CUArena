@@ -1,0 +1,3123 @@
+{
+ "counts": {
+  "pass": 210,
+  "dead": 2,
+  "triage": 28,
+  "skip": 4
+ },
+ "controls": [
+  {
+   "tab": "home",
+   "group": "clipboard",
+   "cmd": "paste",
+   "label": "Paste",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 6,
+   "items": [
+    "Keep Source Formatting",
+    "Match Formatting",
+    "Picture",
+    "Keep Text Only",
+    "Paste Special\u2026",
+    "Set Default Paste\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "clipboard",
+   "cmd": "cut",
+   "label": "Cut",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "clipboard",
+   "cmd": "copy",
+   "label": "Copy",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "home",
+   "group": "clipboard",
+   "cmd": "formatPainter",
+   "label": "Format Painter",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Format Painter \u2014 select text to apply the copied formatting once.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "clipboard",
+   "cmd": "clipboard",
+   "label": "Clipboard",
+   "type": "button",
+   "launcher": true,
+   "result": "STUB_TOAST",
+   "toast": "Format Painter \u2014 select text to apply the copied formatting once.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "font",
+   "label": "Font",
+   "type": "combo",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "fontSize",
+   "label": "Font Size",
+   "type": "combo",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "increaseFontSize",
+   "label": "Increase Font Size",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "Format Painter \u2014 select text to apply the copied formatting once.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "decreaseFontSize",
+   "label": "Decrease Font Size",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "Format Painter \u2014 select text to apply the copied formatting once.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "changeCase",
+   "label": "Change Case",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 5,
+   "items": [
+    "Sentence case.",
+    "lowercase",
+    "UPPERCASE",
+    "Capitalize Each Word",
+    "tOGGLE cASE"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "clearAllFormatting",
+   "label": "Clear All Formatting",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "bold",
+   "label": "Bold",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "italic",
+   "label": "Italic",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "underline",
+   "label": "Underline",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 12,
+   "items": [
+    "No Underline",
+    "Single",
+    "Double",
+    "Dotted",
+    "Dashed",
+    "Wavy",
+    "Thick",
+    "Dot Dash",
+    "Dot Dot Dash",
+    "Words only",
+    "More Underlines\u2026",
+    "Underline Color"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "strikethrough",
+   "label": "Strikethrough",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "subscript",
+   "label": "Subscript",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "superscript",
+   "label": "Superscript",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "textEffectsAndTypography",
+   "label": "Text Effects and Typography",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "Outline",
+    "Shadow",
+    "Reflection",
+    "Glow",
+    "Number Styles",
+    "Ligatures",
+    "Stylistic Sets"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "textHighlightColor",
+   "label": "Text Highlight Color",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "fontColor",
+   "label": "Font Color",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 1,
+   "items": [
+    "Gradient\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "font",
+   "cmd": "font",
+   "label": "Font",
+   "type": "button",
+   "launcher": true,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "bullets",
+   "label": "Bullets",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Change List Level",
+    "Define New Bullet\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "numbering",
+   "label": "Numbering",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Change List Level",
+    "Set Numbering Value\u2026",
+    "Define New Number Format\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "multilevelList",
+   "label": "Multilevel List",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "Decimal (1. 1.1. 1.1.1.)",
+    "Legal (1 1.1 1.1.1)",
+    "Bullet hierarchy",
+    "Outline (1) a) i))",
+    "Upper Roman (I. A. 1.)",
+    "Change List Level",
+    "Define New Multilevel List\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "decreaseIndent",
+   "label": "Decrease Indent",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "increaseIndent",
+   "label": "Increase Indent",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "sort",
+   "label": "Sort",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "showHide",
+   "label": "Show/Hide \u00b6",
+   "type": "toggle",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "alignLeft",
+   "label": "Align Left",
+   "type": "toggle",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "center",
+   "label": "Center",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "alignRight",
+   "label": "Align Right",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "justify",
+   "label": "Justify",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "lineAndParagraphSpacing",
+   "label": "Line and Paragraph Spacing",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 9,
+   "items": [
+    "1.0",
+    "1.15",
+    "1.5",
+    "2.0",
+    "2.5",
+    "3.0",
+    "Line Spacing Options\u2026",
+    "Add Space Before Paragraph",
+    "Add Space After Paragraph"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "shading",
+   "label": "Shading",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "borders",
+   "label": "Borders",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 16,
+   "items": [
+    "Bottom Border",
+    "Top Border",
+    "Left Border",
+    "Right Border",
+    "\u2713No Border",
+    "All Borders",
+    "Outside Borders",
+    "Inside Borders",
+    "Inside Horizontal Border",
+    "Inside Vertical Border",
+    "Diagonal Down Border",
+    "Diagonal Up Border"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "paragraph",
+   "cmd": "paragraph",
+   "label": "Paragraph",
+   "type": "button",
+   "launcher": true,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "styles",
+   "cmd": "stylesGallery",
+   "label": "Styles Gallery",
+   "type": "gallery",
+   "launcher": false,
+   "itemCount": 15,
+   "result": "OK_GALLERY_INLINE",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "styles",
+   "cmd": "styles",
+   "label": "Styles",
+   "type": "button",
+   "launcher": true,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "home",
+   "group": "editing",
+   "cmd": "find",
+   "label": "Find",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Find",
+    "Advanced Find\u2026",
+    "Go To\u2026Ctrl+G"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "editing",
+   "cmd": "replace",
+   "label": "Replace",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "home",
+   "group": "editing",
+   "cmd": "select",
+   "label": "Select",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Select AllCtrl+A",
+    "Select Objects",
+    "Select All Text With Similar Formatting",
+    "Selection Pane\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "home",
+   "group": "editor",
+   "cmd": "editor",
+   "label": "Editor",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "insert",
+   "group": "pages",
+   "cmd": "coverPage",
+   "label": "Cover Page",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "Banded",
+    "Facet",
+    "Filigree",
+    "Ion",
+    "Motion",
+    "Retrospect",
+    "Remove Current Cover Page"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "pages",
+   "cmd": "blankPage",
+   "label": "Blank Page",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "pages",
+   "cmd": "pageBreak",
+   "label": "Page Break",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "tables",
+   "cmd": "table",
+   "label": "Table",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 5,
+   "items": [
+    "Insert Table\u2026",
+    "Draw Table",
+    "Convert Text to Table\u2026",
+    "Excel Spreadsheet",
+    "Quick Tables"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "illustrations",
+   "cmd": "pictures",
+   "label": "Pictures",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "This Device\u2026",
+    "Online Pictures\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "illustrations",
+   "cmd": "shapes",
+   "label": "Shapes",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "illustrations",
+   "cmd": "icons",
+   "label": "Icons",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "illustrations",
+   "cmd": "3dModels",
+   "label": "3D Models",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "DEAD_NO_FLYOUT",
+   "verdict": "dead"
+  },
+  {
+   "tab": "insert",
+   "group": "illustrations",
+   "cmd": "smartart",
+   "label": "SmartArt",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "3D models require a 3D model viewer/runtime \u2014 not available in this clone.See do",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "illustrations",
+   "cmd": "chart",
+   "label": "Chart",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "3D models require a 3D model viewer/runtime \u2014 not available in this clone.See do",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "illustrations",
+   "cmd": "screenshot",
+   "label": "Screenshot",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 1,
+   "items": [
+    "Screen Clipping"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "add-ins",
+   "cmd": "getAddIns",
+   "label": "Get Add-ins",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "3D models require a 3D model viewer/runtime \u2014 not available in this clone.See do",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "add-ins",
+   "cmd": "myAddIns",
+   "label": "My Add-ins",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Get Add-ins (Store)",
+    "My Add-ins"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "media",
+   "cmd": "onlineVideo",
+   "label": "Online Video",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "3D models require a 3D model viewer/runtime \u2014 not available in this clone.See do",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "links",
+   "cmd": "link",
+   "label": "Link",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "links",
+   "cmd": "bookmark",
+   "label": "Bookmark",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "links",
+   "cmd": "crossReference",
+   "label": "Cross-reference",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "comments",
+   "cmd": "comment",
+   "label": "Comment",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "insert",
+   "group": "header-footer",
+   "cmd": "header",
+   "label": "Header",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "header-footer",
+   "cmd": "footer",
+   "label": "Footer",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "header-footer",
+   "cmd": "pageNumber",
+   "label": "Page Number",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Top of Page",
+    "Bottom of Page",
+    "Current Position",
+    "Remove Page Numbers"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "text",
+   "cmd": "textBox",
+   "label": "Text Box",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Simple Text Box",
+    "Draw Text Box"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "text",
+   "cmd": "quickParts",
+   "label": "Quick Parts",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "Field\u2026",
+    "Document Property",
+    "Page",
+    "Number of Pages",
+    "Date",
+    "Author",
+    "File Name"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "text",
+   "cmd": "wordart",
+   "label": "WordArt",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "SUSPECT_EMPTY_FLYOUT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "insert",
+   "group": "text",
+   "cmd": "dropCap",
+   "label": "Drop Cap",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "None",
+    "Dropped",
+    "In Margin",
+    "Drop Cap Options\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "text",
+   "cmd": "signatureLine",
+   "label": "Signature Line",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "text",
+   "cmd": "dateTime",
+   "label": "Date & Time",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "text",
+   "cmd": "object",
+   "label": "Object",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Text from File\u2026",
+    "Object\u2026 (Create New)"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "symbols",
+   "cmd": "equation",
+   "label": "Equation",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 6,
+   "items": [
+    "a\u00b2 + b\u00b2 = c\u00b2",
+    "x = (\u2212b \u00b1 \u221a(b\u00b2\u22124ac)) / 2a",
+    "E = mc\u00b2",
+    "\u222b f(x) dx",
+    "\u03a3(i=1\u2192n) i = n(n+1)/2",
+    "Insert New Equation"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "insert",
+   "group": "symbols",
+   "cmd": "symbol",
+   "label": "Symbol",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 1,
+   "items": [
+    "More Symbols\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "tools",
+   "cmd": "selectObjects",
+   "label": "Select Objects",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "draw",
+   "group": "tools",
+   "cmd": "lassoSelect",
+   "label": "Lasso Select",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "draw",
+   "group": "tools",
+   "cmd": "eraser",
+   "label": "Eraser",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 6,
+   "items": [
+    "Stroke Eraser",
+    "Small Eraser",
+    "Medium Eraser",
+    "Large Eraser",
+    "Segment Eraser",
+    "Erase All Ink"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "pens",
+   "cmd": "pensGallery",
+   "label": "Pens Gallery",
+   "type": "gallery",
+   "launcher": false,
+   "itemCount": 6,
+   "result": "OK_GALLERY_INLINE",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "pens",
+   "cmd": "addPen",
+   "label": "Add Pen",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 5,
+   "items": [
+    "Pen",
+    "Pencil",
+    "Highlighter",
+    "Action Pen",
+    "Custom Pen\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "pens",
+   "cmd": "drawWithTrackpad",
+   "label": "Draw with Trackpad",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Mouse/trackpad input is used for drawing in this clone.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "pens",
+   "cmd": "drawing",
+   "label": "Drawing",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Mouse/trackpad input is used for drawing in this clone.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "convert",
+   "cmd": "inkToShape",
+   "label": "Ink to Shape",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Mouse/trackpad input is used for drawing in this clone.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "convert",
+   "cmd": "inkToMath",
+   "label": "Ink to Math",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Mouse/trackpad input is used for drawing in this clone.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "insert",
+   "cmd": "drawingCanvas",
+   "label": "Drawing Canvas",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "Mouse/trackpad input is used for drawing in this clone.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "draw",
+   "group": "replay",
+   "cmd": "inkReplay",
+   "label": "Ink Replay",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Ink-to-Shape recognition is a handwriting/shape ML feature \u2014 not implemented.See",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "document-formatting",
+   "cmd": "themes",
+   "label": "Themes",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Reset to Theme from Template",
+    "Browse for Themes\u2026",
+    "Save Current Theme\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "document-formatting",
+   "cmd": "styleSet",
+   "label": "Style Set",
+   "type": "gallery",
+   "launcher": false,
+   "itemCount": 9,
+   "result": "OK_GALLERY_INLINE",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "document-formatting",
+   "cmd": "colors",
+   "label": "Colors",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 19,
+   "items": [
+    "Office",
+    "Office 2007-2010",
+    "Grayscale",
+    "Blue Warm",
+    "Blue",
+    "Blue II",
+    "Blue Green",
+    "Green",
+    "Green Yellow",
+    "Yellow",
+    "Yellow Orange",
+    "Orange"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "document-formatting",
+   "cmd": "fonts",
+   "label": "Fonts",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 16,
+   "items": [
+    "Office",
+    "Office 2007-2010",
+    "Aptos",
+    "Calibri",
+    "Calibri Light",
+    "Arial",
+    "Corbel",
+    "Candara",
+    "Cambria",
+    "Georgia",
+    "Garamond",
+    "Times New Roman"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "document-formatting",
+   "cmd": "paragraphSpacing",
+   "label": "Paragraph Spacing",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "No Paragraph Space",
+    "Compact",
+    "Tight",
+    "Open",
+    "Relaxed",
+    "Double",
+    "Custom Paragraph Spacing\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "document-formatting",
+   "cmd": "effects",
+   "label": "Effects",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "SUSPECT_EMPTY_FLYOUT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "design",
+   "group": "document-formatting",
+   "cmd": "setAsDefault",
+   "label": "Set as Default",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Current theme/spacing set as the default for new documents (session).",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "page-background",
+   "cmd": "watermark",
+   "label": "Watermark",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Custom Watermark\u2026",
+    "Remove Watermark"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "page-background",
+   "cmd": "pageColor",
+   "label": "Page Color",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "design",
+   "group": "page-background",
+   "cmd": "pageBorders",
+   "label": "Page Borders",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "Current theme/spacing set as the default for new documents (session).",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "page-setup",
+   "cmd": "margins",
+   "label": "Margins",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "Normal   T/B 1\"  L/R 1\"",
+    "Narrow   T/B 0.5\"  L/R 0.5\"",
+    "Moderate   T/B 1\"  L/R 0.75\"",
+    "Wide   T/B 1\"  L/R 2\"",
+    "Mirrored   T/B 1\"  L/R 1.25\"",
+    "Office 2003 Default   T/B 1\"  L/R 1.25\"",
+    "Custom Margins\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "page-setup",
+   "cmd": "orientation",
+   "label": "Orientation",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Portrait",
+    "Landscape"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "page-setup",
+   "cmd": "size",
+   "label": "Size",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "Letter   8.5\" x 11\"",
+    "Legal   8.5\" x 14\"",
+    "A4   21cm x 29.7cm",
+    "A3   29.7cm x 42cm",
+    "Tabloid   11\" x 17\"",
+    "Executive   7.25\" x 10.5\"",
+    "More Paper Sizes\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "page-setup",
+   "cmd": "columns",
+   "label": "Columns",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 6,
+   "items": [
+    "One",
+    "Two",
+    "Three",
+    "Left",
+    "Right",
+    "More Columns\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "page-setup",
+   "cmd": "breaks",
+   "label": "Breaks",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "PageCtrl+Enter",
+    "Column",
+    "Text Wrapping",
+    "Next Page",
+    "Continuous",
+    "Even Page",
+    "Odd Page"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "page-setup",
+   "cmd": "lineNumbers",
+   "label": "Line Numbers",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 6,
+   "items": [
+    "\u2713 None",
+    "Continuous",
+    "Restart Each Page",
+    "Restart Each Section",
+    "Suppress for Current Paragraph",
+    "Line Numbering Options\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "page-setup",
+   "cmd": "hyphenation",
+   "label": "Hyphenation",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "\u2713 None",
+    "Automatic",
+    "Manual\u2026",
+    "Hyphenation Options\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "paragraph",
+   "cmd": "indentLeft",
+   "label": "Indent Left",
+   "type": "spinner",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "paragraph",
+   "cmd": "indentRight",
+   "label": "Indent Right",
+   "type": "spinner",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "paragraph",
+   "cmd": "spacingBefore",
+   "label": "Spacing Before",
+   "type": "spinner",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "paragraph",
+   "cmd": "spacingAfter",
+   "label": "Spacing After",
+   "type": "spinner",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "position",
+   "label": "Position",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 10,
+   "items": [
+    "In Line with Text",
+    "Top Left",
+    "Top Center",
+    "Top Right",
+    "Middle Left",
+    "Middle Center",
+    "Middle Right",
+    "Bottom Left",
+    "Bottom Center",
+    "Bottom Right"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "wrapText",
+   "label": "Wrap Text",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "In Line with Text",
+    "Square",
+    "Tight",
+    "Through",
+    "Top and Bottom",
+    "Behind Text",
+    "In Front of Text"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "bringForward",
+   "label": "Bring Forward",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Bring Forward",
+    "Bring to Front",
+    "Bring in Front of Text"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "sendBackward",
+   "label": "Send Backward",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Send Backward",
+    "Send to Back",
+    "Send Behind Text"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "selectionPane",
+   "label": "Selection Pane",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "align",
+   "label": "Align",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 8,
+   "items": [
+    "Align Left",
+    "Align Center",
+    "Align Right",
+    "Align Top",
+    "Align Middle",
+    "Align Bottom",
+    "Distribute Horizontally",
+    "Distribute Vertically"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "group",
+   "label": "Group",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "DEAD_NO_FLYOUT",
+   "verdict": "dead"
+  },
+  {
+   "tab": "layout",
+   "group": "arrange",
+   "cmd": "rotate",
+   "label": "Rotate",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Rotate Right 90\u00b0",
+    "Rotate Left 90\u00b0",
+    "Flip Vertical",
+    "Flip Horizontal"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "table-of-contents",
+   "cmd": "tableOfContents",
+   "label": "Table of Contents",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 5,
+   "items": [
+    "Automatic Table 1",
+    "Automatic Table 2",
+    "Manual Table",
+    "Custom Table of Contents\u2026",
+    "Remove Table of Contents"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "table-of-contents",
+   "cmd": "addText",
+   "label": "Add Text",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Do Not Show in Table of Contents",
+    "Level 1",
+    "Level 2",
+    "Level 3"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "table-of-contents",
+   "cmd": "updateTable",
+   "label": "Update Table",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "This action isn't available on the new engine yetGroup",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "footnotes",
+   "cmd": "insertFootnote",
+   "label": "Insert Footnote",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "This action isn't available on the new engine yetGroup",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "footnotes",
+   "cmd": "insertEndnote",
+   "label": "Insert Endnote",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "This action isn't available on the new engine yetGroup",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "footnotes",
+   "cmd": "nextFootnote",
+   "label": "Next Footnote",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 5,
+   "items": [
+    "Next Footnote",
+    "Previous Footnote",
+    "Next Endnote",
+    "Previous Endnote",
+    "Show Notes"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "footnotes",
+   "cmd": "showNotes",
+   "label": "Show Notes",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "references",
+   "group": "research",
+   "cmd": "search",
+   "label": "Search",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Smart Lookup / Search uses a cloud knowledge service \u2014 not available in this clo",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "research",
+   "cmd": "researcher",
+   "label": "Researcher",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Smart Lookup / Search uses a cloud knowledge service \u2014 not available in this clo",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "citations-bibliography",
+   "cmd": "insertCitation",
+   "label": "Insert Citation",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Add New Source\u2026",
+    "Add New Placeholder\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "citations-bibliography",
+   "cmd": "manageSources",
+   "label": "Manage Sources",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "Smart Lookup / Search uses a cloud knowledge service \u2014 not available in this clo",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "citations-bibliography",
+   "cmd": "style",
+   "label": "Style",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 6,
+   "items": [
+    "\u2713 APA",
+    "Chicago",
+    "IEEE",
+    "ISO 690",
+    "MLA",
+    "Turabian"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "citations-bibliography",
+   "cmd": "bibliography",
+   "label": "Bibliography",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Bibliography",
+    "References",
+    "Works Cited",
+    "Insert Bibliography"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "captions",
+   "cmd": "insertCaption",
+   "label": "Insert Caption",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "Smart Lookup / Search uses a cloud knowledge service \u2014 not available in this clo",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "captions",
+   "cmd": "insertTableOfFigures",
+   "label": "Insert Table of Figures",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "Smart Lookup / Search uses a cloud knowledge service \u2014 not available in this clo",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "captions",
+   "cmd": "updateTable",
+   "label": "Update Table",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Researcher uses a cloud research service \u2014 not available in this clone.See docs/",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "captions",
+   "cmd": "crossReference",
+   "label": "Cross-reference",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "index",
+   "cmd": "markEntry",
+   "label": "Mark Entry",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "index",
+   "cmd": "insertIndex",
+   "label": "Insert Index",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "index",
+   "cmd": "updateIndex",
+   "label": "Update Index",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "references",
+   "group": "table-of-authorities",
+   "cmd": "markCitation",
+   "label": "Mark Citation",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "table-of-authorities",
+   "cmd": "insertTableOfAuthorities",
+   "label": "Insert Table of Authorities",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "references",
+   "group": "table-of-authorities",
+   "cmd": "updateTable",
+   "label": "Update Table",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "mailings",
+   "group": "create",
+   "cmd": "envelopes",
+   "label": "Envelopes",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "create",
+   "cmd": "labels",
+   "label": "Labels",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "start-mail-merge",
+   "cmd": "startMailMerge",
+   "label": "Start Mail Merge",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 7,
+   "items": [
+    "Letters",
+    "E-mail Messages",
+    "Envelopes\u2026",
+    "Labels\u2026",
+    "Directory",
+    "Normal Word Document",
+    "Step-by-Step Mail Merge Wizard\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "start-mail-merge",
+   "cmd": "selectRecipients",
+   "label": "Select Recipients",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Type a New List\u2026",
+    "Use an Existing List\u2026",
+    "Choose from Outlook Contacts\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "start-mail-merge",
+   "cmd": "editRecipientList",
+   "label": "Edit Recipient List",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "write-insert-fields",
+   "cmd": "highlightMergeFields",
+   "label": "Highlight Merge Fields",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "write-insert-fields",
+   "cmd": "addressBlock",
+   "label": "Address Block",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "write-insert-fields",
+   "cmd": "greetingLine",
+   "label": "Greeting Line",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "write-insert-fields",
+   "cmd": "insertMergeField",
+   "label": "Insert Merge Field",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 9,
+   "items": [
+    "Title",
+    "FirstName",
+    "LastName",
+    "CompanyName",
+    "Address1",
+    "City",
+    "State",
+    "ZIP",
+    "Email"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "write-insert-fields",
+   "cmd": "rules",
+   "label": "Rules",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 9,
+   "items": [
+    "If\u2026Then\u2026Else\u2026",
+    "Fill-in\u2026",
+    "Ask\u2026",
+    "Merge Record #",
+    "Merge Sequence #",
+    "Next Record",
+    "Next Record If\u2026",
+    "Set Bookmark\u2026",
+    "Skip Record If\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "write-insert-fields",
+   "cmd": "matchFields",
+   "label": "Match Fields",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "write-insert-fields",
+   "cmd": "updateLabels",
+   "label": "Update Labels",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Update Labels lands with the label-sheet page layout (Phase 7). Create a label s",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "previewResults",
+   "label": "Preview Results",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Update Labels lands with the label-sheet page layout (Phase 7). Create a label s",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "firstRecord",
+   "label": "First Record",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Update Labels lands with the label-sheet page layout (Phase 7). Create a label s",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "previousRecord",
+   "label": "Previous Record",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Update Labels lands with the label-sheet page layout (Phase 7). Create a label s",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "goToRecord",
+   "label": "Go to Record",
+   "type": "spinner",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "nextRecord",
+   "label": "Next Record",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Update Labels lands with the label-sheet page layout (Phase 7). Create a label s",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "lastRecord",
+   "label": "Last Record",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "No recipients to preview.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "findRecipient",
+   "label": "Find Recipient",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "No recipients to preview.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "preview-results",
+   "cmd": "checkForErrors",
+   "label": "Check for Errors",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "No recipients to preview.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "mailings",
+   "group": "finish",
+   "cmd": "finishMerge",
+   "label": "Finish & Merge",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Edit Individual Documents\u2026",
+    "Print Documents\u2026",
+    "Send Email Messages\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "proofing",
+   "cmd": "editor",
+   "label": "Editor",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "No recipients to preview.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "proofing",
+   "cmd": "spellingGrammar",
+   "label": "Spelling and Grammar",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Spelling",
+    "\u2713 Spelling and Grammar"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "proofing",
+   "cmd": "thesaurus",
+   "label": "Thesaurus",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "No recipients selected.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "proofing",
+   "cmd": "wordCount",
+   "label": "Word Count",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "speech",
+   "cmd": "readAloud",
+   "label": "Read Aloud",
+   "type": "toggle",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "review",
+   "group": "accessibility",
+   "cmd": "checkAccessibility",
+   "label": "Check Accessibility",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 1,
+   "items": [
+    "Check Accessibility"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "language",
+   "cmd": "translate",
+   "label": "Translate",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Translate Selection",
+    "Translate Document",
+    "Translator Preferences\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "language",
+   "cmd": "language",
+   "label": "Language",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Set Proofing Language\u2026",
+    "Language Preferences\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "comments",
+   "cmd": "newComment",
+   "label": "New Comment",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "review",
+   "group": "comments",
+   "cmd": "deleteComment",
+   "label": "Delete",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Delete",
+    "Delete All Comments Shown",
+    "Delete All Comments in Document",
+    "Delete All Resolved Comments"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "comments",
+   "cmd": "previousComment",
+   "label": "Previous",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "review",
+   "group": "comments",
+   "cmd": "nextComment",
+   "label": "Next",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "review",
+   "group": "comments",
+   "cmd": "showComments",
+   "label": "Show Comments",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "\u2713 Contextual",
+    "List"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "markup",
+   "cmd": "displayForReview",
+   "label": "Display for Review",
+   "type": "combo",
+   "launcher": false,
+   "result": "OK_INPUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "markup",
+   "cmd": "filterMarkup",
+   "label": "Filter All Markup",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "markup",
+   "cmd": "showMarkup",
+   "label": "Show Markup",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 6,
+   "items": [
+    "\u2713 Insertions and Deletions",
+    "\u2713 Formatting",
+    "Balloons",
+    "Specific People",
+    "Highlight Updates",
+    "Other Authors"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "markup",
+   "cmd": "reviewingPane",
+   "label": "Reviewing Pane",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Reviewing Pane Vertical\u2026",
+    "Reviewing Pane Horizontal\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "markup",
+   "cmd": "trackChangesOptions",
+   "label": "Track Changes Options",
+   "type": "button",
+   "launcher": true,
+   "result": "DIALOG",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "tracking",
+   "cmd": "trackChanges",
+   "label": "Track Changes",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "For Everyone",
+    "Just Mine",
+    "Lock Tracking"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "tracking",
+   "cmd": "accept",
+   "label": "Accept",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 5,
+   "items": [
+    "Accept and Move to Next",
+    "Accept This Change",
+    "Accept All Changes Shown",
+    "Accept All Changes",
+    "Accept All Changes and Stop Tracking"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "tracking",
+   "cmd": "reject",
+   "label": "Reject",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 5,
+   "items": [
+    "Reject and Move to Next",
+    "Reject Change",
+    "Reject All Changes Shown",
+    "Reject All Changes",
+    "Reject All Changes and Stop Tracking"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "tracking",
+   "cmd": "previousChange",
+   "label": "Previous",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "review",
+   "group": "tracking",
+   "cmd": "nextChange",
+   "label": "Next",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "review",
+   "group": "compare",
+   "cmd": "compare",
+   "label": "Compare",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "Compare\u2026",
+    "Combine\u2026",
+    "Show Source Documents"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "protect",
+   "cmd": "blockAuthors",
+   "label": "Block Authors",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "protect",
+   "cmd": "restrictEditing",
+   "label": "Restrict Editing",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "verdict": "pass"
+  },
+  {
+   "tab": "review",
+   "group": "ink",
+   "cmd": "hideInk",
+   "label": "Hide Ink",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 1,
+   "items": [
+    "Hide Ink"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "views",
+   "cmd": "readMode",
+   "label": "Read Mode",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "views",
+   "cmd": "printLayout",
+   "label": "Print Layout",
+   "type": "button",
+   "launcher": false,
+   "result": "SKIPPED_NATIVE",
+   "verdict": "skip"
+  },
+  {
+   "tab": "view",
+   "group": "views",
+   "cmd": "webLayout",
+   "label": "Web Layout",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "views",
+   "cmd": "outline",
+   "label": "Outline",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "views",
+   "cmd": "draft",
+   "label": "Draft",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "immersive",
+   "cmd": "focus",
+   "label": "Focus",
+   "type": "toggle",
+   "launcher": false,
+   "result": "SKIPPED_NATIVE",
+   "verdict": "skip"
+  },
+  {
+   "tab": "view",
+   "group": "immersive",
+   "cmd": "immersiveReader",
+   "label": "Immersive Reader",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "page-movement",
+   "cmd": "vertical",
+   "label": "Vertical",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Outline view",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "page-movement",
+   "cmd": "sideToSide",
+   "label": "Side to Side",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Outline view",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "show",
+   "cmd": "ruler",
+   "label": "Ruler",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Draft view",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "show",
+   "cmd": "gridlines",
+   "label": "Gridlines",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Side to Side page movement",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "show",
+   "cmd": "navigationPane",
+   "label": "Navigation Pane",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Side to Side page movement",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "zoom",
+   "cmd": "zoom",
+   "label": "Zoom",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "Side to Side page movement",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "zoom",
+   "cmd": "100",
+   "label": "100%",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "view",
+   "group": "zoom",
+   "cmd": "onePage",
+   "label": "One Page",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "view",
+   "group": "zoom",
+   "cmd": "multiplePages",
+   "label": "Multiple Pages",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "view",
+   "group": "zoom",
+   "cmd": "pageWidth",
+   "label": "Page Width",
+   "type": "button",
+   "launcher": false,
+   "result": "SILENT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "view",
+   "group": "window",
+   "cmd": "newWindow",
+   "label": "New Window",
+   "type": "button",
+   "launcher": false,
+   "result": "SKIPPED_NATIVE",
+   "verdict": "skip"
+  },
+  {
+   "tab": "view",
+   "group": "window",
+   "cmd": "arrangeAll",
+   "label": "Arrange All",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Arrange All needs multiple document windows \u2014 not supported here.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "window",
+   "cmd": "split",
+   "label": "Split",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Arrange All needs multiple document windows \u2014 not supported here.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "window",
+   "cmd": "viewSideBySide",
+   "label": "View Side by Side",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Arrange All needs multiple document windows \u2014 not supported here.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "window",
+   "cmd": "synchronousScrolling",
+   "label": "Synchronous Scrolling",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Arrange All needs multiple document windows \u2014 not supported here.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "window",
+   "cmd": "resetWindowPosition",
+   "label": "Reset Window Position",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Arrange All needs multiple document windows \u2014 not supported here.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "window",
+   "cmd": "switchWindows",
+   "label": "Switch Windows",
+   "type": "dropdown",
+   "launcher": false,
+   "result": "SKIPPED_NATIVE",
+   "verdict": "skip"
+  },
+  {
+   "tab": "view",
+   "group": "macros",
+   "cmd": "macros",
+   "label": "Macros",
+   "type": "split",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "View Macros",
+    "Record Macro\u2026"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "view",
+   "group": "sharepoint",
+   "cmd": "properties",
+   "label": "Properties",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "View Side by Side needs a second open document \u2014 not supported.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "help",
+   "group": "help",
+   "cmd": "help",
+   "label": "Help",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "Synchronous Scrolling pairs two windows \u2014 not supported.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "help",
+   "group": "help",
+   "cmd": "contactSupport",
+   "label": "Contact Support",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Reset Window Position \u2014 not applicable in this clone.",
+   "verdict": "pass"
+  },
+  {
+   "tab": "help",
+   "group": "help",
+   "cmd": "feedback",
+   "label": "Feedback",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Contact Support opens Microsoft support online \u2014 this is a local Word clone, not",
+   "verdict": "pass"
+  },
+  {
+   "tab": "help",
+   "group": "help",
+   "cmd": "showTraining",
+   "label": "Show Training",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Contact Support opens Microsoft support online \u2014 this is a local Word clone, not",
+   "verdict": "pass"
+  },
+  {
+   "tab": "help",
+   "group": "help",
+   "cmd": "whatSNew",
+   "label": "What's New",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG",
+   "toast": "Contact Support opens Microsoft support online \u2014 this is a local Word clone, not",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styles",
+   "cmd": "tblStyles",
+   "label": "Table Styles",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "Table Grid",
+    "Grid Table 4 Accent 1"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styles",
+   "cmd": "tblShading",
+   "label": "Shading",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "SUSPECT_EMPTY_FLYOUT",
+   "verdict": "triage"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styles",
+   "cmd": "tblBorders",
+   "label": "Borders",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 2,
+   "items": [
+    "All Borders",
+    "No Border"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-align",
+   "cmd": "tblAlignLeft",
+   "label": "Align Left",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-align",
+   "cmd": "tblAlignCenter",
+   "label": "Align Center",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-align",
+   "cmd": "tblAlignRight",
+   "label": "Align Right",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-align",
+   "cmd": "tblIndent",
+   "label": "Indent",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "0\"",
+    "0.25\"",
+    "0.5\"",
+    "1.0\""
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblInsertAbove",
+   "label": "Insert Above",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblInsertBelow",
+   "label": "Insert Below",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblInsertLeft",
+   "label": "Insert Left",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblInsertRight",
+   "label": "Insert Right",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblDeleteRow",
+   "label": "Delete Row",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblDeleteColumn",
+   "label": "Delete Column",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblDeleteTable",
+   "label": "Delete Table",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-merge",
+   "cmd": "tblMerge",
+   "label": "Merge Cells",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Select cells firstSelect multiple cells to merge them \u2014 click and drag across ce",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-merge",
+   "cmd": "tblSplitCell",
+   "label": "Split Cells",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "Select cells firstSelect multiple cells to merge them \u2014 click and drag across ce",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-merge",
+   "cmd": "tblSplitTable",
+   "label": "Split Table",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Select cells firstSelect multiple cells to merge them \u2014 click and drag across ce",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-cellsize",
+   "cmd": "tblRowHeight",
+   "label": "Row Height",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "0.2\"",
+    "0.3\"",
+    "0.5\"",
+    "1.0\""
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-cellsize",
+   "cmd": "tblColWidth",
+   "label": "Column Width",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "1.0\"",
+    "1.5\"",
+    "2.0\"",
+    "2.5\""
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-cellsize",
+   "cmd": "tblDistRows",
+   "label": "Distribute Rows",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "toast": "Select cells firstSelect multiple cells to merge them \u2014 click and drag across ce",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-cellsize",
+   "cmd": "tblDistCols",
+   "label": "Distribute Columns",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-cellsize",
+   "cmd": "tblAutoFit",
+   "label": "AutoFit",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "AutoFit Contents",
+    "AutoFit Window",
+    "Fixed Column Width"
+   ],
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblVAlignTop",
+   "label": "Align Top",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblVAlignMid",
+   "label": "Align Middle",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblVAlignBottom",
+   "label": "Align Bottom",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblTextDir",
+   "label": "Text Direction",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblCellMargins",
+   "label": "Cell Margins",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-data",
+   "cmd": "tblToText",
+   "label": "Convert to Text",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-data",
+   "cmd": "tblHeaderRow",
+   "label": "Header Row",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-data",
+   "cmd": "tblHeaderCol",
+   "label": "Header Column",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED",
+   "verdict": "pass"
+  }
+ ]
+}

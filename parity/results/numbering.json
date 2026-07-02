@@ -1,0 +1,25 @@
+{
+  "task": "numbering",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 53,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {
+    "numbering": {
+      "word": 1,
+      "clone": 0
+    }
+  },
+  "id": "numbering",
+  "control_id": "home.paragraph.numbering",
+  "feature": "Numbering",
+  "tab": "Home",
+  "usage_tier": "T1",
+  "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
+}

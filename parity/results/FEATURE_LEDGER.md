@@ -7,123 +7,123 @@ green; an unmeasured axis (—) blocks done** (not-measured ≠ no-gaps).
 
 | Axis | pass | gap | warn/triage | unmeasured |
 |---|---|---|---|---|
-| OOXML | 0 | **0** | 0 | 111 |
+| OOXML | 13 | **4** | 0 | 94 |
 | STRUCT | 80 | **19** | 12 | 0 |
 | STATE | 95 | **16** | 0 | 0 |
-| SCORE | 0 | **0** | 0 | 111 |
+| SCORE | 97 | **1** | 13 | 0 |
 | VISUAL | 0 | **0** | 0 | 111 |
 | BEHAV | 0 | **0** | 0 | 111 |
 
 | Feature | Tab | Tier | OOXML | STRUCT | STATE | SCORE | VISUAL | BEHAV |
 |---|---|---|---|---|---|---|---|---|
-| Cut | home | T0 | — | pass | pass | — | — | — |
-| Copy | home | T0 | — | pass | pass | — | — | — |
-| Font Size | home | T0 | — | pass | pass | — | — | — |
-| Bold | home | T0 | — | pass | pass | — | — | — |
-| Italic | home | T0 | — | pass | pass | — | — | — |
-| Underline | home | T0 | — | GAP(items:1) | pass | — | — | — |
-| Bullets | home | T0 | — | pass | pass | — | — | — |
-| Align Left | home | T0 | — | pass | pass | — | — | — |
-| Center | home | T0 | — | pass | pass | — | — | — |
-| Paste | home | T0 | — | pass | pass | — | — | — |
-| Font (face) | home | T0 | — | pass | pass | — | — | — |
-| Text Highlight Color | home | T1 | — | pass | pass | — | — | — |
-| Font Color | home | T1 | — | GAP(items:2) | pass | — | — | — |
-| Numbering | home | T1 | — | pass | pass | — | — | — |
-| Align Right | home | T1 | — | pass | pass | — | — | — |
-| Justify | home | T1 | — | pass | pass | — | — | — |
-| Find | home | T1 | — | warn(label) | pass | — | — | — |
-| Replace | home | T1 | — | pass | pass | — | — | — |
-| Line and Paragraph Spacing | home | T1 | — | pass | pass | — | — | — |
-| Styles Gallery | home | T1 | — | GAP(type) | pass | — | — | — |
-| Editor | home | T1 | — | warn(label) | pass | — | — | — |
-| Increase Font Size | home | T2 | — | warn(label) | pass | — | — | — |
-| Decrease Font Size | home | T2 | — | warn(label) | pass | — | — | — |
-| Change Case | home | T2 | — | pass | pass | — | — | — |
-| Clear All Formatting | home | T2 | — | warn(label) | pass | — | — | — |
-| Strikethrough | home | T2 | — | pass | pass | — | — | — |
-| Decrease Indent | home | T2 | — | pass | GAP(1) | — | — | — |
-| Increase Indent | home | T2 | — | pass | pass | — | — | — |
-| Shading | home | T2 | — | pass | pass | — | — | — |
-| Format Painter | home | T2 | — | GAP(type) | pass | — | — | — |
-| Font dialog (launcher) | home | T2 | — | pass | pass | — | — | — |
-| Show/Hide ¶ | home | T2 | — | warn(label) | pass | — | — | — |
-| Borders | home | T2 | — | GAP(items:1) | pass | — | — | — |
-| Paragraph dialog (launcher) | home | T2 | — | pass | pass | — | — | — |
-| Styles pane (launcher) | home | T2 | — | GAP(items:2) | pass | — | — | — |
-| Select | home | T2 | — | pass | pass | — | — | — |
-| Subscript | home | T3 | — | pass | pass | — | — | — |
-| Superscript | home | T3 | — | pass | pass | — | — | — |
-| Text Effects and Typography | home | T3 | — | GAP(items:9) | pass | — | — | — |
-| Multilevel List | home | T3 | — | pass | pass | — | — | — |
-| Sort | home | T3 | — | pass | pass | — | — | — |
-| Table | insert | T1 | — | GAP(items:1) | GAP(1) | — | — | — |
-| Pictures | insert | T1 | — | pass | pass | — | — | — |
-| Link | insert | T1 | — | GAP(items:1) | pass | — | — | — |
-| Header | insert | T1 | — | GAP(items:1) | pass | — | — | — |
-| Footer | insert | T1 | — | GAP(items:1) | pass | — | — | — |
-| Page Number | insert | T1 | — | GAP(items:4) | pass | — | — | — |
-| Comment | insert | T2 | — | pass | pass | — | — | — |
-| Symbol | insert | T2 | — | pass | pass | — | — | — |
-| Page Break | insert | T2 | — | pass | pass | — | — | — |
-| Shapes | insert | T2 | — | pass | pass | — | — | — |
-| Bookmark | insert | T3 | — | pass | pass | — | — | — |
-| Drop Cap | insert | T3 | — | pass | GAP(1) | — | — | — |
-| Date & Time | insert | T3 | — | pass | pass | — | — | — |
-| Cover Page | insert | T3 | — | GAP(items:1) | pass | — | — | — |
-| Icons | insert | T3 | — | pass | pass | — | — | — |
-| Cross-reference | insert | T3 | — | pass | pass | — | — | — |
-| Text Box | insert | T3 | — | pass | pass | — | — | — |
-| Quick Parts | insert | T3 | — | GAP(items:1) | pass | — | — | — |
-| Themes | design | T3 | — | GAP(items:1) | pass | — | — | — |
-| Paragraph Spacing | design | T3 | — | pass | pass | — | — | — |
-| Page Color | design | T3 | — | pass | pass | — | — | — |
-| Page Borders | design | T3 | — | pass | pass | — | — | — |
-| Margins | layout | T1 | — | pass | pass | — | — | — |
-| Orientation | layout | T2 | — | pass | pass | — | — | — |
-| Size | layout | T2 | — | pass | pass | — | — | — |
-| Columns | layout | T2 | — | pass | pass | — | — | — |
-| Indent Left | layout | T2 | — | warn(label) | pass | — | — | — |
-| Indent Right | layout | T2 | — | warn(label) | pass | — | — | — |
-| Spacing Before | layout | T2 | — | warn(label) | pass | — | — | — |
-| Spacing After | layout | T2 | — | warn(label) | pass | — | — | — |
-| Breaks | layout | T2 | — | pass | pass | — | — | — |
-| Position | layout | T3 | — | pass | GAP(1) | — | — | — |
-| Wrap Text | layout | T3 | — | GAP(items:1) | GAP(1) | — | — | — |
-| Bring Forward | layout | T3 | — | pass | GAP(1) | — | — | — |
-| Send Backward | layout | T3 | — | pass | GAP(1) | — | — | — |
-| Align | layout | T3 | — | GAP(items:2) | pass | — | — | — |
-| Rotate | layout | T3 | — | pass | GAP(1) | — | — | — |
-| Group | layout | T3 | — | pass | GAP(1) | — | — | — |
-| Insert Footnote | references | T2 | — | pass | pass | — | — | — |
-| Table of Contents | references | T3 | — | pass | pass | — | — | — |
-| Update Table | references | T3 | — | pass | GAP(2) | — | — | — |
-| Insert Endnote | references | T3 | — | pass | pass | — | — | — |
-| Insert Citation | references | T3 | — | pass | pass | — | — | — |
-| Insert Caption | references | T3 | — | pass | pass | — | — | — |
-| Cross-reference | references | T3 | — | pass | pass | — | — | — |
-| Insert Merge Field | mailings | T3 | — | pass | GAP(1) | — | — | — |
-| Preview Results | mailings | T3 | — | pass | GAP(1) | — | — | — |
-| Envelopes | mailings | T3 | — | pass | pass | — | — | — |
-| Labels | mailings | T3 | — | pass | pass | — | — | — |
-| Start Mail Merge | mailings | T3 | — | pass | pass | — | — | — |
-| Select Recipients | mailings | T3 | — | pass | pass | — | — | — |
-| Edit Recipient List | mailings | T3 | — | pass | GAP(1) | — | — | — |
-| Address Block | mailings | T3 | — | pass | GAP(1) | — | — | — |
-| Greeting Line | mailings | T3 | — | pass | GAP(1) | — | — | — |
-| Finish & Merge | mailings | T3 | — | GAP(items:1) | GAP(1) | — | — | — |
-| Editor | review | T1 | — | warn(label) | pass | — | — | — |
-| Spelling and Grammar | review | T1 | — | warn(label) | pass | — | — | — |
-| Word Count | review | T2 | — | pass | pass | — | — | — |
-| New Comment | review | T2 | — | pass | pass | — | — | — |
-| Delete | review | T2 | — | pass | pass | — | — | — |
-| Accept | review | T2 | — | pass | pass | — | — | — |
-| Reject | review | T2 | — | pass | pass | — | — | — |
-| Display for Review | review | T2 | — | pass | pass | — | — | — |
-| Track Changes | review | T2 | — | pass | pass | — | — | — |
-| Thesaurus | review | T3 | — | pass | pass | — | — | — |
-| Compare | review | T3 | — | GAP(items:4) | pass | — | — | — |
-| Print Layout | view | T2 | — | pass | pass | — | — | — |
-| Ruler | view | T2 | — | pass | pass | — | — | — |
-| Navigation Pane | view | T2 | — | pass | pass | — | — | — |
-| Zoom | view | T2 | — | pass | pass | — | — | — |
+| Cut | home | T0 | — | pass | pass | pass | — | — |
+| Copy | home | T0 | — | pass | pass | triage | — | — |
+| Font Size | home | T0 | pass(4) | pass | pass | pass | — | — |
+| Bold | home | T0 | pass(1) | pass | pass | pass | — | — |
+| Italic | home | T0 | pass(1) | pass | pass | pass | — | — |
+| Underline | home | T0 | pass(7) | GAP(items:1) | pass | pass | — | — |
+| Bullets | home | T0 | GAP(1/1) | pass | pass | pass | — | — |
+| Align Left | home | T0 | pass(1) | pass | pass | triage | — | — |
+| Center | home | T0 | pass(1) | pass | pass | pass | — | — |
+| Paste | home | T0 | — | pass | pass | pass | — | — |
+| Font (face) | home | T0 | pass(1) | pass | pass | triage | — | — |
+| Text Highlight Color | home | T1 | GAP(1/1) | pass | pass | pass | — | — |
+| Font Color | home | T1 | pass(3) | GAP(items:2) | pass | pass | — | — |
+| Numbering | home | T1 | pass(1) | pass | pass | pass | — | — |
+| Align Right | home | T1 | — | pass | pass | pass | — | — |
+| Justify | home | T1 | pass(1) | pass | pass | pass | — | — |
+| Find | home | T1 | — | warn(label) | pass | pass | — | — |
+| Replace | home | T1 | pass(1) | pass | pass | triage | — | — |
+| Line and Paragraph Spacing | home | T1 | — | pass | pass | pass | — | — |
+| Styles Gallery | home | T1 | — | GAP(type) | pass | pass | — | — |
+| Editor | home | T1 | — | warn(label) | pass | triage | — | — |
+| Increase Font Size | home | T2 | — | warn(label) | pass | pass | — | — |
+| Decrease Font Size | home | T2 | — | warn(label) | pass | pass | — | — |
+| Change Case | home | T2 | — | pass | pass | pass | — | — |
+| Clear All Formatting | home | T2 | — | warn(label) | pass | pass | — | — |
+| Strikethrough | home | T2 | — | pass | pass | pass | — | — |
+| Decrease Indent | home | T2 | — | pass | GAP(1) | triage | — | — |
+| Increase Indent | home | T2 | — | pass | pass | pass | — | — |
+| Shading | home | T2 | — | pass | pass | pass | — | — |
+| Format Painter | home | T2 | — | GAP(type) | pass | pass | — | — |
+| Font dialog (launcher) | home | T2 | pass(13) | pass | pass | triage | — | — |
+| Show/Hide ¶ | home | T2 | — | warn(label) | pass | triage | — | — |
+| Borders | home | T2 | — | GAP(items:1) | pass | pass | — | — |
+| Paragraph dialog (launcher) | home | T2 | pass(13) | pass | pass | pass | — | — |
+| Styles pane (launcher) | home | T2 | — | GAP(items:2) | pass | triage | — | — |
+| Select | home | T2 | — | pass | pass | pass | — | — |
+| Subscript | home | T3 | — | pass | pass | pass | — | — |
+| Superscript | home | T3 | — | pass | pass | pass | — | — |
+| Text Effects and Typography | home | T3 | — | GAP(items:9) | pass | pass | — | — |
+| Multilevel List | home | T3 | — | pass | pass | pass | — | — |
+| Sort | home | T3 | — | pass | pass | pass | — | — |
+| Table | insert | T1 | GAP(1/1) | GAP(items:1) | GAP(1) | pass | — | — |
+| Pictures | insert | T1 | — | pass | pass | pass | — | — |
+| Link | insert | T1 | — | GAP(items:1) | pass | pass | — | — |
+| Header | insert | T1 | — | GAP(items:1) | pass | pass | — | — |
+| Footer | insert | T1 | — | GAP(items:1) | pass | pass | — | — |
+| Page Number | insert | T1 | GAP(1/1) | GAP(items:4) | pass | pass | — | — |
+| Comment | insert | T2 | — | pass | pass | triage | — | — |
+| Symbol | insert | T2 | — | pass | pass | pass | — | — |
+| Page Break | insert | T2 | — | pass | pass | pass | — | — |
+| Shapes | insert | T2 | — | pass | pass | pass | — | — |
+| Bookmark | insert | T3 | — | pass | pass | pass | — | — |
+| Drop Cap | insert | T3 | — | pass | GAP(1) | pass | — | — |
+| Date & Time | insert | T3 | — | pass | pass | pass | — | — |
+| Cover Page | insert | T3 | — | GAP(items:1) | pass | pass | — | — |
+| Icons | insert | T3 | — | pass | pass | pass | — | — |
+| Cross-reference | insert | T3 | — | pass | pass | pass | — | — |
+| Text Box | insert | T3 | — | pass | pass | pass | — | — |
+| Quick Parts | insert | T3 | — | GAP(items:1) | pass | pass | — | — |
+| Themes | design | T3 | — | GAP(items:1) | pass | pass | — | — |
+| Paragraph Spacing | design | T3 | — | pass | pass | pass | — | — |
+| Page Color | design | T3 | — | pass | pass | pass | — | — |
+| Page Borders | design | T3 | — | pass | pass | pass | — | — |
+| Margins | layout | T1 | — | pass | pass | pass | — | — |
+| Orientation | layout | T2 | — | pass | pass | pass | — | — |
+| Size | layout | T2 | — | pass | pass | pass | — | — |
+| Columns | layout | T2 | — | pass | pass | pass | — | — |
+| Indent Left | layout | T2 | — | warn(label) | pass | pass | — | — |
+| Indent Right | layout | T2 | — | warn(label) | pass | pass | — | — |
+| Spacing Before | layout | T2 | — | warn(label) | pass | pass | — | — |
+| Spacing After | layout | T2 | — | warn(label) | pass | pass | — | — |
+| Breaks | layout | T2 | — | pass | pass | pass | — | — |
+| Position | layout | T3 | — | pass | GAP(1) | pass | — | — |
+| Wrap Text | layout | T3 | — | GAP(items:1) | GAP(1) | pass | — | — |
+| Bring Forward | layout | T3 | — | pass | GAP(1) | pass | — | — |
+| Send Backward | layout | T3 | — | pass | GAP(1) | pass | — | — |
+| Align | layout | T3 | — | GAP(items:2) | pass | pass | — | — |
+| Rotate | layout | T3 | — | pass | GAP(1) | pass | — | — |
+| Group | layout | T3 | — | pass | GAP(1) | DEAD | — | — |
+| Insert Footnote | references | T2 | — | pass | pass | pass | — | — |
+| Table of Contents | references | T3 | — | pass | pass | pass | — | — |
+| Update Table | references | T3 | — | pass | GAP(2) | triage | — | — |
+| Insert Endnote | references | T3 | — | pass | pass | pass | — | — |
+| Insert Citation | references | T3 | — | pass | pass | pass | — | — |
+| Insert Caption | references | T3 | — | pass | pass | pass | — | — |
+| Cross-reference | references | T3 | — | pass | pass | pass | — | — |
+| Insert Merge Field | mailings | T3 | — | pass | GAP(1) | pass | — | — |
+| Preview Results | mailings | T3 | — | pass | GAP(1) | pass | — | — |
+| Envelopes | mailings | T3 | — | pass | pass | pass | — | — |
+| Labels | mailings | T3 | — | pass | pass | pass | — | — |
+| Start Mail Merge | mailings | T3 | — | pass | pass | pass | — | — |
+| Select Recipients | mailings | T3 | — | pass | pass | pass | — | — |
+| Edit Recipient List | mailings | T3 | — | pass | GAP(1) | pass | — | — |
+| Address Block | mailings | T3 | — | pass | GAP(1) | pass | — | — |
+| Greeting Line | mailings | T3 | — | pass | GAP(1) | pass | — | — |
+| Finish & Merge | mailings | T3 | — | GAP(items:1) | GAP(1) | pass | — | — |
+| Editor | review | T1 | — | warn(label) | pass | triage | — | — |
+| Spelling and Grammar | review | T1 | — | warn(label) | pass | pass | — | — |
+| Word Count | review | T2 | — | pass | pass | pass | — | — |
+| New Comment | review | T2 | — | pass | pass | triage | — | — |
+| Delete | review | T2 | — | pass | pass | pass | — | — |
+| Accept | review | T2 | — | pass | pass | pass | — | — |
+| Reject | review | T2 | — | pass | pass | pass | — | — |
+| Display for Review | review | T2 | — | pass | pass | pass | — | — |
+| Track Changes | review | T2 | — | pass | pass | pass | — | — |
+| Thesaurus | review | T3 | — | pass | pass | pass | — | — |
+| Compare | review | T3 | — | GAP(items:4) | pass | pass | — | — |
+| Print Layout | view | T2 | — | pass | pass | pass | — | — |
+| Ruler | view | T2 | — | pass | pass | pass | — | — |
+| Navigation Pane | view | T2 | — | pass | pass | pass | — | — |
+| Zoom | view | T2 | — | pass | pass | pass | — | — |

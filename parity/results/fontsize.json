@@ -1,0 +1,20 @@
+{
+  "task": "fontsize",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fontsize",
+  "control_id": "home.font.font-size",
+  "feature": "Font Size",
+  "tab": "Home",
+  "usage_tier": "T0",
+  "note": "Font size (w:sz w:val=28 half-points). COM Font.Size == ribbon size box."
+}

@@ -1,0 +1,20 @@
+{
+  "task": "fd-indent-hanging",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-indent-hanging",
+  "control_id": "home.paragraph.dialog",
+  "feature": "Paragraph dialog: Hanging indent",
+  "tab": "Home",
+  "usage_tier": "PD",
+  "note": "0.5in -> w:ind w:hanging=720. COM encodes hanging as NEGATIVE FirstLineIndent + may add a paired w:left."
+}

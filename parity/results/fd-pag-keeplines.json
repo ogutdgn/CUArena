@@ -1,0 +1,20 @@
+{
+  "task": "fd-pag-keeplines",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 4,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "fd-pag-keeplines",
+  "control_id": "home.paragraph.dialog",
+  "feature": "Paragraph dialog: Keep lines together",
+  "tab": "Home",
+  "usage_tier": "PD",
+  "note": "w:keepLines (COM .KeepTogether == OOXML keepLines). NOT IN DIALOG (016)."
+}
