@@ -3271,7 +3271,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients. Select recipients first."
+   "toast": "No recipients selected."
   },
   {
    "tab": "review",
@@ -4088,6 +4088,60 @@
   },
   {
    "tab": "table-design",
+   "group": "td-styleopts",
+   "cmd": "tblStyleHeaderRow",
+   "label": "Header Row",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styleopts",
+   "cmd": "tblStyleTotalRow",
+   "label": "Total Row",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styleopts",
+   "cmd": "tblStyleBandedRows",
+   "label": "Banded Rows",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styleopts",
+   "cmd": "tblStyleFirstCol",
+   "label": "First Column",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styleopts",
+   "cmd": "tblStyleLastCol",
+   "label": "Last Column",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-styleopts",
+   "cmd": "tblStyleBandedCols",
+   "label": "Banded Columns",
+   "type": "checkbox",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-design",
    "group": "td-styles",
    "cmd": "tblStyles",
    "label": "Table Styles",
@@ -4109,27 +4163,259 @@
   },
   {
    "tab": "table-design",
-   "group": "td-styles",
-   "cmd": "tblBorders",
-   "label": "Borders",
+   "group": "td-borders",
+   "cmd": "tblBorderStyles",
+   "label": "Border Styles",
    "type": "dropdown",
    "launcher": false,
-   "itemCount": 2,
+   "itemCount": 6,
    "items": [
-    "All Borders",
+    "Single, ½ pt",
+    "Single, 1 pt",
+    "Single, 2¼ pt",
+    "Double, ¾ pt",
+    "Thick, 3 pt",
+    "Dashed, ½ pt"
+   ],
+   "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Single, ½ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Single, 1 pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Single, 2¼ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Double, ¾ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Thick, 3 pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Dashed, ½ pt",
+     "result": "ITEM_SILENT"
+    }
+   ]
+  },
+  {
+   "tab": "table-design",
+   "group": "td-borders",
+   "cmd": "tblLineStyle",
+   "label": "Pen Style",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 8,
+   "items": [
+    "Single",
+    "Double",
+    "Dotted",
+    "✓Dashed",
+    "Dot Dash",
+    "Thick",
+    "Wave",
     "No Border"
    ],
    "result": "OK_FLYOUT",
    "itemResults": [
     {
-     "label": "All Borders",
+     "label": "Single",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Double",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Dotted",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "✓Dashed",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Dot Dash",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Thick",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Wave",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "No Border",
+     "result": "ITEM_SILENT"
+    }
+   ]
+  },
+  {
+   "tab": "table-design",
+   "group": "td-borders",
+   "cmd": "tblLineWeight",
+   "label": "Pen Weight",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 9,
+   "items": [
+    "¼ pt",
+    "✓½ pt",
+    "¾ pt",
+    "1 pt",
+    "1½ pt",
+    "2¼ pt",
+    "3 pt",
+    "4½ pt",
+    "6 pt"
+   ],
+   "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "¼ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "✓½ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "¾ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "1 pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "1½ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "2¼ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "3 pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "4½ pt",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "6 pt",
+     "result": "ITEM_SILENT"
+    }
+   ]
+  },
+  {
+   "tab": "table-design",
+   "group": "td-borders",
+   "cmd": "tblPenColor",
+   "label": "Pen Color",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "OK_FLYOUT"
+  },
+  {
+   "tab": "table-design",
+   "group": "td-borders",
+   "cmd": "tblBorders",
+   "label": "Borders",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 13,
+   "items": [
+    "Bottom Border",
+    "Top Border",
+    "Left Border",
+    "Right Border",
+    "No Border",
+    "All Borders",
+    "Outside Borders",
+    "Inside Borders",
+    "Inside Horizontal Border",
+    "Inside Vertical Border",
+    "Diagonal Down Border",
+    "Diagonal Up Border"
+   ],
+   "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Bottom Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Top Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Left Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Right Border",
      "result": "OK_DOC_CHANGED"
     },
     {
      "label": "No Border",
      "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "All Borders",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Outside Borders",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Inside Borders",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Inside Horizontal Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Inside Vertical Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Diagonal Down Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Diagonal Up Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Borders and Shading…",
+     "result": "DIALOG"
     }
    ]
+  },
+  {
+   "tab": "table-design",
+   "group": "td-borders",
+   "cmd": "tblBorderPainter",
+   "label": "Border Painter",
+   "type": "toggle",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Border Painter: click a cell edge to paint it with the current pen; click Border"
   },
   {
    "tab": "table-design",
@@ -4138,7 +4424,8 @@
    "label": "Align Left",
    "type": "button",
    "launcher": false,
-   "result": "OK_DOC_CHANGED"
+   "result": "OK_DOC_CHANGED",
+   "toast": "Border Painter: click a cell edge to paint it with the current pen; click Border"
   },
   {
    "tab": "table-design",
@@ -4147,7 +4434,8 @@
    "label": "Align Center",
    "type": "button",
    "launcher": false,
-   "result": "OK_DOC_CHANGED"
+   "result": "OK_DOC_CHANGED",
+   "toast": "Border Painter: click a cell edge to paint it with the current pen; click Border"
   },
   {
    "tab": "table-design",
@@ -4194,6 +4482,92 @@
   },
   {
    "tab": "table-layout",
+   "group": "tl-table",
+   "cmd": "tblSelect",
+   "label": "Select",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Select Cell",
+    "Select Column",
+    "Select Row",
+    "Select Table"
+   ],
+   "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Select Cell",
+     "result": "OK_UI_EFFECT"
+    },
+    {
+     "label": "Select Column",
+     "result": "OK_UI_EFFECT"
+    },
+    {
+     "label": "Select Row",
+     "result": "OK_UI_EFFECT"
+    },
+    {
+     "label": "Select Table",
+     "result": "OK_UI_EFFECT"
+    }
+   ]
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-table",
+   "cmd": "tblViewGridlines",
+   "label": "View Gridlines",
+   "type": "toggle",
+   "launcher": false,
+   "result": "SILENT"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-table",
+   "cmd": "tblProperties",
+   "label": "Properties",
+   "type": "button",
+   "launcher": false,
+   "result": "DIALOG"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-rowscols",
+   "cmd": "tblDelete",
+   "label": "Delete",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 4,
+   "items": [
+    "Delete Cells…",
+    "Delete Columns",
+    "Delete Rows",
+    "Delete Table"
+   ],
+   "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Delete Cells…",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Delete Columns",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Delete Rows",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Delete Table",
+     "result": "OK_DOC_CHANGED"
+    }
+   ]
+  },
+  {
+   "tab": "table-layout",
    "group": "tl-rowscols",
    "cmd": "tblInsertAbove",
    "label": "Insert Above",
@@ -4231,29 +4605,11 @@
   {
    "tab": "table-layout",
    "group": "tl-rowscols",
-   "cmd": "tblDeleteRow",
-   "label": "Delete Row",
+   "cmd": "tblInsertCells",
+   "label": "Insert Cells",
    "type": "button",
    "launcher": false,
-   "result": "OK_DOC_CHANGED"
-  },
-  {
-   "tab": "table-layout",
-   "group": "tl-rowscols",
-   "cmd": "tblDeleteColumn",
-   "label": "Delete Column",
-   "type": "button",
-   "launcher": false,
-   "result": "OK_DOC_CHANGED"
-  },
-  {
-   "tab": "table-layout",
-   "group": "tl-rowscols",
-   "cmd": "tblDeleteTable",
-   "label": "Delete Table",
-   "type": "button",
-   "launcher": false,
-   "result": "OK_DOC_CHANGED"
+   "result": "DIALOG"
   },
   {
    "tab": "table-layout",
@@ -4272,7 +4628,7 @@
    "label": "Split Cells",
    "type": "button",
    "launcher": false,
-   "result": "OK_DOC_CHANGED",
+   "result": "DIALOG",
    "toast": "Select cells firstSelect multiple cells to merge them — click and drag across ce"
   },
   {
@@ -4288,8 +4644,37 @@
   {
    "tab": "table-layout",
    "group": "tl-cellsize",
+   "cmd": "tblAutoFit",
+   "label": "AutoFit",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 3,
+   "items": [
+    "AutoFit Contents",
+    "AutoFit Window",
+    "Fixed Column Width"
+   ],
+   "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "AutoFit Contents",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "AutoFit Window",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Fixed Column Width",
+     "result": "OK_DOC_CHANGED"
+    }
+   ]
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-cellsize",
    "cmd": "tblRowHeight",
-   "label": "Row Height",
+   "label": "Height:",
    "type": "dropdown",
    "launcher": false,
    "itemCount": 4,
@@ -4323,7 +4708,7 @@
    "tab": "table-layout",
    "group": "tl-cellsize",
    "cmd": "tblColWidth",
-   "label": "Column Width",
+   "label": "Width:",
    "type": "dropdown",
    "launcher": false,
    "itemCount": 4,
@@ -4373,38 +4758,9 @@
   },
   {
    "tab": "table-layout",
-   "group": "tl-cellsize",
-   "cmd": "tblAutoFit",
-   "label": "AutoFit",
-   "type": "dropdown",
-   "launcher": false,
-   "itemCount": 3,
-   "items": [
-    "AutoFit Contents",
-    "AutoFit Window",
-    "Fixed Column Width"
-   ],
-   "result": "OK_FLYOUT",
-   "itemResults": [
-    {
-     "label": "AutoFit Contents",
-     "result": "OK_DOC_CHANGED"
-    },
-    {
-     "label": "AutoFit Window",
-     "result": "OK_DOC_CHANGED"
-    },
-    {
-     "label": "Fixed Column Width",
-     "result": "OK_DOC_CHANGED"
-    }
-   ]
-  },
-  {
-   "tab": "table-layout",
    "group": "tl-align",
-   "cmd": "tblVAlignTop",
-   "label": "Align Top",
+   "cmd": "tblAlignTL",
+   "label": "Align Top Left",
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED"
@@ -4412,8 +4768,8 @@
   {
    "tab": "table-layout",
    "group": "tl-align",
-   "cmd": "tblVAlignMid",
-   "label": "Align Middle",
+   "cmd": "tblAlignTC",
+   "label": "Align Top Center",
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED"
@@ -4421,8 +4777,62 @@
   {
    "tab": "table-layout",
    "group": "tl-align",
-   "cmd": "tblVAlignBottom",
-   "label": "Align Bottom",
+   "cmd": "tblAlignTR",
+   "label": "Align Top Right",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblAlignML",
+   "label": "Align Center Left",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblAlignMC",
+   "label": "Align Center",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblAlignMR",
+   "label": "Align Center Right",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblAlignBL",
+   "label": "Align Bottom Left",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblAlignBC",
+   "label": "Align Bottom Center",
+   "type": "button",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-align",
+   "cmd": "tblAlignBR",
+   "label": "Align Bottom Right",
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED"
@@ -4443,7 +4853,27 @@
    "label": "Cell Margins",
    "type": "button",
    "launcher": false,
-   "result": "OK_FLYOUT"
+   "result": "DIALOG"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-data",
+   "cmd": "tblSort",
+   "label": "Sort",
+   "type": "dropdown",
+   "launcher": false,
+   "itemCount": 0,
+   "items": [],
+   "result": "DIALOG"
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-data",
+   "cmd": "tblRepeatHeader",
+   "label": "Repeat Header Rows",
+   "type": "toggle",
+   "launcher": false,
+   "result": "OK_DOC_CHANGED"
   },
   {
    "tab": "table-layout",
@@ -4452,25 +4882,36 @@
    "label": "Convert to Text",
    "type": "button",
    "launcher": false,
-   "result": "OK_DOC_CHANGED"
+   "result": "DIALOG"
   },
   {
    "tab": "table-layout",
    "group": "tl-data",
-   "cmd": "tblHeaderRow",
-   "label": "Header Row",
+   "cmd": "tblFormula",
+   "label": "Formula",
    "type": "button",
    "launcher": false,
-   "result": "OK_DOC_CHANGED"
+   "result": "DIALOG"
   },
   {
    "tab": "table-layout",
-   "group": "tl-data",
-   "cmd": "tblHeaderCol",
-   "label": "Header Column",
+   "group": "tl-draw",
+   "cmd": "tblDrawTable",
+   "label": "Draw Table",
    "type": "button",
    "launcher": false,
-   "result": "OK_DOC_CHANGED"
+   "result": "STUB_TOAST",
+   "toast": "Draw Table: drag on the page to draw the table’s outer border."
+  },
+  {
+   "tab": "table-layout",
+   "group": "tl-draw",
+   "cmd": "tblEraser",
+   "label": "Eraser",
+   "type": "button",
+   "launcher": false,
+   "result": "STUB_TOAST",
+   "toast": "Draw Table: drag on the page to draw the table’s outer border."
   }
  ],
  "errors": []
