@@ -37,11 +37,21 @@
 >   fixes HOLD; gaps = bullets/highlight/pagenum/table), STRUCT 80/19/12, STATE 95/16, SCORE 97/1 DEAD
 >   (layout Group)/13 triage.
 >
-> **NEXT (Phase A remainder):** D3 scorecard upgrades (deep item mode + SILENT verifiers + flow merge) →
-> D2.2 dialog-field UIA capture → D5 visual judge (+golden trust gate) → D6 behavior runner (flow cards +
-> micro-twin generator; Tables cards for user sign-off) → Table-Styles catalog one-shot (visible Word).
-> Then **Phase B: Tables pilot** vs known truth. Working mode: each piece committed+pushed separately on
-> `parity-v2`; the user follows along in Turkish, decisions get written into RUBRIC.md.
+> **PHASE A NEARLY DONE (all six axes now have engines; more commits `dc337b1`→`b035561`):**
+> - **D3 scorecard upgrades** (`dc337b1`,`b035561`): deep item mode (~367 items clicked), SILENT rescue
+>   (clipboard/UI-fingerprint/submenu) → silent items 68→52 (rest legit no-ops); FLOW merged in.
+> - **D5 VISUAL judge** (`dc337b1`): capture→composite→judge harness + GOLDEN TRUST GATE (D5.3, passed);
+>   home+tabledesign judged FAIL (real reasons logged).
+> - **D6 BEHAVIOR runner** (`20f7d7b`): flow-card format + interpreter; bold-paint micro-twin PASS (the
+>   file-clean-but-screen-wrong instrument), insert-dropdown PENDING on its ❓ (refuses to guess).
+> - **D2.2 dialogs** (`b035561`): clone side DONE (Font 21 fields / Paragraph 10 / …) + differ ready;
+>   Word UIA dump = INTERACTIVE-SESSION capture (SendKeys needs foreground) → task #14 with the style catalog.
+> - **FEATURE LEDGER (measured, 4 axes live):** OOXML 13pass/4gap · STRUCT 80/19/12 · STATE 95/16 ·
+>   SCORE 98pass/1DEAD/12warn · VISUAL+BEHAV = sampled harnesses (not per-111 yet). FULLY VERIFIED 0/111.
+>
+> **NEXT:** the 2 INTERACTIVE-SESSION captures (task #14, user-present: Word dialog UIA dumps + Table-Styles
+> catalog) → then **Phase B: Tables pilot** vs known truth (the pipeline must rediscover the known gaps).
+> Working mode: each piece committed+pushed separately on `parity-v2`; decisions written into RUBRIC.md.
 
 ## 2026-07-01 (PARITY V2 RESTART — meta-review verdict executed: archive + clean branch + gates green)
 
