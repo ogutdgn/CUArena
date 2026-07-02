@@ -1,0 +1,44 @@
+{
+  "id": "twin/tb-style-grid4a1",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-style-grid4a1",
+  "note": "Style apply through the 030 tile gallery (More grid) changes the doc. (Painted colors are judged by the VISUAL axis L4 side-by-side.)",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "clickSelector",
+      "sel": ".ribbon-panel[data-tab=\"table-design\"] .rgallery-more, .ribbon-panel.active .rgallery-more",
+      "waitMs": 400
+    },
+    {
+      "do": "clickSelector",
+      "sel": ".flyout .tblstyle-cell[data-style=\"GridTable4-Accent1\"]",
+      "waitMs": 400
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

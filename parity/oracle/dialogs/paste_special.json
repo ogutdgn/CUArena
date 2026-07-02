@@ -1,0 +1,18 @@
+{
+  "key": "paste_special",
+  "title": "Paste Special",
+  "_source": "computer-use UIA capture of real Word (build 16.0.20026), 2026-07-01",
+  "tabs": [],
+  "fields": [
+    { "name": "Paste", "type": "RadioButton" },
+    { "name": "Paste link", "type": "RadioButton" },
+    { "name": "As", "type": "List" },
+    { "name": "Microsoft Word Document Object", "type": "ListItem" },
+    { "name": "Formatted Text (RTF)", "type": "ListItem" },
+    { "name": "Unformatted Text", "type": "ListItem" },
+    { "name": "Picture (Enhanced Metafile)", "type": "ListItem" },
+    { "name": "HTML Format", "type": "ListItem" },
+    { "name": "Unformatted Unicode Text", "type": "ListItem" },
+    { "name": "Display as icon", "type": "CheckBox" }
+  ]
+}

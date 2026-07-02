@@ -1,0 +1,46 @@
+{
+  "id": "twin/tb-insert-left",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-insert-left",
+  "note": "tblInsertLeft from the ribbon adds a row/column: 9 -> 12 painted cells, caret stays in the table.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblInsertLeft"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 12
+    },
+    {
+      "expect": "caretInTable"
+    }
+  ]
+}

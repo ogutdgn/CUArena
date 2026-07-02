@@ -1,0 +1,30 @@
+{
+  "key": "paragraph",
+  "title": "Paragraph",
+  "_source": "computer-use UIA capture of real Word (build 16.0.20026), 2026-07-01",
+  "tabs": ["Indents and Spacing", "Line and Page Breaks"],
+  "fields": [
+    { "name": "Alignment", "type": "ComboBox" },
+    { "name": "Outline level", "type": "ComboBox" },
+    { "name": "Collapsed by default", "type": "CheckBox" },
+    { "name": "Left", "type": "Spinner" },
+    { "name": "Right", "type": "Spinner" },
+    { "name": "Special", "type": "ComboBox" },
+    { "name": "By", "type": "Spinner" },
+    { "name": "Mirror indents", "type": "CheckBox" },
+    { "name": "Before", "type": "Spinner" },
+    { "name": "After", "type": "Spinner" },
+    { "name": "Line spacing", "type": "ComboBox" },
+    { "name": "At", "type": "Spinner" },
+    { "name": "Don't add space between paragraphs of the same style", "type": "CheckBox" },
+    { "name": "Tabs...", "type": "Button" },
+    { "name": "Set As Default", "type": "Button" },
+    { "name": "Widow/Orphan control", "type": "CheckBox" },
+    { "name": "Keep with next", "type": "CheckBox" },
+    { "name": "Keep lines together", "type": "CheckBox" },
+    { "name": "Page break before", "type": "CheckBox" },
+    { "name": "Suppress line numbers", "type": "CheckBox" },
+    { "name": "Don't hyphenate", "type": "CheckBox" },
+    { "name": "Tight wrap", "type": "ComboBox" }
+  ]
+}

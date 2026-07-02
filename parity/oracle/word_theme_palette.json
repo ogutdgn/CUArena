@@ -1,0 +1,22 @@
+{
+ "meta": {
+  "source": "real Word 16.0 locked build theme1.xml (per-style capture docs)",
+  "note": "The CURRENT Office default theme on the locked build - NOT the legacy 2013 palette (accent1 was 4472C4 there; here it is 156082). The clone's theme colors must match for every themeColor/themeFill-linked style."
+ },
+ "colorScheme": {
+  "dk1": "#000000",
+  "lt1": "#FFFFFF",
+  "dk2": "#0E2841",
+  "lt2": "#E8E8E8",
+  "accent1": "#156082",
+  "accent2": "#E97132",
+  "accent3": "#196B24",
+  "accent4": "#0F9ED5",
+  "accent5": "#A02B93",
+  "accent6": "#4EA72E",
+  "hlink": "#467886",
+  "folHlink": "#96607D"
+ },
+ "majorLatin": "Aptos Display",
+ "minorLatin": "Aptos"
+}

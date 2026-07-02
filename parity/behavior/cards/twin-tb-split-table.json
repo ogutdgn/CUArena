@@ -1,0 +1,43 @@
+{
+  "id": "twin/tb-split-table",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-split-table",
+  "note": "Split Table with the caret in row 2 paints TWO separate tables.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 3
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblSplitTable"
+    },
+    {
+      "expect": "paintedTableCount",
+      "equals": 2
+    }
+  ]
+}

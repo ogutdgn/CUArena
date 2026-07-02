@@ -1,0 +1,64 @@
+{
+  "id": "tables/style-gallery-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": true,
+  "signedBy": "user 2026-07-02 (D6.1 ratification, with Phase B PASS); steps evolved with the 030 gallery UI (D6.4: cards track the feature)",
+  "note": "Tables pilot journey #3: the Table Styles gallery. Since 030 the tblStyles dropdown is REPLACED by the in-ribbon tile gallery (strip + More flyout with Plain/Grid/List sections + Modify/Clear/New footer). Bars: >=113 tiles in the More grid (catalog a3d3566/defs), footer items present, applying a tile changes the doc. Hover live-preview is exercised by the twin (twin/tb-style-grid4a1) via the same tiles.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Styled table journey."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "clickSelector",
+      "sel": ".ribbon-panel[data-tab=\"table-design\"] .rgallery-more, .ribbon-panel.active .rgallery-more",
+      "waitMs": 400
+    },
+    {
+      "expect": "flyoutOpen"
+    },
+    {
+      "expect": "galleryItemCount",
+      "selector": ".flyout .tblstyle-cell",
+      "min": 113
+    },
+    {
+      "expect": "flyoutHasItem",
+      "match": "Modify Table Style"
+    },
+    {
+      "expect": "flyoutHasItem",
+      "match": "^Clear$"
+    },
+    {
+      "expect": "flyoutHasItem",
+      "match": "New Table Style"
+    },
+    {
+      "do": "clickSelector",
+      "sel": ".flyout .tblstyle-cell[data-style=\"GridTable4-Accent1\"]",
+      "waitMs": 400
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

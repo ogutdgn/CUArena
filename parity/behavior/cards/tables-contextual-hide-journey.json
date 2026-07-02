@@ -1,0 +1,47 @@
+{
+  "id": "tables/contextual-hide-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": true,
+  "note": "Tables pilot journey #5: contextual tabs appear on caret-in-table and disappear on caret-out (Word behavior, previously oracle-probed S1.x — tabs are passive, appear/vanish with table context).",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Outside paragraph."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 2,
+      "cols": 2
+    },
+    {
+      "expect": "tabShown",
+      "tab": "table-design"
+    },
+    {
+      "expect": "tabShown",
+      "tab": "table-layout"
+    },
+    {
+      "do": "select",
+      "text": "Outside"
+    },
+    {
+      "expect": "tabHidden",
+      "tab": "table-design"
+    },
+    {
+      "expect": "tabHidden",
+      "tab": "table-layout"
+    }
+  ],
+  "signedBy": "user 2026-07-02 (D6.1 ratification, with Phase B PASS)"
+}

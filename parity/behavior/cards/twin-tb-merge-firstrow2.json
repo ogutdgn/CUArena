@@ -1,0 +1,42 @@
+{
+  "id": "twin/tb-merge-firstrow2",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-merge-firstrow2",
+  "note": "Merge the first-row pair: 9 -> 8 painted cells. (Cell range via the programmatic fallback until synthetic shift-click drives CellSelection.)",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "selectCellRange"
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblMerge"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 8
+    }
+  ]
+}

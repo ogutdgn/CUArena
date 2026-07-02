@@ -1,0 +1,70 @@
+{
+  "id": "twin/tb-borders-all-cell",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-borders-all-cell",
+  "note": "THE BORDER-COLLAPSE INSTRUMENT (collapse-aware, reads the PAINTER not the hidden model host): a THICK RED border on the MIDDLE cell must paint all four VISUAL edges. The painter draws each cell's top+left only, so the middle cell's bottom shows as the below-cell's TOP and its right as the right-cell's LEFT — >=2 red Top edges AND >=2 red Left edges proves the collapse pre-pass (archive 47488c0) propagated the thick edge to neighbors. Drives the real tableSetCellBorders write path with an explicit thick-red spec (thin default black is indistinguishable from the grid).",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 4
+    },
+    {
+      "do": "setCellBorders",
+      "spec": {
+        "top": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        },
+        "bottom": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        },
+        "left": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        },
+        "right": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        }
+      }
+    },
+    {
+      "expect": "coloredEdgeCount",
+      "side": "top",
+      "color": "255,\\s*0,\\s*0",
+      "minPx": 2,
+      "min": 2
+    },
+    {
+      "expect": "coloredEdgeCount",
+      "side": "left",
+      "color": "255,\\s*0,\\s*0",
+      "minPx": 2,
+      "min": 2
+    }
+  ]
+}

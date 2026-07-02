@@ -1,0 +1,16 @@
+{
+  "key": "wordcount",
+  "title": "Word Count",
+  "_source": "computer-use UIA capture of real Word (build 16.0.20026), 2026-07-01",
+  "tabs": [],
+  "fields": [
+    { "name": "Pages", "type": "Text" },
+    { "name": "Words", "type": "Text" },
+    { "name": "Characters (no spaces)", "type": "Text" },
+    { "name": "Characters (with spaces)", "type": "Text" },
+    { "name": "Paragraphs", "type": "Text" },
+    { "name": "Lines", "type": "Text" },
+    { "name": "Include textboxes, footnotes and endnotes", "type": "CheckBox" },
+    { "name": "Close", "type": "Button" }
+  ]
+}

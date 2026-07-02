@@ -1,0 +1,52 @@
+{
+  "id": "tables/merge-split-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": true,
+  "note": "Tables pilot journey #6: merge a cell range, then Split Cells. Word's 'Split Cells...' (idMso label with ellipsis = modal) opens a rows/cols dialog — the dialogOpen bar comes from the official inventory, not memory; the clone's direct-split/no-op MUST fail it (split-dialog gap rediscovery). Cell range v1 uses the programmatic selectCellRange fallback (synthetic shift-click can't build a CellSelection yet).",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Merge journey."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "selectCellRange"
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblMerge"
+    },
+    {
+      "expect": "docChanged"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 8
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblSplitCell"
+    },
+    {
+      "expect": "dialogOpen"
+    }
+  ],
+  "signedBy": "user 2026-07-02 (D6.1 ratification, with Phase B PASS)"
+}

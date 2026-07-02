@@ -1,0 +1,2570 @@
+_3DBevelOptionsDialog	False	False	False
+_3DBevelPictureTopGallery	False	False	False
+_3DDirectionGalleryClassic	False	False	False
+_3DEffectColorPickerClassic	False	False	False
+_3DEffectColorPickerMoreClassic	False	False	False
+_3DEffectsGalleryClassic	False	False	False
+_3DEffectsOnOffClassic	False	False	False
+_3DExtrusionDepthCustom	False	False	False
+_3DExtrusionDepthGalleryClassic	False	False	False
+_3DExtrusionParallelClassic	False	False	False
+_3DExtrusionPerspectiveClassic	False	False	False
+_3DLightingDimClassic	False	False	False
+_3DLightingFlatClassic	False	False	False
+_3DLightingGalleryClassic	False	False	False
+_3DLightingNormalClassic	False	False	False
+_3DModelPlay	False	False	False
+_3DModelSceneGallery	False	False	False
+_3DRotationGallery	False	False	False
+_3DRotationOptionsDialog	False	False	False
+_3DSurfaceMaterialGalleryClassic	False	False	False
+_3DTiltDownClassic	False	False	False
+_3DTiltLeftClassic	False	False	False
+_3DTiltRightClassic	False	False	False
+_3DTiltUpClassic	False	False	False
+About	True	True	True
+AcceptAllChangesInDocAndStopTracking	True	True	True
+AccessibilityChecker	True	True	True
+AccountSettings	False	False	False
+AcetateModeOriginalMarkup	True	True	True
+Acronyms			
+ActivateOffice			
+ActivateProduct	True	True	True
+ActiveXButton	True	True	True
+ActiveXCheckBox	True	True	True
+ActiveXComboBox	True	True	True
+ActiveXFrame	True	True	True
+ActiveXImage	True	True	True
+ActiveXLabel	True	True	True
+ActiveXListBox	True	True	True
+ActiveXRadioButton	True	True	True
+ActiveXScrollBar	True	True	True
+ActiveXSpinButton	True	True	True
+ActiveXTextBox	True	True	True
+ActiveXToggleButton	True	True	True
+AddChartElementMenu	False	False	False
+AddDataLabelShapesMenu	True	True	True
+AddDataLabelsShapesMenu	True	True	True
+AddinDisabledGroup			
+AddInManager	True	True	True
+AddInsMenuAnchor			
+AddNode	True	True	True
+AddressBook	True	True	True
+AddressFontsFormat	True	True	True
+AddToFavorites	False	False	False
+AdvancedEdit3DModel	False	False	False
+AdvancedFileProperties	True	True	True
+AdvertisePublishAs	True	True	True
+AlignCenter	True	True	True
+AlignDialog	False	False	False
+AlignDistributeHorizontally	False	False	False
+AlignDistributeVertically	False	False	False
+AlignJustify	True	True	True
+AlignJustifyHigh	True	True	True
+AlignJustifyLow	True	True	True
+AlignJustifyMedium	True	True	True
+AlignJustifyMenu	False	False	False
+AlignJustifyThai	True	True	True
+AlignJustifyWithMixedLanguages	True	True	True
+AlignLeft	True	True	True
+AlignmentGuides	True	True	True
+AlignmentMenu			
+AlignRight	True	True	True
+AlignTextMenu			
+AllowPersonallyIdentifiableInformation			
+AlternativeText	False	False	False
+AltTextPaneRibbon	True	True	True
+AppGuardTrustPromotion	False	False	False
+ApplicationOptionsDialog	True	True	True
+ApplyCoAuthoringLock	False	False	False
+ApplyStylesPane	True	True	True
+ArrowsMore	False	False	False
+ArrowStyleGallery	False	False	False
+ArtisticEffectsDialog	False	False	False
+AsianLayoutCharacterScaling	True	True	True
+AsianLayoutCharactersEnclose	True	True	True
+AsianLayoutCombineCharacters	True	True	True
+AsianLayoutFitText	False	False	False
+AsianLayoutHorizontalInVertical	False	False	False
+AsianLayoutMenu	True	True	True
+AsianLayoutPhoneticGuide	True	True	True
+AsianLayoutTwoLinesInOne	False	False	False
+AutoAlternativeText	True	True	True
+AutoCaptionInsert	True	True	True
+AutoCorrect	True	True	True
+AutoCorrectCapsLockOff	True	True	True
+AutoCorrectDays	True	True	True
+AutoCorrectExceptions	True	True	True
+AutoCorrectHECorrect	True	True	True
+AutoCorrectInitialCaps	True	True	True
+AutoCorrectReplaceText	True	True	True
+AutoCorrectSentenceCaps	True	True	True
+AutoCorrectSmartQuotes	True	True	True
+AutoFormat	True	True	True
+AutoFormatAsYouType	True	True	True
+AutoFormatChange	False	False	False
+AutoFormatNow	True	True	True
+AutoFormatOptions	True	True	True
+AutoManager	True	True	True
+AutoMarkIndexEntries	True	True	True
+AutoSaveSwitch	True	True	True
+AutoScroll	True	True	True
+AutoSum	False	False	True
+AutoSummarize	False	False	False
+AutoSummaryExitView	False	False	False
+AutoSummaryResummarize	False	False	False
+AutoSummaryToolsMenu	False	False	False
+AutoSummaryUpdateProperties	False	False	False
+AutoSummaryViewByHighlight	False	False	False
+AutoTextCreate	False	True	False
+AutoTextGallery	True	True	True
+AutoTextInsert	True	True	True
+BackgroundRemovalClose	False	False	False
+BarcodeInsert	True	True	True
+BevelShapeGallery	False	False	False
+BevelTextGallery	True	True	True
+BibliographyAddNewPlaceholder	True	True	True
+BibliographyAddNewSource	True	True	True
+BibliographyGallery	True	True	True
+BibliographyInsert	True	True	True
+BibliographyManageSources	True	True	True
+BibliographyStyle	True	True	True
+BlankPageInsert	True	True	True
+BlockAuthorsMenu	False	False	False
+BlogCategoryInsert	False	False	False
+BlogHomePage	False	False	False
+BlogInsertCategories	False	False	False
+BlogManageAccounts	True	True	True
+BlogOpenExisting	False	False	False
+BlogPublish	False	False	False
+BlogPublishDraft	False	False	False
+BlogPublishMenu	False	False	False
+BodyTextHide	False	False	False
+Bold	True	True	True
+BoldRun	True	True	True
+BookmarkInsert	True	True	True
+BorderBottomWord	True	True	True
+BorderColorPicker	True	True	True
+BorderDiagonalDown	False	False	True
+BorderDiagonalUp	False	False	True
+BorderInside	True	True	True
+BorderInsideHorizontal	True	True	True
+BorderInsideVertical	True	True	True
+BorderLeftWord	True	True	True
+BorderMoreColorsDialog	True	True	True
+BorderNone	True	True	True
+BorderOutside	True	True	True
+BorderRightWord	True	True	True
+BordersAll	True	True	True
+BordersSelectionGallery	True	True	True
+BordersShadingDialog	True	True	True
+BordersShadingDialogWord	True	True	True
+BorderStylesGallery	True	True	True
+BorderTopWord	True	True	True
+BreakInsertDialog	True	True	True
+BreakParagraphPageBreakBefore	True	True	True
+BreaksGallery	True	True	True
+BrightnessLess	False	False	False
+BrightnessMore	False	False	False
+BroadcastEdit	False	False	False
+BroadcastEnd	False	False	False
+BroadcastNotes	False	False	False
+BroadcastNotesSplitButton	False	False	False
+BroadcastResume	False	False	False
+BroadcastSendInvitation	False	False	False
+BroadcastSlideShowBackstage	True	True	True
+BroadcastSlideShowGeneric	False	False	False
+BrowseNext	True	True	True
+BrowsePrevious	True	True	True
+BuildingBlockProperties	False	False	False
+BuildingBlocksOrganizer	True	True	True
+BulletDefineNew	True	True	True
+BulletListDefault	True	True	True
+Bullets	True	True	True
+BulletsAndNumberingBulletsDialog	True	True	True
+BulletsAndNumberingClassic	True	True	True
+BulletsGalleryWord	True	True	True
+ButtonAddinDisabled	False	False	False
+ButtonCategoryCloudServices			
+ButtonCategoryLocalServices			
+ButtonCategoryRecentDocuments			
+ButtonGroupCloudServices			
+ButtonGroupItemSaveCloudServices			
+ButtonGroupItemSaveLocalServices			
+ButtonGroupLocalServices			
+ButtonGroupRecentDocuments			
+ButtonGroupsSave			
+ButtonOpenBrowse			
+ButtonTaskDynamicServiceProvider			
+ButtonTaskFixItHub			
+ButtonTaskRecentDocuments			
+ButtonTaskSharedWithMe			
+Calculate	False	True	False
+Callout	True	True	True
+CalloutOptions	False	False	False
+Cancel	True	True	True
+CaptionInsert	True	True	True
+CaptionInsertWord	True	True	True
+CellsDelete	False	False	True
+CellsInsertDialog	False	False	True
+ChangeCase	True	True	True
+ChangeCaseDialogClassic	True	True	True
+ChangeCaseGallery	True	True	True
+ChangeIcon	False	False	False
+ChangeStylesMenu	True	True	True
+CharacterBorder	True	True	True
+CharacterCodeToggle	True	True	True
+CharacterFormattingReset	True	True	True
+CharacterLeft	True	True	True
+CharacterLeftExtend	True	True	True
+CharacterRight	True	True	True
+CharacterRightExtend	True	True	True
+CharacterShading	True	True	True
+Chart3DView	False	False	False
+ChartAddAxis	False	False	False
+ChartAxes	False	False	False
+ChartAxesGallery	False	False	False
+ChartAxesOptionsDialog	False	False	False
+ChartAxesTitlesOptionsDialog	False	False	False
+ChartAxisTitles	False	False	False
+ChartAxisTitlesGallery	False	False	False
+ChartCalloutDataLabelAdd	True	True	True
+ChartCalloutDataLabelsAdd	True	True	True
+ChartChangeDataLabelShapeGallery	False	False	False
+ChartChangeDataLabelShapesGallery	False	False	False
+ChartChangeType	False	False	False
+ChartColorsGallery	False	False	False
+ChartDataLabel	False	False	False
+ChartDataLabelAdd	True	True	True
+ChartDataLabelDialog	False	False	False
+ChartDataLabelsAdd	True	True	True
+ChartDataTable	False	False	False
+ChartDataTableOptionsDialog	False	False	False
+ChartDelete	False	False	False
+ChartDeleteSeries	False	False	False
+ChartDepthAxis	False	False	False
+ChartDepthAxisOptionsDialog	True	True	True
+ChartDepthAxisTitle	False	False	False
+ChartDepthAxisTitleOptionsDialog	True	True	True
+ChartDepthGridlines	False	False	False
+ChartDepthGridlinesOptionsDialog	True	True	True
+ChartEditDataMenu	False	False	False
+ChartEditDataSource	False	False	False
+ChartEditText	False	False	False
+ChartElementSelector	False	False	False
+ChartErrorBars	False	False	False
+ChartErrorBarsOptionsDialog	False	False	False
+ChartExitEditText	False	False	False
+ChartFloor	False	False	False
+ChartFloorOptionsDialog	False	False	False
+ChartFormatAxis	False	False	False
+ChartFormatAxisAndSelect	False	False	False
+ChartFormatAxisTitle	False	False	False
+ChartFormatBackWall	False	False	False
+ChartFormatChartArea	False	False	False
+ChartFormatChartTitle	False	False	False
+ChartFormatDataLabel	False	False	False
+ChartFormatDataLabelAndSelect	False	False	False
+ChartFormatDataLabels	False	False	False
+ChartFormatDataLabelsAndSelect	False	False	False
+ChartFormatDataPoint	False	False	False
+ChartFormatDataPointAndSelect	False	False	False
+ChartFormatDataSeries	True	True	True
+ChartFormatDataSeriesAndSelect	False	False	False
+ChartFormatDataTable	False	False	False
+ChartFormatDisplayUnit	False	False	False
+ChartFormatDownBars	False	False	False
+ChartFormatDropLines	False	False	False
+ChartFormatErrorBars	False	False	False
+ChartFormatFloor	False	False	False
+ChartFormatGridlines	False	False	False
+ChartFormatHighLowLine	False	False	False
+ChartFormatLeaderLines	False	False	False
+ChartFormatLegend	False	False	False
+ChartFormatLegendEntry	False	False	False
+ChartFormatMajorGridlinesAndSelect	False	False	False
+ChartFormatMinorGridlinesAndSelect	False	False	False
+ChartFormatParetoLine	True	True	True
+ChartFormatPlotArea	False	False	False
+ChartFormatSelection	False	False	False
+ChartFormatSeriesLine	False	False	False
+ChartFormatSideWall	False	False	False
+ChartFormatTrendline	False	False	False
+ChartFormatTrendlineAndSelect	False	False	False
+ChartFormatTrendlineLabel	False	False	False
+ChartFormatUpBars	False	False	False
+ChartFormatWalls	False	False	False
+ChartGridlineOptionsDialog	False	False	False
+ChartGridlines	False	False	False
+ChartGridlinesGallery	False	False	False
+ChartInsert	True	True	True
+ChartInsertDataField	False	False	False
+ChartLayoutGallery	False	False	False
+ChartLegend	False	False	False
+ChartLegendOptionsDialogDialog	False	False	False
+ChartLines	False	False	False
+ChartMajorGridlinesAdd	False	False	False
+ChartMinorGridlinesAdd	False	False	False
+ChartPlotArea	False	False	False
+ChartPlotAreaOptionsDialog	False	False	False
+ChartPrimaryHorizontalAxis	False	False	False
+ChartPrimaryHorizontalAxisOptionsDialog	True	True	True
+ChartPrimaryHorizontalAxisTitle	False	False	False
+ChartPrimaryHorizontalAxisTitleOptionsDialog	True	True	True
+ChartPrimaryHorizontalGridlines	False	False	False
+ChartPrimaryHorizontalGridlinesOptionsDialog	True	True	True
+ChartPrimaryVerticalAxis	False	False	False
+ChartPrimaryVerticalAxisOptionsDialog	True	True	True
+ChartPrimaryVerticalAxisTitle	False	False	False
+ChartPrimaryVerticalAxisTitleOptionsDialog	True	True	True
+ChartPrimaryVerticalGridlines	False	False	False
+ChartPrimaryVerticalGridlinesOptionsDialog	True	True	True
+ChartRefresh	False	False	False
+ChartResetToMatchStyle	False	False	False
+ChartRotationOptionsDialog	False	False	False
+ChartSaveTemplates	False	False	False
+ChartSecondaryHorizontalAxis	False	False	False
+ChartSecondaryHorizontalAxisOption	True	True	True
+ChartSecondaryHorizontalAxisTitle	False	False	False
+ChartSecondaryHorizontalAxisTitleOptionsDialog	True	True	True
+ChartSecondaryHorizontalGridlines	False	False	False
+ChartSecondaryHorizontalGridlinesOptionsDialog	True	True	True
+ChartSecondaryVerticalAxis	False	False	False
+ChartSecondaryVerticalAxisOptionsDialog	True	True	True
+ChartSecondaryVerticalAxisTitle	False	False	False
+ChartSecondaryVerticalAxisTitleOptionsDialog	True	True	True
+ChartSecondaryVerticalGridlines	False	False	False
+ChartSecondaryVerticalGridlinesOptionsDialog	True	True	True
+ChartSeriesTypeChange	False	False	False
+ChartShowData	False	False	False
+ChartShowDataContextualMenu	False	False	False
+ChartShowDataGrid	False	False	False
+ChartSortAscending	False	False	False
+ChartSortDescending	False	False	False
+ChartSortReset	False	False	False
+ChartSortRightClickMenu	False	False	False
+ChartSourceDataContextualMenu	False	False	False
+ChartStylesGallery	False	False	False
+ChartSwitchRowColumn	False	False	False
+ChartTitle	False	False	False
+ChartTitleOptionsDialog	False	False	False
+ChartTrendline	False	False	False
+ChartTrendlineAdd	False	False	False
+ChartTrendlineOptionsDialog	False	False	False
+ChartUpDownBars	False	False	False
+ChartUpDownBarsOptionsDialog	False	False	False
+ChartWall	False	False	False
+ChartWallOptionsDialog	False	False	False
+ChartWaterfallSetAsTotal	False	False	False
+ChartWaterfallUnsetTotal	True	False	False
+CheckForUpdates	True	True	True
+ChineseTranslationDialog	True	True	True
+ChunkLearningTools			
+ChunkLearningToolsClose			
+CitationInsert	True	True	True
+CitationMark	True	True	True
+ClassifyLabelProtect	False	False	False
+ClearContentsWord	True	True	True
+ClearFormats	True	True	True
+ClearFormatting	True	True	True
+ClearMenuWord	True	True	True
+ClipArtInsert	False	False	False
+ClipArtInsertDialog	True	True	True
+CloseLearningTools	False	False	False
+ClosePane	True	True	True
+ClosePath	False	False	False
+CloudFixItHub			
+CloudSkyDriveUpsellGroup			
+Collaborate	True	True	True
+CollaborateActivity	False	False	False
+CollapseAllHeadings	True	True	False
+CollapseHeading	False	False	False
+ColorPickerChartLineStyles	False	False	False
+ColorPickerFocusModeBackground	False	False	False
+ColorPickerLearningToolsWebView	False	False	False
+ColorPickerParagraphShading	True	True	True
+ColorPickerTableCellShading	False	False	True
+ColumnsDialog	True	True	True
+ColumnWidth	False	False	True
+ComAddInsDialog	True	True	True
+CombineCharacters	False	False	False
+CompareAndCombine	True	True	True
+ConflictsAccept	False	False	False
+ConflictsAcceptAllInDocument	False	False	False
+ConflictsAcceptAndMoveToNext	False	False	False
+ConflictsAcceptMenu	False	False	False
+ConflictsNext	False	False	False
+ConflictsPrevious	False	False	False
+ConflictsReject	False	False	False
+ConflictsRejectAllInDocument	False	False	False
+ConflictsRejectAndMoveToNext	False	False	False
+ConflictsRejectMenu	False	False	False
+ConflictViewClose	False	False	False
+ConflictViewEnter	False	False	False
+ConnectToNetworkDrive	True	True	True
+ConsistencyCheck	True	True	True
+ContactUs	True	True	True
+ContentControlBuildingBlockGallery	True	True	True
+ContentControlCheckBox	True	True	True
+ContentControlComboBox	True	True	True
+ContentControlDate	True	True	True
+ContentControlDropDownList	True	True	True
+ContentControlPicture	True	True	True
+ContentControlRemove	False	False	False
+ContentControlRepeating	True	True	True
+ContentControlRichText	True	True	True
+ContentControlsGroup	False	True	False
+ContentControlsGroupMenu	False	True	False
+ContentControlsUngroup	False	False	False
+ContentControlText	True	True	True
+ContentsAndIndex	True	True	True
+ContextMenu3DModel	True	True	True
+ContextMenuActiveXControl	True	True	True
+ContextMenuAddressBlock	True	True	True
+ContextMenuBroadcast	True	True	True
+ContextMenuCanvas	True	True	True
+ContextMenuCanvasClassic	True	True	True
+ContextMenuChartArea	True	True	True
+ContextMenuChartAxis	True	True	True
+ContextMenuChartAxisTitle	True	True	True
+ContextMenuChartBackWall	True	True	True
+ContextMenuChartDataLabel	True	True	True
+ContextMenuChartDataLabels	True	True	True
+ContextMenuChartDataPoint	True	True	True
+ContextMenuChartDataSeries	True	True	True
+ContextMenuChartDataTable	True	True	True
+ContextMenuChartDisplayUnit	True	True	True
+ContextMenuChartDownBars	True	True	True
+ContextMenuChartDropLines	True	True	True
+ContextMenuChartErrorBars	True	True	True
+ContextMenuChartFloor	True	True	True
+ContextMenuChartGridlines	True	True	True
+ContextMenuChartHighLowLine	True	True	True
+ContextMenuChartLeaderLines	True	True	True
+ContextMenuChartLegend	True	True	True
+ContextMenuChartLegendEntry	True	True	True
+ContextMenuChartParetoLine	True	True	True
+ContextMenuChartPlotArea	True	True	True
+ContextMenuChartSeriesLine	True	True	True
+ContextMenuChartSideWall	True	True	True
+ContextMenuChartTitle	True	True	True
+ContextMenuChartTrendline	True	True	True
+ContextMenuChartTrendlineLabel	True	True	True
+ContextMenuChartUpBars	True	True	True
+ContextMenuChartWalls	True	True	True
+ContextMenuCoAuthoringState	True	True	True
+ContextMenuComment	True	True	True
+ContextMenuConflicts	True	True	True
+ContextMenuConnectorClassic	True	True	True
+ContextMenuCurve	True	True	True
+ContextMenuCurveNode	True	True	True
+ContextMenuCurveSegment	True	True	True
+ContextMenuDiagram	True	True	True
+ContextMenuDocumentStructureNode	True	True	True
+ContextMenuDrawnObject	True	True	True
+ContextMenuDropCap	True	True	True
+ContextMenuEndnote	True	True	True
+ContextMenuEquation	True	True	True
+ContextMenuField	True	True	True
+ContextMenuFieldAutoSignatureList	True	True	True
+ContextMenuFieldAutoTextList	True	True	True
+ContextMenuFieldDisplay	True	True	True
+ContextMenuFieldDisplayListNumbers	True	True	True
+ContextMenuFieldForm	True	True	True
+ContextMenuFloatingPicture	True	True	True
+ContextMenuFooterArea	True	True	True
+ContextMenuFootnote	True	True	True
+ContextMenuFrame	True	True	True
+ContextMenuFramesetBorder	True	True	True
+ContextMenuGrammar	True	True	True
+ContextMenuGrammarReading	True	True	True
+ContextMenuGraphic	True	True	True
+ContextMenuGreetingLine	True	True	True
+ContextMenuHeaderArea	True	True	True
+ContextMenuHeading	True	True	True
+ContextMenuHeadingLinked	True	True	True
+ContextMenuHeadingTable	True	True	True
+ContextMenuHyperlink	True	True	True
+ContextMenuInk	True	True	True
+ContextMenuInkComment	True	True	True
+ContextMenuInlineActiveXControl	True	True	True
+ContextMenuInlineBusinessCard	True	True	True
+ContextMenuInlinePicture	True	True	True
+ContextMenuList	True	True	True
+ContextMenuListTable	True	True	True
+ContextMenuLockedReadingMode	True	True	True
+ContextMenuMailMergeBarcode	True	True	True
+ContextMenuNavigationPane	True	True	True
+ContextMenuObjectEditPoint	True	True	True
+ContextMenuObjectEditSegment	True	True	True
+ContextMenuObjectsGroup	True	True	True
+ContextMenuOfficePreviewHandlerWord	True	True	True
+ContextMenuOleObject	True	True	True
+ContextMenuOrganizationChart	True	True	True
+ContextMenuPageNumberingOptions	True	True	True
+ContextMenuPicture	True	True	True
+ContextMenuPictureTable	True	True	True
+ContextMenuReadOnlyMailHyperlink	True	True	True
+ContextMenuReadOnlyMailList	True	True	True
+ContextMenuReadOnlyMailListTable	True	True	True
+ContextMenuReadOnlyMailPictureTable	True	True	True
+ContextMenuReadOnlyMailTable	True	True	True
+ContextMenuReadOnlyMailTableCell	True	True	True
+ContextMenuReadOnlyMailTableWhole	True	True	True
+ContextMenuReadOnlyMailText	True	True	True
+ContextMenuReadOnlyMailTextTable	True	True	True
+ContextMenuRevision	True	True	True
+ContextMenuRichTextFont	True	True	True
+ContextMenuRichTextFontParagraph	True	True	True
+ContextMenuScriptAnchor	True	True	True
+ContextMenuShape	True	True	True
+ContextMenuShapeConnector	True	True	True
+ContextMenuShapeFreeform	True	True	True
+ContextMenuSmartArtBackground	True	True	True
+ContextMenuSmartArtContentPane	True	True	True
+ContextMenuSmartArtEdit1DShape	True	True	True
+ContextMenuSmartArtEdit1DShapeText	True	True	True
+ContextMenuSmartArtEditSmartArt	True	True	True
+ContextMenuSmartArtEditText	True	True	True
+ContextMenuSpell	True	True	True
+ContextMenuTable	True	True	True
+ContextMenuTableCell	True	True	True
+ContextMenuTableWhole	True	True	True
+ContextMenuTableWholeLinked	True	True	True
+ContextMenuText	True	True	True
+ContextMenuTextEdit	True	True	True
+ContextMenuTextEffect	True	True	True
+ContextMenuTextLinked	True	True	True
+ContextMenuTextTable	True	True	True
+ContextMenuXmlError	True	True	True
+ContrastLess	False	False	False
+ContrastMore	False	False	False
+ControlProperties	False	False	False
+ControlRun	True	True	True
+ControlsGalleryClassic	True	True	True
+ConvertTableToText	False	False	True
+ConvertTextToTable	False	True	False
+Copilot			
+CopilotMenu	True	True	True
+Copy	False	True	False
+CopyAsPicture	False	True	False
+CopyPasteSettings	True	True	True
+CopyText	False	True	False
+CornerVertex	False	False	False
+CoverPageInsertGallery	True	True	True
+CoverPageRemove	True	True	True
+CreateDirectoryClassic	True	True	True
+CrossReferenceInsert	True	True	True
+CssLinksEdit	True	True	True
+CurrentEraser			
+CustomAutoTextGallery	True	True	True
+CustomBibliographyGallery	True	True	True
+CustomCoverPageGallery	True	True	True
+CustomEquationsGallery	True	True	True
+CustomFooterGallery	True	True	True
+CustomGallery1	True	True	True
+CustomGallery2	True	True	True
+CustomGallery3	True	True	True
+CustomGallery4	True	True	True
+CustomGallery5	True	True	True
+CustomHeaderGallery	True	True	True
+CustomPageMargins	True	True	True
+CustomPageNumberBottomGallery	True	True	True
+CustomPageNumberGallery	True	True	True
+CustomPageNumberTopGallery	True	True	True
+CustomQuickPartsGallery	True	True	True
+CustomTableOfContentsGallery	True	True	True
+CustomTablesGallery	True	True	True
+CustomTextBoxGallery	True	True	True
+CustomWatermarkGallery	True	True	True
+Cut	False	True	False
+DarkModeOn	False	False	False
+DatabaseInsert	True	True	True
+DataFormAddRecord	True	True	True
+DataFormDeleteRecord	True	True	True
+DataFormSource	False	False	False
+DataFormWord	True	True	True
+DateAndTimeInsert	True	True	True
+DefineNewNumberFormat	True	True	True
+Definition			
+DeleteAllResolvedComments	False	False	False
+DeleteNode	True	True	True
+DeleteSegment	False	False	False
+DeleteStyle	True	True	True
+DeleteWord	True	True	True
+DeleteWordBack	True	True	True
+DesignMode	True	True	True
+DiagramAutoFormatClassic	False	False	False
+DiagramAutoLayoutClassic	False	False	False
+DiagramChangeToCycleClassic	False	False	False
+DiagramChangeToMenuClassic	False	False	False
+DiagramChangeToPyramidClassic	False	False	False
+DiagramChangeToRadialClassic	False	False	False
+DiagramChangeToTargetClassic	False	False	False
+DiagramChangeToVennDiagramClassic	False	False	False
+DiagramCycleInsertClassic	True	True	True
+DiagramExpandClassic	False	False	False
+DiagramFitToContentsClassic	False	False	False
+DiagrammingOnline	False	False	False
+DiagramPyramidInsertClassic	True	True	True
+DiagramRadialInsertClassic	True	True	True
+DiagramResizeClassic	False	False	False
+DiagramReverseClassic	False	False	False
+DiagramShapeInsertClassic	False	False	False
+DiagramShapeMoveBackwardClassic	False	False	False
+DiagramShapeMoveForwardClassic	False	False	False
+DiagramStylesClassic	False	False	False
+DiagramTargetInsertClassic	True	True	True
+DiagramVennDiagramInsertClassic	True	True	True
+Dictate	True	True	True
+DictateInMenu	True	True	True
+DictationMenu	True	True	True
+Dictionary	False	False	False
+DigitalPrint			
+DocInfoAuthor	True	True	True
+DocInfoDocTitle	True	True	True
+DocInfoFileName	True	True	True
+DocInfoFilePath	True	True	True
+DocuemntVersionHistory			
+DocumentInfo	True	True	True
+DocumentInformationShowHide	True	True	True
+DocumentLocation	True	True	True
+DocumentMapReadingView	True	True	True
+DocumentTemplate	True	True	True
+DocumentUpdatePane	False	False	False
+DoubleStrikethrough	True	True	True
+DraftViewClassic	True	True	True
+Drawing1ColorPickerFill	False	False	False
+Drawing1ColorPickerFillWordArt	False	False	False
+Drawing1ColorPickerLineStyles	False	False	False
+Drawing1ColorPickerLineStylesWordArt	False	False	False
+Drawing1GalleryBrightness	False	False	False
+Drawing1GalleryContrast	False	False	False
+Drawing1GalleryTextures	False	False	False
+DrawingCanvasExpand	False	False	False
+DrawingCanvasFit	False	False	False
+DrawingCanvasInsert	True	True	True
+DrawingCanvasResize	False	False	False
+DrawingCanvasScale	False	False	False
+DrawingInsert	True	True	True
+DrawingNewClassic	False	False	False
+DrawingObjectFormatDialog	False	False	False
+DrawingSelectNext	False	False	False
+DrawingSelectPrevious	False	False	False
+DrawingUnselect	False	False	False
+DrawInkMode	False	False	False
+DropCapInsertGallery	True	True	False
+DropCapOptionsDialog	True	True	False
+EastAsianEditingMarks	True	True	True
+EditDocument	True	True	True
+EditField	True	True	True
+EmailOptions	True	True	True
+EnableBackgroundProofing	True	True	True
+EndnoteContinuationNotice	False	False	False
+EndnoteContinuationSeparator	False	False	False
+EndnoteInsertWord	True	True	True
+EndnoteNextWord	True	True	True
+EndnoteOrFootnoteConvert	False	False	False
+EndnotePreviousWord	True	True	True
+EndnotesConvertAll	False	False	False
+EndnoteSeparator	False	False	False
+EndOfColumn	False	False	True
+EndOfDocument	True	True	True
+EndOfDocumentExtend	True	True	True
+EndOfLine	True	True	True
+EndOfLineExtend	True	True	True
+EndOfRow	False	False	True
+EndOfWindowExtend	True	True	True
+EnglishWritingAssistant	False	False	False
+EnvelopeChineseDialog	False	False	False
+EnvelopesAndLabels	True	True	True
+EnvelopesAndLabelsDialog	True	True	True
+EquationAccentGallery	True	True	True
+EquationConvert	True	True	True
+EquationConvertSplitButton	True	True	True
+EquationDelimiterGallery	True	True	True
+EquationFractionGallery	True	True	True
+EquationFunctionGallery	True	True	True
+EquationInsertGallery	True	True	True
+EquationInsertNew	True	True	True
+EquationIntegralGallery	True	True	True
+EquationLargeOperatorGallery	True	True	True
+EquationLaTexFormat	True	True	True
+EquationLimitGallery	True	True	True
+EquationLinearAll	True	True	True
+EquationLinearOne	False	False	False
+EquationMatrixGallery	True	True	True
+EquationNormalText	False	False	False
+EquationOperatorGallery	True	True	True
+EquationOptions	True	True	True
+EquationOptionsGallery	False	False	False
+EquationProfessionalAll	True	True	True
+EquationProfessionalOne	False	False	False
+EquationRadicalGallery	True	True	True
+EquationScriptGallery	True	True	True
+EquationSymbolsInsertGallery	True	True	True
+EquationUnicodeFormat	True	True	True
+ExchangeFolder	True	True	True
+ExitEditCurve	False	False	False
+ExpandAllHeadings	True	True	False
+ExpandCollapse	True	True	False
+ExpandHeading	False	False	False
+ExtendSelection	True	True	True
+ExtendSelectionLeft	True	True	True
+ExtendSelectionLeftSentence	True	True	True
+ExtendSelectionRight	True	True	True
+ExtendSelectionRightSentence	True	True	True
+ExtensibilityExperimentation			
+FieldCharactersInsert	True	True	True
+FieldClick	True	True	True
+FieldCodes	True	True	True
+FieldCodesToggle	True	True	True
+FieldInsert	True	True	True
+FieldNext	True	True	True
+FieldPrevious	True	True	True
+FieldShading	True	True	True
+FieldsLock	True	True	True
+FieldsManage	True	True	True
+FieldsUnlink	True	True	True
+FieldsUnlock	True	True	True
+FieldsUpdate	True	True	True
+FifthCorrectionAlternative	False	False	False
+FileAddDigitalSignature	True	True	True
+FileCheckIn	False	False	False
+FileCheckOut	False	False	False
+FileCheckOutDiscard	False	False	False
+FileClose	True	True	True
+FileCloseAll	True	True	True
+FileCloseOrCloseAll	True	True	True
+FileCloseOrExit	True	True	True
+FileCompatibilityCheckerWord	True	True	True
+FileConfirmConversions	True	True	True
+FileCreateDocumentWorkspace	False	False	False
+FileDiscardCachedChanges	True	True	True
+FileDocumentEncrypt	True	True	True
+FileDocumentInspect	True	True	True
+FileDocumentManagementInformation	False	False	False
+FileEmailAsPdfEmailAttachment	True	True	True
+FileEmailAsXpsEmailAttachment	True	True	True
+FileExit	True	True	True
+FileFind	True	True	True
+FileInternetFax	True	True	True
+FileLinksToFiles	False	False	False
+FileLocations	True	True	True
+FileMarkAsFinal	True	True	True
+FileMarkAsReadOnlyRecommended	True	True	True
+FileNew	True	True	True
+FileNewBlankDocument	True	True	True
+FileNewBlogPost	False	False	False
+FileNewDefault	True	True	True
+FileNewDialogClassic	True	True	True
+FileNewWebPage	True	True	True
+FileOpen	True	True	True
+FileOpenRecentFile	True	True	True
+FileOpenUsingBackstage	True	True	True
+FilePermission	True	True	True
+FilePermissionDoNotDistribute	True	True	True
+FilePermissionRestrictAs	True	True	True
+FilePermissionRestrictMenu	True	True	True
+FilePermissionUnrestricted	True	True	True
+FilePermissionView	True	True	True
+FilePrepareMenu	True	True	True
+FilePrint	True	True	True
+FilePrintCustomRange			
+FilePrintMenu	True	True	True
+FilePrintPreview	True	True	True
+FilePrintQuick	True	True	True
+FileProperties	True	True	True
+FileSave	True	True	True
+FileSaveACopy	True	True	True
+FileSaveAs	True	True	True
+FileSaveAsHtml	False	False	False
+FileSaveAsMenu	True	True	True
+FileSaveAsOtherFormats	True	True	True
+FileSaveAsPdfOrXps	True	True	True
+FileSaveAsWebPage	True	True	True
+FileSaveAsWord97_2003	True	True	True
+FileSaveAsWordDocx	True	True	True
+FileSaveAsWordDotx	True	True	True
+FileSaveAsWordOpenDocumentText	True	True	True
+FileSaveToDocumentManagementServer	True	True	True
+FileSendAsAttachment	True	True	True
+FileSendMenu	True	True	True
+FileSendToPowerPoint	True	True	True
+FileServerTasksMenu	False	False	False
+FileStartWorkflow	False	False	False
+FileTypeChange			
+FileTypes			
+FileVersionHistoryWord	True	True	True
+FileViewDigitalSignatures	True	True	True
+FileWorkflowTasks	False	False	False
+FindDialog	True	True	True
+FindNext	True	True	True
+FindPopup			
+FingerPaintingMode	False	False	False
+FirstCorrectionAlternative	False	False	False
+FixItHub			
+FixObjectPositionOnPage	False	False	False
+FlyoutAnchorInsertPictures	True	True	True
+Font	True	True	True
+FontColorMoreColorsDialog	True	True	True
+FontColorPicker	True	True	True
+FontDialog	True	True	True
+FontPositionNormal	True	True	True
+FontSize	True	True	True
+FontSizeDecrease1Point	True	True	True
+FontSizeDecreaseWord	True	True	True
+FontSizeIncrease1Point	True	True	True
+FontSizeIncreaseWord	True	True	True
+FontSpacingNormal	True	True	True
+FontSubstitution	True	True	True
+FooterInsertGallery	True	True	True
+FootnoteContinuationNotice	False	False	False
+FootnoteContinuationSeparator	False	False	False
+FootnoteEndnoteDialog	True	True	True
+FootnoteEndnoteOptions	True	True	True
+FootnoteInsert	True	True	True
+FootnoteNext	True	True	True
+FootnoteNextWord	True	True	True
+FootnotePreviousWord	True	True	True
+FootnotesConvertAll	False	False	False
+FootnotesEndnotesShow	False	False	False
+FootnoteSeparatorReset	False	False	False
+FootnoteSeparatorWord	False	False	False
+FormatBackgroundDropdown	True	True	True
+FormatDialog3DModel	False	False	False
+FormatNumberDefault	True	True	True
+FormatObjectDialogClassic	True	True	True
+FormatPainter	True	True	True
+FormatSectionLayout	True	True	True
+FormControlCheckBox	True	True	True
+FormControlComboBox	True	True	True
+FormControlEditBox	True	True	True
+FormField	True	True	True
+FormFieldClear	True	True	True
+FormFieldProperties	False	False	False
+FormFieldReset	True	True	True
+Forward	False	False	False
+FourthCorrectionAlternative	False	False	False
+FrameCreateAbove	True	True	True
+FrameCreateBelow	True	True	True
+FrameCreateLeft	True	True	True
+FrameCreateRight	True	True	True
+FrameDelete	False	False	False
+FrameDialog	False	False	False
+FrameInsertHorizontal	True	True	True
+FrameInsertOrFormat	True	True	True
+FramePropertiesDialog	False	False	False
+FrameSaveCurrentAs	False	False	False
+FramesetMenu	True	True	True
+FramesNewFramesPageWizard	True	True	True
+FramesRemove	True	True	True
+FullScreenViewClassic	False	False	False
+Gallery3DModelViewPresets	False	False	False
+GalleryAllShapesAndCanvas	True	True	True
+GallerySketchyShapes	False	False	False
+GenerateAutoAltText	False	False	False
+GlowColorMoreColorsDialog	False	False	False
+GlowColorPicker	False	False	False
+GlowsMoreOptions	False	False	False
+GoTo	True	True	True
+GoToAnnotationScope	False	False	False
+GoToEndnote	False	False	False
+GoToEndOfWindow	True	True	True
+GoToFooter	True	True	True
+GoToFootnote	False	False	False
+GoToHeader	False	False	False
+GoToNextPage	True	True	True
+GoToNextSection	True	True	True
+GoToPreviousPage	True	True	True
+GoToPreviousSection	True	True	True
+GoToStartOfWindow	True	True	True
+GoToTableOfContents	True	True	True
+GradientGallery	False	False	False
+Grammar	True	True	True
+GrammarHideErrors	True	True	True
+GrammarSettingsDialog	False	False	False
+GraphicChangeMenu	False	False	False
+GraphicsColorPicker	False	False	False
+GraphicsEffectsMenu	False	False	False
+GraphicsFormatDialog	False	False	False
+GraphicsOutlineColorPicker	False	False	False
+GraphicsStylesGallery	False	False	False
+GridSettings	True	True	True
+Group3DEffects			
+Group3DModelPlay			
+Group3DModelSize			
+Group3DModelStyles			
+GroupAboutOfficeProducts			
+GroupAccessibility			
+GroupAcronyms			
+GroupActivation			
+GroupAddins			
+GroupAddInsCustomToolbars			
+GroupAddInsMenuCommands			
+GroupAddInsToolbarCommands			
+GroupAddLocation			
+GroupAddLocationLocal			
+GroupAdjust3DModel			
+GroupAgreements			
+GroupAIAssistance			
+GroupAIDemo			
+GroupAllAuthors			
+GroupAltText			
+GroupARMPreview			
+GroupArrange			
+GroupArrangeWith3DEditor			
+GroupBackgroundRemovalClose			
+GroupBackgroundRemovalMode			
+GroupBackstageIdentity			
+GroupBackstagePrivacy			
+GroupBackstageSignIn			
+GroupBackstageSignInDisabled			
+GroupBlogBasicText			
+GroupBlogInsertLinks			
+GroupBlogInsertText			
+GroupBlogProofing			
+GroupBlogPublish			
+GroupBlogStyles			
+GroupBlogSymbols			
+GroupBorder			
+GroupBroadcast			
+GroupBroadcastBroadcast			
+GroupBroadcastResumeWarning			
+GroupBroadcastTools			
+GroupCachedOfflineMergeable			
+GroupCaptions			
+GroupChanges			
+GroupChangesTracking			
+GroupChartAnalysis			
+GroupChartAxes			
+GroupChartBackground			
+GroupChartCurrentSelection			
+GroupChartData			
+GroupChartLabels			
+GroupChartLayouts			
+GroupChartShapes			
+GroupChartShapeStyles			
+GroupChartStyles			
+GroupChartType			
+GroupCheckIn			
+GroupChineseTranslation			
+GroupCitationsAndBibliography			
+GroupClassifyLabelProtect			
+GroupClickToRunUpdateStatus			
+GroupClipboard			
+GroupCloudGettingStartedOpenMRUPlacesOrNavSlab			
+GroupCode			
+GroupCollaborate			
+GroupComments			
+GroupCompare			
+GroupConflicts			
+GroupConflictsClose			
+GroupControls			
+GroupConversions			
+GroupCreatePdfOrXpsDocument			
+GroupCreatePdfOrXpsDocumentSlab			
+GroupDiagramArrangeClassic			
+GroupDiagramLayoutClassic			
+GroupDiagramStylesClassic			
+GroupDocumentProperties			
+GroupDocumentViews			
+GroupDrawingTools			
+GroupDrawWithTouch			
+GroupDynamicSaveCloudServiceProvider			
+GroupDynamicSaveLocalServiceProvider			
+GroupDynamicSavePinnableCloudServiceProvider			
+GroupDynamicServiceProvider			
+GroupEditing			
+GroupEditingExcel			
+GroupEditor			
+GroupEnvelopeLabelCreate			
+GroupEquationStructures			
+GroupEquationSymbols			
+GroupEquationTools			
+GroupFileConvert			
+GroupFileSave			
+GroupFont			
+GroupFootnotes			
+GroupGettingStartedOpenMRUPlacesOrNavSlab			
+GroupGettingStartedSaveAsMRUCloudPlacesOrNavSlab			
+GroupGettingStartedSaveAsMRULocalPlacesOrNavSlab			
+GroupGettingStartedSaveAsMRUPlacesOrNavSlab			
+GroupGraphicsSize			
+GroupGraphicsStyles			
+GroupHeaderFooter			
+GroupHeaderFooterClose			
+GroupHeaderFooterInsert			
+GroupHeaderFooterNavigation			
+GroupHeaderFooterOptions			
+GroupHeaderFooterPosition			
+GroupHelpAndSupport			
+GroupIcons			
+GroupImagePlay			
+GroupIndex			
+GroupInk			
+GroupInkClose			
+GroupInkConvertOneNote			
+GroupInkFormat			
+GroupInkPens			
+GroupInkSelect			
+GroupInputMode			
+GroupInsertBarcode			
+GroupInsertComments			
+GroupInsertDrawingCanvas			
+GroupInsertIllustrations			
+GroupInsertLinks			
+GroupInsertPages			
+GroupInsertSymbols			
+GroupInsertTables			
+GroupInsertText			
+GroupLanguage			
+GroupLocalGettingStartedOpenMRUPlacesOrNavSlab			
+GroupMacros			
+GroupMailMergeFinish			
+GroupMailMergePreviewResults			
+GroupMailMergeStart			
+GroupMailMergeWriteInsertFields			
+GroupMasterDocument			
+GroupMedia			
+GroupModernOpenPlaces			
+GroupModes			
+GroupNightMode			
+GroupOfficeBranding			
+GroupOfficeExtension			
+GroupOfficeExtensionsAddinFlyout			
+GroupOfficeInsider	True	True	True
+GroupOfficeInsiderAbout			
+GroupOfficeInsiderChannel			
+GroupOfficeInsiderHelp			
+GroupOfficeInsiderRegistration			
+GroupOfficeSendFrown			
+GroupOfficeSendSmile			
+GroupOfficeSendSuggestion			
+GroupOfficeStart			
+GroupOpenPlaces			
+GroupOrganizationChartLayoutClassic			
+GroupOrganizationChartSelect			
+GroupOrganizationChartShapeInsert			
+GroupOrganizationChartStyleClassic			
+GroupOutliningClose			
+GroupOutliningTools			
+GroupPageBackground			
+GroupPageLayoutSetup			
+GroupPageMovement			
+GroupParagraph			
+GroupParagraphLayout			
+GroupPenAndInkHelp			
+GroupPens			
+GroupPens2			
+GroupPensOneNote			
+GroupPensWrite			
+GroupPermissions			
+GroupPictureSize			
+GroupPictureSizeClassic			
+GroupPictureStyles			
+GroupPictureTools			
+GroupPictureToolsClassic			
+GroupPinnableCloudSaveAsAccessibility			
+GroupPinnableGettingStartedSaveAsMRUCloudPlacesOrNav			
+GroupPrepareForSharing			
+GroupPrintPreview			
+GroupPrintPreviewPageSetup			
+GroupPrintPreviewPreview			
+GroupPrintPreviewPrint			
+GroupPrintProtectedView			
+GroupPrintSettings			
+GroupProofing			
+GroupProtect			
+GroupProtectedView			
+GroupReadOnly			
+GroupReadOnlyCached			
+GroupReadOnlyCachedMergeable			
+GroupReadOnlyCheckOutRequired			
+GroupReadOnlyOffline			
+GroupReadOnlyServer			
+GroupRecentCloudPlaces			
+GroupRecentDocuments			
+GroupRecentDocumentsNew			
+GroupRecentLocalPlaces			
+GroupRecentPinnableCloudPlaces			
+GroupRecentPlaces			
+GroupRecoverUnsavedFiles			
+GroupResearch			
+GroupSecurityInformation			
+GroupSecurityWarning			
+GroupSendAsAttachment			
+GroupSendAsInternetFax			
+GroupSendAsLink			
+GroupSendAsPdf			
+GroupSendAsXps			
+GroupSendByInstantMessage			
+GroupSendToBlog			
+GroupSendUsingEmail			
+GroupShadowEffects			
+GroupShapes			
+GroupShapesChart			
+GroupShapesClassic			
+GroupShapeStyles			
+GroupShapeStylesClassic			
+GroupShare			
+GroupSharedWithMeDocuments			
+GroupSharedWithMeDocumentsNew			
+GroupSharePointProperties			
+GroupSignatures			
+GroupSize			
+GroupSizeClassic			
+GroupSmartArtCreateGraphic			
+GroupSmartArtLayouts			
+GroupSmartArtQuickStyles			
+GroupSmartArtReset			
+GroupSmartArtShapes			
+GroupSmartArtSize			
+GroupSpeech			
+GroupStencils			
+GroupStyles			
+GroupStyleSet			
+GroupTable			
+GroupTableAlignment			
+GroupTableBorders			
+GroupTableCellSize			
+GroupTableData			
+GroupTableDraw			
+GroupTableLayout			
+GroupTableMerge			
+GroupTableOfAuthorities			
+GroupTableOfContents			
+GroupTableRowsAndColumns			
+GroupTableStylesWord			
+GroupTemplates			
+GroupTextbox			
+GroupTextBoxArrange			
+GroupTextBoxStyles			
+GroupTextBoxText			
+GroupThemesWord			
+GroupThumbnail			
+GroupUpdateChannel			
+GroupUpdatesAvailable			
+GroupUploadErrors			
+GroupVersions			
+GroupViewShowHide			
+GroupVoiceTools			
+GroupWhatsNewInOfficeProducts			
+GroupWindow			
+GroupWordArtStyles			
+GroupWordArtStylesClassic			
+GroupWordArtText			
+GroupWorkflows			
+GroupWorkflowStart			
+GroupWorkflowsUnavailable			
+GroupWrite			
+GroupXml			
+GroupXmlMappingPane			
+GroupZoom			
+GrupPolicyWarning			
+HangingIndent	True	True	True
+HangulHanjaConversion	True	True	True
+HeaderAndFooterMenuAnchor			
+HeaderFooterClose	False	False	False
+HeaderFooterDifferentFirstPageWord	True	True	True
+HeaderFooterDifferentOddEvenPageWord	True	True	True
+HeaderFooterEditFooter	True	True	True
+HeaderFooterEditHeader	True	True	True
+HeaderFooterLinkToPrevious	False	False	False
+HeaderFooterNextSection	False	False	False
+HeaderFooterPageNumberInsert	True	True	True
+HeaderFooterPositionFooterFromBottom	True	True	True
+HeaderFooterPositionHeaderFromTop	True	True	True
+HeaderFooterPreviousSection	False	False	False
+HeaderFooterRemoveFooterWord	True	True	True
+HeaderFooterRemoveHeaderWord	True	True	True
+HeaderFooterShowDocumentText	False	False	False
+HeaderInsertGallery	True	True	True
+HeaderOrFooterShow	False	False	False
+HeaderSourceEdit	False	False	False
+Heading1Apply	True	True	True
+Heading2Apply	True	True	True
+Heading3Apply	True	True	True
+HeadingNumbers	True	True	True
+Help	True	True	True
+HelpTab			
+HideInk	True	True	True
+HideInkSplitButton	True	True	True
+HideRibbon	True	True	True
+HideText	True	True	True
+HighlightingStop	False	False	False
+HistoryTab			
+HomePageSlabCreateNew			
+HomePlaceRecommendedDocuments			
+HorizontalLineInsert	True	True	True
+HorizontalLineInsertClassic	True	True	True
+HyperlinkCopy	False	False	False
+HyperlinkEdit	False	False	False
+HyperlinkInsert	True	True	True
+HyperlinkOpen	False	False	False
+HyperlinkOpenDefaultSettingMenu	False	False	False
+HyperlinkOpenInMenu	False	False	False
+HyperlinkOpenInNative	False	False	False
+HyperlinkOpenInWeb	False	False	False
+HyperlinkRemove	False	False	False
+HyperlinkSelect	False	False	False
+HyphenationAutomatic	True	True	True
+HyphenationManual	True	True	True
+HyphenationMenu	True	True	True
+HyphenationNone	True	True	True
+HyphenationOptions	True	True	True
+IconInsertFromFile	True	True	True
+ImagePlay	False	False	False
+ImeDictionaryUpdate	False	False	False
+ImeReconvert	False	False	False
+ImmersiveZoom	False	False	False
+IndentClassic	True	True	True
+IndentDecrease	False	False	False
+IndentDecreaseWord	True	True	True
+IndentIncrease	False	False	False
+IndentIncreaseWord	True	True	True
+IndentLabel	True	True	True
+IndexAndTables	True	True	True
+IndexInsert	True	True	True
+IndexMarkEntry	True	True	True
+IndexUpdate	False	False	False
+InkBallpointPen	False	False	False
+InkColorMoreColorsDialog	False	False	False
+InkColorPicker	False	False	False
+InkColorPicker2	False	False	False
+InkCopyAsText	False	True	False
+InkDeleteAll	False	False	False
+InkDeleteAllInk	True	True	True
+InkDrawingAndWriting	False	False	False
+InkEditor	False	False	False
+InkEditorEnable	False	False	False
+InkEditorGallery	False	False	False
+InkEditorInkGestureHelp	False	False	False
+InkEditorSplitButton	False	False	False
+InkEquation	True	True	True
+InkEraser	False	False	False
+InkEraserMenu			
+InkFeltTipPen	False	False	False
+InkHighlighter	False	False	False
+InkingStart	False	False	False
+InkReplay			
+InkSelect			
+InkStopInkingReadingView	False	False	False
+InkToolbox			
+InkToolboxWithEraserAndLasso	False	False	False
+InkToolsClose	True	True	True
+InkToTextAnalysis	True	True	True
+Insert3DModelDefault	True	True	True
+Insert3DModelDropdown	True	True	True
+Insert3DModelFallback	True	True	True
+Insert3DModelFromFile	True	True	True
+Insert3DModelFromFileConsumer			
+Insert3DModelFromOnline	True	True	True
+Insert3DModelFromOnlineConsumer			
+InsertAlignmentTab	True	True	True
+InsertBuildingBlocksEquationsGallery	True	True	True
+InsertCaptionNumbering	True	True	True
+InsertEmSpace	True	True	True
+InsertEnSpace	True	True	True
+InsertInkDrawingCanvas	True	True	False
+InsertLinkGallery	True	True	True
+InsertM365Picture	True	True	True
+InsertMobilePicture			
+InsertNewComment	True	True	True
+InsertNumberAlternate	True	True	True
+InsertPictureFlyoutAnchor			
+Insights			
+InsightsInDocSearch			
+Italic	True	True	True
+ItalicRun	True	True	True
+JapaneseGreetingsInsertMenu	True	True	True
+JapanesePostcardCreateAddressSide	False	False	False
+JapanesePostcardCreateLetterSide	False	False	False
+JapanesePostcardDialog	True	True	True
+JapanesePostcardMenu	False	False	False
+JumpBetweenCommentCardAndAnchor	False	False	False
+KeepBackgroundRemoval	False	False	False
+KeyboardCustomization	True	True	True
+KeyboardCustomizationWord	True	True	True
+LabelInsert	True	True	True
+LabelOptions	False	False	False
+LabelsDialog	True	True	True
+LanguageCommands	True	True	True
+LanguagePreferences	True	True	True
+LassoSelect			
+LayoutOptionsDialog	False	False	False
+LayoutOptionsDialogPosition	False	False	False
+LayoutOptionsDialogSize	False	False	False
+LayoutOptionsDialogWrapping	False	False	False
+LearningToolsPageColorMoreColors	False	False	False
+LearningToolsSyllables	False	False	False
+LearningToolsTextSpacing	False	False	False
+LearningToolsWebViewColumnWidthMedium	True	True	True
+LearningToolsWebViewColumnWidthMenu	False	False	False
+LearningToolsWebViewColumnWidthNarrow	True	True	True
+LearningToolsWebViewColumnWidthNone	True	True	True
+LearningToolsWebViewColumnWidthStandard	True	True	True
+LearningToolsWebViewPageColorInverse	True	True	True
+LearningToolsWebViewPageColorMenu	False	False	False
+LearningToolsWebViewPageColorNone	True	True	True
+LearningToolsWebViewPageColorSepia	True	True	True
+LeaveReader	False	False	False
+LeftToRightRun	True	True	True
+LigatureGalleryWord	True	True	True
+LineDown	True	True	True
+LineDownExtend	True	True	True
+LineFocusFiveLines	True	True	True
+LineFocusMenu	False	False	False
+LineFocusNone	True	True	True
+LineFocusOneLine	True	True	True
+LineFocusThreeLines	True	True	True
+LineNumbersContinuous	True	True	True
+LineNumbersMenu	True	True	True
+LineNumbersOff	True	True	True
+LineNumbersOptionsDialog	True	True	True
+LineNumbersResetPage	True	True	True
+LineNumbersResetSection	True	True	True
+LineNumbersSuppress	True	True	True
+LineSpacingGallery	True	True	True
+LineSpacingMenu	True	True	True
+LineStylesDialog	False	False	False
+LineThickness	False	False	False
+LineThickness2	False	False	False
+LineUp	True	True	True
+LineUpExtend	True	True	True
+LinkToPreviousClassic	False	False	False
+ListBulletApply	True	True	True
+ListCommands	True	True	True
+ListDefineNew	True	True	True
+ListDefineNewStyle	True	True	True
+ListDemote	False	False	False
+ListIndentsAdjust	False	False	False
+ListLevelGallery	False	False	False
+ListNumFieldInsert	True	True	True
+ListPromote	False	False	False
+ListSetNumberingValue	False	False	False
+LoadingCloudServicesGroup			
+LoadingServicesGroup			
+LocalSave			
+Lock	True	True	True
+LookUp	True	True	True
+LoopBulletedList			
+LoopChecklist			
+LoopComponents			
+LoopNumberedList			
+LoopParagraph			
+LoopQA			
+LoopTable			
+LoopTaskList			
+MacroPlay	True	True	True
+MacroRecord	True	True	True
+MacroRecorderPause	False	False	False
+MacroRecorderStop	False	False	False
+MacroRecordOrStop	True	True	True
+MacroSecurity	True	True	True
+Magnifier	False	False	False
+MailDelete	False	False	False
+MailMergeAddressBlockInsert	False	False	False
+MailMergeAskToConvertChevrons	True	True	True
+MailMergeAutoCheckForErrors	False	False	False
+MailMergeClearMergeType	True	True	True
+MailMergeConvertChevrons	True	True	True
+MailMergeCreateDataSource	True	True	True
+MailMergeCreateHeaderSource	True	True	True
+MailMergeCreateList	True	True	True
+MailMergeDocument	False	False	False
+MailMergeEditAddressBlock	False	False	False
+MailMergeEditBarcode	False	False	False
+MailMergeEditGreetingLine	False	False	False
+MailMergeEditList	True	True	True
+MailMergeEmailOptions	False	False	False
+MailMergeFaxOptions	False	False	False
+MailMergeFindRecipient	False	False	False
+MailMergeFinishAndMergeMenu	False	False	False
+MailMergeGoToFirstRecord	False	False	False
+MailMergeGoToNextRecord	False	False	False
+MailMergeGoToPreviousRecord	False	False	False
+MailMergeGoToRecord	False	False	False
+MailMergeGotToLastRecord	False	False	False
+MailMergeGreetingLineInsert	False	False	False
+MailMergeHelper	True	True	True
+MailMergeHighlightMergeFields	False	False	False
+MailMergeInsertBarcode	False	False	False
+MailMergeInsertBarcodeMenu	False	False	False
+MailMergeJapaneseGreetingClosingSentenceInsert	True	True	True
+MailMergeJapaneseGreetingInsert	True	True	True
+MailMergeJapaneseGreetingJapaneseOpeningSentenceInsert	True	True	True
+MailMergeJapanesePostalBarcode	False	False	False
+MailMergeMatchFields	False	False	False
+MailMergeMergeFieldInsert	False	False	False
+MailMergeMergeFieldInsertMenu	False	False	False
+MailMergeMergeToDocument	False	False	False
+MailMergeMergeToEMail	False	False	False
+MailMergeMergeToFax	False	False	False
+MailMergeMergeToNewDocumentOptions	False	False	False
+MailMergeMergeToPrinter	False	False	False
+MailMergeOpenHeaderSource	True	True	True
+MailMergePrintOptions	False	False	False
+MailMergeQueryOptions	False	False	False
+MailMergeRecepientsUseExistingList	True	True	True
+MailMergeRecepientsUseOutlookContacts	True	True	True
+MailMergeRecipientsEditList	False	False	False
+MailMergeReset	False	False	False
+MailMergeResultsPreview	False	False	False
+MailMergeRuleAsk	True	True	True
+MailMergeRuleFillIn	True	True	True
+MailMergeRuleIfThenElse	True	True	True
+MailMergeRuleMergeRecordNumber	True	True	True
+MailMergeRuleMergeSequenceNumber	True	True	True
+MailMergeRuleNextRecord	True	True	True
+MailMergeRuleNextRecordIf	True	True	True
+MailMergeRules	False	False	False
+MailMergeRuleSetBookmark	True	True	True
+MailMergeRuleSkipRecordIf	True	True	True
+MailMergeSelectRecipients	True	True	True
+MailMergeSetDocumentType	True	True	True
+MailMergeStartDirectory	True	True	True
+MailMergeStartEmail	True	True	True
+MailMergeStartEnvelopes	True	True	True
+MailMergeStartLabels	True	True	True
+MailMergeStartLetters	True	True	True
+MailMergeStartMailMergeMenu	True	True	True
+MailMergeUpdateLabels	False	False	False
+MailMergeWizard	True	True	True
+MailMove	False	False	False
+MailSelectNames	False	False	False
+MakeSegmentCurved	False	False	False
+MakeSegmentStraight	False	False	False
+ManagePrivacy	True	True	True
+ManageServices			
+MarginsAdjust	False	False	False
+MarginsCustomMargins	True	True	True
+MarkAsDecorative	True	True	True
+MasterDocument	True	True	True
+MasterDocumentCreateSubdocument	False	False	False
+MasterDocumentExpandOrCollapseSubdocuments	False	False	False
+MasterDocumentInsertSubdocument	False	False	False
+MasterDocumentLockSubdocument	False	False	False
+MasterDocumentMergeSubdocuments	False	False	False
+MasterDocumentShow	False	False	False
+MasterDocumentSplitSubdocuments	False	False	False
+MasterDocumentUnlinkSubdocument	False	False	False
+MdiChildSystemMenu	True	True	True
+MenuAccessibility	True	True	True
+MenuMacros	True	True	True
+MenuMode	True	True	True
+MenuPublish	True	True	True
+MergeCells	False	False	False
+MergeOptions	False	False	False
+MergeOrSplitCells	False	False	True
+MessageHeaderToggle	False	False	False
+MessageNext	False	False	False
+MessagePrevious	False	False	False
+MessageProperties	False	False	False
+MicrosoftAccess	True	True	True
+MicrosoftExcel	True	True	True
+MicrosoftOutlook	True	True	True
+MicrosoftPowerPoint	True	True	True
+MicrosoftProject	True	True	True
+MicrosoftPublisher	True	True	True
+MinimizeRibbon	True	True	True
+MiniTranslator	False	False	False
+ModernSaveGroup			
+MoreControlsDialog	True	True	True
+MoreCorrectionAlternatives	False	False	False
+MoreLines2	False	False	False
+MoreTextureOptions	False	False	False
+MoveDocument			
+MoveObjectWithText	False	False	False
+MoveText	False	True	False
+MovieFromClipOrganizerInsert	True	True	True
+MultilevelListGallery	True	True	True
+NavigationPaneFind	True	True	True
+NavigationPaneShowHide	True	True	True
+NavPaneFindTellMe	True	True	True
+NewTableStyleWord	True	True	True
+NextEdit	True	True	True
+NextMisspeling	True	True	True
+NormalizeText	True	True	True
+NormalViewHeaderArea	True	True	True
+NoTcid			
+NudgeMenu	False	False	False
+Numbering	True	True	True
+NumberingContinue	False	False	False
+NumberingGalleryWord	True	True	True
+NumberingRemove	False	False	False
+NumberingRestart	False	False	False
+NumberingSkip	True	True	True
+NumberInsert	True	True	True
+NumberListDefault	True	True	True
+NumberStyleGalleryWord	True	True	True
+ObjectActivate	False	False	False
+ObjectAddText	True	True	True
+ObjectAlignMenu	True	True	True
+ObjectBorderOutlineColorMoreColorsDialog	False	False	False
+ObjectBringForward	False	False	False
+ObjectBringForwardMenu	False	False	False
+ObjectBringInFrontOfText	False	False	False
+ObjectBringToFront	False	False	False
+ObjectBringToFrontMenu	False	False	False
+ObjectEditDialog	False	False	False
+ObjectEditPoints	False	False	False
+ObjectEditShapeMenu	False	False	False
+ObjectEditShapeMenuClassic	False	False	False
+ObjectEditText	True	True	True
+ObjectEffectGlowGallery	False	False	False
+ObjectEffectPresetGallery	False	False	False
+ObjectEffectShadowGallery	False	False	False
+ObjectEffectSoftEdgesGallery	False	False	False
+ObjectFillMoreColorsDialog	False	False	False
+ObjectFormatDialog	False	False	False
+ObjectNext	True	True	True
+ObjectNudgeDown	False	False	False
+ObjectNudgeLeft	False	False	False
+ObjectNudgeRight	False	False	False
+ObjectNudgeUp	False	False	False
+ObjectPictureFill	False	False	False
+ObjectPrevious	True	True	True
+ObjectRotateGallery	False	False	False
+ObjectsAlignBottomSmart	False	False	False
+ObjectsAlignCenterHorizontalSmart	False	False	False
+ObjectsAlignLeftSmart	False	False	False
+ObjectsAlignMiddleVerticalSmart	False	False	False
+ObjectsAlignRelativeToContainerSmart	True	True	True
+ObjectsAlignRelativeToMargin	True	True	True
+ObjectsAlignRightSmart	False	False	False
+ObjectsAlignSelectedSmart	False	False	False
+ObjectsAlignTopSmart	False	False	False
+ObjectsArrangeMenu			
+ObjectSaveAsPicture	False	False	False
+ObjectSendBackward	False	False	False
+ObjectSendBackwardMenu	False	False	False
+ObjectSendBehindText	False	False	False
+ObjectSendToBack	False	False	False
+ObjectSendToBackMenu	False	False	False
+ObjectSetShapeDefaults	True	True	True
+ObjectsGroup	False	False	False
+ObjectsGroupMenu	False	False	False
+ObjectShadowColorMoreColorsDialog	False	False	False
+ObjectSizeAndPropertiesDialog	False	False	False
+ObjectSizeDialog	False	False	False
+ObjectSizeDialogClassic	False	False	False
+ObjectsMultiSelect	True	True	True
+ObjectsRegroup	False	False	False
+ObjectsSelect	True	True	True
+ObjectsUngroup	False	False	False
+OfficeExtensionsAppStore	True	True	True
+OfficeExtensionsDialog	True	True	True
+OfficeExtensionsFeaturedApp1			
+OfficeExtensionsFeaturedApp2			
+OfficeExtensionsFeaturedApp3			
+OfficeExtensionsFeaturedApp4			
+OfficeExtensionsFeaturedApp5			
+OfficeExtensionsFeaturedApp6			
+OfficeExtensionsGallery2	True	True	True
+OfficeExtensionsGallery3	True	True	True
+OfficeExtensionsGetAddinsButtonOnBackstageBelowOpenDivider	True	True	True
+OfficeExtensionsManageOtherAddins	True	True	True
+OfficeExtensionsShowAddinFlyout	True	True	True
+OfficeFeedback	False	False	False
+OfficeFeedbackBackstage	False	False	False
+OfficeFeedbackHelpTab			
+OfficeFeedbackIcon	True	True	True
+OfficeOnTheWeb	True	True	True
+OfficePolicyTips			
+OK	True	True	True
+OleConvert	False	False	False
+OleObjectctInsert	True	True	True
+OleObjectInsertMenu	True	True	True
+OpenDefaultNative	False	False	False
+OpenDefaultWeb	False	False	False
+OpenMeetingNotes	False	False	False
+OpenOptionsAddIns	True	True	True
+OpenOptionsAdvanced	True	True	True
+OpenOptionsCustomization	True	True	True
+OpenOptionsDisplay	True	True	True
+OpenOptionsEaseOfAcess	True	True	True
+OpenOptionsExperimentSettings			
+OpenOptionsLanguage	True	True	True
+OpenOptionsSaving	True	True	True
+OpenOptionsSetup	True	True	True
+OpenOptionsSpelling	True	True	True
+OpenOptionsTrustCenterSettings	True	True	True
+OpenOptionsWordCustomizeRibbon	True	True	True
+OpenPath	False	False	False
+OrganizationChartAutoLayout	False	False	False
+OrganizationChartDeleteNode	False	False	False
+OrganizationChartInsert	False	False	False
+OrganizationChartInsertAssistant	False	False	False
+OrganizationChartInsertCoworker	False	False	False
+OrganizationChartInsertSubordinate	False	False	False
+OrganizationChartLayoutBothHanging	False	False	False
+OrganizationChartLayoutLeftHanging	False	False	False
+OrganizationChartLayoutRightHanging	False	False	False
+OrganizationChartLayoutStandard	False	False	False
+OrganizationChartResize	False	False	False
+OrganizationChartSelectAllAssistants	False	False	False
+OrganizationChartSelectAllConnectors	False	False	False
+OrganizationChartSelectBranch	False	False	False
+OrganizationChartSelectLevel	False	False	False
+OrganizationChartStyle	False	False	False
+Organizer	True	True	True
+OutdentClassic	True	True	True
+OutlineCollapse	False	False	False
+OutlineColorPicker	False	False	False
+OutlineDashesGallery	False	False	False
+OutlineDemote	True	True	True
+OutlineDemoteToBodyText	True	True	True
+OutlineExpand	False	False	False
+OutlineLevelGallery	True	True	True
+OutlineLinePatternFill	False	False	False
+OutlineMoveDown	True	True	True
+OutlineMoveUp	True	True	True
+OutlineNumberDefault	True	True	True
+OutlinePromote	True	True	True
+OutlinePromoteToHeading	True	True	True
+OutlineShowFirstLineOnly	False	False	False
+OutlineShowLevel	True	True	True
+OutlineShowTextFormatting	False	False	False
+OutlineViewClose	False	False	False
+OutlineWeightGallery	False	False	False
+OutlookTaskCreate	True	True	True
+Overtype	True	True	True
+PageBorderAndShadingDialog	True	True	True
+PageBreakInsertWord	True	True	True
+PageColorFillEffects	True	True	True
+PageColorMoreColorsDialog	True	True	True
+PageColorPicker	True	True	True
+PageDownExtend	True	True	True
+PageMarginsGallery	True	True	True
+PageNambersInFooterInsertGallery	True	True	True
+PageNambersInMarginsInsertGallery	True	True	True
+PageNext	True	True	True
+PageNextWord	True	True	True
+PageNumberFieldInsertGallery	True	True	True
+PageNumberFormat	True	True	True
+PageNumbersInHeaderInsertGallery	True	True	True
+PageNumbersRemove	True	True	True
+PageOrientationGallery	True	True	True
+PageOrientationPortraitLandscape	True	True	True
+PagePrevious	True	True	True
+PagePreviousWord	True	True	True
+PageSetupDialog	True	True	True
+PageSizeGallery	True	True	True
+PageSizeMorePaperSizesDialog	True	True	True
+PagesMenuAnchor			
+PageUpExtend	True	True	True
+PanningHand	True	True	True
+ParagraphDialog	True	True	True
+ParagraphDistributed	True	True	True
+ParagraphDown	True	True	True
+ParagraphDownExtend	True	True	True
+ParagraphIndentLeft	True	True	True
+ParagraphIndentRight	True	True	True
+ParagraphKeepLinesTogether	True	True	True
+ParagraphKeepWithNext	True	True	True
+ParagraphMarks	True	True	True
+ParagraphReset	True	True	True
+ParagraphSpaceAddOrRemoveBefore	True	True	True
+ParagraphSpaceBefore	True	True	True
+ParagraphSpaceBeforeNone	True	True	True
+ParagraphSpacing	True	True	True
+ParagraphSpacingAfter	True	True	True
+ParagraphSpacingBefore	True	True	True
+ParagraphSpacingCustom	True	True	True
+ParagraphSpacingDecrease	True	True	True
+ParagraphSpacingIncrease	True	True	True
+ParagraphUp	True	True	True
+ParagraphUpExtend	True	True	True
+ParagraphWidowOrphanControl	True	True	True
+Paste	True	True	True
+PasteAlternative	True	True	True
+PasteApplyStyle	False	False	False
+PasteAsHyperlink	False	False	False
+PasteAsNestedTable	False	False	False
+PasteAsPicture	False	False	False
+PasteBitmap	False	False	False
+PasteByAppendingTable	False	False	False
+PasteContinueList	False	False	False
+PasteDestinationStyle	False	False	False
+PasteDestinationTheme	False	False	False
+PasteDontMergeList	False	False	False
+PasteDuplicate	False	False	False
+PasteExcelChartDestinationTheme	False	False	False
+PasteExcelChartSourceFormatting	False	False	False
+PasteExcelTableDestinationTableStyle	False	False	False
+PasteExcelTableSourceFormatting	False	False	False
+PasteGallery	True	True	True
+PasteGalleryMini	True	True	True
+PasteGif	False	False	False
+PasteJpeg	False	False	False
+PasteLinkedExcelChartDestinationTheme	False	False	False
+PasteLinkedExcelChartSourceFormatting	False	False	False
+PasteLinkedExcelTableDestinationTableStyle	False	False	False
+PasteLinkedExcelTableSourceFormatting	False	False	False
+PasteLinkedSingleCellExcelTableDestinationFormatting	False	False	False
+PasteMenu	True	True	True
+PasteMergeFormatting	False	False	False
+PasteMergeList	False	False	False
+PasteNewList	False	False	False
+PastePng	False	False	False
+PasteSetDefault	True	True	True
+PasteSingleCellExcelTableDestinationFormatting	False	False	False
+PasteSingleCellTableAsTable	False	False	False
+PasteSingleCellTableAsText	False	False	False
+PasteSourceFormatting	False	False	False
+PasteSpecialDialog	True	True	True
+PasteTableAsNewRows	False	False	False
+PasteTableByInsertingColumns	False	False	False
+PasteTableByOverwritingCells	False	False	False
+PasteTableWithSourceFormatting	False	False	False
+PasteTextOnly	True	True	True
+PenAddFavorite	False	False	False
+PenAndInkHelp	False	False	False
+PensGallery	False	False	False
+PensGallery2	False	False	False
+Personalization			
+PictureArtisticEffectsGallery	False	False	False
+PictureArtisticEffectsReset	False	False	False
+PictureAttributionNavigateToSource	False	False	False
+PictureBackgroundRemoval	False	False	False
+PictureBackgroundRemovalMarkBackground	False	False	False
+PictureBackgroundRemovalMarkDelete	False	False	False
+PictureBackgroundRemovalMarkForeground	False	False	False
+PictureBorderColorPickerClassic	False	False	False
+PictureBrightnessAndContrastDialog	False	False	False
+PictureBrightnessAndContrastGallery	False	False	False
+PictureBrightnessGallery	False	False	False
+PictureBulletsInsert	True	True	True
+PictureChange	False	False	False
+PictureChangeFromClipboard	False	False	False
+PictureChangeFromFile	False	False	False
+PictureChangeFromM365	False	False	False
+PictureChangeFromMobile			
+PictureChangeFromOnline	False	False	False
+PictureChangeMenu	False	False	False
+PictureColorDialog	False	False	False
+PictureColorMenu	False	False	False
+PictureColorReset	False	False	False
+PictureColorTempertatureGallery	False	False	False
+PictureContrastGallery	False	False	False
+PictureCorrectionsDialog	False	False	False
+PictureCorrectionsMenu	False	False	False
+PictureCorrectionsReset	False	False	False
+PictureCrop	False	False	False
+PictureCropAspectRatio16To10	False	False	False
+PictureCropAspectRatio16To9	False	False	False
+PictureCropAspectRatio1To1	False	False	False
+PictureCropAspectRatio2To3	False	False	False
+PictureCropAspectRatio3To2	False	False	False
+PictureCropAspectRatio3To4	False	False	False
+PictureCropAspectRatio3To5	False	False	False
+PictureCropAspectRatio4To3	False	False	False
+PictureCropAspectRatio4To5	False	False	False
+PictureCropAspectRatio5To3	False	False	False
+PictureCropAspectRatio5To4	False	False	False
+PictureCropAspectRatioMenu	False	False	False
+PictureCropTools	False	False	False
+PictureDisassemble	False	False	False
+PictureEditClassic	False	False	False
+PictureEditWord	False	False	False
+PictureEffectsGlowGallery	False	False	False
+PictureEffectsMenu	False	False	False
+PictureEffectsPresetGallery	False	False	False
+PictureEffectsShadowGallery	False	False	False
+PictureEffectsSoftEdgesGallery	False	False	False
+PictureFillCrop	False	False	False
+PictureFitCrop	False	False	False
+PictureFormatDialog	False	False	False
+PictureInsertFromFile	True	True	True
+PictureMoreTransparency	False	False	False
+PicturePositionGallery	False	False	False
+PictureRecolorGallery	False	False	False
+PictureRecolorGalleryWord	False	False	False
+PictureRecolorMoreColorsDialog	False	False	False
+PictureReflectionGallery	False	False	False
+PictureReset	False	False	False
+PictureResetAndSize	False	False	False
+PictureResetSplitButton	False	False	False
+PictureRotationGallery	False	False	False
+PictureSaturationGallery	False	False	False
+PicturesCompress	True	True	True
+PicturesConvertToSmartArt	False	False	False
+PictureSetTransparentColor	False	False	False
+PictureShapeGallery	False	False	False
+PictureSharpenSoftenGallery	False	False	False
+PictureStylesGallery	False	False	False
+PictureTransparencyGallery	False	False	False
+PinnableGroupCloudGettingStartedOpenMRUPlacesOrNavSlab			
+PlaceTabHome			
+PlaybackTipPlay	True	True	False
+PlayMacro	True	True	True
+PlayVideo	False	False	False
+PlayVideoInBrowser	False	False	False
+PointEraserMedium	False	False	False
+PointEraserSmall	False	False	False
+PointerModeOptions	True	True	True
+PreviousEdit	True	True	True
+PrintOptionsMenuWord	True	True	True
+PrintPreviewAndPrint	True	True	True
+PrintPreviewClose	False	False	False
+PrintPreviewEditMode	True	True	True
+PrintPreviewShrinkOnePage	True	True	True
+PrintSetupDialog	True	True	True
+PrivacyOptionsDialog	False	False	False
+ProofingOptions	True	True	True
+PropertyInsert	True	True	True
+PropertySheet	False	False	False
+ProtectDocument	True	True	True
+ProtectOrUnprotectDocument	True	True	True
+PublishGroup			
+QuickAccessToolbarCustomization	False	False	False
+QuickCheck	True	True	True
+QuickCheckAll	True	True	True
+QuickCheckSpelling	True	True	True
+QuickPartsInsertFromOnline	False	False	False
+QuickPartsInsertGallery	True	True	True
+QuickStylesGallery	True	True	True
+QuickStylesResetDocumentStyles	False	False	False
+QuickStylesResetFromTemplate	True	True	True
+QuickStylesSaveQuickStyleSet	True	True	True
+QuickStylesSaveSelectionAsNew	True	True	True
+QuickStylesSetAsDefault	True	True	True
+QuickStylesSets	True	True	True
+QuickTablesInsertGallery	True	True	True
+ReadAloud	True	True	True
+ReadingViewAllowMultiplePages	False	False	False
+ReadingViewClose	True	True	True
+ReadingViewFontSizeDecrease	False	False	False
+ReadingViewFontSizeIncrease	False	False	False
+ReadingViewResearchPane	False	False	False
+ReadingViewShowPrintedPage	True	True	True
+ReadingViewStartInking	False	False	False
+ReadingViewUnlockDocumentLayout	False	False	False
+RecolorColorPicker	False	False	False
+Redo	False	False	False
+RedoOrRepeat	False	False	True
+ReflectionGallery	False	False	False
+ReflectionsMoreOptions	False	False	False
+RefreshServerFile	True	True	True
+RejectAllChangesInDocAndStopTracking	True	True	True
+ReleaseAllMyLocks	False	False	False
+ReopenFromServer	True	True	True
+ReopenServerFile	True	True	True
+Repaginate	True	True	True
+ReplaceDialog	True	True	True
+ReplaceWithAutoText	False	True	False
+Replay	False	False	False
+Reply	False	False	False
+ReplyAll	False	False	False
+Researcher			
+ResearchPane	True	True	True
+Reset3DModel	False	False	False
+Reset3DModelAndSize	False	False	False
+Reset3DModelSplitButton	False	False	False
+ReturnAddressFormatFontDialog	True	True	True
+ReuseFilesForLink	False	False	False
+ReuseWebpageFromClipboard	False	False	False
+RevealFormatting	True	True	True
+ReviewAcceptAllChangesInDocument	True	True	True
+ReviewAcceptAllChangesShown	False	False	False
+ReviewAcceptChange	False	False	False
+ReviewAcceptChangeAndMoveToNext	True	True	True
+ReviewAcceptChangeMenu	True	True	True
+ReviewAcceptOrRejectChangeDialog	True	True	True
+ReviewBalloonsMenu	True	True	True
+ReviewChangeTrackingOptions	True	True	True
+ReviewChangeUserName	True	True	True
+ReviewCombineRevisions	True	True	True
+ReviewCompareLastVersion	True	True	True
+ReviewCompareMajorVersion	True	True	True
+ReviewCompareMenu	True	True	True
+ReviewCompareSpecificVersion	True	True	True
+ReviewCompareTwoVersions	True	True	True
+ReviewDeleteAllCommentsInDocument	False	False	False
+ReviewDeleteAllCommentsShown	False	False	False
+ReviewDeleteComment	False	False	False
+ReviewDeleteCommentsMenu	False	False	False
+ReviewDisplayForReview	True	True	True
+ReviewEditComment	False	False	False
+ReviewEndReview	False	False	False
+ReviewFilterByCustom	True	True	True
+ReviewFilterByEver	True	True	True
+ReviewFilterByEveryone	True	True	True
+ReviewFilterByLastWeek	True	True	True
+ReviewFilterByMe	True	True	True
+ReviewFilterByOthers	True	True	True
+ReviewFilterByToday	True	True	True
+ReviewFilterByYesterday	True	True	True
+ReviewHighlightChanges	True	True	True
+ReviewHighlightUpdates	False	False	False
+ReviewInkCommentEraser	False	False	False
+ReviewInkCommentNew	False	False	False
+ReviewInkCommentPen	False	False	False
+ReviewJapaneseConsistencyChecker	True	True	True
+ReviewNewComment	True	True	True
+ReviewNextChange	True	True	True
+ReviewNextChangeClassic	True	True	True
+ReviewNextComment	False	False	False
+ReviewNextCommentWord	False	False	False
+ReviewOtherAuthors	False	False	False
+ReviewPeopleFilter	True	True	True
+ReviewPeopleFilterMenu	True	True	True
+ReviewPreviousChange	True	True	True
+ReviewPreviousChangeClassic	True	True	True
+ReviewPreviousComment	False	False	False
+ReviewPreviousCommentWord	False	False	False
+ReviewProtectDocumentMenu	True	True	True
+ReviewRejectAllChangesInDocument	True	True	True
+ReviewRejectAllChangesShown	False	False	False
+ReviewRejectChange	False	False	False
+ReviewRejectChangeAndMoveToNext	True	True	True
+ReviewRejectChangeMenu	True	True	True
+ReviewReplyWithChanges	False	False	False
+ReviewRestrictFormatting	True	True	True
+ReviewReviewingPane	True	True	True
+ReviewReviewingPaneHorizontal	True	True	True
+ReviewReviewingPaneMenu	True	True	True
+ReviewReviewingPaneVertical	True	True	True
+ReviewSendForReview	True	True	True
+ReviewShowAllComments	False	False	False
+ReviewShowComments	True	True	True
+ReviewShowFormatting	True	True	True
+ReviewShowInsertionsAndDeletions	True	True	True
+ReviewShowMarkupAreaHighlight	True	True	True
+ReviewShowMarkupMenu	True	True	True
+ReviewShowOnlyCommentsAndFormattingInBaloons	True	True	True
+ReviewShowReviewersMenu	True	True	True
+ReviewShowRevisionsInBalloons	True	True	True
+ReviewShowRevisionsInline	True	True	True
+ReviewShowSourceDocumentsMenu	False	False	False
+ReviewTimeFilter	True	True	True
+ReviewTimeFilterMenu	True	True	True
+ReviewTrackChanges	True	True	True
+ReviewTrackChangesMenu	True	True	True
+ReviewViewChangesInTheSourceDocument	True	True	True
+RevisionsLockTracking	True	True	True
+RevisionsMenu	True	True	True
+RevisionsTrackEveryone	True	True	True
+RevisionsTrackMine	True	True	True
+RibbonCustomization	False	False	False
+RightToLeftRun	True	True	True
+RowHeight	False	False	True
+RuleLineFullPage	True	True	True
+RuleLinesMenu	True	True	True
+Save			
+SaveACopyButton	True	True	True
+SaveAll	True	True	True
+SaveAndCloseConflictView	True	True	True
+SaveCloudServices			
+SaveGroup			
+SaveSelectionToAutoTextGallery	False	True	False
+SaveSelectionToBibliographyGallery	False	True	False
+SaveSelectionToCoverPageGallery	False	True	False
+SaveSelectionToEquationGallery	False	True	False
+SaveSelectionToFooterGallery	False	True	False
+SaveSelectionToHeaderGallery	False	True	False
+SaveSelectionToPageNumberBottom	False	True	False
+SaveSelectionToPageNumberGallery	False	True	False
+SaveSelectionToPageNumberMargin	False	True	False
+SaveSelectionToPageNumberTop	False	True	False
+SaveSelectionToQuickPartGallery	False	True	False
+SaveSelectionToQuickTablesGallery	False	True	False
+SaveSelectionToTableOfContentsGallery	False	True	False
+SaveSelectionToTextBoxGallery	False	True	False
+SaveSelectionToWaterMarkGallery	False	True	False
+SaveTemplate	True	True	True
+ScaleDrawingCanvas	True	True	True
+ScreenClipping	True	True	True
+ScreenRefresh	True	True	True
+ScreenshotInsertGallery	True	True	True
+SDXQuickstart			
+SearchLibraries	False	False	False
+SecondCorrectionAlternative	False	False	False
+SectionBreakInsert	True	True	True
+Security	True	True	True
+SelectAll	True	True	True
+SelectCurrentAlignment	True	True	True
+SelectCurrentColor	True	True	True
+SelectCurrentFont	True	True	True
+SelectCurrentIndent	True	True	True
+SelectCurrentSpacing	True	True	True
+SelectCurrentTabs	True	True	True
+SelectionPane	True	True	True
+SelectionToMathConvert	True	True	True
+SelectMenu	True	True	True
+SelectMenuExcel	True	True	True
+SelectNumber	True	True	True
+SelectObjects	True	True	True
+SelectTextWithSimilarFormatting	True	True	True
+SendByInstantMessage			
+SendCopyAddressBookBcc	False	False	False
+SendCopyAddressBookCc	False	False	False
+SendCopyAddressBookTo	False	False	False
+SendCopyAttachmentOptions	False	False	False
+SendCopyCheckNames	False	False	False
+SendCopyFlag	False	False	False
+SendCopyFocusIntroduction	False	False	False
+SendCopyFocusSubject	False	False	False
+SendCopyOptions	False	False	False
+SendCopySaveAttachment	False	False	False
+SendCopySelectNames	False	False	False
+SendCopySendNow	False	False	False
+SendCopySendToMailRecipient	True	True	True
+SendCopySetup	False	False	False
+SendDoc	False	False	False
+SendUsingEmail			
+SetDefaultObjectLayout	False	False	False
+SetLanguage	True	True	True
+SetLanguageMenu	True	True	True
+ShadingColorPicker	True	True	True
+ShadingColorsMoreColorsDialog	True	True	True
+ShadowColorPickerClassic	False	False	False
+ShadowNudgeDownClassic	False	False	False
+ShadowNudgeLeftClassic	False	False	False
+ShadowNudgeRightClassic	False	False	False
+ShadowNudgeUpClassic	False	False	False
+ShadowOnOrOffClassic	False	False	False
+ShadowOptionsDialog	False	False	False
+ShadowSemitransparentClassic	False	False	False
+ShadowStyleGalleryClassic	False	False	False
+ShapeArc	True	True	True
+ShapeChangeShapeGallery	False	False	False
+ShapeConnectorStyleCurved	False	False	False
+ShapeConnectorStyleElbow	False	False	False
+ShapeConnectorStyleMenu	False	False	False
+ShapeConnectorStyleStraight	False	False	False
+ShapeConvertToFreeform	False	False	False
+ShapeCurve	True	True	True
+ShapeDownArrow	True	True	True
+ShapeEffectsMenu	False	False	False
+ShapeElbowConnector	True	True	True
+ShapeElbowConnectorArrow	True	True	True
+ShapeFillColorPicker	False	False	False
+ShapeFillEffectMoreGradientsDialogClassic	False	False	False
+ShapeFillEffectMoreTexturesDialogClassic	False	False	False
+ShapeFillEffectPatternClassic	False	False	False
+ShapeFillGradientGalleryClassic	False	False	False
+ShapeFillMoreGradientsDialog	False	False	False
+ShapeFillTextureGallery	False	False	False
+ShapeFreeform	True	True	True
+ShapeHeight	False	False	False
+ShapeIsoscelesTriangle	True	True	True
+ShapeLeftBrace	True	True	True
+ShapeOutlineColorPicker	False	False	False
+ShapeOval	True	True	True
+ShapeRectangle	True	True	True
+ShapeRerouteConnectors	False	False	False
+ShapeRightArrow	True	True	True
+ShapeRightBrace	True	True	True
+ShapeRoundedRectangle	True	True	True
+ShapeRoundedRectangularCallout	True	True	True
+ShapeScribble	True	True	True
+ShapesInsertGallery	True	True	True
+ShapeStar	True	True	True
+ShapeStraightConnector	True	True	True
+ShapeStraightConnectorArrow	True	True	True
+ShapeStylesGallery	False	False	False
+ShapeStylesGalleryClassic	False	False	False
+ShapeStylesOtherThemeFillsGallery	False	False	False
+ShapeWidth	False	False	False
+Share			
+ShareDocument			
+ShareNotesWithMeeting	False	False	False
+ShareWithPeopleFromSharePane			
+ShowAllHeadings	False	False	False
+ShowClipboard	True	True	True
+ShowCommentGutter	True	True	True
+ShowCommentsContextualView	True	True	True
+ShowCommentsMenu	True	True	True
+ShowCommentsPane	True	True	True
+ShowNavigationPaneHeadingsView	True	True	True
+ShowNavigationPaneNewInAccCheckerSplitButton	True	True	True
+ShowRepairs	True	True	True
+ShowRuler	True	True	True
+ShowRulerStencil	True	True	True
+ShowTextPredictions	True	True	True
+ShowTraining	True	True	True
+ShrinkSelection	True	True	True
+SignatureLineInsert	True	True	True
+SignatureLineInsertMenu	True	True	True
+SignatureServicesAdd	True	True	True
+SignaturesStationeryDialog	True	True	True
+SingleLineRibbonToggle			
+SkyDriveUpsellGroup			
+SlabCloudSaveAsAccessibility			
+SlabLocalSaveAsAccessibility			
+SlabSaveAsAccessibility			
+SlabShareWithPeopleFromSharePane			
+SmartArtAddAssistant	False	False	False
+SmartArtAddBullet	False	False	False
+SmartArtAddShape	False	False	False
+SmartArtAddShapeAbove	False	False	False
+SmartArtAddShapeAfter	False	False	False
+SmartArtAddShapeBefore	False	False	False
+SmartArtAddShapeBelow	False	False	False
+SmartArtAddShapeMenu	False	False	False
+SmartArtAddShapeSplitMenu	False	False	False
+SmartArtChangeColorsGallery	False	False	False
+SmartArtChangeLayout	False	False	False
+SmartArtDemote	False	False	False
+SmartArtEditIn2D	False	False	False
+SmartArtInsert	True	True	True
+SmartArtLargerShape	False	False	False
+SmartArtLayoutGallery	False	False	False
+SmartArtMoreLayoutsDialog	False	False	False
+SmartArtOrganizationChartBoth	False	False	False
+SmartArtOrganizationChartLeftHanging	False	False	False
+SmartArtOrganizationChartMenu	False	False	False
+SmartArtOrganizationChartRightHanging	False	False	False
+SmartArtOrganizationChartStandard	False	False	False
+SmartArtPromote	False	False	False
+SmartArtRecolorImages	False	False	False
+SmartArtReorderDown	False	False	False
+SmartArtReorderUp	False	False	False
+SmartArtResetGraphic	False	False	False
+SmartArtResetShape	False	False	False
+SmartArtRightToLeft	False	False	False
+SmartArtSmallerShape	False	False	False
+SmartArtStylesGallery	False	False	False
+SmartArtTextPane	False	False	False
+SmartLookup			
+SmartTagOptions	True	True	True
+SmoothVertex	False	False	False
+SoftEdgesMoreOptions	False	False	False
+SortAscendingWord	True	True	True
+SortDescendingWord	True	True	True
+SortDialogClassic	True	True	True
+SpacingLabel	True	True	True
+SpeakLearnFromDocument	True	True	True
+Spelling	True	True	True
+SpellingAndGrammar	True	True	True
+SpellingHideErrors	True	True	True
+SpellingMenu	True	True	True
+SpellingRecheckDocument	True	True	True
+Spike	False	True	False
+SpikeInsert	False	False	False
+SplitButtonQuickCheck	True	True	True
+SplitCells	False	False	True
+StartOfColumn	False	False	True
+StartOfDocument	True	True	True
+StartOfDocumentExtend	True	True	True
+StartOfLine	True	True	True
+StartOfLineExtend	True	True	True
+StartOfRow	False	False	True
+StartOfWindowExtend	True	True	True
+StraightVertex	False	False	False
+Strikethrough	True	True	True
+StyleByExample	True	True	True
+StyleEnforcementSettings	True	True	True
+StyleGalleryClassic	True	True	True
+StyleGalleryDialog	True	True	True
+StyleNormal	True	True	True
+StylesDialogClassic	True	True	True
+StylesManageStyles	True	True	True
+StylesModifyStyle	True	True	True
+StylesPane	True	True	True
+StylesPaneNewStyle	True	True	True
+StylesRedefineStyle	True	True	True
+StylesRenameStyle	True	True	True
+StylesStyleInspector	True	True	True
+StylesStyleSeparator	True	True	True
+StylesStyleVisibility	True	True	True
+StylisticSetsMenuWord	True	True	True
+SubdocumentOpen	False	False	False
+Subscript	True	True	True
+SummaryInformation	True	True	True
+Superscript	True	True	True
+SVGEdit	False	False	False
+SwapAllNotes	False	False	False
+SymbolFont	True	True	True
+SymbolInsertGallery	True	True	True
+SymbolsDialog	True	True	True
+SyntexDocGen	True	True	True
+SyntexEsign	True	True	True
+SyntexSnippets	True	True	True
+SyntexTemplates	True	True	True
+SystemInformation	True	True	True
+Tab3DModelToolsFormat			
+TabAddIns			
+TabBackgroundRemoval			
+TabBlogInsert			
+TabBlogPost			
+TabBroadcastPresentation			
+TabChartToolsDesign			
+TabChartToolsDesignNew			
+TabChartToolsFormat			
+TabChartToolsFormatNew			
+TabChartToolsLayout			
+TabConflicts			
+TabDeveloper			
+TabDiagramToolsFormatClassic			
+TabDrawingToolsFormat			
+TabDrawingToolsFormatClassic			
+TabDrawInk			
+TabEquationToolsDesign			
+TabGraphicsToolsFormat			
+TabHeaderAndFooterToolsDesign			
+TabHelp			
+TabHome			
+TabInfo			
+TabInkToolsPens			
+TabInsert			
+TabLearningTools			
+TableAutoFitContents	False	False	True
+TableAutoFitFixedColumnWidth	False	False	True
+TableAutoFitMenu	False	False	True
+TableAutoFitWindow	False	False	True
+TableAutoFormat	False	False	True
+TableAutoFormatStyle	True	True	True
+TableAutoFormatUpdate	False	False	True
+TableBordersMenu	True	True	True
+TableCellAlignBottom	False	False	True
+TableCellAlignBottomCenter	False	False	True
+TableCellAlignBottomLeft	False	False	True
+TableCellAlignBottomRight	False	False	True
+TableCellAlignCenterVertically	False	False	True
+TableCellAlignMiddleCenter	False	False	True
+TableCellAlignMiddleLeft	False	False	True
+TableCellAlignMiddleRight	False	False	True
+TableCellAlignTop	False	False	True
+TableCellAlignTopCenter	False	False	True
+TableCellAlignTopLeft	False	False	True
+TableCellAlignTopRight	False	False	True
+TableCellHeightWidth	False	False	True
+TableCellNext	False	False	True
+TableCellOptions	False	False	True
+TableCellPrevious	False	False	True
+TableCellVerticalAlignmentMenu	False	False	True
+TableColumnsDelete	False	False	True
+TableColumnsDistribute	False	False	True
+TableColumnSelect	False	False	True
+TableColumnSelectWord	True	True	True
+TableColumnsGallery	True	True	True
+TableColumnsInsertLeft	False	False	True
+TableColumnsInsertRight	False	False	True
+TableColumnWidth	False	False	True
+TableDelete	False	False	True
+TableDeleteRowsAndColumnsMenuWord	False	False	True
+TableDrawBorderPenStyle	True	True	True
+TableDrawBorderPenWeight	True	True	True
+TableDrawTable	True	True	True
+TableEraser	True	True	True
+TableExcelSpreadsheetInsert	True	True	True
+TableFind	True	True	True
+TableFormulaDialog	True	True	True
+TableInsertCellsDialog	False	False	True
+TableInsertDialogWord	True	True	True
+TableInsertGallery	True	False	True
+TableInsertMultidiagonalCell	False	False	False
+TableOfAuthoritiesEditCategory	True	True	True
+TableOfAuthoritiesInsert	True	True	True
+TableOfAuthoritiesUpdate	False	False	False
+TableOfContentsAddTextGallery	True	True	True
+TableOfContentsDialog	True	True	True
+TableOfContentsGallery	True	True	True
+TableOfContentsInFrame	True	True	True
+TableOfContentsMarkEntry	True	True	True
+TableOfContentsRebuild	True	True	True
+TableOfContentsRemove	True	True	True
+TableOfContentsUpdate	True	True	True
+TableOfContentsUpdateClassic	True	True	True
+TableOfFiguresInsert	True	True	True
+TableOfFiguresUpdate	False	False	False
+TableOptionsDialog	False	False	True
+TablePaintBorder	True	True	True
+TablePropertiesDialog	False	False	True
+TableRepeatHeaderRows	False	False	True
+TableRowHeight	False	False	True
+TableRowsDelete	False	False	True
+TableRowsDistribute	False	False	True
+TableRowSelect	False	False	True
+TableRowsInsertAboveWord	False	False	True
+TableRowsInsertBelowWord	False	False	True
+TableRowsInsertWord	False	False	True
+TableRowsOrColumnsDistribute	False	False	False
+TableRowsOrColumnsOrCellsDelete	False	False	True
+TableRowsOrColumnsOrCellsInsert	True	True	True
+TableSampleBorder	True	True	True
+TableSelect	False	False	True
+TableSelectCell	False	False	True
+TableSelectMenu	False	False	True
+TableShowGridlines	True	True	True
+TableSplitTable	False	False	True
+TableStyleBandedColumnsWord	False	False	True
+TableStyleBandedRowsWord	False	False	True
+TableStyleClear	False	False	True
+TableStyleHeaderRowWord	False	False	True
+TableStyleLastColumnWord	False	False	True
+TableStyleModify	False	False	False
+TableStyleOptionsMenu			
+TableStylesFirstColumnWord	False	False	True
+TableStylesGalleryWord	True	True	True
+TableStyleTotalRowWord	False	False	True
+TableWrapping	False	False	True
+TabMailings			
+TabOfficeFeedback			
+TabOfficeStart			
+TabOrganizationChartToolsFormat			
+TabOutlining			
+TabPageLayoutWord			
+TabPictureToolsFormat			
+TabPictureToolsFormatClassic			
+TabPrint			
+TabPrintPreview			
+TabPublish			
+TabRecent			
+TabReferences			
+TabReviewWord			
+TabSave			
+TabsDialog	True	True	True
+TabSet3DModelTools			
+TabSetChartTools			
+TabSetDiagramTools			
+TabSetDrawingTools			
+TabSetDrawingToolsClassic			
+TabSetEquationTools			
+TabSetHeaderAndFooterTools			
+TabSetInkTools			
+TabSetLearningTools			
+TabSetOrganizationChartTools			
+TabSetPictureTools			
+TabSetPictureToolsClassic			
+TabSetSmartArtTools			
+TabSetSVGTools			
+TabSetTableTools			
+TabSetTextBoxTools			
+TabSetWordArtTools			
+TabShare			
+TabSmartArtToolsDesign			
+TabSmartArtToolsFormat			
+TabSyntex			
+TabTableToolsDesign			
+TabTableToolsLayout			
+TabTextBoxToolsFormat			
+TabView			
+TabWordArtToolsFormat			
+TabWordDesign			
+TextAlignCenter	False	False	False
+TextAlignGallery	False	False	False
+TextAlignLeft	False	False	False
+TextAlignLetterJustify	False	False	False
+TextAlignMenu	False	False	False
+TextAlignRight	False	False	False
+TextAlignStretchJustify	False	False	False
+TextAlignWordJustify	False	False	False
+TextAllCaps	True	True	True
+TextBoxAutosize	False	False	False
+TextBoxConvertToFrame	False	False	False
+TextBoxDrawMenu	True	True	True
+TextboxFlyoutMenuAnchor			
+TextBoxInsert	True	True	True
+TextBoxInsertGallery	True	True	True
+TextBoxInsertHorizontal	True	True	True
+TextBoxInsertMenu	True	True	True
+TextBoxInsertVertical	False	False	False
+TextBoxInsertVerticalWord	False	False	False
+TextBoxInsertWord	True	True	True
+TextBoxLinkBreak	False	False	False
+TextBoxLinkCreate	False	False	False
+TextBoxNextLinked	False	False	False
+TextBoxPositionGallery	False	False	False
+TextBoxPreviousLinked	False	False	False
+TextBoxStyleGallery	False	False	False
+TextBoxWordClassic	True	True	True
+TextDirection	False	False	True
+TextDirectionGallery	False	False	True
+TextDirectionGalleryWord	False	False	True
+TextDirectionLeftToRight	True	True	True
+TextDirectionOptionsDialog	False	False	True
+TextDirectionRightToLeft	True	True	True
+TextEditModeExit	False	False	False
+TextEffectGlowGallery	True	True	True
+TextEffects3DRotationGallery	False	False	False
+TextEffects3DRotationOptionsDialog	False	False	False
+TextEffectsBevelMore3DOptionsDialog	True	True	True
+TextEffectsGallery	True	True	True
+TextEffectsGlowsMoreOptions	True	True	True
+TextEffectShadowGallery	True	True	True
+TextEffectsMenu	True	True	True
+TextEffectsMoreShadowsDialog	True	True	True
+TextEffectsReflectionsMoreOptions	True	True	True
+TextEffectTransformGallery	False	False	False
+TextFillColorMoreColorsDialog	True	True	True
+TextFillColorPicker	True	True	True
+TextFillGradientGallery	True	True	True
+TextFillMoreGradientsDialog	True	True	True
+TextFillMoreTextures	False	False	False
+TextFillTextureGallery	False	False	False
+TextFromFileInsert	True	True	True
+TextGlowColorMoreColorsDialog	True	True	True
+TextGlowColorPicker	True	True	True
+TextHighlightColorPicker	True	True	True
+TextOutlineColorMoreColorsDialog	True	True	True
+TextOutlineColorPicker	True	True	True
+TextOutlineColorPickerAlternate	True	True	True
+TextOutlineDashesGallery	True	True	True
+TextOutlineMoreLinesDialog	True	True	True
+TextOutlineWeightGallery	True	True	True
+TextPictureFill	False	False	False
+TextPredictionsFeedback	False	False	False
+TextReflectionGallery	True	True	True
+TextSmallCaps	True	True	True
+TextStylesGallery	True	True	True
+TextToOrFromTable	False	True	True
+TextWrapGallery	False	False	False
+TextWrappingBehindText	False	False	False
+TextWrappingEditWrapPoints	False	False	False
+TextWrappingInFrontOfText	False	False	False
+TextWrappingInLineWithText	False	False	False
+TextWrappingMenu	False	False	False
+TextWrappingNoneClassic	False	False	False
+TextWrappingSquare	False	False	False
+TextWrappingThrough	False	False	False
+TextWrappingTight	False	False	False
+TextWrappingTopAndBottom	False	False	False
+ThemeBrowseForThemes	True	True	True
+ThemeColorsCreateNew	True	True	True
+ThemeColorsGallery	True	True	True
+ThemeEffectsGallery	True	True	True
+ThemeFontsCreateNew	True	True	True
+ThemeFontsGallery	True	True	True
+ThemeResetFromTemplate	True	True	True
+ThemeSaveCurrent	True	True	True
+ThemeSearchOfficeOnline	True	True	True
+ThemesGallery	True	True	True
+Theming			
+Thesaurus	True	True	True
+ThesaurusClassic	True	True	True
+ThirdCorrectionAlternative	False	False	False
+Thumbnails			
+ToggleLearningTools	True	True	True
+ToggleXmlMappingPane	True	True	True
+TrackChangesAdvancedOptions	True	True	True
+TranscribeWord	True	True	True
+Translate	True	True	True
+TranslateDocument	False	False	False
+TranslateMenu	True	True	True
+TranslateToSimplifiedChinese	True	True	True
+TranslateToTraditionalChinese	True	True	True
+TranslationLanguageOptions	False	False	False
+TranslationPane	False	False	False
+TranslatorDocument	True	True	True
+TranslatorLookup	True	True	True
+TranslatorPreferences	True	True	True
+TwoPageMode	True	True	True
+Underline	True	True	True
+UnderlineColorMoreColorsDialog	True	True	True
+UnderlineColorPicker	True	True	True
+UnderlineDotted	True	True	True
+UnderlineDouble	True	True	True
+UnderlineGallery	True	True	True
+UnderlineMoreUnderlinesDialog	True	True	True
+UnderlineWords	True	True	True
+Undo	True	True	True
+UnHang	True	True	True
+UpdateChannel			
+UpdateSource	True	True	True
+UpgradeDocument	False	False	False
+UsagePermissions			
+VerticalPageMovement	True	True	True
+ViewDocumentActionsPane	False	False	False
+ViewDocumentMap	True	True	True
+ViewDraftView	True	True	True
+ViewFocusModeView	True	True	True
+ViewFullScreenReadingView	True	True	True
+ViewFullScreenView	True	True	True
+ViewGridlines	True	True	True
+ViewGridlinesWord	True	True	True
+ViewMasterDocumentViewClassic	True	True	True
+ViewMessageBar	False	False	False
+ViewOnlineLayoutViewClassic	True	True	True
+ViewOutlineView	True	True	True
+ViewPrintLayoutView	True	True	True
+ViewRulerWord	True	True	True
+ViewThumbnails	True	True	True
+ViewVisualBasicCode	False	False	False
+ViewWebLayoutView	True	True	True
+VisualBasic	True	True	True
+VoiceInsert	False	False	False
+VoiceInsertInComment	False	False	False
+WatermarkCustomDialog	True	True	True
+WatermarkGallery	True	True	True
+WatermarkRemove	True	True	True
+WebComponent	False	False	False
+WebDesignMode	True	True	True
+WebGoBack	False	False	False
+WebGoForward	False	False	False
+WebOpenInNewWindow	False	False	False
+WebOptionsDialog	True	True	True
+WebPagePreview	True	True	True
+WhatsNewRecentUpdates	True	True	True
+WhiteSpaceBetweenPagesShowHide	True	True	True
+WhoIs	True	True	False
+WindowClose	False	False	False
+WindowMaximizeAll	True	True	True
+WindowMinimize	False	False	False
+WindowMinimizeAll	True	True	True
+WindowMoreWindowsDialog	True	True	True
+WindowMove	False	False	False
+WindowMoveAll	False	False	False
+WindowNew	True	True	True
+WindowNext	True	True	True
+WindowOtherPane	True	True	True
+WindowPrevious	True	True	True
+WindowResetPosition	False	False	False
+WindowRestore	False	False	False
+WindowRestoreAll	True	True	True
+WindowsArrangeAll	True	True	True
+WindowSideBySide	False	False	False
+WindowSideBySideSynchronousScrolling	False	False	False
+WindowSize	False	False	False
+WindowSizeAll	False	False	False
+WindowSplit	True	True	True
+WindowSwitchWindowsMenuWord	True	True	True
+WordArtChangeShapeGallery	False	False	False
+WordArtClear	True	True	True
+WordArtEditTextClassic	False	False	False
+WordArtEvenTextHeightClassic	False	False	False
+WordArtFormatDialog	True	True	True
+WordArtInsertDialogClassic	False	False	False
+WordArtInsertGallery	True	True	True
+WordArtInsertGalleryClassic	False	False	False
+WordArtSpacingKernCharacterPairs	False	False	False
+WordArtSpacingLoose	False	False	False
+WordArtSpacingMenu	False	False	False
+WordArtSpacingNormal	False	False	False
+WordArtSpacingTight	False	False	False
+WordArtSpacingVeryLoose	False	False	False
+WordArtSpacingVeryTight	False	False	False
+WordArtStylesGalleryClassic	False	False	False
+WordArtVerticalText	False	False	False
+WordCount	True	True	True
+WordCountRecount	True	True	True
+WordLeft	True	True	True
+WordLeftExtend	True	True	True
+WordPicture	False	False	False
+WordRight	True	True	True
+WordRightExtend	True	True	True
+Workflow			
+WorkflowStart			
+WorkflowsUnavailable			
+WritingAssistanceCheckDocument	True	True	True
+XmlExpansionPacksWord	True	True	True
+XmlOptionsDialog	True	True	True
+XmlSchema	True	True	True
+XmlStructure	True	True	True
+XmlToggleTagView	True	True	True
+XmlTransformation	False	False	False
+XmlViewStructure	True	True	True
+Zoom100	True	True	True
+Zoom200	True	True	True
+Zoom75	True	True	True
+ZoomClassic	True	True	True
+ZoomCurrent100	True	True	True
+ZoomDialog	True	True	True
+ZoomIn	True	True	True
+ZoomOnePage	True	True	True
+ZoomOut	True	True	True
+ZoomPageWidth	True	True	True
+ZoomTwoPages	True	True	True

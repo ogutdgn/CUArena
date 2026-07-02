@@ -1,0 +1,1280 @@
+{
+  "_comment": "Task descriptor list. Each task = one minimal action compared clone-vs-real-Word. The runner derives file paths by convention: probe=parity/probes/<id>-pilot-probe.js, com=parity/ground-truth/realword_<id>.ps1, fixtures=parity/fixtures/{wc,rw}-<id>.docx. realword_method: 'com' (scriptable, COM==ribbon) or 'vsto' (gallery/style action where COM != ribbon -> needs real UI capture). Run a tier batch with: python parity/engines/run.py --tier T0 --capture (Word closed).",
+  "_flow_verifier_candidates": {
+    "_note": "T0 clipboard/flow controls with NO clean single-action OOXML delta — DEFERRED to the UI-flow verifier, NOT the OOXML diff (would block/pollute the batch).",
+    "items": [
+      {
+        "id": "copy",
+        "control_id": "home.clipboard.copy",
+        "why": "Copy produces NO document delta (clipboard only)."
+      },
+      {
+        "id": "cut",
+        "control_id": "home.clipboard.cut",
+        "why": "Needs a selection precondition; the delta is a deletion, not an additive feature."
+      },
+      {
+        "id": "paste",
+        "control_id": "home.clipboard.paste",
+        "why": "Needs a clipboard precondition; output depends on clipboard contents/paste-mode."
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "id": "bold",
+      "control_id": "home.font.bold",
+      "feature": "Bold",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, toggle bold",
+      "realword_method": "com",
+      "note": "Bold mark on a run. COM == ribbon."
+    },
+    {
+      "id": "italic",
+      "control_id": "home.font.italic",
+      "feature": "Italic",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, toggle italic",
+      "realword_method": "com",
+      "note": "Italic mark on a run. COM == ribbon."
+    },
+    {
+      "id": "underline",
+      "control_id": "home.font.underline",
+      "feature": "Underline",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, apply single underline",
+      "realword_method": "com",
+      "note": "Single underline (w:u w:val=single). COM Font.Underline=1 == ribbon."
+    },
+    {
+      "id": "fontface",
+      "control_id": "home.font.font",
+      "feature": "Font",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, set font family to Arial",
+      "realword_method": "com",
+      "note": "Font family (w:rFonts ascii/hAnsi=Arial). COM Font.Name == ribbon font picker."
+    },
+    {
+      "id": "fontsize",
+      "control_id": "home.font.font-size",
+      "feature": "Font Size",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "select a word, set font size to 14pt",
+      "realword_method": "com",
+      "note": "Font size (w:sz w:val=28 half-points). COM Font.Size == ribbon size box."
+    },
+    {
+      "id": "bullets",
+      "control_id": "home.paragraph.bullets",
+      "feature": "Bullets",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "apply a default bullet list to the paragraph",
+      "realword_method": "com",
+      "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyBulletDefault() writes a singleLevel abstractNum while the ribbon Bullets button (and the clone) write a multilevel one, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
+    },
+    {
+      "id": "alignleft",
+      "control_id": "home.paragraph.align-left",
+      "feature": "Align Left",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "set paragraph alignment to left",
+      "realword_method": "com",
+      "note": "Left is Word's DEFAULT alignment, so Word may emit NO explicit w:jc — a clone that emits jc=left over-emits (real signal)."
+    },
+    {
+      "id": "center",
+      "control_id": "home.paragraph.center",
+      "feature": "Center",
+      "tab": "Home",
+      "usage_tier": "T0",
+      "action": "set paragraph alignment to center",
+      "realword_method": "com",
+      "note": "Center alignment (w:jc w:val=center). COM ParagraphFormat.Alignment=1 == ribbon."
+    },
+    {
+      "id": "fontcolor",
+      "control_id": "home.font.font-color",
+      "feature": "Font Color",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "select a word, set font color to red",
+      "realword_method": "com",
+      "note": "Font color (w:color w:val=FF0000). COM Font.Color=255 == ribbon Font Color."
+    },
+    {
+      "id": "highlight",
+      "control_id": "home.font.text-highlight-color",
+      "feature": "Text Highlight Color",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "select a word, apply yellow highlight",
+      "realword_method": "com",
+      "note": "WARNING (COM != ribbon, adversarial-review-confirmed): COM HighlightColorIndex stamps the highlight on the PARAGRAPH-MARK rPr too; the ribbon Highlighter on a word selection does NOT (proven: bold via the same Range(0,7) emits no para-mark rPr and is 0/0). So the 3 'missing' (pPr/rPr/highlight) are a COM-method ground-truth artifact — the clone's run-level w:highlight is FAITHFUL; REAL ribbon parity = 0/0. Recapture via vsto/UIA to confirm."
+    },
+    {
+      "id": "numbering",
+      "control_id": "home.paragraph.numbering",
+      "feature": "Numbering",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "apply a default numbered list to the paragraph",
+      "realword_method": "com",
+      "note": "WARNING (COM != ribbon): numbering.xml IS now diffed, and the large numbering.xml delta is a COM-method ARTIFACT — COM ListFormat.ApplyNumberDefault() writes a singleLevel (1-level) abstractNum, but the ribbon Numbering button (and the clone) write a multilevel definition, so the clone's extra levels read as 'extra' even though the clone is MORE ribbon-faithful than this COM ground truth. A TRUE numbering.xml comparison needs a vsto/UIA ribbon capture. The document.xml ground truth (numPr + pStyle ListParagraph) IS faithful — and the document.xml gap (missing pStyle ListParagraph + numPr child order) is now FIXED by feature 023, so the BODY is at parity; the remaining diff is PURELY the numbering.xml COM-artifact."
+    },
+    {
+      "id": "justify",
+      "control_id": "home.paragraph.justify",
+      "feature": "Justify",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "set paragraph alignment to justified",
+      "realword_method": "com",
+      "note": "Justify (w:jc w:val=both). COM ParagraphFormat.Alignment=3 (wdAlignParagraphJustify) == ribbon."
+    },
+    {
+      "id": "linespacing",
+      "control_id": "home.paragraph.line-and-paragraph-spacing",
+      "feature": "Line & Paragraph Spacing",
+      "tab": "Home",
+      "usage_tier": "T1",
+      "action": "set line spacing to 2.0 (double) on the paragraph",
+      "realword_method": "com",
+      "note": "Line spacing 2.0 (w:spacing w:line=480 w:lineRule=auto). COM ParagraphFormat.LineSpacingRule=2 (wdLineSpaceDouble) == ribbon."
+    },
+    {
+      "id": "ul-single",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline single",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline single",
+      "realword_method": "com",
+      "note": "w:u w:val=single. Same as the main 'underline' task; kept as the variation baseline."
+    },
+    {
+      "id": "ul-double",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline double",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline double",
+      "realword_method": "com",
+      "note": "w:u w:val=double."
+    },
+    {
+      "id": "ul-dotted",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline dotted",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline dotted",
+      "realword_method": "com",
+      "note": "w:u w:val=dotted."
+    },
+    {
+      "id": "ul-dashed",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline dashed",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline dashed",
+      "realword_method": "com",
+      "note": "w:u w:val=dash."
+    },
+    {
+      "id": "ul-wavy",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline wavy",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline wavy",
+      "realword_method": "com",
+      "note": "w:u w:val=wave."
+    },
+    {
+      "id": "ul-words",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Underline words-only",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Underline words-only",
+      "realword_method": "com",
+      "note": "w:u w:val=words (underline words, not spaces)."
+    },
+    {
+      "id": "sz-10p5",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Font size 10.5",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Font size 10.5",
+      "realword_method": "com",
+      "note": "Fractional size → w:sz w:val=21 (10.5pt x2)."
+    },
+    {
+      "id": "sz-8",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Font size 8",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Font size 8",
+      "realword_method": "com",
+      "note": "Small size → w:sz w:val=16."
+    },
+    {
+      "id": "sz-72",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Font size 72",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Font size 72",
+      "realword_method": "com",
+      "note": "Large size → w:sz w:val=144."
+    },
+    {
+      "id": "ls-1p0",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Line spacing 1.0",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Line spacing 1.0",
+      "realword_method": "com",
+      "note": "Single → w:spacing w:line=240 w:lineRule=auto. COM wdLineSpaceSingle=0."
+    },
+    {
+      "id": "ls-1p5",
+      "control_id": "home.font/paragraph.variation",
+      "feature": "Line spacing 1.5",
+      "tab": "Home",
+      "usage_tier": "TV",
+      "action": "variation: Line spacing 1.5",
+      "realword_method": "com",
+      "note": "1.5 lines → w:spacing w:line=360 w:lineRule=auto. COM wdLineSpace1pt5=1."
+    },
+    {
+      "id": "fd-strike",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Strikethrough",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Strikethrough",
+      "realword_method": "com",
+      "note": "w:strike. Dialog Effects checkbox."
+    },
+    {
+      "id": "fd-underline-color",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Underline color",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Underline color",
+      "realword_method": "com",
+      "note": "w:u w:val=single w:color=FF0000. NOT IN DIALOG (Word has an Underline-color dropdown the clone omits) — driveable via bridge."
+    },
+    {
+      "id": "fd-superscript",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Superscript",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Superscript",
+      "realword_method": "com",
+      "note": "w:vertAlign w:val=superscript. Dialog Effects checkbox."
+    },
+    {
+      "id": "fd-subscript",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Subscript",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Subscript",
+      "realword_method": "com",
+      "note": "w:vertAlign w:val=subscript. Dialog Effects checkbox."
+    },
+    {
+      "id": "fd-allcaps",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: All caps",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: All caps",
+      "realword_method": "com",
+      "note": "w:caps. Dialog Effects checkbox (advFxAttrs)."
+    },
+    {
+      "id": "fd-smallcaps",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Small caps",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog: Small caps",
+      "realword_method": "com",
+      "note": "w:smallCaps. 015 owned AdvancedFontEffects attr."
+    },
+    {
+      "id": "fd-spacing",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Character spacing",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Character spacing",
+      "realword_method": "com",
+      "note": "Expanded by 1pt -> w:spacing w:val=20 (twentieths). VERIFY pt->twips export."
+    },
+    {
+      "id": "fd-scale",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Character scale",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Character scale",
+      "realword_method": "com",
+      "note": "150% -> w:w w:val=150 (percent). 015 owned attr."
+    },
+    {
+      "id": "fd-position",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Character position",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Character position",
+      "realword_method": "com",
+      "note": "Raised 3pt -> w:position w:val=6 (half-points). VERIFY pt->half-point export."
+    },
+    {
+      "id": "fd-ligatures",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Ligatures (OpenType)",
+      "tab": "Home",
+      "usage_tier": "FD",
+      "action": "Font dialog (Advanced): Ligatures (OpenType)",
+      "realword_method": "com",
+      "note": "Standard ligatures -> w14:ligatures. NOT IN DIALOG (Word's Advanced tab has a Ligatures dropdown the clone omits)."
+    },
+    {
+      "id": "fd-indent-left",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Indent left",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Indent left",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:left=720."
+    },
+    {
+      "id": "fd-indent-right",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Indent right",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Indent right",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:right=720."
+    },
+    {
+      "id": "fd-indent-firstline",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: First-line indent",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: First-line indent",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:firstLine=720."
+    },
+    {
+      "id": "fd-indent-hanging",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Hanging indent",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Hanging indent",
+      "realword_method": "com",
+      "note": "0.5in -> w:ind w:hanging=720. COM encodes hanging as NEGATIVE FirstLineIndent + may add a paired w:left."
+    },
+    {
+      "id": "fd-spacing-before",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Spacing before",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Spacing before",
+      "realword_method": "com",
+      "note": "12pt -> w:spacing w:before=240. COM may add *Auto flags."
+    },
+    {
+      "id": "fd-spacing-after",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Spacing after",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Spacing after",
+      "realword_method": "com",
+      "note": "8pt -> w:spacing w:after=160."
+    },
+    {
+      "id": "fd-ls-atleast",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Line spacing At least",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Line spacing At least",
+      "realword_method": "com",
+      "note": "At least 12pt -> w:spacing w:line=240 w:lineRule=atLeast. Folds a deferred variation."
+    },
+    {
+      "id": "fd-ls-exactly",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Line spacing Exactly",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Line spacing Exactly",
+      "realword_method": "com",
+      "note": "Exactly 12pt -> w:spacing w:line=240 w:lineRule=exact (COM wdLineSpaceExactly). Folds a deferred variation."
+    },
+    {
+      "id": "fd-ls-multiple",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Line spacing Multiple",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Line spacing Multiple",
+      "realword_method": "com",
+      "note": "Multiple 1.15 -> w:spacing w:line=276 w:lineRule=auto. ARTIFACT: 'Multiple' has no distinct OOXML marker (== auto-multiple)."
+    },
+    {
+      "id": "fd-pag-widow",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Widow/Orphan control off",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Widow/Orphan control off",
+      "realword_method": "com",
+      "note": "w:widowControl w:val=0. NOT IN DIALOG (016 adds the Line-and-Page-Breaks tab) — driveable now."
+    },
+    {
+      "id": "fd-pag-keepnext",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Keep with next",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Keep with next",
+      "realword_method": "com",
+      "note": "w:keepNext. NOT IN DIALOG (016)."
+    },
+    {
+      "id": "fd-pag-keeplines",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Keep lines together",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Keep lines together",
+      "realword_method": "com",
+      "note": "w:keepLines (COM .KeepTogether == OOXML keepLines). NOT IN DIALOG (016)."
+    },
+    {
+      "id": "fd-pag-pagebreak",
+      "control_id": "home.paragraph.dialog",
+      "feature": "Paragraph dialog: Page break before",
+      "tab": "Home",
+      "usage_tier": "PD",
+      "action": "Paragraph dialog: Page break before",
+      "realword_method": "com",
+      "note": "w:pageBreakBefore. NOT IN DIALOG (016)."
+    },
+    {
+      "id": "fd-fontcolor-custom",
+      "control_id": "home.font.color-dialog",
+      "feature": "Font color: custom RGB (More Colors)",
+      "tab": "Home",
+      "usage_tier": "CD",
+      "action": "Font color: custom RGB (More Colors)",
+      "realword_method": "com",
+      "note": "Custom #3A7BD5 -> w:color w:val=3A7BD5. Normalize hex case before diff."
+    },
+    {
+      "id": "fd-fontcolor-theme",
+      "control_id": "home.font.color-dialog",
+      "feature": "Font color: THEME color (Accent 1)",
+      "tab": "Home",
+      "usage_tier": "CD",
+      "action": "Font color: THEME color (Accent 1)",
+      "realword_method": "com",
+      "note": "THEME GAP: Word writes w:color w:val=156082 w:themeColor=accent1; the clone is sRGB-only (no w:themeColor). Expect a 'missing themeColor' delta = real fidelity gap."
+    },
+    {
+      "id": "fd-replace-all",
+      "control_id": "home.editing.find-replace",
+      "feature": "Find/Replace: Replace All (Revenue->Income)",
+      "tab": "Home",
+      "usage_tier": "RD",
+      "action": "Find/Replace: Replace All (Revenue->Income)",
+      "realword_method": "com",
+      "note": "Text-only delta: <w:t>Revenue</w:t> -> <w:t>Income</w:t>, run rPr preserved. Expect 0/0."
+    },
+    {
+      "id": "fd-link",
+      "control_id": "insert/layout.dialog",
+      "feature": "Insert Hyperlink (text + address)",
+      "tab": "Insert",
+      "usage_tier": "ID",
+      "action": "Insert Hyperlink (text + address)",
+      "realword_method": "com",
+      "note": "w:hyperlink r:id + rels Target. COM!=ribbon FIDELITY: clone uses a DIRECT w:u/color; Word applies the Hyperlink CHARACTER STYLE (w:rStyle Hyperlink). rId differs (match by Target)."
+    },
+    {
+      "id": "fd-margin-top",
+      "control_id": "insert/layout.dialog",
+      "feature": "Page Setup: Top margin 1.25in",
+      "tab": "Insert",
+      "usage_tier": "ID",
+      "action": "Page Setup: Top margin 1.25in",
+      "realword_method": "com",
+      "note": "1.25in -> w:pgMar w:top=1800 (others default 1in=1440). DIALOG LIMITATION: the Custom Margins dialog is a single uniform field — top not independently settable via the dialog."
+    },
+    {
+      "id": "fd-margin-left",
+      "control_id": "insert/layout.dialog",
+      "feature": "Page Setup: Left margin 1.5in",
+      "tab": "Insert",
+      "usage_tier": "ID",
+      "action": "Page Setup: Left margin 1.5in",
+      "realword_method": "com",
+      "note": "1.5in -> w:pgMar w:left=2160 (others 1440). Same single-uniform-field dialog limitation."
+    },
+    {
+      "id": "fd-double-strike",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Double strikethrough",
+      "tab": "Home",
+      "usage_tier": "G3",
+      "action": "Font dialog: Double strikethrough",
+      "realword_method": "com",
+      "note": "w:dstrike (spec 026 FIXED)."
+    },
+    {
+      "id": "fd-hidden",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog: Hidden",
+      "tab": "Home",
+      "usage_tier": "G3",
+      "action": "Font dialog: Hidden",
+      "realword_method": "com",
+      "note": "w:vanish (spec 026 FIXED)."
+    },
+    {
+      "id": "fd-kerning",
+      "control_id": "home.font.dialog",
+      "feature": "Font dialog (Advanced): Kerning >= 8pt",
+      "tab": "Home",
+      "usage_tier": "G3",
+      "action": "Font dialog (Advanced): Kerning >= 8pt",
+      "realword_method": "com",
+      "note": "Kerning threshold 8pt -> w:kern w:val=16 (half-points). spec 026 FIXED."
+    },
+    {
+      "id": "pagenum",
+      "control_id": "insert.header-footer.pageNumber",
+      "feature": "Page Number",
+      "tab": "Insert",
+      "usage_tier": "T1",
+      "action": "insert a bottom page-number PAGE field",
+      "realword_method": "com",
+      "note": "PAGE field in footer. Field shape, lands in footer part. (T1 pilot — kept for reference.)"
+    },
+    {
+      "id": "table",
+      "control_id": "insert.tables.table",
+      "feature": "Insert Table",
+      "tab": "Insert",
+      "usage_tier": "T1",
+      "action": "insert a plain 3x3 table",
+      "realword_method": "com",
+      "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session. (T1 pilot — kept for reference.)"
+    },
+    {
+      "id": "tb-insert-dialog",
+      "control_id": "insert.tables.table.dialog",
+      "feature": "Insert Table dialog: 3x4, fixed width",
+      "action": "Insert Table dialog: 3x4, fixed width",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Dialog path = same PM.insertTable verb; non-square grid. Word: Tables.Add 3 rows x 4 cols + Table Grid."
+    },
+    {
+      "id": "tb-convert-text-table",
+      "control_id": "insert.tables.table.converttext",
+      "feature": "Convert Text to Table (commas)",
+      "action": "Convert Text to Table (commas)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone dialog auto-picks comma when no tabs; PM.textToTable(','). Word: Selection.ConvertToTable(wdSeparateByCommas=2), dialog defaults."
+    },
+    {
+      "id": "tb-quicktable-calendar",
+      "control_id": "insert.tables.table.quicktables",
+      "feature": "Quick Tables: Calendar",
+      "action": "Quick Tables: Calendar",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone Quick Tables 'Calendar' = plain 6x7 grid (fake preset). Word: 'Calendar 1' building block. LoadBuildingBlocks may be needed; if the entry is missing the capture fails honestly."
+    },
+    {
+      "id": "tb-style-grid4a1",
+      "control_id": "table-design.styles.gallery",
+      "feature": "Table Styles gallery: apply Grid Table 4 Accent 1",
+      "action": "Table Styles gallery: apply Grid Table 4 Accent 1",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "The ONE modern style the clone gallery has. Word stamps tblStyle + per-row/cell cnfStyle; expect the cnfStyle gap here."
+    },
+    {
+      "id": "tb-style-listtable3",
+      "control_id": "table-design.styles.gallery",
+      "feature": "Table Styles gallery: apply List Table 3",
+      "action": "Table Styles gallery: apply List Table 3",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "NOT in the clone's 2-style gallery -> honest no-op (the 2/247 gap, OOXML leg). Word: Style='List Table 3'."
+    },
+    {
+      "id": "tb-styleopt-headerrow-off",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Header Row OFF",
+      "action": "Table Style Options: Header Row OFF",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleHeadingRows = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('headerRow', false) via the Table Style Options checkbox (spec 031)."
+    },
+    {
+      "id": "tb-styleopt-totalrow-on",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Total Row ON",
+      "action": "Table Style Options: Total Row ON",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleLastRow = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('totalRow', true) via the Table Style Options checkbox (spec 031)."
+    },
+    {
+      "id": "tb-styleopt-bandedrows-off",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Banded Rows OFF",
+      "action": "Table Style Options: Banded Rows OFF",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleRowBands = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('bandedRows', false) via the Table Style Options checkbox (spec 031)."
+    },
+    {
+      "id": "tb-styleopt-firstcol-off",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: First Column OFF",
+      "action": "Table Style Options: First Column OFF",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleFirstColumn = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('firstColumn', false) via the Table Style Options checkbox (spec 031)."
+    },
+    {
+      "id": "tb-styleopt-lastcol-on",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Last Column ON",
+      "action": "Table Style Options: Last Column ON",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleLastColumn = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('lastColumn', true) via the Table Style Options checkbox (spec 031)."
+    },
+    {
+      "id": "tb-styleopt-bandedcols-on",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Banded Columns ON",
+      "action": "Table Style Options: Banded Columns ON",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleColumnBands = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('bandedColumns', true) via the Table Style Options checkbox (spec 031)."
+    },
+    {
+      "id": "tb-shading-cell",
+      "control_id": "table-design.styles.shading",
+      "feature": "Shading: fill caret cell #FFF2CC",
+      "action": "Shading: fill caret cell #FFF2CC",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone swatch 1 (#FFF2CC) via tableSetCellShading. Word: BackgroundPatternColor BGR 13431551. Expect the shd val=clear/color=auto attr gap."
+    },
+    {
+      "id": "tb-borders-all-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: All Borders on caret cell",
+      "action": "Borders: All Borders on caret cell",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone 'All Borders' item (032 dropdown) → H.tblBordersApply top/bottom/left/right with the default pen (auto, sz4). Word: caret in cell + ExecuteMso BordersAll. NOTE: on a TableGrid table both write single/auto/4 borders that MATCH the style default — Word absorbs them (no tcBorders); the clone writes them explicit → an 'extra' fidelity note (D1.2 pass-with-note class), not a functional gap."
+    },
+    {
+      "id": "tb-borders-none-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: No Border on caret cell",
+      "action": "Borders: No Border on caret cell",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone 'No Border' (032): H.tblBordersApply writes explicit per-side val=nil (all six sides). Word: ExecuteMso BorderNone → per-side w:val=nil."
+    },
+    {
+      "id": "tb-border-top-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: Top Border only (caret cell)",
+      "action": "Borders: Top Border only (caret cell)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone 'Top Border' (032 per-edge, merged): H.tblBordersApply({top: pen}). Word: Cell.Borders(wdBorderTop=-1).LineStyle=single."
+    },
+    {
+      "id": "tb-border-diagdown-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: Diagonal Down (cell 2,2)",
+      "action": "Borders: Diagonal Down (cell 2,2)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone 'Diagonal Down Border' (032): H.tblBordersApply({tl2br: pen}). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br."
+    },
+    {
+      "id": "tb-border-weight-3pt",
+      "control_id": "table-design.borders.penweight",
+      "feature": "Border pen weight 3pt (top edge)",
+      "action": "Border pen weight 3pt (top edge)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 032 T4: the Pen Weight control (H.tblLineWeight) sets tblPen.size; the Borders dropdown then draws with it. The pen-then-draw result is a top border at w:sz=24 (3pt = 24 eighth-points) — the probe drives that end state directly via H.tblBordersApply with an explicit sz=24 pen. Word: LineWidth=wdLineWidth300pt(24) -> w:sz=24."
+    },
+    {
+      "id": "tb-border-color-red",
+      "control_id": "table-design.borders.pencolor",
+      "feature": "Border pen color red (top edge)",
+      "action": "Border pen color red (top edge)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 032 T4: the Pen Color control (H.tblPenColor) sets tblPen.color; the Borders dropdown draws with it. The pen-then-draw result is a top border at w:color=FF0000 — the probe drives that end state directly via H.tblBordersApply with an explicit red pen. Word: Border.Color=RGB red -> w:color=FF0000."
+    },
+    {
+      "id": "tb-insert-above",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Above",
+      "action": "Rows & Columns: Insert Above",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddRow('above'); Word ExecuteMso TableRowsInsertAboveWord with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-below",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Below",
+      "action": "Rows & Columns: Insert Below",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddRow('below'); Word ExecuteMso TableRowsInsertBelowWord with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-left",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Left",
+      "action": "Rows & Columns: Insert Left",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddColumn('left'); Word ExecuteMso TableColumnsInsertLeft with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-right",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Right",
+      "action": "Rows & Columns: Insert Right",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddColumn('right'); Word ExecuteMso TableColumnsInsertRight with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-cells-right",
+      "control_id": "table-layout.rowscols.launcher",
+      "feature": "Insert Cells: shift cells right",
+      "action": "Insert Cells: shift cells right",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no Insert Cells... launcher/dialog (KNOWN GAP #4). Word: Selection.InsertCells(wdInsertCellsShiftRight=0)."
+    },
+    {
+      "id": "tb-delete-row",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Row (row 1)",
+      "action": "Delete Row (row 1)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDeleteRow on caret row. Word: Rows(1).Delete."
+    },
+    {
+      "id": "tb-delete-col",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Column (col 1)",
+      "action": "Delete Column (col 1)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDeleteColumn on caret col. Word: Columns(1).Delete."
+    },
+    {
+      "id": "tb-delete-table",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Table",
+      "action": "Delete Table",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Both sides insert then delete -> near-blank doc. Expected genuine-pass candidate."
+    },
+    {
+      "id": "tb-delete-cells-up",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Cells: shift cells up (cell 2,2)",
+      "action": "Delete Cells: shift cells up (cell 2,2)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no Delete Cells... dialog (flat delete buttons only). Word: Selection.Cells.Delete(wdDeleteCellsShiftUp=1)."
+    },
+    {
+      "id": "tb-merge-firstrow2",
+      "control_id": "table-layout.merge",
+      "feature": "Merge Cells: first two cells of row 1",
+      "action": "Merge Cells: first two cells of row 1",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone: tableSelectFirstRowPair + tableMerge -> gridSpan=2. Word: select cells(1,1..2) + Cells.Merge."
+    },
+    {
+      "id": "tb-split-cell",
+      "control_id": "table-layout.merge",
+      "feature": "Split Cells: 1 unmerged cell into 2 columns",
+      "action": "Split Cells: 1 unmerged cell into 2 columns",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSplitCell works only on merged cells (no rows/cols dialog) -> expected no-op on a plain cell. Word: Cell(1,1).Split(1,2)."
+    },
+    {
+      "id": "tb-split-table",
+      "control_id": "table-layout.merge",
+      "feature": "Split Table at row 2",
+      "action": "Split Table at row 2",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Caret in row 2 both sides. Clone tableSplit (splitTableAtRow); Word Selection.SplitTable."
+    },
+    {
+      "id": "tb-autofit-contents",
+      "control_id": "table-layout.cellsize.autofit",
+      "feature": "AutoFit: AutoFit Contents",
+      "action": "AutoFit: AutoFit Contents",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableAutoFit('contents'); Word $tbl.AutoFitBehavior(1)."
+    },
+    {
+      "id": "tb-autofit-window",
+      "control_id": "table-layout.cellsize.autofit",
+      "feature": "AutoFit: AutoFit Window",
+      "action": "AutoFit: AutoFit Window",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableAutoFit('window'); Word $tbl.AutoFitBehavior(2)."
+    },
+    {
+      "id": "tb-autofit-fixed",
+      "control_id": "table-layout.cellsize.autofit",
+      "feature": "AutoFit: Fixed Column Width",
+      "action": "AutoFit: Fixed Column Width",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableAutoFit('fixed'); Word $tbl.AutoFitBehavior(0)."
+    },
+    {
+      "id": "tb-dist-rows",
+      "control_id": "table-layout.cellsize",
+      "feature": "Distribute Rows",
+      "action": "Distribute Rows",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDistributeRows; Word select table + Cells.DistributeHeight."
+    },
+    {
+      "id": "tb-dist-cols",
+      "control_id": "table-layout.cellsize",
+      "feature": "Distribute Columns",
+      "action": "Distribute Columns",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDistributeColumns; Word select table + Cells.DistributeWidth."
+    },
+    {
+      "id": "tb-rowheight-05in",
+      "control_id": "table-layout.cellsize.height",
+      "feature": "Row Height 0.5 inch (caret row)",
+      "action": "Row Height 0.5 inch (caret row)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetRowHeight(48px,'atLeast') (H.tblRowHeight's exact call for 0.5in). Word: Rows(1) HeightRule=atLeast, Height=36pt."
+    },
+    {
+      "id": "tb-colwidth-15in",
+      "control_id": "table-layout.cellsize.width",
+      "feature": "Column Width 1.5 inch (caret column)",
+      "action": "Column Width 1.5 inch (caret column)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetCellWidth(144px) -- note: sets the CELL width; Word Width: sets the whole COLUMN (108pt). Semantic scope difference expected."
+    },
+    {
+      "id": "tb-cellalign-bottomright",
+      "control_id": "table-layout.alignment",
+      "feature": "Alignment: Align Bottom Right (caret cell)",
+      "action": "Alignment: Align Bottom Right (caret cell)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 033: Word 9-way = vAlign bottom + paragraph jc right. Clone now has the 9-way grid -> tableSetCellAlign('bottom','right') writes BOTH (w:vAlign bottom + w:jc right). Reachable."
+    },
+    {
+      "id": "tb-textdir",
+      "control_id": "table-layout.alignment.textdir",
+      "feature": "Text Direction: first click (caret cell)",
+      "action": "Text Direction: first click (caret cell)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 033: Clone H.tblTextDir cycles horizontal->tbRl->btLr; the FIRST click on an un-rotated cell = tbRl (matches Word's first click = rotate 90, wdTextOrientationDownward=3). Later clicks (btLr) are BEHAVIOR territory."
+    },
+    {
+      "id": "tb-cellmargins",
+      "control_id": "table-layout.alignment.cellmargins",
+      "feature": "Cell Margins 0.25in all sides",
+      "action": "Cell Margins 0.25in all sides",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 033: Word Cell Margins (Table Options) sets TABLE-level default cell margins -> w:tblPr/w:tblCellMar. Clone now writes tableSetTableCellMargins (360 dxa = 0.25in all sides). Matches Word's scope."
+    },
+    {
+      "id": "tb-sort-col1",
+      "control_id": "table-layout.data.sort",
+      "feature": "Sort: table rows by column 1 ascending",
+      "action": "Sort: table rows by column 1 ascending",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 033 PART B: Clone now has table Sort (WC.Dialogs.tableSort -> WC.PM.tableSort). Fill c/b/a down column 0, sort col 0 asc with hasHeader=true (Word's SortAscending() auto-detects the header row -> pins row 1 'c' and sorts rows 2-3 b/a -> a/b). Result textOrder = c,a,b, matching rw-tb-sort-col1. Doubles as the differ order-sensitivity canary (textOrder)."
+    },
+    {
+      "id": "tb-repeatheader",
+      "control_id": "table-layout.data.repeatheader",
+      "feature": "Repeat Header Rows (row 1)",
+      "action": "Repeat Header Rows (row 1)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 033: Clone Repeat Header Rows writes the caret row's w:trPr/w:tblHeader (tableRepeatHeaderRows(true)) -- Word's real semantics (Rows(1).HeadingFormat=true), NOT the old <th> conversion."
+    },
+    {
+      "id": "tb-totext-tab",
+      "control_id": "table-layout.data.totext",
+      "feature": "Convert to Text (tabs)",
+      "action": "Convert to Text (tabs)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableToText('\\t') (H.tblToText's exact call). Word ConvertToText(wdSeparateByTabs=1). Expected genuine-pass candidate."
+    },
+    {
+      "id": "tb-totext-comma",
+      "control_id": "table-layout.data.totext",
+      "feature": "Convert to Text (commas)",
+      "action": "Convert to Text (commas)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Spec 033 PART B: Clone now has a separator dialog (WC.Dialogs.convertToText) — picking Commas calls WC.PM.tableToText(','), the exact call the dialog's OK makes. Word: ConvertToText(wdSeparateByCommas=2). Reachable now."
+    },
+    {
+      "id": "tb-align-center",
+      "control_id": "table-design.align",
+      "feature": "Table alignment: center",
+      "action": "Table alignment: center",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetAlignment('center') (w:jc). Word Rows.Alignment=wdAlignRowsCenter(1). Expected genuine-pass candidate. (Word keeps this in Properties, not on Design -- STRUCTURE flags the extra group.)"
+    },
+    {
+      "id": "tb-indent-05in",
+      "control_id": "table-design.align.indent",
+      "feature": "Table indent from left: 0.5 inch",
+      "action": "Table indent from left: 0.5 inch",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetIndent(48px) (w:tblInd). Word Rows.LeftIndent=36pt."
+    },
+    {
+      "id": "tb-float-around",
+      "control_id": "table-layout.properties.wrap",
+      "feature": "Floating table: text wrapping Around",
+      "action": "Floating table: text wrapping Around",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no floating-table authoring (Group E representative). Word: Rows.WrapAroundText=true -> w:tblpPr."
+    },
+    {
+      "id": "tb-combo-diag-merged",
+      "control_id": "table-design.styles.borders",
+      "feature": "COMBO: diagonal border on a merged cell",
+      "action": "COMBO: diagonal border on a merged cell",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "The rubric D1.3 example combination. Clone: merge works, diagonal unreachable -> partial gap. Word: merge cells(1,1..2) + Borders(DiagonalDown)."
+    }
+  ],
+  "_deferred_variations": [
+    "numbering formats (1./a)/i./A.) -> folded into the Bullets/Numbering batch as numbering.xml-only ARTIFACTS (see _dialog_identified_gaps).",
+    "line spacing exactly/at-least/multiple -> ENUMERATED in the Paragraph batch (fd-ls-atleast/exactly/multiple).",
+    "indentation left/right/first-line/hanging -> ENUMERATED in the Paragraph batch (fd-indent-*)."
+  ],
+  "_dialog_identified_gaps": [
+    {
+      "id": "fd-double-strike",
+      "dialog": "Font",
+      "field": "Double strikethrough",
+      "kind": "GAP",
+      "detail": "Word Font.DoubleStrikeThrough -> w:dstrike. The clone has NO checkbox AND no textStyle attr; the w:dstrike translator round-trips on import only. Cannot author via dialog or bridge."
+    },
+    {
+      "id": "fd-hidden",
+      "dialog": "Font",
+      "field": "Hidden",
+      "kind": "GAP",
+      "detail": "Word Font.Hidden -> w:vanish. No clone checkbox and no WC.PM verb; vanish round-trips on import only."
+    },
+    {
+      "id": "fd-kerning",
+      "dialog": "Font",
+      "field": "Kerning for fonts >= N pt",
+      "kind": "GAP",
+      "detail": "Word Font.Kerning -> w:kern (min-size threshold, half-points). No clone control and no textStyle.kern attr."
+    },
+    {
+      "id": "fd-underline-color-ui",
+      "dialog": "Font",
+      "field": "Underline-color dropdown (dialog control)",
+      "kind": "FLOW",
+      "detail": "The underline-color EFFECT is faithful (fd-underline-color = 0/0 via the bridge), but Word's Font dialog has an Underline-color dropdown the clone's dialog omits (dialogs.js Underline row sets style only). Dialog-completeness gap."
+    },
+    {
+      "id": "fd-ligatures-ui",
+      "dialog": "Font",
+      "field": "Ligatures dropdown (Advanced tab control)",
+      "kind": "FLOW",
+      "detail": "The ligatures EFFECT is faithful (fd-ligatures = 0/0), but Word's Advanced tab has an OpenType Ligatures dropdown the clone's Advanced tab (Scale/Spacing/Position only) omits. Dialog-completeness gap."
+    },
+    {
+      "id": "fd-paragraph-pagination-ui",
+      "dialog": "Paragraph",
+      "field": "Line-and-Page-Breaks tab (widow/keepNext/keepLines/pageBreakBefore)",
+      "kind": "FLOW",
+      "detail": "All 4 pagination EFFECTS are faithful (fd-pag-widow/keepnext/keeplines/pagebreak = 0/0 via the bridge), but the clone's Paragraph dialog has NO Line-and-Page-Breaks tab — Word does. Dialog-completeness gap (016 scoped to add it)."
+    },
+    {
+      "id": "fd-bullet-font",
+      "dialog": "Define New Bullet",
+      "field": "Bullet font",
+      "kind": "GAP",
+      "detail": "Word writes abstractNum/lvl/rPr/rFonts; the clone has NO font picker AND applyListDefinition.js:77-78 STRIPS rFonts -> clone never emits a bullet font. numbering.xml-only."
+    },
+    {
+      "id": "fd-bullet-align",
+      "dialog": "Define New Bullet",
+      "field": "Bullet alignment",
+      "kind": "GAP",
+      "detail": "NARROWED by review: the clone DOES emit w:lvlJc=left (Word's default; bullets.json shows it as an 'extra' only because the COM singleLevel ground truth omits it). The real gap is only the missing Centered/Right alignment FIELD (applyListDefinition writes numFmt/lvlText but no non-default lvlJc; defineNewBulletDialog has no align control)."
+    },
+    {
+      "id": "fd-num-format",
+      "dialog": "Define New Number Format",
+      "field": "Number format (decimal/letter/roman)",
+      "kind": "ARTIFACT",
+      "detail": "Defining signal lives ONLY in numbering.xml (abstractNum numFmt/lvlText); document.xml has just w:numPr (numId canonicalized). COM ApplyListTemplate writes a singleLevel template vs the clone's 9-level abstract + a minted numId value -> needs a vsto/numbering.xml ground truth."
+    },
+    {
+      "id": "fd-num-style-text",
+      "dialog": "Define New Number Format",
+      "field": "Number format string (lvlText, e.g. %1) )",
+      "kind": "ARTIFACT",
+      "detail": "lvlText is numbering.xml-only; same single-vs-9-level + numId-value divergence as fd-num-format."
+    },
+    {
+      "id": "fd-num-gallery",
+      "dialog": "Numbering gallery",
+      "field": "Format variations 1./1)/A./a)/i./I.",
+      "kind": "ARTIFACT",
+      "detail": "Routes through the fork's toggleOrderedListStyle (own style->numFmt map), mints a new numId; numbering.xml-only, document.xml signal is only w:numPr + 023 pStyle."
+    },
+    {
+      "id": "fd-start-at",
+      "dialog": "Set Numbering Value",
+      "field": "Start at N",
+      "kind": "ARTIFACT",
+      "detail": "Start value lives in a num-instance lvlOverride/startOverride (numbering.xml); Word COM has no exact 'set value to N' verb (template-oriented). Mid-list restart mints a new numId (only document.xml signal, canonicalized)."
+    },
+    {
+      "id": "fd-restart",
+      "dialog": "Set Numbering Value",
+      "field": "Restart / Start new list",
+      "kind": "ARTIFACT",
+      "detail": "numbering.xml lvlOverride/startOverride=1; clone-pins-startOverride vs Word-fresh-num is a structural numbering.xml divergence."
+    },
+    {
+      "id": "fd-continue",
+      "dialog": "Set Numbering Value",
+      "field": "Continue from previous",
+      "kind": "ARTIFACT",
+      "detail": "numbering.xml: absence of lvlOverride (counter continues); document.xml signal = only the numId reference."
+    },
+    {
+      "id": "fd-highlight-custom",
+      "dialog": "Highlight",
+      "field": "Custom (non-keyword) highlight color",
+      "kind": "ARTIFACT",
+      "detail": "NOT A GAP (review): Word's Text Highlight Color dropdown is ALSO 15-keyword-only (no custom-RGB path), and the clone restricts its highlighter to the same fixed 15-keyword gallery — so clone == Word. The w:shd downgrade in highlight-translator.js is IMPORT-ONLY dead code (fires only for a non-keyword hex no ribbon path emits)."
+    },
+    {
+      "id": "fd-find",
+      "dialog": "Find/Replace",
+      "field": "Find / Match case / Whole word / Wildcards / Format",
+      "kind": "FLOW",
+      "detail": "Find + all search modifiers produce ZERO document delta (decorations/navigation only) -> flow-verifier axis, not OOXML. Wildcard grammar + whole-word definition differ COM-vs-clone (count, not identity)."
+    },
+    {
+      "id": "fd-special-replace",
+      "dialog": "Find/Replace",
+      "field": "Special codes in the REPLACE box (^p/^t/^l)",
+      "kind": "GAP",
+      "detail": "Word translates ^p/^t/^l in the replacement (new w:p / w:tab / w:br); the clone passes replInput.value LITERALLY (search.ts) so it inserts the literal text '^p' instead of a paragraph break. Real clone gap on the replace path."
+    },
+    {
+      "id": "fd-table",
+      "dialog": "Insert Table",
+      "field": "Rows x Cols",
+      "kind": "ARTIFACT",
+      "detail": "COM Tables.Add auto-creates an AutoFit-to-window TableGrid (+tblLook/default borders); the clone builds equal-width gridCols. Row/col COUNTS match; gridCol widths/tblW/borders diverge. (Covered by the existing 'table' pilot.)"
+    },
+    {
+      "id": "fd-margin-uniform",
+      "dialog": "Page Setup",
+      "field": "Independent T/B/L/R margins via the dialog",
+      "kind": "GAP",
+      "detail": "The clone's Custom Margins dialog exposes ONE uniform 'Margin (inches)' input applied to all four sides; Word's Page Setup sets top/bottom/left/right independently. (The bridge dePageMargins verb + presets do support distinct sides — measured via fd-margin-top/left — but the DIALOG cannot.)"
+    }
+  ],
+  "_dialog_review_summary": {
+    "verified_real_gaps": [
+      "fd-allcaps",
+      "fd-fontcolor-theme",
+      "fd-link(extra-u)",
+      "fd-double-strike",
+      "fd-hidden",
+      "fd-kerning",
+      "fd-bullet-font",
+      "fd-bullet-align(narrowed)",
+      "fd-special-replace",
+      "fd-margin-uniform"
+    ],
+    "artifacts_not_gaps": [
+      "fd-spacing-after(default-value)",
+      "fd-link(Hyperlink-style: differ-limitation)",
+      "fd-link(UnresolvedMention: Word-boilerplate)",
+      "fd-num-*(COM singleLevel)",
+      "fd-highlight-custom(clone==Word, 15-keyword-only)"
+    ],
+    "engine_followup": "RESOLVED: styles.xml is now diffed by styleId presence/content scoped to referenced styleIds (ooxml_diff._styles_diff), not baseline-subtracted — so a preloaded-but-identical style matches a lazily-materialized one and unreferenced boilerplate is ignored. Regression-locked by 4 review_differ golden cases (incl. styles_preloaded_match). fd-link false-13-missing -> 1 real (body:u). See report 4c.",
+    "report": "parity/results/DEEP_T0_T1_REPORT.md"
+  },
+  "_dialog_skip_log": [
+    {
+      "scope": "Font / Advanced",
+      "field": "Number spacing (Proportional / Tabular figures)",
+      "why": "Niche OpenType feature; the clone does not implement it (no textStyle attr) and usage is very low. Word's Advanced tab exposes it. Skipped (not a gap worth tracking now)."
+    },
+    {
+      "scope": "Font / Advanced",
+      "field": "Number forms (Lining / Old-style figures)",
+      "why": "Niche OpenType; clone unimplemented, very low usage. Skipped."
+    },
+    {
+      "scope": "Font / Advanced",
+      "field": "Stylistic sets",
+      "why": "Niche OpenType; clone unimplemented, very low usage. Skipped."
+    },
+    {
+      "scope": "Font / Advanced",
+      "field": "Use Contextual Alternates (checkbox)",
+      "why": "Folded into the ligatures handling (the 022 fontVariantLigatures / contextualAlternates work) — no separate dialog control measured."
+    },
+    {
+      "scope": "Font dialog",
+      "field": "Set As Default button",
+      "why": "A settings action (writes the run props to the Normal style / template), not a per-run field — out of scope for per-run OOXML parity."
+    },
+    {
+      "scope": "All dialogs",
+      "field": "Cartesian value sweeps",
+      "why": "Only DISTINCT-OOXML representative values per field; symmetric twins (left/right indent, before/after spacing, raised/lowered position) measured once each."
+    }
+  ]
+}

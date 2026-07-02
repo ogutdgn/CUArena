@@ -1,0 +1,32 @@
+{
+  "key": "font",
+  "title": "Font",
+  "_source": "computer-use UIA capture of real Word (build 16.0.20026), 2026-07-01",
+  "tabs": ["Font", "Advanced"],
+  "fields": [
+    { "name": "Font", "type": "ComboBox" },
+    { "name": "Font style", "type": "ComboBox" },
+    { "name": "Size", "type": "ComboBox" },
+    { "name": "Font color", "type": "ComboBox" },
+    { "name": "Underline style", "type": "ComboBox" },
+    { "name": "Underline color", "type": "ComboBox" },
+    { "name": "Strikethrough", "type": "CheckBox" },
+    { "name": "Double strikethrough", "type": "CheckBox" },
+    { "name": "Superscript", "type": "CheckBox" },
+    { "name": "Subscript", "type": "CheckBox" },
+    { "name": "Small caps", "type": "CheckBox" },
+    { "name": "All caps", "type": "CheckBox" },
+    { "name": "Hidden", "type": "CheckBox" },
+    { "name": "Set As Default", "type": "Button" },
+    { "name": "Text Effects...", "type": "Button" },
+    { "name": "Scale", "type": "ComboBox" },
+    { "name": "Spacing", "type": "ComboBox" },
+    { "name": "Position", "type": "ComboBox" },
+    { "name": "Kerning for fonts", "type": "CheckBox" },
+    { "name": "Ligatures", "type": "ComboBox" },
+    { "name": "Number spacing", "type": "ComboBox" },
+    { "name": "Number forms", "type": "ComboBox" },
+    { "name": "Stylistic sets", "type": "ComboBox" },
+    { "name": "Use Contextual Alternates", "type": "CheckBox" }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "twin/tb-delete-col",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-delete-col",
+  "note": "Delete via the Layout Delete DROPDOWN (Delete Columns, 033A): painted cells 9 -> 6.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblDelete"
+    },
+    {
+      "do": "clickItem",
+      "match": "Delete Columns"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 6
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "id": "twin/tb-borders-none-cell",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-borders-none-cell",
+  "note": "No Border must REMOVE the painted line. Apply a thick RED border to the middle cell (>=2 red edges paint), THEN No Border via the real Borders dropdown (per-side nil) — the red edges must all vanish. Reads the PAINTER (collapse-aware). The clone's clear-to-{} left the style border; the 032 nil No-Border fixes it.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 4
+    },
+    {
+      "do": "setCellBorders",
+      "spec": {
+        "top": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        },
+        "bottom": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        },
+        "left": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        },
+        "right": {
+          "val": "single",
+          "color": "FF0000",
+          "size": 24
+        }
+      }
+    },
+    {
+      "expect": "coloredEdgeCount",
+      "side": "top",
+      "color": "255,\\s*0,\\s*0",
+      "minPx": 2,
+      "min": 2
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-design"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblBorders"
+    },
+    {
+      "do": "clickItem",
+      "match": "No Border"
+    },
+    {
+      "expect": "coloredEdgeGone",
+      "color": "255,\\s*0,\\s*0",
+      "minPx": 2
+    }
+  ]
+}

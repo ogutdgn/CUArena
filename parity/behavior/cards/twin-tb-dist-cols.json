@@ -1,0 +1,50 @@
+{
+  "id": "twin/tb-dist-cols",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-dist-cols",
+  "note": "Distribute Columns after a 2.5\" column width: widths equalize (doc changes).",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblColWidth"
+    },
+    {
+      "do": "clickItem",
+      "match": "2\\.5"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblDistCols"
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}

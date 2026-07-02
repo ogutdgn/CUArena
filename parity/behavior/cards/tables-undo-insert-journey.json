@@ -1,0 +1,37 @@
+{
+  "id": "tables/undo-insert-journey",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": true,
+  "note": "Tables pilot journey #4: undo granularity. RECORDED (2026-07-02): a SINGLE Ctrl+Z removes the entire just-inserted table in real Word — the one-step bar is now a real expectation, not a ❓.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Undo journey."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "expect": "tableExists"
+    },
+    {
+      "do": "undo"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 0
+    }
+  ],
+  "signedBy": "user 2026-07-02 (D6.1 ratification, with Phase B PASS)"
+}

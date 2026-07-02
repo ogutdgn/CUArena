@@ -1,0 +1,34 @@
+{
+  "id": "twin/tb-quicktable-calendar",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-quicktable-calendar",
+  "note": "Quick Tables > Calendar paints the clone's 6x7 preset (42 cells). Word inserts the 'Calendar 1' building block — content fidelity is the OOXML task's job.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Quick table twin."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "clickItem",
+      "match": "Quick Tables"
+    },
+    {
+      "do": "clickItem",
+      "match": "Calendar"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 42
+    }
+  ]
+}

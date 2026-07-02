@@ -1,0 +1,50 @@
+{
+  "id": "twin/tb-cellalign-bottomleft",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-cellalign-bottomleft",
+  "note": "Spec 033 — tblAlignBL (9-way grid): the caret cell paints vertical-align bottom. Doc changes.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "clickCmd",
+      "cmd": "tblAlignBL"
+    },
+    {
+      "expect": "docChanged"
+    },
+    {
+      "expect": "paintedCellStyleIs",
+      "index": 0,
+      "prop": "vertical-align",
+      "anyOf": [
+        "bottom"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "twin/tb-rowheight-05in",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-rowheight-05in",
+  "note": "Row Height 0.5\" preset: the caret row's painted height reaches >=40px (0.5in = 48px at 100% zoom; slack for zoom rounding).",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblRowHeight"
+    },
+    {
+      "do": "clickItem",
+      "match": "0\\.5"
+    },
+    {
+      "expect": "paintedCellMinHeight",
+      "index": 0,
+      "minPx": 40
+    }
+  ]
+}

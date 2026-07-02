@@ -1,0 +1,74 @@
+{
+  "id": "twin/tb-sort-col1",
+  "kind": "micro-twin",
+  "feature": "Table",
+  "signedOff": "generated",
+  "ooxmlTask": "tb-sort-col1",
+  "note": "Spec 033 PART B — Sort dialog from the Data group reorders the table's data rows. Type c/b/a down column 0, open Sort, click OK; the doc changes (rows reordered). textOrder correctness is the OOXML axis' job.",
+  "steps": [
+    {
+      "do": "setupText",
+      "text": "Twin base."
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "do": "gridPick",
+      "rows": 3,
+      "cols": 3
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 0
+    },
+    {
+      "do": "typeText",
+      "text": "c"
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 3
+    },
+    {
+      "do": "typeText",
+      "text": "b"
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 6
+    },
+    {
+      "do": "typeText",
+      "text": "a"
+    },
+    {
+      "do": "caretIntoCellModel",
+      "index": 0
+    },
+    {
+      "do": "activateTab",
+      "tab": "table-layout"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "tblSort"
+    },
+    {
+      "expect": "dialogOpen"
+    },
+    {
+      "do": "clickSelector",
+      "sel": ".dialog .btn.primary",
+      "waitMs": 400
+    },
+    {
+      "expect": "docChanged"
+    }
+  ]
+}
