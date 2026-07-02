@@ -61,6 +61,15 @@ Kills the "menu exists but has 2 of Word's 14 options" gap class.
 **D2.2 — dialog-field diff: YES (user: "evet").** One-time UIA dump of each Word dialog
 (fields, labels, tabs) as the answer key → compare against the clone's dialog DOM.
 SCOPE: only dialogs belonging to the 111 locked features.
+BUILT (2026-07-01): clone side DONE (`dialog-fields-probe.js` — Font 21 fields / Paragraph 10 /
+Find / WordCount / PasteSpecial / InsertTable), differ DONE (`dialog_verify.py`, consumes Word
+dumps from `parity/oracle/dialogs/`). The Word UIA dump (`dump_dialog_uia.ps1`) is an
+INTERACTIVE-SESSION capture. PROVEN 2026-07-01 (4 mechanisms tried): ExecuteMso('FontDialog')
+DOES open the modal (blocks the caller), but a thread parked in ExecuteMso doesn't pump messages
+so the modal never registers with UIA (RootElement sees only 'Document1 - Word'); Start-Job
+isolates the window station; SendKeys needs foreground even with AttachThreadInput. ⇒ the field
+scrape needs a genuinely interactive desktop (live message pump). Grouped with the style catalog
+as the two "user-present" captures; the script is correct for that context, one idMso per run.
 
 **D2.3 — contextual tab sets: DEFERRED with a HARD GATE (user decision).** Picture Tools /
 Header & Footer Tools / Draw etc. are NOT mapped for the Tables pilot — **but mapping them is
