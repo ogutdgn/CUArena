@@ -1,0 +1,1493 @@
+{
+ "meta": {
+  "source": "real Word build 16.0.20026 \u2014 names dump (SaveAs2 hung on the 113-table doc; names + structure suffice for functional parity \u2014 Word recomputes cnf from tblStyle+tblLook)",
+  "generated_by": "parity/tools/gen_table_style_catalog.py",
+  "count": 247,
+  "modernCount": 113,
+  "note": "The clone gallery ships ~2 styles; this is Word's full catalog. `modern`=the Grid/List/Plain Table + Table Grid gallery set. Applying a tblStyle ref gives FUNCTIONAL parity (Word recomputes conditional formatting on open); byte-faithful cnf defs = a follow-up via batched XML extraction (single-doc SaveAs2 hangs here)."
+ },
+ "styles": [
+  {
+   "styleId": "ColorfulGrid",
+   "name": "Colorful Grid",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulGridAccent1",
+   "name": "Colorful Grid - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulGridAccent2",
+   "name": "Colorful Grid - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulGridAccent3",
+   "name": "Colorful Grid - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulGridAccent4",
+   "name": "Colorful Grid - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulGridAccent5",
+   "name": "Colorful Grid - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulGridAccent6",
+   "name": "Colorful Grid - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulList",
+   "name": "Colorful List",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulListAccent1",
+   "name": "Colorful List - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulListAccent2",
+   "name": "Colorful List - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulListAccent3",
+   "name": "Colorful List - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulListAccent4",
+   "name": "Colorful List - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulListAccent5",
+   "name": "Colorful List - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulListAccent6",
+   "name": "Colorful List - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulShading",
+   "name": "Colorful Shading",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulShadingAccent1",
+   "name": "Colorful Shading - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulShadingAccent2",
+   "name": "Colorful Shading - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulShadingAccent3",
+   "name": "Colorful Shading - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulShadingAccent4",
+   "name": "Colorful Shading - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulShadingAccent5",
+   "name": "Colorful Shading - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ColorfulShadingAccent6",
+   "name": "Colorful Shading - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "DarkList",
+   "name": "Dark List",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "DarkListAccent1",
+   "name": "Dark List - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "DarkListAccent2",
+   "name": "Dark List - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "DarkListAccent3",
+   "name": "Dark List - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "DarkListAccent4",
+   "name": "Dark List - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "DarkListAccent5",
+   "name": "Dark List - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "DarkListAccent6",
+   "name": "Dark List - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable1Light",
+   "name": "Grid Table 1 Light",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable1LightAccent1",
+   "name": "Grid Table 1 Light - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable1LightAccent2",
+   "name": "Grid Table 1 Light - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable1LightAccent3",
+   "name": "Grid Table 1 Light - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable1LightAccent4",
+   "name": "Grid Table 1 Light - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable1LightAccent5",
+   "name": "Grid Table 1 Light - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable1LightAccent6",
+   "name": "Grid Table 1 Light - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable2",
+   "name": "Grid Table 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable2Accent1",
+   "name": "Grid Table 2 - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable2Accent2",
+   "name": "Grid Table 2 - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable2Accent3",
+   "name": "Grid Table 2 - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable2Accent4",
+   "name": "Grid Table 2 - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable2Accent5",
+   "name": "Grid Table 2 - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable2Accent6",
+   "name": "Grid Table 2 - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable3",
+   "name": "Grid Table 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable3Accent1",
+   "name": "Grid Table 3 - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable3Accent2",
+   "name": "Grid Table 3 - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable3Accent3",
+   "name": "Grid Table 3 - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable3Accent4",
+   "name": "Grid Table 3 - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable3Accent5",
+   "name": "Grid Table 3 - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable3Accent6",
+   "name": "Grid Table 3 - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable4",
+   "name": "Grid Table 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable4Accent1",
+   "name": "Grid Table 4 - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable4Accent2",
+   "name": "Grid Table 4 - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable4Accent3",
+   "name": "Grid Table 4 - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable4Accent4",
+   "name": "Grid Table 4 - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable4Accent5",
+   "name": "Grid Table 4 - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable4Accent6",
+   "name": "Grid Table 4 - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable5Dark",
+   "name": "Grid Table 5 Dark",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable5DarkAccent1",
+   "name": "Grid Table 5 Dark - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable5DarkAccent2",
+   "name": "Grid Table 5 Dark - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable5DarkAccent3",
+   "name": "Grid Table 5 Dark - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable5DarkAccent4",
+   "name": "Grid Table 5 Dark - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable5DarkAccent5",
+   "name": "Grid Table 5 Dark - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable5DarkAccent6",
+   "name": "Grid Table 5 Dark - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable6Colorful",
+   "name": "Grid Table 6 Colorful",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable6ColorfulAccent1",
+   "name": "Grid Table 6 Colorful - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable6ColorfulAccent2",
+   "name": "Grid Table 6 Colorful - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable6ColorfulAccent3",
+   "name": "Grid Table 6 Colorful - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable6ColorfulAccent4",
+   "name": "Grid Table 6 Colorful - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable6ColorfulAccent5",
+   "name": "Grid Table 6 Colorful - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable6ColorfulAccent6",
+   "name": "Grid Table 6 Colorful - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable7Colorful",
+   "name": "Grid Table 7 Colorful",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable7ColorfulAccent1",
+   "name": "Grid Table 7 Colorful - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable7ColorfulAccent2",
+   "name": "Grid Table 7 Colorful - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable7ColorfulAccent3",
+   "name": "Grid Table 7 Colorful - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable7ColorfulAccent4",
+   "name": "Grid Table 7 Colorful - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable7ColorfulAccent5",
+   "name": "Grid Table 7 Colorful - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "GridTable7ColorfulAccent6",
+   "name": "Grid Table 7 Colorful - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "LightGrid",
+   "name": "Light Grid",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightGridAccent1",
+   "name": "Light Grid - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightGridAccent2",
+   "name": "Light Grid - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightGridAccent3",
+   "name": "Light Grid - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightGridAccent4",
+   "name": "Light Grid - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightGridAccent5",
+   "name": "Light Grid - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightGridAccent6",
+   "name": "Light Grid - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightList",
+   "name": "Light List",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightListAccent1",
+   "name": "Light List - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightListAccent2",
+   "name": "Light List - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightListAccent3",
+   "name": "Light List - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightListAccent4",
+   "name": "Light List - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightListAccent5",
+   "name": "Light List - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightListAccent6",
+   "name": "Light List - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightShading",
+   "name": "Light Shading",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightShadingAccent1",
+   "name": "Light Shading - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightShadingAccent2",
+   "name": "Light Shading - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightShadingAccent3",
+   "name": "Light Shading - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightShadingAccent4",
+   "name": "Light Shading - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightShadingAccent5",
+   "name": "Light Shading - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "LightShadingAccent6",
+   "name": "Light Shading - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable1Light",
+   "name": "List Table 1 Light",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable1LightAccent1",
+   "name": "List Table 1 Light - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable1LightAccent2",
+   "name": "List Table 1 Light - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable1LightAccent3",
+   "name": "List Table 1 Light - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable1LightAccent4",
+   "name": "List Table 1 Light - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable1LightAccent5",
+   "name": "List Table 1 Light - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable1LightAccent6",
+   "name": "List Table 1 Light - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable2",
+   "name": "List Table 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable2Accent1",
+   "name": "List Table 2 - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable2Accent2",
+   "name": "List Table 2 - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable2Accent3",
+   "name": "List Table 2 - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable2Accent4",
+   "name": "List Table 2 - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable2Accent5",
+   "name": "List Table 2 - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable2Accent6",
+   "name": "List Table 2 - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable3",
+   "name": "List Table 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable3Accent1",
+   "name": "List Table 3 - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable3Accent2",
+   "name": "List Table 3 - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable3Accent3",
+   "name": "List Table 3 - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable3Accent4",
+   "name": "List Table 3 - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable3Accent5",
+   "name": "List Table 3 - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable3Accent6",
+   "name": "List Table 3 - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable4",
+   "name": "List Table 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable4Accent1",
+   "name": "List Table 4 - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable4Accent2",
+   "name": "List Table 4 - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable4Accent3",
+   "name": "List Table 4 - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable4Accent4",
+   "name": "List Table 4 - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable4Accent5",
+   "name": "List Table 4 - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable4Accent6",
+   "name": "List Table 4 - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable5Dark",
+   "name": "List Table 5 Dark",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable5DarkAccent1",
+   "name": "List Table 5 Dark - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable5DarkAccent2",
+   "name": "List Table 5 Dark - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable5DarkAccent3",
+   "name": "List Table 5 Dark - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable5DarkAccent4",
+   "name": "List Table 5 Dark - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable5DarkAccent5",
+   "name": "List Table 5 Dark - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable5DarkAccent6",
+   "name": "List Table 5 Dark - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable6Colorful",
+   "name": "List Table 6 Colorful",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable6ColorfulAccent1",
+   "name": "List Table 6 Colorful - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable6ColorfulAccent2",
+   "name": "List Table 6 Colorful - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable6ColorfulAccent3",
+   "name": "List Table 6 Colorful - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable6ColorfulAccent4",
+   "name": "List Table 6 Colorful - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable6ColorfulAccent5",
+   "name": "List Table 6 Colorful - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable6ColorfulAccent6",
+   "name": "List Table 6 Colorful - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable7Colorful",
+   "name": "List Table 7 Colorful",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable7ColorfulAccent1",
+   "name": "List Table 7 Colorful - Accent 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable7ColorfulAccent2",
+   "name": "List Table 7 Colorful - Accent 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable7ColorfulAccent3",
+   "name": "List Table 7 Colorful - Accent 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable7ColorfulAccent4",
+   "name": "List Table 7 Colorful - Accent 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable7ColorfulAccent5",
+   "name": "List Table 7 Colorful - Accent 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "ListTable7ColorfulAccent6",
+   "name": "List Table 7 Colorful - Accent 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid1",
+   "name": "Medium Grid 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid1Accent1",
+   "name": "Medium Grid 1 - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid1Accent2",
+   "name": "Medium Grid 1 - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid1Accent3",
+   "name": "Medium Grid 1 - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid1Accent4",
+   "name": "Medium Grid 1 - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid1Accent5",
+   "name": "Medium Grid 1 - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid1Accent6",
+   "name": "Medium Grid 1 - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid2",
+   "name": "Medium Grid 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid2Accent1",
+   "name": "Medium Grid 2 - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid2Accent2",
+   "name": "Medium Grid 2 - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid2Accent3",
+   "name": "Medium Grid 2 - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid2Accent4",
+   "name": "Medium Grid 2 - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid2Accent5",
+   "name": "Medium Grid 2 - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid2Accent6",
+   "name": "Medium Grid 2 - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid3",
+   "name": "Medium Grid 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid3Accent1",
+   "name": "Medium Grid 3 - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid3Accent2",
+   "name": "Medium Grid 3 - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid3Accent3",
+   "name": "Medium Grid 3 - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid3Accent4",
+   "name": "Medium Grid 3 - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid3Accent5",
+   "name": "Medium Grid 3 - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumGrid3Accent6",
+   "name": "Medium Grid 3 - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList1",
+   "name": "Medium List 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList1Accent1",
+   "name": "Medium List 1 - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList1Accent2",
+   "name": "Medium List 1 - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList1Accent3",
+   "name": "Medium List 1 - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList1Accent4",
+   "name": "Medium List 1 - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList1Accent5",
+   "name": "Medium List 1 - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList1Accent6",
+   "name": "Medium List 1 - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList2",
+   "name": "Medium List 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList2Accent1",
+   "name": "Medium List 2 - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList2Accent2",
+   "name": "Medium List 2 - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList2Accent3",
+   "name": "Medium List 2 - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList2Accent4",
+   "name": "Medium List 2 - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList2Accent5",
+   "name": "Medium List 2 - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumList2Accent6",
+   "name": "Medium List 2 - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading1",
+   "name": "Medium Shading 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading1Accent1",
+   "name": "Medium Shading 1 - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading1Accent2",
+   "name": "Medium Shading 1 - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading1Accent3",
+   "name": "Medium Shading 1 - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading1Accent4",
+   "name": "Medium Shading 1 - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading1Accent5",
+   "name": "Medium Shading 1 - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading1Accent6",
+   "name": "Medium Shading 1 - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading2",
+   "name": "Medium Shading 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading2Accent1",
+   "name": "Medium Shading 2 - Accent 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading2Accent2",
+   "name": "Medium Shading 2 - Accent 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading2Accent3",
+   "name": "Medium Shading 2 - Accent 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading2Accent4",
+   "name": "Medium Shading 2 - Accent 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading2Accent5",
+   "name": "Medium Shading 2 - Accent 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "MediumShading2Accent6",
+   "name": "Medium Shading 2 - Accent 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "PlainTable1",
+   "name": "Plain Table 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "PlainTable2",
+   "name": "Plain Table 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "PlainTable3",
+   "name": "Plain Table 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "PlainTable4",
+   "name": "Plain Table 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "PlainTable5",
+   "name": "Plain Table 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "Table3Deffects1",
+   "name": "Table 3D effects 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "Table3Deffects2",
+   "name": "Table 3D effects 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "Table3Deffects3",
+   "name": "Table 3D effects 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableClassic1",
+   "name": "Table Classic 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableClassic2",
+   "name": "Table Classic 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableClassic3",
+   "name": "Table Classic 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableClassic4",
+   "name": "Table Classic 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColorful1",
+   "name": "Table Colorful 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColorful2",
+   "name": "Table Colorful 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColorful3",
+   "name": "Table Colorful 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColumns1",
+   "name": "Table Columns 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColumns2",
+   "name": "Table Columns 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColumns3",
+   "name": "Table Columns 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColumns4",
+   "name": "Table Columns 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableColumns5",
+   "name": "Table Columns 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableContemporary",
+   "name": "Table Contemporary",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableElegant",
+   "name": "Table Elegant",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid",
+   "name": "Table Grid",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid1",
+   "name": "Table Grid 1",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid2",
+   "name": "Table Grid 2",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid3",
+   "name": "Table Grid 3",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid4",
+   "name": "Table Grid 4",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid5",
+   "name": "Table Grid 5",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid6",
+   "name": "Table Grid 6",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid7",
+   "name": "Table Grid 7",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGrid8",
+   "name": "Table Grid 8",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableGridLight",
+   "name": "Table Grid Light",
+   "modern": true,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList1",
+   "name": "Table List 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList2",
+   "name": "Table List 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList3",
+   "name": "Table List 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList4",
+   "name": "Table List 4",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList5",
+   "name": "Table List 5",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList6",
+   "name": "Table List 6",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList7",
+   "name": "Table List 7",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableList8",
+   "name": "Table List 8",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableNormal",
+   "name": "Table Normal",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableProfessional",
+   "name": "Table Professional",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableSimple1",
+   "name": "Table Simple 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableSimple2",
+   "name": "Table Simple 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableSimple3",
+   "name": "Table Simple 3",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableSubtle1",
+   "name": "Table Subtle 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableSubtle2",
+   "name": "Table Subtle 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableTheme",
+   "name": "Table Theme",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableWeb1",
+   "name": "Table Web 1",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableWeb2",
+   "name": "Table Web 2",
+   "modern": false,
+   "source": "names"
+  },
+  {
+   "styleId": "TableWeb3",
+   "name": "Table Web 3",
+   "modern": false,
+   "source": "names"
+  }
+ ]
+}
