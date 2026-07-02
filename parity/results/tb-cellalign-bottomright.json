@@ -4,15 +4,13 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 21,
-    "missing": 10,
+    "match": 23,
+    "missing": 8,
     "extra": 3
   },
   "missing_nodes": [
     "body:gridCol[('w', '3116')]",
     "body:gridCol[('w', '3117')]",
-    "body:jc[('val', 'right')]",
-    "body:pPr[]",
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcW[('type', 'dxa'), ('w', '3116')]",
@@ -31,7 +29,7 @@
   "feature": "Alignment: Align Bottom Right (caret cell)",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Word 9-way = vAlign bottom + paragraph jc right. Clone has only 3 vAlign buttons -> vAlign applied, jc unreachable (partial gap).",
+  "note": "Spec 033: Word 9-way = vAlign bottom + paragraph jc right. Clone now has the 9-way grid -> tableSetCellAlign('bottom','right') writes BOTH (w:vAlign bottom + w:jc right). Reachable.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

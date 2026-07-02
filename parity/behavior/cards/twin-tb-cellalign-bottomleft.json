@@ -1,10 +1,10 @@
 {
-  "id": "twin/tb-repeatheader",
+  "id": "twin/tb-cellalign-bottomleft",
   "kind": "micro-twin",
   "feature": "Table",
   "signedOff": "generated",
-  "ooxmlTask": "tb-repeatheader",
-  "note": "Spec 033 — Repeat Header Rows toggle from the Data group changes the model (writes the caret row's w:trPr/w:tblHeader — Word's real semantics). This twin proves the toggle click acts; the OOXML axis (tb-repeatheader) judges the w:tblHeader export.",
+  "ooxmlTask": "tb-cellalign-bottomleft",
+  "note": "Spec 033 — tblAlignBL (9-way grid): the caret cell paints vertical-align bottom. Doc changes.",
   "steps": [
     {
       "do": "setupText",
@@ -33,10 +33,18 @@
     },
     {
       "do": "clickCmd",
-      "cmd": "tblRepeatHeader"
+      "cmd": "tblAlignBL"
     },
     {
       "expect": "docChanged"
+    },
+    {
+      "expect": "paintedCellStyleIs",
+      "index": 0,
+      "prop": "vertical-align",
+      "anyOf": [
+        "bottom"
+      ]
     }
   ]
 }

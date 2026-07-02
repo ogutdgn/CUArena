@@ -15,6 +15,10 @@
 // caret-safe setCellAttr path when the caret sits in a table — Word shades the caret cell.
 
 import { isCellSelection } from '@extensions/table/tableHelpers/isCellSelection.js'
+// Spec 033: TableMap gives the rectangular grid (corner cell positions) for Layout → Select.
+// prosemirror-tables is Vite-deduped to a single copy, so this is the SAME class the fork uses —
+// NO fork edit (bridge-only import, mirrors isCellSelection above).
+import { TableMap } from 'prosemirror-tables'
 // Spec 030: the generated catalog (113 real-Word modern table-style defs) — getTableStyles unions
 // it with the doc's styles.xml so the gallery is honest before any style is materialized.
 import { TABLE_STYLE_DEFS } from '@/core/generated/table-style-defs'
@@ -410,6 +414,155 @@ export function installTable(
     return ok !== false
   }
 
+  // ---------- Spec 033 (PART A): Table Layout tab verbs (all NO-FORK) ----------
+
+  // The table node + its document position + tableStart (1 past the opening token) for the caret.
+  // Shared by the Select-scope / repeat-header / text-dir verbs below.
+  function currentTableCtx(): { node: any; pos: number; tableStart: number } | null {
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        if ($from.node(d).type.name === 'table') {
+          const pos = $from.before(d)
+          return { node: $from.node(d), pos, tableStart: pos + 1 }
+        }
+      }
+    } catch { /* unreadable selection */ }
+    return null
+  }
+
+  // Layout → Table → Select: select the cell / row / column / whole table (Word's Select menu).
+  // NO-FORK: resolve the caret cell's [row,col] via TableMap, then build a rectangular CellSelection
+  // over the scope's two corner cells (anchor = top-left corner, head = bottom-right corner) and drive
+  // the fork's existing setCellSelection({ anchorCell, headCell }). Selection-only (no doc change).
+  function tableSelectScope(scope: 'cell' | 'column' | 'row' | 'table'): boolean {
+    const ctx = currentTableCtx()
+    if (!ctx) return false
+    try {
+      const { node, tableStart } = ctx
+      const map = TableMap.get(node)
+      // Caret cell position, DOC-absolute — the fork wants doc-absolute anchor/head.
+      const { $from } = editor.state.selection
+      let cellDocPos = -1
+      for (let d = $from.depth; d > 0; d--) {
+        const n = $from.node(d)
+        if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') { cellDocPos = $from.before(d); break }
+      }
+      if (cellDocPos < 0) return false
+      // TableMap positions are RELATIVE to tableStart; convert the caret cell to a map-relative pos.
+      const cellRel = cellDocPos - tableStart
+      const rect = map.findCell(cellRel) // { left, top, right, bottom } in grid coords
+      let aLeft: number, aTop: number, hRight: number, hBottom: number
+      if (scope === 'cell') { aLeft = rect.left; aTop = rect.top; hRight = rect.right - 1; hBottom = rect.bottom - 1 }
+      else if (scope === 'row') { aLeft = 0; aTop = rect.top; hRight = map.width - 1; hBottom = rect.bottom - 1 }
+      else if (scope === 'column') { aLeft = rect.left; aTop = 0; hRight = rect.right - 1; hBottom = map.height - 1 }
+      else { aLeft = 0; aTop = 0; hRight = map.width - 1; hBottom = map.height - 1 } // table
+      // Corner cell relative positions → doc-absolute for setCellSelection.
+      const anchorCell = tableStart + map.map[aTop * map.width + aLeft]
+      const headCell = tableStart + map.map[hBottom * map.width + hRight]
+      const ok = editor.commands.setCellSelection({ anchorCell, headCell })
+      refocus()
+      return ok !== false
+    } catch { return false }
+  }
+
+  // Layout → Table → View Gridlines: toggle Word's non-printing table gridlines (a view-only CSS class
+  // on the editor host — borderless cell edges show as faint dashed guides). View-only, never exported.
+  function tableViewGridlines(): boolean {
+    const host = document.getElementById('pm-editor')
+    if (!host) return false
+    return host.classList.toggle('wc-show-table-gridlines')
+  }
+  function tableGridlinesShown(): boolean {
+    return !!document.getElementById('pm-editor')?.classList.contains('wc-show-table-gridlines')
+  }
+
+  // Layout → Alignment: Word's 9-way cell alignment (vertical vAlign, cell-level + horizontal jc on the
+  // cell's paragraphs). 'left' CLEARS jc (Word's default) so Align-*-Left matches Word; center/right set it.
+  // Ground truth: Align Bottom Right = vAlign bottom + jc right. NO-FORK (existing setCellAttr + setTextAlign).
+  function tableSetCellAlign(v: 'top' | 'middle' | 'bottom', h: 'left' | 'center' | 'right'): boolean {
+    const chain = editor.chain().setCellAttr('verticalAlign', v)
+    const ok = (h === 'left' ? chain.unsetTextAlign() : chain.setTextAlign(h)).run()
+    refocus()
+    return ok !== false
+  }
+
+  // Layout → Data → Repeat Header Rows: mark the caret row as a header row that repeats at the top of
+  // each page (<w:trPr><w:tblHeader/>). Uses dot-notation updateAttributes so ONLY the repeatHeader key
+  // is merged into tableRowProperties (other row props — rowHeight, cantSplit — survive).
+  function currentRowNode(): any {
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        if ($from.node(d).type.name === 'tableRow') return $from.node(d)
+      }
+    } catch { /* unreadable selection */ }
+    return null
+  }
+  function tableRepeatHeaderState(): boolean {
+    return currentRowNode()?.attrs?.tableRowProperties?.repeatHeader === true
+  }
+  function tableRepeatHeaderRows(on?: boolean): boolean {
+    const row = currentRowNode()
+    if (!row) return false
+    const next = on === undefined ? !(row.attrs?.tableRowProperties?.repeatHeader === true) : !!on
+    // Dot-notation key merges JUST repeatHeader into tableRowProperties → <w:trPr><w:tblHeader/>.
+    const ok = editor.commands.updateAttributes('tableRow', { 'tableRowProperties.repeatHeader': next })
+    refocus()
+    return ok !== false
+  }
+
+  // Layout → Alignment → Cell Margins (Table Options): TABLE-LEVEL default cell margins → <w:tblCellMar>.
+  // (The existing per-cell tableSetCellMargins stays for the cell-scope path.) m = {top,left,bottom,right}
+  // in DXA (twips). The fork's tblPr encoder reads tableProperties.cellMargins as { marginTop:{value,type},
+  // … } → <w:top w:w=… w:type="dxa"/>. Dot-notation writes just cellMargins onto tableProperties.
+  function tableSetTableCellMargins(m: { top?: number; left?: number; bottom?: number; right?: number }): boolean {
+    const dxa = (n: unknown) => ({ value: Math.max(0, Math.round(Number(n) || 0)), type: 'dxa' })
+    const cellMargins = {
+      marginTop: dxa(m.top), marginLeft: dxa(m.left), marginBottom: dxa(m.bottom), marginRight: dxa(m.right),
+    }
+    const ok = editor.commands.updateAttributes('table', { 'tableProperties.cellMargins': cellMargins })
+    refocus()
+    return ok !== false
+  }
+
+  // Layout → Alignment → Text Direction: cycle the caret cell's direction horizontal→tbRl→btLr→horizontal
+  // (Word's 3-state button). The fork's setTextDirection accepts 'tbRl' | 'btLr' | null only. First click on
+  // an un-rotated cell = tbRl (matches the tb-textdir ground truth).
+  function currentCellTextDir(): string | null {
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        const n = $from.node(d)
+        if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') {
+          return (n.attrs?.textDirection as string | null) ?? null
+        }
+      }
+    } catch { /* unreadable selection */ }
+    return null
+  }
+  function tableTextDirectionCycle(): boolean {
+    const cur = currentCellTextDir()
+    const next = cur == null ? 'tbRl' : cur === 'tbRl' ? 'btLr' : null
+    const ok = editor.commands.setTextDirection(next)
+    refocus()
+    return ok !== false
+  }
+
+  // Layout → Data → Sort: the table's first-row cell texts (drive the Sort dialog's column dropdown —
+  // PART B). Returns [{ index, label }]: header cell text when non-empty, else 'Column N'.
+  function tableColumns(): Array<{ index: number; label: string }> {
+    const ctx = currentTableCtx()
+    if (!ctx || !ctx.node.childCount) return []
+    const firstRow = ctx.node.child(0)
+    const out: Array<{ index: number; label: string }> = []
+    firstRow.forEach((cell: any, _off: number, i: number) => {
+      const txt = (cell.textContent || '').trim()
+      out.push({ index: i, label: txt || `Column ${i + 1}` })
+    })
+    return out
+  }
+
   // Test helper (Task 9 / Critique B3): build a CellSelection over the first two
   // @internal — test helper (CellSelection over the first row pair); not a stable public API
   // cells of the table's first row. Used by the [6b] merge test in test-suite-pm.js.
@@ -561,5 +714,15 @@ export function installTable(
     tableSetTextDirection,
     tableAutoFit,
     tableSelectFirstRowPair,
+    // 033 (PART A): Table Layout tab verbs (all NO-FORK)
+    tableSelectScope,
+    tableViewGridlines,
+    tableGridlinesShown,
+    tableSetCellAlign,
+    tableRepeatHeaderRows,
+    tableRepeatHeaderState,
+    tableSetTableCellMargins,
+    tableTextDirectionCycle,
+    tableColumns,
   }
 }

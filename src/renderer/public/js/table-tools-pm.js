@@ -20,16 +20,24 @@
   // .oracle-probes/slice6/results.md shows 'Table Design' + 'Layout'; id stays
   // 'table-layout' so it can't collide with the standard Layout tab id) ----
   function layoutTab() {
+    // Spec 033: Word's Table Layout tab, 7 groups in order — Table | Rows & Columns | Merge |
+    // Cell Size | Alignment | Data | Draw. Labels mirror Word's idMso labels (parity/oracle/
+    // word_ribbon_inventory.json → tab TabTableToolsLayout). The misplaced Header Row/Header Column
+    // buttons were REMOVED (they are Design-tab Table Style Options, already on the Design tab).
     return {
       id: 'table-layout', name: 'Layout', contextual: true, groups: [
+        { id: 'tl-table', name: 'Table', controls: [
+          { cmd: 'tblSelect', label: 'Select', type: 'dropdown' },
+          { cmd: 'tblViewGridlines', label: 'View Gridlines', type: 'toggle' },
+          { cmd: 'tblProperties', label: 'Properties', type: 'button' },
+        ] },
         { id: 'tl-rowscols', name: 'Rows & Columns', controls: [
+          { cmd: 'tblDelete', label: 'Delete', type: 'dropdown' },
           { cmd: 'tblInsertAbove', label: 'Insert Above', type: 'button' },
           { cmd: 'tblInsertBelow', label: 'Insert Below', type: 'button' },
           { cmd: 'tblInsertLeft', label: 'Insert Left', type: 'button' },
           { cmd: 'tblInsertRight', label: 'Insert Right', type: 'button' },
-          { cmd: 'tblDeleteRow', label: 'Delete Row', type: 'button' },
-          { cmd: 'tblDeleteColumn', label: 'Delete Column', type: 'button' },
-          { cmd: 'tblDeleteTable', label: 'Delete Table', type: 'button' },
+          { cmd: 'tblInsertCells', label: 'Insert Cells', type: 'button' },
         ] },
         { id: 'tl-merge', name: 'Merge', controls: [
           { cmd: 'tblMerge', label: 'Merge Cells', type: 'button' },
@@ -37,23 +45,35 @@
           { cmd: 'tblSplitTable', label: 'Split Table', type: 'button' },
         ] },
         { id: 'tl-cellsize', name: 'Cell Size', controls: [
-          { cmd: 'tblRowHeight', label: 'Row Height', type: 'dropdown' },
-          { cmd: 'tblColWidth', label: 'Column Width', type: 'dropdown' },
+          { cmd: 'tblAutoFit', label: 'AutoFit', type: 'dropdown' },
+          { cmd: 'tblRowHeight', label: 'Height:', type: 'dropdown' },
+          { cmd: 'tblColWidth', label: 'Width:', type: 'dropdown' },
           { cmd: 'tblDistRows', label: 'Distribute Rows', type: 'button' },
           { cmd: 'tblDistCols', label: 'Distribute Columns', type: 'button' },
-          { cmd: 'tblAutoFit', label: 'AutoFit', type: 'dropdown' },
         ] },
         { id: 'tl-align', name: 'Alignment', controls: [
-          { cmd: 'tblVAlignTop', label: 'Align Top', type: 'button' },
-          { cmd: 'tblVAlignMid', label: 'Align Middle', type: 'button' },
-          { cmd: 'tblVAlignBottom', label: 'Align Bottom', type: 'button' },
+          // Word's 3×3 cell-alignment grid (vertical vAlign × horizontal jc).
+          { cmd: 'tblAlignTL', label: 'Align Top Left', type: 'button' },
+          { cmd: 'tblAlignTC', label: 'Align Top Center', type: 'button' },
+          { cmd: 'tblAlignTR', label: 'Align Top Right', type: 'button' },
+          { cmd: 'tblAlignML', label: 'Align Center Left', type: 'button' },
+          { cmd: 'tblAlignMC', label: 'Align Center', type: 'button' },
+          { cmd: 'tblAlignMR', label: 'Align Center Right', type: 'button' },
+          { cmd: 'tblAlignBL', label: 'Align Bottom Left', type: 'button' },
+          { cmd: 'tblAlignBC', label: 'Align Bottom Center', type: 'button' },
+          { cmd: 'tblAlignBR', label: 'Align Bottom Right', type: 'button' },
           { cmd: 'tblTextDir', label: 'Text Direction', type: 'button' },
           { cmd: 'tblCellMargins', label: 'Cell Margins', type: 'button' },
         ] },
         { id: 'tl-data', name: 'Data', controls: [
+          { cmd: 'tblSort', label: 'Sort', type: 'dropdown' },
+          { cmd: 'tblRepeatHeader', label: 'Repeat Header Rows', type: 'toggle' },
           { cmd: 'tblToText', label: 'Convert to Text', type: 'button' },
-          { cmd: 'tblHeaderRow', label: 'Header Row', type: 'button' },
-          { cmd: 'tblHeaderCol', label: 'Header Column', type: 'button' },
+          { cmd: 'tblFormula', label: 'Formula', type: 'button' },
+        ] },
+        { id: 'tl-draw', name: 'Draw', controls: [
+          { cmd: 'tblDrawTable', label: 'Draw Table', type: 'button' },
+          { cmd: 'tblEraser', label: 'Eraser', type: 'button' },
         ] },
       ],
     };

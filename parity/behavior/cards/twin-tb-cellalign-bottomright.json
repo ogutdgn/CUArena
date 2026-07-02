@@ -4,7 +4,7 @@
   "feature": "Table",
   "signedOff": "generated",
   "ooxmlTask": "tb-cellalign-bottomright",
-  "note": "Align Bottom (the clone's nearest control to Word's Align Bottom Right): the caret cell paints vertical-align bottom.",
+  "note": "Spec 033 — Align Bottom Right (Word's 9-way grid): the caret cell paints vertical-align bottom AND the cell paragraph paints text-align right (vAlign + jc, the real Word 9-way action). Doc changes.",
   "steps": [
     {
       "do": "setupText",
@@ -33,7 +33,10 @@
     },
     {
       "do": "clickCmd",
-      "cmd": "tblVAlignBottom"
+      "cmd": "tblAlignBR"
+    },
+    {
+      "expect": "docChanged"
     },
     {
       "expect": "paintedCellStyleIs",
@@ -41,6 +44,14 @@
       "prop": "vertical-align",
       "anyOf": [
         "bottom"
+      ]
+    },
+    {
+      "expect": "paintedCellStyleIs",
+      "index": 0,
+      "prop": "text-align",
+      "anyOf": [
+        "right"
       ]
     }
   ]

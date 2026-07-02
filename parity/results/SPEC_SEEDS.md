@@ -393,13 +393,11 @@ python parity/engines/run.py --only highlight   # expect: semantic-pass, missing
 **Goal:** make the clone's `Alignment: Align Bottom Right (caret cell)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-cellalign-bottomright`
 **Ground truth:** `parity/fixtures/rw-tb-cellalign-bottomright.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-cellalign-bottomright): emit `body:gridCol[('w', '3116')]`
 - FR (tb-cellalign-bottomright): emit `body:gridCol[('w', '3117')]`
-- FR (tb-cellalign-bottomright): emit `body:jc[('val', 'right')]`
-- FR (tb-cellalign-bottomright): emit `body:pPr[]`
 - FR (tb-cellalign-bottomright): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-cellalign-bottomright): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-cellalign-bottomright): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
@@ -760,12 +758,11 @@ python parity/engines/run.py --only tb-combo-diag-merged   # expect: semantic-pa
 **Goal:** make the clone's `Cell Margins 0.25in all sides` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-cellmargins`
 **Ground truth:** `parity/fixtures/rw-tb-cellmargins.docx`
-**Current parity:** GAP — 9 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-cellmargins): emit `body:gridCol[('w', '3116')]`
 - FR (tb-cellmargins): emit `body:gridCol[('w', '3117')]`
-- FR (tb-cellmargins): emit `body:tblCellMar[]`
 - FR (tb-cellmargins): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-cellmargins): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-cellmargins): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
@@ -776,7 +773,6 @@ python parity/engines/run.py --only tb-combo-diag-merged   # expect: semantic-pa
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-cellmargins): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-cellmargins): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-cellmargins): stop emitting (or justify) `body:tcMar[]`
 - FID (tb-cellmargins): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 
 ### Acceptance (regression gate)

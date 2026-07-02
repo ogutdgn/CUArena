@@ -364,10 +364,8 @@ T.append(dict(
 T.append(dict(
     id="tb-cellalign-bottomright", feature="Alignment: Align Bottom Right (caret cell)",
     control_id="table-layout.alignment",
-    note="Word 9-way = vAlign bottom + paragraph jc right. Clone has only 3 vAlign buttons -> vAlign applied, jc unreachable (partial gap).",
-    wc=WC_BASE + """
-    out.valign = PM.tableSetCellVAlign('bottom');
-    out.unreachable = '9-way alignment grid absent -- vertical-only buttons, no paragraph jc';""",
+    note="Spec 033: Word 9-way = vAlign bottom + paragraph jc right. Clone now has the 9-way grid -> tableSetCellAlign('bottom','right') writes BOTH (w:vAlign bottom + w:jc right). Reachable.",
+    wc=WC_BASE + "\n    out.op = PM.tableSetCellAlign('bottom', 'right');",
     rw=RW_BASE + "\n" + rw_caret(1, 1) + """
     $tbl.Cell(1, 1).VerticalAlignment = 3
     $w.Selection.ParagraphFormat.Alignment = 2""",
@@ -375,15 +373,15 @@ T.append(dict(
 T.append(dict(
     id="tb-textdir", feature="Text Direction: first click (caret cell)",
     control_id="table-layout.alignment.textdir",
-    note="Clone H.tblTextDir hardwires 'tbRl'. Word first click = rotate 90 (wdTextOrientationDownward=3, tbRl expected -- VERIFY, D6.3 flag). Later clicks (btLr) are BEHAVIOR territory.",
-    wc=WC_BASE + "\n    out.op = PM.tableSetTextDirection('tbRl');",
+    note="Spec 033: Clone H.tblTextDir cycles horizontal->tbRl->btLr; the FIRST click on an un-rotated cell = tbRl (matches Word's first click = rotate 90, wdTextOrientationDownward=3). Later clicks (btLr) are BEHAVIOR territory.",
+    wc=WC_BASE + "\n    out.op = PM.tableTextDirectionCycle();",
     rw=RW_BASE + "\n" + rw_caret(1, 1) + "\n    $tbl.Cell(1, 1).Range.Orientation = 3",
 ))
 T.append(dict(
     id="tb-cellmargins", feature="Cell Margins 0.25in all sides",
     control_id="table-layout.alignment.cellmargins",
-    note="Clone flyout -> tableSetCellMargins per-CELL tcMar (24px=0.25in). Word Cell Margins = TABLE Options -> tblCellMar (paddings 18pt). Semantic scope difference expected.",
-    wc=WC_BASE + "\n    out.op = PM.tableSetCellMargins({ top: 24, bottom: 24, left: 24, right: 24 });",
+    note="Spec 033: Word Cell Margins (Table Options) sets TABLE-level default cell margins -> w:tblPr/w:tblCellMar. Clone now writes tableSetTableCellMargins (360 dxa = 0.25in all sides). Matches Word's scope.",
+    wc=WC_BASE + "\n    out.op = PM.tableSetTableCellMargins({ top: 360, left: 360, bottom: 360, right: 360 });",
     rw=RW_BASE + """
     $tbl.TopPadding = 18
     $tbl.BottomPadding = 18
@@ -406,8 +404,8 @@ T.append(dict(
 T.append(dict(
     id="tb-repeatheader", feature="Repeat Header Rows (row 1)",
     control_id="table-layout.data.repeatheader",
-    note="Clone 'Header Row' button does <th> conversion (toggleHeaderRow) -- NOT Word's w:trPr/w:tblHeader. Word: Rows(1).HeadingFormat=true. Semantics divergence expected.",
-    wc=WC_BASE + "\n    out.op = PM.tableToggleHeaderRow();",
+    note="Spec 033: Clone Repeat Header Rows writes the caret row's w:trPr/w:tblHeader (tableRepeatHeaderRows(true)) -- Word's real semantics (Rows(1).HeadingFormat=true), NOT the old <th> conversion.",
+    wc=WC_BASE + "\n    out.op = PM.tableRepeatHeaderRows(true);",
     rw=RW_BASE + "\n    $tbl.Rows(1).HeadingFormat = $true",
 ))
 T.append(dict(

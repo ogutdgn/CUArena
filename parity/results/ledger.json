@@ -1739,15 +1739,13 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 21,
-      "missing": 10,
+      "match": 23,
+      "missing": 8,
       "extra": 3
     },
     "missing_nodes": [
       "body:gridCol[('w', '3116')]",
       "body:gridCol[('w', '3117')]",
-      "body:jc[('val', 'right')]",
-      "body:pPr[]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
       "body:tblW[('type', 'auto'), ('w', '0')]",
       "body:tcW[('type', 'dxa'), ('w', '3116')]",
@@ -1766,7 +1764,7 @@
     "feature": "Alignment: Align Bottom Right (caret cell)",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Word 9-way = vAlign bottom + paragraph jc right. Clone has only 3 vAlign buttons -> vAlign applied, jc unreachable (partial gap).",
+    "note": "Spec 033: Word 9-way = vAlign bottom + paragraph jc right. Clone now has the 9-way grid -> tableSetCellAlign('bottom','right') writes BOTH (w:vAlign bottom + w:jc right). Reachable.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {
@@ -1790,14 +1788,13 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 24,
-      "missing": 9,
-      "extra": 4
+      "match": 25,
+      "missing": 8,
+      "extra": 3
     },
     "missing_nodes": [
       "body:gridCol[('w', '3116')]",
       "body:gridCol[('w', '3117')]",
-      "body:tblCellMar[]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
       "body:tblW[('type', 'auto'), ('w', '0')]",
       "body:tcW[('type', 'dxa'), ('w', '3116')]",
@@ -1808,7 +1805,6 @@
     "extra_nodes": [
       "body:gridCol[('w', '3120')]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-      "body:tcMar[]",
       "body:tcW[('type', 'dxa'), ('w', '3120')]"
     ],
     "part_counts": {},
@@ -1817,7 +1813,7 @@
     "feature": "Cell Margins 0.25in all sides",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone flyout -> tableSetCellMargins per-CELL tcMar (24px=0.25in). Word Cell Margins = TABLE Options -> tblCellMar (paddings 18pt). Semantic scope difference expected.",
+    "note": "Spec 033: Word Cell Margins (Table Options) sets TABLE-level default cell margins -> w:tblPr/w:tblCellMar. Clone now writes tableSetTableCellMargins (360 dxa = 0.25in all sides). Matches Word's scope.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {
@@ -2905,7 +2901,7 @@
     "feature": "Repeat Header Rows (row 1)",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone 'Header Row' button does <th> conversion (toggleHeaderRow) -- NOT Word's w:trPr/w:tblHeader. Word: Rows(1).HeadingFormat=true. Semantics divergence expected.",
+    "note": "Spec 033: Clone Repeat Header Rows writes the caret row's w:trPr/w:tblHeader (tableRepeatHeaderRows(true)) -- Word's real semantics (Rows(1).HeadingFormat=true), NOT the old <th> conversion.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {

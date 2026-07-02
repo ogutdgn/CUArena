@@ -2537,8 +2537,42 @@
    "contextual": true,
    "groups": [
     {
+     "name": "Table",
+     "controls": [
+      {
+       "id": null,
+       "cmd": "tblSelect",
+       "label": "Select",
+       "type": "dropdown",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblViewGridlines",
+       "label": "View Gridlines",
+       "type": "toggle",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblProperties",
+       "label": "Properties",
+       "type": "button",
+       "items": null
+      }
+     ],
+     "launcher": null
+    },
+    {
      "name": "Rows & Columns",
      "controls": [
+      {
+       "id": null,
+       "cmd": "tblDelete",
+       "label": "Delete",
+       "type": "dropdown",
+       "items": null
+      },
       {
        "id": null,
        "cmd": "tblInsertAbove",
@@ -2569,22 +2603,8 @@
       },
       {
        "id": null,
-       "cmd": "tblDeleteRow",
-       "label": "Delete Row",
-       "type": "button",
-       "items": null
-      },
-      {
-       "id": null,
-       "cmd": "tblDeleteColumn",
-       "label": "Delete Column",
-       "type": "button",
-       "items": null
-      },
-      {
-       "id": null,
-       "cmd": "tblDeleteTable",
-       "label": "Delete Table",
+       "cmd": "tblInsertCells",
+       "label": "Insert Cells",
        "type": "button",
        "items": null
       }
@@ -2623,15 +2643,22 @@
      "controls": [
       {
        "id": null,
+       "cmd": "tblAutoFit",
+       "label": "AutoFit",
+       "type": "dropdown",
+       "items": null
+      },
+      {
+       "id": null,
        "cmd": "tblRowHeight",
-       "label": "Row Height",
+       "label": "Height:",
        "type": "dropdown",
        "items": null
       },
       {
        "id": null,
        "cmd": "tblColWidth",
-       "label": "Column Width",
+       "label": "Width:",
        "type": "dropdown",
        "items": null
       },
@@ -2648,13 +2675,6 @@
        "label": "Distribute Columns",
        "type": "button",
        "items": null
-      },
-      {
-       "id": null,
-       "cmd": "tblAutoFit",
-       "label": "AutoFit",
-       "type": "dropdown",
-       "items": null
       }
      ],
      "launcher": null
@@ -2664,22 +2684,64 @@
      "controls": [
       {
        "id": null,
-       "cmd": "tblVAlignTop",
-       "label": "Align Top",
+       "cmd": "tblAlignTL",
+       "label": "Align Top Left",
        "type": "button",
        "items": null
       },
       {
        "id": null,
-       "cmd": "tblVAlignMid",
-       "label": "Align Middle",
+       "cmd": "tblAlignTC",
+       "label": "Align Top Center",
        "type": "button",
        "items": null
       },
       {
        "id": null,
-       "cmd": "tblVAlignBottom",
-       "label": "Align Bottom",
+       "cmd": "tblAlignTR",
+       "label": "Align Top Right",
+       "type": "button",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblAlignML",
+       "label": "Align Center Left",
+       "type": "button",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblAlignMC",
+       "label": "Align Center",
+       "type": "button",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblAlignMR",
+       "label": "Align Center Right",
+       "type": "button",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblAlignBL",
+       "label": "Align Bottom Left",
+       "type": "button",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblAlignBC",
+       "label": "Align Bottom Center",
+       "type": "button",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblAlignBR",
+       "label": "Align Bottom Right",
        "type": "button",
        "items": null
       },
@@ -2705,6 +2767,20 @@
      "controls": [
       {
        "id": null,
+       "cmd": "tblSort",
+       "label": "Sort",
+       "type": "dropdown",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblRepeatHeader",
+       "label": "Repeat Header Rows",
+       "type": "toggle",
+       "items": null
+      },
+      {
+       "id": null,
        "cmd": "tblToText",
        "label": "Convert to Text",
        "type": "button",
@@ -2712,15 +2788,28 @@
       },
       {
        "id": null,
-       "cmd": "tblHeaderRow",
-       "label": "Header Row",
+       "cmd": "tblFormula",
+       "label": "Formula",
+       "type": "button",
+       "items": null
+      }
+     ],
+     "launcher": null
+    },
+    {
+     "name": "Draw",
+     "controls": [
+      {
+       "id": null,
+       "cmd": "tblDrawTable",
+       "label": "Draw Table",
        "type": "button",
        "items": null
       },
       {
        "id": null,
-       "cmd": "tblHeaderCol",
-       "label": "Header Column",
+       "cmd": "tblEraser",
+       "label": "Eraser",
        "type": "button",
        "items": null
       }

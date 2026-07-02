@@ -29,7 +29,7 @@
   "feature": "Repeat Header Rows (row 1)",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone 'Header Row' button does <th> conversion (toggleHeaderRow) -- NOT Word's w:trPr/w:tblHeader. Word: Rows(1).HeadingFormat=true. Semantics divergence expected.",
+  "note": "Spec 033: Clone Repeat Header Rows writes the caret row's w:trPr/w:tblHeader (tableRepeatHeaderRows(true)) -- Word's real semantics (Rows(1).HeadingFormat=true), NOT the old <th> conversion.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

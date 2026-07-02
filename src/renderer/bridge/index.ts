@@ -110,6 +110,15 @@ const AREA: Record<string, string> = {
   // Table Style Options checkboxes (spec 031) — same insert-basics mapping (never deferred).
   tblStyleHeaderRow: 'insert-basics', tblStyleTotalRow: 'insert-basics', tblStyleBandedRows: 'insert-basics',
   tblStyleFirstCol: 'insert-basics', tblStyleLastCol: 'insert-basics', tblStyleBandedCols: 'insert-basics',
+  // Table Layout tab (spec 033) — same insert-basics mapping (never deferred). Select/View Gridlines/
+  // Properties, Delete menu, Insert Cells, the 9-way alignment grid, Sort/Repeat Header/Formula, Draw/Eraser.
+  tblSelect: 'insert-basics', tblViewGridlines: 'insert-basics', tblProperties: 'insert-basics',
+  tblDelete: 'insert-basics', tblInsertCells: 'insert-basics',
+  tblAlignTL: 'insert-basics', tblAlignTC: 'insert-basics', tblAlignTR: 'insert-basics',
+  tblAlignML: 'insert-basics', tblAlignMC: 'insert-basics', tblAlignMR: 'insert-basics',
+  tblAlignBL: 'insert-basics', tblAlignBC: 'insert-basics', tblAlignBR: 'insert-basics',
+  tblSort: 'insert-basics', tblRepeatHeader: 'insert-basics', tblFormula: 'insert-basics',
+  tblDrawTable: 'insert-basics', tblEraser: 'insert-basics',
   // insert exotica (slice 10) — STAY blocked (carved out of insert-basics in the slice-6 flip)
   onlinePictures: 'insert-exotica', screenshot: 'insert-exotica', icons: 'insert-exotica',
   smartart: 'insert-exotica', chart: 'insert-exotica', onlineVideo: 'insert-exotica',
@@ -402,6 +411,10 @@ export function preinstallBridge() {
     tableSplit: () => false, tableToText: () => false, textToTable: () => false,
     tableSetTextDirection: () => false, tableAutoFit: () => false,
     tableSelectFirstRowPair: () => false,
+    // 033 (PART A): Table Layout tab pre-mount stubs (replaced by installTable on mount)
+    tableSelectScope: () => false, tableViewGridlines: () => false, tableGridlinesShown: () => false,
+    tableSetCellAlign: () => false, tableRepeatHeaderRows: () => false, tableRepeatHeaderState: () => false,
+    tableSetTableCellMargins: () => false, tableTextDirectionCycle: () => false, tableColumns: () => [],
     // spec 030: table-style catalog pre-mount stubs (replaced by installTableStyles on mount)
     ensureTableStyleMaterialized: () => false, listCatalogStyles: () => [],
     tableStylePreviewEnter: () => false, tableStylePreviewLeave: () => {},

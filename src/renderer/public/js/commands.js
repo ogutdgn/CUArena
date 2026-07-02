@@ -133,10 +133,54 @@
   H.tblHeaderRow = () => { const p = TPM(); if (p) p.tableToggleHeaderRow(); };
   H.tblHeaderCol = () => { const p = TPM(); if (p) p.tableToggleHeaderColumn(); };
   H.tblToText = () => { const p = TPM(); if (p) p.tableToText('\t'); };
-  H.tblVAlignTop = () => { const p = TPM(); if (p) p.tableSetCellVAlign('top'); };
-  H.tblVAlignMid = () => { const p = TPM(); if (p) p.tableSetCellVAlign('middle'); };
-  H.tblVAlignBottom = () => { const p = TPM(); if (p) p.tableSetCellVAlign('bottom'); };
-  H.tblTextDir = () => { const p = TPM(); if (p) p.tableSetTextDirection('tbRl'); };
+  // Spec 033 — Table Layout → Alignment: Word's 9-way cell-alignment grid (vertical vAlign + horizontal jc
+  // per cell). Ground truth: Align Bottom Right = vAlign bottom + jc right; Align Top Left = vAlign top + jc
+  // cleared. Backs the tblAlignTL..BR ribbon controls.
+  const tblAlign = (v, h) => { const p = TPM(); if (p) p.tableSetCellAlign(v, h); };
+  H.tblAlignTL = () => tblAlign('top', 'left');
+  H.tblAlignTC = () => tblAlign('top', 'center');
+  H.tblAlignTR = () => tblAlign('top', 'right');
+  H.tblAlignML = () => tblAlign('middle', 'left');
+  H.tblAlignMC = () => tblAlign('middle', 'center');
+  H.tblAlignMR = () => tblAlign('middle', 'right');
+  H.tblAlignBL = () => tblAlign('bottom', 'left');
+  H.tblAlignBC = () => tblAlign('bottom', 'center');
+  H.tblAlignBR = () => tblAlign('bottom', 'right');
+  // Text Direction cycles horizontal → tbRl → btLr → horizontal (Word's 3-state button).
+  H.tblTextDir = () => { const p = TPM(); if (p) p.tableTextDirectionCycle(); };
+  // Spec 033 — Table group: Select (Cell/Column/Row/Table), View Gridlines toggle, Properties dialog.
+  H.tblSelect = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Select'));
+    const sel = (scope, label) => fly.appendChild(WC.flyItem(label, { onClick: () => { const p = TPM(); if (p) p.tableSelectScope(scope); } }));
+    sel('cell', 'Select Cell');
+    sel('column', 'Select Column');
+    sel('row', 'Select Row');
+    sel('table', 'Select Table');
+  });
+  H.tblViewGridlines = () => { const p = TPM(); if (p) { p.tableViewGridlines(); if (WC.Ribbon && WC.Ribbon.refreshContextualTab) WC.Ribbon.refreshContextualTab('table-layout'); } };
+  // Properties dialog is PART B (WC.Dialogs.tableProperties) — call it when present, else an honest stub.
+  H.tblProperties = () => { const p = TPM(); if (!p) return; (WC.Dialogs && WC.Dialogs.tableProperties) ? WC.Dialogs.tableProperties() : WC.notImplemented('Table Properties'); };
+  // Rows & Columns → Delete: a MENU (Word's TableDeleteRowsAndColumnsMenuWord). Delete Cells is honest-
+  // degraded to Delete Row (true shift-cells needs a fork command — PART B's Insert/Delete Cells dialog
+  // documents the v1 note). Columns/Rows/Table map to the existing verbs.
+  H.tblDelete = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Delete'));
+    const it = (label, fn) => fly.appendChild(WC.flyItem(label, { onClick: fn }));
+    it('Delete Cells…', () => { const p = TPM(); if (p) p.tableDeleteRow(); }); // v1 honest-degrade: deletes the row
+    it('Delete Columns', () => { const p = TPM(); if (p) p.tableDeleteColumn(); });
+    it('Delete Rows', () => { const p = TPM(); if (p) p.tableDeleteRow(); });
+    it('Delete Table', () => { const p = TPM(); if (p) p.tableDeleteTable(); });
+  });
+  // Insert Cells launcher — a shift-direction dialog is PART B (WC.Dialogs.insertCells). v1 stub until then.
+  H.tblInsertCells = () => { const p = TPM(); if (!p) return; (WC.Dialogs && WC.Dialogs.insertCells) ? WC.Dialogs.insertCells() : WC.notImplemented('Insert Cells'); };
+  // Data → Repeat Header Rows: toggle the caret row's <w:tblHeader/> (reflect the toggle state in the tab).
+  H.tblRepeatHeader = () => { const p = TPM(); if (p) { p.tableRepeatHeaderRows(); if (WC.Ribbon && WC.Ribbon.refreshContextualTab) WC.Ribbon.refreshContextualTab('table-layout'); } };
+  // Data → Sort / Formula are PART B dialogs (WC.Dialogs.tableSort / tableFormula). Stubs until then.
+  H.tblSort = (c, node) => { const p = TPM(); if (!p) return; (WC.Dialogs && WC.Dialogs.tableSort) ? WC.Dialogs.tableSort(node) : WC.notImplemented('Table Sort'); };
+  H.tblFormula = () => { const p = TPM(); if (!p) return; (WC.Dialogs && WC.Dialogs.tableFormula) ? WC.Dialogs.tableFormula() : WC.notImplemented('Table Formula'); };
+  // Draw group: Draw Table reuses the Insert draw-table mode; Eraser is an honest v1 stub (no drag-erase path).
+  H.tblDrawTable = () => { if (WC.Insert && WC.Insert.drawTableMode) WC.Insert.drawTableMode(); else WC.notImplemented('Draw Table'); };
+  H.tblEraser = () => WC.toast('Eraser mode is coming soon — use Merge Cells / Delete to remove cell borders for now.');
   H.tblAlignLeft = () => { const p = TPM(); if (p) p.tableSetAlignment('left'); };
   H.tblAlignCenter = () => { const p = TPM(); if (p) p.tableSetAlignment('center'); };
   H.tblAlignRight = () => { const p = TPM(); if (p) p.tableSetAlignment('right'); };

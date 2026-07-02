@@ -4,14 +4,13 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 24,
-    "missing": 9,
-    "extra": 4
+    "match": 25,
+    "missing": 8,
+    "extra": 3
   },
   "missing_nodes": [
     "body:gridCol[('w', '3116')]",
     "body:gridCol[('w', '3117')]",
-    "body:tblCellMar[]",
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcW[('type', 'dxa'), ('w', '3116')]",
@@ -22,7 +21,6 @@
   "extra_nodes": [
     "body:gridCol[('w', '3120')]",
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-    "body:tcMar[]",
     "body:tcW[('type', 'dxa'), ('w', '3120')]"
   ],
   "part_counts": {},
@@ -31,7 +29,7 @@
   "feature": "Cell Margins 0.25in all sides",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone flyout -> tableSetCellMargins per-CELL tcMar (24px=0.25in). Word Cell Margins = TABLE Options -> tblCellMar (paddings 18pt). Semantic scope difference expected.",
+  "note": "Spec 033: Word Cell Margins (Table Options) sets TABLE-level default cell margins -> w:tblPr/w:tblCellMar. Clone now writes tableSetTableCellMargins (360 dxa = 0.25in all sides). Matches Word's scope.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

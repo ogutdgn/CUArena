@@ -1,12 +1,12 @@
 {
  "totals": {
-  "matched": 204,
-  "label_differs": 32,
-  "type_mismatch": 6,
-  "missing": 52,
-  "extra": 13,
+  "matched": 225,
+  "label_differs": 27,
+  "type_mismatch": 5,
+  "missing": 37,
+  "extra": 9,
   "items_matched": 176,
-  "items_missing": 67,
+  "items_missing": 71,
   "items_extra": 112,
   "items_skipped": 3
  },
@@ -5266,6 +5266,62 @@
    "matched": [
     {
      "word": {
+      "idMso": "TableShowGridlines",
+      "label": "View Gridlines",
+      "type": "toggleButton",
+      "group": "GroupTable"
+     },
+     "clone": {
+      "cmd": "tblViewGridlines",
+      "label": "View Gridlines",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TablePropertiesDialog",
+      "label": "Properties...",
+      "type": "button",
+      "group": "GroupTable"
+     },
+     "clone": {
+      "cmd": "tblProperties",
+      "label": "Properties",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableDrawTable",
+      "label": "Draw Table",
+      "type": "toggleButton",
+      "group": "GroupTableDraw"
+     },
+     "clone": {
+      "cmd": "tblDrawTable",
+      "label": "Draw Table",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableEraser",
+      "label": "Eraser",
+      "type": "toggleButton",
+      "group": "GroupTableDraw"
+     },
+     "clone": {
+      "cmd": "tblEraser",
+      "label": "Eraser",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
       "idMso": "TableRowsInsertAboveWord",
       "label": "Insert Above",
       "type": "button",
@@ -5316,6 +5372,20 @@
      "clone": {
       "cmd": "tblInsertRight",
       "label": "Insert Right",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableInsertCellsDialog",
+      "label": "Insert Cells...",
+      "type": "button (dialogBoxLauncher)",
+      "group": "GroupTableRowsAndColumns"
+     },
+     "clone": {
+      "cmd": "tblInsertCells",
+      "label": "Insert Cells",
       "type": "button",
       "items": null
      }
@@ -5392,6 +5462,34 @@
     },
     {
      "word": {
+      "idMso": "TableRowHeight",
+      "label": "Height:",
+      "type": "control",
+      "group": "GroupTableCellSize"
+     },
+     "clone": {
+      "cmd": "tblRowHeight",
+      "label": "Height:",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableColumnWidth",
+      "label": "Width:",
+      "type": "control",
+      "group": "GroupTableCellSize"
+     },
+     "clone": {
+      "cmd": "tblColWidth",
+      "label": "Width:",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
       "idMso": "TableRowsDistribute",
       "label": "Distribute Rows",
       "type": "button",
@@ -5420,6 +5518,160 @@
     },
     {
      "word": {
+      "idMso": "TableCellAlignTopLeft",
+      "label": "Align Top Left",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignTL",
+      "label": "Align Top Left",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignTopCenter",
+      "label": "Align Top Center",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignTC",
+      "label": "Align Top Center",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignTopRight",
+      "label": "Align Top Right",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignTR",
+      "label": "Align Top Right",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignMiddleLeft",
+      "label": "Align Center Left",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignML",
+      "label": "Align Center Left",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignMiddleCenter",
+      "label": "Align Center",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignMC",
+      "label": "Align Center",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignMiddleRight",
+      "label": "Align Center Right",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignMR",
+      "label": "Align Center Right",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignBottomLeft",
+      "label": "Align Bottom Left",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignBL",
+      "label": "Align Bottom Left",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignBottomCenter",
+      "label": "Align Bottom Center",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignBC",
+      "label": "Align Bottom Center",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignBottomRight",
+      "label": "Align Bottom Right",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblAlignBR",
+      "label": "Align Bottom Right",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "SortDialogClassic",
+      "label": "Sort...",
+      "type": "button",
+      "group": "GroupTableData"
+     },
+     "clone": {
+      "cmd": "tblSort",
+      "label": "Sort",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableRepeatHeaderRows",
+      "label": "Repeat Header Rows",
+      "type": "toggleButton",
+      "group": "GroupTableData"
+     },
+     "clone": {
+      "cmd": "tblRepeatHeader",
+      "label": "Repeat Header Rows",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
       "idMso": "ConvertTableToText",
       "label": "Convert to Text...",
       "type": "button",
@@ -5429,6 +5681,48 @@
       "cmd": "tblToText",
       "label": "Convert to Text",
       "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableFormulaDialog",
+      "label": "Formula...",
+      "type": "button",
+      "group": "GroupTableData"
+     },
+     "clone": {
+      "cmd": "tblFormula",
+      "label": "Formula",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableSelectMenu",
+      "label": "Select",
+      "type": "menu",
+      "group": "GroupTable"
+     },
+     "clone": {
+      "cmd": "tblSelect",
+      "label": "Select",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableDeleteRowsAndColumnsMenuWord",
+      "label": "Delete",
+      "type": "menu",
+      "group": "GroupTableRowsAndColumns"
+     },
+     "clone": {
+      "cmd": "tblDelete",
+      "label": "Delete",
+      "type": "dropdown",
       "items": null
      }
     },
@@ -5447,185 +5741,9 @@
      }
     }
    ],
-   "label_differs": [
-    {
-     "word": {
-      "idMso": "TableRowHeight",
-      "label": "Height:",
-      "type": "control",
-      "group": "GroupTableCellSize"
-     },
-     "clone": {
-      "cmd": "tblRowHeight",
-      "label": "Row Height",
-      "type": "dropdown",
-      "items": null
-     }
-    },
-    {
-     "word": {
-      "idMso": "TableColumnWidth",
-      "label": "Width:",
-      "type": "control",
-      "group": "GroupTableCellSize"
-     },
-     "clone": {
-      "cmd": "tblColWidth",
-      "label": "Column Width",
-      "type": "dropdown",
-      "items": null
-     }
-    },
-    {
-     "word": {
-      "idMso": "TableCellAlignTopLeft",
-      "label": "Align Top Left",
-      "type": "toggleButton",
-      "group": "GroupTableAlignment"
-     },
-     "clone": {
-      "cmd": "tblVAlignTop",
-      "label": "Align Top",
-      "type": "button",
-      "items": null
-     }
-    },
-    {
-     "word": {
-      "idMso": "TableCellAlignBottomLeft",
-      "label": "Align Bottom Left",
-      "type": "toggleButton",
-      "group": "GroupTableAlignment"
-     },
-     "clone": {
-      "cmd": "tblVAlignBottom",
-      "label": "Align Bottom",
-      "type": "button",
-      "items": null
-     }
-    },
-    {
-     "word": {
-      "idMso": "TableRepeatHeaderRows",
-      "label": "Repeat Header Rows",
-      "type": "toggleButton",
-      "group": "GroupTableData"
-     },
-     "clone": {
-      "cmd": "tblHeaderRow",
-      "label": "Header Row",
-      "type": "button",
-      "items": null
-     }
-    }
-   ],
-   "type_mismatch": [
-    {
-     "word": {
-      "idMso": "TableDeleteRowsAndColumnsMenuWord",
-      "label": "Delete",
-      "type": "menu",
-      "group": "GroupTableRowsAndColumns"
-     },
-     "clone": {
-      "cmd": "tblDeleteRow",
-      "label": "Delete Row",
-      "type": "button",
-      "items": null
-     }
-    }
-   ],
+   "label_differs": [],
+   "type_mismatch": [],
    "missing": [
-    {
-     "idMso": "TableShowGridlines",
-     "label": "View Gridlines",
-     "type": "toggleButton",
-     "group": "GroupTable"
-    },
-    {
-     "idMso": "TablePropertiesDialog",
-     "label": "Properties...",
-     "type": "button",
-     "group": "GroupTable"
-    },
-    {
-     "idMso": "TableDrawTable",
-     "label": "Draw Table",
-     "type": "toggleButton",
-     "group": "GroupTableDraw"
-    },
-    {
-     "idMso": "TableEraser",
-     "label": "Eraser",
-     "type": "toggleButton",
-     "group": "GroupTableDraw"
-    },
-    {
-     "idMso": "TableInsertCellsDialog",
-     "label": "Insert Cells...",
-     "type": "button (dialogBoxLauncher)",
-     "group": "GroupTableRowsAndColumns"
-    },
-    {
-     "idMso": "TableCellAlignTopCenter",
-     "label": "Align Top Center",
-     "type": "toggleButton",
-     "group": "GroupTableAlignment"
-    },
-    {
-     "idMso": "TableCellAlignTopRight",
-     "label": "Align Top Right",
-     "type": "toggleButton",
-     "group": "GroupTableAlignment"
-    },
-    {
-     "idMso": "TableCellAlignMiddleLeft",
-     "label": "Align Center Left",
-     "type": "toggleButton",
-     "group": "GroupTableAlignment"
-    },
-    {
-     "idMso": "TableCellAlignMiddleCenter",
-     "label": "Align Center",
-     "type": "toggleButton",
-     "group": "GroupTableAlignment"
-    },
-    {
-     "idMso": "TableCellAlignMiddleRight",
-     "label": "Align Center Right",
-     "type": "toggleButton",
-     "group": "GroupTableAlignment"
-    },
-    {
-     "idMso": "TableCellAlignBottomCenter",
-     "label": "Align Bottom Center",
-     "type": "toggleButton",
-     "group": "GroupTableAlignment"
-    },
-    {
-     "idMso": "TableCellAlignBottomRight",
-     "label": "Align Bottom Right",
-     "type": "toggleButton",
-     "group": "GroupTableAlignment"
-    },
-    {
-     "idMso": "SortDialogClassic",
-     "label": "Sort...",
-     "type": "button",
-     "group": "GroupTableData"
-    },
-    {
-     "idMso": "TableFormulaDialog",
-     "label": "Formula...",
-     "type": "button",
-     "group": "GroupTableData"
-    },
-    {
-     "idMso": "TableSelectMenu",
-     "label": "Select",
-     "type": "menu",
-     "group": "GroupTable"
-    },
     {
      "idMso": "AlignmentMenu",
      "label": "",
@@ -5633,58 +5751,38 @@
      "group": "GroupTableAlignment"
     }
    ],
-   "extra": [
-    {
-     "cmd": "tblDeleteColumn",
-     "label": "Delete Column",
-     "type": "button",
-     "items": null
-    },
-    {
-     "cmd": "tblDeleteTable",
-     "label": "Delete Table",
-     "type": "button",
-     "items": null
-    },
-    {
-     "cmd": "tblVAlignMid",
-     "label": "Align Middle",
-     "type": "button",
-     "items": null
-    },
-    {
-     "cmd": "tblHeaderCol",
-     "label": "Header Column",
-     "type": "button",
-     "items": null
-    }
-   ],
+   "extra": [],
    "menus": [
     {
      "matched": 0,
      "missing": [
       {
-       "idMso": "TableAutoFitContents",
-       "label": "AutoFit Contents",
+       "idMso": "TableSelectCell",
+       "label": "Select Cell",
        "type": "button"
       },
       {
-       "idMso": "TableAutoFitWindow",
-       "label": "AutoFit Window",
+       "idMso": "TableColumnSelect",
+       "label": "Select Column",
        "type": "button"
       },
       {
-       "idMso": "TableAutoFitFixedColumnWidth",
-       "label": "Fixed Column Width",
+       "idMso": "TableRowSelect",
+       "label": "Select Row",
+       "type": "button"
+      },
+      {
+       "idMso": "TableSelect",
+       "label": "Select Table",
        "type": "button"
       }
      ],
      "extra": [],
      "skipped_unlabeled": 0,
-     "parent": "TableAutoFitMenu",
-     "wordLabel": "AutoFit",
-     "cloneCmd": "tblAutoFit",
-     "wordChildCount": 3
+     "parent": "TableSelectMenu",
+     "wordLabel": "Select",
+     "cloneCmd": "tblSelect",
+     "wordChildCount": 4
     },
     {
      "matched": 0,
@@ -5714,8 +5812,34 @@
      "skipped_unlabeled": 0,
      "parent": "TableDeleteRowsAndColumnsMenuWord",
      "wordLabel": "Delete",
-     "cloneCmd": "tblDeleteRow",
+     "cloneCmd": "tblDelete",
      "wordChildCount": 4
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "TableAutoFitContents",
+       "label": "AutoFit Contents",
+       "type": "button"
+      },
+      {
+       "idMso": "TableAutoFitWindow",
+       "label": "AutoFit Window",
+       "type": "button"
+      },
+      {
+       "idMso": "TableAutoFitFixedColumnWidth",
+       "label": "Fixed Column Width",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "TableAutoFitMenu",
+     "wordLabel": "AutoFit",
+     "cloneCmd": "tblAutoFit",
+     "wordChildCount": 3
     }
    ]
   }

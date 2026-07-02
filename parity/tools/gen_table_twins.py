@@ -169,13 +169,40 @@ TWINS.append(twin("tb-rowheight-05in",
     ]))
 
 TWINS.append(twin("tb-cellalign-bottomright",
-    "Align Bottom (the clone's nearest control to Word's Align Bottom Right): the caret cell paints vertical-align bottom.",
+    "Spec 033 — Align Bottom Right (Word's 9-way grid): the caret cell paints vertical-align bottom AND the "
+    "cell paragraph paints text-align right (vAlign + jc, the real Word 9-way action). Doc changes.",
     INSERT_33 + [
         {"do": "caretIntoCellModel", "index": 0},
         {"do": "activateTab", "tab": "table-layout"},
-        {"do": "clickCmd", "cmd": "tblVAlignBottom"},
+        {"do": "clickCmd", "cmd": "tblAlignBR"},
+        {"expect": "docChanged"},
         {"expect": "paintedCellStyleIs", "index": 0, "prop": "vertical-align", "anyOf": ["bottom"]},
+        {"expect": "paintedCellStyleIs", "index": 0, "prop": "text-align", "anyOf": ["right"]},
     ]))
+
+# Spec 033: 9-way alignment grid — one twin per corner cell proves the click acts on-screen (vAlign + jc
+# paint). The OOXML axis (tb-cellalign-bottomright) judges the exact export; these prove every grid button is
+# alive and paints the right vertical + horizontal alignment.
+for tid, cmd, va, ta in [
+    ("tb-cellalign-topleft", "tblAlignTL", "top", "left"),
+    ("tb-cellalign-topright", "tblAlignTR", "top", "right"),
+    ("tb-cellalign-bottomleft", "tblAlignBL", "bottom", "left"),
+]:
+    # 'left' clears jc (Word default) — the painted text-align falls back to the paragraph default, so the
+    # left variants assert only the vertical paint + docChanged (the horizontal is a CLEAR, not a set).
+    expects = [
+        {"expect": "docChanged"},
+        {"expect": "paintedCellStyleIs", "index": 0, "prop": "vertical-align", "anyOf": [va]},
+    ]
+    if ta != "left":
+        expects.append({"expect": "paintedCellStyleIs", "index": 0, "prop": "text-align", "anyOf": [ta]})
+    TWINS.append(twin(tid,
+        f"Spec 033 — {cmd} (9-way grid): the caret cell paints vertical-align {va}" + (f" + text-align {ta}" if ta != "left" else "") + ". Doc changes.",
+        INSERT_33 + [
+            {"do": "caretIntoCellModel", "index": 0},
+            {"do": "activateTab", "tab": "table-layout"},
+            {"do": "clickCmd", "cmd": cmd},
+        ] + expects))
 
 TWINS.append(twin("tb-textdir",
     "Text Direction first click paints vertical writing in the caret cell (tbRl -> CSS vertical-rl). Word's full 3-state cycle is a ❓ recording item.",
@@ -237,11 +264,13 @@ TWINS.append(twin("tb-totext-tab",
     ]))
 
 TWINS.append(twin("tb-repeatheader",
-    "The clone's 'Header Row' button changes the model. (Its SEMANTICS diverge from Word's Repeat Header Rows — the OOXML axis flags that; this twin only proves the click acts.)",
+    "Spec 033 — Repeat Header Rows toggle from the Data group changes the model (writes the caret row's "
+    "w:trPr/w:tblHeader — Word's real semantics). This twin proves the toggle click acts; the OOXML axis "
+    "(tb-repeatheader) judges the w:tblHeader export.",
     INSERT_33 + [
         {"do": "caretIntoCellModel", "index": 0},
         {"do": "activateTab", "tab": "table-layout"},
-        {"do": "clickCmd", "cmd": "tblHeaderRow"},
+        {"do": "clickCmd", "cmd": "tblRepeatHeader"},
         {"expect": "docChanged"},
     ]))
 

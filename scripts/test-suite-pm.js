@@ -4550,6 +4550,142 @@
     return active === 'home' || `expected 'home' to stay active, got '${active}' (jumped to stale prev)`;
   });
 
+  // ---------- Spec 033 (PART A): Table Layout tab bridge verbs ----------
+  // The new NO-FORK Layout verbs: Select-scope (CellSelection), 9-way alignment (vAlign+jc export),
+  // Repeat Header Rows (w:tblHeader), table-level cell margins (w:tblCellMar), Text Direction cycle,
+  // + the layoutTab() structure (Delete dropdown, the 5 relabels). Export-XML helper is local.
+  const export033Xml = async () => {
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    return typeof xml === 'string' ? xml : '';
+  };
+  // Seat the caret in the Nth table cell (0-based) — mirrors the parity probe's caretIntoCell.
+  const caretIntoCell033 = (i) => {
+    const ps = []; doc().descendants((n, pos) => { if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') ps.push(pos); });
+    if (i >= ps.length) return false;
+    const $p = doc().resolve(ps[i] + 1);
+    v().dispatch(v().state.tr.setSelection(window.__PM_TextSelection.near($p)));
+    return true;
+  };
+
+  await t('[033A] tableSelectScope("row") builds a CellSelection spanning a row', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 3 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40); // caret in row-0 cell 0
+    if (!PM().tableSelectScope('row')) return 'tableSelectScope returned false';
+    await sleep(60);
+    const sel = v().state.selection;
+    if (!sel.$anchorCell || !sel.$headCell) return 'not a CellSelection (no $anchorCell/$headCell)';
+    // Count the cells the selection covers — a full row of 3.
+    let n = 0; if (typeof sel.forEachCell === 'function') sel.forEachCell(() => { n++; });
+    return n === 3 || `row selection spans ${n} cells, expected 3`;
+  });
+
+  await t('[033A] tableSetCellAlign("bottom","right") exports w:vAlign bottom + w:jc right', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40);
+    if (!PM().tableSetCellAlign('bottom', 'right')) return 'tableSetCellAlign returned false';
+    await sleep(100);
+    const va = firstCellAttr('verticalAlign');
+    if (va !== 'bottom') return 'verticalAlign attr not bottom: ' + JSON.stringify(va);
+    const xml = await export033Xml();
+    const hasVAlign = /<w:vAlign\b[^>]*w:val="(bottom|bot)"/.test(xml);
+    const hasJc = /<w:jc\b[^>]*w:val="(right|end)"/.test(xml);
+    return (hasVAlign && hasJc) || `vAlign=${hasVAlign} jc=${hasJc}`;
+  });
+
+  await t('[033A] tableSetCellAlign("top","left") clears jc (Word default) + sets vAlign top', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40);
+    PM().tableSetCellAlign('bottom', 'right'); await sleep(80); // set both first
+    PM().tableSetCellAlign('top', 'left'); await sleep(80);     // then Top-Left clears jc
+    const va = firstCellAttr('verticalAlign');
+    if (va !== 'top') return 'verticalAlign attr not top: ' + JSON.stringify(va);
+    // The first cell's paragraph textAlign must be cleared (left = default, no jc set).
+    let pAlign = 'unset';
+    doc().descendants((n) => { if (pAlign === 'unset' && n.type.name === 'paragraph' && n.attrs) { const a = n.attrs.textAlign; if (a) pAlign = a; } });
+    return (pAlign === 'unset' || pAlign === 'left') || `expected jc cleared/left, got '${pAlign}'`;
+  });
+
+  await t('[033A] tableRepeatHeaderRows(true) exports <w:tblHeader/> on the row trPr', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40); // caret in row 0
+    if (!PM().tableRepeatHeaderRows(true)) return 'tableRepeatHeaderRows returned false';
+    await sleep(100);
+    if (PM().tableRepeatHeaderState() !== true) return 'tableRepeatHeaderState not true after set';
+    const xml = await export033Xml();
+    return /<w:tblHeader\b/.test(xml) || 'no <w:tblHeader/> in export';
+  });
+
+  await t('[033A] tableSetTableCellMargins exports table-level <w:tblCellMar> (dxa)', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40);
+    if (!PM().tableSetTableCellMargins({ top: 360, left: 360, bottom: 360, right: 360 })) return 'tableSetTableCellMargins returned false';
+    await sleep(100);
+    const xml = await export033Xml();
+    // Must be TABLE-level (inside w:tblPr), not per-cell w:tcMar.
+    const tblPr = xml.slice(xml.indexOf('<w:tblPr'), xml.indexOf('</w:tblPr>') + 10);
+    if (!/<w:tblCellMar\b/.test(tblPr)) return 'no <w:tblCellMar> in w:tblPr: ' + tblPr.slice(0, 400);
+    // 360 dxa on at least one side.
+    return /<w:(top|left|bottom|right)\b[^>]*w:w="360"[^>]*w:type="dxa"/.test(tblPr) || 'no 360-dxa side in tblCellMar: ' + tblPr.slice(0, 400);
+  });
+
+  await t('[033A] tableTextDirectionCycle cycles horizontal → tbRl → btLr', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40);
+    if (!PM().tableTextDirectionCycle()) return 'first cycle returned false';
+    await sleep(80);
+    if (firstCellAttr('textDirection') !== 'tbRl') return 'first cycle not tbRl: ' + JSON.stringify(firstCellAttr('textDirection'));
+    caretIntoCell033(0); await sleep(40); // re-seat (the verb refocuses)
+    if (!PM().tableTextDirectionCycle()) return 'second cycle returned false';
+    await sleep(80);
+    return firstCellAttr('textDirection') === 'btLr' || 'second cycle not btLr: ' + JSON.stringify(firstCellAttr('textDirection'));
+  });
+
+  await t('[033A] layoutTab: Delete is a DROPDOWN (not flat buttons) + Insert Cells present', async () => {
+    const tab = window.WC.TableToolsPM.layoutTab();
+    const rowsCols = tab.groups.find((g) => g.id === 'tl-rowscols');
+    if (!rowsCols) return 'no Rows & Columns group';
+    const del = rowsCols.controls.find((c) => c.cmd === 'tblDelete');
+    if (!del) return 'no tblDelete control';
+    if (del.type !== 'dropdown') return 'tblDelete is not a dropdown: ' + del.type;
+    // The old flat Delete Row/Column/Table buttons must be GONE from the Layout tab.
+    const flat = rowsCols.controls.filter((c) => ['tblDeleteRow', 'tblDeleteColumn', 'tblDeleteTable'].includes(c.cmd));
+    if (flat.length) return 'flat delete buttons still on Layout: ' + flat.map((c) => c.cmd).join(',');
+    return !!rowsCols.controls.find((c) => c.cmd === 'tblInsertCells') || 'no Insert Cells control';
+  });
+
+  await t('[033A] layoutTab: the 5 label fixes present (Height:/Width:/Align Top Left/Bottom Left/Repeat Header Rows)', async () => {
+    const tab = window.WC.TableToolsPM.layoutTab();
+    const labels = {};
+    tab.groups.forEach((g) => g.controls.forEach((c) => { labels[c.cmd] = c.label; }));
+    const want = {
+      tblRowHeight: 'Height:', tblColWidth: 'Width:',
+      tblAlignTL: 'Align Top Left', tblAlignBL: 'Align Bottom Left',
+      tblRepeatHeader: 'Repeat Header Rows',
+    };
+    for (const [cmd, label] of Object.entries(want)) {
+      if (labels[cmd] !== label) return `${cmd} label is '${labels[cmd]}', expected '${label}'`;
+    }
+    // Header Row / Header Column must NOT be on the Layout tab (they belong on Design).
+    if (labels.tblHeaderRow || labels.tblHeaderCol) return 'misplaced Header Row/Column still on Layout tab';
+    // 7 groups, in Word's order.
+    return tab.groups.map((g) => g.id).join(',') === 'tl-table,tl-rowscols,tl-merge,tl-cellsize,tl-align,tl-data,tl-draw'
+      || 'group order/count wrong: ' + tab.groups.map((g) => g.id).join(',');
+  });
+
+  await t('[033A] tableViewGridlines toggles the view-only class (no export change)', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(120);
+    const host = document.getElementById('pm-editor');
+    const before = host.classList.contains('wc-show-table-gridlines');
+    PM().tableViewGridlines();
+    if (PM().tableGridlinesShown() === before) return 'gridlines state did not toggle';
+    // View-only: never in the export.
+    const xml = await export033Xml();
+    PM().tableViewGridlines(); // toggle back to leave state clean
+    return !/wc-show-table-gridlines/.test(xml) || 'gridlines class leaked into export';
+  });
+
+  await PM().newBlank(); await sleep(100); // leave clean for the file-io block below
+
   // ---------- slice 7: file-io (html/txt/csv on the PM engine — these replace the live document) ----------
   // CRITICAL: Files.open awaits confirmDiscard(), which opens a MODAL when the doc is dirty — a
   // dirty doc here would hang the whole probe (no JSON, suite never exits). The last [6b] test
