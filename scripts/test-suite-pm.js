@@ -4294,11 +4294,13 @@
     const bg = firstCellAttr('background');
     if (!bg || String(bg.color).toUpperCase() !== 'FFF2CC') return 'user shading stomped: ' + JSON.stringify(bg);
     // ...while an untouched first-row cell DOES get the style's firstRow fill.
+    // 030: the GridTable4-Accent1 firstRow fill is now the LOCKED-BUILD accent1 (156082), not the
+    // legacy 2013 palette (4472C4) — the theme-data fix (T002) re-baselined the fallback def.
     let secondBg = null; let seen = 0;
     doc().descendants((n) => {
       if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') { seen++; if (seen === 2 && secondBg === null) secondBg = n.attrs.background; }
     });
-    if (!secondBg || String(secondBg.color).toUpperCase() !== '4472C4') return 'sibling first-row cell not baked: ' + JSON.stringify(secondBg);
+    if (!secondBg || String(secondBg.color).toUpperCase() !== '156082') return 'sibling first-row cell not baked: ' + JSON.stringify(secondBg);
     return true;
   });
   await t('[6b] direct table borders beat the baked style frame (Word precedence)', async () => {
@@ -7215,13 +7217,132 @@
   // Document position where the top-level block containing `needle` begins.
   const blockStartOf = (needle) => { let p = null; doc().forEach((n, off) => { if (p == null && (n.textContent || '').indexOf(needle) >= 0) p = off; }); return p; };
 
+  // ---------- parity 030 table style catalog ----------
+  // The 113 real-Word modern table-style defs are registered LAZILY (bridge/table-styles.ts): on
+  // first apply/preview the verbatim <w:style> is spliced into the in-memory styles.xml + the
+  // translated entry registered, so the exporter keeps the <w:tblStyle> ref (Word drops orphans)
+  // and the in-app painter can resolve visuals. These tests exercise: materialize-on-apply, the
+  // double-apply idempotency, import precedence (a doc's own def wins), the addToHistory:false
+  // preview invariant, and the theme-data (156082, not 4472C4) guard.
+  //
+  // The def w:style subtree for a materialized style — from the export part map (word/styles.xml).
+  const tblStyleSubtree = (sx, id) => {
+    if (typeof sx !== 'string') return null;
+    const re = new RegExp('<w:style\\b[^>]*w:styleId="' + id + '"[\\s\\S]*?</w:style>');
+    const m = sx.match(re);
+    return m ? m[0] : null;
+  };
+  // Count of <w:style ... w:styleId="id"> occurrences in styles.xml (must be exactly 1 — no dupes).
+  const tblStyleCount = (sx, id) => {
+    if (typeof sx !== 'string') return 0;
+    const re = new RegExp('<w:style\\b[^>]*w:styleId="' + id + '"', 'g');
+    return (sx.match(re) || []).length;
+  };
+  // Caret into the first cell of the (just-inserted) table so a table command has a target.
+  const caretIntoTable = () => {
+    let cellPos = null;
+    doc().descendants((n, pos) => { if ((n.type.name === 'tableCell' || n.type.name === 'tableHeader') && cellPos == null) cellPos = pos; });
+    if (cellPos == null) return false;
+    window.WC.editor.commands.setTextSelection(cellPos + 2);
+    return true;
+  };
 
+  await t('[030] apply ListTable3 on blank → styles.xml has ONE def with basedOn TableNormal + <w:tblStyle> in document.xml', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t030a'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell to seat the caret';
+    if (PM().tableSetStyle('ListTable3') !== true) return 'tableSetStyle(ListTable3) returned non-true';
+    await sleep(120);
+    const parts = await exportParts();
+    const sx = parts['word/styles.xml'];
+    if (typeof sx !== 'string') return 'no word/styles.xml in export part map';
+    const n = tblStyleCount(sx, 'ListTable3');
+    if (n !== 1) return 'expected exactly ONE ListTable3 def, got ' + n;
+    const def = tblStyleSubtree(sx, 'ListTable3');
+    if (!def) return 'no ListTable3 <w:style> subtree';
+    if (!/<w:basedOn\b[^>]*w:val="TableNormal"/.test(def)) return 'ListTable3 basedOn is not TableNormal: ' + def.slice(0, 200);
+    const dx = parts['word/document.xml'];
+    if (typeof dx !== 'string' || !/<w:tblStyle\b[^>]*w:val="ListTable3"/.test(dx)) return 'no <w:tblStyle w:val="ListTable3"> in document.xml';
+    return true;
+  });
 
+  await t('[030] apply ListTable3 twice → still exactly one def (idempotent materialize)', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t030b'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell';
+    PM().tableSetStyle('ListTable3'); await sleep(80);
+    if (!caretIntoTable()) return 'no table cell (2nd)';
+    PM().tableSetStyle('ListTable3'); await sleep(120);
+    const parts = await exportParts();
+    const n = tblStyleCount(parts['word/styles.xml'], 'ListTable3');
+    return n === 1 || ('expected ONE ListTable3 def after double-apply, got ' + n);
+  });
 
+  await t('[030] import precedence: reopen a doc carrying its own ListTable3 → def NOT clobbered (subtree preserved)', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t030c'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell';
+    PM().tableSetStyle('ListTable3'); await sleep(120);
+    const parts1 = await exportParts();
+    const firstDef = tblStyleSubtree(parts1['word/styles.xml'], 'ListTable3');
+    if (!firstDef) return 'no ListTable3 def in the first export';
+    // Round-trip: reopen the exported bytes (the doc now OWNS a ListTable3 def), apply again, re-export.
+    const bytes = await PM().exportDocxBytes();
+    if (!(bytes && bytes.length > 500)) return 'first export produced no bytes';
+    await PM().openDocx(bytes); await sleep(240);
+    if (!caretIntoTable()) return 'no table cell after reopen';
+    PM().tableSetStyle('ListTable3'); await sleep(120);
+    const parts2 = await exportParts();
+    const sx2 = parts2['word/styles.xml'];
+    const n = tblStyleCount(sx2, 'ListTable3');
+    if (n !== 1) return 'expected ONE ListTable3 def after reopen+reapply, got ' + n + ' (import precedence broken — clobbered)';
+    const secondDef = tblStyleSubtree(sx2, 'ListTable3');
+    if (secondDef !== firstDef) return 'ListTable3 subtree changed across reopen (doc def not preserved verbatim)';
+    return true;
+  });
 
+  const tblStyleId = () => PM().tableInfo().styleId || null;
+  await t('[030] preview invariant: enter/leave adds NO undo steps + doc identical after leave', async () => {
+    // insertTable REPLACES the selected paragraph with the table (probe-verified: exactly ONE undo
+    // step, and that one undo removes the table AND restores the prior paragraph text). We assert
+    // structurally (table presence + textContent + styleId) rather than via toJSON — insertTable
+    // re-creates the paragraph with fresh block ids so a raw JSON compare is spuriously strict.
+    await PM().newBlank(); await sleep(120);
+    setDoc('t030d'); await sleep(80);
+    const preText = doc().textContent;
+    PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell';
+    const beforeJSON = JSON.stringify(doc().toJSON());
+    const beforeStyle = tblStyleId(); // null — no style yet
+    // Enter the hover preview: bakes ListTable3 visuals as an addToHistory:false transaction.
+    if (PM().tableStylePreviewEnter('ListTable3') !== true) return 'tableStylePreviewEnter returned non-true';
+    await sleep(100);
+    if (tblStyleId() !== 'ListTable3') return 'preview enter did not apply ListTable3 (styleId=' + tblStyleId() + ')';
+    if (JSON.stringify(doc().toJSON()) === beforeJSON) return 'preview enter made no doc change (nothing to restore)';
+    // Leave: editor.setState(snap) restores the exact pre-preview state.
+    PM().tableStylePreviewLeave(); await sleep(100);
+    if (JSON.stringify(doc().toJSON()) !== beforeJSON) return 'doc NOT identical after preview leave (state restore failed)';
+    if (tblStyleId() !== beforeStyle) return 'styleId not restored after leave (got ' + tblStyleId() + ', want ' + beforeStyle + ')';
+    // ONE undo must remove the table AND restore the pre-insert text → the preview added ZERO
+    // undo steps (only the insert is on the stack).
+    PM().cmd('undo'); await sleep(100);
+    if (hasNode('table')) return 'table still present after one undo — preview polluted history (extra undo step)';
+    if (doc().textContent !== preText) return 'one undo did not restore pre-insert text (got "' + doc().textContent + '", want "' + preText + '")';
+    return true;
+  });
 
-
-
+  await t('[030] theme-data guard: GridTable4-Accent1 def carries 156082 (new palette), NOT 4472C4 (legacy)', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t030e'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell';
+    PM().tableSetStyle('GridTable4-Accent1'); await sleep(120);
+    const parts = await exportParts();
+    const def = tblStyleSubtree(parts['word/styles.xml'], 'GridTable4-Accent1');
+    if (!def) return 'no GridTable4-Accent1 def in styles.xml';
+    if (!/156082/.test(def)) return 'GridTable4-Accent1 def missing 156082 (new accent1 palette)';
+    if (/4472C4/i.test(def)) return 'GridTable4-Accent1 def still carries legacy 4472C4';
+    return true;
+  });
 
 
   const pass = results.filter((r) => r.pass).length;

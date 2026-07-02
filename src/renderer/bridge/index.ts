@@ -8,6 +8,7 @@ import { installSearch } from './search'
 import { installInsert } from './insert'
 import { normalizeImportedPageBreaks } from './page-breaks-import'
 import { installTable } from './table'
+import { installTableStyles } from './table-styles'
 import { installReview } from './review'
 import { installReferences } from './references'
 import { installHeaderFooter } from './header-footer'
@@ -396,6 +397,9 @@ export function preinstallBridge() {
     tableSplit: () => false, tableToText: () => false, textToTable: () => false,
     tableSetTextDirection: () => false, tableAutoFit: () => false,
     tableSelectFirstRowPair: () => false,
+    // spec 030: table-style catalog pre-mount stubs (replaced by installTableStyles on mount)
+    ensureTableStyleMaterialized: () => false, listCatalogStyles: () => [],
+    tableStylePreviewEnter: () => false, tableStylePreviewLeave: () => {},
     // slice 8: review pre-mount stubs (replaced by installReview on mount)
     reviewState: () => ({ tracking: false, view: 'all', engineFlags: { onlyOriginalShown: false, onlyModifiedShown: false }, activeCommentId: null }),
     getRevisions: () => [],
@@ -534,7 +538,10 @@ export function installBridge(editor: AnyEditor) {
   // (addComment/resolveComment/setActiveComment — A2 Document API path must win) and
   // falls through to installCommands' cmd for everything else.
   const commands = installCommands(editor)
-  Object.assign(PM, commands, installIo(editor), installStylePreview(editor), installClipboard(editor), installSearch(editor), installInsert(editor), installTable(editor), installReview(editor, commands.cmd), installReferences(editor), installHeaderFooter(editor), installMailMerge(editor), installDesign(editor), installInsertExotica(editor), installDraw(editor), installInkOverlay(editor), installColumns(editor), installLineNumbers(editor), installHyphenation(editor), installSectionBreaks(editor), installLists(editor), installStyles(editor))
+  // Spec 030: installTableStyles owns the lazy catalog materializer + hover preview; installTable
+  // receives its ensureTableStyleMaterialized so tableSetStyle registers a def before applying it.
+  const tableStyles = installTableStyles(editor)
+  Object.assign(PM, commands, installIo(editor), installStylePreview(editor), installClipboard(editor), installSearch(editor), installInsert(editor), installTable(editor, tableStyles.ensureTableStyleMaterialized), tableStyles, installReview(editor, commands.cmd), installReferences(editor), installHeaderFooter(editor), installMailMerge(editor), installDesign(editor), installInsertExotica(editor), installDraw(editor), installInkOverlay(editor), installColumns(editor), installLineNumbers(editor), installHyphenation(editor), installSectionBreaks(editor), installLists(editor), installStyles(editor))
   PM.getState = () => toQueryState(editor)
   PM.debugFormatting = () => getActiveFormatting(editor) // raw entries (probe/verifier aid)
   PM.getEditor = () => current

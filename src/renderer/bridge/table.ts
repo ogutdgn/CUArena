@@ -15,10 +15,18 @@
 // caret-safe setCellAttr path when the caret sits in a table — Word shades the caret cell.
 
 import { isCellSelection } from '@extensions/table/tableHelpers/isCellSelection.js'
+// Spec 030: the generated catalog (113 real-Word modern table-style defs) — getTableStyles unions
+// it with the doc's styles.xml so the gallery is honest before any style is materialized.
+import { TABLE_STYLE_DEFS } from '@/core/generated/table-style-defs'
 
 type AnyEditor = any
 
-export function installTable(editor: AnyEditor) {
+// Spec 030: installTable receives the table-style materializer (installTableStyles' return) so
+// tableSetStyle can lazily register the def BEFORE setTableStyle applies it — Word DROPS an
+// orphaned <w:tblStyle> ref on save (exporter-docx-defs.js:905-908), so the def must be in
+// styles.xml first. Optional (pre-mount stubs pass nothing) → a no-op fallback keeps it safe.
+export function installTable(editor: AnyEditor, ensureTableStyleMaterialized?: (id: string) => boolean) {
+  const materialize = typeof ensureTableStyleMaterialized === 'function' ? ensureTableStyleMaterialized : () => false
   // Restore PM focus after each verb (same invariant as commands.ts / insert.ts).
   function refocus() { editor.view?.focus() }
 
@@ -138,6 +146,11 @@ export function installTable(editor: AnyEditor) {
   // Use editor.commands.X() directly (same pattern as addColumnBefore/After).
 
   function tableSetStyle(id: string): boolean {
+    // Spec 030: materialize the catalog def FIRST (splice into styles.xml + register the
+    // translated entry) so the exporter keeps the <w:tblStyle> ref and the in-app painter can
+    // resolve visuals. A blank id (Clear) or an already-materialized/doc-owned def is a harmless
+    // no-op here. Then apply via the fork command unchanged.
+    if (id) materialize(id)
     const ok = editor.commands.setTableStyle(id)
     refocus()
     return ok !== false
@@ -368,22 +381,43 @@ export function installTable(editor: AnyEditor) {
   // definition's w:name w:val (e.g. 'Grid Table 4 Accent 1' — real Word writes no
   // dash); apply uses the id. semiHidden styles (TableNormal) are excluded, like
   // Word's gallery.
-  function getTableStyles(): Array<{ id: string; name: string }> {
+  // Spec 030: return the UNION of the doc's styles.xml table styles (existing logic) and the
+  // generated catalog (TABLE_STYLE_DEFS) — so the gallery lists all 113 real-Word styles even
+  // before any is materialized. Keeps the existing array-of-{id,name} shape (H.tblStyles keeps
+  // working) and ADDS a `section` field when known (additive, non-breaking). Id-deduped: a
+  // doc-owned def wins (its display name from styles.xml, section derived from the catalog if the
+  // id is a catalog id).
+  function getTableStyles(): Array<{ id: string; name: string; section?: 'plain' | 'grid' | 'list' }> {
+    const out: Array<{ id: string; name: string; section?: 'plain' | 'grid' | 'list' }> = []
+    const seen = new Set<string>()
     try {
       const styles = editor.converter?.convertedXml?.['word/styles.xml']
       const els: any[] = styles?.elements?.[0]?.elements || []
-      return els
-        .filter((el: any) =>
+      for (const el of els) {
+        if (
           el.name === 'w:style' &&
           el.attributes?.['w:type'] === 'table' &&
           el.attributes?.['w:styleId'] &&
-          !(el.elements || []).some((c: any) => c.name === 'w:semiHidden'))
-        .map((el: any) => ({
-          id: el.attributes['w:styleId'] as string,
-          name: ((el.elements || []).find((c: any) => c.name === 'w:name')?.attributes?.['w:val'] as string)
-            || (el.attributes['w:styleId'] as string),
-        }))
-    } catch { return [] }
+          !(el.elements || []).some((c: any) => c.name === 'w:semiHidden')
+        ) {
+          const id = el.attributes['w:styleId'] as string
+          if (seen.has(id)) continue
+          seen.add(id)
+          out.push({
+            id,
+            name: ((el.elements || []).find((c: any) => c.name === 'w:name')?.attributes?.['w:val'] as string) || id,
+            ...(TABLE_STYLE_DEFS[id] ? { section: TABLE_STYLE_DEFS[id].section } : {}),
+          })
+        }
+      }
+    } catch { /* fall through — still add the catalog below */ }
+    // Add every catalog style not already present on the doc (its catalog display name + section).
+    for (const id of Object.keys(TABLE_STYLE_DEFS)) {
+      if (seen.has(id)) continue
+      seen.add(id)
+      out.push({ id, name: TABLE_STYLE_DEFS[id].name, section: TABLE_STYLE_DEFS[id].section })
+    }
+    return out
   }
 
   // Returns { inTable, rows, cols, styleId, alignment } for Table Tools tab state.
