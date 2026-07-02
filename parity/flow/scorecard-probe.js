@@ -135,12 +135,16 @@
               const node = nodes.find((n) => (n.textContent || '').trim() === items[ii]) || nodes[ii];
               if (!node) { ir.result = 'NO_NODE'; rec.itemResults.push(ir); continue; }
               const b4 = docJson(); const fp4 = uiFingerprint();
+              const flyB4 = Array.from(document.querySelectorAll('.flyout')).map((f) => f.innerText).join('§');
               node.click();
               await sleep(220);
               const dlg2 = document.querySelector('.dialog, .wc-dialog, .modal');
               const toast2 = document.querySelector('.toast');
+              const flyNow = Array.from(document.querySelectorAll('.flyout')).map((f) => f.innerText).join('§');
               ir.result = dlg2 ? 'DIALOG' : (docJson() !== b4 ? 'OK_DOC_CHANGED'
-                : toast2 ? 'STUB_TOAST' : (uiFingerprint() !== fp4 ? 'OK_UI_EFFECT' : 'ITEM_SILENT'));
+                : toast2 ? 'STUB_TOAST'
+                  : (flyNow && flyNow !== flyB4) ? 'OK_SUBMENU'
+                    : (uiFingerprint() !== fp4 ? 'OK_UI_EFFECT' : 'ITEM_SILENT'));
               await closeAll();
             } catch (e) { ir.result = 'ERROR'; ir.err = String(e && e.message); }
             rec.itemResults.push(ir);

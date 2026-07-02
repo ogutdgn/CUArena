@@ -1,10 +1,17 @@
 {
  "counts": {
-  "pass": 210,
+  "pass": 216,
   "dead": 2,
-  "triage": 28,
+  "triage": 22,
   "skip": 4
  },
+ "item_counts": {
+  "pass": 308,
+  "silent": 52,
+  "error": 0,
+  "skip": 7
+ },
+ "deep": true,
  "controls": [
   {
    "tab": "home",
@@ -23,6 +30,32 @@
     "Set Default Paste\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Keep Source Formatting",
+     "result": "OK_UI_EFFECT"
+    },
+    {
+     "label": "Match Formatting",
+     "result": "OK_UI_EFFECT"
+    },
+    {
+     "label": "Picture",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Keep Text Only",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Paste Special\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Set Default Paste\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -125,6 +158,28 @@
     "tOGGLE cASE"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Sentence case.",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "lowercase",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "UPPERCASE",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Capitalize Each Word",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "tOGGLE cASE",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -180,6 +235,56 @@
     "Underline Color"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "No Underline",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Single",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Double",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Dotted",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Dashed",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Wavy",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Thick",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Dot Dash",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Dot Dot Dash",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Words only",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "More Underlines\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Underline Color",
+     "result": "OK_SUBMENU"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -230,6 +335,36 @@
     "Stylistic Sets"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Outline",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Shadow",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Reflection",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Glow",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Number Styles",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Ligatures",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Stylistic Sets",
+     "result": "OK_SUBMENU"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -256,6 +391,12 @@
     "Gradient\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Gradient\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -281,6 +422,16 @@
     "Define New Bullet\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Change List Level",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Define New Bullet\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -297,6 +448,20 @@
     "Define New Number Format\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Change List Level",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Set Numbering Value\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Define New Number Format\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -317,6 +482,36 @@
     "Define New Multilevel List\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Decimal (1. 1.1. 1.1.1.)",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Legal (1 1.1 1.1.1)",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Bullet hierarchy",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Outline (1) a) i))",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Upper Roman (I. A. 1.)",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Change List Level",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Define New Multilevel List\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -419,6 +614,44 @@
     "Add Space After Paragraph"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "1.0",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "1.15",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "1.5",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "2.0",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "2.5",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "3.0",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Line Spacing Options\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Add Space Before Paragraph",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Add Space After Paragraph",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -456,6 +689,72 @@
     "Diagonal Up Border"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Bottom Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Top Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Left Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Right Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "\u2713No Border",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "All Borders",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Outside Borders",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Inside Borders",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Inside Horizontal Border",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Inside Vertical Border",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Diagonal Down Border",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Diagonal Up Border",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Horizontal Line",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Draw Table",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "View Gridlines",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Borders and Shading\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -466,6 +765,7 @@
    "type": "button",
    "launcher": true,
    "result": "DIALOG",
+   "toast": "\u201cDraw Table\u201d is part of Word's UI but is not implemented in this clone.See docs/",
    "verdict": "pass"
   },
   {
@@ -486,8 +786,9 @@
    "label": "Styles",
    "type": "button",
    "launcher": true,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "STUB_TOAST",
+   "toast": "\u201cDraw Table\u201d is part of Word's UI but is not implemented in this clone.See docs/",
+   "verdict": "pass"
   },
   {
    "tab": "home",
@@ -503,6 +804,20 @@
     "Go To\u2026Ctrl+G"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Find",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Advanced Find\u2026",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Go To\u2026Ctrl+G",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -530,6 +845,24 @@
     "Selection Pane\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Select AllCtrl+A",
+     "result": "OK_UI_EFFECT"
+    },
+    {
+     "label": "Select Objects",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Select All Text With Similar Formatting",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Selection Pane\u2026",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -560,6 +893,36 @@
     "Remove Current Cover Page"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Banded",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Facet",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Filigree",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Ion",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Motion",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Retrospect",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Remove Current Cover Page",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -570,6 +933,7 @@
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED",
+   "toast": "Cover page \"Motion\" inserted.",
    "verdict": "pass"
   },
   {
@@ -580,6 +944,7 @@
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED",
+   "toast": "Cover page \"Motion\" inserted.",
    "verdict": "pass"
   },
   {
@@ -598,6 +963,28 @@
     "Quick Tables"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Insert Table\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Draw Table",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Convert Text to Table\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Excel Spreadsheet",
+     "result": "SKIPPED_NATIVE"
+    },
+    {
+     "label": "Quick Tables",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -613,6 +1000,16 @@
     "Online Pictures\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "This Device\u2026",
+     "result": "SKIPPED_NATIVE"
+    },
+    {
+     "label": "Online Pictures\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -635,6 +1032,7 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
+   "toast": "Online Pictures needs an image search backend \u2014 not available in this clone.See ",
    "verdict": "pass"
   },
   {
@@ -657,7 +1055,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "3D models require a 3D model viewer/runtime \u2014 not available in this clone.See do",
+   "toast": "Online Pictures needs an image search backend \u2014 not available in this clone.See ",
    "verdict": "pass"
   },
   {
@@ -668,7 +1066,7 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "3D models require a 3D model viewer/runtime \u2014 not available in this clone.See do",
+   "toast": "Online Pictures needs an image search backend \u2014 not available in this clone.See ",
    "verdict": "pass"
   },
   {
@@ -683,6 +1081,12 @@
     "Screen Clipping"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Screen Clipping",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -709,6 +1113,16 @@
     "My Add-ins"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Get Add-ins (Store)",
+     "result": "DIALOG"
+    },
+    {
+     "label": "My Add-ins",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -719,7 +1133,6 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "3D models require a 3D model viewer/runtime \u2014 not available in this clone.See do",
    "verdict": "pass"
   },
   {
@@ -803,6 +1216,24 @@
     "Remove Page Numbers"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Top of Page",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Bottom of Page",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Current Position",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Remove Page Numbers",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -818,6 +1249,16 @@
     "Draw Text Box"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Simple Text Box",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Draw Text Box",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -838,6 +1279,36 @@
     "File Name"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Field\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Document Property",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Page",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Number of Pages",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Date",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Author",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "File Name",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -867,6 +1338,24 @@
     "Drop Cap Options\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "None",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Dropped",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "In Margin",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Drop Cap Options\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -904,6 +1393,16 @@
     "Object\u2026 (Create New)"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Text from File\u2026",
+     "result": "SKIPPED_NATIVE"
+    },
+    {
+     "label": "Object\u2026 (Create New)",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -923,6 +1422,32 @@
     "Insert New Equation"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "a\u00b2 + b\u00b2 = c\u00b2",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "x = (\u2212b \u00b1 \u221a(b\u00b2\u22124ac)) / 2a",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "E = mc\u00b2",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "\u222b f(x) dx",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "\u03a3(i=1\u2192n) i = n(n+1)/2",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Insert New Equation",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -937,6 +1462,12 @@
     "More Symbols\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "More Symbols\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -976,6 +1507,32 @@
     "Erase All Ink"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Stroke Eraser",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Small Eraser",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Medium Eraser",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Large Eraser",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Segment Eraser",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Erase All Ink",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1005,6 +1562,28 @@
     "Custom Pen\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Pen",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Pencil",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Highlighter",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Action Pen",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Custom Pen\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1087,6 +1666,20 @@
     "Save Current Theme\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Reset to Theme from Template",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Browse for Themes\u2026",
+     "result": "SKIPPED_NATIVE"
+    },
+    {
+     "label": "Save Current Theme\u2026",
+     "result": "SKIPPED_NATIVE"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1123,6 +1716,84 @@
     "Orange"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Office",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Office 2007-2010",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Grayscale",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Blue Warm",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Blue",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Blue II",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Blue Green",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Green",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Green Yellow",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Yellow",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Yellow Orange",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Orange",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Orange Red",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Red Orange",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Red",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Red Violet",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Violet",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Violet II",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Customize Colors\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1148,6 +1819,72 @@
     "Times New Roman"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Office",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Office 2007-2010",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Aptos",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Calibri",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Calibri Light",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Arial",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Corbel",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Candara",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Cambria",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Georgia",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Garamond",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Times New Roman",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Trebuchet MS",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Century Gothic",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Verdana",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Customize Fonts\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1168,6 +1905,36 @@
     "Custom Paragraph Spacing\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "No Paragraph Space",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Compact",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Tight",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Open",
+     "result": "SKIPPED_NATIVE"
+    },
+    {
+     "label": "Relaxed",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Double",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Custom Paragraph Spacing\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1190,7 +1957,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Current theme/spacing set as the default for new documents (session).",
+   "toast": "Paragraph Spacing: Relaxed",
    "verdict": "pass"
   },
   {
@@ -1206,6 +1973,16 @@
     "Remove Watermark"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Custom Watermark\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Remove Watermark",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1228,7 +2005,6 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "Current theme/spacing set as the default for new documents (session).",
    "verdict": "pass"
   },
   {
@@ -1249,6 +2025,36 @@
     "Custom Margins\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Normal   T/B 1\"  L/R 1\"",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Narrow   T/B 0.5\"  L/R 0.5\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Moderate   T/B 1\"  L/R 0.75\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Wide   T/B 1\"  L/R 2\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Mirrored   T/B 1\"  L/R 1.25\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Office 2003 Default   T/B 1\"  L/R 1.25\"",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Custom Margins\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1264,6 +2070,16 @@
     "Landscape"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Portrait",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Landscape",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1284,6 +2100,36 @@
     "More Paper Sizes\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Letter   8.5\" x 11\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Legal   8.5\" x 14\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "A4   21cm x 29.7cm",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "A3   29.7cm x 42cm",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Tabloid   11\" x 17\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Executive   7.25\" x 10.5\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "More Paper Sizes\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1303,6 +2149,32 @@
     "More Columns\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "One",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Two",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Three",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Left",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Right",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "More Columns\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1323,6 +2195,36 @@
     "Odd Page"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "PageCtrl+Enter",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Column",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Text Wrapping",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Next Page",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Continuous",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Even Page",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Odd Page",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1342,6 +2244,32 @@
     "Line Numbering Options\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "\u2713 None",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Continuous",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Restart Each Page",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Restart Each Section",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Suppress for Current Paragraph",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Line Numbering Options\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1359,6 +2287,24 @@
     "Hyphenation Options\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "\u2713 None",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Automatic",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Manual\u2026",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Hyphenation Options\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1422,6 +2368,48 @@
     "Bottom Right"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "In Line with Text",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Top Left",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Top Center",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Top Right",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Middle Left",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Middle Center",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Middle Right",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Bottom Left",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Bottom Center",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Bottom Right",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1442,6 +2430,36 @@
     "In Front of Text"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "In Line with Text",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Square",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Tight",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Through",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Top and Bottom",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Behind Text",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "In Front of Text",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1458,6 +2476,20 @@
     "Bring in Front of Text"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Bring Forward",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Bring to Front",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Bring in Front of Text",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1474,6 +2506,20 @@
     "Send Behind Text"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Send Backward",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Send to Back",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Send Behind Text",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1483,8 +2529,9 @@
    "label": "Selection Pane",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "STUB_TOAST",
+   "toast": "Select a picture firstClick a floating picture to change its stacking order.",
+   "verdict": "pass"
   },
   {
    "tab": "layout",
@@ -1505,6 +2552,40 @@
     "Distribute Vertically"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Align Left",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Align Center",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Align Right",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Align Top",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Align Middle",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Align Bottom",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Distribute Horizontally",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Distribute Vertically",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1534,6 +2615,24 @@
     "Flip Horizontal"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Rotate Right 90\u00b0",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Rotate Left 90\u00b0",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Flip Vertical",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Flip Horizontal",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1552,6 +2651,28 @@
     "Remove Table of Contents"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Automatic Table 1",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Automatic Table 2",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Manual Table",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Custom Table of Contents\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Remove Table of Contents",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1569,6 +2690,24 @@
     "Level 3"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Do Not Show in Table of Contents",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Level 1",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Level 2",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Level 3",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1578,9 +2717,8 @@
    "label": "Update Table",
    "type": "button",
    "launcher": false,
-   "result": "STUB_TOAST",
-   "toast": "This action isn't available on the new engine yetGroup",
-   "verdict": "pass"
+   "result": "SILENT",
+   "verdict": "triage"
   },
   {
    "tab": "references",
@@ -1590,7 +2728,6 @@
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED",
-   "toast": "This action isn't available on the new engine yetGroup",
    "verdict": "pass"
   },
   {
@@ -1601,7 +2738,6 @@
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED",
-   "toast": "This action isn't available on the new engine yetGroup",
    "verdict": "pass"
   },
   {
@@ -1620,6 +2756,28 @@
     "Show Notes"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Next Footnote",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Previous Footnote",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Next Endnote",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Previous Endnote",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Show Notes",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1667,6 +2825,16 @@
     "Add New Placeholder\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Add New Source\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Add New Placeholder\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1697,6 +2865,32 @@
     "Turabian"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "\u2713 APA",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Chicago",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "IEEE",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "ISO 690",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "MLA",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Turabian",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1714,6 +2908,24 @@
     "Insert Bibliography"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Bibliography",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "References",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Works Cited",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Insert Bibliography",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1724,7 +2936,6 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "Smart Lookup / Search uses a cloud knowledge service \u2014 not available in this clo",
    "verdict": "pass"
   },
   {
@@ -1735,7 +2946,6 @@
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED",
-   "toast": "Smart Lookup / Search uses a cloud knowledge service \u2014 not available in this clo",
    "verdict": "pass"
   },
   {
@@ -1745,9 +2955,8 @@
    "label": "Update Table",
    "type": "button",
    "launcher": false,
-   "result": "STUB_TOAST",
-   "toast": "Researcher uses a cloud research service \u2014 not available in this clone.See docs/",
-   "verdict": "pass"
+   "result": "SILENT",
+   "verdict": "triage"
   },
   {
    "tab": "references",
@@ -1857,6 +3066,36 @@
     "Step-by-Step Mail Merge Wizard\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Letters",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "E-mail Messages",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Envelopes\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Labels\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Directory",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Normal Word Document",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Step-by-Step Mail Merge Wizard\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1873,6 +3112,20 @@
     "Choose from Outlook Contacts\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Type a New List\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Use an Existing List\u2026",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Choose from Outlook Contacts\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1883,7 +3136,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "toast": "Outlook integration is not available in this clone.",
    "verdict": "pass"
   },
   {
@@ -1894,7 +3147,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "toast": "Outlook integration is not available in this clone.",
    "verdict": "pass"
   },
   {
@@ -1905,7 +3158,7 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "toast": "Outlook integration is not available in this clone.",
    "verdict": "pass"
   },
   {
@@ -1916,7 +3169,7 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "No recipients yet. Use Select Recipients \u2192 Type a New List.",
+   "toast": "Outlook integration is not available in this clone.",
    "verdict": "pass"
   },
   {
@@ -1939,6 +3192,44 @@
     "Email"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Title",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "FirstName",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "LastName",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "CompanyName",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Address1",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "City",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "State",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "ZIP",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Email",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -1961,6 +3252,44 @@
     "Skip Record If\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "If\u2026Then\u2026Else\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Fill-in\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Ask\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Merge Record #",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Merge Sequence #",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Next Record",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Next Record If\u2026",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Set Bookmark\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Skip Record If\u2026",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2085,6 +3414,20 @@
     "Send Email Messages\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Edit Individual Documents\u2026",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Print Documents\u2026",
+     "result": "SKIPPED_NATIVE"
+    },
+    {
+     "label": "Send Email Messages\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2095,7 +3438,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients to preview.",
+   "toast": "No recipients. Select recipients first.",
    "verdict": "pass"
   },
   {
@@ -2111,6 +3454,16 @@
     "\u2713 Spelling and Grammar"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Spelling",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "\u2713 Spelling and Grammar",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2120,9 +3473,8 @@
    "label": "Thesaurus",
    "type": "button",
    "launcher": false,
-   "result": "STUB_TOAST",
-   "toast": "No recipients selected.",
-   "verdict": "pass"
+   "result": "SILENT",
+   "verdict": "triage"
   },
   {
    "tab": "review",
@@ -2156,6 +3508,12 @@
     "Check Accessibility"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Check Accessibility",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2172,6 +3530,20 @@
     "Translator Preferences\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Translate Selection",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Translate Document",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Translator Preferences\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2187,6 +3559,16 @@
     "Language Preferences\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Set Proofing Language\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Language Preferences\u2026",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2196,8 +3578,9 @@
    "label": "New Comment",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "STUB_TOAST",
+   "toast": "Translation needs a cloud translator \u2014 not available in this clone.See docs/NOT_",
+   "verdict": "pass"
   },
   {
    "tab": "review",
@@ -2214,6 +3597,24 @@
     "Delete All Resolved Comments"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Delete",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Delete All Comments Shown",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Delete All Comments in Document",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Delete All Resolved Comments",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2249,6 +3650,16 @@
     "List"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "\u2713 Contextual",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "List",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2288,6 +3699,32 @@
     "Other Authors"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "\u2713 Insertions and Deletions",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "\u2713 Formatting",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Balloons",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Specific People",
+     "result": "OK_SUBMENU"
+    },
+    {
+     "label": "Highlight Updates",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Other Authors",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2303,6 +3740,16 @@
     "Reviewing Pane Horizontal\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Reviewing Pane Vertical\u2026",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Reviewing Pane Horizontal\u2026",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2329,6 +3776,20 @@
     "Lock Tracking"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "For Everyone",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Just Mine",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Lock Tracking",
+     "result": "DIALOG"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2347,6 +3808,28 @@
     "Accept All Changes and Stop Tracking"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Accept and Move to Next",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Accept This Change",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Accept All Changes Shown",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Accept All Changes",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Accept All Changes and Stop Tracking",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2365,6 +3848,28 @@
     "Reject All Changes and Stop Tracking"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Reject and Move to Next",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Reject Change",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Reject All Changes Shown",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Reject All Changes",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Reject All Changes and Stop Tracking",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2374,8 +3879,8 @@
    "label": "Previous",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "OK_UI_EFFECT",
+   "verdict": "pass"
   },
   {
    "tab": "review",
@@ -2384,8 +3889,8 @@
    "label": "Next",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "OK_UI_EFFECT",
+   "verdict": "pass"
   },
   {
    "tab": "review",
@@ -2401,6 +3906,20 @@
     "Show Source Documents"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Compare\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Combine\u2026",
+     "result": "DIALOG"
+    },
+    {
+     "label": "Show Source Documents",
+     "result": "ITEM_SILENT"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2437,6 +3956,12 @@
     "Hide Ink"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Hide Ink",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2490,7 +4015,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "toast": "Outline view",
    "verdict": "pass"
   },
   {
@@ -2511,7 +4036,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Block Authors requires cloud co-authoring \u2014 not available in this clone.See docs",
+   "toast": "Outline view",
    "verdict": "pass"
   },
   {
@@ -2587,8 +4112,8 @@
    "label": "100%",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "OK_UI_EFFECT",
+   "verdict": "pass"
   },
   {
    "tab": "view",
@@ -2597,8 +4122,8 @@
    "label": "One Page",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "OK_UI_EFFECT",
+   "verdict": "pass"
   },
   {
    "tab": "view",
@@ -2607,8 +4132,8 @@
    "label": "Multiple Pages",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "OK_UI_EFFECT",
+   "verdict": "pass"
   },
   {
    "tab": "view",
@@ -2617,8 +4142,8 @@
    "label": "Page Width",
    "type": "button",
    "launcher": false,
-   "result": "SILENT",
-   "verdict": "triage"
+   "result": "OK_UI_EFFECT",
+   "verdict": "pass"
   },
   {
    "tab": "view",
@@ -2708,6 +4233,16 @@
     "Record Macro\u2026"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "View Macros",
+     "result": "STUB_TOAST"
+    },
+    {
+     "label": "Record Macro\u2026",
+     "result": "STUB_TOAST"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2718,7 +4253,7 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "View Side by Side needs a second open document \u2014 not supported.",
+   "toast": "Reset Window Position \u2014 not applicable in this clone.",
    "verdict": "pass"
   },
   {
@@ -2729,7 +4264,7 @@
    "type": "button",
    "launcher": false,
    "result": "DIALOG",
-   "toast": "Synchronous Scrolling pairs two windows \u2014 not supported.",
+   "toast": "VBA macros are not supported in this clone (no VBA runtime).See docs/NOT_IMPLEME",
    "verdict": "pass"
   },
   {
@@ -2740,7 +4275,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Reset Window Position \u2014 not applicable in this clone.",
+   "toast": "VBA macros are not supported in this clone (no VBA runtime).See docs/NOT_IMPLEME",
    "verdict": "pass"
   },
   {
@@ -2751,7 +4286,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Contact Support opens Microsoft support online \u2014 this is a local Word clone, not",
+   "toast": "VBA macros are not supported in this clone (no VBA runtime).See docs/NOT_IMPLEME",
    "verdict": "pass"
   },
   {
@@ -2762,7 +4297,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Contact Support opens Microsoft support online \u2014 this is a local Word clone, not",
+   "toast": "VBA macros are not supported in this clone (no VBA runtime).See docs/NOT_IMPLEME",
    "verdict": "pass"
   },
   {
@@ -2789,6 +4324,16 @@
     "Grid Table 4 Accent 1"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "Table Grid",
+     "result": "ITEM_SILENT"
+    },
+    {
+     "label": "Grid Table 4 Accent 1",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2816,6 +4361,16 @@
     "No Border"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "All Borders",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "No Border",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2863,6 +4418,24 @@
     "1.0\""
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "0\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "0.25\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "0.5\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "1.0\"",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -2983,6 +4556,24 @@
     "1.0\""
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "0.2\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "0.3\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "0.5\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "1.0\"",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -3000,6 +4591,24 @@
     "2.5\""
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "1.0\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "1.5\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "2.0\"",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "2.5\"",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {
@@ -3010,7 +4619,6 @@
    "type": "button",
    "launcher": false,
    "result": "OK_DOC_CHANGED",
-   "toast": "Select cells firstSelect multiple cells to merge them \u2014 click and drag across ce",
    "verdict": "pass"
   },
   {
@@ -3037,6 +4645,20 @@
     "Fixed Column Width"
    ],
    "result": "OK_FLYOUT",
+   "itemResults": [
+    {
+     "label": "AutoFit Contents",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "AutoFit Window",
+     "result": "OK_DOC_CHANGED"
+    },
+    {
+     "label": "Fixed Column Width",
+     "result": "OK_DOC_CHANGED"
+    }
+   ],
    "verdict": "pass"
   },
   {

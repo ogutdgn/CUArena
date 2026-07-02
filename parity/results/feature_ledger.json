@@ -20,9 +20,9 @@
    "unmeasured": 0
   },
   "SCORE": {
-   "pass": 97,
+   "pass": 98,
    "gap": 1,
-   "warn": 13,
+   "warn": 12,
    "unmeasured": 0
   },
   "VISUAL": {
@@ -489,7 +489,7 @@
     "OOXML": "\u2014",
     "STRUCT": "GAP(items:2)",
     "STATE": "pass",
-    "SCORE": "triage",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1334,7 +1334,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "triage",
+    "SCORE": "pass",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }
@@ -1412,7 +1412,7 @@
     "OOXML": "\u2014",
     "STRUCT": "pass",
     "STATE": "pass",
-    "SCORE": "pass",
+    "SCORE": "triage",
     "VISUAL": "\u2014",
     "BEHAV": "\u2014"
    }

@@ -10,7 +10,7 @@ green; an unmeasured axis (—) blocks done** (not-measured ≠ no-gaps).
 | OOXML | 13 | **4** | 0 | 94 |
 | STRUCT | 80 | **19** | 12 | 0 |
 | STATE | 95 | **16** | 0 | 0 |
-| SCORE | 97 | **1** | 13 | 0 |
+| SCORE | 98 | **1** | 12 | 0 |
 | VISUAL | 0 | **0** | 0 | 111 |
 | BEHAV | 0 | **0** | 0 | 111 |
 
@@ -50,7 +50,7 @@ green; an unmeasured axis (—) blocks done** (not-measured ≠ no-gaps).
 | Show/Hide ¶ | home | T2 | — | warn(label) | pass | triage | — | — |
 | Borders | home | T2 | — | GAP(items:1) | pass | pass | — | — |
 | Paragraph dialog (launcher) | home | T2 | pass(13) | pass | pass | pass | — | — |
-| Styles pane (launcher) | home | T2 | — | GAP(items:2) | pass | triage | — | — |
+| Styles pane (launcher) | home | T2 | — | GAP(items:2) | pass | pass | — | — |
 | Select | home | T2 | — | pass | pass | pass | — | — |
 | Subscript | home | T3 | — | pass | pass | pass | — | — |
 | Superscript | home | T3 | — | pass | pass | pass | — | — |
@@ -115,13 +115,13 @@ green; an unmeasured axis (—) blocks done** (not-measured ≠ no-gaps).
 | Editor | review | T1 | — | warn(label) | pass | triage | — | — |
 | Spelling and Grammar | review | T1 | — | warn(label) | pass | pass | — | — |
 | Word Count | review | T2 | — | pass | pass | pass | — | — |
-| New Comment | review | T2 | — | pass | pass | triage | — | — |
+| New Comment | review | T2 | — | pass | pass | pass | — | — |
 | Delete | review | T2 | — | pass | pass | pass | — | — |
 | Accept | review | T2 | — | pass | pass | pass | — | — |
 | Reject | review | T2 | — | pass | pass | pass | — | — |
 | Display for Review | review | T2 | — | pass | pass | pass | — | — |
 | Track Changes | review | T2 | — | pass | pass | pass | — | — |
-| Thesaurus | review | T3 | — | pass | pass | pass | — | — |
+| Thesaurus | review | T3 | — | pass | pass | triage | — | — |
 | Compare | review | T3 | — | GAP(items:4) | pass | pass | — | — |
 | Print Layout | view | T2 | — | pass | pass | pass | — | — |
 | Ruler | view | T2 | — | pass | pass | pass | — | — |
