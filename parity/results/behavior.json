@@ -1,6 +1,6 @@
 {
  "counts": {
-  "pass": 27,
+  "pass": 33,
   "pending": 0,
   "fail": 7
  },
@@ -1339,6 +1339,294 @@
     },
     {
      "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass",
+   "feature": "Table"
+  },
+  {
+   "id": "twin/tb-styleopt-bandedcols-on",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\"input[data-cmd=\\\"tblStyleBandedCols\\\"]\",\"waitMs\":300}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass",
+   "feature": "Table"
+  },
+  {
+   "id": "twin/tb-styleopt-bandedrows-off",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\"input[data-cmd=\\\"tblStyleBandedRows\\\"]\",\"waitMs\":300}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass",
+   "feature": "Table"
+  },
+  {
+   "id": "twin/tb-styleopt-firstcol-off",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\"input[data-cmd=\\\"tblStyleFirstCol\\\"]\",\"waitMs\":300}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass",
+   "feature": "Table"
+  },
+  {
+   "id": "twin/tb-styleopt-headerrow-off",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\"input[data-cmd=\\\"tblStyleHeaderRow\\\"]\",\"waitMs\":300}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass",
+   "feature": "Table"
+  },
+  {
+   "id": "twin/tb-styleopt-lastcol-on",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\"input[data-cmd=\\\"tblStyleLastCol\\\"]\",\"waitMs\":300}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass",
+   "feature": "Table"
+  },
+  {
+   "id": "twin/tb-styleopt-totalrow-on",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\"input[data-cmd=\\\"tblStyleTotalRow\\\"]\",\"waitMs\":300}",
      "result": "ok"
     },
     {

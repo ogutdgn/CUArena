@@ -2380,6 +2380,54 @@
    "contextual": true,
    "groups": [
     {
+     "name": "Table Style Options",
+     "controls": [
+      {
+       "id": null,
+       "cmd": "tblStyleHeaderRow",
+       "label": "Header Row",
+       "type": "checkbox",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblStyleTotalRow",
+       "label": "Total Row",
+       "type": "checkbox",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblStyleBandedRows",
+       "label": "Banded Rows",
+       "type": "checkbox",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblStyleFirstCol",
+       "label": "First Column",
+       "type": "checkbox",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblStyleLastCol",
+       "label": "Last Column",
+       "type": "checkbox",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblStyleBandedCols",
+       "label": "Banded Columns",
+       "type": "checkbox",
+       "items": null
+      }
+     ],
+     "launcher": null
+    },
+    {
      "name": "Table Styles",
      "controls": [
       {

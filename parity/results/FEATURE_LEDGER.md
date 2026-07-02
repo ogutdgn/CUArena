@@ -57,7 +57,7 @@ green; an unmeasured axis (—) blocks done** (not-measured ≠ no-gaps).
 | Text Effects and Typography | home | T3 | — | GAP(items:9) | pass | pass | — | — |
 | Multilevel List | home | T3 | — | pass | pass | pass | — | — |
 | Sort | home | T3 | — | pass | pass | pass | — | — |
-| Table | insert | T1 | GAP(48/49) | GAP(items:1) | GAP(2) | pass | GAP(4/5) | GAP(7/33) |
+| Table | insert | T1 | GAP(48/49) | GAP(items:1) | GAP(2) | pass | GAP(4/5) | GAP(7/39) |
 | Pictures | insert | T1 | — | pass | pass | pass | — | — |
 | Link | insert | T1 | — | GAP(items:1) | pass | pass | — | — |
 | Header | insert | T1 | — | GAP(items:1) | pass | pass | — | — |

@@ -2576,55 +2576,19 @@ python parity/engines/run.py --only tb-split-table   # expect: semantic-pass, mi
 **Goal:** make the clone's `Table Style Options: Banded Columns ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-bandedcols-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-bandedcols-on.docx`
-**Current parity:** GAP — 28 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-bandedcols-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '1'), ('val', '000010000000')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]`
 - FR (tb-styleopt-bandedcols-on): emit `body:gridCol[('w', '3116')]`
 - FR (tb-styleopt-bandedcols-on): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-bandedcols-on): emit `body:pPr[]`
-- FR (tb-styleopt-bandedcols-on): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '0'), ('val', '00A0')]`
 - FR (tb-styleopt-bandedcols-on): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-styleopt-bandedcols-on): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-styleopt-bandedcols-on): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:trPr[]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:pPr[]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedcols-on): emit `styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2641,53 +2605,19 @@ python parity/engines/run.py --only tb-styleopt-bandedcols-on   # expect: semant
 **Goal:** make the clone's `Table Style Options: Banded Rows OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-bandedrows-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-bandedrows-off.docx`
-**Current parity:** GAP — 26 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-bandedrows-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
-- FR (tb-styleopt-bandedrows-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]`
-- FR (tb-styleopt-bandedrows-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]`
 - FR (tb-styleopt-bandedrows-off): emit `body:gridCol[('w', '3116')]`
 - FR (tb-styleopt-bandedrows-off): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-bandedrows-off): emit `body:pPr[]`
-- FR (tb-styleopt-bandedrows-off): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '1'), ('noVBand', '1'), ('val', '06A0')]`
 - FR (tb-styleopt-bandedrows-off): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-styleopt-bandedrows-off): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-styleopt-bandedrows-off): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-styleopt-bandedrows-off): emit `body:trPr[]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:pPr[]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-bandedrows-off): emit `styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2704,51 +2634,18 @@ python parity/engines/run.py --only tb-styleopt-bandedrows-off   # expect: seman
 **Goal:** make the clone's `Table Style Options: First Column OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-firstcol-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-firstcol-off.docx`
-**Current parity:** GAP — 24 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 5 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-firstcol-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
-- FR (tb-styleopt-firstcol-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]`
 - FR (tb-styleopt-firstcol-off): emit `body:gridCol[('w', '3116')]`
 - FR (tb-styleopt-firstcol-off): emit `body:gridCol[('w', '3117')]`
-- FR (tb-styleopt-firstcol-off): emit `body:tblLook[('firstColumn', '0'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '0420')]`
 - FR (tb-styleopt-firstcol-off): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-styleopt-firstcol-off): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-styleopt-firstcol-off): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-styleopt-firstcol-off): emit `body:trPr[]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:pPr[]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-firstcol-off): emit `styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-styleopt-firstcol-off): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-styleopt-firstcol-off): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2765,53 +2662,19 @@ python parity/engines/run.py --only tb-styleopt-firstcol-off   # expect: semanti
 **Goal:** make the clone's `Table Style Options: Header Row OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-headerrow-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-headerrow-off.docx`
-**Current parity:** GAP — 26 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-headerrow-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
-- FR (tb-styleopt-headerrow-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
-- FR (tb-styleopt-headerrow-off): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]`
 - FR (tb-styleopt-headerrow-off): emit `body:gridCol[('w', '3116')]`
 - FR (tb-styleopt-headerrow-off): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-headerrow-off): emit `body:pPr[]`
-- FR (tb-styleopt-headerrow-off): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '0480')]`
 - FR (tb-styleopt-headerrow-off): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-styleopt-headerrow-off): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-styleopt-headerrow-off): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-styleopt-headerrow-off): emit `body:trPr[]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:pPr[]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-headerrow-off): emit `styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-styleopt-headerrow-off): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-styleopt-headerrow-off): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2828,55 +2691,19 @@ python parity/engines/run.py --only tb-styleopt-headerrow-off   # expect: semant
 **Goal:** make the clone's `Table Style Options: Last Column ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-lastcol-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-lastcol-on.docx`
-**Current parity:** GAP — 28 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-lastcol-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
-- FR (tb-styleopt-lastcol-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
-- FR (tb-styleopt-lastcol-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '1'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000100000000')]`
-- FR (tb-styleopt-lastcol-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]`
-- FR (tb-styleopt-lastcol-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]`
 - FR (tb-styleopt-lastcol-on): emit `body:gridCol[('w', '3116')]`
 - FR (tb-styleopt-lastcol-on): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-lastcol-on): emit `body:pPr[]`
-- FR (tb-styleopt-lastcol-on): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '1'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '05A0')]`
 - FR (tb-styleopt-lastcol-on): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-styleopt-lastcol-on): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-styleopt-lastcol-on): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-styleopt-lastcol-on): emit `body:trPr[]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:pPr[]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-lastcol-on): emit `styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-styleopt-lastcol-on): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-styleopt-lastcol-on): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2893,54 +2720,19 @@ python parity/engines/run.py --only tb-styleopt-lastcol-on   # expect: semantic-
 **Goal:** make the clone's `Table Style Options: Total Row ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-totalrow-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-totalrow-on.docx`
-**Current parity:** GAP — 27 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-totalrow-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
-- FR (tb-styleopt-totalrow-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '1'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '010000000000')]`
-- FR (tb-styleopt-totalrow-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]`
-- FR (tb-styleopt-totalrow-on): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]`
 - FR (tb-styleopt-totalrow-on): emit `body:gridCol[('w', '3116')]`
 - FR (tb-styleopt-totalrow-on): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-totalrow-on): emit `body:pPr[]`
-- FR (tb-styleopt-totalrow-on): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '1'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04E0')]`
 - FR (tb-styleopt-totalrow-on): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-styleopt-totalrow-on): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-styleopt-totalrow-on): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-styleopt-totalrow-on): emit `body:trPr[]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:pPr[]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-styleopt-totalrow-on): emit `styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-styleopt-totalrow-on): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-styleopt-totalrow-on): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2957,25 +2749,18 @@ python parity/engines/run.py --only tb-styleopt-totalrow-on   # expect: semantic
 **Goal:** make the clone's `Table Styles gallery: apply Grid Table 4 Accent 1` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-grid4a1`
 **Ground truth:** `parity/fixtures/rw-tb-style-grid4a1.docx`
-**Current parity:** GAP — 12 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-style-grid4a1): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
-- FR (tb-style-grid4a1): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
-- FR (tb-style-grid4a1): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]`
-- FR (tb-style-grid4a1): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]`
 - FR (tb-style-grid4a1): emit `body:gridCol[('w', '3116')]`
 - FR (tb-style-grid4a1): emit `body:gridCol[('w', '3117')]`
 - FR (tb-style-grid4a1): emit `body:pPr[]`
-- FR (tb-style-grid4a1): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-style-grid4a1): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-style-grid4a1): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-style-grid4a1): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-style-grid4a1): emit `body:trPr[]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-style-grid4a1): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-style-grid4a1): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 
 ### Acceptance (regression gate)
@@ -2993,26 +2778,18 @@ python parity/engines/run.py --only tb-style-grid4a1   # expect: semantic-pass, 
 **Goal:** make the clone's `Table Styles gallery: apply List Table 3` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-listtable3`
 **Ground truth:** `parity/fixtures/rw-tb-style-listtable3.docx`
-**Current parity:** GAP — 13 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-style-listtable3): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
-- FR (tb-style-listtable3): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
-- FR (tb-style-listtable3): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]`
-- FR (tb-style-listtable3): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]`
-- FR (tb-style-listtable3): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '1'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000100')]`
 - FR (tb-style-listtable3): emit `body:gridCol[('w', '3116')]`
 - FR (tb-style-listtable3): emit `body:gridCol[('w', '3117')]`
 - FR (tb-style-listtable3): emit `body:pPr[]`
-- FR (tb-style-listtable3): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-style-listtable3): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-style-listtable3): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-style-listtable3): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-style-listtable3): emit `body:trPr[]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-style-listtable3): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-style-listtable3): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-style-listtable3): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 
 ### Acceptance (regression gate)

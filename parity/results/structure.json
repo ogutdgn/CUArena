@@ -1,9 +1,9 @@
 {
  "totals": {
-  "matched": 193,
+  "matched": 199,
   "label_differs": 32,
   "type_mismatch": 6,
-  "missing": 63,
+  "missing": 57,
   "extra": 13,
   "items_matched": 176,
   "items_missing": 65,
@@ -4920,6 +4920,90 @@
    "matched": [
     {
      "word": {
+      "idMso": "TableStyleHeaderRowWord",
+      "label": "Header Row",
+      "type": "checkBox",
+      "group": "GroupTableLayout"
+     },
+     "clone": {
+      "cmd": "tblStyleHeaderRow",
+      "label": "Header Row",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableStyleTotalRowWord",
+      "label": "Total Row",
+      "type": "checkBox",
+      "group": "GroupTableLayout"
+     },
+     "clone": {
+      "cmd": "tblStyleTotalRow",
+      "label": "Total Row",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableStyleBandedRowsWord",
+      "label": "Banded Rows",
+      "type": "checkBox",
+      "group": "GroupTableLayout"
+     },
+     "clone": {
+      "cmd": "tblStyleBandedRows",
+      "label": "Banded Rows",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableStylesFirstColumnWord",
+      "label": "First Column",
+      "type": "checkBox",
+      "group": "GroupTableLayout"
+     },
+     "clone": {
+      "cmd": "tblStyleFirstCol",
+      "label": "First Column",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableStyleLastColumnWord",
+      "label": "Last Column",
+      "type": "checkBox",
+      "group": "GroupTableLayout"
+     },
+     "clone": {
+      "cmd": "tblStyleLastCol",
+      "label": "Last Column",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableStyleBandedColumnsWord",
+      "label": "Banded Columns",
+      "type": "checkBox",
+      "group": "GroupTableLayout"
+     },
+     "clone": {
+      "cmd": "tblStyleBandedCols",
+      "label": "Banded Columns",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
       "idMso": "TableStylesGalleryWord",
       "label": "Table Styles",
       "type": "gallery",
@@ -4964,42 +5048,6 @@
    "label_differs": [],
    "type_mismatch": [],
    "missing": [
-    {
-     "idMso": "TableStyleHeaderRowWord",
-     "label": "Header Row",
-     "type": "checkBox",
-     "group": "GroupTableLayout"
-    },
-    {
-     "idMso": "TableStyleTotalRowWord",
-     "label": "Total Row",
-     "type": "checkBox",
-     "group": "GroupTableLayout"
-    },
-    {
-     "idMso": "TableStyleBandedRowsWord",
-     "label": "Banded Rows",
-     "type": "checkBox",
-     "group": "GroupTableLayout"
-    },
-    {
-     "idMso": "TableStylesFirstColumnWord",
-     "label": "First Column",
-     "type": "checkBox",
-     "group": "GroupTableLayout"
-    },
-    {
-     "idMso": "TableStyleLastColumnWord",
-     "label": "Last Column",
-     "type": "checkBox",
-     "group": "GroupTableLayout"
-    },
-    {
-     "idMso": "TableStyleBandedColumnsWord",
-     "label": "Banded Columns",
-     "type": "checkBox",
-     "group": "GroupTableLayout"
-    },
     {
      "idMso": "BorderStylesGallery",
      "label": "Border Styles",

@@ -45,10 +45,16 @@ const VAL_ORDER = [
   'evenVBand', // 5   (band2Vert — never stamped)
   'oddHBand', // 6 * (band1Horz)
   'evenHBand', // 7   (band2Horz — never stamped)
-  'firstRowFirstColumn', // 8  (nw corner — never stamped)
-  'firstRowLastColumn', // 9  (ne corner — never stamped)
-  'lastRowFirstColumn', // 10 (sw corner — never stamped)
-  'lastRowLastColumn', // 11 (se corner — never stamped)
+  // Corner positions 8-11: ECMA-376 cnfStyle bit order (ne, nw, se, sw). Position 9 is
+  // EMPIRICALLY pinned — List Table 3 / List Table 7 Colorful (corner-DEFINING styles) stamp
+  // cell(0,0) with val=001000000100 whose set named attr is firstRowFirstColumn (nw), per
+  // rw-tb-style-listtable3 + the 2026-07-02 direct-apply oracle probes. The other three ride
+  // the ECMA order. Corner bits are stamped ONLY when the active style DEFINES that corner
+  // tblStylePr type (GT4A1 has no corner types → no corner stamps; differ-verified).
+  'firstRowLastColumn', // 8  (ne corner)
+  'firstRowFirstColumn', // 9  (nw corner — empirically pinned)
+  'lastRowLastColumn', // 10 (se corner)
+  'lastRowFirstColumn', // 11 (sw corner)
 ] as const
 
 type Role = (typeof VAL_ORDER)[number]
@@ -122,14 +128,31 @@ function cellRole(r: number, c: number, R: number, C: number, f: Record<string, 
   return rowRole(r, R, f) ?? 'EMPTY'
 }
 
+// Corner role for cell (r, c): stamped ONLY when the active style DEFINES that corner tblStylePr
+// type AND both edge conditions are look-enabled + geometrically true. Empirically verified for nw
+// (List Table 3 / LT7 Colorful: cell(0,0) carries firstColumn AND firstRowFirstColumn); ne/se/sw
+// are the symmetric construction on the same evidence-backed gate (style-defined + both edges on).
+function cornerRole(
+  r: number, c: number, R: number, C: number,
+  f: Record<string, boolean>, corners: Set<string>,
+): Role | null {
+  if (f.firstRow && f.firstColumn && r === 0 && c === 0 && corners.has('nwCell')) return 'firstRowFirstColumn'
+  if (f.firstRow && f.lastColumn && r === 0 && c === C - 1 && corners.has('neCell')) return 'firstRowLastColumn'
+  if (f.lastRow && f.lastColumn && r === R - 1 && c === C - 1 && corners.has('seCell')) return 'lastRowLastColumn'
+  if (f.lastRow && f.firstColumn && r === R - 1 && c === 0 && corners.has('swCell')) return 'lastRowFirstColumn'
+  return null
+}
+
 // Build the 12-key cnfStyle object (all keys explicit booleans so the translator's booleanToString(false)
 // emits explicit "0" attrs — verified: cnfStyle-translator decode maps false→"0", true→"1") + the 12-char
-// `val` string. `role` = 'EMPTY' → all-zero object; a Role → that one bit set.
-function makeCnfStyle(role: Role | 'EMPTY'): any {
+// `val` string. `role` = 'EMPTY' → all-zero object; a Role or Role[] → those bits set (a corner cell
+// carries BOTH its edge role and the corner bit, e.g. firstColumn + firstRowFirstColumn = 001000000100).
+function makeCnfStyle(role: Role | Role[] | 'EMPTY'): any {
+  const set = new Set<Role>(role === 'EMPTY' ? [] : Array.isArray(role) ? role : [role])
   const obj: any = {}
   let val = ''
   for (const key of VAL_ORDER) {
-    const on = role !== 'EMPTY' && key === role
+    const on = set.has(key)
     obj[key] = on
     val += on ? '1' : '0'
   }
@@ -156,6 +179,21 @@ export function installTableConditionalFormats(editor: AnyEditor) {
   // firstRow / band1Horz) — see style-translator.js encodePropertiesByKey('w:tblStylePr',
   // 'tableStyleProperties', …). Any non-empty tableStyleProperties ⇒ conditional formats.
   // TableGrid / no style / a style without bands → false (strip all stamps).
+  // The corner tblStylePr types the style DEFINES (nwCell/neCell/seCell/swCell) — gates corner
+  // stamping (only corner-defining styles get corner bits; empirically LT3/LT7C yes, GT4A1 no).
+  function styleCornerTypes(styleId: string | null | undefined): Set<string> {
+    const out = new Set<string>()
+    if (!styleId) return out
+    try {
+      const bands = editor.converter?.translatedLinkedStyles?.styles?.[styleId]?.tableStyleProperties
+      const keys = Array.isArray(bands)
+        ? bands.map((b: any) => b?.type).filter(Boolean)
+        : bands && typeof bands === 'object' ? Object.keys(bands) : []
+      for (const k of keys) if (k === 'nwCell' || k === 'neCell' || k === 'seCell' || k === 'swCell') out.add(k)
+    } catch { /* no corners */ }
+    return out
+  }
+
   function styleHasConditionalFormats(styleId: string | null | undefined): boolean {
     if (!styleId) return false
     try {
@@ -174,7 +212,7 @@ export function installTableConditionalFormats(editor: AnyEditor) {
   //   null  → remove the cnfStyle key (Word emits no element)
   //   Role|'EMPTY' → write the computed cnfStyle object as the FIRST key of the props object (trPr has
   //     no xmlOrder — key-insertion order wins; tcPr enforces cnfStyle-first via TCPR_XML_ORDER anyway).
-  function stampNode(tr: any, pos: number, node: any, propsAttrKey: string, role: Role | 'EMPTY' | null): void {
+  function stampNode(tr: any, pos: number, node: any, propsAttrKey: string, role: Role | Role[] | 'EMPTY' | null): void {
     const curProps = node.attrs[propsAttrKey] || {}
     const hadCnf = curProps.cnfStyle != null
     if (role == null) {
@@ -196,7 +234,20 @@ export function installTableConditionalFormats(editor: AnyEditor) {
   // deriving roles from `flags` (the resolved tblLook flags). `styled` gates conditional-format stamping
   // (unstyled → strip all cnfStyle; tblLook is written regardless — Word always emits it). The tblLook
   // node markup is written only when it actually changes (no gratuitous doc change / re-stamp on open).
-  function stampTableOnTr(tr: any, table: { node: any; pos: number }, flags: Record<string, boolean>, styled: boolean): void {
+  // Combine the cell's edge/band role with a corner bit (corner cells carry BOTH, e.g.
+  // firstColumn + firstRowFirstColumn — empirically verified on LT3/LT7C).
+  function combinedCellRole(
+    r: number, c: number, R: number, C: number,
+    flags: Record<string, boolean>, corners: Set<string>,
+  ): Role | Role[] | 'EMPTY' | null {
+    const base = cellRole(r, c, R, C, flags)
+    const corner = cornerRole(r, c, R, C, flags, corners)
+    if (!corner) return base
+    if (base == null || base === 'EMPTY') return corner
+    return [base, corner]
+  }
+
+  function stampTableOnTr(tr: any, table: { node: any; pos: number }, flags: Record<string, boolean>, styled: boolean, corners: Set<string> = new Set()): void {
     const props = table.node.attrs.tableProperties || {}
     const nextTblLook = makeTblLook(flags)
     const curTblLook = props.tblLook
@@ -217,7 +268,7 @@ export function installTableConditionalFormats(editor: AnyEditor) {
       let cellPos = rowPos + 1
       for (let c = 0; c < C; c++) {
         const cell = row.child(c)
-        stampNode(tr, cellPos, cell, 'tableCellProperties', styled ? cellRole(r, c, R, C, flags) : null)
+        stampNode(tr, cellPos, cell, 'tableCellProperties', styled ? combinedCellRole(r, c, R, C, flags, corners) : null)
         cellPos += cell.nodeSize
       }
       rowPos += row.nodeSize
@@ -242,7 +293,7 @@ export function installTableConditionalFormats(editor: AnyEditor) {
     const t = tr || state.tr
     const props = table.node.attrs.tableProperties || {}
     const styleId: string | null = table.node.attrs.tableStyleId ?? props.tableStyleId ?? null
-    stampTableOnTr(t, table, seedFlags(props.tblLook), styleHasConditionalFormats(styleId))
+    stampTableOnTr(t, table, seedFlags(props.tblLook), styleHasConditionalFormats(styleId), styleCornerTypes(styleId))
 
     if (ownTr) {
       // Only dispatch when something actually changed (docChanged drives the dirty flag + repaint).
@@ -280,7 +331,7 @@ export function installTableConditionalFormats(editor: AnyEditor) {
     // from `flags`, so the new-flag stamping is correct even though editor.state hasn't advanced yet.
     const tr = state.tr
     const styleId: string | null = table.node.attrs.tableStyleId ?? props.tableStyleId ?? null
-    stampTableOnTr(tr, table, flags, styleHasConditionalFormats(styleId))
+    stampTableOnTr(tr, table, flags, styleHasConditionalFormats(styleId), styleCornerTypes(styleId))
     if (tr.docChanged) view.dispatch(tr)
     editor.view?.focus()
     return true

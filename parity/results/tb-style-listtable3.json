@@ -4,28 +4,20 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 45,
-    "missing": 13,
-    "extra": 3
+    "match": 52,
+    "missing": 6,
+    "extra": 2
   },
   "missing_nodes": [
-    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
-    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
-    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
-    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
-    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '1'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000100')]",
     "body:gridCol[('w', '3116')]",
     "body:gridCol[('w', '3117')]",
     "body:pPr[]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcW[('type', 'dxa'), ('w', '3116')]",
-    "body:tcW[('type', 'dxa'), ('w', '3117')]",
-    "body:trPr[]"
+    "body:tcW[('type', 'dxa'), ('w', '3117')]"
   ],
   "extra_nodes": [
     "body:gridCol[('w', '3120')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
     "body:tcW[('type', 'dxa'), ('w', '3120')]"
   ],
   "part_counts": {},

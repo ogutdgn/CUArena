@@ -659,7 +659,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Word: ApplyStyleHeadingRows = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+      "note": "Word: ApplyStyleHeadingRows = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('headerRow', false) via the Table Style Options checkbox (spec 031)."
     },
     {
       "id": "tb-styleopt-totalrow-on",
@@ -669,7 +669,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Word: ApplyStyleLastRow = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+      "note": "Word: ApplyStyleLastRow = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('totalRow', true) via the Table Style Options checkbox (spec 031)."
     },
     {
       "id": "tb-styleopt-bandedrows-off",
@@ -679,7 +679,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Word: ApplyStyleRowBands = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+      "note": "Word: ApplyStyleRowBands = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('bandedRows', false) via the Table Style Options checkbox (spec 031)."
     },
     {
       "id": "tb-styleopt-firstcol-off",
@@ -689,7 +689,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Word: ApplyStyleFirstColumn = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+      "note": "Word: ApplyStyleFirstColumn = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('firstColumn', false) via the Table Style Options checkbox (spec 031)."
     },
     {
       "id": "tb-styleopt-lastcol-on",
@@ -699,7 +699,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Word: ApplyStyleLastColumn = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+      "note": "Word: ApplyStyleLastColumn = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('lastColumn', true) via the Table Style Options checkbox (spec 031)."
     },
     {
       "id": "tb-styleopt-bandedcols-on",
@@ -709,7 +709,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Word: ApplyStyleColumnBands = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+      "note": "Word: ApplyStyleColumnBands = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone: PM.tableStyleOption('bandedColumns', true) via the Table Style Options checkbox (spec 031)."
     },
     {
       "id": "tb-shading-cell",
