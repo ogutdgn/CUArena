@@ -7,6 +7,7 @@
   const WC = window.WC;
   const out = { ready: !!window.__WC_READY, pair: 'tablelayout' };
   try {
+    window.WC.editor.commands.selectAll(); window.WC.editor.commands.insertContent('<p></p>'); await sleep(200);
     WC.PM.insertTable({ rows: 3, cols: 3 });
     await sleep(600);
     WC.Ribbon.activate('table-layout');

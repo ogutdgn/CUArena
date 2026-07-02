@@ -9,6 +9,7 @@
   const out = { steps: [], mode: (window.WC_LAYOUT || '') };
   const tabId = window.localStorage.getItem('WC_RIBBON_TAB') || 'table-design';
   try {
+    WC.editor.commands.selectAll(); WC.editor.commands.insertContent('<p></p>'); await sleep(200);
     WC.PM.insertTable({ rows: 3, cols: 3 });
     out.steps.push('inserted 3x3 table');
     await sleep(600);

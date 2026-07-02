@@ -6,6 +6,7 @@
   const WC = window.WC;
   const out = { ready: !!window.__WC_READY, pair: 'insert-table-menu' };
   try {
+    window.WC.editor.commands.selectAll(); window.WC.editor.commands.insertContent('<p></p>'); await sleep(200);
     WC.Ribbon.activate('insert');
     await sleep(400);
     const n = document.querySelector('[data-cmd="table"]');

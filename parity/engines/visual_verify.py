@@ -85,6 +85,10 @@ def capture(pairs):
             wargs += ["-Style", p["wordStyle"]]
         if p.get("wordMso"):
             wargs += ["-Mso", p["wordMso"]]
+        if p.get("wordKeys"):
+            wargs += ["-Keys", p["wordKeys"]]
+        if p.get("wordExpand"):
+            wargs += ["-ExpandName", p["wordExpand"]]
         if p.get("wordPickLast"):
             wargs += ["-PickLast"]
         subprocess.run(wargs, cwd=ROOT, timeout=240, capture_output=True)

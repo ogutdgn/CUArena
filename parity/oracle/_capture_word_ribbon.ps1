@@ -7,7 +7,11 @@ param(
   [string]$Out = 'C:\tmp\word-ribbon.png',
   [string]$Style = '',       # optional: apply this table style to the base table (level-4 doc shots)
   [string]$Mso = '',         # optional: ExecuteMso AFTER tab activation (drops a gallery/menu for level-2 shots)
-  [switch]$PickLast          # tab-name collision (contextual 'Layout' vs the standard Layout tab): take the LAST match
+  [string]$Keys = '',        # optional: SendKeys AFTER foregrounding (opens menus/galleries; forces screen capture
+                             #           — a dropped menu is its own popup hwnd, invisible to PrintWindow)
+  [string]$ExpandName = '',  # optional: UIA ExpandCollapsePattern on the ribbon element with this Name
+                             #           (deterministic menu/gallery opener; forces screen capture)
+  [switch]$PickLast          # tab-name collision fallback: take the LAST TabItem match
 )
 $ErrorActionPreference = 'Stop'
 $pre = @(Get-Process WINWORD -ErrorAction SilentlyContinue | Select-Object -Expand Id)
@@ -32,6 +36,18 @@ public class Win32Cap {
       IntPtr hdc = g.GetHdc();
       PrintWindow(hwnd, hdc, 2); // PW_RENDERFULLCONTENT
       g.ReleaseHdc(hdc);
+    }
+    bmp.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+  }
+  // Screen copy of the window rect — includes popup menus/galleries (own hwnds that
+  // PrintWindow of the main window can never see). Window must be foreground.
+  public static void CaptureScreen(IntPtr hwnd, string path) {
+    RECT r; GetWindowRect(hwnd, out r);
+    int w = r.Right - r.Left, h = r.Bottom - r.Top;
+    if (w < 1 || h < 1) { w = 1440; h = 900; }
+    Bitmap bmp = new Bitmap(w, h);
+    using (Graphics g = Graphics.FromImage(bmp)) {
+      g.CopyFromScreen(r.Left, r.Top, 0, 0, new Size(w, h));
     }
     bmp.Save(path, System.Drawing.Imaging.ImageFormat.Png);
   }
@@ -88,9 +104,29 @@ try {
   $hwnd = (Get-Process -Id $wordPid).MainWindowHandle
   [Win32Cap]::SetForegroundWindow($hwnd) | Out-Null
   Start-Sleep -Milliseconds 400
+  if ($Keys) {
+    Add-Type -AssemblyName System.Windows.Forms
+    [System.Windows.Forms.SendKeys]::SendWait($Keys)
+    Start-Sleep -Milliseconds 1500
+  }
+  $expanded = $false
+  if ($ExpandName -and $win) {
+    # Deterministic gallery/menu opener: UIA ExpandCollapsePattern on the named ribbon element
+    # (SendKeys keytip chains dissolve; Expand holds the popup open through the screen copy).
+    $nc = New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::NameProperty, $ExpandName)
+    $els = $win.FindAll([System.Windows.Automation.TreeScope]::Descendants, $nc)
+    for ($i = 0; $i -lt $els.Count; $i++) {
+      $el = $els.Item($i)
+      try {
+        $ec = $el.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern)
+        $ec.Expand(); $expanded = $true; break
+      } catch {}
+    }
+    Start-Sleep -Milliseconds 1500
+  }
   if (Test-Path $Out) { Remove-Item -LiteralPath $Out -Force }
-  [Win32Cap]::Capture($hwnd, $Out)
-  Write-Output ("TAB='" + $Tab + "' activated=" + $activated + " hwnd=" + $hwnd + " -> " + $Out)
+  if ($Keys -or $Mso -or $ExpandName) { [Win32Cap]::CaptureScreen($hwnd, $Out) } else { [Win32Cap]::Capture($hwnd, $Out) }
+  Write-Output ("TAB='" + $Tab + "' activated=" + $activated + " keys='" + $Keys + "' expand='" + $ExpandName + "'/" + $expanded + " hwnd=" + $hwnd + " -> " + $Out)
 } finally {
   try { $doc.Saved = $true } catch {}
   try { $w.Quit() } catch {}

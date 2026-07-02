@@ -1,8 +1,8 @@
 {
  "counts": {
-  "pass": 24,
+  "pass": 25,
   "pending": 3,
-  "fail": 7
+  "fail": 6
  },
  "cards": [
   {
@@ -401,7 +401,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -440,7 +440,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -483,7 +483,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":4}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":4}",
      "result": "ok"
     },
     {
@@ -534,7 +534,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":4}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":4}",
      "result": "ok"
     },
     {
@@ -577,7 +577,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -616,7 +616,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -655,7 +655,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -694,7 +694,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -733,7 +733,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -780,7 +780,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -827,7 +827,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -870,7 +870,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -913,7 +913,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -956,7 +956,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -999,7 +999,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -1112,7 +1112,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -1151,7 +1151,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -1194,7 +1194,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -1237,7 +1237,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -1276,7 +1276,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":3}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":3}",
      "result": "ok"
     },
     {
@@ -1289,10 +1289,10 @@
     },
     {
      "step": "{\"expect\":\"paintedTableCount\",\"equals\":2}",
-     "result": "FAIL(visible tables=1, want 2)"
+     "result": "ok"
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   {
    "id": "twin/tb-style-grid4a1",
@@ -1354,7 +1354,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {
@@ -1393,7 +1393,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCellPainted\",\"index\":0}",
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
      "result": "ok"
     },
     {

@@ -101,6 +101,19 @@
               c.dispatchEvent(new MouseEvent('mouseup', opts));
               c.dispatchEvent(new MouseEvent('click', opts));
               await sleep(250);
+            } else if (step.do === 'caretIntoCellModel') {
+              // Deterministic caret move into cell #index via the MODEL (same selection a real
+              // click yields). Synthetic MouseEvents on the painted page do NOT reliably drive
+              // PM's selection (caught by the split-table twin: OOXML probe split fine, the
+              // click-driven twin never moved the caret) — model-move until trusted-event
+              // clicking lands.
+              const ps = [];
+              ed().state.doc.descendants((n, pos) => { if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') ps.push(pos); });
+              if (step.index >= ps.length) throw new Error('no model cell #' + step.index + ' (have ' + ps.length + ')');
+              const $p = ed().state.doc.resolve(ps[step.index] + 1);
+              const SelCls = ed().state.selection.constructor;
+              ed().view.dispatch(ed().state.tr.setSelection(SelCls.near($p)));
+              await sleep(200);
             } else if (step.do === 'selectCellRange') {
               // Programmatic CellSelection fallback (first-row pair) where synthetic shift-click
               // can't build one — mirrors the UI's cell-range selection result.

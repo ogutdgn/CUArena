@@ -1,25 +1,59 @@
 {
   "_comment": "VISUAL axis pairs (rubric D5.1, priority level 1 = ribbon per tab; levels 2-4 menus/dialogs/document-result get added as capture probes land). golden:true pairs are the D5.3 trust gate — the judge must classify them correctly before real verdicts are accepted.",
   "pairs": [
-    { "id": "g-identical", "golden": true, "expect": "pass",
-      "desc": "GOLDEN: the same Word capture twice — the judge MUST pass it" },
-    { "id": "g-different", "golden": true, "expect": "fail",
-      "desc": "GOLDEN: Word Home vs clone Home — known-different; the judge MUST fail it and list differences" },
-    { "id": "home", "wordTab": "Home", "cloneTab": "home", "cloneProbe": "shot-tab-probe.js",
-      "desc": "Home ribbon" },
-    { "id": "tabledesign", "wordTab": "Table Design", "cloneTab": "table-design", "cloneProbe": "../..//scripts/ribbon-shot-probe.js",
-      "desc": "Table Design ribbon" },
-    { "id": "tablelayout", "wordTab": "Layout", "wordPickLast": true, "cloneTab": "table-layout",
+    {
+      "id": "g-identical",
+      "golden": true,
+      "expect": "pass",
+      "desc": "GOLDEN: the same Word capture twice — the judge MUST pass it"
+    },
+    {
+      "id": "g-different",
+      "golden": true,
+      "expect": "fail",
+      "desc": "GOLDEN: Word Home vs clone Home — known-different; the judge MUST fail it and list differences"
+    },
+    {
+      "id": "home",
+      "wordTab": "Home",
+      "cloneTab": "home",
+      "cloneProbe": "shot-tab-probe.js",
+      "desc": "Home ribbon"
+    },
+    {
+      "id": "tabledesign",
+      "wordTab": "Table Design",
+      "cloneTab": "table-design",
+      "cloneProbe": "../..//scripts/ribbon-shot-probe.js",
+      "desc": "Table Design ribbon"
+    },
+    {
+      "id": "tablelayout",
+      "wordTab": "Table Layout",
+      "cloneTab": "table-layout",
       "cloneProbe": "visual-tablelayout-probe.js",
-      "desc": "Table Layout contextual ribbon (level 1)" },
-    { "id": "insert-table-menu", "wordTab": "Insert", "wordMso": "TableInsertGallery",
+      "desc": "Table Layout contextual ribbon (level 1)"
+    },
+    {
+      "id": "insert-table-menu",
+      "wordTab": "Insert",
       "cloneProbe": "visual-insert-menu-probe.js",
-      "desc": "OPEN Insert > Table dropdown — grid picker + items (level 2)" },
-    { "id": "table-styles-gallery", "wordTab": "Table Design", "wordMso": "TableStylesGalleryWord",
+      "desc": "OPEN Insert > Table dropdown — grid picker + items (level 2; Word via UIA Expand)",
+      "wordExpand": "Table"
+    },
+    {
+      "id": "table-styles-gallery",
+      "wordTab": "Table Design",
       "cloneProbe": "visual-styles-gallery-probe.js",
-      "desc": "OPEN Table Styles gallery — the 2/247 gap side-by-side (level 2)" },
-    { "id": "doc-styled-table", "wordTab": "Home", "wordStyle": "Grid Table 4 - Accent 1",
+      "desc": "OPEN Table Styles gallery — the 2/247 gap side-by-side (level 2; Word via UIA Expand)",
+      "wordExpand": "Table Styles"
+    },
+    {
+      "id": "doc-styled-table",
+      "wordTab": "Home",
+      "wordStyle": "Grid Table 4 - Accent 1",
       "cloneProbe": "visual-doc-styled-probe.js",
-      "desc": "LEVEL 4 document render — Grid Table 4 Accent 1 styled 3x3 on the page" }
+      "desc": "LEVEL 4 document render — Grid Table 4 Accent 1 styled 3x3 on the page"
+    }
   ]
 }

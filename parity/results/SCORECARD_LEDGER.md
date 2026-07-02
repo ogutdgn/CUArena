@@ -51,7 +51,7 @@ clicked in the running app and classified by what actually happens.
 - review · `readAloud` "Read Aloud" (toggle) → SILENT
 - review · `previousComment` "Previous" (button) → SILENT
 - review · `nextComment` "Next" (button) → SILENT
-- table-design · `tblShading` "Shading" (dropdown) → SUSPECT_EMPTY_FLYOUT items=0
+- table-design · `tblStyles` "Table Styles" (dropdown) → GALLERY_UNDERFILLED(2 vs Word 113) items=2
 
 ## Menu items needing a look (deep mode: silent / unfindable / error)
 

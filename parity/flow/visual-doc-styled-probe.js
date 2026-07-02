@@ -7,6 +7,7 @@
   const WC = window.WC, PM = WC.PM;
   const out = { ready: !!window.__WC_READY, pair: 'doc-styled-table' };
   try {
+    window.WC.editor.commands.selectAll(); window.WC.editor.commands.insertContent('<p></p>'); await sleep(200);
     PM.insertTable({ rows: 3, cols: 3 });
     await sleep(500);
     const styles = (PM.getTableStyles && PM.getTableStyles()) || [];

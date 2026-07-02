@@ -24,7 +24,7 @@
       "cols": 3
     },
     {
-      "do": "clickCellPainted",
+      "do": "caretIntoCellModel",
       "index": 3
     },
     {

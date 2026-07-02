@@ -3438,7 +3438,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients. Select recipients first.",
+   "toast": "No recipients selected.",
    "verdict": "pass"
   },
   {
@@ -3579,7 +3579,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Translation needs a cloud translator \u2014 not available in this clone.See docs/NOT_",
+   "toast": "Translator preferences require the cloud translator service \u2014 not available.",
    "verdict": "pass"
   },
   {
@@ -4323,7 +4323,7 @@
     "Table Grid",
     "Grid Table 4 Accent 1"
    ],
-   "result": "OK_FLYOUT",
+   "result": "GALLERY_UNDERFILLED(2 vs Word 113)",
    "itemResults": [
     {
      "label": "Table Grid",
@@ -4334,7 +4334,8 @@
      "result": "OK_DOC_CHANGED"
     }
    ],
-   "verdict": "pass"
+   "verdict": "triage",
+   "barSource": "Word's modern Table Styles gallery (catalog a3d3566)"
   },
   {
    "tab": "table-design",
@@ -4345,8 +4346,8 @@
    "launcher": false,
    "itemCount": 0,
    "items": [],
-   "result": "SUSPECT_EMPTY_FLYOUT",
-   "verdict": "triage"
+   "result": "OK_FLYOUT",
+   "verdict": "pass"
   },
   {
    "tab": "table-design",

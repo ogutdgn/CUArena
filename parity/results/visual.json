@@ -3,19 +3,35 @@
  "verdicts": {
   "g-identical": {
    "verdict": "pass",
-   "reason": "pixel-identical (same capture twice)"
+   "reason": "golden: identical Word captures - no differences"
   },
   "g-different": {
    "verdict": "fail",
-   "reason": "styles gallery previews differ (real styled names vs aBbCcDd cards); Editing group labeled vs icon-only; search box position; ribbon height/padding"
+   "reason": "golden: clone Home differs (Draw tab, Styles gallery thumbnails, missing Dictate/Add-ins, File button styling)"
   },
   "home": {
    "verdict": "fail",
-   "reason": "Word user notices at a glance: styles gallery (Word shows real styled previews incl Title/Subtitle, clone shows aBbCcDd cards w/ Heading 1-3), Editing group labels missing, File tab styling, search box placement, overall ribbon height"
+   "reason": "Styles gallery thumbnails differ; Format Painter/Dictate/Editor/Add-ins chrome missing or restyled; extra Draw tab; Search box placement"
   },
   "tabledesign": {
    "verdict": "fail",
-   "reason": "clone tab nearly empty vs Word's full tab (style options checkboxes, 15+ style thumbnails, pen controls, Border Painter) \u2014 the honest v2 baseline after the tables archive"
+   "reason": "clone lacks Table Style Options group (6 checkboxes), visual style-tile gallery (icon-only dropdown instead), Border Styles/Pen/Border Painter group, Borders&Shading launcher; shows non-Word Alignment group; icon-only unlabeled rendering"
+  },
+  "tablelayout": {
+   "verdict": "fail",
+   "reason": "clone lacks Table group (Select/Gridlines/Properties), Draw group (Draw Table/Eraser), Delete menu, Insert Cells launcher, Sort/Repeat Header Rows/Formula in Data; 9-way alignment reduced to 3 vAlign; Height/Width steppers are dropdowns; tab NAME differs: Word 'Table Layout' vs clone 'Layout'; icon-only unlabeled rendering"
+  },
+  "insert-table-menu": {
+   "verdict": "fail",
+   "reason": "item set/labels match (5 items) but: Word items carry icons + Quick Tables submenu arrow, clone plain text; Word grid live-label above grid ('1x1 Table'), clone header 'Insert Table'; Word disables Convert Text to Table with caret in table, clone does not gray it"
+  },
+  "table-styles-gallery": {
+   "verdict": "fail",
+   "reason": "Word: full gallery with Plain/Grid/List Tables sections, 100+ color thumbnails, Modify/Clear/New Table Style footer; clone: 2-item text flyout (Table Grid, Grid Table 4 Accent 1) - the 2/247 gap on screen"
+  },
+  "doc-styled-table": {
+   "verdict": "fail",
+   "reason": "same 3x3 GT4A1 table, banding order matches, BUT header fill differs: Word dark teal (current Office theme accent1 on locked build) vs clone royal blue (legacy 4472C4 palette); border tint likewise; minor width/position offset"
   }
  }
 }

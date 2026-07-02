@@ -3271,7 +3271,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients. Select recipients first."
+   "toast": "No recipients selected."
   },
   {
    "tab": "review",
@@ -3404,7 +3404,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Translation needs a cloud translator — not available in this clone.See docs/NOT_"
+   "toast": "Translator preferences require the cloud translator service — not available."
   },
   {
    "tab": "review",
@@ -4119,7 +4119,7 @@
    "launcher": false,
    "itemCount": 0,
    "items": [],
-   "result": "SUSPECT_EMPTY_FLYOUT"
+   "result": "OK_FLYOUT"
   },
   {
    "tab": "table-design",
