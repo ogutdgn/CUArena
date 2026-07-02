@@ -9,7 +9,8 @@
 param(
   [string]$Ids = 'Bold,Italic,Underline,Copy,Paste,FormatPainter,FontColorPicker,TextHighlightColorPicker,TableDrawTable,TableEraser,MergeCells,TableRowsInsertAboveWord',
   [int]$Size = 32,
-  [string]$OutDir = 'C:\tmp\mso-icons'
+  [string]$OutDir = 'C:\tmp\mso-icons',
+  [switch]$Visible   # GetImageMso can E_UNEXPECTED without a rendering context; try -Visible if invisible fails
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
@@ -18,11 +19,12 @@ if ($pre.Count -gt 0) { Write-Error "WINWORD already running (PIDs: $($pre -join
 if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Force $OutDir | Out-Null }
 
 $w = New-Object -ComObject Word.Application
-$w.Visible = $false
+$w.Visible = [bool]$Visible
 $w.DisplayAlerts = 0
 $spawned = @(Get-Process WINWORD -ErrorAction SilentlyContinue | Select-Object -Expand Id | Where-Object { $pre -notcontains $_ })
 $saved = @()
 try {
+  $doc = $w.Documents.Add()   # GetImageMso needs an initialized document/render context
   $cb = $w.CommandBars
   foreach ($id in ($Ids -split ',' | Where-Object { $_.Trim() })) {
     $id = $id.Trim()

@@ -124,10 +124,14 @@ at the SAME window size (1920-wide; the ribbon reflows/condenses when narrow —
 tables loop), Windows display scaling pinned/verified at capture time, both light theme,
 document shots at 100% zoom, lossless PNG only. Per-group crops may be fed to the judge.
 
-**D5.5 — icons:** real Word icons extracted via GetImageMso = the ground truth for icon
-comparison. The clone KEEPS the open-source Fluent set; only icons the judge flags as
-user-noticeable get hand-fixed. (Embedding extracted MS icons = rejected for licensing
-cleanliness unless the user signs otherwise.)
+**D5.5 — icons (AMENDED 2026-07-01 after the capture trial):** `GetImageMso` is BROKEN on
+the locked build (E_UNEXPECTED from both Word and Excel COM, doc/visible/reflection all
+tried — the legacy CommandBars image service is gone). Icon ground truth = **crops from the
+live ribbon capture** (UIA bounding rects / pixel regions on the maximized PNG) — which is
+MORE faithful anyway: it shows the current visual-refresh icon art at real DPI, not the
+classic gallery. Proven: the Bold-button 4x side-by-side (capture trial). The clone KEEPS
+the open-source Fluent set; only icons the judge flags as user-noticeable get hand-fixed
+(embedding extracted MS art still rejected for licensing).
 
 ## Axis 6 — BEHAVIOR (does it ACT like Word?) — ✅ LOCKED 2026-07-01 (user-amended)
 
