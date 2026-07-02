@@ -3029,9 +3029,9 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 24,
-      "missing": 9,
-      "extra": 4
+      "match": 25,
+      "missing": 8,
+      "extra": 3
     },
     "missing_nodes": [
       "body:gridCol[('w', '3116')]",
@@ -3040,15 +3040,13 @@
       "body:tblW[('type', 'auto'), ('w', '0')]",
       "body:tcW[('type', 'dxa'), ('w', '3116')]",
       "body:tcW[('type', 'dxa'), ('w', '3117')]",
-      "body:textOrder|text=c↵a↵b",
       "styles:TableGrid:pPr[]",
       "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
     ],
     "extra_nodes": [
       "body:gridCol[('w', '3120')]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-      "body:tcW[('type', 'dxa'), ('w', '3120')]",
-      "body:textOrder|text=c↵b↵a"
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
     ],
     "part_counts": {},
     "id": "tb-sort-col1",
@@ -3056,7 +3054,7 @@
     "feature": "Sort: table rows by column 1 ascending",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone has NO table Sort (Home Sort is paragraph-only). Word: fill c/b/a + Table.SortAscending. Values are DESCENDING so the sort reorders under BOTH header interpretations (first capture used b/a/c and SortAscending's auto-header kept it unchanged -> the action never happened). Doubles as the differ order-sensitivity canary (textOrder).",
+    "note": "Spec 033 PART B: Clone now has table Sort (WC.Dialogs.tableSort -> WC.PM.tableSort). Fill c/b/a down column 0, sort col 0 asc with hasHeader=true (Word's SortAscending() auto-detects the header row -> pins row 1 'c' and sorts rows 2-3 b/a -> a/b). Result textOrder = c,a,b, matching rw-tb-sort-col1. Doubles as the differ order-sensitivity canary (textOrder).",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {
@@ -3621,9 +3619,9 @@
       "body:textOrder|text=a, b,↵, ,↵, ,"
     ],
     "extra_nodes": [
-      "body:t[('space', 'preserve')]|text=",
-      "body:t[('space', 'preserve')]|text=a b",
-      "body:textOrder|text=a b"
+      "body:t[]|text=,,",
+      "body:t[]|text=a,b,",
+      "body:textOrder|text=a,b,↵,,↵,,"
     ],
     "part_counts": {},
     "id": "tb-totext-comma",
@@ -3631,7 +3629,7 @@
     "feature": "Convert to Text (commas)",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone has NO separator dialog -- the user gets tabs regardless. Word: ConvertToText(wdSeparateByCommas=2). Text-content mismatch expected.",
+    "note": "Spec 033 PART B: Clone now has a separator dialog (WC.Dialogs.convertToText) — picking Commas calls WC.PM.tableToText(','), the exact call the dialog's OK makes. Word: ConvertToText(wdSeparateByCommas=2). Reachable now.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {

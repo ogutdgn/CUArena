@@ -4,7 +4,7 @@
   "feature": "Table",
   "signedOff": "generated",
   "ooxmlTask": "tb-totext-tab",
-  "note": "Convert to Text removes the painted table.",
+  "note": "Convert to Text removes the painted table. (033 wired H.tblToText to Word's separator dialog; this twin drives the bridge verb directly to test the PAINT effect — the dialog itself is [033B]-tested.)",
   "steps": [
     {
       "do": "setupText",
@@ -28,12 +28,15 @@
       "index": 0
     },
     {
-      "do": "activateTab",
-      "tab": "table-layout"
+      "do": "setCellBorders",
+      "spec": {}
     },
     {
-      "do": "clickCmd",
-      "cmd": "tblToText"
+      "do": "callPM",
+      "verb": "tableToText",
+      "args": [
+        "\t"
+      ]
     },
     {
       "expect": "paintedCellCount",

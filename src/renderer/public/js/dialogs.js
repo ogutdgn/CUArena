@@ -41,6 +41,300 @@
     ] });
   };
 
+  // =========================================================================
+  // Spec 033 PART B — Table Layout dialogs. All wire EXISTING WC.PM verbs
+  // (PART A added the bridge surface); the dialogs just EXIST on WC.Dialogs so
+  // PART A's H.tbl* handlers (WC.Dialogs.<name>?.()) reach them. Lifted from the
+  // archive (ea7a5ba / 61bf9e2 / d5eb977 / eff88de) + adapted to current conventions.
+  // =========================================================================
+
+  // ---- Table Properties (Table Layout > Properties + right-click) — Word's tabbed dialog ----
+  // Table tab: alignment (tableSetAlignment, prefilled from tableInfo) + indent (tableSetIndent);
+  // Row: height at-least/exactly (tableSetRowHeight) + Repeat as header row (tableRepeatHeaderRows);
+  // Column: preferred width (tableSetCellWidth); Cell: vertical alignment (tableSetCellVAlign);
+  // Alt Text: Title/Description (UI-ONLY v1 — no persist verb; rendered but NOT saved, documented note).
+  D.tableProperties = function () {
+    const p = WC.PM;
+    if (!p || !p.tableInfo || !p.tableInfo().inTable) { WC.toast('Click inside a table to open its properties.'); return; }
+    const info = p.tableInfo();
+    const px = (inch) => Math.round((parseFloat(inch) || 0) * 96);
+    const num = (v, w) => el('input', { type: 'number', value: String(v), step: '0.05', style: { width: (w || 70) + 'px' } });
+    const sp = (t) => el('span', { text: t, style: { fontSize: '12px' } });
+    const rowEl = (label, kids) => el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '5px 0' } }, [label ? el('label', { text: label, style: { width: '120px' } }) : null].concat(kids));
+    const check = (checked) => { const c = el('input', { type: 'checkbox' }); if (checked) c.checked = true; return c; };
+    const labelRow = (cb, label) => el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [cb, el('span', { text: label })]);
+    const grpTitle = (t) => el('div', { style: { fontWeight: '600', margin: '8px 0 3px' }, text: t });
+    // Manual tab strip (WC.dialog has no built-in tabs; mirrors the archive's tab strip).
+    const makeTabbed = (tabs) => {
+      const strip = el('div', { style: { display: 'flex', gap: '2px', borderBottom: '1px solid #d0d0d0', marginBottom: '10px' } });
+      const wrap = el('div', {});
+      tabs.forEach((tb, i) => {
+        const on = () => tabs.forEach((tt, j) => { tt.pane.style.display = j === i ? 'block' : 'none'; strip.children[j].style.borderBottom = j === i ? '2px solid var(--word-blue)' : '2px solid transparent'; strip.children[j].style.color = j === i ? 'var(--word-blue)' : '#333'; });
+        const btn = el('div', { text: tb.name, style: { padding: '6px 14px', cursor: 'pointer', fontSize: '13px', borderBottom: '2px solid transparent' } });
+        btn.addEventListener('click', on);
+        strip.appendChild(btn); wrap.appendChild(tb.pane);
+      });
+      tabs.forEach((tb, i) => { tb.pane.style.display = i === 0 ? 'block' : 'none'; });
+      strip.children[0].style.borderBottom = '2px solid var(--word-blue)'; strip.children[0].style.color = 'var(--word-blue)';
+      return el('div', {}, [strip, wrap]);
+    };
+    // Table tab
+    const tAlign = el('select', {}, [['Left', 'left'], ['Center', 'center'], ['Right', 'right']].map(([l, v]) => el('option', { value: v, text: l, selected: info.alignment === v ? 'selected' : null })));
+    const tIndent = num(0), tWidthOn = check(false), tWidth = num(6, 70);
+    const tWrap = el('select', {}, [['None', 'none'], ['Around', 'around']].map(([l, v]) => el('option', { value: v, text: l })));
+    const tablePane = el('div', {}, [
+      grpTitle('Size'), rowEl('Preferred width:', [tWidthOn, tWidth, sp('Measure in: Inches')]),
+      grpTitle('Alignment'), rowEl('Alignment:', [tAlign, sp('Indent from left:'), tIndent]),
+      grpTitle('Text wrapping'), rowEl('Wrapping:', [tWrap]),
+      rowEl('', [el('button', { class: 'btn', text: 'Borders and Shading…', onclick: () => WC.Dialogs.bordersAndShading && WC.Dialogs.bordersAndShading() }), el('button', { class: 'btn', text: 'Options…', onclick: () => WC.Dialogs.tableOptions && WC.Dialogs.tableOptions() })]),
+    ]);
+    // Row tab
+    const rHeightOn = check(false), rHeight = num(0.2, 70);
+    const rHeightRule = el('select', {}, ['At least', 'Exactly'].map((s) => el('option', { text: s })));
+    const rBreak = check(true), rHeader = check(p.tableRepeatHeaderState ? p.tableRepeatHeaderState() : false);
+    const rowPane = el('div', {}, [
+      grpTitle('Size'), rowEl('Specify height:', [rHeightOn, rHeight, sp('Row height is:'), rHeightRule]),
+      grpTitle('Options'), labelRow(rBreak, 'Allow row to break across pages'), labelRow(rHeader, 'Repeat as header row at the top of each page'),
+    ]);
+    // Column tab
+    const cWidthOn = check(false), cWidth = num(2, 70);
+    const colPane = el('div', {}, [grpTitle('Size'), rowEl('Preferred width:', [cWidthOn, cWidth, sp('Measure in: Inches')])]);
+    // Cell tab
+    const cellWidthOn = check(false), cellWidth = num(2, 70);
+    const cellVAlign = el('select', {}, [['Top', 'top'], ['Center', 'middle'], ['Bottom', 'bottom']].map(([l, v]) => el('option', { value: v, text: l })));
+    const cellPane = el('div', {}, [grpTitle('Size'), rowEl('Preferred width:', [cellWidthOn, cellWidth, sp('Inches')]), grpTitle('Vertical alignment'), rowEl('Alignment:', [cellVAlign])]);
+    // Alt Text tab — UI-ONLY v1: rendered so the tab exists (STRUCTURE parity) but NOT persisted;
+    // there is no bridge verb to write w:tblCaption/tblDescription yet (honest degrade, documented).
+    const altTitle = el('input', { type: 'text', class: 'grow' }), altDesc = el('textarea', { rows: '4', style: { width: '100%' } });
+    const altPane = el('div', {}, [rowEl('Title:', [altTitle]), rowEl('Description:', [altDesc]), el('div', { style: { fontSize: '11px', color: '#888', marginTop: '6px' }, text: 'Alt text is not yet saved to the document.' })]);
+    const body = makeTabbed([
+      { name: 'Table', pane: tablePane }, { name: 'Row', pane: rowPane }, { name: 'Column', pane: colPane }, { name: 'Cell', pane: cellPane }, { name: 'Alt Text', pane: altPane },
+    ]);
+    WC.dialog({ title: 'Table Properties', width: '540px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        if (tAlign.value && p.tableSetAlignment) p.tableSetAlignment(tAlign.value);
+        if (parseFloat(tIndent.value) && p.tableSetIndent) p.tableSetIndent(px(tIndent.value));
+        if (rHeightOn.checked && p.tableSetRowHeight) p.tableSetRowHeight(px(rHeight.value), rHeightRule.value === 'Exactly' ? 'exactly' : 'atLeast');
+        if (p.tableRepeatHeaderRows) p.tableRepeatHeaderRows(rHeader.checked);
+        if ((cWidthOn.checked || cellWidthOn.checked) && p.tableSetCellWidth) p.tableSetCellWidth(px(cWidthOn.checked ? cWidth.value : cellWidth.value));
+        if (cellVAlign.value && p.tableSetCellVAlign) p.tableSetCellVAlign(cellVAlign.value);
+        // Alt Text (altTitle/altDesc) is intentionally NOT applied — UI-only v1.
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
+  // ---- Table Sort (Table Layout > Sort) — Word's dialog: Sort by / Then by ×2 + header option ----
+  // Each level: a column dropdown (from WC.PM.tableColumns() → header labels or 'Column N'), Type
+  // (Text/Number/Date), Ascending/Descending. 'My list has header row' (default on) toggles the
+  // column labels. OK → WC.PM.tableSort([{ col, type, asc }], hasHeader). Lift of archive 61bf9e2
+  // (adapted to PART A's tableColumns() [{index,label}] shape).
+  D.tableSort = function () {
+    const p = WC.PM;
+    if (!p || !p.tableColumns) { WC.toast('Click inside a table to sort it.'); return; }
+    const cols = p.tableColumns(); // [{ index, label }] — label = header text or 'Column N'
+    if (!cols.length) { WC.toast('Click inside a table to sort it.'); return; }
+    // Default like Word: treat row 1 as a header when any of its cells carry real text (a label that
+    // isn't the fallback 'Column N').
+    let hasHeader = cols.some((c) => c.label && !/^Column \d+$/.test(c.label));
+    const levels = [];
+    const makeLevel = (idx) => {
+      const colSel = el('select', { style: { minWidth: '150px' } });
+      const typeSel = el('select', {}, ['Text', 'Number', 'Date'].map((t) => el('option', { value: t.toLowerCase(), text: t })));
+      const dirName = 'wc-sort-dir-' + idx;
+      const asc = el('input', { type: 'radio', name: dirName, value: 'asc' }); asc.checked = 'checked';
+      const desc = el('input', { type: 'radio', name: dirName, value: 'desc' });
+      const wrap = el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '4px 0' } }, [
+        el('label', { text: idx === 0 ? 'Sort by' : 'Then by', style: { width: '64px' } }),
+        colSel, el('label', { text: 'Type:' }), typeSel,
+        el('label', { style: { gap: '3px' } }, [asc, el('span', { text: 'Ascending' })]),
+        el('label', { style: { gap: '3px' } }, [desc, el('span', { text: 'Descending' })]),
+      ]);
+      const lvl = { wrap, colSel, typeSel, isAsc: () => asc.checked, idx };
+      levels.push(lvl);
+      return lvl;
+    };
+    const l0 = makeLevel(0), l1 = makeLevel(1), l2 = makeLevel(2);
+    // Populate each column select from the current header/hasHeader (re-run when the header toggle flips).
+    function fillCols() {
+      levels.forEach((lvl, i) => {
+        lvl.colSel.innerHTML = '';
+        if (i > 0) lvl.colSel.appendChild(el('option', { value: '', text: '(none)' }));
+        cols.forEach((c) => {
+          const label = hasHeader ? c.label : ('Column ' + (c.index + 1));
+          lvl.colSel.appendChild(el('option', { value: String(c.index), text: label }));
+        });
+        lvl.colSel.value = i === 0 ? String(cols[0].index) : '';
+      });
+    }
+    fillCols();
+    const hdrName = 'wc-sort-hdr';
+    const hdrRow = el('input', { type: 'radio', name: hdrName, value: 'header' });
+    const hdrNo = el('input', { type: 'radio', name: hdrName, value: 'no' });
+    (hasHeader ? hdrRow : hdrNo).checked = 'checked';
+    hdrRow.addEventListener('change', () => { hasHeader = true; fillCols(); });
+    hdrNo.addEventListener('change', () => { hasHeader = false; fillCols(); });
+    const myList = el('div', { style: { marginTop: '10px', borderTop: '1px solid #eee', paddingTop: '8px' } }, [
+      el('div', { text: 'My list has', style: { fontWeight: '600', marginBottom: '4px' } }),
+      el('label', { class: 'row', style: { gap: '5px' } }, [hdrRow, el('span', { text: 'Header row' })]),
+      el('label', { class: 'row', style: { gap: '5px' } }, [hdrNo, el('span', { text: 'No header row' })]),
+    ]);
+    const body = el('div', {}, [l0.wrap, l1.wrap, l2.wrap, myList]);
+    WC.dialog({ title: 'Sort', width: '520px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const chosen = levels
+          .filter((lvl) => lvl.colSel.value !== '')
+          .map((lvl) => ({ col: parseInt(lvl.colSel.value, 10), type: lvl.typeSel.value, asc: lvl.isAsc() }));
+        if (!chosen.length) return;
+        p.tableSort(chosen, hasHeader);
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
+  // ---- Table Formula (Table Layout > Formula) — Word's dialog: Formula / Number format / Paste function ----
+  // Formula field defaults to WC.PM.tableFormulaDefault() (=SUM(ABOVE) when numbers are above, else
+  // =SUM(LEFT)). Paste function seeds =NAME(ABOVE). OK → WC.PM.tableFormula(formula, numFormat) — v1
+  // inserts the computed VALUE (not a live w:fldSimple field, documented). Lift of archive d5eb977.
+  D.tableFormula = function () {
+    const p = WC.PM;
+    if (!p || !p.tableFormula) { WC.toast('Click inside a table cell to add a formula.'); return; }
+    const def = (p.tableFormulaDefault && p.tableFormulaDefault()) || '=SUM(ABOVE)';
+    const formulaInput = el('input', { type: 'text', value: def, class: 'grow', style: { width: '220px' } });
+    const NUMFMTS = ['', '0', '0.00', '#,##0', '#,##0.00', '$#,##0.00', '0%'];
+    const numSel = el('select', {}, NUMFMTS.map((f) => el('option', { value: f, text: f })));
+    // Paste function: choosing one seeds the Formula field with =NAME(ABOVE) (Word behavior).
+    const FUNCS = ['', 'ABS', 'AVERAGE', 'COUNT', 'IF', 'INT', 'MAX', 'MIN', 'MOD', 'PRODUCT', 'ROUND', 'SIGN', 'SUM'];
+    const funcSel = el('select', {}, FUNCS.map((f) => el('option', { value: f, text: f || '(Paste function)' })));
+    funcSel.addEventListener('change', () => {
+      if (funcSel.value) { formulaInput.value = '=' + funcSel.value + '(ABOVE)'; funcSel.value = ''; formulaInput.focus(); }
+    });
+    const rowOf = (label, ctrl, w) => el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '5px 0' } }, [el('label', { text: label, style: { width: (w || 110) + 'px' } }), ctrl]);
+    const body = el('div', {}, [rowOf('Formula:', formulaInput, 70), rowOf('Number format:', numSel), rowOf('Paste function:', funcSel)]);
+    WC.dialog({ title: 'Formula', width: '400px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => { p.tableFormula(formulaInput.value, numSel.value); } },
+      { label: 'Cancel' },
+    ] });
+  };
+
+  // ---- Table Options (Table Layout > Cell Margins) — Word's "Table Options" dialog ----
+  // TABLE-LEVEL default cell margins Top/Bottom/Left/Right (→ w:tblPr/w:tblCellMar). Prefills from
+  // Word's stock defaults (0/0/0.08/0.08 in). OK → WC.PM.tableSetTableCellMargins({top,left,bottom,
+  // right} in DXA). 'Allow spacing between cells' + 'Automatically resize to fit contents' toggles.
+  // Lift of archive eff88de, repointed to PART A's table-level tableSetTableCellMargins (DXA, not px).
+  D.tableOptions = function () {
+    const p = WC.PM;
+    if (!p || !p.tableSetTableCellMargins || !p.tableInfo || !p.tableInfo().inTable) { WC.toast('Click inside a table to set its options.'); return; }
+    const mk = (v) => el('input', { type: 'number', step: '0.01', min: '0', value: String(v), style: { width: '70px' } });
+    const grp = (t) => el('div', { style: { fontWeight: '600', margin: '8px 0 4px' }, text: t });
+    const rowOf = (label, kids) => el('div', { class: 'row', style: { gap: '8px', alignItems: 'center', margin: '4px 0' } }, [label ? el('label', { text: label, style: { width: '70px' } }) : el('span', { style: { width: '70px' } })].concat(kids));
+    // Word's stock default cell margins: top/bottom 0", left/right 0.08".
+    const top = mk(0), bottom = mk(0), left = mk(0.08), right = mk(0.08);
+    const spacingOn = el('input', { type: 'checkbox' });
+    const spacing = mk(0); spacing.disabled = true;
+    spacingOn.addEventListener('change', () => { spacing.disabled = !spacingOn.checked; });
+    const autoResize = el('input', { type: 'checkbox' });
+    const body = el('div', {}, [
+      grp('Default cell margins'),
+      rowOf('Top:', [top]), rowOf('Bottom:', [bottom]), rowOf('Left:', [left]), rowOf('Right:', [right]),
+      grp('Default cell spacing'),
+      el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [spacingOn, el('span', { text: 'Allow spacing between cells' }), spacing, el('span', { text: 'inches', style: { fontSize: '12px' } })]),
+      grp('Options'),
+      el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [autoResize, el('span', { text: 'Automatically resize to fit contents' })]),
+    ]);
+    WC.dialog({ title: 'Table Options', width: '400px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        // inches → DXA (twips): 1 inch = 1440 twips. tableSetTableCellMargins writes w:tblCellMar.
+        const dxa = (inp) => { const v = parseFloat(inp.value); return v > 0 ? Math.round(v * 1440) : 0; };
+        p.tableSetTableCellMargins({ top: dxa(top), left: dxa(left), bottom: dxa(bottom), right: dxa(right) });
+        if (autoResize.checked && p.tableAutoFit) p.tableAutoFit('contents');
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
+  // ---- Insert Cells (Table Layout > Rows & Columns launcher) — Word's shift-direction dialog ----
+  // Shift cells right / Shift cells down / Insert entire row / Insert entire column. v1 HONEST DEGRADE:
+  // true shift-cells needs a fork command (out of scope), so 'right'/'down' degrade to inserting a whole
+  // row (documented in the dialog); 'entire row'/'entire column' → tableAddRow/tableAddColumn.
+  D.insertCells = function () {
+    const p = WC.PM;
+    if (!p || !p.tableAddRow || !p.tableInfo || !p.tableInfo().inTable) { WC.toast('Click inside a table to insert cells.'); return; }
+    const opt = (val, label, checked) => {
+      const r = el('input', { type: 'radio', name: 'wc-inscells', value: val }); if (checked) r.checked = 'checked';
+      return { r, row: el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [r, el('span', { text: label })]) };
+    };
+    const shiftRight = opt('right', 'Shift cells right', true);
+    const shiftDown = opt('down', 'Shift cells down');
+    const wholeRow = opt('row', 'Insert entire row');
+    const wholeCol = opt('col', 'Insert entire column');
+    const body = el('div', {}, [
+      shiftRight.row, shiftDown.row, wholeRow.row, wholeCol.row,
+      el('div', { style: { fontSize: '11px', color: '#888', marginTop: '8px' }, text: 'Shift right/down insert a whole row in this version.' }),
+    ]);
+    WC.dialog({ title: 'Insert Cells', width: '340px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const val = (body.querySelector('input[name="wc-inscells"]:checked') || {}).value;
+        if (val === 'col') p.tableAddColumn('right');
+        else p.tableAddRow('below'); // 'right'/'down'/'row' → insert a whole row (honest v1)
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
+  // ---- Convert to Text (Table Layout > Convert to Text) — Word's separator dialog ----
+  // Paragraph marks / Tabs / Commas / Other:____ → WC.PM.tableToText(sep) where sep = '\n' / '\t' /
+  // ',' / the custom character.
+  D.convertToText = function () {
+    const p = WC.PM;
+    if (!p || !p.tableToText) { WC.toast('Click inside a table to convert it to text.'); return; }
+    const opt = (val, label, checked) => {
+      const r = el('input', { type: 'radio', name: 'wc-totext', value: val }); if (checked) r.checked = 'checked';
+      return { r, row: el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [r, el('span', { text: label })]) };
+    };
+    const para = opt('\n', 'Paragraph marks');
+    const tab = opt('\t', 'Tabs', true);
+    const comma = opt(',', 'Commas');
+    const otherInput = el('input', { type: 'text', maxlength: '1', value: '-', style: { width: '40px' } });
+    const other = opt('__other', 'Other:');
+    const otherRow = el('label', { class: 'row', style: { gap: '6px', margin: '4px 0' } }, [other.r, el('span', { text: 'Other:' }), otherInput]);
+    const body = el('div', {}, [
+      el('div', { text: 'Separate text with', style: { fontWeight: '600', marginBottom: '4px' } }),
+      para.row, tab.row, comma.row, otherRow,
+    ]);
+    WC.dialog({ title: 'Convert Table to Text', width: '340px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const val = (body.querySelector('input[name="wc-totext"]:checked') || {}).value;
+        const sep = val === '__other' ? (otherInput.value || '\t') : (val || '\t');
+        p.tableToText(sep);
+      } },
+      { label: 'Cancel' },
+    ] });
+  };
+
+  // ---- Split Cells (Table Layout → Merge) ----
+  // Word's Split Cells dialog: Number of columns / Number of rows + 'Merge cells before split'.
+  // v1: the fork's splitCell splits the caret/merged cell into 2 columns; deeper N×M split is a
+  // documented follow-up. The dialog is Word-shaped and routes OK to tableSplitCell (honest scope note).
+  D.splitCells = function () {
+    const p = WC.PM;
+    if (!p || !p.tableSplitCell) { WC.toast('Click inside a table cell to split it.'); return; }
+    const cols = el('input', { type: 'number', min: '1', max: '63', value: '2', style: { width: '56px' } });
+    const rows = el('input', { type: 'number', min: '1', max: '63', value: '1', style: { width: '56px' } });
+    const mergeBefore = el('input', { type: 'checkbox' });
+    const fieldRow = (label, input) => el('label', { class: 'row', style: { gap: '8px', margin: '6px 0', display: 'flex', justifyContent: 'space-between' } }, [el('span', { text: label }), input]);
+    const body = el('div', {}, [
+      fieldRow('Number of columns:', cols),
+      fieldRow('Number of rows:', rows),
+      el('label', { class: 'row', style: { gap: '6px', margin: '6px 0' } }, [mergeBefore, el('span', { text: 'Merge cells before split' })]),
+      el('div', { text: 'Note: v1 splits the cell into columns; multi-row split is coming.', style: { fontSize: '11px', color: '#888', marginTop: '6px' } }),
+    ]);
+    WC.dialog({ title: 'Split Cells', width: '320px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => { p.tableSplitCell(); } },
+      { label: 'Cancel' },
+    ] });
+  };
+
   // ---- Insert Link ----
   D.insertLink = function () {
     if (WC.PM.ready) WC.PM.captureSelection(); // dialog steals focus; restore selection before inserting

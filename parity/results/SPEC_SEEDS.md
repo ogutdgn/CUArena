@@ -871,9 +871,9 @@ python parity/engines/run.py --only tb-convert-text-table   # expect: semantic-p
 - FR (tb-totext-comma): emit `body:textOrder|text=a, b,↵, ,↵, ,`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-totext-comma): stop emitting (or justify) `body:t[('space', 'preserve')]|text=`
-- FID (tb-totext-comma): stop emitting (or justify) `body:t[('space', 'preserve')]|text=a b`
-- FID (tb-totext-comma): stop emitting (or justify) `body:textOrder|text=a b`
+- FID (tb-totext-comma): stop emitting (or justify) `body:t[]|text=,,`
+- FID (tb-totext-comma): stop emitting (or justify) `body:t[]|text=a,b,`
+- FID (tb-totext-comma): stop emitting (or justify) `body:textOrder|text=a,b,↵,,↵,,`
 
 ### Acceptance (regression gate)
 ```
@@ -2464,7 +2464,7 @@ python parity/engines/run.py --only tb-shading-cell   # expect: semantic-pass, m
 **Goal:** make the clone's `Sort: table rows by column 1 ascending` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-sort-col1`
 **Ground truth:** `parity/fixtures/rw-tb-sort-col1.docx`
-**Current parity:** GAP — 9 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-sort-col1): emit `body:gridCol[('w', '3116')]`
@@ -2473,7 +2473,6 @@ python parity/engines/run.py --only tb-shading-cell   # expect: semantic-pass, m
 - FR (tb-sort-col1): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-sort-col1): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-sort-col1): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-sort-col1): emit `body:textOrder|text=c↵a↵b`
 - FR (tb-sort-col1): emit `styles:TableGrid:pPr[]`
 - FR (tb-sort-col1): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
@@ -2481,7 +2480,6 @@ python parity/engines/run.py --only tb-shading-cell   # expect: semantic-pass, m
 - FID (tb-sort-col1): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-sort-col1): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-sort-col1): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-sort-col1): stop emitting (or justify) `body:textOrder|text=c↵b↵a`
 
 ### Acceptance (regression gate)
 ```

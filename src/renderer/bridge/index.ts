@@ -415,6 +415,8 @@ export function preinstallBridge() {
     tableSelectScope: () => false, tableViewGridlines: () => false, tableGridlinesShown: () => false,
     tableSetCellAlign: () => false, tableRepeatHeaderRows: () => false, tableRepeatHeaderState: () => false,
     tableSetTableCellMargins: () => false, tableTextDirectionCycle: () => false, tableColumns: () => [],
+    // 033 (PART B): Sort + Formula pre-mount stubs (replaced by installTable on mount)
+    tableSort: () => false, tableFormula: () => false, tableFormulaDefault: () => '=SUM(ABOVE)', formulaContext: () => null,
     // spec 030: table-style catalog pre-mount stubs (replaced by installTableStyles on mount)
     ensureTableStyleMaterialized: () => false, listCatalogStyles: () => [],
     tableStylePreviewEnter: () => false, tableStylePreviewLeave: () => {},

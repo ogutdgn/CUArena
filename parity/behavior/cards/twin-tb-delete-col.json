@@ -4,7 +4,7 @@
   "feature": "Table",
   "signedOff": "generated",
   "ooxmlTask": "tb-delete-col",
-  "note": "tblDeleteColumn from the ribbon: painted cells 9 -> 6.",
+  "note": "Delete via the Layout Delete DROPDOWN (Delete Columns, 033A): painted cells 9 -> 6.",
   "steps": [
     {
       "do": "setupText",
@@ -32,8 +32,12 @@
       "tab": "table-layout"
     },
     {
-      "do": "clickCmd",
-      "cmd": "tblDeleteColumn"
+      "do": "openDropdown",
+      "cmd": "tblDelete"
+    },
+    {
+      "do": "clickItem",
+      "match": "Delete Columns"
     },
     {
       "expect": "paintedCellCount",

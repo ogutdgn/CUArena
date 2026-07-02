@@ -4684,6 +4684,102 @@
     return !/wc-show-table-gridlines/.test(xml) || 'gridlines class leaked into export';
   });
 
+  // ---------- Spec 033 (PART B): Sort + Formula bridge verbs + the Layout dialogs ----------
+  // Type text into the Nth table cell (0-based). Mirrors the parity probe's typeInCell.
+  const typeIntoCell033 = (i, text) => { if (!caretIntoCell033(i)) return false; window.WC.editor.commands.insertContent(text); return true; };
+  // Read the export's cell texts IN DOCUMENT ORDER (row-major) — the sort order-sensitivity canary.
+  const cellTextOrder033 = () => { const out = []; doc().descendants((n) => { if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') out.push((n.textContent || '').trim()); }); return out; };
+  // Click a dialog's OK button (matches the WC.dialog primary footer button).
+  const clickDialogOK033 = () => { const dlg = document.querySelector('.modal-backdrop .dialog'); if (!dlg) return false; const ok = Array.from(dlg.querySelectorAll('.dlg-footer .btn')).find((b) => /^OK$/.test(b.textContent.trim())); if (!ok) return false; ok.click(); return true; };
+
+  await t('[033B] tableSort reorders the data rows (c/b/a col0 → a/b/c, no header)', async () => {
+    setDoc('x'); PM().insertTable({ rows: 3, cols: 2 }); await sleep(150);
+    // 3×2 grid → col-0 cells are 0, 2, 4 (row-major). Fill c/b/a top→bottom.
+    typeIntoCell033(0, 'c'); await sleep(30);
+    typeIntoCell033(2, 'b'); await sleep(30);
+    typeIntoCell033(4, 'a'); await sleep(30);
+    caretIntoCell033(0); await sleep(30);
+    if (!PM().tableSort([{ col: 0, type: 'text', asc: true }], false)) return 'tableSort returned false';
+    await sleep(120);
+    const order = cellTextOrder033();
+    // col-0 cells are indices 0,2,4 of the flattened order (2 cols per row).
+    const col0 = [order[0], order[2], order[4]];
+    return col0.join(',') === 'a,b,c' || 'col0 order after sort: ' + col0.join(',') + ' (full: ' + order.join('|') + ')';
+  });
+
+  await t('[033B] tableFormula =SUM(ABOVE) over 2+3 inserts the value 5 into the caret cell', async () => {
+    setDoc('x'); PM().insertTable({ rows: 3, cols: 1 }); await sleep(150);
+    // 3×1 → cells 0,1,2 stacked in one column. Put 2, 3 above; caret in cell 2; =SUM(ABOVE).
+    typeIntoCell033(0, '2'); await sleep(30);
+    typeIntoCell033(1, '3'); await sleep(30);
+    caretIntoCell033(2); await sleep(30);
+    if (!PM().tableFormula('=SUM(ABOVE)', '')) return 'tableFormula returned false';
+    await sleep(120);
+    // The 3rd cell now contains the computed sum.
+    const order = cellTextOrder033();
+    return order[2] === '5' || 'cell 2 text after formula: "' + order[2] + '" (full: ' + order.join('|') + ')';
+  });
+
+  await t('[033B] tableFormulaDefault proposes =SUM(ABOVE) when numbers are above the caret', async () => {
+    setDoc('x'); PM().insertTable({ rows: 3, cols: 1 }); await sleep(150);
+    typeIntoCell033(0, '2'); await sleep(30); typeIntoCell033(1, '3'); await sleep(30);
+    caretIntoCell033(2); await sleep(30);
+    return PM().tableFormulaDefault() === '=SUM(ABOVE)' || 'default was: ' + PM().tableFormulaDefault();
+  });
+
+  await t('[033B] D.tableOptions OK writes table-level <w:tblCellMar> (dxa)', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40);
+    document.querySelectorAll('.modal-backdrop').forEach((m) => m.remove()); window.WC.Dialogs.tableOptions();
+    await sleep(60);
+    if (!document.querySelector('.modal-backdrop .dialog')) return 'Table Options dialog did not open';
+    if (!clickDialogOK033()) return 'no OK button in Table Options dialog';
+    await sleep(120);
+    const xml = await export033Xml();
+    const tblPr = xml.slice(xml.indexOf('<w:tblPr'), xml.indexOf('</w:tblPr>') + 10);
+    if (!/<w:tblCellMar\b/.test(tblPr)) return 'no <w:tblCellMar> in w:tblPr after Table Options OK: ' + tblPr.slice(0, 300);
+    // Word's default left/right 0.08in = ~115 dxa; assert some dxa margin side is written.
+    return /<w:(top|left|bottom|right)\b[^>]*w:type="dxa"/.test(tblPr) || 'no dxa side in tblCellMar: ' + tblPr.slice(0, 300);
+  });
+
+  await t('[033B] D.insertCells "entire row" adds a row to the table', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    caretIntoCell033(0); await sleep(40);
+    const rowsBefore = (PM().tableInfo() || {}).rows;
+    document.querySelectorAll('.modal-backdrop').forEach((m) => m.remove()); window.WC.Dialogs.insertCells();
+    await sleep(60);
+    const dlg = document.querySelector('.modal-backdrop .dialog');
+    if (!dlg) return 'Insert Cells dialog did not open';
+    // Pick "Insert entire row" then OK.
+    const rowRadio = dlg.querySelector('input[name="wc-inscells"][value="row"]');
+    if (!rowRadio) return 'no entire-row radio in Insert Cells dialog';
+    rowRadio.checked = true;
+    if (!clickDialogOK033()) return 'no OK button in Insert Cells dialog';
+    await sleep(120);
+    const rowsAfter = (PM().tableInfo() || {}).rows;
+    return rowsAfter === rowsBefore + 1 || `rows ${rowsBefore} → ${rowsAfter}, expected +1`;
+  });
+
+  await t('[033B] D.convertToText (commas) exports body text joined by commas', async () => {
+    setDoc('x'); PM().insertTable({ rows: 1, cols: 2 }); await sleep(150);
+    typeIntoCell033(0, 'a'); await sleep(30);
+    typeIntoCell033(1, 'b'); await sleep(30);
+    caretIntoCell033(0); await sleep(40);
+    document.querySelectorAll('.modal-backdrop').forEach((m) => m.remove()); window.WC.Dialogs.convertToText();
+    await sleep(60);
+    const dlg = document.querySelector('.modal-backdrop .dialog');
+    if (!dlg) return 'Convert to Text dialog did not open';
+    const commaRadio = dlg.querySelector('input[name="wc-totext"][value=","]');
+    if (!commaRadio) return 'no commas radio in Convert to Text dialog';
+    commaRadio.checked = true;
+    if (!clickDialogOK033()) return 'no OK button in Convert to Text dialog';
+    await sleep(120);
+    // The table is gone; the body paragraph now reads "a,b".
+    let hasTable = false; doc().descendants((n) => { if (n.type.name === 'table') hasTable = true; });
+    if (hasTable) return 'table still present after Convert to Text';
+    return /a,b/.test(doc().textContent) || 'body text after convert: "' + doc().textContent + '"';
+  });
+
   await PM().newBlank(); await sleep(100); // leave clean for the file-io block below
 
   // ---------- slice 7: file-io (html/txt/csv on the PM engine — these replace the live document) ----------
@@ -7903,7 +7999,7 @@
     setDoc('x'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(200);
     if (!caretInCellN(4)) return 'no cell(1,1) to seat the caret';
     // --- Setting = All, Width = 3 pt (sz 24) ---
-    WC.Dialogs.bordersAndShading({ scope: 'cell' }); await sleep(30);
+    document.querySelectorAll('.modal-backdrop').forEach((m) => m.remove()); WC.Dialogs.bordersAndShading({ scope: 'cell' }); await sleep(30);
     let dlg = document.querySelector('.modal-backdrop .dialog');
     if (!dlg) return 'dialog did not open';
     // Apply-to defaults to Cell.

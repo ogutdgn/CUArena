@@ -4,7 +4,7 @@
   "feature": "Table",
   "signedOff": "generated",
   "ooxmlTask": "tb-delete-row",
-  "note": "tblDeleteRow from the ribbon: painted cells 9 -> 6.",
+  "note": "Delete via the Layout Delete DROPDOWN (Delete Rows, 033A): painted cells 9 -> 6.",
   "steps": [
     {
       "do": "setupText",
@@ -32,8 +32,12 @@
       "tab": "table-layout"
     },
     {
-      "do": "clickCmd",
-      "cmd": "tblDeleteRow"
+      "do": "openDropdown",
+      "cmd": "tblDelete"
+    },
+    {
+      "do": "clickItem",
+      "match": "Delete Rows"
     },
     {
       "expect": "paintedCellCount",

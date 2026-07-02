@@ -14,9 +14,9 @@
     "body:textOrder|text=a, b,↵, ,↵, ,"
   ],
   "extra_nodes": [
-    "body:t[('space', 'preserve')]|text=",
-    "body:t[('space', 'preserve')]|text=a b",
-    "body:textOrder|text=a b"
+    "body:t[]|text=,,",
+    "body:t[]|text=a,b,",
+    "body:textOrder|text=a,b,↵,,↵,,"
   ],
   "part_counts": {},
   "id": "tb-totext-comma",
@@ -24,7 +24,7 @@
   "feature": "Convert to Text (commas)",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone has NO separator dialog -- the user gets tabs regardless. Word: ConvertToText(wdSeparateByCommas=2). Text-content mismatch expected.",
+  "note": "Spec 033 PART B: Clone now has a separator dialog (WC.Dialogs.convertToText) — picking Commas calls WC.PM.tableToText(','), the exact call the dialog's OK makes. Word: ConvertToText(wdSeparateByCommas=2). Reachable now.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

@@ -164,6 +164,12 @@
               const n = document.querySelector(step.sel);
               if (!n) throw new Error('no node for selector: ' + step.sel);
               lastDoc = docJson(); n.click(); await sleep(step.waitMs || 300);
+            } else if (step.do === 'callPM') {
+              // Drive a WC.PM bridge verb directly (for twins whose UI now opens a dialog the
+              // twin isn't testing — the dialog has its own [0xx] pm test; this checks the paint).
+              const fn = WC.PM && WC.PM[step.verb];
+              if (typeof fn !== 'function') throw new Error('no PM verb: ' + step.verb);
+              lastDoc = docJson(); fn.apply(WC.PM, step.args || []); await sleep(step.waitMs || 350);
             } else if (step.do === 'setCellBorders') {
               // Drive the real border write path (the same PM verb the ribbon dispatches) with an
               // explicit spec — used by the collapse twins to apply a THICK COLORED border so the

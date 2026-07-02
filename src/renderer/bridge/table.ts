@@ -563,6 +563,123 @@ export function installTable(
     return out
   }
 
+  // ---------- Spec 033 (PART B): Sort + Formula (the 2 remaining NO-FORK verbs) ----------
+
+  // The caret cell node (tableCell | tableHeader), walking $from ancestors. Shared by
+  // formulaContext / tableFormulaDefault below.
+  function currentCellNode(): any {
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        const name = $from.node(d).type.name
+        if (name === 'tableCell' || name === 'tableHeader') return $from.node(d)
+      }
+    } catch { /* unreadable selection */ }
+    return null
+  }
+
+  // Layout → Data → Sort: reorder the table's DATA rows by up to 3 levels (Word's Sort dialog).
+  // Each level: { col (0-based), type 'text'|'number'|'date', asc }. hasHeader keeps row 0 FIXED (Word
+  // pins the header row). NO-FORK: rebuild the table node with the data rows reordered (row/cell attrs
+  // preserved via node.type.create), then replaceWith at the table's doc position. v1 reads child(col)
+  // for the sort key — correct for non-merged tables (Word disables Sort on merged-cell tables too).
+  // Lift of archive 61bf9e2 (adapted to PART A's currentTableCtx + the {asc} field name).
+  function tableSort(levels: Array<{ col: number; type?: string; asc?: boolean; ascending?: boolean }>, hasHeader: boolean): boolean {
+    const ctx = currentTableCtx()
+    if (!ctx || !levels || !levels.length) return false
+    const t = ctx.node
+    const rows: any[] = []
+    t.forEach((row: any) => rows.push(row))
+    const header = hasHeader ? rows.slice(0, 1) : []
+    const data = hasHeader ? rows.slice(1) : rows.slice()
+    const keyOf = (row: any, col: number): string => {
+      const cell = row.child(Math.min(col, row.childCount - 1))
+      return cell ? (cell.textContent || '').trim() : ''
+    }
+    const ascOf = (lvl: { asc?: boolean; ascending?: boolean }): boolean =>
+      lvl.asc !== undefined ? !!lvl.asc : lvl.ascending !== undefined ? !!lvl.ascending : true
+    const cmpLevel = (a: any, b: any, lvl: { col: number; type?: string; asc?: boolean; ascending?: boolean }): number => {
+      const ka = keyOf(a, lvl.col); const kb = keyOf(b, lvl.col)
+      let r: number
+      if (lvl.type === 'number') r = (parseFloat(ka) || 0) - (parseFloat(kb) || 0)
+      else if (lvl.type === 'date') r = (Date.parse(ka) || 0) - (Date.parse(kb) || 0)
+      else r = ka.localeCompare(kb, undefined, { numeric: true, sensitivity: 'base' })
+      return ascOf(lvl) ? r : -r
+    }
+    data.sort((a: any, b: any) => { for (const lvl of levels) { const r = cmpLevel(a, b, lvl); if (r !== 0) return r } return 0 })
+    const newTable = t.type.create(t.attrs, header.concat(data))
+    editor.view.dispatch(editor.state.tr.replaceWith(ctx.pos, ctx.pos + t.nodeSize, newTable))
+    refocus()
+    return true
+  }
+
+  // Read the caret cell's [row,col] + the numeric values of the cells ABOVE / LEFT / BELOW / RIGHT.
+  // Returns { row, col, hasAbove, hasLeft } plus the raw neighbor arrays (used by tableFormula compute).
+  // NO-FORK. Lift of archive d5eb977's formulaContext (numeric read strips non-numeric chars per cell).
+  function formulaContext(): {
+    row: number; col: number; hasAbove: boolean; hasLeft: boolean
+    above: (number | null)[]; left: (number | null)[]; below: (number | null)[]; right: (number | null)[]
+  } | null {
+    const ctx = currentTableCtx()
+    const cell = currentCellNode()
+    if (!ctx || !cell) return null
+    const t = ctx.node
+    const { $from } = editor.state.selection
+    let cellDepth = -1
+    for (let d = $from.depth; d > 0; d--) { const nm = $from.node(d).type.name; if (nm === 'tableCell' || nm === 'tableHeader') { cellDepth = d; break } }
+    if (cellDepth < 2) return null
+    const rowNode = $from.node(cellDepth - 1)
+    let rowIdx = -1; t.forEach((r: any, _o: number, i: number) => { if (r === rowNode) rowIdx = i })
+    let colIdx = -1; rowNode.forEach((c: any, _o: number, i: number) => { if (c === cell) colIdx = i })
+    const numOf = (c: any): number | null => { if (!c) return null; const v = parseFloat(String(c.textContent || '').replace(/[^0-9.\-]/g, '')); return isNaN(v) ? null : v }
+    const above: (number | null)[] = []; for (let r = 0; r < rowIdx; r++) { const row = t.child(r); above.push(numOf(row.child(Math.min(colIdx, row.childCount - 1)))) }
+    const below: (number | null)[] = []; for (let r = rowIdx + 1; r < t.childCount; r++) { const row = t.child(r); below.push(numOf(row.child(Math.min(colIdx, row.childCount - 1)))) }
+    const left: (number | null)[] = []; for (let c = 0; c < colIdx; c++) left.push(numOf(rowNode.child(c)))
+    const right: (number | null)[] = []; for (let c = colIdx + 1; c < rowNode.childCount; c++) right.push(numOf(rowNode.child(c)))
+    return { row: rowIdx, col: colIdx, hasAbove: above.some((v) => v !== null), hasLeft: left.some((v) => v !== null), above, left, below, right }
+  }
+
+  // Layout → Data → Formula: the default formula Word proposes for the caret cell (=SUM(ABOVE) when
+  // there are numbers above, else =SUM(LEFT), else =SUM(ABOVE)). Seeds the dialog's Formula field.
+  function tableFormulaDefault(): string {
+    const ctx = formulaContext()
+    if (!ctx) return '=SUM(ABOVE)'
+    if (ctx.hasAbove) return '=SUM(ABOVE)'
+    if (ctx.hasLeft) return '=SUM(LEFT)'
+    return '=SUM(ABOVE)'
+  }
+
+  // Layout → Data → Formula: parse =FN(DIR) (FN ∈ SUM/AVERAGE/COUNT/PRODUCT/MAX/MIN, DIR ∈
+  // ABOVE/LEFT/BELOW/RIGHT), read the numeric neighbor cells, compute, format (0 / 0.00 / 0% / $#,##0.00),
+  // and INSERT the computed VALUE as text at the caret. v1 inserts the value (Word-visible) — NOT a live
+  // <w:fldSimple w:instr> formula field (documented deviation; a real-Word formula field still round-trips
+  // via import preservation). Lift of archive d5eb977.
+  function tableFormula(formula: string, numFormat?: string): boolean {
+    const ctx = formulaContext()
+    if (!ctx) return false
+    const m = /=\s*(SUM|AVERAGE|COUNT|PRODUCT|MAX|MIN)\s*\(\s*(ABOVE|LEFT|BELOW|RIGHT)\s*\)/i.exec(formula || '')
+    const fn = (m ? m[1] : 'SUM').toUpperCase()
+    const dir = (m ? m[2] : 'ABOVE').toUpperCase()
+    const src = dir === 'ABOVE' ? ctx.above : dir === 'BELOW' ? ctx.below : dir === 'LEFT' ? ctx.left : ctx.right
+    const nums = src.filter((v): v is number => v !== null)
+    let result = 0
+    if (fn === 'SUM') result = nums.reduce((a, b) => a + b, 0)
+    else if (fn === 'AVERAGE') result = nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0
+    else if (fn === 'COUNT') result = nums.length
+    else if (fn === 'PRODUCT') result = nums.reduce((a, b) => a * b, 1)
+    else if (fn === 'MAX') result = nums.length ? Math.max(...nums) : 0
+    else if (fn === 'MIN') result = nums.length ? Math.min(...nums) : 0
+    let text: string
+    if (numFormat === '0') text = String(Math.round(result))
+    else if (numFormat && /0\.00/.test(numFormat)) text = result.toFixed(2)
+    else if (numFormat && /%/.test(numFormat)) text = Math.round(result * 100) + '%'
+    else if (numFormat && /\$/.test(numFormat)) text = '$' + result.toFixed(2)
+    else text = Number.isInteger(result) ? String(result) : String(Math.round(result * 100) / 100)
+    editor.commands.insertContent(text)
+    refocus()
+    return true
+  }
+
   // Test helper (Task 9 / Critique B3): build a CellSelection over the first two
   // @internal — test helper (CellSelection over the first row pair); not a stable public API
   // cells of the table's first row. Used by the [6b] merge test in test-suite-pm.js.
@@ -724,5 +841,10 @@ export function installTable(
     tableSetTableCellMargins,
     tableTextDirectionCycle,
     tableColumns,
+    // 033 (PART B): Sort + Formula (the 2 remaining NO-FORK verbs)
+    tableSort,
+    tableFormula,
+    tableFormulaDefault,
+    formulaContext,
   }
 }

@@ -105,10 +105,14 @@
     },
     {
      "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblDelete\"}",
-     "result": "FAIL(no control node: tblDelete)"
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"flyoutHasItem\",\"match\":\"Delete Cells\"}",
+     "result": "ok"
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   {
    "id": "tables/insert-dropdown",
@@ -230,10 +234,10 @@
     },
     {
      "step": "{\"expect\":\"dialogOpen\"}",
-     "result": "FAIL(no dialog)"
+     "result": "ok"
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   {
    "id": "tables/style-gallery-journey",
@@ -602,6 +606,49 @@
    "verdict": "pass"
   },
   {
+   "id": "twin/tb-cellalign-bottomleft",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-layout\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblAlignBL\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"paintedCellStyleIs\",\"index\":0,\"prop\":\"vertical-align\",\"anyOf\":[\"bottom\"]}",
+     "result": "FAIL(vertical-align=baseline)"
+    }
+   ],
+   "verdict": "fail"
+  },
+  {
    "id": "twin/tb-cellalign-bottomright",
    "kind": "micro-twin",
    "steps": [
@@ -630,11 +677,101 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblVAlignBottom\"}",
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblAlignBR\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
      "result": "ok"
     },
     {
      "step": "{\"expect\":\"paintedCellStyleIs\",\"index\":0,\"prop\":\"vertical-align\",\"anyOf\":[\"bottom\"]}",
+     "result": "FAIL(vertical-align=baseline)"
+    }
+   ],
+   "verdict": "fail"
+  },
+  {
+   "id": "twin/tb-cellalign-topleft",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-layout\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblAlignTL\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"paintedCellStyleIs\",\"index\":0,\"prop\":\"vertical-align\",\"anyOf\":[\"top\"]}",
+     "result": "FAIL(vertical-align=baseline)"
+    }
+   ],
+   "verdict": "fail"
+  },
+  {
+   "id": "twin/tb-cellalign-topright",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-layout\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblAlignTR\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"paintedCellStyleIs\",\"index\":0,\"prop\":\"vertical-align\",\"anyOf\":[\"top\"]}",
      "result": "FAIL(vertical-align=baseline)"
     }
    ],
@@ -669,7 +806,11 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblDeleteColumn\"}",
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblDelete\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickItem\",\"match\":\"Delete Columns\"}",
      "result": "ok"
     },
     {
@@ -708,7 +849,11 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblDeleteRow\"}",
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblDelete\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickItem\",\"match\":\"Delete Rows\"}",
      "result": "ok"
     },
     {
@@ -747,7 +892,11 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblDeleteTable\"}",
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblDelete\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickItem\",\"match\":\"Delete Table\"}",
      "result": "ok"
     },
     {
@@ -842,6 +991,69 @@
     },
     {
      "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblDistRows\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "id": "twin/tb-formula-sum-above",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"typeText\",\"text\":\"2\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"typeText\",\"text\":\"3\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":6}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-layout\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblFormula\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"dialogOpen\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".dialog .btn.primary\",\"waitMs\":400}",
      "result": "ok"
     },
     {
@@ -1165,7 +1377,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblHeaderRow\"}",
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblRepeatHeader\"}",
      "result": "ok"
     },
     {
@@ -1262,6 +1474,77 @@
    "verdict": "pass"
   },
   {
+   "id": "twin/tb-sort-col1",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"typeText\",\"text\":\"c\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"typeText\",\"text\":\"b\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":6}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"typeText\",\"text\":\"a\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":0}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-layout\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblSort\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"dialogOpen\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".dialog .btn.primary\",\"waitMs\":400}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
    "id": "twin/tb-split-cell",
    "kind": "micro-twin",
    "steps": [
@@ -1295,10 +1578,10 @@
     },
     {
      "step": "{\"expect\":\"dialogOpen\"}",
-     "result": "FAIL(no dialog)"
+     "result": "ok"
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   {
    "id": "twin/tb-split-table",
@@ -1724,11 +2007,14 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"activateTab\",\"tab\":\"table-layout\"}",
+     "step": "{\"do\":\"setCellBorders\",\"spec\":{}}",
+     "extra": {
+      "ok": true
+     },
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblToText\"}",
+     "step": "{\"do\":\"callPM\",\"verb\":\"tableToText\",\"args\":[\"\\t\"]}",
      "result": "ok"
     },
     {

@@ -110,14 +110,15 @@ for tid, cmd in [("tb-insert-above", "tblInsertAbove"), ("tb-insert-below", "tbl
             {"expect": "caretInTable"},
         ]))
 
-for tid, cmd, count in [("tb-delete-row", "tblDeleteRow", 6), ("tb-delete-col", "tblDeleteColumn", 6),
-                        ("tb-delete-table", "tblDeleteTable", 0)]:
+for tid, item, count in [("tb-delete-row", "Delete Rows", 6), ("tb-delete-col", "Delete Columns", 6),
+                         ("tb-delete-table", "Delete Table", 0)]:
     TWINS.append(twin(tid,
-        f"{cmd} from the ribbon: painted cells 9 -> {count}.",
+        f"Delete via the Layout Delete DROPDOWN ({item}, 033A): painted cells 9 -> {count}.",
         INSERT_33 + [
             {"do": "caretIntoCellModel", "index": 0},
             {"do": "activateTab", "tab": "table-layout"},
-            {"do": "clickCmd", "cmd": cmd},
+            {"do": "openDropdown", "cmd": "tblDelete"},
+            {"do": "clickItem", "match": item},
             {"expect": "paintedCellCount", "equals": count},
         ]))
 
@@ -255,11 +256,11 @@ TWINS.append(twin("tb-dist-cols",
     ]))
 
 TWINS.append(twin("tb-totext-tab",
-    "Convert to Text removes the painted table.",
+    "Convert to Text removes the painted table. (033 wired H.tblToText to Word's separator dialog; this twin drives the bridge verb directly to test the PAINT effect — the dialog itself is [033B]-tested.)",
     INSERT_33 + [
         {"do": "caretIntoCellModel", "index": 0},
-        {"do": "activateTab", "tab": "table-layout"},
-        {"do": "clickCmd", "cmd": "tblToText"},
+        {"do": "setCellBorders", "spec": {}},
+        {"do": "callPM", "verb": "tableToText", "args": ["	"]},
         {"expect": "paintedCellCount", "equals": 0},
     ]))
 
@@ -271,6 +272,50 @@ TWINS.append(twin("tb-repeatheader",
         {"do": "caretIntoCellModel", "index": 0},
         {"do": "activateTab", "tab": "table-layout"},
         {"do": "clickCmd", "cmd": "tblRepeatHeader"},
+        {"expect": "docChanged"},
+    ]))
+
+# Spec 033 PART B — Sort dialog twin: type distinct values down column 0 (c/b/a), open the Sort dialog
+# from the Data group (H.tblSort → WC.Dialogs.tableSort), then click OK (.dialog .btn.primary). The
+# dialog's defaults (Sort by column 1, Ascending, header row auto-on) reorder the DATA rows → the doc
+# changes. This proves the whole click→dialog→OK→reorder chain acts on-screen; the OOXML axis
+# (tb-sort-col1) judges the exact textOrder export.
+TWINS.append(twin("tb-sort-col1",
+    "Spec 033 PART B — Sort dialog from the Data group reorders the table's data rows. Type c/b/a down "
+    "column 0, open Sort, click OK; the doc changes (rows reordered). textOrder correctness is the OOXML axis' job.",
+    INSERT_33 + [
+        {"do": "caretIntoCellModel", "index": 0},
+        {"do": "typeText", "text": "c"},
+        {"do": "caretIntoCellModel", "index": 3},
+        {"do": "typeText", "text": "b"},
+        {"do": "caretIntoCellModel", "index": 6},
+        {"do": "typeText", "text": "a"},
+        {"do": "caretIntoCellModel", "index": 0},
+        {"do": "activateTab", "tab": "table-layout"},
+        {"do": "openDropdown", "cmd": "tblSort"},
+        {"expect": "dialogOpen"},
+        {"do": "clickSelector", "sel": ".dialog .btn.primary", "waitMs": 400},
+        {"expect": "docChanged"},
+    ]))
+
+# Spec 033 PART B — Formula dialog twin: type 2 then 3 into the two cells ABOVE the caret cell (same
+# column), open the Formula dialog from the Data group (H.tblFormula → WC.Dialogs.tableFormula) which
+# defaults to =SUM(ABOVE), click OK; the computed VALUE (5) is inserted into the caret cell → doc
+# changes. Proves the click→dialog→OK→insert chain; the OOXML/behavior detail (the '5') is asserted here.
+TWINS.append(twin("tb-formula-sum-above",
+    "Spec 033 PART B — Formula dialog from the Data group inserts the computed value. Type 2 and 3 into "
+    "the two cells above the caret cell (column 0, rows 0/1), place the caret in row 2 col 0, open Formula "
+    "(defaults to =SUM(ABOVE)), click OK; the doc changes (the value 5 is inserted).",
+    INSERT_33 + [
+        {"do": "caretIntoCellModel", "index": 0},
+        {"do": "typeText", "text": "2"},
+        {"do": "caretIntoCellModel", "index": 3},
+        {"do": "typeText", "text": "3"},
+        {"do": "caretIntoCellModel", "index": 6},
+        {"do": "activateTab", "tab": "table-layout"},
+        {"do": "clickCmd", "cmd": "tblFormula"},
+        {"expect": "dialogOpen"},
+        {"do": "clickSelector", "sel": ".dialog .btn.primary", "waitMs": 400},
         {"expect": "docChanged"},
     ]))
 

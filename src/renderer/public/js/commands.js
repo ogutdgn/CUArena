@@ -126,13 +126,16 @@
   H.tblDeleteColumn = () => { const p = TPM(); if (p) p.tableDeleteColumn(); };
   H.tblDeleteTable = () => { const p = TPM(); if (p) p.tableDeleteTable(); };
   H.tblMerge = () => { const p = TPM(); if (p) p.tableMerge(); };
-  H.tblSplitCell = () => { const p = TPM(); if (p) p.tableSplitCell(); };
+  // Split Cells (Word opens a rows/cols dialog — 033). Fall back to a direct 2-col split if unbuilt.
+  H.tblSplitCell = () => { if (WC.Dialogs && WC.Dialogs.splitCells) return WC.Dialogs.splitCells(); const p = TPM(); if (p) p.tableSplitCell(); };
   H.tblSplitTable = () => { const p = TPM(); if (p) p.tableSplit(); };
   H.tblDistRows = () => { const p = TPM(); if (p) p.tableDistributeRows(); };
   H.tblDistCols = () => { const p = TPM(); if (p) p.tableDistributeColumns(); };
   H.tblHeaderRow = () => { const p = TPM(); if (p) p.tableToggleHeaderRow(); };
   H.tblHeaderCol = () => { const p = TPM(); if (p) p.tableToggleHeaderColumn(); };
-  H.tblToText = () => { const p = TPM(); if (p) p.tableToText('\t'); };
+  // Convert to Text (Table Layout → Data). Word opens a separator dialog (Paragraph/Tab/Comma/Other);
+  // 033B built D.convertToText. Fall back to the tab default only if the dialog isn't registered.
+  H.tblToText = () => { if (WC.Dialogs && WC.Dialogs.convertToText) return WC.Dialogs.convertToText(); const p = TPM(); if (p) p.tableToText('\t'); };
   // Spec 033 — Table Layout → Alignment: Word's 9-way cell-alignment grid (vertical vAlign + horizontal jc
   // per cell). Ground truth: Align Bottom Right = vAlign bottom + jc right; Align Top Left = vAlign top + jc
   // cleared. Backs the tblAlignTL..BR ribbon controls.
@@ -208,6 +211,9 @@
   // <w:tcMar>). Sets the caret cell's margins via the bridge. Defaults to Word's stock cell margins
   // (top/bottom 0", left/right 0.08").
   H.tblCellMargins = (c, node) => {
+    // Word's Cell Margins button opens the Table Options dialog (table-level w:tblCellMar). 033B built
+    // D.tableOptions; prefer it. The per-cell inches flyout below stays as the fallback (older builds).
+    if (WC.Dialogs && WC.Dialogs.tableOptions) return WC.Dialogs.tableOptions();
     const p = TPM();
     if (!p || !p.tableSetCellMargins || !p.tableInfo || !p.tableInfo().inTable) { WC.toast('Click inside a table cell to set its margins.'); return; }
     // Prefill the cell's CURRENT margins (Word's Cell Options pre-reads them) so editing one side
