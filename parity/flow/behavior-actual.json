@@ -1,0 +1,80 @@
+{
+ "ready": true,
+ "cards": [
+  {
+   "id": "format/bold-paint",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Revenue increased in the second quarter.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"select\",\"text\":\"Revenue\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"home\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"bold\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"paintedStyle\",\"text\":\"Revenue\",\"prop\":\"font-weight\",\"anyOf\":[\"700\",\"bold\"]}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"selectionSurvives\",\"text\":\"Revenue\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "id": "tables/insert-dropdown",
+   "kind": "journey",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Revenue\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"flyoutOpen\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"flyoutHasItem\",\"match\":\"Insert Table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"fromRecording\",\"q\":\"grid picker present? hovering 3x2 shows LIVE document previ",
+     "result": "PENDING(❓ needs real-Word recording: grid picker present? hovering 3x2 shows LIVE document preview + '3x2 Table' label?)"
+    },
+    {
+     "step": "{\"do\":\"clickItem\",\"match\":\"Insert Table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"dialogOpen\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pending"
+  }
+ ],
+ "errors": []
+}

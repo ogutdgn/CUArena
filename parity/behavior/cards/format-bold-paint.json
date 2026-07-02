@@ -1,0 +1,16 @@
+{
+  "id": "format/bold-paint",
+  "kind": "micro-twin",
+  "feature": "Bold",
+  "signedOff": true,
+  "note": "The micro-twin PROOF card (D6.2): drive Bold through the REAL ribbon UI and verify the LIVE PAINT — the 'file is clean but the screen is wrong' instrument. Expectations derive from the action; no Word recording needed.",
+  "steps": [
+    { "do": "setupText", "text": "Revenue increased in the second quarter." },
+    { "do": "select", "text": "Revenue" },
+    { "do": "activateTab", "tab": "home" },
+    { "do": "clickCmd", "cmd": "bold" },
+    { "expect": "docChanged" },
+    { "expect": "paintedStyle", "text": "Revenue", "prop": "font-weight", "anyOf": ["700", "bold"] },
+    { "expect": "selectionSurvives", "text": "Revenue" }
+  ]
+}

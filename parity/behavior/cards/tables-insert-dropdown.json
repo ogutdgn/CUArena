@@ -1,0 +1,17 @@
+{
+  "id": "tables/insert-dropdown",
+  "kind": "journey",
+  "feature": "Table",
+  "signedOff": false,
+  "note": "Tables pilot flow #1 (partial v1): Insert > Table opens Word's dropdown. The grid-picker live-preview expectations are ❓ FROM-RECORDING (D6.3) — they get filled from a real-Word CUA recording during the pilot; unresolved ❓ steps report as PENDING, never guessed.",
+  "steps": [
+    { "do": "setupText", "text": "Revenue" },
+    { "do": "activateTab", "tab": "insert" },
+    { "do": "openDropdown", "cmd": "table" },
+    { "expect": "flyoutOpen" },
+    { "expect": "flyoutHasItem", "match": "Insert Table" },
+    { "expect": "fromRecording", "q": "grid picker present? hovering 3x2 shows LIVE document preview + '3x2 Table' label?" },
+    { "do": "clickItem", "match": "Insert Table" },
+    { "expect": "dialogOpen" }
+  ]
+}
