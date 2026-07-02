@@ -11,6 +11,7 @@
   "missing_nodes": [
     "body:tblW[('type', 'dxa'), ('w', '9350')]"
   ],
+  "notes": [],
   "extra_nodes": [
     "body:tblW[('type', 'auto'), ('w', '0')]"
   ],

@@ -14,6 +14,7 @@
     "body:tcW[('type', 'dxa'), ('w', '2336')]",
     "body:tcW[('type', 'dxa'), ('w', '2338')]"
   ],
+  "notes": [],
   "extra_nodes": [
     "body:gridCol[('w', '1500')]",
     "body:tcW[('type', 'dxa'), ('w', '1500')]",

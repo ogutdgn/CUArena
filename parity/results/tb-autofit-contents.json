@@ -13,6 +13,7 @@
     "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcW[('type', 'auto'), ('w', '0')]"
   ],
+  "notes": [],
   "extra_nodes": [
     "body:gridCol[('w', '240')]",
     "body:tblLayout[('type', 'autofit')]",

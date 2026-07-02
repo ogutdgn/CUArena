@@ -5,12 +5,11 @@
   "verdict": "gap",
   "counts": {
     "match": 2,
-    "missing": 10,
+    "missing": 9,
     "extra": 3
   },
   "missing_nodes": [
     "body:ind[('left', '113')]",
-    "body:pPr[]",
     "body:r[]",
     "body:t[]|text=a",
     "body:t[]|text=b",
@@ -19,6 +18,9 @@
     "body:tab[]",
     "body:tabs[]",
     "body:textOrder|text=a↵b"
+  ],
+  "notes": [
+    "body:pPr[]"
   ],
   "extra_nodes": [
     "body:t[('space', 'preserve')]|text=",

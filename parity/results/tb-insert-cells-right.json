@@ -20,6 +20,7 @@
     "body:trPr[]",
     "body:wAfter[('type', 'dxa'), ('w', '3116')]"
   ],
+  "notes": [],
   "extra_nodes": [
     "body:gridCol[('w', '3116')]",
     "body:tblW[('type', 'auto'), ('w', '0')]"

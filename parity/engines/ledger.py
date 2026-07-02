@@ -17,7 +17,8 @@ def write_ledger(results, out_dir):
         json.dump(results, f, indent=2, ensure_ascii=False)
 
     n = len(results)
-    npass = sum(1 for r in results if r.get("verdict") == "semantic-pass")
+    npass = sum(1 for r in results if r.get("verdict") in ("semantic-pass", "pass-with-note"))
+    nnote = sum(1 for r in results if r.get("verdict") == "pass-with-note")
     baselined = bool(results) and all(r.get("baselined") for r in results)
     md = []
     md.append("# Parity Ledger — clone vs. real Microsoft Word\n")
@@ -35,13 +36,13 @@ def write_ledger(results, out_dir):
                   "or record these as a separate blank-doc finding:")
         md += [f">   - `{s}`" for s in div]
         md.append("")
-    md.append(f"**Tasks:** {n} · **semantic-pass:** {npass} · **gap:** {n - npass}\n")
+    md.append(f"**Tasks:** {n} · **pass:** {npass} (incl. {nnote} pass-with-note) · **gap:** {n - npass}\n")
     md.append("## Scoreboard\n")
     md.append("| Task | Feature | Tab | Tier | Verdict | match | missing | extra | import (D1.1) |")
     md.append("|---|---|---|---|---|--:|--:|--:|---|")
     for r in results:
         c = r.get("counts", {})
-        v = "✅ pass" if r.get("verdict") == "semantic-pass" else "🟠 gap"
+        v = {"semantic-pass": "✅ pass", "pass-with-note": "📝 pass-note"}.get(r.get("verdict"), "🟠 gap")
         il = r.get("import_leg")
         if not il:
             iv = "—"
@@ -66,6 +67,10 @@ def write_ledger(results, out_dir):
         pc = r.get("part_counts", {})
         md.append(f"**Clone must ADD ({len(miss)}):**")
         md += [f"- `{m}`" for m in miss] or ["- _(none)_"]
+        notes = r.get("notes", [])
+        if notes:
+            md.append(f"\n**Pass-with-note (D1.2 benign byte-diffs, {len(notes)}):**")
+            md += [f"- `{nn}`" for nn in notes]
         md.append(f"\n**Clone over-emits / fidelity ({len(extra)}):**")
         md += [f"- `{e}`" for e in extra] or ["- _(none)_"]
         struct = [f"{k}: word={v['word']} clone={v['clone']}" for k, v in pc.items() if v.get("word") != v.get("clone")]

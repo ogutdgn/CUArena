@@ -5,15 +5,17 @@
   "verdict": "gap",
   "counts": {
     "match": 29,
-    "missing": 5,
+    "missing": 4,
     "extra": 0
   },
   "missing_nodes": [
     "body:cantSplit[]",
     "body:ind[('left', '113'), ('right', '113')]",
-    "body:pPr[]",
     "body:trHeight[('val', '1134')]",
     "body:trPr[]"
+  ],
+  "notes": [
+    "body:pPr[]"
   ],
   "extra_nodes": [],
   "part_counts": {},

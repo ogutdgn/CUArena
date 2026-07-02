@@ -1227,6 +1227,7 @@
       "body:jc[('val', 'center')]",
       "body:trPr[]"
     ],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-align-center",
@@ -1268,6 +1269,7 @@
       "body:tblW[('type', 'auto'), ('w', '0')]",
       "body:tcW[('type', 'auto'), ('w', '0')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '240')]",
       "body:tblLayout[('type', 'autofit')]",
@@ -1313,6 +1315,7 @@
     "missing_nodes": [
       "body:tblW[('type', 'auto'), ('w', '0')]"
     ],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-autofit-fixed",
@@ -1354,6 +1357,7 @@
       "body:tcW[('type', 'pct'), ('w', '1666')]",
       "body:tcW[('type', 'pct'), ('w', '1667')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '3120')]",
       "body:tblLayout[('type', 'autofit')]",
@@ -1394,6 +1398,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-border-color-red",
@@ -1433,6 +1438,7 @@
       "body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
       "body:tcBorders[]"
     ],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-border-diagdown-cell",
@@ -1469,6 +1475,7 @@
       "extra": 2
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [
       "body:tcBorders[]",
       "body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"
@@ -1508,6 +1515,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-border-weight-3pt",
@@ -1544,6 +1552,7 @@
       "extra": 5
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [
       "body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
       "body:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
@@ -1590,6 +1599,7 @@
       "body:tcBorders[]",
       "body:top[('val', 'nil')]"
     ],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-borders-none-cell",
@@ -1626,6 +1636,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-cellalign-bottomright",
@@ -1662,6 +1673,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-cellmargins",
@@ -1694,6 +1706,7 @@
     "missing_nodes": [
       "body:gridCol[('w', '3117')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '1500')]"
     ],
@@ -1736,6 +1749,7 @@
       "body:tcW[('type', 'dxa'), ('w', '6233')]",
       "body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:tcW[('type', 'dxa'), ('w', '3116')]"
     ],
@@ -1783,6 +1797,7 @@
       "body:tblW[('type', 'auto'), ('w', '0')]",
       "body:top[('type', 'dxa'), ('w', '0')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
       "body:tblStyle[('val', 'TableGrid')]",
@@ -1835,6 +1850,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-delete-cells-up",
@@ -1871,6 +1887,7 @@
       "extra": 1
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '3116')]"
     ],
@@ -1909,6 +1926,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-delete-row",
@@ -1945,6 +1963,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-delete-table",
@@ -1980,6 +1999,7 @@
       "body:tcW[('type', 'dxa'), ('w', '3116')]",
       "body:tcW[('type', 'dxa'), ('w', '3117')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '1500')]",
       "body:tcW[('type', 'dxa'), ('w', '1500')]"
@@ -2021,6 +2041,7 @@
     "missing_nodes": [
       "body:trHeight[('val', '293')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:trHeight[('hRule', 'atLeast'), ('val', '360')]"
     ],
@@ -2063,6 +2084,7 @@
       "body:tblOverlap[('val', 'never')]",
       "body:tblpPr[('leftFromText', '180'), ('rightFromText', '180'), ('tblpY', '1'), ('vertAnchor', 'text')]"
     ],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-float-around",
@@ -2101,6 +2123,7 @@
     "missing_nodes": [
       "body:tblW[('type', 'dxa'), ('w', '9350')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:tblW[('type', 'auto'), ('w', '0')]"
     ],
@@ -2139,6 +2162,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-insert-above",
@@ -2175,6 +2199,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-insert-below",
@@ -2222,6 +2247,7 @@
       "body:trPr[]",
       "body:wAfter[('type', 'dxa'), ('w', '3116')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '3116')]",
       "body:tblW[('type', 'auto'), ('w', '0')]"
@@ -2265,6 +2291,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-insert-dialog",
@@ -2306,6 +2333,7 @@
       "body:tcW[('type', 'dxa'), ('w', '2337')]",
       "body:tcW[('type', 'dxa'), ('w', '2338')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '1500')]",
       "body:tcW[('type', 'dxa'), ('w', '1500')]",
@@ -2352,6 +2380,7 @@
       "body:tcW[('type', 'dxa'), ('w', '2336')]",
       "body:tcW[('type', 'dxa'), ('w', '2338')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '1500')]",
       "body:tcW[('type', 'dxa'), ('w', '1500')]",
@@ -2395,6 +2424,7 @@
     "missing_nodes": [
       "body:tcW[('type', 'dxa'), ('w', '6233')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:tcW[('type', 'dxa'), ('w', '3116')]"
     ],
@@ -2429,7 +2459,7 @@
     "verdict": "gap",
     "counts": {
       "match": 9,
-      "missing": 96,
+      "missing": 95,
       "extra": 19
     },
     "missing_nodes": [
@@ -2501,7 +2531,6 @@
       "styles:Calendar1:left[('val', 'nil')]",
       "styles:Calendar1:ligatures[('val', 'none')]",
       "styles:Calendar1:name[('val', 'Calendar 1')]",
-      "styles:Calendar1:pPr[]",
       "styles:Calendar1:qFormat[]",
       "styles:Calendar1:rFonts[('asciiTheme', 'minorHAnsi'), ('hAnsiTheme', 'minorHAnsi')]",
       "styles:Calendar1:rFonts[('eastAsiaTheme', 'minorEastAsia')]",
@@ -2529,6 +2558,9 @@
       "styles:Calendar1:uiPriority[('val', '99')]",
       "styles:Calendar1:vAlign[('val', 'bottom')]",
       "styles:Calendar1:wordWrap[]"
+    ],
+    "notes": [
+      "styles:Calendar1:pPr[]"
     ],
     "extra_nodes": [
       "body:gridCol[('w', '1335')]",
@@ -2587,6 +2619,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-repeatheader",
@@ -2626,6 +2659,7 @@
     "missing_nodes": [
       "body:trHeight[('val', '720')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:trHeight[('hRule', 'atLeast'), ('val', '720')]"
     ],
@@ -2667,6 +2701,7 @@
     "missing_nodes": [
       "body:shd[('color', 'auto'), ('fill', 'FFF2CC'), ('val', 'clear')]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:shd[('fill', 'FFF2CC')]"
     ],
@@ -2705,6 +2740,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-sort-col1",
@@ -2748,6 +2784,7 @@
       "body:tcW[('type', 'dxa'), ('w', '3117')]",
       "body:tc[]"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:gridCol[('w', '3116')]",
       "body:tcW[('type', 'dxa'), ('w', '3116')]"
@@ -2787,6 +2824,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-split-table",
@@ -2816,13 +2854,14 @@
     "task": "tb-style-grid4a1",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "pass-with-note",
     "counts": {
       "match": 56,
-      "missing": 1,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
+    "missing_nodes": [],
+    "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [],
@@ -2855,13 +2894,14 @@
     "task": "tb-style-listtable3",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "pass-with-note",
     "counts": {
       "match": 57,
-      "missing": 1,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
+    "missing_nodes": [],
+    "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [],
@@ -2894,13 +2934,14 @@
     "task": "tb-styleopt-bandedcols-on",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "pass-with-note",
     "counts": {
       "match": 57,
-      "missing": 1,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
+    "missing_nodes": [],
+    "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [],
@@ -2933,13 +2974,14 @@
     "task": "tb-styleopt-bandedrows-off",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "pass-with-note",
     "counts": {
       "match": 55,
-      "missing": 1,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
+    "missing_nodes": [],
+    "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [],
@@ -2979,6 +3021,7 @@
       "extra": 0
     },
     "missing_nodes": [],
+    "notes": [],
     "extra_nodes": [],
     "part_counts": {},
     "id": "tb-styleopt-firstcol-off",
@@ -3009,13 +3052,14 @@
     "task": "tb-styleopt-headerrow-off",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "pass-with-note",
     "counts": {
       "match": 55,
-      "missing": 1,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
+    "missing_nodes": [],
+    "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [],
@@ -3048,13 +3092,14 @@
     "task": "tb-styleopt-lastcol-on",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "pass-with-note",
     "counts": {
       "match": 57,
-      "missing": 1,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
+    "missing_nodes": [],
+    "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [],
@@ -3087,13 +3132,14 @@
     "task": "tb-styleopt-totalrow-on",
     "baselined": true,
     "baseline_divergence": [],
-    "verdict": "gap",
+    "verdict": "pass-with-note",
     "counts": {
       "match": 56,
-      "missing": 1,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
+    "missing_nodes": [],
+    "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [],
@@ -3129,15 +3175,17 @@
     "verdict": "gap",
     "counts": {
       "match": 29,
-      "missing": 5,
+      "missing": 4,
       "extra": 0
     },
     "missing_nodes": [
       "body:cantSplit[]",
       "body:ind[('left', '113'), ('right', '113')]",
-      "body:pPr[]",
       "body:trHeight[('val', '1134')]",
       "body:trPr[]"
+    ],
+    "notes": [
+      "body:pPr[]"
     ],
     "extra_nodes": [],
     "part_counts": {},
@@ -3180,6 +3228,7 @@
       "body:t[('space', 'preserve')]|text=a, b,",
       "body:textOrder|text=a, b,↵, ,↵, ,"
     ],
+    "notes": [],
     "extra_nodes": [
       "body:t[]|text=,,",
       "body:t[]|text=a,b,",
@@ -3210,12 +3259,11 @@
     "verdict": "gap",
     "counts": {
       "match": 2,
-      "missing": 10,
+      "missing": 9,
       "extra": 3
     },
     "missing_nodes": [
       "body:ind[('left', '113')]",
-      "body:pPr[]",
       "body:r[]",
       "body:t[]|text=a",
       "body:t[]|text=b",
@@ -3224,6 +3272,9 @@
       "body:tab[]",
       "body:tabs[]",
       "body:textOrder|text=a↵b"
+    ],
+    "notes": [
+      "body:pPr[]"
     ],
     "extra_nodes": [
       "body:t[('space', 'preserve')]|text=",

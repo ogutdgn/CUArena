@@ -774,11 +774,10 @@ python parity/engines/run.py --only tb-totext-comma   # expect: semantic-pass, m
 **Goal:** make the clone's `Convert to Text (tabs)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-totext-tab`
 **Ground truth:** `parity/fixtures/rw-tb-totext-tab.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 9 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-totext-tab): emit `body:ind[('left', '113')]`
-- FR (tb-totext-tab): emit `body:pPr[]`
 - FR (tb-totext-tab): emit `body:r[]`
 - FR (tb-totext-tab): emit `body:t[]|text=a`
 - FR (tb-totext-tab): emit `body:t[]|text=b`
@@ -1905,7 +1904,7 @@ python parity/engines/run.py --only fd-pag-widow   # expect: semantic-pass, miss
 **Goal:** make the clone's `Quick Tables: Calendar` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-quicktable-calendar`
 **Ground truth:** `parity/fixtures/rw-tb-quicktable-calendar.docx`
-**Current parity:** GAP — 96 missing node(s), 19 fidelity warning(s)
+**Current parity:** GAP — 95 missing node(s), 19 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-quicktable-calendar): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
@@ -1976,7 +1975,6 @@ python parity/engines/run.py --only fd-pag-widow   # expect: semantic-pass, miss
 - FR (tb-quicktable-calendar): emit `styles:Calendar1:left[('val', 'nil')]`
 - FR (tb-quicktable-calendar): emit `styles:Calendar1:ligatures[('val', 'none')]`
 - FR (tb-quicktable-calendar): emit `styles:Calendar1:name[('val', 'Calendar 1')]`
-- FR (tb-quicktable-calendar): emit `styles:Calendar1:pPr[]`
 - FR (tb-quicktable-calendar): emit `styles:Calendar1:qFormat[]`
 - FR (tb-quicktable-calendar): emit `styles:Calendar1:rFonts[('asciiTheme', 'minorHAnsi'), ('hAnsiTheme', 'minorHAnsi')]`
 - FR (tb-quicktable-calendar): emit `styles:Calendar1:rFonts[('eastAsiaTheme', 'minorEastAsia')]`
@@ -2289,10 +2287,10 @@ python parity/engines/run.py --only tb-split-table   # expect: semantic-pass, mi
 **Goal:** make the clone's `Table Style Options: Banded Columns ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-bandedcols-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-bandedcols-on.docx`
-**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-bandedcols-on): emit `body:pPr[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - _(none)_
@@ -2312,10 +2310,10 @@ python parity/engines/run.py --only tb-styleopt-bandedcols-on   # expect: semant
 **Goal:** make the clone's `Table Style Options: Banded Rows OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-bandedrows-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-bandedrows-off.docx`
-**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-bandedrows-off): emit `body:pPr[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - _(none)_
@@ -2358,10 +2356,10 @@ python parity/engines/run.py --only tb-styleopt-firstcol-off   # expect: semanti
 **Goal:** make the clone's `Table Style Options: Header Row OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-headerrow-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-headerrow-off.docx`
-**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-headerrow-off): emit `body:pPr[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - _(none)_
@@ -2381,10 +2379,10 @@ python parity/engines/run.py --only tb-styleopt-headerrow-off   # expect: semant
 **Goal:** make the clone's `Table Style Options: Last Column ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-lastcol-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-lastcol-on.docx`
-**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-lastcol-on): emit `body:pPr[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - _(none)_
@@ -2404,10 +2402,10 @@ python parity/engines/run.py --only tb-styleopt-lastcol-on   # expect: semantic-
 **Goal:** make the clone's `Table Style Options: Total Row ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-totalrow-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-totalrow-on.docx`
-**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-totalrow-on): emit `body:pPr[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - _(none)_
@@ -2427,10 +2425,10 @@ python parity/engines/run.py --only tb-styleopt-totalrow-on   # expect: semantic
 **Goal:** make the clone's `Table Styles gallery: apply Grid Table 4 Accent 1` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-grid4a1`
 **Ground truth:** `parity/fixtures/rw-tb-style-grid4a1.docx`
-**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-style-grid4a1): emit `body:pPr[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - _(none)_
@@ -2450,10 +2448,10 @@ python parity/engines/run.py --only tb-style-grid4a1   # expect: semantic-pass, 
 **Goal:** make the clone's `Table Styles gallery: apply List Table 3` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-listtable3`
 **Ground truth:** `parity/fixtures/rw-tb-style-listtable3.docx`
-**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-style-listtable3): emit `body:pPr[]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - _(none)_
@@ -2520,12 +2518,11 @@ python parity/engines/run.py --only tb-indent-05in   # expect: semantic-pass, mi
 **Goal:** make the clone's `Text Direction: first click (caret cell)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-textdir`
 **Ground truth:** `parity/fixtures/rw-tb-textdir.docx`
-**Current parity:** GAP — 5 missing node(s), 0 fidelity warning(s)
+**Current parity:** GAP — 4 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-textdir): emit `body:cantSplit[]`
 - FR (tb-textdir): emit `body:ind[('left', '113'), ('right', '113')]`
-- FR (tb-textdir): emit `body:pPr[]`
 - FR (tb-textdir): emit `body:trHeight[('val', '1134')]`
 - FR (tb-textdir): emit `body:trPr[]`
 

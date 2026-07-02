@@ -9,6 +9,7 @@
     "extra": 2
   },
   "missing_nodes": [],
+  "notes": [],
   "extra_nodes": [
     "body:tcBorders[]",
     "body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"

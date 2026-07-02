@@ -117,10 +117,11 @@ def main():
         tv = [task_verdict.get(t) for t in f["ooxmlTasks"] if t in task_verdict]
         if not tv:
             row["cols"]["OOXML"] = "—"
-        elif all(v == "semantic-pass" for v in tv):
-            row["cols"]["OOXML"] = f"pass({len(tv)})"
+        elif all(v in ("semantic-pass", "pass-with-note") for v in tv):
+            _nn = sum(1 for v in tv if v == "pass-with-note")
+            row["cols"]["OOXML"] = f"pass({len(tv)})" + (f"+{_nn}note" if _nn else "")
         else:
-            row["cols"]["OOXML"] = f"GAP({sum(1 for v in tv if v != 'semantic-pass')}/{len(tv)})"
+            row["cols"]["OOXML"] = f"GAP({sum(1 for v in tv if v not in ('semantic-pass','pass-with-note'))}/{len(tv)})"
         # STRUCT (control bucket + its menus' missing items)
         if not structure or not f["cmds"]:
             row["cols"]["STRUCT"] = "—"

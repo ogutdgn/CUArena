@@ -237,18 +237,47 @@ def _bucket(rw, cl, rw_parts, cl_parts, task_id, baselined, baseline_divergence=
     part_note = {k: {"word": rw_parts.get(k, 0), "clone": cl_parts.get(k, 0)}
                  for k in set(rw_parts) | set(cl_parts)
                  if rw_parts.get(k, 0) or cl_parts.get(k, 0)}
-    # verdict heuristic: PASS if clone is not missing any node Word emitted; warnings = extra+structural
-    semantic_pass = len(missing) == 0
+    # verdict heuristic: PASS if clone is not missing any node Word emitted; warnings = extra+structural.
+    # D1.2 pass-with-note: a MISSING node that is provably functionally-harmless (an empty element Word
+    # writes but the clone omits, or an explicit-default value that equals the implicit default) is a
+    # NOTE, not a gap. If EVERY missing is benign -> pass-with-note (counts as pass; the note list is the
+    # byte-parity backlog, NEVER deleted). Conservative on purpose (the hyperlink-style lesson): only the
+    # classified-benign patterns qualify; anything else stays a real gap.
+    missing_sigs = sorted([s for s, _ in missing])
+    benign = [s for s in missing_sigs if _is_benign_missing(s)]
+    real_missing = [s for s in missing_sigs if s not in set(benign)]
+    if not real_missing and benign:
+        verdict = "pass-with-note"
+    elif not real_missing:
+        verdict = "semantic-pass"
+    else:
+        verdict = "gap"
     return {
         "task": task_id,
         "baselined": baselined,
         "baseline_divergence": baseline_divergence or [],
-        "verdict": "semantic-pass" if semantic_pass else "gap",
-        "counts": {"match": len(match), "missing": len(missing), "extra": len(extra)},
-        "missing_nodes": sorted([s for s, _ in missing]),   # clone SHOULD emit these
-        "extra_nodes": sorted([s for s, _ in extra]),        # clone over-emits these
+        "verdict": verdict,
+        "counts": {"match": len(match), "missing": len(real_missing), "extra": len(extra)},
+        "missing_nodes": real_missing,                       # clone SHOULD emit these (real gaps)
+        "notes": benign,                                     # D1.2: benign byte-diffs (pass-with-note)
+        "extra_nodes": sorted([s for s, _ in extra]),        # clone over-emits these (fidelity warnings)
         "part_counts": part_note,
     }
+
+
+# D1.2 benign-missing classifier — a MISSING signature that is functionally harmless. Conservative:
+#   - body:pPr[]  — an EMPTY <w:pPr/> Word writes in a cell paragraph; the clone's <w:p/> is identical.
+#   - body:jc[('val', 'left')]  — an EXPLICIT default (left is the implicit paragraph default).
+#   - body:tblLook explicit all-zeros beyond val  — covered elsewhere; not listed here.
+# Everything else (real borders, widths, heights, shading attrs, content) stays a real gap.
+_BENIGN_MISSING_EXACT = {
+    "body:pPr[]",
+    "body:jc[('val', 'left')]",
+}
+
+
+def _is_benign_missing(sig):
+    return sig in _BENIGN_MISSING_EXACT
 
 
 def diff(real_path, clone_path, task_id=None, real_baseline=None, clone_baseline=None):
@@ -275,13 +304,28 @@ def diff(real_path, clone_path, task_id=None, real_baseline=None, clone_baseline
     # styles.xml: merge the styleId-presence diff (NOT baseline-subtracted — preloaded-vs-lazy safe).
     s_missing, s_extra, s_match = _styles_diff(real_path, clone_path)
     if s_missing or s_extra or s_match:
-        result["missing_nodes"] = sorted(result["missing_nodes"] + s_missing)
+        # styles-part missing may include benign styles:*:pPr[] (the empty style paragraph props) —
+        # classify with the same D1.2 rule so a style-def whose only gap is the empty pPr passes-with-note.
+        s_benign = [s for s in s_missing if _is_benign_styles_missing(s)]
+        s_real = [s for s in s_missing if s not in set(s_benign)]
+        result["missing_nodes"] = sorted(result["missing_nodes"] + s_real)
+        result["notes"] = sorted(result.get("notes", []) + s_benign)
         result["extra_nodes"] = sorted(result["extra_nodes"] + s_extra)
         result["counts"]["match"] += s_match
-        result["counts"]["missing"] += len(s_missing)
+        result["counts"]["missing"] = len(result["missing_nodes"])
         result["counts"]["extra"] += len(s_extra)
-        result["verdict"] = "semantic-pass" if result["counts"]["missing"] == 0 else "gap"
+        if result["missing_nodes"]:
+            result["verdict"] = "gap"
+        elif result["notes"]:
+            result["verdict"] = "pass-with-note"
+        else:
+            result["verdict"] = "semantic-pass"
     return result
+
+
+def _is_benign_styles_missing(sig):
+    # a styles-part missing that is functionally harmless: an empty pPr on a style def.
+    return sig.startswith("styles:") and sig.endswith(":pPr[]")
 
 
 if __name__ == "__main__":

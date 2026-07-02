@@ -12,6 +12,7 @@
     "body:jc[('val', 'center')]",
     "body:trPr[]"
   ],
+  "notes": [],
   "extra_nodes": [],
   "part_counts": {},
   "id": "tb-align-center",

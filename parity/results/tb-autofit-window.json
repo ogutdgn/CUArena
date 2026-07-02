@@ -14,6 +14,7 @@
     "body:tcW[('type', 'pct'), ('w', '1666')]",
     "body:tcW[('type', 'pct'), ('w', '1667')]"
   ],
+  "notes": [],
   "extra_nodes": [
     "body:gridCol[('w', '3120')]",
     "body:tblLayout[('type', 'autofit')]",

@@ -13,6 +13,7 @@
     "body:t[('space', 'preserve')]|text=a, b,",
     "body:textOrder|text=a, b,↵, ,↵, ,"
   ],
+  "notes": [],
   "extra_nodes": [
     "body:t[]|text=,,",
     "body:t[]|text=a,b,",

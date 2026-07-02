@@ -13,6 +13,7 @@
     "body:tcBorders[]",
     "body:top[('val', 'nil')]"
   ],
+  "notes": [],
   "extra_nodes": [],
   "part_counts": {},
   "id": "tb-borders-none-cell",

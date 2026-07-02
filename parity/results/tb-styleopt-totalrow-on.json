@@ -2,13 +2,14 @@
   "task": "tb-styleopt-totalrow-on",
   "baselined": true,
   "baseline_divergence": [],
-  "verdict": "gap",
+  "verdict": "pass-with-note",
   "counts": {
     "match": 56,
-    "missing": 1,
+    "missing": 0,
     "extra": 0
   },
-  "missing_nodes": [
+  "missing_nodes": [],
+  "notes": [
     "body:pPr[]"
   ],
   "extra_nodes": [],

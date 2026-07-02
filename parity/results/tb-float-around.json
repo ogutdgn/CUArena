@@ -12,6 +12,7 @@
     "body:tblOverlap[('val', 'never')]",
     "body:tblpPr[('leftFromText', '180'), ('rightFromText', '180'), ('tblpY', '1'), ('vertAnchor', 'text')]"
   ],
+  "notes": [],
   "extra_nodes": [],
   "part_counts": {},
   "id": "tb-float-around",

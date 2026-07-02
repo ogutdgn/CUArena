@@ -11,6 +11,7 @@
   "missing_nodes": [
     "body:tblW[('type', 'auto'), ('w', '0')]"
   ],
+  "notes": [],
   "extra_nodes": [],
   "part_counts": {},
   "id": "tb-autofit-fixed",

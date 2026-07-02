@@ -11,6 +11,7 @@
   "missing_nodes": [
     "body:shd[('color', 'auto'), ('fill', 'FFF2CC'), ('val', 'clear')]"
   ],
+  "notes": [],
   "extra_nodes": [
     "body:shd[('fill', 'FFF2CC')]"
   ],
