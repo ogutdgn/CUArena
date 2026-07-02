@@ -6,7 +6,7 @@
   "counts": {
     "match": 17,
     "missing": 8,
-    "extra": 14
+    "extra": 16
   },
   "missing_nodes": [
     "body:bottom[('type', 'dxa'), ('w', '0')]",
@@ -28,7 +28,9 @@
     "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "styles:TableGrid:name[('val', 'Table Grid')]",
+    "styles:TableGrid:pPr[]",
     "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
     "styles:TableGrid:tblBorders[]",
     "styles:TableGrid:tblPr[]",
     "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",

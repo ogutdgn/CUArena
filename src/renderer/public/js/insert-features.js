@@ -40,6 +40,10 @@
   Insert.buildTable = function (rows, cols) {
     rows = Math.max(1, Math.min(1000, rows | 0)); cols = Math.max(1, Math.min(1000, cols | 0));
     WC.PM.insertTable({ rows, cols });
+    // Spec 034: a fresh grid insert activates Table Design (recorded Word behavior). The passive
+    // Table Design/Layout tabs are injected reactively by state-sync's rAF tick after the insert
+    // transaction, so defer the activate one tick so the tab exists when we select it.
+    try { setTimeout(() => { try { WC.Ribbon && WC.Ribbon.activate && WC.Ribbon.activate('table-design'); } catch (e) { /* tab absent */ } }, 0); } catch (e) { /* no scheduler */ }
   };
   // Convert the selected paragraphs into a table. Called two ways:
   //  - with an explicit delimiter string (the dialog's "Separate text at" choice, or programmatically)
@@ -75,12 +79,32 @@
     ] });
   };
   Insert.tableMenu = function (node) {
+    // Spec 034: grid-hover LIVE PREVIEW. Hovering a cell paints a pending r×c table in the document
+    // (paint-only, addToHistory:false — never undo/file); leaving the grid (or closing the picker)
+    // restores. A click LEAVES the preview (restore) then does the real insert, so only the committed
+    // table lands. Guard the verb (absent pre-mount → the hover just highlights, no preview).
+    const pmPreview = () => (window.WC.PM && window.WC.PM.active && window.WC.PM.ready) ? window.WC.PM : null;
     WC.flyout(node, (fly) => {
       const ROWS = 8, COLS = 10;
       const label = el('div', { class: 'tablegrid-label', text: 'Insert Table' });
       const grid = el('div', { class: 'tablegrid' });
       const cells = [];
-      for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) { const cell = el('div', { class: 'cell', dataset: { r, c } }); cell.addEventListener('mouseenter', () => { cells.forEach((cl) => cl.classList.toggle('on', +cl.dataset.r <= r && +cl.dataset.c <= c)); label.textContent = `${c + 1} × ${r + 1} Table`; }); cell.addEventListener('click', () => { WC.closeFlyouts(); Insert.buildTable(r + 1, c + 1); }); cells.push(cell); grid.appendChild(cell); }
+      for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+        const cell = el('div', { class: 'cell', dataset: { r, c } });
+        cell.addEventListener('mouseenter', () => {
+          cells.forEach((cl) => cl.classList.toggle('on', +cl.dataset.r <= r && +cl.dataset.c <= c));
+          label.textContent = `${c + 1} × ${r + 1} Table`;
+          const p = pmPreview(); if (p && p.insertTablePreviewEnter) { try { p.insertTablePreviewEnter(r + 1, c + 1); } catch (e) { /* preview best-effort */ } }
+        });
+        cell.addEventListener('click', () => {
+          const p = pmPreview(); if (p && p.insertTablePreviewLeave) { try { p.insertTablePreviewLeave(); } catch (e) { /* restore best-effort */ } }
+          WC.closeFlyouts();
+          Insert.buildTable(r + 1, c + 1);
+        });
+        cells.push(cell); grid.appendChild(cell);
+      }
+      // Leaving the grid (mouse out of the whole picker) restores the pre-preview state.
+      grid.addEventListener('mouseleave', () => { const p = pmPreview(); if (p && p.insertTablePreviewLeave) { try { p.insertTablePreviewLeave(); } catch (e) { /* restore best-effort */ } } });
       fly.appendChild(label); fly.appendChild(grid); fly.appendChild(WC.flySep());
       fly.appendChild(WC.flyItem('Insert Table…', { onClick: () => WC.Dialogs.insertTable() }));
       fly.appendChild(WC.flyItem('Draw Table', { onClick: () => Insert.drawTableMode() }));

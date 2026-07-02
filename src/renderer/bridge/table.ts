@@ -22,6 +22,9 @@ import { TableMap } from 'prosemirror-tables'
 // Spec 030: the generated catalog (113 real-Word modern table-style defs) — getTableStyles unions
 // it with the doc's styles.xml so the gallery is honest before any style is materialized.
 import { TABLE_STYLE_DEFS } from '@/core/generated/table-style-defs'
+// Spec 034: reuse the shared preview meta string so io.ts's dirty guard (which checks THIS key)
+// covers the insert-grid hover preview — the paint-only insert must never flip the dirty flag.
+import { PREVIEW_META as INSERT_PREVIEW_META } from './style-preview'
 
 type AnyEditor = any
 
@@ -52,12 +55,99 @@ export function installTable(
     return false
   }
 
+  // Spec 034 — Word's uneven per-column width distribution: base = floor(total/N); the last
+  // `rem` columns get base+1 (remainder pushed to the LATER columns). Verified 9350/3 →
+  // [3116, 3117, 3117]. Total = the section's default table width in twips (see insertTable).
+  function distributeWidths(total: number, N: number): number[] {
+    const n = Math.max(1, Math.floor(N))
+    const base = Math.floor(total / n)
+    const rem = total - base * n
+    return Array.from({ length: n }, (_, i) => (i < n - rem ? base : base + 1))
+  }
+
+  // The section's default full-width table width in twips: (pageW − Lm − Rm) in inches → twips,
+  // minus Word's 10-twip fudge (the two ½-cell-margin default insets net out to ~10 twips at the
+  // table edges). Falls back to 9350 (US Letter, 1in margins) when page styles are unreadable.
+  function defaultTableWidthTwips(): number {
+    try {
+      const ps = (editor.getPageStyles && editor.getPageStyles()) || {}
+      const wIn = ps?.pageSize?.width
+      const lIn = ps?.pageMargins?.left
+      const rIn = ps?.pageMargins?.right
+      if (typeof wIn === 'number' && typeof lIn === 'number' && typeof rIn === 'number') {
+        const t = Math.round((wIn - lIn - rIn) * 1440) - 10
+        if (Number.isFinite(t) && t > 0) return t
+      }
+    } catch { /* fall through to the US-Letter default */ }
+    return 9350
+  }
+
   function insertTable(opts: { rows?: number; cols?: number; withHeaderRow?: boolean } = {}): boolean {
     const rows = Math.max(1, Math.min(1000, Math.floor(opts.rows ?? 3)))
     const cols = Math.max(1, Math.min(1000, Math.floor(opts.cols ?? 3)))
     const ok = editor.chain().insertTable({ rows, cols, withHeaderRow: !!opts.withHeaderRow }).run()
+    if (ok !== false) seedInsertDefaults(cols)
     refocus()
     return ok !== false
+  }
+
+  // Spec 034 — write Word's exact hidden defaults onto the just-inserted table so a fresh insert
+  // round-trips the F-class base delta (uneven gridCol/tcW, tblW auto, tblLook val, TableGrid pPr).
+  // Runs AFTER insertTable committed (the caret is inside the new table → currentTableCtx resolves it).
+  // ONE tr (all setNodeMarkup) + a follow-up restamp for tblLook — kept out of undo pollution
+  // (addToHistory:false) so the user's single Insert stays one clean undo step.
+  //   - table `grid` = [{col: twips}, …]     → the tblGrid decode reads grid[i].col twips FIRST → exact gridCol.
+  //   - table tableProperties.tableWidth = {value:0, type:'auto'} → <w:tblW w:w="0" w:type="auto"/>.
+  //   - per-cell tableCellProperties.cellWidth = {value: twips, type:'dxa'} AND CLEAR the cell's `colwidth`.
+  //     Clearing colwidth is load-bearing for TWO reasons: (1) the decode's px→twips recompute
+  //     (translate-table-cell.js:55-64) is skipped, so the seeded dxa twips survive → exact tcW; and (2)
+  //     the fork's `tableColwidthGridSync` appendTransaction (table.js:2351) rebuilds `grid` from the
+  //     first-row colwidths via pixelsToTwips(Math.round(px)) — it ROUNDS px to an INTEGER first, so 3116
+  //     and 3117 twips (both ≈207.7px → round 208 → 3120) collapse to a uniform 3120 and CLOBBER our
+  //     precise grid. Its `newGrid.length` guard means an EMPTY colwidth leaves our grid untouched, so
+  //     clearing colwidth is the only way to preserve the exact per-column twips (populated colwidth
+  //     cannot encode sub-pixel-distinct twips through the plugin's integer-px round).
+  //   - tblLook val via restamp(editor) (the FIX-2 val writer seeds DEFAULT_TBL_LOOK '04A0').
+  function seedInsertDefaults(cols: number): void {
+    try {
+      const ctx = currentTableCtx()
+      if (!ctx) return
+      const total = defaultTableWidthTwips()
+      const widths = distributeWidths(total, cols)
+      const grid = widths.map((w) => ({ col: w }))
+      const tr = editor.state.tr
+      tr.setMeta('addToHistory', false)
+      // Table node: grid + tblW auto + tblLook (Word's fresh-table default 04A0 = firstRow 0x20 +
+      // firstColumn 0x80 + noVBand 0x400; firstRow/firstColumn/noVBand flags on). Seeding it here
+      // (in this addToHistory:false tr) keeps the whole defaults write to ONE undo-invisible step;
+      // restamp() below then STRIPS any stale cnfStyle (a no-op for a fresh unstyled table).
+      const prevLook = ctx.node.attrs?.tableProperties?.tblLook
+      const tblLook = prevLook && prevLook.val
+        ? prevLook
+        : { firstRow: true, lastRow: false, firstColumn: true, lastColumn: false, noHBand: false, noVBand: true, val: '04A0' }
+      const tblProps = { ...(ctx.node.attrs?.tableProperties || {}), tableWidth: { value: 0, type: 'auto' }, tblLook }
+      tr.setNodeMarkup(ctx.pos, undefined, { ...ctx.node.attrs, grid, tableProperties: tblProps })
+      // Per-cell: seed cellWidth twips (dxa) + CLEAR colwidth (see the note above — the grid-sync's
+      // integer-px round would otherwise clobber the exact grid). Walk rows/cells like the borders walk
+      // (positions accumulate nodeSize from tableStart).
+      let rowPos = ctx.tableStart
+      for (let r = 0; r < ctx.node.childCount; r++) {
+        const row = ctx.node.child(r)
+        let cellPos = rowPos + 1
+        for (let c = 0; c < row.childCount; c++) {
+          const cell = row.child(c)
+          const twips = widths[Math.min(c, widths.length - 1)]
+          const nextCellProps = { ...(cell.attrs?.tableCellProperties || {}), cellWidth: { value: twips, type: 'dxa' } }
+          tr.setNodeMarkup(cellPos, undefined, { ...cell.attrs, colwidth: null, tableCellProperties: nextCellProps })
+          cellPos += cell.nodeSize
+        }
+        rowPos += row.nodeSize
+      }
+      editor.view.dispatch(tr)
+      // tblLook val (04A0) — the FIX-2 writer seeds DEFAULT_TBL_LOOK for a table with no tblLook yet.
+      // It builds+dispatches its own (change-only) tr; harmless no-op when nothing changes.
+      restamp(editor)
+    } catch { /* best-effort — a robust insert never throws over the defaults seed */ }
   }
 
   function tableAddRow(dir: 'above' | 'below'): boolean {
@@ -680,6 +770,65 @@ export function installTable(
     return true
   }
 
+  // ---------- Spec 034: Insert-grid hover live preview (mirrors table-styles.ts) ----------
+  // Paint-only preview of a pending rows×cols table at the caret: snapshot the WHOLE editor state
+  // (incl. the history plugin), run the insert, and restore via editor.setState(snap) on leave/pick —
+  // rolling BOTH the document and the undo stack back, so the preview never lands in undo or the saved
+  // file. Restore MUST go through editor.setState (see table-styles.ts header — a raw view.updateState
+  // leaves a mismatched-transaction trap).
+  let previewSnap: { state: any; documentModified: any; documentGuid: any } | null = null
+
+  function restoreInsertPreview() {
+    if (!previewSnap) return
+    editor.setState(previewSnap.state)
+    if (editor.converter) {
+      editor.converter.documentModified = previewSnap.documentModified
+      editor.converter.documentGuid = previewSnap.documentGuid
+    }
+    previewSnap = null
+    // Trailing no-op dispatch fires 'transaction' so state-sync re-reads the restored state.
+    editor.view?.dispatch(editor.view.state.tr.setMeta(INSERT_PREVIEW_META, true))
+  }
+
+  function insertTablePreviewEnter(rows: number, cols: number): boolean {
+    // Hop contract: always restore a live preview first (covers a missed leave), THEN paint the new size.
+    restoreInsertPreview()
+    const view = editor.view
+    if (!view) return false
+    const r = Math.max(1, Math.min(1000, Math.floor(rows)))
+    const c = Math.max(1, Math.min(1000, Math.floor(cols)))
+    // SNAPSHOT BEFORE the insert. The whole EditorState is captured (incl. the history plugin state),
+    // so editor.setState(snap.state) on leave/pick rolls the DOCUMENT *and* the undo stack back — the
+    // preview insert (even though it dispatches with history) leaves ZERO trace after restore. This is
+    // the same net contract as table-styles.ts, without needing a startTr the fork Editor won't forward
+    // (editor.chain() takes no args — fork is read-only). The keydown/beforeinput cancel-listeners below
+    // still WIN over a real edit mid-preview, so the transient history is never observable to the user.
+    previewSnap = {
+      state: editor.state,
+      documentModified: editor.converter?.documentModified,
+      documentGuid: editor.converter?.documentGuid,
+    }
+    try {
+      const before = editor.state.doc
+      const ok = editor.commands.insertTable({ rows: r, cols: c, withHeaderRow: false })
+      if (ok === false || editor.state.doc === before) { restoreInsertPreview(); return false }
+      return true
+    } catch {
+      restoreInsertPreview()
+      return false
+    }
+  }
+
+  function insertTablePreviewLeave() {
+    restoreInsertPreview()
+  }
+
+  // Real input mid-preview must WIN (same rationale as table-styles.ts): a keystroke landing on top of
+  // the insert preview cancels it BEFORE the input applies, so the leave-restore never discards a real
+  // edit. Capture phase = ahead of PM's handlers. Listeners die with the view on replaceEditor.
+  editor.view?.dom?.addEventListener('keydown', () => { if (previewSnap) restoreInsertPreview() }, true)
+  editor.view?.dom?.addEventListener('beforeinput', () => { if (previewSnap) restoreInsertPreview() }, true)
+
   // Test helper (Task 9 / Critique B3): build a CellSelection over the first two
   // @internal — test helper (CellSelection over the first row pair); not a stable public API
   // cells of the table's first row. Used by the [6b] merge test in test-suite-pm.js.
@@ -831,6 +980,9 @@ export function installTable(
     tableSetTextDirection,
     tableAutoFit,
     tableSelectFirstRowPair,
+    // 034: insert-grid hover live preview (paint-only; snapshot/restore)
+    insertTablePreviewEnter,
+    insertTablePreviewLeave,
     // 033 (PART A): Table Layout tab verbs (all NO-FORK)
     tableSelectScope,
     tableViewGridlines,

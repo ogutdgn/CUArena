@@ -391,10 +391,11 @@ T.append(dict(
 T.append(dict(
     id="tb-sort-col1", feature="Sort: table rows by column 1 ascending",
     control_id="table-layout.data.sort",
-    note="Clone has NO table Sort (Home Sort is paragraph-only). Word: fill c/b/a + Table.SortAscending. Values are DESCENDING so the sort reorders under BOTH header interpretations (first capture used b/a/c and SortAscending's auto-header kept it unchanged -> the action never happened). Doubles as the differ order-sensitivity canary (textOrder).",
+    note="Spec 033 PART B: Clone now has table Sort (WC.Dialogs.tableSort -> WC.PM.tableSort). Fill c/b/a down column 0, sort col 0 asc with hasHeader=true (Word's SortAscending() auto-detects the header row -> pins row 1 'c' and sorts rows 2-3 b/a -> a/b). Result textOrder = c,a,b, matching rw-tb-sort-col1. Doubles as the differ order-sensitivity canary (textOrder).",
     wc=WC_BASE + """
     typeInCell(0, 'c'); typeInCell(3, 'b'); typeInCell(6, 'a');
-    out.unreachable = 'no table Sort control (Home Sort is paragraph-only)';""",
+    caretIntoCell(0);
+    out.op = PM.tableSort([{ col: 0, type: 'text', asc: true }], true);""",
     rw=RW_BASE + """
     $tbl.Cell(1, 1).Range.Text = 'c'
     $tbl.Cell(2, 1).Range.Text = 'b'
@@ -423,11 +424,10 @@ T.append(dict(
 T.append(dict(
     id="tb-totext-comma", feature="Convert to Text (commas)",
     control_id="table-layout.data.totext",
-    note="Clone has NO separator dialog -- the user gets tabs regardless. Word: ConvertToText(wdSeparateByCommas=2). Text-content mismatch expected.",
+    note="Spec 033 PART B: Clone now has a separator dialog (WC.Dialogs.convertToText) — picking Commas calls WC.PM.tableToText(','), the exact call the dialog's OK makes. Word: ConvertToText(wdSeparateByCommas=2). Reachable now.",
     wc=WC_BASE + """
     typeInCell(0, 'a'); typeInCell(1, 'b');
-    out.op = PM.tableToText('\\t');
-    out.note = 'no separator dialog: clone emits tabs where Word was asked for commas';""",
+    out.op = PM.tableToText(',');""",
     rw=RW_BASE + """
     $tbl.Cell(1, 1).Range.Text = 'a'
     $tbl.Cell(1, 2).Range.Text = 'b'

@@ -4099,13 +4099,17 @@
     // Columns(i).Width all ~equal — scripts/oracle-probe-6b-distribute.js + validate-distribute-win.ps1.
     setDoc('x'); PM().insertTable({ rows: 2, cols: 3 }); await sleep(150);
     if (typeof PM().tableSetCellWidth !== 'function') return 'tableSetCellWidth missing (red)';
-    if (PM().tableSetCellWidth(260) === false) return 'tableSetCellWidth returned false (caret not in a cell?)';
-    await sleep(100); // caret is in col 0 → widen it → uneven grid
-    // Precondition (makes the test NON-vacuous): the grid must actually be UNEVEN now — proves the widen
+    // Spec 034 now CLEARS per-cell colwidth on fresh insert (the exact per-column twips live in the `grid`
+    // attr, seeded uneven). Directly seed all three first-row cells with an UNEVEN, fully-populated colwidth
+    // so the tableColwidthGridSync plugin rebuilds a proper 3-column uneven grid (a single-column widen on
+    // a colwidth-cleared table would leave a length-1 grid). This is the pre-distribute uneven fixture.
+    (() => { const tr = v().state.tr; let done = false; doc().descendants((n, pos) => { if (done || n.type.name !== 'tableRow') return; let cp = pos + 1; const ws = [300, 200, 200]; n.forEach((cell, off, i) => { const p = pos + 1 + off; tr.setNodeMarkup(p, undefined, { ...cell.attrs, colwidth: [ws[i] || 200], widthUnit: 'px' }); }); done = true; }); v().dispatch(tr); })();
+    await sleep(120);
+    // Precondition (makes the test NON-vacuous): the grid must actually be UNEVEN now — proves the setup
     // took effect, so the even-after assertion genuinely proves distribute did the work (not that a fresh
-    // table was already even).
-    const colw = () => { const w = []; doc().descendants((n) => { if (n.type.name === 'tableRow' && w.length === 0) n.forEach((c) => { if (c.attrs.colwidth) w.push(c.attrs.colwidth[0]); }); }); return w; };
-    const cwBefore = colw();
+    // table was already even). Read the table's `grid` attr (twips) — the EXACT source the exporter emits.
+    const gridw = () => { let g = null; doc().descendants((n) => { if (n.type.name === 'table' && !g) g = (n.attrs.grid || []).map((x) => Number(x.col)); }); return g || []; };
+    const cwBefore = gridw();
     if (cwBefore.length !== 3 || cwBefore.every((w) => w === cwBefore[0])) return 'precondition failed: grid not uneven before distribute (widen no-op): ' + JSON.stringify(cwBefore);
     if (!PM().tableDistributeColumns()) return 'tableDistributeColumns returned false';
     await sleep(150);
@@ -8036,6 +8040,117 @@
     if (!nilBlock) return 'Setting=None did not export a cell with a nil top';
     missing = outer.filter((s) => !new RegExp('<' + s + '\\b[^>]*w:val="nil"').test(nilBlock));
     return missing.length === 0 ? true : ('Setting=None did not nil all 4 outer sides — missing: ' + missing.join(',') + ' :: ' + nilBlock.slice(0, 300));
+  });
+
+  // ============================ [034] Insert Table wiring + insert-time OOXML defaults ============================
+  // A fresh insertTable carries Word's exact hidden defaults: uneven gridCol/tcW, <w:tblW w:w="0"
+  // w:type="auto"/>, the tblLook val, and the TableGrid style def carries pPr/spacing. See
+  // specs/034-insert-table-defaults/spec.md. gridCol widths from the section's default table width
+  // (US Letter 1in margins → 9350; distribute floor + remainder to LATER cols → 3116/3117/3117).
+  const gridColsOf = (xml) => {
+    const grid = (xml.match(/<w:tblGrid>[\s\S]*?<\/w:tblGrid>/) || [])[0] || '';
+    return (grid.match(/<w:gridCol\b[^>]*w:w="(\d+)"/g) || []).map((g) => +(/w:w="(\d+)"/.exec(g) || [])[1]);
+  };
+  // The section's expected uneven widths for N columns (mirrors the bridge distributeWidths).
+  const expectWidths = (total, N) => { const base = Math.floor(total / N); const rem = total - base * N; return Array.from({ length: N }, (_, i) => (i < N - rem ? base : base + 1)); };
+  const sectionTotal = () => { try { const ps = PM().getEditor().getPageStyles() || {}; const w = ps.pageSize && ps.pageSize.width, l = ps.pageMargins && ps.pageMargins.left, r = ps.pageMargins && ps.pageMargins.right; if (typeof w === 'number' && typeof l === 'number' && typeof r === 'number') return Math.round((w - l - r) * 1440) - 10; } catch (e) {} return 9350; };
+
+  await t('[034] (a) plain insertTable on a default page → uneven tblGrid gridCol + tblW auto + tblLook val + TableGrid pPr/spacing', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t034a'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(160);
+    if (!caretIntoTable()) return 'no table cell';
+    const xml = await exportDocumentXml();
+    // gridCol = the section's uneven distribution (3116/3117/3117 on US Letter), NOT uniform 3120.
+    const cols = gridColsOf(xml);
+    const want = expectWidths(sectionTotal(), 3);
+    if (cols.length !== 3) return 'expected 3 gridCol, got ' + JSON.stringify(cols);
+    if (JSON.stringify(cols) !== JSON.stringify(want)) return 'gridCol not the uneven distribution: got ' + JSON.stringify(cols) + ' want ' + JSON.stringify(want);
+    if (cols[0] === cols[1] && cols[1] === cols[2]) return 'gridCol uniform (not Word\'s uneven distribution): ' + JSON.stringify(cols);
+    // tblW auto.
+    if (!/<w:tblW\b[^>]*w:w="0"[^>]*w:type="auto"|<w:tblW\b[^>]*w:type="auto"[^>]*w:w="0"/.test(xml)) return 'no <w:tblW w:w="0" w:type="auto"/> in export: ' + (xml.match(/<w:tblW\b[^>]*\/>/) || ['(none)'])[0];
+    // per-cell tcW dxa = the same widths (colwidth cleared so the px→twips recompute is skipped).
+    const tcWs = (xml.match(/<w:tcW\b[^>]*w:w="(\d+)"[^>]*w:type="dxa"/g) || []).map((s) => +(/w:w="(\d+)"/.exec(s) || [])[1]);
+    if (tcWs.length < 3) return 'expected ≥3 dxa tcW, got ' + JSON.stringify(tcWs);
+    if (tcWs[0] !== want[0] || tcWs[1] !== want[1] || tcWs[2] !== want[2]) return 'first-row tcW not the seeded twips: got ' + JSON.stringify(tcWs.slice(0, 3)) + ' want ' + JSON.stringify(want);
+    // tblLook val present (the FIX-2 writer seeds 04A0 for a fresh table).
+    if (!/<w:tblLook\b[^>]*w:val="/.test(xml)) return 'no <w:tblLook w:val=...> in export: ' + (xml.match(/<w:tblLook\b[^>]*\/>/) || ['(none)'])[0];
+    // TableGrid style def carries pPr/spacing (the ONE data-only fork edit — from the styles part).
+    const parts = await exportParts();
+    const def = tblStyleSubtree(parts['word/styles.xml'], 'TableGrid');
+    if (!def) return 'no TableGrid <w:style> in styles.xml';
+    if (!/<w:pPr>[\s\S]*?<w:spacing\b[^>]*w:after="0"[^>]*w:line="240"[^>]*w:lineRule="auto"/.test(def)) return 'TableGrid def lacks pPr/spacing(after=0 line=240 lineRule=auto): ' + def.slice(0, 400);
+    return true;
+  });
+
+  await t('[034] (b) 2-col insert → distributeWidths(total,2) gridCol widths', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t034b'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(160);
+    if (!caretIntoTable()) return 'no table cell';
+    const xml = await exportDocumentXml();
+    const cols = gridColsOf(xml);
+    const want = expectWidths(sectionTotal(), 2);
+    if (cols.length !== 2) return 'expected 2 gridCol, got ' + JSON.stringify(cols);
+    if (JSON.stringify(cols) !== JSON.stringify(want)) return 'gridCol not distributeWidths(total,2): got ' + JSON.stringify(cols) + ' want ' + JSON.stringify(want);
+    // Sum equals the section total (no width lost/gained).
+    if (cols[0] + cols[1] !== sectionTotal()) return 'gridCol sum ' + (cols[0] + cols[1]) + ' != section total ' + sectionTotal();
+    return true;
+  });
+
+  await t('[034] (c) insertTablePreviewEnter then Leave → doc identical + no committed table (undo-clean)', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t034c'); await sleep(80);
+    const preText = doc().textContent;
+    const beforeJSON = JSON.stringify(doc().toJSON());
+    if (typeof PM().insertTablePreviewEnter !== 'function') return 'insertTablePreviewEnter not exposed';
+    if (PM().insertTablePreviewEnter(3, 3) !== true) return 'insertTablePreviewEnter returned non-true';
+    await sleep(100);
+    if (!hasNode('table')) return 'preview enter did not paint a table';
+    if (JSON.stringify(doc().toJSON()) === beforeJSON) return 'preview enter made no doc change (nothing to restore)';
+    PM().insertTablePreviewLeave(); await sleep(100);
+    if (hasNode('table')) return 'table still present after preview leave (restore failed)';
+    if (JSON.stringify(doc().toJSON()) !== beforeJSON) return 'doc NOT identical after preview leave';
+    if (doc().textContent !== preText) return 'text not restored after leave (got "' + doc().textContent + '")';
+    // A subsequent undo must NOT remove a table (the preview was never on the history stack).
+    PM().cmd('undo'); await sleep(80);
+    if (hasNode('table')) return 'undo surfaced a table — the preview polluted history';
+    return true;
+  });
+
+  await t('[034] (d) H.table opens the Insert dropdown (WC.Insert.tableMenu flyout), NOT the dialog', async () => {
+    document.querySelectorAll('.flyout, .modal-backdrop').forEach((n) => n.remove());
+    if (typeof WC.Commands.H.table !== 'function') return 'H.table not defined';
+    let menuCalls = 0; const origMenu = WC.Insert.tableMenu;
+    WC.Insert.tableMenu = function () { menuCalls++; return origMenu.apply(this, arguments); };
+    let dlgCalls = 0; const origDlg = WC.Dialogs.insertTable;
+    WC.Dialogs.insertTable = function () { dlgCalls++; /* do NOT open the modal */ };
+    try {
+      WC.Commands.H.table({ cmd: 'table' }, document.body); await sleep(40);
+    } finally { WC.Insert.tableMenu = origMenu; WC.Dialogs.insertTable = origDlg; }
+    if (menuCalls !== 1) return 'H.table did not call WC.Insert.tableMenu (calls=' + menuCalls + ')';
+    if (dlgCalls !== 0) return 'H.table opened the dialog directly (should open the dropdown)';
+    // The flyout carries the grid picker + the "Insert Table…" item (dialog stays reachable via the menu).
+    const fly = document.querySelector('.flyout');
+    if (!fly) return 'no flyout opened by tableMenu';
+    if (!fly.querySelector('.tablegrid')) return 'flyout has no grid picker (.tablegrid)';
+    const items = Array.from(fly.querySelectorAll('.fly-item')).map((i) => i.textContent);
+    if (!items.some((x) => /Insert Table/.test(x))) return 'flyout missing "Insert Table…" item: ' + JSON.stringify(items);
+    document.querySelectorAll('.flyout').forEach((n) => n.remove());
+    return true;
+  });
+
+  await t('[034] (e) Insert Table dialog has the 3 AutoFit radios (Fixed/Contents/Window) + Remember dimensions', async () => {
+    document.querySelectorAll('.flyout, .modal-backdrop').forEach((n) => n.remove());
+    if (typeof WC.Dialogs.insertTable !== 'function') return 'WC.Dialogs.insertTable not defined';
+    WC.Dialogs.insertTable(); await sleep(40);
+    const dlg = document.querySelector('.modal-backdrop .dialog');
+    if (!dlg) return 'Insert Table dialog did not open';
+    const vals = Array.from(dlg.querySelectorAll('input[name="tbl-autofit"]')).map((r) => r.value);
+    for (const v of ['fixed', 'contents', 'window']) if (vals.indexOf(v) < 0) return 'missing AutoFit radio "' + v + '": got ' + JSON.stringify(vals);
+    const fixed = dlg.querySelector('input[name="tbl-autofit"][value="fixed"]');
+    if (!fixed || !fixed.checked) return 'Fixed column width is not the default checked radio';
+    if (!dlg.querySelector('#tbl-remember')) return 'no "Remember dimensions for new tables" checkbox';
+    document.querySelectorAll('.modal-backdrop').forEach((n) => n.remove());
+    return true;
   });
 
   const pass = results.filter((r) => r.pass).length;

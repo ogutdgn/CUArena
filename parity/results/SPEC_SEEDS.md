@@ -221,22 +221,13 @@ python parity/engines/run.py --only fontcolor   # expect: semantic-pass, missing
 **Goal:** make the clone's `Insert Table` output match real Microsoft Word.
 **Sub-tasks covered:** `table`
 **Ground truth:** `parity/fixtures/rw-table.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (table): emit `body:gridCol[('w', '3116')]`
-- FR (table): emit `body:gridCol[('w', '3117')]`
-- FR (table): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (table): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (table): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (table): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (table): emit `styles:TableGrid:pPr[]`
-- FR (table): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (table): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (table): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (table): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -393,22 +384,13 @@ python parity/engines/run.py --only highlight   # expect: semantic-pass, missing
 **Goal:** make the clone's `Alignment: Align Bottom Right (caret cell)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-cellalign-bottomright`
 **Ground truth:** `parity/fixtures/rw-tb-cellalign-bottomright.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-cellalign-bottomright): emit `body:gridCol[('w', '3116')]`
-- FR (tb-cellalign-bottomright): emit `body:gridCol[('w', '3117')]`
-- FR (tb-cellalign-bottomright): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-cellalign-bottomright): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-cellalign-bottomright): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-cellalign-bottomright): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-cellalign-bottomright): emit `styles:TableGrid:pPr[]`
-- FR (tb-cellalign-bottomright): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-cellalign-bottomright): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-cellalign-bottomright): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-cellalign-bottomright): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -425,20 +407,16 @@ python parity/engines/run.py --only tb-cellalign-bottomright   # expect: semanti
 **Goal:** make the clone's `AutoFit: AutoFit Contents` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-autofit-contents`
 **Ground truth:** `parity/fixtures/rw-tb-autofit-contents.docx`
-**Current parity:** GAP — 6 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 3 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-autofit-contents): emit `body:gridCol[('w', '222')]`
-- FR (tb-autofit-contents): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-autofit-contents): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-autofit-contents): emit `body:tcW[('type', 'auto'), ('w', '0')]`
-- FR (tb-autofit-contents): emit `styles:TableGrid:pPr[]`
-- FR (tb-autofit-contents): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-autofit-contents): stop emitting (or justify) `body:gridCol[('w', '240')]`
 - FID (tb-autofit-contents): stop emitting (or justify) `body:tblLayout[('type', 'autofit')]`
-- FID (tb-autofit-contents): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-autofit-contents): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '240')]`
 
 ### Acceptance (regression gate)
@@ -456,21 +434,17 @@ python parity/engines/run.py --only tb-autofit-contents   # expect: semantic-pas
 **Goal:** make the clone's `AutoFit: AutoFit Window` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-autofit-window`
 **Ground truth:** `parity/fixtures/rw-tb-autofit-window.docx`
-**Current parity:** GAP — 7 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 4 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-autofit-window): emit `body:gridCol[('w', '3116')]`
 - FR (tb-autofit-window): emit `body:gridCol[('w', '3117')]`
-- FR (tb-autofit-window): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-autofit-window): emit `body:tcW[('type', 'pct'), ('w', '1666')]`
 - FR (tb-autofit-window): emit `body:tcW[('type', 'pct'), ('w', '1667')]`
-- FR (tb-autofit-window): emit `styles:TableGrid:pPr[]`
-- FR (tb-autofit-window): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-autofit-window): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-autofit-window): stop emitting (or justify) `body:tblLayout[('type', 'autofit')]`
-- FID (tb-autofit-window): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-autofit-window): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 
 ### Acceptance (regression gate)
@@ -488,22 +462,13 @@ python parity/engines/run.py --only tb-autofit-window   # expect: semantic-pass,
 **Goal:** make the clone's `AutoFit: Fixed Column Width` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-autofit-fixed`
 **Ground truth:** `parity/fixtures/rw-tb-autofit-fixed.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-autofit-fixed): emit `body:gridCol[('w', '3116')]`
-- FR (tb-autofit-fixed): emit `body:gridCol[('w', '3117')]`
-- FR (tb-autofit-fixed): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-autofit-fixed): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-autofit-fixed): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-autofit-fixed): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-autofit-fixed): emit `styles:TableGrid:pPr[]`
-- FR (tb-autofit-fixed): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-autofit-fixed): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-autofit-fixed): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-autofit-fixed): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -520,22 +485,13 @@ python parity/engines/run.py --only tb-autofit-fixed   # expect: semantic-pass, 
 **Goal:** make the clone's `Border pen color red (top edge)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-color-red`
 **Ground truth:** `parity/fixtures/rw-tb-border-color-red.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-border-color-red): emit `body:gridCol[('w', '3116')]`
-- FR (tb-border-color-red): emit `body:gridCol[('w', '3117')]`
-- FR (tb-border-color-red): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-border-color-red): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-border-color-red): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-border-color-red): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-border-color-red): emit `styles:TableGrid:pPr[]`
-- FR (tb-border-color-red): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-border-color-red): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-border-color-red): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-border-color-red): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -552,22 +508,13 @@ python parity/engines/run.py --only tb-border-color-red   # expect: semantic-pas
 **Goal:** make the clone's `Border pen weight 3pt (top edge)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-weight-3pt`
 **Ground truth:** `parity/fixtures/rw-tb-border-weight-3pt.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-border-weight-3pt): emit `body:gridCol[('w', '3116')]`
-- FR (tb-border-weight-3pt): emit `body:gridCol[('w', '3117')]`
-- FR (tb-border-weight-3pt): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-border-weight-3pt): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-border-weight-3pt): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-border-weight-3pt): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-border-weight-3pt): emit `styles:TableGrid:pPr[]`
-- FR (tb-border-weight-3pt): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-border-weight-3pt): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-border-weight-3pt): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-border-weight-3pt): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -584,26 +531,16 @@ python parity/engines/run.py --only tb-border-weight-3pt   # expect: semantic-pa
 **Goal:** make the clone's `Borders: All Borders on caret cell` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-borders-all-cell`
 **Ground truth:** `parity/fixtures/rw-tb-borders-all-cell.docx`
-**Current parity:** GAP — 8 missing node(s), 8 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 5 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-borders-all-cell): emit `body:gridCol[('w', '3116')]`
-- FR (tb-borders-all-cell): emit `body:gridCol[('w', '3117')]`
-- FR (tb-borders-all-cell): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-borders-all-cell): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-borders-all-cell): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-borders-all-cell): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-borders-all-cell): emit `styles:TableGrid:pPr[]`
-- FR (tb-borders-all-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
-- FID (tb-borders-all-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
-- FID (tb-borders-all-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:tcBorders[]`
-- FID (tb-borders-all-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
@@ -621,24 +558,14 @@ python parity/engines/run.py --only tb-borders-all-cell   # expect: semantic-pas
 **Goal:** make the clone's `Borders: Diagonal Down (cell 2,2)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-diagdown-cell`
 **Ground truth:** `parity/fixtures/rw-tb-border-diagdown-cell.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 2 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-border-diagdown-cell): emit `body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
-- FR (tb-border-diagdown-cell): emit `body:gridCol[('w', '3116')]`
-- FR (tb-border-diagdown-cell): emit `body:gridCol[('w', '3117')]`
-- FR (tb-border-diagdown-cell): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-border-diagdown-cell): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-border-diagdown-cell): emit `body:tcBorders[]`
-- FR (tb-border-diagdown-cell): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-border-diagdown-cell): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-border-diagdown-cell): emit `styles:TableGrid:pPr[]`
-- FR (tb-border-diagdown-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-border-diagdown-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-border-diagdown-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-border-diagdown-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -655,25 +582,15 @@ python parity/engines/run.py --only tb-border-diagdown-cell   # expect: semantic
 **Goal:** make the clone's `Borders: No Border on caret cell` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-borders-none-cell`
 **Ground truth:** `parity/fixtures/rw-tb-borders-none-cell.docx`
-**Current parity:** GAP — 11 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 3 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-borders-none-cell): emit `body:gridCol[('w', '3116')]`
-- FR (tb-borders-none-cell): emit `body:gridCol[('w', '3117')]`
 - FR (tb-borders-none-cell): emit `body:left[('val', 'nil')]`
-- FR (tb-borders-none-cell): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-borders-none-cell): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-borders-none-cell): emit `body:tcBorders[]`
-- FR (tb-borders-none-cell): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-borders-none-cell): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-borders-none-cell): emit `body:top[('val', 'nil')]`
-- FR (tb-borders-none-cell): emit `styles:TableGrid:pPr[]`
-- FR (tb-borders-none-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-borders-none-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-borders-none-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-borders-none-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -690,23 +607,13 @@ python parity/engines/run.py --only tb-borders-none-cell   # expect: semantic-pa
 **Goal:** make the clone's `Borders: Top Border only (caret cell)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-top-cell`
 **Ground truth:** `parity/fixtures/rw-tb-border-top-cell.docx`
-**Current parity:** GAP — 8 missing node(s), 5 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-border-top-cell): emit `body:gridCol[('w', '3116')]`
-- FR (tb-border-top-cell): emit `body:gridCol[('w', '3117')]`
-- FR (tb-border-top-cell): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-border-top-cell): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-border-top-cell): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-border-top-cell): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-border-top-cell): emit `styles:TableGrid:pPr[]`
-- FR (tb-border-top-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-border-top-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-border-top-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-border-top-cell): stop emitting (or justify) `body:tcBorders[]`
-- FID (tb-border-top-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 - FID (tb-border-top-cell): stop emitting (or justify) `body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
@@ -724,24 +631,15 @@ python parity/engines/run.py --only tb-border-top-cell   # expect: semantic-pass
 **Goal:** make the clone's `COMBO: diagonal border on a merged cell` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-combo-diag-merged`
 **Ground truth:** `parity/fixtures/rw-tb-combo-diag-merged.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 3 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-combo-diag-merged): emit `body:gridCol[('w', '3116')]`
-- FR (tb-combo-diag-merged): emit `body:gridCol[('w', '3117')]`
-- FR (tb-combo-diag-merged): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-combo-diag-merged): emit `body:tcBorders[]`
-- FR (tb-combo-diag-merged): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-combo-diag-merged): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-combo-diag-merged): emit `body:tcW[('type', 'dxa'), ('w', '6233')]`
 - FR (tb-combo-diag-merged): emit `body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
-- FR (tb-combo-diag-merged): emit `styles:TableGrid:pPr[]`
-- FR (tb-combo-diag-merged): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-combo-diag-merged): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-combo-diag-merged): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-combo-diag-merged): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '6240')]`
+- FID (tb-combo-diag-merged): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3116')]`
 
 ### Acceptance (regression gate)
 ```
@@ -758,22 +656,13 @@ python parity/engines/run.py --only tb-combo-diag-merged   # expect: semantic-pa
 **Goal:** make the clone's `Cell Margins 0.25in all sides` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-cellmargins`
 **Ground truth:** `parity/fixtures/rw-tb-cellmargins.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-cellmargins): emit `body:gridCol[('w', '3116')]`
-- FR (tb-cellmargins): emit `body:gridCol[('w', '3117')]`
-- FR (tb-cellmargins): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-cellmargins): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-cellmargins): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-cellmargins): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-cellmargins): emit `styles:TableGrid:pPr[]`
-- FR (tb-cellmargins): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-cellmargins): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-cellmargins): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-cellmargins): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -790,20 +679,13 @@ python parity/engines/run.py --only tb-cellmargins   # expect: semantic-pass, mi
 **Goal:** make the clone's `Column Width 1.5 inch (caret column)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-colwidth-15in`
 **Ground truth:** `parity/fixtures/rw-tb-colwidth-15in.docx`
-**Current parity:** GAP — 6 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-colwidth-15in): emit `body:gridCol[('w', '3117')]`
-- FR (tb-colwidth-15in): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-colwidth-15in): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-colwidth-15in): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-colwidth-15in): emit `styles:TableGrid:pPr[]`
-- FR (tb-colwidth-15in): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-colwidth-15in): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-colwidth-15in): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-colwidth-15in): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-colwidth-15in): stop emitting (or justify) `body:gridCol[('w', '1500')]`
 
 ### Acceptance (regression gate)
 ```
@@ -820,7 +702,7 @@ python parity/engines/run.py --only tb-colwidth-15in   # expect: semantic-pass, 
 **Goal:** make the clone's `Convert Text to Table (commas)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-convert-text-table`
 **Ground truth:** `parity/fixtures/rw-tb-convert-text-table.docx`
-**Current parity:** GAP — 8 missing node(s), 14 fidelity warning(s)
+**Current parity:** GAP — 8 missing node(s), 16 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-convert-text-table): emit `body:bottom[('type', 'dxa'), ('w', '0')]`
@@ -842,7 +724,9 @@ python parity/engines/run.py --only tb-colwidth-15in   # expect: semantic-pass, 
 - FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:name[('val', 'Table Grid')]`
+- FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:pPr[]`
 - FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 - FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:tblBorders[]`
 - FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:tblPr[]`
 - FID (tb-convert-text-table): stop emitting (or justify) `styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
@@ -924,22 +808,13 @@ python parity/engines/run.py --only tb-totext-tab   # expect: semantic-pass, mis
 **Goal:** make the clone's `Delete Cells: shift cells up (cell 2,2)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-delete-cells-up`
 **Ground truth:** `parity/fixtures/rw-tb-delete-cells-up.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-delete-cells-up): emit `body:gridCol[('w', '3116')]`
-- FR (tb-delete-cells-up): emit `body:gridCol[('w', '3117')]`
-- FR (tb-delete-cells-up): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-delete-cells-up): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-delete-cells-up): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-delete-cells-up): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-delete-cells-up): emit `styles:TableGrid:pPr[]`
-- FR (tb-delete-cells-up): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-delete-cells-up): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-delete-cells-up): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-delete-cells-up): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -956,20 +831,13 @@ python parity/engines/run.py --only tb-delete-cells-up   # expect: semantic-pass
 **Goal:** make the clone's `Delete Column (col 1)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-delete-col`
 **Ground truth:** `parity/fixtures/rw-tb-delete-col.docx`
-**Current parity:** GAP — 6 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-delete-col): emit `body:gridCol[('w', '3117')]`
-- FR (tb-delete-col): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-delete-col): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-delete-col): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-delete-col): emit `styles:TableGrid:pPr[]`
-- FR (tb-delete-col): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-delete-col): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-delete-col): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-delete-col): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-delete-col): stop emitting (or justify) `body:gridCol[('w', '3116')]`
 
 ### Acceptance (regression gate)
 ```
@@ -986,22 +854,13 @@ python parity/engines/run.py --only tb-delete-col   # expect: semantic-pass, mis
 **Goal:** make the clone's `Delete Row (row 1)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-delete-row`
 **Ground truth:** `parity/fixtures/rw-tb-delete-row.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-delete-row): emit `body:gridCol[('w', '3116')]`
-- FR (tb-delete-row): emit `body:gridCol[('w', '3117')]`
-- FR (tb-delete-row): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-delete-row): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-delete-row): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-delete-row): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-delete-row): emit `styles:TableGrid:pPr[]`
-- FR (tb-delete-row): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-delete-row): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-delete-row): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-delete-row): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -1041,22 +900,17 @@ python parity/engines/run.py --only tb-delete-table   # expect: semantic-pass, m
 **Goal:** make the clone's `Distribute Columns` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-dist-cols`
 **Ground truth:** `parity/fixtures/rw-tb-dist-cols.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 4 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-dist-cols): emit `body:gridCol[('w', '3116')]`
 - FR (tb-dist-cols): emit `body:gridCol[('w', '3117')]`
-- FR (tb-dist-cols): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-dist-cols): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-dist-cols): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-dist-cols): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-dist-cols): emit `styles:TableGrid:pPr[]`
-- FR (tb-dist-cols): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-dist-cols): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-dist-cols): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-dist-cols): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-dist-cols): stop emitting (or justify) `body:gridCol[('w', '1500')]`
+- FID (tb-dist-cols): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '1500')]`
 
 ### Acceptance (regression gate)
 ```
@@ -1073,23 +927,12 @@ python parity/engines/run.py --only tb-dist-cols   # expect: semantic-pass, miss
 **Goal:** make the clone's `Distribute Rows` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-dist-rows`
 **Ground truth:** `parity/fixtures/rw-tb-dist-rows.docx`
-**Current parity:** GAP — 9 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-dist-rows): emit `body:gridCol[('w', '3116')]`
-- FR (tb-dist-rows): emit `body:gridCol[('w', '3117')]`
-- FR (tb-dist-rows): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-dist-rows): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-dist-rows): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-dist-rows): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-dist-rows): emit `body:trHeight[('val', '293')]`
-- FR (tb-dist-rows): emit `styles:TableGrid:pPr[]`
-- FR (tb-dist-rows): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-dist-rows): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-dist-rows): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-dist-rows): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 - FID (tb-dist-rows): stop emitting (or justify) `body:trHeight[('hRule', 'atLeast'), ('val', '360')]`
 
 ### Acceptance (regression gate)
@@ -1130,24 +973,14 @@ python parity/engines/run.py --only fd-replace-all   # expect: semantic-pass, mi
 **Goal:** make the clone's `Floating table: text wrapping Around` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-float-around`
 **Ground truth:** `parity/fixtures/rw-tb-float-around.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 2 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-float-around): emit `body:gridCol[('w', '3116')]`
-- FR (tb-float-around): emit `body:gridCol[('w', '3117')]`
-- FR (tb-float-around): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-float-around): emit `body:tblOverlap[('val', 'never')]`
-- FR (tb-float-around): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-float-around): emit `body:tblpPr[('leftFromText', '180'), ('rightFromText', '180'), ('tblpY', '1'), ('vertAnchor', 'text')]`
-- FR (tb-float-around): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-float-around): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-float-around): emit `styles:TableGrid:pPr[]`
-- FR (tb-float-around): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-float-around): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-float-around): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-float-around): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -1578,28 +1411,23 @@ python parity/engines/run.py --only sz-8   # expect: semantic-pass, missing = 0
 **Goal:** make the clone's `Insert Cells: shift cells right` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-insert-cells-right`
 **Ground truth:** `parity/fixtures/rw-tb-insert-cells-right.docx`
-**Current parity:** GAP — 14 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 10 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-insert-cells-right): emit `body:gridAfter[('val', '1')]`
 - FR (tb-insert-cells-right): emit `body:gridCol[('w', '3115')]`
 - FR (tb-insert-cells-right): emit `body:gridCol[('w', '3117')]`
 - FR (tb-insert-cells-right): emit `body:p[]`
-- FR (tb-insert-cells-right): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-insert-cells-right): emit `body:tblW[('type', 'dxa'), ('w', '12466')]`
 - FR (tb-insert-cells-right): emit `body:tcPr[]`
 - FR (tb-insert-cells-right): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-insert-cells-right): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-insert-cells-right): emit `body:tc[]`
 - FR (tb-insert-cells-right): emit `body:trPr[]`
 - FR (tb-insert-cells-right): emit `body:wAfter[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-insert-cells-right): emit `styles:TableGrid:pPr[]`
-- FR (tb-insert-cells-right): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-insert-cells-right): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-insert-cells-right): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-insert-cells-right): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-insert-cells-right): stop emitting (or justify) `body:gridCol[('w', '3116')]`
+- FID (tb-insert-cells-right): stop emitting (or justify) `body:tblW[('type', 'auto'), ('w', '0')]`
 
 ### Acceptance (regression gate)
 ```
@@ -1639,22 +1467,13 @@ python parity/engines/run.py --only fd-link   # expect: semantic-pass, missing =
 **Goal:** make the clone's `Insert Table dialog: 3x4, fixed width` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-insert-dialog`
 **Ground truth:** `parity/fixtures/rw-tb-insert-dialog.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-insert-dialog): emit `body:gridCol[('w', '2337')]`
-- FR (tb-insert-dialog): emit `body:gridCol[('w', '2338')]`
-- FR (tb-insert-dialog): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-insert-dialog): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-insert-dialog): emit `body:tcW[('type', 'dxa'), ('w', '2337')]`
-- FR (tb-insert-dialog): emit `body:tcW[('type', 'dxa'), ('w', '2338')]`
-- FR (tb-insert-dialog): emit `styles:TableGrid:pPr[]`
-- FR (tb-insert-dialog): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-insert-dialog): stop emitting (or justify) `body:gridCol[('w', '2340')]`
-- FID (tb-insert-dialog): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-insert-dialog): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '2340')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -1717,24 +1536,13 @@ python parity/engines/run.py --only ls-1p5   # expect: semantic-pass, missing = 
 **Goal:** make the clone's `Merge Cells: first two cells of row 1` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-merge-firstrow2`
 **Ground truth:** `parity/fixtures/rw-tb-merge-firstrow2.docx`
-**Current parity:** GAP — 9 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-merge-firstrow2): emit `body:gridCol[('w', '3116')]`
-- FR (tb-merge-firstrow2): emit `body:gridCol[('w', '3117')]`
-- FR (tb-merge-firstrow2): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-merge-firstrow2): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-merge-firstrow2): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-merge-firstrow2): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-merge-firstrow2): emit `body:tcW[('type', 'dxa'), ('w', '6233')]`
-- FR (tb-merge-firstrow2): emit `styles:TableGrid:pPr[]`
-- FR (tb-merge-firstrow2): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-merge-firstrow2): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-merge-firstrow2): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-merge-firstrow2): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-merge-firstrow2): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '6240')]`
+- FID (tb-merge-firstrow2): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3116')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2097,7 +1905,7 @@ python parity/engines/run.py --only fd-pag-widow   # expect: semantic-pass, miss
 **Goal:** make the clone's `Quick Tables: Calendar` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-quicktable-calendar`
 **Ground truth:** `parity/fixtures/rw-tb-quicktable-calendar.docx`
-**Current parity:** GAP — 98 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 96 missing node(s), 19 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-quicktable-calendar): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]`
@@ -2144,9 +1952,7 @@ python parity/engines/run.py --only fd-pag-widow   # expect: semantic-pass, miss
 - FR (tb-quicktable-calendar): emit `body:t[]|text=S`
 - FR (tb-quicktable-calendar): emit `body:t[]|text=T`
 - FR (tb-quicktable-calendar): emit `body:t[]|text=W`
-- FR (tb-quicktable-calendar): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-quicktable-calendar): emit `body:tblStyle[('val', 'Calendar1')]`
-- FR (tb-quicktable-calendar): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-quicktable-calendar): emit `body:tcPr[]`
 - FR (tb-quicktable-calendar): emit `body:tcW[('type', 'dxa'), ('w', '5040')]`
 - FR (tb-quicktable-calendar): emit `body:tcW[('type', 'dxa'), ('w', '720')]`
@@ -2201,9 +2007,10 @@ python parity/engines/run.py --only fd-pag-widow   # expect: semantic-pass, miss
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-quicktable-calendar): stop emitting (or justify) `body:gridCol[('w', '1335')]`
-- FID (tb-quicktable-calendar): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
+- FID (tb-quicktable-calendar): stop emitting (or justify) `body:gridCol[('w', '1336')]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `body:tblStyle[('val', 'TableGrid')]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '1335')]`
+- FID (tb-quicktable-calendar): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '1336')]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:@type=table`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:basedOn[('val', 'TableNormal')]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
@@ -2211,7 +2018,9 @@ python parity/engines/run.py --only fd-pag-widow   # expect: semantic-pass, miss
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:name[('val', 'Table Grid')]`
+- FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:pPr[]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:tblBorders[]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:tblPr[]`
 - FID (tb-quicktable-calendar): stop emitting (or justify) `styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
@@ -2232,22 +2041,13 @@ python parity/engines/run.py --only tb-quicktable-calendar   # expect: semantic-
 **Goal:** make the clone's `Repeat Header Rows (row 1)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-repeatheader`
 **Ground truth:** `parity/fixtures/rw-tb-repeatheader.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-repeatheader): emit `body:gridCol[('w', '3116')]`
-- FR (tb-repeatheader): emit `body:gridCol[('w', '3117')]`
-- FR (tb-repeatheader): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-repeatheader): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-repeatheader): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-repeatheader): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-repeatheader): emit `styles:TableGrid:pPr[]`
-- FR (tb-repeatheader): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-repeatheader): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-repeatheader): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-repeatheader): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2264,23 +2064,12 @@ python parity/engines/run.py --only tb-repeatheader   # expect: semantic-pass, m
 **Goal:** make the clone's `Row Height 0.5 inch (caret row)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-rowheight-05in`
 **Ground truth:** `parity/fixtures/rw-tb-rowheight-05in.docx`
-**Current parity:** GAP — 9 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-rowheight-05in): emit `body:gridCol[('w', '3116')]`
-- FR (tb-rowheight-05in): emit `body:gridCol[('w', '3117')]`
-- FR (tb-rowheight-05in): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-rowheight-05in): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-rowheight-05in): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-rowheight-05in): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-rowheight-05in): emit `body:trHeight[('val', '720')]`
-- FR (tb-rowheight-05in): emit `styles:TableGrid:pPr[]`
-- FR (tb-rowheight-05in): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-rowheight-05in): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-rowheight-05in): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-rowheight-05in): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 - FID (tb-rowheight-05in): stop emitting (or justify) `body:trHeight[('hRule', 'atLeast'), ('val', '720')]`
 
 ### Acceptance (regression gate)
@@ -2298,22 +2087,13 @@ python parity/engines/run.py --only tb-rowheight-05in   # expect: semantic-pass,
 **Goal:** make the clone's `Rows & Columns: Insert Above` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-insert-above`
 **Ground truth:** `parity/fixtures/rw-tb-insert-above.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-insert-above): emit `body:gridCol[('w', '3116')]`
-- FR (tb-insert-above): emit `body:gridCol[('w', '3117')]`
-- FR (tb-insert-above): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-insert-above): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-insert-above): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-insert-above): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-insert-above): emit `styles:TableGrid:pPr[]`
-- FR (tb-insert-above): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-insert-above): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-insert-above): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-insert-above): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2330,22 +2110,13 @@ python parity/engines/run.py --only tb-insert-above   # expect: semantic-pass, m
 **Goal:** make the clone's `Rows & Columns: Insert Below` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-insert-below`
 **Ground truth:** `parity/fixtures/rw-tb-insert-below.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-insert-below): emit `body:gridCol[('w', '3116')]`
-- FR (tb-insert-below): emit `body:gridCol[('w', '3117')]`
-- FR (tb-insert-below): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-insert-below): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-insert-below): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-insert-below): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-insert-below): emit `styles:TableGrid:pPr[]`
-- FR (tb-insert-below): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-insert-below): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-insert-below): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-insert-below): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2362,24 +2133,19 @@ python parity/engines/run.py --only tb-insert-below   # expect: semantic-pass, m
 **Goal:** make the clone's `Rows & Columns: Insert Left` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-insert-left`
 **Ground truth:** `parity/fixtures/rw-tb-insert-left.docx`
-**Current parity:** GAP — 8 missing node(s), 5 fidelity warning(s)
+**Current parity:** GAP — 4 missing node(s), 4 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-insert-left): emit `body:gridCol[('w', '2337')]`
 - FR (tb-insert-left): emit `body:gridCol[('w', '2338')]`
-- FR (tb-insert-left): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-insert-left): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-insert-left): emit `body:tcW[('type', 'dxa'), ('w', '2337')]`
 - FR (tb-insert-left): emit `body:tcW[('type', 'dxa'), ('w', '2338')]`
-- FR (tb-insert-left): emit `styles:TableGrid:pPr[]`
-- FR (tb-insert-left): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-insert-left): stop emitting (or justify) `body:gridCol[('w', '1500')]`
-- FID (tb-insert-left): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-insert-left): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-insert-left): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '1500')]`
-- FID (tb-insert-left): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-insert-left): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3116')]`
+- FID (tb-insert-left): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2396,24 +2162,19 @@ python parity/engines/run.py --only tb-insert-left   # expect: semantic-pass, mi
 **Goal:** make the clone's `Rows & Columns: Insert Right` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-insert-right`
 **Ground truth:** `parity/fixtures/rw-tb-insert-right.docx`
-**Current parity:** GAP — 8 missing node(s), 5 fidelity warning(s)
+**Current parity:** GAP — 4 missing node(s), 4 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-insert-right): emit `body:gridCol[('w', '2336')]`
 - FR (tb-insert-right): emit `body:gridCol[('w', '2338')]`
-- FR (tb-insert-right): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-insert-right): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-insert-right): emit `body:tcW[('type', 'dxa'), ('w', '2336')]`
 - FR (tb-insert-right): emit `body:tcW[('type', 'dxa'), ('w', '2338')]`
-- FR (tb-insert-right): emit `styles:TableGrid:pPr[]`
-- FR (tb-insert-right): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-insert-right): stop emitting (or justify) `body:gridCol[('w', '1500')]`
-- FID (tb-insert-right): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-insert-right): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-insert-right): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '1500')]`
-- FID (tb-insert-right): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-insert-right): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3116')]`
+- FID (tb-insert-right): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2430,24 +2191,13 @@ python parity/engines/run.py --only tb-insert-right   # expect: semantic-pass, m
 **Goal:** make the clone's `Shading: fill caret cell #FFF2CC` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-shading-cell`
 **Ground truth:** `parity/fixtures/rw-tb-shading-cell.docx`
-**Current parity:** GAP — 9 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-shading-cell): emit `body:gridCol[('w', '3116')]`
-- FR (tb-shading-cell): emit `body:gridCol[('w', '3117')]`
 - FR (tb-shading-cell): emit `body:shd[('color', 'auto'), ('fill', 'FFF2CC'), ('val', 'clear')]`
-- FR (tb-shading-cell): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-shading-cell): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-shading-cell): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-shading-cell): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-shading-cell): emit `styles:TableGrid:pPr[]`
-- FR (tb-shading-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-shading-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-shading-cell): stop emitting (or justify) `body:shd[('fill', 'FFF2CC')]`
-- FID (tb-shading-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-shading-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2464,22 +2214,13 @@ python parity/engines/run.py --only tb-shading-cell   # expect: semantic-pass, m
 **Goal:** make the clone's `Sort: table rows by column 1 ascending` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-sort-col1`
 **Ground truth:** `parity/fixtures/rw-tb-sort-col1.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-sort-col1): emit `body:gridCol[('w', '3116')]`
-- FR (tb-sort-col1): emit `body:gridCol[('w', '3117')]`
-- FR (tb-sort-col1): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-sort-col1): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-sort-col1): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-sort-col1): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-sort-col1): emit `styles:TableGrid:pPr[]`
-- FR (tb-sort-col1): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-sort-col1): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-sort-col1): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-sort-col1): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2496,25 +2237,19 @@ python parity/engines/run.py --only tb-sort-col1   # expect: semantic-pass, miss
 **Goal:** make the clone's `Split Cells: 1 unmerged cell into 2 columns` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-split-cell`
 **Ground truth:** `parity/fixtures/rw-tb-split-cell.docx`
-**Current parity:** GAP — 9 missing node(s), 5 fidelity warning(s)
+**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-split-cell): emit `body:gridCol[('w', '1558')]`
-- FR (tb-split-cell): emit `body:gridCol[('w', '3117')]`
-- FR (tb-split-cell): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-split-cell): emit `body:tblW[('type', 'auto'), ('w', '0')]`
+- FR (tb-split-cell): emit `body:p[]`
+- FR (tb-split-cell): emit `body:tcPr[]`
 - FR (tb-split-cell): emit `body:tcW[('type', 'dxa'), ('w', '1558')]`
-- FR (tb-split-cell): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-split-cell): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-split-cell): emit `styles:TableGrid:pPr[]`
-- FR (tb-split-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- FR (tb-split-cell): emit `body:tc[]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-split-cell): stop emitting (or justify) `body:gridCol[('w', '1560')]`
-- FID (tb-split-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-split-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-split-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '1560')]`
-- FID (tb-split-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-split-cell): stop emitting (or justify) `body:gridCol[('w', '3116')]`
+- FID (tb-split-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3116')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2531,22 +2266,13 @@ python parity/engines/run.py --only tb-split-cell   # expect: semantic-pass, mis
 **Goal:** make the clone's `Split Table at row 2` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-split-table`
 **Ground truth:** `parity/fixtures/rw-tb-split-table.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-split-table): emit `body:gridCol[('w', '3116')]`
-- FR (tb-split-table): emit `body:gridCol[('w', '3117')]`
-- FR (tb-split-table): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-split-table): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-split-table): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-split-table): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-split-table): emit `styles:TableGrid:pPr[]`
-- FR (tb-split-table): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-split-table): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-split-table): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-split-table): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2563,19 +2289,13 @@ python parity/engines/run.py --only tb-split-table   # expect: semantic-pass, mi
 **Goal:** make the clone's `Table Style Options: Banded Columns ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-bandedcols-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-bandedcols-on.docx`
-**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-bandedcols-on): emit `body:gridCol[('w', '3116')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-bandedcols-on): emit `body:pPr[]`
-- FR (tb-styleopt-bandedcols-on): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-styleopt-bandedcols-on): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-bandedcols-on): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2592,19 +2312,13 @@ python parity/engines/run.py --only tb-styleopt-bandedcols-on   # expect: semant
 **Goal:** make the clone's `Table Style Options: Banded Rows OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-bandedrows-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-bandedrows-off.docx`
-**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-bandedrows-off): emit `body:gridCol[('w', '3116')]`
-- FR (tb-styleopt-bandedrows-off): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-bandedrows-off): emit `body:pPr[]`
-- FR (tb-styleopt-bandedrows-off): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-styleopt-bandedrows-off): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-styleopt-bandedrows-off): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-bandedrows-off): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2621,18 +2335,13 @@ python parity/engines/run.py --only tb-styleopt-bandedrows-off   # expect: seman
 **Goal:** make the clone's `Table Style Options: First Column OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-firstcol-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-firstcol-off.docx`
-**Current parity:** GAP — 5 missing node(s), 2 fidelity warning(s)
+**Current parity:** semantic-pass (fidelity-only) — 0 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-firstcol-off): emit `body:gridCol[('w', '3116')]`
-- FR (tb-styleopt-firstcol-off): emit `body:gridCol[('w', '3117')]`
-- FR (tb-styleopt-firstcol-off): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-styleopt-firstcol-off): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-styleopt-firstcol-off): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
+- _(none — clone already emits everything Word does)_
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-firstcol-off): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2649,19 +2358,13 @@ python parity/engines/run.py --only tb-styleopt-firstcol-off   # expect: semanti
 **Goal:** make the clone's `Table Style Options: Header Row OFF` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-headerrow-off`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-headerrow-off.docx`
-**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-headerrow-off): emit `body:gridCol[('w', '3116')]`
-- FR (tb-styleopt-headerrow-off): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-headerrow-off): emit `body:pPr[]`
-- FR (tb-styleopt-headerrow-off): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-styleopt-headerrow-off): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-styleopt-headerrow-off): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-headerrow-off): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2678,19 +2381,13 @@ python parity/engines/run.py --only tb-styleopt-headerrow-off   # expect: semant
 **Goal:** make the clone's `Table Style Options: Last Column ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-lastcol-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-lastcol-on.docx`
-**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-lastcol-on): emit `body:gridCol[('w', '3116')]`
-- FR (tb-styleopt-lastcol-on): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-lastcol-on): emit `body:pPr[]`
-- FR (tb-styleopt-lastcol-on): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-styleopt-lastcol-on): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-styleopt-lastcol-on): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-lastcol-on): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2707,19 +2404,13 @@ python parity/engines/run.py --only tb-styleopt-lastcol-on   # expect: semantic-
 **Goal:** make the clone's `Table Style Options: Total Row ON` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-styleopt-totalrow-on`
 **Ground truth:** `parity/fixtures/rw-tb-styleopt-totalrow-on.docx`
-**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-styleopt-totalrow-on): emit `body:gridCol[('w', '3116')]`
-- FR (tb-styleopt-totalrow-on): emit `body:gridCol[('w', '3117')]`
 - FR (tb-styleopt-totalrow-on): emit `body:pPr[]`
-- FR (tb-styleopt-totalrow-on): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-styleopt-totalrow-on): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-styleopt-totalrow-on): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-styleopt-totalrow-on): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2736,19 +2427,13 @@ python parity/engines/run.py --only tb-styleopt-totalrow-on   # expect: semantic
 **Goal:** make the clone's `Table Styles gallery: apply Grid Table 4 Accent 1` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-grid4a1`
 **Ground truth:** `parity/fixtures/rw-tb-style-grid4a1.docx`
-**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-style-grid4a1): emit `body:gridCol[('w', '3116')]`
-- FR (tb-style-grid4a1): emit `body:gridCol[('w', '3117')]`
 - FR (tb-style-grid4a1): emit `body:pPr[]`
-- FR (tb-style-grid4a1): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-style-grid4a1): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-style-grid4a1): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-style-grid4a1): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2765,19 +2450,13 @@ python parity/engines/run.py --only tb-style-grid4a1   # expect: semantic-pass, 
 **Goal:** make the clone's `Table Styles gallery: apply List Table 3` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-listtable3`
 **Ground truth:** `parity/fixtures/rw-tb-style-listtable3.docx`
-**Current parity:** GAP — 6 missing node(s), 2 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-style-listtable3): emit `body:gridCol[('w', '3116')]`
-- FR (tb-style-listtable3): emit `body:gridCol[('w', '3117')]`
 - FR (tb-style-listtable3): emit `body:pPr[]`
-- FR (tb-style-listtable3): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-style-listtable3): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-style-listtable3): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-style-listtable3): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-style-listtable3): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2794,24 +2473,14 @@ python parity/engines/run.py --only tb-style-listtable3   # expect: semantic-pas
 **Goal:** make the clone's `Table alignment: center` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-align-center`
 **Ground truth:** `parity/fixtures/rw-tb-align-center.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 2 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-align-center): emit `body:gridCol[('w', '3116')]`
-- FR (tb-align-center): emit `body:gridCol[('w', '3117')]`
 - FR (tb-align-center): emit `body:jc[('val', 'center')]`
-- FR (tb-align-center): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-align-center): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-align-center): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-align-center): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-align-center): emit `body:trPr[]`
-- FR (tb-align-center): emit `styles:TableGrid:pPr[]`
-- FR (tb-align-center): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-align-center): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-align-center): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-align-center): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```
@@ -2828,22 +2497,13 @@ python parity/engines/run.py --only tb-align-center   # expect: semantic-pass, m
 **Goal:** make the clone's `Table indent from left: 0.5 inch` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-indent-05in`
 **Ground truth:** `parity/fixtures/rw-tb-indent-05in.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 1 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-indent-05in): emit `body:gridCol[('w', '3116')]`
-- FR (tb-indent-05in): emit `body:gridCol[('w', '3117')]`
-- FR (tb-indent-05in): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-indent-05in): emit `body:tblW[('type', 'dxa'), ('w', '9350')]`
-- FR (tb-indent-05in): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-indent-05in): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-indent-05in): emit `styles:TableGrid:pPr[]`
-- FR (tb-indent-05in): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-indent-05in): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-indent-05in): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-indent-05in): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-indent-05in): stop emitting (or justify) `body:tblW[('type', 'auto'), ('w', '0')]`
 
 ### Acceptance (regression gate)
 ```
@@ -2860,27 +2520,17 @@ python parity/engines/run.py --only tb-indent-05in   # expect: semantic-pass, mi
 **Goal:** make the clone's `Text Direction: first click (caret cell)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-textdir`
 **Ground truth:** `parity/fixtures/rw-tb-textdir.docx`
-**Current parity:** GAP — 13 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 5 missing node(s), 0 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-textdir): emit `body:cantSplit[]`
-- FR (tb-textdir): emit `body:gridCol[('w', '3116')]`
-- FR (tb-textdir): emit `body:gridCol[('w', '3117')]`
 - FR (tb-textdir): emit `body:ind[('left', '113'), ('right', '113')]`
 - FR (tb-textdir): emit `body:pPr[]`
-- FR (tb-textdir): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-textdir): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-textdir): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
-- FR (tb-textdir): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-textdir): emit `body:trHeight[('val', '1134')]`
 - FR (tb-textdir): emit `body:trPr[]`
-- FR (tb-textdir): emit `styles:TableGrid:pPr[]`
-- FR (tb-textdir): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-textdir): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-textdir): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-textdir): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- _(none)_
 
 ### Acceptance (regression gate)
 ```

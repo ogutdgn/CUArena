@@ -4,30 +4,25 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 20,
-    "missing": 14,
-    "extra": 3
+    "match": 26,
+    "missing": 10,
+    "extra": 2
   },
   "missing_nodes": [
     "body:gridAfter[('val', '1')]",
     "body:gridCol[('w', '3115')]",
     "body:gridCol[('w', '3117')]",
     "body:p[]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'dxa'), ('w', '12466')]",
     "body:tcPr[]",
     "body:tcW[('type', 'dxa'), ('w', '3116')]",
-    "body:tcW[('type', 'dxa'), ('w', '3117')]",
     "body:tc[]",
     "body:trPr[]",
-    "body:wAfter[('type', 'dxa'), ('w', '3116')]",
-    "styles:TableGrid:pPr[]",
-    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    "body:wAfter[('type', 'dxa'), ('w', '3116')]"
   ],
   "extra_nodes": [
-    "body:gridCol[('w', '3120')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-    "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    "body:gridCol[('w', '3116')]",
+    "body:tblW[('type', 'auto'), ('w', '0')]"
   ],
   "part_counts": {},
   "id": "tb-insert-cells-right",

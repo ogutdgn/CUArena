@@ -4,23 +4,19 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 21,
-    "missing": 7,
-    "extra": 4
+    "match": 24,
+    "missing": 4,
+    "extra": 3
   },
   "missing_nodes": [
     "body:gridCol[('w', '3116')]",
     "body:gridCol[('w', '3117')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tcW[('type', 'pct'), ('w', '1666')]",
-    "body:tcW[('type', 'pct'), ('w', '1667')]",
-    "styles:TableGrid:pPr[]",
-    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    "body:tcW[('type', 'pct'), ('w', '1667')]"
   ],
   "extra_nodes": [
     "body:gridCol[('w', '3120')]",
     "body:tblLayout[('type', 'autofit')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
     "body:tcW[('type', 'dxa'), ('w', '3120')]"
   ],
   "part_counts": {},

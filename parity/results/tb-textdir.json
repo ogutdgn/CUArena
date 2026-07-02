@@ -4,37 +4,25 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 21,
-    "missing": 13,
-    "extra": 3
+    "match": 29,
+    "missing": 5,
+    "extra": 0
   },
   "missing_nodes": [
     "body:cantSplit[]",
-    "body:gridCol[('w', '3116')]",
-    "body:gridCol[('w', '3117')]",
     "body:ind[('left', '113'), ('right', '113')]",
     "body:pPr[]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
-    "body:tblW[('type', 'auto'), ('w', '0')]",
-    "body:tcW[('type', 'dxa'), ('w', '3116')]",
-    "body:tcW[('type', 'dxa'), ('w', '3117')]",
     "body:trHeight[('val', '1134')]",
-    "body:trPr[]",
-    "styles:TableGrid:pPr[]",
-    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    "body:trPr[]"
   ],
-  "extra_nodes": [
-    "body:gridCol[('w', '3120')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-    "body:tcW[('type', 'dxa'), ('w', '3120')]"
-  ],
+  "extra_nodes": [],
   "part_counts": {},
   "id": "tb-textdir",
   "control_id": "table-layout.alignment.textdir",
   "feature": "Text Direction: first click (caret cell)",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone H.tblTextDir hardwires 'tbRl'. Word first click = rotate 90 (wdTextOrientationDownward=3, tbRl expected -- VERIFY, D6.3 flag). Later clicks (btLr) are BEHAVIOR territory.",
+  "note": "Spec 033: Clone H.tblTextDir cycles horizontal->tbRl->btLr; the FIRST click on an un-rotated cell = tbRl (matches Word's first click = rotate 90, wdTextOrientationDownward=3). Later clicks (btLr) are BEHAVIOR territory.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

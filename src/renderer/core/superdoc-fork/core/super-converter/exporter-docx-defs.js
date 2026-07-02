@@ -948,6 +948,24 @@ export const DEFAULT_LINKED_STYLES = {
           'w:val': '000A29C3',
         },
       },
+      // MS-WORD-CLONE FORK EDIT (parity 034, user-authorized, DATA-ONLY): TableGrid style pPr/spacing
+      // to match the locked-build capture (FIX-1 GridTable4-Accent1 class). CT_Style child order is
+      // rsid→pPr→tblPr, so this pPr sits AFTER w:rsid and BEFORE w:tblPr.
+      {
+        type: 'element',
+        name: 'w:pPr',
+        elements: [
+          {
+            type: 'element',
+            name: 'w:spacing',
+            attributes: {
+              'w:after': '0',
+              'w:line': '240',
+              'w:lineRule': 'auto',
+            },
+          },
+        ],
+      },
       {
         type: 'element',
         name: 'w:tblPr',

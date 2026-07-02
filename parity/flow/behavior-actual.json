@@ -148,10 +148,18 @@
     },
     {
      "step": "{\"expect\":\"paintedCellCount\",\"equals\":6}",
-     "result": "FAIL(visible cells=0, want 6)"
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickItem\",\"match\":\"Insert Table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"dialogOpen\"}",
+     "result": "ok"
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   {
    "id": "tables/insert-grid-journey",
@@ -183,10 +191,42 @@
     },
     {
      "step": "{\"expect\":\"paintedCellCount\",\"equals\":6}",
-     "result": "FAIL(visible cells=0, want 6)"
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"tableExists\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"paintedCellCount\",\"equals\":9}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"caretInTable\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"caretInCell\",\"index\":0}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"tabShown\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"tabShown\",\"tab\":\"table-layout\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"activeTabIs\",\"tab\":\"table-design\"}",
+     "result": "ok"
     }
    ],
-   "verdict": "fail"
+   "verdict": "pass"
   },
   {
    "id": "tables/merge-split-journey",

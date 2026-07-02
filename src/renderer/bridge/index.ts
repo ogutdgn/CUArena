@@ -411,6 +411,8 @@ export function preinstallBridge() {
     tableSplit: () => false, tableToText: () => false, textToTable: () => false,
     tableSetTextDirection: () => false, tableAutoFit: () => false,
     tableSelectFirstRowPair: () => false,
+    // 034: insert-grid hover live preview pre-mount stubs (replaced by installTable on mount)
+    insertTablePreviewEnter: () => false, insertTablePreviewLeave: () => {},
     // 033 (PART A): Table Layout tab pre-mount stubs (replaced by installTable on mount)
     tableSelectScope: () => false, tableViewGridlines: () => false, tableGridlinesShown: () => false,
     tableSetCellAlign: () => false, tableRepeatHeaderRows: () => false, tableRepeatHeaderState: () => false,

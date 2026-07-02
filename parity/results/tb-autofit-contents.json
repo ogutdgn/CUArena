@@ -4,22 +4,18 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 20,
-    "missing": 6,
-    "extra": 4
+    "match": 23,
+    "missing": 3,
+    "extra": 3
   },
   "missing_nodes": [
     "body:gridCol[('w', '222')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'auto'), ('w', '0')]",
-    "body:tcW[('type', 'auto'), ('w', '0')]",
-    "styles:TableGrid:pPr[]",
-    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    "body:tcW[('type', 'auto'), ('w', '0')]"
   ],
   "extra_nodes": [
     "body:gridCol[('w', '240')]",
     "body:tblLayout[('type', 'autofit')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
     "body:tcW[('type', 'dxa'), ('w', '240')]"
   ],
   "part_counts": {},

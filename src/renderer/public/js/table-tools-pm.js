@@ -188,6 +188,9 @@
     const orig = WC.closeFlyouts;
     const wrapped = function () {
       try { if (WC.PM && WC.PM.active && WC.PM.ready && WC.PM.tableStylePreviewLeave) WC.PM.tableStylePreviewLeave(); } catch (e) { /* preview verb absent */ }
+      // Spec 034: closing any flyout (incl. dismissing the Insert-grid picker without a pick) must
+      // also cancel an active insert-grid hover preview so the transient table isn't left painted.
+      try { if (WC.PM && WC.PM.active && WC.PM.ready && WC.PM.insertTablePreviewLeave) WC.PM.insertTablePreviewLeave(); } catch (e) { /* preview verb absent */ }
       return orig.apply(this, arguments);
     };
     wrapped.__tblPreviewWrapped = true;

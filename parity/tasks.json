@@ -729,7 +729,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone 'All Borders' item: tableSetCellBorders 4 sides val=single color=000000 size=4. Word: caret in cell + ExecuteMso BordersAll (default 1/2pt auto pen)."
+      "note": "Clone 'All Borders' item (032 dropdown) → H.tblBordersApply top/bottom/left/right with the default pen (auto, sz4). Word: caret in cell + ExecuteMso BordersAll. NOTE: on a TableGrid table both write single/auto/4 borders that MATCH the style default — Word absorbs them (no tcBorders); the clone writes them explicit → an 'extra' fidelity note (D1.2 pass-with-note class), not a functional gap."
     },
     {
       "id": "tb-borders-none-cell",
@@ -739,7 +739,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone 'No Border': tableSetCellBorders({}) clears the override (style border stays). Word: ExecuteMso BorderNone writes per-side val=nil."
+      "note": "Clone 'No Border' (032): H.tblBordersApply writes explicit per-side val=nil (all six sides). Word: ExecuteMso BorderNone → per-side w:val=nil."
     },
     {
       "id": "tb-border-top-cell",
@@ -749,7 +749,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone Borders dropdown has only All/None -- per-edge unreachable. Word: Cell.Borders(wdBorderTop=-1).LineStyle=single."
+      "note": "Clone 'Top Border' (032 per-edge, merged): H.tblBordersApply({top: pen}). Word: Cell.Borders(wdBorderTop=-1).LineStyle=single."
     },
     {
       "id": "tb-border-diagdown-cell",
@@ -759,7 +759,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone unreachable (no diagonal items). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br."
+      "note": "Clone 'Diagonal Down Border' (032): H.tblBordersApply({tl2br: pen}). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br."
     },
     {
       "id": "tb-border-weight-3pt",
@@ -769,7 +769,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone has no Pen Weight control. Word: LineWidth=wdLineWidth300pt(24) -> w:sz=24 (eighth-points)."
+      "note": "Spec 032 T4: the Pen Weight control (H.tblLineWeight) sets tblPen.size; the Borders dropdown then draws with it. The pen-then-draw result is a top border at w:sz=24 (3pt = 24 eighth-points) — the probe drives that end state directly via H.tblBordersApply with an explicit sz=24 pen. Word: LineWidth=wdLineWidth300pt(24) -> w:sz=24."
     },
     {
       "id": "tb-border-color-red",
@@ -779,7 +779,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone has no Pen Color control. Word: Border.Color=RGB red -> w:color=FF0000."
+      "note": "Spec 032 T4: the Pen Color control (H.tblPenColor) sets tblPen.color; the Borders dropdown draws with it. The pen-then-draw result is a top border at w:color=FF0000 — the probe drives that end state directly via H.tblBordersApply with an explicit red pen. Word: Border.Color=RGB red -> w:color=FF0000."
     },
     {
       "id": "tb-insert-above",
@@ -979,7 +979,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Word 9-way = vAlign bottom + paragraph jc right. Clone has only 3 vAlign buttons -> vAlign applied, jc unreachable (partial gap)."
+      "note": "Spec 033: Word 9-way = vAlign bottom + paragraph jc right. Clone now has the 9-way grid -> tableSetCellAlign('bottom','right') writes BOTH (w:vAlign bottom + w:jc right). Reachable."
     },
     {
       "id": "tb-textdir",
@@ -989,7 +989,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone H.tblTextDir hardwires 'tbRl'. Word first click = rotate 90 (wdTextOrientationDownward=3, tbRl expected -- VERIFY, D6.3 flag). Later clicks (btLr) are BEHAVIOR territory."
+      "note": "Spec 033: Clone H.tblTextDir cycles horizontal->tbRl->btLr; the FIRST click on an un-rotated cell = tbRl (matches Word's first click = rotate 90, wdTextOrientationDownward=3). Later clicks (btLr) are BEHAVIOR territory."
     },
     {
       "id": "tb-cellmargins",
@@ -999,7 +999,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone flyout -> tableSetCellMargins per-CELL tcMar (24px=0.25in). Word Cell Margins = TABLE Options -> tblCellMar (paddings 18pt). Semantic scope difference expected."
+      "note": "Spec 033: Word Cell Margins (Table Options) sets TABLE-level default cell margins -> w:tblPr/w:tblCellMar. Clone now writes tableSetTableCellMargins (360 dxa = 0.25in all sides). Matches Word's scope."
     },
     {
       "id": "tb-sort-col1",
@@ -1009,7 +1009,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone has NO table Sort (Home Sort is paragraph-only). Word: fill c/b/a + Table.SortAscending. Values are DESCENDING so the sort reorders under BOTH header interpretations (first capture used b/a/c and SortAscending's auto-header kept it unchanged -> the action never happened). Doubles as the differ order-sensitivity canary (textOrder)."
+      "note": "Spec 033 PART B: Clone now has table Sort (WC.Dialogs.tableSort -> WC.PM.tableSort). Fill c/b/a down column 0, sort col 0 asc with hasHeader=true (Word's SortAscending() auto-detects the header row -> pins row 1 'c' and sorts rows 2-3 b/a -> a/b). Result textOrder = c,a,b, matching rw-tb-sort-col1. Doubles as the differ order-sensitivity canary (textOrder)."
     },
     {
       "id": "tb-repeatheader",
@@ -1019,7 +1019,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone 'Header Row' button does <th> conversion (toggleHeaderRow) -- NOT Word's w:trPr/w:tblHeader. Word: Rows(1).HeadingFormat=true. Semantics divergence expected."
+      "note": "Spec 033: Clone Repeat Header Rows writes the caret row's w:trPr/w:tblHeader (tableRepeatHeaderRows(true)) -- Word's real semantics (Rows(1).HeadingFormat=true), NOT the old <th> conversion."
     },
     {
       "id": "tb-totext-tab",
@@ -1039,7 +1039,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone has NO separator dialog -- the user gets tabs regardless. Word: ConvertToText(wdSeparateByCommas=2). Text-content mismatch expected."
+      "note": "Spec 033 PART B: Clone now has a separator dialog (WC.Dialogs.convertToText) — picking Commas calls WC.PM.tableToText(','), the exact call the dialog's OK makes. Word: ConvertToText(wdSeparateByCommas=2). Reachable now."
     },
     {
       "id": "tb-align-center",

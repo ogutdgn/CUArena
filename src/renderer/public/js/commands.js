@@ -106,7 +106,11 @@
   H.select = (c, node) => WC.Commands.dropdown(c, node);
 
   // ---- Insert ----
-  H.table = (c, node) => WC.Dialogs.insertTable();
+  // Spec 034: the ribbon Table button opens Word's dropdown (grid picker + Insert Table…/Draw/
+  // Convert/Quick Tables), NOT the dialog directly. The dialog stays reachable via the menu's
+  // 'Insert Table…' item. (Commands.run checks H[cmd] first, so this bypasses the ribbon-data
+  // dropdown dispatch — change H.table itself.)
+  H.table = (c, node) => WC.Insert.tableMenu(node);
 
   // ---- Table Tools (Table Layout + Table Design contextual tabs, PM-only) ----
   // These cmds live only on the runtime-injected contextual tabs (table-tools-pm.js),

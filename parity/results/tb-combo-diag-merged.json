@@ -4,26 +4,17 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 22,
-    "missing": 10,
-    "extra": 3
+    "match": 29,
+    "missing": 3,
+    "extra": 1
   },
   "missing_nodes": [
-    "body:gridCol[('w', '3116')]",
-    "body:gridCol[('w', '3117')]",
-    "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcBorders[]",
-    "body:tcW[('type', 'dxa'), ('w', '3116')]",
-    "body:tcW[('type', 'dxa'), ('w', '3117')]",
     "body:tcW[('type', 'dxa'), ('w', '6233')]",
-    "body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
-    "styles:TableGrid:pPr[]",
-    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    "body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"
   ],
   "extra_nodes": [
-    "body:gridCol[('w', '3120')]",
-    "body:tcW[('type', 'dxa'), ('w', '3120')]",
-    "body:tcW[('type', 'dxa'), ('w', '6240')]"
+    "body:tcW[('type', 'dxa'), ('w', '3116')]"
   ],
   "part_counts": {},
   "id": "tb-combo-diag-merged",

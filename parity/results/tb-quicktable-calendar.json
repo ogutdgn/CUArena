@@ -4,9 +4,9 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 7,
-    "missing": 98,
-    "extra": 16
+    "match": 9,
+    "missing": 96,
+    "extra": 19
   },
   "missing_nodes": [
     "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
@@ -53,9 +53,7 @@
     "body:t[]|text=S",
     "body:t[]|text=T",
     "body:t[]|text=W",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblStyle[('val', 'Calendar1')]",
-    "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcPr[]",
     "body:tcW[('type', 'dxa'), ('w', '5040')]",
     "body:tcW[('type', 'dxa'), ('w', '720')]",
@@ -110,9 +108,10 @@
   ],
   "extra_nodes": [
     "body:gridCol[('w', '1335')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:gridCol[('w', '1336')]",
     "body:tblStyle[('val', 'TableGrid')]",
     "body:tcW[('type', 'dxa'), ('w', '1335')]",
+    "body:tcW[('type', 'dxa'), ('w', '1336')]",
     "styles:TableGrid:@type=table",
     "styles:TableGrid:basedOn[('val', 'TableNormal')]",
     "styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
@@ -120,7 +119,9 @@
     "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "styles:TableGrid:name[('val', 'Table Grid')]",
+    "styles:TableGrid:pPr[]",
     "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
     "styles:TableGrid:tblBorders[]",
     "styles:TableGrid:tblPr[]",
     "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
