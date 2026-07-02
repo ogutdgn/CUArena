@@ -111,18 +111,18 @@ npm run build && npm run test:bundle        # renderer entry-size gate (4) — t
 ```
 
 <!-- SPECKIT START -->
-Current state (2026-06-25): **COMPLETENESS PASS — Home tab.** The paged migration + general-done cleanup (005–012)
-+ page-break work (013) are all merged & shipped to `main`. The Completeness Pass works the ribbon tab-by-tab
-(fix bugs → triage features → next tab). **Home bugs DONE & merged** (`fix(home)` @ `59be244`: shading scope RB-010,
-outline color RB-021, highlight 15-keyword RB-022, sentence-case RB-047, font-size 1–1638 RB-009/048; + sort-by-date).
-**Home features = build ALL non-stub gaps** (user decision): spec-kit features **015** Font advanced effects (in
-progress), **016** Paragraph dialog completeness, **017** List authoring, **018** Find/Replace advanced; plus a
-direct-TDD batch (underline color, multi-key sort, show/hide marks, Shift+F3, font-color gradient, create-a-style,
-selection pane, text-effects options, borders, font-name catalog). The 5 cloud/ML/Office.js stubs (Dictate,
-Sensitivity, Add-ins, Reuse Files, Editor cloud refinements) stay honest stubs.
+Current state (2026-07-02): **TABLES FIX LOOP (Phase B RATIFIED — PASS).** Branch `parity-v2`. The Tables
+pilot certified the 6-axis pipeline (all 5 known gaps rediscovered, zero false fulls, 6 pipeline bugs fixed
+in-run — see `parity/results/ACCEPTANCE_TABLES.md`). The user ordered the fix loop: 6 spec-kit features
+(030 style catalog+gallery+theme → 031 tblLook/cnfStyle+Style Options → 032 borders engine → 033 Layout tab
+completion → 034 Insert menu+defaults → 035 import losses+fidelity tail), each accepted by the CERTIFIED
+pipeline (`run.py --only`, twins/journeys, scorecard, VISUAL re-judge) + the 3 standing gates.
+Hybrid execution: Fable orchestrates/reviews; Opus subagents implement.
 
-Active spec-kit feature: **specs/015-font-effects/** ([plan.md](specs/015-font-effects/plan.md)) — make the Font
-dialog's 5 Advanced-tab effects (Small/All Caps, Scale, Spacing, Position) actually apply + export OOXML. Spike
-confirmed NO-FORK (3 via existing textStyle attrs; Small Caps + Scale via an owned addGlobalAttributes extension,
-the FontSize pattern). Sequencing/history: [docs/plan/last-point.md](docs/plan/last-point.md) (top).
+Active spec-kit feature: **specs/030-table-styles-gallery/** ([plan.md](specs/030-table-styles-gallery/plan.md))
+— 113 real-Word style defs (ground truth `parity/oracle/table_style_defs.json`) behind lazy bridge
+materialization around the fork's `setTableStyle`; ONE approved data-only fork edit (stale GT4A1 legacy
+literals in DEFAULT_LINKED_STYLES → locked-build values); Word's tile gallery (makeGalleryCarousel +
+archive c498c6b shapes) + addToHistory:false hover live-preview (style-preview.ts pattern).
+Sequencing/history: [docs/plan/last-point.md](docs/plan/last-point.md) (top).
 <!-- SPECKIT END -->
