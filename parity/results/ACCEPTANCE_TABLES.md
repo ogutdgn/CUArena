@@ -91,7 +91,7 @@ uniform 8-node base delta in EVERY table task — correct, since every clone tab
   compensated by BEHAVIOR twins measuring the real effect; a classifier upgrade is queued for
   Phase C.
 
-## VERDICT (pending user ratification)
+## VERDICT — USER-RATIFIED 2026-07-02
 
 **PASS.** All five named gaps independently rediscovered (each by ≥2 axes); zero false full-parity
 verdicts on spot-check; six pipeline bugs found by the pilot's own canaries were fixed and

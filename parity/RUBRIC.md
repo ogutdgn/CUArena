@@ -198,7 +198,7 @@ pass (sampled)") — never "behavior 100%". Every bug found anywhere becomes a n
 - Phase B acceptance (Tables pilot): the pipeline must independently rediscover the KNOWN
   Tables gaps (2/247 gallery, cnfStyle, Draw/Eraser/Painter stubs, Insert Cells…, label
   mismatches) with zero false full-parity verdicts on hand spot-checks.
-  **RESULT 2026-07-02: PASS (pending user ratification)** — all 5 named gaps rediscovered, each
+  **RESULT 2026-07-02: PASS — USER-RATIFIED 2026-07-02** (cards signed, verdict approved) — all 5 named gaps rediscovered, each
   by ≥2 axes; zero false fulls on spot-check; 6 pipeline bugs the pilot's own canaries caught
   were fixed and golden-locked in-run (differ text/order blindness, sort GT no-op, twin caret
   harness, visual capture ×3, scorecard gallery bar). Evidence:

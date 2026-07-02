@@ -2,7 +2,7 @@
   "id": "tables/insert-dropdown",
   "kind": "journey",
   "feature": "Table",
-  "signedOff": false,
+  "signedOff": true,
   "note": "Tables pilot flow #1: Insert > Table opens Word's dropdown; grid hover live-previews (RECORDED 2026-07-02 - label + in-document preview both confirmed); 'Insert Table' item opens the dialog. NOTE the clone's ribbon BUTTON click opens the dialog directly (H.table wiring gap, KNOWN_TRUTH section 6) - this card drives the dropdown path explicitly.",
   "steps": [
     {
@@ -44,5 +44,6 @@
     {
       "expect": "dialogOpen"
     }
-  ]
+  ],
+  "signedBy": "user 2026-07-02 (D6.1 ratification, with Phase B PASS)"
 }
