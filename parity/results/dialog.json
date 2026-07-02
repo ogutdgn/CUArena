@@ -1,0 +1,236 @@
+{
+ "rows": [
+  {
+   "key": "font",
+   "cloneFound": true,
+   "wordFound": true,
+   "status": "compared",
+   "matched": 16,
+   "missing": [
+    {
+     "name": "Underline color",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Ligatures",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Number spacing",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Number forms",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Stylistic sets",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Use Contextual Alternates",
+     "type": "CheckBox"
+    }
+   ],
+   "extra": [
+    "By:",
+    "By:",
+    "for fonts \u2265"
+   ],
+   "tabsMissing": [
+    "advanced",
+    "font"
+   ],
+   "tabsMatched": []
+  },
+  {
+   "key": "paragraph",
+   "cloneFound": true,
+   "wordFound": true,
+   "status": "compared",
+   "matched": 7,
+   "missing": [
+    {
+     "name": "Outline level",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Collapsed by default",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Special",
+     "type": "ComboBox"
+    },
+    {
+     "name": "By",
+     "type": "Spinner"
+    },
+    {
+     "name": "Mirror indents",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Line spacing",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Tabs...",
+     "type": "Button"
+    },
+    {
+     "name": "Widow/Orphan control",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Keep with next",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Keep lines together",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Page break before",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Suppress line numbers",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Don't hyphenate",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Tight wrap",
+     "type": "ComboBox"
+    }
+   ],
+   "extra": [
+    "By (in):"
+   ],
+   "tabsMissing": [
+    "indents and spacing",
+    "line and page breaks"
+   ],
+   "tabsMatched": []
+  },
+  {
+   "key": "findadv",
+   "cloneFound": true,
+   "wordFound": true,
+   "status": "compared",
+   "matched": 0,
+   "missing": [
+    {
+     "name": "Find what",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Replace with",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Search",
+     "type": "ComboBox"
+    },
+    {
+     "name": "Match case",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Find whole words only",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Use wildcards",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Sounds like (English)",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Find all word forms (English)",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Match prefix",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Match suffix",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Ignore punctuation characters",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Ignore white-space characters",
+     "type": "CheckBox"
+    },
+    {
+     "name": "Format",
+     "type": "Button"
+    },
+    {
+     "name": "Special",
+     "type": "Button"
+    },
+    {
+     "name": "No Formatting",
+     "type": "Button"
+    },
+    {
+     "name": "Replace",
+     "type": "Button"
+    },
+    {
+     "name": "Replace All",
+     "type": "Button"
+    },
+    {
+     "name": "Find Next",
+     "type": "Button"
+    }
+   ],
+   "extra": [
+    "\u2039",
+    "AaBbCcDdEeNormalAaBbCcDdEeNo SpacingAaBbCcDdEeHeading 1AaBbC",
+    "\u203a"
+   ],
+   "tabsMissing": [
+    "find",
+    "go to",
+    "replace"
+   ],
+   "tabsMatched": []
+  },
+  {
+   "key": "wordcount",
+   "cloneFound": true,
+   "wordFound": false,
+   "status": "no-word-dump"
+  },
+  {
+   "key": "paste_special",
+   "cloneFound": true,
+   "wordFound": false,
+   "status": "no-word-dump"
+  },
+  {
+   "key": "insert_table",
+   "cloneFound": true,
+   "wordFound": false,
+   "status": "no-word-dump"
+  },
+  {
+   "key": "page_setup",
+   "cloneFound": false,
+   "wordFound": false,
+   "status": "no-word-dump"
+  }
+ ]
+}

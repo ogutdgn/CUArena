@@ -63,13 +63,17 @@ Kills the "menu exists but has 2 of Word's 14 options" gap class.
 SCOPE: only dialogs belonging to the 111 locked features.
 BUILT (2026-07-01): clone side DONE (`dialog-fields-probe.js` — Font 21 fields / Paragraph 10 /
 Find / WordCount / PasteSpecial / InsertTable), differ DONE (`dialog_verify.py`, consumes Word
-dumps from `parity/oracle/dialogs/`). The Word UIA dump (`dump_dialog_uia.ps1`) is an
-INTERACTIVE-SESSION capture. PROVEN 2026-07-01 (4 mechanisms tried): ExecuteMso('FontDialog')
-DOES open the modal (blocks the caller), but a thread parked in ExecuteMso doesn't pump messages
-so the modal never registers with UIA (RootElement sees only 'Document1 - Word'); Start-Job
-isolates the window station; SendKeys needs foreground even with AttachThreadInput. ⇒ the field
-scrape needs a genuinely interactive desktop (live message pump). Grouped with the style catalog
-as the two "user-present" captures; the script is correct for that context, one idMso per run.
+dumps from `parity/oracle/dialogs/`). The Word dialog dump: the automated PowerShell host is NON-INTERACTIVE (5 mechanisms tried:
+ExecuteMso-in-runspace / SendKeys+AttachThreadInput / Start-Job / runspace-STA / job-holds-COM —
+all blocked; a thread parked in ExecuteMso doesn't pump messages so the modal never registers
+with UIA, and non-interactive PS can't synthesize input). ✅ SOLVED via **computer-use** (real OS
+input on the interactive desktop): open Word → type/select → Ctrl+D (or the ribbon launcher) →
+read the dialog via screenshot/zoom → write `parity/oracle/dialogs/<key>.json` → `dialog_verify.py`
+diffs. DONE 2026-07-01 for font / paragraph / findadv (Font 16-match/6-miss, Paragraph 7/14,
+findadv clone-pane-vs-Word-dialog); the missing sets MATCH the SCOPE_LOCKED hand-notes (Font
+Advanced OpenType, Paragraph's whole Line-and-Page-Breaks tab) — the pipeline independently
+rediscovered documented gaps. Remaining locked dialogs (wordcount/paste_special/insert_table/
+page_setup) capture the same way. `dump_dialog_uia.ps1` kept for a genuinely interactive terminal.
 
 **D2.3 — contextual tab sets: DEFERRED with a HARD GATE (user decision).** Picture Tools /
 Header & Footer Tools / Draw etc. are NOT mapped for the Tables pilot — **but mapping them is

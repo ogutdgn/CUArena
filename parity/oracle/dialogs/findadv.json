@@ -1,0 +1,26 @@
+{
+  "key": "findadv",
+  "title": "Find and Replace",
+  "_source": "computer-use UIA capture of real Word (build 16.0.20026), 2026-07-01 — Replace tab, expanded (More>>)",
+  "tabs": ["Find", "Replace", "Go To"],
+  "fields": [
+    { "name": "Find what", "type": "ComboBox" },
+    { "name": "Replace with", "type": "ComboBox" },
+    { "name": "Search", "type": "ComboBox" },
+    { "name": "Match case", "type": "CheckBox" },
+    { "name": "Find whole words only", "type": "CheckBox" },
+    { "name": "Use wildcards", "type": "CheckBox" },
+    { "name": "Sounds like (English)", "type": "CheckBox" },
+    { "name": "Find all word forms (English)", "type": "CheckBox" },
+    { "name": "Match prefix", "type": "CheckBox" },
+    { "name": "Match suffix", "type": "CheckBox" },
+    { "name": "Ignore punctuation characters", "type": "CheckBox" },
+    { "name": "Ignore white-space characters", "type": "CheckBox" },
+    { "name": "Format", "type": "Button" },
+    { "name": "Special", "type": "Button" },
+    { "name": "No Formatting", "type": "Button" },
+    { "name": "Replace", "type": "Button" },
+    { "name": "Replace All", "type": "Button" },
+    { "name": "Find Next", "type": "Button" }
+  ]
+}
