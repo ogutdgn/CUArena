@@ -34,7 +34,8 @@ ACTUAL = os.path.join(PAR, "flow", "scorecard-actual.json")
 RESULTS = os.path.join(PAR, "results")
 ELECTRON = os.path.join(ROOT, "node_modules", "electron", "dist", "electron.exe")
 
-PASS = {"OK_FLYOUT", "OK_DOC_CHANGED", "OK_INPUT", "DIALOG", "STUB_TOAST", "OK_GALLERY_INLINE"}
+PASS = {"OK_FLYOUT", "OK_DOC_CHANGED", "OK_INPUT", "DIALOG", "STUB_TOAST", "OK_GALLERY_INLINE",
+        "OK_CLIPBOARD", "OK_UI_EFFECT"}
 DEAD = {"DEAD_NO_OPTIONS", "DEAD_NO_FLYOUT", "NO_NODE"}
 SKIP = {"SKIPPED_NATIVE"}
 
@@ -49,16 +50,22 @@ def verdict(result):
     return "triage"
 
 
-def capture():
+def capture(deep=False):
+    probe = PROBE
+    if deep:
+        # D3.2 — deep mode flag rides an evalfile wrapper (the probe reads window.__SC_DEEP).
+        probe = os.path.join(PAR, "flow", "_scorecard-probe-deep.js")
+        with open(probe, "w", encoding="utf-8") as f:
+            f.write("window.__SC_DEEP = true;\n" + open(PROBE, encoding="utf-8").read())
     cmd = [ELECTRON, "--user-data-dir=C:/tmp/wc-scorecard-profile", "--disable-http-cache", ".",
-           f"--probe-out={ACTUAL}", f"--shot-evalfile={PROBE}"]
-    subprocess.run(cmd, cwd=ROOT, timeout=600, capture_output=True)
+           f"--probe-out={ACTUAL}", f"--shot-evalfile={probe}"]
+    subprocess.run(cmd, cwd=ROOT, timeout=3600 if deep else 600, capture_output=True)
 
 
 def main():
     args = sys.argv[1:]
-    if "--capture" in args or not os.path.exists(ACTUAL):
-        capture()
+    if "--capture" in args or "--deep" in args or not os.path.exists(ACTUAL):
+        capture(deep="--deep" in args)
     try:
         actual = json.load(open(ACTUAL, encoding="utf-8"))
     except Exception as e:
@@ -72,6 +79,12 @@ def main():
     for r in rows:
         r["verdict"] = verdict(r.get("result"))
     counts = {v: sum(1 for r in rows if r["verdict"] == v) for v in ("pass", "dead", "triage", "skip")}
+    # D3.2 deep mode: per-item results
+    item_rows = [(r, ir) for r in rows for ir in (r.get("itemResults") or [])]
+    icounts = {"pass": sum(1 for _, ir in item_rows if ir["result"].startswith(("OK_", "DIALOG", "STUB"))),
+               "silent": sum(1 for _, ir in item_rows if ir["result"] == "ITEM_SILENT"),
+               "error": sum(1 for _, ir in item_rows if ir["result"] in ("ERROR", "NO_NODE")),
+               "skip": sum(1 for _, ir in item_rows if ir["result"] == "SKIPPED_NATIVE")}
 
     os.makedirs(RESULTS, exist_ok=True)
     md = ["# Scorecard Ledger — every ribbon control clicked live\n",
@@ -79,7 +92,10 @@ def main():
           "scorecard (which caught the 6 dead dropdowns) to ALL tabs: each top-level control is",
           "clicked in the running app and classified by what actually happens.\n",
           f"**Totals ({len(rows)} controls):** pass {counts['pass']} · **dead {counts['dead']}** · "
-          f"triage {counts['triage']} · skipped-native {counts['skip']}\n"]
+          f"triage {counts['triage']} · skipped-native {counts['skip']}\n"
+          + (f"\n**Menu items (deep mode, {len(item_rows)} clicked):** pass {icounts['pass']} · "
+             f"**silent {icounts['silent']}** · error {icounts['error']} · skipped {icounts['skip']}\n"
+             if item_rows else "")]
     tabs = sorted({r["tab"] for r in rows})
     md += ["| Tab | pass | dead | triage | skip |", "|---|---|---|---|---|"]
     for t in tabs:
@@ -98,16 +114,26 @@ def main():
                 extra += f" err={r['err']}" if r.get("err") else ""
                 extra += f" items={r['itemCount']}" if r.get("itemCount") is not None else ""
                 md.append(f"- {r['tab']} · `{r['cmd']}` \"{r['label']}\" ({r['type']}) → {r['result']}{extra}")
+    dead_items = [(r, ir) for r, ir in item_rows if ir["result"] in ("ITEM_SILENT", "NO_NODE", "ERROR")]
+    if dead_items:
+        md.append("\n## Menu items needing a look (deep mode: silent / unfindable / error)\n")
+        for r, ir in dead_items:
+            md.append(f"- {r['tab']} · `{r['cmd']}` → \"{ir['label']}\" → {ir['result']}"
+                      + (f" ({ir.get('err')})" if ir.get("err") else ""))
     if actual.get("errors"):
         md.append("\n## Probe errors\n")
         md += [f"- {e}" for e in actual["errors"]]
     with open(os.path.join(RESULTS, "SCORECARD_LEDGER.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(md) + "\n")
     with open(os.path.join(RESULTS, "scorecard.json"), "w", encoding="utf-8") as f:
-        json.dump({"counts": counts, "controls": rows}, f, indent=1)
+        json.dump({"counts": counts, "item_counts": icounts if item_rows else None,
+                   "deep": bool(actual.get("deep")), "controls": rows}, f, indent=1)
 
     print(f"SCORECARD: pass {counts['pass']} / DEAD {counts['dead']} / triage {counts['triage']} "
           f"/ skip {counts['skip']} (of {len(rows)})")
+    if item_rows:
+        print(f"ITEMS (deep): pass {icounts['pass']} / SILENT {icounts['silent']} / "
+              f"error {icounts['error']} / skip {icounts['skip']} (of {len(item_rows)})")
     print("ledger: parity/results/SCORECARD_LEDGER.md")
     if counts["dead"] and "--report-only" not in args:
         return 1

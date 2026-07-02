@@ -8,8 +8,26 @@
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   for (let i = 0; i < 600 && !window.__WC_READY; i++) await sleep(50);
   const WC = window.WC, ed = () => WC.editor, TS = window.__PM_TextSelection;
-  const out = { ready: !!window.__WC_READY, controls: [], errors: [] };
+  const DEEP = !!window.__SC_DEEP;   // deep mode: also click every menu ITEM (D3.2)
+  const out = { ready: !!window.__WC_READY, deep: DEEP, controls: [], errors: [] };
   const docJson = () => JSON.stringify(ed().state.doc.toJSON());
+  // D3.3 — UI fingerprint: invisible-but-real effects (panes, view classes, zoom, selection,
+  // ruler) so working controls stop landing in SILENT.
+  const uiFingerprint = () => {
+    let sel = '';
+    try { sel = ed().state.selection.from + '-' + ed().state.selection.to; } catch (e) {}
+    const zoomEl = document.querySelector('#pages, .pages, .editor-scale');
+    return JSON.stringify({
+      body: document.body.className,
+      panes: document.querySelectorAll('.pane, .wc-pane, .task-pane, .sidebar, [data-pane], .wc-sidebar').length,
+      zoom: zoomEl ? (zoomEl.style.transform || '') + (zoomEl.style.zoom || '') : '',
+      ruler: !!document.querySelector('.ruler, .wc-ruler'),
+      sel,
+    });
+  };
+  const clipText = async () => { try { return await navigator.clipboard.readText(); } catch (e) { return null; } };
+  // Menu items that reach the native shell (file pickers etc.) — never click in deep mode.
+  const NATIVE_ITEM = /from file|this device|browse|open|save|print|excel spreadsheet/i;
 
   // Commands that reach the native shell / window chrome — never click these headlessly.
   const NATIVE = /^(open|save|saveas|savecopy|print|share|export|publish|closedoc|close|quit|exit|newblank|new|recent|fullscreen|focus(mode)?|zoomdialog|switchwindows|newwindow|dictate)$/i;
@@ -102,9 +120,37 @@
         rec.result = !fly ? (document.querySelector('.dialog, .wc-dialog, .modal') ? 'DIALOG' : 'DEAD_NO_FLYOUT')
           : dead ? 'DEAD_NO_OPTIONS'
             : (items.length > 0 || rich) ? 'OK_FLYOUT' : 'SUSPECT_EMPTY_FLYOUT';
+        // D3.2 deep mode — click every item of a healthy flyout, classify each.
+        if (DEEP && rec.result === 'OK_FLYOUT' && items.length > 0) {
+          rec.itemResults = [];
+          for (let ii = 0; ii < items.length; ii++) {
+            const ir = { label: items[ii] };
+            try {
+              if (NATIVE_ITEM.test(items[ii])) { ir.result = 'SKIPPED_NATIVE'; rec.itemResults.push(ir); continue; }
+              await freshDoc(needTable);
+              if (curTab !== tabId) { WC.Ribbon.activate(tabId); await sleep(100); curTab = tabId; }
+              try { WC.Commands.dropdown(c, elc); } catch (e) { elc.click(); }
+              await sleep(180);
+              const nodes = Array.from(document.querySelectorAll('.flyout .fly-item'));
+              const node = nodes.find((n) => (n.textContent || '').trim() === items[ii]) || nodes[ii];
+              if (!node) { ir.result = 'NO_NODE'; rec.itemResults.push(ir); continue; }
+              const b4 = docJson(); const fp4 = uiFingerprint();
+              node.click();
+              await sleep(220);
+              const dlg2 = document.querySelector('.dialog, .wc-dialog, .modal');
+              const toast2 = document.querySelector('.toast');
+              ir.result = dlg2 ? 'DIALOG' : (docJson() !== b4 ? 'OK_DOC_CHANGED'
+                : toast2 ? 'STUB_TOAST' : (uiFingerprint() !== fp4 ? 'OK_UI_EFFECT' : 'ITEM_SILENT'));
+              await closeAll();
+            } catch (e) { ir.result = 'ERROR'; ir.err = String(e && e.message); }
+            rec.itemResults.push(ir);
+          }
+        }
       } else if (c.type === 'combo' || c.type === 'spinner') {
         rec.result = (elc.querySelector('input, select') || /input|select/i.test(elc.tagName)) ? 'OK_INPUT' : 'SUSPECT_NO_INPUT';
       } else {
+        const fpBefore = uiFingerprint();
+        const clipBefore = /^(copy|cut)$/i.test(c.cmd) ? await clipText() : null;
         elc.click();
         await sleep(260);
         const dlg = document.querySelector('.dialog, .wc-dialog, .modal');
@@ -114,6 +160,14 @@
         rec.result = dlg ? 'DIALOG' : (after !== before ? 'OK_DOC_CHANGED'
           : toast ? 'STUB_TOAST' : fly ? 'OK_FLYOUT' : 'SILENT');
         if (toast) rec.toast = (toast.textContent || '').trim().slice(0, 80);
+        // D3.3 — SILENT rescue: clipboard readback, then the UI fingerprint.
+        if (rec.result === 'SILENT') {
+          if (/^(copy|cut)$/i.test(c.cmd)) {
+            const clipAfter = await clipText();
+            if (clipAfter !== null && clipAfter !== clipBefore && clipAfter.length > 0) rec.result = 'OK_CLIPBOARD';
+          }
+          if (rec.result === 'SILENT' && uiFingerprint() !== fpBefore) rec.result = 'OK_UI_EFFECT';
+        }
       }
       await closeAll();
     } catch (e) { rec.result = 'ERROR'; rec.err = String(e && e.message); }

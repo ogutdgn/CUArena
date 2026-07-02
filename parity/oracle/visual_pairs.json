@@ -1,0 +1,13 @@
+{
+  "_comment": "VISUAL axis pairs (rubric D5.1, priority level 1 = ribbon per tab; levels 2-4 menus/dialogs/document-result get added as capture probes land). golden:true pairs are the D5.3 trust gate — the judge must classify them correctly before real verdicts are accepted.",
+  "pairs": [
+    { "id": "g-identical", "golden": true, "expect": "pass",
+      "desc": "GOLDEN: the same Word capture twice — the judge MUST pass it" },
+    { "id": "g-different", "golden": true, "expect": "fail",
+      "desc": "GOLDEN: Word Home vs clone Home — known-different; the judge MUST fail it and list differences" },
+    { "id": "home", "wordTab": "Home", "cloneTab": "home", "cloneProbe": "shot-tab-probe.js",
+      "desc": "Home ribbon" },
+    { "id": "tabledesign", "wordTab": "Table Design", "cloneTab": "table-design", "cloneProbe": "../..//scripts/ribbon-shot-probe.js",
+      "desc": "Table Design ribbon" }
+  ]
+}

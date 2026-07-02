@@ -1,0 +1,21 @@
+{
+ "goldenPassed": true,
+ "verdicts": {
+  "g-identical": {
+   "verdict": "pass",
+   "reason": "pixel-identical (same capture twice)"
+  },
+  "g-different": {
+   "verdict": "fail",
+   "reason": "styles gallery previews differ (real styled names vs aBbCcDd cards); Editing group labeled vs icon-only; search box position; ribbon height/padding"
+  },
+  "home": {
+   "verdict": "fail",
+   "reason": "Word user notices at a glance: styles gallery (Word shows real styled previews incl Title/Subtitle, clone shows aBbCcDd cards w/ Heading 1-3), Editing group labels missing, File tab styling, search box placement, overall ribbon height"
+  },
+  "tabledesign": {
+   "verdict": "fail",
+   "reason": "clone tab nearly empty vs Word's full tab (style options checkboxes, 15+ style thumbnails, pen controls, Border Painter) \u2014 the honest v2 baseline after the tables archive"
+  }
+ }
+}
