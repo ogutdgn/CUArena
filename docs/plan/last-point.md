@@ -7,6 +7,31 @@
 
 ---
 
+## 2026-07-02 (FIX LOOP — FIX 4/6 COMPLETE: 033 Layout tab rebuilt to Word's 7 groups; all dialogs)
+
+> **Branch: `parity-v2` @ `f1017ea` (pushed).** FIX 4 (spec 033) done in 2 parts, ZERO fork edits (all
+> NO-FORK — the whole build existed in the archive; Select via bridge TableMap math, shift-cells honest-degrade).
+> - **Part A** (`ae1607d`): layoutTab() rebuilt to Word's 7 groups (Table/Rows&Cols/Merge/Cell Size/Alignment/
+>   Data/Draw); 7 new NO-FORK bridge verbs (tableSelectScope, tableViewGridlines, tableSetCellAlign,
+>   tableRepeatHeaderRows→w:tblHeader, tableSetTableCellMargins→w:tblCellMar, tableTextDirectionCycle,
+>   tableColumns); removed misplaced Header Row/Col. **STRUCTURE table-layout matched 13→34, missing 16→1,
+>   label-differs 5→0, type-mismatch 1→0.**
+> - **Part B** (`f1017ea`): 6 dialogs (tableProperties/tableSort/tableFormula/tableOptions/insertCells/
+>   convertToText) + splitCells; tableSort + tableFormula bridge verbs. Wired H.tblToText/CellMargins/
+>   SplitCell to the dialogs. tb-sort-col1 now REORDERS (textOrder matches Word).
+> - **OOXML clean on delta:** repeatheader (tblHeader), cellalign (vAlign+jc), cellmargins (table tblCellMar),
+>   sort (reorder). Gates pm 546→552 · roundtrip 27/0 · bundle 4/4.
+> - **PIPELINE/HONESTY:** the FIX-3 harness fix (twins read the painter) exposed that vAlign/row-height/
+>   text-direction are written correctly to OOXML but NOT reflected by the paged painter — recorded as a
+>   cross-cutting LAYOUT-ENGINE gap (parity/knowledge/paged-painter-cell-paint-gaps.md), NOT a table gap.
+>   Those twins stay honest FAILs. Also honest: Alt-Text persist + true shift-cells need new verbs (deferred);
+>   grid-hover preview = FIX 5.
+>
+> **NEXT: FIX 5 (spec 034)** — Insert menu wiring (H.table opens the DROPDOWN not the dialog; grid-hover LIVE
+> preview; post-insert Table Design activation), Insert Table dialog AutoFit radios, and the insert-time OOXML
+> DEFAULTS (tblLook val 04A0, tblW auto, gridCol uneven widths, TableGrid pPr spacing) — the F-class base delta
+> in EVERY table task. This closes most of the remaining per-task 'missing' counts across ALL Tables OOXML tasks.
+
 ## 2026-07-02 (FIX LOOP — FIX 3/6 COMPLETE: 032 borders engine SHIPPED; collapse paint bug closed + a pipeline harness fix)
 
 > **Branch: `parity-v2` @ `8298933` (pushed).** FIX 3 (spec 032) done in 3 parts (2 fork edits, plan-authorized).
