@@ -218,8 +218,10 @@ T.append(dict(
 T.append(dict(
     id="tb-border-weight-3pt", feature="Border pen weight 3pt (top edge)",
     control_id="table-design.borders.penweight",
-    note="Clone has no Pen Weight control. Word: LineWidth=wdLineWidth300pt(24) -> w:sz=24 (eighth-points).",
-    wc=WC_BASE + "\n" + unreachable("no Pen Weight control (Borders group absent)"),
+    note="Spec 032 T4: the Pen Weight control (H.tblLineWeight) sets tblPen.size; the Borders dropdown then draws with it. The pen-then-draw result is a top border at w:sz=24 (3pt = 24 eighth-points) — the probe drives that end state directly via H.tblBordersApply with an explicit sz=24 pen. Word: LineWidth=wdLineWidth300pt(24) -> w:sz=24.",
+    wc=WC_BASE + """
+    caretIntoCell(0);
+    out.borders = window.WC.Commands.H.tblBordersApply({ top: { val: 'single', color: 'auto', size: 24, space: 0 } });""",
     rw=RW_BASE + """
     $b = $tbl.Cell(1, 1).Borders(-1)
     $b.LineStyle = 1
@@ -228,8 +230,10 @@ T.append(dict(
 T.append(dict(
     id="tb-border-color-red", feature="Border pen color red (top edge)",
     control_id="table-design.borders.pencolor",
-    note="Clone has no Pen Color control. Word: Border.Color=RGB red -> w:color=FF0000.",
-    wc=WC_BASE + "\n" + unreachable("no Pen Color control (Borders group absent)"),
+    note="Spec 032 T4: the Pen Color control (H.tblPenColor) sets tblPen.color; the Borders dropdown draws with it. The pen-then-draw result is a top border at w:color=FF0000 — the probe drives that end state directly via H.tblBordersApply with an explicit red pen. Word: Border.Color=RGB red -> w:color=FF0000.",
+    wc=WC_BASE + """
+    caretIntoCell(0);
+    out.borders = window.WC.Commands.H.tblBordersApply({ top: { val: 'single', color: 'FF0000', size: 4, space: 0 } });""",
     rw=RW_BASE + """
     $b = $tbl.Cell(1, 1).Borders(-1)
     $b.LineStyle = 1

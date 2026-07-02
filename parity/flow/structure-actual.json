@@ -2443,12 +2443,53 @@
        "label": "Shading",
        "type": "dropdown",
        "items": null
+      }
+     ],
+     "launcher": null
+    },
+    {
+     "name": "Borders",
+     "controls": [
+      {
+       "id": null,
+       "cmd": "tblBorderStyles",
+       "label": "Border Styles",
+       "type": "dropdown",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblLineStyle",
+       "label": "Pen Style",
+       "type": "dropdown",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblLineWeight",
+       "label": "Pen Weight",
+       "type": "dropdown",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblPenColor",
+       "label": "Pen Color",
+       "type": "dropdown",
+       "items": null
       },
       {
        "id": null,
        "cmd": "tblBorders",
        "label": "Borders",
        "type": "dropdown",
+       "items": null
+      },
+      {
+       "id": null,
+       "cmd": "tblBorderPainter",
+       "label": "Border Painter",
+       "type": "toggle",
        "items": null
       }
      ],

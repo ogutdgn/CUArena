@@ -4,8 +4,8 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 20,
-    "missing": 10,
+    "match": 22,
+    "missing": 8,
     "extra": 3
   },
   "missing_nodes": [
@@ -13,10 +13,8 @@
     "body:gridCol[('w', '3117')]",
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'auto'), ('w', '0')]",
-    "body:tcBorders[]",
     "body:tcW[('type', 'dxa'), ('w', '3116')]",
     "body:tcW[('type', 'dxa'), ('w', '3117')]",
-    "body:top[('color', 'FF0000'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "styles:TableGrid:pPr[]",
     "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
   ],
@@ -31,7 +29,7 @@
   "feature": "Border pen color red (top edge)",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone has no Pen Color control. Word: Border.Color=RGB red -> w:color=FF0000.",
+  "note": "Spec 032 T4: the Pen Color control (H.tblPenColor) sets tblPen.color; the Borders dropdown draws with it. The pen-then-draw result is a top border at w:color=FF0000 — the probe drives that end state directly via H.tblBordersApply with an explicit red pen. Word: Border.Color=RGB red -> w:color=FF0000.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

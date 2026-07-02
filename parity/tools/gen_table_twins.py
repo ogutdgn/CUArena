@@ -83,6 +83,21 @@ TWINS.append(twin("tb-borders-none-cell",
         {"expect": "coloredEdgeGone", "color": "255,\s*0,\s*0", "minPx": 2},
     ]))
 
+TWINS.append(twin("tb-border-painter",
+    "Spec 032 T4 — BORDER PAINTER MODE (the real per-edge paint). Set a THICK RED pen (Pen Weight 3pt + Pen Color red via the real Borders-group dropdowns), toggle Border Painter ON, then click the MIDDLE cell's BOTTOM edge on the painted page. The painter hit-tests the click to that one edge and applies the pen. The collapse pre-pass draws each cell's top+left only, so cell 4's painted BOTTOM shows as the below-cell's TOP — >=1 red Top edge at >=2px proves the painter painted exactly that one side with the active pen (not All-Borders, not a no-op).",
+    INSERT_33 + [
+        {"do": "caretIntoCellModel", "index": 4},
+        {"do": "activateTab", "tab": "table-design"},
+        {"do": "openDropdown", "cmd": "tblLineWeight"},
+        {"do": "clickItem", "match": "3 pt"},
+        {"do": "openDropdown", "cmd": "tblPenColor"},
+        {"do": "clickSelector", "sel": '.flyout .color-swatch[title="#FF0000"]', "waitMs": 200},
+        {"do": "clickCmd", "cmd": "tblBorderPainter"},
+        {"do": "painterEdgeClick", "index": 4, "side": "bottom"},
+        {"expect": "coloredEdgeCount", "side": "top", "color": "255,\\s*0,\\s*0", "minPx": 2, "min": 1},
+        {"do": "clickCmd", "cmd": "tblBorderPainter"},
+    ]))
+
 for tid, cmd in [("tb-insert-above", "tblInsertAbove"), ("tb-insert-below", "tblInsertBelow"),
                  ("tb-insert-left", "tblInsertLeft"), ("tb-insert-right", "tblInsertRight")]:
     TWINS.append(twin(tid,

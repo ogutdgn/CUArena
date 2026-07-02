@@ -161,7 +161,12 @@
 .rbtn:hover { background: var(--btn-hover); border-color: var(--btn-border); }
 .rbtn:active { background: var(--btn-pressed); }
 .rbtn.toggled { background: var(--btn-toggled); border-color: var(--btn-toggled-border); }
+/* Spec 032 T4: Border Painter is a MODE toggle — latch the button while active (reuse the toggled look). */
+.rbtn.painter-active { background: var(--btn-toggled); border-color: var(--btn-toggled-border); }
 .rbtn[disabled], .rbtn.disabled { opacity: .4; pointer-events: none; }
+/* While Border Painter is armed the painted page shows a crosshair (Word's pen cursor) over the cells. */
+.presentation-editor__pages.painter-active,
+.presentation-editor__pages.painter-active * { cursor: crosshair !important; }
 
 /* large vertical button (icon over 1-2 line label) */
 .rbtn.large {

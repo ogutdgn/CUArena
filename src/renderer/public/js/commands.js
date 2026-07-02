@@ -115,8 +115,9 @@
   // Spec 032: the shared active border pen (Word's Border Styles / Line Style / Line Weight / Pen Color set
   // it; the Borders dropdown draws with it; Border Painter paints with it). DEFINED ONCE here so T3's dropdown
   // and T4's pen-setter handlers reference the SAME object (coordinate: single source of truth). Default =
-  // Word's ½pt single auto (size is eighths-of-a-point → 4 = 0.5pt). B() below reads it.
-  const tblPen = { val: 'single', size: 4, color: 'auto' };
+  // Word's ½pt single auto (size is eighths-of-a-point → 4 = 0.5pt). B() below reads it. themeColor carries a
+  // Theme-Colors Pen-Color pick (null → dropped on export; a resolved hex is always kept in .color).
+  const tblPen = { val: 'single', size: 4, color: 'auto', themeColor: null };
   H.tblInsertAbove = () => { const p = TPM(); if (p) p.tableAddRow('above'); };
   H.tblInsertBelow = () => { const p = TPM(); if (p) p.tableAddRow('below'); };
   H.tblInsertLeft = () => { const p = TPM(); if (p) p.tableAddColumn('left'); };
@@ -241,7 +242,12 @@
   // writes the whole object via tableSetCellBorders (a full REPLACE at the fork, so we must supply the merged
   // result — otherwise a single-edge click would wipe the other edges). No Border writes explicit per-side nil.
   // The merge logic is factored into H.tblBordersApply so the pm test can drive it directly.
-  const B = () => ({ val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0 });
+  // themeColor is only carried when a Theme-Colors swatch was picked (else null → the exporter drops it).
+  const B = () => {
+    const b = { val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0 };
+    if (tblPen.themeColor) b.themeColor = tblPen.themeColor;
+    return b;
+  };
   // Word's No-Border side = a bare <w:*  w:val="nil"/> (no sz/space/color) — keep NIL minimal so the
   // exported attribute shape matches Word exactly (a sz=0/color=auto nil reads as a fidelity 'extra').
   const NIL = () => ({ val: 'none' });
@@ -278,6 +284,110 @@
     // if present, else the honest not-implemented toast.
     fly.appendChild(WC.flyItem('Borders and Shading…', { onClick: () => { if (WC.Dialogs && WC.Dialogs.bordersAndShading) WC.Dialogs.bordersAndShading(); else WC.notImplemented('Borders and Shading'); } }));
   });
+  // ---- Spec 032 T4: the Borders-group PEN setters (Word: Border Styles / Pen Style / Pen Weight / Pen Color).
+  // Each MUTATES tblPen ONLY — no document write. The Borders dropdown + Border Painter then draw with B().
+  // Pen Style (Word label; internally a Line-Style list) → tblPen.val (OOXML ST_Border w:val tokens).
+  H.tblLineStyle = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Pen Style'));
+    [['Single', 'single'], ['Double', 'double'], ['Dotted', 'dotted'], ['Dashed', 'dashed'],
+      ['Dot Dash', 'dotDash'], ['Thick', 'thick'], ['Wave', 'wave'], ['No Border', 'nil']]
+      .forEach(([label, val]) => fly.appendChild(WC.flyItem(label, { checkable: true, checked: tblPen.val === val, onClick: () => { tblPen.val = val; } })));
+  });
+  // Pen Weight (Word label) → tblPen.size in EIGHTH-points (w:sz units): ¼pt=2, ½pt=4, ¾pt=6, 1pt=8 … 6pt=48.
+  H.tblLineWeight = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Pen Weight'));
+    [['¼ pt', 2], ['½ pt', 4], ['¾ pt', 6], ['1 pt', 8], ['1½ pt', 12], ['2¼ pt', 18], ['3 pt', 24], ['4½ pt', 36], ['6 pt', 48]]
+      .forEach(([label, sz]) => fly.appendChild(WC.flyItem(label, { checkable: true, checked: tblPen.size === sz, onClick: () => { tblPen.size = sz; } })));
+  });
+  // Pen Color (Word label). Word's Pen Color IS the theme/standard palette (WC.colorPalette). A Theme-Colors
+  // pick records the slot on the pen (→ <w:*  w:themeColor="accentN">); a plain/Automatic pick clears it.
+  H.tblPenColor = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.colorPalette((color, label, themeMeta) => {
+      if (!color || color === 'auto' || color === 'inherit') { tblPen.color = 'auto'; tblPen.themeColor = null; return; }
+      tblPen.color = String(color).replace(/^#/, '').toUpperCase();
+      tblPen.themeColor = (themeMeta && themeMeta.themeColor) || null;
+    }, { automatic: true, autoValue: 'auto', autoLabel: 'Automatic' }));
+  });
+  // Border Styles (Word label) — a gallery of preset PENS. Each pick sets all three tblPen fields at once.
+  H.tblBorderStyles = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Border Styles'));
+    [['Single, ½ pt', 'single', 4, 'auto'], ['Single, 1 pt', 'single', 8, 'auto'], ['Single, 2¼ pt', 'single', 18, 'auto'],
+      ['Double, ¾ pt', 'double', 6, 'auto'], ['Thick, 3 pt', 'single', 24, 'auto'], ['Dashed, ½ pt', 'dashed', 4, 'auto']]
+      .forEach(([label, val, sz, col]) => fly.appendChild(WC.flyItem(label, { onClick: () => { tblPen.val = val; tblPen.size = sz; tblPen.color = col; tblPen.themeColor = null; } })));
+  });
+  // ---- Border Painter (Word: a MODE — click a rendered cell EDGE to paint just that side with the active pen).
+  // Mirrors Insert.drawTableMode's mousedown/cursor interaction. The paged engine paints cells as <div>s under
+  // .superdoc-table-fragment inside .presentation-editor__pages; we hit-test the click against the nearest cell's
+  // border box and pick the closest edge (within EDGE_PX), map that cell to its caret, and apply B() to that one
+  // side via H.tblBordersApply({<side>: B()}). Toggling off restores the cursor + removes the listener.
+  let painterOn = false;
+  let painterCleanup = null;
+  let painterBtn = null;
+  const EDGE_PX = 6;
+  // Which of the caret cells (model order) does DOM cell #domIndex correspond to? The painter's cell <div>s and
+  // the model tableCell nodes are in the same row-major order, so caret-into-cell #domIndex targets the right cell.
+  const seatCaretInCell = (domIndex) => {
+    const ed = WC.editor;
+    if (!ed) return false;
+    const ps = [];
+    ed.state.doc.descendants((n, pos) => { if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') ps.push(pos); });
+    if (domIndex < 0 || domIndex >= ps.length) return false;
+    const $p = ed.state.doc.resolve(ps[domIndex] + 1);
+    const SelCls = ed.state.selection.constructor;
+    ed.view.dispatch(ed.state.tr.setSelection(SelCls.near($p)));
+    return true;
+  };
+  // The painted cell <div>s (row-major), same set the behavior probe reads.
+  const paintedCellDivs = () => {
+    const host = document.querySelector('.presentation-editor__pages');
+    if (!host) return [];
+    const cells = []; const seen = new Set();
+    host.querySelectorAll('.superdoc-table-fragment').forEach((f) => Array.from(f.children).forEach((n) => {
+      if (n.tagName !== 'DIV') return;
+      const r = n.getBoundingClientRect();
+      const key = Math.round(r.x) + ',' + Math.round(r.y);
+      if (r.width > 40 && r.height > 8 && r.x > 0 && !seen.has(key)) { seen.add(key); cells.push(n); }
+    }));
+    return cells;
+  };
+  H.tblBorderPainter = (c, node) => {
+    if (painterOn) { if (painterCleanup) painterCleanup(); return; }
+    const host = document.querySelector('.presentation-editor__pages') || document.getElementById('canvas');
+    if (!host) { WC.toast('Border Painter needs a rendered table — insert a table first.'); return; }
+    painterOn = true;
+    painterBtn = node || document.querySelector('[data-cmd="tblBorderPainter"]');
+    if (painterBtn) painterBtn.classList.add('painter-active');
+    host.classList.add('painter-active');
+    host.style.cursor = 'crosshair';
+    WC.toast('Border Painter: click a cell edge to paint it with the current pen; click Border Painter again to stop.');
+    const onDown = (e) => {
+      const cells = paintedCellDivs();
+      // Find the cell whose border box the click is inside (or nearest to), then the closest edge.
+      let best = null; // { index, side, dist }
+      cells.forEach((cell, i) => {
+        const r = cell.getBoundingClientRect();
+        // Only consider clicks within the cell's expanded box (edge slop).
+        if (e.clientX < r.left - EDGE_PX || e.clientX > r.right + EDGE_PX || e.clientY < r.top - EDGE_PX || e.clientY > r.bottom + EDGE_PX) return;
+        const dTop = Math.abs(e.clientY - r.top), dBottom = Math.abs(e.clientY - r.bottom);
+        const dLeft = Math.abs(e.clientX - r.left), dRight = Math.abs(e.clientX - r.right);
+        const edges = [['top', dTop], ['bottom', dBottom], ['left', dLeft], ['right', dRight]];
+        edges.forEach(([side, dist]) => { if (dist <= EDGE_PX && (!best || dist < best.dist)) best = { index: i, side, dist }; });
+      });
+      if (!best) return; // click was not near any edge — ignore (do not swallow so caret can still move)
+      e.preventDefault(); e.stopPropagation();
+      if (seatCaretInCell(best.index)) H.tblBordersApply({ [best.side]: B() });
+    };
+    host.addEventListener('mousedown', onDown, true);
+    painterCleanup = () => {
+      painterOn = false;
+      host.style.cursor = '';
+      host.classList.remove('painter-active');
+      if (painterBtn) painterBtn.classList.remove('painter-active');
+      painterBtn = null;
+      host.removeEventListener('mousedown', onDown, true);
+      painterCleanup = null;
+    };
+  };
   H.tblAutoFit = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('AutoFit'));
     [['AutoFit Contents', 'contents'], ['AutoFit Window', 'window'], ['Fixed Column Width', 'fixed']]
@@ -1918,8 +2028,11 @@
       // Insert tab dropdowns / split arrows
       if (cmd === 'coverPage') return WC.Insert.coverPageMenu(node);
       if (cmd === 'table') return WC.Insert.tableMenu(node);
-      // Table Tools contextual-tab dropdowns (style gallery / shading / borders / autofit / cell size)
-      if (cmd === 'tblStyles' || cmd === 'tblShading' || cmd === 'tblBorders' || cmd === 'tblAutoFit' || cmd === 'tblRowHeight' || cmd === 'tblColWidth' || cmd === 'tblIndent') return H[cmd](control, node);
+      // Table Tools contextual-tab dropdowns route straight to their H[cmd] flyout builder. Any tbl* command
+      // whose control TYPE is 'dropdown' belongs here (spec 032 added the Borders-group pen dropdowns:
+      // tblBorderStyles / tblLineStyle / tblLineWeight / tblPenColor). The generic type test keeps this branch
+      // from going stale as more tbl* dropdowns land (tblBorderPainter is a 'toggle', not a dropdown → excluded).
+      if (/^tbl/.test(cmd) && control.type === 'dropdown' && typeof H[cmd] === 'function') return H[cmd](control, node);
       if (cmd === 'pictures') return picturesMenu(node);
       if (cmd === 'shapes') return WC.Insert.shapesMenu(node);
       if (cmd === 'screenshot') return screenshotMenu(node);

@@ -1,12 +1,12 @@
 {
  "totals": {
-  "matched": 199,
+  "matched": 204,
   "label_differs": 32,
   "type_mismatch": 6,
-  "missing": 57,
+  "missing": 52,
   "extra": 13,
   "items_matched": 176,
-  "items_missing": 65,
+  "items_missing": 67,
   "items_extra": 112,
   "items_skipped": 3
  },
@@ -4920,6 +4920,36 @@
    "matched": [
     {
      "word": {
+      "idMso": "TableDrawBorderPenStyle",
+      "label": "Pen Style",
+      "type": "dropDown",
+      "group": "GroupTableBorders"
+     },
+     "clone": {
+      "cmd": "tblLineStyle",
+      "label": "Pen Style",
+      "type": "dropdown",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "TableDrawBorderPenWeight",
+      "label": "Pen Weight",
+      "type": "dropDown",
+      "group": "GroupTableBorders"
+     },
+     "clone": {
+      "cmd": "tblLineWeight",
+      "label": "Pen Weight",
+      "type": "dropdown",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
       "idMso": "TableStyleHeaderRowWord",
       "label": "Header Row",
       "type": "checkBox",
@@ -5032,6 +5062,34 @@
     },
     {
      "word": {
+      "idMso": "BorderStylesGallery",
+      "label": "Border Styles",
+      "type": "gallery",
+      "group": "GroupTableBorders"
+     },
+     "clone": {
+      "cmd": "tblBorderStyles",
+      "label": "Border Styles",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "BorderColorPicker",
+      "label": "Pen Color",
+      "type": "gallery",
+      "group": "GroupTableBorders"
+     },
+     "clone": {
+      "cmd": "tblPenColor",
+      "label": "Pen Color",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
       "idMso": "BordersSelectionGallery",
       "label": "Borders",
       "type": "gallery",
@@ -5043,41 +5101,25 @@
       "type": "dropdown",
       "items": null
      }
+    },
+    {
+     "word": {
+      "idMso": "TablePaintBorder",
+      "label": "Border Painter",
+      "type": "toggleButton",
+      "group": "GroupTableBorders"
+     },
+     "clone": {
+      "cmd": "tblBorderPainter",
+      "label": "Border Painter",
+      "type": "toggle",
+      "items": null
+     }
     }
    ],
    "label_differs": [],
    "type_mismatch": [],
    "missing": [
-    {
-     "idMso": "BorderStylesGallery",
-     "label": "Border Styles",
-     "type": "gallery",
-     "group": "GroupTableBorders"
-    },
-    {
-     "idMso": "TableDrawBorderPenStyle",
-     "label": "Pen Style",
-     "type": "dropDown",
-     "group": "GroupTableBorders"
-    },
-    {
-     "idMso": "TableDrawBorderPenWeight",
-     "label": "Pen Weight",
-     "type": "dropDown",
-     "group": "GroupTableBorders"
-    },
-    {
-     "idMso": "BorderColorPicker",
-     "label": "Pen Color",
-     "type": "gallery",
-     "group": "GroupTableBorders"
-    },
-    {
-     "idMso": "TablePaintBorder",
-     "label": "Border Painter",
-     "type": "toggleButton",
-     "group": "GroupTableBorders"
-    },
     {
      "idMso": "BordersShadingDialogWord",
      "label": "Borders and Shading...",
@@ -5158,6 +5200,38 @@
      "parent": "ShadingColorPicker",
      "wordLabel": "Shading",
      "cloneCmd": "tblShading",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "TableSampleBorder",
+       "label": "Border Sampler",
+       "type": "toggleButton"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "BorderStylesGallery",
+     "wordLabel": "Border Styles",
+     "cloneCmd": "tblBorderStyles",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "BorderMoreColorsDialog",
+       "label": "More Colors...",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "BorderColorPicker",
+     "wordLabel": "Pen Color",
+     "cloneCmd": "tblPenColor",
      "wordChildCount": 1
     },
     {

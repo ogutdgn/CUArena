@@ -171,6 +171,26 @@
               const ok = WC.PM.tableSetCellBorders(step.spec || {});
               lastDoc = docJson(); await sleep(400);
               sr.extra = { ok };
+            } else if (step.do === 'painterEdgeClick') {
+              // Spec 032 T4 — Border Painter mode: dispatch a mousedown at the EDGE of painted cell #index
+              // (side = top|bottom|left|right) so H.tblBorderPainter's capture listener hit-tests it and paints
+              // that one side with the active pen. The click lands ~2px inside the border box (well within the
+              // painter's 6px edge slop) so the nearest-edge pick is unambiguous. Drives the SAME event path a
+              // user's click does (the painter listens on .presentation-editor__pages in capture phase).
+              const host = painterHost();
+              if (!host) throw new Error('no painter host for edge click');
+              const c = paintedCells()[step.index];
+              if (!c) throw new Error('no painted cell #' + step.index + ' for edge click');
+              const r = c.getBoundingClientRect();
+              let x = r.left + r.width / 2, y = r.top + r.height / 2;
+              if (step.side === 'top') y = r.top + 2;
+              else if (step.side === 'bottom') y = r.bottom - 2;
+              else if (step.side === 'left') x = r.left + 2;
+              else if (step.side === 'right') x = r.right - 2;
+              const opts = { bubbles: true, cancelable: true, clientX: x, clientY: y };
+              lastDoc = docJson();
+              host.dispatchEvent(new MouseEvent('mousedown', opts));
+              await sleep(400);
             } else if (step.do === 'clickShadeSwatch') {
               const sws = Array.from(document.querySelectorAll('.flyout .tbl-shade-sw'));
               const sw = sws[step.index];

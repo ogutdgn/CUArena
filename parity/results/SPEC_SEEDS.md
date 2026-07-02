@@ -522,17 +522,15 @@ python parity/engines/run.py --only tb-autofit-fixed   # expect: semantic-pass, 
 **Goal:** make the clone's `Border pen color red (top edge)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-color-red`
 **Ground truth:** `parity/fixtures/rw-tb-border-color-red.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-border-color-red): emit `body:gridCol[('w', '3116')]`
 - FR (tb-border-color-red): emit `body:gridCol[('w', '3117')]`
 - FR (tb-border-color-red): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-border-color-red): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-border-color-red): emit `body:tcBorders[]`
 - FR (tb-border-color-red): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-border-color-red): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-border-color-red): emit `body:top[('color', 'FF0000'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FR (tb-border-color-red): emit `styles:TableGrid:pPr[]`
 - FR (tb-border-color-red): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
@@ -556,17 +554,15 @@ python parity/engines/run.py --only tb-border-color-red   # expect: semantic-pas
 **Goal:** make the clone's `Border pen weight 3pt (top edge)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-weight-3pt`
 **Ground truth:** `parity/fixtures/rw-tb-border-weight-3pt.docx`
-**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-border-weight-3pt): emit `body:gridCol[('w', '3116')]`
 - FR (tb-border-weight-3pt): emit `body:gridCol[('w', '3117')]`
 - FR (tb-border-weight-3pt): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-border-weight-3pt): emit `body:tblW[('type', 'auto'), ('w', '0')]`
-- FR (tb-border-weight-3pt): emit `body:tcBorders[]`
 - FR (tb-border-weight-3pt): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-border-weight-3pt): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-border-weight-3pt): emit `body:top[('color', 'auto'), ('space', '0'), ('sz', '24'), ('val', 'single')]`
 - FR (tb-border-weight-3pt): emit `styles:TableGrid:pPr[]`
 - FR (tb-border-weight-3pt): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 

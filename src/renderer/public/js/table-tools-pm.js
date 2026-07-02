@@ -77,7 +77,18 @@
         { id: 'td-styles', name: 'Table Styles', controls: [
           { cmd: 'tblStyles', label: 'Table Styles', type: 'dropdown' },
           { cmd: 'tblShading', label: 'Shading', type: 'dropdown' },
+        ] },
+        // Spec 032 T4: Word's Table Design → Borders group. Layout = Border Styles / (Pen Style + Pen Weight +
+        // Pen Color stacked) / Borders / Border Painter. The pen dropdowns MUTATE the shared tblPen (commands.js);
+        // the Borders dropdown + Border Painter DRAW with it. Word labels: Line Style→"Pen Style",
+        // Line Weight→"Pen Weight". Borders MOVED here from td-styles to match Word's grouping.
+        { id: 'td-borders', name: 'Borders', controls: [
+          { cmd: 'tblBorderStyles', label: 'Border Styles', type: 'dropdown' },
+          { cmd: 'tblLineStyle', label: 'Pen Style', type: 'dropdown' },
+          { cmd: 'tblLineWeight', label: 'Pen Weight', type: 'dropdown' },
+          { cmd: 'tblPenColor', label: 'Pen Color', type: 'dropdown' },
           { cmd: 'tblBorders', label: 'Borders', type: 'dropdown' },
+          { cmd: 'tblBorderPainter', label: 'Border Painter', type: 'toggle' },
         ] },
         { id: 'td-align', name: 'Alignment', controls: [
           { cmd: 'tblAlignLeft', label: 'Align Left', type: 'button' },

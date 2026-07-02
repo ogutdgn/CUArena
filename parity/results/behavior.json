@@ -1,6 +1,6 @@
 {
  "counts": {
-  "pass": 32,
+  "pass": 33,
   "pending": 0,
   "fail": 8
  },
@@ -451,6 +451,70 @@
     },
     {
      "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
+    }
+   ],
+   "verdict": "pass",
+   "feature": "Table"
+  },
+  {
+   "id": "twin/tb-border-painter",
+   "kind": "micro-twin",
+   "steps": [
+    {
+     "step": "{\"do\":\"setupText\",\"text\":\"Twin base.\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"insert\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"table\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"caretIntoCellModel\",\"index\":4}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblLineWeight\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickItem\",\"match\":\"3 pt\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblPenColor\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .color-swatch[title=\\\"#FF0000\\\"]\",\"waitMs\":200}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblBorderPainter\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"painterEdgeClick\",\"index\":4,\"side\":\"bottom\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"coloredEdgeCount\",\"side\":\"top\",\"color\":\"255,\\\\s*0,\\\\s*0\",\"minPx\":2,\"min\":1}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickCmd\",\"cmd\":\"tblBorderPainter\"}",
      "result": "ok"
     }
    ],

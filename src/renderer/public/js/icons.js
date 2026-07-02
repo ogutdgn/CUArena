@@ -139,6 +139,13 @@
   const ALIAS = {
     showHide: 'showhide',
     'showHide¶': 'showhide',
+    // Spec 032 T4: the Table Design → Borders group pen controls reuse the Borders glyph
+    // (Word draws distinct icons; the shared borders glyph is a sensible v1 stand-in vs a blank box).
+    tblBorderStyles: 'borders',
+    tblLineStyle: 'borders',
+    tblLineWeight: 'borders',
+    tblPenColor: 'borders',
+    tblBorderPainter: 'borders',
     textHighlightColor: 'textHighlightColor',
     icons3DModels: 'icons',
     '3dModels': 'icons',
