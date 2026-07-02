@@ -161,6 +161,10 @@
         // Design Document Formatting: Themes button, then the big inline Style Set
         // carousel (Word's dominant element), then Colors/Fonts/Spacing/Set-as-Default.
         this.renderDesignFormattingGroup(body, group);
+      } else if (group.id === 'td-styles') {
+        // Table Design → Table Styles: Word's inline tile GALLERY (mini-table thumbs
+        // hued by the style's Accent + hover live-preview) + Shading/Borders dropdowns.
+        this.renderTableStylesGroup(body, group);
       } else {
         // Pens gallery: inline pen tiles (Word shows the pens directly in the ribbon)
         if (gallery && group.id === 'pens') body.appendChild(this.renderPensGallery(gallery));
@@ -445,6 +449,111 @@
         }, { align: 'right' });
       };
       return this.makeGalleryCarousel(sets.map(cell), { className: 'styleset-gallery', onMore: openMore });
+    },
+
+    // The doc theme's accent palette for table-style tile hues. WC._themeAccents is set by
+    // WC.setThemeColors (design-tools.js) when the theme changes; fall back to the static
+    // Aptos THEME_COLORS accents (accent1 #156082 = slot 4) when no theme has been applied yet.
+    // Returns a 6-entry array [accent1..accent6] of #hex strings.
+    tableAccents() {
+      const a = WC._themeAccents;
+      if (Array.isArray(a) && a.length >= 6) return a.slice(0, 6);
+      const TC = (WC.THEME_COLORS || []);
+      // THEME_COLORS layout (util.js): [bg1, text1, bg2, text2, accent1..accent6].
+      if (TC.length >= 10) return TC.slice(4, 10);
+      // Hard fallback — the locked Aptos accents (accent1 #156082 first).
+      return ['#156082', '#E97132', '#196B24', '#0F9ED5', '#A02B93', '#4EA72E'];
+    },
+
+    // A small table-style thumbnail (Word's gallery tiles): a 4x5 mini grid with the style's
+    // header shaded in its Accent hue (parsed from the style NAME → the doc theme's accent
+    // palette) + banding tint for Grid/List families. Plain-family styles get no header shade.
+    tableStyleThumb(style) {
+      const wrap = el('div', { class: 'tblstyle-thumb' });
+      const name = (style && style.name) || '';
+      const section = (style && style.section) || '';
+      const accents = this.tableAccents();
+      const m = /Accent\s*(\d)/i.exec(name);
+      let head = accents[0] || '#156082';
+      if (m) { const idx = Math.max(1, Math.min(6, parseInt(m[1], 10))) - 1; if (accents[idx]) head = accents[idx]; }
+      // section (from the bridge, when known) is authoritative; fall back to name-family match.
+      const plain = section ? section === 'plain' : /Plain Table|Table Grid|Table Normal/i.test(name);
+      const banded = section ? (section === 'grid' || section === 'list') : (!plain && /Grid Table|List Table/i.test(name));
+      for (let r = 0; r < 4; r++) {
+        const row = el('div', { class: 'tst-row' });
+        for (let cc = 0; cc < 5; cc++) {
+          const cellEl = el('div', { class: 'tst-cell' });
+          if (r === 0 && !plain) cellEl.style.background = head;
+          else if (banded && r % 2 === 0) cellEl.style.background = 'rgba(0,0,0,.07)';
+          row.appendChild(cellEl);
+        }
+        wrap.appendChild(row);
+      }
+      return wrap;
+    },
+
+    // Table Design → Table Styles: Word's dominant element is an inline gallery of style tiles
+    // (mini table thumbnails) with hover LIVE PREVIEW; the ▾ More opens the full grid split into
+    // Plain / Grid / List sections + the Modify/Clear/New footer. Shading & Borders dropdowns sit
+    // in the same group after the strip (matching Word's Table Styles group). Tiles apply on
+    // CLICK (WC.PM.tableSetStyle) and preview on hover (WC.PM.tableStylePreviewEnter/Leave — zero
+    // undo pollution). Replaces the old 2-item text flyout (H.tblStyles stays as a fallback).
+    renderTableStylesGroup(body, group) {
+      const pm = (WC.PM && WC.PM.getTableStyles) ? WC.PM : null;
+      const styles = pm ? (pm.getTableStyles() || []) : [];
+      let activeId = '';
+      try { activeId = (pm && pm.tableInfo && (pm.tableInfo().styleId || '')) || ''; } catch (e) { activeId = ''; }
+      const cell = (s) => {
+        const node = el('div', { class: 'tblstyle-cell', title: s.name, dataset: { style: s.id } });
+        if (s.id === activeId) node.classList.add('active');
+        node.appendChild(this.tableStyleThumb(s));
+        node.addEventListener('mousedown', (e) => e.preventDefault());
+        node.addEventListener('mouseenter', () => { if (WC.PM && WC.PM.tableStylePreviewEnter) WC.PM.tableStylePreviewEnter(s.id); });
+        node.addEventListener('mouseleave', () => { if (WC.PM && WC.PM.tableStylePreviewLeave) WC.PM.tableStylePreviewLeave(); });
+        node.addEventListener('click', () => {
+          if (WC.PM && WC.PM.tableStylePreviewLeave) WC.PM.tableStylePreviewLeave(); // cancel any live preview before the real apply
+          if (WC.PM && WC.PM.tableSetStyle) WC.PM.tableSetStyle(s.id);
+          if (WC.closeFlyouts) WC.closeFlyouts();
+          this.reRenderContextualGroup('table-design', 'td-styles', group); // reflect the new active tile
+        });
+        return node;
+      };
+      const SECTIONS = [['plain', 'Plain Tables'], ['grid', 'Grid Tables'], ['list', 'List Tables']];
+      const sectionOf = (s) => s.section || (/Plain Table|Table Grid|Table Normal/i.test(s.name) ? 'plain' : /List Table/i.test(s.name) ? 'list' : /Grid Table/i.test(s.name) ? 'grid' : 'grid');
+      const openMore = (anchor) => {
+        WC.flyout(anchor, (fly) => {
+          fly.classList.add('tblstyles-flyout');
+          SECTIONS.forEach(([key, title]) => {
+            const inSec = styles.filter((s) => sectionOf(s) === key);
+            if (!inSec.length) return;
+            fly.appendChild(WC.flyHeader(title));
+            const fg = el('div', { class: 'tblstyles-grid-expanded' });
+            inSec.forEach((s) => fg.appendChild(cell(s)));
+            fly.appendChild(fg);
+          });
+          fly.appendChild(WC.flySep());
+          fly.appendChild(WC.flyItem('Modify Table Style…', { onClick: () => WC.notImplemented('Modify Table Style') }));
+          fly.appendChild(WC.flyItem('Clear', { onClick: () => { if (WC.PM && WC.PM.tableStylePreviewLeave) WC.PM.tableStylePreviewLeave(); if (WC.PM && WC.PM.tableSetStyle) WC.PM.tableSetStyle(''); this.reRenderContextualGroup('table-design', 'td-styles', group); } }));
+          fly.appendChild(WC.flyItem('New Table Style…', { onClick: () => WC.notImplemented('New Table Style') }));
+        }, { align: 'right' });
+      };
+      if (styles.length) body.appendChild(this.makeGalleryCarousel(styles.map(cell), { className: 'tblstyles-gallery', onMore: openMore }));
+      // Keep Shading + Borders as labeled large dropdowns after the strip (the group's other controls).
+      group.controls.filter((c) => c.cmd === 'tblShading' || c.cmd === 'tblBorders')
+        .forEach((c) => body.appendChild(this.renderControl(c, 'large')));
+    },
+
+    // Re-render one group's body in place after a table-style click/clear so the active-tile
+    // highlight refreshes without rebuilding the whole contextual panel (which would drop the
+    // caret-driven tab state). Finds the group's .ribbon-group-body and rebuilds it via renderGroup.
+    reRenderContextualGroup(tabId, groupId, group) {
+      try {
+        const panel = this.body && this.body.querySelector('.ribbon-panel[data-tab="' + tabId + '"]');
+        const groupEl = panel && panel.querySelector('.ribbon-group[data-group="' + groupId + '"]');
+        if (!groupEl) return;
+        const fresh = this.renderGroup({ id: tabId }, group);
+        groupEl.replaceWith(fresh);
+      } catch (e) { /* re-render is best-effort cosmetic */ }
     },
 
     renderSpinner(c) {

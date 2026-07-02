@@ -109,6 +109,9 @@
     ['#808080', '#0D0D0D', '#161616', '#222B35', '#1F3864', '#833C00', '#7B7B7B', '#806000', '#1F4E79', '#375623'],
   ];
   const STANDARD = ['#C00000', '#FF0000', '#FFC000', '#FFFF00', '#92D050', '#00B050', '#00B0F0', '#0070C0', '#002060', '#7030A0'];
+  // Expose the base Theme-Colors row (bg1/text1/bg2/text2 + accent1..accent6) so other chrome
+  // (e.g. the Table Styles gallery tiles) can derive accent hues without a duplicate palette.
+  WC.THEME_COLORS = THEME_COLORS;
 
   WC.colorPalette = function (onPick, opts) {
     opts = opts || {};

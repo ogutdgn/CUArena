@@ -90,6 +90,10 @@
       WC.Ribbon.showContextualTab(layoutTab(), { activate: false });
       shown = true;
     } else if (!inTable && shown) {
+      // Teardown safety (spec 030 T007): the Table Design tab (with the styles gallery) is about to
+      // be removed — if a hover live-preview is still active, restore the pre-preview state first so
+      // the transient bake isn't left applied when the tab disappears mid-hover.
+      try { if (WC.PM && WC.PM.tableStylePreviewLeave) WC.PM.tableStylePreviewLeave(); } catch (e) { /* preview verb absent pre-mount */ }
       WC.Ribbon.hideContextualTab('table-design');
       WC.Ribbon.hideContextualTab('table-layout');
       shown = false;
@@ -132,7 +136,25 @@
     });
   }
 
+  // Teardown safety (spec 030 T007): closing any flyout must also cancel an active table-style
+  // hover live-preview. Rather than change WC.closeFlyouts's semantics for every caller (util.js),
+  // COMPOSE over it once: wrap the current closeFlyouts so it calls tableStylePreviewLeave first,
+  // then delegates to the original. Idempotent (a __tblPreviewWrapped guard prevents double-wrap).
+  // Mirrors util.js closeFly's own drawing-preview cleanup (pm.dePreviewEnd) — same intent, no core edit.
+  function wrapCloseFlyouts() {
+    if (!WC.closeFlyouts || WC.closeFlyouts.__tblPreviewWrapped) return;
+    const orig = WC.closeFlyouts;
+    const wrapped = function () {
+      try { if (WC.PM && WC.PM.active && WC.PM.ready && WC.PM.tableStylePreviewLeave) WC.PM.tableStylePreviewLeave(); } catch (e) { /* preview verb absent */ }
+      return orig.apply(this, arguments);
+    };
+    wrapped.__tblPreviewWrapped = true;
+    WC.closeFlyouts = wrapped;
+  }
+
+  function install() { installContextMenu(); wrapCloseFlyouts(); }
+
   WC.TableToolsPM = { syncContextualTabs, installContextMenu, layoutTab, designTab };
-  if (document.readyState !== 'loading') setTimeout(installContextMenu, 0);
-  else document.addEventListener('DOMContentLoaded', installContextMenu);
+  if (document.readyState !== 'loading') setTimeout(install, 0);
+  else document.addEventListener('DOMContentLoaded', install);
 })();

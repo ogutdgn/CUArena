@@ -7344,6 +7344,59 @@
     return true;
   });
 
+  // ---- T006/T007: the in-ribbon Table Styles GALLERY (strip + sectioned More flyout + footer) ----
+  await t('[030-gallery] Table Design panel renders the gallery strip with tiles + sectioned More flyout (≥113, 3 sections, Modify/Clear/New)', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t030g'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell';
+    // Show the Table Design contextual tab so renderTableStylesGroup paints the td-styles group.
+    window.WC.TableToolsPM.syncContextualTabs(PM().isInTable()); await sleep(60);
+    const panel = document.querySelector('.ribbon-panel[data-tab="table-design"]');
+    if (!panel) return 'table-design panel not injected';
+    const strip = panel.querySelector('.rgallery.tblstyles-gallery');
+    if (!strip) return 'no .tblstyles-gallery strip in the Table Design panel';
+    const tiles = strip.querySelectorAll('.tblstyle-cell');
+    if (tiles.length < 12) return 'gallery strip has too few tiles: ' + tiles.length;
+    // The bridge union must carry the full modern catalog.
+    const catalog = PM().getTableStyles();
+    if (!Array.isArray(catalog) || catalog.length < 113) return 'getTableStyles().length < 113: ' + (catalog && catalog.length);
+    // Open the More flyout (the ▾ chevron) → full sectioned grid + footer.
+    const more = strip.querySelector('.rgallery-more');
+    if (!more) return 'no More (▾) chevron on the strip';
+    more.click(); await sleep(60);
+    const fly = document.querySelector('.flyout.tblstyles-flyout');
+    if (!fly) return 'More did not open the .tblstyles-flyout';
+    const flyTiles = fly.querySelectorAll('.tblstyle-cell');
+    if (flyTiles.length < 113) return 'More flyout tile count < 113: ' + flyTiles.length;
+    const headers = Array.from(fly.querySelectorAll('.fly-header')).map((h) => h.textContent);
+    const wantSecs = ['Plain Tables', 'Grid Tables', 'List Tables'];
+    if (!wantSecs.every((s) => headers.indexOf(s) >= 0)) return 'missing section headers, got: ' + JSON.stringify(headers);
+    const items = Array.from(fly.querySelectorAll('.fly-item')).map((i) => i.textContent);
+    if (!items.some((x) => /Modify Table Style/.test(x))) return 'no Modify Table Style… footer item';
+    if (!items.some((x) => /^Clear$/.test(x))) return 'no Clear footer item';
+    if (!items.some((x) => /New Table Style/.test(x))) return 'no New Table Style… footer item';
+    if (window.WC.closeFlyouts) window.WC.closeFlyouts();
+    return true;
+  });
+
+  await t('[030-gallery] apply GridTable4-Accent1 then Clear → styleId null/empty + NO <w:tblStyle> in document.xml', async () => {
+    await PM().newBlank(); await sleep(120);
+    setDoc('t030h'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(150);
+    if (!caretIntoTable()) return 'no table cell';
+    PM().tableSetStyle('GridTable4-Accent1'); await sleep(120);
+    if (PM().tableInfo().styleId !== 'GridTable4-Accent1') return 'apply did not set styleId (got ' + PM().tableInfo().styleId + ')';
+    // Clear = the footer/gallery Clear path → tableSetStyle('') (real Word drops the <w:tblStyle> element).
+    if (!caretIntoTable()) return 'no table cell (pre-clear)';
+    PM().tableSetStyle(''); await sleep(120);
+    const sid = PM().tableInfo().styleId;
+    if (sid !== null && sid !== '') return 'styleId not cleared after Clear (got ' + JSON.stringify(sid) + ')';
+    const parts = await exportParts();
+    const dx = parts['word/document.xml'];
+    if (typeof dx !== 'string') return 'no word/document.xml in export';
+    if (/<w:tblStyle\b/.test(dx)) return 'document.xml still carries a <w:tblStyle> ref after Clear';
+    return true;
+  });
+
 
   const pass = results.filter((r) => r.pass).length;
   const pagedKnownGaps = results.filter((r) => /paged known-gap/.test(String(r.detail || ''))).length;

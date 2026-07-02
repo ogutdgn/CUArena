@@ -371,3 +371,22 @@
    pointer-events:none kills the DOM click path; JS-level dispatch (tests,
    chords) is intentionally unaffected -- the handlers no-op safely. */
 body.pm-active .ribbon-panel .wc-disabled { opacity: 0.45; pointer-events: none; }
+
+/* ---- Table Design → Table Styles inline gallery (spec 030) ---- */
+/* Mini table-style thumbnails: a 62x46 tile holding a 4x5 grid whose header row is hued by
+   the style's Accent + banding tint for Grid/List families. Active tile = word-blue outline. */
+.tblstyle-cell {
+  flex: 0 0 auto; width: 62px; height: 46px; border: 1px solid #d9d9d9; border-radius: 2px;
+  background: #fff; padding: 3px; cursor: pointer; box-sizing: border-box;
+}
+.tblstyle-cell:hover { border-color: var(--word-blue); }
+.tblstyle-cell.active { border-color: var(--word-blue); box-shadow: inset 0 0 0 1px var(--word-blue); }
+.tblstyle-thumb { display: flex; flex-direction: column; gap: 1px; width: 100%; height: 100%; }
+.tst-row { display: flex; gap: 1px; flex: 1 1 auto; }
+.tst-cell { flex: 1 1 auto; border: 0.5px solid #cfcfcf; background: #fff; }
+/* More flyout: the full grid, sectioned by Plain/Grid/List (section headers reuse .fly-header). */
+.tblstyles-flyout { max-width: 520px; }
+.tblstyles-grid-expanded {
+  display: grid; grid-template-columns: repeat(7, 66px); gap: 3px; padding: 5px; max-height: 300px; overflow-y: auto;
+}
+.tblstyles-grid-expanded .tblstyle-cell { width: 66px; height: 48px; }

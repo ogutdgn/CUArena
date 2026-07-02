@@ -194,6 +194,14 @@
       return;
     }
     styles.forEach(({ id, name }) => fly.appendChild(WC.flyItem(name, { onClick: () => { const q = TPM(); if (q) q.tableSetStyle(id); } })));
+    // Word's Table Styles gallery footer: Modify Table Style… | Clear | New Table Style… (spec 030,
+    // shape from archive 0ecbfd3). The gallery strip (ribbon.js renderTableStylesGroup) is the primary
+    // path; this text flyout stays as a fallback (also hit programmatically — e.g. scorecard clicks).
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Modify Table Style…', { onClick: () => WC.notImplemented('Modify Table Style') }));
+    // Clear = reset to Table Normal — real Word removes the <w:tblStyle> element (ExecuteMso oracle: tblStyle=none).
+    fly.appendChild(WC.flyItem('Clear', { onClick: () => { const q = TPM(); if (q) q.tableSetStyle(''); } }));
+    fly.appendChild(WC.flyItem('New Table Style…', { onClick: () => WC.notImplemented('New Table Style') }));
   });
   H.tblShading = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Shading'));
