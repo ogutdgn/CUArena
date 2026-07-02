@@ -114,7 +114,7 @@
         await sleep(220);
         const fly = document.querySelector('.flyout');
         const items = Array.from(document.querySelectorAll('.flyout .fly-item')).map((n) => (n.textContent || '').trim()).filter(Boolean);
-        const rich = document.querySelector('.flyout .wc-color-palette, .flyout .color-swatch, .flyout .swatch, .flyout .sw, .flyout [data-color], .flyout input, .flyout .rspinner, .flyout .gallery, .flyout img, .flyout svg');
+        const rich = document.querySelector('.flyout .wc-color-palette, .flyout .color-swatch, .flyout .swatch, .flyout .sw, .flyout [data-color], .flyout input, .flyout .rspinner, .flyout .gallery, .flyout img, .flyout svg, .flyout .tbl-shade-sw, .flyout .tablegrid');
         const dead = items.length === 1 && /no options/i.test(items[0]);
         rec.itemCount = items.length; rec.items = items.slice(0, 12);
         rec.result = !fly ? (document.querySelector('.dialog, .wc-dialog, .modal') ? 'DIALOG' : 'DEAD_NO_FLYOUT')

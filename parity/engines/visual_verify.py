@@ -79,10 +79,16 @@ def capture(pairs):
         wout = f"{OUTDIR}/word-{p['id']}.png"
         cout = f"{OUTDIR}/wc-{p['id']}.png"
         print(f"[{p['id']}] word capture ({p['wordTab']})...")
-        subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", WORD_CAP,
-                        "-Tab", p["wordTab"], "-Out", wout.replace("/", "\\")],
-                       cwd=ROOT, timeout=240, capture_output=True)
-        print(f"[{p['id']}] clone capture ({p['cloneTab']})...")
+        wargs = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", WORD_CAP,
+                 "-Tab", p["wordTab"], "-Out", wout.replace("/", "\\")]
+        if p.get("wordStyle"):
+            wargs += ["-Style", p["wordStyle"]]
+        if p.get("wordMso"):
+            wargs += ["-Mso", p["wordMso"]]
+        if p.get("wordPickLast"):
+            wargs += ["-PickLast"]
+        subprocess.run(wargs, cwd=ROOT, timeout=240, capture_output=True)
+        print(f"[{p['id']}] clone capture ({p.get('cloneTab', p['cloneProbe'])})...")
         subprocess.run([ELECTRON, "--user-data-dir=C:/tmp/wc-visual-profile", "--disable-http-cache",
                         ".", "--start-maximized", f"--shot={cout}",
                         f"--shot-evalfile={os.path.join(PAR, 'flow', p['cloneProbe'])}",

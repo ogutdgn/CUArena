@@ -23,3 +23,5 @@ tests/fixtures/oracle-*
 
 # Codex/agent scratch (not part of the project)
 .agents/
+parity/flow/_behavior-probe-run.js
+parity/flow/_scorecard-probe-deep.js

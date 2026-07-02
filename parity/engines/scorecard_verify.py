@@ -78,6 +78,23 @@ def main():
     rows = actual.get("controls", [])
     for r in rows:
         r["verdict"] = verdict(r.get("result"))
+    # Gallery-content bars: a flyout that OPENS fine can still be an order of magnitude
+    # emptier than Word's (the 2/247 Table Styles class). Compare itemCount against a
+    # known Word-side bar so under-filled galleries land in TRIAGE, not silent pass.
+    GALLERY_BARS = {}
+    try:
+        cat = json.load(open(os.path.join(PAR, "oracle", "table_style_catalog.json"), encoding="utf-8"))
+        GALLERY_BARS["tblStyles"] = (int(cat.get("meta", {}).get("modernCount", 113)),
+                                     "Word's modern Table Styles gallery (catalog a3d3566)")
+    except Exception:
+        pass
+    for r in rows:
+        bar = GALLERY_BARS.get(str(r.get("cmd")))
+        if bar and r.get("result") == "OK_FLYOUT" and isinstance(r.get("itemCount"), int) \
+                and r["itemCount"] < max(3, bar[0] // 10):
+            r["verdict"] = "triage"
+            r["result"] = f"GALLERY_UNDERFILLED({r['itemCount']} vs Word {bar[0]})"
+            r["barSource"] = bar[1]
     counts = {v: sum(1 for r in rows if r["verdict"] == v) for v in ("pass", "dead", "triage", "skip")}
     # D3.2 deep mode: per-item results
     item_rows = [(r, ir) for r in rows for ir in (r.get("itemResults") or [])]

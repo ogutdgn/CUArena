@@ -8,6 +8,18 @@
     { "id": "home", "wordTab": "Home", "cloneTab": "home", "cloneProbe": "shot-tab-probe.js",
       "desc": "Home ribbon" },
     { "id": "tabledesign", "wordTab": "Table Design", "cloneTab": "table-design", "cloneProbe": "../..//scripts/ribbon-shot-probe.js",
-      "desc": "Table Design ribbon" }
+      "desc": "Table Design ribbon" },
+    { "id": "tablelayout", "wordTab": "Layout", "wordPickLast": true, "cloneTab": "table-layout",
+      "cloneProbe": "visual-tablelayout-probe.js",
+      "desc": "Table Layout contextual ribbon (level 1)" },
+    { "id": "insert-table-menu", "wordTab": "Insert", "wordMso": "TableInsertGallery",
+      "cloneProbe": "visual-insert-menu-probe.js",
+      "desc": "OPEN Insert > Table dropdown — grid picker + items (level 2)" },
+    { "id": "table-styles-gallery", "wordTab": "Table Design", "wordMso": "TableStylesGalleryWord",
+      "cloneProbe": "visual-styles-gallery-probe.js",
+      "desc": "OPEN Table Styles gallery — the 2/247 gap side-by-side (level 2)" },
+    { "id": "doc-styled-table", "wordTab": "Home", "wordStyle": "Grid Table 4 - Accent 1",
+      "cloneProbe": "visual-doc-styled-probe.js",
+      "desc": "LEVEL 4 document render — Grid Table 4 Accent 1 styled 3x3 on the page" }
   ]
 }
