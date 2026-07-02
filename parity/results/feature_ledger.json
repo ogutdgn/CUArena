@@ -577,12 +577,12 @@
    "tab": "insert",
    "tier": "T1",
    "cols": {
-    "OOXML": "GAP(48/49)",
+    "OOXML": "GAP(24/49)",
     "STRUCT": "GAP(items:1)",
     "STATE": "GAP(2)",
     "SCORE": "pass",
     "VISUAL": "GAP(4/5)",
-    "BEHAV": "GAP(8/40)"
+    "BEHAV": "GAP(6/45)"
    }
   },
   {

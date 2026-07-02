@@ -7,6 +7,34 @@
 
 ---
 
+## 2026-07-02 (FIX LOOP COMPLETE — all 6 Tables fixes shipped; final acceptance)
+
+> **Branch: `parity-v2` @ `a29580b`+ (pushed).** The 6-feature Tables fix loop the user ordered is DONE.
+> Full report: **[parity/results/FIX_LOOP_ACCEPTANCE.md](../../parity/results/FIX_LOOP_ACCEPTANCE.md)**.
+> - **FIX 5 (034)** (`60eb24b`): insert-time OOXML defaults (uneven gridCol, tblW auto, tblLook val,
+>   TableGrid pPr — 1 data-only fork edit) + Insert menu wiring (dropdown, grid-hover LIVE preview,
+>   post-insert Table Design activation) + AutoFit radios. **F-class delta CLEARED across ALL tasks:**
+>   `table` task GAP→SEMANTIC-PASS; TB pass 2→17; insert journeys PASS.
+> - **FIX 6 (035)** (`de7b77f`,`a29580b`): 3 D1.1 import losses CLOSED (tcW-auto, tblPrEx, per-cell tcW —
+>   3 minimal fork translator edits); convert-to-text emits <w:tab/> nodes; **D1.2 pass-with-note verdict**
+>   (benign byte-diffs = pass, note kept — TB pass 17→24); full 6-axis re-measure + the acceptance report.
+> - **FINAL (full re-measure):** OOXML TB 24/48 pass+note (was 2); STRUCTURE table-design 3→14 matched,
+>   table-layout 13→34 matched (labels 5→0, type-mismatch 0); SCORECARD tblStyles OK_GALLERY_INLINE 113;
+>   VISUAL doc-render PASS (palette fixed); BEHAVIOR 40/46 (every named-gap journey + both border twins PASS).
+>   Gates pm 562/562 · roundtrip 27/0 · smoke 9/9 · bundle 4/4; differ trust ALL PASS.
+> - **3 pipeline bugs fixed in-loop:** differ text/order blindness, twin-harness-reads-wrong-layer (exposed
+>   the paged-painter gaps), + D1.2 pass-with-note. 7 fork edits total (all data-only/paint-only, marked).
+>
+> **HONEST RESIDUALS (documented, not closed):** (1) paged-painter vAlign/row-height/text-direction PAINT
+> (OOXML correct, screen not — the 6 remaining twin fails; a cross-cutting LAYOUT-ENGINE follow-up,
+> parity/knowledge/paged-painter-cell-paint-gaps.md — the highest-value next). (2) OOXML byte-parity tail
+> (24 small per-feature residuals — SPEC_SEEDS backlog). (3) deferred-by-design: true shift-cells, Alt-Text
+> persist, 134 legacy styles, stub-vs-guard classifier.
+>
+> **AWAITING USER:** the loop is complete — decide next: (a) the paged-painter paint follow-up (biggest
+> remaining user-visible gap), (b) chase the OOXML byte-tail to hard-pass, or (c) Phase C (other features —
+> needs the D2.3 contextual-tab-mapping HARD GATE first).
+
 ## 2026-07-02 (FIX LOOP — FIX 4/6 COMPLETE: 033 Layout tab rebuilt to Word's 7 groups; all dialogs)
 
 > **Branch: `parity-v2` @ `f1017ea` (pushed).** FIX 4 (spec 033) done in 2 parts, ZERO fork edits (all
