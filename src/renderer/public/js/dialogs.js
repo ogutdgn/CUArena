@@ -1270,15 +1270,54 @@
     ] });
   };
 
+  // ---- Spec 032 T6: pure Setting×Style×Width×Color → cell tcBorders side-builder ----
+  // Factored out so the pm suite can unit-test the mapping headlessly (the dialog itself is
+  // hard to drive fully). Word's table-context Borders tab Setting maps to sides thus:
+  //   None   → the 4 OUTER sides explicit nil (defeats the style/table border; matches the
+  //            dropdown's No Border) — { val:'none' } per side, minimal shape.
+  //   Box    → the 4 OUTER sides with the chosen pen.
+  //   All    → the 4 OUTER + insideH/insideV with the chosen pen (Word's "All").
+  //   Grid   → the 4 OUTER with the pen + insideH/insideV with a THIN default pen (Word's
+  //            "Grid" = a bold box + a light interior). Default inside = single ½pt auto.
+  //   Custom → only the edges toggled ON in the preview (top/bottom/left/right), pen each.
+  // pen = { val, size(eighth-pt), color(hex-no-# or 'auto'), space }. Returns a plain object
+  // keyed by CT_TcBorders side names — the caller passes it straight to tableSetCellBorders
+  // (a full REPLACE at the fork, which is exactly the dialog's "set the whole border set").
+  D.bsCellSides = function (setting, pen, edges) {
+    const P = () => ({ val: pen.val, size: pen.size, color: pen.color, space: 0 });
+    const NIL = () => ({ val: 'none' });
+    const THIN = () => ({ val: 'single', size: 4, color: 'auto', space: 0 }); // Grid interior default
+    const out = {};
+    if (setting === 'none') { out.top = NIL(); out.bottom = NIL(); out.left = NIL(); out.right = NIL(); return out; }
+    if (setting === 'box' || setting === 'shadow' || setting === '3d') { out.top = P(); out.bottom = P(); out.left = P(); out.right = P(); return out; }
+    if (setting === 'all') { out.top = P(); out.bottom = P(); out.left = P(); out.right = P(); out.insideH = P(); out.insideV = P(); return out; }
+    if (setting === 'grid') { out.top = P(); out.bottom = P(); out.left = P(); out.right = P(); out.insideH = THIN(); out.insideV = THIN(); return out; }
+    // custom → only the toggled edges (the preview's four outer sides).
+    ['top', 'bottom', 'left', 'right'].forEach((k) => { if (edges && edges[k]) out[k] = P(); });
+    return out;
+  };
+
   // ---- Borders and Shading (Home → Paragraph → Borders ▾ → Borders and Shading…) ----
   // Faithful 3-tab dialog. Paragraph edge borders + shading are fully functional today;
   // Inside-Horizontal renders between paragraphs only with the layout engine, and the
   // whole Page Border tab + Shadow/3-D depth are layout-gated (Phase 4, deferrals A.1).
-  D.bordersAndShading = function (initialTab) {
+  // Spec 032 T6: opts may be a legacy string (initialTab) OR { scope, initialTab }. scope:'cell'
+  // (opened from the Table Design Borders dropdown) switches Apply-to to Text/Paragraph/Cell/Table
+  // (default Cell), adds All + Grid settings, and routes OK to the CELL border/shading writers.
+  D.bordersAndShading = function (opts) {
+    // Back-compat: a bare string arg is the initialTab (the Home dropdown + old tests pass 'borders').
+    const o = (typeof opts === 'string') ? { initialTab: opts } : (opts || {});
+    const initialTab = o.initialTab;
+    const scope = o.scope || null;
+    const cellScope = scope === 'cell';
     const pm = WC.PM;
     if (pm.ready) pm.captureSelection(); // the dialog steals focus; restore before applying
     const para = (pm.getEditor().getAttributes('paragraph') || {}).paragraphProperties || {};
-    const cur0 = para.borders || {};
+    // Border seed: cell scope reads the caret cell's explicit borders (tableGetCellBorders — the
+    // same getter the dropdown merges through); paragraph scope reads pPr.borders. Cell sides use
+    // insideH/insideV where paragraph uses `between`, so map insideH → the preview's `between` seed.
+    const cellB = cellScope && pm.tableGetCellBorders ? (pm.tableGetCellBorders() || {}) : null;
+    const cur0 = cellScope ? { top: cellB && cellB.top, bottom: cellB && cellB.bottom, left: cellB && cellB.left, right: cellB && cellB.right, between: cellB && (cellB.insideH || cellB.insideV) } : (para.borders || {});
     // a "live" edge is present AND not an explicit nil/none (matches the dropdown's has())
     const live = (e) => !!e && e.val !== 'none' && e.val !== 'nil';
     const seed = [cur0.bottom, cur0.top, cur0.left, cur0.right, cur0.between].find(live) || null;
@@ -1288,11 +1327,12 @@
     let width = (seed && seed.size) || 4;            // eighth-points
     let color = seed && seed.color && seed.color !== 'auto' ? '#' + String(seed.color).replace(/^#/, '') : 'auto';
     let setting = computeSetting();
-    let applyTo = 'paragraph';
+    let applyTo = cellScope ? 'cell' : 'paragraph';   // Word's table-context dialog defaults Apply-to = Cell
     let bordersTouched = false, shadingTouched = false, pageTouched = false;
-    // working shading state
+    // working shading state — cell scope has no getter for the fill (the caret cell's shd is not
+    // read back), so start blank; paragraph scope seeds from pPr.shading.
     const sh0 = para.shading;
-    let shadeFill = sh0 && sh0.fill && String(sh0.fill).toLowerCase() !== 'auto' ? '#' + String(sh0.fill).replace(/^#/, '') : null;
+    let shadeFill = (!cellScope && sh0 && sh0.fill && String(sh0.fill).toLowerCase() !== 'auto') ? '#' + String(sh0.fill).replace(/^#/, '') : null;
 
     function computeSetting() {
       const o = edges.top && edges.bottom && edges.left && edges.right;
@@ -1312,13 +1352,19 @@
       setting = s; bordersTouched = true;
       if (s === 'none') { edges.top = edges.bottom = edges.left = edges.right = edges.between = false; }
       else if (s === 'box' || s === 'shadow' || s === '3d') { edges.top = edges.bottom = edges.left = edges.right = true; edges.between = false; }
+      else if (s === 'all' || s === 'grid') { edges.top = edges.bottom = edges.left = edges.right = true; edges.between = true; } // outer + interior
       // 'custom' leaves edges as-is
       Object.keys(settingBtns).forEach((k) => settingBtns[k].classList.toggle('active', k === s));
       renderPreview();
     }
+    // Spec 032 T6: cell scope offers Word's table Setting list (None/Box/All/Grid/Custom); paragraph
+    // scope keeps the paragraph list (None/Box/Shadow/3-D/Custom). All + Grid write interior sides too.
+    const SETTINGS = cellScope
+      ? [['none', 'None', 'borderNoneIc'], ['box', 'Box', 'borderAllIc'], ['all', 'All', 'borderAllIc'], ['grid', 'Grid', 'borderInsideIc'], ['custom', 'Custom', 'borderInsideIc']]
+      : [['none', 'None', 'borderNoneIc'], ['box', 'Box', 'borderAllIc'], ['shadow', 'Shadow', 'borderOutsideIc'], ['3d', '3-D', 'borderOutsideIc'], ['custom', 'Custom', 'borderInsideIc']];
     const settingCol = el('div', { style: { display: 'flex', flexDirection: 'column', gap: '4px', width: '120px' } }, [
       el('div', { style: { fontWeight: '600', marginBottom: '2px' }, text: 'Setting:' }),
-      ...[['none', 'None', 'borderNoneIc'], ['box', 'Box', 'borderAllIc'], ['shadow', 'Shadow', 'borderOutsideIc'], ['3d', '3-D', 'borderOutsideIc'], ['custom', 'Custom', 'borderInsideIc']].map(([k, label, ic]) => {
+      ...SETTINGS.map(([k, label, ic]) => {
         const b = el('button', { class: 'bs-setting' + (setting === k ? ' active' : ''), onclick: () => setSetting(k) }, [
           el('span', { class: 'bs-set-ic', html: WC.icon(ic, 18) }), el('span', { text: label }),
         ]);
@@ -1360,7 +1406,12 @@
       betweenLine.style.borderTop = edges.between ? edgeCss(true) : 'none';
       [['top', eT], ['bottom', eB], ['left', eL], ['right', eR]].forEach(([k, b]) => b.classList.toggle('on', edges[k]));
     }
-    const applyToSel = el('select', { onchange: () => { applyTo = applyToSel.value; } }, [el('option', { value: 'paragraph', text: 'Paragraph' }), el('option', { value: 'text', text: 'Text' })]);
+    // Spec 032 T6: cell scope adds Word's Cell + Table entries (Text/Paragraph/Cell/Table); default Cell.
+    const APPLY_OPTS = cellScope
+      ? [['text', 'Text'], ['paragraph', 'Paragraph'], ['cell', 'Cell'], ['table', 'Table']]
+      : [['paragraph', 'Paragraph'], ['text', 'Text']];
+    const applyToSel = el('select', { onchange: () => { applyTo = applyToSel.value; } }, APPLY_OPTS.map(([v, label]) => el('option', { value: v, text: label })));
+    applyToSel.value = applyTo;
     const bordersTab = el('div', { class: 'bs-tab' }, [
       el('div', { style: { display: 'flex', gap: '18px' } }, [
         settingCol,
@@ -1387,7 +1438,8 @@
     }
     shadeBtn.addEventListener('click', () => WC.flyout(shadeBtn, (f) => f.appendChild(WC.colorPalette((c) => { shadeFill = (c == null) ? null : (c === 'inherit' ? '#000000' : c); shadingTouched = true; paintShade(); }, { noColor: true, automatic: false }))));
     paintShade();
-    const shadeApplyTo = el('select', {}, [el('option', { value: 'paragraph', text: 'Paragraph' }), el('option', { value: 'text', text: 'Text' })]);
+    const shadeApplyTo = el('select', {}, APPLY_OPTS.map(([v, label]) => el('option', { value: v, text: label })));
+    if (cellScope) shadeApplyTo.value = 'cell';
     const shadingTab = el('div', { class: 'bs-tab', style: { display: 'none' } }, [
       el('div', { style: { display: 'flex', gap: '24px' } }, [
         el('div', {}, [
@@ -1439,6 +1491,8 @@
       const out = {}; ['top', 'bottom', 'left', 'right', 'between'].forEach((k) => { if (edges[k]) out[k] = def(); });
       return out;
     }
+    // Spec 032 T6: the pen the cell-scope side-builder draws with, in OOXML shape (color hex-no-# / 'auto').
+    function cellPen() { return { val: style, size: width, color: color === 'auto' ? 'auto' : color.replace(/^#/, '').toUpperCase() }; }
 
     WC.dialog({ title: 'Borders and Shading', width: '620px', body, footer: [
       { label: 'OK', primary: true, onClick: () => {
@@ -1446,7 +1500,16 @@
         // restore the captured selection (the dialog blurred the editor) before writing
         pm.withSelection(() => {
           if (bordersTouched) {
-            if (applyTo === 'text') {
+            if (applyTo === 'cell' || applyTo === 'table') {
+              // Spec 032 T6: CELL border write — build the full side set from Setting×pen and REPLACE the
+              // caret cell's borders (tableSetCellBorders is a full replace, exactly the dialog's semantics).
+              const sides = D.bsCellSides(setting, cellPen(), edges);
+              if (pm.tableSetCellBorders) pm.tableSetCellBorders(sides);
+              // v1 reduction: there is no tableSetTableBorders bridge verb, so Apply-to: Table writes the SAME
+              // sides on the caret cell only (honest reduction-to-cell). Whole-table borders are a follow-up
+              // (needs a table-border bridge verb, out of this task's scope).
+              if (applyTo === 'table') flags.push('Apply to: Table currently borders the active cell only (whole-table borders arrive with a table-border verb).');
+            } else if (applyTo === 'text') {
               // 019: "Apply to: Text" = a run-level (character) border — a SINGLE <w:bdr> around the selection
               // (not the 4-sided paragraph w:pBdr). null clears it. Uses the chosen style/width/color/distance.
               const chosen = ['top', 'bottom', 'left', 'right'].filter((k) => edges[k]);
@@ -1463,7 +1526,11 @@
             if (setting === 'shadow' || setting === '3d') flags.push('Shadow / 3-D border depth renders with the layout engine (Phase 4).');
           }
           if (shadingTouched) {
-            if (shadeApplyTo.value === 'text') {
+            if (shadeApplyTo.value === 'cell' || shadeApplyTo.value === 'table') {
+              // Spec 032 T6: CELL fill → tableSetCellShading (shades the caret cell; empty string clears).
+              // Apply-to: Table reduces to the caret cell (same v1 limit as the border write above).
+              if (pm.tableSetCellShading) pm.tableSetCellShading(shadeFill ? shadeFill.replace(/^#/, '').toUpperCase() : '');
+            } else if (shadeApplyTo.value === 'text') {
               // "Apply to: Text" = run-level character shading (rPr/w:shd) via the highlight mark — the same path
               // the ribbon's setShading uses for a sub-paragraph selection. null clears both run + paragraph shading.
               if (shadeFill) pm.cmd('setHighlight', shadeFill);

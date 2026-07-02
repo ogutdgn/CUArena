@@ -15,7 +15,7 @@
   },
   "tabledesign": {
    "verdict": "fail",
-   "reason": "clone lacks Table Style Options group (6 checkboxes), visual style-tile gallery (icon-only dropdown instead), Border Styles/Pen/Border Painter group, Borders&Shading launcher; shows non-Word Alignment group; icon-only unlabeled rendering"
+   "reason": "TRANSFORMED by 030-032: clone now has Table Style Options (6 checkboxes), a visual tile Table Styles gallery, Shading, AND the Borders group (Border Styles/Pen Style/Pen Weight/Pen Color/Borders/Border Painter). The 'absent Borders group' + 'no Style Options' reasons are GONE. Residual: a clone-only Alignment group (Word keeps table alignment in Properties, not on Design); tiles slightly simpler than Word's; icon rendering differs. Same CLASS as Word now."
   },
   "tablelayout": {
    "verdict": "fail",

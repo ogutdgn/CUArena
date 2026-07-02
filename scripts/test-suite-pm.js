@@ -7731,6 +7731,81 @@
     return true;
   });
 
+  // ---------- spec 032 T6: Borders and Shading dialog, cell scope ----------
+  await t('[032-dialog] T6: bsCellSides maps Setting×pen→sides (None/Box/All/Grid/Custom)', () => {
+    if (typeof WC.Dialogs.bsCellSides !== 'function') return 'WC.Dialogs.bsCellSides is not exposed';
+    const pen = { val: 'single', size: 24, color: 'auto' };
+    // None → 4 outer explicit nil (val:'none'), no interior.
+    const none = WC.Dialogs.bsCellSides('none', pen, {});
+    if (!(none.top && none.top.val === 'none' && none.bottom.val === 'none' && none.left.val === 'none' && none.right.val === 'none')) return 'None did not write 4 outer nil sides: ' + JSON.stringify(none);
+    if (none.insideH || none.insideV) return 'None must not write interior sides: ' + JSON.stringify(none);
+    // Box → 4 outer with the pen, no interior.
+    const box = WC.Dialogs.bsCellSides('box', pen, {});
+    if (!(box.top && box.top.size === 24 && box.bottom.size === 24 && box.left.size === 24 && box.right.size === 24)) return 'Box did not write 4 outer pen sides: ' + JSON.stringify(box);
+    if (box.insideH || box.insideV) return 'Box must not write interior sides: ' + JSON.stringify(box);
+    // All → 4 outer + insideH/insideV all with the pen.
+    const all = WC.Dialogs.bsCellSides('all', pen, {});
+    const allKeys = ['top', 'bottom', 'left', 'right', 'insideH', 'insideV'];
+    if (!allKeys.every((k) => all[k] && all[k].val === 'single' && all[k].size === 24)) return 'All did not write 6 pen sides at sz=24: ' + JSON.stringify(all);
+    // Grid → outer with the pen (sz 24) + interior a THIN default (single, sz 4).
+    const grid = WC.Dialogs.bsCellSides('grid', pen, {});
+    if (!(grid.top.size === 24 && grid.bottom.size === 24 && grid.left.size === 24 && grid.right.size === 24)) return 'Grid outer sides not the pen: ' + JSON.stringify(grid);
+    if (!(grid.insideH && grid.insideH.size === 4 && grid.insideV && grid.insideV.size === 4)) return 'Grid interior not the thin default (sz 4): ' + JSON.stringify(grid);
+    // Custom → only the toggled edges.
+    const custom = WC.Dialogs.bsCellSides('custom', pen, { top: true, right: true, bottom: false, left: false });
+    if (!(custom.top && custom.right && !custom.bottom && !custom.left)) return 'Custom did not honor the toggled edges: ' + JSON.stringify(custom);
+    if (custom.insideH || custom.insideV) return 'Custom must not write interior sides: ' + JSON.stringify(custom);
+    return true;
+  });
+
+  await t('[032-dialog] T6: dialog (scope=cell) Setting=All + Width → caret cell tcBorders all sides; then None → nil', async () => {
+    // Drive the REAL dialog opened in cell scope from a 3x3 caret-in-cell. Setting=All + a Width picks the
+    // full side set; OK routes to tableSetCellBorders → the exported tcBorders carries all four outer sides at
+    // the chosen sz. Then re-open, Setting=None → the four outer sides export w:val="nil".
+    await PM().newBlank(); await sleep(120);
+    if (WC.PM.ready && WC.PM.active !== true) WC.PM.active = true;
+    setDoc('x'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(200);
+    if (!caretInCellN(4)) return 'no cell(1,1) to seat the caret';
+    // --- Setting = All, Width = 3 pt (sz 24) ---
+    WC.Dialogs.bordersAndShading({ scope: 'cell' }); await sleep(30);
+    let dlg = document.querySelector('.modal-backdrop .dialog');
+    if (!dlg) return 'dialog did not open';
+    // Apply-to defaults to Cell.
+    const applySel = Array.from(dlg.querySelectorAll('select')).find((s) => Array.from(s.options).some((o) => o.value === 'cell'));
+    if (!applySel || applySel.value !== 'cell') return 'Apply-to did not default to Cell: ' + (applySel ? applySel.value : 'no cell option');
+    // The Setting list must include an "All" button (table scope).
+    const allBtn = Array.from(dlg.querySelectorAll('.bs-setting')).find((b) => /^All$/.test(b.textContent.trim()));
+    if (!allBtn) return 'Setting list has no "All" button in cell scope';
+    allBtn.click();
+    // Width select = the first <select> inside the borders tab (widthSel). Pick 3 pt (value 24).
+    const widthSel = dlg.querySelector('select');
+    widthSel.value = '24'; widthSel.dispatchEvent(new Event('change'));
+    Array.from(dlg.querySelectorAll('.dlg-footer .btn')).find((b) => /^OK$/.test(b.textContent.trim())).click();
+    await sleep(140);
+    document.querySelectorAll('.modal-backdrop').forEach((n) => n.remove());
+    let xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    let tb = (xml.match(/<w:tcBorders\b[\s\S]*?<\/w:tcBorders>/g) || []).find((b) => /<w:top\b[^>]*w:sz="24"/.test(b) && /<w:bottom\b[^>]*w:sz="24"/.test(b));
+    if (!tb) return 'Setting=All + Width 3pt did not export a cell with top+bottom w:sz="24"';
+    const outer = ['w:top', 'w:bottom', 'w:left', 'w:right'];
+    let missing = outer.filter((s) => !new RegExp('<' + s + '\\b[^>]*w:sz="24"').test(tb));
+    if (missing.length) return 'Setting=All missing sz=24 on: ' + missing.join(',') + ' :: ' + tb.slice(0, 300);
+    // --- Re-open, Setting = None → outer nil ---
+    if (!caretInCellN(4)) return 'lost the caret cell before None';
+    WC.Dialogs.bordersAndShading({ scope: 'cell' }); await sleep(30);
+    dlg = document.querySelector('.modal-backdrop .dialog');
+    const noneBtn = Array.from(dlg.querySelectorAll('.bs-setting')).find((b) => /^None$/.test(b.textContent.trim()));
+    if (!noneBtn) return 'Setting list has no "None" button';
+    noneBtn.click();
+    Array.from(dlg.querySelectorAll('.dlg-footer .btn')).find((b) => /^OK$/.test(b.textContent.trim())).click();
+    await sleep(140);
+    document.querySelectorAll('.modal-backdrop').forEach((n) => n.remove());
+    xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const nilBlock = (xml.match(/<w:tcBorders\b[\s\S]*?<\/w:tcBorders>/g) || []).find((b) => /<w:top\b[^>]*w:val="nil"/.test(b));
+    if (!nilBlock) return 'Setting=None did not export a cell with a nil top';
+    missing = outer.filter((s) => !new RegExp('<' + s + '\\b[^>]*w:val="nil"').test(nilBlock));
+    return missing.length === 0 ? true : ('Setting=None did not nil all 4 outer sides — missing: ' + missing.join(',') + ' :: ' + nilBlock.slice(0, 300));
+  });
+
   const pass = results.filter((r) => r.pass).length;
   const pagedKnownGaps = results.filter((r) => /paged known-gap/.test(String(r.detail || ''))).length;
   return JSON.stringify({ summary: { total: results.length, pass, fail: results.length - pass, mode: MODE, pagedKnownGaps }, results }, null, 2);

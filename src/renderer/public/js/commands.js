@@ -280,9 +280,9 @@
     item('Diagonal Down Border', { tl2br: B() });
     item('Diagonal Up Border', { tr2bl: B() });
     fly.appendChild(WC.flySep());
-    // Borders and Shading… — T6 wires cell scope; for now open the existing dialog (paragraph/text scope)
-    // if present, else the honest not-implemented toast.
-    fly.appendChild(WC.flyItem('Borders and Shading…', { onClick: () => { if (WC.Dialogs && WC.Dialogs.bordersAndShading) WC.Dialogs.bordersAndShading(); else WC.notImplemented('Borders and Shading'); } }));
+    // Borders and Shading… — T6: open the dialog in CELL scope (Apply-to defaults to Cell; adds the
+    // All + Grid settings + the cell border/shading writers). Falls back to the honest toast if absent.
+    fly.appendChild(WC.flyItem('Borders and Shading…', { onClick: () => { if (WC.Dialogs && WC.Dialogs.bordersAndShading) WC.Dialogs.bordersAndShading({ scope: 'cell' }); else WC.notImplemented('Borders and Shading'); } }));
   });
   // ---- Spec 032 T4: the Borders-group PEN setters (Word: Border Styles / Pen Style / Pen Weight / Pen Color).
   // Each MUTATES tblPen ONLY — no document write. The Borders dropdown + Border Painter then draw with B().
