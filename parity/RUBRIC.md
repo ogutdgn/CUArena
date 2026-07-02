@@ -163,6 +163,17 @@ pass (sampled)") — never "behavior 100%". Every bug found anywhere becomes a n
 
 ## Process rules (standing)
 
+- **LO-consult (user-agreed 2026-07-01, pattern PROVEN by its first run):** the local
+  LibreOffice clone (`new-coding/core`) is a consultable KNOWLEDGE SOURCE for Word semantics —
+  its filter/compat layers encode two decades of reverse-engineered Word behavior. Triggered
+  when: (a) a BEHAVIOR ❓ flag can't be settled cheaply by a COM experiment, (b) a gnarly
+  gap's fix design needs precedence/conflict/algorithm rules (the border-collapse class).
+  Deliverable: a plain-language RULE NOTE in `parity/knowledge/` (LO file refs + confidence
+  doc/inf + explicit unknowns; unknowns become targeted Word-oracle experiments). FORBIDDEN:
+  porting LO code or architecture (alien stack + MPL/GPL licensing), or using LO as the
+  measurement target — the target is always real Word. First note:
+  `parity/knowledge/lo-word-table-border-rules.md`.
+
 - Measurement sweeps run autonomously; FIXES stay loop-gated (spec → fix → re-measure →
   adversarial review).
 - Verdicts reported per locked feature (111 rows) with per-control drill-down.
