@@ -1,0 +1,1406 @@
+{
+ "features": [
+  {
+   "name": "Cut",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "cut"
+   ],
+   "idMso": [
+    "Cut"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Copy",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "copy"
+   ],
+   "idMso": [
+    "Copy"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Font Size",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "fontSize"
+   ],
+   "idMso": [
+    "FontSize"
+   ],
+   "ooxmlTasks": [
+    "fontsize",
+    "sz-10p5",
+    "sz-8",
+    "sz-72"
+   ]
+  },
+  {
+   "name": "Bold",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "bold"
+   ],
+   "idMso": [
+    "Bold"
+   ],
+   "ooxmlTasks": [
+    "bold"
+   ]
+  },
+  {
+   "name": "Italic",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "italic"
+   ],
+   "idMso": [
+    "Italic"
+   ],
+   "ooxmlTasks": [
+    "italic"
+   ]
+  },
+  {
+   "name": "Underline",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "underline"
+   ],
+   "idMso": [
+    "UnderlineGallery"
+   ],
+   "ooxmlTasks": [
+    "underline",
+    "ul-single",
+    "ul-double",
+    "ul-dotted",
+    "ul-dashed",
+    "ul-wavy",
+    "ul-words"
+   ]
+  },
+  {
+   "name": "Bullets",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "bullets"
+   ],
+   "idMso": [
+    "BulletsGalleryWord"
+   ],
+   "ooxmlTasks": [
+    "bullets"
+   ]
+  },
+  {
+   "name": "Align Left",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "alignLeft"
+   ],
+   "idMso": [
+    "AlignLeft"
+   ],
+   "ooxmlTasks": [
+    "alignleft"
+   ]
+  },
+  {
+   "name": "Center",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "center"
+   ],
+   "idMso": [
+    "AlignCenter"
+   ],
+   "ooxmlTasks": [
+    "center"
+   ]
+  },
+  {
+   "name": "Paste",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "paste"
+   ],
+   "idMso": [
+    "PasteMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Font (face)",
+   "tab": "home",
+   "tier": "T0",
+   "cmds": [
+    "font"
+   ],
+   "idMso": [
+    "Font"
+   ],
+   "ooxmlTasks": [
+    "fontface"
+   ]
+  },
+  {
+   "name": "Text Highlight Color",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "textHighlightColor"
+   ],
+   "idMso": [
+    "TextHighlightColorPicker"
+   ],
+   "ooxmlTasks": [
+    "highlight"
+   ]
+  },
+  {
+   "name": "Font Color",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "fontColor"
+   ],
+   "idMso": [
+    "FontColorPicker"
+   ],
+   "ooxmlTasks": [
+    "fontcolor",
+    "fd-fontcolor-custom",
+    "fd-fontcolor-theme"
+   ]
+  },
+  {
+   "name": "Numbering",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "numbering"
+   ],
+   "idMso": [
+    "NumberingGalleryWord"
+   ],
+   "ooxmlTasks": [
+    "numbering"
+   ]
+  },
+  {
+   "name": "Align Right",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "alignRight"
+   ],
+   "idMso": [
+    "AlignRight"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Justify",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "justify"
+   ],
+   "idMso": [
+    "AlignJustify"
+   ],
+   "ooxmlTasks": [
+    "justify"
+   ]
+  },
+  {
+   "name": "Find",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "find"
+   ],
+   "idMso": [
+    "SelectMenuExcel"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Replace",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "replace"
+   ],
+   "idMso": [
+    "ReplaceDialog"
+   ],
+   "ooxmlTasks": [
+    "fd-replace-all"
+   ]
+  },
+  {
+   "name": "Line and Paragraph Spacing",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "lineAndParagraphSpacing"
+   ],
+   "idMso": [
+    "LineSpacingGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Styles Gallery",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "stylesGallery"
+   ],
+   "idMso": [
+    "StylesPane"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Editor",
+   "tab": "home",
+   "tier": "T1",
+   "cmds": [
+    "editor"
+   ],
+   "idMso": [
+    "WritingAssistanceCheckDocument"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Increase Font Size",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "increaseFontSize"
+   ],
+   "idMso": [
+    "FontSizeIncreaseWord"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Decrease Font Size",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "decreaseFontSize"
+   ],
+   "idMso": [
+    "FontSizeDecreaseWord"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Change Case",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "changeCase"
+   ],
+   "idMso": [
+    "ChangeCaseGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Clear All Formatting",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "clearAllFormatting"
+   ],
+   "idMso": [
+    "ClearFormatting"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Strikethrough",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "strikethrough"
+   ],
+   "idMso": [
+    "Strikethrough"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Decrease Indent",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "decreaseIndent"
+   ],
+   "idMso": [
+    "IndentDecreaseWord"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Increase Indent",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "increaseIndent"
+   ],
+   "idMso": [
+    "IndentIncreaseWord"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Shading",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "shading"
+   ],
+   "idMso": [
+    "ShadingColorPicker"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Format Painter",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "formatPainter"
+   ],
+   "idMso": [
+    "FormatPainter"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Font dialog (launcher)",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "font"
+   ],
+   "idMso": [
+    "Font"
+   ],
+   "ooxmlTasks": [
+    "fd-strike",
+    "fd-underline-color",
+    "fd-superscript",
+    "fd-subscript",
+    "fd-allcaps",
+    "fd-smallcaps",
+    "fd-spacing",
+    "fd-scale",
+    "fd-position",
+    "fd-ligatures",
+    "fd-double-strike",
+    "fd-hidden",
+    "fd-kerning"
+   ]
+  },
+  {
+   "name": "Show/Hide \u00b6",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "showHide"
+   ],
+   "idMso": [
+    "ParagraphMarks"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Borders",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "borders"
+   ],
+   "idMso": [
+    "BordersSelectionGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Paragraph dialog (launcher)",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "paragraph"
+   ],
+   "idMso": [
+    "ParagraphDialog"
+   ],
+   "ooxmlTasks": [
+    "fd-indent-left",
+    "fd-indent-right",
+    "fd-indent-firstline",
+    "fd-indent-hanging",
+    "fd-spacing-before",
+    "fd-spacing-after",
+    "fd-ls-atleast",
+    "fd-ls-exactly",
+    "fd-ls-multiple",
+    "fd-pag-widow",
+    "fd-pag-keepnext",
+    "fd-pag-keeplines",
+    "fd-pag-pagebreak"
+   ]
+  },
+  {
+   "name": "Styles pane (launcher)",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "styles"
+   ],
+   "idMso": [
+    "QuickStylesGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Select",
+   "tab": "home",
+   "tier": "T2",
+   "cmds": [
+    "select"
+   ],
+   "idMso": [
+    "SelectMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Subscript",
+   "tab": "home",
+   "tier": "T3",
+   "cmds": [
+    "subscript"
+   ],
+   "idMso": [
+    "Subscript"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Superscript",
+   "tab": "home",
+   "tier": "T3",
+   "cmds": [
+    "superscript"
+   ],
+   "idMso": [
+    "Superscript"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Text Effects and Typography",
+   "tab": "home",
+   "tier": "T3",
+   "cmds": [
+    "textEffectsAndTypography"
+   ],
+   "idMso": [
+    "TextEffectsGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Multilevel List",
+   "tab": "home",
+   "tier": "T3",
+   "cmds": [
+    "multilevelList"
+   ],
+   "idMso": [
+    "MultilevelListGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Sort",
+   "tab": "home",
+   "tier": "T3",
+   "cmds": [
+    "sort"
+   ],
+   "idMso": [
+    "SortDialogClassic"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Table",
+   "tab": "insert",
+   "tier": "T1",
+   "cmds": [
+    "table"
+   ],
+   "idMso": [
+    "TableInsertGallery"
+   ],
+   "ooxmlTasks": [
+    "table"
+   ]
+  },
+  {
+   "name": "Pictures",
+   "tab": "insert",
+   "tier": "T1",
+   "cmds": [
+    "pictures"
+   ],
+   "idMso": [
+    "FlyoutAnchorInsertPictures"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Link",
+   "tab": "insert",
+   "tier": "T1",
+   "cmds": [
+    "link"
+   ],
+   "idMso": [
+    "InsertLinkGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Header",
+   "tab": "insert",
+   "tier": "T1",
+   "cmds": [
+    "header"
+   ],
+   "idMso": [
+    "HeaderInsertGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Footer",
+   "tab": "insert",
+   "tier": "T1",
+   "cmds": [
+    "footer"
+   ],
+   "idMso": [
+    "FooterInsertGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Page Number",
+   "tab": "insert",
+   "tier": "T1",
+   "cmds": [
+    "pageNumber"
+   ],
+   "idMso": [
+    "HeaderFooterPageNumberInsert"
+   ],
+   "ooxmlTasks": [
+    "pagenum"
+   ]
+  },
+  {
+   "name": "Comment",
+   "tab": "insert",
+   "tier": "T2",
+   "cmds": [
+    "comment"
+   ],
+   "idMso": [
+    "InsertNewComment"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Symbol",
+   "tab": "insert",
+   "tier": "T2",
+   "cmds": [
+    "symbol"
+   ],
+   "idMso": [
+    "SymbolInsertGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Page Break",
+   "tab": "insert",
+   "tier": "T2",
+   "cmds": [
+    "pageBreak"
+   ],
+   "idMso": [
+    "PageBreakInsertWord"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Shapes",
+   "tab": "insert",
+   "tier": "T2",
+   "cmds": [
+    "shapes"
+   ],
+   "idMso": [
+    "GalleryAllShapesAndCanvas"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Bookmark",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "bookmark"
+   ],
+   "idMso": [
+    "BookmarkInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Drop Cap",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "dropCap"
+   ],
+   "idMso": [
+    "DropCapInsertGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Date & Time",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "dateTime"
+   ],
+   "idMso": [
+    "DateAndTimeInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Cover Page",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "coverPage"
+   ],
+   "idMso": [
+    "CoverPageInsertGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Icons",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "icons"
+   ],
+   "idMso": [
+    "IconInsertFromFile"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Cross-reference",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "crossReference"
+   ],
+   "idMso": [
+    "CrossReferenceInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Text Box",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "textBox"
+   ],
+   "idMso": [
+    "TextBoxInsertGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Quick Parts",
+   "tab": "insert",
+   "tier": "T3",
+   "cmds": [
+    "quickParts"
+   ],
+   "idMso": [
+    "QuickPartsInsertGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Themes",
+   "tab": "design",
+   "tier": "T3",
+   "cmds": [
+    "themes"
+   ],
+   "idMso": [
+    "ThemesGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Paragraph Spacing",
+   "tab": "design",
+   "tier": "T3",
+   "cmds": [
+    "paragraphSpacing"
+   ],
+   "idMso": [
+    "ParagraphSpacing"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Page Color",
+   "tab": "design",
+   "tier": "T3",
+   "cmds": [
+    "pageColor"
+   ],
+   "idMso": [
+    "PageColorPicker"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Page Borders",
+   "tab": "design",
+   "tier": "T3",
+   "cmds": [
+    "pageBorders"
+   ],
+   "idMso": [
+    "PageBorderAndShadingDialog"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Margins",
+   "tab": "layout",
+   "tier": "T1",
+   "cmds": [
+    "margins"
+   ],
+   "idMso": [
+    "PageMarginsGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Orientation",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "orientation"
+   ],
+   "idMso": [
+    "PageOrientationGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Size",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "size"
+   ],
+   "idMso": [
+    "PageSizeGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Columns",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "columns"
+   ],
+   "idMso": [
+    "TableColumnsGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Indent Left",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "indentLeft"
+   ],
+   "idMso": [
+    "ParagraphIndentLeft"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Indent Right",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "indentRight"
+   ],
+   "idMso": [
+    "ParagraphIndentRight"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Spacing Before",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "spacingBefore"
+   ],
+   "idMso": [
+    "ParagraphSpacingBefore"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Spacing After",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "spacingAfter"
+   ],
+   "idMso": [
+    "ParagraphSpacingAfter"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Breaks",
+   "tab": "layout",
+   "tier": "T2",
+   "cmds": [
+    "breaks"
+   ],
+   "idMso": [
+    "BreaksGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Position",
+   "tab": "layout",
+   "tier": "T3",
+   "cmds": [
+    "position"
+   ],
+   "idMso": [
+    "PicturePositionGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Wrap Text",
+   "tab": "layout",
+   "tier": "T3",
+   "cmds": [
+    "wrapText"
+   ],
+   "idMso": [
+    "TextWrapGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Bring Forward",
+   "tab": "layout",
+   "tier": "T3",
+   "cmds": [
+    "bringForward"
+   ],
+   "idMso": [
+    "ObjectBringForwardMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Send Backward",
+   "tab": "layout",
+   "tier": "T3",
+   "cmds": [
+    "sendBackward"
+   ],
+   "idMso": [
+    "ObjectSendBackwardMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Align",
+   "tab": "layout",
+   "tier": "T3",
+   "cmds": [
+    "align"
+   ],
+   "idMso": [
+    "ObjectAlignMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Rotate",
+   "tab": "layout",
+   "tier": "T3",
+   "cmds": [
+    "rotate"
+   ],
+   "idMso": [
+    "ObjectRotateGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Group",
+   "tab": "layout",
+   "tier": "T3",
+   "cmds": [
+    "group"
+   ],
+   "idMso": [
+    "ObjectsGroupMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Insert Footnote",
+   "tab": "references",
+   "tier": "T2",
+   "cmds": [
+    "insertFootnote"
+   ],
+   "idMso": [
+    "FootnoteInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Table of Contents",
+   "tab": "references",
+   "tier": "T3",
+   "cmds": [
+    "tableOfContents"
+   ],
+   "idMso": [
+    "TableOfContentsGallery"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Update Table",
+   "tab": "references",
+   "tier": "T3",
+   "cmds": [
+    "updateTable"
+   ],
+   "idMso": [
+    "TableOfContentsUpdate"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Insert Endnote",
+   "tab": "references",
+   "tier": "T3",
+   "cmds": [
+    "insertEndnote"
+   ],
+   "idMso": [
+    "EndnoteInsertWord"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Insert Citation",
+   "tab": "references",
+   "tier": "T3",
+   "cmds": [
+    "insertCitation"
+   ],
+   "idMso": [
+    "CitationInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Insert Caption",
+   "tab": "references",
+   "tier": "T3",
+   "cmds": [
+    "insertCaption"
+   ],
+   "idMso": [
+    "CaptionInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Cross-reference",
+   "tab": "references",
+   "tier": "T3",
+   "cmds": [
+    "crossReference"
+   ],
+   "idMso": [
+    "CrossReferenceInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Insert Merge Field",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "insertMergeField"
+   ],
+   "idMso": [
+    "MailMergeMergeFieldInsertMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Preview Results",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "previewResults"
+   ],
+   "idMso": [
+    "MailMergeResultsPreview"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Envelopes",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "envelopes"
+   ],
+   "idMso": [
+    "EnvelopesAndLabelsDialog"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Labels",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "labels"
+   ],
+   "idMso": [
+    "LabelsDialog"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Start Mail Merge",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "startMailMerge"
+   ],
+   "idMso": [
+    "MailMergeStartMailMergeMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Select Recipients",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "selectRecipients"
+   ],
+   "idMso": [
+    "MailMergeSelectRecipients"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Edit Recipient List",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "editRecipientList"
+   ],
+   "idMso": [
+    "MailMergeRecipientsEditList"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Address Block",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "addressBlock"
+   ],
+   "idMso": [
+    "MailMergeAddressBlockInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Greeting Line",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "greetingLine"
+   ],
+   "idMso": [
+    "MailMergeGreetingLineInsert"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Finish & Merge",
+   "tab": "mailings",
+   "tier": "T3",
+   "cmds": [
+    "finishMerge"
+   ],
+   "idMso": [
+    "MailMergeFinishAndMergeMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Editor",
+   "tab": "review",
+   "tier": "T1",
+   "cmds": [
+    "editor"
+   ],
+   "idMso": [
+    "WritingAssistanceCheckDocument"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Spelling and Grammar",
+   "tab": "review",
+   "tier": "T1",
+   "cmds": [
+    "spellingGrammar"
+   ],
+   "idMso": [
+    "SpellingAndGrammar"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Word Count",
+   "tab": "review",
+   "tier": "T2",
+   "cmds": [
+    "wordCount"
+   ],
+   "idMso": [
+    "WordCount"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "New Comment",
+   "tab": "review",
+   "tier": "T2",
+   "cmds": [
+    "newComment"
+   ],
+   "idMso": [
+    "ReviewNewComment"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Delete",
+   "tab": "review",
+   "tier": "T2",
+   "cmds": [
+    "deleteComment"
+   ],
+   "idMso": [
+    "ReviewDeleteCommentsMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Accept",
+   "tab": "review",
+   "tier": "T2",
+   "cmds": [
+    "accept"
+   ],
+   "idMso": [
+    "ReviewAcceptChangeMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Reject",
+   "tab": "review",
+   "tier": "T2",
+   "cmds": [
+    "reject"
+   ],
+   "idMso": [
+    "ReviewRejectChangeMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Display for Review",
+   "tab": "review",
+   "tier": "T2",
+   "cmds": [
+    "displayForReview"
+   ],
+   "idMso": [
+    "ReviewDisplayForReview"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Track Changes",
+   "tab": "review",
+   "tier": "T2",
+   "cmds": [
+    "trackChanges"
+   ],
+   "idMso": [
+    "ReviewTrackChangesMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Thesaurus",
+   "tab": "review",
+   "tier": "T3",
+   "cmds": [
+    "thesaurus"
+   ],
+   "idMso": [
+    "Thesaurus"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Compare",
+   "tab": "review",
+   "tier": "T3",
+   "cmds": [
+    "compare"
+   ],
+   "idMso": [
+    "ReviewCompareMenu"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Print Layout",
+   "tab": "view",
+   "tier": "T2",
+   "cmds": [
+    "printLayout"
+   ],
+   "idMso": [
+    "ViewPrintLayoutView"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Ruler",
+   "tab": "view",
+   "tier": "T2",
+   "cmds": [
+    "ruler"
+   ],
+   "idMso": [
+    "ViewRulerWord"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Navigation Pane",
+   "tab": "view",
+   "tier": "T2",
+   "cmds": [
+    "navigationPane"
+   ],
+   "idMso": [
+    "NavigationPaneShowHide"
+   ],
+   "ooxmlTasks": []
+  },
+  {
+   "name": "Zoom",
+   "tab": "view",
+   "tier": "T2",
+   "cmds": [
+    "zoom"
+   ],
+   "idMso": [
+    "ZoomDialog"
+   ],
+   "ooxmlTasks": []
+  }
+ ],
+ "unmatched": []
+}

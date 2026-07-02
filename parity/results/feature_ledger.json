@@ -1,0 +1,1486 @@
+{
+ "done": 0,
+ "col_stats": {
+  "OOXML": {
+   "pass": 0,
+   "gap": 0,
+   "warn": 0,
+   "unmeasured": 111
+  },
+  "STRUCT": {
+   "pass": 80,
+   "gap": 19,
+   "warn": 12,
+   "unmeasured": 0
+  },
+  "STATE": {
+   "pass": 95,
+   "gap": 16,
+   "warn": 0,
+   "unmeasured": 0
+  },
+  "SCORE": {
+   "pass": 0,
+   "gap": 0,
+   "warn": 0,
+   "unmeasured": 111
+  },
+  "VISUAL": {
+   "pass": 0,
+   "gap": 0,
+   "warn": 0,
+   "unmeasured": 111
+  },
+  "BEHAV": {
+   "pass": 0,
+   "gap": 0,
+   "warn": 0,
+   "unmeasured": 111
+  }
+ },
+ "rows": [
+  {
+   "name": "Cut",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Copy",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Font Size",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Bold",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Italic",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Underline",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Bullets",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Align Left",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Center",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Paste",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Font (face)",
+   "tab": "home",
+   "tier": "T0",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Text Highlight Color",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Font Color",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:2)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Numbering",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Align Right",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Justify",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Find",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Replace",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Line and Paragraph Spacing",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Styles Gallery",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(type)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Editor",
+   "tab": "home",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Increase Font Size",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Decrease Font Size",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Change Case",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Clear All Formatting",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Strikethrough",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Decrease Indent",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Increase Indent",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Shading",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Format Painter",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(type)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Font dialog (launcher)",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Show/Hide \u00b6",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Borders",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Paragraph dialog (launcher)",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Styles pane (launcher)",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:2)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Select",
+   "tab": "home",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Subscript",
+   "tab": "home",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Superscript",
+   "tab": "home",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Text Effects and Typography",
+   "tab": "home",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:9)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Multilevel List",
+   "tab": "home",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Sort",
+   "tab": "home",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Table",
+   "tab": "insert",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Pictures",
+   "tab": "insert",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Link",
+   "tab": "insert",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Header",
+   "tab": "insert",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Footer",
+   "tab": "insert",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Page Number",
+   "tab": "insert",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:4)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Comment",
+   "tab": "insert",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Symbol",
+   "tab": "insert",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Page Break",
+   "tab": "insert",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Shapes",
+   "tab": "insert",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Bookmark",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Drop Cap",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Date & Time",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Cover Page",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Icons",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Cross-reference",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Text Box",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Quick Parts",
+   "tab": "insert",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Themes",
+   "tab": "design",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Paragraph Spacing",
+   "tab": "design",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Page Color",
+   "tab": "design",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Page Borders",
+   "tab": "design",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Margins",
+   "tab": "layout",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Orientation",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Size",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Columns",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Indent Left",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Indent Right",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Spacing Before",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Spacing After",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Breaks",
+   "tab": "layout",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Position",
+   "tab": "layout",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Wrap Text",
+   "tab": "layout",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Bring Forward",
+   "tab": "layout",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Send Backward",
+   "tab": "layout",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Align",
+   "tab": "layout",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:2)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Rotate",
+   "tab": "layout",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Group",
+   "tab": "layout",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Insert Footnote",
+   "tab": "references",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Table of Contents",
+   "tab": "references",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Update Table",
+   "tab": "references",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(2)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Insert Endnote",
+   "tab": "references",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Insert Citation",
+   "tab": "references",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Insert Caption",
+   "tab": "references",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Cross-reference",
+   "tab": "references",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Insert Merge Field",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Preview Results",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Envelopes",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Labels",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Start Mail Merge",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Select Recipients",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Edit Recipient List",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Address Block",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Greeting Line",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Finish & Merge",
+   "tab": "mailings",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:1)",
+    "STATE": "GAP(1)",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Editor",
+   "tab": "review",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Spelling and Grammar",
+   "tab": "review",
+   "tier": "T1",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "warn(label)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Word Count",
+   "tab": "review",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "New Comment",
+   "tab": "review",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Delete",
+   "tab": "review",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Accept",
+   "tab": "review",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Reject",
+   "tab": "review",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Display for Review",
+   "tab": "review",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Track Changes",
+   "tab": "review",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Thesaurus",
+   "tab": "review",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Compare",
+   "tab": "review",
+   "tier": "T3",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "GAP(items:4)",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Print Layout",
+   "tab": "view",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Ruler",
+   "tab": "view",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Navigation Pane",
+   "tab": "view",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  },
+  {
+   "name": "Zoom",
+   "tab": "view",
+   "tier": "T2",
+   "cols": {
+    "OOXML": "\u2014",
+    "STRUCT": "pass",
+    "STATE": "pass",
+    "SCORE": "\u2014",
+    "VISUAL": "\u2014",
+    "BEHAV": "\u2014"
+   }
+  }
+ ]
+}
