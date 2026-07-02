@@ -7,6 +7,33 @@
 
 ---
 
+## 2026-07-02 (FIX LOOP — FIX 3/6 COMPLETE: 032 borders engine SHIPPED; collapse paint bug closed + a pipeline harness fix)
+
+> **Branch: `parity-v2` @ `8298933` (pushed).** FIX 3 (spec 032) done in 3 parts (2 fork edits, plan-authorized).
+> - **Part 1** (`dfbd642`): full ~14-item Borders dropdown (per-edge MERGE via new tableGetCellBorders getter);
+>   nil No-Border (minimal w:val=nil, 4 outer sides — matches Word); FORK: legacyBorderMigration SIDES →
+>   canonical CT_TcBorders order + diagonals + tcBorders/tblBorders xmlOrder; FORK: layout-adapter
+>   resolveCollapsedCellBorders thicker-wins paint pre-pass (archive 47488c0). **PIPELINE FIX:** behavior
+>   twin paintedCells() was reading the OFF-SCREEN hidden model host (td/th @ x=-10004, getClientRects
+>   didn't exclude it) — now reads the real painter (.presentation-editor__pages cell divs) + a
+>   collapse-aware coloredEdgeCount instrument (archive probe pattern). Both border twins now PASS.
+> - **Part 2** (`c668826`): pen state machine (Pen Style/Weight/Color + Border Styles presets) + REAL
+>   Border Painter (mode + per-edge hit-test) + Word's Borders group on Table Design; generic /^tbl/
+>   dropdown routing. STRUCTURE table-design matched 9→14; weight/color tasks now write the pen.
+> - **Part 3** (`8298933`): Borders and Shading dialog cell scope (Setting None/Box/All/Grid/Custom +
+>   Apply-to Cell; Table = honest v1-reduction). VISUAL tabledesign TRANSFORMED (Style Options + tile
+>   gallery + Borders group all present; 'absent Borders group' reason gone).
+> - Gates throughout: pm 529→537 · roundtrip 27/0 · bundle 4/4 · smoke 9/9. Knowledge:
+>   border-collapse thicker-wins locus + LO weight formula recorded.
+> - **Honest residuals:** the tcBorders 'extra' on top/all tasks = style-absorption (clone writes an
+>   explicit border equal to the TableGrid style default that Word omits — D1.2 pass-with-note, identical
+>   render); clone-only Alignment group on Design; Apply-to:Table reduced to cell (no table-border verb).
+>
+> **NEXT: FIX 4 (spec 033)** — Layout tab completion to Word's 7 groups: Table (Select/Gridlines/
+> Properties), Draw (Draw Table/Eraser), Delete MENU + Insert Cells/Delete Cells dialogs, 9-way
+> alignment grid, Height/Width steppers + labels, Sort, Repeat Header Rows (w:tblHeader), Formula,
+> Convert-to-Text dialog, Text Direction 3-state, Split Cells dialog, Cell Margins→Table Options.
+
 ## 2026-07-02 (FIX LOOP — FIX 2/6 COMPLETE: 031 tblLook/cnfStyle + Style Options SHIPPED; named gap §2 CLOSED)
 
 > **Branch: `parity-v2` @ `a1ffce5` (pushed).** FIX 2 (spec 031) accepted end-to-end.

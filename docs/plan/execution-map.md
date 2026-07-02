@@ -511,6 +511,8 @@ hold the single-PM-copy + telemetry-off invariants.
 - [x] **FIX 1 spec/plan/research** (`750f845`,`c98b58c`): 3 parallel Opus research passes; NO-FORK seam (lazy materializer) + theme root cause (stale fallback literals) + gallery/preview mechanics evidence-locked.
 - [x] **FIX 1 SHIPPED** (`e5fd7fb`,`962f4c3`,`cf28b4f`): 113-def catalog + data-only GT4A1 palette/pPr sync + tile gallery + hover preview. All 6 SCs green; doc L4 VISUAL pair = first PASS of the axis. Gates 522/522·9·27/0·4/4.
 - [x] **FIX 2 SHIPPED** (`c6d2a9e`,`a1ffce5`): cnfStyle/tblLook writer (NO fork edit — val passes through) + 6 checkboxes + corner rule (oracle-pinned) → all 8 style tasks cnf-clean; STRUCTURE +6 matched; 6 toggle twins pass. Knowledge note: word-cnfstyle-stamping-rules.md.
+- [x] **FIX 3 SHIPPED** (`dfbd642`,`c668826`,`8298933`): borders engine — full dropdown + schema/diagonal fix + nil No-Border + pen state + REAL Border Painter + collapse thicker-wins paint (2 plan-authorized fork edits) + B&S dialog cell scope. Both border twins PASS (collapse bug closed). PIPELINE FIX: twin harness reads the painter, not the hidden model host. STRUCTURE table-design 9→14; pm 537/537.
+- [ ] **FIX 4 (033)**: Layout tab completion (Word's 7 groups: Table/Draw/Delete-menu/Insert-Cells/9-way-align/Sort/Formula/Repeat-Header/Convert dialogs).
 - [ ] **FIX 3 (032)**: borders engine (pen state + per-edge menu + Painter + collapse paint + B&S launcher).
 - [ ] **FIX 2 (031)**: tblLook/cnfStyle writer + Table Style Options checkboxes → tb-style-grid4a1 + 6 tb-styleopt-* semantic-pass.
 
