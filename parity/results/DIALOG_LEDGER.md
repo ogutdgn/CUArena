@@ -3,17 +3,17 @@
 Word side = UIA field/tab dump (dump_dialog_uia.ps1); clone side = rendered dialog DOM
 (dialog-fields-probe.js). Scope = locked-feature dialogs.
 
-**Dialogs compared: 3** · **fields missing in clone: 38**
+**Dialogs compared: 6** · **fields missing in clone: 58**
 
 | Dialog | Status | fields matched | missing | extra | tabs missing |
 |---|---|---|---|---|---|
 | font | compared | 16 | **6** | 3 | advanced, font |
 | paragraph | compared | 7 | **14** | 1 | indents and spacing, line and page breaks |
 | findadv | compared | 0 | **18** | 3 | find, go to, replace |
-| wordcount | no-word-dump | — | — | — | — |
-| paste_special | no-word-dump | — | — | — | — |
-| insert_table | no-word-dump | — | — | — | — |
-| page_setup | no-word-dump | — | — | — | — |
+| wordcount | compared | 1 | **6** | 0 | — |
+| paste_special | compared | 0 | **10** | 0 | — |
+| insert_table | compared | 2 | **4** | 0 | — |
+| page_setup | clone-dialog-missing | — | — | — | — |
 
 ## font — missing fields (Word has, clone lacks)
 
@@ -61,3 +61,32 @@ Word side = UIA field/tab dump (dump_dialog_uia.ps1); clone side = rendered dial
 - Replace (Button)
 - Replace All (Button)
 - Find Next (Button)
+
+## wordcount — missing fields (Word has, clone lacks)
+
+- Pages (Text)
+- Words (Text)
+- Characters (no spaces) (Text)
+- Characters (with spaces) (Text)
+- Paragraphs (Text)
+- Lines (Text)
+
+## paste_special — missing fields (Word has, clone lacks)
+
+- Paste (RadioButton)
+- Paste link (RadioButton)
+- As (List)
+- Microsoft Word Document Object (ListItem)
+- Formatted Text (RTF) (ListItem)
+- Unformatted Text (ListItem)
+- Picture (Enhanced Metafile) (ListItem)
+- HTML Format (ListItem)
+- Unformatted Unicode Text (ListItem)
+- Display as icon (CheckBox)
+
+## insert_table — missing fields (Word has, clone lacks)
+
+- Fixed column width (RadioButton)
+- AutoFit to contents (RadioButton)
+- AutoFit to window (RadioButton)
+- Remember dimensions for new tables (CheckBox)

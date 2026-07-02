@@ -211,26 +211,125 @@
   {
    "key": "wordcount",
    "cloneFound": true,
-   "wordFound": false,
-   "status": "no-word-dump"
+   "wordFound": true,
+   "status": "compared",
+   "matched": 1,
+   "missing": [
+    {
+     "name": "Pages",
+     "type": "Text"
+    },
+    {
+     "name": "Words",
+     "type": "Text"
+    },
+    {
+     "name": "Characters (no spaces)",
+     "type": "Text"
+    },
+    {
+     "name": "Characters (with spaces)",
+     "type": "Text"
+    },
+    {
+     "name": "Paragraphs",
+     "type": "Text"
+    },
+    {
+     "name": "Lines",
+     "type": "Text"
+    }
+   ],
+   "extra": [],
+   "tabsMissing": [],
+   "tabsMatched": []
   },
   {
    "key": "paste_special",
    "cloneFound": true,
-   "wordFound": false,
-   "status": "no-word-dump"
+   "wordFound": true,
+   "status": "compared",
+   "matched": 0,
+   "missing": [
+    {
+     "name": "Paste",
+     "type": "RadioButton"
+    },
+    {
+     "name": "Paste link",
+     "type": "RadioButton"
+    },
+    {
+     "name": "As",
+     "type": "List"
+    },
+    {
+     "name": "Microsoft Word Document Object",
+     "type": "ListItem"
+    },
+    {
+     "name": "Formatted Text (RTF)",
+     "type": "ListItem"
+    },
+    {
+     "name": "Unformatted Text",
+     "type": "ListItem"
+    },
+    {
+     "name": "Picture (Enhanced Metafile)",
+     "type": "ListItem"
+    },
+    {
+     "name": "HTML Format",
+     "type": "ListItem"
+    },
+    {
+     "name": "Unformatted Unicode Text",
+     "type": "ListItem"
+    },
+    {
+     "name": "Display as icon",
+     "type": "CheckBox"
+    }
+   ],
+   "extra": [],
+   "tabsMissing": [],
+   "tabsMatched": []
   },
   {
    "key": "insert_table",
    "cloneFound": true,
-   "wordFound": false,
-   "status": "no-word-dump"
+   "wordFound": true,
+   "status": "compared",
+   "matched": 2,
+   "missing": [
+    {
+     "name": "Fixed column width",
+     "type": "RadioButton"
+    },
+    {
+     "name": "AutoFit to contents",
+     "type": "RadioButton"
+    },
+    {
+     "name": "AutoFit to window",
+     "type": "RadioButton"
+    },
+    {
+     "name": "Remember dimensions for new tables",
+     "type": "CheckBox"
+    }
+   ],
+   "extra": [],
+   "tabsMissing": [],
+   "tabsMatched": []
   },
   {
    "key": "page_setup",
    "cloneFound": false,
-   "wordFound": false,
-   "status": "no-word-dump"
+   "wordFound": true,
+   "status": "clone-dialog-missing",
+   "wordFields": 25
   }
  ]
 }

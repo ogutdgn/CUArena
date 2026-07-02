@@ -1,0 +1,220 @@
+{
+ "ready": true,
+ "dialogs": {
+  "font": {
+   "found": true,
+   "title": "",
+   "tabs": [],
+   "fields": [
+    {
+     "name": "Font:",
+     "type": "select"
+    },
+    {
+     "name": "Style:",
+     "type": "select"
+    },
+    {
+     "name": "Size:",
+     "type": "number"
+    },
+    {
+     "name": "Font color:",
+     "type": "button"
+    },
+    {
+     "name": "Underline:",
+     "type": "select"
+    },
+    {
+     "name": "Strikethrough",
+     "type": "checkbox"
+    },
+    {
+     "name": "Double strikethrough",
+     "type": "checkbox"
+    },
+    {
+     "name": "Small caps",
+     "type": "checkbox"
+    },
+    {
+     "name": "Superscript",
+     "type": "checkbox"
+    },
+    {
+     "name": "All caps",
+     "type": "checkbox"
+    },
+    {
+     "name": "Subscript",
+     "type": "checkbox"
+    },
+    {
+     "name": "Hidden",
+     "type": "checkbox"
+    },
+    {
+     "name": "Scale:",
+     "type": "select"
+    },
+    {
+     "name": "Spacing:",
+     "type": "select"
+    },
+    {
+     "name": "By:",
+     "type": "number"
+    },
+    {
+     "name": "Position:",
+     "type": "select"
+    },
+    {
+     "name": "By:",
+     "type": "number"
+    },
+    {
+     "name": "Kerning:",
+     "type": "checkbox"
+    },
+    {
+     "name": "for fonts ≥",
+     "type": "number"
+    },
+    {
+     "name": "OK",
+     "type": "button"
+    },
+    {
+     "name": "OK",
+     "type": "button"
+    }
+   ]
+  },
+  "paragraph": {
+   "found": true,
+   "title": "",
+   "tabs": [],
+   "fields": [
+    {
+     "name": "Alignment:",
+     "type": "select"
+    },
+    {
+     "name": "Indent left (in):",
+     "type": "number"
+    },
+    {
+     "name": "Indent right (in):",
+     "type": "number"
+    },
+    {
+     "name": "By (in):",
+     "type": "number"
+    },
+    {
+     "name": "Spacing before (pt):",
+     "type": "number"
+    },
+    {
+     "name": "Spacing after (pt):",
+     "type": "number"
+    },
+    {
+     "name": "At:",
+     "type": "number"
+    },
+    {
+     "name": "Don't add space between paragraphs of the same style",
+     "type": "checkbox"
+    },
+    {
+     "name": "OK",
+     "type": "button"
+    },
+    {
+     "name": "OK",
+     "type": "button"
+    }
+   ]
+  },
+  "findadv": {
+   "found": true,
+   "title": "",
+   "tabs": [],
+   "fields": [
+    {
+     "name": "‹",
+     "type": "button"
+    },
+    {
+     "name": "AaBbCcDdEeNormalAaBbCcDdEeNo SpacingAaBbCcDdEeHeading 1AaBbC",
+     "type": "button"
+    },
+    {
+     "name": "›",
+     "type": "button"
+    }
+   ]
+  },
+  "wordcount": {
+   "found": true,
+   "title": "",
+   "tabs": [],
+   "fields": [
+    {
+     "name": "Include textboxes, footnotes and endnotes",
+     "type": "checkbox"
+    },
+    {
+     "name": "Close",
+     "type": "button"
+    }
+   ]
+  },
+  "paste_special": {
+   "found": true,
+   "title": "",
+   "tabs": [],
+   "fields": [
+    {
+     "name": "OK",
+     "type": "button"
+    },
+    {
+     "name": "OK",
+     "type": "button"
+    }
+   ]
+  },
+  "insert_table": {
+   "found": true,
+   "title": "",
+   "tabs": [],
+   "fields": [
+    {
+     "name": "Columns:",
+     "type": "number"
+    },
+    {
+     "name": "Rows:",
+     "type": "number"
+    },
+    {
+     "name": "OK",
+     "type": "button"
+    },
+    {
+     "name": "OK",
+     "type": "button"
+    }
+   ]
+  },
+  "page_setup": {
+   "found": false,
+   "note": "no clone opener mapped"
+  }
+ },
+ "errors": []
+}

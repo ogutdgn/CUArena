@@ -1,0 +1,33 @@
+{
+  "key": "page_setup",
+  "title": "Page Setup",
+  "_source": "computer-use UIA capture of real Word (build 16.0.20026), 2026-07-01",
+  "tabs": ["Margins", "Paper", "Layout"],
+  "fields": [
+    { "name": "Top", "type": "Spinner" },
+    { "name": "Bottom", "type": "Spinner" },
+    { "name": "Left", "type": "Spinner" },
+    { "name": "Right", "type": "Spinner" },
+    { "name": "Gutter", "type": "Spinner" },
+    { "name": "Gutter position", "type": "ComboBox" },
+    { "name": "Portrait", "type": "RadioButton" },
+    { "name": "Landscape", "type": "RadioButton" },
+    { "name": "Multiple pages", "type": "ComboBox" },
+    { "name": "Apply to", "type": "ComboBox" },
+    { "name": "Paper size", "type": "ComboBox" },
+    { "name": "Width", "type": "Spinner" },
+    { "name": "Height", "type": "Spinner" },
+    { "name": "First page (paper source)", "type": "List" },
+    { "name": "Other pages (paper source)", "type": "List" },
+    { "name": "Print Options...", "type": "Button" },
+    { "name": "Section start", "type": "ComboBox" },
+    { "name": "Suppress endnotes", "type": "CheckBox" },
+    { "name": "Different odd and even", "type": "CheckBox" },
+    { "name": "Different first page", "type": "CheckBox" },
+    { "name": "Header from edge", "type": "Spinner" },
+    { "name": "Footer from edge", "type": "Spinner" },
+    { "name": "Vertical alignment", "type": "ComboBox" },
+    { "name": "Line Numbers...", "type": "Button" },
+    { "name": "Borders...", "type": "Button" }
+  ]
+}

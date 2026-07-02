@@ -1,0 +1,14 @@
+{
+  "key": "insert_table",
+  "title": "Insert Table",
+  "_source": "computer-use UIA capture of real Word (build 16.0.20026), 2026-07-01",
+  "tabs": [],
+  "fields": [
+    { "name": "Number of columns", "type": "Spinner" },
+    { "name": "Number of rows", "type": "Spinner" },
+    { "name": "Fixed column width", "type": "RadioButton" },
+    { "name": "AutoFit to contents", "type": "RadioButton" },
+    { "name": "AutoFit to window", "type": "RadioButton" },
+    { "name": "Remember dimensions for new tables", "type": "CheckBox" }
+  ]
+}
