@@ -37,13 +37,24 @@ def write_ledger(results, out_dir):
         md.append("")
     md.append(f"**Tasks:** {n} · **semantic-pass:** {npass} · **gap:** {n - npass}\n")
     md.append("## Scoreboard\n")
-    md.append("| Task | Feature | Tab | Tier | Verdict | match | missing | extra |")
-    md.append("|---|---|---|---|---|--:|--:|--:|")
+    md.append("| Task | Feature | Tab | Tier | Verdict | match | missing | extra | import (D1.1) |")
+    md.append("|---|---|---|---|---|--:|--:|--:|---|")
     for r in results:
         c = r.get("counts", {})
         v = "✅ pass" if r.get("verdict") == "semantic-pass" else "🟠 gap"
+        il = r.get("import_leg")
+        if not il:
+            iv = "—"
+        elif il.get("verdict") == "semantic-pass":
+            ic = il.get("counts", {})
+            iv = "✅ pass" if not ic.get("extra") else f"✅ pass ({ic.get('extra')} extra)"
+        elif il.get("verdict") == "not-captured":
+            iv = "⚪ not captured"
+        else:
+            ic = il.get("counts", {})
+            iv = f"🟠 gap ({ic.get('missing', '?')} lost)"
         md.append(f"| `{r.get('id')}` | {r.get('feature')} | {r.get('tab')} | {r.get('usage_tier')} | {v} "
-                  f"| {c.get('match',0)} | {c.get('missing',0)} | {c.get('extra',0)} |")
+                  f"| {c.get('match',0)} | {c.get('missing',0)} | {c.get('extra',0)} | {iv} |")
     md.append("")
     md.append("## Per-task differences\n")
     for r in results:
@@ -60,6 +71,13 @@ def write_ledger(results, out_dir):
         struct = [f"{k}: word={v['word']} clone={v['clone']}" for k, v in pc.items() if v.get("word") != v.get("clone")]
         if struct:
             md.append("\n**Part-count divergence:** " + "; ".join(struct))
+        il = r.get("import_leg")
+        if il and il.get("verdict") not in (None, "semantic-pass"):
+            md.append(f"\n**Import round-trip (D1.1) — {il.get('verdict')}:**")
+            for m in il.get("missing_nodes", []):
+                md.append(f"- LOST on import→resave: `{m}`")
+            for e in il.get("extra_nodes", []):
+                md.append(f"- ADDED on import→resave: `{e}`")
         md.append("")
     with open(os.path.join(out_dir, "LEDGER.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(md))

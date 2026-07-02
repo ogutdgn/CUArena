@@ -600,6 +600,486 @@
       "action": "insert a plain 3x3 table",
       "realword_method": "com",
       "note": "WARNING: COM Tables.Add != ribbon Insert Table (ribbon auto-applies TableGrid). This pilot's rw fixture is the COM baseline; for a fair ribbon comparison, recapture ground truth via vsto UI session. (T1 pilot — kept for reference.)"
+    },
+    {
+      "id": "tb-insert-dialog",
+      "control_id": "insert.tables.table.dialog",
+      "feature": "Insert Table dialog: 3x4, fixed width",
+      "action": "Insert Table dialog: 3x4, fixed width",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Dialog path = same PM.insertTable verb; non-square grid. Word: Tables.Add 3 rows x 4 cols + Table Grid."
+    },
+    {
+      "id": "tb-convert-text-table",
+      "control_id": "insert.tables.table.converttext",
+      "feature": "Convert Text to Table (commas)",
+      "action": "Convert Text to Table (commas)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone dialog auto-picks comma when no tabs; PM.textToTable(','). Word: Selection.ConvertToTable(wdSeparateByCommas=2), dialog defaults."
+    },
+    {
+      "id": "tb-quicktable-calendar",
+      "control_id": "insert.tables.table.quicktables",
+      "feature": "Quick Tables: Calendar",
+      "action": "Quick Tables: Calendar",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone Quick Tables 'Calendar' = plain 6x7 grid (fake preset). Word: 'Calendar 1' building block. LoadBuildingBlocks may be needed; if the entry is missing the capture fails honestly."
+    },
+    {
+      "id": "tb-style-grid4a1",
+      "control_id": "table-design.styles.gallery",
+      "feature": "Table Styles gallery: apply Grid Table 4 Accent 1",
+      "action": "Table Styles gallery: apply Grid Table 4 Accent 1",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "The ONE modern style the clone gallery has. Word stamps tblStyle + per-row/cell cnfStyle; expect the cnfStyle gap here."
+    },
+    {
+      "id": "tb-style-listtable3",
+      "control_id": "table-design.styles.gallery",
+      "feature": "Table Styles gallery: apply List Table 3",
+      "action": "Table Styles gallery: apply List Table 3",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "NOT in the clone's 2-style gallery -> honest no-op (the 2/247 gap, OOXML leg). Word: Style='List Table 3'."
+    },
+    {
+      "id": "tb-styleopt-headerrow-off",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Header Row OFF",
+      "action": "Table Style Options: Header Row OFF",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleHeadingRows = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+    },
+    {
+      "id": "tb-styleopt-totalrow-on",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Total Row ON",
+      "action": "Table Style Options: Total Row ON",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleLastRow = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+    },
+    {
+      "id": "tb-styleopt-bandedrows-off",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Banded Rows OFF",
+      "action": "Table Style Options: Banded Rows OFF",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleRowBands = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+    },
+    {
+      "id": "tb-styleopt-firstcol-off",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: First Column OFF",
+      "action": "Table Style Options: First Column OFF",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleFirstColumn = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+    },
+    {
+      "id": "tb-styleopt-lastcol-on",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Last Column ON",
+      "action": "Table Style Options: Last Column ON",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleLastColumn = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+    },
+    {
+      "id": "tb-styleopt-bandedcols-on",
+      "control_id": "table-design.styleoptions",
+      "feature": "Table Style Options: Banded Columns ON",
+      "action": "Table Style Options: Banded Columns ON",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word: ApplyStyleColumnBands = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group."
+    },
+    {
+      "id": "tb-shading-cell",
+      "control_id": "table-design.styles.shading",
+      "feature": "Shading: fill caret cell #FFF2CC",
+      "action": "Shading: fill caret cell #FFF2CC",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone swatch 1 (#FFF2CC) via tableSetCellShading. Word: BackgroundPatternColor BGR 13431551. Expect the shd val=clear/color=auto attr gap."
+    },
+    {
+      "id": "tb-borders-all-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: All Borders on caret cell",
+      "action": "Borders: All Borders on caret cell",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone 'All Borders' item: tableSetCellBorders 4 sides val=single color=000000 size=4. Word: caret in cell + ExecuteMso BordersAll (default 1/2pt auto pen)."
+    },
+    {
+      "id": "tb-borders-none-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: No Border on caret cell",
+      "action": "Borders: No Border on caret cell",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone 'No Border': tableSetCellBorders({}) clears the override (style border stays). Word: ExecuteMso BorderNone writes per-side val=nil."
+    },
+    {
+      "id": "tb-border-top-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: Top Border only (caret cell)",
+      "action": "Borders: Top Border only (caret cell)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone Borders dropdown has only All/None -- per-edge unreachable. Word: Cell.Borders(wdBorderTop=-1).LineStyle=single."
+    },
+    {
+      "id": "tb-border-diagdown-cell",
+      "control_id": "table-design.styles.borders",
+      "feature": "Borders: Diagonal Down (cell 2,2)",
+      "action": "Borders: Diagonal Down (cell 2,2)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone unreachable (no diagonal items). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br."
+    },
+    {
+      "id": "tb-border-weight-3pt",
+      "control_id": "table-design.borders.penweight",
+      "feature": "Border pen weight 3pt (top edge)",
+      "action": "Border pen weight 3pt (top edge)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no Pen Weight control. Word: LineWidth=wdLineWidth300pt(24) -> w:sz=24 (eighth-points)."
+    },
+    {
+      "id": "tb-border-color-red",
+      "control_id": "table-design.borders.pencolor",
+      "feature": "Border pen color red (top edge)",
+      "action": "Border pen color red (top edge)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no Pen Color control. Word: Border.Color=RGB red -> w:color=FF0000."
+    },
+    {
+      "id": "tb-insert-above",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Above",
+      "action": "Rows & Columns: Insert Above",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddRow('above'); Word ExecuteMso TableRowsInsertAboveWord with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-below",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Below",
+      "action": "Rows & Columns: Insert Below",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddRow('below'); Word ExecuteMso TableRowsInsertBelowWord with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-left",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Left",
+      "action": "Rows & Columns: Insert Left",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddColumn('left'); Word ExecuteMso TableColumnsInsertLeft with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-right",
+      "control_id": "table-layout.rowscols",
+      "feature": "Rows & Columns: Insert Right",
+      "action": "Rows & Columns: Insert Right",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone verb PM.tableAddColumn('right'); Word ExecuteMso TableColumnsInsertRight with caret in cell(1,1). Expected genuine-pass candidate (spot-check row)."
+    },
+    {
+      "id": "tb-insert-cells-right",
+      "control_id": "table-layout.rowscols.launcher",
+      "feature": "Insert Cells: shift cells right",
+      "action": "Insert Cells: shift cells right",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no Insert Cells... launcher/dialog (KNOWN GAP #4). Word: Selection.InsertCells(wdInsertCellsShiftRight=0)."
+    },
+    {
+      "id": "tb-delete-row",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Row (row 1)",
+      "action": "Delete Row (row 1)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDeleteRow on caret row. Word: Rows(1).Delete."
+    },
+    {
+      "id": "tb-delete-col",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Column (col 1)",
+      "action": "Delete Column (col 1)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDeleteColumn on caret col. Word: Columns(1).Delete."
+    },
+    {
+      "id": "tb-delete-table",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Table",
+      "action": "Delete Table",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Both sides insert then delete -> near-blank doc. Expected genuine-pass candidate."
+    },
+    {
+      "id": "tb-delete-cells-up",
+      "control_id": "table-layout.rowscols.delete",
+      "feature": "Delete Cells: shift cells up (cell 2,2)",
+      "action": "Delete Cells: shift cells up (cell 2,2)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no Delete Cells... dialog (flat delete buttons only). Word: Selection.Cells.Delete(wdDeleteCellsShiftUp=1)."
+    },
+    {
+      "id": "tb-merge-firstrow2",
+      "control_id": "table-layout.merge",
+      "feature": "Merge Cells: first two cells of row 1",
+      "action": "Merge Cells: first two cells of row 1",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone: tableSelectFirstRowPair + tableMerge -> gridSpan=2. Word: select cells(1,1..2) + Cells.Merge."
+    },
+    {
+      "id": "tb-split-cell",
+      "control_id": "table-layout.merge",
+      "feature": "Split Cells: 1 unmerged cell into 2 columns",
+      "action": "Split Cells: 1 unmerged cell into 2 columns",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSplitCell works only on merged cells (no rows/cols dialog) -> expected no-op on a plain cell. Word: Cell(1,1).Split(1,2)."
+    },
+    {
+      "id": "tb-split-table",
+      "control_id": "table-layout.merge",
+      "feature": "Split Table at row 2",
+      "action": "Split Table at row 2",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Caret in row 2 both sides. Clone tableSplit (splitTableAtRow); Word Selection.SplitTable."
+    },
+    {
+      "id": "tb-autofit-contents",
+      "control_id": "table-layout.cellsize.autofit",
+      "feature": "AutoFit: AutoFit Contents",
+      "action": "AutoFit: AutoFit Contents",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableAutoFit('contents'); Word $tbl.AutoFitBehavior(1)."
+    },
+    {
+      "id": "tb-autofit-window",
+      "control_id": "table-layout.cellsize.autofit",
+      "feature": "AutoFit: AutoFit Window",
+      "action": "AutoFit: AutoFit Window",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableAutoFit('window'); Word $tbl.AutoFitBehavior(2)."
+    },
+    {
+      "id": "tb-autofit-fixed",
+      "control_id": "table-layout.cellsize.autofit",
+      "feature": "AutoFit: Fixed Column Width",
+      "action": "AutoFit: Fixed Column Width",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableAutoFit('fixed'); Word $tbl.AutoFitBehavior(0)."
+    },
+    {
+      "id": "tb-dist-rows",
+      "control_id": "table-layout.cellsize",
+      "feature": "Distribute Rows",
+      "action": "Distribute Rows",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDistributeRows; Word select table + Cells.DistributeHeight."
+    },
+    {
+      "id": "tb-dist-cols",
+      "control_id": "table-layout.cellsize",
+      "feature": "Distribute Columns",
+      "action": "Distribute Columns",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableDistributeColumns; Word select table + Cells.DistributeWidth."
+    },
+    {
+      "id": "tb-rowheight-05in",
+      "control_id": "table-layout.cellsize.height",
+      "feature": "Row Height 0.5 inch (caret row)",
+      "action": "Row Height 0.5 inch (caret row)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetRowHeight(48px,'atLeast') (H.tblRowHeight's exact call for 0.5in). Word: Rows(1) HeightRule=atLeast, Height=36pt."
+    },
+    {
+      "id": "tb-colwidth-15in",
+      "control_id": "table-layout.cellsize.width",
+      "feature": "Column Width 1.5 inch (caret column)",
+      "action": "Column Width 1.5 inch (caret column)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetCellWidth(144px) -- note: sets the CELL width; Word Width: sets the whole COLUMN (108pt). Semantic scope difference expected."
+    },
+    {
+      "id": "tb-cellalign-bottomright",
+      "control_id": "table-layout.alignment",
+      "feature": "Alignment: Align Bottom Right (caret cell)",
+      "action": "Alignment: Align Bottom Right (caret cell)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Word 9-way = vAlign bottom + paragraph jc right. Clone has only 3 vAlign buttons -> vAlign applied, jc unreachable (partial gap)."
+    },
+    {
+      "id": "tb-textdir",
+      "control_id": "table-layout.alignment.textdir",
+      "feature": "Text Direction: first click (caret cell)",
+      "action": "Text Direction: first click (caret cell)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone H.tblTextDir hardwires 'tbRl'. Word first click = rotate 90 (wdTextOrientationDownward=3, tbRl expected -- VERIFY, D6.3 flag). Later clicks (btLr) are BEHAVIOR territory."
+    },
+    {
+      "id": "tb-cellmargins",
+      "control_id": "table-layout.alignment.cellmargins",
+      "feature": "Cell Margins 0.25in all sides",
+      "action": "Cell Margins 0.25in all sides",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone flyout -> tableSetCellMargins per-CELL tcMar (24px=0.25in). Word Cell Margins = TABLE Options -> tblCellMar (paddings 18pt). Semantic scope difference expected."
+    },
+    {
+      "id": "tb-sort-col1",
+      "control_id": "table-layout.data.sort",
+      "feature": "Sort: table rows by column 1 ascending",
+      "action": "Sort: table rows by column 1 ascending",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has NO table Sort (Home Sort is paragraph-only). Word: fill b/a/c + Table.Sort ascending. NOTE: a pure row permutation is multiset-invariant -- this task doubles as a differ order-sensitivity canary."
+    },
+    {
+      "id": "tb-repeatheader",
+      "control_id": "table-layout.data.repeatheader",
+      "feature": "Repeat Header Rows (row 1)",
+      "action": "Repeat Header Rows (row 1)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone 'Header Row' button does <th> conversion (toggleHeaderRow) -- NOT Word's w:trPr/w:tblHeader. Word: Rows(1).HeadingFormat=true. Semantics divergence expected."
+    },
+    {
+      "id": "tb-totext-tab",
+      "control_id": "table-layout.data.totext",
+      "feature": "Convert to Text (tabs)",
+      "action": "Convert to Text (tabs)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableToText('\\t') (H.tblToText's exact call). Word ConvertToText(wdSeparateByTabs=1). Expected genuine-pass candidate."
+    },
+    {
+      "id": "tb-totext-comma",
+      "control_id": "table-layout.data.totext",
+      "feature": "Convert to Text (commas)",
+      "action": "Convert to Text (commas)",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has NO separator dialog -- the user gets tabs regardless. Word: ConvertToText(wdSeparateByCommas=2). Text-content mismatch expected."
+    },
+    {
+      "id": "tb-align-center",
+      "control_id": "table-design.align",
+      "feature": "Table alignment: center",
+      "action": "Table alignment: center",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetAlignment('center') (w:jc). Word Rows.Alignment=wdAlignRowsCenter(1). Expected genuine-pass candidate. (Word keeps this in Properties, not on Design -- STRUCTURE flags the extra group.)"
+    },
+    {
+      "id": "tb-indent-05in",
+      "control_id": "table-design.align.indent",
+      "feature": "Table indent from left: 0.5 inch",
+      "action": "Table indent from left: 0.5 inch",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone tableSetIndent(48px) (w:tblInd). Word Rows.LeftIndent=36pt."
+    },
+    {
+      "id": "tb-float-around",
+      "control_id": "table-layout.properties.wrap",
+      "feature": "Floating table: text wrapping Around",
+      "action": "Floating table: text wrapping Around",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "Clone has no floating-table authoring (Group E representative). Word: Rows.WrapAroundText=true -> w:tblpPr."
+    },
+    {
+      "id": "tb-combo-diag-merged",
+      "control_id": "table-design.styles.borders",
+      "feature": "COMBO: diagonal border on a merged cell",
+      "action": "COMBO: diagonal border on a merged cell",
+      "tab": "Tables",
+      "usage_tier": "TB",
+      "realword_method": "com",
+      "note": "The rubric D1.3 example combination. Clone: merge works, diagonal unreachable -> partial gap. Word: merge cells(1,1..2) + Borders(DiagonalDown)."
     }
   ],
   "_deferred_variations": [

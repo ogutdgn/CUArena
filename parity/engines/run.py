@@ -45,6 +45,53 @@ def capture_clone(tid):
     subprocess.run(cmd, cwd=ROOT, timeout=180, capture_output=True)
 
 
+# D1.1 — the OOXML axis's SECOND leg: open the real-Word fixture in the clone, resave,
+# diff against the original. Proves "opening a Word file doesn't corrupt it". The probe
+# is rendered per-task from this template into a temp file (no repo clutter).
+IMPORT_PROBE_TEMPLATE = """\
+(async () => {{
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  for (let i = 0; i < 600 && !window.__WC_READY; i++) await sleep(50);
+  const PM = window.WC.PM;
+  const out = {{ ready: !!window.__WC_READY, leg: 'import', id: '{tid}' }};
+  try {{
+    const r = await window.wordAPI.openBytes('{rw}');
+    out.opened = !!(r && r.ok);
+    if (!out.opened) throw new Error('openBytes failed: ' + (r && r.error));
+    const ok = await PM.openDocx(r.bytes);
+    out.imported = ok !== false;
+    await sleep(800);
+    const bytes = await PM.exportDocxBytes();
+    out.save = await window.wordAPI.saveBytes({{ filePath: '{ir}', bytes }});
+  }} catch (e) {{ out.err = String(e && e.message); }}
+  return JSON.stringify(out, null, 2);
+}})();
+"""
+
+
+def capture_import(tid):
+    """Render + run the import-roundtrip probe: rw-<id>.docx -> clone -> ir-<id>.docx."""
+    import tempfile
+    rw = os.path.join(FIX, f"rw-{tid}.docx").replace("\\", "/")
+    ir = os.path.join(FIX, f"ir-{tid}.docx").replace("\\", "/")
+    if not os.path.exists(rw):
+        print(f"  [!] {tid}: no rw fixture — skipping import leg capture")
+        return
+    js = IMPORT_PROBE_TEMPLATE.format(tid=tid, rw=rw, ir=ir)
+    fd, path = tempfile.mkstemp(suffix=f"-{tid}-import-probe.js")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(js)
+        cmd = [ELECTRON, "--user-data-dir=C:/tmp/wc-probe-profile", "--disable-http-cache", ".",
+               f"--probe-out={os.path.join(RESULTS, tid + '-import-probe.json')}", f"--shot-evalfile={path}"]
+        subprocess.run(cmd, cwd=ROOT, timeout=180, capture_output=True)
+    finally:
+        try:
+            os.unlink(path)
+        except OSError:
+            pass
+
+
 def capture_realword(tid, method):
     if method != "com":
         print(f"  [!] {tid}: realword_method='{method}' -> needs manual vsto UI capture; skipping auto-capture.")
@@ -71,6 +118,8 @@ def main():
     ap.add_argument("--capture-clone", action="store_true", help="(re)capture ONLY the clone side (after a clone source fix; real Word unchanged)")
     ap.add_argument("--capture-baseline", action="store_true", help="(re)capture ONLY the empty-doc baselines")
     ap.add_argument("--no-baseline", action="store_true", help="diff full docs without baseline subtraction (v1 behavior)")
+    ap.add_argument("--import-leg", action="store_true",
+                    help="D1.1: (re)capture the import round-trip fixtures (rw -> clone resave -> ir) via Electron")
     a = ap.parse_args()
 
     tasks = json.load(open(a.tasks, encoding="utf-8"))["tasks"]
@@ -123,6 +172,8 @@ def main():
             print("  capturing real Word..."); capture_realword(tid, t.get("realword_method", "com"))
         elif a.capture_clone:
             print("  capturing clone (clone-only)..."); capture_clone(tid)
+        if a.import_leg:
+            print("  capturing import round-trip (rw -> clone -> ir)..."); capture_import(tid)
         rw = os.path.join(FIX, f"rw-{tid}.docx")
         wc = os.path.join(FIX, f"wc-{tid}.docx")
         if not (os.path.exists(rw) and os.path.exists(wc)):
@@ -133,6 +184,16 @@ def main():
                             clone_baseline=WC_BASELINE if use_baseline else None)
         d["id"] = tid
         d.update({k: t.get(k) for k in ("control_id", "feature", "tab", "usage_tier", "note")})
+        # D1.1 second leg: rw vs its clone-resave (no baselines — same-document comparison).
+        # missing = the clone LOST content on import->resave; extra = the clone ADDED content.
+        ir = os.path.join(FIX, f"ir-{tid}.docx")
+        if os.path.exists(ir):
+            di = ooxml_diff.diff(rw, ir, f"{tid}-import")
+            d["import_leg"] = {"verdict": di["verdict"], "counts": di["counts"],
+                               "missing_nodes": di["missing_nodes"], "extra_nodes": di["extra_nodes"]}
+            print(f"  -> import leg: {di['verdict']}  missing={di['counts']['missing']} extra={di['counts']['extra']}")
+        elif a.import_leg:
+            d["import_leg"] = {"verdict": "not-captured", "counts": {}, "missing_nodes": [], "extra_nodes": []}
         json.dump(d, open(os.path.join(RESULTS, f"{tid}.json"), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
         results.append(d)
         print(f"  -> {d['verdict']}  match={d['counts']['match']} missing={d['counts']['missing']} extra={d['counts']['extra']}")
