@@ -7,6 +7,41 @@
 
 ---
 
+## 2026-07-01 (PHASE A ~COMPLETE — all 6 axis engines built; dialogs captured via computer-use)
+
+> **Branch: `parity-v2` @ `8fcb841`+ (pushed).** Phase A (pipeline redesign) essentially done — all
+> six rubric axes have working engines. Read **[parity/RUBRIC.md](../../parity/RUBRIC.md)** first.
+>
+> **THIS SESSION (continuing Phase A):**
+> - **D3 scorecard upgrades** (`dc337b1`,`b035561`): deep item mode (~367 items) + SILENT rescue
+>   (clipboard/UI-fingerprint/submenu) → silent 68→52 (rest legit no-ops); FLOW merged in.
+> - **D5 VISUAL judge** (`dc337b1`): capture→composite→judge + GOLDEN TRUST GATE (passed); home +
+>   tabledesign judged FAIL with logged reasons.
+> - **D6 BEHAVIOR runner** (`20f7d7b`): flow-card interpreter; bold-paint micro-twin PASS (the
+>   file-clean-but-screen-wrong instrument), insert-dropdown PENDING on its ❓.
+> - **D2.2 DIALOGS — DONE via computer-use** (`4b61e60`,`8fcb841`): the automated PowerShell host is
+>   NON-INTERACTIVE (can't synthesize input; modal-in-ExecuteMso never registers with UIA — 5
+>   mechanisms proven to fail). SOLVED with **computer-use** (real OS input on the interactive
+>   desktop): opened Word, drove each dialog, read fields via screenshot/zoom. Captured ALL 6
+>   locked-feature dialogs → `parity/oracle/dialogs/*.json`; `dialog_verify.py`: 58 fields missing
+>   across 6, **page_setup absent from the clone entirely**. Font 16/6, Paragraph 7/14. The missing
+>   sets MATCH SCOPE_LOCKED hand-notes → the pipeline independently rediscovered documented gaps
+>   (a live preview of the Phase B acceptance test). Caveats: findadv=clone-pane-vs-dialog,
+>   paste_special opener nuance.
+> - **idMso ribbon inventory + labels + STRUCTURE (D2.1 menu items) + STATE matrix (D2.4)** — built
+>   earlier this session (see the entry below for details).
+>
+> **FEATURE LEDGER (measured):** OOXML 13pass/4gap · STRUCT 80/19/12 · STATE 95/16 · SCORE 98/1DEAD/
+> 12warn · DIALOG 6-compared/58-missing · VISUAL+BEHAV = sampled harnesses. FULLY-VERIFIED 0/111 (honest baseline).
+>
+> **LESSON (dialog capture):** the automated PS tool is non-interactive → keyboard synthesis to other
+> apps + modal-dialog UIA both fail; **computer-use is the working mechanism** for anything needing
+> real desktop input (dialogs, and any future gallery/building-block capture).
+>
+> **NEXT:** table-styles catalog (running now via `_extract_table_styles.ps1` — the last task-#14 item)
+> → then **Phase B: Tables pilot** (run all axes on Tables; must rediscover the KNOWN gaps: 2/247
+> gallery, cnfStyle, Draw/Eraser/Painter stubs, Insert Cells…, label mismatches — zero false fulls).
+
 ## 2026-07-01 (PHASE A UNDERWAY — rubric locked, LO-consult proven, 4 axes measuring, feature ledger live)
 
 > **Branch: `parity-v2` @ `596c735` (pushed).** Phase A (pipeline redesign) in progress; read

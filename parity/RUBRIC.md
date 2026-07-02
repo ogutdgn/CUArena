@@ -69,11 +69,12 @@ all blocked; a thread parked in ExecuteMso doesn't pump messages so the modal ne
 with UIA, and non-interactive PS can't synthesize input). ✅ SOLVED via **computer-use** (real OS
 input on the interactive desktop): open Word → type/select → Ctrl+D (or the ribbon launcher) →
 read the dialog via screenshot/zoom → write `parity/oracle/dialogs/<key>.json` → `dialog_verify.py`
-diffs. DONE 2026-07-01 for font / paragraph / findadv (Font 16-match/6-miss, Paragraph 7/14,
-findadv clone-pane-vs-Word-dialog); the missing sets MATCH the SCOPE_LOCKED hand-notes (Font
-Advanced OpenType, Paragraph's whole Line-and-Page-Breaks tab) — the pipeline independently
-rediscovered documented gaps. Remaining locked dialogs (wordcount/paste_special/insert_table/
-page_setup) capture the same way. `dump_dialog_uia.ps1` kept for a genuinely interactive terminal.
+diffs. DONE 2026-07-01 for ALL 6 locked-feature dialogs (font/paragraph/findadv/wordcount/paste_special/
+insert_table) + page_setup: 58 fields missing across 6, page_setup entirely absent from the clone.
+The missing sets MATCH the SCOPE_LOCKED hand-notes (Font Advanced OpenType, Paragraph's whole
+Line-and-Page-Breaks tab, Page Setup absent) — the pipeline independently rediscovered documented
+gaps. Caveats flagged: findadv (clone find-PANE vs Word dialog), paste_special (clone opener =
+setDefaultPaste). `dump_dialog_uia.ps1` kept for a genuinely interactive terminal.
 
 **D2.3 — contextual tab sets: DEFERRED with a HARD GATE (user decision).** Picture Tools /
 Header & Footer Tools / Draw etc. are NOT mapped for the Tables pilot — **but mapping them is

@@ -513,7 +513,11 @@ hold the single-PM-copy + telemetry-off invariants.
 - [x] **D2.1 menu-item diff** (`abec893`): 176/65-missing items; PasteMenu/CATEGORY_HEADERS/menu-last matcher traps fixed.
 - [x] **D2.4 STATE matrix** (`038f47a`): 3 contexts × 2570 ids → 41 mismatching controls.
 - [x] **FEATURE LEDGER live** (`605a917`, `596c735`): 111 features × 6 columns; v2 baseline FULLY VERIFIED 0/111; OOXML 54/58 pass (kept fixes HOLD).
-- [ ] **NEXT:** D3 scorecard upgrades → D2.2 dialog UIA → D5 visual judge → D6 behavior runner → style catalog → Phase B Tables pilot.
+- [x] **D3 scorecard upgrades** (`dc337b1`,`b035561`): deep item mode + SILENT rescue (68→52) + FLOW merged.
+- [x] **D5 VISUAL judge** (`dc337b1`): side-by-side vs Word + golden trust gate (passed); home/tabledesign FAIL.
+- [x] **D6 BEHAVIOR runner** (`20f7d7b`): flow cards + micro-twins; bold-paint PASS, insert-dropdown PENDING(❓).
+- [x] **D2.2 DIALOGS via computer-use** (`4b61e60`,`8fcb841`): all 6 locked dialogs captured (non-interactive PS can't; computer-use is the working mechanism); 58 fields missing, page_setup absent from clone; missing sets match SCOPE_LOCKED hand-notes.
+- [ ] **NEXT:** table-styles catalog (running) → **Phase B: Tables pilot** (rediscover known gaps, zero false fulls).
 
 ### 2026-07-01 (PARITY V2 RESTART — meta-review → new axes → archive + clean branch)
 - [x] **Honest META-REVIEW of the parity pipeline** (user-requested; `docs/reviews/parity-pipeline-review-2026-07-01.md`): diagnosis = measurement asymmetry — only OOXML was gated; the fix = UI ground truth + a 5-axis definition of done.
