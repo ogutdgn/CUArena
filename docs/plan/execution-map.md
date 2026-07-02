@@ -506,6 +506,14 @@ hold the single-PM-copy + telemetry-off invariants.
 
 ## Daily work log (newest first — check off what got done)
 
+### 2026-07-02 (PHASE B — Tables pilot executed end-to-end; verdict PASS pending user ratification)
+- [x] **KNOWN TRUTH answer key** (`bf065b6`): 7-reader parallel sweep of the parity-pipeline archive → `parity/results/KNOWN_TRUTH_TABLES.md` (5 named gaps + anti-false-full catalog + pipeline pitfalls).
+- [x] **48 D1.3 OOXML tasks + generator + D1.1 import leg** (`be67ed6`): probes drive the clone's UI command surface only; unreachable = honest gap. Run: 46 gap / 2 pass; import 45 pass / 3 real losses.
+- [x] **Pilot-caught PIPELINE BUGS fixed + golden-locked** (`6aca402`, `e356dd2`): differ w:t text-blindness (totext-comma false pass) + order-blindness (Sort → textOrder stream); sort GT no-op (auto-header); twin caret harness (caretIntoCellModel); VISUAL contextual-tab name / popup-hwnd / stale-profile-doc; scorecard shading false-suspect + GALLERY_UNDERFILLED bar.
+- [x] **All 6 axes measured on Tables**; FEATURE_LEDGER `Table` = OOXML GAP(48/49) · STRUCT GAP · STATE GAP(2) · SCORE triage · VISUAL GAP(5/5) · BEHAV GAP(6/33); feature_ledger now rolls VISUAL/BEHAV per feature.
+- [x] **All 5 named gaps rediscovered** (each by ≥2 axes) + border-collapse/No-Border caught LIVE by twins; **zero false fulls** on spot-check → `parity/results/ACCEPTANCE_TABLES.md`.
+- [ ] **AWAITING USER:** D6.1 journey-card sign-off · computer-use approval for the ❓ recordings · verdict ratification. **Then Phase C** (contextual-tab mapping HARD GATE first — D2.3).
+
 ### 2026-07-01 (PHASE A — rubric + LO-consult + D2.1/D2.4 + feature ledger; four axes measuring)
 - [x] **RUBRIC.md complete & user-signed** (axis-by-axis walkthrough, Turkish): 6 axes locked; FLOW merged into SCORECARD; import round-trip + pass-with-note + dimension rule; STATE matrix added (user: "state management çok önemli"); contextual-tab HARD GATE before scaling past Tables; icons = ribbon crops (GetImageMso broken on this build).
 - [x] **LO-consult proven** (`parity/knowledge/lo-word-table-border-rules.md`): local LibreOffice clone as Word-semantics knowledge source (rules NOT code); 4 unknowns → targeted oracle experiments.

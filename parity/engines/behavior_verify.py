@@ -64,6 +64,8 @@ def main():
     rows = actual.get("cards", [])
     counts = {v: sum(1 for r in rows if r.get("verdict") == v) for v in ("pass", "pending", "fail")}
     bymeta = {c["id"]: c for c in cards}
+    for r in rows:   # carry card metadata into the output (feature_ledger rolls up by feature)
+        r["feature"] = bymeta.get(r["id"], {}).get("feature")
 
     os.makedirs(RESULTS, exist_ok=True)
     md = ["# Behavior Ledger — flow cards + micro-twins vs the live clone (D6)\n",

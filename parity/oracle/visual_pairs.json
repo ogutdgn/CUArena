@@ -25,35 +25,40 @@
       "wordTab": "Table Design",
       "cloneTab": "table-design",
       "cloneProbe": "../..//scripts/ribbon-shot-probe.js",
-      "desc": "Table Design ribbon"
+      "desc": "Table Design ribbon",
+      "feature": "Table"
     },
     {
       "id": "tablelayout",
       "wordTab": "Table Layout",
       "cloneTab": "table-layout",
       "cloneProbe": "visual-tablelayout-probe.js",
-      "desc": "Table Layout contextual ribbon (level 1)"
+      "desc": "Table Layout contextual ribbon (level 1)",
+      "feature": "Table"
     },
     {
       "id": "insert-table-menu",
       "wordTab": "Insert",
       "cloneProbe": "visual-insert-menu-probe.js",
       "desc": "OPEN Insert > Table dropdown — grid picker + items (level 2; Word via UIA Expand)",
-      "wordExpand": "Table"
+      "wordExpand": "Table",
+      "feature": "Table"
     },
     {
       "id": "table-styles-gallery",
       "wordTab": "Table Design",
       "cloneProbe": "visual-styles-gallery-probe.js",
       "desc": "OPEN Table Styles gallery — the 2/247 gap side-by-side (level 2; Word via UIA Expand)",
-      "wordExpand": "Table Styles"
+      "wordExpand": "Table Styles",
+      "feature": "Table"
     },
     {
       "id": "doc-styled-table",
       "wordTab": "Home",
       "wordStyle": "Grid Table 4 - Accent 1",
       "cloneProbe": "visual-doc-styled-probe.js",
-      "desc": "LEVEL 4 document render — Grid Table 4 Accent 1 styled 3x3 on the page"
+      "desc": "LEVEL 4 document render — Grid Table 4 Accent 1 styled 3x3 on the page",
+      "feature": "Table"
     }
   ]
 }

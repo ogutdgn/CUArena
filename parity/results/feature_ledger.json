@@ -20,22 +20,22 @@
    "unmeasured": 0
   },
   "SCORE": {
-   "pass": 98,
+   "pass": 97,
    "gap": 1,
-   "warn": 12,
+   "warn": 13,
    "unmeasured": 0
   },
   "VISUAL": {
    "pass": 0,
-   "gap": 0,
+   "gap": 1,
    "warn": 0,
-   "unmeasured": 111
+   "unmeasured": 110
   },
   "BEHAV": {
-   "pass": 0,
-   "gap": 0,
+   "pass": 1,
+   "gap": 1,
    "warn": 0,
-   "unmeasured": 111
+   "unmeasured": 109
   }
  },
  "rows": [
@@ -88,7 +88,7 @@
     "STATE": "pass",
     "SCORE": "pass",
     "VISUAL": "\u2014",
-    "BEHAV": "\u2014"
+    "BEHAV": "pass(1 sampled)"
    }
   },
   {
@@ -577,12 +577,12 @@
    "tab": "insert",
    "tier": "T1",
    "cols": {
-    "OOXML": "GAP(1/1)",
+    "OOXML": "GAP(48/49)",
     "STRUCT": "GAP(items:1)",
-    "STATE": "GAP(1)",
-    "SCORE": "pass",
-    "VISUAL": "\u2014",
-    "BEHAV": "\u2014"
+    "STATE": "GAP(2)",
+    "SCORE": "triage",
+    "VISUAL": "GAP(5/5)",
+    "BEHAV": "GAP(6/33)"
    }
   },
   {

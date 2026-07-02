@@ -7,7 +7,41 @@
 
 ---
 
-## 2026-07-01 (PHASE A ~COMPLETE — all 6 axis engines built; dialogs captured via computer-use)
+## 2026-07-02 (PHASE B — Tables pilot RUN COMPLETE: all 5 named gaps rediscovered, 6 pipeline bugs fixed; verdict PASS pending user ratification)
+
+> **Branch: `parity-v2` @ `e356dd2`+ (pushed).** Phase B executed end-to-end. The verdict evidence:
+> **[parity/results/ACCEPTANCE_TABLES.md](../../parity/results/ACCEPTANCE_TABLES.md)**; the answer key:
+> **[parity/results/KNOWN_TRUTH_TABLES.md](../../parity/results/KNOWN_TRUTH_TABLES.md)** (7-reader archive sweep).
+>
+> **THIS SESSION:**
+> - **KNOWN TRUTH reconstructed** (`bf065b6`): the 5 named gaps + ~25-row anti-false-full catalog +
+>   measurement pitfalls, evidence-cited from the `parity-pipeline` archive (git-show only).
+> - **48 OOXML tasks (D1.3)** + generator + **D1.1 import leg** in run.py (`be67ed6`): 46 gap / 2 pass;
+>   import round-trip 45 pass (uniform +tblCellMar cluster) / **3 real losses** (autofit-contents tcW,
+>   convert-text tblPrEx, insert-cells tcW).
+> - **PIPELINE BUGS the pilot caught → fixed + golden-locked** (`6aca402`, `e356dd2`): differ w:t
+>   TEXT-blindness (tb-totext-comma false pass) + ORDER-blindness (Sort invisible → textOrder stream
+>   signature); tb-sort GT no-op (SortAscending auto-header); twin caret harness (synthetic clicks
+>   don't drive PM selection → caretIntoCellModel); VISUAL captures (contextual tab NAME is
+>   'Table Layout' not 'Layout'; popup menus = separate hwnds → UIA ExpandCollapse + CopyFromScreen;
+>   profile leaked stale docs → probes reset); scorecard tblShading false-suspect + NEW
+>   GALLERY_UNDERFILLED bar (2 vs Word 113 → triage).
+> - **All 6 axes measured on Tables.** FEATURE_LEDGER `Table` row:
+>   `OOXML GAP(48/49) · STRUCT GAP(items:1) · STATE GAP(2) · SCORE triage · VISUAL GAP(5/5) · BEHAV GAP(6/33)`
+>   (feature_ledger now rolls VISUAL pairs + BEHAVIOR cards up per feature; Table owns the tbl* surface).
+> - **Rediscoveries:** 2/247 gallery (SCORE+BEHAV+VISUAL+OOXML+D2.1-footer), cnfStyle+tblLook val
+>   (OOXML ×7 tasks + STRUCT checkboxes), Draw/Eraser/Painter (STRUCT+VISUAL), Insert Cells… (STRUCT+
+>   OOXML+BEHAV), the 5 v2 label mismatches (STRUCT). Border-collapse paint + No-Border-{} caught LIVE
+>   by the D6.2 twins (the file-clean-screen-wrong instrument works).
+> - **NEW findings:** theme-palette divergence (Word current-theme teal vs clone 4472C4 — VISUAL L4),
+>   contextual-tab name, Word grays Convert-Text-to-Table in-table, totext writes literal tab char
+>   (no w:tab elements), colwidth cell-vs-column + cellmargins tcMar-vs-tblCellMar scope diffs.
+>
+> **AWAITING USER (the 3 agreed checkpoints):** (1) D6.1 sign-off on the 7 Tables journey cards
+> (parity/behavior/cards/tables-*.json, signedOff:false; 3 ❓ from-recording pendings); (2) computer-use
+> approval when we record the ❓ answers in real Word; (3) ratification of the acceptance verdict (PASS).
+> **Deferred (queued):** D1.2 pass-with-note mechanism; scorecard stub-vs-guard-toast classifier;
+> spec-kit seeds for the CLONE fixes (SPEC_SEEDS.md regenerated — tables rows now text-content-aware).
 
 > **Branch: `parity-v2` @ `8fcb841`+ (pushed).** Phase A (pipeline redesign) essentially done — all
 > six rubric axes have working engines. Read **[parity/RUBRIC.md](../../parity/RUBRIC.md)** first.

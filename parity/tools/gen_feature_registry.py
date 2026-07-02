@@ -108,6 +108,12 @@ def main():
 
     feat2tasks = {}
     for t in tasks:
+        # The Tables-pilot batch (tier TB) belongs to the locked "Table" feature wholesale —
+        # its per-dimension feature strings ("Borders: All Borders on caret cell") are task
+        # descriptions, not lockfile names, so the fuzzy matcher can't link them.
+        if t.get("usage_tier") == "TB":
+            feat2tasks.setdefault("Table", []).append(t["id"])
+            continue
         f = link_task(t, feats)
         if f:
             feat2tasks.setdefault(f["name"], []).append(t["id"])
@@ -126,6 +132,12 @@ def main():
                 cmds = [hit["cmd"]]
         if not cmds:
             unmatched.append(f["name"])
+        # The Table feature owns the contextual tbl* surface too (Table Design/Layout tabs are
+        # runtime-injected and absent from ribbon-data — without this, per-control axis results
+        # for the contextual tabs never roll up to the locked feature).
+        if f["name"] == "Table" and f["tab"] == "insert":
+            cmds = sorted(set(cmds) | {c for tab_c in controls.values() for cc in [tab_c] for c in
+                                       [x["cmd"] for x in cc if str(x.get("cmd", "")).startswith("tbl")]})
         out.append({**f, "cmds": cmds,
                     "idMso": sorted({cmd2mso[c] for c in cmds if c in cmd2mso}),
                     "ooxmlTasks": feat2tasks.get(f["name"], [])})

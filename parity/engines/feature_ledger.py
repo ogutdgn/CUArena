@@ -49,6 +49,9 @@ def main():
     state = load(os.path.join(RESULTS, "state.json"))
     scorecard = load(os.path.join(RESULTS, "scorecard.json"))
     ooxml = load(os.path.join(RESULTS, "ledger.json"))
+    visual = load(os.path.join(RESULTS, "visual.json"))
+    vpairs = load(os.path.join(PAR, "oracle", "visual_pairs.json"))
+    behavior = load(os.path.join(RESULTS, "behavior.json"))
 
     # ---- index the axis results by clone cmd / task id ----
     pair_bucket, menu_missing = {}, {}
@@ -58,6 +61,10 @@ def main():
                 for p in r.get(bucket, []):
                     if p["clone"].get("cmd"):
                         pair_bucket[(tab, p["clone"]["cmd"])] = bucket
+            for p in r.get("extra", []):   # clone-only controls Word doesn't have = a STRUCT gap
+                cmd = p.get("cmd") or (p.get("clone") or {}).get("cmd")
+                if cmd:
+                    pair_bucket[(tab, cmd)] = "extra"
             for m in r.get("menus", []):
                 if m.get("cloneCmd"):
                     menu_missing[(tab, m["cloneCmd"])] = len(m["missing"])
@@ -65,6 +72,23 @@ def main():
     if state:
         for r in state.get("mismatches", []):
             state_bad.setdefault(r["cmd"], []).append(r["diff"])
+    # VISUAL: pair verdicts rolled up per feature (pair config carries `feature`)
+    vis_feat = {}
+    if visual and vpairs:
+        for pr in vpairs.get("pairs", []):
+            fk = pr.get("feature")
+            if not fk or pr.get("golden"):
+                continue
+            v = (visual.get("verdicts") or {}).get(pr["id"], {}).get("verdict")
+            if v:
+                vis_feat.setdefault(fk, []).append(v)
+    # BEHAVIOR: card verdicts rolled up per feature (cards carry `feature`). SAMPLED (D6.4).
+    beh_feat = {}
+    if behavior:
+        for c in behavior.get("cards", []):
+            fk = c.get("feature")
+            if fk:
+                beh_feat.setdefault(fk, []).append(c.get("verdict"))
     score_verdict = {}
     if scorecard:
         for r in scorecard.get("controls", []):
@@ -103,12 +127,14 @@ def main():
         else:
             buckets = [pair_bucket.get((f["tab"], c)) for c in f["cmds"]]
             miss = sum(menu_missing.get((f["tab"], c), 0) for c in f["cmds"])
-            if any(b is None for b in buckets):
-                row["cols"]["STRUCT"] = "MISSING?"
-            elif miss:
+            if miss:
                 row["cols"]["STRUCT"] = f"GAP(items:{miss})"
             elif "type_mismatch" in buckets:
                 row["cols"]["STRUCT"] = "GAP(type)"
+            elif "extra" in buckets:
+                row["cols"]["STRUCT"] = "GAP(extra)"
+            elif any(b is None for b in buckets):
+                row["cols"]["STRUCT"] = "MISSING?"
             elif "label_differs" in buckets:
                 row["cols"]["STRUCT"] = "warn(label)"
             else:
@@ -132,9 +158,23 @@ def main():
                 row["cols"]["SCORE"] = "triage"
             else:
                 row["cols"]["SCORE"] = "pass"
-        # not built yet — honest
-        row["cols"]["VISUAL"] = "—"
-        row["cols"]["BEHAV"] = "—"
+        # VISUAL / BEHAVIOR — rolled up where pairs/cards exist; SAMPLED per D6.4
+        vv = vis_feat.get(f["name"], [])
+        if not vv:
+            row["cols"]["VISUAL"] = "—"
+        elif "fail" in vv:
+            row["cols"]["VISUAL"] = f"GAP({sum(1 for x in vv if x == 'fail')}/{len(vv)})"
+        else:
+            row["cols"]["VISUAL"] = f"pass({len(vv)} sampled)"
+        bv = beh_feat.get(f["name"], [])
+        if not bv:
+            row["cols"]["BEHAV"] = "—"
+        elif "fail" in bv:
+            row["cols"]["BEHAV"] = f"GAP({sum(1 for x in bv if x == 'fail')}/{len(bv)})"
+        elif "pending" in bv:
+            row["cols"]["BEHAV"] = f"pending({sum(1 for x in bv if x == 'pending')}/{len(bv)})"
+        else:
+            row["cols"]["BEHAV"] = f"pass({len(bv)} sampled)"
         rows.append(row)
 
     def is_pass(v):

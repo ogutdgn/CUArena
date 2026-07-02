@@ -38,7 +38,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Bold"
   },
   {
    "id": "tables/contextual-hide-journey",
@@ -81,7 +82,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "tables/delete-menu-journey",
@@ -112,7 +114,8 @@
      "result": "FAIL(no control node: tblDelete)"
     }
    ],
-   "verdict": "fail"
+   "verdict": "fail",
+   "feature": "Table"
   },
   {
    "id": "tables/insert-dropdown",
@@ -151,7 +154,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pending"
+   "verdict": "pending",
+   "feature": "Table"
   },
   {
    "id": "tables/insert-grid-journey",
@@ -218,7 +222,8 @@
      "result": "PENDING(\u2753 needs real-Word recording: after a grid insert, which ribbon tab is ACTIVE \u2014 does Word switch to Table Design, or stay on Insert?)"
     }
    ],
-   "verdict": "pending"
+   "verdict": "pending",
+   "feature": "Table"
   },
   {
    "id": "tables/merge-split-journey",
@@ -269,7 +274,8 @@
      "result": "FAIL(no dialog)"
     }
    ],
-   "verdict": "fail"
+   "verdict": "fail",
+   "feature": "Table"
   },
   {
    "id": "tables/style-gallery-journey",
@@ -308,7 +314,8 @@
      "result": "FAIL(flyout items=2, want >=100)"
     }
    ],
-   "verdict": "fail"
+   "verdict": "fail",
+   "feature": "Table"
   },
   {
    "id": "tables/undo-insert-journey",
@@ -347,7 +354,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pending"
+   "verdict": "pending",
+   "feature": "Table"
   },
   {
    "id": "twin/table",
@@ -378,7 +386,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-align-center",
@@ -417,7 +426,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-autofit-window",
@@ -460,7 +470,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-borders-all-cell",
@@ -511,7 +522,8 @@
      "result": "FAIL(border-bottom: none 0px, want >=1px)"
     }
    ],
-   "verdict": "fail"
+   "verdict": "fail",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-borders-none-cell",
@@ -554,7 +566,8 @@
      "result": "FAIL(border-top still painted: solid 1px)"
     }
    ],
-   "verdict": "fail"
+   "verdict": "fail",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-cellalign-bottomright",
@@ -593,7 +606,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-delete-col",
@@ -632,7 +646,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-delete-row",
@@ -671,7 +686,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-delete-table",
@@ -710,7 +726,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-dist-cols",
@@ -757,7 +774,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-dist-rows",
@@ -804,7 +822,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-indent-05in",
@@ -847,7 +866,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-insert-above",
@@ -890,7 +910,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-insert-below",
@@ -933,7 +954,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-insert-left",
@@ -976,7 +998,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-insert-right",
@@ -1019,7 +1042,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-merge-firstrow2",
@@ -1058,7 +1082,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-quicktable-calendar",
@@ -1089,7 +1114,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-repeatheader",
@@ -1128,7 +1154,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-rowheight-05in",
@@ -1171,7 +1198,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-shading-cell",
@@ -1214,7 +1242,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-split-cell",
@@ -1253,7 +1282,8 @@
      "result": "FAIL(no dialog)"
     }
    ],
-   "verdict": "fail"
+   "verdict": "fail",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-split-table",
@@ -1292,7 +1322,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-style-grid4a1",
@@ -1331,7 +1362,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-textdir",
@@ -1370,7 +1402,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   },
   {
    "id": "twin/tb-totext-tab",
@@ -1409,7 +1442,8 @@
      "result": "ok"
     }
    ],
-   "verdict": "pass"
+   "verdict": "pass",
+   "feature": "Table"
   }
  ]
 }
