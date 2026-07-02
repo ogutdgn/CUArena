@@ -11,11 +11,14 @@
     await sleep(600);
     WC.Ribbon.activate('table-design');
     await sleep(400);
-    const n = document.querySelector('[data-cmd="tblStyles"]');
-    if (!n) throw new Error('no tblStyles control');
-    WC.Commands.dropdown({ cmd: 'tblStyles', type: 'dropdown' }, n);
-    await sleep(600);
-    out.items = document.querySelectorAll('.flyout .fly-item').length;
+    // 030: the tblStyles dropdown is REPLACED by the in-ribbon tile gallery — open the full
+    // sectioned gallery via the carousel's More chevron (the same surface Word's shot shows).
+    const more = document.querySelector('.ribbon-panel[data-tab="table-design"] .rgallery-more')
+      || document.querySelector('.ribbon-panel.active .rgallery-more');
+    if (!more) throw new Error('no table-styles More chevron');
+    more.click();
+    await sleep(700);
+    out.items = document.querySelectorAll('.flyout .tblstyle-cell').length;
   } catch (e) { out.err = String(e && e.message); }
   return JSON.stringify(out);
 })();

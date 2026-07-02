@@ -20,9 +20,9 @@
    "unmeasured": 0
   },
   "SCORE": {
-   "pass": 97,
+   "pass": 98,
    "gap": 1,
-   "warn": 13,
+   "warn": 12,
    "unmeasured": 0
   },
   "VISUAL": {
@@ -580,9 +580,9 @@
     "OOXML": "GAP(48/49)",
     "STRUCT": "GAP(items:1)",
     "STATE": "GAP(2)",
-    "SCORE": "triage",
-    "VISUAL": "GAP(5/5)",
-    "BEHAV": "GAP(8/33)"
+    "SCORE": "pass",
+    "VISUAL": "GAP(4/5)",
+    "BEHAV": "GAP(7/33)"
    }
   },
   {

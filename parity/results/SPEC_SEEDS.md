@@ -2957,7 +2957,7 @@ python parity/engines/run.py --only tb-styleopt-totalrow-on   # expect: semantic
 **Goal:** make the clone's `Table Styles gallery: apply Grid Table 4 Accent 1` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-grid4a1`
 **Ground truth:** `parity/fixtures/rw-tb-style-grid4a1.docx`
-**Current parity:** GAP — 27 missing node(s), 16 fidelity warning(s)
+**Current parity:** GAP — 12 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-style-grid4a1): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
@@ -2972,39 +2972,11 @@ python parity/engines/run.py --only tb-styleopt-totalrow-on   # expect: semantic
 - FR (tb-style-grid4a1): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-style-grid4a1): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-style-grid4a1): emit `body:trPr[]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:pPr[]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FR (tb-style-grid4a1): emit `styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-style-grid4a1): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-style-grid4a1): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-style-grid4a1): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]`
-- FID (tb-style-grid4a1): stop emitting (or justify) `styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -3021,7 +2993,7 @@ python parity/engines/run.py --only tb-style-grid4a1   # expect: semantic-pass, 
 **Goal:** make the clone's `Table Styles gallery: apply List Table 3` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-style-listtable3`
 **Ground truth:** `parity/fixtures/rw-tb-style-listtable3.docx`
-**Current parity:** GAP — 53 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 13 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-style-listtable3): emit `body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]`
@@ -3033,55 +3005,14 @@ python parity/engines/run.py --only tb-style-grid4a1   # expect: semantic-pass, 
 - FR (tb-style-listtable3): emit `body:gridCol[('w', '3117')]`
 - FR (tb-style-listtable3): emit `body:pPr[]`
 - FR (tb-style-listtable3): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
-- FR (tb-style-listtable3): emit `body:tblStyle[('val', 'ListTable3')]`
 - FR (tb-style-listtable3): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-style-listtable3): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-style-listtable3): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
 - FR (tb-style-listtable3): emit `body:trPr[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:@type=table`
-- FR (tb-style-listtable3): emit `styles:ListTable3:bCs[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:b[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:basedOn[('val', 'TableNormal')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:bottom[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:bottom[('val', 'nil')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:color[('themeColor', 'background1'), ('val', 'FFFFFF')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:insideH[('val', 'nil')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:left[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:left[('val', 'nil')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:name[('val', 'List Table 3')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:pPr[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:rPr[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:right[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:right[('val', 'nil')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:shd[('color', 'auto'), ('fill', '000000'), ('themeFill', 'text1'), ('val', 'clear')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:shd[('color', 'auto'), ('fill', 'FFFFFF'), ('themeFill', 'background1'), ('val', 'clear')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblBorders[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblPr[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStyleColBandSize[('val', '1')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'band1Horz')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'band1Vert')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'firstCol')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'firstRow')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'lastCol')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'lastRow')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'neCell')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'nwCell')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'seCell')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStylePr[('type', 'swCell')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tblStyleRowBandSize[('val', '1')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tcBorders[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:tcPr[]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:top[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'double')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:top[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]`
-- FR (tb-style-listtable3): emit `styles:ListTable3:uiPriority[('val', '48')]`
-- FR (tb-style-listtable3): emit `styles:TableGrid:pPr[]`
-- FR (tb-style-listtable3): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-style-listtable3): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-style-listtable3): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
-- FID (tb-style-listtable3): stop emitting (or justify) `body:tblStyle[('val', 'TableGrid')]`
 - FID (tb-style-listtable3): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 
 ### Acceptance (regression gate)

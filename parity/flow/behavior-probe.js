@@ -121,6 +121,12 @@
                 throw new Error('could not build a cell selection');
               }
               await sleep(150);
+            } else if (step.do === 'clickSelector') {
+              // Generic CSS-selector click (gallery tiles, More chevrons — controls that are
+              // not [data-cmd] nodes or .fly-item entries). Errors when absent = honest fail.
+              const n = document.querySelector(step.sel);
+              if (!n) throw new Error('no node for selector: ' + step.sel);
+              lastDoc = docJson(); n.click(); await sleep(step.waitMs || 300);
             } else if (step.do === 'clickShadeSwatch') {
               const sws = Array.from(document.querySelectorAll('.flyout .tbl-shade-sw'));
               const sw = sws[step.index];
@@ -200,11 +206,13 @@
                 sr.result = okEdge ? 'ok' : `FAIL(border-${step.edge}: ${st} ${w}px, want >=${step.minPx || 1}px)`;
               }
             } else if (ex === 'galleryItemCount') {
-              const n = document.querySelectorAll('.flyout .fly-item').length;
+              // Default counts flyout text items; `selector` overrides for tile galleries
+              // (e.g. '.flyout .tblstyle-cell' — the 030 Table Styles More grid).
+              const n = document.querySelectorAll(step.selector || '.flyout .fly-item').length;
               const okMin = step.min == null || n >= step.min;
               const okMax = step.max == null || n <= step.max;
               sr.result = (okMin && okMax) ? 'ok'
-                : `FAIL(flyout items=${n}, want ${step.min != null ? '>=' + step.min : ''}${step.max != null ? ' <=' + step.max : ''})`;
+                : `FAIL(gallery items=${n} [${step.selector || '.flyout .fly-item'}], want ${step.min != null ? '>=' + step.min : ''}${step.max != null ? ' <=' + step.max : ''})`;
             } else if (ex === 'toastShown') {
               const t = document.querySelector('.toast');
               sr.result = (t && (!step.match || new RegExp(step.match, 'i').test(t.textContent || ''))) ? 'ok'

@@ -1,13 +1,13 @@
 {
  "counts": {
-  "pass": 216,
+  "pass": 217,
   "dead": 2,
-  "triage": 22,
+  "triage": 21,
   "skip": 4
  },
  "item_counts": {
-  "pass": 308,
-  "silent": 52,
+  "pass": 307,
+  "silent": 51,
   "error": 0,
   "skip": 7
  },
@@ -33,11 +33,11 @@
    "itemResults": [
     {
      "label": "Keep Source Formatting",
-     "result": "OK_UI_EFFECT"
+     "result": "OK_DOC_CHANGED"
     },
     {
      "label": "Match Formatting",
-     "result": "OK_UI_EFFECT"
+     "result": "OK_DOC_CHANGED"
     },
     {
      "label": "Picture",
@@ -3438,7 +3438,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients selected.",
+   "toast": "No recipients. Select recipients first.",
    "verdict": "pass"
   },
   {
@@ -3579,7 +3579,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Translator preferences require the cloud translator service \u2014 not available.",
+   "toast": "Translation needs a cloud translator \u2014 not available in this clone.See docs/NOT_",
    "verdict": "pass"
   },
   {
@@ -4318,24 +4318,9 @@
    "label": "Table Styles",
    "type": "dropdown",
    "launcher": false,
-   "itemCount": 2,
-   "items": [
-    "Table Grid",
-    "Grid Table 4 Accent 1"
-   ],
-   "result": "GALLERY_UNDERFILLED(2 vs Word 113)",
-   "itemResults": [
-    {
-     "label": "Table Grid",
-     "result": "ITEM_SILENT"
-    },
-    {
-     "label": "Grid Table 4 Accent 1",
-     "result": "OK_DOC_CHANGED"
-    }
-   ],
-   "verdict": "triage",
-   "barSource": "Word's modern Table Styles gallery (catalog a3d3566)"
+   "itemCount": 113,
+   "result": "OK_GALLERY_INLINE",
+   "verdict": "pass"
   },
   {
    "tab": "table-design",

@@ -27,11 +27,11 @@
   },
   "table-styles-gallery": {
    "verdict": "fail",
-   "reason": "Word: full gallery with Plain/Grid/List Tables sections, 100+ color thumbnails, Modify/Clear/New Table Style footer; clone: 2-item text flyout (Table Grid, Grid Table 4 Accent 1) - the 2/247 gap on screen"
+   "reason": "TRANSFORMED by 030 (was: 2-item text flyout): clone now shows the full sectioned tile gallery (Plain/Grid/List Tables + 113 color tiles + Modify/Clear/New footer) - same CLASS as Word's. Residual cosmetic: simplified 4x5 thumbs vs Word's detailed row-glyph tiles, larger tile spacing/flyout geometry."
   },
   "doc-styled-table": {
-   "verdict": "fail",
-   "reason": "same 3x3 GT4A1 table, banding order matches, BUT header fill differs: Word dark teal (current Office theme accent1 on locked build) vs clone royal blue (legacy 4472C4 palette); border tint likewise; minor width/position offset"
+   "verdict": "pass",
+   "reason": "PALETTE FIXED (030): both tables render the locked-build teal (#156082 header, teal band + tinted borders, same banding order) - a Word user glancing at the two documents sees the same table. Minor residual: slight table width/position offset (page metrics, not style)."
   }
  }
 }

@@ -1,8 +1,8 @@
 {
  "counts": {
-  "pass": 26,
+  "pass": 27,
   "pending": 0,
-  "fail": 8
+  "fail": 7
  },
  "cards": [
   {
@@ -270,7 +270,7 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblStyles\"}",
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
      "result": "ok"
     },
     {
@@ -278,11 +278,31 @@
      "result": "ok"
     },
     {
-     "step": "{\"expect\":\"galleryItemCount\",\"min\":100}",
-     "result": "FAIL(flyout items=2, want >=100)"
+     "step": "{\"expect\":\"galleryItemCount\",\"selector\":\".flyout .tblstyle-cell\",\"min\":113}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"flyoutHasItem\",\"match\":\"Modify Table Style\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"flyoutHasItem\",\"match\":\"^Clear$\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"flyoutHasItem\",\"match\":\"New Table Style\"}",
+     "result": "ok"
+    },
+    {
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"docChanged\"}",
+     "result": "ok"
     }
    ],
-   "verdict": "fail",
+   "verdict": "pass",
    "feature": "Table"
   },
   {
@@ -1314,11 +1334,11 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblStyles\"}",
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".ribbon-panel[data-tab=\\\"table-design\\\"] .rgallery-more, .rib",
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickItem\",\"match\":\"Grid Table 4 Accent 1\"}",
+     "step": "{\"do\":\"clickSelector\",\"sel\":\".flyout .tblstyle-cell[data-style=\\\"GridTable4-Accent1\\\"]\",\"w",
      "result": "ok"
     },
     {

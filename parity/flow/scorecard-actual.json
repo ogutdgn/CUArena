@@ -22,11 +22,11 @@
    "itemResults": [
     {
      "label": "Keep Source Formatting",
-     "result": "OK_UI_EFFECT"
+     "result": "OK_DOC_CHANGED"
     },
     {
      "label": "Match Formatting",
-     "result": "OK_UI_EFFECT"
+     "result": "OK_DOC_CHANGED"
     },
     {
      "label": "Picture",
@@ -3271,7 +3271,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "No recipients selected."
+   "toast": "No recipients. Select recipients first."
   },
   {
    "tab": "review",
@@ -3404,7 +3404,7 @@
    "type": "button",
    "launcher": false,
    "result": "STUB_TOAST",
-   "toast": "Translator preferences require the cloud translator service — not available."
+   "toast": "Translation needs a cloud translator — not available in this clone.See docs/NOT_"
   },
   {
    "tab": "review",
@@ -4093,22 +4093,8 @@
    "label": "Table Styles",
    "type": "dropdown",
    "launcher": false,
-   "itemCount": 2,
-   "items": [
-    "Table Grid",
-    "Grid Table 4 Accent 1"
-   ],
-   "result": "OK_FLYOUT",
-   "itemResults": [
-    {
-     "label": "Table Grid",
-     "result": "ITEM_SILENT"
-    },
-    {
-     "label": "Grid Table 4 Accent 1",
-     "result": "OK_DOC_CHANGED"
-    }
-   ]
+   "itemCount": 113,
+   "result": "OK_GALLERY_INLINE"
   },
   {
    "tab": "table-design",

@@ -1064,6 +1064,24 @@ export const DEFAULT_LINKED_STYLES = {
           'w:val': '005B78FB',
         },
       },
+      // MS-WORD-CLONE FORK EDIT (parity 030, user-authorized, DATA-ONLY): the locked-build
+      // capture of this style carries a pPr spacing block (after=0 line=240 lineRule=auto)
+      // the fallback def lacked — parity tb-style-grid4a1 flagged it as styles-part missing.
+      {
+        type: 'element',
+        name: 'w:pPr',
+        elements: [
+          {
+            type: 'element',
+            name: 'w:spacing',
+            attributes: {
+              'w:after': '0',
+              'w:line': '240',
+              'w:lineRule': 'auto',
+            },
+          },
+        ],
+      },
       {
         type: 'element',
         name: 'w:tblPr',

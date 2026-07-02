@@ -1,9 +1,10 @@
 {
   "ready": true,
   "id": "tb-style-listtable3",
-  "unreachable": "style not in gallery: ListTable3 / List Table 3",
+  "unreachable": null,
   "insertOk": true,
-  "galleryCount": 2,
+  "galleryCount": 113,
+  "appliedStyle": "ListTable3",
   "save": {
     "ok": true,
     "path": "C:/Users/ogutd/OneDrive/Desktop/new-coding/ms-word-clone/parity/fixtures/wc-tb-style-listtable3.docx",

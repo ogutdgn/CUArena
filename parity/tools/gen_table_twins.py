@@ -44,11 +44,11 @@ TWINS.append(twin("table",
     ]))
 
 TWINS.append(twin("tb-style-grid4a1",
-    "Style apply through the gallery flyout changes the doc. (Painted colors are judged by the VISUAL axis L4 side-by-side.)",
+    "Style apply through the 030 tile gallery (More grid) changes the doc. (Painted colors are judged by the VISUAL axis L4 side-by-side.)",
     INSERT_33 + [
         {"do": "activateTab", "tab": "table-design"},
-        {"do": "openDropdown", "cmd": "tblStyles"},
-        {"do": "clickItem", "match": "Grid Table 4 Accent 1"},
+        {"do": "clickSelector", "sel": '.ribbon-panel[data-tab="table-design"] .rgallery-more, .ribbon-panel.active .rgallery-more', "waitMs": 400},
+        {"do": "clickSelector", "sel": '.flyout .tblstyle-cell[data-style="GridTable4-Accent1"]', "waitMs": 400},
         {"expect": "docChanged"},
     ]))
 

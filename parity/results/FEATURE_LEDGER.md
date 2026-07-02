@@ -10,7 +10,7 @@ green; an unmeasured axis (—) blocks done** (not-measured ≠ no-gaps).
 | OOXML | 13 | **4** | 0 | 94 |
 | STRUCT | 80 | **19** | 12 | 0 |
 | STATE | 95 | **16** | 0 | 0 |
-| SCORE | 97 | **1** | 13 | 0 |
+| SCORE | 98 | **1** | 12 | 0 |
 | VISUAL | 0 | **1** | 0 | 110 |
 | BEHAV | 1 | **1** | 0 | 109 |
 
@@ -57,7 +57,7 @@ green; an unmeasured axis (—) blocks done** (not-measured ≠ no-gaps).
 | Text Effects and Typography | home | T3 | — | GAP(items:9) | pass | pass | — | — |
 | Multilevel List | home | T3 | — | pass | pass | pass | — | — |
 | Sort | home | T3 | — | pass | pass | pass | — | — |
-| Table | insert | T1 | GAP(48/49) | GAP(items:1) | GAP(2) | triage | GAP(5/5) | GAP(8/33) |
+| Table | insert | T1 | GAP(48/49) | GAP(items:1) | GAP(2) | pass | GAP(4/5) | GAP(7/33) |
 | Pictures | insert | T1 | — | pass | pass | pass | — | — |
 | Link | insert | T1 | — | GAP(items:1) | pass | pass | — | — |
 | Header | insert | T1 | — | GAP(items:1) | pass | pass | — | — |
