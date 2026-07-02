@@ -160,6 +160,18 @@
               sr.result = document.querySelector('.ribbon-tab.contextual-tab') ? 'ok' : 'FAIL(no contextual tabs)';
             } else if (ex === 'caretInTable') {
               sr.result = (WC.PM && WC.PM.isInTable && WC.PM.isInTable()) ? 'ok' : 'FAIL(caret not in table)';
+            } else if (ex === 'caretInCell') {
+              // Is the caret inside MODEL cell #index? (Recorded Word bar: grid insert lands in cell 1,1.)
+              const ps = [];
+              ed().state.doc.descendants((n, pos) => { if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') ps.push({ pos, end: pos + n.nodeSize }); });
+              const cell = ps[step.index];
+              const from = ed().state.selection.from;
+              sr.result = (cell && from > cell.pos && from < cell.end) ? 'ok'
+                : 'FAIL(caret at ' + from + ', cell #' + step.index + ' = ' + (cell ? cell.pos + '-' + cell.end : 'none') + ')';
+            } else if (ex === 'activeTabIs') {
+              const act = document.querySelector('.ribbon-tab.active');
+              sr.result = (act && act.dataset.tab === step.tab) ? 'ok'
+                : 'FAIL(active tab: ' + (act ? act.dataset.tab : 'none') + ', want ' + step.tab + ')';
             } else if (ex === 'gridLabelIs') {
               const lbl = document.querySelector('.tablegrid-label');
               sr.result = (lbl && new RegExp(step.match, 'i').test(lbl.textContent || '')) ? 'ok'

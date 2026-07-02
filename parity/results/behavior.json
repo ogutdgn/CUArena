@@ -1,8 +1,8 @@
 {
  "counts": {
-  "pass": 25,
-  "pending": 3,
-  "fail": 6
+  "pass": 26,
+  "pending": 0,
+  "fail": 8
  },
  "cards": [
   {
@@ -142,19 +142,19 @@
      "result": "ok"
     },
     {
-     "step": "{\"expect\":\"fromRecording\",\"q\":\"grid picker present? hovering 3x2 shows LIVE document previ",
-     "result": "PENDING(\u2753 needs real-Word recording: grid picker present? hovering 3x2 shows LIVE document preview + '3x2 Table' label?)"
-    },
-    {
-     "step": "{\"do\":\"clickItem\",\"match\":\"Insert Table\"}",
+     "step": "{\"do\":\"gridHover\",\"rows\":2,\"cols\":3}",
      "result": "ok"
     },
     {
-     "step": "{\"expect\":\"dialogOpen\"}",
+     "step": "{\"expect\":\"gridLabelIs\",\"match\":\"3\\\\s*[\u00d7x]\\\\s*2 Table\"}",
      "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"paintedCellCount\",\"equals\":6}",
+     "result": "FAIL(visible cells=0, want 6)"
     }
    ],
-   "verdict": "pending",
+   "verdict": "fail",
    "feature": "Table"
   },
   {
@@ -186,43 +186,11 @@
      "result": "ok"
     },
     {
-     "step": "{\"expect\":\"fromRecording\",\"q\":\"does hovering the grid LIVE-PREVIEW the pending table in th",
-     "result": "PENDING(\u2753 needs real-Word recording: does hovering the grid LIVE-PREVIEW the pending table in the document (Word paints it at the caret while hovering)?)"
-    },
-    {
-     "step": "{\"do\":\"gridPick\",\"rows\":3,\"cols\":3}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"tableExists\"}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"paintedCellCount\",\"equals\":9}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"caretInTable\"}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"fromRecording\",\"q\":\"caret lands in the FIRST cell (row 1, col 1)?\"}",
-     "result": "PENDING(\u2753 needs real-Word recording: caret lands in the FIRST cell (row 1, col 1)?)"
-    },
-    {
-     "step": "{\"expect\":\"tabShown\",\"tab\":\"table-design\"}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"tabShown\",\"tab\":\"table-layout\"}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"fromRecording\",\"q\":\"after a grid insert, which ribbon tab is ACTIVE \u2014 does Word",
-     "result": "PENDING(\u2753 needs real-Word recording: after a grid insert, which ribbon tab is ACTIVE \u2014 does Word switch to Table Design, or stay on Insert?)"
+     "step": "{\"expect\":\"paintedCellCount\",\"equals\":6}",
+     "result": "FAIL(visible cells=0, want 6)"
     }
    ],
-   "verdict": "pending",
+   "verdict": "fail",
    "feature": "Table"
   },
   {
@@ -342,10 +310,6 @@
      "result": "ok"
     },
     {
-     "step": "{\"expect\":\"fromRecording\",\"q\":\"does real Word remove the whole just-inserted table with EX",
-     "result": "PENDING(\u2753 needs real-Word recording: does real Word remove the whole just-inserted table with EXACTLY ONE undo step?)"
-    },
-    {
      "step": "{\"do\":\"undo\"}",
      "result": "ok"
     },
@@ -354,7 +318,7 @@
      "result": "ok"
     }
    ],
-   "verdict": "pending",
+   "verdict": "pass",
    "feature": "Table"
   },
   {

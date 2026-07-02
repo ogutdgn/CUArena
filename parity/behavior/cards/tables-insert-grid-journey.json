@@ -3,7 +3,7 @@
   "kind": "journey",
   "feature": "Table",
   "signedOff": false,
-  "note": "Tables pilot journey #2: the grid-picker insert flow end-to-end. Live label is clone-verifiable; the in-document hover LIVE PREVIEW, caret landing cell, and post-insert active-tab are ❓ FROM-RECORDING (D6.3).",
+  "note": "Tables pilot journey #2: the grid-picker insert flow end-to-end. ALL expectations are now RECORDED (real-Word computer-use session 2026-07-02, parity/behavior/recordings/tables-2026-07-02.md): hover paints a LIVE preview table in the document + live '3x2 Table' label; insert lands the caret in cell 1,1; Word ACTIVATES Table Design after a grid insert (passive appearance only applies to caret-entry into an existing table).",
   "steps": [
     { "do": "setupText", "text": "Before the table." },
     { "do": "activateTab", "tab": "insert" },
@@ -11,14 +11,14 @@
     { "expect": "flyoutOpen" },
     { "do": "gridHover", "rows": 2, "cols": 3 },
     { "expect": "gridLabelIs", "match": "3\\s*[×x]\\s*2 Table" },
-    { "expect": "fromRecording", "q": "does hovering the grid LIVE-PREVIEW the pending table in the document (Word paints it at the caret while hovering)?" },
+    { "expect": "paintedCellCount", "equals": 6 },
     { "do": "gridPick", "rows": 3, "cols": 3 },
     { "expect": "tableExists" },
     { "expect": "paintedCellCount", "equals": 9 },
     { "expect": "caretInTable" },
-    { "expect": "fromRecording", "q": "caret lands in the FIRST cell (row 1, col 1)?" },
+    { "expect": "caretInCell", "index": 0 },
     { "expect": "tabShown", "tab": "table-design" },
     { "expect": "tabShown", "tab": "table-layout" },
-    { "expect": "fromRecording", "q": "after a grid insert, which ribbon tab is ACTIVE — does Word switch to Table Design, or stay on Insert?" }
+    { "expect": "activeTabIs", "tab": "table-design" }
   ]
 }

@@ -3,15 +3,46 @@
   "kind": "journey",
   "feature": "Table",
   "signedOff": false,
-  "note": "Tables pilot flow #1 (partial v1): Insert > Table opens Word's dropdown. The grid-picker live-preview expectations are ❓ FROM-RECORDING (D6.3) — they get filled from a real-Word CUA recording during the pilot; unresolved ❓ steps report as PENDING, never guessed.",
+  "note": "Tables pilot flow #1: Insert > Table opens Word's dropdown; grid hover live-previews (RECORDED 2026-07-02 - label + in-document preview both confirmed); 'Insert Table' item opens the dialog. NOTE the clone's ribbon BUTTON click opens the dialog directly (H.table wiring gap, KNOWN_TRUTH section 6) - this card drives the dropdown path explicitly.",
   "steps": [
-    { "do": "setupText", "text": "Revenue" },
-    { "do": "activateTab", "tab": "insert" },
-    { "do": "openDropdown", "cmd": "table" },
-    { "expect": "flyoutOpen" },
-    { "expect": "flyoutHasItem", "match": "Insert Table" },
-    { "expect": "fromRecording", "q": "grid picker present? hovering 3x2 shows LIVE document preview + '3x2 Table' label?" },
-    { "do": "clickItem", "match": "Insert Table" },
-    { "expect": "dialogOpen" }
+    {
+      "do": "setupText",
+      "text": "Revenue"
+    },
+    {
+      "do": "activateTab",
+      "tab": "insert"
+    },
+    {
+      "do": "openDropdown",
+      "cmd": "table"
+    },
+    {
+      "expect": "flyoutOpen"
+    },
+    {
+      "expect": "flyoutHasItem",
+      "match": "Insert Table"
+    },
+    {
+      "do": "gridHover",
+      "rows": 2,
+      "cols": 3
+    },
+    {
+      "expect": "gridLabelIs",
+      "match": "3\\s*[×x]\\s*2 Table"
+    },
+    {
+      "expect": "paintedCellCount",
+      "equals": 6
+    },
+    {
+      "do": "clickItem",
+      "match": "Insert Table"
+    },
+    {
+      "expect": "dialogOpen"
+    }
   ]
 }
