@@ -14,7 +14,14 @@ const PX_PER_PT = 96 / 72;
 /** Pixels to eighths-of-a-point (OOXML ST_EighthPointMeasure) */
 const pxToEighthPoints = (px) => Math.round((px / PX_PER_PT) * 8);
 
-const SIDES = ['top', 'right', 'bottom', 'left'];
+// MS-WORD-CLONE FORK EDIT (parity 032, user-authorized): SIDES widened from the 4 edges
+// ['top','right','bottom','left'] to the canonical CT_TcBorders (ECMA-376 §17.4.66) side order so
+// convertBordersToOoxmlFormat carries the diagonals (tl2br/tr2bl) + inside sides (insideH/insideV) —
+// previously dropped — into the OOXML borders object in schema order. Legacy-schema DETECTION keeps
+// the original 4-edge list (LEGACY_EDGE_SIDES): the old createCellBorders() shape only ever wrote the
+// 4 edges, so requiring the new sides on `.every()` would break detection.
+const SIDES = ['top', 'start', 'left', 'bottom', 'end', 'right', 'insideH', 'insideV', 'tl2br', 'tr2bl'];
+const LEGACY_EDGE_SIDES = ['top', 'right', 'bottom', 'left'];
 
 /**
  * Detects the old `createCellBorders()` schema-default shape.
@@ -25,7 +32,7 @@ const SIDES = ['top', 'right', 'bottom', 'left'];
  */
 export function isLegacySchemaDefaultBorders(borders) {
   if (!borders || typeof borders !== 'object') return false;
-  return SIDES.every((side) => {
+  return LEGACY_EDGE_SIDES.every((side) => {
     const b = borders[side];
     if (!b || typeof b !== 'object') return false;
     return !('val' in b) && b.size === 0.66665 && b.color === '#000000';

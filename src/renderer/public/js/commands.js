@@ -112,6 +112,11 @@
   // These cmds live only on the runtime-injected contextual tabs (table-tools-pm.js),
   // which only appear in PM mode. Each routes straight to a WC.PM table verb.
   const TPM = () => (window.WC.PM && window.WC.PM.active && window.WC.PM.ready) ? window.WC.PM : null;
+  // Spec 032: the shared active border pen (Word's Border Styles / Line Style / Line Weight / Pen Color set
+  // it; the Borders dropdown draws with it; Border Painter paints with it). DEFINED ONCE here so T3's dropdown
+  // and T4's pen-setter handlers reference the SAME object (coordinate: single source of truth). Default =
+  // Word's ½pt single auto (size is eighths-of-a-point → 4 = 0.5pt). B() below reads it.
+  const tblPen = { val: 'single', size: 4, color: 'auto' };
   H.tblInsertAbove = () => { const p = TPM(); if (p) p.tableAddRow('above'); };
   H.tblInsertBelow = () => { const p = TPM(); if (p) p.tableAddRow('below'); };
   H.tblInsertLeft = () => { const p = TPM(); if (p) p.tableAddColumn('left'); };
@@ -231,11 +236,47 @@
     });
     fly.appendChild(grid);
   });
+  // Spec 032: Word's full Borders dropdown. Each item builds the changed sides with the active pen (B()),
+  // MERGES them onto the caret cell's CURRENT borders (tableGetCellBorders → spread → set changed sides), then
+  // writes the whole object via tableSetCellBorders (a full REPLACE at the fork, so we must supply the merged
+  // result — otherwise a single-edge click would wipe the other edges). No Border writes explicit per-side nil.
+  // The merge logic is factored into H.tblBordersApply so the pm test can drive it directly.
+  const B = () => ({ val: tblPen.val, color: tblPen.color, size: tblPen.size, space: 0 });
+  // Word's No-Border side = a bare <w:*  w:val="nil"/> (no sz/space/color) — keep NIL minimal so the
+  // exported attribute shape matches Word exactly (a sz=0/color=auto nil reads as a fidelity 'extra').
+  const NIL = () => ({ val: 'none' });
+  // Merge `sides` (a partial {top,bottom,...}) onto the caret cell's current borders and apply.
+  H.tblBordersApply = (sides) => {
+    const p = TPM();
+    if (!p || !p.tableSetCellBorders) return false;
+    const cur = (p.tableGetCellBorders && p.tableGetCellBorders()) || {};
+    const merged = Object.assign({}, cur, sides);
+    return p.tableSetCellBorders(merged);
+  };
   H.tblBorders = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('Borders'));
-    const B = () => ({ val: 'single', color: '000000', size: 4 });
-    fly.appendChild(WC.flyItem('All Borders', { onClick: () => { const p = TPM(); if (p) p.tableSetCellBorders({ top: B(), bottom: B(), left: B(), right: B() }); } }));
-    fly.appendChild(WC.flyItem('No Border', { onClick: () => { const p = TPM(); if (p) p.tableSetCellBorders({}); } }));
+    const item = (label, sides) => fly.appendChild(WC.flyItem(label, { onClick: () => H.tblBordersApply(sides) }));
+    // Per-edge — merge just that one side (pen).
+    item('Bottom Border', { bottom: B() });
+    item('Top Border', { top: B() });
+    item('Left Border', { left: B() });
+    item('Right Border', { right: B() });
+    // No Border — explicit per-side nil on the four OUTER sides (Word's BorderNone on a cell writes
+    // the 4 outer nil; a single cell has no interior edges to clear). Defeats the style border.
+    item('No Border', { top: NIL(), bottom: NIL(), left: NIL(), right: NIL() });
+    // All / Outside / Inside — the composite sets (pen).
+    item('All Borders', { top: B(), bottom: B(), left: B(), right: B(), insideH: B(), insideV: B() });
+    item('Outside Borders', { top: B(), bottom: B(), left: B(), right: B() });
+    item('Inside Borders', { insideH: B(), insideV: B() });
+    item('Inside Horizontal Border', { insideH: B() });
+    item('Inside Vertical Border', { insideV: B() });
+    // Diagonals (tl2br = down, tr2bl = up).
+    item('Diagonal Down Border', { tl2br: B() });
+    item('Diagonal Up Border', { tr2bl: B() });
+    fly.appendChild(WC.flySep());
+    // Borders and Shading… — T6 wires cell scope; for now open the existing dialog (paragraph/text scope)
+    // if present, else the honest not-implemented toast.
+    fly.appendChild(WC.flyItem('Borders and Shading…', { onClick: () => { if (WC.Dialogs && WC.Dialogs.bordersAndShading) WC.Dialogs.bordersAndShading(); else WC.notImplemented('Borders and Shading'); } }));
   });
   H.tblAutoFit = (c, node) => WC.flyout(node, (fly) => {
     fly.appendChild(WC.flyHeader('AutoFit'));
@@ -2687,6 +2728,7 @@
     WC.toast('Spell check ' + (on ? 'on (red squiggles via the OS spellchecker)' : 'off') + '.', 'Open the Editor pane for suggestions.');
   }
 
+  Commands.H = H; // expose the cmd→handler map (spec 032: pm tests drive H.tblBordersApply directly)
   WC.Commands = Commands;
   WC.FONTS = FONTS; WC.SIZES = SIZES;
   // 027: expose the Custom Margins dialog like the other WC.Dialogs.* (was reachable only via the Layout ›

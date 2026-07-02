@@ -397,6 +397,7 @@ export function preinstallBridge() {
     tableSetStyle: () => false, getTableStyles: () => [], tableSetAlignment: () => false, tableSetIndent: () => false,
     tableSetCellWidth: () => false, tableSetRowHeight: () => false,
     tableSetCellMargins: () => false, tableSetCellBorders: () => false,
+    tableGetCellBorders: () => null, // spec 032: pre-mount stub (replaced by installTable on mount)
     tableDistributeColumns: () => false, tableDistributeRows: () => false,
     tableSplit: () => false, tableToText: () => false, textToTable: () => false,
     tableSetTextDirection: () => false, tableAutoFit: () => false,

@@ -603,14 +603,14 @@ python parity/engines/run.py --only tb-border-weight-3pt   # expect: semantic-pa
 - FR (tb-borders-all-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-borders-all-cell): stop emitting (or justify) `body:bottom[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]`
+- FID (tb-borders-all-cell): stop emitting (or justify) `body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-borders-all-cell): stop emitting (or justify) `body:left[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]`
-- FID (tb-borders-all-cell): stop emitting (or justify) `body:right[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]`
+- FID (tb-borders-all-cell): stop emitting (or justify) `body:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
+- FID (tb-borders-all-cell): stop emitting (or justify) `body:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:tcBorders[]`
 - FID (tb-borders-all-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
-- FID (tb-borders-all-cell): stop emitting (or justify) `body:top[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]`
+- FID (tb-borders-all-cell): stop emitting (or justify) `body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -627,7 +627,7 @@ python parity/engines/run.py --only tb-borders-all-cell   # expect: semantic-pas
 **Goal:** make the clone's `Borders: Diagonal Down (cell 2,2)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-diagdown-cell`
 **Ground truth:** `parity/fixtures/rw-tb-border-diagdown-cell.docx`
-**Current parity:** GAP — 11 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-border-diagdown-cell): emit `body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
@@ -638,7 +638,6 @@ python parity/engines/run.py --only tb-borders-all-cell   # expect: semantic-pas
 - FR (tb-border-diagdown-cell): emit `body:tcBorders[]`
 - FR (tb-border-diagdown-cell): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
 - FR (tb-border-diagdown-cell): emit `body:tcW[('type', 'dxa'), ('w', '3117')]`
-- FR (tb-border-diagdown-cell): emit `body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 - FR (tb-border-diagdown-cell): emit `styles:TableGrid:pPr[]`
 - FR (tb-border-diagdown-cell): emit `styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]`
 
@@ -662,14 +661,12 @@ python parity/engines/run.py --only tb-border-diagdown-cell   # expect: semantic
 **Goal:** make the clone's `Borders: No Border on caret cell` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-borders-none-cell`
 **Ground truth:** `parity/fixtures/rw-tb-borders-none-cell.docx`
-**Current parity:** GAP — 13 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 11 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
-- FR (tb-borders-none-cell): emit `body:bottom[('val', 'nil')]`
 - FR (tb-borders-none-cell): emit `body:gridCol[('w', '3116')]`
 - FR (tb-borders-none-cell): emit `body:gridCol[('w', '3117')]`
 - FR (tb-borders-none-cell): emit `body:left[('val', 'nil')]`
-- FR (tb-borders-none-cell): emit `body:right[('val', 'nil')]`
 - FR (tb-borders-none-cell): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-borders-none-cell): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-borders-none-cell): emit `body:tcBorders[]`
@@ -699,7 +696,7 @@ python parity/engines/run.py --only tb-borders-none-cell   # expect: semantic-pa
 **Goal:** make the clone's `Borders: Top Border only (caret cell)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-border-top-cell`
 **Ground truth:** `parity/fixtures/rw-tb-border-top-cell.docx`
-**Current parity:** GAP — 8 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 8 missing node(s), 5 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-border-top-cell): emit `body:gridCol[('w', '3116')]`
@@ -714,7 +711,9 @@ python parity/engines/run.py --only tb-borders-none-cell   # expect: semantic-pa
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-border-top-cell): stop emitting (or justify) `body:gridCol[('w', '3120')]`
 - FID (tb-border-top-cell): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
+- FID (tb-border-top-cell): stop emitting (or justify) `body:tcBorders[]`
 - FID (tb-border-top-cell): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
+- FID (tb-border-top-cell): stop emitting (or justify) `body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]`
 
 ### Acceptance (regression gate)
 ```
@@ -731,12 +730,11 @@ python parity/engines/run.py --only tb-border-top-cell   # expect: semantic-pass
 **Goal:** make the clone's `COMBO: diagonal border on a merged cell` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-combo-diag-merged`
 **Ground truth:** `parity/fixtures/rw-tb-combo-diag-merged.docx`
-**Current parity:** GAP — 11 missing node(s), 4 fidelity warning(s)
+**Current parity:** GAP — 10 missing node(s), 3 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-combo-diag-merged): emit `body:gridCol[('w', '3116')]`
 - FR (tb-combo-diag-merged): emit `body:gridCol[('w', '3117')]`
-- FR (tb-combo-diag-merged): emit `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]`
 - FR (tb-combo-diag-merged): emit `body:tblW[('type', 'auto'), ('w', '0')]`
 - FR (tb-combo-diag-merged): emit `body:tcBorders[]`
 - FR (tb-combo-diag-merged): emit `body:tcW[('type', 'dxa'), ('w', '3116')]`
@@ -748,7 +746,6 @@ python parity/engines/run.py --only tb-border-top-cell   # expect: semantic-pass
 
 ### Fidelity requirements — clone over-emits (from `extra`)
 - FID (tb-combo-diag-merged): stop emitting (or justify) `body:gridCol[('w', '3120')]`
-- FID (tb-combo-diag-merged): stop emitting (or justify) `body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]`
 - FID (tb-combo-diag-merged): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '3120')]`
 - FID (tb-combo-diag-merged): stop emitting (or justify) `body:tcW[('type', 'dxa'), ('w', '6240')]`
 

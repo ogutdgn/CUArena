@@ -6,7 +6,7 @@
   "counts": {
     "match": 20,
     "missing": 8,
-    "extra": 3
+    "extra": 5
   },
   "missing_nodes": [
     "body:gridCol[('w', '3116')]",
@@ -21,7 +21,9 @@
   "extra_nodes": [
     "body:gridCol[('w', '3120')]",
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-    "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    "body:tcBorders[]",
+    "body:tcW[('type', 'dxa'), ('w', '3120')]",
+    "body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"
   ],
   "part_counts": {},
   "id": "tb-border-top-cell",
@@ -29,7 +31,7 @@
   "feature": "Borders: Top Border only (caret cell)",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone Borders dropdown has only All/None -- per-edge unreachable. Word: Cell.Borders(wdBorderTop=-1).LineStyle=single.",
+  "note": "Clone 'Top Border' (032 per-edge, merged): H.tblBordersApply({top: pen}). Word: Cell.Borders(wdBorderTop=-1).LineStyle=single.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

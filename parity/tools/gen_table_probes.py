@@ -175,34 +175,44 @@ T.append(dict(
     wc=WC_BASE + "\n    out.shading = PM.tableSetCellShading('#FFF2CC');",
     rw=RW_BASE + "\n    $tbl.Cell(1, 1).Shading.BackgroundPatternColor = 13431551   # RGB(255,242,204) as BGR",
 ))
+# The default pen the Borders dropdown draws with (H.tblBordersApply reads tblPen: 1/2pt auto single).
+BORDER_PEN = "{ val: 'single', color: 'auto', size: 4, space: 0 }"
 T.append(dict(
     id="tb-borders-all-cell", feature="Borders: All Borders on caret cell",
     control_id="table-design.styles.borders",
-    note="Clone 'All Borders' item: tableSetCellBorders 4 sides val=single color=000000 size=4. Word: caret in cell + ExecuteMso BordersAll (default 1/2pt auto pen).",
+    note="Clone 'All Borders' item (032 dropdown) → H.tblBordersApply top/bottom/left/right with the default pen (auto, sz4). Word: caret in cell + ExecuteMso BordersAll. NOTE: on a TableGrid table both write single/auto/4 borders that MATCH the style default — Word absorbs them (no tcBorders); the clone writes them explicit → an 'extra' fidelity note (D1.2 pass-with-note class), not a functional gap.",
     wc=WC_BASE + """
-    const B = () => ({ val: 'single', color: '000000', size: 4 });
-    out.borders = PM.tableSetCellBorders({ top: B(), bottom: B(), left: B(), right: B() });""",
+    caretIntoCell(0);
+    const P = () => ({ val: 'single', color: 'auto', size: 4, space: 0 });
+    out.borders = window.WC.Commands.H.tblBordersApply({ top: P(), bottom: P(), left: P(), right: P() });""",
     rw=RW_BASE + "\n" + rw_caret(1, 1) + "\n    $w.CommandBars.ExecuteMso('BordersAll')",
 ))
 T.append(dict(
     id="tb-borders-none-cell", feature="Borders: No Border on caret cell",
     control_id="table-design.styles.borders",
-    note="Clone 'No Border': tableSetCellBorders({}) clears the override (style border stays). Word: ExecuteMso BorderNone writes per-side val=nil.",
-    wc=WC_BASE + "\n    out.borders = PM.tableSetCellBorders({});",
+    note="Clone 'No Border' (032): H.tblBordersApply writes explicit per-side val=nil (all six sides). Word: ExecuteMso BorderNone → per-side w:val=nil.",
+    wc=WC_BASE + """
+    caretIntoCell(0);
+    const NIL = () => ({ val: 'none' });
+    out.borders = window.WC.Commands.H.tblBordersApply({ top: NIL(), bottom: NIL(), left: NIL(), right: NIL() });""",
     rw=RW_BASE + "\n" + rw_caret(1, 1) + "\n    $w.CommandBars.ExecuteMso('BorderNone')",
 ))
 T.append(dict(
     id="tb-border-top-cell", feature="Borders: Top Border only (caret cell)",
     control_id="table-design.styles.borders",
-    note="Clone Borders dropdown has only All/None -- per-edge unreachable. Word: Cell.Borders(wdBorderTop=-1).LineStyle=single.",
-    wc=WC_BASE + "\n" + unreachable("Borders dropdown has no per-edge items (only All Borders / No Border)"),
-    rw=RW_BASE + "\n    $tbl.Cell(1, 1).Borders(-1).LineStyle = 1",
+    note="Clone 'Top Border' (032 per-edge, merged): H.tblBordersApply({top: pen}). Word: Cell.Borders(wdBorderTop=-1).LineStyle=single.",
+    wc=WC_BASE + """
+    caretIntoCell(0);
+    out.borders = window.WC.Commands.H.tblBordersApply({ top: """ + BORDER_PEN + """ });""",
+    rw=RW_BASE + "\n" + rw_caret(1, 1) + "\n    $tbl.Cell(1, 1).Borders(-1).LineStyle = 1",
 ))
 T.append(dict(
     id="tb-border-diagdown-cell", feature="Borders: Diagonal Down (cell 2,2)",
     control_id="table-design.styles.borders",
-    note="Clone unreachable (no diagonal items). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br.",
-    wc=WC_BASE + "\n" + unreachable("Borders dropdown has no Diagonal Down Border item"),
+    note="Clone 'Diagonal Down Border' (032): H.tblBordersApply({tl2br: pen}). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br.",
+    wc=WC_BASE + """
+    caretIntoCell(4);
+    out.borders = window.WC.Commands.H.tblBordersApply({ tl2br: """ + BORDER_PEN + """ });""",
     rw=RW_BASE + "\n    $tbl.Cell(2, 2).Borders(-7).LineStyle = 1",
 ))
 T.append(dict(

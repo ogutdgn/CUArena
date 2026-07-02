@@ -63,27 +63,24 @@ TWINS.append(twin("tb-shading-cell",
     ]))
 
 TWINS.append(twin("tb-borders-all-cell",
-    "THE BORDER-COLLAPSE INSTRUMENT: All Borders on the MIDDLE cell must paint ALL FOUR edges on screen — shared bottom/right edges must not be swallowed by the neighbor's thinner border (archive bug 47488c0 class).",
+    "THE BORDER-COLLAPSE INSTRUMENT (collapse-aware, reads the PAINTER not the hidden model host): a THICK RED border on the MIDDLE cell must paint all four VISUAL edges. The painter draws each cell's top+left only, so the middle cell's bottom shows as the below-cell's TOP and its right as the right-cell's LEFT — >=2 red Top edges AND >=2 red Left edges proves the collapse pre-pass (archive 47488c0) propagated the thick edge to neighbors. Drives the real tableSetCellBorders write path with an explicit thick-red spec (thin default black is indistinguishable from the grid).",
     INSERT_33 + [
         {"do": "caretIntoCellModel", "index": 4},
-        {"do": "activateTab", "tab": "table-design"},
-        {"do": "openDropdown", "cmd": "tblBorders"},
-        {"do": "clickItem", "match": "All Borders"},
-        {"expect": "paintedCellBorder", "index": 4, "edge": "top", "minPx": 1},
-        {"expect": "paintedCellBorder", "index": 4, "edge": "left", "minPx": 1},
-        {"expect": "paintedCellBorder", "index": 4, "edge": "bottom", "minPx": 1},
-        {"expect": "paintedCellBorder", "index": 4, "edge": "right", "minPx": 1},
+        {"do": "setCellBorders", "spec": {"top": {"val": "single", "color": "FF0000", "size": 24}, "bottom": {"val": "single", "color": "FF0000", "size": 24}, "left": {"val": "single", "color": "FF0000", "size": 24}, "right": {"val": "single", "color": "FF0000", "size": 24}}},
+        {"expect": "coloredEdgeCount", "side": "top", "color": "255,\s*0,\s*0", "minPx": 2, "min": 2},
+        {"expect": "coloredEdgeCount", "side": "left", "color": "255,\s*0,\s*0", "minPx": 2, "min": 2},
     ]))
 
 TWINS.append(twin("tb-borders-none-cell",
-    "No Border on the middle cell must REMOVE the painted solid line (Word writes per-side nil). The clone's clear-to-{} leaves the style border painted — expected FAIL until fixed.",
+    "No Border must REMOVE the painted line. Apply a thick RED border to the middle cell (>=2 red edges paint), THEN No Border via the real Borders dropdown (per-side nil) — the red edges must all vanish. Reads the PAINTER (collapse-aware). The clone's clear-to-{} left the style border; the 032 nil No-Border fixes it.",
     INSERT_33 + [
         {"do": "caretIntoCellModel", "index": 4},
+        {"do": "setCellBorders", "spec": {"top": {"val": "single", "color": "FF0000", "size": 24}, "bottom": {"val": "single", "color": "FF0000", "size": 24}, "left": {"val": "single", "color": "FF0000", "size": 24}, "right": {"val": "single", "color": "FF0000", "size": 24}}},
+        {"expect": "coloredEdgeCount", "side": "top", "color": "255,\s*0,\s*0", "minPx": 2, "min": 2},
         {"do": "activateTab", "tab": "table-design"},
         {"do": "openDropdown", "cmd": "tblBorders"},
         {"do": "clickItem", "match": "No Border"},
-        {"expect": "paintedCellBorderAbsent", "index": 4, "edge": "top"},
-        {"expect": "paintedCellBorderAbsent", "index": 4, "edge": "left"},
+        {"expect": "coloredEdgeGone", "color": "255,\s*0,\s*0", "minPx": 2},
     ]))
 
 for tid, cmd in [("tb-insert-above", "tblInsertAbove"), ("tb-insert-below", "tblInsertBelow"),

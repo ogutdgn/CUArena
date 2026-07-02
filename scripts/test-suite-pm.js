@@ -7571,6 +7571,100 @@
     return eq === true ? true : ('post-undo stamps mismatch: ' + eq);
   });
 
+  // ---------- spec 032: table borders (T1 fork order/diagonals, T2 getter, T3 full dropdown) ----------
+  // Seat the caret in the Nth (0-based) tableCell/tableHeader of the current doc.
+  const caretInCellN = (n) => {
+    let idx = -1, cp = null;
+    doc().descendants((node, pos) => { if ((node.type.name === 'tableCell' || node.type.name === 'tableHeader')) { idx++; if (idx === n && cp == null) cp = pos; } });
+    if (cp != null) window.WC.editor.commands.setTextSelection(cp + 2);
+    return cp != null;
+  };
+
+  await t('[032] T1: cell with all sides + diagonals → <w:tcBorders> children in CT_TcBorders order + <w:tl2br> present', async () => {
+    // The fork SIDES reorder + the tcBorders translator xmlOrder must (a) CARRY the diagonals/inside sides
+    // (previously dropped by the 4-edge SIDES) and (b) emit the children in canonical schema order regardless
+    // of the key-insertion order of the borders object we hand setCellBorders.
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(180);
+    if (!caretInCellN(0)) return 'no table cell to seat the caret';
+    // Insertion order deliberately scrambled (tl2br first, right before left, etc.) to prove the sort.
+    window.WC.editor.commands.setCellBorders({
+      tl2br: { val: 'single', color: 'auto', size: 4 },
+      insideV: { val: 'single', color: 'auto', size: 4 },
+      right: { val: 'single', color: 'auto', size: 4 },
+      top: { val: 'single', color: 'auto', size: 4 },
+      insideH: { val: 'single', color: 'auto', size: 4 },
+      left: { val: 'single', color: 'auto', size: 4 },
+      bottom: { val: 'single', color: 'auto', size: 4 },
+    }); await sleep(120);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const m = xml.match(/<w:tcBorders\b[\s\S]*?<\/w:tcBorders>/);
+    if (!m) return 'no <w:tcBorders> in export (setCellBorders did not emit borders)';
+    const tb = m[0];
+    if (!/<w:tl2br\b/.test(tb)) return 'diagonal <w:tl2br> DROPPED from export (SIDES reorder did not carry it): ' + tb.slice(0, 240);
+    // Canonical CT_TcBorders order (present subset): top < left < bottom < right < insideH < insideV < tl2br.
+    const order = ['w:top', 'w:left', 'w:bottom', 'w:right', 'w:insideH', 'w:insideV', 'w:tl2br'];
+    const idxs = order.map((k) => tb.indexOf('<' + k));
+    const present = order.filter((k, i) => idxs[i] >= 0);
+    if (present.length < 6) return 'too few tcBorders children present to assert order: ' + JSON.stringify(idxs) + ' :: ' + tb.slice(0, 240);
+    const seq = idxs.filter((v) => v >= 0);
+    const ordered = seq.every((v, i) => i === 0 || v > seq[i - 1]);
+    return ordered || ('w:tcBorders children OUT OF CT_TcBorders ORDER (want top<left<bottom<right<insideH<insideV<tl2br): ' + JSON.stringify(idxs) + ' :: ' + tb.slice(0, 260));
+  });
+
+  await t('[032] T2: WC.PM.tableGetCellBorders reads back a just-applied top border', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(180);
+    if (!caretInCellN(0)) return 'no table cell to seat the caret';
+    if (typeof PM().tableGetCellBorders !== 'function') return 'WC.PM.tableGetCellBorders is not exposed';
+    // No explicit borders yet → null.
+    const before = PM().tableGetCellBorders();
+    if (before && before.top) return 'unexpected pre-existing top border: ' + JSON.stringify(before);
+    PM().tableSetCellBorders({ top: { val: 'single', color: 'auto', size: 4 } }); await sleep(120);
+    caretInCellN(0); // re-seat (setCellBorders may move focus)
+    const got = PM().tableGetCellBorders();
+    if (!got || !got.top) return 'getter did not read back the applied top border: ' + JSON.stringify(got);
+    if (got.top.val !== 'single') return 'top border val wrong: ' + JSON.stringify(got.top);
+    return true;
+  });
+
+  await t('[032] T3: dropdown MERGE — Top then Bottom → tcBorders has BOTH; then No Border → all six sides export nil', async () => {
+    // Drives the chrome merge path (H.tblBordersApply — the same logic the dropdown items call). Proves the
+    // per-edge merge (not replace): after Top then Bottom the cell exports BOTH edges. Then No Border must
+    // write explicit per-side nil on all six sides (w:val="nil"), not an empty override.
+    // A prior round-trip test (the [8]/[11] known-gaps) can tear down the paged world via failBridge,
+    // clearing WC.PM.active — which gates the chrome TPM() the dropdown uses. newBlank re-establishes a live
+    // editor; restore the active flag so H.tblBordersApply (which routes through TPM()) can run (the teardown
+    // is a test-harness artifact, not a real-world state — the [030]/[031] tests sidestep it by calling PM()
+    // verbs directly).
+    await PM().newBlank(); await sleep(120);
+    if (WC.PM.ready && WC.PM.active !== true) WC.PM.active = true;
+    setDoc('x'); PM().insertTable({ rows: 3, cols: 3 }); await sleep(200);
+    // Caret in cell(1,1) = the 5th cell (0-based index 4) in a 3x3 grid (row1 = cells 3,4,5).
+    if (!caretInCellN(4)) return 'no cell(1,1) to seat the caret';
+    if (typeof WC.Commands.H.tblBordersApply !== 'function') return 'H.tblBordersApply not defined';
+    WC.Commands.H.tblBordersApply({ top: { val: 'single', color: 'auto', size: 4, space: 0 } }); await sleep(120);
+    caretInCellN(4);
+    const afterTop = PM().tableGetCellBorders();
+    WC.Commands.H.tblBordersApply({ bottom: { val: 'single', color: 'auto', size: 4, space: 0 } }); await sleep(120);
+    // Read back: BOTH top and bottom present (merge, not replace).
+    caretInCellN(4);
+    const merged = PM().tableGetCellBorders() || {};
+    if (!(merged.top && merged.top.val !== 'none')) return 'top border lost after applying bottom (merge failed → replace): merged=' + JSON.stringify(merged) + ' afterTop=' + JSON.stringify(afterTop);
+    if (!(merged.bottom && merged.bottom.val !== 'none')) return 'bottom border missing: ' + JSON.stringify(merged);
+    // The exported cell (the one carrying tcBorders with a live top) must have BOTH top and bottom live.
+    let xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const liveBlock = (xml.match(/<w:tcBorders\b[\s\S]*?<\/w:tcBorders>/g) || []).find((b) => /<w:top\b[^>]*w:val="single"/.test(b) && /<w:bottom\b[^>]*w:val="single"/.test(b));
+    if (!liveBlock) return 'no exported <w:tcBorders> with BOTH top+bottom w:val="single" (merge did not survive export)';
+    // No Border → all six sides nil (val:none → exports w:val="nil").
+    caretInCellN(4);
+    WC.Commands.H.tblBordersApply({ top: { val: 'none', size: 0, space: 0, color: 'auto' }, bottom: { val: 'none', size: 0, space: 0, color: 'auto' }, left: { val: 'none', size: 0, space: 0, color: 'auto' }, right: { val: 'none', size: 0, space: 0, color: 'auto' }, insideH: { val: 'none', size: 0, space: 0, color: 'auto' }, insideV: { val: 'none', size: 0, space: 0, color: 'auto' } }); await sleep(120);
+    xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    const nilBlock = (xml.match(/<w:tcBorders\b[\s\S]*?<\/w:tcBorders>/g) || []).find((b) => /<w:top\b[^>]*w:val="nil"/.test(b));
+    if (!nilBlock) return 'no exported <w:tcBorders> with a nil top after No Border';
+    const sides = ['w:top', 'w:bottom', 'w:left', 'w:right', 'w:insideH', 'w:insideV'];
+    const missing = sides.filter((s) => !new RegExp('<' + s + '\\b[^>]*w:val="nil"').test(nilBlock));
+    return missing.length === 0 ? true : ('No Border did not write nil on all six sides — missing: ' + missing.join(',') + ' :: ' + nilBlock.slice(0, 300));
+  });
+
 
   const pass = results.filter((r) => r.pass).length;
   const pagedKnownGaps = results.filter((r) => /paged known-gap/.test(String(r.detail || ''))).length;

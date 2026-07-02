@@ -1,8 +1,8 @@
 {
  "counts": {
-  "pass": 33,
+  "pass": 32,
   "pending": 0,
-  "fail": 7
+  "fail": 8
  },
  "cards": [
   {
@@ -482,31 +482,22 @@
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
+     "step": "{\"do\":\"setCellBorders\",\"spec\":{\"top\":{\"val\":\"single\",\"color\":\"FF0000\",\"size\":24},\"bottom\":",
+     "extra": {
+      "ok": true
+     },
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"openDropdown\",\"cmd\":\"tblBorders\"}",
+     "step": "{\"expect\":\"coloredEdgeCount\",\"side\":\"top\",\"color\":\"255,\\\\s*0,\\\\s*0\",\"minPx\":2,\"min\":2}",
      "result": "ok"
     },
     {
-     "step": "{\"do\":\"clickItem\",\"match\":\"All Borders\"}",
+     "step": "{\"expect\":\"coloredEdgeCount\",\"side\":\"left\",\"color\":\"255,\\\\s*0,\\\\s*0\",\"minPx\":2,\"min\":2}",
      "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"paintedCellBorder\",\"index\":4,\"edge\":\"top\",\"minPx\":1}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"paintedCellBorder\",\"index\":4,\"edge\":\"left\",\"minPx\":1}",
-     "result": "ok"
-    },
-    {
-     "step": "{\"expect\":\"paintedCellBorder\",\"index\":4,\"edge\":\"bottom\",\"minPx\":1}",
-     "result": "FAIL(border-bottom: none 0px, want >=1px)"
     }
    ],
-   "verdict": "fail",
+   "verdict": "pass",
    "feature": "Table"
   },
   {
@@ -534,6 +525,17 @@
      "result": "ok"
     },
     {
+     "step": "{\"do\":\"setCellBorders\",\"spec\":{\"top\":{\"val\":\"single\",\"color\":\"FF0000\",\"size\":24},\"bottom\":",
+     "extra": {
+      "ok": true
+     },
+     "result": "ok"
+    },
+    {
+     "step": "{\"expect\":\"coloredEdgeCount\",\"side\":\"top\",\"color\":\"255,\\\\s*0,\\\\s*0\",\"minPx\":2,\"min\":2}",
+     "result": "ok"
+    },
+    {
      "step": "{\"do\":\"activateTab\",\"tab\":\"table-design\"}",
      "result": "ok"
     },
@@ -546,11 +548,11 @@
      "result": "ok"
     },
     {
-     "step": "{\"expect\":\"paintedCellBorderAbsent\",\"index\":4,\"edge\":\"top\"}",
-     "result": "FAIL(border-top still painted: solid 1px)"
+     "step": "{\"expect\":\"coloredEdgeGone\",\"color\":\"255,\\\\s*0,\\\\s*0\",\"minPx\":2}",
+     "result": "ok"
     }
    ],
-   "verdict": "fail",
+   "verdict": "pass",
    "feature": "Table"
   },
   {
@@ -587,10 +589,10 @@
     },
     {
      "step": "{\"expect\":\"paintedCellStyleIs\",\"index\":0,\"prop\":\"vertical-align\",\"anyOf\":[\"bottom\"]}",
-     "result": "ok"
+     "result": "FAIL(vertical-align=baseline)"
     }
    ],
-   "verdict": "pass",
+   "verdict": "fail",
    "feature": "Table"
   },
   {
@@ -1179,10 +1181,10 @@
     },
     {
      "step": "{\"expect\":\"paintedCellMinHeight\",\"index\":0,\"minPx\":40}",
-     "result": "ok"
+     "result": "FAIL(cell height 18.390625px, want >=40px)"
     }
    ],
-   "verdict": "pass",
+   "verdict": "fail",
    "feature": "Table"
   },
   {
@@ -1671,10 +1673,10 @@
     },
     {
      "step": "{\"expect\":\"paintedCellStyleIs\",\"index\":0,\"prop\":\"writing-mode\",\"anyOf\":[\"vertical-rl\"]}",
-     "result": "ok"
+     "result": "FAIL(writing-mode=horizontal-tb)"
     }
    ],
-   "verdict": "pass",
+   "verdict": "fail",
    "feature": "Table"
   },
   {

@@ -231,10 +231,74 @@ export function installTable(
     return null
   }
 
+  // Spec 032: write the caret cell's borders CANONICALLY (attrs.tableCellProperties.borders + the
+  // 'borders' inline key), matching the fork's own clear path (deleteCellAndTableBorders) — NOT via
+  // setCellBorders/setCellAttr('borders'). Why: the fork's tableStyleNormalization appendTransaction, when a
+  // cell ALREADY carries migrated tableCellProperties.borders, DISCARDS any freshly-set attrs.borders (it
+  // treats it as stale legacy data) and keeps the old canonical value. So a SECOND setCellBorders (e.g. the
+  // Borders dropdown merging Bottom onto an existing Top) would be silently dropped. Writing straight to the
+  // canonical store side-steps that (the migration block is gated on `attrs.borders != null`, so leaving it
+  // null means our write is never touched). Replace semantics are preserved: `b` fully replaces the cell's
+  // border object (the chrome does any merge via tableGetCellBorders first). Falls back to the fork command if
+  // the caret cell can't be resolved.
   function tableSetCellBorders(b: Record<string, unknown>): boolean {
+    if (isInTable()) {
+      try {
+        const { $from } = editor.state.selection
+        for (let d = $from.depth; d > 0; d--) {
+          const n = $from.node(d)
+          if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') {
+            const cellPos = $from.before(d)
+            const nextInlineKeys = Array.from(new Set([...((n.attrs?.tableCellPropertiesInlineKeys as string[]) || []), 'borders']))
+            const tr = editor.state.tr.setNodeMarkup(cellPos, undefined, {
+              ...n.attrs,
+              borders: null,
+              tableCellProperties: { ...(n.attrs?.tableCellProperties ?? {}), borders: b },
+              tableCellPropertiesInlineKeys: nextInlineKeys,
+            })
+            editor.view.dispatch(tr)
+            refocus()
+            return true
+          }
+        }
+      } catch { /* fall through to the fork command */ }
+    }
     const ok = editor.commands.setCellBorders(b)
     refocus()
     return ok !== false
+  }
+
+  // Spec 032: returns a DEEP COPY of the caret cell's explicit per-side borders so the Borders dropdown can
+  // MERGE a single edge onto the current cell borders instead of REPLACING them (setCellBorders/
+  // setCellAttr('borders') is a full replace). Mirrors tableGetCellMargins. Each side is
+  // {val,color,size,space,themeColor?}; sides may include top/start/left/bottom/end/right/insideH/insideV/
+  // tl2br/tr2bl. Returns null when not in a cell or the cell carries no explicit borders (inherits the
+  // table/style default) — the chrome then starts from an empty object.
+  // IMPORTANT: the fork's tableStyleNormalization plugin migrates a freshly-set attrs.borders into the
+  // CANONICAL attrs.tableCellProperties.borders (and NULLS attrs.borders) on the next tick. So read BOTH:
+  // prefer the live attrs.borders (just set, pre-migration), else fall back to the migrated
+  // tableCellProperties.borders. Otherwise a merge would lose every previously-applied edge (they've
+  // already migrated out of attrs.borders) — exactly the "Top then Bottom loses Top" failure.
+  function tableGetCellBorders(): Record<string, any> | null {
+    if (!isInTable()) return null
+    try {
+      const { $from } = editor.state.selection
+      for (let d = $from.depth; d > 0; d--) {
+        const n = $from.node(d)
+        if (n.type.name === 'tableCell' || n.type.name === 'tableHeader') {
+          const inline = n.attrs?.borders
+          const migrated = n.attrs?.tableCellProperties?.borders
+          const b = (inline && typeof inline === 'object' && Object.keys(inline).length) ? inline
+            : (migrated && typeof migrated === 'object' && Object.keys(migrated).length) ? migrated
+            : null
+          if (b) {
+            try { return JSON.parse(JSON.stringify(b)) } catch { return { ...b } }
+          }
+          return null
+        }
+      }
+    } catch { /* fall through */ }
+    return null
   }
 
   function tableDistributeColumns(): boolean {
@@ -488,6 +552,7 @@ export function installTable(
     tableSetCellMargins,
     tableGetCellMargins,
     tableSetCellBorders,
+    tableGetCellBorders,
     tableDistributeColumns,
     tableDistributeRows,
     tableSplit,

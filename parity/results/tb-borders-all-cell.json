@@ -19,14 +19,14 @@
     "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
   ],
   "extra_nodes": [
-    "body:bottom[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+    "body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "body:gridCol[('w', '3120')]",
-    "body:left[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
-    "body:right[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+    "body:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "body:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
     "body:tcBorders[]",
     "body:tcW[('type', 'dxa'), ('w', '3120')]",
-    "body:top[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]"
+    "body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"
   ],
   "part_counts": {},
   "id": "tb-borders-all-cell",
@@ -34,7 +34,7 @@
   "feature": "Borders: All Borders on caret cell",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone 'All Borders' item: tableSetCellBorders 4 sides val=single color=000000 size=4. Word: caret in cell + ExecuteMso BordersAll (default 1/2pt auto pen).",
+  "note": "Clone 'All Borders' item (032 dropdown) → H.tblBordersApply top/bottom/left/right with the default pen (auto, sz4). Word: caret in cell + ExecuteMso BordersAll. NOTE: on a TableGrid table both write single/auto/4 borders that MATCH the style default — Word absorbs them (no tcBorders); the clone writes them explicit → an 'extra' fidelity note (D1.2 pass-with-note class), not a functional gap.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

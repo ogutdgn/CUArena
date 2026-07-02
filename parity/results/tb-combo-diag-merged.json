@@ -4,14 +4,13 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 21,
-    "missing": 11,
-    "extra": 4
+    "match": 22,
+    "missing": 10,
+    "extra": 3
   },
   "missing_nodes": [
     "body:gridCol[('w', '3116')]",
     "body:gridCol[('w', '3117')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcBorders[]",
     "body:tcW[('type', 'dxa'), ('w', '3116')]",
@@ -23,7 +22,6 @@
   ],
   "extra_nodes": [
     "body:gridCol[('w', '3120')]",
-    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
     "body:tcW[('type', 'dxa'), ('w', '3120')]",
     "body:tcW[('type', 'dxa'), ('w', '6240')]"
   ],

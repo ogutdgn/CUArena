@@ -4,16 +4,14 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 20,
-    "missing": 13,
+    "match": 25,
+    "missing": 11,
     "extra": 3
   },
   "missing_nodes": [
-    "body:bottom[('val', 'nil')]",
     "body:gridCol[('w', '3116')]",
     "body:gridCol[('w', '3117')]",
     "body:left[('val', 'nil')]",
-    "body:right[('val', 'nil')]",
     "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
     "body:tblW[('type', 'auto'), ('w', '0')]",
     "body:tcBorders[]",
@@ -34,7 +32,7 @@
   "feature": "Borders: No Border on caret cell",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone 'No Border': tableSetCellBorders({}) clears the override (style border stays). Word: ExecuteMso BorderNone writes per-side val=nil.",
+  "note": "Clone 'No Border' (032): H.tblBordersApply writes explicit per-side val=nil (all six sides). Word: ExecuteMso BorderNone → per-side w:val=nil.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

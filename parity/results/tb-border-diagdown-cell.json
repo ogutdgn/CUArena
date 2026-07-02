@@ -4,8 +4,8 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 20,
-    "missing": 11,
+    "match": 22,
+    "missing": 10,
     "extra": 3
   },
   "missing_nodes": [
@@ -17,7 +17,6 @@
     "body:tcBorders[]",
     "body:tcW[('type', 'dxa'), ('w', '3116')]",
     "body:tcW[('type', 'dxa'), ('w', '3117')]",
-    "body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
     "styles:TableGrid:pPr[]",
     "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
   ],
@@ -32,7 +31,7 @@
   "feature": "Borders: Diagonal Down (cell 2,2)",
   "tab": "Tables",
   "usage_tier": "TB",
-  "note": "Clone unreachable (no diagonal items). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br.",
+  "note": "Clone 'Diagonal Down Border' (032): H.tblBordersApply({tl2br: pen}). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br.",
   "import_leg": {
     "verdict": "semantic-pass",
     "counts": {

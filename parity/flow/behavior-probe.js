@@ -27,10 +27,47 @@
     while ((t = walker.nextNode())) if (t.textContent.includes(needle)) return t.parentElement;
     return null;
   };
-  // The VISIBLE (painted) table cells — wherever the paged engine renders them. The
-  // getClientRects filter excludes any hidden/model-side duplicates: what the USER sees.
-  const paintedCells = () => Array.from(document.querySelectorAll('td, th'))
-    .filter((n) => n.getClientRects().length > 0);
+  // The VISIBLE (painted) table cells. The paged engine (PresentationEditor) is the SOLE
+  // renderer and paints cells as absolutely-positioned <div>s under .presentation-editor__pages;
+  // the <td>/<th> live only in the OFF-SCREEN hidden model host (x≈-10004px) — a getClientRects
+  // filter does NOT exclude them (they still return a rect). So read the painter host and drop
+  // anything to the left of the viewport (the hidden host). Falls back to on-screen td/th only if
+  // no painter host exists (legacy/non-paged). This is what the USER sees.
+  const painterHost = () => document.querySelector('.presentation-editor__pages');
+  const paintedCells = () => {
+    const host = painterHost();
+    if (host) {
+      // Painter cells are the cell-geometry divs directly under a .superdoc-table-fragment.
+      const frags = Array.from(host.querySelectorAll('.superdoc-table-fragment'));
+      const cells = [];
+      const seen = new Set();
+      frags.forEach((f) => Array.from(f.children).forEach((n) => {
+        const r = n.getBoundingClientRect();
+        const key = Math.round(r.x) + ',' + Math.round(r.y);
+        if (n.tagName === 'DIV' && r.width > 40 && r.height > 8 && r.x > 0 && !seen.has(key)) { seen.add(key); cells.push(n); }
+      }));
+      return cells;
+    }
+    return Array.from(document.querySelectorAll('td, th')).filter((n) => {
+      const r = n.getBoundingClientRect(); return r.width > 0 && r.x > -1000;
+    });
+  };
+  // Count painted border edges of a given side across the whole painter that match a color
+  // (rgb substring) at >= minPx width. THE collapse-aware instrument (mirrors the archive
+  // border-collapse probe): the painter draws each cell's top+left only, so a single cell's
+  // bottom edge shows as the below-cell's TOP and its right edge as the right-cell's LEFT —
+  // a colored border on one cell therefore yields >=2 colored Top edges and >=2 Left edges
+  // ONLY when the collapse pre-pass propagated the thick edge to the neighbors.
+  const countColoredEdges = (side, colorRe, minPx) => {
+    const host = painterHost() || document.body;
+    let n = 0;
+    host.querySelectorAll('*').forEach((e) => {
+      const cs = getComputedStyle(e);
+      const cap = side.charAt(0).toUpperCase() + side.slice(1);
+      if (colorRe.test(cs['border' + cap + 'Color']) && parseFloat(cs['border' + cap + 'Width']) >= (minPx || 2)) n++;
+    });
+    return n;
+  };
   const closeAll = async () => {
     try { WC.closeFlyouts && WC.closeFlyouts(); } catch (e) {}
     document.querySelectorAll('.dialog, .wc-dialog, .modal').forEach((d) => {
@@ -127,6 +164,13 @@
               const n = document.querySelector(step.sel);
               if (!n) throw new Error('no node for selector: ' + step.sel);
               lastDoc = docJson(); n.click(); await sleep(step.waitMs || 300);
+            } else if (step.do === 'setCellBorders') {
+              // Drive the real border write path (the same PM verb the ribbon dispatches) with an
+              // explicit spec — used by the collapse twins to apply a THICK COLORED border so the
+              // painted edges are countable/distinguishable from the default thin grid.
+              const ok = WC.PM.tableSetCellBorders(step.spec || {});
+              lastDoc = docJson(); await sleep(400);
+              sr.extra = { ok };
             } else if (step.do === 'clickShadeSwatch') {
               const sws = Array.from(document.querySelectorAll('.flyout .tbl-shade-sw'));
               const sw = sws[step.index];
@@ -193,6 +237,18 @@
                 sr.result = (step.anyOf || [step.value]).some((want) => String(v).replace(/\s/g, '') === String(want).replace(/\s/g, ''))
                   ? 'ok' : `FAIL(bg=${v})`;
               }
+            } else if (ex === 'coloredEdgeCount') {
+              // Collapse-aware edge check on the PAINTER (see countColoredEdges). A colored border on
+              // one cell must yield >= `min` colored edges of `side` at >= minPx — proving the shared
+              // edge propagated to the neighbor(s) (the border-collapse fix). color = rgb regex source.
+              const re = new RegExp(step.color || '255,\\s*0,\\s*0');
+              const n = countColoredEdges(step.side, re, step.minPx || 2);
+              sr.result = n >= (step.min != null ? step.min : 1) ? 'ok'
+                : `FAIL(${step.side} colored edges=${n}, want >=${step.min != null ? step.min : 1})`;
+            } else if (ex === 'coloredEdgeGone') {
+              const re = new RegExp(step.color || '255,\\s*0,\\s*0');
+              const n = ['top', 'bottom', 'left', 'right'].reduce((a, s) => a + countColoredEdges(s, re, step.minPx || 2), 0);
+              sr.result = n === 0 ? 'ok' : `FAIL(${n} colored edges still painted)`;
             } else if (ex === 'paintedCellBorder') {
               // The live-paint border check (the border-collapse instrument): edge must be a
               // visible line at least minPx wide ON SCREEN — file-clean-but-screen-wrong catcher.

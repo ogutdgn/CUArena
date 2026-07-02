@@ -1484,8 +1484,8 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 20,
-      "missing": 11,
+      "match": 22,
+      "missing": 10,
       "extra": 3
     },
     "missing_nodes": [
@@ -1497,7 +1497,6 @@
       "body:tcBorders[]",
       "body:tcW[('type', 'dxa'), ('w', '3116')]",
       "body:tcW[('type', 'dxa'), ('w', '3117')]",
-      "body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
       "styles:TableGrid:pPr[]",
       "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
     ],
@@ -1512,7 +1511,7 @@
     "feature": "Borders: Diagonal Down (cell 2,2)",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone unreachable (no diagonal items). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br.",
+    "note": "Clone 'Diagonal Down Border' (032): H.tblBordersApply({tl2br: pen}). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {
@@ -1538,7 +1537,7 @@
     "counts": {
       "match": 20,
       "missing": 8,
-      "extra": 3
+      "extra": 5
     },
     "missing_nodes": [
       "body:gridCol[('w', '3116')]",
@@ -1553,7 +1552,9 @@
     "extra_nodes": [
       "body:gridCol[('w', '3120')]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
-      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+      "body:tcBorders[]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"
     ],
     "part_counts": {},
     "id": "tb-border-top-cell",
@@ -1561,7 +1562,7 @@
     "feature": "Borders: Top Border only (caret cell)",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone Borders dropdown has only All/None -- per-edge unreachable. Word: Cell.Borders(wdBorderTop=-1).LineStyle=single.",
+    "note": "Clone 'Top Border' (032 per-edge, merged): H.tblBordersApply({top: pen}). Word: Cell.Borders(wdBorderTop=-1).LineStyle=single.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {
@@ -1651,14 +1652,14 @@
       "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
     ],
     "extra_nodes": [
-      "body:bottom[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+      "body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
       "body:gridCol[('w', '3120')]",
-      "body:left[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
-      "body:right[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+      "body:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "body:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
       "body:tcBorders[]",
       "body:tcW[('type', 'dxa'), ('w', '3120')]",
-      "body:top[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]"
+      "body:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]"
     ],
     "part_counts": {},
     "id": "tb-borders-all-cell",
@@ -1666,7 +1667,7 @@
     "feature": "Borders: All Borders on caret cell",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone 'All Borders' item: tableSetCellBorders 4 sides val=single color=000000 size=4. Word: caret in cell + ExecuteMso BordersAll (default 1/2pt auto pen).",
+    "note": "Clone 'All Borders' item (032 dropdown) → H.tblBordersApply top/bottom/left/right with the default pen (auto, sz4). Word: caret in cell + ExecuteMso BordersAll. NOTE: on a TableGrid table both write single/auto/4 borders that MATCH the style default — Word absorbs them (no tcBorders); the clone writes them explicit → an 'extra' fidelity note (D1.2 pass-with-note class), not a functional gap.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {
@@ -1690,16 +1691,14 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 20,
-      "missing": 13,
+      "match": 25,
+      "missing": 11,
       "extra": 3
     },
     "missing_nodes": [
-      "body:bottom[('val', 'nil')]",
       "body:gridCol[('w', '3116')]",
       "body:gridCol[('w', '3117')]",
       "body:left[('val', 'nil')]",
-      "body:right[('val', 'nil')]",
       "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
       "body:tblW[('type', 'auto'), ('w', '0')]",
       "body:tcBorders[]",
@@ -1720,7 +1719,7 @@
     "feature": "Borders: No Border on caret cell",
     "tab": "Tables",
     "usage_tier": "TB",
-    "note": "Clone 'No Border': tableSetCellBorders({}) clears the override (style border stays). Word: ExecuteMso BorderNone writes per-side val=nil.",
+    "note": "Clone 'No Border' (032): H.tblBordersApply writes explicit per-side val=nil (all six sides). Word: ExecuteMso BorderNone → per-side w:val=nil.",
     "import_leg": {
       "verdict": "semantic-pass",
       "counts": {
@@ -1887,14 +1886,13 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 21,
-      "missing": 11,
-      "extra": 4
+      "match": 22,
+      "missing": 10,
+      "extra": 3
     },
     "missing_nodes": [
       "body:gridCol[('w', '3116')]",
       "body:gridCol[('w', '3117')]",
-      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
       "body:tblW[('type', 'auto'), ('w', '0')]",
       "body:tcBorders[]",
       "body:tcW[('type', 'dxa'), ('w', '3116')]",
@@ -1906,7 +1904,6 @@
     ],
     "extra_nodes": [
       "body:gridCol[('w', '3120')]",
-      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
       "body:tcW[('type', 'dxa'), ('w', '3120')]",
       "body:tcW[('type', 'dxa'), ('w', '6240')]"
     ],
