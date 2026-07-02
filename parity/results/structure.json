@@ -1,0 +1,5615 @@
+{
+ "totals": {
+  "matched": 193,
+  "label_differs": 32,
+  "type_mismatch": 6,
+  "missing": 63,
+  "extra": 13,
+  "items_matched": 176,
+  "items_missing": 65,
+  "items_extra": 112,
+  "items_skipped": 3
+ },
+ "per_tab": {
+  "home": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "PasteMenu",
+      "label": "Paste",
+      "type": "splitButton",
+      "group": "GroupClipboard"
+     },
+     "clone": {
+      "cmd": "paste",
+      "label": "Paste",
+      "type": "split",
+      "items": [
+       "Keep Source Formatting",
+       "Merge Formatting",
+       "Picture",
+       "Keep Text Only",
+       "Paste Special...",
+       "Set Default Paste..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "Cut",
+      "label": "Cut",
+      "type": "button",
+      "group": "GroupClipboard"
+     },
+     "clone": {
+      "cmd": "cut",
+      "label": "Cut",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "Copy",
+      "label": "Copy",
+      "type": "button",
+      "group": "GroupClipboard"
+     },
+     "clone": {
+      "cmd": "copy",
+      "label": "Copy",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "Font",
+      "label": "Font:",
+      "type": "comboBox",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "font",
+      "label": "Font",
+      "type": "combo",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "FontSize",
+      "label": "Font Size:",
+      "type": "comboBox",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "fontSize",
+      "label": "Font Size",
+      "type": "combo",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ChangeCaseGallery",
+      "label": "Change Case",
+      "type": "gallery",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "changeCase",
+      "label": "Change Case",
+      "type": "dropdown",
+      "items": [
+       "Sentence case.",
+       "lowercase",
+       "UPPERCASE",
+       "Capitalize Each Word",
+       "tOGGLE cASE"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "Bold",
+      "label": "Bold",
+      "type": "toggleButton",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "bold",
+      "label": "Bold",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "Italic",
+      "label": "Italic",
+      "type": "toggleButton",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "italic",
+      "label": "Italic",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "UnderlineGallery",
+      "label": "Underline",
+      "type": "gallery",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "underline",
+      "label": "Underline",
+      "type": "split",
+      "items": [
+       "Underline styles",
+       "More Underlines...",
+       "Underline Color"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "Strikethrough",
+      "label": "Strikethrough",
+      "type": "toggleButton",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "strikethrough",
+      "label": "Strikethrough",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "Subscript",
+      "label": "Subscript",
+      "type": "toggleButton",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "subscript",
+      "label": "Subscript",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "Superscript",
+      "label": "Superscript",
+      "type": "toggleButton",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "superscript",
+      "label": "Superscript",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TextEffectsGallery",
+      "label": "Text Effects and Typography",
+      "type": "gallery",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "textEffectsAndTypography",
+      "label": "Text Effects and Typography",
+      "type": "dropdown",
+      "items": [
+       "Outline",
+       "Shadow",
+       "Reflection",
+       "Glow",
+       "Number Styles",
+       "Ligatures",
+       "Stylistic Sets"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "TextHighlightColorPicker",
+      "label": "Text Highlight Color",
+      "type": "gallery",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "textHighlightColor",
+      "label": "Text Highlight Color",
+      "type": "split",
+      "items": [
+       "Color swatches",
+       "No Color",
+       "Stop Highlighting"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "FontColorPicker",
+      "label": "Font Color",
+      "type": "gallery",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "fontColor",
+      "label": "Font Color",
+      "type": "split",
+      "items": [
+       "Automatic",
+       "Theme Colors",
+       "Standard Colors",
+       "More Colors...",
+       "Gradient"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "FontDialog",
+      "label": "Font...",
+      "type": "button (dialogBoxLauncher)",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "font",
+      "label": "Font",
+      "type": "launcher",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "BulletsGalleryWord",
+      "label": "Bullets",
+      "type": "gallery",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "bullets",
+      "label": "Bullets",
+      "type": "split",
+      "items": [
+       "Bullet Library",
+       "Document Bullets",
+       "Change List Level",
+       "Define New Bullet..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "NumberingGalleryWord",
+      "label": "Numbering",
+      "type": "gallery",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "numbering",
+      "label": "Numbering",
+      "type": "split",
+      "items": [
+       "Numbering Library",
+       "Change List Level",
+       "Define New Number Format...",
+       "Set Numbering Value..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "MultilevelListGallery",
+      "label": "Multilevel List",
+      "type": "gallery",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "multilevelList",
+      "label": "Multilevel List",
+      "type": "dropdown",
+      "items": [
+       "Current List",
+       "List Library",
+       "Change List Level",
+       "Define New Multilevel List...",
+       "Define New List Style..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "IndentDecreaseWord",
+      "label": "Decrease Indent",
+      "type": "button",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "decreaseIndent",
+      "label": "Decrease Indent",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "IndentIncreaseWord",
+      "label": "Increase Indent",
+      "type": "button",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "increaseIndent",
+      "label": "Increase Indent",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "SortDialogClassic",
+      "label": "Sort...",
+      "type": "button",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "sort",
+      "label": "Sort",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "AlignLeft",
+      "label": "Align Left",
+      "type": "toggleButton",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "alignLeft",
+      "label": "Align Left",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "AlignCenter",
+      "label": "Center",
+      "type": "toggleButton",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "center",
+      "label": "Center",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "AlignRight",
+      "label": "Align Right",
+      "type": "toggleButton",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "alignRight",
+      "label": "Align Right",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "AlignJustify",
+      "label": "Justify",
+      "type": "toggleButton",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "justify",
+      "label": "Justify",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "LineSpacingGallery",
+      "label": "Line and Paragraph Spacing",
+      "type": "gallery",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "lineAndParagraphSpacing",
+      "label": "Line and Paragraph Spacing",
+      "type": "dropdown",
+      "items": [
+       "1.0",
+       "1.15",
+       "1.5",
+       "2.0",
+       "2.5",
+       "3.0",
+       "Line Spacing Options...",
+       "Add Space Before Paragraph",
+       "Remove Space After Paragraph"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ShadingColorPicker",
+      "label": "Shading",
+      "type": "gallery",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "shading",
+      "label": "Shading",
+      "type": "split",
+      "items": [
+       "Theme Colors",
+       "Standard Colors",
+       "No Color",
+       "More Colors..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "BordersSelectionGallery",
+      "label": "Borders",
+      "type": "gallery",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "borders",
+      "label": "Borders",
+      "type": "split",
+      "items": [
+       "Bottom Border",
+       "Top Border",
+       "Left Border",
+       "Right Border",
+       "No Border",
+       "All Borders",
+       "Outside Borders",
+       "Inside Borders",
+       "Draw Table",
+       "View Gridlines",
+       "Borders and Shading..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ParagraphDialog",
+      "label": "Paragraph...",
+      "type": "button (dialogBoxLauncher)",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "paragraph",
+      "label": "Paragraph",
+      "type": "launcher",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReplaceDialog",
+      "label": "Replace...",
+      "type": "button",
+      "group": "GroupEditing"
+     },
+     "clone": {
+      "cmd": "replace",
+      "label": "Replace",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "SelectMenu",
+      "label": "Select",
+      "type": "menu",
+      "group": "GroupEditing"
+     },
+     "clone": {
+      "cmd": "select",
+      "label": "Select",
+      "type": "dropdown",
+      "items": [
+       "Select All",
+       "Select Objects",
+       "Select All Text With Similar Formatting",
+       "Selection Pane..."
+      ]
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "FontSizeIncreaseWord",
+      "label": "Grow Font",
+      "type": "button",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "increaseFontSize",
+      "label": "Increase Font Size",
+      "type": "button",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "FontSizeDecreaseWord",
+      "label": "Shrink Font",
+      "type": "button",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "decreaseFontSize",
+      "label": "Decrease Font Size",
+      "type": "button",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "ClearFormatting",
+      "label": "Clear Formatting",
+      "type": "button",
+      "group": "GroupFont"
+     },
+     "clone": {
+      "cmd": "clearAllFormatting",
+      "label": "Clear All Formatting",
+      "type": "button",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "ParagraphMarks",
+      "label": "Show All",
+      "type": "toggleButton",
+      "group": "GroupParagraph"
+     },
+     "clone": {
+      "cmd": "showHide",
+      "label": "Show/Hide \u00b6",
+      "type": "toggle",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "WritingAssistanceCheckDocument",
+      "label": "Check Document",
+      "type": "button",
+      "group": "GroupEditor"
+     },
+     "clone": {
+      "cmd": "editor",
+      "label": "Editor",
+      "type": "button",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "ShowClipboard",
+      "label": "Office Clipboard...",
+      "type": "button (dialogBoxLauncher)",
+      "group": "GroupClipboard"
+     },
+     "clone": {
+      "cmd": "clipboard",
+      "label": "Clipboard",
+      "type": "launcher",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "SelectMenuExcel",
+      "label": "Find & Select",
+      "type": "splitButton",
+      "group": "GroupEditing"
+     },
+     "clone": {
+      "cmd": "find",
+      "label": "Find",
+      "type": "split",
+      "items": [
+       "Find",
+       "Advanced Find...",
+       "Go To..."
+      ]
+     }
+    }
+   ],
+   "type_mismatch": [
+    {
+     "word": {
+      "idMso": "FormatPainter",
+      "label": "Format Painter",
+      "type": "control",
+      "group": "GroupClipboard"
+     },
+     "clone": {
+      "cmd": "formatPainter",
+      "label": "Format Painter",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "QuickStylesGallery",
+      "label": "Styles",
+      "type": "gallery",
+      "group": "GroupStyles"
+     },
+     "clone": {
+      "cmd": "styles",
+      "label": "Styles",
+      "type": "launcher",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "StylesPane",
+      "label": "Styles...",
+      "type": "button (dialogBoxLauncher)",
+      "group": "GroupStyles"
+     },
+     "clone": {
+      "cmd": "stylesGallery",
+      "label": "Styles Gallery",
+      "type": "gallery",
+      "items": [
+       "Normal",
+       "No Spacing",
+       "Heading 1",
+       "Heading 2",
+       "Heading 3",
+       "Title",
+       "Subtitle",
+       "Subtle Emphasis",
+       "Emphasis",
+       "Intense Emphasis",
+       "Strong",
+       "Quote",
+       "Intense Quote",
+       "List Paragraph",
+       "Create a Style",
+       "Clear Formatting",
+       "Apply Styles..."
+      ]
+     }
+    }
+   ],
+   "missing": [
+    {
+     "idMso": "CharacterBorder",
+     "label": "Character Border",
+     "type": "toggleButton",
+     "group": "GroupFont"
+    },
+    {
+     "idMso": "CharacterShading",
+     "label": "Character Shading",
+     "type": "toggleButton",
+     "group": "GroupFont"
+    },
+    {
+     "idMso": "AlignTextMenu",
+     "label": "",
+     "type": "menu",
+     "group": "GroupParagraph"
+    },
+    {
+     "idMso": "FindPopup",
+     "label": "",
+     "type": "menu",
+     "group": "GroupEditing"
+    }
+   ],
+   "extra": [],
+   "menus": [
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Keep Source Formatting",
+      "Merge Formatting",
+      "Picture",
+      "Keep Text Only"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "PasteMenu",
+     "wordLabel": "Paste",
+     "cloneCmd": "paste",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 2,
+     "missing": [
+      {
+       "idMso": "UnderlineColorMoreColorsDialog",
+       "label": "More Colors...",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "UnderlineGallery",
+     "wordLabel": "Underline",
+     "cloneCmd": "underline",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 7,
+     "missing": [
+      {
+       "idMso": "TextOutlineColorMoreColorsDialog",
+       "label": "More Outline Colors...",
+       "type": "button"
+      },
+      {
+       "idMso": "TextOutlineWeightGallery",
+       "label": "Weight",
+       "type": "gallery"
+      },
+      {
+       "idMso": "TextOutlineMoreLinesDialog",
+       "label": "More Lines...",
+       "type": "button"
+      },
+      {
+       "idMso": "TextOutlineDashesGallery",
+       "label": "Dashes",
+       "type": "gallery"
+      },
+      {
+       "idMso": "TextEffectsMoreShadowsDialog",
+       "label": "Shadow Options...",
+       "type": "button"
+      },
+      {
+       "idMso": "TextEffectsReflectionsMoreOptions",
+       "label": "Reflection Options...",
+       "type": "button"
+      },
+      {
+       "idMso": "TextGlowColorPicker",
+       "label": "More Glow Colors",
+       "type": "gallery"
+      },
+      {
+       "idMso": "TextGlowColorMoreColorsDialog",
+       "label": "More Colors...",
+       "type": "button"
+      },
+      {
+       "idMso": "TextEffectsGlowsMoreOptions",
+       "label": "Glow Options...",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "TextEffectsGallery",
+     "wordLabel": "Text Effects and Typography",
+     "cloneCmd": "textEffectsAndTypography",
+     "wordChildCount": 16
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "No Color"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "TextHighlightColorPicker",
+     "wordLabel": "Text Highlight Color",
+     "cloneCmd": "textHighlightColor",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [
+      {
+       "idMso": "TextFillGradientGallery",
+       "label": "Gradient",
+       "type": "gallery"
+      },
+      {
+       "idMso": "TextFillMoreGradientsDialog",
+       "label": "More Gradients...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Automatic"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "FontColorPicker",
+     "wordLabel": "Font Color",
+     "cloneCmd": "fontColor",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "BulletsGalleryWord",
+     "wordLabel": "Bullets",
+     "cloneCmd": "bullets",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "NumberingGalleryWord",
+     "wordLabel": "Numbering",
+     "cloneCmd": "numbering",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "MultilevelListGallery",
+     "wordLabel": "Multilevel List",
+     "cloneCmd": "multilevelList",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "No Color"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ShadingColorPicker",
+     "wordLabel": "Shading",
+     "cloneCmd": "shading",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 3,
+     "missing": [
+      {
+       "idMso": "HorizontalLineInsert",
+       "label": "Horizontal Line",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Bottom Border",
+      "Top Border",
+      "Left Border",
+      "Right Border",
+      "No Border",
+      "All Borders",
+      "Outside Borders",
+      "Inside Borders"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "BordersSelectionGallery",
+     "wordLabel": "Borders",
+     "cloneCmd": "borders",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 4,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "SelectMenu",
+     "wordLabel": "Select",
+     "cloneCmd": "select",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 1,
+     "parent": "SelectMenuExcel",
+     "wordLabel": "Find & Select",
+     "cloneCmd": "find",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "QuickStylesSaveSelectionAsNew",
+       "label": "Create a Style",
+       "type": "button"
+      },
+      {
+       "idMso": "ApplyStylesPane",
+       "label": "Apply Styles...",
+       "type": "toggleButton"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "QuickStylesGallery",
+     "wordLabel": "Styles",
+     "cloneCmd": "styles",
+     "wordChildCount": 2
+    }
+   ]
+  },
+  "insert": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "CoverPageInsertGallery",
+      "label": "Cover Page",
+      "type": "gallery",
+      "group": "GroupInsertPages"
+     },
+     "clone": {
+      "cmd": "coverPage",
+      "label": "Cover Page",
+      "type": "dropdown",
+      "items": [
+       "Built-in cover page gallery",
+       "More Cover Pages from Office.com",
+       "Remove Current Cover Page",
+       "Save Selection to Cover Page Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "BlankPageInsert",
+      "label": "Blank Page",
+      "type": "button",
+      "group": "GroupInsertPages"
+     },
+     "clone": {
+      "cmd": "blankPage",
+      "label": "Blank Page",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "PageBreakInsertWord",
+      "label": "Page Break",
+      "type": "button",
+      "group": "GroupInsertPages"
+     },
+     "clone": {
+      "cmd": "pageBreak",
+      "label": "Page Break",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableInsertGallery",
+      "label": "Table",
+      "type": "gallery",
+      "group": "GroupInsertTables"
+     },
+     "clone": {
+      "cmd": "table",
+      "label": "Table",
+      "type": "dropdown",
+      "items": [
+       "Insert Table grid",
+       "Insert Table...",
+       "Draw Table",
+       "Convert Text to Table...",
+       "Excel Spreadsheet",
+       "Quick Tables"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "FlyoutAnchorInsertPictures",
+      "label": "Pictures",
+      "type": "gallery",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "pictures",
+      "label": "Pictures",
+      "type": "dropdown",
+      "items": [
+       "This Device...",
+       "Stock Images...",
+       "Online Pictures..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "GalleryAllShapesAndCanvas",
+      "label": "Shapes",
+      "type": "gallery",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "shapes",
+      "label": "Shapes",
+      "type": "dropdown",
+      "items": [
+       "Recently Used Shapes",
+       "Lines",
+       "Rectangles",
+       "Basic Shapes",
+       "Block Arrows",
+       "Equation Shapes",
+       "Flowchart",
+       "Stars and Banners",
+       "Callouts",
+       "New Drawing Canvas"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "IconInsertFromFile",
+      "label": "Icons",
+      "type": "button",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "icons",
+      "label": "Icons",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "Insert3DModelFallback",
+      "label": "3D Models",
+      "type": "button",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "3dModels",
+      "label": "3D Models",
+      "type": "split",
+      "items": [
+       "This Device...",
+       "Stock 3D Models..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "SmartArtInsert",
+      "label": "SmartArt...",
+      "type": "button",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "smartart",
+      "label": "SmartArt",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ChartInsert",
+      "label": "Chart...",
+      "type": "button",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "chart",
+      "label": "Chart",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ScreenshotInsertGallery",
+      "label": "Screenshot",
+      "type": "gallery",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "screenshot",
+      "label": "Screenshot",
+      "type": "dropdown",
+      "items": [
+       "Available Windows",
+       "Screen Clipping"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "OfficeExtensionsAppStore",
+      "label": "Get Add\u2011ins",
+      "type": "button",
+      "group": "GroupOfficeExtension"
+     },
+     "clone": {
+      "cmd": "getAddIns",
+      "label": "Get Add-ins",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "OfficeExtensionsGallery2",
+      "label": "My Add-ins",
+      "type": "gallery",
+      "group": "GroupOfficeExtension"
+     },
+     "clone": {
+      "cmd": "myAddIns",
+      "label": "My Add-ins",
+      "type": "split",
+      "items": [
+       "Recently Used Add-ins",
+       "See All..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "InsertLinkGallery",
+      "label": "Link",
+      "type": "gallery",
+      "group": "GroupInsertLinks"
+     },
+     "clone": {
+      "cmd": "link",
+      "label": "Link",
+      "type": "split",
+      "items": [
+       "Insert Link...",
+       "Recent Items"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "BookmarkInsert",
+      "label": "Bookmark...",
+      "type": "button",
+      "group": "GroupInsertLinks"
+     },
+     "clone": {
+      "cmd": "bookmark",
+      "label": "Bookmark",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "CrossReferenceInsert",
+      "label": "Cross-reference...",
+      "type": "button",
+      "group": "GroupInsertLinks"
+     },
+     "clone": {
+      "cmd": "crossReference",
+      "label": "Cross-reference",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "InsertNewComment",
+      "label": "Comment",
+      "type": "button",
+      "group": "GroupInsertComments"
+     },
+     "clone": {
+      "cmd": "comment",
+      "label": "Comment",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "HeaderInsertGallery",
+      "label": "Header",
+      "type": "gallery",
+      "group": "GroupHeaderFooter"
+     },
+     "clone": {
+      "cmd": "header",
+      "label": "Header",
+      "type": "dropdown",
+      "items": [
+       "Built-in header gallery",
+       "More Headers from Office.com",
+       "Edit Header",
+       "Remove Header",
+       "Save Selection to Header Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "FooterInsertGallery",
+      "label": "Footer",
+      "type": "gallery",
+      "group": "GroupHeaderFooter"
+     },
+     "clone": {
+      "cmd": "footer",
+      "label": "Footer",
+      "type": "dropdown",
+      "items": [
+       "Built-in footer gallery",
+       "More Footers from Office.com",
+       "Edit Footer",
+       "Remove Footer",
+       "Save Selection to Footer Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "TextBoxInsertGallery",
+      "label": "Text Box",
+      "type": "gallery",
+      "group": "GroupInsertText"
+     },
+     "clone": {
+      "cmd": "textBox",
+      "label": "Text Box",
+      "type": "dropdown",
+      "items": [
+       "Built-in text box gallery",
+       "More Text Boxes from Office.com",
+       "Draw Text Box",
+       "Save Selection to Text Box Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "QuickPartsInsertGallery",
+      "label": "Quick Parts",
+      "type": "gallery",
+      "group": "GroupInsertText"
+     },
+     "clone": {
+      "cmd": "quickParts",
+      "label": "Quick Parts",
+      "type": "dropdown",
+      "items": [
+       "AutoText",
+       "Document Property",
+       "Field...",
+       "Building Blocks Organizer...",
+       "Save Selection to Quick Part Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "WordArtInsertGallery",
+      "label": "WordArt",
+      "type": "gallery",
+      "group": "GroupInsertText"
+     },
+     "clone": {
+      "cmd": "wordart",
+      "label": "WordArt",
+      "type": "dropdown",
+      "items": [
+       "WordArt style gallery"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "DropCapInsertGallery",
+      "label": "Drop Cap",
+      "type": "gallery",
+      "group": "GroupInsertText"
+     },
+     "clone": {
+      "cmd": "dropCap",
+      "label": "Drop Cap",
+      "type": "dropdown",
+      "items": [
+       "None",
+       "Dropped",
+       "In margin",
+       "Drop Cap Options..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "SignatureLineInsertMenu",
+      "label": "Signature Line",
+      "type": "splitButton",
+      "group": "GroupInsertText"
+     },
+     "clone": {
+      "cmd": "signatureLine",
+      "label": "Signature Line",
+      "type": "split",
+      "items": [
+       "Microsoft Office Signature Line...",
+       "Add Signature Services..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "DateAndTimeInsert",
+      "label": "Date & Time...",
+      "type": "button",
+      "group": "GroupInsertText"
+     },
+     "clone": {
+      "cmd": "dateTime",
+      "label": "Date & Time",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "OleObjectInsertMenu",
+      "label": "Object",
+      "type": "splitButton",
+      "group": "GroupInsertText"
+     },
+     "clone": {
+      "cmd": "object",
+      "label": "Object",
+      "type": "split",
+      "items": [
+       "Object...",
+       "Text from File..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "InsertBuildingBlocksEquationsGallery",
+      "label": "Equation",
+      "type": "gallery",
+      "group": "GroupInsertSymbols"
+     },
+     "clone": {
+      "cmd": "equation",
+      "label": "Equation",
+      "type": "split",
+      "items": [
+       "Built-in equation gallery",
+       "Insert New Equation",
+       "Ink Equation...",
+       "Save Selection to Equation Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "SymbolInsertGallery",
+      "label": "Symbol",
+      "type": "gallery",
+      "group": "GroupInsertSymbols"
+     },
+     "clone": {
+      "cmd": "symbol",
+      "label": "Symbol",
+      "type": "dropdown",
+      "items": [
+       "Recently used symbols",
+       "More Symbols..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "HeaderFooterPageNumberInsert",
+      "label": "Page Number",
+      "type": "menu",
+      "group": "GroupHeaderFooter"
+     },
+     "clone": {
+      "cmd": "pageNumber",
+      "label": "Page Number",
+      "type": "dropdown",
+      "items": [
+       "Top of Page",
+       "Bottom of Page",
+       "Page Margins",
+       "Current Position",
+       "Format Page Numbers...",
+       "Remove Page Numbers"
+      ]
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "MovieFromClipOrganizerInsert",
+      "label": "Online Videos...",
+      "type": "button",
+      "group": "GroupInsertIllustrations"
+     },
+     "clone": {
+      "cmd": "onlineVideo",
+      "label": "Online Video",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "type_mismatch": [],
+   "missing": [
+    {
+     "idMso": "Insert3DModelDropdown",
+     "label": "3D Models",
+     "type": "splitButton",
+     "group": "GroupInsertIllustrations"
+    },
+    {
+     "idMso": "HyperlinkInsert",
+     "label": "Link",
+     "type": "button",
+     "group": "GroupInsertLinks"
+    },
+    {
+     "idMso": "WordArtInsertGalleryClassic",
+     "label": "WordArt",
+     "type": "gallery",
+     "group": "GroupInsertText"
+    },
+    {
+     "idMso": "InsertPictureFlyoutAnchor",
+     "label": "",
+     "type": "menu",
+     "group": "GroupInsertIllustrations"
+    }
+   ],
+   "extra": [],
+   "menus": [
+    {
+     "matched": 2,
+     "missing": [
+      {
+       "idMso": "ThemeSearchOfficeOnline",
+       "label": "Enable Content Updates from Office.com...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Built-in cover page gallery",
+      "More Cover Pages from Office.com"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "CoverPageInsertGallery",
+     "wordLabel": "Cover Page",
+     "cloneCmd": "coverPage",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 5,
+     "missing": [
+      {
+       "idMso": "SaveSelectionToQuickTablesGallery",
+       "label": "Save Selection to Quick Tables Gallery...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Insert Table grid"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "TableInsertGallery",
+     "wordLabel": "Table",
+     "cloneCmd": "table",
+     "wordChildCount": 6
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "This Device..."
+     ],
+     "skipped_unlabeled": 1,
+     "parent": "FlyoutAnchorInsertPictures",
+     "wordLabel": "Pictures",
+     "cloneCmd": "pictures",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Recently Used Shapes",
+      "Lines",
+      "Rectangles",
+      "Basic Shapes",
+      "Block Arrows",
+      "Equation Shapes",
+      "Flowchart",
+      "Stars and Banners",
+      "Callouts"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "GalleryAllShapesAndCanvas",
+     "wordLabel": "Shapes",
+     "cloneCmd": "shapes",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Available Windows"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ScreenshotInsertGallery",
+     "wordLabel": "Screenshot",
+     "cloneCmd": "screenshot",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [
+      {
+       "idMso": "OfficeExtensionsManageOtherAddins",
+       "label": "Manage Other Add-ins...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Recently Used Add-ins"
+     ],
+     "skipped_unlabeled": 1,
+     "parent": "OfficeExtensionsGallery2",
+     "wordLabel": "My Add-ins",
+     "cloneCmd": "myAddIns",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "ReuseFilesForLink",
+       "label": "Search for Files",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Insert Link...",
+      "Recent Items"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "InsertLinkGallery",
+     "wordLabel": "Link",
+     "cloneCmd": "link",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 3,
+     "missing": [
+      {
+       "idMso": "ThemeSearchOfficeOnline",
+       "label": "Enable Content Updates from Office.com...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Built-in header gallery",
+      "More Headers from Office.com"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "HeaderInsertGallery",
+     "wordLabel": "Header",
+     "cloneCmd": "header",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 3,
+     "missing": [
+      {
+       "idMso": "ThemeSearchOfficeOnline",
+       "label": "Enable Content Updates from Office.com...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Built-in footer gallery",
+      "More Footers from Office.com"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "FooterInsertGallery",
+     "wordLabel": "Footer",
+     "cloneCmd": "footer",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Built-in text box gallery",
+      "More Text Boxes from Office.com"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "TextBoxInsertGallery",
+     "wordLabel": "Text Box",
+     "cloneCmd": "textBox",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 5,
+     "missing": [
+      {
+       "idMso": "SaveSelectionToAutoTextGallery",
+       "label": "Save Selection to AutoText Gallery",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "QuickPartsInsertGallery",
+     "wordLabel": "Quick Parts",
+     "cloneCmd": "quickParts",
+     "wordChildCount": 6
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "None",
+      "Dropped",
+      "In margin"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "DropCapInsertGallery",
+     "wordLabel": "Drop Cap",
+     "cloneCmd": "dropCap",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Microsoft Office Signature Line..."
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "SignatureLineInsertMenu",
+     "wordLabel": "Signature Line",
+     "cloneCmd": "signatureLine",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Object..."
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "OleObjectInsertMenu",
+     "wordLabel": "Object",
+     "cloneCmd": "object",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [
+      "Built-in equation gallery"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "InsertBuildingBlocksEquationsGallery",
+     "wordLabel": "Equation",
+     "cloneCmd": "equation",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Recently used symbols"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "SymbolInsertGallery",
+     "wordLabel": "Symbol",
+     "cloneCmd": "symbol",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 6,
+     "missing": [
+      {
+       "idMso": "SaveSelectionToPageNumberTop",
+       "label": "Save Selection as Page Number (Top)",
+       "type": "button"
+      },
+      {
+       "idMso": "SaveSelectionToPageNumberBottom",
+       "label": "Save Selection as Page Number (Bottom)",
+       "type": "button"
+      },
+      {
+       "idMso": "SaveSelectionToPageNumberMargin",
+       "label": "Save Selection as Page Number (Margin)",
+       "type": "button"
+      },
+      {
+       "idMso": "SaveSelectionToPageNumberGallery",
+       "label": "Save Selection to Page Number Gallery...",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "HeaderFooterPageNumberInsert",
+     "wordLabel": "Page Number",
+     "cloneCmd": "pageNumber",
+     "wordChildCount": 10
+    }
+   ]
+  },
+  "draw": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "DiagrammingOnline",
+      "label": "Ink to Shape",
+      "type": "toggleButton",
+      "group": "GroupInkConvertOneNote"
+     },
+     "clone": {
+      "cmd": "inkToShape",
+      "label": "Ink to Shape",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "SelectionToMathConvert",
+      "label": "Ink to Math",
+      "type": "button",
+      "group": "GroupInkConvertOneNote"
+     },
+     "clone": {
+      "cmd": "inkToMath",
+      "label": "Ink to Math",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "InsertInkDrawingCanvas",
+      "label": "Drawing Canvas",
+      "type": "button",
+      "group": "GroupInsertDrawingCanvas"
+     },
+     "clone": {
+      "cmd": "drawingCanvas",
+      "label": "Drawing Canvas",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "Replay",
+      "label": "Ink Replay",
+      "type": "toggleButton",
+      "group": "InkReplay"
+     },
+     "clone": {
+      "cmd": "inkReplay",
+      "label": "Ink Replay",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "DrawInkMode",
+      "label": "Draw",
+      "type": "toggleButton",
+      "group": "GroupInputMode"
+     },
+     "clone": {
+      "cmd": "drawWithTrackpad",
+      "label": "Draw with Trackpad",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "InkEraser",
+      "label": "Stroke Eraser",
+      "type": "toggleButton",
+      "group": "GroupWrite"
+     },
+     "clone": {
+      "cmd": "eraser",
+      "label": "Eraser",
+      "type": "split",
+      "items": [
+       "Stroke Eraser",
+       "Small Eraser",
+       "Medium Eraser",
+       "Large Eraser",
+       "Segment Eraser"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "PensGallery2",
+      "label": "Pens",
+      "type": "gallery",
+      "group": "GroupPens2"
+     },
+     "clone": {
+      "cmd": "pensGallery",
+      "label": "Pens Gallery",
+      "type": "gallery",
+      "items": [
+       "Pen",
+       "Pencil",
+       "Highlighter"
+      ]
+     }
+    }
+   ],
+   "type_mismatch": [
+    {
+     "word": {
+      "idMso": "InkToolboxWithEraserAndLasso",
+      "label": "Drawing Tools",
+      "type": "control",
+      "group": "GroupDrawingTools"
+     },
+     "clone": {
+      "cmd": "drawing",
+      "label": "Drawing",
+      "type": "toggle",
+      "items": null
+     }
+    }
+   ],
+   "missing": [
+    {
+     "idMso": "InkSelect",
+     "label": "",
+     "type": "toggleButton",
+     "group": "GroupInputMode"
+    },
+    {
+     "idMso": "FingerPaintingMode",
+     "label": "Draw with Touch",
+     "type": "toggleButton",
+     "group": "GroupInputMode"
+    },
+    {
+     "idMso": "InkEraserMenu",
+     "label": "",
+     "type": "splitButton",
+     "group": "GroupWrite"
+    },
+    {
+     "idMso": "LassoSelect",
+     "label": "",
+     "type": "toggleButton",
+     "group": "GroupWrite"
+    },
+    {
+     "idMso": "InkToolbox",
+     "label": "",
+     "type": "control",
+     "group": "GroupPensOneNote"
+    },
+    {
+     "idMso": "InkColorPicker2",
+     "label": "Color",
+     "type": "gallery",
+     "group": "GroupPens2"
+    },
+    {
+     "idMso": "LineThickness2",
+     "label": "Thickness",
+     "type": "gallery",
+     "group": "GroupPens2"
+    },
+    {
+     "idMso": "ShowRulerStencil",
+     "label": "Ruler",
+     "type": "toggleButton",
+     "group": "GroupStencils"
+    },
+    {
+     "idMso": "InkEditorSplitButton",
+     "label": "Ink Editor Menu",
+     "type": "splitButton",
+     "group": "GroupInkConvertOneNote"
+    },
+    {
+     "idMso": "InkStopInkingReadingView",
+     "label": "Stop Inking",
+     "type": "button",
+     "group": "GroupInkClose"
+    },
+    {
+     "idMso": "PenAndInkHelp",
+     "label": "Ink Help",
+     "type": "button",
+     "group": "GroupPenAndInkHelp"
+    },
+    {
+     "idMso": "FormatBackgroundDropdown",
+     "label": "Format Background",
+     "type": "menu",
+     "group": "GroupEditingExcel"
+    }
+   ],
+   "extra": [
+    {
+     "cmd": "selectObjects",
+     "label": "Select Objects",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "lassoSelect",
+     "label": "Lasso Select",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "addPen",
+     "label": "Add Pen",
+     "type": "dropdown",
+     "items": [
+      "Pen",
+      "Pencil",
+      "Highlighter",
+      "Action Pen"
+     ]
+    }
+   ],
+   "menus": [
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "PenAddFavorite",
+       "label": "Add Current Pen to Favorite Pens",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Pen",
+      "Pencil",
+      "Highlighter"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "PensGallery2",
+     "wordLabel": "Pens",
+     "cloneCmd": "pensGallery",
+     "wordChildCount": 1
+    }
+   ]
+  },
+  "design": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "ThemesGallery",
+      "label": "Themes",
+      "type": "gallery",
+      "group": "GroupStyleSet"
+     },
+     "clone": {
+      "cmd": "themes",
+      "label": "Themes",
+      "type": "dropdown",
+      "items": [
+       "Built-In themes gallery",
+       "Reset to Theme from Template",
+       "Browse for Themes...",
+       "Save Current Theme..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "QuickStylesSets",
+      "label": "Style Set",
+      "type": "gallery",
+      "group": "GroupStyleSet"
+     },
+     "clone": {
+      "cmd": "styleSet",
+      "label": "Style Set",
+      "type": "gallery",
+      "items": [
+       "Built-in style sets",
+       "Reset to the Default Style Set",
+       "Save as a New Style Set..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ThemeColorsGallery",
+      "label": "Colors",
+      "type": "gallery",
+      "group": "GroupStyleSet"
+     },
+     "clone": {
+      "cmd": "colors",
+      "label": "Colors",
+      "type": "dropdown",
+      "items": [
+       "Color scheme gallery",
+       "Customize Colors..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ThemeFontsGallery",
+      "label": "Fonts",
+      "type": "gallery",
+      "group": "GroupStyleSet"
+     },
+     "clone": {
+      "cmd": "fonts",
+      "label": "Fonts",
+      "type": "dropdown",
+      "items": [
+       "Font pair gallery",
+       "Customize Fonts..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ParagraphSpacing",
+      "label": "Paragraph Spacing",
+      "type": "gallery",
+      "group": "GroupStyleSet"
+     },
+     "clone": {
+      "cmd": "paragraphSpacing",
+      "label": "Paragraph Spacing",
+      "type": "dropdown",
+      "items": [
+       "No Paragraph Space",
+       "Compact",
+       "Tight",
+       "Open",
+       "Relaxed",
+       "Double",
+       "Custom Paragraph Spacing..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ThemeEffectsGallery",
+      "label": "Effects",
+      "type": "gallery",
+      "group": "GroupStyleSet"
+     },
+     "clone": {
+      "cmd": "effects",
+      "label": "Effects",
+      "type": "dropdown",
+      "items": [
+       "Effect style gallery"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "QuickStylesSetAsDefault",
+      "label": "Set as Default",
+      "type": "button",
+      "group": "GroupStyleSet"
+     },
+     "clone": {
+      "cmd": "setAsDefault",
+      "label": "Set as Default",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WatermarkGallery",
+      "label": "Watermark",
+      "type": "gallery",
+      "group": "GroupPageBackground"
+     },
+     "clone": {
+      "cmd": "watermark",
+      "label": "Watermark",
+      "type": "dropdown",
+      "items": [
+       "Confidential gallery",
+       "Disclaimers gallery",
+       "Urgent gallery",
+       "Custom Watermark...",
+       "Remove Watermark",
+       "Save Selection to Watermark Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "PageColorPicker",
+      "label": "Page Color",
+      "type": "gallery",
+      "group": "GroupPageBackground"
+     },
+     "clone": {
+      "cmd": "pageColor",
+      "label": "Page Color",
+      "type": "dropdown",
+      "items": [
+       "Theme Colors",
+       "Standard Colors",
+       "No Color",
+       "More Colors...",
+       "Fill Effects..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "PageBorderAndShadingDialog",
+      "label": "Page Borders...",
+      "type": "button",
+      "group": "GroupPageBackground"
+     },
+     "clone": {
+      "cmd": "pageBorders",
+      "label": "Page Borders",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "label_differs": [],
+   "type_mismatch": [],
+   "missing": [],
+   "extra": [],
+   "menus": [
+    {
+     "matched": 3,
+     "missing": [
+      {
+       "idMso": "ThemeSearchOfficeOnline",
+       "label": "Enable Content Updates from Office.com...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Built-In themes gallery"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ThemesGallery",
+     "wordLabel": "Themes",
+     "cloneCmd": "themes",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Built-in style sets"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "QuickStylesSets",
+     "wordLabel": "Style Set",
+     "cloneCmd": "styleSet",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Color scheme gallery"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ThemeColorsGallery",
+     "wordLabel": "Colors",
+     "cloneCmd": "colors",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Font pair gallery"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ThemeFontsGallery",
+     "wordLabel": "Fonts",
+     "cloneCmd": "fonts",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "No Paragraph Space",
+      "Compact",
+      "Tight",
+      "Open",
+      "Relaxed",
+      "Double"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ParagraphSpacing",
+     "wordLabel": "Paragraph Spacing",
+     "cloneCmd": "paragraphSpacing",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 3,
+     "missing": [
+      {
+       "idMso": "ThemeSearchOfficeOnline",
+       "label": "Enable Content Updates from Office.com...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Confidential gallery",
+      "Disclaimers gallery",
+      "Urgent gallery"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "WatermarkGallery",
+     "wordLabel": "Watermark",
+     "cloneCmd": "watermark",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "No Color"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "PageColorPicker",
+     "wordLabel": "Page Color",
+     "cloneCmd": "pageColor",
+     "wordChildCount": 2
+    }
+   ]
+  },
+  "layout": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "PageMarginsGallery",
+      "label": "Margins",
+      "type": "gallery",
+      "group": "GroupPageLayoutSetup"
+     },
+     "clone": {
+      "cmd": "margins",
+      "label": "Margins",
+      "type": "dropdown",
+      "items": [
+       "Normal",
+       "Narrow",
+       "Moderate",
+       "Wide",
+       "Mirrored",
+       "Office 2003 Default",
+       "Custom Margins..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "PageOrientationGallery",
+      "label": "Orientation",
+      "type": "gallery",
+      "group": "GroupPageLayoutSetup"
+     },
+     "clone": {
+      "cmd": "orientation",
+      "label": "Orientation",
+      "type": "dropdown",
+      "items": [
+       "Portrait",
+       "Landscape"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "PageSizeGallery",
+      "label": "Size",
+      "type": "gallery",
+      "group": "GroupPageLayoutSetup"
+     },
+     "clone": {
+      "cmd": "size",
+      "label": "Size",
+      "type": "dropdown",
+      "items": [
+       "Letter",
+       "Legal",
+       "A4",
+       "A3",
+       "Tabloid",
+       "Executive",
+       "More Paper Sizes..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableColumnsGallery",
+      "label": "Columns",
+      "type": "gallery",
+      "group": "GroupPageLayoutSetup"
+     },
+     "clone": {
+      "cmd": "columns",
+      "label": "Columns",
+      "type": "dropdown",
+      "items": [
+       "One",
+       "Two",
+       "Three",
+       "Left",
+       "Right",
+       "More Columns..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "BreaksGallery",
+      "label": "Breaks",
+      "type": "gallery",
+      "group": "GroupPageLayoutSetup"
+     },
+     "clone": {
+      "cmd": "breaks",
+      "label": "Breaks",
+      "type": "dropdown",
+      "items": [
+       "Page",
+       "Column",
+       "Text Wrapping",
+       "Next Page",
+       "Continuous",
+       "Even Page",
+       "Odd Page"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "PicturePositionGallery",
+      "label": "Position",
+      "type": "gallery",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "position",
+      "label": "Position",
+      "type": "dropdown",
+      "items": [
+       "In Line with Text",
+       "Position presets (Top/Middle/Bottom x Left/Center/Right)",
+       "More Layout Options..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "TextWrapGallery",
+      "label": "Wrap Text",
+      "type": "gallery",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "wrapText",
+      "label": "Wrap Text",
+      "type": "dropdown",
+      "items": [
+       "In Line with Text",
+       "Square",
+       "Tight",
+       "Through",
+       "Top and Bottom",
+       "Behind Text",
+       "In Front of Text",
+       "Edit Wrap Points",
+       "Move with Text",
+       "Fix Position on Page",
+       "More Layout Options..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ObjectBringForwardMenu",
+      "label": "Bring Forward",
+      "type": "splitButton",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "bringForward",
+      "label": "Bring Forward",
+      "type": "split",
+      "items": [
+       "Bring Forward",
+       "Bring to Front",
+       "Bring in Front of Text"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ObjectSendBackwardMenu",
+      "label": "Send Backward",
+      "type": "splitButton",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "sendBackward",
+      "label": "Send Backward",
+      "type": "split",
+      "items": [
+       "Send Backward",
+       "Send to Back",
+       "Send Behind Text"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "SelectionPane",
+      "label": "Selection Pane...",
+      "type": "toggleButton",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "selectionPane",
+      "label": "Selection Pane",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ObjectRotateGallery",
+      "label": "Rotate",
+      "type": "gallery",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "rotate",
+      "label": "Rotate",
+      "type": "dropdown",
+      "items": [
+       "Rotate Right 90",
+       "Rotate Left 90",
+       "Flip Vertical",
+       "Flip Horizontal",
+       "More Rotation Options..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "LineNumbersMenu",
+      "label": "Line Numbers",
+      "type": "menu",
+      "group": "GroupPageLayoutSetup"
+     },
+     "clone": {
+      "cmd": "lineNumbers",
+      "label": "Line Numbers",
+      "type": "dropdown",
+      "items": [
+       "None",
+       "Continuous",
+       "Restart Each Page",
+       "Restart Each Section",
+       "Suppress for Current Paragraph",
+       "Line Numbering Options..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "HyphenationMenu",
+      "label": "Hyphenation",
+      "type": "menu",
+      "group": "GroupPageLayoutSetup"
+     },
+     "clone": {
+      "cmd": "hyphenation",
+      "label": "Hyphenation",
+      "type": "dropdown",
+      "items": [
+       "None",
+       "Automatic",
+       "Manual",
+       "Hyphenation Options..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ObjectAlignMenu",
+      "label": "Align",
+      "type": "menu",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "align",
+      "label": "Align",
+      "type": "dropdown",
+      "items": [
+       "Align Left",
+       "Align Center",
+       "Align Right",
+       "Align Top",
+       "Align Middle",
+       "Align Bottom",
+       "Distribute Horizontally",
+       "Distribute Vertically",
+       "Align to Page",
+       "Align to Margin",
+       "Align Selected Objects",
+       "View Gridlines",
+       "Grid Settings..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ObjectsGroupMenu",
+      "label": "Group",
+      "type": "menu",
+      "group": "GroupArrange"
+     },
+     "clone": {
+      "cmd": "group",
+      "label": "Group",
+      "type": "dropdown",
+      "items": [
+       "Group",
+       "Regroup",
+       "Ungroup"
+      ]
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "ParagraphIndentLeft",
+      "label": "Left:",
+      "type": "control",
+      "group": "GroupParagraphLayout"
+     },
+     "clone": {
+      "cmd": "indentLeft",
+      "label": "Indent Left",
+      "type": "spinner",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ParagraphIndentRight",
+      "label": "Right:",
+      "type": "control",
+      "group": "GroupParagraphLayout"
+     },
+     "clone": {
+      "cmd": "indentRight",
+      "label": "Indent Right",
+      "type": "spinner",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ParagraphSpacingBefore",
+      "label": "Before:",
+      "type": "control",
+      "group": "GroupParagraphLayout"
+     },
+     "clone": {
+      "cmd": "spacingBefore",
+      "label": "Spacing Before",
+      "type": "spinner",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ParagraphSpacingAfter",
+      "label": "After:",
+      "type": "control",
+      "group": "GroupParagraphLayout"
+     },
+     "clone": {
+      "cmd": "spacingAfter",
+      "label": "Spacing After",
+      "type": "spinner",
+      "items": null
+     }
+    }
+   ],
+   "type_mismatch": [],
+   "missing": [
+    {
+     "idMso": "TextDirectionGalleryWord",
+     "label": "Text Direction",
+     "type": "gallery",
+     "group": "GroupPageLayoutSetup"
+    },
+    {
+     "idMso": "PageSetupDialog",
+     "label": "Page Setup...",
+     "type": "button (dialogBoxLauncher)",
+     "group": "GroupPageLayoutSetup"
+    },
+    {
+     "idMso": "ParagraphDialog",
+     "label": "Paragraph...",
+     "type": "button (dialogBoxLauncher)",
+     "group": "GroupParagraphLayout"
+    },
+    {
+     "idMso": "ObjectsArrangeMenu",
+     "label": "",
+     "type": "menu",
+     "group": "GroupArrange"
+    }
+   ],
+   "extra": [],
+   "menus": [
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Normal",
+      "Narrow",
+      "Moderate",
+      "Wide",
+      "Mirrored",
+      "Office 2003 Default"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "PageMarginsGallery",
+     "wordLabel": "Margins",
+     "cloneCmd": "margins",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Letter",
+      "Legal",
+      "A4",
+      "A3",
+      "Tabloid",
+      "Executive"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "PageSizeGallery",
+     "wordLabel": "Size",
+     "cloneCmd": "size",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "One",
+      "Two",
+      "Three",
+      "Left",
+      "Right"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "TableColumnsGallery",
+     "wordLabel": "Columns",
+     "cloneCmd": "columns",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "In Line with Text",
+      "Position presets (Top/Middle/Bottom x Left/Center/Right)"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "PicturePositionGallery",
+     "wordLabel": "Position",
+     "cloneCmd": "position",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 3,
+     "missing": [
+      {
+       "idMso": "SetDefaultObjectLayout",
+       "label": "Set as Default Layout",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "In Line with Text",
+      "Square",
+      "Tight",
+      "Through",
+      "Top and Bottom",
+      "Behind Text",
+      "In Front of Text",
+      "Edit Wrap Points"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "TextWrapGallery",
+     "wordLabel": "Wrap Text",
+     "cloneCmd": "wrapText",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Bring Forward"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ObjectBringForwardMenu",
+     "wordLabel": "Bring Forward",
+     "cloneCmd": "bringForward",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Send Backward"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ObjectSendBackwardMenu",
+     "wordLabel": "Send Backward",
+     "cloneCmd": "sendBackward",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 1,
+     "missing": [],
+     "extra": [
+      "Rotate Right 90",
+      "Rotate Left 90",
+      "Flip Vertical",
+      "Flip Horizontal"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ObjectRotateGallery",
+     "wordLabel": "Rotate",
+     "cloneCmd": "rotate",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 6,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "LineNumbersMenu",
+     "wordLabel": "Line Numbers",
+     "cloneCmd": "lineNumbers",
+     "wordChildCount": 6
+    },
+    {
+     "matched": 4,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "HyphenationMenu",
+     "wordLabel": "Hyphenation",
+     "cloneCmd": "hyphenation",
+     "wordChildCount": 4
+    },
+    {
+     "matched": 12,
+     "missing": [
+      {
+       "idMso": "ObjectsAlignRelativeToContainerSmart",
+       "label": "Align to Slide",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "AlignmentGuides",
+       "label": "Use Alignment Guides",
+       "type": "checkBox"
+      }
+     ],
+     "extra": [
+      "Align to Page"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ObjectAlignMenu",
+     "wordLabel": "Align",
+     "cloneCmd": "align",
+     "wordChildCount": 14
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Group"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ObjectsGroupMenu",
+     "wordLabel": "Group",
+     "cloneCmd": "group",
+     "wordChildCount": 2
+    }
+   ]
+  },
+  "references": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "TableOfContentsGallery",
+      "label": "Table of Contents",
+      "type": "gallery",
+      "group": "GroupTableOfContents"
+     },
+     "clone": {
+      "cmd": "tableOfContents",
+      "label": "Table of Contents",
+      "type": "dropdown",
+      "items": [
+       "Automatic Table 1",
+       "Automatic Table 2",
+       "Manual Table",
+       "More Tables from Office.com",
+       "Custom Table of Contents...",
+       "Remove Table of Contents",
+       "Save Selection to Table of Contents Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableOfContentsAddTextGallery",
+      "label": "Add Text",
+      "type": "gallery",
+      "group": "GroupTableOfContents"
+     },
+     "clone": {
+      "cmd": "addText",
+      "label": "Add Text",
+      "type": "dropdown",
+      "items": [
+       "Do Not Show in Table of Contents",
+       "Level 1",
+       "Level 2",
+       "Level 3"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableOfContentsUpdate",
+      "label": "Update Table...",
+      "type": "button",
+      "group": "GroupTableOfContents"
+     },
+     "clone": {
+      "cmd": "updateTable",
+      "label": "Update Table",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "FootnoteInsert",
+      "label": "Insert Footnote",
+      "type": "button",
+      "group": "GroupFootnotes"
+     },
+     "clone": {
+      "cmd": "insertFootnote",
+      "label": "Insert Footnote",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "EndnoteInsertWord",
+      "label": "Insert Endnote",
+      "type": "button",
+      "group": "GroupFootnotes"
+     },
+     "clone": {
+      "cmd": "insertEndnote",
+      "label": "Insert Endnote",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "FootnoteNext",
+      "label": "Next Footnote",
+      "type": "splitButton",
+      "group": "GroupFootnotes"
+     },
+     "clone": {
+      "cmd": "nextFootnote",
+      "label": "Next Footnote",
+      "type": "split",
+      "items": [
+       "Next Footnote",
+       "Previous Footnote",
+       "Next Endnote",
+       "Previous Endnote"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "FootnotesEndnotesShow",
+      "label": "Show Notes",
+      "type": "button",
+      "group": "GroupFootnotes"
+     },
+     "clone": {
+      "cmd": "showNotes",
+      "label": "Show Notes",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "CitationInsert",
+      "label": "Insert Citation",
+      "type": "gallery",
+      "group": "GroupCitationsAndBibliography"
+     },
+     "clone": {
+      "cmd": "insertCitation",
+      "label": "Insert Citation",
+      "type": "dropdown",
+      "items": [
+       "Existing source list",
+       "Add New Source...",
+       "Add New Placeholder..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "BibliographyManageSources",
+      "label": "Manage Sources...",
+      "type": "button",
+      "group": "GroupCitationsAndBibliography"
+     },
+     "clone": {
+      "cmd": "manageSources",
+      "label": "Manage Sources",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "BibliographyStyle",
+      "label": "Style:",
+      "type": "comboBox",
+      "group": "GroupCitationsAndBibliography"
+     },
+     "clone": {
+      "cmd": "style",
+      "label": "Style",
+      "type": "dropdown",
+      "items": [
+       "APA",
+       "Chicago",
+       "IEEE",
+       "ISO 690",
+       "MLA",
+       "Turabian",
+       "and more"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "BibliographyGallery",
+      "label": "Bibliography",
+      "type": "gallery",
+      "group": "GroupCitationsAndBibliography"
+     },
+     "clone": {
+      "cmd": "bibliography",
+      "label": "Bibliography",
+      "type": "dropdown",
+      "items": [
+       "Bibliography",
+       "References",
+       "Works Cited",
+       "Insert Bibliography",
+       "Save Selection to Bibliography Gallery..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "CaptionInsert",
+      "label": "Insert Caption...",
+      "type": "button",
+      "group": "GroupCaptions"
+     },
+     "clone": {
+      "cmd": "insertCaption",
+      "label": "Insert Caption",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableOfFiguresInsert",
+      "label": "Insert Table of Figures...",
+      "type": "button",
+      "group": "GroupCaptions"
+     },
+     "clone": {
+      "cmd": "insertTableOfFigures",
+      "label": "Insert Table of Figures",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableOfFiguresUpdate",
+      "label": "Update Table",
+      "type": "button",
+      "group": "GroupCaptions"
+     },
+     "clone": {
+      "cmd": "updateTable",
+      "label": "Update Table",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "CrossReferenceInsert",
+      "label": "Cross-reference...",
+      "type": "button",
+      "group": "GroupCaptions"
+     },
+     "clone": {
+      "cmd": "crossReference",
+      "label": "Cross-reference",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "IndexMarkEntry",
+      "label": "Mark Entry...",
+      "type": "button",
+      "group": "GroupIndex"
+     },
+     "clone": {
+      "cmd": "markEntry",
+      "label": "Mark Entry",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "IndexInsert",
+      "label": "Insert Index...",
+      "type": "button",
+      "group": "GroupIndex"
+     },
+     "clone": {
+      "cmd": "insertIndex",
+      "label": "Insert Index",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "IndexUpdate",
+      "label": "Update Index",
+      "type": "button",
+      "group": "GroupIndex"
+     },
+     "clone": {
+      "cmd": "updateIndex",
+      "label": "Update Index",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "CitationMark",
+      "label": "Mark Citation...",
+      "type": "button",
+      "group": "GroupTableOfAuthorities"
+     },
+     "clone": {
+      "cmd": "markCitation",
+      "label": "Mark Citation",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableOfAuthoritiesInsert",
+      "label": "Insert Table of Authorities...",
+      "type": "button",
+      "group": "GroupTableOfAuthorities"
+     },
+     "clone": {
+      "cmd": "insertTableOfAuthorities",
+      "label": "Insert Table of Authorities",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableOfAuthoritiesUpdate",
+      "label": "Update Table",
+      "type": "button",
+      "group": "GroupTableOfAuthorities"
+     },
+     "clone": {
+      "cmd": "updateTable",
+      "label": "Update Table",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "Researcher",
+      "label": "",
+      "type": "button",
+      "group": "GroupResearch"
+     },
+     "clone": {
+      "cmd": "researcher",
+      "label": "Researcher",
+      "type": "button",
+      "items": null
+     },
+     "pinned": true
+    }
+   ],
+   "type_mismatch": [],
+   "missing": [
+    {
+     "idMso": "FootnoteEndnoteDialog",
+     "label": "Footnote and Endnote Dialog...",
+     "type": "button (dialogBoxLauncher)",
+     "group": "GroupFootnotes"
+    }
+   ],
+   "extra": [
+    {
+     "cmd": "search",
+     "label": "Search",
+     "type": "button",
+     "items": null
+    }
+   ],
+   "menus": [
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [
+      "Automatic Table 1",
+      "Automatic Table 2",
+      "Manual Table",
+      "More Tables from Office.com"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "TableOfContentsGallery",
+     "wordLabel": "Table of Contents",
+     "cloneCmd": "tableOfContents",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [
+      "Next Footnote"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "FootnoteNext",
+     "wordLabel": "Next Footnote",
+     "cloneCmd": "nextFootnote",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Existing source list"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "CitationInsert",
+     "wordLabel": "Insert Citation",
+     "cloneCmd": "insertCitation",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "Bibliography",
+      "References",
+      "Works Cited"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "BibliographyGallery",
+     "wordLabel": "Bibliography",
+     "cloneCmd": "bibliography",
+     "wordChildCount": 2
+    }
+   ]
+  },
+  "mailings": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "EnvelopesAndLabelsDialog",
+      "label": "Envelopes...",
+      "type": "button",
+      "group": "GroupEnvelopeLabelCreate"
+     },
+     "clone": {
+      "cmd": "envelopes",
+      "label": "Envelopes",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "LabelsDialog",
+      "label": "Labels...",
+      "type": "button",
+      "group": "GroupEnvelopeLabelCreate"
+     },
+     "clone": {
+      "cmd": "labels",
+      "label": "Labels",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeRecipientsEditList",
+      "label": "Edit Recipient List...",
+      "type": "button",
+      "group": "GroupMailMergeStart"
+     },
+     "clone": {
+      "cmd": "editRecipientList",
+      "label": "Edit Recipient List",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeHighlightMergeFields",
+      "label": "Highlight Merge Fields",
+      "type": "toggleButton",
+      "group": "GroupMailMergeWriteInsertFields"
+     },
+     "clone": {
+      "cmd": "highlightMergeFields",
+      "label": "Highlight Merge Fields",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeAddressBlockInsert",
+      "label": "Address Block...",
+      "type": "button",
+      "group": "GroupMailMergeWriteInsertFields"
+     },
+     "clone": {
+      "cmd": "addressBlock",
+      "label": "Address Block",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeGreetingLineInsert",
+      "label": "Greeting Line...",
+      "type": "button",
+      "group": "GroupMailMergeWriteInsertFields"
+     },
+     "clone": {
+      "cmd": "greetingLine",
+      "label": "Greeting Line",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeMergeFieldInsertMenu",
+      "label": "Insert Merge Field",
+      "type": "splitButton",
+      "group": "GroupMailMergeWriteInsertFields"
+     },
+     "clone": {
+      "cmd": "insertMergeField",
+      "label": "Insert Merge Field",
+      "type": "split",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeMatchFields",
+      "label": "Match Fields...",
+      "type": "button",
+      "group": "GroupMailMergeWriteInsertFields"
+     },
+     "clone": {
+      "cmd": "matchFields",
+      "label": "Match Fields",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeUpdateLabels",
+      "label": "Update Labels",
+      "type": "button",
+      "group": "GroupMailMergeWriteInsertFields"
+     },
+     "clone": {
+      "cmd": "updateLabels",
+      "label": "Update Labels",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeResultsPreview",
+      "label": "Preview Results",
+      "type": "toggleButton",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "previewResults",
+      "label": "Preview Results",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeFindRecipient",
+      "label": "Find Recipient...",
+      "type": "button",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "findRecipient",
+      "label": "Find Recipient",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeAutoCheckForErrors",
+      "label": "Check for Errors...",
+      "type": "button",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "checkForErrors",
+      "label": "Check for Errors",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeStartMailMergeMenu",
+      "label": "Start Mail Merge",
+      "type": "menu",
+      "group": "GroupMailMergeStart"
+     },
+     "clone": {
+      "cmd": "startMailMerge",
+      "label": "Start Mail Merge",
+      "type": "dropdown",
+      "items": [
+       "Letters",
+       "E-mail Messages",
+       "Envelopes...",
+       "Labels...",
+       "Directory",
+       "Normal Word Document",
+       "Step-by-Step Mail Merge Wizard..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeSelectRecipients",
+      "label": "Select Recipients",
+      "type": "menu",
+      "group": "GroupMailMergeStart"
+     },
+     "clone": {
+      "cmd": "selectRecipients",
+      "label": "Select Recipients",
+      "type": "dropdown",
+      "items": [
+       "Type a New List...",
+       "Use an Existing List...",
+       "Choose from Outlook Contacts..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeRules",
+      "label": "Rules",
+      "type": "menu",
+      "group": "GroupMailMergeWriteInsertFields"
+     },
+     "clone": {
+      "cmd": "rules",
+      "label": "Rules",
+      "type": "dropdown",
+      "items": [
+       "Ask...",
+       "Fill-in...",
+       "If...Then...Else...",
+       "Merge Record #",
+       "Merge Sequence #",
+       "Next Record",
+       "Next Record If...",
+       "Set Bookmark...",
+       "Skip Record If..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeFinishAndMergeMenu",
+      "label": "Finish & Merge",
+      "type": "menu",
+      "group": "GroupMailMergeFinish"
+     },
+     "clone": {
+      "cmd": "finishMerge",
+      "label": "Finish & Merge",
+      "type": "dropdown",
+      "items": [
+       "Edit Individual Documents...",
+       "Print Documents...",
+       "Send E-mail Messages..."
+      ]
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "MailMergeGoToFirstRecord",
+      "label": "First",
+      "type": "button",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "firstRecord",
+      "label": "First Record",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeGoToPreviousRecord",
+      "label": "Previous",
+      "type": "button",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "previousRecord",
+      "label": "Previous Record",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeGoToRecord",
+      "label": "Record:",
+      "type": "control",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "goToRecord",
+      "label": "Go to Record",
+      "type": "spinner",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeGoToNextRecord",
+      "label": "Next",
+      "type": "button",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "nextRecord",
+      "label": "Next Record",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MailMergeGotToLastRecord",
+      "label": "Last",
+      "type": "button",
+      "group": "GroupMailMergePreviewResults"
+     },
+     "clone": {
+      "cmd": "lastRecord",
+      "label": "Last Record",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "type_mismatch": [],
+   "missing": [],
+   "extra": [],
+   "menus": [
+    {
+     "matched": 7,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "MailMergeStartMailMergeMenu",
+     "wordLabel": "Start Mail Merge",
+     "cloneCmd": "startMailMerge",
+     "wordChildCount": 7
+    },
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "MailMergeSelectRecipients",
+     "wordLabel": "Select Recipients",
+     "cloneCmd": "selectRecipients",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 2,
+     "missing": [
+      {
+       "idMso": "MailMergeMergeToEMail",
+       "label": "Send Email Messages...",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Send E-mail Messages..."
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "MailMergeFinishAndMergeMenu",
+     "wordLabel": "Finish & Merge",
+     "cloneCmd": "finishMerge",
+     "wordChildCount": 3
+    }
+   ]
+  },
+  "review": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "Thesaurus",
+      "label": "Thesaurus...",
+      "type": "button",
+      "group": "GroupProofing"
+     },
+     "clone": {
+      "cmd": "thesaurus",
+      "label": "Thesaurus",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WordCount",
+      "label": "Word Count",
+      "type": "button",
+      "group": "GroupProofing"
+     },
+     "clone": {
+      "cmd": "wordCount",
+      "label": "Word Count",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReadAloud",
+      "label": "Read Aloud",
+      "type": "button",
+      "group": "GroupSpeech"
+     },
+     "clone": {
+      "cmd": "readAloud",
+      "label": "Read Aloud",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewNewComment",
+      "label": "New Comment",
+      "type": "button",
+      "group": "GroupComments"
+     },
+     "clone": {
+      "cmd": "newComment",
+      "label": "New Comment",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewDeleteCommentsMenu",
+      "label": "Delete",
+      "type": "splitButton",
+      "group": "GroupComments"
+     },
+     "clone": {
+      "cmd": "deleteComment",
+      "label": "Delete",
+      "type": "split",
+      "items": [
+       "Delete",
+       "Delete All Comments Shown",
+       "Delete All Comments in Document",
+       "Delete All Resolved Comments"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewPreviousCommentWord",
+      "label": "Previous",
+      "type": "button",
+      "group": "GroupComments"
+     },
+     "clone": {
+      "cmd": "previousComment",
+      "label": "Previous",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewNextCommentWord",
+      "label": "Next",
+      "type": "button",
+      "group": "GroupComments"
+     },
+     "clone": {
+      "cmd": "nextComment",
+      "label": "Next",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewTrackChangesMenu",
+      "label": "Track Changes",
+      "type": "splitButton",
+      "group": "GroupChangesTracking"
+     },
+     "clone": {
+      "cmd": "trackChanges",
+      "label": "Track Changes",
+      "type": "split",
+      "items": [
+       "For Everyone",
+       "Just Mine",
+       "Lock Tracking"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewDisplayForReview",
+      "label": "Display for Review",
+      "type": "dropDown",
+      "group": "GroupChangesTracking"
+     },
+     "clone": {
+      "cmd": "displayForReview",
+      "label": "Display for Review",
+      "type": "combo",
+      "items": [
+       "Simple Markup",
+       "All Markup",
+       "No Markup",
+       "Original"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewReviewingPaneMenu",
+      "label": "Reviewing Pane",
+      "type": "splitButton",
+      "group": "GroupChangesTracking"
+     },
+     "clone": {
+      "cmd": "reviewingPane",
+      "label": "Reviewing Pane",
+      "type": "split",
+      "items": [
+       "Reviewing Pane Vertical...",
+       "Reviewing Pane Horizontal..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewAcceptChangeMenu",
+      "label": "Accept",
+      "type": "splitButton",
+      "group": "GroupChanges"
+     },
+     "clone": {
+      "cmd": "accept",
+      "label": "Accept",
+      "type": "split",
+      "items": [
+       "Accept and Move to Next",
+       "Accept This Change",
+       "Accept All Changes Shown",
+       "Accept All Changes",
+       "Accept All Changes and Stop Tracking"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewRejectChangeMenu",
+      "label": "Reject",
+      "type": "splitButton",
+      "group": "GroupChanges"
+     },
+     "clone": {
+      "cmd": "reject",
+      "label": "Reject",
+      "type": "split",
+      "items": [
+       "Reject and Move to Next",
+       "Reject Change",
+       "Reject All Changes Shown",
+       "Reject All Changes",
+       "Reject All Changes and Stop Tracking"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewPreviousChange",
+      "label": "Previous",
+      "type": "button",
+      "group": "GroupChanges"
+     },
+     "clone": {
+      "cmd": "previousChange",
+      "label": "Previous",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewNextChange",
+      "label": "Next",
+      "type": "button",
+      "group": "GroupChanges"
+     },
+     "clone": {
+      "cmd": "nextChange",
+      "label": "Next",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "BlockAuthorsMenu",
+      "label": "Block Authors",
+      "type": "splitButton",
+      "group": "GroupProtect"
+     },
+     "clone": {
+      "cmd": "blockAuthors",
+      "label": "Block Authors",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewRestrictFormatting",
+      "label": "Restrict Editing",
+      "type": "toggleButton",
+      "group": "GroupProtect"
+     },
+     "clone": {
+      "cmd": "restrictEditing",
+      "label": "Restrict Editing",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TranslateMenu",
+      "label": "Translate",
+      "type": "menu",
+      "group": "GroupLanguage"
+     },
+     "clone": {
+      "cmd": "translate",
+      "label": "Translate",
+      "type": "dropdown",
+      "items": [
+       "Translate Selection",
+       "Translate Document",
+       "Translator Preferences..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "LanguageCommands",
+      "label": "Language",
+      "type": "menu",
+      "group": "GroupLanguage"
+     },
+     "clone": {
+      "cmd": "language",
+      "label": "Language",
+      "type": "dropdown",
+      "items": [
+       "Set Proofing Language...",
+       "Language Preferences..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewShowMarkupMenu",
+      "label": "Show Markup",
+      "type": "menu",
+      "group": "GroupChangesTracking"
+     },
+     "clone": {
+      "cmd": "showMarkup",
+      "label": "Show Markup",
+      "type": "dropdown",
+      "items": [
+       "Insertions and Deletions",
+       "Formatting",
+       "Balloons",
+       "Specific People",
+       "Highlight Updates",
+       "Other Authors"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "ReviewCompareMenu",
+      "label": "Compare",
+      "type": "menu",
+      "group": "GroupCompare"
+     },
+     "clone": {
+      "cmd": "compare",
+      "label": "Compare",
+      "type": "dropdown",
+      "items": [
+       "Compare...",
+       "Combine...",
+       "Show Source Documents"
+      ]
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "SpellingAndGrammar",
+      "label": "Spelling & Grammar",
+      "type": "button",
+      "group": "GroupProofing"
+     },
+     "clone": {
+      "cmd": "spellingGrammar",
+      "label": "Spelling and Grammar",
+      "type": "split",
+      "items": [
+       "Spelling",
+       "Spelling and Grammar"
+      ]
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "WritingAssistanceCheckDocument",
+      "label": "Check Document",
+      "type": "button",
+      "group": "GroupProofing"
+     },
+     "clone": {
+      "cmd": "editor",
+      "label": "Editor",
+      "type": "button",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "ReviewChangeTrackingOptions",
+      "label": "Change Tracking Options...",
+      "type": "button (dialogBoxLauncher)",
+      "group": "GroupChangesTracking"
+     },
+     "clone": {
+      "cmd": "trackChangesOptions",
+      "label": "Track Changes Options",
+      "type": "launcher",
+      "items": null
+     },
+     "pinned": true
+    },
+    {
+     "word": {
+      "idMso": "MenuAccessibility",
+      "label": "Accessibility",
+      "type": "splitButton",
+      "group": "GroupAccessibility"
+     },
+     "clone": {
+      "cmd": "checkAccessibility",
+      "label": "Check Accessibility",
+      "type": "split",
+      "items": [
+       "Check Accessibility",
+       "Alt Text",
+       "Accessibility Reminder",
+       "Options for Always Checking..."
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "HideInkSplitButton",
+      "label": "Hide Ink Menu",
+      "type": "splitButton",
+      "group": "GroupInk"
+     },
+     "clone": {
+      "cmd": "hideInk",
+      "label": "Hide Ink",
+      "type": "dropdown",
+      "items": null
+     }
+    }
+   ],
+   "type_mismatch": [
+    {
+     "word": {
+      "idMso": "ShowCommentGutter",
+      "label": "Show Comments",
+      "type": "toggleButton",
+      "group": "GroupComments"
+     },
+     "clone": {
+      "cmd": "showComments",
+      "label": "Show Comments",
+      "type": "dropdown",
+      "items": [
+       "Contextual",
+       "List"
+      ]
+     }
+    }
+   ],
+   "missing": [
+    {
+     "idMso": "ShowCommentsMenu",
+     "label": "Show Comments",
+     "type": "splitButton",
+     "group": "GroupComments"
+    },
+    {
+     "idMso": "ReviewInkCommentNew",
+     "label": "Ink Comment",
+     "type": "button",
+     "group": "GroupComments"
+    },
+    {
+     "idMso": "ReviewInkCommentPen",
+     "label": "Pen",
+     "type": "toggleButton",
+     "group": "GroupComments"
+    },
+    {
+     "idMso": "ReviewInkCommentEraser",
+     "label": "Eraser",
+     "type": "toggleButton",
+     "group": "GroupComments"
+    },
+    {
+     "idMso": "InkingStart",
+     "label": "Start Inking",
+     "type": "button",
+     "group": "GroupInk"
+    }
+   ],
+   "extra": [
+    {
+     "cmd": "filterMarkup",
+     "label": "Filter All Markup",
+     "type": "button",
+     "items": null
+    }
+   ],
+   "menus": [
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [
+      "Delete"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ReviewDeleteCommentsMenu",
+     "wordLabel": "Delete",
+     "cloneCmd": "deleteComment",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 3,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "ReviewTrackChangesMenu",
+     "wordLabel": "Track Changes",
+     "cloneCmd": "trackChanges",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "ReviewReviewingPaneMenu",
+     "wordLabel": "Reviewing Pane",
+     "cloneCmd": "reviewingPane",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 5,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "ReviewAcceptChangeMenu",
+     "wordLabel": "Accept",
+     "cloneCmd": "accept",
+     "wordChildCount": 5
+    },
+    {
+     "matched": 5,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "ReviewRejectChangeMenu",
+     "wordLabel": "Reject",
+     "cloneCmd": "reject",
+     "wordChildCount": 5
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "ReleaseAllMyLocks",
+       "label": "Release All of My Blocked Areas",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "BlockAuthorsMenu",
+     "wordLabel": "Block Authors",
+     "cloneCmd": "blockAuthors",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 3,
+     "missing": [
+      {
+       "idMso": "TranslateDocument",
+       "label": "Translate Document",
+       "type": "button"
+      },
+      {
+       "idMso": "MiniTranslator",
+       "label": "Mini Translator",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "TranslationLanguageOptions",
+       "label": "Choose Translation Language...",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "TranslateMenu",
+     "wordLabel": "Translate",
+     "cloneCmd": "translate",
+     "wordChildCount": 6
+    },
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "LanguageCommands",
+     "wordLabel": "Language",
+     "cloneCmd": "language",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 6,
+     "missing": [
+      {
+       "idMso": "ReviewShowComments",
+       "label": "Comments",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "ReviewShowRevisionsInBalloons",
+       "label": "Show Revisions in Balloons",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "ReviewShowRevisionsInline",
+       "label": "Show All Revisions Inline",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "ReviewShowOnlyCommentsAndFormattingInBaloons",
+       "label": "Only for Comments/Formatting",
+       "type": "toggleButton"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "ReviewShowMarkupMenu",
+     "wordLabel": "Show Markup",
+     "cloneCmd": "showMarkup",
+     "wordChildCount": 10
+    },
+    {
+     "matched": 2,
+     "missing": [
+      {
+       "idMso": "ReviewCompareMajorVersion",
+       "label": "Major Version",
+       "type": "button"
+      },
+      {
+       "idMso": "ReviewCompareLastVersion",
+       "label": "Last Version",
+       "type": "button"
+      },
+      {
+       "idMso": "ReviewCompareSpecificVersion",
+       "label": "Specific Version...",
+       "type": "button"
+      },
+      {
+       "idMso": "ReviewViewChangesInTheSourceDocument",
+       "label": "View changes in the source document",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Compare..."
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "ReviewCompareMenu",
+     "wordLabel": "Compare",
+     "cloneCmd": "compare",
+     "wordChildCount": 6
+    },
+    {
+     "matched": 2,
+     "missing": [
+      {
+       "idMso": "ShowNavigationPaneNewInAccCheckerSplitButton",
+       "label": "Navigation Pane",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "ViewFocusModeView",
+       "label": "Focus",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "OpenOptionsEaseOfAcess",
+       "label": "Options: Accessibility",
+       "type": "button"
+      }
+     ],
+     "extra": [
+      "Accessibility Reminder",
+      "Options for Always Checking..."
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "MenuAccessibility",
+     "wordLabel": "Accessibility",
+     "cloneCmd": "checkAccessibility",
+     "wordChildCount": 5
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "HideInk",
+       "label": "Hide Ink",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "InkDeleteAll",
+       "label": "Delete All Ink",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "HideInkSplitButton",
+     "wordLabel": "Hide Ink Menu",
+     "cloneCmd": "hideInk",
+     "wordChildCount": 2
+    }
+   ]
+  },
+  "view": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "ViewFullScreenReadingView",
+      "label": "Read Mode",
+      "type": "toggleButton",
+      "group": "GroupDocumentViews"
+     },
+     "clone": {
+      "cmd": "readMode",
+      "label": "Read Mode",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ViewPrintLayoutView",
+      "label": "Print Layout",
+      "type": "toggleButton",
+      "group": "GroupDocumentViews"
+     },
+     "clone": {
+      "cmd": "printLayout",
+      "label": "Print Layout",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ViewWebLayoutView",
+      "label": "Web Layout",
+      "type": "toggleButton",
+      "group": "GroupDocumentViews"
+     },
+     "clone": {
+      "cmd": "webLayout",
+      "label": "Web Layout",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ViewOutlineView",
+      "label": "Outline",
+      "type": "toggleButton",
+      "group": "GroupDocumentViews"
+     },
+     "clone": {
+      "cmd": "outline",
+      "label": "Outline",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ViewDraftView",
+      "label": "Draft",
+      "type": "toggleButton",
+      "group": "GroupDocumentViews"
+     },
+     "clone": {
+      "cmd": "draft",
+      "label": "Draft",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ViewFocusModeView",
+      "label": "Focus",
+      "type": "toggleButton",
+      "group": "GroupModes"
+     },
+     "clone": {
+      "cmd": "focus",
+      "label": "Focus",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ToggleLearningTools",
+      "label": "Immersive Reader",
+      "type": "toggleButton",
+      "group": "GroupModes"
+     },
+     "clone": {
+      "cmd": "immersiveReader",
+      "label": "Immersive Reader",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "VerticalPageMovement",
+      "label": "Vertical",
+      "type": "toggleButton",
+      "group": "GroupPageMovement"
+     },
+     "clone": {
+      "cmd": "vertical",
+      "label": "Vertical",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TwoPageMode",
+      "label": "Side to Side",
+      "type": "toggleButton",
+      "group": "GroupPageMovement"
+     },
+     "clone": {
+      "cmd": "sideToSide",
+      "label": "Side to Side",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ViewRulerWord",
+      "label": "Ruler",
+      "type": "checkBox",
+      "group": "GroupViewShowHide"
+     },
+     "clone": {
+      "cmd": "ruler",
+      "label": "Ruler",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "NavigationPaneShowHide",
+      "label": "Navigation Pane",
+      "type": "checkBox",
+      "group": "GroupViewShowHide"
+     },
+     "clone": {
+      "cmd": "navigationPane",
+      "label": "Navigation Pane",
+      "type": "checkbox",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ZoomDialog",
+      "label": "Zoom...",
+      "type": "button",
+      "group": "GroupZoom"
+     },
+     "clone": {
+      "cmd": "zoom",
+      "label": "Zoom",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ZoomCurrent100",
+      "label": "100%",
+      "type": "button",
+      "group": "GroupZoom"
+     },
+     "clone": {
+      "cmd": "100",
+      "label": "100%",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ZoomOnePage",
+      "label": "One Page",
+      "type": "button",
+      "group": "GroupZoom"
+     },
+     "clone": {
+      "cmd": "onePage",
+      "label": "One Page",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ZoomTwoPages",
+      "label": "Multiple Pages",
+      "type": "button",
+      "group": "GroupZoom"
+     },
+     "clone": {
+      "cmd": "multiplePages",
+      "label": "Multiple Pages",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ZoomPageWidth",
+      "label": "Page Width",
+      "type": "button",
+      "group": "GroupZoom"
+     },
+     "clone": {
+      "cmd": "pageWidth",
+      "label": "Page Width",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WindowNew",
+      "label": "New Window",
+      "type": "button",
+      "group": "GroupWindow"
+     },
+     "clone": {
+      "cmd": "newWindow",
+      "label": "New Window",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WindowsArrangeAll",
+      "label": "Arrange All",
+      "type": "button",
+      "group": "GroupWindow"
+     },
+     "clone": {
+      "cmd": "arrangeAll",
+      "label": "Arrange All",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WindowSplit",
+      "label": "Split",
+      "type": "button",
+      "group": "GroupWindow"
+     },
+     "clone": {
+      "cmd": "split",
+      "label": "Split",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WindowSideBySide",
+      "label": "View Side by Side",
+      "type": "toggleButton",
+      "group": "GroupWindow"
+     },
+     "clone": {
+      "cmd": "viewSideBySide",
+      "label": "View Side by Side",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WindowSideBySideSynchronousScrolling",
+      "label": "Synchronous Scrolling",
+      "type": "toggleButton",
+      "group": "GroupWindow"
+     },
+     "clone": {
+      "cmd": "synchronousScrolling",
+      "label": "Synchronous Scrolling",
+      "type": "toggle",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WindowResetPosition",
+      "label": "Reset Window Position",
+      "type": "button",
+      "group": "GroupWindow"
+     },
+     "clone": {
+      "cmd": "resetWindowPosition",
+      "label": "Reset Window Position",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MenuMacros",
+      "label": "Macros",
+      "type": "splitButton",
+      "group": "GroupMacros"
+     },
+     "clone": {
+      "cmd": "macros",
+      "label": "Macros",
+      "type": "split",
+      "items": [
+       "View Macros",
+       "Record Macro...",
+       "Pause Recording"
+      ]
+     }
+    },
+    {
+     "word": {
+      "idMso": "DocumentInformationShowHide",
+      "label": "Properties",
+      "type": "toggleButton",
+      "group": "GroupSharePointProperties"
+     },
+     "clone": {
+      "cmd": "properties",
+      "label": "Properties",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WindowSwitchWindowsMenuWord",
+      "label": "Switch Windows",
+      "type": "menu",
+      "group": "GroupWindow"
+     },
+     "clone": {
+      "cmd": "switchWindows",
+      "label": "Switch Windows",
+      "type": "dropdown",
+      "items": null
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "ViewGridlines",
+      "label": "View Gridlines",
+      "type": "checkBox",
+      "group": "GroupViewShowHide"
+     },
+     "clone": {
+      "cmd": "gridlines",
+      "label": "Gridlines",
+      "type": "checkbox",
+      "items": null
+     }
+    }
+   ],
+   "type_mismatch": [],
+   "missing": [
+    {
+     "idMso": "ColorPickerFocusModeBackground",
+     "label": "Background",
+     "type": "gallery",
+     "group": "GroupModes"
+    },
+    {
+     "idMso": "DarkModeOn",
+     "label": "Switch Modes",
+     "type": "toggleButton",
+     "group": "GroupNightMode"
+    },
+    {
+     "idMso": "ViewDocumentActionsPane",
+     "label": "Document Actions",
+     "type": "toggleButton",
+     "group": "GroupViewShowHide"
+    },
+    {
+     "idMso": "Thumbnails",
+     "label": "",
+     "type": "toggleButton",
+     "group": "GroupZoom"
+    }
+   ],
+   "extra": [],
+   "menus": [
+    {
+     "matched": 2,
+     "missing": [],
+     "extra": [
+      "View Macros"
+     ],
+     "skipped_unlabeled": 0,
+     "parent": "MenuMacros",
+     "wordLabel": "Macros",
+     "cloneCmd": "macros",
+     "wordChildCount": 2
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "WindowMoreWindowsDialog",
+       "label": "More Windows...",
+       "type": "toggleButton"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "WindowSwitchWindowsMenuWord",
+     "wordLabel": "Switch Windows",
+     "cloneCmd": "switchWindows",
+     "wordChildCount": 1
+    }
+   ]
+  },
+  "help": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "Help",
+      "label": "Help",
+      "type": "button",
+      "group": "GroupHelpAndSupport"
+     },
+     "clone": {
+      "cmd": "help",
+      "label": "Help",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ContactUs",
+      "label": "Contact Support...",
+      "type": "button",
+      "group": "GroupHelpAndSupport"
+     },
+     "clone": {
+      "cmd": "contactSupport",
+      "label": "Contact Support",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "OfficeFeedbackIcon",
+      "label": "Feedback",
+      "type": "button",
+      "group": "GroupHelpAndSupport"
+     },
+     "clone": {
+      "cmd": "feedback",
+      "label": "Feedback",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ShowTraining",
+      "label": "Show Training",
+      "type": "button",
+      "group": "GroupHelpAndSupport"
+     },
+     "clone": {
+      "cmd": "showTraining",
+      "label": "Show Training",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "WhatsNewRecentUpdates",
+      "label": "What's New",
+      "type": "button",
+      "group": "GroupHelpAndSupport"
+     },
+     "clone": {
+      "cmd": "whatSNew",
+      "label": "What's New",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "label_differs": [],
+   "type_mismatch": [],
+   "missing": [],
+   "extra": [],
+   "menus": []
+  },
+  "table-design": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "TableStylesGalleryWord",
+      "label": "Table Styles",
+      "type": "gallery",
+      "group": "GroupTableStylesWord"
+     },
+     "clone": {
+      "cmd": "tblStyles",
+      "label": "Table Styles",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ShadingColorPicker",
+      "label": "Shading",
+      "type": "gallery",
+      "group": "GroupTableStylesWord"
+     },
+     "clone": {
+      "cmd": "tblShading",
+      "label": "Shading",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "BordersSelectionGallery",
+      "label": "Borders",
+      "type": "gallery",
+      "group": "GroupTableBorders"
+     },
+     "clone": {
+      "cmd": "tblBorders",
+      "label": "Borders",
+      "type": "dropdown",
+      "items": null
+     }
+    }
+   ],
+   "label_differs": [],
+   "type_mismatch": [],
+   "missing": [
+    {
+     "idMso": "TableStyleHeaderRowWord",
+     "label": "Header Row",
+     "type": "checkBox",
+     "group": "GroupTableLayout"
+    },
+    {
+     "idMso": "TableStyleTotalRowWord",
+     "label": "Total Row",
+     "type": "checkBox",
+     "group": "GroupTableLayout"
+    },
+    {
+     "idMso": "TableStyleBandedRowsWord",
+     "label": "Banded Rows",
+     "type": "checkBox",
+     "group": "GroupTableLayout"
+    },
+    {
+     "idMso": "TableStylesFirstColumnWord",
+     "label": "First Column",
+     "type": "checkBox",
+     "group": "GroupTableLayout"
+    },
+    {
+     "idMso": "TableStyleLastColumnWord",
+     "label": "Last Column",
+     "type": "checkBox",
+     "group": "GroupTableLayout"
+    },
+    {
+     "idMso": "TableStyleBandedColumnsWord",
+     "label": "Banded Columns",
+     "type": "checkBox",
+     "group": "GroupTableLayout"
+    },
+    {
+     "idMso": "BorderStylesGallery",
+     "label": "Border Styles",
+     "type": "gallery",
+     "group": "GroupTableBorders"
+    },
+    {
+     "idMso": "TableDrawBorderPenStyle",
+     "label": "Pen Style",
+     "type": "dropDown",
+     "group": "GroupTableBorders"
+    },
+    {
+     "idMso": "TableDrawBorderPenWeight",
+     "label": "Pen Weight",
+     "type": "dropDown",
+     "group": "GroupTableBorders"
+    },
+    {
+     "idMso": "BorderColorPicker",
+     "label": "Pen Color",
+     "type": "gallery",
+     "group": "GroupTableBorders"
+    },
+    {
+     "idMso": "TablePaintBorder",
+     "label": "Border Painter",
+     "type": "toggleButton",
+     "group": "GroupTableBorders"
+    },
+    {
+     "idMso": "BordersShadingDialogWord",
+     "label": "Borders and Shading...",
+     "type": "button (dialogBoxLauncher)",
+     "group": "GroupTableBorders"
+    },
+    {
+     "idMso": "TableStyleOptionsMenu",
+     "label": "",
+     "type": "menu",
+     "group": "GroupTableLayout"
+    }
+   ],
+   "extra": [
+    {
+     "cmd": "tblAlignLeft",
+     "label": "Align Left",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "tblAlignCenter",
+     "label": "Align Center",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "tblAlignRight",
+     "label": "Align Right",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "tblIndent",
+     "label": "Indent",
+     "type": "dropdown",
+     "items": null
+    }
+   ],
+   "menus": [
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "TableStyleModify",
+       "label": "Modify Table Style...",
+       "type": "button"
+      },
+      {
+       "idMso": "TableStyleClear",
+       "label": "Clear",
+       "type": "button"
+      },
+      {
+       "idMso": "NewTableStyleWord",
+       "label": "New Table Style...",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "TableStylesGalleryWord",
+     "wordLabel": "Table Styles",
+     "cloneCmd": "tblStyles",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "ShadingColorsMoreColorsDialog",
+       "label": "More Colors...",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "ShadingColorPicker",
+     "wordLabel": "Shading",
+     "cloneCmd": "tblShading",
+     "wordChildCount": 1
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "HorizontalLineInsert",
+       "label": "Horizontal Line",
+       "type": "button"
+      },
+      {
+       "idMso": "TableDrawTable",
+       "label": "Draw Table",
+       "type": "toggleButton"
+      },
+      {
+       "idMso": "TableShowGridlines",
+       "label": "View Gridlines",
+       "type": "toggleButton"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "BordersSelectionGallery",
+     "wordLabel": "Borders",
+     "cloneCmd": "tblBorders",
+     "wordChildCount": 3
+    }
+   ]
+  },
+  "table-layout": {
+   "matched": [
+    {
+     "word": {
+      "idMso": "TableRowsInsertAboveWord",
+      "label": "Insert Above",
+      "type": "button",
+      "group": "GroupTableRowsAndColumns"
+     },
+     "clone": {
+      "cmd": "tblInsertAbove",
+      "label": "Insert Above",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableRowsInsertBelowWord",
+      "label": "Insert Below",
+      "type": "button",
+      "group": "GroupTableRowsAndColumns"
+     },
+     "clone": {
+      "cmd": "tblInsertBelow",
+      "label": "Insert Below",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableColumnsInsertLeft",
+      "label": "Insert Left",
+      "type": "button",
+      "group": "GroupTableRowsAndColumns"
+     },
+     "clone": {
+      "cmd": "tblInsertLeft",
+      "label": "Insert Left",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableColumnsInsertRight",
+      "label": "Insert Right",
+      "type": "button",
+      "group": "GroupTableRowsAndColumns"
+     },
+     "clone": {
+      "cmd": "tblInsertRight",
+      "label": "Insert Right",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "MergeCells",
+      "label": "Merge Cells",
+      "type": "button",
+      "group": "GroupTableMerge"
+     },
+     "clone": {
+      "cmd": "tblMerge",
+      "label": "Merge Cells",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "SplitCells",
+      "label": "Split Cells...",
+      "type": "button",
+      "group": "GroupTableMerge"
+     },
+     "clone": {
+      "cmd": "tblSplitCell",
+      "label": "Split Cells",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableSplitTable",
+      "label": "Split Table",
+      "type": "button",
+      "group": "GroupTableMerge"
+     },
+     "clone": {
+      "cmd": "tblSplitTable",
+      "label": "Split Table",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TextDirection",
+      "label": "Text Direction",
+      "type": "button",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblTextDir",
+      "label": "Text Direction",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableOptionsDialog",
+      "label": "Cell Margins...",
+      "type": "button",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblCellMargins",
+      "label": "Cell Margins",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableRowsDistribute",
+      "label": "Distribute Rows",
+      "type": "button",
+      "group": "GroupTableCellSize"
+     },
+     "clone": {
+      "cmd": "tblDistRows",
+      "label": "Distribute Rows",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableColumnsDistribute",
+      "label": "Distribute Columns",
+      "type": "button",
+      "group": "GroupTableCellSize"
+     },
+     "clone": {
+      "cmd": "tblDistCols",
+      "label": "Distribute Columns",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "ConvertTableToText",
+      "label": "Convert to Text...",
+      "type": "button",
+      "group": "GroupTableData"
+     },
+     "clone": {
+      "cmd": "tblToText",
+      "label": "Convert to Text",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableAutoFitMenu",
+      "label": "AutoFit",
+      "type": "menu",
+      "group": "GroupTableCellSize"
+     },
+     "clone": {
+      "cmd": "tblAutoFit",
+      "label": "AutoFit",
+      "type": "dropdown",
+      "items": null
+     }
+    }
+   ],
+   "label_differs": [
+    {
+     "word": {
+      "idMso": "TableRowHeight",
+      "label": "Height:",
+      "type": "control",
+      "group": "GroupTableCellSize"
+     },
+     "clone": {
+      "cmd": "tblRowHeight",
+      "label": "Row Height",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableColumnWidth",
+      "label": "Width:",
+      "type": "control",
+      "group": "GroupTableCellSize"
+     },
+     "clone": {
+      "cmd": "tblColWidth",
+      "label": "Column Width",
+      "type": "dropdown",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignTopLeft",
+      "label": "Align Top Left",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblVAlignTop",
+      "label": "Align Top",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableCellAlignBottomLeft",
+      "label": "Align Bottom Left",
+      "type": "toggleButton",
+      "group": "GroupTableAlignment"
+     },
+     "clone": {
+      "cmd": "tblVAlignBottom",
+      "label": "Align Bottom",
+      "type": "button",
+      "items": null
+     }
+    },
+    {
+     "word": {
+      "idMso": "TableRepeatHeaderRows",
+      "label": "Repeat Header Rows",
+      "type": "toggleButton",
+      "group": "GroupTableData"
+     },
+     "clone": {
+      "cmd": "tblHeaderRow",
+      "label": "Header Row",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "type_mismatch": [
+    {
+     "word": {
+      "idMso": "TableDeleteRowsAndColumnsMenuWord",
+      "label": "Delete",
+      "type": "menu",
+      "group": "GroupTableRowsAndColumns"
+     },
+     "clone": {
+      "cmd": "tblDeleteRow",
+      "label": "Delete Row",
+      "type": "button",
+      "items": null
+     }
+    }
+   ],
+   "missing": [
+    {
+     "idMso": "TableShowGridlines",
+     "label": "View Gridlines",
+     "type": "toggleButton",
+     "group": "GroupTable"
+    },
+    {
+     "idMso": "TablePropertiesDialog",
+     "label": "Properties...",
+     "type": "button",
+     "group": "GroupTable"
+    },
+    {
+     "idMso": "TableDrawTable",
+     "label": "Draw Table",
+     "type": "toggleButton",
+     "group": "GroupTableDraw"
+    },
+    {
+     "idMso": "TableEraser",
+     "label": "Eraser",
+     "type": "toggleButton",
+     "group": "GroupTableDraw"
+    },
+    {
+     "idMso": "TableInsertCellsDialog",
+     "label": "Insert Cells...",
+     "type": "button (dialogBoxLauncher)",
+     "group": "GroupTableRowsAndColumns"
+    },
+    {
+     "idMso": "TableCellAlignTopCenter",
+     "label": "Align Top Center",
+     "type": "toggleButton",
+     "group": "GroupTableAlignment"
+    },
+    {
+     "idMso": "TableCellAlignTopRight",
+     "label": "Align Top Right",
+     "type": "toggleButton",
+     "group": "GroupTableAlignment"
+    },
+    {
+     "idMso": "TableCellAlignMiddleLeft",
+     "label": "Align Center Left",
+     "type": "toggleButton",
+     "group": "GroupTableAlignment"
+    },
+    {
+     "idMso": "TableCellAlignMiddleCenter",
+     "label": "Align Center",
+     "type": "toggleButton",
+     "group": "GroupTableAlignment"
+    },
+    {
+     "idMso": "TableCellAlignMiddleRight",
+     "label": "Align Center Right",
+     "type": "toggleButton",
+     "group": "GroupTableAlignment"
+    },
+    {
+     "idMso": "TableCellAlignBottomCenter",
+     "label": "Align Bottom Center",
+     "type": "toggleButton",
+     "group": "GroupTableAlignment"
+    },
+    {
+     "idMso": "TableCellAlignBottomRight",
+     "label": "Align Bottom Right",
+     "type": "toggleButton",
+     "group": "GroupTableAlignment"
+    },
+    {
+     "idMso": "SortDialogClassic",
+     "label": "Sort...",
+     "type": "button",
+     "group": "GroupTableData"
+    },
+    {
+     "idMso": "TableFormulaDialog",
+     "label": "Formula...",
+     "type": "button",
+     "group": "GroupTableData"
+    },
+    {
+     "idMso": "TableSelectMenu",
+     "label": "Select",
+     "type": "menu",
+     "group": "GroupTable"
+    },
+    {
+     "idMso": "AlignmentMenu",
+     "label": "",
+     "type": "menu",
+     "group": "GroupTableAlignment"
+    }
+   ],
+   "extra": [
+    {
+     "cmd": "tblDeleteColumn",
+     "label": "Delete Column",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "tblDeleteTable",
+     "label": "Delete Table",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "tblVAlignMid",
+     "label": "Align Middle",
+     "type": "button",
+     "items": null
+    },
+    {
+     "cmd": "tblHeaderCol",
+     "label": "Header Column",
+     "type": "button",
+     "items": null
+    }
+   ],
+   "menus": [
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "TableAutoFitContents",
+       "label": "AutoFit Contents",
+       "type": "button"
+      },
+      {
+       "idMso": "TableAutoFitWindow",
+       "label": "AutoFit Window",
+       "type": "button"
+      },
+      {
+       "idMso": "TableAutoFitFixedColumnWidth",
+       "label": "Fixed Column Width",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "TableAutoFitMenu",
+     "wordLabel": "AutoFit",
+     "cloneCmd": "tblAutoFit",
+     "wordChildCount": 3
+    },
+    {
+     "matched": 0,
+     "missing": [
+      {
+       "idMso": "CellsDelete",
+       "label": "Delete Cells...",
+       "type": "button"
+      },
+      {
+       "idMso": "TableColumnsDelete",
+       "label": "Delete Columns",
+       "type": "button"
+      },
+      {
+       "idMso": "TableRowsDelete",
+       "label": "Delete Rows",
+       "type": "button"
+      },
+      {
+       "idMso": "TableDelete",
+       "label": "Delete Table",
+       "type": "button"
+      }
+     ],
+     "extra": [],
+     "skipped_unlabeled": 0,
+     "parent": "TableDeleteRowsAndColumnsMenuWord",
+     "wordLabel": "Delete",
+     "cloneCmd": "tblDeleteRow",
+     "wordChildCount": 4
+    }
+   ]
+  }
+ },
+ "meta": {
+  "unmapped_todo": [
+   "TabSetHeaderAndFooterTools",
+   "TabSetPictureTools",
+   "TabSetDrawingTools",
+   "TabSetSVGTools",
+   "TabSetWordArtTools",
+   "TabSetTextBoxTools",
+   "TabSetEquationTools",
+   "TabSetInkTools",
+   "TabSet3DModelTools"
+  ],
+  "probe_errors": []
+ }
+}

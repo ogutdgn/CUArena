@@ -96,7 +96,7 @@ def load_word_side(inv, tab_map, excluded):
 
 
 def load_clone_side(actual, wanted_tabs):
-    """{clone_tab: [ {cmd, label, type} ]} from the live probe capture (launchers included)."""
+    """{clone_tab: [ {cmd, label, type, items} ]} from the live probe capture (launchers included)."""
     out = {}
     for t in (actual.get("mainTabs") or []) + (actual.get("contextualTabs") or []):
         if t["id"] not in wanted_tabs:
@@ -104,18 +104,108 @@ def load_clone_side(actual, wanted_tabs):
         ctrls = []
         for g in t.get("groups") or []:
             for c in g.get("controls") or []:
-                ctrls.append({"cmd": c.get("cmd"), "label": c.get("label") or "", "type": c.get("type") or "button"})
+                ctrls.append({"cmd": c.get("cmd"), "label": c.get("label") or "",
+                              "type": c.get("type") or "button", "items": c.get("items")})
             if g.get("launcher"):
                 ln = g["launcher"]
-                ctrls.append({"cmd": ln.get("cmd"), "label": ln.get("label") or "", "type": "launcher"})
+                ctrls.append({"cmd": ln.get("cmd"), "label": ln.get("label") or "", "type": "launcher", "items": None})
         out[t["id"]] = ctrls
     return out
+
+
+# Word control types whose CHILDREN we compare against the clone's declared items[] (D2.1).
+MENUISH_TYPES = {"menu", "splitButton", "gallery"}
+
+# Clone items[] entries that are gallery SECTION HEADERS / picker chrome, not clickable
+# commands — the workbook never lists these as controls, so they'd read as fake "extra".
+# (Same class as flow_verify's CATEGORY_ITEMS.)
+CATEGORY_HEADERS = {
+    "underline styles", "color swatches", "theme colors", "standard colors", "recent colors",
+    "bullet library", "numbering library", "document bullets", "list library", "current list",
+    "recently used bullets", "recently used numbers", "recently used number formats",
+    "gradient", "more gradients",
+}
+
+
+def load_word_children(inv, tab_map, excluded):
+    """{(clone_tab, parent_idMso): [ {idMso,label,type} ]} — every inventory row nested under a
+    parent control on a mapped tab. Direct + secondary nesting are FLATTENED (presence check);
+    children under *MenuAnchor collapse-variants are skipped like their parents."""
+    out = {}
+    seen = set()
+    for c in inv["controls"]:
+        tab, parent = c.get("tab"), c.get("parent")
+        if not parent or tab not in tab_map or c["type"] in NON_CONTROL_TYPES:
+            continue
+        if c["idMso"] in excluded or parent.endswith("MenuAnchor"):
+            continue
+        key = (tab, parent, c["idMso"])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.setdefault((tab_map[tab], parent), []).append({
+            "idMso": c["idMso"], "label": c.get("label") or "", "type": c["type"],
+        })
+    return out
+
+
+def expected_children(childmap, top_ids, tab, parent):
+    """Expected EXPANDED-menu content for a menu-ish control. The workbook flattens ALL
+    placements under a parent, including the collapsed-ribbon state where whole-group members
+    (Cut/Copy under PasteMenu) fold into the primary split — so: drop children that also sit
+    TOP-LEVEL on the same tab (collapse duplicates); drop a child named like the parent (the
+    split's own primary action / self-named gallery) but DESCEND into it, inlining its children
+    (the paste-options gallery IS the menu's content)."""
+    out = []
+    for c in childmap.get((tab, parent["idMso"]), []):
+        if c["idMso"] in top_ids:
+            continue
+        if norm(c["label"]) and norm(c["label"]) == norm(parent["label"]):
+            out.extend(x for x in childmap.get((tab, c["idMso"]), []) if x["idMso"] not in top_ids)
+            continue
+        out.append(c)
+    return out
+
+
+def match_items(word_children, clone_items):
+    """Diff a menu's Word children (labeled controls) vs the clone's declared item strings."""
+    res = {"matched": 0, "missing": [], "extra": [], "skipped_unlabeled": 0}
+    citems = [(i, s) for i, s in enumerate(clone_items or [])
+              if norm(s) and norm(s) not in CATEGORY_HEADERS]
+    avail = [i for i, _ in citems]
+    bylabel = {i: s for i, s in citems}
+
+    def take(ci):
+        avail.remove(ci)
+
+    for w in word_children:
+        wn, wt = norm(w["label"]), tokens(w["label"])
+        if not wn:
+            res["skipped_unlabeled"] += 1
+            continue
+        hit = next((ci for ci in avail if norm(bylabel[ci]) == wn), None)
+        if hit is None and len(wn) >= 4:
+            def fuzz(ci):
+                cn, ct = norm(bylabel[ci]), tokens(bylabel[ci])
+                return len(cn) >= 4 and (wt <= ct or ct <= wt or wn in cn or cn in wn)
+            hit = next((ci for ci in avail if fuzz(ci)), None)
+        if hit is not None:
+            take(hit)
+            res["matched"] += 1
+        else:
+            res["missing"].append({"idMso": w["idMso"], "label": w["label"], "type": w["type"]})
+    res["extra"] = [bylabel[ci] for ci in avail]
+    return res
 
 
 def match_tab(word, clone, pinned):
     """1:1 match Word controls to clone controls: pinned (human-triaged) first, then exact
     normalized label, then token-subset / substring containment."""
     res = {"matched": [], "label_differs": [], "type_mismatch": [], "missing": [], "extra": []}
+    # Stable-sort so type 'menu' matches LAST: when Word has both a concrete control and its
+    # ribbon-collapse menu variant under the same label (Paste splitButton vs PasteMenu), the
+    # concrete one must claim the clone control first.
+    word = sorted(word, key=lambda w: w["type"] == "menu")
     cavail = list(range(len(clone)))
 
     def take(ci):
@@ -179,17 +269,24 @@ def write_ledger(per_tab, meta):
     os.makedirs(RESULTS, exist_ok=True)
     tot = {k: sum(len(v[k]) for v in per_tab.values())
            for k in ("matched", "label_differs", "type_mismatch", "missing", "extra")}
+    tot["items_matched"] = sum(m["matched"] for v in per_tab.values() for m in v.get("menus", []))
+    tot["items_missing"] = sum(len(m["missing"]) for v in per_tab.values() for m in v.get("menus", []))
+    tot["items_extra"] = sum(len(m["extra"]) for v in per_tab.values() for m in v.get("menus", []))
+    tot["items_skipped"] = sum(m["skipped_unlabeled"] for v in per_tab.values() for m in v.get("menus", []))
     md = ["# Structure Ledger — clone ribbon vs. real Word (official idMso inventory)\n",
           "Auto-generated by `parity/engines/structure_verify.py`. Word side = Microsoft's",
           "control-identifier workbook (M365 Current Channel) + GetLabelMso labels from the locked",
           "build. Clone side = the LIVE rendered ribbon (structure-probe.js), contextual tabs included.\n",
           f"**Totals:** matched {tot['matched']} · label-differs {tot['label_differs']} · "
           f"type-mismatch {tot['type_mismatch']} · **missing {tot['missing']}** · extra {tot['extra']}\n",
-          "| Tab | matched | label≠ | type≠ | missing | extra |",
-          "|---|---|---|---|---|---|"]
+          f"**Menu items (D2.1):** matched {tot['items_matched']} · **missing {tot['items_missing']}** · "
+          f"extra {tot['items_extra']} · unlabeled-skipped {tot['items_skipped']}\n",
+          "| Tab | matched | label≠ | type≠ | missing | extra | item-miss |",
+          "|---|---|---|---|---|---|---|"]
     for tab, r in per_tab.items():
+        imiss = sum(len(m["missing"]) for m in r.get("menus", []))
         md.append(f"| {tab} | {len(r['matched'])} | {len(r['label_differs'])} | "
-                  f"{len(r['type_mismatch'])} | **{len(r['missing'])}** | {len(r['extra'])} |")
+                  f"{len(r['type_mismatch'])} | **{len(r['missing'])}** | {len(r['extra'])} | **{imiss}** |")
     for tab, r in per_tab.items():
         if not (r["missing"] or r["extra"] or r["label_differs"] or r["type_mismatch"]):
             continue
@@ -213,6 +310,17 @@ def write_ledger(per_tab, meta):
                       "misplaced, renamed beyond fuzz, or genuinely clone-only):\n")
             for c in r["extra"]:
                 md.append(f"- `{c['cmd']}` \"{c['label']}\" ({c['type']})")
+        gaps = [m for m in r.get("menus", []) if m["missing"] or m["extra"]]
+        if gaps:
+            md.append("\n**Menu items (Word children vs clone declared items):**\n")
+            for m in gaps:
+                md.append(f"- `{m['parent']}` \"{m['wordLabel']}\" (clone `{m['cloneCmd']}`): "
+                          f"{m['matched']}/{m['wordChildCount']} matched"
+                          + (f", skipped-unlabeled {m['skipped_unlabeled']}" if m["skipped_unlabeled"] else ""))
+                for w in m["missing"]:
+                    md.append(f"  - MISSING item: `{w['idMso']}` — {w['label']} ({w['type']})")
+                for s in m["extra"]:
+                    md.append(f"  - extra clone item: \"{s}\"")
     if meta.get("unmapped_todo"):
         md.append("\n## Not yet mapped (TODO tab sets)\n")
         for ts in meta["unmapped_todo"]:
@@ -239,7 +347,9 @@ def main():
         print("structure_verify: probe reported app not ready")
         return 2
 
-    word_side = load_word_side(inv, scope["tab_map"], set(scope.get("excluded_idmso", {})))
+    excluded = set(scope.get("excluded_idmso", {}))
+    word_side = load_word_side(inv, scope["tab_map"], excluded)
+    word_children = load_word_children(inv, scope["tab_map"], excluded)
     clone_side = load_clone_side(actual, set(scope["tab_map"].values()))
     pinned = scope.get("pinned_matches", {})
     per_tab = {}
@@ -249,12 +359,32 @@ def main():
         per_tab[tab] = match_tab(word_side.get(tab, []), clone_side.get(tab, []), pinned)
         if tab not in clone_side:
             per_tab[tab]["note"] = "clone tab NOT CAPTURED by the probe"
+        # D2.1 — menu-item level: diff Word children vs the clone's declared items[] for
+        # every present pair whose Word control is menu-ish.
+        menus = []
+        top_ids = {w["idMso"] for w in word_side.get(tab, [])}
+        for p in per_tab[tab]["matched"] + per_tab[tab]["label_differs"] + per_tab[tab]["type_mismatch"]:
+            w = p["word"]
+            if w["type"] not in MENUISH_TYPES:
+                continue
+            kids = expected_children(word_children, top_ids, tab, w)
+            if not kids:
+                continue
+            m = match_items(kids, p["clone"].get("items"))
+            m["parent"] = w["idMso"]
+            m["wordLabel"] = w["label"]
+            m["cloneCmd"] = p["clone"].get("cmd")
+            m["wordChildCount"] = len(kids)
+            menus.append(m)
+        per_tab[tab]["menus"] = menus
     tot = write_ledger(per_tab, {"unmapped_todo": scope.get("unmapped_word_tabsets_todo", []),
                                  "probe_errors": actual.get("errors", [])})
     print(f"STRUCTURE: matched {tot['matched']} / label≠ {tot['label_differs']} / type≠ "
           f"{tot['type_mismatch']} / MISSING {tot['missing']} / extra {tot['extra']}")
+    print(f"MENU ITEMS: matched {tot['items_matched']} / MISSING {tot['items_missing']} / "
+          f"extra {tot['items_extra']} / unlabeled-skipped {tot['items_skipped']}")
     print(f"ledger: parity/results/STRUCTURE_LEDGER.md")
-    if tot["missing"] and "--report-only" not in args:
+    if (tot["missing"] or tot["items_missing"]) and "--report-only" not in args:
         return 1
     return 0
 
