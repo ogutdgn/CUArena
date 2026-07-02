@@ -1,0 +1,13 @@
+{
+  "ready": true,
+  "id": "tb-totext-comma",
+  "unreachable": null,
+  "insertOk": true,
+  "op": true,
+  "note": "no separator dialog: clone emits tabs where Word was asked for commas",
+  "save": {
+    "ok": true,
+    "path": "C:/Users/ogutd/OneDrive/Desktop/new-coding/ms-word-clone/parity/fixtures/wc-tb-totext-comma.docx",
+    "name": "wc-tb-totext-comma.docx"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "task": "tb-cellmargins",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 24,
+    "missing": 9,
+    "extra": 4
+  },
+  "missing_nodes": [
+    "body:gridCol[('w', '3116')]",
+    "body:gridCol[('w', '3117')]",
+    "body:tblCellMar[]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+    "body:tblW[('type', 'auto'), ('w', '0')]",
+    "body:tcW[('type', 'dxa'), ('w', '3116')]",
+    "body:tcW[('type', 'dxa'), ('w', '3117')]",
+    "styles:TableGrid:pPr[]",
+    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+  ],
+  "extra_nodes": [
+    "body:gridCol[('w', '3120')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tcMar[]",
+    "body:tcW[('type', 'dxa'), ('w', '3120')]"
+  ],
+  "part_counts": {},
+  "id": "tb-cellmargins",
+  "control_id": "table-layout.alignment.cellmargins",
+  "feature": "Cell Margins 0.25in all sides",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Clone flyout -> tableSetCellMargins per-CELL tcMar (24px=0.25in). Word Cell Margins = TABLE Options -> tblCellMar (paddings 18pt). Semantic scope difference expected.",
+  "import_leg": {
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 38,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": []
+  }
+}

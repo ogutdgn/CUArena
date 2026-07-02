@@ -1,0 +1,11 @@
+{
+  "ready": true,
+  "id": "tb-sort-col1",
+  "unreachable": "no table Sort control (Home Sort is paragraph-only)",
+  "insertOk": true,
+  "save": {
+    "ok": true,
+    "path": "C:/Users/ogutd/OneDrive/Desktop/new-coding/ms-word-clone/parity/fixtures/wc-tb-sort-col1.docx",
+    "name": "wc-tb-sort-col1.docx"
+  }
+}

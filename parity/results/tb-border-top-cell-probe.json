@@ -1,0 +1,11 @@
+{
+  "ready": true,
+  "id": "tb-border-top-cell",
+  "unreachable": "Borders dropdown has no per-edge items (only All Borders / No Border)",
+  "insertOk": true,
+  "save": {
+    "ok": true,
+    "path": "C:/Users/ogutd/OneDrive/Desktop/new-coding/ms-word-clone/parity/fixtures/wc-tb-border-top-cell.docx",
+    "name": "wc-tb-border-top-cell.docx"
+  }
+}

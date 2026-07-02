@@ -1,0 +1,11 @@
+{
+  "ready": true,
+  "id": "tb-delete-cells-up",
+  "unreachable": "no Delete Cells... dialog (flat Delete Row/Column/Table buttons only)",
+  "insertOk": true,
+  "save": {
+    "ok": true,
+    "path": "C:/Users/ogutd/OneDrive/Desktop/new-coding/ms-word-clone/parity/fixtures/wc-tb-delete-cells-up.docx",
+    "name": "wc-tb-delete-cells-up.docx"
+  }
+}

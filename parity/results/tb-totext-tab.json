@@ -1,0 +1,47 @@
+{
+  "task": "tb-totext-tab",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 2,
+    "missing": 10,
+    "extra": 3
+  },
+  "missing_nodes": [
+    "body:ind[('left', '113')]",
+    "body:pPr[]",
+    "body:r[]",
+    "body:t[]|text=a",
+    "body:t[]|text=b",
+    "body:tab[('pos', '3229'), ('val', 'left')]",
+    "body:tab[('pos', '6346'), ('val', 'left')]",
+    "body:tab[]",
+    "body:tabs[]",
+    "body:textOrder|text=a↵b"
+  ],
+  "extra_nodes": [
+    "body:t[('space', 'preserve')]|text=",
+    "body:t[('space', 'preserve')]|text=a b",
+    "body:textOrder|text=a b"
+  ],
+  "part_counts": {},
+  "id": "tb-totext-tab",
+  "control_id": "table-layout.data.totext",
+  "feature": "Convert to Text (tabs)",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Clone tableToText('\\t') (H.tblToText's exact call). Word ConvertToText(wdSeparateByTabs=1). Expected genuine-pass candidate.",
+  "import_leg": {
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 16,
+      "missing": 0,
+      "extra": 1
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:r[]"
+    ]
+  }
+}

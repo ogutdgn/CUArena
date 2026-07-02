@@ -1,0 +1,12 @@
+{
+  "ready": true,
+  "id": "tb-split-cell",
+  "unreachable": null,
+  "insertOk": true,
+  "split": true,
+  "save": {
+    "ok": true,
+    "path": "C:/Users/ogutd/OneDrive/Desktop/new-coding/ms-word-clone/parity/fixtures/wc-tb-split-cell.docx",
+    "name": "wc-tb-split-cell.docx"
+  }
+}

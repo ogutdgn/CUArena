@@ -5,7 +5,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 2,
+      "match": 3,
       "missing": 0,
       "extra": 0
     },
@@ -25,7 +25,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -45,7 +45,7 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 48,
+      "match": 49,
       "missing": 3,
       "extra": 3
     },
@@ -78,7 +78,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -98,7 +98,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -118,7 +118,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -138,7 +138,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -158,7 +158,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -178,7 +178,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -198,7 +198,7 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 3,
       "extra": 0
     },
@@ -222,7 +222,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -242,7 +242,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -262,7 +262,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 53,
+      "match": 54,
       "missing": 0,
       "extra": 0
     },
@@ -288,7 +288,7 @@
     "verdict": "gap",
     "counts": {
       "match": 7,
-      "missing": 15,
+      "missing": 16,
       "extra": 2
     },
     "missing_nodes": [
@@ -303,7 +303,8 @@
       "footer:pStyle[('val', 'Footer')]",
       "footer:p[]",
       "footer:r[]",
-      "footer:t[]",
+      "footer:t[]|text=1",
+      "footer:textOrder|text=1",
       "header:pPr[]",
       "header:pStyle[('val', 'Header')]",
       "header:p[]"
@@ -313,13 +314,13 @@
       "footer:rPr[]"
     ],
     "part_counts": {
-      "footer": {
-        "word": 3,
-        "clone": 1
-      },
       "header": {
         "word": 3,
         "clone": 0
+      },
+      "footer": {
+        "word": 3,
+        "clone": 1
       }
     },
     "id": "pagenum",
@@ -368,7 +369,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -388,7 +389,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -408,7 +409,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -428,7 +429,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -448,7 +449,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -468,7 +469,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -488,7 +489,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -508,7 +509,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -528,7 +529,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -548,7 +549,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -568,7 +569,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -588,7 +589,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -608,7 +609,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -628,7 +629,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -648,7 +649,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -668,7 +669,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -688,7 +689,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -708,7 +709,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -728,7 +729,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -748,7 +749,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 2,
+      "match": 3,
       "missing": 0,
       "extra": 0
     },
@@ -768,7 +769,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -788,7 +789,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -808,7 +809,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -828,7 +829,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 2,
+      "match": 3,
       "missing": 0,
       "extra": 2
     },
@@ -851,7 +852,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -871,7 +872,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -891,7 +892,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -911,7 +912,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -931,7 +932,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -951,7 +952,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -971,7 +972,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -991,7 +992,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1011,7 +1012,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1031,7 +1032,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1051,7 +1052,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1071,7 +1072,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1091,7 +1092,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1111,7 +1112,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1131,7 +1132,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1151,7 +1152,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 4,
+      "match": 5,
       "missing": 0,
       "extra": 0
     },
@@ -1171,7 +1172,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 13,
+      "match": 14,
       "missing": 0,
       "extra": 0
     },
@@ -1191,7 +1192,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 3,
+      "match": 4,
       "missing": 0,
       "extra": 0
     },
@@ -1211,7 +1212,7 @@
     "baseline_divergence": [],
     "verdict": "semantic-pass",
     "counts": {
-      "match": 3,
+      "match": 4,
       "missing": 0,
       "extra": 0
     },
@@ -1224,5 +1225,2772 @@
     "tab": "Insert",
     "usage_tier": "ID",
     "note": "1.25in -> w:pgMar w:top=1800 (others default 1in=1440). DIALOG LIMITATION: the Custom Margins dialog is a single uniform field — top not independently settable via the dialog."
+  },
+  {
+    "task": "tb-align-center",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 10,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:jc[('val', 'center')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-align-center",
+    "control_id": "table-design.align",
+    "feature": "Table alignment: center",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableSetAlignment('center') (w:jc). Word Rows.Alignment=wdAlignRowsCenter(1). Expected genuine-pass candidate. (Word keeps this in Properties, not on Design -- STRUCTURE flags the extra group.)",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-autofit-contents",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 6,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '222')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'auto'), ('w', '0')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '240')]",
+      "body:tblLayout[('type', 'autofit')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '240')]"
+    ],
+    "part_counts": {},
+    "id": "tb-autofit-contents",
+    "control_id": "table-layout.cellsize.autofit",
+    "feature": "AutoFit: AutoFit Contents",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableAutoFit('contents'); Word $tbl.AutoFitBehavior(1).",
+    "import_leg": {
+      "verdict": "gap",
+      "counts": {
+        "match": 30,
+        "missing": 1,
+        "extra": 6
+      },
+      "missing_nodes": [
+        "body:tcW[('type', 'auto'), ('w', '0')]"
+      ],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:tcW[('type', 'auto'), ('w', '222')]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-autofit-fixed",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-autofit-fixed",
+    "control_id": "table-layout.cellsize.autofit",
+    "feature": "AutoFit: Fixed Column Width",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableAutoFit('fixed'); Word $tbl.AutoFitBehavior(0).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 34,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-autofit-window",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 7,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tcW[('type', 'pct'), ('w', '1666')]",
+      "body:tcW[('type', 'pct'), ('w', '1667')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLayout[('type', 'autofit')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-autofit-window",
+    "control_id": "table-layout.cellsize.autofit",
+    "feature": "AutoFit: AutoFit Window",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableAutoFit('window'); Word $tbl.AutoFitBehavior(2).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-border-color-red",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 10,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcBorders[]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:top[('color', 'FF0000'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-border-color-red",
+    "control_id": "table-design.borders.pencolor",
+    "feature": "Border pen color red (top edge)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone has no Pen Color control. Word: Border.Color=RGB red -> w:color=FF0000.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-border-diagdown-cell",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 11,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcBorders[]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-border-diagdown-cell",
+    "control_id": "table-design.styles.borders",
+    "feature": "Borders: Diagonal Down (cell 2,2)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone unreachable (no diagonal items). Word: Borders(wdBorderDiagonalDown=-7) -> w:tl2br.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 36,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-border-top-cell",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-border-top-cell",
+    "control_id": "table-design.styles.borders",
+    "feature": "Borders: Top Border only (caret cell)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone Borders dropdown has only All/None -- per-edge unreachable. Word: Cell.Borders(wdBorderTop=-1).LineStyle=single.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-border-weight-3pt",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 10,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcBorders[]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:top[('color', 'auto'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-border-weight-3pt",
+    "control_id": "table-design.borders.penweight",
+    "feature": "Border pen weight 3pt (top edge)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone has no Pen Weight control. Word: LineWidth=wdLineWidth300pt(24) -> w:sz=24 (eighth-points).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-borders-all-cell",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 8
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:bottom[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+      "body:gridCol[('w', '3120')]",
+      "body:left[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+      "body:right[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcBorders[]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "body:top[('color', '000000'), ('space', '0'), ('sz', '24'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-borders-all-cell",
+    "control_id": "table-design.styles.borders",
+    "feature": "Borders: All Borders on caret cell",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone 'All Borders' item: tableSetCellBorders 4 sides val=single color=000000 size=4. Word: caret in cell + ExecuteMso BordersAll (default 1/2pt auto pen).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-borders-none-cell",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 13,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:bottom[('val', 'nil')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:left[('val', 'nil')]",
+      "body:right[('val', 'nil')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcBorders[]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:top[('val', 'nil')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-borders-none-cell",
+    "control_id": "table-design.styles.borders",
+    "feature": "Borders: No Border on caret cell",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone 'No Border': tableSetCellBorders({}) clears the override (style border stays). Word: ExecuteMso BorderNone writes per-side val=nil.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 38,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-cellalign-bottomright",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 10,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:jc[('val', 'right')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-cellalign-bottomright",
+    "control_id": "table-layout.alignment",
+    "feature": "Alignment: Align Bottom Right (caret cell)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Word 9-way = vAlign bottom + paragraph jc right. Clone has only 3 vAlign buttons -> vAlign applied, jc unreachable (partial gap).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 36,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-cellmargins",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 24,
+      "missing": 9,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblCellMar[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcMar[]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-cellmargins",
+    "control_id": "table-layout.alignment.cellmargins",
+    "feature": "Cell Margins 0.25in all sides",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone flyout -> tableSetCellMargins per-CELL tcMar (24px=0.25in). Word Cell Margins = TABLE Options -> tblCellMar (paddings 18pt). Semantic scope difference expected.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 38,
+        "missing": 0,
+        "extra": 0
+      },
+      "missing_nodes": [],
+      "extra_nodes": []
+    }
+  },
+  {
+    "task": "tb-colwidth-15in",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 22,
+      "missing": 6,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-colwidth-15in",
+    "control_id": "table-layout.cellsize.width",
+    "feature": "Column Width 1.5 inch (caret column)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableSetCellWidth(144px) -- note: sets the CELL width; Word Width: sets the whole COLUMN (108pt). Semantic scope difference expected.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-combo-diag-merged",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 11,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcBorders[]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:tcW[('type', 'dxa'), ('w', '6233')]",
+      "body:tl2br[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "body:tcW[('type', 'dxa'), ('w', '6240')]"
+    ],
+    "part_counts": {},
+    "id": "tb-combo-diag-merged",
+    "control_id": "table-design.styles.borders",
+    "feature": "COMBO: diagonal border on a merged cell",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "The rubric D1.3 example combination. Clone: merge works, diagonal unreachable -> partial gap. Word: merge cells(1,1..2) + Borders(DiagonalDown).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 37,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-convert-text-table",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 17,
+      "missing": 8,
+      "extra": 14
+    },
+    "missing_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:p[]",
+      "body:tblCellMar[]",
+      "body:tblLayout[('type', 'fixed')]",
+      "body:tblLook[('firstColumn', '0'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '0'), ('val', '0000')]",
+      "body:tblPrEx[]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ],
+    "extra_nodes": [
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tblStyle[('val', 'TableGrid')]",
+      "styles:TableGrid:@type=table",
+      "styles:TableGrid:basedOn[('val', 'TableNormal')]",
+      "styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:insideH[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:name[('val', 'Table Grid')]",
+      "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:tblBorders[]",
+      "styles:TableGrid:tblPr[]",
+      "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:uiPriority[('val', '39')]"
+    ],
+    "part_counts": {},
+    "id": "tb-convert-text-table",
+    "control_id": "insert.tables.table.converttext",
+    "feature": "Convert Text to Table (commas)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone dialog auto-picks comma when no tabs; PM.textToTable(','). Word: Selection.ConvertToTable(wdSeparateByCommas=2), dialog defaults.",
+    "import_leg": {
+      "verdict": "gap",
+      "counts": {
+        "match": 25,
+        "missing": 4,
+        "extra": 0
+      },
+      "missing_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:tblCellMar[]",
+        "body:tblPrEx[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ],
+      "extra_nodes": []
+    }
+  },
+  {
+    "task": "tb-delete-cells-up",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-delete-cells-up",
+    "control_id": "table-layout.rowscols.delete",
+    "feature": "Delete Cells: shift cells up (cell 2,2)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone has no Delete Cells... dialog (flat delete buttons only). Word: Selection.Cells.Delete(wdDeleteCellsShiftUp=1).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-delete-col",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 6,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-delete-col",
+    "control_id": "table-layout.rowscols.delete",
+    "feature": "Delete Column (col 1)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableDeleteColumn on caret col. Word: Columns(1).Delete.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 31,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-delete-row",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-delete-row",
+    "control_id": "table-layout.rowscols.delete",
+    "feature": "Delete Row (row 1)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableDeleteRow on caret row. Word: Rows(1).Delete.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-delete-table",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 0,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": [],
+    "part_counts": {},
+    "id": "tb-delete-table",
+    "control_id": "table-layout.rowscols.delete",
+    "feature": "Delete Table",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Both sides insert then delete -> near-blank doc. Expected genuine-pass candidate.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 6,
+        "missing": 0,
+        "extra": 0
+      },
+      "missing_nodes": [],
+      "extra_nodes": []
+    }
+  },
+  {
+    "task": "tb-dist-cols",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-dist-cols",
+    "control_id": "table-layout.cellsize",
+    "feature": "Distribute Columns",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableDistributeColumns; Word select table + Cells.DistributeWidth.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-dist-rows",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 9,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trHeight[('val', '293')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "body:trHeight[('hRule', 'atLeast'), ('val', '360')]"
+    ],
+    "part_counts": {},
+    "id": "tb-dist-rows",
+    "control_id": "table-layout.cellsize",
+    "feature": "Distribute Rows",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableDistributeRows; Word select table + Cells.DistributeHeight.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-float-around",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 10,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblOverlap[('val', 'never')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tblpPr[('leftFromText', '180'), ('rightFromText', '180'), ('tblpY', '1'), ('vertAnchor', 'text')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-float-around",
+    "control_id": "table-layout.properties.wrap",
+    "feature": "Floating table: text wrapping Around",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone has no floating-table authoring (Group E representative). Word: Rows.WrapAroundText=true -> w:tblpPr.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-indent-05in",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'dxa'), ('w', '9350')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-indent-05in",
+    "control_id": "table-design.align.indent",
+    "feature": "Table indent from left: 0.5 inch",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableSetIndent(48px) (w:tblInd). Word Rows.LeftIndent=36pt.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 34,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-insert-above",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-insert-above",
+    "control_id": "table-layout.rowscols",
+    "feature": "Rows & Columns: Insert Above",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone verb PM.tableAddRow('above'); Word ExecuteMso TableRowsInsertAboveWord with caret in cell(1,1). Expected genuine-pass candidate (spot-check row).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-insert-below",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-insert-below",
+    "control_id": "table-layout.rowscols",
+    "feature": "Rows & Columns: Insert Below",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone verb PM.tableAddRow('below'); Word ExecuteMso TableRowsInsertBelowWord with caret in cell(1,1). Expected genuine-pass candidate (spot-check row).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-insert-cells-right",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 14,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridAfter[('val', '1')]",
+      "body:gridCol[('w', '3115')]",
+      "body:gridCol[('w', '3117')]",
+      "body:p[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'dxa'), ('w', '12466')]",
+      "body:tcPr[]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:tc[]",
+      "body:trPr[]",
+      "body:wAfter[('type', 'dxa'), ('w', '3116')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-insert-cells-right",
+    "control_id": "table-layout.rowscols.launcher",
+    "feature": "Insert Cells: shift cells right",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone has no Insert Cells... launcher/dialog (KNOWN GAP #4). Word: Selection.InsertCells(wdInsertCellsShiftRight=0).",
+    "import_leg": {
+      "verdict": "gap",
+      "counts": {
+        "match": 36,
+        "missing": 1,
+        "extra": 7
+      },
+      "missing_nodes": [
+        "body:tcW[('type', 'dxa'), ('w', '3116')]"
+      ],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:tcW[('type', 'dxa'), ('w', '3117')]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-insert-dialog",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '2337')]",
+      "body:gridCol[('w', '2338')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '2337')]",
+      "body:tcW[('type', 'dxa'), ('w', '2338')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '2340')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '2340')]"
+    ],
+    "part_counts": {},
+    "id": "tb-insert-dialog",
+    "control_id": "insert.tables.table.dialog",
+    "feature": "Insert Table dialog: 3x4, fixed width",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Dialog path = same PM.insertTable verb; non-square grid. Word: Tables.Add 3 rows x 4 cols + Table Grid.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-insert-left",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 5
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '2337')]",
+      "body:gridCol[('w', '2338')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '2337')]",
+      "body:tcW[('type', 'dxa'), ('w', '2338')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '1500')]",
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '1500')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-insert-left",
+    "control_id": "table-layout.rowscols",
+    "feature": "Rows & Columns: Insert Left",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone verb PM.tableAddColumn('left'); Word ExecuteMso TableColumnsInsertLeft with caret in cell(1,1). Expected genuine-pass candidate (spot-check row).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-insert-right",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 5
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '2336')]",
+      "body:gridCol[('w', '2338')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '2336')]",
+      "body:tcW[('type', 'dxa'), ('w', '2338')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '1500')]",
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '1500')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-insert-right",
+    "control_id": "table-layout.rowscols",
+    "feature": "Rows & Columns: Insert Right",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone verb PM.tableAddColumn('right'); Word ExecuteMso TableColumnsInsertRight with caret in cell(1,1). Expected genuine-pass candidate (spot-check row).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-merge-firstrow2",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 9,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:tcW[('type', 'dxa'), ('w', '6233')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "body:tcW[('type', 'dxa'), ('w', '6240')]"
+    ],
+    "part_counts": {},
+    "id": "tb-merge-firstrow2",
+    "control_id": "table-layout.merge",
+    "feature": "Merge Cells: first two cells of row 1",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone: tableSelectFirstRowPair + tableMerge -> gridSpan=2. Word: select cells(1,1..2) + Cells.Merge.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-quicktable-calendar",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 7,
+      "missing": 98,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:cnfStyle[('evenHBand', '1'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000010000')]",
+      "body:gridCol[('w', '720')]",
+      "body:gridSpan[('val', '7')]",
+      "body:p[]",
+      "body:r[]",
+      "body:t[]|text=1",
+      "body:t[]|text=10",
+      "body:t[]|text=11",
+      "body:t[]|text=12",
+      "body:t[]|text=13",
+      "body:t[]|text=14",
+      "body:t[]|text=15",
+      "body:t[]|text=16",
+      "body:t[]|text=17",
+      "body:t[]|text=18",
+      "body:t[]|text=19",
+      "body:t[]|text=2",
+      "body:t[]|text=20",
+      "body:t[]|text=21",
+      "body:t[]|text=22",
+      "body:t[]|text=23",
+      "body:t[]|text=24",
+      "body:t[]|text=25",
+      "body:t[]|text=26",
+      "body:t[]|text=27",
+      "body:t[]|text=28",
+      "body:t[]|text=29",
+      "body:t[]|text=3",
+      "body:t[]|text=30",
+      "body:t[]|text=31",
+      "body:t[]|text=4",
+      "body:t[]|text=5",
+      "body:t[]|text=6",
+      "body:t[]|text=7",
+      "body:t[]|text=8",
+      "body:t[]|text=9",
+      "body:t[]|text=December",
+      "body:t[]|text=F",
+      "body:t[]|text=M",
+      "body:t[]|text=S",
+      "body:t[]|text=T",
+      "body:t[]|text=W",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblStyle[('val', 'Calendar1')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcPr[]",
+      "body:tcW[('type', 'dxa'), ('w', '5040')]",
+      "body:tcW[('type', 'dxa'), ('w', '720')]",
+      "body:tc[]",
+      "body:textOrder|text=December↵M↵T↵W↵T↵F↵S↵S↵1↵2↵3↵4↵5↵6↵7↵8↵9↵10↵11↵12↵13↵14↵15↵16↵17↵18↵19↵20↵21↵22↵23↵24↵25↵26↵27↵28↵29↵30↵31",
+      "body:trHeight[('val', '630')]",
+      "body:trHeight[('val', '720')]",
+      "body:trPr[]",
+      "body:tr[]",
+      "body:vAlign[('val', 'bottom')]",
+      "styles:Calendar1:@type=table",
+      "styles:Calendar1:b[]",
+      "styles:Calendar1:basedOn[('val', 'TableNormal')]",
+      "styles:Calendar1:bottom[('color', '000000'), ('space', '0'), ('sz', '24'), ('themeColor', 'text1'), ('val', 'single')]",
+      "styles:Calendar1:bottom[('val', 'nil')]",
+      "styles:Calendar1:color[('val', 'auto')]",
+      "styles:Calendar1:i[('val', '0')]",
+      "styles:Calendar1:insideH[('val', 'nil')]",
+      "styles:Calendar1:insideV[('val', 'nil')]",
+      "styles:Calendar1:kern[('val', '0')]",
+      "styles:Calendar1:left[('val', 'nil')]",
+      "styles:Calendar1:ligatures[('val', 'none')]",
+      "styles:Calendar1:name[('val', 'Calendar 1')]",
+      "styles:Calendar1:pPr[]",
+      "styles:Calendar1:qFormat[]",
+      "styles:Calendar1:rFonts[('asciiTheme', 'minorHAnsi'), ('hAnsiTheme', 'minorHAnsi')]",
+      "styles:Calendar1:rFonts[('eastAsiaTheme', 'minorEastAsia')]",
+      "styles:Calendar1:rPr[]",
+      "styles:Calendar1:right[('val', 'nil')]",
+      "styles:Calendar1:shd[('color', 'auto'), ('fill', 'auto'), ('val', 'clear')]",
+      "styles:Calendar1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:Calendar1:spacing[('afterAutospacing', '0'), ('afterLines', '0'), ('beforeAutospacing', '0'), ('beforeLines', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:Calendar1:szCs[('val', '22')]",
+      "styles:Calendar1:sz[('val', '22')]",
+      "styles:Calendar1:sz[('val', '44')]",
+      "styles:Calendar1:tblPr[]",
+      "styles:Calendar1:tblStyleColBandSize[('val', '1')]",
+      "styles:Calendar1:tblStylePr[('type', 'band1Horz')]",
+      "styles:Calendar1:tblStylePr[('type', 'band2Horz')]",
+      "styles:Calendar1:tblStylePr[('type', 'firstRow')]",
+      "styles:Calendar1:tblStylePr[('type', 'lastRow')]",
+      "styles:Calendar1:tblStyleRowBandSize[('val', '1')]",
+      "styles:Calendar1:tcBorders[]",
+      "styles:Calendar1:tcPr[]",
+      "styles:Calendar1:tl2br[('val', 'nil')]",
+      "styles:Calendar1:top[('color', '000000'), ('space', '0'), ('sz', '24'), ('themeColor', 'text1'), ('val', 'single')]",
+      "styles:Calendar1:top[('val', 'nil')]",
+      "styles:Calendar1:tr2bl[('val', 'nil')]",
+      "styles:Calendar1:uiPriority[('val', '99')]",
+      "styles:Calendar1:vAlign[('val', 'bottom')]",
+      "styles:Calendar1:wordWrap[]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '1335')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tblStyle[('val', 'TableGrid')]",
+      "body:tcW[('type', 'dxa'), ('w', '1335')]",
+      "styles:TableGrid:@type=table",
+      "styles:TableGrid:basedOn[('val', 'TableNormal')]",
+      "styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:insideH[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:name[('val', 'Table Grid')]",
+      "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:tblBorders[]",
+      "styles:TableGrid:tblPr[]",
+      "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+      "styles:TableGrid:uiPriority[('val', '39')]"
+    ],
+    "part_counts": {},
+    "id": "tb-quicktable-calendar",
+    "control_id": "insert.tables.table.quicktables",
+    "feature": "Quick Tables: Calendar",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone Quick Tables 'Calendar' = plain 6x7 grid (fake preset). Word: 'Calendar 1' building block. LoadBuildingBlocks may be needed; if the entry is missing the capture fails honestly.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 106,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-repeatheader",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 22,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-repeatheader",
+    "control_id": "table-layout.data.repeatheader",
+    "feature": "Repeat Header Rows (row 1)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone 'Header Row' button does <th> conversion (toggleHeaderRow) -- NOT Word's w:trPr/w:tblHeader. Word: Rows(1).HeadingFormat=true. Semantics divergence expected.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-rowheight-05in",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 9,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trHeight[('val', '720')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "body:trHeight[('hRule', 'atLeast'), ('val', '720')]"
+    ],
+    "part_counts": {},
+    "id": "tb-rowheight-05in",
+    "control_id": "table-layout.cellsize.height",
+    "feature": "Row Height 0.5 inch (caret row)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableSetRowHeight(48px,'atLeast') (H.tblRowHeight's exact call for 0.5in). Word: Rows(1) HeightRule=atLeast, Height=36pt.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-shading-cell",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 9,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:shd[('color', 'auto'), ('fill', 'FFF2CC'), ('val', 'clear')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:shd[('fill', 'FFF2CC')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-shading-cell",
+    "control_id": "table-design.styles.shading",
+    "feature": "Shading: fill caret cell #FFF2CC",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone swatch 1 (#FFF2CC) via tableSetCellShading. Word: BackgroundPatternColor BGR 13431551. Expect the shd val=clear/color=auto attr gap.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 34,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-sort-col1",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 24,
+      "missing": 9,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:textOrder|text=c↵a↵b",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "body:textOrder|text=c↵b↵a"
+    ],
+    "part_counts": {},
+    "id": "tb-sort-col1",
+    "control_id": "table-layout.data.sort",
+    "feature": "Sort: table rows by column 1 ascending",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone has NO table Sort (Home Sort is paragraph-only). Word: fill c/b/a + Table.SortAscending. Values are DESCENDING so the sort reorders under BOTH header interpretations (first capture used b/a/c and SortAscending's auto-header kept it unchanged -> the action never happened). Doubles as the differ order-sensitivity canary (textOrder).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 38,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-split-cell",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 9,
+      "extra": 5
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '1558')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '1558')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '1560')]",
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '1560')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-split-cell",
+    "control_id": "table-layout.merge",
+    "feature": "Split Cells: 1 unmerged cell into 2 columns",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableSplitCell works only on merged cells (no rows/cols dialog) -> expected no-op on a plain cell. Word: Cell(1,1).Split(1,2).",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 35,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-split-table",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 20,
+      "missing": 8,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-split-table",
+    "control_id": "table-layout.merge",
+    "feature": "Split Table at row 2",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Caret in row 2 both sides. Clone tableSplit (splitTableAtRow); Word Selection.SplitTable.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 33,
+        "missing": 0,
+        "extra": 5
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-style-grid4a1",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 30,
+      "missing": 27,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:pPr[]",
+      "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-style-grid4a1",
+    "control_id": "table-design.styles.gallery",
+    "feature": "Table Styles gallery: apply Grid Table 4 Accent 1",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "The ONE modern style the clone gallery has. Word stamps tblStyle + per-row/cell cnfStyle; expect the cnfStyle gap here.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 62,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-style-listtable3",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 19,
+      "missing": 53,
+      "extra": 4
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '1'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000100')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblStyle[('val', 'ListTable3')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:ListTable3:@type=table",
+      "styles:ListTable3:bCs[]",
+      "styles:ListTable3:b[]",
+      "styles:ListTable3:basedOn[('val', 'TableNormal')]",
+      "styles:ListTable3:bottom[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]",
+      "styles:ListTable3:bottom[('val', 'nil')]",
+      "styles:ListTable3:color[('themeColor', 'background1'), ('val', 'FFFFFF')]",
+      "styles:ListTable3:insideH[('val', 'nil')]",
+      "styles:ListTable3:left[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]",
+      "styles:ListTable3:left[('val', 'nil')]",
+      "styles:ListTable3:name[('val', 'List Table 3')]",
+      "styles:ListTable3:pPr[]",
+      "styles:ListTable3:rPr[]",
+      "styles:ListTable3:right[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]",
+      "styles:ListTable3:right[('val', 'nil')]",
+      "styles:ListTable3:shd[('color', 'auto'), ('fill', '000000'), ('themeFill', 'text1'), ('val', 'clear')]",
+      "styles:ListTable3:shd[('color', 'auto'), ('fill', 'FFFFFF'), ('themeFill', 'background1'), ('val', 'clear')]",
+      "styles:ListTable3:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:ListTable3:tblBorders[]",
+      "styles:ListTable3:tblPr[]",
+      "styles:ListTable3:tblStyleColBandSize[('val', '1')]",
+      "styles:ListTable3:tblStylePr[('type', 'band1Horz')]",
+      "styles:ListTable3:tblStylePr[('type', 'band1Vert')]",
+      "styles:ListTable3:tblStylePr[('type', 'firstCol')]",
+      "styles:ListTable3:tblStylePr[('type', 'firstRow')]",
+      "styles:ListTable3:tblStylePr[('type', 'lastCol')]",
+      "styles:ListTable3:tblStylePr[('type', 'lastRow')]",
+      "styles:ListTable3:tblStylePr[('type', 'neCell')]",
+      "styles:ListTable3:tblStylePr[('type', 'nwCell')]",
+      "styles:ListTable3:tblStylePr[('type', 'seCell')]",
+      "styles:ListTable3:tblStylePr[('type', 'swCell')]",
+      "styles:ListTable3:tblStyleRowBandSize[('val', '1')]",
+      "styles:ListTable3:tcBorders[]",
+      "styles:ListTable3:tcPr[]",
+      "styles:ListTable3:top[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'double')]",
+      "styles:ListTable3:top[('color', '000000'), ('space', '0'), ('sz', '4'), ('themeColor', 'text1'), ('val', 'single')]",
+      "styles:ListTable3:uiPriority[('val', '48')]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tblStyle[('val', 'TableGrid')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-style-listtable3",
+    "control_id": "table-design.styles.gallery",
+    "feature": "Table Styles gallery: apply List Table 3",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "NOT in the clone's 2-style gallery -> honest no-op (the 2/247 gap, OOXML leg). Word: Style='List Table 3'.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 63,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-styleopt-bandedcols-on",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 30,
+      "missing": 28,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '1'), ('val', '000010000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '0'), ('val', '00A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:pPr[]",
+      "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-styleopt-bandedcols-on",
+    "control_id": "table-design.styleoptions",
+    "feature": "Table Style Options: Banded Columns ON",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Word: ApplyStyleColumnBands = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 63,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-styleopt-bandedrows-off",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 30,
+      "missing": 26,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '1'), ('noVBand', '1'), ('val', '06A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:pPr[]",
+      "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-styleopt-bandedrows-off",
+    "control_id": "table-design.styleoptions",
+    "feature": "Table Style Options: Banded Rows OFF",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Word: ApplyStyleRowBands = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 61,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-styleopt-firstcol-off",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 30,
+      "missing": 24,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:tblLook[('firstColumn', '0'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '0420')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:pPr[]",
+      "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-styleopt-firstcol-off",
+    "control_id": "table-design.styleoptions",
+    "feature": "Table Style Options: First Column OFF",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Word: ApplyStyleFirstColumn = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 59,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-styleopt-headerrow-off",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 30,
+      "missing": 26,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '0480')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:pPr[]",
+      "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-styleopt-headerrow-off",
+    "control_id": "table-design.styleoptions",
+    "feature": "Table Style Options: Header Row OFF",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Word: ApplyStyleHeadingRows = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 61,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-styleopt-lastcol-on",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 30,
+      "missing": 28,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '1'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000100000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '1'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '05A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:pPr[]",
+      "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-styleopt-lastcol-on",
+    "control_id": "table-design.styleoptions",
+    "feature": "Table Style Options: Last Column ON",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Word: ApplyStyleLastColumn = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 63,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-styleopt-totalrow-on",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 30,
+      "missing": 27,
+      "extra": 16
+    },
+    "missing_nodes": [
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '1'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '010000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '1'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '100000000000')]",
+      "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '1'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04E0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trPr[]",
+      "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:pPr[]",
+      "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]",
+      "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+      "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+      "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+    ],
+    "part_counts": {},
+    "id": "tb-styleopt-totalrow-on",
+    "control_id": "table-design.styleoptions",
+    "feature": "Table Style Options: Total Row ON",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Word: ApplyStyleLastRow = $true on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 62,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-textdir",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 21,
+      "missing": 13,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:cantSplit[]",
+      "body:gridCol[('w', '3116')]",
+      "body:gridCol[('w', '3117')]",
+      "body:ind[('left', '113'), ('right', '113')]",
+      "body:pPr[]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+      "body:tblW[('type', 'auto'), ('w', '0')]",
+      "body:tcW[('type', 'dxa'), ('w', '3116')]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:trHeight[('val', '1134')]",
+      "body:trPr[]",
+      "styles:TableGrid:pPr[]",
+      "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+    ],
+    "extra_nodes": [
+      "body:gridCol[('w', '3120')]",
+      "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+      "body:tcW[('type', 'dxa'), ('w', '3120')]"
+    ],
+    "part_counts": {},
+    "id": "tb-textdir",
+    "control_id": "table-layout.alignment.textdir",
+    "feature": "Text Direction: first click (caret cell)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone H.tblTextDir hardwires 'tbRl'. Word first click = rotate 90 (wdTextOrientationDownward=3, tbRl expected -- VERIFY, D6.3 flag). Later clicks (btLr) are BEHAVIOR territory.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 39,
+        "missing": 0,
+        "extra": 6
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:bottom[('type', 'dxa'), ('w', '0')]",
+        "body:hidden[('val', '0')]",
+        "body:left[('type', 'dxa'), ('w', '108')]",
+        "body:right[('type', 'dxa'), ('w', '108')]",
+        "body:tblCellMar[]",
+        "body:top[('type', 'dxa'), ('w', '0')]"
+      ]
+    }
+  },
+  {
+    "task": "tb-totext-comma",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 2,
+      "missing": 3,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:t[('space', 'preserve')]|text=, ,",
+      "body:t[('space', 'preserve')]|text=a, b,",
+      "body:textOrder|text=a, b,↵, ,↵, ,"
+    ],
+    "extra_nodes": [
+      "body:t[('space', 'preserve')]|text=",
+      "body:t[('space', 'preserve')]|text=a b",
+      "body:textOrder|text=a b"
+    ],
+    "part_counts": {},
+    "id": "tb-totext-comma",
+    "control_id": "table-layout.data.totext",
+    "feature": "Convert to Text (commas)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone has NO separator dialog -- the user gets tabs regardless. Word: ConvertToText(wdSeparateByCommas=2). Text-content mismatch expected.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 10,
+        "missing": 0,
+        "extra": 0
+      },
+      "missing_nodes": [],
+      "extra_nodes": []
+    }
+  },
+  {
+    "task": "tb-totext-tab",
+    "baselined": true,
+    "baseline_divergence": [],
+    "verdict": "gap",
+    "counts": {
+      "match": 2,
+      "missing": 10,
+      "extra": 3
+    },
+    "missing_nodes": [
+      "body:ind[('left', '113')]",
+      "body:pPr[]",
+      "body:r[]",
+      "body:t[]|text=a",
+      "body:t[]|text=b",
+      "body:tab[('pos', '3229'), ('val', 'left')]",
+      "body:tab[('pos', '6346'), ('val', 'left')]",
+      "body:tab[]",
+      "body:tabs[]",
+      "body:textOrder|text=a↵b"
+    ],
+    "extra_nodes": [
+      "body:t[('space', 'preserve')]|text=",
+      "body:t[('space', 'preserve')]|text=a b",
+      "body:textOrder|text=a b"
+    ],
+    "part_counts": {},
+    "id": "tb-totext-tab",
+    "control_id": "table-layout.data.totext",
+    "feature": "Convert to Text (tabs)",
+    "tab": "Tables",
+    "usage_tier": "TB",
+    "note": "Clone tableToText('\\t') (H.tblToText's exact call). Word ConvertToText(wdSeparateByTabs=1). Expected genuine-pass candidate.",
+    "import_leg": {
+      "verdict": "semantic-pass",
+      "counts": {
+        "match": 16,
+        "missing": 0,
+        "extra": 1
+      },
+      "missing_nodes": [],
+      "extra_nodes": [
+        "body:r[]"
+      ]
+    }
   }
 ]

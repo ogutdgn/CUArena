@@ -4,7 +4,7 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 4,
+    "match": 5,
     "missing": 3,
     "extra": 0
   },

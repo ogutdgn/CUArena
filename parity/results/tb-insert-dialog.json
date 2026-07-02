@@ -1,0 +1,49 @@
+{
+  "task": "tb-insert-dialog",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 20,
+    "missing": 8,
+    "extra": 3
+  },
+  "missing_nodes": [
+    "body:gridCol[('w', '2337')]",
+    "body:gridCol[('w', '2338')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+    "body:tblW[('type', 'auto'), ('w', '0')]",
+    "body:tcW[('type', 'dxa'), ('w', '2337')]",
+    "body:tcW[('type', 'dxa'), ('w', '2338')]",
+    "styles:TableGrid:pPr[]",
+    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+  ],
+  "extra_nodes": [
+    "body:gridCol[('w', '2340')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tcW[('type', 'dxa'), ('w', '2340')]"
+  ],
+  "part_counts": {},
+  "id": "tb-insert-dialog",
+  "control_id": "insert.tables.table.dialog",
+  "feature": "Insert Table dialog: 3x4, fixed width",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Dialog path = same PM.insertTable verb; non-square grid. Word: Tables.Add 3 rows x 4 cols + Table Grid.",
+  "import_leg": {
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 33,
+      "missing": 0,
+      "extra": 5
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:left[('type', 'dxa'), ('w', '108')]",
+      "body:right[('type', 'dxa'), ('w', '108')]",
+      "body:tblCellMar[]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ]
+  }
+}

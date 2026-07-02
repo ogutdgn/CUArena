@@ -1009,7 +1009,7 @@
       "tab": "Tables",
       "usage_tier": "TB",
       "realword_method": "com",
-      "note": "Clone has NO table Sort (Home Sort is paragraph-only). Word: fill b/a/c + Table.Sort ascending. NOTE: a pure row permutation is multiset-invariant -- this task doubles as a differ order-sensitivity canary."
+      "note": "Clone has NO table Sort (Home Sort is paragraph-only). Word: fill c/b/a + Table.SortAscending. Values are DESCENDING so the sort reorders under BOTH header interpretations (first capture used b/a/c and SortAscending's auto-header kept it unchanged -> the action never happened). Doubles as the differ order-sensitivity canary (textOrder)."
     },
     {
       "id": "tb-repeatheader",

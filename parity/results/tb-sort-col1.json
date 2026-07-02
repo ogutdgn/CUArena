@@ -1,0 +1,51 @@
+{
+  "task": "tb-sort-col1",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 24,
+    "missing": 9,
+    "extra": 4
+  },
+  "missing_nodes": [
+    "body:gridCol[('w', '3116')]",
+    "body:gridCol[('w', '3117')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+    "body:tblW[('type', 'auto'), ('w', '0')]",
+    "body:tcW[('type', 'dxa'), ('w', '3116')]",
+    "body:tcW[('type', 'dxa'), ('w', '3117')]",
+    "body:textOrder|text=c↵a↵b",
+    "styles:TableGrid:pPr[]",
+    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+  ],
+  "extra_nodes": [
+    "body:gridCol[('w', '3120')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tcW[('type', 'dxa'), ('w', '3120')]",
+    "body:textOrder|text=c↵b↵a"
+  ],
+  "part_counts": {},
+  "id": "tb-sort-col1",
+  "control_id": "table-layout.data.sort",
+  "feature": "Sort: table rows by column 1 ascending",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Clone has NO table Sort (Home Sort is paragraph-only). Word: fill c/b/a + Table.SortAscending. Values are DESCENDING so the sort reorders under BOTH header interpretations (first capture used b/a/c and SortAscending's auto-header kept it unchanged -> the action never happened). Doubles as the differ order-sensitivity canary (textOrder).",
+  "import_leg": {
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 38,
+      "missing": 0,
+      "extra": 5
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:left[('type', 'dxa'), ('w', '108')]",
+      "body:right[('type', 'dxa'), ('w', '108')]",
+      "body:tblCellMar[]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ]
+  }
+}

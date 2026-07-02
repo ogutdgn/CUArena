@@ -13,7 +13,7 @@ beyond the explicit ask falls out automatically as 'match' or 'missing'.
 
 Usage: ooxml_diff.py <realword.docx> <clone.docx> [--id TASKID]
 """
-import sys, re, json, zipfile, argparse
+import sys, re, json, zipfile, argparse, hashlib
 import xml.etree.ElementTree as ET
 from collections import Counter
 
@@ -47,8 +47,16 @@ RID_CANON = "rId#"
 # future refinement). w:ilvl (the list LEVEL) is meaningful and is deliberately NOT canonicalized.
 NUM_REF_ELEMENTS = {"numid", "abstractnumid"}
 NUM_CANON = "#"
-# text content matters for these (field instructions) -> folded into the signature
-TEXT_NODES = {"instrText"}
+# text content matters for these -> folded into the signature. w:t/w:delText were BLIND
+# until the Tables pilot caught the false pass (clone tab-text vs Word comma-text diffed
+# to 0 because only structure was compared) — document content is feature signal.
+TEXT_NODES = {"instrText", "t", "delText"}
+# Ordered text-stream signature (one per part): the differ's node multiset is ORDER-BLIND,
+# so a pure permutation (table Sort: rows b/a/c -> a/b/c) was invisible — same nodes, new
+# order. The stream folds the part's visible text IN DOCUMENT ORDER into one signature, so
+# any reorder or content change surfaces as one missing+extra pair. Long streams are capped
+# with a digest tail (deterministic, keeps ledger lines readable).
+TEXT_STREAM_CAP = 600
 
 
 def local(tag):
@@ -106,6 +114,7 @@ def collect(docx_path):
         scope = root.find(W + "body") if kind == "body" else root
         if scope is None:
             scope = root
+        stream = []
         for el in scope.iter():
             if el is scope:
                 continue   # the part-root container itself (<w:numbering>/<w:hdr>/<w:body>…) — structural, not
@@ -118,8 +127,18 @@ def collect(docx_path):
             txt = ""
             if ln in TEXT_NODES and el.text:
                 txt = "|text=" + re.sub(r"\s+", " ", el.text).strip()
+            if ln in ("t", "delText") and el.text:
+                stream.append(re.sub(r"\s+", " ", el.text).strip())
             sig = f"{kind}:{ln}{list(attrs)}{txt}"
             sigs[sig] += 1
+        # The ORDERED text stream — catches pure permutations the node multiset can't
+        # (table Sort). scope.iter() walks in document order, so joining preserves it.
+        flow = "↵".join(s for s in stream if s)
+        if flow:
+            if len(flow) > TEXT_STREAM_CAP:
+                digest = hashlib.sha1(flow.encode("utf-8")).hexdigest()[:10]
+                flow = flow[:TEXT_STREAM_CAP] + "~" + digest
+            sigs[f"{kind}:textOrder|text={flow}"] += 1
     return sigs, parts_seen
 
 

@@ -1,0 +1,81 @@
+{
+  "task": "tb-styleopt-headerrow-off",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 30,
+    "missing": 26,
+    "extra": 16
+  },
+  "missing_nodes": [
+    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '000000000000')]",
+    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '0'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '1'), ('oddVBand', '0'), ('val', '000000100000')]",
+    "body:cnfStyle[('evenHBand', '0'), ('evenVBand', '0'), ('firstColumn', '1'), ('firstRow', '0'), ('firstRowFirstColumn', '0'), ('firstRowLastColumn', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('lastRowFirstColumn', '0'), ('lastRowLastColumn', '0'), ('oddHBand', '0'), ('oddVBand', '0'), ('val', '001000000000')]",
+    "body:gridCol[('w', '3116')]",
+    "body:gridCol[('w', '3117')]",
+    "body:pPr[]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '0480')]",
+    "body:tblW[('type', 'auto'), ('w', '0')]",
+    "body:tcW[('type', 'dxa'), ('w', '3116')]",
+    "body:tcW[('type', 'dxa'), ('w', '3117')]",
+    "body:trPr[]",
+    "styles:GridTable4-Accent1:bottom[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:bottom[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:insideH[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:insideV[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:left[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:left[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:pPr[]",
+    "styles:GridTable4-Accent1:right[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:right[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '156082'), ('themeFill', 'accent1'), ('val', 'clear')]",
+    "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'C1E4F5'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+    "styles:GridTable4-Accent1:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]",
+    "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+    "styles:GridTable4-Accent1:top[('color', '156082'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:top[('color', '45B0E1'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+  ],
+  "extra_nodes": [
+    "body:gridCol[('w', '3120')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tcW[('type', 'dxa'), ('w', '3120')]",
+    "styles:GridTable4-Accent1:bottom[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:bottom[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:insideH[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:insideV[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:left[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:left[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:right[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:right[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', '4472C4'), ('themeFill', 'accent1'), ('val', 'clear')]",
+    "styles:GridTable4-Accent1:shd[('color', 'auto'), ('fill', 'D9E2F3'), ('themeFill', 'accent1'), ('themeFillTint', '33'), ('val', 'clear')]",
+    "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'double')]",
+    "styles:GridTable4-Accent1:top[('color', '4472C4'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('val', 'single')]",
+    "styles:GridTable4-Accent1:top[('color', '8EAADB'), ('space', '0'), ('sz', '4'), ('themeColor', 'accent1'), ('themeTint', '99'), ('val', 'single')]"
+  ],
+  "part_counts": {},
+  "id": "tb-styleopt-headerrow-off",
+  "control_id": "table-design.styleoptions",
+  "feature": "Table Style Options: Header Row OFF",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Word: ApplyStyleHeadingRows = $false on a styled table (flips a tblLook bit + re-stamps cnfStyle). Clone Design tab has NO Table Style Options group.",
+  "import_leg": {
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 61,
+      "missing": 0,
+      "extra": 6
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:hidden[('val', '0')]",
+      "body:left[('type', 'dxa'), ('w', '108')]",
+      "body:right[('type', 'dxa'), ('w', '108')]",
+      "body:tblCellMar[]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ]
+  }
+}

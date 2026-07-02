@@ -1,0 +1,51 @@
+{
+  "task": "tb-shading-cell",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 20,
+    "missing": 9,
+    "extra": 4
+  },
+  "missing_nodes": [
+    "body:gridCol[('w', '3116')]",
+    "body:gridCol[('w', '3117')]",
+    "body:shd[('color', 'auto'), ('fill', 'FFF2CC'), ('val', 'clear')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+    "body:tblW[('type', 'auto'), ('w', '0')]",
+    "body:tcW[('type', 'dxa'), ('w', '3116')]",
+    "body:tcW[('type', 'dxa'), ('w', '3117')]",
+    "styles:TableGrid:pPr[]",
+    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+  ],
+  "extra_nodes": [
+    "body:gridCol[('w', '3120')]",
+    "body:shd[('fill', 'FFF2CC')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tcW[('type', 'dxa'), ('w', '3120')]"
+  ],
+  "part_counts": {},
+  "id": "tb-shading-cell",
+  "control_id": "table-design.styles.shading",
+  "feature": "Shading: fill caret cell #FFF2CC",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Clone swatch 1 (#FFF2CC) via tableSetCellShading. Word: BackgroundPatternColor BGR 13431551. Expect the shd val=clear/color=auto attr gap.",
+  "import_leg": {
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 34,
+      "missing": 0,
+      "extra": 5
+    },
+    "missing_nodes": [],
+    "extra_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:left[('type', 'dxa'), ('w', '108')]",
+      "body:right[('type', 'dxa'), ('w', '108')]",
+      "body:tblCellMar[]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "task": "tb-delete-table",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "semantic-pass",
+  "counts": {
+    "match": 0,
+    "missing": 0,
+    "extra": 0
+  },
+  "missing_nodes": [],
+  "extra_nodes": [],
+  "part_counts": {},
+  "id": "tb-delete-table",
+  "control_id": "table-layout.rowscols.delete",
+  "feature": "Delete Table",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Both sides insert then delete -> near-blank doc. Expected genuine-pass candidate.",
+  "import_leg": {
+    "verdict": "semantic-pass",
+    "counts": {
+      "match": 6,
+      "missing": 0,
+      "extra": 0
+    },
+    "missing_nodes": [],
+    "extra_nodes": []
+  }
+}

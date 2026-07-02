@@ -1,0 +1,59 @@
+{
+  "task": "tb-convert-text-table",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 17,
+    "missing": 8,
+    "extra": 14
+  },
+  "missing_nodes": [
+    "body:bottom[('type', 'dxa'), ('w', '0')]",
+    "body:p[]",
+    "body:tblCellMar[]",
+    "body:tblLayout[('type', 'fixed')]",
+    "body:tblLook[('firstColumn', '0'), ('firstRow', '0'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '0'), ('val', '0000')]",
+    "body:tblPrEx[]",
+    "body:tblW[('type', 'auto'), ('w', '0')]",
+    "body:top[('type', 'dxa'), ('w', '0')]"
+  ],
+  "extra_nodes": [
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tblStyle[('val', 'TableGrid')]",
+    "styles:TableGrid:@type=table",
+    "styles:TableGrid:basedOn[('val', 'TableNormal')]",
+    "styles:TableGrid:bottom[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:insideH[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:insideV[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:left[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:name[('val', 'Table Grid')]",
+    "styles:TableGrid:right[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:tblBorders[]",
+    "styles:TableGrid:tblPr[]",
+    "styles:TableGrid:top[('color', 'auto'), ('space', '0'), ('sz', '4'), ('val', 'single')]",
+    "styles:TableGrid:uiPriority[('val', '39')]"
+  ],
+  "part_counts": {},
+  "id": "tb-convert-text-table",
+  "control_id": "insert.tables.table.converttext",
+  "feature": "Convert Text to Table (commas)",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Clone dialog auto-picks comma when no tabs; PM.textToTable(','). Word: Selection.ConvertToTable(wdSeparateByCommas=2), dialog defaults.",
+  "import_leg": {
+    "verdict": "gap",
+    "counts": {
+      "match": 25,
+      "missing": 4,
+      "extra": 0
+    },
+    "missing_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:tblCellMar[]",
+      "body:tblPrEx[]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ],
+    "extra_nodes": []
+  }
+}

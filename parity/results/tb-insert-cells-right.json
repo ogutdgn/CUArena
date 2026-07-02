@@ -1,0 +1,59 @@
+{
+  "task": "tb-insert-cells-right",
+  "baselined": true,
+  "baseline_divergence": [],
+  "verdict": "gap",
+  "counts": {
+    "match": 20,
+    "missing": 14,
+    "extra": 3
+  },
+  "missing_nodes": [
+    "body:gridAfter[('val', '1')]",
+    "body:gridCol[('w', '3115')]",
+    "body:gridCol[('w', '3117')]",
+    "body:p[]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1'), ('val', '04A0')]",
+    "body:tblW[('type', 'dxa'), ('w', '12466')]",
+    "body:tcPr[]",
+    "body:tcW[('type', 'dxa'), ('w', '3116')]",
+    "body:tcW[('type', 'dxa'), ('w', '3117')]",
+    "body:tc[]",
+    "body:trPr[]",
+    "body:wAfter[('type', 'dxa'), ('w', '3116')]",
+    "styles:TableGrid:pPr[]",
+    "styles:TableGrid:spacing[('after', '0'), ('line', '240'), ('lineRule', 'auto')]"
+  ],
+  "extra_nodes": [
+    "body:gridCol[('w', '3120')]",
+    "body:tblLook[('firstColumn', '1'), ('firstRow', '1'), ('lastColumn', '0'), ('lastRow', '0'), ('noHBand', '0'), ('noVBand', '1')]",
+    "body:tcW[('type', 'dxa'), ('w', '3120')]"
+  ],
+  "part_counts": {},
+  "id": "tb-insert-cells-right",
+  "control_id": "table-layout.rowscols.launcher",
+  "feature": "Insert Cells: shift cells right",
+  "tab": "Tables",
+  "usage_tier": "TB",
+  "note": "Clone has no Insert Cells... launcher/dialog (KNOWN GAP #4). Word: Selection.InsertCells(wdInsertCellsShiftRight=0).",
+  "import_leg": {
+    "verdict": "gap",
+    "counts": {
+      "match": 36,
+      "missing": 1,
+      "extra": 7
+    },
+    "missing_nodes": [
+      "body:tcW[('type', 'dxa'), ('w', '3116')]"
+    ],
+    "extra_nodes": [
+      "body:bottom[('type', 'dxa'), ('w', '0')]",
+      "body:hidden[('val', '0')]",
+      "body:left[('type', 'dxa'), ('w', '108')]",
+      "body:right[('type', 'dxa'), ('w', '108')]",
+      "body:tblCellMar[]",
+      "body:tcW[('type', 'dxa'), ('w', '3117')]",
+      "body:top[('type', 'dxa'), ('w', '0')]"
+    ]
+  }
+}

@@ -5,7 +5,7 @@
   "verdict": "gap",
   "counts": {
     "match": 7,
-    "missing": 15,
+    "missing": 16,
     "extra": 2
   },
   "missing_nodes": [
@@ -20,7 +20,8 @@
     "footer:pStyle[('val', 'Footer')]",
     "footer:p[]",
     "footer:r[]",
-    "footer:t[]",
+    "footer:t[]|text=1",
+    "footer:textOrder|text=1",
     "header:pPr[]",
     "header:pStyle[('val', 'Header')]",
     "header:p[]"
@@ -30,13 +31,13 @@
     "footer:rPr[]"
   ],
   "part_counts": {
-    "footer": {
-      "word": 3,
-      "clone": 1
-    },
     "header": {
       "word": 3,
       "clone": 0
+    },
+    "footer": {
+      "word": 3,
+      "clone": 1
     }
   },
   "id": "pagenum",

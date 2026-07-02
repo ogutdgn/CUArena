@@ -1,0 +1,12 @@
+{
+  "ready": true,
+  "id": "tb-merge-firstrow2",
+  "unreachable": null,
+  "insertOk": true,
+  "merge": true,
+  "save": {
+    "ok": true,
+    "path": "C:/Users/ogutd/OneDrive/Desktop/new-coding/ms-word-clone/parity/fixtures/wc-tb-merge-firstrow2.docx",
+    "name": "wc-tb-merge-firstrow2.docx"
+  }
+}

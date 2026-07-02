@@ -119,6 +119,17 @@ def build_golden():
         # ...but the list LEVEL (w:ilvl) is meaningful and must NOT be canonicalized — level 0 vs 1 surfaces.
         ("ilvl_not_canon", 1, 1, P('<w:pPr><w:numPr><w:ilvl w:val="0"/></w:numPr></w:pPr>'),
                                  P('<w:pPr><w:numPr><w:ilvl w:val="1"/></w:numPr></w:pPr>'), None, None),
+        # w:t CONTENT is feature signal (the Tables-pilot tb-totext-comma false pass): different
+        # document text must surface. 2 missing + 2 extra = the per-node w:t sig AND the ordered
+        # textOrder stream both flip.
+        ("text_content_differs", 2, 2, P('<w:r><w:t>a, b,</w:t></w:r>'),
+                                       P('<w:r><w:t xml:space="preserve">a\tb</w:t></w:r>'), None, None),
+        # A PURE PERMUTATION of the same text nodes (table Sort: b/a/c -> a/b/c) is invisible to
+        # the node multiset — the ordered textOrder stream must catch it: exactly 1 missing + 1 extra.
+        ("row_order", 1, 1,
+         '<w:tbl>' + ''.join(f'<w:tr><w:tc><w:p><w:r><w:t>{x}</w:t></w:r></w:p></w:tc></w:tr>' for x in ('a', 'b', 'c')) + '</w:tbl>',
+         '<w:tbl>' + ''.join(f'<w:tr><w:tc><w:p><w:r><w:t>{x}</w:t></w:r></w:p></w:tc></w:tr>' for x in ('b', 'a', 'c')) + '</w:tbl>',
+         None, None),
     ]
     for name, em, ee, ab, bb, ax, bx in spec:
         pa = os.path.join(GOLDEN_DIR, f"g_{name}_a.docx")
@@ -167,10 +178,12 @@ def build_golden_baseline():
         # the feature REMOVES a node present in the baseline on Word's side (action count < baseline)
         # but the clone keeps it -> a real over-emission. Counter '-' flooring would HIDE this (0/0);
         # signed per-signature deltas must surface it as extra (the clone over-emits the para/run/text).
-        ("reduction_surfaces_extra", 0, 3, False, "", PLAIN, PLAIN, PLAIN),
+        # (4 extra since the w:t-content/textOrder upgrade: p + r + t|text + the textOrder stream)
+        ("reduction_surfaces_extra", 0, 4, False, "", PLAIN, PLAIN, PLAIN),
         # the two empty-doc baselines DIVERGE (clone blank has 2 paras, Word blank 1) while the actions
         # are identical -> the divergence must be FLAGGED loudly (baseline_divergence non-empty), never silent.
-        ("flags_divergent_baseline", 3, 0, True, TWO_PLAIN, TWO_PLAIN, PLAIN, TWO_PLAIN),
+        # (4/1 since the textOrder upgrade: Word's signed delta nets +textOrder(Hi↵Hi)/−textOrder(Hi).)
+        ("flags_divergent_baseline", 4, 1, True, TWO_PLAIN, TWO_PLAIN, PLAIN, TWO_PLAIN),
     ]
     cases = []
     for name, em, ee, ed, ra, ca, rb, cb in spec:

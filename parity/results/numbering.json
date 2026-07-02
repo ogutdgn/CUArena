@@ -4,7 +4,7 @@
   "baseline_divergence": [],
   "verdict": "semantic-pass",
   "counts": {
-    "match": 53,
+    "match": 54,
     "missing": 0,
     "extra": 0
   },
