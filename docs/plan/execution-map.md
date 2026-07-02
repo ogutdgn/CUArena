@@ -506,6 +506,12 @@ hold the single-PM-copy + telemetry-off invariants.
 
 ## Daily work log (newest first — check off what got done)
 
+### 2026-07-02 (FIX LOOP — FIX 1/6: 030 style catalog + gallery + theme SHIPPED)
+- [x] **Phase B RATIFIED** (user): 7 journey cards signed, PASS approved; fix loop opened (6 spec-kit features 030→035).
+- [x] **FIX 1 spec/plan/research** (`750f845`,`c98b58c`): 3 parallel Opus research passes; NO-FORK seam (lazy materializer) + theme root cause (stale fallback literals) + gallery/preview mechanics evidence-locked.
+- [x] **FIX 1 SHIPPED** (`e5fd7fb`,`962f4c3`,`cf28b4f`): 113-def catalog + data-only GT4A1 palette/pPr sync + tile gallery + hover preview. All 6 SCs green; doc L4 VISUAL pair = first PASS of the axis. Gates 522/522·9·27/0·4/4.
+- [ ] **FIX 2 (031)**: tblLook/cnfStyle writer + Table Style Options checkboxes → tb-style-grid4a1 + 6 tb-styleopt-* semantic-pass.
+
 ### 2026-07-02 (PHASE B — Tables pilot executed end-to-end; verdict PASS pending user ratification)
 - [x] **KNOWN TRUTH answer key** (`bf065b6`): 7-reader parallel sweep of the parity-pipeline archive → `parity/results/KNOWN_TRUTH_TABLES.md` (5 named gaps + anti-false-full catalog + pipeline pitfalls).
 - [x] **48 D1.3 OOXML tasks + generator + D1.1 import leg** (`be67ed6`): probes drive the clone's UI command surface only; unreachable = honest gap. Run: 46 gap / 2 pass; import 45 pass / 3 real losses.

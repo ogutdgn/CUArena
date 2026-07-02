@@ -7,6 +7,32 @@
 
 ---
 
+## 2026-07-02 (FIX LOOP — FIX 1/6 COMPLETE: 030 style catalog + gallery + theme SHIPPED, pipeline-accepted)
+
+> **Branch: `parity-v2` @ `cf28b4f` (pushed).** Phase B RATIFIED by the user (cards signed, PASS approved);
+> the 6-feature Tables fix loop is RUNNING (hybrid: Fable orchestrates, Opus implements).
+>
+> **FIX 1 (spec 030) DONE — all 6 SCs via the certified pipeline:**
+> - **Catalog** (`e5fd7fb`): 113 locked-build style defs (generated module + lazy bridge materializer
+>   `ensureTableStyleMaterialized`, existsOnDoc import precedence) wrapped around fork `setTableStyle`;
+>   `getTableStyles` = doc∪catalog. Live preview verbs (addToHistory:false, style-preview.ts pattern).
+> - **Theme root cause** (`e5fd7fb`+`cf28b4f`): fork fallback GT4A1 def carried STALE legacy literals
+>   (renderer prefers literals over themeColor) — data-only fork edits: 14 hex values + missing
+>   pPr/spacing block synced to the capture. Doc L4 pair now renders #156082 teal on BOTH sides → judged PASS.
+> - **Gallery UI** (`962f4c3`): in-ribbon tile strip (makeGalleryCarousel) + sectioned More
+>   (Plain/Grid/List, 113 tiles) + Modify/Clear/New footer + hover live-preview + teardown safety.
+> - **Acceptance** (`cf28b4f`): listtable3 styles-part 39→0 missing (definition side CLEAN; rest =
+>   FIX 2/5 classes); scorecard tblStyles → OK_GALLERY_INLINE items:113; behavior 27p/0pend/7F (style
+>   journey+twin PASS; every fail = later-fix scope); VISUAL doc-styled-table PASS, gallery pair
+>   fail now cosmetic-only. Gates pm 522/522 · smoke 9 · roundtrip 27 · bundle 4.
+> - **Card evolution (D6.4):** the tblStyles dropdown no longer exists → signed cards/twins evolved to
+>   the gallery surface (probe verbs clickSelector + galleryItemCount selector).
+> - **LESSON:** the archive's "bulk COM style extraction hangs" was a NESTED-powershell artifact —
+>   inline session shell extracted all 113 defs in 26s (extractor resumable for the 134 legacy).
+>
+> **NEXT: FIX 2 (spec 031)** — tblLook val/bit writer + per-row/cell cnfStyle stamping + the 6 Table
+> Style Options checkboxes; acceptance = tb-style-grid4a1 + 6 tb-styleopt-* semantic-pass.
+
 ## 2026-07-02 (PHASE B — Tables pilot RUN COMPLETE: all 5 named gaps rediscovered, 6 pipeline bugs fixed; verdict PASS pending user ratification)
 
 > **Branch: `parity-v2` @ `e356dd2`+ (pushed).** Phase B executed end-to-end. The verdict evidence:
