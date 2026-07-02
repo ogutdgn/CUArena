@@ -7,6 +7,42 @@
 
 ---
 
+## 2026-07-01 (PHASE A UNDERWAY — rubric locked, LO-consult proven, 4 axes measuring, feature ledger live)
+
+> **Branch: `parity-v2` @ `596c735` (pushed).** Phase A (pipeline redesign) in progress; read
+> **[parity/RUBRIC.md](../../parity/RUBRIC.md)** first — the user-signed 6-axis measurement contract
+> (all axes LOCKED, walkthrough completed axis-by-axis with the user in Turkish).
+>
+> **BUILT THIS SESSION (after the restart below):**
+> - **RUBRIC complete** (`662a5ce`): D1 OOXML(+import round-trip, pass-with-note, dimension rule) /
+>   D2 STRUCTURE(+menu items D2.1, dialogs D2.2 TODO, contextual-tab HARD GATE before scaling past
+>   Tables, STATE matrix D2.4) / D3 SCORECARD(FLOW merged, deep item mode TODO, SILENT verifiers TODO) /
+>   D5 VISUAL(vs-Word judge TODO, capture discipline PROVEN, icons=ribbon-crops — GetImageMso is BROKEN
+>   on this build) / D6 BEHAVIOR(journey flows + GENERATED micro-twins, ❓ flags).
+> - **LO-consult proven** (`23e9464`): local LibreOffice clone (`new-coding/core`) = Word-semantics
+>   knowledge source; first rule note `parity/knowledge/lo-word-table-border-rules.md` (border-conflict
+>   weight formula [MS-OI29500], cell-nil-defeats-style-not-table B6, cnf precedence order, 4 unknowns →
+>   targeted oracle experiments). RULES not code; MPL/GPL + alien stack.
+> - **VISUAL capture trial passed** (`0e12769`): Word+clone ribbon PNGs (1920 maximized, %100 scale) +
+>   composites + icon crops — judge-ready; Table Design pair documents the honest empty-v2 baseline.
+> - **D2.1 menu-item diff** (`abec893`): 176 matched / 65 MISSING items (real: UnderlineColor MoreColors,
+>   TextEffects sub-galleries). Matcher traps fixed: PasteMenu collapse-duplicates, CATEGORY_HEADERS,
+>   menu-type-last sort, expected_children() descent.
+> - **D2.4 STATE matrix** (`038f47a`): GetEnabledMso × 3 contexts (caret/selected/in-table) × 2570 ids vs
+>   clone wc-disabled → **41 mismatching controls** (Draw ink tools never gray, position/wrapText enabled
+>   w/o object = the old deferred contextual-state debt, decreaseIndent inverted).
+> - **FEATURE LEDGER** (`605a917`, `596c735`): `gen_feature_registry.py` (111 locked features auto-mapped
+>   to cmds/idMso/tasks) + `feature_ledger.py` → per-feature columns OOXML/STRUCT/STATE/SCORE/VISUAL/BEHAV;
+>   unmeasured BLOCKS done. **v2 baseline: FULLY VERIFIED 0/111**; OOXML 54/58 semantic-pass (the 10 kept
+>   fixes HOLD; gaps = bullets/highlight/pagenum/table), STRUCT 80/19/12, STATE 95/16, SCORE 97/1 DEAD
+>   (layout Group)/13 triage.
+>
+> **NEXT (Phase A remainder):** D3 scorecard upgrades (deep item mode + SILENT verifiers + flow merge) →
+> D2.2 dialog-field UIA capture → D5 visual judge (+golden trust gate) → D6 behavior runner (flow cards +
+> micro-twin generator; Tables cards for user sign-off) → Table-Styles catalog one-shot (visible Word).
+> Then **Phase B: Tables pilot** vs known truth. Working mode: each piece committed+pushed separately on
+> `parity-v2`; the user follows along in Turkish, decisions get written into RUBRIC.md.
+
 ## 2026-07-01 (PARITY V2 RESTART — meta-review verdict executed: archive + clean branch + gates green)
 
 > **Branch: `parity-v2` @ `571c315` — the ACTIVE branch (pushed).** `parity-pipeline` = the ARCHIVE

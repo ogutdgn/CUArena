@@ -506,6 +506,15 @@ hold the single-PM-copy + telemetry-off invariants.
 
 ## Daily work log (newest first — check off what got done)
 
+### 2026-07-01 (PHASE A — rubric + LO-consult + D2.1/D2.4 + feature ledger; four axes measuring)
+- [x] **RUBRIC.md complete & user-signed** (axis-by-axis walkthrough, Turkish): 6 axes locked; FLOW merged into SCORECARD; import round-trip + pass-with-note + dimension rule; STATE matrix added (user: "state management çok önemli"); contextual-tab HARD GATE before scaling past Tables; icons = ribbon crops (GetImageMso broken on this build).
+- [x] **LO-consult proven** (`parity/knowledge/lo-word-table-border-rules.md`): local LibreOffice clone as Word-semantics knowledge source (rules NOT code); 4 unknowns → targeted oracle experiments.
+- [x] **VISUAL capture trial passed**: Word+clone ribbon composites + icon crops sent to the user; capture discipline verified (1920 maximized, %100, light theme).
+- [x] **D2.1 menu-item diff** (`abec893`): 176/65-missing items; PasteMenu/CATEGORY_HEADERS/menu-last matcher traps fixed.
+- [x] **D2.4 STATE matrix** (`038f47a`): 3 contexts × 2570 ids → 41 mismatching controls.
+- [x] **FEATURE LEDGER live** (`605a917`, `596c735`): 111 features × 6 columns; v2 baseline FULLY VERIFIED 0/111; OOXML 54/58 pass (kept fixes HOLD).
+- [ ] **NEXT:** D3 scorecard upgrades → D2.2 dialog UIA → D5 visual judge → D6 behavior runner → style catalog → Phase B Tables pilot.
+
 ### 2026-07-01 (PARITY V2 RESTART — meta-review → new axes → archive + clean branch)
 - [x] **Honest META-REVIEW of the parity pipeline** (user-requested; `docs/reviews/parity-pipeline-review-2026-07-01.md`): diagnosis = measurement asymmetry — only OOXML was gated; the fix = UI ground truth + a 5-axis definition of done.
 - [x] **Built on the (now-archived) parity-pipeline branch, carried into v2:** the official **idMso inventory** (5,439 controls, M365 Current Channel) + **GetLabelMso label enrichment** (4,978, PID-safe, zero hangs) + the **STRUCTURE axis** (`parity/engines/structure_verify.py` + `structure_scope.json` with 39 USER-SIGNED scope-outs) + the **SCORECARD axis** (`parity/engines/scorecard_verify.py`, 261 controls clicked live). Old-clone findings (now stale): 38 missing / 33 label≠ / 2 DEAD (`3dModels`, `group`).
