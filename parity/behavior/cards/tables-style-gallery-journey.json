@@ -3,7 +3,7 @@
   "kind": "journey",
   "feature": "Table",
   "signedOff": true,
-  "note": "Tables pilot journey #3: the Table Styles gallery. The galleryItemCount bar (>=100) is Word's modern gallery size (113 modern styles, catalog a3d3566) — the clone's 2-style flyout MUST fail it (the 2/247 rediscovery on the BEHAVIOR axis). Hover live-preview is ❓ FROM-RECORDING.",
+  "note": "Tables pilot journey #3: the Table Styles gallery. galleryItemCount>=100 bar = Word's modern gallery (113, catalog a3d3566). RECORDED 2026-07-02: hovering a tile LIVE-PREVIEWS the style on the document table + tooltip shows the style name; full gallery has Plain/Grid/List sections + Modify/Clear/New footer. Tile-hover expectations get added as steps when FIX 1's gallery UI lands (no tiles to hover in the 2-item flyout today).",
   "steps": [
     {
       "do": "setupText",
@@ -36,10 +36,6 @@
     {
       "expect": "galleryItemCount",
       "min": 100
-    },
-    {
-      "expect": "fromRecording",
-      "q": "hovering a style tile LIVE-PREVIEWS it on the table? gallery has Plain/Grid/List sections with visual thumbnails + Modify/Clear/New Table Style footer?"
     },
     {
       "do": "clickItem",
