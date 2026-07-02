@@ -7,6 +7,24 @@
 
 ---
 
+## 2026-07-02 (FIX LOOP — FIX 2/6 COMPLETE: 031 tblLook/cnfStyle + Style Options SHIPPED; named gap §2 CLOSED)
+
+> **Branch: `parity-v2` @ `a1ffce5` (pushed).** FIX 2 (spec 031) accepted end-to-end.
+> - **Writer** (`c6d2a9e`): bridge-side `restampTableConditionalFormats` — tblLook val bridge-computed
+>   (passes through the fork's existing w:val handler — NO fork edit), 12-flag+val cnfStyle stamps,
+>   restamp hooks in 7 verbs, 6 checkboxes (td-styleopts) with one-tr/one-undo toggles.
+> - **Corner rule discovered & closed** (`a1ffce5`): List Table 3's residual diff exposed corner-cell
+>   stamping (nwCell et al.) — targeted oracle probes pinned val position 9 empirically + refuted the
+>   style-switch hypothesis; corner bits stamped only for corner-DEFINING styles. Full algorithm →
+>   **parity/knowledge/word-cnfstyle-stamping-rules.md**.
+> - **Acceptance:** ALL 8 style tasks ZERO cnf/tblLook mismatches (rest = F-class → FIX 5); STRUCTURE
+>   6 checkboxes matched (193→199); BEHAVIOR 6 toggle twins pass (33/40); import legs pass; gates
+>   529/529 · 27/0 · 9 · 4/4.
+>
+> **NEXT: FIX 3 (spec 032)** — borders engine: pen state (style/weight/color + Border Styles gallery),
+> full ~14-item Borders dropdown, Border Painter, No-Border nil, color auto, tcBorders schema order,
+> border-collapse thicker-wins paint (LO rule note), Borders&Shading launcher.
+
 ## 2026-07-02 (FIX LOOP — FIX 1/6 COMPLETE: 030 style catalog + gallery + theme SHIPPED, pipeline-accepted)
 
 > **Branch: `parity-v2` @ `cf28b4f` (pushed).** Phase B RATIFIED by the user (cards signed, PASS approved);
