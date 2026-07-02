@@ -4,28 +4,21 @@
   "baseline_divergence": [],
   "verdict": "gap",
   "counts": {
-    "match": 2,
-    "missing": 9,
-    "extra": 3
+    "match": 6,
+    "missing": 4,
+    "extra": 1
   },
   "missing_nodes": [
     "body:ind[('left', '113')]",
-    "body:r[]",
-    "body:t[]|text=a",
-    "body:t[]|text=b",
     "body:tab[('pos', '3229'), ('val', 'left')]",
     "body:tab[('pos', '6346'), ('val', 'left')]",
-    "body:tab[]",
-    "body:tabs[]",
-    "body:textOrder|text=a↵b"
+    "body:tabs[]"
   ],
   "notes": [
     "body:pPr[]"
   ],
   "extra_nodes": [
-    "body:t[('space', 'preserve')]|text=",
-    "body:t[('space', 'preserve')]|text=a b",
-    "body:textOrder|text=a b"
+    "body:r[]"
   ],
   "part_counts": {},
   "id": "tb-totext-tab",

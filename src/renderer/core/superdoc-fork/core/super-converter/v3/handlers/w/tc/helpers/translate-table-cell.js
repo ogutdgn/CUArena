@@ -17,7 +17,14 @@ export function translateTableCell(params) {
     tableCell: params.node,
   });
 
-  const cellProps = generateTableCellProperties(params.node);
+  // FORK EDIT (035 US1, 2026-07-02): thread the table's "not user-edited" signal
+  // (extraParams.preferTableGrid, set by tbl decode from node.attrs.userEdited)
+  // into cell-property generation so an un-edited imported cell re-emits its EXACT
+  // source w:tcW value instead of a lossy px-derived one (fixes D1.1 import losses:
+  // tcW type=auto w=0 preserved, per-cell dxa not off-by-one via grid/px rounding).
+  const cellProps = generateTableCellProperties(params.node, {
+    preferSourceWidth: params.extraParams?.preferTableGrid === true,
+  });
   elements.unshift(cellProps);
 
   return {
@@ -31,12 +38,14 @@ export function translateTableCell(params) {
  * @param {import('@converter/exporter').SchemaNode} node
  * @returns {import('@converter/exporter').XmlReadyNode}
  */
-export function generateTableCellProperties(node) {
+export function generateTableCellProperties(node, options = {}) {
   let tableCellProperties = { ...(node.attrs?.tableCellProperties || {}) };
   /** When set by import: keys that were in the cell's w:tcPr. When null/undefined (e.g. new cell), do not filter. */
   const inlineKeys = node.attrs?.tableCellPropertiesInlineKeys;
 
   const { attrs } = node;
+  /** FORK EDIT (035 US1): table was NOT user-resized, so trust the imported source width. */
+  const preferSourceWidth = options?.preferSourceWidth === true;
 
   // Width
   const { colwidth: rawColwidth, widthUnit = 'px' } = attrs;
@@ -49,13 +58,35 @@ export function generateTableCellProperties(node) {
   // Filter to finite numbers to guard against NaN/Infinity/non-numeric entries
   const colwidth = Array.isArray(rawColwidth) ? rawColwidth.filter((v) => Number.isFinite(v)) : [];
 
+  // FORK EDIT (035 US1, 2026-07-02): preserve the EXACT imported w:tcW instead of a
+  // px-derived rewrite for these two D1.1 import-loss classes:
+  //  (a) AutoFit-contents cells: type=auto carries w:w="0" (the width is content-driven,
+  //      not layout-authoritative). The px `colwidth` here is the grid column width, so
+  //      the old rewrite turned w=0 into e.g. w=222. An auto cell keeps its source value.
+  //  (b) An un-edited imported table (preferSourceWidth): the px `colwidth` is a lossy
+  //      derivative (grid substitution + twip↔px rounding) that can shift a dxa width by
+  //      1 twip (e.g. 3116→3117). When the source cellWidth's px is within <1px of the
+  //      colwidth sum, the width was not meaningfully changed → keep the exact source.
+  // A truly-resized table (userEdited → preferSourceWidth=false) still recomputes from
+  // colwidth, and an auto column that a user drags becomes type=dxa (so it exits case a).
+  const sourceCellWidth = tableCellProperties.cellWidth;
+  const hasImportedWidth = Array.isArray(inlineKeys) ? inlineKeys.includes('cellWidth') : sourceCellWidth != null;
+  const isAutoWidth = resolvedWidthType === 'auto';
+
   // Skip rewrite when:
   // - colwidth is empty (no data to compute from — preserve original cellWidth)
   // - resolvedWidthType is 'pct' (colwidth is in pixels but type expects fiftieths-of-percent)
-  if (colwidth.length > 0 && resolvedWidthType !== 'pct') {
+  if (colwidth.length > 0 && resolvedWidthType !== 'pct' && !isAutoWidth) {
     const colwidthSum = colwidth.reduce((acc, curr) => acc + curr, 0);
     const propertiesWidthPixels = twipsToPixels(tableCellProperties.cellWidth?.value);
-    if (propertiesWidthPixels !== colwidthSum) {
+    // Preserve the exact source width for un-edited imports when the px delta is
+    // sub-pixel (rounding/grid drift, not a real edit). Guards against 1-twip shifts.
+    const withinRounding =
+      preferSourceWidth &&
+      hasImportedWidth &&
+      typeof propertiesWidthPixels === 'number' &&
+      Math.abs(propertiesWidthPixels - colwidthSum) < 1;
+    if (propertiesWidthPixels !== colwidthSum && !withinRounding) {
       tableCellProperties['cellWidth'] = {
         value: widthUnit === 'px' ? pixelsToTwips(colwidthSum) : inchesToTwips(colwidthSum),
         type: resolvedWidthType,

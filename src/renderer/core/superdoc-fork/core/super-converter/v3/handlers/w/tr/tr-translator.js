@@ -65,6 +65,17 @@ const encode = (params, encodedAttrs) => {
     }
   }
 
+  // FORK EDIT (035 US1, 2026-07-02): a w:tblPrEx can carry more than borders —
+  // e.g. Convert-to-Table emits <w:tblPrEx><w:tblCellMar>…</w:tblCellMar></w:tblPrEx>
+  // per row (D1.1 loss tb-convert-text-table). The border-only path above dropped
+  // every other child. Preserve the ENTIRE raw w:tblPrEx element so decode can
+  // re-emit it verbatim (round-trips cellMar / any other exception children). We
+  // keep the border-specific parse above for the style engine; on decode the raw
+  // wins when present so we don't double-emit borders.
+  if (tblPrEx) {
+    tableRowProperties = { ...tableRowProperties, tblPrExRaw: tblPrEx };
+  }
+
   encodedAttrs['tableRowProperties'] = Object.freeze(tableRowProperties);
 
   // Move some properties up a level for easier access
@@ -265,10 +276,15 @@ const decode = (params, decodedAttrs) => {
       }
     }
     tableRowProperties['cantSplit'] = node.attrs['cantSplit'];
-    // Export tblPrEx borders back as w:tblPrEx before passing to trPr
-    // (tblPrEx is a sibling of trPr inside w:tr, not a child of trPr)
-    const { tblPrExBorders, ...trPrProperties } = tableRowProperties;
-    if (tblPrExBorders && typeof tblPrExBorders === 'object' && Object.keys(tblPrExBorders).length > 0) {
+    // Export tblPrEx back as a sibling of trPr inside w:tr (not a child of trPr).
+    // FORK EDIT (035 US1): if the whole raw w:tblPrEx was preserved on import,
+    // re-emit it verbatim so ALL its children (cellMar, borders, …) round-trip.
+    // Fall back to the border-only reconstruction for models that carry only the
+    // parsed tblPrExBorders (e.g. programmatic row-border edits, no raw source).
+    const { tblPrExBorders, tblPrExRaw, ...trPrProperties } = tableRowProperties;
+    if (tblPrExRaw && typeof tblPrExRaw === 'object' && Array.isArray(tblPrExRaw.elements)) {
+      elements.unshift({ name: 'w:tblPrEx', elements: tblPrExRaw.elements });
+    } else if (tblPrExBorders && typeof tblPrExBorders === 'object' && Object.keys(tblPrExBorders).length > 0) {
       const bordersXml = tblBordersTranslator.decode({
         ...params,
         node: { type: 'tableRow', attrs: { borders: tblPrExBorders } },

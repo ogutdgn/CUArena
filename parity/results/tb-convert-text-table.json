@@ -45,18 +45,13 @@
   "usage_tier": "TB",
   "note": "Clone dialog auto-picks comma when no tabs; PM.textToTable(','). Word: Selection.ConvertToTable(wdSeparateByCommas=2), dialog defaults.",
   "import_leg": {
-    "verdict": "gap",
+    "verdict": "semantic-pass",
     "counts": {
-      "match": 25,
-      "missing": 4,
+      "match": 29,
+      "missing": 0,
       "extra": 0
     },
-    "missing_nodes": [
-      "body:bottom[('type', 'dxa'), ('w', '0')]",
-      "body:tblCellMar[]",
-      "body:tblPrEx[]",
-      "body:top[('type', 'dxa'), ('w', '0')]"
-    ],
+    "missing_nodes": [],
     "extra_nodes": []
   }
 }

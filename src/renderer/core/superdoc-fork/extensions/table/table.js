@@ -2027,16 +2027,37 @@ export const Table = Node.create({
 
           if (dispatch) {
             const schema = state.schema;
+            // FORK EDIT (035 US2, 2026-07-02): a TAB delimiter must become real <w:tab/>
+            // elements between cells (Word's Convert-to-Text with tabs), NOT a literal
+            // U+0009 char inside one <w:t> (the D1.1/tb-totext-tab body:tab delta). Emit
+            // the schema `tab` inline node (which exports to <w:tab/> wrapped in a run)
+            // between cell-text runs. Other delimiters (comma, etc.) stay literal, which
+            // is what Word writes for them.
+            const useTabNode = delim === '\t' && !!schema.nodes.tab;
             const paragraphs = [];
             table.node.forEach((row) => {
               const cellTexts = [];
               row.forEach((cell) => {
                 cellTexts.push(cell.textContent);
               });
-              const line = cellTexts.join(delim);
-              const para = line.length
-                ? schema.nodes.paragraph.create(null, schema.text(line))
-                : schema.nodes.paragraph.createAndFill();
+              let para;
+              if (useTabNode) {
+                // Interleave: cell0, <tab>, cell1, <tab>, cell2 … (empty cells add no text,
+                // so a trailing empty cell yields a bare <w:tab/> — matching Word).
+                const inline = [];
+                cellTexts.forEach((text, idx) => {
+                  if (idx > 0) inline.push(schema.nodes.tab.create(null));
+                  if (text && text.length) inline.push(schema.text(text));
+                });
+                para = inline.length
+                  ? schema.nodes.paragraph.create(null, Fragment.fromArray(inline))
+                  : schema.nodes.paragraph.createAndFill();
+              } else {
+                const line = cellTexts.join(delim);
+                para = line.length
+                  ? schema.nodes.paragraph.create(null, schema.text(line))
+                  : schema.nodes.paragraph.createAndFill();
+              }
               if (para) paragraphs.push(para);
             });
             if (!paragraphs.length) {

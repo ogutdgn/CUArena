@@ -4158,6 +4158,32 @@
     doc().descendants((n) => { if (n.type.name === 'table') stillTable = true; if (n.type.name === 'paragraph') paras++; });
     return stillTable === false && paras >= 2;
   });
+  // [035 US2] Convert-to-Text with tabs must place real `tab` nodes between cells (Word emits
+  // <w:tab/> elements + w:tabs stops), NOT a literal U+0009 char inside one <w:t>. Assert the
+  // model gains tab nodes AND the export carries <w:tab/> with no tab char in any <w:t>.
+  await t('[035] convertTableToText tab delimiter emits tab NODES (model), not a literal \\t char', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    ecmd('convertTableToText', '\t'); await sleep(100);
+    let tabNodes = 0; let litTabInText = 0;
+    doc().descendants((n) => {
+      if (n.type.name === 'tab') tabNodes++;
+      if (n.isText && typeof n.text === 'string' && n.text.indexOf('\t') !== -1) litTabInText++;
+    });
+    if (tabNodes < 1) return 'no tab nodes in the converted paragraphs (got ' + tabNodes + ')';
+    if (litTabInText !== 0) return 'a literal tab char leaked into a text node (' + litTabInText + ')';
+    return true;
+  });
+  await t('[035] convertTableToText tab delimiter exports <w:tab/> elements (no tab char in w:t)', async () => {
+    setDoc('x'); PM().insertTable({ rows: 2, cols: 2 }); await sleep(150);
+    ecmd('convertTableToText', '\t'); await sleep(100);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    if (typeof xml !== 'string') return 'no xml';
+    if (!/<w:tab\s*\/>/.test(xml)) return 'no <w:tab/> element in export (Word writes structural tabs, not a \\t char)';
+    // No literal tab char inside any <w:t> run.
+    const runTexts = xml.match(/<w:t\b[^>]*>[\s\S]*?<\/w:t>/g) || [];
+    if (runTexts.some((s) => s.indexOf('\t') !== -1)) return 'a <w:t> run still carries a literal tab char';
+    return true;
+  });
   await t('[6b] convertTextToTable builds a table from delimited paragraphs', async () => {
     setDocs(['a\tb\tc', 'd\te\tf']); await sleep(100);
     window.WC.editor.commands.selectAll(); await sleep(60);
@@ -6468,6 +6494,51 @@
     if (!r || !r.ok) return 'openBytes: ' + (r && r.error);
     const ok = await PM().openDocx(r.bytes);
     return ok === true && /roundtrip payload text/.test(window.WC.view.dom.textContent);
+  });
+  // ---------- [035 US1] D1.1 import-loss regressions (open a real-Word docx, resave, assert the
+  // dropped node survives). The rw-*.docx ground truth lives in parity/fixtures (repo-relative path
+  // resolves against the electron cwd = repo root). Each fixture is opened via the fork super-converter
+  // (the sole import path), resaved via exportDocx, and grepped for the exact element that used to drop.
+  // openDocx replaces the live doc, so these sit in the [0b] doc-replacing zone; setClean() first so a
+  // dirty prior test can't spawn the confirmDiscard modal (which would hang the headless probe).
+  const openRwAndExportXml = async (id) => {
+    PM().setClean();
+    const r = await window.wordAPI.openBytes('parity/fixtures/rw-tb-' + id + '.docx');
+    if (!r || !r.ok) return { err: 'openBytes failed: ' + (r && r.error) };
+    const ok = await PM().openDocx(r.bytes);
+    if (ok !== true) return { err: 'openDocx returned ' + ok };
+    await sleep(300);
+    const xml = await window.WC.editor.exportDocx({ exportXmlOnly: true });
+    return { xml: typeof xml === 'string' ? xml : '' };
+  };
+  await t('[035] import tb-autofit-contents: AutoFit cell keeps <w:tcW w:w="0" w:type="auto"/> (was dropped to a grid width)', async () => {
+    const { xml, err } = await openRwAndExportXml('autofit-contents');
+    if (err) return err;
+    // The AutoFit-contents cells carry w:w="0" w:type="auto"; the old export re-derived a px width.
+    const autoZero = /<w:tcW\b[^>]*w:w="0"[^>]*w:type="auto"|<w:tcW\b[^>]*w:type="auto"[^>]*w:w="0"/.test(xml);
+    if (!autoZero) return 'no <w:tcW w:w="0" w:type="auto"/> in resave (auto width lost): '
+      + (xml.match(/<w:tcW\b[^>]*\/>/g) || []).slice(0, 4).join(' ');
+    return true;
+  });
+  await t('[035] import tb-insert-cells-right: per-cell <w:tcW w:w="3116" w:type="dxa"/> survives (no grid/px 1-twip drift)', async () => {
+    const { xml, err } = await openRwAndExportXml('insert-cells-right');
+    if (err) return err;
+    // The 2nd cell of each row is an explicit 3116 dxa override that differs from the 3117 grid col;
+    // the old px round-trip snapped it to 3117. Assert the exact source value round-trips.
+    if (!/<w:tcW\b[^>]*w:w="3116"[^>]*w:type="dxa"|<w:tcW\b[^>]*w:type="dxa"[^>]*w:w="3116"/.test(xml))
+      return 'per-cell tcW 3116 lost (drifted to grid width): ' + (xml.match(/<w:tcW\b[^>]*\/>/g) || []).slice(0, 6).join(' ');
+    return true;
+  });
+  await t('[035] import tb-convert-text-table: row-level <w:tblPrEx> (+ its w:tblCellMar) survives', async () => {
+    const { xml, err } = await openRwAndExportXml('convert-text-table');
+    if (err) return err;
+    // Converted tables carry a per-row w:tblPrEx with a w:tblCellMar exception; the border-only
+    // preservation used to drop the whole block. Assert the element + its cellMar child round-trip.
+    if (!/<w:tblPrEx\b/.test(xml)) return 'no <w:tblPrEx> in resave (row exceptions dropped)';
+    // The tblPrEx must carry the tblCellMar it wrapped (top/bottom = 0), not just be an empty shell.
+    const prEx = (xml.match(/<w:tblPrEx>[\s\S]*?<\/w:tblPrEx>/) || [])[0] || '';
+    if (!/<w:tblCellMar>/.test(prEx)) return 'w:tblPrEx present but lost its w:tblCellMar child: ' + prEx.slice(0, 120);
+    return true;
   });
   await t('[0b] unsupported extension open refuses before touching the engine', async () => {
     const f = window.WC.Files; const p0 = f.path;

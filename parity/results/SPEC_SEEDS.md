@@ -774,23 +774,16 @@ python parity/engines/run.py --only tb-totext-comma   # expect: semantic-pass, m
 **Goal:** make the clone's `Convert to Text (tabs)` output match real Microsoft Word.
 **Sub-tasks covered:** `tb-totext-tab`
 **Ground truth:** `parity/fixtures/rw-tb-totext-tab.docx`
-**Current parity:** GAP — 9 missing node(s), 3 fidelity warning(s)
+**Current parity:** GAP — 4 missing node(s), 1 fidelity warning(s)
 
 ### Functional requirements — clone MUST emit (from `missing`)
 - FR (tb-totext-tab): emit `body:ind[('left', '113')]`
-- FR (tb-totext-tab): emit `body:r[]`
-- FR (tb-totext-tab): emit `body:t[]|text=a`
-- FR (tb-totext-tab): emit `body:t[]|text=b`
 - FR (tb-totext-tab): emit `body:tab[('pos', '3229'), ('val', 'left')]`
 - FR (tb-totext-tab): emit `body:tab[('pos', '6346'), ('val', 'left')]`
-- FR (tb-totext-tab): emit `body:tab[]`
 - FR (tb-totext-tab): emit `body:tabs[]`
-- FR (tb-totext-tab): emit `body:textOrder|text=a↵b`
 
 ### Fidelity requirements — clone over-emits (from `extra`)
-- FID (tb-totext-tab): stop emitting (or justify) `body:t[('space', 'preserve')]|text=`
-- FID (tb-totext-tab): stop emitting (or justify) `body:t[('space', 'preserve')]|text=a b`
-- FID (tb-totext-tab): stop emitting (or justify) `body:textOrder|text=a b`
+- FID (tb-totext-tab): stop emitting (or justify) `body:r[]`
 
 ### Acceptance (regression gate)
 ```

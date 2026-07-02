@@ -33,22 +33,19 @@
   "usage_tier": "TB",
   "note": "Clone has no Insert Cells... launcher/dialog (KNOWN GAP #4). Word: Selection.InsertCells(wdInsertCellsShiftRight=0).",
   "import_leg": {
-    "verdict": "gap",
+    "verdict": "semantic-pass",
     "counts": {
       "match": 36,
-      "missing": 1,
-      "extra": 7
+      "missing": 0,
+      "extra": 6
     },
-    "missing_nodes": [
-      "body:tcW[('type', 'dxa'), ('w', '3116')]"
-    ],
+    "missing_nodes": [],
     "extra_nodes": [
       "body:bottom[('type', 'dxa'), ('w', '0')]",
       "body:hidden[('val', '0')]",
       "body:left[('type', 'dxa'), ('w', '108')]",
       "body:right[('type', 'dxa'), ('w', '108')]",
       "body:tblCellMar[]",
-      "body:tcW[('type', 'dxa'), ('w', '3117')]",
       "body:top[('type', 'dxa'), ('w', '0')]"
     ]
   }

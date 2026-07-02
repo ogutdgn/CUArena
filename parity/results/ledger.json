@@ -1283,21 +1283,18 @@
     "usage_tier": "TB",
     "note": "Clone tableAutoFit('contents'); Word $tbl.AutoFitBehavior(1).",
     "import_leg": {
-      "verdict": "gap",
+      "verdict": "semantic-pass",
       "counts": {
-        "match": 30,
-        "missing": 1,
-        "extra": 6
+        "match": 31,
+        "missing": 0,
+        "extra": 5
       },
-      "missing_nodes": [
-        "body:tcW[('type', 'auto'), ('w', '0')]"
-      ],
+      "missing_nodes": [],
       "extra_nodes": [
         "body:bottom[('type', 'dxa'), ('w', '0')]",
         "body:left[('type', 'dxa'), ('w', '108')]",
         "body:right[('type', 'dxa'), ('w', '108')]",
         "body:tblCellMar[]",
-        "body:tcW[('type', 'auto'), ('w', '222')]",
         "body:top[('type', 'dxa'), ('w', '0')]"
       ]
     }
@@ -1824,18 +1821,13 @@
     "usage_tier": "TB",
     "note": "Clone dialog auto-picks comma when no tabs; PM.textToTable(','). Word: Selection.ConvertToTable(wdSeparateByCommas=2), dialog defaults.",
     "import_leg": {
-      "verdict": "gap",
+      "verdict": "semantic-pass",
       "counts": {
-        "match": 25,
-        "missing": 4,
+        "match": 29,
+        "missing": 0,
         "extra": 0
       },
-      "missing_nodes": [
-        "body:bottom[('type', 'dxa'), ('w', '0')]",
-        "body:tblCellMar[]",
-        "body:tblPrEx[]",
-        "body:top[('type', 'dxa'), ('w', '0')]"
-      ],
+      "missing_nodes": [],
       "extra_nodes": []
     }
   },
@@ -2260,22 +2252,19 @@
     "usage_tier": "TB",
     "note": "Clone has no Insert Cells... launcher/dialog (KNOWN GAP #4). Word: Selection.InsertCells(wdInsertCellsShiftRight=0).",
     "import_leg": {
-      "verdict": "gap",
+      "verdict": "semantic-pass",
       "counts": {
         "match": 36,
-        "missing": 1,
-        "extra": 7
+        "missing": 0,
+        "extra": 6
       },
-      "missing_nodes": [
-        "body:tcW[('type', 'dxa'), ('w', '3116')]"
-      ],
+      "missing_nodes": [],
       "extra_nodes": [
         "body:bottom[('type', 'dxa'), ('w', '0')]",
         "body:hidden[('val', '0')]",
         "body:left[('type', 'dxa'), ('w', '108')]",
         "body:right[('type', 'dxa'), ('w', '108')]",
         "body:tblCellMar[]",
-        "body:tcW[('type', 'dxa'), ('w', '3117')]",
         "body:top[('type', 'dxa'), ('w', '0')]"
       ]
     }
@@ -3258,28 +3247,21 @@
     "baseline_divergence": [],
     "verdict": "gap",
     "counts": {
-      "match": 2,
-      "missing": 9,
-      "extra": 3
+      "match": 6,
+      "missing": 4,
+      "extra": 1
     },
     "missing_nodes": [
       "body:ind[('left', '113')]",
-      "body:r[]",
-      "body:t[]|text=a",
-      "body:t[]|text=b",
       "body:tab[('pos', '3229'), ('val', 'left')]",
       "body:tab[('pos', '6346'), ('val', 'left')]",
-      "body:tab[]",
-      "body:tabs[]",
-      "body:textOrder|text=a↵b"
+      "body:tabs[]"
     ],
     "notes": [
       "body:pPr[]"
     ],
     "extra_nodes": [
-      "body:t[('space', 'preserve')]|text=",
-      "body:t[('space', 'preserve')]|text=a b",
-      "body:textOrder|text=a b"
+      "body:r[]"
     ],
     "part_counts": {},
     "id": "tb-totext-tab",
