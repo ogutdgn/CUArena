@@ -94,7 +94,7 @@ Once the ledger is populated, drive fixes through the clone's existing spec-kit 
 `python parity/engines/review_differ.py` — objective self-validation of the differ. Three suites:
 - **GOLDEN** — hand-labeled synthetic docx pairs with known expected diffs (logic correctness).
 - **WORD-VS-SELF** — same real-Word action captured twice; diff MUST be 0 (proves the noise list is complete;
-  any leak is, by definition, noise to add to `NOISE_ATTRS`). Capture pairs into `fixtures/selftest/rw-<id>-a/b.docx`.
+  any leak is, by definition, noise to add to `NOISE_ATTRS`). Capture pairs into `selftest/rw-<id>-a/b.docx`.
 - **CLONE-VS-SELF** — same clone action exported twice; diff MUST be 0 (clone export determinism).
 Exit 0 iff all pass. **Re-run whenever you add a new action category** (date fields, drawings, etc. may bring
 action-specific noise — Word-vs-self auto-surfaces it). Baseline state: all suites pass on bold/pagenum/table.

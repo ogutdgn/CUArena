@@ -10,7 +10,7 @@ Three suites, each catching a DIFFERENT failure mode:
 No "right answer" has to be known in advance: identity/self pairs must diff to zero by definition, so any
 non-zero diff is, by definition, leaked noise (or a real bug). Emits an actionable report; exit 0 iff all pass.
 
-Self-test pairs are read from parity/fixtures/selftest/<prefix>-<id>-a.docx / -b.docx
+Self-test pairs are read from parity/selftest/<prefix>-<id>-a.docx / -b.docx
   (prefix 'rw' = real Word, 'wc' = clone). Capture them with parity/engines/run.py or the COM/probe scripts.
 """
 import os, sys, zipfile, glob, json
@@ -25,7 +25,7 @@ except Exception:
     pass
 
 PARITY = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SELFTEST = os.path.join(PARITY, "fixtures", "selftest")
+SELFTEST = os.path.join(PARITY, "selftest")
 GOLDEN_DIR = SELFTEST  # golden pairs (g_*/gb_*) regenerated directly here — no 'golden' subfolder
 RESULTS = os.path.join(PARITY, "results")
 WNS = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'

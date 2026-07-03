@@ -1,4 +1,4 @@
 __pycache__/
 *.pyc
-fixtures/selftest/
+selftest/
 results/DIFFER_REVIEW.md
