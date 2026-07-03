@@ -26,7 +26,7 @@ except Exception:
 
 PARITY = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SELFTEST = os.path.join(PARITY, "fixtures", "selftest")
-GOLDEN_DIR = os.path.join(SELFTEST, "golden")
+GOLDEN_DIR = SELFTEST  # golden pairs (g_*/gb_*) regenerated directly here — no 'golden' subfolder
 RESULTS = os.path.join(PARITY, "results")
 WNS = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'
 RNS = 'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"'
