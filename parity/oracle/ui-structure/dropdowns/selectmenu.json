@@ -1,0 +1,68 @@
+{
+ "id": "dropdowns/selectmenu",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__selectmenu.png",
+ "sections": [
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "select-all",
+     "label": "Select All",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 316,
+      "h": 28
+     }
+    },
+    {
+     "id": "select-objects",
+     "label": "Select Objects",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 316,
+      "h": 28
+     }
+    },
+    {
+     "id": "select-all-text-with-similar-formatting-no-data",
+     "label": "Select All Text With Similar Formatting (No Data)",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 316,
+      "h": 28
+     }
+    },
+    {
+     "id": "selection-pane",
+     "label": "Selection Pane...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/selection-pane"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 86,
+      "w": 316,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.editing.selectmenu"
+ ]
+}

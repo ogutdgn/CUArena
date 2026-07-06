@@ -1,0 +1,158 @@
+{
+ "id": "dropdowns/bulletsgalleryword",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__bulletsgalleryword.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "bulleted-solid-circle",
+     "label": "Bulleted, Solid Circle",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 48,
+      "h": 48
+     }
+    }
+   ],
+   "title": "Recently Used Bullets"
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "none",
+     "label": "None",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 117,
+      "w": 48,
+      "h": 48
+     }
+    },
+    {
+     "id": "bulleted-hollow-circle",
+     "label": "Bulleted, Hollow Circle",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 98,
+      "y": 117,
+      "w": 48,
+      "h": 48
+     }
+    },
+    {
+     "id": "bulleted-solid-square",
+     "label": "Bulleted, Solid Square",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 146,
+      "y": 117,
+      "w": 48,
+      "h": 48
+     }
+    },
+    {
+     "id": "picture-bulleted",
+     "label": "Picture bulleted",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 194,
+      "y": 117,
+      "w": 48,
+      "h": 48
+     }
+    },
+    {
+     "id": "bulleted-four-small-diamonds",
+     "label": "Bulleted, Four Small Diamonds",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 242,
+      "y": 117,
+      "w": 48,
+      "h": 48
+     }
+    },
+    {
+     "id": "bulleted-hollow-arrow",
+     "label": "Bulleted, Hollow Arrow",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 165,
+      "w": 48,
+      "h": 48
+     }
+    },
+    {
+     "id": "bulleted-checkmark",
+     "label": "Bulleted, Checkmark",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 50,
+      "y": 165,
+      "w": 48,
+      "h": 48
+     }
+    }
+   ],
+   "title": "Bullet Library"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "change-list-level",
+     "label": "Change List Level",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 224,
+      "w": 305,
+      "h": 28
+     }
+    },
+    {
+     "id": "define-new-bullet",
+     "label": "Define New Bullet...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/define-new-bullet"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 252,
+      "w": 305,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.bulletsgalleryword"
+ ]
+}

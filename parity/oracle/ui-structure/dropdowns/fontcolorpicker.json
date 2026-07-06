@@ -1,0 +1,98 @@
+{
+ "id": "dropdowns/fontcolorpicker",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__fontcolorpicker.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": "Gallery Filters"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "high-contrast-only",
+     "label": "High-contrast only",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 116,
+      "y": 8,
+      "w": 160,
+      "h": 28
+     }
+    }
+   ]
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "automatic",
+     "label": "Automatic",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 45,
+      "w": 280,
+      "h": 28
+     }
+    }
+   ]
+  },
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": "Theme Colors"
+  },
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": " "
+  },
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": "Standard Colors"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "more-colors",
+     "label": "More Colors...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/more-colors"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 348,
+      "w": 280,
+      "h": 29
+     }
+    },
+    {
+     "id": "gradient",
+     "label": "Gradient",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 377,
+      "w": 280,
+      "h": 29
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.fontcolorpicker"
+ ]
+}

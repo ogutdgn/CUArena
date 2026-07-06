@@ -1,0 +1,80 @@
+{
+ "id": "dropdowns/changecasegallery",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__changecasegallery.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "sentence-case",
+     "label": "Sentence case.",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 158,
+      "h": 28
+     }
+    },
+    {
+     "id": "lowercase",
+     "label": "lowercase",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 158,
+      "h": 28
+     }
+    },
+    {
+     "id": "uppercase",
+     "label": "UPPERCASE",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 158,
+      "h": 28
+     }
+    },
+    {
+     "id": "capitalize-each-word",
+     "label": "Capitalize Each Word",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 86,
+      "w": 158,
+      "h": 28
+     }
+    },
+    {
+     "id": "toggle-case",
+     "label": "tOGGLE cASE",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 114,
+      "w": 158,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.changecasegallery"
+ ]
+}

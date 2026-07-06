@@ -1,0 +1,132 @@
+{
+ "id": "dropdowns/linespacinggallery",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__linespacinggallery.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "1-0",
+     "label": "1.0",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "1-15",
+     "label": "1.15",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "1-5",
+     "label": "1.5",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "2-0",
+     "label": "2.0",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 86,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "2-5",
+     "label": "2.5",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 114,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "3-0",
+     "label": "3.0",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 142,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "line-spacing-options",
+     "label": "Line Spacing Options…",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 170,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "add-space-before-paragraph",
+     "label": "Add Space Before Paragraph",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 201,
+      "w": 210,
+      "h": 28
+     }
+    },
+    {
+     "id": "remove-space-after-paragraph",
+     "label": "Remove Space After Paragraph",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 229,
+      "w": 210,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.linespacinggallery"
+ ]
+}

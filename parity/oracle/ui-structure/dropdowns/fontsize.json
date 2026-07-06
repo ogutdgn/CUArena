@@ -1,0 +1,223 @@
+{
+ "id": "dropdowns/fontsize",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__fontsize.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "8",
+     "label": "8",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "9",
+     "label": "9",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 26,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "10",
+     "label": "10",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 50,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "11",
+     "label": "11",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 74,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "12",
+     "label": "12",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 98,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "14",
+     "label": "14",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 122,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "16",
+     "label": "16",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 146,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "18",
+     "label": "18",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 170,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "20",
+     "label": "20",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 194,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "22",
+     "label": "22",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 218,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "24",
+     "label": "24",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 242,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "26",
+     "label": "26",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 266,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "28",
+     "label": "28",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 290,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "36",
+     "label": "36",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 314,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "48",
+     "label": "48",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 338,
+      "w": 33,
+      "h": 24
+     }
+    },
+    {
+     "id": "72",
+     "label": "72",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 362,
+      "w": 33,
+      "h": 24
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.fontsize"
+ ]
+}

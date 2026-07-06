@@ -1,0 +1,208 @@
+{
+ "id": "dropdowns/multilevellistgallery",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__multilevellistgallery.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": "Gallery Filters"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "gallery-filter",
+     "label": "Gallery Filter",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 235,
+      "y": 2,
+      "w": 36,
+      "h": 25
+     }
+    }
+   ]
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "outline-numbered-l1-numbered-1-2-3-alignment-left-number-format-",
+     "label": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., Aligned at:  0.25\", Indent at:  0.5\" L2: Numbered, a, b, c, …, ALIGNMENT Left, Number Format: \u0001.a., Aligned at:  0.75\", Indent at:  1\" L3: Numbered, i, ii, iii, …, ALIGNMENT Ri",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 84,
+      "h": 84
+     }
+    }
+   ],
+   "title": "Current List"
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "none",
+     "label": "None",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 181,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "outline-numbered-l1-numbered-1-2-3-alignment-left-number-format--2",
+     "label": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1), Aligned at:  0\", Indent at:  0.25\" L2: Numbered, a, b, c, …, ALIGNMENT Left, Number Format: \u0001)a), Aligned at:  0.25\", Indent at:  0.5\" L3: Numbered, i, ii, iii, …, ALIGNMENT Le",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 86,
+      "y": 181,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "outline-numbered-l1-numbered-1-2-3-alignment-left-number-format--3",
+     "label": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., Aligned at:  0\", Indent at:  0.25\" L2: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1.\u0001., Aligned at:  0.25\", Indent at:  0.55\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 170,
+      "y": 181,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "outline-numbered-l1-bulleted-four-small-diamonds-aligned-at-0-in",
+     "label": "Outline numbered: L1: Bulleted, Four Small Diamonds, Aligned at:  0\", Indent at:  0.25\" L2: Bulleted, Hollow Arrow, Aligned at:  0.25\", Indent at:  0.5\" L3: Bulleted, Solid Square, Aligned at:  0.5\", Indent at:  0.75\" L4: Bulleted, Solid Circle, Aligned a",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 265,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "outline-numbered-l1-numbered-i-ii-iii-alignment-left-number-form",
+     "label": "Outline numbered: L1: Numbered, I, II, III, …, ALIGNMENT Left, Number Format: Article I., Aligned at:  0\", Indent at:  0\" L2: Numbered, 01, 02, 03, …, ALIGNMENT Left, Number Format: Section 01.\u0001, Aligned at:  0\", Indent at:  0\" L3: Numbered, a, b, c, …, A",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 86,
+      "y": 265,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "outline-numbered-l1-numbered-1-2-3-alignment-left-number-format--4",
+     "label": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1, Aligned at:  0\", Indent at:  0.3\" L2: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1.\u0001, Aligned at:  0\", Indent at:  0.4\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left, Numbe",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 170,
+      "y": 265,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "outline-numbered-l1-numbered-i-ii-iii-alignment-left-number-form-2",
+     "label": "Outline numbered: L1: Numbered, I, II, III, …, ALIGNMENT Left, Number Format: I., Aligned at:  0\", Indent at:  0\" L2: Numbered, A, B, C, …, ALIGNMENT Left, Number Format: \u0001.A., Aligned at:  0.5\", Indent at:  0.5\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left, ",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 349,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "outline-numbered-l1-numbered-1-2-3-alignment-left-number-format--5",
+     "label": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: Chapter 1, Aligned at:  0\", Indent at:  0\" L2: Bulleted, Aligned at:  0\", Indent at:  0\" L3: Bulleted, Aligned at:  0\", Indent at:  0\" L4: Bulleted, Aligned at:  0\", Indent at:  0\"",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 86,
+      "y": 349,
+      "w": 84,
+      "h": 84
+     }
+    }
+   ],
+   "title": "List Library"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "change-list-level",
+     "label": "Change List Level",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 444,
+      "w": 269,
+      "h": 28
+     }
+    },
+    {
+     "id": "define-new-multilevel-list",
+     "label": "Define New Multilevel List...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/define-new-multilevel-list"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 472,
+      "w": 269,
+      "h": 28
+     }
+    },
+    {
+     "id": "define-new-list-style",
+     "label": "Define New List Style...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/define-new-list-style"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 500,
+      "w": 269,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.multilevellistgallery"
+ ]
+}

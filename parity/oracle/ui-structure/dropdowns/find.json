@@ -1,0 +1,56 @@
+{
+ "id": "dropdowns/find",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__find.png",
+ "sections": [
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "find",
+     "label": "Find",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 148,
+      "h": 28
+     }
+    },
+    {
+     "id": "advanced-find",
+     "label": "Advanced Find...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/advanced-find"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 148,
+      "h": 28
+     }
+    },
+    {
+     "id": "go-to",
+     "label": "Go To...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/go-to"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 148,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.editing.find"
+ ]
+}

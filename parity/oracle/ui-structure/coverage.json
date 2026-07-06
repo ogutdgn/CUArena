@@ -1,0 +1,50 @@
+{
+ "schema_version": 1,
+ "boundaries": [
+  {
+   "from": "ribbon.home.adobe-acrobat.create-a-pdf",
+   "kind": "feature",
+   "policy": "excluded",
+   "decision": "D8"
+  },
+  {
+   "from": "ribbon.home.voice.dictate",
+   "kind": "feature",
+   "policy": "excluded",
+   "decision": "D8"
+  },
+  {
+   "from": "ribbon.home.editor.writingassistancecheckdocument",
+   "kind": "opens-pane",
+   "policy": "excluded",
+   "decision": "D8"
+  },
+  {
+   "from": "ribbon.home.add-ins.officeextensionsshowaddinflyout",
+   "kind": "opens-dialog",
+   "policy": "excluded",
+   "decision": "D8"
+  }
+ ],
+ "frontier": [
+  "dialogs/advanced-find",
+  "dialogs/borders-and-shading",
+  "dialogs/define-new-bullet",
+  "dialogs/define-new-list-style",
+  "dialogs/define-new-multilevel-list",
+  "dialogs/define-new-number-format",
+  "dialogs/go-to",
+  "dialogs/more-colors",
+  "dialogs/more-underlines",
+  "dialogs/options",
+  "dialogs/paste-special",
+  "dialogs/selection-pane",
+  "dialogs/set-default-paste",
+  "dialogs/set-numbering-value",
+  "dialogs/tabs",
+  "dialogs/text-effects",
+  "panes/find",
+  "panes/showclipboard"
+ ],
+ "blocked": []
+}

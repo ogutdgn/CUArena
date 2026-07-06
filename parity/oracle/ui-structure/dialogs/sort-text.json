@@ -1,0 +1,222 @@
+{
+ "id": "dialogs/sort-text",
+ "title": "Sort Text",
+ "modal": true,
+ "schema_version": 1,
+ "tabs": [
+  {
+   "name": "Sort Text",
+   "screenshot": "screenshots/dialogs__sort-text.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 777,
+        "y": 413,
+        "w": 132,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 777,
+        "y": 476,
+        "w": 132,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 777,
+        "y": 539,
+        "w": 132,
+        "h": 14
+       }
+      },
+      {
+       "name": "Sort by",
+       "type": "text",
+       "bounds": {
+        "x": 775,
+        "y": 410,
+        "w": 152,
+        "h": 20
+       }
+      },
+      {
+       "name": "Type:",
+       "type": "combo",
+       "bounds": {
+        "x": 971,
+        "y": 409,
+        "w": 92,
+        "h": 22
+       }
+      },
+      {
+       "name": "Ascending",
+       "type": "radio",
+       "bounds": {
+        "x": 1072,
+        "y": 404,
+        "w": 74,
+        "h": 16
+       }
+      },
+      {
+       "name": "Descending",
+       "type": "radio",
+       "bounds": {
+        "x": 1072,
+        "y": 423,
+        "w": 81,
+        "h": 16
+       }
+      },
+      {
+       "name": "Then by",
+       "type": "text",
+       "bounds": {
+        "x": 775,
+        "y": 473,
+        "w": 152,
+        "h": 20
+       }
+      },
+      {
+       "name": "Type:",
+       "type": "combo",
+       "bounds": {
+        "x": 971,
+        "y": 472,
+        "w": 92,
+        "h": 22
+       }
+      },
+      {
+       "name": "Ascending",
+       "type": "radio",
+       "bounds": {
+        "x": 1072,
+        "y": 467,
+        "w": 74,
+        "h": 16
+       }
+      },
+      {
+       "name": "Descending",
+       "type": "radio",
+       "bounds": {
+        "x": 1072,
+        "y": 486,
+        "w": 81,
+        "h": 16
+       }
+      },
+      {
+       "name": "Then by",
+       "type": "text",
+       "bounds": {
+        "x": 775,
+        "y": 536,
+        "w": 152,
+        "h": 20
+       }
+      },
+      {
+       "name": "Type:",
+       "type": "combo",
+       "bounds": {
+        "x": 971,
+        "y": 535,
+        "w": 92,
+        "h": 22
+       }
+      },
+      {
+       "name": "Ascending",
+       "type": "radio",
+       "bounds": {
+        "x": 1072,
+        "y": 530,
+        "w": 74,
+        "h": 16
+       }
+      },
+      {
+       "name": "Descending",
+       "type": "radio",
+       "bounds": {
+        "x": 1072,
+        "y": 549,
+        "w": 81,
+        "h": 16
+       }
+      },
+      {
+       "name": "No header row",
+       "type": "radio",
+       "bounds": {
+        "x": 864,
+        "y": 593,
+        "w": 97,
+        "h": 16
+       }
+      },
+      {
+       "name": "Header row",
+       "type": "radio",
+       "bounds": {
+        "x": 775,
+        "y": 593,
+        "w": 80,
+        "h": 16
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "buttons": [
+  {
+   "name": "Close",
+   "role": "cancel",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Options...",
+   "action": {
+    "kind": "opens-dialog",
+    "ref": "dialogs/options"
+   }
+  },
+  {
+   "name": "OK",
+   "role": "default",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Cancel",
+   "role": "cancel",
+   "action": {
+    "kind": "feature"
+   }
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.sortdialogclassic"
+ ]
+}

@@ -1,0 +1,312 @@
+{
+ "id": "dropdowns/texteffectsgallery",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__texteffectsgallery.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "fill-black-text-color-1-shadow",
+     "label": "Fill: Black, Text color 1; Shadow",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 56,
+      "h": 56
+     }
+    }
+   ]
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "fill-dark-teal-accent-color-1-shadow",
+     "label": "Fill: Dark Teal, Accent color 1; Shadow",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 58,
+      "y": 2,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-orange-accent-color-2-outline-orange-accent-color-2",
+     "label": "Fill: Orange, Accent color 2; Outline: Orange, Accent color 2",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 114,
+      "y": 2,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-white-outline-plum-accent-color-5-shadow",
+     "label": "Fill: White; Outline: Plum, Accent color 5; Shadow",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 170,
+      "y": 2,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-turquoise-accent-color-4-soft-bevel",
+     "label": "Fill: Turquoise, Accent color 4; Soft Bevel",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 226,
+      "y": 2,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "gradient-fill-gray",
+     "label": "Gradient Fill, Gray",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "gradient-fill-plum-accent-color-5-reflection",
+     "label": "Gradient Fill: Plum, Accent color 5; Reflection",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 58,
+      "y": 58,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "gradient-fill-turquoise-accent-color-4-outline-turquoise-accent-",
+     "label": "Gradient Fill: Turquoise, Accent color 4; Outline: Turquoise, Accent color 4",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 114,
+      "y": 58,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-white-outline-dark-teal-accent-color-1-glow-dark-teal-accen",
+     "label": "Fill: White; Outline: Dark Teal, Accent color 1; Glow: Dark Teal, Accent color 1",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 170,
+      "y": 58,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-dark-green-accent-color-3-sharp-bevel",
+     "label": "Fill: Dark Green, Accent color 3; Sharp Bevel",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 226,
+      "y": 58,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-black-text-color-1-outline-white-background-color-1-hard-sh",
+     "label": "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: White, Background color 1",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 114,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-black-text-color-1-outline-white-background-color-1-hard-sh-2",
+     "label": "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 58,
+      "y": 114,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-plum-accent-color-5-outline-white-background-color-1-hard-s",
+     "label": "Fill: Plum, Accent color 5; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 114,
+      "y": 114,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-white-outline-orange-accent-color-2-hard-shadow-orange-acce",
+     "label": "Fill: White; Outline: Orange, Accent color 2; Hard Shadow: Orange, Accent color 2",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 170,
+      "y": 114,
+      "w": 56,
+      "h": 56
+     }
+    },
+    {
+     "id": "fill-light-gray-background-color-2-inner-shadow",
+     "label": "Fill: Light Gray, Background color 2; Inner Shadow",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 226,
+      "y": 114,
+      "w": 56,
+      "h": 56
+     }
+    }
+   ],
+   "title": " "
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "outline",
+     "label": "Outline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 181,
+      "w": 280,
+      "h": 28
+     }
+    },
+    {
+     "id": "shadow",
+     "label": "Shadow",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 209,
+      "w": 280,
+      "h": 28
+     }
+    },
+    {
+     "id": "reflection",
+     "label": "Reflection",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 237,
+      "w": 280,
+      "h": 28
+     }
+    },
+    {
+     "id": "glow",
+     "label": "Glow",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 265,
+      "w": 280,
+      "h": 28
+     }
+    },
+    {
+     "id": "number-styles",
+     "label": "Number Styles",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 293,
+      "w": 280,
+      "h": 28
+     }
+    },
+    {
+     "id": "ligatures",
+     "label": "Ligatures",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 321,
+      "w": 280,
+      "h": 28
+     }
+    },
+    {
+     "id": "stylistic-sets",
+     "label": "Stylistic Sets",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 349,
+      "w": 280,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.texteffectsgallery"
+ ]
+}

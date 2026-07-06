@@ -1,0 +1,169 @@
+{
+ "id": "dialogs/find-and-replace",
+ "title": "Find and Replace",
+ "modal": true,
+ "schema_version": 1,
+ "tabs": [
+  {
+   "name": "Find",
+   "screenshot": "screenshots/dialogs__find-and-replace@find.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 776,
+        "y": 458,
+        "w": 430,
+        "h": 14
+       }
+      },
+      {
+       "name": "Find what:",
+       "type": "text",
+       "bounds": {
+        "x": 774,
+        "y": 455,
+        "w": 450,
+        "h": 20
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Replace",
+   "screenshot": "screenshots/dialogs__find-and-replace@replace.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 776,
+        "y": 458,
+        "w": 430,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 776,
+        "y": 518,
+        "w": 430,
+        "h": 14
+       }
+      },
+      {
+       "name": "Find what:",
+       "type": "text",
+       "bounds": {
+        "x": 774,
+        "y": 455,
+        "w": 450,
+        "h": 20
+       }
+      },
+      {
+       "name": "Replace with:",
+       "type": "text",
+       "bounds": {
+        "x": 774,
+        "y": 515,
+        "w": 450,
+        "h": 20
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Go To",
+   "screenshot": "screenshots/dialogs__find-and-replace@go-to.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 871,
+        "y": 474,
+        "w": 351,
+        "h": 14
+       }
+      },
+      {
+       "name": "Go to what:",
+       "type": "listbox",
+       "bounds": {
+        "x": 696,
+        "y": 471,
+        "w": 164,
+        "h": 82
+       },
+       "itemsSampled": [
+        "Page",
+        "Section",
+        "Line",
+        "Bookmark",
+        "Comment",
+        "Footnote",
+        "Endnote",
+        "Field",
+        "Table",
+        "Graphic",
+        "Equation",
+        "Object"
+       ]
+      },
+      {
+       "name": "Enter page number:",
+       "type": "text",
+       "bounds": {
+        "x": 869,
+        "y": 471,
+        "w": 355,
+        "h": 20
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "buttons": [
+  {
+   "name": "Close",
+   "role": "cancel",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Next",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Previous",
+   "action": {
+    "kind": "feature"
+   }
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.editing.replacedialog"
+ ]
+}

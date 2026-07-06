@@ -1,0 +1,327 @@
+{
+ "id": "dropdowns/font",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__font.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "aptos-display-headings",
+     "label": "Aptos Display (Headings)",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "aptos-body",
+     "label": "Aptos (Body)",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 282,
+      "h": 28
+     }
+    }
+   ],
+   "title": "Theme Fonts"
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "times-new-roman",
+     "label": "Times New Roman",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 117,
+      "w": 282,
+      "h": 28
+     }
+    }
+   ],
+   "title": "Recently Used Fonts"
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "abadi-select-to-download",
+     "label": "Abadi, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 176,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "abadi-extralight-select-to-download",
+     "label": "Abadi ExtraLight, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 204,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "adlam-display-select-to-download",
+     "label": "ADLaM Display, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 232,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "agency-fb",
+     "label": "Agency FB",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 260,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "aharoni-select-to-download",
+     "label": "Aharoni, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 288,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "alasassy-caps-select-to-download",
+     "label": "Alasassy Caps, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 316,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "aldhabi-select-to-download",
+     "label": "Aldhabi, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 344,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "alef",
+     "label": "Alef",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 372,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "algerian",
+     "label": "Algerian",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 400,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "amasis-mt-pro-select-to-download",
+     "label": "Amasis MT Pro, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 428,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "amasis-mt-pro-black-select-to-download",
+     "label": "Amasis MT Pro Black, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 456,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "amasis-mt-pro-light-select-to-download",
+     "label": "Amasis MT Pro Light, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 484,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "amasis-mt-pro-medium-select-to-download",
+     "label": "Amasis MT Pro Medium, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 512,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "amiri",
+     "label": "Amiri",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 540,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "amiri-quran",
+     "label": "Amiri Quran",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 568,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "angsana-new-select-to-download",
+     "label": "Angsana New, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 596,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "angsanaupc-select-to-download",
+     "label": "AngsanaUPC, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 624,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "aparajita-select-to-download",
+     "label": "Aparajita, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 652,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "aptos",
+     "label": "Aptos",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 680,
+      "w": 282,
+      "h": 28
+     }
+    },
+    {
+     "id": "aptos-black-select-to-download",
+     "label": "Aptos Black, select to download",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 708,
+      "w": 282,
+      "h": 28
+     }
+    }
+   ],
+   "title": "All Fonts"
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.font"
+ ]
+}

@@ -1,0 +1,269 @@
+{
+ "id": "dialogs/paragraph",
+ "title": "Paragraph",
+ "modal": true,
+ "schema_version": 1,
+ "tabs": [
+  {
+   "name": "Indents and Spacing",
+   "screenshot": "screenshots/dialogs__paragraph@indents-and-spacing.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 857,
+        "y": 414,
+        "w": 39,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 857,
+        "y": 438,
+        "w": 39,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 1093,
+        "y": 438,
+        "w": 39,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 857,
+        "y": 525,
+        "w": 39,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 857,
+        "y": 549,
+        "w": 39,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 1093,
+        "y": 549,
+        "w": 39,
+        "h": 14
+       }
+      },
+      {
+       "name": "Alignment:",
+       "type": "combo",
+       "bounds": {
+        "x": 855,
+        "y": 317,
+        "w": 92,
+        "h": 22
+       }
+      },
+      {
+       "name": "Outline level:",
+       "type": "combo",
+       "bounds": {
+        "x": 855,
+        "y": 342,
+        "w": 92,
+        "h": 22
+       }
+      },
+      {
+       "name": "Collapsed by default",
+       "type": "checkbox",
+       "bounds": {
+        "x": 956,
+        "y": 345,
+        "w": 126,
+        "h": 16
+       }
+      },
+      {
+       "name": "Special:",
+       "type": "combo",
+       "bounds": {
+        "x": 956,
+        "y": 434,
+        "w": 126,
+        "h": 22
+       }
+      },
+      {
+       "name": "Mirror indents",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 464,
+        "w": 94,
+        "h": 16
+       }
+      },
+      {
+       "name": "Line spacing:",
+       "type": "combo",
+       "bounds": {
+        "x": 956,
+        "y": 545,
+        "w": 126,
+        "h": 22
+       }
+      },
+      {
+       "name": "Don't add space between paragraphs of the same style",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 570,
+        "w": 303,
+        "h": 16
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Line and Page Breaks",
+   "screenshot": "screenshots/dialogs__paragraph@line-and-page-breaks.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "Widow/Orphan control",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 317,
+        "w": 141,
+        "h": 16
+       }
+      },
+      {
+       "name": "Keep with next",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 336,
+        "w": 96,
+        "h": 16
+       }
+      },
+      {
+       "name": "Keep lines together",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 355,
+        "w": 120,
+        "h": 16
+       }
+      },
+      {
+       "name": "Page break before",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 374,
+        "w": 114,
+        "h": 16
+       }
+      },
+      {
+       "name": "Suppress line numbers",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 418,
+        "w": 137,
+        "h": 16
+       }
+      },
+      {
+       "name": "Don't hyphenate",
+       "type": "checkbox",
+       "bounds": {
+        "x": 778,
+        "y": 437,
+        "w": 107,
+        "h": 16
+       }
+      },
+      {
+       "name": "Tight wrap:",
+       "type": "combo",
+       "bounds": {
+        "x": 778,
+        "y": 497,
+        "w": 152,
+        "h": 22
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "buttons": [
+  {
+   "name": "Close",
+   "role": "cancel",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Tabs...",
+   "action": {
+    "kind": "opens-dialog",
+    "ref": "dialogs/tabs"
+   }
+  },
+  {
+   "name": "Set As Default",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "OK",
+   "role": "default",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Cancel",
+   "role": "cancel",
+   "action": {
+    "kind": "feature"
+   }
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.paragraphdialog"
+ ]
+}

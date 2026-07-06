@@ -1,0 +1,28 @@
+{
+ "schema_version": 1,
+ "build": "16.0.20131",
+ "date": "2026-07-06",
+ "env": {
+  "resolution": "1920x1080",
+  "dpi": 100,
+  "theme": "light",
+  "locale": "en-US",
+  "view": "print"
+ },
+ "coverage": {
+  "controls": 45,
+  "surfaces_captured": 20,
+  "boundaries": 4,
+  "frontier": 18,
+  "unused_boundary_config": [
+   "ribbon.file",
+   "ribbon.home.voice.read-aloud",
+   "ribbon.home.copilot."
+  ]
+ },
+ "throughput": {
+  "secs": 195.7,
+  "controls": 45,
+  "secs_per_control": 4.35
+ }
+}

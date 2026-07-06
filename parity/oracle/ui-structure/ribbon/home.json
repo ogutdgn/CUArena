@@ -1,0 +1,1264 @@
+{
+ "id": "ribbon/home",
+ "tabLabel": "Home",
+ "schema_version": 1,
+ "contextual": null,
+ "groups": [
+  {
+   "id": "ribbon.home.clipboard",
+   "label": "Clipboard",
+   "controls": [
+    {
+     "id": "ribbon.home.clipboard.paste",
+     "label": "Paste",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/paste"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, V",
+     "idMso": null,
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.clipboard.paste.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 12,
+      "y": 4,
+      "w": 42,
+      "h": 76
+     }
+    },
+    {
+     "id": "ribbon.home.clipboard.cut",
+     "label": "Cut",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, X",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "Cut",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+X",
+     "icon": "icons/icon__ribbon.home.clipboard.cut.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 56,
+      "y": 4,
+      "w": 52,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.clipboard.copy",
+     "label": "Copy",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, C 1",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "Copy",
+     "capture": {
+      "status": "unresolved",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+C",
+     "icon": "icons/icon__ribbon.home.clipboard.copy.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 56,
+      "y": 30,
+      "w": 61,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.clipboard.formatpainter",
+     "label": "Format Painter",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, F P",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "FormatPainter",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Alt+Ctrl+C, Alt+Ctrl+V",
+     "icon": "icons/icon__ribbon.home.clipboard.formatpainter.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 56,
+      "y": 56,
+      "w": 111,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.clipboard.showclipboard",
+     "label": "Office Clipboard...",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, F O",
+     "action": {
+      "kind": "opens-pane",
+      "ref": "panes/showclipboard"
+     },
+     "idMso": "ShowClipboard",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.clipboard.showclipboard.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 159,
+      "y": 82,
+      "w": 16,
+      "h": 16
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.font",
+   "label": "Font",
+   "controls": [
+    {
+     "id": "ribbon.home.font.font",
+     "label": "Font",
+     "type": "combo",
+     "tooltip": "",
+     "keytip": "Alt, H, F F",
+     "action": {
+      "kind": "opens-dropdown",
+      "ref": "dropdowns/font"
+     },
+     "idMso": "Font",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.font.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 183,
+      "y": 12,
+      "w": 125,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.fontsize",
+     "label": "Font Size",
+     "type": "combo",
+     "tooltip": "",
+     "keytip": "Alt, H, F S",
+     "action": {
+      "kind": "opens-dropdown",
+      "ref": "dropdowns/fontsize"
+     },
+     "idMso": "FontSize",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.fontsize.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 310,
+      "y": 12,
+      "w": 43,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.fontsizeincreaseword",
+     "label": "Grow Font",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, F G",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "FontSizeIncreaseWord",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+Shift+>",
+     "icon": "icons/icon__ribbon.home.font.fontsizeincreaseword.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 355,
+      "y": 12,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.fontsizedecreaseword",
+     "label": "Shrink Font",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, F K",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "FontSizeDecreaseWord",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+Shift+<",
+     "icon": "icons/icon__ribbon.home.font.fontsizedecreaseword.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 381,
+      "y": 12,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.changecasegallery",
+     "label": "Change Case",
+     "type": "menu",
+     "tooltip": "",
+     "keytip": "Alt, H, 7",
+     "action": {
+      "kind": "opens-dropdown",
+      "ref": "dropdowns/changecasegallery"
+     },
+     "idMso": "ChangeCaseGallery",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.changecasegallery.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 410,
+      "y": 12,
+      "w": 40,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.clearformatting",
+     "label": "Clear Formatting",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, E",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "ClearFormatting",
+     "capture": {
+      "status": "unresolved",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.clearformatting.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 455,
+      "y": 12,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.bold",
+     "label": "Bold",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, 1",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "Bold",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+B",
+     "icon": "icons/icon__ribbon.home.font.bold.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 183,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.italic",
+     "label": "Italic",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, 2",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "Italic",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+I",
+     "icon": "icons/icon__ribbon.home.font.italic.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 209,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.underlinegallery",
+     "label": "Underline",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/underlinegallery"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, 3",
+     "idMso": "UnderlineGallery",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.underlinegallery.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 235,
+      "y": 44,
+      "w": 39,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.strikethrough",
+     "label": "Strikethrough",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, 4",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "Strikethrough",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.strikethrough.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 276,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.subscript",
+     "label": "Subscript",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, 5",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "Subscript",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+Shift+_",
+     "icon": "icons/icon__ribbon.home.font.subscript.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 302,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.superscript",
+     "label": "Superscript",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, 6",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "Superscript",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+Shift++",
+     "icon": "icons/icon__ribbon.home.font.superscript.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 328,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.texteffectsgallery",
+     "label": "Text Effects and Typography",
+     "type": "menu",
+     "tooltip": "",
+     "keytip": "Alt, H, F T",
+     "action": {
+      "kind": "opens-dropdown",
+      "ref": "dropdowns/texteffectsgallery"
+     },
+     "idMso": "TextEffectsGallery",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.texteffectsgallery.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 357,
+      "y": 44,
+      "w": 40,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.texthighlightcolorpicker",
+     "label": "Text Highlight Color",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/texthighlightcolorpicker"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, I",
+     "idMso": "TextHighlightColorPicker",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.texthighlightcolorpicker.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 399,
+      "y": 44,
+      "w": 39,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.fontcolorpicker",
+     "label": "Font Color",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/fontcolorpicker"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, F C",
+     "idMso": "FontColorPicker",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.fontcolorpicker.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 440,
+      "y": 44,
+      "w": 39,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.font.fontdialog",
+     "label": "Font...",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, F N",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/font"
+     },
+     "idMso": "FontDialog",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.font.fontdialog.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 471,
+      "y": 82,
+      "w": 16,
+      "h": 16
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.paragraph",
+   "label": "Paragraph",
+   "controls": [
+    {
+     "id": "ribbon.home.paragraph.bulletsgalleryword",
+     "label": "Bullets",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/bulletsgalleryword"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, U",
+     "idMso": "BulletsGalleryWord",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.bulletsgalleryword.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 495,
+      "y": 12,
+      "w": 39,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.numberinggalleryword",
+     "label": "Numbering",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/numberinggalleryword"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, N",
+     "idMso": "NumberingGalleryWord",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.numberinggalleryword.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 536,
+      "y": 12,
+      "w": 39,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.multilevellistgallery",
+     "label": "Multilevel List",
+     "type": "menu",
+     "tooltip": "",
+     "keytip": "Alt, H, M",
+     "action": {
+      "kind": "opens-dropdown",
+      "ref": "dropdowns/multilevellistgallery"
+     },
+     "idMso": "MultilevelListGallery",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.multilevellistgallery.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 577,
+      "y": 12,
+      "w": 40,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.indentdecreaseword",
+     "label": "Decrease Indent",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, A O",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "IndentDecreaseWord",
+     "capture": {
+      "status": "unresolved",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.indentdecreaseword.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 622,
+      "y": 12,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.indentincreaseword",
+     "label": "Increase Indent",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, A I",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "IndentIncreaseWord",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.indentincreaseword.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 648,
+      "y": 12,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.sortdialogclassic",
+     "label": "Sort...",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, S O",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/sort-text"
+     },
+     "idMso": "SortDialogClassic",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.sortdialogclassic.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 677,
+      "y": 12,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.paragraphmarks",
+     "label": "Show All",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, 8",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "ParagraphMarks",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+*",
+     "icon": "icons/icon__ribbon.home.paragraph.paragraphmarks.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 706,
+      "y": 12,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.alignleft",
+     "label": "Align Left",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, A L",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "AlignLeft",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+L",
+     "icon": "icons/icon__ribbon.home.paragraph.alignleft.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 495,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.aligncenter",
+     "label": "Center",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, A C",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "AlignCenter",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+E",
+     "icon": "icons/icon__ribbon.home.paragraph.aligncenter.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 521,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.alignright",
+     "label": "Align Right",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, A R",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "AlignRight",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+R",
+     "icon": "icons/icon__ribbon.home.paragraph.alignright.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 547,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.alignjustify",
+     "label": "Justify",
+     "type": "toggle",
+     "tooltip": "",
+     "keytip": "Alt, H, A J",
+     "action": {
+      "kind": "toggles"
+     },
+     "idMso": "AlignJustify",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+J",
+     "icon": "icons/icon__ribbon.home.paragraph.alignjustify.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 573,
+      "y": 44,
+      "w": 24,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.linespacinggallery",
+     "label": "Line and Paragraph Spacing",
+     "type": "menu",
+     "tooltip": "",
+     "keytip": "Alt, H, K",
+     "action": {
+      "kind": "opens-dropdown",
+      "ref": "dropdowns/linespacinggallery"
+     },
+     "idMso": "LineSpacingGallery",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.linespacinggallery.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 602,
+      "y": 44,
+      "w": 40,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.shadingcolorpicker",
+     "label": "Shading",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/shadingcolorpicker"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, H",
+     "idMso": "ShadingColorPicker",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.shadingcolorpicker.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 647,
+      "y": 44,
+      "w": 39,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.bordersselectiongallery",
+     "label": "Borders",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "feature"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/bordersselectiongallery"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, B",
+     "idMso": "BordersSelectionGallery",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.bordersselectiongallery.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 688,
+      "y": 44,
+      "w": 39,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.paragraph.paragraphdialog",
+     "label": "Paragraph...",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, P G",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/paragraph"
+     },
+     "idMso": "ParagraphDialog",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.paragraph.paragraphdialog.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 722,
+      "y": 82,
+      "w": 16,
+      "h": 16
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.styles",
+   "label": "Styles",
+   "controls": [
+    {
+     "id": "ribbon.home.styles.quickstylesgallery",
+     "label": "",
+     "type": "gallery",
+     "tooltip": "",
+     "keytip": "",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "QuickStylesGallery",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.styles.quickstylesgallery.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 746,
+      "y": 12,
+      "w": 679,
+      "h": 60
+     }
+    },
+    {
+     "id": "ribbon.home.styles.stylespane",
+     "label": "Styles...",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, F Y",
+     "action": {
+      "kind": "feature"
+     },
+     "idMso": "StylesPane",
+     "capture": {
+      "status": "unresolved",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Alt+Ctrl+Shift+S",
+     "icon": "icons/icon__ribbon.home.styles.stylespane.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1417,
+      "y": 82,
+      "w": 16,
+      "h": 16
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.editing",
+   "label": "Editing",
+   "controls": [
+    {
+     "id": "ribbon.home.editing.find",
+     "label": "Find",
+     "type": "split",
+     "primary": {
+      "action": {
+       "kind": "opens-pane",
+       "ref": "panes/find"
+      }
+     },
+     "flyout": {
+      "action": {
+       "kind": "opens-dropdown",
+       "ref": "dropdowns/find"
+      }
+     },
+     "tooltip": "",
+     "keytip": "Alt, H, F D",
+     "idMso": null,
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.editing.find.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1441,
+      "y": 4,
+      "w": 80,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.editing.replacedialog",
+     "label": "Replace...",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, R",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/find-and-replace"
+     },
+     "idMso": "ReplaceDialog",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "shortcut": "Ctrl+H",
+     "icon": "icons/icon__ribbon.home.editing.replacedialog.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1441,
+      "y": 30,
+      "w": 74,
+      "h": 24
+     }
+    },
+    {
+     "id": "ribbon.home.editing.selectmenu",
+     "label": "Select",
+     "type": "menu",
+     "tooltip": "",
+     "keytip": "Alt, H, S L",
+     "action": {
+      "kind": "opens-dropdown",
+      "ref": "dropdowns/selectmenu"
+     },
+     "idMso": "SelectMenu",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "pressed-observed",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.editing.selectmenu.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1441,
+      "y": 56,
+      "w": 75,
+      "h": 24
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.adobe-acrobat",
+   "label": "Adobe Acrobat",
+   "controls": [
+    {
+     "id": "ribbon.home.adobe-acrobat.create-a-pdf",
+     "label": "Create a PDF",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, Y",
+     "action": {
+      "kind": "feature",
+      "boundary": {
+       "policy": "excluded",
+       "decision": "D8"
+      }
+     },
+     "idMso": null,
+     "capture": {
+      "status": "complete",
+      "probe_mode": "boundary-declared",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.adobe-acrobat.create-a-pdf.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1550,
+      "y": 4,
+      "w": 42,
+      "h": 76
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.voice",
+   "label": "Voice",
+   "controls": [
+    {
+     "id": "ribbon.home.voice.dictate",
+     "label": "Dictate",
+     "type": "split",
+     "tooltip": "",
+     "keytip": "Alt, H, D",
+     "action": {
+      "kind": "feature",
+      "boundary": {
+       "policy": "excluded",
+       "decision": "D8"
+      }
+     },
+     "idMso": null,
+     "capture": {
+      "status": "complete",
+      "probe_mode": "boundary-declared",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.voice.dictate.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1621,
+      "y": 4,
+      "w": 42,
+      "h": 76
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.editor",
+   "label": "Editor",
+   "controls": [
+    {
+     "id": "ribbon.home.editor.writingassistancecheckdocument",
+     "label": "Editor",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, C 2",
+     "action": {
+      "kind": "opens-pane",
+      "boundary": {
+       "policy": "excluded",
+       "decision": "D8"
+      }
+     },
+     "idMso": "WritingAssistanceCheckDocument",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "boundary-declared",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.editor.writingassistancecheckdocument.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1679,
+      "y": 4,
+      "w": 42,
+      "h": 76
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon.home.add-ins",
+   "label": "Add-ins",
+   "controls": [
+    {
+     "id": "ribbon.home.add-ins.officeextensionsshowaddinflyout",
+     "label": "Add‑ins",
+     "type": "button",
+     "tooltip": "",
+     "keytip": "Alt, H, A S",
+     "action": {
+      "kind": "opens-dialog",
+      "boundary": {
+       "policy": "excluded",
+       "decision": "D8"
+      }
+     },
+     "idMso": "OfficeExtensionsShowAddinFlyout",
+     "capture": {
+      "status": "complete",
+      "probe_mode": "boundary-declared",
+      "schema_version": 1
+     },
+     "icon": "icons/icon__ribbon.home.add-ins.officeextensionsshowaddinflyout.png",
+     "bounds": {
+      "in": "screenshots/screenshot__ribbon__home.png",
+      "x": 1737,
+      "y": 4,
+      "w": 47,
+      "h": 76
+     }
+    }
+   ]
+  }
+ ],
+ "capture": {
+  "status": "complete",
+  "probe_mode": "pressed-observed",
+  "schema_version": 1
+ }
+}

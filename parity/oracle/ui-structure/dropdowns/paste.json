@@ -1,0 +1,101 @@
+{
+ "id": "dropdowns/paste",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__paste.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "keep-source-formatting",
+     "label": "Keep Source Formatting",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 30,
+      "h": 30
+     }
+    },
+    {
+     "id": "merge-formatting",
+     "label": "Merge Formatting",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 32,
+      "y": 30,
+      "w": 30,
+      "h": 30
+     }
+    },
+    {
+     "id": "picture",
+     "label": "Picture",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 62,
+      "y": 30,
+      "w": 30,
+      "h": 30
+     }
+    },
+    {
+     "id": "keep-text-only",
+     "label": "Keep Text Only",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 92,
+      "y": 30,
+      "w": 30,
+      "h": 30
+     }
+    }
+   ],
+   "title": "Paste Options"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "paste-special",
+     "label": "Paste Special...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/paste-special"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 61,
+      "w": 157,
+      "h": 28
+     }
+    },
+    {
+     "id": "set-default-paste",
+     "label": "Set Default Paste...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/set-default-paste"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 89,
+      "w": 157,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.clipboard.paste"
+ ]
+}

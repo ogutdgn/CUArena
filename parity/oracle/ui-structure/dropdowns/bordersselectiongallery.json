@@ -1,0 +1,235 @@
+{
+ "id": "dropdowns/bordersselectiongallery",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__bordersselectiongallery.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "bottom-border",
+     "label": "Bottom Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "top-border",
+     "label": "Top Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "left-border",
+     "label": "Left Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 58,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "right-border",
+     "label": "Right Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 86,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "no-border",
+     "label": "No Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 117,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "all-borders",
+     "label": "All Borders",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 145,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "outside-borders",
+     "label": "Outside Borders",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 173,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "inside-borders",
+     "label": "Inside Borders",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 201,
+      "w": 178,
+      "h": 28
+     }
+    }
+   ]
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "inside-horizontal-border",
+     "label": "Inside Horizontal Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 232,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "inside-vertical-border",
+     "label": "Inside Vertical Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 260,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "diagonal-down-border",
+     "label": "Diagonal Down Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 288,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "diagonal-up-border",
+     "label": "Diagonal Up Border",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 316,
+      "w": 178,
+      "h": 28
+     }
+    }
+   ],
+   "title": " "
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "horizontal-line",
+     "label": "Horizontal Line",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 347,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "draw-table",
+     "label": "Draw Table",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 378,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "view-gridlines",
+     "label": "View Gridlines",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 406,
+      "w": 178,
+      "h": 28
+     }
+    },
+    {
+     "id": "borders-and-shading",
+     "label": "Borders and Shading...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/borders-and-shading"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 434,
+      "w": 178,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.bordersselectiongallery"
+ ]
+}

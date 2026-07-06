@@ -1,0 +1,81 @@
+{
+ "id": "dropdowns/shadingcolorpicker",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__shadingcolorpicker.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": "Gallery Filters"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "high-contrast-only",
+     "label": "High-contrast only",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 116,
+      "y": 8,
+      "w": 160,
+      "h": 28
+     }
+    }
+   ]
+  },
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": "Theme Colors"
+  },
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": " "
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "no-color",
+     "label": "No Color",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 317,
+      "w": 280,
+      "h": 28
+     }
+    }
+   ],
+   "title": "Standard Colors"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "more-colors",
+     "label": "More Colors...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/more-colors"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 348,
+      "w": 280,
+      "h": 29
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.shadingcolorpicker"
+ ]
+}

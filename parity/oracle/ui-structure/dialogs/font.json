@@ -1,0 +1,404 @@
+{
+ "id": "dialogs/font",
+ "title": "Font",
+ "modal": true,
+ "schema_version": 1,
+ "tabs": [
+  {
+   "name": "Font",
+   "screenshot": "screenshots/dialogs__font@font.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 743,
+        "y": 354,
+        "w": 211,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 967,
+        "y": 354,
+        "w": 79,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 1059,
+        "y": 354,
+        "w": 58,
+        "h": 14
+       }
+      },
+      {
+       "name": "Font:",
+       "type": "text",
+       "bounds": {
+        "x": 741,
+        "y": 351,
+        "w": 215,
+        "h": 20
+       }
+      },
+      {
+       "name": "",
+       "type": "listbox",
+       "bounds": {
+        "x": 741,
+        "y": 371,
+        "w": 215,
+        "h": 74
+       },
+       "itemsSampled": [
+        "+Body",
+        "+Headings",
+        "Abadi",
+        "Abadi ExtraLight",
+        "Abel",
+        "Abril Fatface",
+        "ADLaM Display",
+        "Agency FB",
+        "Aharoni",
+        "Al Fresco",
+        "Alasassy Caps",
+        "Aldhabi"
+       ],
+       "dynamic": true
+      },
+      {
+       "name": "Font style:",
+       "type": "text",
+       "bounds": {
+        "x": 965,
+        "y": 351,
+        "w": 83,
+        "h": 20
+       }
+      },
+      {
+       "name": "",
+       "type": "listbox",
+       "bounds": {
+        "x": 965,
+        "y": 371,
+        "w": 83,
+        "h": 69
+       },
+       "itemsSampled": [
+        "Regular",
+        "Italic",
+        "Bold",
+        "Bold Italic"
+       ]
+      },
+      {
+       "name": "Size:",
+       "type": "text",
+       "bounds": {
+        "x": 1057,
+        "y": 351,
+        "w": 62,
+        "h": 20
+       }
+      },
+      {
+       "name": "",
+       "type": "listbox",
+       "bounds": {
+        "x": 1057,
+        "y": 371,
+        "w": 62,
+        "h": 69
+       },
+       "itemsSampled": [
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "14",
+        "16",
+        "18",
+        "20",
+        "22",
+        "24",
+        "26"
+       ]
+      },
+      {
+       "name": "Underline style:",
+       "type": "combo",
+       "bounds": {
+        "x": 871,
+        "y": 469,
+        "w": 118,
+        "h": 21
+       }
+      },
+      {
+       "name": "Strikethrough",
+       "type": "checkbox",
+       "bounds": {
+        "x": 733,
+        "y": 516,
+        "w": 92,
+        "h": 16
+       }
+      },
+      {
+       "name": "Double strikethrough",
+       "type": "checkbox",
+       "bounds": {
+        "x": 733,
+        "y": 535,
+        "w": 132,
+        "h": 16
+       }
+      },
+      {
+       "name": "Superscript",
+       "type": "checkbox",
+       "bounds": {
+        "x": 733,
+        "y": 554,
+        "w": 78,
+        "h": 16
+       }
+      },
+      {
+       "name": "Subscript",
+       "type": "checkbox",
+       "bounds": {
+        "x": 733,
+        "y": 573,
+        "w": 68,
+        "h": 16
+       }
+      },
+      {
+       "name": "Small caps",
+       "type": "checkbox",
+       "bounds": {
+        "x": 1047,
+        "y": 516,
+        "w": 73,
+        "h": 16
+       }
+      },
+      {
+       "name": "All caps",
+       "type": "checkbox",
+       "bounds": {
+        "x": 1047,
+        "y": 535,
+        "w": 59,
+        "h": 16
+       }
+      },
+      {
+       "name": "Hidden",
+       "type": "checkbox",
+       "bounds": {
+        "x": 1047,
+        "y": 554,
+        "w": 58,
+        "h": 16
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Advanced",
+   "screenshot": "screenshots/dialogs__font@advanced.png",
+   "sections": [
+    {
+     "title": "",
+     "fields": [
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 789,
+        "y": 338,
+        "w": 132,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 974,
+        "y": 362,
+        "w": 57,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 974,
+        "y": 387,
+        "w": 57,
+        "h": 14
+       }
+      },
+      {
+       "name": "RichEdit Control",
+       "type": "text",
+       "bounds": {
+        "x": 855,
+        "y": 411,
+        "w": 57,
+        "h": 14
+       }
+      },
+      {
+       "name": "Scale:",
+       "type": "text",
+       "bounds": {
+        "x": 787,
+        "y": 335,
+        "w": 152,
+        "h": 20
+       }
+      },
+      {
+       "name": "Spacing:",
+       "type": "combo",
+       "bounds": {
+        "x": 787,
+        "y": 358,
+        "w": 152,
+        "h": 22
+       }
+      },
+      {
+       "name": "Position:",
+       "type": "combo",
+       "bounds": {
+        "x": 787,
+        "y": 383,
+        "w": 76,
+        "h": 22
+       }
+      },
+      {
+       "name": "Kerning for fonts:",
+       "type": "checkbox",
+       "bounds": {
+        "x": 733,
+        "y": 410,
+        "w": 111,
+        "h": 16
+       }
+      },
+      {
+       "name": "Ligatures:",
+       "type": "combo",
+       "bounds": {
+        "x": 829,
+        "y": 475,
+        "w": 173,
+        "h": 22
+       }
+      },
+      {
+       "name": "Number spacing:",
+       "type": "combo",
+       "bounds": {
+        "x": 829,
+        "y": 500,
+        "w": 173,
+        "h": 22
+       }
+      },
+      {
+       "name": "Number forms:",
+       "type": "combo",
+       "bounds": {
+        "x": 829,
+        "y": 525,
+        "w": 173,
+        "h": 22
+       }
+      },
+      {
+       "name": "Stylistic sets:",
+       "type": "combo",
+       "bounds": {
+        "x": 829,
+        "y": 550,
+        "w": 173,
+        "h": 22
+       }
+      },
+      {
+       "name": "Use Contextual Alternates",
+       "type": "checkbox",
+       "bounds": {
+        "x": 733,
+        "y": 575,
+        "w": 153,
+        "h": 16
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "buttons": [
+  {
+   "name": "Close",
+   "role": "cancel",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Set As Default",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Text Effects...",
+   "action": {
+    "kind": "opens-dialog",
+    "ref": "dialogs/text-effects"
+   }
+  },
+  {
+   "name": "OK",
+   "role": "default",
+   "action": {
+    "kind": "feature"
+   }
+  },
+  {
+   "name": "Cancel",
+   "role": "cancel",
+   "action": {
+    "kind": "feature"
+   }
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.fontdialog"
+ ]
+}

@@ -1,0 +1,182 @@
+{
+ "icons/icon__ribbon.home.clipboard.paste.png": {
+  "sha256": "6e4e767a3d5d195273614d24267400e9e3ec82e3ff2669ce3ff0828a759228ce",
+  "size": 709
+ },
+ "icons/icon__ribbon.home.clipboard.cut.png": {
+  "sha256": "f0e0ce9e09939e82aaca8c48e0c2ad57ceb3dcefe3904e7b67a6baf28efcdb15",
+  "size": 447
+ },
+ "icons/icon__ribbon.home.clipboard.copy.png": {
+  "sha256": "23bbc84f6fcdd9daa33338c511fd872b0a5aa8c08aab5ed72ffed85f488f9d21",
+  "size": 603
+ },
+ "icons/icon__ribbon.home.clipboard.formatpainter.png": {
+  "sha256": "8bb4183ef677e4e8c73ea9b3a7b899b28b6840d8b04efc3134bce24a47de96bb",
+  "size": 1012
+ },
+ "icons/icon__ribbon.home.clipboard.showclipboard.png": {
+  "sha256": "564c6f2f4c871eff5ce83fa69f311b190095c5affe6ad64148cc9940cb22315d",
+  "size": 165
+ },
+ "icons/icon__ribbon.home.font.font.png": {
+  "sha256": "aa436e7b1de71506a473fc1364c26318554b23d69d1e4c0e6a2ad60cb516f197",
+  "size": 911
+ },
+ "icons/icon__ribbon.home.font.fontsize.png": {
+  "sha256": "ab20980edc3ac5aa476288deb099db4ddf5134bd7933c258fb77e041314b121b",
+  "size": 446
+ },
+ "icons/icon__ribbon.home.font.fontsizeincreaseword.png": {
+  "sha256": "e78b938b8af0b17342e3ef9e9a518463944a6b590a3bb9bba1cf10051401e78e",
+  "size": 392
+ },
+ "icons/icon__ribbon.home.font.fontsizedecreaseword.png": {
+  "sha256": "8762500535a8645d5ec2a4671eb650a0f6db76b73830faa781fbdc088aba3aff",
+  "size": 355
+ },
+ "icons/icon__ribbon.home.font.changecasegallery.png": {
+  "sha256": "7fa03da62976832c9119170c467751740bd6546a73a68109694a0ab81def2a3f",
+  "size": 430
+ },
+ "icons/icon__ribbon.home.font.clearformatting.png": {
+  "sha256": "f2e502e9fbd61455ac9fcd5d741704f6da625d3295b784c1d8c1fa53053a035e",
+  "size": 491
+ },
+ "icons/icon__ribbon.home.font.bold.png": {
+  "sha256": "5de3730925c038f33ff95a969d90b5035942937e52eb8b14a198a824807e1a07",
+  "size": 273
+ },
+ "icons/icon__ribbon.home.font.italic.png": {
+  "sha256": "722bac662eab2ff2612b7e946b336af283344d5324e12703137417b8719916b5",
+  "size": 229
+ },
+ "icons/icon__ribbon.home.font.underlinegallery.png": {
+  "sha256": "5f6686a126a83e30b3b2a01d7119c4c0b87fab675c4432c35ac56d82dcfb6f7a",
+  "size": 263
+ },
+ "icons/icon__ribbon.home.font.strikethrough.png": {
+  "sha256": "5f788e11e77a3ff9e8cd4f809185a82e982fce079cbc8d08c8154d84b4780f57",
+  "size": 312
+ },
+ "icons/icon__ribbon.home.font.subscript.png": {
+  "sha256": "33af63df781935aa85d496d537718f94936b6c856b50c4844416d4eab331e726",
+  "size": 294
+ },
+ "icons/icon__ribbon.home.font.superscript.png": {
+  "sha256": "455fb6864ccfe64d919efa4bb22304a2da48fe7d611df85679d06aa04c557903",
+  "size": 296
+ },
+ "icons/icon__ribbon.home.font.texteffectsgallery.png": {
+  "sha256": "66b274054d9bef158352e8940a5fa9f710d37d4eb9abb64cbfe87bf21852e988",
+  "size": 722
+ },
+ "icons/icon__ribbon.home.font.texthighlightcolorpicker.png": {
+  "sha256": "4ab3648aa0d49b5233d126b72ccfe20f835bfd071e11cc68030aa17c3e1a3742",
+  "size": 357
+ },
+ "icons/icon__ribbon.home.font.fontcolorpicker.png": {
+  "sha256": "04645db327fea82d3d600abc155e4266434b3f926be52e7d1d25fef9fe00dbd1",
+  "size": 349
+ },
+ "icons/icon__ribbon.home.font.fontdialog.png": {
+  "sha256": "564c6f2f4c871eff5ce83fa69f311b190095c5affe6ad64148cc9940cb22315d",
+  "size": 165
+ },
+ "icons/icon__ribbon.home.paragraph.bulletsgalleryword.png": {
+  "sha256": "c23d9779f6f1af73b19daa9bd7bd3527a37079dc0dec31d9c30008f3c2e0d094",
+  "size": 207
+ },
+ "icons/icon__ribbon.home.paragraph.numberinggalleryword.png": {
+  "sha256": "e29f91d48ccae69f6463f86ad8c1e4c66ad9a80f1c9ccb800ad6dc8103266cbd",
+  "size": 291
+ },
+ "icons/icon__ribbon.home.paragraph.multilevellistgallery.png": {
+  "sha256": "6f739fb1c3a936bbd14dcb6e81d92b1712d34fa2e4a2fae80de2f713796b807d",
+  "size": 283
+ },
+ "icons/icon__ribbon.home.paragraph.indentdecreaseword.png": {
+  "sha256": "835acb17696bda1943673fa266785d1569001ad8417cb034851f7c3983cbf9d7",
+  "size": 189
+ },
+ "icons/icon__ribbon.home.paragraph.indentincreaseword.png": {
+  "sha256": "ffea8e31f976ba0cf8e73e21c5d1d4aefc2d52ae10db09d82fe08420f5609bd3",
+  "size": 181
+ },
+ "icons/icon__ribbon.home.paragraph.sortdialogclassic.png": {
+  "sha256": "0b8c406d61f386b5dd15d02f30adf31aae7b7af175cf7a04fbc3e96c1ea35e04",
+  "size": 401
+ },
+ "icons/icon__ribbon.home.paragraph.paragraphmarks.png": {
+  "sha256": "2458f5769da2d5c0b4aa4c84d72abf8a27b64eb97d5f8180fde00008bbfc1e9f",
+  "size": 199
+ },
+ "icons/icon__ribbon.home.paragraph.alignleft.png": {
+  "sha256": "6f5ffafff25b12e930f18eb65dfb639ae9e7c89ebbd6180158815989cbae43ce",
+  "size": 295
+ },
+ "icons/icon__ribbon.home.paragraph.aligncenter.png": {
+  "sha256": "0cb34d739c781f881464bf29ebcf599b1c8101bffee866030e2f01efec26cb66",
+  "size": 125
+ },
+ "icons/icon__ribbon.home.paragraph.alignright.png": {
+  "sha256": "9e029aedf6193cabea904e6062ddb296f8324de5714b913684ca809ba57e649f",
+  "size": 123
+ },
+ "icons/icon__ribbon.home.paragraph.alignjustify.png": {
+  "sha256": "e4d25fc4fdf47b354956a1e2e03dd3497b7ba4ceae889b03fb16ee64b3a10530",
+  "size": 119
+ },
+ "icons/icon__ribbon.home.paragraph.linespacinggallery.png": {
+  "sha256": "6cf698242f9e04c42a5c41dd9d46e24ff94ffeaa004cc82a4f458a97759bc8ad",
+  "size": 317
+ },
+ "icons/icon__ribbon.home.paragraph.shadingcolorpicker.png": {
+  "sha256": "b99b4cc1ba0833514d00071868abea25fac64aa83d24e90bdbc50f9a28fb1e23",
+  "size": 427
+ },
+ "icons/icon__ribbon.home.paragraph.bordersselectiongallery.png": {
+  "sha256": "9ebe6fa2a851b57673cb2729865a731c514038270754016beabd1f073e281b95",
+  "size": 434
+ },
+ "icons/icon__ribbon.home.paragraph.paragraphdialog.png": {
+  "sha256": "564c6f2f4c871eff5ce83fa69f311b190095c5affe6ad64148cc9940cb22315d",
+  "size": 165
+ },
+ "icons/icon__ribbon.home.styles.quickstylesgallery.png": {
+  "sha256": "959e7e521e14cc01fe7a1213be752d571e290b08f7a6996306df9986d7f4c225",
+  "size": 6567
+ },
+ "icons/icon__ribbon.home.styles.stylespane.png": {
+  "sha256": "564c6f2f4c871eff5ce83fa69f311b190095c5affe6ad64148cc9940cb22315d",
+  "size": 165
+ },
+ "icons/icon__ribbon.home.editing.find.png": {
+  "sha256": "b10232e1c7f4a4899cf85a6e0073b4d3a5ca894d6752c1ff2f1f89852f03f637",
+  "size": 587
+ },
+ "icons/icon__ribbon.home.editing.replacedialog.png": {
+  "sha256": "33573a27c4b9fb0365302b351c85f98235d0cb464b6deed7a0d8a010dd3289a7",
+  "size": 746
+ },
+ "icons/icon__ribbon.home.editing.selectmenu.png": {
+  "sha256": "cc85d0dbe9f9183bbc802d4dc4453ce757283bb07f56d3ed3a030bf9a36a21d5",
+  "size": 618
+ },
+ "icons/icon__ribbon.home.adobe-acrobat.create-a-pdf.png": {
+  "sha256": "1eb5ab0794e6e05dc95723bac93b76170cb24cfcdb4250bf1ddf0243f60b1470",
+  "size": 1454
+ },
+ "icons/icon__ribbon.home.voice.dictate.png": {
+  "sha256": "70fe3dea64090900ed8abed3fd61c857c652da8f87cf52b9fb400651898dbcdc",
+  "size": 1086
+ },
+ "icons/icon__ribbon.home.editor.writingassistancecheckdocument.png": {
+  "sha256": "0a4158f7d052185951edcab5ad0911f0bcfbd08f5b63d69aaae871adcc8530f7",
+  "size": 1141
+ },
+ "icons/icon__ribbon.home.add-ins.officeextensionsshowaddinflyout.png": {
+  "sha256": "971e3c449c7ef8847599b664ef3f4e87553b7a9f8bde787e8dfc66e605e77cdf",
+  "size": 587
+ }
+}

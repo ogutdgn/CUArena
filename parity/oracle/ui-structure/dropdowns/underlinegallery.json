@@ -1,0 +1,164 @@
+{
+ "id": "dropdowns/underlinegallery",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__underlinegallery.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "underline",
+     "label": "Underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 2,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "double-underline",
+     "label": "Double underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 28,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "thick-underline",
+     "label": "Thick underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 54,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "dotted-underline",
+     "label": "Dotted underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 80,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "dashed-underline",
+     "label": "Dashed underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 106,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "dot-dash-underline",
+     "label": "Dot-dash underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 132,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "dot-dot-dash-underline",
+     "label": "Dot-dot-dash underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 158,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "wave-underline",
+     "label": "Wave underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 184,
+      "w": 156,
+      "h": 26
+     }
+    },
+    {
+     "id": "no-underline",
+     "label": "No underline",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 210,
+      "w": 156,
+      "h": 26
+     }
+    }
+   ]
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "more-underlines",
+     "label": "More Underlines...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/more-underlines"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 239,
+      "w": 173,
+      "h": 28
+     }
+    },
+    {
+     "id": "underline-color",
+     "label": "Underline Color",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 267,
+      "w": 173,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.underlinegallery"
+ ]
+}

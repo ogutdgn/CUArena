@@ -1,0 +1,70 @@
+{
+ "id": "dropdowns/texthighlightcolorpicker",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__texthighlightcolorpicker.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [],
+   "title": "Gallery Filters"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "high-contrast-only",
+     "label": "High-contrast only",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 8,
+      "y": 8,
+      "w": 160,
+      "h": 28
+     }
+    }
+   ]
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "no-color",
+     "label": "No Color",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 138,
+      "w": 172,
+      "h": 28
+     }
+    }
+   ],
+   "title": " "
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "stop-highlighting",
+     "label": "Stop Highlighting",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 169,
+      "w": 172,
+      "h": 29
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.font.texthighlightcolorpicker"
+ ]
+}

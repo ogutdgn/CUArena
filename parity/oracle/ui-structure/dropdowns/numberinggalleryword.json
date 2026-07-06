@@ -1,0 +1,172 @@
+{
+ "id": "dropdowns/numberinggalleryword",
+ "schema_version": 1,
+ "screenshot": "screenshots/dropdowns__numberinggalleryword.png",
+ "sections": [
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "1-2-3-alignment-left-number-format-1",
+     "label": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1.",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 30,
+      "w": 84,
+      "h": 84
+     }
+    }
+   ],
+   "title": "Recently Used Number Formats"
+  },
+  {
+   "kind": "gallery",
+   "items": [
+    {
+     "id": "none",
+     "label": "None",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 153,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "1-2-3-alignment-left-number-format-1-2",
+     "label": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1)",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 170,
+      "y": 153,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "i-ii-iii-alignment-right-number-format-i",
+     "label": "I, II, III, …, ALIGNMENT Right, Number Format: I.",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 237,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "a-b-c-alignment-left-number-format-a",
+     "label": "A, B, C, …, ALIGNMENT Left, Number Format: A.",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 86,
+      "y": 237,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "a-b-c-alignment-left-number-format-a-2",
+     "label": "a, b, c, …, ALIGNMENT Left, Number Format: a)",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 170,
+      "y": 237,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "a-b-c-alignment-left-number-format-a-3",
+     "label": "a, b, c, …, ALIGNMENT Left, Number Format: a.",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 321,
+      "w": 84,
+      "h": 84
+     }
+    },
+    {
+     "id": "i-ii-iii-alignment-right-number-format-i-2",
+     "label": "i, ii, iii, …, ALIGNMENT Right, Number Format: i.",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 86,
+      "y": 321,
+      "w": 84,
+      "h": 84
+     }
+    }
+   ],
+   "title": "Numbering Library"
+  },
+  {
+   "kind": "menu-items",
+   "items": [
+    {
+     "id": "change-list-level",
+     "label": "Change List Level",
+     "action": {
+      "kind": "feature"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 416,
+      "w": 269,
+      "h": 28
+     }
+    },
+    {
+     "id": "define-new-number-format",
+     "label": "Define New Number Format...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/define-new-number-format"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 444,
+      "w": 269,
+      "h": 28
+     }
+    },
+    {
+     "id": "set-numbering-value",
+     "label": "Set Numbering Value...",
+     "action": {
+      "kind": "opens-dialog",
+      "ref": "dialogs/set-numbering-value"
+     },
+     "bounds": {
+      "x": 2,
+      "y": 472,
+      "w": 269,
+      "h": 28
+     }
+    }
+   ]
+  }
+ ],
+ "entry_points": [
+  "ribbon.home.paragraph.numberinggalleryword"
+ ]
+}

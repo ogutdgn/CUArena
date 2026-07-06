@@ -1,0 +1,102 @@
+{
+ "screenshots/screenshot__ribbon__home.png": {
+  "sha256": "6b11008091c0194e5cef626777d4b729757ccf116fe9e92705c75bf65602cac1",
+  "size": 23593
+ },
+ "screenshots/dropdowns__paste.png": {
+  "sha256": "ea96990cb261d4642512924d5391488e9838013ed247854b85658c97c759abab",
+  "size": 3212
+ },
+ "screenshots/dropdowns__font.png": {
+  "sha256": "e142c0ef606ea825cd7afcd307ad424b80c0ddd7914c93abe0492c89195813eb",
+  "size": 24696
+ },
+ "screenshots/dropdowns__fontsize.png": {
+  "sha256": "c3eb88a08672f0c0607907587688afeb37cdba5df83ce351773a09d58ed91716",
+  "size": 2285
+ },
+ "screenshots/dropdowns__changecasegallery.png": {
+  "sha256": "7c595ce83043a8362ca1351b77d2cc65f6a9e38be78bcbc83a6d26727d3d8237",
+  "size": 2525
+ },
+ "screenshots/dropdowns__underlinegallery.png": {
+  "sha256": "c28bf4d46c8e2d06c430f1b859845ceb0cc1d993a21b46761cc842a95e6d3d5f",
+  "size": 2738
+ },
+ "screenshots/dropdowns__texteffectsgallery.png": {
+  "sha256": "72accebebd88f0e81098f7bbc5e9adee9ce110f524f37b60869177d237480459",
+  "size": 22211
+ },
+ "screenshots/dropdowns__texthighlightcolorpicker.png": {
+  "sha256": "d4a336c884db2b50d80af0705ac0d39c6e8ce8478a6cd4aaf615b8ca9ca615d9",
+  "size": 3627
+ },
+ "screenshots/dropdowns__fontcolorpicker.png": {
+  "sha256": "642c19f6121aee061ee868ba07e8e104b16adc7a6da0b0c9d63ff6994eb9e063",
+  "size": 7402
+ },
+ "screenshots/dialogs__font@font.png": {
+  "sha256": "f879e07283e39d8bb6b36c97da917b35c6169c85d6b30aa23062abf609777147",
+  "size": 20577
+ },
+ "screenshots/dialogs__font@advanced.png": {
+  "sha256": "015ad3e434509595543955676974e590c4a7ce000943429d280571525fcc2cec",
+  "size": 22610
+ },
+ "screenshots/dropdowns__bulletsgalleryword.png": {
+  "sha256": "7aef3822e60578f75d3f7225baa3f91a53af9cba0c8806cd96472fd9d9ed861e",
+  "size": 6491
+ },
+ "screenshots/dropdowns__numberinggalleryword.png": {
+  "sha256": "acf607f935b42c287d3f2291f93f684908b92e74c46b96c58ad5e251fd65a6bf",
+  "size": 8816
+ },
+ "screenshots/dropdowns__multilevellistgallery.png": {
+  "sha256": "35d25eb0b56e8a5607bb811b42cc18f8bf6856dfcdd8c402d2c7fb87daeddb81",
+  "size": 9316
+ },
+ "screenshots/dialogs__sort-text.png": {
+  "sha256": "f69d63b3b8d009949ec44deda5a877f90b244d4c181d583a66063a9e15d81ed8",
+  "size": 15060
+ },
+ "screenshots/dropdowns__linespacinggallery.png": {
+  "sha256": "7e31699aa5e69b6b8e94f3396cedf9f95cdfb8584e92c69f6b93ca257a34f317",
+  "size": 3827
+ },
+ "screenshots/dropdowns__shadingcolorpicker.png": {
+  "sha256": "ac5219c17dfcbf541cbec53b6dc70aae716e5cfcf23e768f737e2987c86be96e",
+  "size": 6648
+ },
+ "screenshots/dropdowns__bordersselectiongallery.png": {
+  "sha256": "93406720c8747a381d103a4b976b31d3cf5f3551558d9733e05675701f204fc5",
+  "size": 8595
+ },
+ "screenshots/dialogs__paragraph@indents-and-spacing.png": {
+  "sha256": "d5e0e9dbfb5888ca6a672df00af68b72b377c3693668585a23fae0a0691e2dad",
+  "size": 21223
+ },
+ "screenshots/dialogs__paragraph@line-and-page-breaks.png": {
+  "sha256": "24e7f35fa3784f7fe8e6e738df3b8b42fad1e7da8fd96f62668d3b97896716a9",
+  "size": 17421
+ },
+ "screenshots/dropdowns__find.png": {
+  "sha256": "a5f44904863a1c74f25bf1d2f30daaad0501fbf50742380625e878a786f416e3",
+  "size": 1813
+ },
+ "screenshots/dialogs__find-and-replace@find.png": {
+  "sha256": "3436ddcbf9d67ab6ef1ee0857236216778d676b0936b000a2591b09782a97e67",
+  "size": 10675
+ },
+ "screenshots/dialogs__find-and-replace@replace.png": {
+  "sha256": "58e96d2afb80658738796fa209e51deffdef39c6713d311721593f599639dcce",
+  "size": 11001
+ },
+ "screenshots/dialogs__find-and-replace@go-to.png": {
+  "sha256": "845d141c626d93362445adb561b817fa75ec1002cc30aefe0dbb1a02ac6f859b",
+  "size": 11582
+ },
+ "screenshots/dropdowns__selectmenu.png": {
+  "sha256": "c9a0f10d4bd5945e8bf14b2cee59d5113406c14fa57933474672ba4b8162687f",
+  "size": 3753
+ }
+}
