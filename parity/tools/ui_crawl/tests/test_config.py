@@ -6,7 +6,7 @@ import config
 def test_paths_and_pins():
     assert config.OUTPUT_ROOT.as_posix().endswith("parity/oracle/ui-structure")
     assert config.SCHEMA_VERSION == 1
-    assert config.BUILD_PREFIX == "16.0.20026"
+    assert config.BUILD_PREFIX == "16.0.20131"
     rd = config.new_run_dir()
     assert rd.exists() and "OneDrive" not in str(rd)
 

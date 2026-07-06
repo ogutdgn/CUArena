@@ -4,7 +4,10 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
 OUTPUT_ROOT = REPO_ROOT / "oracle" / "ui-structure"
 FIXTURES = REPO_ROOT / "oracle" / "ui-structure-fixtures"
 SCHEMA_VERSION = 1
-BUILD_PREFIX = "16.0.20026"
+# Re-pinned 2026-07-06 from 16.0.20026 to the live installed build after Office
+# auto-updated past the intended freeze (user-approved). ADR-0006 + DESIGN section 3.4
+# still cite 16.0.20026.20168 and must be reconciled to this build separately.
+BUILD_PREFIX = "16.0.20131"
 
 
 def new_run_dir() -> pathlib.Path:
