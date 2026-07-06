@@ -62,7 +62,7 @@ state. Completion = frontier empty + every node `complete | blocked(reason) | bo
 | `excluded` | OS/out-of-process windows (Help, VBA editor, OS consent prompts), feature-spawned floating toolbars (Dictate), cloud-gated surfaces (Designer, Copilot, sign-in flows) — cloud-gated presence recorded in manifest | D8 |
 | `deferred` | All right-click surfaces: context menus, mini toolbar, gallery-tile right-click menus | D6 |
 | `deferred` | Non-default status-bar segments (only reachable via right-click Customize) | D6 |
-| `deferred` | Handle visual-capture residue, if any survives F3 | D2 |
+| `deferred` | Handle visual-capture residue, if any survives P3 | D2 |
 
 Every boundary edge appears in `coverage.json` under its decision id. Flipping a boundary later
 (e.g. crawling backstage) is a data change, not a schema change.
@@ -331,7 +331,7 @@ adornment documented from screenshots.
 | `trigger.recipe`, `enabled_in` keys, `variants` keys | recipe id in `recipes.json` (`<recipe>[@<placement>]`) | N | hard-fail |
 | `dependencies.if.field` / `enables[]` | `#field:` addresses within the same dialog (R3) | N | hard-fail |
 | `boundary.decision` | D-register entry (§3.3) | 1 | hard-fail |
-| `capture.evidence` | journal URI (archive URI after F4 per §5.1) | 1 | must resolve until archival |
+| `capture.evidence` | journal URI (archive URI after P4 per §5.1) | 1 | must resolve until archival |
 | `idMso` | external bridge value — validated by DoD §8.3, not by this gate | 0–1 | n/a |
 
 **Variants addressing:** inbound refs ALWAYS target the base surface id. A surface whose content
@@ -370,10 +370,10 @@ parity/oracle/ui-structure/
 
 1. **Committed:** all JSONs + icons + screenshots + coverage. **Not committed:** journal, UIA
    dumps, full-run evidence — these live in a scratch run dir outside OneDrive, are **retained
-   until F4 acceptance**, then zipped to a local archive (journal is a hard dependency of resume,
+   until P4 acceptance**, then zipped to a local archive (journal is a hard dependency of resume,
    adjudication, and re-emit — it has a defined lifetime, not an ad-hoc one).
 2. **`schema_version`** lives in the manifest and every file; journal entries are versioned;
-   schema migrations ship with a journal-replay migrator (the schema WILL evolve after F0).
+   schema migrations ship with a journal-replay migrator (the schema WILL evolve after P0).
 3. **Surface identity = structural signature** (normalized control-type/label tree, dynamic
    sections excluded), NOT window title. Same signature → same file, `entry_points` appended.
    Different content per context → `variants` block keyed by context. Title collisions (two
@@ -514,7 +514,7 @@ plus mini-recipes `post-paste` (clipboard fixture set programmatically) and `aut
    captures (`parity/oracle/dialogs/*.json`) are a standing cross-check of the same kind.
 6. **Screen-first visual sample audit:** samples drawn from the live screen → located in JSON
    (this direction catches missing nodes; JSON-first sampling cannot), stratified across the
-   three `probe_mode` classes; sample size set by the acceptance target agreed at F4.
+   three `probe_mode` classes; sample size set by the acceptance target agreed at P4.
 7. **Agent-judgment QA:** adjudications and dialog section-groupings sample-checked by a second
    independent agent; disagreements escalate to the user at phase gates.
 8. **Asset gates:** every icon-bearing control has a non-garbage PNG; every dialog button has an
@@ -524,11 +524,11 @@ plus mini-recipes `post-paste` (clipboard fixture set programmatically) and `aut
 
 | Phase | Content | Exit gate |
 |---|---|---|
-| **F0** | Harness skeleton + **Home tab** end-to-end with its fixtures (clipboard, format-painter selection) | Home 100 % captured; UIA exposure map built; AutomationId=idMso validated; press-mechanism + reset rules proven; **throughput measured → full-run time budget**; schema ratified by the user on real data |
-| **F1** | Remaining core tabs + shell (header/footer/rulers) | All core-tab + shell frontier resolved to refs/boundaries; per-tab checkpoint commits |
-| **F2** | Popup/dialog frontier drain + stimulus passes | Frontier empty; ambiguous queue empty |
-| **F3** | Context recipes → contextual tabs + their popups + canvas captures | All 17 tabSets resolved; canvas checklists complete |
-| **F4** | Inventory diff + sensor-diversity audit + acceptance report | Full DoD (§8); report reviewed by the user |
+| **P0** | Harness skeleton + **Home tab** end-to-end with its fixtures (clipboard, format-painter selection) | Home 100 % captured; UIA exposure map built; AutomationId=idMso validated; press-mechanism + reset rules proven; **throughput measured → full-run time budget**; schema ratified by the user on real data |
+| **P1** | Remaining core tabs + shell (header/footer/rulers) | All core-tab + shell frontier resolved to refs/boundaries; per-tab checkpoint commits |
+| **P2** | Popup/dialog frontier drain + stimulus passes | Frontier empty; ambiguous queue empty |
+| **P3** | Context recipes → contextual tabs + their popups + canvas captures | All 17 tabSets resolved; canvas checklists complete |
+| **P4** | Inventory diff + sensor-diversity audit + acceptance report | Full DoD (§8); report reviewed by the user |
 
 Later phases (schema-ready, zero rework): backstage flip, right-click surfaces, any handle
 visual-capture residue.
