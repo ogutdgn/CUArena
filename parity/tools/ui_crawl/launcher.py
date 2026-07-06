@@ -76,12 +76,18 @@ class WordSession:
         return win32gui.GetForegroundWindow() == self._hwnd()
 
     def close(self):
+        # Each COM step is independent: a stuck modal dialog makes doc.Close() report
+        # 'application is busy', but taskkill (below) is the guaranteed PID-safe cleanup.
         try:
             if getattr(self, "doc", None):
                 self.doc.Close(SaveChanges=0)
+        except Exception:
+            pass
+        try:
             if getattr(self, "app", None):
                 self.app.Quit()
-        finally:
-            time.sleep(1)
-            if getattr(self, "pid", None):
-                subprocess.run(["taskkill", "/PID", str(self.pid), "/F"], capture_output=True)
+        except Exception:
+            pass
+        time.sleep(1)
+        if getattr(self, "pid", None):
+            subprocess.run(["taskkill", "/PID", str(self.pid), "/F"], capture_output=True)

@@ -71,12 +71,91 @@ def enumerate_home():
         s.close()
 
 
+def _split_child_rects(el):
+    out = []
+    for c in el.children():
+        r = c.element_info.rectangle
+        out.append((r.left, r.top, r.right, r.bottom))
+    return out
+
+
+def probe_archetypes():
+    import uia, prober
+    from journal import Journal
+    s = WordSession.start(config.FIXTURES / "p0-text.docx")
+    rd = config.new_run_dir()
+    j = Journal(rd / "journal.jsonl")
+    try:
+        win = uia.attach(s)
+        s.select_paragraph(1)
+        armed = s.copy_fixture_text()
+        j.append({"t": "clipboard-armed", "text": armed[:32]})
+        j.append({"t": "state-established", "para": 1})
+
+        groups = {g.element_info.name: g for g in uia._real_groups(win, "Home")}
+
+        def find(group, aid=None, name=None, ct=None):
+            for d in groups[group].descendants():
+                ei = d.element_info
+                if aid and ei.automation_id == aid:
+                    return d
+                if name and ei.name == name and (ct is None or ei.control_type == ct):
+                    return d
+            return None
+
+        results = {}
+        bold = find("Font", aid="Bold")
+        results["Bold"] = prober.probe(s, win, j, bold, "ribbon.home.font.bold")
+
+        fd = find("Font", aid="FontDialog")
+        results["FontDialog"] = prober.probe(s, win, j, fd, "ribbon.home.font.fontdialog")
+
+        num = find("Paragraph", aid="NumberingGalleryWord", ct="SplitButton")
+        results["Numbering.flyout"] = prober.probe(
+            s, win, j, num, "ribbon.home.paragraph.numberinggalleryword",
+            zone="flyout", split_children=_split_child_rects(num))
+
+        paste = find("Clipboard", name="Paste", ct="SplitButton")
+        results["Paste.flyout"] = prober.probe(
+            s, win, j, paste, "ribbon.home.clipboard.paste",
+            zone="flyout", split_children=_split_child_rects(paste))
+
+        # re-arm clipboard + place caret at DOC END so paste INSERTS (a real doc-hash delta);
+        # pasting the clipboard back over its own source selection is a no-op -> unresolved.
+        s.select_paragraph(1)
+        s.copy_fixture_text()
+        j.append({"t": "clipboard-armed", "text": "rearm"})
+        end = s.doc.Content.End
+        s.doc.Range(end - 1, end - 1).Select()
+        results["Paste.primary"] = prober.probe(
+            s, win, j, paste, "ribbon.home.clipboard.paste",
+            zone="primary", split_children=_split_child_rects(paste))
+
+        dictate = find("Voice", name="Dictate", ct="SplitButton")
+        results["Dictate"] = prober.probe(s, win, j, dictate, "ribbon.home.voice.dictate")
+
+        print("=== archetype outcomes ===")
+        for k, v in results.items():
+            print(f"  {k:18s} class={v['class']:11s} ref={v.get('ref')} mode={v['probe_mode']}")
+        print("=== journal (reset-verified / ambiguous) ===")
+        for r in j.records():
+            if r["t"] in ("reset-verified", "ambiguous", "boundary", "surface-discovered"):
+                print("  ", {kk: vv for kk, vv in r.items()
+                             if kk not in ("ts", "seq", "schema_version")})
+        print(f"RUN_DIR={rd}")
+    finally:
+        s.close()
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--dump-tree", action="store_true")
     ap.add_argument("--enumerate-home", action="store_true")
+    ap.add_argument("--probe-archetypes", action="store_true")
     a = ap.parse_args()
     if a.dump_tree:
         dump_tree()
     if a.enumerate_home:
         enumerate_home()
+    if a.probe_archetypes:
+        probe_archetypes()
