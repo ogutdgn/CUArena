@@ -22,11 +22,18 @@ BOUNDARIES = {
     "ribbon.file":                  {"policy": "excluded", "decision": "D4", "kind": "opens-backstage"},
     "ribbon.home.voice.dictate":    {"policy": "excluded", "decision": "D8", "kind": "feature"},
     "ribbon.home.voice.read-aloud": {"policy": "excluded", "decision": "D8", "kind": "feature"},
-    "ribbon.home.editor.editor":    {"policy": "excluded", "decision": "D8", "kind": "opens-pane"},
 }
+# Prefix boundaries. Editor/Adobe-Acrobat pinned from the live Home UIA dump (T6): the Editor
+# button's real idMso is 'WritingAssistanceCheckDocument' (not label 'editor'), and the Acrobat
+# COM add-in injects an 'Adobe Acrobat' group (Create a PDF) that survived the launch-time
+# disconnect -> both boundary-declared (D8) so the crawler never presses them. copilot.* /
+# add-ins.* kept from the plan (add-ins.* matches OfficeExtensionsShowAddinFlyout; copilot.* is
+# unused on Home in this build -> reported as unused_boundary_config).
 BOUNDARY_PREFIXES = {
-    "ribbon.home.copilot.": {"policy": "excluded", "decision": "D8", "kind": "opens-pane"},
-    "ribbon.home.add-ins.": {"policy": "excluded", "decision": "D8", "kind": "opens-dialog"},
+    "ribbon.home.editor.":        {"policy": "excluded", "decision": "D8", "kind": "opens-pane"},
+    "ribbon.home.adobe-acrobat.": {"policy": "excluded", "decision": "D8", "kind": "feature"},
+    "ribbon.home.copilot.":       {"policy": "excluded", "decision": "D8", "kind": "opens-pane"},
+    "ribbon.home.add-ins.":       {"policy": "excluded", "decision": "D8", "kind": "opens-dialog"},
 }
 # Seeded after the T6 --dump-tree; teaching-callout / nag window title or class regexes.
 NAG_SIGNATURES = [r"(?i)try\s+", r"(?i)what's new", r"(?i)coming soon", r"(?i)get add-ins"]
