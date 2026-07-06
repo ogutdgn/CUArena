@@ -396,7 +396,7 @@ parity/oracle/ui-structure/
 
 ## 6. Crawler architecture
 
-Python package `docs/ui-structure/tools/` (pywinauto, UIA backend). Modules: **launcher** (COM,
+Python package `parity/tools/ui_crawl/` (pywinauto, UIA backend). Modules: **launcher** (COM,
 PID-safe — kills only its own WINWORD PID), **enumerator**, **prober**, **icon-cropper**,
 **screenshotter**, **tooltip-harvester** (UIA HelpText primary; hover fallback only while no popup
 is open), **journal/frontier store** (JSONL, idempotent, resumable), **emitter**.
@@ -470,7 +470,7 @@ blank/garbage crops.
 A recipe = **open a pre-authored fixture .docx + select the object via COM** (creation-at-crawl
 rejected: 3D insert wants online content, ink cannot be created via COM). Fixtures are authored
 once (3D from a local .glb; ink drawn once by hand/injected input and saved) and committed under
-`docs/ui-structure/tools/fixtures/`.
+`parity/oracle/ui-structure-fixtures/`.
 
 The recipe list is itself a machine artifact — `recipes.json` (recipe id, fixture path, selection
 placements); `enabled_in` keys are `<recipe-id>` or `<recipe-id>@<placement>` drawn from it.
