@@ -147,11 +147,107 @@ def probe_archetypes():
         s.close()
 
 
+def _tops():
+    import win32gui
+    a = []
+    win32gui.EnumWindows(lambda h, x: (x.append(h) if win32gui.IsWindowVisible(h) else None) or True, a)
+    return set(a)
+
+
+def _new_win(pid, before, main):
+    import win32gui, win32process
+    for h in _tops() - before:
+        try:
+            _, wp = win32process.GetWindowThreadProcessId(h)
+            if wp == pid and h != main:
+                return h
+        except Exception:
+            pass
+    return None
+
+
+def capture_demo():
+    import time, win32gui, win32process, uia, capture, schemas
+    from journal import Journal
+    from pywinauto import mouse
+    from pywinauto.keyboard import send_keys
+    s = WordSession.start(config.FIXTURES / "p0-text.docx")
+    rd = config.new_run_dir()
+    j = Journal(rd / "journal.jsonl")
+
+    def esc():
+        fg = win32gui.GetForegroundWindow()
+        _, fp = win32process.GetWindowThreadProcessId(fg)
+        if fp != s.pid:
+            uia._force_foreground(s._hwnd())
+        send_keys("{ESC}"); time.sleep(0.4); send_keys("{ESC}"); time.sleep(0.3)
+
+    try:
+        win = uia.attach(s)
+        main = s._hwnd()
+        s.select_paragraph(1)
+        groups = {g.element_info.name: g for g in uia._real_groups(win, "Home")}
+
+        def find(group, aid=None, name=None):
+            for d in groups[group].descendants():
+                ei = d.element_info
+                if aid and ei.automation_id == aid:
+                    return d
+                if name and ei.name == name:
+                    return d
+
+        def flyout_pt(el):
+            r = el.children()[-1].element_info.rectangle
+            return ((r.left + r.right) // 2, (r.top + r.bottom) // 2)
+
+        def center(el):
+            r = el.element_info.rectangle
+            return ((r.left + r.right) // 2, (r.top + r.bottom) // 2)
+
+        def open_at(pt):
+            before = _tops()
+            uia._force_foreground(s._hwnd())
+            mouse.click(coords=pt)
+            time.sleep(1.0)
+            return _new_win(s.pid, before, main)
+
+        h = open_at(flyout_pt(find("Paragraph", aid="NumberingGalleryWord")))
+        pop = capture.capture_popup(s, j, rd, "dropdowns/numbering-library", win32gui.GetWindowRect(h))
+        nitems = sum(len(sec["items"]) for sec in pop["sections"])
+        print(f"numbering popup: sections={len(pop['sections'])} items={nitems} "
+              f"validate={schemas.validate_popup(pop)}")
+        esc()
+
+        h = open_at(center(find("Font", aid="FontDialog")))
+        dlg = capture.capture_dialog(s, j, rd, "dialogs/font", h)
+        nfields = sum(len(sec["fields"]) for t in dlg["tabs"] for sec in t["sections"])
+        names = sorted({f["name"] for t in dlg["tabs"] for sec in t["sections"]
+                        for f in sec["fields"] if f["name"]})
+        print(f"font dialog: tabs={[t['name'] for t in dlg['tabs']]} fields={nfields} "
+              f"buttons={[b['name'] for b in dlg['buttons']]} validate={schemas.validate_dialog(dlg)}")
+        print(f"  field names: {names}")
+        esc()
+
+        qs = find("Styles", aid="QuickStylesGallery")
+        moreb = [c for c in qs.children() if c.element_info.control_type == "Button"]
+        if moreb:
+            h = open_at(center(moreb[-1]))
+            if h:
+                sg = capture.capture_popup(s, j, rd, "dropdowns/styles-gallery", win32gui.GetWindowRect(h))
+                print(f"styles gallery: items={sum(len(sec['items']) for sec in sg['sections'])} "
+                      f"dynamic={sg.get('dynamic')} validate={schemas.validate_popup(sg)}")
+                esc()
+        print(f"RUN_DIR={rd}")
+    finally:
+        s.close()
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--dump-tree", action="store_true")
     ap.add_argument("--enumerate-home", action="store_true")
     ap.add_argument("--probe-archetypes", action="store_true")
+    ap.add_argument("--capture-demo", action="store_true")
     a = ap.parse_args()
     if a.dump_tree:
         dump_tree()
@@ -159,3 +255,5 @@ if __name__ == "__main__":
         enumerate_home()
     if a.probe_archetypes:
         probe_archetypes()
+    if a.capture_demo:
+        capture_demo()
