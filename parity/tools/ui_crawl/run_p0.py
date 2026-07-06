@@ -307,6 +307,10 @@ def full_run(out_root, resume_dir=None):
 
                 b = config.boundary_for(cid)
                 if b:
+                    # boundary double-entry (DESIGN section 4.8): the coverage edge and the node
+                    # boundary block both derive from this single journal 'boundary' record.
+                    journal.append({"t": "boundary", "from": cid, "kind": b.get("kind", "feature"),
+                                    "policy": b["policy"], "decision": b["decision"]})
                     ctrl = build.build_control(props, "home", gseg,
                         {"class": "boundary", "ref": None, "boundary": b,
                          "probe_mode": "boundary-declared"}, icon, bounds)
