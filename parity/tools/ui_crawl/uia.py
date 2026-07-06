@@ -62,10 +62,30 @@ def _force_foreground(hwnd):
         ctypes.windll.user32.AttachThreadInput(t1, t2, False)
 
 
+def _frame_hwnd(pid):
+    """The process's top-level 'OpusApp' frame -- the window that hosts the ribbon. Word can
+    own >1 top-level window (startup panes) and ActiveWindow.Hwnd is not always the frame, so
+    target OpusApp explicitly (there is exactly one)."""
+    found = []
+
+    def cb(h, _):
+        try:
+            _, wp = win32process.GetWindowThreadProcessId(h)
+            if wp == pid and win32gui.IsWindowVisible(h) and win32gui.GetClassName(h) == "OpusApp":
+                found.append(h)
+        except Exception:
+            pass
+        return True
+
+    win32gui.EnumWindows(cb, None)
+    return found[0] if found else None
+
+
 def attach(session):
-    win = Desktop(backend="uia").window(process=session.pid, top_level_only=True)
+    hwnd = _frame_hwnd(session.pid) or session._hwnd()
+    win = Desktop(backend="uia").window(handle=hwnd)
     win.set_focus()
-    _force_foreground(session._hwnd())
+    _force_foreground(hwnd)
     return win
 
 

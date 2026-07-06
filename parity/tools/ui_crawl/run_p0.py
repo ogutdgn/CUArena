@@ -147,6 +147,249 @@ def probe_archetypes():
         s.close()
 
 
+def _build_split(props, tab, gseg, primary_pr, flyout_pr, icon, bounds):
+    import ids, build, schemas
+    seg = ids.control_segment(props["automation_id"], props["name"])
+    cid = ids.node_id("ribbon", tab, gseg, seg)
+
+    def zone_action(pr):
+        cls = pr["class"]
+        if cls in ("unresolved", "feature"):
+            return {"kind": "feature"}
+        kind = build.KIND_MAP.get(cls, "feature")
+        a = {"kind": kind}
+        if kind.startswith("opens-") and pr.get("ref"):
+            a["ref"] = pr["ref"]
+        return a
+
+    c = {"id": cid, "label": props["name"], "type": "split",
+         "primary": {"action": zone_action(primary_pr)},
+         "flyout": {"action": zone_action(flyout_pr)},
+         "tooltip": props.get("help_text", ""), "keytip": props.get("access_key", ""),
+         "idMso": props["automation_id"] or None,
+         "capture": {"status": "complete", "probe_mode": "pressed-observed", "schema_version": 1}}
+    if props.get("accelerator_key"):
+        c["shortcut"] = props["accelerator_key"]
+    if icon:
+        c["icon"] = icon
+    if bounds:
+        c["bounds"] = bounds
+    errs = schemas.validate_control(c)
+    if errs:
+        raise ValueError(f"invalid split {cid}: {errs}")
+    return c
+
+
+def _norm_result(pr):
+    """Map an unresolved probe to a best-effort feature (the ambiguous journal record keeps
+    the honest signal); pass other classes through for build.build_control."""
+    if pr["class"] == "unresolved":
+        return {"class": "feature", "ref": None, "boundary": None, "probe_mode": pr["probe_mode"]}
+    return pr
+
+
+def full_run(out_root, resume_dir=None):
+    import time, json, win32gui, win32process
+    import uia, prober, build, capture, shots, ids, schemas
+    from journal import Journal
+    from emit import emit
+    from pywinauto import mouse
+    from pywinauto.keyboard import send_keys
+
+    run_dir = pathlib.Path(resume_dir) if resume_dir else config.new_run_dir()
+    journal = Journal(run_dir / "journal.jsonl")
+    done_controls = {r["control"]["id"] for r in journal.records() if r["t"] == "control-captured"}
+    done_surfaces = {r["surface"] for r in journal.records() if r["t"] == "surface-captured"}
+
+    s = WordSession.start(config.FIXTURES / "p0-text.docx")
+    t0 = time.time()
+    counts = {"controls": 0, "pressed": 0, "boundaries": 0, "surfaces": 0,
+              "unresolved": 0, "ambiguous_notfound": 0}
+    try:
+        win = uia.attach(s)
+        main = s._hwnd()
+        prober.close_docked_panes(s, win)      # clean pane baseline (Word persists pane state)
+        s.select_paragraph(1)
+        armed = s.copy_fixture_text()
+        if not resume_dir:
+            journal.append({"t": "clipboard-armed", "text": armed[:24]})
+            journal.append({"t": "state-established", "para": 1})
+
+        lower = win.child_window(**uia.LOCATORS["lower_ribbon"])
+        lr = lower.element_info.rectangle
+        ribbon_rect = (lr.left, lr.top, lr.right, lr.bottom)
+        ribbon_png = "screenshot__ribbon__home.png"
+        shots.grab(ribbon_rect, run_dir / ribbon_png)
+        dump = uia.enumerate_tab(win, "Home")
+
+        def tops():
+            a = []
+            win32gui.EnumWindows(lambda h, x: (x.append(h) if win32gui.IsWindowVisible(h) else None) or True, a)
+            return set(a)
+
+        def new_win(before):
+            for h in tops() - before:
+                try:
+                    _, wp = win32process.GetWindowThreadProcessId(h)
+                    if wp == s.pid and h != main:
+                        return h
+                except Exception:
+                    pass
+            return None
+
+        def safe_esc():
+            fg = win32gui.GetForegroundWindow()
+            _, fp = win32process.GetWindowThreadProcessId(fg)
+            if fp != s.pid:
+                uia._force_foreground(s._hwnd())
+            send_keys("{ESC}"); time.sleep(0.35); send_keys("{ESC}"); time.sleep(0.25)
+
+        def re_find(group_name, aid, name):
+            for g in uia._real_groups(win, "Home"):
+                if g.element_info.name != group_name:
+                    continue
+                for d in g.descendants():
+                    ei = d.element_info
+                    if aid and ei.automation_id == aid:
+                        return d
+                    if (not aid) and name and ei.name == name:
+                        return d
+            return None
+
+        def icon_and_bounds(cid, rect):
+            rb = shots.rel_bounds(rect, ribbon_rect)
+            iname = "icon__" + cid + ".png"
+            ok = False
+            try:
+                shots.crop_from(run_dir / ribbon_png,
+                                (rb["x"], rb["y"], rb["x"] + rb["w"], rb["y"] + rb["h"]),
+                                run_dir / iname)
+                ok = shots.quality_ok(run_dir / iname)
+            except Exception:
+                ok = False
+            return (iname if ok else None), {"in": ribbon_png, **rb}
+
+        def reopen_capture(ref, cls, point):
+            if not ref or ref in done_surfaces:
+                return
+            before = tops()
+            uia._force_foreground(s._hwnd())
+            mouse.click(coords=point)
+            time.sleep(0.9)
+            h = new_win(before)
+            if not h:
+                safe_esc()
+                return
+            try:
+                if cls == "dialog":
+                    capture.capture_dialog(s, journal, run_dir, ref, h)
+                elif cls == "pane":
+                    pass
+                else:
+                    capture.capture_popup(s, journal, run_dir, ref, win32gui.GetWindowRect(h))
+                done_surfaces.add(ref)
+                counts["surfaces"] += 1
+            except Exception as e:
+                journal.append({"t": "ambiguous", "control": ref, "reason": f"capture failed: {e}"})
+            safe_esc()
+
+        for group in dump["groups"]:
+            gseg = ids.slugify(group["name"])
+            for props in group["controls"]:
+                seg = ids.control_segment(props["automation_id"], props["name"])
+                cid = ids.node_id("ribbon", "home", gseg, seg)
+                if cid in done_controls:
+                    continue
+                counts["controls"] += 1
+                ct = props["control_type"]
+                rect = tuple(props["rect"])
+                icon, bounds = icon_and_bounds(cid, rect)
+
+                b = config.boundary_for(cid)
+                if b:
+                    ctrl = build.build_control(props, "home", gseg,
+                        {"class": "boundary", "ref": None, "boundary": b,
+                         "probe_mode": "boundary-declared"}, icon, bounds)
+                    journal.append({"t": "control-captured", "tab": "home", "group": gseg,
+                                    "group_label": group["name"], "control": ctrl})
+                    counts["boundaries"] += 1
+                    done_controls.add(cid)
+                    continue
+
+                if gseg == "clipboard":
+                    s.select_paragraph(1)
+                    s.copy_fixture_text()
+                    if seg == "paste":
+                        end = s.doc.Content.End
+                        s.doc.Range(end - 1, end - 1).Select()
+
+                el = re_find(group["name"], props["automation_id"], props["name"])
+                if el is None:
+                    journal.append({"t": "ambiguous", "control": cid, "reason": "element not found live"})
+                    counts["ambiguous_notfound"] += 1
+                    done_controls.add(cid)
+                    continue
+
+                if ct == "SplitButton":
+                    kids = [(c.element_info.rectangle.left, c.element_info.rectangle.top,
+                             c.element_info.rectangle.right, c.element_info.rectangle.bottom)
+                            for c in el.children()]
+                    pp = prober.probe(s, win, journal, el, cid, zone="primary", split_children=kids)
+                    if pp["class"] == "feature":
+                        s.select_paragraph(1)
+                    el = re_find(group["name"], props["automation_id"], props["name"]) or el
+                    pf = prober.probe(s, win, journal, el, cid, zone="flyout", split_children=kids)
+                    ctrl = _build_split(props, "home", gseg, pp, pf, icon, bounds)
+                    journal.append({"t": "control-captured", "tab": "home", "group": gseg,
+                                    "group_label": group["name"], "control": ctrl})
+                    if pf["class"] == "popup" and pf.get("ref"):
+                        reopen_capture(pf["ref"], "popup", prober.zone_point(rect, "flyout", kids))
+                elif ct == "ComboBox":
+                    kids = [(c.element_info.rectangle.left, c.element_info.rectangle.top,
+                             c.element_info.rectangle.right, c.element_info.rectangle.bottom)
+                            for c in el.children()]
+                    pr = prober.probe(s, win, journal, el, cid, zone="flyout", split_children=kids)
+                    ctrl = build.build_control(props, "home", gseg, _norm_result(pr), icon, bounds)
+                    if pr["class"] == "unresolved":
+                        ctrl["capture"]["status"] = "unresolved"; counts["unresolved"] += 1
+                    journal.append({"t": "control-captured", "tab": "home", "group": gseg,
+                                    "group_label": group["name"], "control": ctrl})
+                    if pr["class"] == "popup" and pr.get("ref"):
+                        reopen_capture(pr["ref"], "popup", prober.zone_point(rect, "flyout", kids))
+                else:
+                    pr = prober.probe(s, win, journal, el, cid)
+                    if pr["class"] == "feature":
+                        s.select_paragraph(1)
+                    ctrl = build.build_control(props, "home", gseg, _norm_result(pr), icon, bounds)
+                    if pr["class"] == "unresolved":
+                        ctrl["capture"]["status"] = "unresolved"; counts["unresolved"] += 1
+                    journal.append({"t": "control-captured", "tab": "home", "group": gseg,
+                                    "group_label": group["name"], "control": ctrl})
+                    if pr["class"] in ("dialog", "popup", "pane") and pr.get("ref"):
+                        reopen_capture(pr["ref"], pr["class"], prober.zone_point(rect, None, None))
+                counts["pressed"] += 1
+                done_controls.add(cid)
+                # a pane opened by this control (esp. the floating Styles pane, which _WwG
+                # detection misses) must not persist -- it would suppress ribbon enumeration
+                prober.close_docked_panes(s, win)
+
+        secs = time.time() - t0
+        stats = {"build": s.app.Build, "date": time.strftime("%Y-%m-%d"),
+                 "throughput": {"secs": round(secs, 1), "controls": counts["controls"],
+                                "secs_per_control": round(secs / max(counts["controls"], 1), 2)}}
+        (run_dir / "stats.json").write_text(json.dumps({**counts, **stats}, indent=1), encoding="utf-8")
+        rep = emit(journal, out_root, run_dir, stats)
+        print("counts:", counts)
+        print("emit:", {k: (len(v) if isinstance(v, list) else v) for k, v in rep.items()
+                        if k in ("written", "dangling", "orphans_deleted", "assets_copied",
+                                 "missing_assets", "schema_errors", "unused_boundary_config")})
+        print("secs_per_control:", stats["throughput"]["secs_per_control"], "total_secs:", round(secs, 1))
+        print(f"RUN_DIR={run_dir}")
+        return run_dir, rep
+    finally:
+        s.close()
+
+
 def _tops():
     import win32gui
     a = []
@@ -248,6 +491,10 @@ if __name__ == "__main__":
     ap.add_argument("--enumerate-home", action="store_true")
     ap.add_argument("--probe-archetypes", action="store_true")
     ap.add_argument("--capture-demo", action="store_true")
+    ap.add_argument("--full", action="store_true")
+    ap.add_argument("--resume", metavar="RUN_DIR")
+    ap.add_argument("--emit-repo", action="store_true", help="emit to parity/oracle/ui-structure")
+    ap.add_argument("--emit-from", metavar="RUN_DIR", help="re-emit an existing journal (to repo)")
     a = ap.parse_args()
     if a.dump_tree:
         dump_tree()
@@ -257,3 +504,18 @@ if __name__ == "__main__":
         probe_archetypes()
     if a.capture_demo:
         capture_demo()
+    if a.full or a.resume:
+        out = config.OUTPUT_ROOT if a.emit_repo else (config.new_run_dir() / "emitted")
+        rd = a.resume or None
+        # when resuming, emit into the same scratch out-root next to the run
+        full_run(out, resume_dir=rd)
+    if a.emit_from:
+        import pathlib as _pl
+        from journal import Journal
+        from emit import emit as _emit
+        rdir = _pl.Path(a.emit_from)
+        j = Journal(rdir / "journal.jsonl")
+        rep = _emit(j, config.OUTPUT_ROOT if a.emit_repo else (rdir / "emitted"), rdir)
+        print("re-emit:", {k: (len(v) if isinstance(v, list) else v) for k, v in rep.items()
+                           if k in ("written", "dangling", "orphans_deleted", "missing_assets",
+                                    "schema_errors", "unused_boundary_config")})

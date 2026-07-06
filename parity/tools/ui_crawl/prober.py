@@ -28,6 +28,7 @@ class Snapshot:
     toggle_state: object   # control toggle/selection state (None if not stateful)
     fingerprint: dict
     popup_els: list = field(default_factory=list)   # [(hwnd, class, title, rect)] for capture
+    format_sig: object = None   # selection formatting fingerprint (catches formatting features)
 
 
 def _is_dialog_class(cls):
@@ -46,7 +47,10 @@ def classify(before, after):
             and after.toggle_state != before.toggle_state):
         return "toggles"
     if after.doc_hash != before.doc_hash:
-        return "feature"
+        return "feature"                    # text delta
+    if (before.format_sig is not None and after.format_sig is not None
+            and after.format_sig != before.format_sig):
+        return "feature"                    # formatting delta (Grow Font, indent, color, ...)
     return "unresolved"
 
 
@@ -97,24 +101,21 @@ def _is_nag(title):
     return any(re.search(sig, title or "") for sig in config.NAG_SIGNATURES)
 
 
-# Task-pane host window classes (docked panes). Seeded from Office; the exact class is
-# confirmed/extended in T12 by dumping child-window classes when the Styles pane opens.
-PANE_CLASSES = {"MsoWorkPane", "NetUIHWND"}
+_SCREEN_W = 1920        # pinned environment (DESIGN section 3.4)
 
 
 def _count_task_panes(session):
-    """Fast win32 child-window scan for docked task panes (right-docked, tall). Avoids an
-    expensive UIA descendants() walk in the observe hot loop. None of the 5 T9 archetypes
-    opens a pane; this path is exercised/tuned in T12 (Styles / Clipboard / Navigation)."""
+    """Deterministic docked-pane detector via the document area (_WwG) inset. A task pane
+    docks left/right and pushes the document window inward (baseline left ~0/right ~1903;
+    a docked pane shifts left to ~350). Geometry (win32, fast) beats the flaky MsoWorkPane
+    class heuristic that made pane classification non-reproducible across T12 full runs."""
     main = session._hwnd()
-    found = []
+    rects = []
 
     def cb(h, _):
         try:
-            cls = win32gui.GetClassName(h)
-            l, t, r, b = win32gui.GetWindowRect(h)
-            if "WorkPane" in cls and (b - t) > 300:      # docked, tall
-                found.append(h)
+            if win32gui.GetClassName(h) == "_WwG":
+                rects.append(win32gui.GetWindowRect(h))
         except Exception:
             pass
         return True
@@ -123,7 +124,58 @@ def _count_task_panes(session):
         win32gui.EnumChildWindows(main, cb, None)
     except Exception:
         pass
-    return len(found)
+    if not rects:
+        return 0
+    left = min(r[0] for r in rects)
+    right = max(r[2] for r in rects)
+    return 1 if (left > 50 or right < _SCREEN_W - 60) else 0
+
+
+def _doc_bounds(session):
+    main = session._hwnd()
+    rects = []
+
+    def cb(h, _):
+        try:
+            if win32gui.GetClassName(h) == "_WwG":
+                rects.append(win32gui.GetWindowRect(h))
+        except Exception:
+            pass
+        return True
+
+    try:
+        win32gui.EnumChildWindows(main, cb, None)
+    except Exception:
+        pass
+    if not rects:
+        return (0, _SCREEN_W)
+    return (min(r[0] for r in rects), max(r[2] for r in rects))
+
+
+def close_docked_panes(session, win, tries=8):
+    """Close EVERY open task pane (docked or floating). Word PERSISTS task-pane visibility
+    across launches, so a pane left open by a prior run pollutes the next run's baseline AND
+    suppresses the ribbon's UIA enumeration. Every Word task pane exposes a 'Close pane' button
+    in its header (NOT titled 'Close'); floating panes (e.g. Styles) don't inset the document,
+    so we detect+close via that button rather than _WwG geometry, looping over stacked panes."""
+    for _ in range(tries):
+        target = None
+        try:
+            for btn in win.descendants(control_type="Button"):
+                if "close pane" in (btn.element_info.name or "").lower():
+                    target = btn
+                    break
+        except Exception:
+            pass
+        if target is None:
+            return True                       # no pane with a Close-pane button remains
+        try:
+            _ensure_ribbon_foreground(session)
+            target.click_input()
+            time.sleep(0.4)
+        except Exception:
+            return False
+    return False
 
 
 def _read_toggle_state(control_el):
@@ -168,9 +220,14 @@ def _snapshot(session, win, control_el, main_hwnd, count_panes=True):
         fp = session.app_fingerprint()
     except Exception:
         fp = {}
+    try:
+        fsig = session.format_sig()
+    except Exception:
+        fsig = None
     return Snapshot(windows=windows, popups=popups,
                     panes_open=_count_task_panes(session) if count_panes else 0,
-                    doc_hash=dh, toggle_state=ts, fingerprint=fp, popup_els=popup_els)
+                    doc_hash=dh, toggle_state=ts, fingerprint=fp, popup_els=popup_els,
+                    format_sig=fsig)
 
 
 def _ensure_ribbon_foreground(session):
@@ -249,9 +306,7 @@ def _restore(session, win, cls, point, before, control_el, main_hwnd):
             mouse.click(coords=point)        # re-press to restore
             time.sleep(0.3)
         elif cls == "pane":
-            _ensure_ribbon_foreground(session)
-            mouse.click(coords=point)        # re-press opener (Esc does not close docked panes)
-            time.sleep(0.3)
+            close_docked_panes(session, win)   # close via the pane's X (Esc does not close docked panes)
         elif cls == "feature":
             _ensure_word_foreground(session)
             send_keys("^z")

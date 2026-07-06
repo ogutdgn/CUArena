@@ -53,6 +53,21 @@ class WordSession:
     def doc_hash(self):
         return hashlib.sha256(self.doc.Content.Text.encode("utf-8", "replace")).hexdigest()
 
+    def format_sig(self):
+        """Formatting fingerprint of the current selection. doc_hash (text only) misses
+        FORMATTING features (Grow Font, Clear Formatting, indent, color) -- this catches them
+        as a COM app-state delta (DESIGN section 4.2 positive evidence). None on COM-busy."""
+        try:
+            sel = self.app.Selection
+            f, p = sel.Font, sel.ParagraphFormat
+            sig = (int(f.Bold), int(f.Italic), int(f.Underline),
+                   float(f.Size) if f.Size not in (None, "") else -1.0, str(f.Name),
+                   int(f.Color), int(f.StrikeThrough), int(f.Subscript), int(f.Superscript),
+                   int(p.Alignment), float(p.LeftIndent), float(p.FirstLineIndent))
+            return hashlib.sha1(repr(sig).encode("utf-8", "replace")).hexdigest()[:16]
+        except Exception:
+            return None
+
     def _addins_connected(self):
         return sum(1 for i in range(1, self.app.COMAddIns.Count + 1)
                    if self.app.COMAddIns.Item(i).Connect)
