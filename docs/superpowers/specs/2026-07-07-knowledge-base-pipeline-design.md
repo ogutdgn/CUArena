@@ -243,15 +243,20 @@ Inspectors operate from a **curated catalog of vetted, trustworthy tools** — t
 
 | Platform | Tool | Role |
 |---|---|---|
-| Desktop (Windows) | UI Automation (UIA) | Workhorse: element trees, labels, control types, states, accelerator keys; drives controls via native patterns (invoke, toggle, expand). The same API screen readers rely on, so vendors keep it working. |
-| Desktop | Screen capture | Screenshots, region shots, icon crops |
-| Desktop | Input injection | Mouse/keyboard events where native patterns can't drive |
-| Desktop | Vision fallback | Screenshot + model interpretation, only where the accessibility tree is poor |
+| Desktop (Windows) | UI Automation tree (UIA, e.g. pywinauto) | Workhorse for **reading the UI**: element trees, dialog/pane contents, control names, types, states, positions, accelerator keys; drives controls via native patterns (invoke, toggle, expand). The same API screen readers rely on, so vendors keep it working. |
+| Desktop | Hit-testing (raw UIA `ElementFromPoint`) | **Owner-drawn UI (flyouts, custom popups) is invisible in the accessibility tree** — query the element at a screen point instead of walking the tree. |
+| Desktop | App object model / automation interface (COM, e.g. pywin32) | When the app exposes one: launch an **isolated instance**, prepare fixture/selection state for inspection, lock the instance against interference, and **verify state programmatically** ("did the action actually apply?"). |
+| Desktop | Window-system APIs (e.g. win32gui) | Detect **"did a window open on this press?"** and classify what opened via window classes (dialog vs flyout) — feeds the `opens` markers with ground truth. |
+| Desktop | Real input injection (e.g. pywinauto mouse/keyboard) | Genuine clicks / hover / Escape at the OS level — **some UI (flyouts) ignores synthetic input**, so interaction must be real. |
+| Desktop | Screen capture + pixel sampling (e.g. Pillow) | Screenshots, region shots, icon crops — and **pixel-level measurement**: some visual facts (exact palette RGB values) exist in no API; they come from pixels. Measured pixels are structured data, not guesses. |
+| Desktop | Vision fallback | Screenshot + model *interpretation*, only where the structured layers above give nothing |
 | Web | Browser automation (CDP/Playwright-class) | DOM + ARIA snapshots, click/hover/type, screenshots, `aria-keyshortcuts` — the web equivalent of UIA |
 | Research | Web search + page-fetch-to-markdown | Usage signal for priority; docs harvest |
 | KB | Schema-enforcing writers | Write nodes/containers/shortcuts; refuse malformed records (missing icon/label, zero-or-two action markers) — schema discipline is guaranteed by the tool, not by agent judgment |
 
-**Provenance.** Every fact in the KB records which tool produced it (`"source": "uia"` / `"vision"` / `"docs"` / `"tooltip"`). Structured sources are strong evidence; vision-only or docs-only facts are weaker and are standing candidates for re-verification. Trust in tools becomes measurable trust in knowledge.
+The desktop rows are **field-tested**: they come from real replication work against complex desktop UI, and their reasons are part of the catalog's knowledge — owner-drawn surfaces don't appear in accessibility trees, flyouts reject synthetic input, window classes distinguish dialogs from flyouts, and an app's own object model is the most reliable way to set up and verify state.
+
+**Provenance.** Every fact in the KB records which tool produced it (`"source": "uia"` / `"hit-test"` / `"object-model"` / `"pixel"` / `"vision"` / `"docs"` / `"tooltip"`). Structured sources are strong evidence; vision-only or docs-only facts are weaker and are standing candidates for re-verification. Trust in tools becomes measurable trust in knowledge.
 
 Other desktop platforms follow the same pattern through their native accessibility APIs and can be added to the catalog without any schema change.
 
