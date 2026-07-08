@@ -47,11 +47,20 @@ class SdkRunner:
     """Real runner: one-shot Claude Agent SDK query, returns the final text."""
     def run(self, briefing: str) -> str:
         import anyio
-        from claude_agent_sdk import query
+        from claude_agent_sdk import ClaudeAgentOptions, query
+
+        # Hermetic options: the agent must reason over ONLY the briefing text.
+        # setting_sources=[] stops the CLI from loading ~/.claude/settings.json,
+        # .claude/settings.json/.local.json, or any CLAUDE.md (CLAUDE.md needs
+        # "project" in setting_sources, which we deliberately omit) — otherwise
+        # this machine's ambient config leaks into the one-shot query. tools=[]
+        # disables every built-in tool since this call only reasons over text
+        # and never needs to act.
+        options = ClaudeAgentOptions(setting_sources=[], tools=[])
 
         async def _go() -> str:
             chunks: list[str] = []
-            async for message in query(prompt=briefing):
+            async for message in query(prompt=briefing, options=options):
                 for block in getattr(message, "content", []) or []:
                     text = getattr(block, "text", None)
                     if text:
