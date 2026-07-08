@@ -164,6 +164,12 @@ kb/<app>/
     drive/                      #   app driving: launch, fixtures, navigation
     extract/                    #   harvesting: docs crawl, palette sampling, ...
     verify/                     #   state-verification snippets
+  priority/                     # ranking workspace — evidence, not vibes
+    signals/connectivity.json   #   per-node centrality (computed, deterministic)
+    signals/usage.json          #   per-node usage evidence: claim + source + mapping
+    signals/audience.json       #   audience_breadth mapped to scores
+    ranking.json                #   combined weighted scores, sorted; weights recorded
+    layers.json                 #   final P0–P4 per node + boundaries used
   journal.jsonl                 # append-only log of every inspection action and outcome
   graph.json          # assembled graph + priority layers
   overview.md         # generated, human-readable
@@ -232,6 +238,20 @@ Rankings map into **five fixed layers**. Each layer buys a defined amount of dep
 | **P4** | Low priority | Breadth-pass knowledge only (shallow rubric: name, one-liner, connections, trigger path) | Surface layer only: its top-level control exists with control type / icon / label; interiors stay `unexplored` stubs |
 
 Where the score boundaries between layers fall is tunable and will be calibrated once real graphs exist.
+
+### Priority mechanics — how ranking actually happens
+
+Each signal is computed separately, as its own auditable artifact in `kb/<app>/priority/signals/`:
+
+1. **Connectivity** — pure computation, no LLM: a `tools/` script walks the assembled graph and scores centrality per node from the `affects/uses` edges. Deterministic: same graph in, same scores out.
+2. **Audience breadth** — pure lookup, no LLM: the structured `audience_breadth` field maps to a score via fixed config (`everyone` → 1.0 … `niche` → 0.2; values tunable).
+3. **Real-world usage** — the only researched signal: a research agent web-searches actual usage, then maps each claim onto node ids. **Every usage score carries its evidence** — claim, source URL, node mapping. No evidence, no score.
+
+Then arithmetic, not judgment: normalize each signal to 0–1, weighted-sum into one score per node (weights from config, **recorded in `ranking.json`** so rankings are reproducible and re-weightable without redoing research), sort, and cut at the configured boundaries into P0–P4 (`layers.json`, boundaries recorded).
+
+**A priority is never a vibe.** Two of three signals are pure computation; the third is evidence-backed. "Why is Font P0 and Mailings P4?" is answered by opening `priority/`, not by trusting a judgment call — Stage 4 spends real inspection budget on these layers, so they must be auditable.
+
+The Stage 5 recompute runs the same mechanics on the post-depth-pass graph; any node that changes layer is journaled, so promotions are visible events, not silent edits.
 
 ### Depth endpoint rule — when does "as deep as it can" stop?
 
