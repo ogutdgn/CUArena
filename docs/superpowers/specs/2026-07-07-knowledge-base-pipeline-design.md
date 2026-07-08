@@ -26,7 +26,7 @@ Examples throughout this spec use **Microsoft Word** as the benchmark target. Th
 
 ## The knowledge base
 
-One graph per app: three node types, three edge types.
+One graph per app: three node types and three edge types, supported by three companion artifacts — the UI tree, the shortcut registry, and (when the quality gate passes) harvested docs.
 
 ### Node types and rubrics
 
