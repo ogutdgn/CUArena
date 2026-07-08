@@ -1464,6 +1464,7 @@ git commit -m "feat: pipeline CLI with stage selection, agent toggle, scope caps
 3. `python -m pipeline.run notepad` produces a valid `kb/notepad/` (app.json + UI container + screenshot + journal) with ≥2 sensible features.
 4. `python -m pipeline.run word --no-agent --max-containers 10` produces a scoped `kb/word/` surface in minutes.
 5. Zero app-specific logic outside `configs/apps/` and `kb/` (grep check: "notepad"/"word" appear only in configs, kb, tests, and docs).
+6. `validation/plan-a/report.md` filled: every question has a verdict with evidence, acceptance-run outputs snapshotted into `validation/plan-a/results/`. **The plan is not done without its report.**
 
 ## Explicitly deferred to Plan B/C
 
