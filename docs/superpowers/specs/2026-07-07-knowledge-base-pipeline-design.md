@@ -160,6 +160,11 @@ kb/<app>/
   docs/<page>.md                # harvested official docs (only when the quality gate passes)
   docs-tree.json                # cross-page reference tree from the docs
   screenshots/<node-id>/*.png
+  scripts/                      # working scripts the pipeline wrote for THIS app
+    drive/                      #   app driving: launch, fixtures, navigation
+    extract/                    #   harvesting: docs crawl, palette sampling, ...
+    verify/                     #   state-verification snippets
+  journal.jsonl                 # append-only log of every inspection action and outcome
   graph.json          # assembled graph + priority layers
   overview.md         # generated, human-readable
 ```
@@ -168,7 +173,7 @@ kb/<app>/
 
 Two passes, with priority as the gate between them. Breadth learns *what exists and how it is connected*; priority decides *what deserves deep knowledge*; depth exhausts only that.
 
-**Stage 0 — Setup.** Resolve target app and platform; select inspector backend; handle access (account, install).
+**Stage 0 — Setup.** Resolve target app and platform; select inspector backend; handle access (account, install). Record and **pin the app version/build** in the app node — every later run asserts it, and version drift fails loudly (a KB is knowledge about one version of an app, never a blur of several). Load the **boundaries config**: deliberate exclusions (installed add-ins/extensions, nag and first-run popups to dismiss, out-of-scope areas) recorded as deliberate skips.
 
 **Stage 1 — Skeleton pass.** One inspector opens the real app and maps the frame: identity, layout regions, menu map, navigation — and produces the **feature inventory** (level-2 list) with a trigger path for each entry. Model knowledge guides where to look; the live app is ground truth.
 
@@ -259,6 +264,23 @@ The desktop rows are **field-tested**: they come from real replication work agai
 **Provenance.** Every fact in the KB records which tool produced it (`"source": "uia"` / `"hit-test"` / `"object-model"` / `"pixel"` / `"vision"` / `"docs"` / `"tooltip"`). Structured sources are strong evidence; vision-only or docs-only facts are weaker and are standing candidates for re-verification. Trust in tools becomes measurable trust in knowledge.
 
 Other desktop platforms follow the same pattern through their native accessibility APIs and can be added to the catalog without any schema change.
+
+## Inspection discipline
+
+Four rules — proven in real replication work against complex desktop UI — govern *how* inspectors operate, regardless of platform:
+
+1. **Append-only journal.** Every inspector action and its outcome (press attempted, what opened, what changed, boundaries hit, ambiguous results) is logged to `journal.jsonl`. KB files are reconciled from the journal, never written from memory. This buys: resumable runs, forensic audits ("why does the KB claim this?"), and honest failure records — an inspection that half-worked leaves evidence, not silence.
+2. **Snapshot-diff classification.** To assign an element's marker (`opens` vs `triggers`), the inspector snapshots observable state *before* activating it (window set, app/document state, visual state), activates it mechanically, snapshots *after*, and diffs. Metadata heuristics ("this control exposes a toggle pattern") lie on complex apps; state deltas do not. Markers are measured, not assumed.
+3. **Version pinning.** The app version/build recorded in Stage 0 is asserted on every run. Drift fails loudly — never silently mixed into existing knowledge.
+4. **Boundaries config.** Deliberate exclusions live in per-app config, not scattered try/catch: add-ins and extensions to disconnect, nag popups to dismiss before inspection, areas out of scope. Every boundary hit is journaled as a deliberate skip — the operational sibling of the `unexplored` state.
+
+## Scripts workspace and reference scripts
+
+Driving an app through structured UI layers means writing code, and that code is knowledge too:
+
+- **Per-app scripts** the pipeline writes live in `kb/<app>/scripts/`, structured by purpose (`drive/`, `extract/`, `verify/`). They are part of the KB as **provenance and reproducibility**: a fact can cite the script that produced it, and re-running the script re-verifies the fact.
+- **Promotion rule.** A per-app script pattern that proves general (a dropdown-drain routine, a docs-site crawler skeleton) is promoted into the shared tool library. The catalog grows from every app the pipeline inspects.
+- **Reference scripts.** The pipeline repo keeps a `references/` folder of donated example scripts (e.g., a ribbon crawler for a complex desktop app, a help-center docs harvester). They are unverified and app-specific by nature, and carry the same law as docs: **references inspire, never dictate** — read for patterns, never copied as templates, never trusted as facts.
 
 ## Definition of done (per app)
 
