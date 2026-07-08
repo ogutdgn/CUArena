@@ -11,7 +11,20 @@ from tools.winapp import capture
 # with one level of margin. This is a general knob -- not app-specific
 # logic. The default is raised from the original depth=3 to depth=5 so the
 # surface scan reaches menu-bar items on modern deep UIA trees.
-DEFAULT_SCAN_DEPTH = 5
+#
+# Plan A addendum evidence (ready-state Word, launched directly into the
+# workspace via fixture document, live diagnostic walk of the attached
+# window's UIA tree depth by depth): depth=7 (54 nodes, 42 named) still has
+# zero ribbon-tab hits; depth=8 (78 nodes, 66 named) is the first depth
+# where all ribbon tab names appear (Home/Insert/Design/Layout/References/
+# Mailings/Review/View/Help/Acrobat, or localized equivalents e.g. Giris/
+# Ekle on Turkish-locale Office); depth=9 additionally surfaces the ribbon
+# command groups within the active tab (Clipboard/Font/Paragraph/Styles/
+# Editing/...), which is the feature-bearing content stage1_agent needs.
+# Raised again from 5 to 9 (first-appear depth 8 + one level of margin,
+# same margin policy as the original depth=3->5 decision) so the workspace
+# scan reaches ribbon commands, not just ribbon tab chrome.
+DEFAULT_SCAN_DEPTH = 9
 
 def build_surface(window_info: ElemInfo, children: list[ElemInfo], app: str,
                    exclude_labels: tuple = ()) -> UIContainer:
