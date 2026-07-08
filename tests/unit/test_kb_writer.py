@@ -26,9 +26,6 @@ def test_write_app(tmp_path: Path):
 
 def test_save_screenshot_returns_relative_path(tmp_path: Path):
     w = KBWriter(tmp_path, "notepad")
-    # Note: on Unix systems, using "ui:main-window" works; on Windows the colon
-    # is invalid in directory names, so this uses a filesystem-safe example.
-    node_id = "ui_main_window"
-    rel = w.save_screenshot(Image.new("RGB", (4, 4)), node_id, "full")
-    assert rel == f"screenshots/{node_id}/full.png"
+    rel = w.save_screenshot(Image.new("RGB", (4, 4)), "ui:main-window", "full")
+    assert rel == "screenshots/ui-main-window/full.png"
     assert (tmp_path / "notepad" / rel).exists()

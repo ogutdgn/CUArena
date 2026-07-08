@@ -20,7 +20,8 @@ class KBWriter:
         return self._write_json(a, self.root / "app.json")
 
     def save_screenshot(self, img: Image.Image, node_id: str, name: str) -> str:
-        rel = f"screenshots/{node_id}/{name}.png"
+        sanitized_id = node_id.replace(":", "-")
+        rel = f"screenshots/{sanitized_id}/{name}.png"
         out = self.root / rel
         out.parent.mkdir(parents=True, exist_ok=True)
         img.save(out)
