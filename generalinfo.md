@@ -234,18 +234,56 @@ apps follow). Test apps are *test targets, not design targets* — the pipeline 
 
 After C: the **web backend** (browser tools) extends the same pipeline to Gmail/Figma-class apps.
 
-### The improvement loop (how issues are found and fixed)
+### The improvement loop (how the pipeline gets improved in A, B, and C)
 
-Run → detect → diagnose → general fix → regenerate → re-run. Detection is layered: schema
-rejections, failing tests, the completeness check, journal `failed:` entries, known-answer checks
-(we know what Word's ranking should look like), and human reads of `overview.md`.
+The cycle is always the same five steps:
+
+```
+1. RUN        a test / scoped run / acceptance run on the test apps
+2. DETECT     something is wrong (see the detectors below)
+3. DIAGNOSE   name the GENERAL condition behind the specific symptom
+4. FIX        write a failing test that reproduces it first, then the general fix
+5. RE-RUN     ALL test apps must pass; regenerate the KBs; log the finding in validation/
+```
+
+Detection is layered: schema rejections, failing tests, the completeness check, journal
+`failed:`/`ambiguous` entries, known-answer checks (we know what Word's ranking should look
+like), and human reads of `overview.md`.
 
 **Fixes are general by discipline:** an issue *surfaces* on a specific app but the fix targets
 the *UI condition*, never the app ("if the element tree is empty for a visible container → fall
 back to hit-testing", never "if app == word"). Three enforcement mechanisms: app names are banned
 from pipeline code (grep check), every fix must keep ALL test apps passing (a fix that helps Word
 but breaks Notepad is rejected), and genuinely unique quirks go into per-app config/scripts, not
-code.
+code. And because step 4 always starts with a reproducing test, a fixed bug can never silently
+return.
+
+#### Worked examples — Plan A (foundation and tools level)
+
+| Detected how | Symptom | Diagnosis (general condition) | General fix |
+|---|---|---|---|
+| Journal shows `skipped-unnamed: 37` on the Notepad surface scan | Most surface elements have empty labels | Some UI frameworks expose the label in a different accessibility property than the default one | Label reader falls back through a *property chain* (Name → legacy name → …) for **all** apps; test asserts labels found on both test apps |
+| Smoke test fails intermittently on Word | Clicks land nowhere sometimes | Any app can lose foreground at any moment; a single foreground attempt is not enough | `ensure_foreground` retries with the standard OS nudge sequence, raises loudly if it still fails — for every click, every app |
+| Schema rejection during the Word scan | Writer refuses a control: `kind` not in our enum (Word ribbon "gallery" control) | Our UI vocabulary was incomplete — reality has control kinds we didn't model | Extend the general model vocabulary; spec updated; finding logged with commit link |
+
+#### Worked examples — Plan B (agents, graph, priority level)
+
+| Detected how | Symptom | Diagnosis | General fix |
+|---|---|---|---|
+| Assembly step finds two nodes with different ids but the same trigger path | Two breadth agents both claimed "Font Size" | Parallel agents need a canonical naming rule, or duplicates are inevitable in any app | Deterministic id slugging from trigger path + assembly-time dedup that merges and journals |
+| Known-answer check: Word ranking puts Mailings above Styles | Priority looks wrong against what we know | Usage research mapped a web claim onto the wrong node — evidence matching was too loose | Usage scores require a confidence threshold on claim→node matching; low-confidence claims are dropped (no evidence, no score) — tightens the rule for every app |
+| Completeness check floods with gaps after Stage 2 | Dozens of features "have no trigger path" | Trigger paths were captured after menus had closed — state was stale when recorded | Scan protocol change: record the path at the moment of discovery, journal the container-open state with it |
+
+#### Worked examples — Plan C (depth level)
+
+| Detected how | Symptom | Diagnosis | General fix |
+|---|---|---|---|
+| Journal shows the same two container ids repeating | Depth inspector loops forever: dialog A opens B, B opens A | UI graphs have cycles — any app's dialogs can reference each other | Seen-set rule: when an `opens` target is already documented, write a *reference* and stop descending (a lesson already proven in `references/word-crawler`) |
+| Snapshot diff shows *nothing* after a press | "Copy" button neither opens UI nor visibly changes the document | Some actions change state outside our snapshot's field of view (clipboard, files, network) | Widen the general snapshot (e.g. clipboard channel) and add an explicit `ambiguous` outcome that queues re-probing — never silently guess |
+| Shortcut registry conflict flag | Two bindings claim Ctrl+Shift+S in the same context | Context definitions were too coarse to distinguish real scopes | Refine the general context vocabulary; conflict check reruns until clean |
+
+Note the pattern across all nine examples: **the app is where we *saw* it; the fix lives in the
+general machine** — and each fix makes the pipeline stronger for every app that comes after.
 
 ### How results stay visible
 
