@@ -1,6 +1,7 @@
 import json, pytest
 from pathlib import Path
-from pipeline.stage0 import assert_version, VersionDriftError
+from pipeline.config import AppConfig
+from pipeline.stage0 import assert_version, VersionDriftError, build_argv
 
 def _app_json(tmp_path: Path, version: str) -> Path:
     p = tmp_path / "app.json"
@@ -44,3 +45,32 @@ def test_assert_version_prefers_version_json_over_app_json(tmp_path):
     app_json = _app_json(tmp_path, "1.2.3")
     version_json = _version_json(tmp_path, "1.2.3")
     assert_version(app_json, "1.2.3", kb_version_json=version_json)   # no raise: matches version.json
+
+def test_build_argv_no_args_unchanged():
+    cfg = AppConfig(name="x", exe="notepad.exe", window_title_re=".*")
+    assert build_argv(cfg) == ["notepad.exe"]
+
+def test_build_argv_fixture_substitution_produces_absolute_existing_path(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    fixture_dir = tmp_path / "configs" / "fixtures" / "word"
+    fixture_dir.mkdir(parents=True)
+    fixture_path = fixture_dir / "blank.docx"
+    fixture_path.write_bytes(b"fake docx")
+    cfg = AppConfig(name="word", exe="WINWORD.EXE", window_title_re=".*",
+                     launch_args=["{fixture}"], fixture="configs/fixtures/word/blank.docx")
+    argv = build_argv(cfg)
+    assert len(argv) == 2 and argv[0] == "WINWORD.EXE"
+    resolved = Path(argv[1])
+    assert resolved.is_absolute() and resolved.exists() and resolved == fixture_path.resolve()
+
+def test_build_argv_missing_fixture_placeholder_without_fixture_raises():
+    cfg = AppConfig(name="word", exe="WINWORD.EXE", window_title_re=".*", launch_args=["{fixture}"])
+    with pytest.raises(ValueError):
+        build_argv(cfg)
+
+def test_build_argv_fixture_placeholder_with_nonexistent_file_raises(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    cfg = AppConfig(name="word", exe="WINWORD.EXE", window_title_re=".*",
+                     launch_args=["{fixture}"], fixture="configs/fixtures/word/missing.docx")
+    with pytest.raises(ValueError):
+        build_argv(cfg)

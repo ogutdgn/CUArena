@@ -12,6 +12,25 @@ from tools.winapp import inputs
 class VersionDriftError(RuntimeError):
     pass
 
+def build_argv(cfg: AppConfig) -> list[str]:
+    """Pure helper: [cfg.exe] + cfg.launch_args, with any "{fixture}" placeholder
+    replaced by the absolute path of cfg.fixture (resolved relative to the
+    current working directory, i.e. the repo root when invoked normally).
+    Raises ValueError if "{fixture}" is used but cfg.fixture is None or the
+    resolved file does not exist."""
+    argv = [cfg.exe]
+    for arg in cfg.launch_args:
+        if "{fixture}" in arg:
+            if not cfg.fixture:
+                raise ValueError(
+                    f"{cfg.name}: launch_args uses \"{{fixture}}\" but no fixture is configured")
+            fixture_path = Path(cfg.fixture).resolve()
+            if not fixture_path.exists():
+                raise ValueError(f"{cfg.name}: fixture not found: {fixture_path}")
+            arg = arg.replace("{fixture}", str(fixture_path))
+        argv.append(arg)
+    return argv
+
 def file_version(exe_path: str) -> str:
     path = shutil.which(exe_path) or exe_path
     info = win32api.GetFileVersionInfo(path, "\\")
@@ -42,7 +61,7 @@ class AppSession:
 
 def launch(cfg: AppConfig, journal: Journal) -> AppSession:
     before = top_windows()
-    proc = subprocess.Popen([cfg.exe])
+    proc = subprocess.Popen(build_argv(cfg))
     win = wait_new_window(before, timeout=15.0)
     if win is None:
         journal.append(JournalEvent(actor="stage0", action="launch", target=cfg.name, outcome="failed: no window"))

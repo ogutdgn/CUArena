@@ -12,6 +12,8 @@ class AppConfig(BaseModel):
     dialog_classes: list[str] = ["#32770"]           # classic Win32 dialog class
     flyout_classes: list[str] = ["Net UI Tool Window", "MsoCommandBarPopup"]
     boundaries: Boundaries = Boundaries()
+    launch_args: list[str] = []          # extra argv appended after exe; "{fixture}" resolves to fixture's abs path
+    fixture: str | None = None           # path (repo-root relative) to a ready-state fixture file
 
 def load_app_config(name: str, configs_dir: Path) -> AppConfig:
     p = Path(configs_dir) / f"{name}.json"
