@@ -1,0 +1,77 @@
+{
+  "name": "notepad",
+  "version": "10.0.26100.8521",
+  "platform": "desktop",
+  "what_is_it": "the Windows Notepad text editor with rich-text formatting and multi-tab support",
+  "used_for": "creating, editing, and organizing plain-text and lightly formatted notes across multiple tabs",
+  "who_uses": "everyday Windows users, students, and professionals jotting notes, lists, and drafts",
+  "layout_regions": [
+    "ui:main-window"
+  ],
+  "feature_inventory": [
+    {
+      "id": "feature:window-controls",
+      "name": "Window Controls",
+      "one_liner": "minimize, maximize, close, and system menu for the app window",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:text-editing",
+      "name": "Text Editing",
+      "one_liner": "main document area for typing and editing note content",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:tab-management",
+      "name": "Tab Management",
+      "one_liner": "switch between and add multiple open note tabs",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:menu-bar",
+      "name": "Menu Bar",
+      "one_liner": "File, Edit, and View menus for document and app commands",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:text-formatting",
+      "name": "Text Formatting",
+      "one_liner": "headings, lists, bold, italic, strikethrough, links, tables, and clear-formatting controls",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:writing-tools",
+      "name": "AI Writing Tools",
+      "one_liner": "AI-assisted writing tools (requires local model download when signed out)",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:account-and-settings",
+      "name": "Account & Settings",
+      "one_liner": "user avatar, what's-new, and app settings access",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:status-bar",
+      "name": "Status Bar",
+      "one_liner": "shows cursor position, character count, text mode, zoom, line ending, and encoding",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    }
+  ]
+}
