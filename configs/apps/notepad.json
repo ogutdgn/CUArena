@@ -1,6 +1,6 @@
 {
   "name": "notepad",
   "exe": "notepad.exe",
-  "window_title_re": ".*Notepad.*",
+  "window_title_re": ".*(Notepad|Not Defteri).*",
   "boundaries": { "dismiss_title_res": [], "exclude_labels": [] }
 }

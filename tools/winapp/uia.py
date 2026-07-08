@@ -43,7 +43,3 @@ class UIASession:
                 if d + 1 < depth:
                     frontier.append((ch, d + 1))
         return out
-
-    def children_of(self, rect_or_elem) -> list[ElemInfo]:
-        node = rect_or_elem._win if isinstance(rect_or_elem, UIASession) else rect_or_elem
-        return [_info(ch) for ch in node.children()]
