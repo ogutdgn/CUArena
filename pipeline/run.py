@@ -1,7 +1,7 @@
 import argparse, json, sys, uuid
 from pathlib import Path
 from pipeline.config import load_app_config
-from pipeline import stage0, stage1_surface
+from pipeline import stage0, stage1_surface, teardown
 from tools.journal import Journal
 from tools.kb_writer import KBWriter
 from tools.models import JournalEvent
@@ -14,6 +14,7 @@ def parse_args(argv):
     p.add_argument("--configs", default="configs/apps")
     p.add_argument("--no-agent", action="store_true")
     p.add_argument("--max-containers", type=int, default=50)
+    p.add_argument("--keep-open", action="store_true")
     return p.parse_args(argv)
 
 def main(argv=None) -> int:
@@ -21,6 +22,7 @@ def main(argv=None) -> int:
     cfg = load_app_config(a.app, Path(a.configs))
     journal = Journal(Path(a.kb_root) / a.app / "journal.jsonl", run_id=uuid.uuid4().hex[:8])
     writer = KBWriter(Path(a.kb_root), a.app)
+    session = None
     try:
         session = stage0.launch(cfg, journal)
         version_json = Path(a.kb_root) / a.app / "version.json"
@@ -43,6 +45,9 @@ def main(argv=None) -> int:
     except Exception as exc:  # journal, then loud failure
         journal.append(JournalEvent(actor="run", action="error", target=a.app, outcome=f"failed: {exc}"))
         raise
+    finally:
+        if session is not None and not a.keep_open:
+            teardown.close_app(session, journal)
 
 if __name__ == "__main__":
     sys.exit(main())

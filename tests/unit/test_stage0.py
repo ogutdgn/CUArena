@@ -74,3 +74,22 @@ def test_build_argv_fixture_placeholder_with_nonexistent_file_raises(tmp_path, m
                      launch_args=["{fixture}"], fixture="configs/fixtures/word/missing.docx")
     with pytest.raises(ValueError):
         build_argv(cfg)
+
+from unittest.mock import patch
+from pipeline.stage0 import resolve_session_version
+
+def test_version_prefers_window_process(tmp_path):
+    with patch("pipeline.stage0.window_process_path", return_value="C:\\real\\app.exe"), \
+         patch("pipeline.stage0.file_version", return_value="11.1.0.0") as fv:
+        v = resolve_session_version(1234, "stub.exe", journal=None)
+    assert v == "11.1.0.0"
+    fv.assert_called_once_with("C:\\real\\app.exe")
+
+def test_version_falls_back_to_exe(tmp_path):
+    from tools.journal import Journal
+    j = Journal(tmp_path / "j.jsonl", run_id="t")
+    with patch("pipeline.stage0.window_process_path", side_effect=OSError("denied")), \
+         patch("pipeline.stage0.file_version", return_value="1.0") :
+        v = resolve_session_version(1234, "stub.exe", journal=j)
+    assert v == "1.0"
+    assert Journal.read_all(tmp_path / "j.jsonl")[-1].outcome == "version-fallback"

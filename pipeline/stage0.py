@@ -6,7 +6,7 @@ from pipeline.config import AppConfig
 from tools.journal import Journal
 from tools.models import JournalEvent
 from tools.winapp.uia import UIASession
-from tools.winapp.windows import top_windows, wait_new_window
+from tools.winapp.windows import top_windows, wait_new_window, window_process_path
 from tools.winapp import inputs
 
 class VersionDriftError(RuntimeError):
@@ -50,6 +50,17 @@ def assert_version(kb_app_json: Path, session_version: str, kb_version_json: Pat
         return
     if prior != session_version:
         raise VersionDriftError(f"KB was built on {prior}, app is now {session_version} — refusing to mix")
+
+def resolve_session_version(hwnd: int, exe: str, journal) -> str:
+    # A store-app's launcher stub (cfg.exe) is not the running binary; the
+    # attached window's owning process is. Prefer it; fall back loudly.
+    try:
+        return file_version(window_process_path(hwnd))
+    except Exception:
+        if journal is not None:
+            journal.append(JournalEvent(actor="stage0", action="version", target=exe,
+                                        outcome="version-fallback"))
+        return file_version(exe)
 
 @dataclass
 class AppSession:
@@ -98,6 +109,9 @@ def launch(cfg: AppConfig, journal: Journal) -> AppSession:
             if re.match(pattern, w.title or ""):
                 inputs.ensure_foreground(w.hwnd)
                 inputs.press("{ESC}")
+                deadline = time.monotonic() + 1.5
+                while time.monotonic() < deadline and any(w2.hwnd == w.hwnd for w2 in top_windows()):
+                    time.sleep(0.3)
                 still_present = any(w2.hwnd == w.hwnd for w2 in top_windows())
                 if still_present:
                     journal.append(JournalEvent(actor="stage0", action="boundary", target=w.title,
@@ -105,7 +119,7 @@ def launch(cfg: AppConfig, journal: Journal) -> AppSession:
                 else:
                     journal.append(JournalEvent(actor="stage0", action="boundary", target=w.title,
                                                 outcome="dismissed"))
-    version = file_version(cfg.exe)
+    version = resolve_session_version(ui._win.handle, cfg.exe, journal)
     journal.append(JournalEvent(actor="stage0", action="launch", target=cfg.name,
                                 outcome="ok", data={"version": version, "pid": proc.pid}))
     return AppSession(config=cfg, ui=ui, hwnd=ui._win.handle, pid=proc.pid, version=version)

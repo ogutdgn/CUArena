@@ -1,6 +1,6 @@
 import time
 from dataclasses import dataclass
-import win32gui
+import win32api, win32con, win32gui, win32process
 
 @dataclass(frozen=True)
 class WinInfo:
@@ -33,3 +33,11 @@ def classify(cls: str, dialog_classes: list[str], flyout_classes: list[str]) -> 
     if cls in flyout_classes:
         return "flyout"
     return "unknown"
+
+def window_process_path(hwnd: int) -> str:
+    _, pid = win32process.GetWindowThreadProcessId(hwnd)
+    h = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid)
+    try:
+        return win32process.GetModuleFileNameEx(h, 0)
+    finally:
+        win32api.CloseHandle(h)
