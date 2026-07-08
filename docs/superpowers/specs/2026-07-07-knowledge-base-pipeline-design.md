@@ -50,7 +50,7 @@ The rubric differs by level. Top level answers *what the app is*; lower levels a
 ### Edge types
 
 1. **`contains`** — hierarchy: app → feature → sub-feature. Fixed three levels in the breadth pass.
-2. **`triggers`** — skeleton element → feature/sub-feature. Stored as the **full UI path**, since triggering is often multi-step: `Home tab → Font group → B button → Bold`. Dropdowns and dialogs appear as steps in these paths.
+2. **`triggers`** — skeleton element → feature/sub-feature. Stored as the **full UI path**, since triggering is often multi-step: `Home tab → Font group → B button → Bold`. Dropdowns and dialogs appear as steps in these paths. Paths are id-chains through the UI tree (see below), not prose strings.
 3. **`affects/uses`** — feature connections (from the original sketch). Allowed **between any two nodes at any level**: feature↔feature, sub↔sub, and cross-level (Gmail's search-by-label sub-feature ↔ Labels feature). These edges drive priority scoring, so restricting where they can exist would corrupt the ranking.
 
 The skeleton and the features are connected *by construction*: every feature is triggered from somewhere in the skeleton. This connection is the backbone of both the completeness check and the skeleton depth rule below.
@@ -66,19 +66,51 @@ The pipeline must be UI-aware: the design and visual side of the app is knowledg
   "icon": { "description": "bold letter B", "image": "screenshots/bold-btn.png" },
   "tooltip": "Bold (Ctrl+B)",
   "shortcut": "Ctrl+B",
-  "location": "Home tab > Font group",
+  "location": "ui:ribbon-home > ui:font-group",
+  "triggers": "subfeature:bold",
   "state_notes": "highlighted when cursor is in bold text"
 }
 ```
 
 `control_type` captures the control's *behavioral* kind — button, toggle-button, dropdown, split-button, checkbox, radio, input, slider, tab… — not just its appearance. Icons get both a text description (for reasoning) and a cropped image (for pixel-faithful replication). Alongside the element records, general screenshots of each dialog, dropdown, and region are collected as visual evidence of composition and layout.
 
+### The UI tree — containment and `opens` references
+
+The UI itself is documented as a **tree of structured references in JSON**, not prose. Two relationships build it:
+
+1. **Containment.** Dialogs, dropdowns, panes, menus, tabs, and sections are all technically the same thing: **UI containers**. Every container has an `id`, a `kind`, a screenshot, and `children[]` — the elements and nested containers inside it (a dialog's buttons, its sections, a section's controls).
+2. **Opening.** When an element fires another piece of UI — a button inside a dialog opens another dialog, a dropdown opens a pane — the element records `"opens": "ui:<container-id>"`, a reference to the fired container.
+
+Every interactive element carries **exactly one** of three markers, which turns the depth endpoint rule into a property of the data itself:
+
+- `"opens": "ui:<container-id>"` — reveals more UI; descent continues into that container
+- `"triggers": "<node-id>"` — fires a feature/sub-feature; this is an endpoint
+- `"unexplored": true` — a stub below the priority budget
+
+```json
+// ui/font-color-dropdown.json
+{
+  "id": "ui:font-color-dropdown",
+  "kind": "dropdown",
+  "label": "Font Color",
+  "screenshot": "screenshots/ui/font-color-dropdown.png",
+  "children": [
+    { "control_type": "swatch-grid", "label": "Theme Colors",
+      "triggers": "subfeature:font-color" },
+    { "control_type": "button", "label": "More Colors…",
+      "opens": "ui:colors-dialog" }
+  ]
+}
+```
+
+Each container is one file (`ui/<container-id>.json`) referenced by id — never duplicated inline — because the same container is often reachable from several places (Word's Font dialog opens from the ribbon launcher *and* the right-click menu). Trigger paths are id-chains through this tree, so the chain dialog→dialog→dropdown→… that deep exploration walks is fully reconstructible from the data.
+
 ### Dialogs and dropdowns
 
-Treated as first-class UI containers ("mini-skeletons"):
-- They appear as steps in trigger paths.
-- Their contents are enumerated: in the breadth pass, existence + purpose + rough contents; in the depth pass (priority-gated), every element inside is mapped to a sub-feature or recorded as a detail field.
-- Each opened dialog gets its own screenshot.
+All UI containers in the tree above ("mini-skeletons"):
+- They appear as `opens` targets along trigger paths.
+- Their contents are enumerated as `children[]`: in the breadth pass, existence + purpose + rough contents; in the depth pass (priority-gated), every child element is resolved to a sub-feature (`triggers`), a deeper container (`opens`), or a detail field.
+- Each opened container gets its own screenshot.
 - Element identification uses the DOM for web apps, the OS accessibility tree (e.g. Windows UI Automation) for desktop, with vision on screenshots as fallback.
 
 ### What is deliberately NOT in the KB
@@ -93,6 +125,7 @@ kb/<app>/
   app.json
   features/<feature>.json
   subfeatures/<feature>/<sub>.json
+  ui/<container-id>.json        # UI tree: containers with children[] and opens references
   screenshots/<node-id>/*.png
   graph.json          # assembled graph + priority layers
   overview.md         # generated, human-readable
@@ -135,7 +168,7 @@ During deep exploration (P0–P2), an interaction chain is still **descending** 
 
 > Rule of thumb: **opens more UI → keep collecting. Fires an action → endpoint reached; record the trigger edge and stop.**
 
-This gives every deep-dive inspector an unambiguous termination condition, no matter how deep the UI tree goes.
+In the data this is literal: descending = writing `opens` references and recursing into new container files; endpoint = writing a `triggers` reference. This gives every deep-dive inspector an unambiguous termination condition, no matter how deep the UI tree goes.
 
 ## Skeleton depth rule
 
@@ -151,11 +184,11 @@ The skeleton has the same explosion risk as features (Word's ribbon is a tree of
 
 ## Completeness check (three states)
 
-For every interactive element found in expanded skeleton areas:
+Because every interactive element must carry exactly one of the three markers (`triggers` / `opens` / `unexplored`), this check is **mechanical** — it walks the UI tree and inspects the data:
 
-1. **Resolved** — maps to a known feature/sub-feature. ✓
-2. **Unexplored** — a stub deliberately not expanded (low priority). Recorded and visible in the KB; not an error. Tells downstream phases "this area exists but we chose not to learn it."
-3. **Gap** — should have resolved but didn't (a feature with no trigger path, or an element no feature claims). Goes back to inspection.
+1. **Resolved** — the element has `triggers` (maps to a known feature/sub-feature) or `opens` (leads into a documented container). ✓
+2. **Unexplored** — marked `unexplored: true`: a stub deliberately not expanded (low priority). Recorded and visible in the KB; not an error. Tells downstream phases "this area exists but we chose not to learn it."
+3. **Gap** — an element with none of the three markers, an `opens` reference to a container file that doesn't exist, or a feature with no trigger path. Goes back to inspection.
 
 And in the other direction: every feature/sub-feature node must have at least one trigger path from the skeleton, or it is a gap.
 
