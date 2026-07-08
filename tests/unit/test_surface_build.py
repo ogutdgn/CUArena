@@ -16,3 +16,15 @@ def test_unnamed_elements_are_skipped_not_invented():
     kids = [ElemInfo("Button", "", (0, 0, 10, 10), ""), ElemInfo("MenuItem", "File", (0, 0, 40, 20), "")]
     c = build_surface(WIN, kids, app="notepad")
     assert [e.label for e in c.children] == ["File"]
+
+def test_excluded_labels_are_filtered_out():
+    kids = [ElemInfo("MenuItem", "File", (0, 0, 40, 20), ""),
+            ElemInfo("MenuItem", "Edit", (40, 0, 80, 20), ""),
+            ElemInfo("MenuItem", "Ads", (80, 0, 120, 20), "")]
+    c = build_surface(WIN, kids, app="notepad", exclude_labels=("Ads",))
+    assert [e.label for e in c.children] == ["File", "Edit"]
+
+def test_no_exclude_labels_keeps_default_behavior():
+    kids = [ElemInfo("MenuItem", "File", (0, 0, 40, 20), "")]
+    c = build_surface(WIN, kids, app="notepad")
+    assert [e.label for e in c.children] == ["File"]

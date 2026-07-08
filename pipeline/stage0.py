@@ -18,10 +18,17 @@ def file_version(exe_path: str) -> str:
     ms, ls = info["FileVersionMS"], info["FileVersionLS"]
     return f"{ms >> 16}.{ms & 0xFFFF}.{ls >> 16}.{ls & 0xFFFF}"
 
-def assert_version(kb_app_json: Path, session_version: str) -> None:
-    if not Path(kb_app_json).exists():
+def assert_version(kb_app_json: Path, session_version: str, kb_version_json: Path | None = None) -> None:
+    # version.json is written after every successful launch (agent-independent),
+    # so it is checked first; app.json only exists after a full agent run, so it
+    # is the fallback for KBs produced before version.json existed. No prior
+    # record of either -> first run, nothing to drift from.
+    if kb_version_json is not None and Path(kb_version_json).exists():
+        prior = json.loads(Path(kb_version_json).read_text(encoding="utf-8"))["version"]
+    elif Path(kb_app_json).exists():
+        prior = json.loads(Path(kb_app_json).read_text(encoding="utf-8"))["version"]
+    else:
         return
-    prior = json.loads(Path(kb_app_json).read_text(encoding="utf-8"))["version"]
     if prior != session_version:
         raise VersionDriftError(f"KB was built on {prior}, app is now {session_version} — refusing to mix")
 
@@ -58,7 +65,13 @@ def launch(cfg: AppConfig, journal: Journal) -> AppSession:
     others = [w for w in snapshot
               if w.hwnd != win.hwnd and re.match(cfg.window_title_re, w.title or "")]
     target_re = cfg.window_title_re
-    if current.title and not any(w.title == current.title for w in others):
+    # Never rebind attach to a foreign window: the exact-title shortcut is only
+    # safe when that title still identifies our launched window as belonging to
+    # this app (i.e. it also satisfies the configured pattern). If it doesn't,
+    # fall back to the configured regex rather than attaching on an untrusted
+    # literal string.
+    if (current.title and not any(w.title == current.title for w in others)
+            and re.match(cfg.window_title_re, current.title)):
         target_re = re.escape(current.title)
     ui = UIASession.attach(target_re)
     for pattern in cfg.boundaries.dismiss_title_res:      # dismiss nags BEFORE anything else
@@ -66,7 +79,13 @@ def launch(cfg: AppConfig, journal: Journal) -> AppSession:
             if re.match(pattern, w.title or ""):
                 inputs.ensure_foreground(w.hwnd)
                 inputs.press("{ESC}")
-                journal.append(JournalEvent(actor="stage0", action="boundary", target=w.title, outcome="dismissed"))
+                still_present = any(w2.hwnd == w.hwnd for w2 in top_windows())
+                if still_present:
+                    journal.append(JournalEvent(actor="stage0", action="boundary", target=w.title,
+                                                outcome="failed: still-present"))
+                else:
+                    journal.append(JournalEvent(actor="stage0", action="boundary", target=w.title,
+                                                outcome="dismissed"))
     version = file_version(cfg.exe)
     journal.append(JournalEvent(actor="stage0", action="launch", target=cfg.name,
                                 outcome="ok", data={"version": version, "pid": proc.pid}))

@@ -13,12 +13,13 @@ from tools.winapp import capture
 # surface scan reaches menu-bar items on modern deep UIA trees.
 DEFAULT_SCAN_DEPTH = 5
 
-def build_surface(window_info: ElemInfo, children: list[ElemInfo], app: str) -> UIContainer:
+def build_surface(window_info: ElemInfo, children: list[ElemInfo], app: str,
+                   exclude_labels: tuple = ()) -> UIContainer:
     elements = [
         UIElement(control_type=k.control_type.lower(), label=k.name,
                   icon=Icon(description="not captured", image=None),
                   bounds=k.rect, source="uia", unexplored=True)
-        for k in children if k.name.strip()
+        for k in children if k.name.strip() and k.name not in exclude_labels
     ]
     return UIContainer(id="ui:main-window", kind="window", label=window_info.name or app,
                        children=elements)
@@ -26,7 +27,9 @@ def build_surface(window_info: ElemInfo, children: list[ElemInfo], app: str) -> 
 def scan_surface(session, writer: KBWriter, journal: Journal, max_containers: int = 50) -> list[Path]:
     win_info = session.ui.info()
     children = session.ui.children(depth=DEFAULT_SCAN_DEPTH)
-    container = build_surface(win_info, children, app=session.config.name)
+    exclude_labels = tuple(session.config.boundaries.exclude_labels)
+    container = build_surface(win_info, children, app=session.config.name,
+                               exclude_labels=exclude_labels)
     img = capture.grab_region(win_info.rect)
     container.screenshot = writer.save_screenshot(img, container.id, "full")
     path = writer.write_container(container)
@@ -36,4 +39,9 @@ def scan_surface(session, writer: KBWriter, journal: Journal, max_containers: in
     if skipped:
         journal.append(JournalEvent(actor="stage1.surface", action="scan-container", target=container.id,
                                     outcome="skipped-unnamed", data={"count": len(skipped)}))
+    excluded = [k.name for k in children if k.name.strip() and k.name in exclude_labels]
+    if excluded:
+        journal.append(JournalEvent(actor="stage1.surface", action="scan-container", target=container.id,
+                                    outcome="skipped-excluded",
+                                    data={"count": len(excluded), "labels": excluded}))
     return [path]

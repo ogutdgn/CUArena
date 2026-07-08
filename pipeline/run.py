@@ -1,4 +1,4 @@
-import argparse, sys, uuid
+import argparse, json, sys, uuid
 from pathlib import Path
 from pipeline.config import load_app_config
 from pipeline import stage0, stage1_surface
@@ -23,14 +23,20 @@ def main(argv=None) -> int:
     writer = KBWriter(Path(a.kb_root), a.app)
     try:
         session = stage0.launch(cfg, journal)
-        stage0.assert_version(Path(a.kb_root) / a.app / "app.json", session.version)
+        version_json = Path(a.kb_root) / a.app / "version.json"
+        stage0.assert_version(Path(a.kb_root) / a.app / "app.json", session.version,
+                               kb_version_json=version_json)
+        # Persist the version pin after every successful launch+assert, independent
+        # of whether the agent (stage1) runs -- a --no-agent-only KB must still be
+        # able to detect drift on its next run.
+        version_json.parent.mkdir(parents=True, exist_ok=True)
+        version_json.write_text(json.dumps({"version": session.version}), encoding="utf-8")
         if "1" in a.stages.split(","):
             surface_paths = stage1_surface.scan_surface(session, writer, journal,
                                                         max_containers=a.max_containers)
             if not a.no_agent:
                 from pipeline.stage1_agent import SdkRunner, run_skeleton_agent
                 from tools.models import UIContainer
-                import json as _json
                 surface = UIContainer.model_validate_json(surface_paths[0].read_text(encoding="utf-8"))
                 run_skeleton_agent(SdkRunner(), cfg.name, session.version, surface, writer, journal)
         return 0

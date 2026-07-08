@@ -34,6 +34,7 @@
 | Modern apps launch under broker processes (Popen pid unreliable) and can restore leftover windows with matching titles | Detection by hwnd-set-difference (never pid); launch() disambiguates via exact current title | commit `d038697` |
 | Ambient Claude Code settings/CLAUDE.md leaked into the one-shot skeleton-agent SDK call, causing a failed run | Hermetic agent: `ClaudeAgentOptions(setting_sources=[], tools=[])` — agent sees ONLY its briefing | commit `e0f564c` |
 | Deferred (tracked for later plans): handle-based UIA attach (two identically-titled windows edge case); boundary dismissal never exercised against a live nag window; DPI/multi-monitor coordinate alignment unverified | Noted in progress ledger; revisit in Plan B/C | — |
+| Version pin currently reads the launcher stub binary (`shutil.which(cfg.exe)`), recorded `10.0.26100.8521` — that's the OS launcher stub's version, not the store-app Notepad 11.x actually running; store-app version pinning needs a better source (e.g. the attached window's process) | Deferred to Plan B: resolve version from the attached window's process (e.g. `pid`/`hwnd` -> process image path), not the launch-time `which` result | — |
 
 ## Test suite state at acceptance
 
