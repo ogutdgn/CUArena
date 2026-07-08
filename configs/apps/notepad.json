@@ -2,5 +2,6 @@
   "name": "notepad",
   "exe": "notepad.exe",
   "window_title_re": ".*(Notepad|Not Defteri).*",
+  "flyout_classes": ["Microsoft.UI.Content.PopupWindowSiteBridge"],
   "boundaries": { "dismiss_title_res": [], "exclude_labels": [] }
 }

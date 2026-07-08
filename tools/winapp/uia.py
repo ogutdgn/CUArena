@@ -28,6 +28,19 @@ class UIASession:
         win.wait("exists ready", timeout=10)
         return cls(win)
 
+    @classmethod
+    def attach_by_handle(cls, hwnd: int) -> "UIASession":
+        # Some windows (observed: Win11 Notepad's menu, a
+        # Microsoft.UI.Content.PopupWindowSiteBridge host titled generically
+        # "PopupHost") aren't reliably found by Desktop(...).window(title_re=...)
+        # -- the title-based search can time out even though the window is
+        # live and enumerable by top_windows(). Attaching directly by hwnd,
+        # which we already have from wait_new_window, is a general and more
+        # robust alternative that sidesteps title matching entirely.
+        win = Desktop(backend="uia").window(handle=hwnd)
+        win.wait("exists", timeout=10)
+        return cls(win)
+
     def info(self) -> ElemInfo:
         return _info(self._win)
 
