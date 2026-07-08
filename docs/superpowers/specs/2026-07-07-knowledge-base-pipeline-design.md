@@ -8,6 +8,10 @@
 
 Given the name of an application, produce a knowledge base accurate and complete enough that later pipeline phases can generate a replica of the application from it without guessing what the original does.
 
+## A note on the examples
+
+Examples throughout this spec use **Microsoft Word** as the benchmark target. This is deliberate: Word has one of the deepest, most complex UI surfaces in existence (ribbon tabs → groups → dropdowns → dialogs → panes → special tabs). If the pipeline can map Word, simpler apps (Gmail, Figma, …) follow much more easily. Nothing in this design is Word-specific: the pipeline is general and must be able to drive **any web or desktop application**.
+
 ## Core decisions
 
 | Decision | Choice |
@@ -17,6 +21,7 @@ Given the name of an application, produce a knowledge base accurate and complete
 | Architecture | Staged pipeline with fan-out, structured as **two passes gated by priority**: breadth first, then depth only where priority justifies it. |
 | KB format | Hybrid: structured JSON nodes (source of truth) + screenshots (visual evidence) + generated markdown overview (human review). |
 | Storage | One JSON file per node, so parallel inspectors never conflict and git diffs show per-run changes. |
+| Priority layers | Five fixed layers P0–P4. P0–P2 (high) documented at full depth, P3 (medium) at mid-level, P4 (low) stays at breadth. See "Priority layers and depth budgets". |
 
 ## The knowledge base
 
@@ -50,23 +55,23 @@ The rubric differs by level. Top level answers *what the app is*; lower levels a
 
 The skeleton and the features are connected *by construction*: every feature is triggered from somewhere in the skeleton. This connection is the backbone of both the completeness check and the skeleton depth rule below.
 
-### UI element records
+### UI element records — critical for UI replication
 
-Every UI element the inspector touches (in skeleton regions, trigger paths, and dialog contents) is captured as a structured record, because the replica must render the same control:
+The pipeline must be UI-aware: the design and visual side of the app is knowledge, not decoration. Every UI element the inspector touches (in skeleton regions, trigger paths, and dialog contents) is captured as a structured record. **Control type, icon, and label are mandatory on every record** — they are the raw material for replicating the UI, and an element record missing them is incomplete:
 
 ```json
 {
-  "type": "button",
+  "control_type": "toggle-button",
   "label": "Bold",
   "icon": { "description": "bold letter B", "image": "screenshots/bold-btn.png" },
   "tooltip": "Bold (Ctrl+B)",
   "shortcut": "Ctrl+B",
   "location": "Home tab > Font group",
-  "state_notes": "toggle; highlighted when cursor is in bold text"
+  "state_notes": "highlighted when cursor is in bold text"
 }
 ```
 
-Icons get both a text description (for reasoning) and a cropped image (for pixel-faithful replication).
+`control_type` captures the control's *behavioral* kind — button, toggle-button, dropdown, split-button, checkbox, radio, input, slider, tab… — not just its appearance. Icons get both a text description (for reasoning) and a cropped image (for pixel-faithful replication). Alongside the element records, general screenshots of each dialog, dropdown, and region are collected as visual evidence of composition and layout.
 
 ### Dialogs and dropdowns
 
@@ -103,20 +108,42 @@ Two passes, with priority as the gate between them. Breadth learns *what exists 
 
 **Stage 2 — Breadth fan-out.** One inspector per feature, in parallel. Each fills the shallow rubric: what the feature does (briefly), its sub-features (level 3: names + one-liners), audience breadth, **connections (mandatory — priority depends on them)**, trigger paths, one screenshot. Wide, shallow, cheap.
 
-**Stage 3 — Assembly + priority.** Merge node files into `graph.json`. Run the completeness check (below); unresolved gaps go back to Stage 2. Then rank every feature/sub-feature into layers P0…Pn from three signals:
+**Stage 3 — Assembly + priority.** Merge node files into `graph.json`. Run the completeness check (below); unresolved gaps go back to Stage 2. Then rank every feature/sub-feature into the five layers P0–P4 from three signals:
 1. **Connection density** — nodes with many `affects/uses` edges are structurally central (Font touches everything that renders text → P0).
 2. **Real-world usage** — web search: what do users of this app actually use most.
 3. **Audience breadth** — `everyone` outranks `niche` (Font vs. Mailings).
 
-**Stage 4 — Depth fan-out.** Only nodes above the priority cutoff. One inspector per node captures everything: every behavior, option, dialog, state, edge case, screenshots. Depth here is unbounded *because* the set is small.
+**Stage 4 — Depth fan-out.** Priority-gated. P0–P2 nodes each get an inspector that captures everything — every behavior, option, dialog, state, edge case, screenshots — descending until the depth endpoint rule (below) says stop. P3 nodes get the mid-level treatment defined in the depth budgets. P4 nodes are already done: breadth was their budget. Depth can be unbounded for P0–P2 *because* that set is small.
 
 **Stage 5 — Finalize.** Recompute priority once (depth discoveries may promote features), regenerate `overview.md`, re-run the completeness check.
+
+## Priority layers and depth budgets
+
+Rankings map into **five fixed layers**. Each layer buys a defined amount of depth — this is what "high priority" concretely points to:
+
+| Layer | Meaning | Knowledge depth | UI depth |
+|---|---|---|---|
+| **P0–P2** | High priority — the app's identity | Full: every behavior, option, state, edge case, documented exactly | Full: every dialog/dropdown along its trigger paths expanded, recursing until the depth endpoint rule fires |
+| **P3** | Medium priority | Mid-level: all rubric questions answered thoroughly | Its direct UI containers (immediate dialogs/dropdowns) opened and enumerated **one level**, with screenshots — no recursion beyond that |
+| **P4** | Low priority | Breadth-pass knowledge only (shallow rubric: name, one-liner, connections, trigger path) | Surface layer only: its top-level control exists with control type / icon / label; interiors stay `unexplored` stubs |
+
+Where the score boundaries between layers fall is tunable and will be calibrated once real graphs exist.
+
+### Depth endpoint rule — when does "as deep as it can" stop?
+
+During deep exploration (P0–P2), an interaction chain is still **descending** while clicks keep opening more UI: another dialog, a new section inside the same dialog, another dropdown, a pane, a special tab. The chain reaches its **endpoint** when an element actually *triggers* a feature/sub-feature — i.e., performs an action on the app or document state instead of revealing more UI.
+
+> Rule of thumb: **opens more UI → keep collecting. Fires an action → endpoint reached; record the trigger edge and stop.**
+
+This gives every deep-dive inspector an unambiguous termination condition, no matter how deep the UI tree goes.
 
 ## Skeleton depth rule
 
 The skeleton has the same explosion risk as features (Word's ribbon is a tree of dropdowns inside dialogs inside dropdowns). It gets the same two-pass treatment, with trigger edges as the mechanism that carries priority into the skeleton:
 
-**Breadth stopping rule (measurable):** expand a UI container only until every feature/sub-feature in the inventory has at least one complete trigger path. The metric is **trigger-path coverage**: expansion continues while coverage < 100% of the inventory and stops the moment it isn't. A container whose interior only holds deeper machinery gets a **stub**: name, purpose, one screenshot, marked `unexplored`.
+**Surface layer — always exhaustive, regardless of priority.** The app's top-level UI is documented completely and exactly: every visible control in the persistent chrome, plus the face of each primary navigation container opened once. In Word: **every ribbon tab, and every button on every tab's face** — each with its full `ui_element` record (control type, icon, label) and screenshots — including low-priority tabs like Mailings. Priority never gates the surface layer; it gates only what lies *below* it (dialogs, dropdowns, nested panes).
+
+**Breadth stopping rule (measurable):** below the surface layer, expand a UI container only until every feature/sub-feature in the inventory has at least one complete trigger path. The metric is **trigger-path coverage**: expansion continues while coverage < 100% of the inventory and stops the moment it isn't. A container whose interior only holds deeper machinery gets a **stub**: name, purpose, one screenshot, marked `unexplored`.
 
 **Depth rule:** skeleton detail rides on high-priority nodes. Deep-inspecting a P0 feature necessarily drags the inspector through its full trigger machinery, so every dropdown/dialog/panel **along that feature's trigger paths** gets fully enumerated. Deep skeleton knowledge = the union of the trigger paths of high-priority features, fully expanded.
 
@@ -135,12 +162,13 @@ And in the other direction: every feature/sub-feature node must have at least on
 ## Definition of done (per app)
 
 1. Completeness check passes: no gaps (unexplored stubs are allowed and labeled).
-2. Every node above the priority cutoff has depth-pass detail.
-3. `graph.json` and `overview.md` generated and consistent with the node files.
+2. The skeleton surface layer is exhaustively documented (every top-level control with control type, icon, label, screenshots).
+3. Every P0–P2 node has full-depth detail; every P3 node has mid-level detail. (P4 stays at breadth — by design, not omission.)
+4. `graph.json` and `overview.md` generated and consistent with the node files.
 
 ## Out of scope for P1
 
 - Testing/verifying the knowledge base (separate future component, own design)
 - Downstream phases: planning, generation, verification of the replica
-- The exact priority cutoff (P0–P2 vs. P0–P3) — tunable, decided empirically once real graphs exist
+- The exact score boundaries between the five priority layers — tunable, calibrated empirically once real graphs exist
 - Exact automation technology choices per backend (browser framework, desktop automation stack) — implementation-plan concerns
