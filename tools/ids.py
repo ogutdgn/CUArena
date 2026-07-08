@@ -1,7 +1,11 @@
 import re, unicodedata
 
+# Characters that don't decompose with NFKD but should fold to ASCII
+_DOTLESS_I_TRANSLATE = str.maketrans({"ı": "i", "İ": "i"})
+
 def slug(text: str) -> str:
-    t = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    t = text.translate(_DOTLESS_I_TRANSLATE)
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode("ascii")
     t = re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
     return t[:60].strip("-") or "unnamed"
 
