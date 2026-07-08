@@ -6,6 +6,7 @@ class Icon(BaseModel):
     image: Optional[str] = None          # relative path to cropped image; null = control has no icon
 
 class UIElement(BaseModel):
+    id: Optional[str] = None
     control_type: str                    # behavioral kind: button, toggle-button, dropdown, menu-item, ...
     label: str
     icon: Icon

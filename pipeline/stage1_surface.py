@@ -4,6 +4,7 @@ from tools.kb_writer import KBWriter
 from tools.journal import Journal
 from tools.winapp.uia import ElemInfo
 from tools.winapp import capture
+from tools.ids import slug, element_id
 
 # Evidence from a diagnostic run against a real Win11 store-app UIA tree:
 # depth=3 (37 nodes) never surfaces the menu-bar items; depth=4 (42 nodes)
@@ -26,14 +27,24 @@ from tools.winapp import capture
 # scan reaches ribbon commands, not just ribbon tab chrome.
 DEFAULT_SCAN_DEPTH = 9
 
+def assign_ids(container_id: str, infos: list[ElemInfo], exclude_labels: tuple = ()) -> list[UIElement]:
+    counts: dict[str, int] = {}
+    elements = []
+    for k in infos:
+        if not k.name.strip() or k.name in exclude_labels:
+            continue
+        s = slug(k.name)
+        elements.append(UIElement(
+            id=element_id(container_id, k.name, counts.get(s, 0)),
+            control_type=k.control_type.lower(), label=k.name,
+            icon=Icon(description="not captured", image=None),
+            bounds=k.rect, source="uia", unexplored=True))
+        counts[s] = counts.get(s, 0) + 1
+    return elements
+
 def build_surface(window_info: ElemInfo, children: list[ElemInfo], app: str,
                    exclude_labels: tuple = ()) -> UIContainer:
-    elements = [
-        UIElement(control_type=k.control_type.lower(), label=k.name,
-                  icon=Icon(description="not captured", image=None),
-                  bounds=k.rect, source="uia", unexplored=True)
-        for k in children if k.name.strip() and k.name not in exclude_labels
-    ]
+    elements = assign_ids("ui:main-window", children, exclude_labels)
     return UIContainer(id="ui:main-window", kind="window", label=window_info.name or app,
                        children=elements)
 

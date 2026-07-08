@@ -28,3 +28,12 @@ def test_no_exclude_labels_keeps_default_behavior():
     kids = [ElemInfo("MenuItem", "File", (0, 0, 40, 20), "")]
     c = build_surface(WIN, kids, app="notepad")
     assert [e.label for e in c.children] == ["File"]
+
+def test_build_surface_assigns_unique_element_ids():
+    kids = [ElemInfo("MenuItem", "File", (0, 0, 40, 20), ""),
+            ElemInfo("Button", "Close", (0, 0, 10, 10), ""),
+            ElemInfo("Button", "Close", (10, 0, 20, 10), "")]
+    c = build_surface(WIN, kids, app="notepad")
+    ids = [e.id for e in c.children]
+    assert ids == ["el:main-window/file", "el:main-window/close", "el:main-window/close-1"]
+    assert len(set(ids)) == len(ids)
