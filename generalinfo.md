@@ -215,8 +215,11 @@ Rule: **a run writes only inside `kb/<app>/`.**
 **Design: finished.** The spec answers every design question we raised (data model, edges, UI
 tree, shortcuts, priority mechanics, depth rules, discipline, tools, docs harvest, layout).
 
-**Construction: not started.** There is no runnable code yet. `python -m pipeline.run notepad`
-would fail today. Plans A/B/C build the pipeline into existence.
+**Construction: Plan A complete (2026-07-08).** The pipeline exists and runs:
+`python -m pipeline.run notepad` launches the real app and builds a skeleton KB (identity,
+surface UI, feature inventory). Validated on Notepad (full, live agent — 8 features) and Word
+(scoped surface); 40 unit tests + 7 smoke tests green; verdicts and evidence in
+`validation/plan-a/report.md`. Plan B (breadth fan-out + priority) is next.
 
 ---
 

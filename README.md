@@ -27,5 +27,5 @@ kb/<app>/                 # pipeline output: one knowledge base per inspected ap
 
 ## Roadmap
 
-- **P1: Knowledge Base Pipeline** — design complete (see spec); implementation next. *(current focus)*
+- **P1: Knowledge Base Pipeline** — design complete; **Plan A built and validated** (runnable skeleton pass: `python -m pipeline.run <app>`); Plan B (breadth + priority) next. *(current focus)*
 - Later phases (planning, generation, verification of replicas) will be defined once P1 produces reliable knowledge bases.
