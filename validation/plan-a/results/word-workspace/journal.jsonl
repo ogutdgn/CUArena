@@ -1,0 +1,5 @@
+{"ts":"2026-07-08T16:42:41.582256+00:00","run_id":"5a8dddc2","actor":"stage0","action":"launch","target":"word","outcome":"ok","data":{"version":"16.0.20131.20126","pid":18940}}
+{"ts":"2026-07-08T16:42:42.156300+00:00","run_id":"5a8dddc2","actor":"stage1.surface","action":"scan-container","target":"ui:main-window","outcome":"ok","data":{"elements":73}}
+{"ts":"2026-07-08T16:42:42.156497+00:00","run_id":"5a8dddc2","actor":"stage1.surface","action":"scan-container","target":"ui:main-window","outcome":"skipped-unnamed","data":{"count":13}}
+{"ts":"2026-07-08T16:42:42.156685+00:00","run_id":"5a8dddc2","actor":"stage1.surface","action":"scan-container","target":"ui:main-window","outcome":"skipped-excluded","data":{"count":2,"labels":["Adobe Acrobat","Editor"]}}
+{"ts":"2026-07-08T16:43:11.570321+00:00","run_id":"5a8dddc2","actor":"stage1.agent","action":"skeleton","target":"word","outcome":"ok","data":{"features":25}}

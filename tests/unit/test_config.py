@@ -15,3 +15,16 @@ def test_boundaries_default_empty(tmp_path: Path):
         {"name": "x", "exe": "x.exe", "window_title_re": ".*x.*"}), encoding="utf-8")
     cfg = load_app_config("x", tmp_path)
     assert cfg.boundaries.dismiss_title_res == [] and cfg.dialog_classes == ["#32770"]
+
+def test_ready_state_fields_default(tmp_path: Path):
+    (tmp_path / "x.json").write_text(json.dumps(
+        {"name": "x", "exe": "x.exe", "window_title_re": ".*x.*"}), encoding="utf-8")
+    cfg = load_app_config("x", tmp_path)
+    assert cfg.launch_args == [] and cfg.fixture is None
+
+def test_ready_state_fields_load(tmp_path: Path):
+    (tmp_path / "x.json").write_text(json.dumps(
+        {"name": "x", "exe": "x.exe", "window_title_re": ".*x.*",
+         "launch_args": ["{fixture}"], "fixture": "configs/fixtures/x/blank.docx"}), encoding="utf-8")
+    cfg = load_app_config("x", tmp_path)
+    assert cfg.launch_args == ["{fixture}"] and cfg.fixture == "configs/fixtures/x/blank.docx"

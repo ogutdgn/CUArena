@@ -1,0 +1,213 @@
+{
+  "name": "word",
+  "version": "16.0.20131.20126",
+  "platform": "desktop",
+  "what_is_it": "Microsoft Word, a desktop word processor",
+  "used_for": "creating, editing, formatting, and saving text documents",
+  "who_uses": "office workers, students, writers, and general professionals",
+  "layout_regions": [
+    "ui:main-window"
+  ],
+  "feature_inventory": [
+    {
+      "id": "feature:document-canvas",
+      "name": "Document Editing Canvas",
+      "one_liner": "the main writing surface where document text is entered and edited",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:ribbon-tabs",
+      "name": "Ribbon Tabs",
+      "one_liner": "top command tabs (Home, Insert, Design, Layout, References, Mailings, Review, View, Help, Acrobat) that switch tool groups",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:clipboard-tools",
+      "name": "Clipboard",
+      "one_liner": "cut, copy, paste, and format painter controls on the Home tab",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:font-formatting",
+      "name": "Font Formatting",
+      "one_liner": "typeface, size, bold/italic, and color controls for selected text",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:paragraph-formatting",
+      "name": "Paragraph Formatting",
+      "one_liner": "alignment, lists, indentation, and spacing controls",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:styles-gallery",
+      "name": "Styles",
+      "one_liner": "gallery of preset text styles for headings and body text",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:editing-tools",
+      "name": "Editing",
+      "one_liner": "find, replace, and select controls for navigating document content",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:voice-dictation",
+      "name": "Voice",
+      "one_liner": "dictation tools for entering text by speaking",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:add-ins",
+      "name": "Add-ins",
+      "one_liner": "access to installed Office add-ins on the Home tab",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:quick-access-toolbar",
+      "name": "Quick Access Toolbar",
+      "one_liner": "persistent AutoSave, Save, Undo, and Repeat shortcuts above the ribbon",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:autosave-toggle",
+      "name": "AutoSave",
+      "one_liner": "toggle that automatically saves the document to the cloud",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:save",
+      "name": "Save",
+      "one_liner": "save the current document",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:undo-redo",
+      "name": "Undo / Repeat",
+      "one_liner": "revert or repeat recent editing actions",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:file-menu",
+      "name": "File Menu",
+      "one_liner": "backstage view for open, save, print, and document options",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:microsoft-search",
+      "name": "Microsoft Search",
+      "one_liner": "search box to find commands, content, and help",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:comments",
+      "name": "Comments",
+      "one_liner": "view and add review comments on the document",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:editing-mode",
+      "name": "Editing Mode",
+      "one_liner": "combo box to switch between editing, reviewing, and viewing modes",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:share",
+      "name": "Share",
+      "one_liner": "share the document with other people",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:copilot-chat",
+      "name": "Copilot Chat",
+      "one_liner": "AI assistant panel for drafting and rewriting content",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:view-modes",
+      "name": "View Modes",
+      "one_liner": "switch between Focus, Read Mode, Print Layout, and Web Layout",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:zoom-controls",
+      "name": "Zoom Controls",
+      "one_liner": "zoom in/out slider and percentage control for the document view",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:status-bar",
+      "name": "Status Bar",
+      "one_liner": "bottom bar showing document status such as character count",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:scrolling",
+      "name": "Scrolling",
+      "one_liner": "vertical scroll bar with line and page navigation buttons",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:window-controls",
+      "name": "Window Controls",
+      "one_liner": "minimize, restore, close, and ribbon display options for the app window",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    },
+    {
+      "id": "feature:account",
+      "name": "Account",
+      "one_liner": "signed-in user identity and account menu",
+      "trigger_path": [
+        "ui:main-window"
+      ]
+    }
+  ]
+}
