@@ -1,0 +1,16 @@
+[project]
+name = "app-pipeline"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2", "pywinauto", "pywin32; sys_platform == 'win32'", "Pillow", "claude-agent-sdk"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+addopts = "-m 'not smoke and not agent_live'"
+markers = [
+  "smoke: needs a real GUI app (Notepad/Word); run explicitly with -m smoke",
+  "agent_live: makes a real LLM API call; run explicitly",
+]
+testpaths = ["tests"]
