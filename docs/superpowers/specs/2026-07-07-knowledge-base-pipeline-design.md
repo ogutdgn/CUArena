@@ -22,6 +22,7 @@ Examples throughout this spec use **Microsoft Word** as the benchmark target. Th
 | KB format | Hybrid: structured JSON nodes (source of truth) + screenshots (visual evidence) + generated markdown overview (human review). |
 | Storage | One JSON file per node, so parallel inspectors never conflict and git diffs show per-run changes. |
 | Priority layers | Five fixed layers P0–P4. P0–P2 (high) documented at full depth, P3 (medium) at mid-level, P4 (low) stays at breadth. See "Priority layers and depth budgets". |
+| Web docs | Opportunistic and quality-gated. Docs guide inspectors and cross-check coverage but **never create nodes**; video-heavy or unstructured docs are deliberately skipped. |
 
 ## The knowledge base
 
@@ -156,6 +157,8 @@ kb/<app>/
   subfeatures/<feature>/<sub>.json
   ui/<container-id>.json        # UI tree: containers with children[] and opens references
   shortcuts/<keys>.json         # shortcut registry: context-scoped bindings (source of truth)
+  docs/<page>.md                # harvested official docs (only when the quality gate passes)
+  docs-tree.json                # cross-page reference tree from the docs
   screenshots/<node-id>/*.png
   graph.json          # assembled graph + priority layers
   overview.md         # generated, human-readable
@@ -169,9 +172,13 @@ Two passes, with priority as the gate between them. Breadth learns *what exists 
 
 **Stage 1 — Skeleton pass.** One inspector opens the real app and maps the frame: identity, layout regions, menu map, navigation — and produces the **feature inventory** (level-2 list) with a trigger path for each entry. Model knowledge guides where to look; the live app is ground truth.
 
+**Stage 1b — Docs harvest (parallel with Stage 1; opportunistic and quality-gated).** Search the web for official documentation about the target app. Harvest **only** if it passes a quality gate: official source, current, **text-based and structured** enough to map pages to features. Existence is not sufficient — MS Word has extensive docs, but they are sprawling and mostly video, which is worthless to this pipeline; that case fails the gate. Failing the gate is recorded as a deliberate skip and the pipeline continues unchanged — it never depends on docs. When harvested: each page becomes markdown (text, links, images) under `docs/`, and cross-page references become `docs-tree.json` — the vendor's own map of feature relationships.
+
+Docs **guide, never create**: no feature/sub-feature node is ever created from documentation. Three uses: (1) inspectors read the relevant pages before exploring a feature, so they know what to look for; (2) Stage 3 runs a docs coverage cross-check; (3) evidence — shortcut pages, and cross-references corroborating `affects/uses` edges. All docs-sourced facts carry `"source": "docs"`, and the standing law applies: **docs inform, the live app confirms** — conflicts resolve in favor of the live app and the doc claim is flagged stale.
+
 **Stage 2 — Breadth fan-out.** One inspector per feature, in parallel. Each fills the shallow rubric: what the feature does (briefly), its sub-features (level 3: names + one-liners), audience breadth, **connections (mandatory — priority depends on them)**, trigger paths, one screenshot. Wide, shallow, cheap.
 
-**Stage 3 — Assembly + priority.** Merge node files into `graph.json`. Run the completeness check (below); unresolved gaps go back to Stage 2. Then rank every feature/sub-feature into the five layers P0–P4 from three signals:
+**Stage 3 — Assembly + priority.** Merge node files into `graph.json`. Run the completeness check (below); unresolved gaps go back to Stage 2. If docs were harvested, also run the **docs coverage cross-check**: a feature named in the docs but absent from the inventory is a candidate gap — investigated live before anything is added. Then rank every feature/sub-feature into the five layers P0–P4 from three signals:
 1. **Connection density** — nodes with many `affects/uses` edges are structurally central (Font touches everything that renders text → P0).
 2. **Real-world usage** — web search: what do users of this app actually use most.
 3. **Audience breadth** — `everyone` outranks `niche` (Font vs. Mailings).
