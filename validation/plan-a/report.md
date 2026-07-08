@@ -1,7 +1,7 @@
 # Plan A validation report — foundations, desktop tools, skeleton pass
 
 **Plan:** `docs/superpowers/plans/2026-07-08-p1-plan-a-foundations-skeleton.md`
-**Status:** COMPLETE (pending final whole-branch review + merge)
+**Status:** COMPLETE — final whole-branch review passed (READY TO MERGE) after one fix wave (`83e1029`)
 **Executed:** 2026-07-08, branch `plan-a` (base `0ae595b`, head `a57729d`)
 **Spec at time of execution:** as of commit `0ae595b`
 
@@ -41,3 +41,16 @@
 - Unit suite: **28 passed, 8 deselected, 0.38s** (`python -m pytest` — no GUI needed)
 - Smoke suite: **7 passed, 13.21s** (`python -m pytest -m smoke` — single invocation)
 - Live agent test: exercised via acceptance run (b) rather than the `agent_live` marker
+- After the final-review fix wave (`83e1029`: agent-independent version pin, exclude_labels implemented, honest dismissal journaling, attach-rebind guard): **40 passed, 8 deselected**
+
+## Final-review findings fixed post-acceptance (commit `83e1029`)
+
+| Finding | Fix |
+|---|---|
+| Version pinning only worked for agent runs (`app.json`-based) — `--no-agent` KBs never detected drift | `kb/<app>/version.json` written after every successful launch; checked first by `assert_version` |
+| `boundaries.exclude_labels` was declared + documented but never read (dead config) | Implemented: surface scan filters excluded labels and journals `skipped-excluded` |
+| Boundary dismissal journaled `dismissed` without verifying the window closed | Re-polls after ESC; journals `dismissed` only if the hwnd is gone, else `failed: still-present` |
+| `launch()` could rebind the UIA attach target to an unrelated new window (e.g. a toast) | Exact-title rebind now also requires the title to match `window_title_re` |
+| Version pin reads the launcher stub binary, not the store-app actually running | Documented; deferred to Plan B (resolve from the attached window's process) |
+
+Residual Plan B ledger items from the re-review: bounded grace-poll for slow-closing nags; give `version.json` a model if it grows fields.
