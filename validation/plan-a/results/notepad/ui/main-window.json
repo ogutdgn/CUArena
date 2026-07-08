@@ -1,0 +1,823 @@
+{
+  "id": "ui:main-window",
+  "kind": "window",
+  "label": "*8gya59km, Not Defteri",
+  "screenshot": "screenshots/ui-main-window/full.png",
+  "children": [
+    {
+      "control_type": "document",
+      "label": "Metin düzenleyici",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        489,
+        182,
+        1398,
+        822
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "menubar",
+      "label": "System",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        491,
+        115,
+        513,
+        137
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Minimize",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1259,
+        108,
+        1306,
+        138
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Maximize",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1306,
+        108,
+        1352,
+        138
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1352,
+        108,
+        1399,
+        138
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Başlıklar",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        780,
+        149,
+        836,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Listeler",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        836,
+        149,
+        892,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Kalın (Ctrl+B)",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        892,
+        149,
+        924,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "İtalik (Ctrl+I)",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        924,
+        149,
+        956,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Üstü çizili (Ctrl+Shift+X)",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        956,
+        149,
+        988,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Bağlantı (Ctrl+K)",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        988,
+        149,
+        1020,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Tablo",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1020,
+        149,
+        1076,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Biçimlendirmeyi temizle (Ctrl+Space)",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1076,
+        149,
+        1108,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Yazma araçları",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1232,
+        149,
+        1288,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Yenilikler",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1292,
+        150,
+        1322,
+        180
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Kullanıcı avatarı",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1326,
+        149,
+        1356,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Ayarlar",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1360,
+        149,
+        1390,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "pane",
+      "label": "Oturum kapalıyken bu özelliği kullanmak için yerel yapay zeka modelini indirme işlemi tamamlanmalıdır.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "text",
+      "label": "Satır 1,\nSütun 9",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        505,
+        830,
+        564,
+        846
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "text",
+      "label": "8 karakterden 8",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        594,
+        830,
+        679,
+        846
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "text",
+      "label": "Düz metin",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        796,
+        822,
+        864,
+        854
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "text",
+      "label": "Yakınlaştırma",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1027,
+        830,
+        1059,
+        846
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "text",
+      "label": " Windows (CRLF)",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1095,
+        830,
+        1186,
+        846
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "text",
+      "label": " UTF-8",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1263,
+        830,
+        1299,
+        846
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "menuitem",
+      "label": "System",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        491,
+        115,
+        513,
+        137
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "button",
+      "label": "Yeni Sekme Ekle",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1192,
+        123,
+        1222,
+        147
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "menuitem",
+      "label": "Dosya",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        493,
+        149,
+        551,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "menuitem",
+      "label": "Düzenle",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        559,
+        149,
+        630,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "menuitem",
+      "label": "Görünüm",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        638,
+        149,
+        717,
+        181
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "—kariyer odaklı—. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        537,
+        117,
+        618,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "internship basvurulari icin hesapla. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        618,
+        117,
+        699,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "jnznh1kp. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        699,
+        117,
+        780,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "Subject. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        780,
+        117,
+        861,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "need to apply after creating GitHub. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        861,
+        117,
+        942,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "Classes for 2026 Spring. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        942,
+        117,
+        1023,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "32134099SDAGFdev. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1023,
+        117,
+        1104,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "control_type": "tabitem",
+      "label": "8gya59km. Değiştirildi.",
+      "icon": {
+        "description": "not captured",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1100,
+        117,
+        1189,
+        149
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": []
+}
