@@ -224,6 +224,30 @@ The shortcut registry is checked the same way: a binding pointing at a missing t
 
 And in the other direction: every feature/sub-feature node must have at least one trigger path from the skeleton, or it is a gap.
 
+## Inspector tool catalog
+
+Inspectors operate from a **curated catalog of vetted, trustworthy tools** — they never improvise their own tooling. The catalog is the pipeline's statement of what is trusted to produce knowledge.
+
+**Entry criteria — what "trustworthy" means concretely:**
+1. Returns **structured data, not guesses** (vision is the one labeled exception, admitted only as fallback).
+2. Enforces **safety internally**: destructive-action blocklist (Send, Delete, Purchase, Share…) and dedicated test accounts/documents — an inspector exploring Gmail can never actually send an email, and Word inspection happens on scratch documents.
+
+**v1 catalog:**
+
+| Platform | Tool | Role |
+|---|---|---|
+| Desktop (Windows) | UI Automation (UIA) | Workhorse: element trees, labels, control types, states, accelerator keys; drives controls via native patterns (invoke, toggle, expand). The same API screen readers rely on, so vendors keep it working. |
+| Desktop | Screen capture | Screenshots, region shots, icon crops |
+| Desktop | Input injection | Mouse/keyboard events where native patterns can't drive |
+| Desktop | Vision fallback | Screenshot + model interpretation, only where the accessibility tree is poor |
+| Web | Browser automation (CDP/Playwright-class) | DOM + ARIA snapshots, click/hover/type, screenshots, `aria-keyshortcuts` — the web equivalent of UIA |
+| Research | Web search + page-fetch-to-markdown | Usage signal for priority; docs harvest |
+| KB | Schema-enforcing writers | Write nodes/containers/shortcuts; refuse malformed records (missing icon/label, zero-or-two action markers) — schema discipline is guaranteed by the tool, not by agent judgment |
+
+**Provenance.** Every fact in the KB records which tool produced it (`"source": "uia"` / `"vision"` / `"docs"` / `"tooltip"`). Structured sources are strong evidence; vision-only or docs-only facts are weaker and are standing candidates for re-verification. Trust in tools becomes measurable trust in knowledge.
+
+Other desktop platforms follow the same pattern through their native accessibility APIs and can be added to the catalog without any schema change.
+
 ## Definition of done (per app)
 
 1. Completeness check passes: no gaps (unexplored stubs are allowed and labeled).
@@ -236,4 +260,4 @@ And in the other direction: every feature/sub-feature node must have at least on
 - Testing/verifying the knowledge base (separate future component, own design)
 - Downstream phases: planning, generation, verification of the replica
 - The exact score boundaries between the five priority layers — tunable, calibrated empirically once real graphs exist
-- Exact automation technology choices per backend (browser framework, desktop automation stack) — implementation-plan concerns
+- Exact library/wrapper choices and API design for the catalog tools — implementation-plan concerns (the catalog names *what* is trusted; the plan decides *how* each tool is built)
