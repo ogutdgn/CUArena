@@ -5,13 +5,12 @@ from tools.journal import Journal
 from tools.winapp.uia import ElemInfo
 from tools.winapp import capture
 
-# Evidence from this task's diagnostic run against real Win11 Notepad:
-# depth=3 (37 nodes) never surfaces the menu-bar items ("Dosya"/"Düzenle");
-# depth=4 (42 nodes) is the first depth where they appear; depth=5 (50 nodes)
-# still finds them with one level of margin. This is a general knob -- not
-# app-specific logic -- so scan_surface exposes it as a parameter; the
-# default is raised from the brief's depth=3 to depth=5 to reach menu-bar
-# items on this machine's Win11 Notepad build with a margin of safety.
+# Evidence from a diagnostic run against a real Win11 store-app UIA tree:
+# depth=3 (37 nodes) never surfaces the menu-bar items; depth=4 (42 nodes)
+# is the first depth where they appear; depth=5 (50 nodes) still finds them
+# with one level of margin. This is a general knob -- not app-specific
+# logic. The default is raised from the original depth=3 to depth=5 so the
+# surface scan reaches menu-bar items on modern deep UIA trees.
 DEFAULT_SCAN_DEPTH = 5
 
 def build_surface(window_info: ElemInfo, children: list[ElemInfo], app: str) -> UIContainer:

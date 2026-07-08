@@ -41,7 +41,7 @@ def launch(cfg: AppConfig, journal: Journal) -> AppSession:
         journal.append(JournalEvent(actor="stage0", action="launch", target=cfg.name, outcome="failed: no window"))
         raise RuntimeError(f"{cfg.name}: no window appeared")
     time.sleep(1.0)
-    # Some app builds (observed: Windows 11 modern Notepad) restore a
+    # Some app builds (observed on Win11 store-app rewrites) restore a
     # leftover window from a prior unsaved session alongside the freshly
     # launched one; both satisfy the same locale-tolerant window_title_re, so
     # a broad desktop-wide UIA lookup by that pattern can be ambiguous
