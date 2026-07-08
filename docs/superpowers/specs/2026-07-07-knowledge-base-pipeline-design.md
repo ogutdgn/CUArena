@@ -169,6 +169,35 @@ kb/<app>/
   overview.md         # generated, human-readable
 ```
 
+### Repository layout (root)
+
+Three kinds of code/knowledge live in the repo, with strict roles: code the pipeline **is**
+(`pipeline/`, `tools/`), code it may **read** (`references/`), and everything it **produces**
+(`kb/<app>/`, including the scripts it generates there).
+
+**Start state** — before any app has been inspected:
+
+```
+app-pipeline/
+  README.md
+  docs/
+    superpowers/specs/            # design specs (this document)
+  pipeline/                       # pipeline source: orchestrator + stage logic
+  tools/                          # shared tool library — implementations of the vetted catalog,
+                                  #   grows via the promotion rule
+  references/                     # donated example scripts — inspire, never dictate
+    README.md                     #   the law, stated at the door
+    word-crawler/                 #   base example: desktop UI crawling
+    docs-harvester/               #   base example: docs-site harvesting
+  kb/                             # empty — one folder per app appears as apps are inspected
+```
+
+**End state** — after the pipeline finishes an app, `kb/<app>/` is fully populated per the
+on-disk layout above (nodes, UI tree, shortcuts, docs, screenshots, journal, graph, overview) —
+including `kb/<app>/scripts/`, where the pipeline **generates** the working scripts it used for
+that app. Nothing outside `kb/` is written during a run; promotion of a script pattern from
+`kb/<app>/scripts/` into `tools/` is a deliberate, reviewed step, not a runtime side effect.
+
 ## The pipeline
 
 Two passes, with priority as the gate between them. Breadth learns *what exists and how it is connected*; priority decides *what deserves deep knowledge*; depth exhausts only that.
