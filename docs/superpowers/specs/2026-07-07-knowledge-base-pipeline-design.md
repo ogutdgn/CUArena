@@ -50,7 +50,7 @@ The rubric differs by level. Top level answers *what the app is*; lower levels a
 ### Edge types
 
 1. **`contains`** — hierarchy: app → feature → sub-feature. Fixed three levels in the breadth pass.
-2. **`triggers`** — skeleton element → feature/sub-feature. Stored as the **full UI path**, since triggering is often multi-step: `Home tab → Font group → B button → Bold`. Dropdowns and dialogs appear as steps in these paths. Paths are id-chains through the UI tree (see below), not prose strings.
+2. **`triggers`** — skeleton element → feature/sub-feature. Stored as the **full UI path**, since triggering is often multi-step: `Home tab → Font group → B button → Bold`. Dropdowns and dialogs appear as steps in these paths. Paths are id-chains through the UI tree (see below), not prose strings. Keyboard shortcuts produce `triggers`/`opens` relationships too — they are the keyboard half of the trigger surface (see Shortcuts).
 3. **`affects/uses`** — feature connections (from the original sketch). Allowed **between any two nodes at any level**: feature↔feature, sub↔sub, and cross-level (Gmail's search-by-label sub-feature ↔ Labels feature). These edges drive priority scoring, so restricting where they can exist would corrupt the ranking.
 
 The skeleton and the features are connected *by construction*: every feature is triggered from somewhere in the skeleton. This connection is the backbone of both the completeness check and the skeleton depth rule below.
@@ -111,7 +111,35 @@ All UI containers in the tree above ("mini-skeletons"):
 - They appear as `opens` targets along trigger paths.
 - Their contents are enumerated as `children[]`: in the breadth pass, existence + purpose + rough contents; in the depth pass (priority-gated), every child element is resolved to a sub-feature (`triggers`), a deeper container (`opens`), or a detail field.
 - Each opened container gets its own screenshot.
-- Element identification uses the DOM for web apps, the OS accessibility tree (e.g. Windows UI Automation) for desktop, with vision on screenshots as fallback.
+- Element identification uses the platform's structured UI layer (the DOM on web, the OS accessibility tree on desktop), with vision on screenshots as fallback.
+
+### Shortcuts — the keyboard trigger surface
+
+The pipeline must capture keyboard shortcuts as knowledge: they are triggers without pixels. The skeleton is the app's *mouse* trigger surface; shortcuts are its *keyboard* trigger surface — two doors into the same rooms. A shortcut binding carries the same exactly-one-marker discipline as a UI element: it either `triggers` a feature/sub-feature (`Ctrl+B` → `subfeature:bold`) or `opens` a container (`Ctrl+F` in Word → the navigation pane).
+
+What shortcuts have that buttons don't is **context**: the same key acts differently in different places (`Escape` closes a dialog / collapses a selection; `F2` edits a cell in Excel but does nothing in Word's ribbon). Every binding therefore records *when* it is active, not just *what* it does.
+
+**Storage — the registry is the source of truth; nodes carry display references:**
+
+```json
+// shortcuts/ctrl+b.json — one file per key combination
+{
+  "keys": "Ctrl+B",
+  "bindings": [
+    {
+      "context": "editing text / text selected",
+      "effect": "toggles bold on selection or at cursor",
+      "triggers": "subfeature:bold",
+      "source": ["tooltip", "docs"]
+    }
+  ]
+}
+```
+
+- The `shortcuts/` registry owns the facts: context (*when*), effect (*how it acts*), and exactly one action marker (*what it affects*) per binding. Context-dependent keys like `Escape` hold several bindings in one file.
+- Feature/sub-feature nodes and `ui_element` records keep only the display string (`"shortcut": "Ctrl+B"`, harvested from tooltips) as evidence — a label, not a definition.
+- Harvesting is defined at capability level, not tool level: shortcuts surface through element properties exposed by the platform's structured UI layer, tooltips, menu item labels, in-app shortcut reference panels, and web documentation. They are collected during the **breadth pass** (cheap — they appear on surfaces already being scanned); deep verification of subtle context behavior is priority-gated like everything else. Brute-force key-pressing is a last resort, not a method.
+- **Checks that come free:** every binding must point at an existing node/container; a node whose display string has no matching registry entry is a gap; two bindings claiming the same key+context is a conflict flag.
 
 ### What is deliberately NOT in the KB
 
@@ -126,6 +154,7 @@ kb/<app>/
   features/<feature>.json
   subfeatures/<feature>/<sub>.json
   ui/<container-id>.json        # UI tree: containers with children[] and opens references
+  shortcuts/<keys>.json         # shortcut registry: context-scoped bindings (source of truth)
   screenshots/<node-id>/*.png
   graph.json          # assembled graph + priority layers
   overview.md         # generated, human-readable
@@ -189,6 +218,8 @@ Because every interactive element must carry exactly one of the three markers (`
 1. **Resolved** — the element has `triggers` (maps to a known feature/sub-feature) or `opens` (leads into a documented container). ✓
 2. **Unexplored** — marked `unexplored: true`: a stub deliberately not expanded (low priority). Recorded and visible in the KB; not an error. Tells downstream phases "this area exists but we chose not to learn it."
 3. **Gap** — an element with none of the three markers, an `opens` reference to a container file that doesn't exist, or a feature with no trigger path. Goes back to inspection.
+
+The shortcut registry is checked the same way: a binding pointing at a missing target, a node display string with no registry entry, or two bindings claiming the same key+context — all flagged as gaps/conflicts.
 
 And in the other direction: every feature/sub-feature node must have at least one trigger path from the skeleton, or it is a gap.
 
