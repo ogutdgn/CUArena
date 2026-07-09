@@ -229,8 +229,37 @@ def run_explorer_agent(briefing: str, tools: list, max_turns: int = 60) -> str:
     allowed = [f"mcp__ui__{t.name}" for t in tools]
     # Hermetic: no ambient settings/CLAUDE.md, only the in-process "ui" server
     # and its tools are reachable, bounded by max_turns.
+    #
+    # allowed_tools alone is NOT a restriction: per claude-agent-sdk 0.2.113's
+    # README ("Using Tools" section), allowed_tools is a permission allowlist
+    # only -- listed tools are auto-approved, unlisted tools fall through to
+    # permission_mode/can_use_tool, but the built-in toolset (Read/Write/Edit/
+    # Bash/Glob/Grep/...) stays in Claude's toolset regardless. Confirmed by
+    # reading _internal/transport/subprocess_cli.py:_build_command: allowed_tools
+    # only ever emits --allowedTools, a separate flag from --tools.
+    #
+    # The actual base-set restriction is ClaudeAgentOptions.tools (see
+    # types.py: "Specify the base set of available built-in tools ... []
+    # (empty list) -- Disable all built-in tools"). subprocess_cli.py maps
+    # tools=[] to `--tools ""`, which is a different CLI flag from
+    # --allowedTools/--disallowedTools and from the same source: MCP servers
+    # are wired independently via --mcp-config, so tools=[] strips the
+    # built-ins without touching our in-process "ui" MCP server or its
+    # mcp__ui__* tools. query() and ClaudeSDKClient both route through the
+    # same SubprocessCLITransport._build_command, so this applies to query()
+    # too (no ClaudeSDKClient needed).
+    #
+    # disallowed_tools is added as defense-in-depth: it is the CLI's harder
+    # guarantee ("removed from the model's context and cannot be used, even
+    # if they would otherwise be allowed" per types.py), covering us in case
+    # tools=[] behaves unexpectedly on some CLI version, and it's what the
+    # SDK's own README recommends for blocking specific tools.
+    BUILTIN_TOOLS = ["Task", "Bash", "Glob", "Grep", "Read", "Edit", "Write",
+                     "NotebookEdit", "WebFetch", "WebSearch", "TodoWrite",
+                     "SlashCommand", "ExitPlanMode", "BashOutput", "KillShell"]
     options = ClaudeAgentOptions(setting_sources=[], mcp_servers={"ui": server},
-                                 allowed_tools=allowed, max_turns=max_turns)
+                                 allowed_tools=allowed, tools=[],
+                                 disallowed_tools=BUILTIN_TOOLS, max_turns=max_turns)
 
     async def _go() -> str:
         chunks: list[str] = []
