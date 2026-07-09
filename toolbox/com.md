@@ -93,3 +93,17 @@ before crawling clipboard-dependent controls (`crawler/launcher.py::select_parag
   press the crawler sends Ctrl+Z and then verifies `doc_hash` returned to the baseline — the
   fingerprint doubles as the reset check.
   (learned from `crawler/prober.py::_restore`)
+- 2026-07-09 — **The format fingerprint must reach OUTSIDE Font/ParagraphFormat, or highlight /
+  shading / borders classify as false `no-effect`.** Highlight lives on `Selection.Range.
+  HighlightColorIndex`, shading on `ParagraphFormat.Shading.BackgroundPatternColor`, borders on
+  `Range.Borders(i).LineStyle` (i = -1..-4). Applying a highlight/border via the ribbon changed
+  none of the classic Font/Paragraph props, so those primary-applies measured as no-effect until
+  the sig was widened. Also: **pre-format the probe selection** (bold/italic/size/color/indent)
+  so *removal* features (Clear Formatting, Decrease Indent from 0) produce a delta too.
+  (learned from kb/word/scripts/session.py::format_sig + run_step2 pre-format)
+- 2026-07-09 — **Ctrl+Z, not re-press, is the universal formatting reset.** Re-pressing a
+  *toggle* (Bold) undoes it, but re-pressing a *non-toggle apply* (Font Color = red) applies red
+  again — silently leaving the selection formatted and poisoning every later `format_sig`
+  baseline. Undo any doc/format change with Ctrl+Z (loop until doc_hash AND format_sig match
+  baseline); reserve re-press for view toggles like Show All that Ctrl+Z can't undo.
+  (learned from kb/word/scripts/tools/prober.py::restore)

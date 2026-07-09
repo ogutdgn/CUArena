@@ -87,3 +87,17 @@ row = tint) by center ranking (`::_assign_grid_pos`).
   every 8px horizontally / 6px vertically, then sorts unique hits top-to-bottom, left-to-right
   to reconstruct reading order.
   (learned from `crawler/capture.py::_sample_popup`)
+- 2026-07-09 — **`ElementFromPoint` MUST receive `ctypes.wintypes.POINT`, not a hand-rolled
+  `ctypes.Structure`.** A locally-defined `class POINT(Structure)` with the same fields fails to
+  marshal into `IUIAutomation.ElementFromPoint` — every call raises, and if you wrapped it in a
+  bare `except`, the flyout enumerates to ZERO items and you wrongly conclude the surface is empty.
+  `from ctypes.wintypes import POINT` fixed it instantly (943 hits on a color picker, 442 on a
+  menu that both walked as an empty tree). Cost me a full re-crawl to find; verify hit-count > 0
+  before trusting a "flyout has no items" result. (learned from kb/word/scripts/tools/depth_capture.py)
+- 2026-07-09 — **In owner-drawn flyouts, a NAMED Group (ct 50026) is a SECTION HEADER, not an
+  item; an EMPTY-name cell is the swatch.** Color pickers hit-test as: named 50026 = "Theme
+  Colors"/"Standard Colors" section labels (record as sections, don't click), empty-name 50026 =
+  swatch cells (geometry-key them), plus real commands as ListItem(50007)/MenuItem(50011)
+  ("Automatic", "More Colors…", "Gradient"). Skip only Pane(50033)/Text(50020)/Window(50032) —
+  do NOT skip Button(50000); 50000 is Button, Text is 50020 (mixing these up drops every command).
+  (learned from kb/word/scripts/tools/depth_capture.py::enumerate_flyout + test_flyout.py)

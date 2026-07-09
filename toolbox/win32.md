@@ -112,3 +112,17 @@ two reads (min 1.5s, max 5s) — some windows appear late (`crawler/prober.py::_
   the unexpected window.
   (learned from `crawler/run_p0.py::_drain_popup` submenu-dialog instrumentation + run journals
   `run-20260707-*`: `"submenu-dialog: no child dialog; new=[]"`)
+- 2026-07-09 — **Confirmed live (kb/word): a committed STATE delta must be checked BEFORE the
+  flyout branch, not just before the toggle branch.** Pressing **Justify** (a plain Button, not
+  a UIA toggle) fl\-classified as `flyout` because a transient live-preview NetUI window of flyout
+  class flickered during observation and my precedence checked flyout before the format delta. The
+  alignment change (`format_sig`) is the truth. Order that survived: **dialog → state-delta
+  (doc/format/app) → flyout → pane → other**. Live-preview never *commits* formatting, so a real
+  flyout-opener (color picker, Change Case) shows no state delta and still falls through to
+  `flyout` correctly. (learned from kb/word/scripts/tools/prober.py::classify, run-042323)
+- 2026-07-09 — **Floating task panes read as a dialog by window class.** Word's **Styles** pane
+  opens *floating* (a top-level window), so document-inset pane detection misses it and the class
+  check calls it a dialog — then dialog-dismissal (Cancel/ESC) can't close it and it stays stuck.
+  Distinguish it by probing for a **'Close pane' button** on the window (task panes have one;
+  dialogs have OK/Cancel); close it through that button, not ESC.
+  (learned from kb/word/scripts/tools/windows.py::is_task_pane_window + prober `_close_pane_window`)

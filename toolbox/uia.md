@@ -115,3 +115,33 @@ menu; ESC it and skip) (`crawler/capture.py::_expand_groups`).
   Wrap the call, not the lookup — and guard expansion with a window-set check so a
   dropdown-button masquerading as an expander gets ESCed instead of polluting the capture.
   (learned from `crawler/capture.py::_expand_groups`)
+- 2026-07-09 — **A SplitButton's own AutomationId can be EMPTY even when its siblings carry idMso.**
+  Re-dumped live on Word 16.0.20131 (kb/word run): `Underline`/`FontColorPicker`/`Bullets` expose
+  their idMso on the SplitButton node, but `Paste`'s SplitButton has `AutomationId == ""` — its
+  idMso (`Paste`) lives only on the primary-zone child Button. So when you keep a split button
+  atomic, backfill its id from the primary child (`split.children()` → the Button, not the
+  `*_Dropdown` MenuItem) or you get an id-less control. Name (`'Paste'`) + type still identify it.
+  (learned from kb/word/scripts/tools/enumerator.py + dumps/home_enum.json)
+- 2026-07-09 — **AccessKey is a FREE keyboard trigger-path, parallel to AcceleratorKey.** Every
+  ribbon leaf exposes its keytip chain in `CurrentAccessKey` (Bold → "Alt, H, 1", Font dialog →
+  "Alt, H, F N"), independent of the Ctrl-style shortcut in `CurrentAcceleratorKey` (Bold →
+  "Ctrl+B"). The keytip chain literally IS the mouse trigger path in keyboard form (tab H →
+  group → control), so it doubles as a cross-check that your ribbon-nesting locators are right.
+  Harvest both fields in the same read. (learned from kb/word dump: `_props` AccessKey/AcceleratorKey)
+- 2026-07-09 — **The in-ribbon QuickStyles gallery IS in the UIA tree, unlike owner-drawn
+  flyouts.** `DataGrid 'Styles' > ListItem`s ('Normal', 'Heading 1', 'Title'…) are fully
+  enumerable via a normal tree walk — no hit-testing needed. Its 'More' chevron button is flaky to
+  click (center-click lands on a style tile and applies it), so to document the gallery, enumerate
+  the DataGrid directly rather than opening the expanded dropdown.
+  (learned from kb/word depth: enter_styles_gallery)
+- 2026-07-09 — **To open a split button's DROPDOWN you must click its dropdown ZONE, not the
+  stored control rect's center** — the center hits the PRIMARY zone (which applies the default
+  action, e.g. fills red). Recover the exact zone at press time from `split_zone_rects(el)` (the
+  `*_Dropdown` MenuItem child) or a ComboBox's `Open` button child; a step-2 record that stored the
+  whole split-button rect as `bounds` is a trap when re-driving in depth.
+  (learned from kb/word/scripts/tools/run_step5_enter.py::build_open_points)
+- 2026-07-09 — **A maximized OpusApp frame's window rect starts at (-8,-8).** `GetWindowRect`
+  on the maximized frame returns `[-8,-8,1928,1040]` (the invisible resize border). A window-true
+  `ImageGrab.grab(bbox=rect, all_screens=True)` still captures correctly, but any control `bounds`
+  you crop must be taken RELATIVE to that grabbed rect's origin, not screen (0,0), or the crop is
+  off by 8px. (learned from kb/word/scripts/drive/stage.py + tools/capture.py rel_bounds)
