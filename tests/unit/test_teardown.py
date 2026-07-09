@@ -18,6 +18,7 @@ def test_close_app_falls_back_to_kill(tmp_path):
     j = Journal(tmp_path / "j.jsonl", run_id="t")
     with patch("pipeline.teardown.win32gui.PostMessage"), \
          patch("pipeline.teardown._window_alive", return_value=True), \
+         patch("pipeline.teardown._try_discard_dialog", return_value=False), \
          patch("pipeline.teardown._kill_by_hwnd_pid") as kill:
         close_app(FakeSession(), j)
     kill.assert_called_once()
