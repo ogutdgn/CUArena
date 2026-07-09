@@ -32,6 +32,10 @@ three evidence-backed signals.
   be answerable by opening files.
 - No signal invented: connectivity from the real graph, usage only with sources, audience from
   the nodes.
+- **Every node is in the ranking — including contextual ones.** Controls from contextual surfaces
+  (Table Layout, Picture Format, Chart Design…) are features too and MUST be ranked alongside the
+  rest. A contextual control that never entered the node set is a silent gap that depth can never
+  reach — not a legitimately low priority. If Step 3 fed them in correctly, they are here.
 
 ## Proof
 
