@@ -6,7 +6,8 @@ from tools.kb_writer import KBWriter
 
 def test_mission_contains_load_bearing_rules():
     for phrase in ("record_route", "write_container", "unexplored", "probe",
-                   "Never", "DONE"):
+                   "Never", "DONE", "no visible change", "screenshot",
+                   "zero children", "VERIFY BEFORE YOU WRITE"):
         assert phrase in B1_MISSION
 
 def test_run_explorer_journals_done(tmp_path: Path):

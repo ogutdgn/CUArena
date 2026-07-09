@@ -30,6 +30,21 @@ element does, write one container per surface via write_container (ids
 measured outcomes, unexplored otherwise), screenshot each surface. Cover
 every top-level tab and menu before finishing.
 
+VERIFY BEFORE YOU WRITE
+After switching to any surface (clicking a tab/menu/etc.), you MUST verify
+the switch actually happened before documenting it: check the click result's
+diff summary ("+N new elements" / "-M gone") and/or take a screenshot (the
+screenshot tool now returns the image itself, so look at it) BEFORE calling
+write_container for that surface. If a click reports "no visible change",
+the surface did not switch -- do not write it. Journal that outcome mentally
+(it is already recorded automatically) and either retry the click once or
+move on to the next surface. Never call write_container for a container you
+have not confirmed is actually showing on screen, and never write a
+container with zero children just to mark it "covered" -- the tool will
+reject empty tab/menu/dialog/dropdown/pane containers outright, and even if
+it didn't, an empty container is worse than no container: it looks like
+documented coverage while recording nothing.
+
 RULES
 - Never perform destructive actions (save, print, close) -- the tools will
   refuse them anyway, but do not attempt to work around a refusal.

@@ -26,6 +26,7 @@ class FakeUI:
 class FakeSession:
     config: AppConfig
     ui: FakeUI
+    hwnd: int = 1
 
 
 def _config(exclude_labels=()):
@@ -34,8 +35,8 @@ def _config(exclude_labels=()):
 
 
 def _patch_capture(monkeypatch):
-    monkeypatch.setattr("pipeline.stage1_surface.capture.grab_region",
-                         lambda rect: Image.new("RGB", (2, 2)))
+    monkeypatch.setattr("pipeline.stage1_surface.capture.grab_window",
+                         lambda hwnd: (Image.new("RGB", (2, 2)), "print-window"))
 
 
 def test_scan_surface_journals_skipped_excluded(tmp_path: Path, monkeypatch):
@@ -58,6 +59,26 @@ def test_scan_surface_journals_skipped_excluded(tmp_path: Path, monkeypatch):
     assert len(skip_events) == 1
     assert skip_events[0].data["count"] == 1
     assert skip_events[0].data["labels"] == ["Ads"]
+
+
+def test_scan_surface_uses_grab_window_and_journals_capture_method(tmp_path: Path, monkeypatch):
+    calls = []
+    monkeypatch.setattr(
+        "pipeline.stage1_surface.capture.grab_window",
+        lambda hwnd: (calls.append(hwnd), (Image.new("RGB", (2, 2)), "foreground-fallback"))[1],
+    )
+    kids = [ElemInfo("MenuItem", "File", (0, 0, 40, 20), "")]
+    session = FakeSession(config=_config(), ui=FakeUI(kids), hwnd=42)
+    journal_path = tmp_path / "journal.jsonl"
+    journal = Journal(journal_path, run_id="t")
+    writer = KBWriter(tmp_path, "notepad")
+
+    scan_surface(session, writer, journal)
+
+    assert calls == [42]  # captured the window itself, not a screen region
+    events = Journal.read_all(journal_path)
+    scan_event = next(e for e in events if e.outcome == "ok")
+    assert scan_event.data["capture_method"] == "foreground-fallback"
 
 
 def test_scan_surface_no_excluded_labels_no_skip_event(tmp_path: Path, monkeypatch):

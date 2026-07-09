@@ -1,4 +1,4 @@
-import json, re, subprocess, sys, time
+import base64, io, json, re, subprocess, sys, time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -11,6 +11,17 @@ from tools.kb_writer import KBWriter
 from tools.models import JournalEvent, UIContainer, UIElement
 from tools.winapp import capture, inputs
 from tools.winapp.windows import top_windows
+
+# Container kinds that only make sense as a labeled grouping of contents --
+# writing one with zero children is (almost) always a symptom of a switch
+# that silently failed (wrong surface still on screen, click landed on
+# nothing, etc.), not a legitimately empty surface. "window"/"section" are
+# excluded: a window can legitimately have no top-level named children of
+# its own (everything lives in child containers), and "section" is a
+# free-form grouping the agent may create for a genuinely sparse area.
+EMPTY_REJECT_KINDS = {"tab", "menu", "dialog", "dropdown", "pane"}
+
+MAX_SCREENSHOT_WIDTH = 1280
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -62,6 +73,20 @@ def _resolve(ctx: ToolContext, ref_or_label: str):
 def _is_destructive(label: str, cfg) -> bool:
     return any(re.search(pat, label) for pat in DESTRUCTIVE_RES + list(cfg.destructive_label_res))
 
+def _diff_summary(before_names: list[str], after_names: list[str]) -> str:
+    before_set, after_set = set(before_names), set(after_names)
+    added = [n for n in after_names if n not in before_set]
+    removed = [n for n in before_names if n not in after_set]
+    if not added and not removed:
+        return "no visible change"
+    parts = []
+    if added:
+        sample = ", ".join(added[:5])
+        parts.append(f"+{len(added)} new elements (sample: {sample})")
+    if removed:
+        parts.append(f"-{len(removed)} gone")
+    return "; ".join(parts)
+
 def click_impl(ctx: ToolContext, ref_or_label: str) -> str:
     elem = _resolve(ctx, ref_or_label)
     label = elem.name if elem is not None else ref_or_label
@@ -73,13 +98,16 @@ def click_impl(ctx: ToolContext, ref_or_label: str) -> str:
         ctx.journal.append(JournalEvent(actor="explorer.click", action="click", target=label,
                                         outcome="failed: not-found"))
         return f"not found: {ref_or_label}"
+    before_names = [e.name for e in _named_elements(ctx)]
     inputs.ensure_foreground(ctx.session.hwnd)
     inputs.click_rect(elem.rect)
     time.sleep(0.8)
+    after_names = [e.name for e in _named_elements(ctx)]
+    diff = _diff_summary(before_names, after_names)
     windows = [w.title or w.cls for w in top_windows()]
     ctx.journal.append(JournalEvent(actor="explorer.click", action="click", target=label,
-                                    outcome="ok"))
-    return f"clicked '{label}'; windows now: {windows}"
+                                    outcome="ok", data={"diff": diff}))
+    return f"clicked '{label}'; {diff}; windows now: {windows}"
 
 def press_impl(ctx: ToolContext, keys: str) -> str:
     if any(re.search(pat, keys, re.IGNORECASE) for pat in DESTRUCTIVE_KEY_RES):
@@ -108,12 +136,25 @@ def probe_impl(ctx: ToolContext, ref_or_label: str) -> str:
            "restored": result.restored}
     return json.dumps(out)
 
-def screenshot_impl(ctx: ToolContext, name: str) -> str:
-    img = capture.grab_region(ctx.session.ui.info().rect)
+def screenshot_impl(ctx: ToolContext, name: str) -> tuple[str, str]:
+    """Capture the target window itself (not whatever happens to be in the
+    foreground -- see tools.winapp.capture.grab_window) and return both the
+    KB-relative saved path and a base64-encoded PNG for the caller to hand
+    back to the agent as an image content block (FIX 3: the agent couldn't
+    see any of its own screenshots before this).
+    """
+    img, method = capture.grab_window(ctx.session.hwnd)
     rel = ctx.writer.save_screenshot(img, "ui:screen", name)
     ctx.journal.append(JournalEvent(actor="explorer.screenshot", action="screenshot", target=name,
-                                    outcome="ok"))
-    return rel
+                                    outcome="ok", data={"capture_method": method}))
+    thumb = img.copy()
+    if thumb.width > MAX_SCREENSHOT_WIDTH:
+        ratio = MAX_SCREENSHOT_WIDTH / thumb.width
+        thumb.thumbnail((MAX_SCREENSHOT_WIDTH, max(1, int(thumb.height * ratio))))
+    buf = io.BytesIO()
+    thumb.convert("RGB").save(buf, format="PNG")
+    b64_png = base64.b64encode(buf.getvalue()).decode("ascii")
+    return rel, b64_png
 
 def write_container_impl(ctx: ToolContext, container_json: str) -> str:
     try:
@@ -122,6 +163,12 @@ def write_container_impl(ctx: ToolContext, container_json: str) -> str:
         ctx.journal.append(JournalEvent(actor="explorer.write_container", action="write_container",
                                         outcome="rejected", data={"error": str(exc)[:500]}))
         return f"rejected: {exc}"
+    if container.kind in EMPTY_REJECT_KINDS and not container.children:
+        ctx.journal.append(JournalEvent(actor="explorer.write_container", action="write_container",
+                                        target=container.id, outcome="rejected-empty",
+                                        data={"kind": container.kind}))
+        return (f"rejected: empty {container.kind} container — read and include its contents, "
+                f"or do not write it")
     path = ctx.writer.write_container(container)
     ctx.journal.append(JournalEvent(actor="explorer.write_container", action="write_container",
                                     target=container.id, outcome="ok"))
@@ -186,37 +233,61 @@ def run_script_impl(ctx: ToolContext, relpath: str) -> str:
 # forms are accepted by allowed_tools, we use the fully-qualified form here
 # to avoid collisions with any other server the host process might add).
 
+def _text_content(ctx: ToolContext, sync_fn):
+    def build(args):
+        result = sync_fn(args)
+        return {"content": [{"type": "text", "text": result}]}
+    return build
+
+def _screenshot_content(ctx: ToolContext, sync_fn):
+    # screenshot_impl returns (rel_path, base64_png) instead of plain text:
+    # the tool result includes BOTH a text block (the saved path, for the
+    # agent's own bookkeeping/journal reasoning) and an image block (so the
+    # agent can actually SEE what it captured -- FIX 3). Per the installed
+    # claude-agent-sdk 0.2.113 (verified by reading create_sdk_mcp_server's
+    # call_tool wrapper in claude_agent_sdk/__init__.py): a content item
+    # with {"type": "image", "data": <base64 str>, "mimeType": <str>} is
+    # parsed into mcp.types.ImageContent(type="image", data=item["data"],
+    # mimeType=item["mimeType"]) -- both keys are required, no defaults.
+    def build(args):
+        rel_path, b64_png = sync_fn(args)
+        return {"content": [
+            {"type": "text", "text": rel_path},
+            {"type": "image", "data": b64_png, "mimeType": "image/png"},
+        ]}
+    return build
+
 _TOOL_SPECS = [
     ("read_screen", "List live named UI elements on screen with refs", {},
-     lambda ctx: (lambda args: read_screen_impl(ctx))),
+     lambda ctx: (lambda args: read_screen_impl(ctx)), _text_content),
     ("click", "Click an element by ref or label", {"ref_or_label": str},
-     lambda ctx: (lambda args: click_impl(ctx, args["ref_or_label"]))),
+     lambda ctx: (lambda args: click_impl(ctx, args["ref_or_label"])), _text_content),
     ("press", "Send a key chord to the focused window", {"keys": str},
-     lambda ctx: (lambda args: press_impl(ctx, args["keys"]))),
+     lambda ctx: (lambda args: press_impl(ctx, args["keys"])), _text_content),
     ("probe", "Press an element and observe/restore the effect", {"ref_or_label": str},
-     lambda ctx: (lambda args: probe_impl(ctx, args["ref_or_label"]))),
-    ("screenshot", "Grab a screenshot of the app window", {"name": str},
-     lambda ctx: (lambda args: screenshot_impl(ctx, args["name"]))),
+     lambda ctx: (lambda args: probe_impl(ctx, args["ref_or_label"])), _text_content),
+    ("screenshot", "Grab a screenshot of the app window and see the image", {"name": str},
+     lambda ctx: (lambda args: screenshot_impl(ctx, args["name"])), _screenshot_content),
     ("write_container", "Write a UIContainer JSON node to the KB", {"container_json": str},
-     lambda ctx: (lambda args: write_container_impl(ctx, args["container_json"]))),
+     lambda ctx: (lambda args: write_container_impl(ctx, args["container_json"])), _text_content),
     ("record_route", "Record the steps to reach the ready workspace", {"steps_json": str},
-     lambda ctx: (lambda args: record_route_impl(ctx, args["steps_json"]))),
+     lambda ctx: (lambda args: record_route_impl(ctx, args["steps_json"])), _text_content),
     ("write_script", "Write a helper script under kb/<app>/scripts/", {"relpath": str, "content": str},
-     lambda ctx: (lambda args: write_script_impl(ctx, args["relpath"], args["content"]))),
+     lambda ctx: (lambda args: write_script_impl(ctx, args["relpath"], args["content"])), _text_content),
     ("run_script", "Run a previously written helper script", {"relpath": str},
-     lambda ctx: (lambda args: run_script_impl(ctx, args["relpath"]))),
+     lambda ctx: (lambda args: run_script_impl(ctx, args["relpath"])), _text_content),
 ]
 
 def make_explorer_tools(ctx: ToolContext) -> list:
     from claude_agent_sdk import tool
 
     made = []
-    for name, description, schema, bind in _TOOL_SPECS:
+    for name, description, schema, bind, content_builder in _TOOL_SPECS:
         sync_fn = bind(ctx)
+        build_content = content_builder(ctx, sync_fn)
 
-        async def handler(args, _fn=sync_fn):
-            result = _fn(args)
-            return {"content": [{"type": "text", "text": result}]}
+        async def handler(args, _build=build_content):
+            return _build(args)
 
         made.append(tool(name, description, schema)(handler))
     return made

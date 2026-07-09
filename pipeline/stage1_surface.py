@@ -54,11 +54,12 @@ def scan_surface(session, writer: KBWriter, journal: Journal, max_containers: in
     exclude_labels = tuple(session.config.boundaries.exclude_labels)
     container = build_surface(win_info, children, app=session.config.name,
                                exclude_labels=exclude_labels)
-    img = capture.grab_region(win_info.rect)
+    img, method = capture.grab_window(session.hwnd)
     container.screenshot = writer.save_screenshot(img, container.id, "full")
     path = writer.write_container(container)
     journal.append(JournalEvent(actor="stage1.surface", action="scan-container", target=container.id,
-                                outcome="ok", data={"elements": len(container.children)}))
+                                outcome="ok",
+                                data={"elements": len(container.children), "capture_method": method}))
     skipped = [k.name for k in children if not k.name.strip()]
     if skipped:
         journal.append(JournalEvent(actor="stage1.surface", action="scan-container", target=container.id,
