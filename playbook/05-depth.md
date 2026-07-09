@@ -33,6 +33,9 @@ stopping that branch only.
 - For each P0–P2 node: follow its trigger paths through every container; enumerate every child
   element with measured markers; capture per-surface screenshots; recurse per the endpoint rule;
   reset-verify after every press (Step 2's discipline still binds).
+- **Enter the stubs.** The surfaces left as stubs (`explored: false`) in Steps 2–3 are exactly
+  what you open now, for P0–P2 nodes: enumerate their real `children[]`, flip `explored: true`.
+  A P0–P2 node still pointing at an `explored: false` stub means depth isn't finished for it.
 - **Full knowledge, not just structure** — for every P0–P2 node AND everything discovered
   beneath it (dialog fields, dropdown entries, options), write the complete rubric into its JSON
   (schema: `design/knowledge-base-design.md`): **what it does**, **how it works/behaves**

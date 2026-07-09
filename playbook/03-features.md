@@ -24,6 +24,11 @@ where structure becomes knowledge.
 - A node with only a name is not done. You can't build a meaningful connection on top of a node
   whose purpose and trigger you haven't recorded — so the identity rubric comes first, then
   connections rest on it.
+- **A sub-feature that opens a surface (e.g. Font Color → a color dialog) is still fully recorded
+  here**: its rubric says what it does and that it `opens` that surface (measured in Step 2), and
+  the surface it opens stays a **stub** (`explored: false`) — see Step 2. You are documenting the
+  feature's identity, not the dialog's interior; that interior is Step 5's job, priority-gated.
+  The node is NOT `unexplored`; only the opened surface's contents are deferred.
 
 ### 2. Discover connections — grounded in evidence, not vibes
 

@@ -23,19 +23,31 @@ never assumed from names.
 - Write containers via the **kernel writers** (`kernel/kb_writer.py`) — one JSON per surface,
   element ids, exactly-one marker per element (`opens` / `triggers` / `unexplored`). Schema:
   `design/knowledge-base-design.md`.
+- **Stubs — how to defer an interior you're not entering yet.** When an element opens more UI
+  whose interior is deeper machinery you won't enumerate in this pass, you still record TWO
+  things honestly: (1) the element keeps its **measured `opens` marker** — you pressed it and saw
+  a surface open, so you know what it *does*; (2) the opened surface is written as a **stub
+  container** — `id`, `kind`, `label`, one screenshot, `children: []`, and **`explored: false`**.
+  A stub says "this surface exists; I deliberately have not gone inside." Its interior is filled
+  only in Step 5 (depth), and only if priority warrants. The element is NOT `unexplored` (you
+  measured what it opens); only the surface's *contents* are deferred.
 
 ## Be sure of
 
 - All common rules (`playbook/README.md`).
 - `opens`/`triggers` markers ONLY from a measured outcome. Unpressed = `unexplored`.
-- Never write an empty container — read its contents or don't write it.
+- **Stub vs. dishonest-empty — know the difference.** A container with `children: []` is only
+  allowed as an explicit **stub** (`explored: false` — an honest "not entered yet"). A container
+  written as if complete but empty because your clicks failed / you didn't read it is a **lie** —
+  forbidden. Empty + `explored:false` = fine; empty + claiming done = the failure this rule bans.
 - Verify you are LOOKING at the surface you're documenting (your action's result, on screen)
   before writing it.
 
 ## Proof
 
-1. One container JSON per top-level surface — none empty, every element exactly one marker,
-   every `opens` value resolving to an existing container file.
+1. One container JSON per top-level surface — every element exactly one marker, every `opens`
+   value resolving to an existing container file (which may be a stub). No container is empty
+   *without* `explored: false` — empty-and-unmarked (a dishonest "done") fails the step.
 2. Screenshots that visibly match their containers (spot-checkable by a human).
 3. Journal shows a press/reset pair (or an honest skip) for every interactive element, and the
    run's end state equals its start state.
