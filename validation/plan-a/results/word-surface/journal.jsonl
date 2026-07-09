@@ -1,3 +1,0 @@
-{"ts":"2026-07-08T12:12:26.244484+00:00","run_id":"d8815593","actor":"stage0","action":"launch","target":"word","outcome":"ok","data":{"version":"16.0.20131.20126","pid":27316}}
-{"ts":"2026-07-08T12:12:26.521075+00:00","run_id":"d8815593","actor":"stage1.surface","action":"scan-container","target":"ui:main-window","outcome":"ok","data":{"elements":22}}
-{"ts":"2026-07-08T12:12:26.521268+00:00","run_id":"d8815593","actor":"stage1.surface","action":"scan-container","target":"ui:main-window","outcome":"skipped-unnamed","data":{"count":9}}

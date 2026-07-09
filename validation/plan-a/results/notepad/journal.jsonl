@@ -1,4 +1,0 @@
-{"ts":"2026-07-08T12:15:59.819783+00:00","run_id":"d844433c","actor":"stage0","action":"launch","target":"notepad","outcome":"ok","data":{"version":"10.0.26100.8521","pid":11792}}
-{"ts":"2026-07-08T12:16:00.121194+00:00","run_id":"d844433c","actor":"stage1.surface","action":"scan-container","target":"ui:main-window","outcome":"ok","data":{"elements":37}}
-{"ts":"2026-07-08T12:16:00.121408+00:00","run_id":"d844433c","actor":"stage1.surface","action":"scan-container","target":"ui:main-window","outcome":"skipped-unnamed","data":{"count":13}}
-{"ts":"2026-07-08T12:16:14.056774+00:00","run_id":"d844433c","actor":"stage1.agent","action":"skeleton","target":"notepad","outcome":"ok","data":{"features":8}}

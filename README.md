@@ -1,31 +1,36 @@
 # App Pipeline
 
-Replicate whole applications from a single prompt.
+Replicate whole applications from a single prompt (`build microsoft word`, `build gmail`, …).
 
-The goal of this project is to build a pipeline that can take one prompt — e.g. `build microsoft word`, `build microsoft excel`, `build figma`, `build gmail` — and produce a working replica of that application.
+The first phase — the current focus — is **P1: the Knowledge Base Pipeline**: given an app's
+name, produce an accurate, structured knowledge base about it. Nothing can be replicated that
+isn't first accurately understood.
 
-## P1: Knowledge Base Pipeline — current and only focus
+## Architecture
 
-Before anything can be generated, the pipeline must first build an accurate, structured knowledge base about the application being replicated. Without accurate knowledge of the application, we cannot replicate it. **P1 is the sole focus right now** — later phases stay undefined until P1 produces reliable results.
+An **agent** learns the app by driving it; the project gives that agent everything it needs to
+succeed — but keeps almost nothing as fixed code. The pipeline is four kinds of thing:
 
-The full design lives in the spec: [`docs/superpowers/specs/2026-07-07-knowledge-base-pipeline-design.md`](docs/superpowers/specs/2026-07-07-knowledge-base-pipeline-design.md). In brief:
+| Folder | What it is | Who owns it |
+|---|---|---|
+| `design/` | What a knowledge base *is* — schema, the 3-level model, priority, discipline | fixed spec |
+| `playbook/` | The steps the agent follows to learn an app (goal · be-sure-of · proof) | knowledge, not code |
+| `toolbox/` | Knowledge about tools (UIA, COM, win32, screenshots…): how to use them, their traps, and lessons that compound across apps | knowledge, not code |
+| `kernel/` | The only live code: schema writers + journal (guarantees that must not vary per app) | us, rarely |
+| `configs/` | Per-app data + fixtures | data |
+| `references/` | Proven example code (the Word crawler, our pre-pivot pipeline) — inspire, never dictate | read-only |
+| `kb/<app>/` | The agent's workspace: the tools it writes per app + the KB it produces | the agent |
 
-- **Live app inspection is ground truth.** Inspector agents drive the real app (web or desktop) through a curated catalog of vetted tools; model knowledge guides, docs inform, the live app confirms.
-- **The KB is a graph:** app skeleton → features → sub-features, connected by `contains`, `triggers` (the UI/keyboard trigger surfaces), and `affects/uses` edges — plus a UI tree of containers, a shortcut registry, screenshots, and optional harvested docs.
-- **Two passes, gated by priority:** a breadth pass maps everything shallowly; an evidence-based ranking (connection density + real usage + audience breadth) cuts features into layers P0–P4; a depth pass exhaustively documents only the top layers.
-- **Discipline:** append-only journal, snapshot-diff classification, version pinning, boundaries config, mechanical completeness checks.
+**The core idea:** the agent reads the playbook (what to do) and the toolbox (how to use the
+tools), then writes its *own* per-app inspection code into `kb/<app>/scripts/`, proving each
+step. Code doesn't generalize across apps; **lessons do** — so every app inspected makes the
+toolbox richer and the next app easier. The only thing we hand-maintain is the tiny kernel.
 
-## Repository layout
+## Status
 
-```
-docs/superpowers/specs/   # design specs
-pipeline/                 # pipeline source: orchestrator + stage logic   (to be built)
-tools/                    # shared tool library — the vetted catalog      (to be built)
-references/               # donated example scripts — inspire, never dictate
-kb/<app>/                 # pipeline output: one knowledge base per inspected app
-```
-
-## Roadmap
-
-- **P1: Knowledge Base Pipeline** — design complete; **Plan A built and validated** (runnable skeleton pass: `python -m pipeline.run <app>`); Plan B (breadth + priority) next. *(current focus)*
-- Later phases (planning, generation, verification of replicas) will be defined once P1 produces reliable knowledge bases.
+- **Design:** stable (`design/knowledge-base-design.md`).
+- **Architecture:** pivoted (2026-07-09) to agent-writes-its-own-tools. Earlier hand-built code
+  (Plan A + B1: launch, prober, discard handling, safety, window-true capture) is preserved in
+  `references/legacy/` as proven, lesson-rich seed material — not the live system.
+- **Next:** author the `playbook/` steps and seed the `toolbox/` files from the legacy lessons,
+  then run the agent through step 0–1 on MS Word.
