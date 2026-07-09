@@ -8,11 +8,25 @@ labeled. Depth is bought with priority, never spent evenly.
 
 ## The depth-endpoint rule (when to stop descending)
 
-While pressing keeps revealing MORE UI (a dialog inside a dialog, a nested dropdown, a new
-section) → keep collecting, with the seen-set preventing re-crawls. The moment an element
-**fires an action** on the app/document instead of revealing UI → that is an endpoint: record
-the `triggers` marker and stop. In data terms: descending = writing `opens`, endpoint = writing
-`triggers`.
+Descend **per branch**, independently. UI nests: a dropdown can open another dropdown, a dialog
+can open another dialog, on and on. Each newly opened surface has its own set of elements, and
+**each element is its own branch** that you follow until it ends.
+
+A branch **ends** when its element **fires an action** on the app/document (a feature) instead
+of revealing more UI. A branch **continues** as long as pressing keeps revealing more UI. The
+seen-set prevents re-crawling a surface reached by a second path.
+
+Worked example — a dialog with 5 buttons:
+- 4 of them open new dialogs → those 4 branches **continue** (recurse into each new dialog and
+  repeat the rule there).
+- 1 of them triggers a feature → that branch is **done**; its depth is sufficient, nothing more
+  to explore down it.
+- You do NOT stop the whole dialog because one button ended — you finish the other 4 branches.
+  The surface is fully mapped only when **every** element on it has either ended (triggered a
+  feature) or been recursed into and mapped.
+
+In data terms: descending = writing `opens` and recursing; endpoint = writing `triggers` and
+stopping that branch only.
 
 ## How
 
@@ -23,8 +37,13 @@ the `triggers` marker and stop. In data terms: descending = writing `opens`, end
   any in-app shortcut reference — into the shortcut registry (`shortcuts/<keys>.json`,
   context-scoped bindings; schema in the design doc). Depth of shortcut coverage follows node
   priority automatically.
-- **Icons/visuals**: for P0–P2 controls, capture icon crops and visual descriptions — the
-  replica must render the same control.
+- **Screenshots (mandatory, and verified)**: capture the visual of everything the replica must
+  reproduce — every button and its **icon** (cropped), every dialog, panel, and dropdown. For
+  P0–P2 controls also record a short visual description. **After each capture, verify it**: the
+  agent looks at the image and confirms it actually shows the intended target, not an empty area,
+  a wrong window, or a stale frame. Do this fast — a quick glance, not a study — but never skip
+  it. (Tool trust from Step 1 already means the capture tool was checked to give correct results
+  for buttons/dialogs/dropdowns; this is the per-capture sanity check on top of that.)
 - P3 nodes: fill the full rubric + one level of their immediate containers. P4: leave at
   breadth; interiors stay `unexplored`.
 

@@ -19,7 +19,11 @@ saw the tree first, so your tools won't lie.
 4. **Write your tools** into `kb/<app>/scripts/tools/`: at minimum a reader (enumerate a
    surface's controls with name/id/type/bounds) and a driver (activate a surface, click a
    control, with foreground enforcement). Use raw libraries directly; the toolbox tells you how.
-5. **Validate against the live app**, fix, repeat until stable.
+5. **Validate against the live app**, fix, repeat until stable. This includes the **capture
+   tool**: confirm it returns the *correct* image for different targets — a whole surface, a
+   single button/icon, a dialog, a dropdown/flyout — by looking at each result and checking it
+   shows the intended thing (not the wrong window, an empty region, or a stale frame). If a
+   capture type comes back wrong, fix the tool now — the whole KB's visual evidence depends on it.
 6. **Give back**: append dated lessons you learned to the relevant `toolbox/*.md` files — the
    next app starts smarter because of you.
 
