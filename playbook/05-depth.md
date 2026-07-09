@@ -33,9 +33,15 @@ stopping that branch only.
 - For each P0–P2 node: follow its trigger paths through every container; enumerate every child
   element with measured markers; capture per-surface screenshots; recurse per the endpoint rule;
   reset-verify after every press (Step 2's discipline still binds).
-- **Enter the stubs.** The surfaces left as stubs (`explored: false`) in Steps 2–3 are exactly
-  what you open now, for P0–P2 nodes: enumerate their real `children[]`, flip `explored: true`.
-  A P0–P2 node still pointing at an `explored: false` stub means depth isn't finished for it.
+- **Enter the stubs — TRANSITIVELY.** The surfaces left as stubs (`explored: false`) in Steps
+  2–3 are exactly what you open now, for P0–P2 nodes: enumerate their real `children[]`, flip
+  `explored: true`. And this is **not one level**: when you enter a stub, it almost always
+  contains its OWN `opens` elements (a dropdown's "More Colors…" opens a dialog; that dialog's
+  "Options…" opens another). Each of those is a new stub, and for a P0–P2 node you must follow
+  EVERY one of them, all the way down, until every branch ends at a `triggers` (a fired feature)
+  per the endpoint rule. Opening only the node's first surface and stopping is the most common
+  depth failure — it looks done but leaves nested stubs behind. **Done for a P0–P2 node = no
+  `explored: false` container is reachable from it by ANY chain of `opens`.**
 - **Full knowledge, not just structure** — for every P0–P2 node AND everything discovered
   beneath it (dialog fields, dropdown entries, options), write the complete rubric into its JSON
   (schema: `design/knowledge-base-design.md`): **what it does**, **how it works/behaves**
@@ -67,7 +73,12 @@ stopping that branch only.
 
 1. Every P0–P2 node has full-depth detail; every P3 node mid-level; P4 breadth-only **by
    design, labeled, not silently missing**.
-2. Mechanical completeness passes: every element exactly-one marker; every `opens` resolves;
+2. **Transitive-depth check (the one this run failed — do it explicitly):** walk `opens` from
+   every P0–P2 node through the whole chain; **not one `explored: false` container may be
+   reachable.** A first-level surface opened but its nested "More…/Options…/Special…" dialogs
+   left as stubs = depth NOT done. Your DoD checker must compute this reachability, not just
+   check the node's direct surface — a shallow check will falsely report done.
+3. Mechanical completeness passes: every element exactly-one marker; every `opens` resolves;
    every node has a live trigger path; shortcut registry entries all resolve.
 3. `overview.md` generated — a human reads it and recognizes the app.
 4. The journal reconstructs the whole run; re-running produces the same KB shape.
