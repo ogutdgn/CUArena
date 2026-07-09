@@ -53,3 +53,19 @@ def hover_rect(rect) -> None:
 
 def press(keys: str) -> None:
     send_keys(keys, pause=0.05)
+
+
+def type_text(text: str) -> None:
+    # with_spaces=True: send_keys treats a bare space as a no-op key-name
+    # separator by default, which silently drops spaces from literal text.
+    # with_newlines=True similarly makes embedded "\n" send {ENTER} instead
+    # of being dropped. Braces/other send_keys metacharacters in `text` are
+    # NOT escaped here -- type_text is for literal prose entry, not for
+    # driving key chords (that's press()); callers who need to type
+    # characters that collide with send_keys syntax should escape before
+    # calling.
+    send_keys(text, pause=0.02, with_spaces=True, with_newlines=True)
+
+
+def scroll(coords, wheel_dist: int) -> None:
+    mouse.scroll(coords=coords, wheel_dist=wheel_dist)

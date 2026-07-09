@@ -16,7 +16,11 @@ def parse_args(argv):
     p.add_argument("--no-agent", action="store_true")
     p.add_argument("--max-containers", type=int, default=50)
     p.add_argument("--keep-open", action="store_true")
-    p.add_argument("--max-turns", type=int, default=60)
+    p.add_argument("--max-turns", type=int, default=60, help="survey-phase turn budget")
+    p.add_argument("--item-max-turns", type=int, default=15, help="per-worklist-item turn budget")
+    p.add_argument("--verbose", dest="verbose", action="store_true", default=True,
+                   help="print explorer progress live (default on)")
+    p.add_argument("--no-verbose", dest="verbose", action="store_false")
     return p.parse_args(argv)
 
 def main(argv=None) -> int:
@@ -44,7 +48,8 @@ def main(argv=None) -> int:
             if not a.no_agent:
                 kb_app_root = Path(a.kb_root) / a.app
                 run_explorer(session, writer, journal, kb_app_root, cfg,
-                            max_turns=a.max_turns)
+                            survey_max_turns=a.max_turns, item_max_turns=a.item_max_turns,
+                            verbose=a.verbose)
         return 0
     except Exception as exc:  # journal, then loud failure
         journal.append(JournalEvent(actor="run", action="error", target=a.app, outcome=f"failed: {exc}"))
