@@ -1,0 +1,56 @@
+{
+  "id": "subfeature:font-size-decrease",
+  "node_type": "subfeature",
+  "name": "Shrink Font",
+  "parent": "feature:font",
+  "what_it_does": "Decreases the font size of the selection to the previous step.",
+  "affects": "the selection's font size",
+  "audience_breadth": "most",
+  "behavior": "Direct action: Decreases the font size of the selection to the previous step. Applied immediately to the selection's font size; toggle state (where applicable) is reflected by the button's highlighted look. Appears as a large 'A' beside a small 'A' with a down arrow (Shrink Font).",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:font-size-decrease"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+Shift+<"
+    }
+  ],
+  "shortcut": "Ctrl+Shift+<",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-font-size-decrease.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-font-size-decrease.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-size",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-size-increase",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "feature:font",
+  "node_type": "feature",
+  "name": "Font",
+  "what_it_does": "Format the characters of the selected text — typeface, size, weight, color, effects.",
+  "affects": "the selection's character formatting",
+  "audience_breadth": "everyone",
+  "behavior": "Format the characters of the selected text — typeface, size, weight, color, effects. Group controls: subfeature:font, subfeature:font-size, subfeature:font-size-increase, subfeature:font-size-decrease, subfeature:change-case, subfeature:clear-formatting, subfeature:bold, subfeature:italic, subfeature:underline-gallery, subfeature:strikethrough, subfeature:subscript, subfeature:superscript, subfeature:text-effects, subfeature:text-highlight-color-picker, subfeature:font-color-picker, subfeature:font-dialog",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:font",
+    "subfeature:font-size",
+    "subfeature:font-size-increase",
+    "subfeature:font-size-decrease",
+    "subfeature:change-case",
+    "subfeature:clear-formatting",
+    "subfeature:bold",
+    "subfeature:italic",
+    "subfeature:underline-gallery",
+    "subfeature:strikethrough",
+    "subfeature:subscript",
+    "subfeature:superscript",
+    "subfeature:text-effects",
+    "subfeature:text-highlight-color-picker",
+    "subfeature:font-color-picker",
+    "subfeature:font-dialog"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

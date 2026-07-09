@@ -1,0 +1,60 @@
+{
+  "id": "subfeature:paste",
+  "node_type": "subfeature",
+  "name": "Paste",
+  "parent": "feature:clipboard",
+  "what_it_does": "Inserts the clipboard's content at the cursor; the dropdown offers paste-special options (keep formatting, merge, text only, picture).",
+  "affects": "document content",
+  "audience_breadth": "everyone",
+  "behavior": "Opens subfeature:paste (dropdown). Contents (7 controls): Use Destination Theme, Keep Source Formatting, Merge Formatting, Picture, Keep Text Only, Paste Special..., Set Default Paste.... Sub-surfaces: ui:paste-dropdown-paste-special, ui:paste-dropdown-set-default-paste. [the subfeature:paste flyout — items are endpoints; swatches pixel-sampled; sections: Paste Options] Appears as a clipboard with a document; a large split button with a dropdown.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:paste"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:paste-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+V"
+    }
+  ],
+  "shortcut": "Ctrl+V",
+  "opens": "ui:paste-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-paste.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-paste.png",
+    "screenshots/ui-paste-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:cut",
+      "kind": "uses",
+      "why": "operate together through the clipboard",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:copy",
+      "kind": "uses",
+      "why": "operate together through the clipboard",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

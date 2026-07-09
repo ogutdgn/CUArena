@@ -1,0 +1,10 @@
+{
+  "id": "ui:text-effects-dropdown",
+  "kind": "dropdown",
+  "label": "Text Effects and Typography",
+  "purpose": null,
+  "screenshot": "screenshots/ui-text-effects-dropdown/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

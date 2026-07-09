@@ -1,0 +1,11 @@
+{
+  "name": "Microsoft Word",
+  "version": "16.0",
+  "build": "16.0.20131",
+  "build_prefix_pinned": "16.0.20131",
+  "exe": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+  "exe_file_version": "16.0.20131.20126",
+  "platform": "desktop",
+  "recorded_at": "2026-07-09T08:45:05.341235+00:00",
+  "launch_method": "com-dispatchex"
+}

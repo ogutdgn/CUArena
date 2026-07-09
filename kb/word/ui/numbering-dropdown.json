@@ -1,0 +1,308 @@
+{
+  "id": "ui:numbering-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:numbering-gallery",
+  "purpose": "the subfeature:numbering-gallery flyout — items are endpoints; swatches pixel-sampled; sections: Numbering Library",
+  "screenshot": "screenshots/ui-numbering-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Numbering",
+      "icon": {
+        "description": "Numbering (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        544,
+        114,
+        817,
+        503
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "None",
+      "icon": {
+        "description": "None (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        144,
+        630,
+        228
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1.",
+      "icon": {
+        "description": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1. (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        630,
+        144,
+        714,
+        228
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1)",
+      "icon": {
+        "description": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1) (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        714,
+        144,
+        798,
+        228
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "I, II, III, …, ALIGNMENT Right, Number Format: I.",
+      "icon": {
+        "description": "I, II, III, …, ALIGNMENT Right, Number Format: I. (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        228,
+        630,
+        312
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "A, B, C, …, ALIGNMENT Left, Number Format: A.",
+      "icon": {
+        "description": "A, B, C, …, ALIGNMENT Left, Number Format: A. (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        630,
+        228,
+        714,
+        312
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "a, b, c, …, ALIGNMENT Left, Number Format: a)",
+      "icon": {
+        "description": "a, b, c, …, ALIGNMENT Left, Number Format: a) (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        714,
+        228,
+        798,
+        312
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "a, b, c, …, ALIGNMENT Left, Number Format: a.",
+      "icon": {
+        "description": "a, b, c, …, ALIGNMENT Left, Number Format: a. (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        312,
+        630,
+        396
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "i, ii, iii, …, ALIGNMENT Right, Number Format: i.",
+      "icon": {
+        "description": "i, ii, iii, …, ALIGNMENT Right, Number Format: i. (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        630,
+        312,
+        714,
+        396
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Change List Level",
+      "icon": {
+        "description": "Change List Level (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        407,
+        815,
+        435
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Define New Number Format...",
+      "icon": {
+        "description": "Define New Number Format... (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        435,
+        815,
+        463
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:numbering-dropdown-define-new-number-format",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Set Numbering Value...",
+      "icon": {
+        "description": "Set Numbering Value... (in subfeature:numbering-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        463,
+        815,
+        491
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:numbering-dropdown-set-numbering-value",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-numbering-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells; sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:numbering-dropdown-define-new-number-format",
+    "ui:numbering-dropdown-set-numbering-value"
+  ],
+  "explored": true
+}

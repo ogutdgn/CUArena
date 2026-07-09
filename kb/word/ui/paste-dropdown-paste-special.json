@@ -1,0 +1,10 @@
+{
+  "id": "ui:paste-dropdown-paste-special",
+  "kind": "dialog",
+  "label": "Paste Special...",
+  "purpose": "sub-surface of a menu; interior deferred",
+  "screenshot": null,
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

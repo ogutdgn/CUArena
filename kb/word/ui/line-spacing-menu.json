@@ -1,0 +1,220 @@
+{
+  "id": "ui:line-spacing-menu",
+  "kind": "dropdown",
+  "label": "subfeature:line-spacing",
+  "purpose": "the subfeature:line-spacing flyout — items are endpoints; swatches pixel-sampled",
+  "screenshot": "screenshots/ui-line-spacing-menu/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1.0",
+      "icon": {
+        "description": "1.0 (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        148,
+        822,
+        176
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1.15",
+      "icon": {
+        "description": "1.15 (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        176,
+        822,
+        204
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1.5",
+      "icon": {
+        "description": "1.5 (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        204,
+        822,
+        232
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "2.0",
+      "icon": {
+        "description": "2.0 (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        232,
+        822,
+        260
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "2.5",
+      "icon": {
+        "description": "2.5 (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        260,
+        822,
+        288
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "3.0",
+      "icon": {
+        "description": "3.0 (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        288,
+        822,
+        316
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Line Spacing Options…",
+      "icon": {
+        "description": "Line Spacing Options… (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        316,
+        822,
+        344
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:line-spacing-menu-line-spacing-options",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Add Space Before Paragraph",
+      "icon": {
+        "description": "Add Space Before Paragraph (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        347,
+        822,
+        375
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Remove Space After Paragraph",
+      "icon": {
+        "description": "Remove Space After Paragraph (in subfeature:line-spacing)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        375,
+        822,
+        403
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:line-spacing-menu-line-spacing-options"
+  ],
+  "explored": true
+}

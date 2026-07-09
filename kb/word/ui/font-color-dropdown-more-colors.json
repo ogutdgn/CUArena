@@ -1,0 +1,10 @@
+{
+  "id": "ui:font-color-dropdown-more-colors",
+  "kind": "dialog",
+  "label": "More Colors...",
+  "purpose": "sub-surface of a menu; interior deferred",
+  "screenshot": null,
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

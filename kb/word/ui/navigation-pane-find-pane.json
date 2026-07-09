@@ -1,0 +1,586 @@
+{
+  "id": "ui:navigation-pane-find-pane",
+  "kind": "pane",
+  "label": "subfeature:find",
+  "purpose": "the subfeature:find docked pane (enumerated one level)",
+  "screenshot": "screenshots/ui-navigation-pane-find-pane/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Search document",
+      "icon": {
+        "description": "Search document (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        15,
+        228,
+        298,
+        249
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Font",
+      "icon": {
+        "description": "Font (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        192,
+        92,
+        302,
+        111
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Font Size",
+      "icon": {
+        "description": "Font Size (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        319,
+        92,
+        347,
+        111
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close pane",
+      "icon": {
+        "description": "Close pane (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        314,
+        189,
+        338,
+        213
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Clear",
+      "icon": {
+        "description": "Clear (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        298,
+        228,
+        322,
+        250
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Previous Result",
+      "icon": {
+        "description": "Previous Result (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        297,
+        262,
+        314,
+        276
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Next Result",
+      "icon": {
+        "description": "Next Result (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        314,
+        262,
+        331,
+        276
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Result 1 of 1",
+      "icon": {
+        "description": "Result 1 of 1 (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        14,
+        325,
+        319,
+        365
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "AutoSave",
+      "icon": {
+        "description": "AutoSave (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        42,
+        9,
+        154,
+        38
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Save",
+      "icon": {
+        "description": "Save (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        155,
+        9,
+        183,
+        38
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "VBA-Range.InsertAfter",
+      "icon": {
+        "description": "VBA-Range.InsertAfter (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        184,
+        9,
+        209,
+        38
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Repeat Paragraph Formatting",
+      "icon": {
+        "description": "Repeat Paragraph Formatting (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        223,
+        9,
+        251,
+        38
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "File Tab",
+      "icon": {
+        "description": "File Tab (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        4,
+        48,
+        58,
+        78
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Paste",
+      "icon": {
+        "description": "Paste (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        20,
+        82,
+        62,
+        120
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cut",
+      "icon": {
+        "description": "Cut (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        64,
+        82,
+        116,
+        106
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Copy",
+      "icon": {
+        "description": "Copy (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        64,
+        108,
+        125,
+        132
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Format Painter",
+      "icon": {
+        "description": "Format Painter (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        64,
+        134,
+        175,
+        158
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Office Clipboard...",
+      "icon": {
+        "description": "Office Clipboard... (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        167,
+        160,
+        183,
+        176
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        302,
+        91,
+        315,
+        113
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Grow Font",
+      "icon": {
+        "description": "Grow Font (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        363,
+        90,
+        387,
+        114
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Shrink Font",
+      "icon": {
+        "description": "Shrink Font (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        389,
+        90,
+        413,
+        114
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Bold",
+      "icon": {
+        "description": "Bold (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        191,
+        122,
+        215,
+        146
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Italic",
+      "icon": {
+        "description": "Italic (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        217,
+        122,
+        241,
+        146
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Underline",
+      "icon": {
+        "description": "Underline (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        243,
+        122,
+        267,
+        146
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Strikethrough",
+      "icon": {
+        "description": "Strikethrough (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        284,
+        122,
+        308,
+        146
+      ],
+      "state_notes": null,
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}

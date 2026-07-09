@@ -1,0 +1,460 @@
+{
+  "method": "undirected degree centrality over affects/uses edges; score = degree / maxdegree",
+  "max_degree": 14,
+  "nodes": {
+    "feature:acrobat": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "feature:add-ins": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "feature:clipboard": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "feature:editing",
+        "feature:font"
+      ]
+    },
+    "feature:editing": {
+      "degree": 1,
+      "score": 0.0714,
+      "neighbors": [
+        "feature:clipboard"
+      ]
+    },
+    "feature:editor": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "feature:font": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "feature:clipboard",
+        "feature:styles"
+      ]
+    },
+    "feature:paragraph": {
+      "degree": 1,
+      "score": 0.0714,
+      "neighbors": [
+        "feature:styles"
+      ]
+    },
+    "feature:styles": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "feature:font",
+        "feature:paragraph"
+      ]
+    },
+    "feature:voice": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:create-pdf": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:office-addins": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:copy": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:cut",
+        "subfeature:paste"
+      ]
+    },
+    "subfeature:cut": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:copy",
+        "subfeature:paste"
+      ]
+    },
+    "subfeature:format-painter": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:font-dialog",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:office-clipboard": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:paste": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:copy",
+        "subfeature:cut"
+      ]
+    },
+    "subfeature:find": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:replace",
+        "subfeature:select"
+      ]
+    },
+    "subfeature:replace": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:find",
+        "subfeature:select"
+      ]
+    },
+    "subfeature:select": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:find",
+        "subfeature:replace"
+      ]
+    },
+    "subfeature:editor": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:bold": {
+      "degree": 6,
+      "score": 0.4286,
+      "neighbors": [
+        "subfeature:font-dialog",
+        "subfeature:italic",
+        "subfeature:strikethrough",
+        "subfeature:subscript",
+        "subfeature:superscript",
+        "subfeature:underline-gallery"
+      ]
+    },
+    "subfeature:change-case": {
+      "degree": 1,
+      "score": 0.0714,
+      "neighbors": [
+        "subfeature:font-dialog"
+      ]
+    },
+    "subfeature:clear-formatting": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:font-dialog",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:font-color-picker": {
+      "degree": 3,
+      "score": 0.2143,
+      "neighbors": [
+        "subfeature:font-dialog",
+        "subfeature:shading-color-picker",
+        "subfeature:text-highlight-color-picker"
+      ]
+    },
+    "subfeature:font-dialog": {
+      "degree": 14,
+      "score": 1.0,
+      "neighbors": [
+        "subfeature:bold",
+        "subfeature:change-case",
+        "subfeature:clear-formatting",
+        "subfeature:font",
+        "subfeature:font-color-picker",
+        "subfeature:font-size",
+        "subfeature:format-painter",
+        "subfeature:italic",
+        "subfeature:quick-styles",
+        "subfeature:strikethrough",
+        "subfeature:subscript",
+        "subfeature:superscript",
+        "subfeature:text-effects",
+        "subfeature:underline-gallery"
+      ]
+    },
+    "subfeature:font-size-decrease": {
+      "degree": 3,
+      "score": 0.2143,
+      "neighbors": [
+        "subfeature:font",
+        "subfeature:font-size",
+        "subfeature:font-size-increase"
+      ]
+    },
+    "subfeature:font-size-increase": {
+      "degree": 3,
+      "score": 0.2143,
+      "neighbors": [
+        "subfeature:font",
+        "subfeature:font-size",
+        "subfeature:font-size-decrease"
+      ]
+    },
+    "subfeature:font-size": {
+      "degree": 4,
+      "score": 0.2857,
+      "neighbors": [
+        "subfeature:font",
+        "subfeature:font-dialog",
+        "subfeature:font-size-decrease",
+        "subfeature:font-size-increase"
+      ]
+    },
+    "subfeature:font": {
+      "degree": 4,
+      "score": 0.2857,
+      "neighbors": [
+        "subfeature:font-dialog",
+        "subfeature:font-size",
+        "subfeature:font-size-decrease",
+        "subfeature:font-size-increase"
+      ]
+    },
+    "subfeature:italic": {
+      "degree": 6,
+      "score": 0.4286,
+      "neighbors": [
+        "subfeature:bold",
+        "subfeature:font-dialog",
+        "subfeature:strikethrough",
+        "subfeature:subscript",
+        "subfeature:superscript",
+        "subfeature:underline-gallery"
+      ]
+    },
+    "subfeature:strikethrough": {
+      "degree": 6,
+      "score": 0.4286,
+      "neighbors": [
+        "subfeature:bold",
+        "subfeature:font-dialog",
+        "subfeature:italic",
+        "subfeature:subscript",
+        "subfeature:superscript",
+        "subfeature:underline-gallery"
+      ]
+    },
+    "subfeature:subscript": {
+      "degree": 6,
+      "score": 0.4286,
+      "neighbors": [
+        "subfeature:bold",
+        "subfeature:font-dialog",
+        "subfeature:italic",
+        "subfeature:strikethrough",
+        "subfeature:superscript",
+        "subfeature:underline-gallery"
+      ]
+    },
+    "subfeature:superscript": {
+      "degree": 6,
+      "score": 0.4286,
+      "neighbors": [
+        "subfeature:bold",
+        "subfeature:font-dialog",
+        "subfeature:italic",
+        "subfeature:strikethrough",
+        "subfeature:subscript",
+        "subfeature:underline-gallery"
+      ]
+    },
+    "subfeature:text-effects": {
+      "degree": 1,
+      "score": 0.0714,
+      "neighbors": [
+        "subfeature:font-dialog"
+      ]
+    },
+    "subfeature:text-highlight-color-picker": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:font-color-picker",
+        "subfeature:shading-color-picker"
+      ]
+    },
+    "subfeature:underline-gallery": {
+      "degree": 6,
+      "score": 0.4286,
+      "neighbors": [
+        "subfeature:bold",
+        "subfeature:font-dialog",
+        "subfeature:italic",
+        "subfeature:strikethrough",
+        "subfeature:subscript",
+        "subfeature:superscript"
+      ]
+    },
+    "subfeature:align-center": {
+      "degree": 4,
+      "score": 0.2857,
+      "neighbors": [
+        "subfeature:align-justify",
+        "subfeature:align-left",
+        "subfeature:align-right",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:align-justify": {
+      "degree": 4,
+      "score": 0.2857,
+      "neighbors": [
+        "subfeature:align-center",
+        "subfeature:align-left",
+        "subfeature:align-right",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:align-left": {
+      "degree": 4,
+      "score": 0.2857,
+      "neighbors": [
+        "subfeature:align-center",
+        "subfeature:align-justify",
+        "subfeature:align-right",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:align-right": {
+      "degree": 4,
+      "score": 0.2857,
+      "neighbors": [
+        "subfeature:align-center",
+        "subfeature:align-justify",
+        "subfeature:align-left",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:borders-selection-gallery": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:paragraph-dialog",
+        "subfeature:shading-color-picker"
+      ]
+    },
+    "subfeature:bullets-gallery": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:multilevel-list",
+        "subfeature:numbering-gallery"
+      ]
+    },
+    "subfeature:indent-decrease": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:indent-increase",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:indent-increase": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:indent-decrease",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:line-spacing": {
+      "degree": 1,
+      "score": 0.0714,
+      "neighbors": [
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:multilevel-list": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:bullets-gallery",
+        "subfeature:numbering-gallery"
+      ]
+    },
+    "subfeature:numbering-gallery": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:bullets-gallery",
+        "subfeature:multilevel-list"
+      ]
+    },
+    "subfeature:paragraph-dialog": {
+      "degree": 12,
+      "score": 0.8571,
+      "neighbors": [
+        "subfeature:align-center",
+        "subfeature:align-justify",
+        "subfeature:align-left",
+        "subfeature:align-right",
+        "subfeature:borders-selection-gallery",
+        "subfeature:clear-formatting",
+        "subfeature:format-painter",
+        "subfeature:indent-decrease",
+        "subfeature:indent-increase",
+        "subfeature:line-spacing",
+        "subfeature:quick-styles",
+        "subfeature:shading-color-picker"
+      ]
+    },
+    "subfeature:paragraph-marks": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:shading-color-picker": {
+      "degree": 4,
+      "score": 0.2857,
+      "neighbors": [
+        "subfeature:borders-selection-gallery",
+        "subfeature:font-color-picker",
+        "subfeature:paragraph-dialog",
+        "subfeature:text-highlight-color-picker"
+      ]
+    },
+    "subfeature:sort": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:quick-styles": {
+      "degree": 2,
+      "score": 0.1429,
+      "neighbors": [
+        "subfeature:font-dialog",
+        "subfeature:paragraph-dialog"
+      ]
+    },
+    "subfeature:styles-pane": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    },
+    "subfeature:dictate": {
+      "degree": 0,
+      "score": 0.0,
+      "neighbors": []
+    }
+  }
+}

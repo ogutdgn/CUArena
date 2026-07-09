@@ -1,0 +1,673 @@
+{
+  "id": "ui:font-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:font",
+  "purpose": "the subfeature:font flyout — items are endpoints; swatches pixel-sampled; sections: All Fonts, Recently Used Fonts, Theme Fonts DYNAMIC: scrollable owner-drawn font list — the enumerated items are the visible window (machine-installed fonts), an honest sample, not a complete enumeration.",
+  "screenshot": "screenshots/ui-font-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Font",
+      "icon": {
+        "description": "Font (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        191,
+        114,
+        494,
+        859
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        475,
+        116,
+        492,
+        133
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50027",
+      "label": "Position",
+      "icon": {
+        "description": "Position (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        475,
+        133,
+        492,
+        163
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Aptos Display (Headings)",
+      "icon": {
+        "description": "Aptos Display (Headings) (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        144,
+        475,
+        172
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        475,
+        163,
+        492,
+        833
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Aptos (Body)",
+      "icon": {
+        "description": "Aptos (Body) (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        172,
+        475,
+        200
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Times New Roman",
+      "icon": {
+        "description": "Times New Roman (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        231,
+        475,
+        259
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Abadi, select to download",
+      "icon": {
+        "description": "Abadi, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        290,
+        475,
+        318
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Abadi ExtraLight, select to download",
+      "icon": {
+        "description": "Abadi ExtraLight, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        318,
+        475,
+        346
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "ADLaM Display, select to download",
+      "icon": {
+        "description": "ADLaM Display, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        346,
+        475,
+        374
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Agency FB",
+      "icon": {
+        "description": "Agency FB (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        374,
+        475,
+        402
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Aharoni, select to download",
+      "icon": {
+        "description": "Aharoni, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        402,
+        475,
+        430
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alasassy Caps, select to download",
+      "icon": {
+        "description": "Alasassy Caps, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        430,
+        475,
+        458
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Aldhabi, select to download",
+      "icon": {
+        "description": "Aldhabi, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        458,
+        475,
+        486
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alef",
+      "icon": {
+        "description": "Alef (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        486,
+        475,
+        514
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Algerian",
+      "icon": {
+        "description": "Algerian (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        514,
+        475,
+        542
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Amasis MT Pro, select to download",
+      "icon": {
+        "description": "Amasis MT Pro, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        542,
+        475,
+        570
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Amasis MT Pro Black, select to download",
+      "icon": {
+        "description": "Amasis MT Pro Black, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        570,
+        475,
+        598
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Amasis MT Pro Light, select to download",
+      "icon": {
+        "description": "Amasis MT Pro Light, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        598,
+        475,
+        626
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Amasis MT Pro Medium, select to download",
+      "icon": {
+        "description": "Amasis MT Pro Medium, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        626,
+        475,
+        654
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Amiri",
+      "icon": {
+        "description": "Amiri (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        654,
+        475,
+        682
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Amiri Quran",
+      "icon": {
+        "description": "Amiri Quran (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        682,
+        475,
+        710
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Angsana New, select to download",
+      "icon": {
+        "description": "Angsana New, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        710,
+        475,
+        738
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "AngsanaUPC, select to download",
+      "icon": {
+        "description": "AngsanaUPC, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        738,
+        475,
+        766
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Aparajita, select to download",
+      "icon": {
+        "description": "Aparajita, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        766,
+        475,
+        794
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Aptos",
+      "icon": {
+        "description": "Aptos (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        794,
+        475,
+        822
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Aptos Black, select to download",
+      "icon": {
+        "description": "Aptos Black, select to download (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        193,
+        822,
+        475,
+        850
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in subfeature:font)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        475,
+        833,
+        492,
+        850
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-font-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells; sample RGB ['#F5F5F5']",
+      "source": "pixel",
+      "triggers": "subfeature:font",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}

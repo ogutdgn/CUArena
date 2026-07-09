@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+C",
+  "bindings": [
+    {
+      "context": "document has focus",
+      "effect": "Copies the selection to the clipboard without changing the document.",
+      "triggers": "subfeature:copy",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

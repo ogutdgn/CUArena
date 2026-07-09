@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+Shift++",
+  "bindings": [
+    {
+      "context": "editing text — applies to the selection or at the cursor",
+      "effect": "Places the selected text slightly above the baseline in a smaller size.",
+      "triggers": "subfeature:superscript",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

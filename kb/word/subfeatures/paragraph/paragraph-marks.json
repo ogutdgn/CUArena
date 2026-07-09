@@ -1,0 +1,37 @@
+{
+  "id": "subfeature:paragraph-marks",
+  "node_type": "subfeature",
+  "name": "Show/Hide ¶",
+  "parent": "feature:paragraph",
+  "what_it_does": "Toggles the on-screen display of paragraph marks and other hidden formatting symbols.",
+  "affects": "the view (formatting marks visibility) — not the document",
+  "audience_breadth": "most",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:paragraph-marks"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+*"
+    }
+  ],
+  "shortcut": "Ctrl+*",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-paragraph-marks.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,50 @@
+{
+  "app": "word",
+  "goal": "reach the editing workspace (document canvas + ribbon visible)",
+  "method": "com-dispatchex",
+  "steps": [
+    {
+      "op": "copy-fixture",
+      "from": "configs/fixtures/word/blank.docx",
+      "to": "OS temp (never the original \u2014 cloud AutoSave mutates it)"
+    },
+    {
+      "op": "com-new-instance",
+      "progid": "Word.Application",
+      "note": "DispatchEx = new instance; own the one new winword.exe pid"
+    },
+    {
+      "op": "open-doc",
+      "arg": "<scratch fixture copy>",
+      "read_only": false
+    },
+    {
+      "op": "assert-build-prefix",
+      "value": "16.0.20131"
+    },
+    {
+      "op": "disconnect-addins"
+    },
+    {
+      "op": "move-to-primary-monitor"
+    },
+    {
+      "op": "maximize",
+      "com": "ActiveWindow.WindowState = 1"
+    },
+    {
+      "op": "print-view",
+      "com": "ActiveWindow.View.Type = 3"
+    },
+    {
+      "op": "verify-workspace",
+      "checks": [
+        "OpusApp frame present",
+        "_WwG document canvas present",
+        "Ribbon pane present"
+      ]
+    }
+  ],
+  "no_judgment_calls": true,
+  "teardown": "doc.Close(SaveChanges=0); app.Quit(); taskkill /PID <owned> /F"
+}

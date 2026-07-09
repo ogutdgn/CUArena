@@ -1,0 +1,494 @@
+{
+  "id": "ui:paragraph-dialog-tabs",
+  "kind": "dialog",
+  "label": "Tabs",
+  "purpose": "sub-dialog reached from a parent surface (one level, depth-endpoint)",
+  "screenshot": "screenshots/ui-paragraph-dialog-tabs/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        820,
+        383,
+        968,
+        397
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        951,
+        402,
+        968,
+        419
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        951,
+        463,
+        968,
+        480
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        383,
+        1083,
+        397
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1014,
+        327,
+        1061,
+        357
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1061,
+        327,
+        1108,
+        357
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Tab stop position:",
+      "icon": {
+        "description": "Tab stop position: (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        818,
+        380,
+        970,
+        400
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "Default tab stops:",
+      "icon": {
+        "description": "Default tab stops: (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        979,
+        380,
+        1101,
+        400
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "Left",
+      "icon": {
+        "description": "Left (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        827,
+        505,
+        866,
+        521
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "Center",
+      "icon": {
+        "description": "Center (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        922,
+        505,
+        976,
+        521
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "Right",
+      "icon": {
+        "description": "Right (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1016,
+        505,
+        1064,
+        521
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "Decimal",
+      "icon": {
+        "description": "Decimal (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        827,
+        524,
+        887,
+        540
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "Bar",
+      "icon": {
+        "description": "Bar (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        922,
+        524,
+        959,
+        540
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "1 None",
+      "icon": {
+        "description": "1 None (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        827,
+        568,
+        884,
+        584
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "3 -------",
+      "icon": {
+        "description": "3 ------- (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1016,
+        568,
+        1073,
+        584
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "radiobutton",
+      "label": "4 ____",
+      "icon": {
+        "description": "4 ____ (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        827,
+        587,
+        876,
+        603
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Set",
+      "icon": {
+        "description": "Set (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        857,
+        610,
+        933,
+        634
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Clear",
+      "icon": {
+        "description": "Clear (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        941,
+        610,
+        1017,
+        634
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Clear All",
+      "icon": {
+        "description": "Clear All (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1025,
+        610,
+        1101,
+        634
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        941,
+        644,
+        1017,
+        668
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in ui:paragraph-dialog-tabs)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1025,
+        644,
+        1101,
+        668
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}

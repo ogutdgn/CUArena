@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+D",
+  "bindings": [
+    {
+      "context": "editing text — applies to the selection or at the cursor",
+      "effect": "Opens the Font dialog — the consolidated surface for all character formatting plus advanced options (spacing, ligatures, defaults).",
+      "triggers": null,
+      "opens": "ui:font-dialog",
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "ui:numbering-dropdown-define-new-number-format",
+  "kind": "dialog",
+  "label": "Define New Number Format...",
+  "purpose": "sub-surface of a menu; interior deferred",
+  "screenshot": null,
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

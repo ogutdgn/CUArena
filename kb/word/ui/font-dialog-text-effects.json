@@ -1,0 +1,172 @@
+{
+  "id": "ui:font-dialog-text-effects",
+  "kind": "dialog",
+  "label": "sub-dialog",
+  "purpose": "sub-dialog reached from a parent surface (one level, depth-endpoint)",
+  "screenshot": "screenshots/ui-font-dialog-text-effects/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Text Fill & Outline",
+      "icon": {
+        "description": "Text Fill & Outline (in ui:font-dialog-text-effects)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        806,
+        328,
+        838,
+        360
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:font-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Text Effects",
+      "icon": {
+        "description": "Text Effects (in ui:font-dialog-text-effects)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        848,
+        328,
+        880,
+        360
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:font-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Text Fill",
+      "icon": {
+        "description": "Text Fill (in ui:font-dialog-text-effects)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        807,
+        381,
+        1094,
+        399
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:font-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Text Outline",
+      "icon": {
+        "description": "Text Outline (in ui:font-dialog-text-effects)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        807,
+        409,
+        1094,
+        427
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:font-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in ui:font-dialog-text-effects)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1080,
+        715,
+        1114,
+        739
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:font-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in ui:font-dialog-text-effects)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1027,
+        255,
+        1074,
+        285
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:font-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in ui:font-dialog-text-effects)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1074,
+        255,
+        1121,
+        285
+      ],
+      "state_notes": "option/field",
+      "source": "uia",
+      "triggers": "subfeature:font-dialog",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}

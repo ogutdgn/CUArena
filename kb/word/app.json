@@ -1,0 +1,95 @@
+{
+  "name": "Microsoft Word",
+  "version": "16.0.20131",
+  "platform": "desktop",
+  "what_is_it": "A desktop word processor for creating, formatting and editing text documents.",
+  "used_for": "Writing and formatting documents — letters, reports, essays, resumes — with rich text styling, paragraph layout, lists, styles and review tools.",
+  "who_uses": "Students, office workers, writers, and virtually anyone producing formatted text documents.",
+  "layout_regions": [
+    "ui:main-window",
+    "ui:ribbon-home"
+  ],
+  "feature_inventory": [
+    {
+      "id": "feature:clipboard",
+      "name": "Clipboard",
+      "one_liner": "Move and duplicate content and formatting via the clipboard.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:font",
+      "name": "Font",
+      "one_liner": "Format the characters of the selected text — typeface, size, weight, color, effects.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:paragraph",
+      "name": "Paragraph",
+      "one_liner": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:styles",
+      "name": "Styles",
+      "one_liner": "Apply named, reusable style sets that bundle character and paragraph formatting.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:editing",
+      "name": "Editing",
+      "one_liner": "Find, replace and select text within the document.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:voice",
+      "name": "Voice",
+      "one_liner": "Dictate text by voice using cloud speech recognition.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:editor",
+      "name": "Editor",
+      "one_liner": "Check spelling, grammar and writing refinements via the cloud Editor service.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:acrobat",
+      "name": "Adobe Acrobat",
+      "one_liner": "Create a PDF from the document via the Adobe Acrobat add-in.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:add-ins",
+      "name": "Add-ins",
+      "one_liner": "Browse and launch Office Add-ins from the store.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    }
+  ]
+}

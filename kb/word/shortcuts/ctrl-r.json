@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+R",
+  "bindings": [
+    {
+      "context": "editing text — applies to the current paragraph(s)",
+      "effect": "Aligns the paragraph text to the right margin.",
+      "triggers": "subfeature:align-right",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

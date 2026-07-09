@@ -1,0 +1,50 @@
+{
+  "id": "subfeature:copy",
+  "node_type": "subfeature",
+  "name": "Copy",
+  "parent": "feature:clipboard",
+  "what_it_does": "Copies the selection to the clipboard without changing the document.",
+  "affects": "the Office clipboard",
+  "audience_breadth": "everyone",
+  "behavior": "Direct action: Copies the selection to the clipboard without changing the document. Applied immediately to the Office clipboard; toggle state (where applicable) is reflected by the button's highlighted look. Appears as two overlapping document pages.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:copy"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+C"
+    }
+  ],
+  "shortcut": "Ctrl+C",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-copy.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-copy.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:cut",
+      "kind": "uses",
+      "why": "operate together through the clipboard",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:paste",
+      "kind": "uses",
+      "why": "operate together through the clipboard",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "idmso"
+}

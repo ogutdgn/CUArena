@@ -1,0 +1,10 @@
+{
+  "id": "ui:navigation-pane-find-dropdown-go-to",
+  "kind": "dialog",
+  "label": "Go To...",
+  "purpose": "sub-surface of a menu; interior deferred",
+  "screenshot": null,
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

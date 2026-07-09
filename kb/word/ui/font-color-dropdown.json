@@ -1,0 +1,146 @@
+{
+  "id": "ui:font-color-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:font-color-picker",
+  "purpose": "the subfeature:font-color-picker flyout — items are endpoints; swatches pixel-sampled; sections: Gallery Filters, Standard Colors, Theme Colors",
+  "screenshot": "screenshots/ui-font-color-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Font Color",
+      "icon": {
+        "description": "Font Color (in subfeature:font-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        448,
+        146,
+        732,
+        554
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "High-contrast only",
+      "icon": {
+        "description": "High-contrast only (in subfeature:font-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        564,
+        154,
+        724,
+        182
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Automatic",
+      "icon": {
+        "description": "Automatic (in subfeature:font-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        450,
+        191,
+        730,
+        219
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Colors...",
+      "icon": {
+        "description": "More Colors... (in subfeature:font-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        450,
+        494,
+        730,
+        523
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:font-color-dropdown-more-colors",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Gradient",
+      "icon": {
+        "description": "Gradient (in subfeature:font-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        450,
+        523,
+        730,
+        552
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-font-color-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells; sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:font-color-dropdown-more-colors"
+  ],
+  "explored": true
+}

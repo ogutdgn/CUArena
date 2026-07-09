@@ -1,0 +1,83 @@
+{
+  "id": "ui:navigation-pane-find-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:find",
+  "purpose": "the subfeature:find flyout — items are endpoints; swatches pixel-sampled",
+  "screenshot": "screenshots/ui-navigation-pane-find-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Find",
+      "icon": {
+        "description": "Find (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1451,
+        108,
+        1599,
+        136
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Advanced Find...",
+      "icon": {
+        "description": "Advanced Find... (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1451,
+        136,
+        1599,
+        164
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:navigation-pane-find-dropdown-advanced-find",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Go To...",
+      "icon": {
+        "description": "Go To... (in subfeature:find)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1451,
+        164,
+        1599,
+        192
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:navigation-pane-find-dropdown-go-to",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:navigation-pane-find-dropdown-advanced-find",
+    "ui:navigation-pane-find-dropdown-go-to"
+  ],
+  "explored": true
+}

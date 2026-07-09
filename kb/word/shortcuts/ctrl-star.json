@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+*",
+  "bindings": [
+    {
+      "context": "document has focus (toggles a view setting)",
+      "effect": "Toggles the on-screen display of paragraph marks and other hidden formatting symbols.",
+      "triggers": "subfeature:paragraph-marks",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

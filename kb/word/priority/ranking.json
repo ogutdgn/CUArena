@@ -1,0 +1,836 @@
+{
+  "weights": {
+    "connectivity": 0.3,
+    "usage": 0.4,
+    "audience": 0.3
+  },
+  "usage_tier_score": {
+    "very-high": 1.0,
+    "high": 0.8,
+    "medium": 0.55,
+    "low": 0.3,
+    "rare": 0.15
+  },
+  "usage_default": 0.25,
+  "note": "combined = w.connectivity*conn + w.usage*usage + w.audience*audience",
+  "ranking": [
+    {
+      "id": "subfeature:bold",
+      "name": "Bold",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "CEIP telemetry ranks Bold #5 — the only text-formatting command in the top five."
+      },
+      "combined": 0.8286,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:font-size",
+      "name": "Font Size",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Change Font Size is CEIP #11; setting size is a core basic."
+      },
+      "combined": 0.7857,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:font",
+      "name": "Font",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Choosing the typeface is a foundational everyday action every user touches."
+      },
+      "combined": 0.7857,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:italic",
+      "name": "Italic",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "One of the three 'workhorse' basic styles (Ctrl+I), just below Bold."
+      },
+      "combined": 0.7486,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:underline-gallery",
+      "name": "Underline",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Core basic text style (Ctrl+U) taught with Bold/Italic."
+      },
+      "combined": 0.7486,
+      "layer": "P1"
+    },
+    {
+      "id": "feature:clipboard",
+      "name": "Clipboard",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Paste (#1), Copy (#3), Cut dominate command usage."
+      },
+      "combined": 0.7429,
+      "layer": "P1"
+    },
+    {
+      "id": "feature:font",
+      "name": "Font",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Bold #5, Change Font Size #11; font/size/emphasis/color are the foundational set."
+      },
+      "combined": 0.7429,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:copy",
+      "name": "Copy",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "CEIP telemetry ranks Copy #3 (top-5 ~32% of all command use)."
+      },
+      "combined": 0.7429,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:paste",
+      "name": "Paste",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "CEIP telemetry ranks Paste #1 in Word 2003 (>11% of ALL command use); most-clicked toolbar button."
+      },
+      "combined": 0.7429,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:align-center",
+      "name": "Center",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Standard, frequently-used alignment (titles/headings)."
+      },
+      "combined": 0.7057,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:align-left",
+      "name": "Align Left",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Core alignment basic; left is the default/most common."
+      },
+      "combined": 0.7057,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:font-color-picker",
+      "name": "Font Color",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Standard basic to make text stand out; part of the foundational set."
+      },
+      "combined": 0.6843,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:cut",
+      "name": "Cut",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Core clipboard op (Ctrl+X) paired with #1/#3 commands; used less than Paste/Copy."
+      },
+      "combined": 0.6629,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:find",
+      "name": "Find",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Ctrl+F is a universal everyday shortcut for locating text."
+      },
+      "combined": 0.6629,
+      "layer": "P1"
+    },
+    {
+      "id": "feature:paragraph",
+      "name": "Paragraph",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Alignment, lists, line spacing, indents are core everyday formatting."
+      },
+      "combined": 0.6414,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:font-dialog",
+      "name": "Font dialog launcher",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 1.0,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Advanced fallback; most emphasis is done via ribbon buttons/shortcuts."
+      },
+      "combined": 0.615,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:align-right",
+      "name": "Align Right",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.55,
+        "audience": 1.0,
+        "usage_tier": "medium",
+        "usage_evidence": "Standard option (dates/headers), less than left/center."
+      },
+      "combined": 0.6057,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:paragraph-dialog",
+      "name": "Paragraph dialog launcher",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.8571,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Fine-grained fallback; everyday adjustments use ribbon buttons."
+      },
+      "combined": 0.5721,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:styles",
+      "name": "Styles",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Powerful time-saving tool; standard for headings/consistency/auto-TOC."
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:bullets-gallery",
+      "name": "Bullets",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Core list tool for reports/resumes/instructions/outlines."
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:numbering-gallery",
+      "name": "Numbering",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Core list tool for sequenced content, standard for structuring documents."
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:quick-styles",
+      "name": "Quick Styles gallery",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Applying Heading styles is standard practice (nav pane, auto-TOC); 'one of the most powerful formatting tools.'"
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:editing",
+      "name": "Editing",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Find (Ctrl+F, universal) + Replace + Select — routine editing."
+      },
+      "combined": 0.5364,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:line-spacing",
+      "name": "Line and Paragraph Spacing",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Important paragraph basic users adjust routinely (single vs double)."
+      },
+      "combined": 0.5364,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:align-justify",
+      "name": "Justify",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Standard for body text in formal docs, less than left/center."
+      },
+      "combined": 0.5007,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:format-painter",
+      "name": "Format Painter",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Valued time-saver but a convenience feature below core clipboard/emphasis commands; not in CEIP top ranks."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:replace",
+      "name": "Replace",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Common editing tool, less universal than plain Find."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:text-highlight-color-picker",
+      "name": "Text Highlight Color",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Common for review/emphasis, less universal than font color."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:indent-decrease",
+      "name": "Decrease Indent",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Paired outdent control; used with lists."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:indent-increase",
+      "name": "Increase Indent",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Standard structuring control (lists, block quotes)."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:strikethrough",
+      "name": "Strikethrough",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Niche emphasis style far below bold/italic/underline."
+      },
+      "combined": 0.4436,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:shading-color-picker",
+      "name": "Shading",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Occasional emphasis/table-styling tool."
+      },
+      "combined": 0.4007,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:font-size-decrease",
+      "name": "Shrink Font",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Secondary incremental control, not a distinct top-usage command."
+      },
+      "combined": 0.3793,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:font-size-increase",
+      "name": "Grow Font",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Incremental convenience path; CEIP 'Change Font Size' most plausibly reflects the size box."
+      },
+      "combined": 0.3793,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:clear-formatting",
+      "name": "Clear All Formatting",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Cleanup command used occasionally; not in top ranks."
+      },
+      "combined": 0.3579,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:borders-selection-gallery",
+      "name": "Borders",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Occasional decorative/structural tool."
+      },
+      "combined": 0.3579,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:select",
+      "name": "Select",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.3,
+        "usage_tier": "medium",
+        "usage_evidence": "Select All is routine; the ribbon menu used less than keyboard selection."
+      },
+      "combined": 0.3529,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:change-case",
+      "name": "Change Case",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Handy but occasional; absent from usage rankings and core basics."
+      },
+      "combined": 0.3364,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:paragraph-marks",
+      "name": "Show/Hide ¶",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Troubleshooting aid, not routine document creation."
+      },
+      "combined": 0.315,
+      "layer": "P4"
+    },
+    {
+      "id": "feature:editor",
+      "name": "Editor",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.65,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.295,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:editor",
+      "name": "Editor",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.65,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.295,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:subscript",
+      "name": "Subscript",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Specialized scientific/notation formatting, rare for typical users."
+      },
+      "combined": 0.2786,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:superscript",
+      "name": "Superscript",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Specialized notation (footnotes, exponents); rare."
+      },
+      "combined": 0.2786,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:multilevel-list",
+      "name": "Multilevel List",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Advanced nested-outline feature; far less than simple bullets/numbering."
+      },
+      "combined": 0.2529,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:styles-pane",
+      "name": "Styles pane launcher",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Power-user surface; most users apply styles via the ribbon gallery."
+      },
+      "combined": 0.21,
+      "layer": "P4"
+    },
+    {
+      "id": "feature:acrobat",
+      "name": "Adobe Acrobat",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "feature:add-ins",
+      "name": "Add-ins",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "feature:voice",
+      "name": "Voice",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:create-pdf",
+      "name": "Create a PDF",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:office-addins",
+      "name": "Add-ins",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:dictate",
+      "name": "Dictate",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:text-effects",
+      "name": "Text Effects and Typography",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Decorative cosmetic extra absent from usage/skill lists."
+      },
+      "combined": 0.1714,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:office-clipboard",
+      "name": "Office Clipboard",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "24-item collector pane is a power-user feature most users never open."
+      },
+      "combined": 0.15,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:sort",
+      "name": "Sort",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Niche command absent from usage rankings."
+      },
+      "combined": 0.15,
+      "layer": "P4"
+    }
+  ]
+}

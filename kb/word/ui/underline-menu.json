@@ -1,0 +1,284 @@
+{
+  "id": "ui:underline-menu",
+  "kind": "dropdown",
+  "label": "subfeature:underline-gallery",
+  "purpose": "the subfeature:underline-gallery flyout — items are endpoints; swatches pixel-sampled",
+  "screenshot": "screenshots/ui-underline-menu/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Underline",
+      "icon": {
+        "description": "Underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        148,
+        401,
+        174
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Double underline",
+      "icon": {
+        "description": "Double underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        174,
+        401,
+        200
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Thick underline",
+      "icon": {
+        "description": "Thick underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        200,
+        401,
+        226
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Dotted underline",
+      "icon": {
+        "description": "Dotted underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        226,
+        401,
+        252
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Dashed underline",
+      "icon": {
+        "description": "Dashed underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        252,
+        401,
+        278
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Dot-dash underline",
+      "icon": {
+        "description": "Dot-dash underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        278,
+        401,
+        304
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Dot-dot-dash underline",
+      "icon": {
+        "description": "Dot-dot-dash underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        304,
+        401,
+        330
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Wave underline",
+      "icon": {
+        "description": "Wave underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        330,
+        401,
+        356
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "No underline",
+      "icon": {
+        "description": "No underline (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        356,
+        401,
+        382
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Underlines...",
+      "icon": {
+        "description": "More Underlines... (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        385,
+        418,
+        413
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:underline-menu-more-underlines",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Underline Color",
+      "icon": {
+        "description": "Underline Color (in subfeature:underline-gallery)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        245,
+        413,
+        418,
+        441
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-underline-menu/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells; sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:underline-menu-more-underlines"
+  ],
+  "explored": true
+}

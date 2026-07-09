@@ -1,0 +1,175 @@
+{
+  "id": "ui:paste-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:paste",
+  "purpose": "the subfeature:paste flyout — items are endpoints; swatches pixel-sampled; sections: Paste Options",
+  "screenshot": "screenshots/ui-paste-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Use Destination Theme",
+      "icon": {
+        "description": "Use Destination Theme (in subfeature:paste)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        188,
+        52,
+        218
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Keep Source Formatting",
+      "icon": {
+        "description": "Keep Source Formatting (in subfeature:paste)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        52,
+        188,
+        82,
+        218
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Merge Formatting",
+      "icon": {
+        "description": "Merge Formatting (in subfeature:paste)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        82,
+        188,
+        112,
+        218
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture",
+      "icon": {
+        "description": "Picture (in subfeature:paste)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        112,
+        188,
+        142,
+        218
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Keep Text Only",
+      "icon": {
+        "description": "Keep Text Only (in subfeature:paste)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        142,
+        188,
+        172,
+        218
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Paste Special...",
+      "icon": {
+        "description": "Paste Special... (in subfeature:paste)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        219,
+        179,
+        247
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:paste-dropdown-paste-special",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Set Default Paste...",
+      "icon": {
+        "description": "Set Default Paste... (in subfeature:paste)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        247,
+        179,
+        275
+      ],
+      "state_notes": "opens a sub-surface (deep)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:paste-dropdown-set-default-paste",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:paste-dropdown-paste-special",
+    "ui:paste-dropdown-set-default-paste"
+  ],
+  "explored": true
+}

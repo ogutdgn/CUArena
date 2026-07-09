@@ -1,0 +1,10 @@
+{
+  "id": "ui:numbering-dropdown-set-numbering-value",
+  "kind": "dialog",
+  "label": "Set Numbering Value...",
+  "purpose": "sub-surface of a menu; interior deferred",
+  "screenshot": null,
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

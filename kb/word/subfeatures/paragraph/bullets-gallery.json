@@ -1,0 +1,55 @@
+{
+  "id": "subfeature:bullets-gallery",
+  "node_type": "subfeature",
+  "name": "Bullets",
+  "parent": "feature:paragraph",
+  "what_it_does": "Starts or toggles a bulleted list on the selected paragraphs; the dropdown is the bullet library.",
+  "affects": "the selected paragraphs' list format",
+  "audience_breadth": "most",
+  "behavior": "Opens subfeature:bullets-gallery (dropdown). Contents (12 controls): Bullets, None, Bulleted, Solid Circle, Bulleted, Hollow Circle, Bulleted, Solid Square, Picture bulleted, Bulleted, Four Small Diamonds, Bulleted, Hollow Arrow, Bulleted, Checkmark, Change List Level, Define New Bullet..., Color swatches. Sub-surfaces: ui:bullets-dropdown-define-new-bullet. [the subfeature:bullets-gallery flyout — items are endpoints; swatches pixel-sampled; sections: Bullet Library] Appears as a bulleted list (dots beside lines) with a dropdown chevron.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:bullets-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:bullets-gallery-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:bullets-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-bullets-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-bullets-gallery.png",
+    "screenshots/ui-bullets-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:numbering-gallery",
+      "kind": "affects",
+      "why": "all apply list formatting to paragraphs",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:multilevel-list",
+      "kind": "affects",
+      "why": "all apply list formatting to paragraphs",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,121 @@
+{
+  "id": "ui:shading-color-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:shading-color-picker",
+  "purpose": "the subfeature:shading-color-picker flyout — items are endpoints; swatches pixel-sampled; sections: Gallery Filters, Standard Colors, Theme Colors",
+  "screenshot": "screenshots/ui-shading-color-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Shading",
+      "icon": {
+        "description": "Shading (in subfeature:shading-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        146,
+        939,
+        525
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:shading-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "High-contrast only",
+      "icon": {
+        "description": "High-contrast only (in subfeature:shading-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        771,
+        154,
+        931,
+        182
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:shading-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "No Color",
+      "icon": {
+        "description": "No Color (in subfeature:shading-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        657,
+        463,
+        937,
+        491
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:shading-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Colors...",
+      "icon": {
+        "description": "More Colors... (in subfeature:shading-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        657,
+        494,
+        937,
+        523
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:shading-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-shading-color-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "2 owner-drawn color cells; sample RGB ['#FFFFFF', '#EBEBEB']",
+      "source": "pixel",
+      "triggers": "subfeature:shading-color-picker",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}
