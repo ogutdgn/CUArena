@@ -12,3 +12,7 @@ def test_flags():
 def test_keep_open_flag():
     a = parse_args(["word", "--keep-open"])
     assert a.keep_open
+
+def test_b1_flags():
+    a = parse_args(["word", "--keep-open", "--max-turns", "40"])
+    assert a.max_turns == 40 and a.keep_open

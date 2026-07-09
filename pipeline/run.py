@@ -2,6 +2,7 @@ import argparse, json, sys, uuid
 from pathlib import Path
 from pipeline.config import load_app_config
 from pipeline import stage0, stage1_surface, teardown
+from pipeline.explorer import replay_route, run_explorer
 from tools.journal import Journal
 from tools.kb_writer import KBWriter
 from tools.models import JournalEvent
@@ -15,6 +16,7 @@ def parse_args(argv):
     p.add_argument("--no-agent", action="store_true")
     p.add_argument("--max-containers", type=int, default=50)
     p.add_argument("--keep-open", action="store_true")
+    p.add_argument("--max-turns", type=int, default=60)
     return p.parse_args(argv)
 
 def main(argv=None) -> int:
@@ -33,14 +35,16 @@ def main(argv=None) -> int:
         # able to detect drift on its next run.
         version_json.parent.mkdir(parents=True, exist_ok=True)
         version_json.write_text(json.dumps({"version": session.version}), encoding="utf-8")
+        route_path = Path(a.kb_root) / a.app / "scripts" / "drive" / "ready_route.json"
+        if route_path.exists():
+            replay_route(session, route_path, journal)
         if "1" in a.stages.split(","):
-            surface_paths = stage1_surface.scan_surface(session, writer, journal,
-                                                        max_containers=a.max_containers)
+            stage1_surface.scan_surface(session, writer, journal,
+                                        max_containers=a.max_containers)
             if not a.no_agent:
-                from pipeline.stage1_agent import SdkRunner, run_skeleton_agent
-                from tools.models import UIContainer
-                surface = UIContainer.model_validate_json(surface_paths[0].read_text(encoding="utf-8"))
-                run_skeleton_agent(SdkRunner(), cfg.name, session.version, surface, writer, journal)
+                kb_app_root = Path(a.kb_root) / a.app
+                run_explorer(session, writer, journal, kb_app_root, cfg,
+                            max_turns=a.max_turns)
         return 0
     except Exception as exc:  # journal, then loud failure
         journal.append(JournalEvent(actor="run", action="error", target=a.app, outcome=f"failed: {exc}"))
