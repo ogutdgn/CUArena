@@ -13,15 +13,29 @@ Every step has the same three parts:
 - **Proof** — the checkable artifact that means "this step is done." No proof, no done. This is
   the guard against confident-but-empty output.
 
-## The steps (to be authored)
+## Common rules (bind at EVERY step)
+
+1. **Drive and see** — verify the visible result of every action before relying on it.
+2. **Measured, not assumed** — `opens`/`triggers` markers only from observed outcomes.
+3. **Never destructive** — no save/send/delete/purchase; work only on throwaway fixture copies;
+   discard save-prompts (never Save).
+4. **Journal everything** — every action and outcome via the kernel journal; failures and
+   ambiguity are valid outcomes, silence is not.
+5. **Schema is law** — all knowledge written through `kernel/kb_writer.py`; rejected = fix it,
+   don't work around it.
+6. **Prove or mark** — every claim traceable to evidence; when stuck, mark `unexplored` honestly
+   and move on.
+7. **Give back** — new tool lessons get appended (dated) to `toolbox/*.md`.
+
+## The steps
 
 | # | Step | Produces |
 |---|---|---|
-| 0 | Stage — launch, reach the workspace, record the entry route | ready-state screenshot + replayable route |
-| 1 | Probe & write your own tools — dump the live UI tree, learn its structure, write per-app readers/drivers under `kb/<app>/scripts/` | a working enumerator proven against a live surface |
-| 2 | APP SKEL — document every top-level surface; press-observe-classify each control | containers with measured markers + screenshots |
-| 3 | Features & sub-features — the 3-level tree + connections + contextual surfaces | the shallow knowledge tree |
-| 4 | Priority — rank into P0–P4 from connections + real usage + audience breadth | an evidence-backed priority table |
-| 5 | Depth — exhaust only P0–P2, following the depth-endpoint rule | full detail where the app's identity lives |
+| 0 | [Stage](00-stage.md) — launch, reach the workspace, record the entry route | workspace screenshot + replayable route + version pin |
+| 1 | [Tools](01-tools.md) — dump the live UI tree, write your own per-app tools | evidence-pinned enumerator/driver in `kb/<app>/scripts/tools/` |
+| 2 | [APP SKEL](02-app-skel.md) — press-observe-classify every top-level surface | containers with measured markers + screenshots |
+| 3 | [Features](03-features.md) — the 3-level tree + connections + contextual surfaces | the shallow knowledge tree |
+| 4 | [Priority](04-priority.md) — rank P0–P4 from connections + usage + audience | evidence-backed `priority/` artifacts |
+| 5 | [Depth](05-depth.md) — exhaust P0–P2 per the depth-endpoint rule; shortcuts; icons | the complete KB, definition-of-done checked |
 
 The KB these steps produce is defined in `design/knowledge-base-design.md`.
