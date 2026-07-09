@@ -27,6 +27,24 @@ Every step has the same three parts:
    and move on.
 7. **Give back** — new tool lessons get appended (dated) to `toolbox/*.md`.
 
+## Execution contract — this is an autonomous loop
+
+Once started, the run needs **no human hand**. The agent drives itself to completion:
+
+1. **Work the steps in order, as a loop:** do the step → produce its Proof → **check the proof
+   yourself** (mechanical checks + your own eyes on the evidence) → if it passes, advance to the
+   next step immediately; if it fails, diagnose, fix, and redo — do not advance on a failed proof,
+   and do not ask a human to approve a passed one.
+2. **Never stop to wait for a human.** Blocked on something you can work around → journal it,
+   mark the affected area `unexplored`, continue. Only a truly fatal environment problem (app
+   won't launch at all, disk unwritable) ends the run — loudly, with the journal explaining why.
+3. **The run is resumable.** All state lives on disk (`kb/<app>/`: journal, worklist, routes,
+   written knowledge) — a fresh session reads the journal and the last proofs, determines the
+   current step, and continues from exactly there. Long apps may take many sessions; the loop
+   doesn't care.
+4. **Done means Step 5's definition-of-done passes** — not "I ran out of things I felt like
+   doing." Until then, the loop continues.
+
 ## The steps
 
 | # | Step | Produces |
