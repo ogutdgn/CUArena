@@ -1,4 +1,4 @@
-import json, re, shutil, subprocess, time
+import json, re, shutil, subprocess, tempfile, time, uuid
 from dataclasses import dataclass
 from pathlib import Path
 import win32api
@@ -12,12 +12,35 @@ from tools.winapp import inputs
 class VersionDriftError(RuntimeError):
     pass
 
-def build_argv(cfg: AppConfig) -> list[str]:
-    """Pure helper: [cfg.exe] + cfg.launch_args, with any "{fixture}" placeholder
-    replaced by the absolute path of cfg.fixture (resolved relative to the
-    current working directory, i.e. the repo root when invoked normally).
-    Raises ValueError if "{fixture}" is used but cfg.fixture is None or the
-    resolved file does not exist."""
+def _stage_fixture_copy(fixture_path: Path) -> Path:
+    # Root cause (found live, Task 4): this repo can live under a
+    # OneDrive-synced folder, and modern Word (and potentially other
+    # OneDrive-aware apps) auto-enables AutoSave purely by local path
+    # recognition for any file under such a folder -- no explicit opt-in
+    # needed. With AutoSave on, edits are persisted continuously: the
+    # canonical fixture gets silently mutated by simply opening+editing it,
+    # AND the close-time "Save changes?" dialog is suppressed entirely
+    # (there's nothing pending to ask about, it already saved). Both
+    # behaviors are wrong for this pipeline -- fixtures must stay pristine
+    # across runs, and teardown's discard-dialog handling needs a real
+    # dialog to exercise. Copying the fixture into a scratch path outside
+    # the repo (tempfile.gettempdir(), never OneDrive) before launch sidesteps
+    # both problems for any app, not just Word, without touching global
+    # Office policy/registry.
+    scratch_dir = Path(tempfile.gettempdir()) / "app-pipeline-fixtures"
+    scratch_dir.mkdir(parents=True, exist_ok=True)
+    scratch_path = scratch_dir / f"{uuid.uuid4().hex[:8]}-{fixture_path.name}"
+    shutil.copyfile(fixture_path, scratch_path)
+    return scratch_path
+
+def build_argv(cfg: AppConfig, journal: Journal | None = None) -> list[str]:
+    """Pure-ish helper: [cfg.exe] + cfg.launch_args, with any "{fixture}"
+    placeholder replaced by the absolute path of a scratch COPY of
+    cfg.fixture (resolved relative to the current working directory, i.e.
+    the repo root when invoked normally). The original fixture is never
+    opened directly -- see _stage_fixture_copy for why. Raises ValueError if
+    "{fixture}" is used but cfg.fixture is None or the resolved file does
+    not exist."""
     argv = [cfg.exe]
     for arg in cfg.launch_args:
         if "{fixture}" in arg:
@@ -27,7 +50,11 @@ def build_argv(cfg: AppConfig) -> list[str]:
             fixture_path = Path(cfg.fixture).resolve()
             if not fixture_path.exists():
                 raise ValueError(f"{cfg.name}: fixture not found: {fixture_path}")
-            arg = arg.replace("{fixture}", str(fixture_path))
+            scratch_path = _stage_fixture_copy(fixture_path)
+            if journal is not None:
+                journal.append(JournalEvent(actor="stage0", action="fixture", target=cfg.name,
+                                            outcome="ok", data={"scratch": str(scratch_path)}))
+            arg = arg.replace("{fixture}", str(scratch_path))
         argv.append(arg)
     return argv
 
@@ -72,7 +99,7 @@ class AppSession:
 
 def launch(cfg: AppConfig, journal: Journal) -> AppSession:
     before = top_windows()
-    proc = subprocess.Popen(build_argv(cfg))
+    proc = subprocess.Popen(build_argv(cfg, journal=journal))
     win = wait_new_window(before, timeout=15.0)
     if win is None:
         journal.append(JournalEvent(actor="stage0", action="launch", target=cfg.name, outcome="failed: no window"))

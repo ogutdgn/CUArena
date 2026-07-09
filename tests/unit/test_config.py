@@ -28,3 +28,10 @@ def test_ready_state_fields_load(tmp_path: Path):
          "launch_args": ["{fixture}"], "fixture": "configs/fixtures/x/blank.docx"}), encoding="utf-8")
     cfg = load_app_config("x", tmp_path)
     assert cfg.launch_args == ["{fixture}"] and cfg.fixture == "configs/fixtures/x/blank.docx"
+
+def test_safety_label_extras_default_empty(tmp_path):
+    import json
+    (tmp_path / "y.json").write_text(json.dumps(
+        {"name": "y", "exe": "y.exe", "window_title_re": ".*y.*"}), encoding="utf-8")
+    cfg = load_app_config("y", tmp_path)
+    assert cfg.destructive_label_res == [] and cfg.discard_label_res == []

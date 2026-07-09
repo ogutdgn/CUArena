@@ -61,7 +61,62 @@ def test_build_argv_fixture_substitution_produces_absolute_existing_path(tmp_pat
     argv = build_argv(cfg)
     assert len(argv) == 2 and argv[0] == "WINWORD.EXE"
     resolved = Path(argv[1])
-    assert resolved.is_absolute() and resolved.exists() and resolved == fixture_path.resolve()
+    assert resolved.is_absolute() and resolved.exists()
+
+def test_build_argv_fixture_is_copied_to_scratch_not_original_path(tmp_path, monkeypatch):
+    # Root cause (found building the Task 4 live discard smoke test): this
+    # repo lives under a OneDrive-synced folder, and modern Word enables
+    # AutoSave purely by local path recognition for any file under such a
+    # folder. With AutoSave on, edits are persisted continuously and the
+    # canonical fixture gets silently corrupted, AND the close-time Save
+    # dialog is suppressed (nothing pending to ask about) -- exactly the
+    # dialog Task 4's discard logic needs to exercise. build_argv must never
+    # hand the original fixture path to the app; it must copy it to a
+    # scratch location outside the repo (tempfile.gettempdir()) and
+    # substitute that.
+    monkeypatch.chdir(tmp_path)
+    fixture_dir = tmp_path / "configs" / "fixtures" / "word"
+    fixture_dir.mkdir(parents=True)
+    fixture_path = fixture_dir / "blank.docx"
+    fixture_path.write_bytes(b"fake docx contents")
+    cfg = AppConfig(name="word", exe="WINWORD.EXE", window_title_re=".*",
+                     launch_args=["{fixture}"], fixture="configs/fixtures/word/blank.docx")
+
+    argv = build_argv(cfg)
+    resolved = Path(argv[1])
+
+    assert resolved != fixture_path.resolve(), "must not open the original fixture path"
+    import tempfile
+    assert Path(tempfile.gettempdir()) in resolved.parents
+    assert resolved.read_bytes() == fixture_path.read_bytes()
+
+def test_build_argv_fixture_scratch_copies_are_distinct_across_calls(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    fixture_dir = tmp_path / "configs" / "fixtures" / "word"
+    fixture_dir.mkdir(parents=True)
+    (fixture_dir / "blank.docx").write_bytes(b"fake docx contents")
+    cfg = AppConfig(name="word", exe="WINWORD.EXE", window_title_re=".*",
+                     launch_args=["{fixture}"], fixture="configs/fixtures/word/blank.docx")
+
+    first = Path(build_argv(cfg)[1])
+    second = Path(build_argv(cfg)[1])
+    assert first != second
+
+def test_build_argv_journals_scratch_copy(tmp_path, monkeypatch):
+    from tools.journal import Journal
+    monkeypatch.chdir(tmp_path)
+    fixture_dir = tmp_path / "configs" / "fixtures" / "word"
+    fixture_dir.mkdir(parents=True)
+    (fixture_dir / "blank.docx").write_bytes(b"fake docx contents")
+    cfg = AppConfig(name="word", exe="WINWORD.EXE", window_title_re=".*",
+                     launch_args=["{fixture}"], fixture="configs/fixtures/word/blank.docx")
+    j = Journal(tmp_path / "j.jsonl", run_id="t")
+
+    argv = build_argv(cfg, journal=j)
+    scratch = argv[1]
+    events = Journal.read_all(tmp_path / "j.jsonl")
+    assert events[-1].actor == "stage0" and events[-1].action == "fixture"
+    assert events[-1].outcome == "ok" and events[-1].data.get("scratch") == scratch
 
 def test_build_argv_missing_fixture_placeholder_without_fixture_raises():
     cfg = AppConfig(name="word", exe="WINWORD.EXE", window_title_re=".*", launch_args=["{fixture}"])

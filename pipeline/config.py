@@ -14,6 +14,8 @@ class AppConfig(BaseModel):
     boundaries: Boundaries = Boundaries()
     launch_args: list[str] = []          # extra argv appended after exe; "{fixture}" resolves to fixture's abs path
     fixture: str | None = None           # path (repo-root relative) to a ready-state fixture file
+    destructive_label_res: list[str] = []  # per-app/locale extras; code defaults live in pipeline.teardown.DESTRUCTIVE_RES
+    discard_label_res: list[str] = []      # per-app/locale extras; code defaults live in pipeline.teardown.DISCARD_RES
 
 def load_app_config(name: str, configs_dir: Path) -> AppConfig:
     p = Path(configs_dir) / f"{name}.json"

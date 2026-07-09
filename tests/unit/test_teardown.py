@@ -5,7 +5,7 @@ from tools.models import JournalEvent
 
 class FakeSession:
     hwnd = 1234
-    class config: name = "x"
+    class config: name = "x"; discard_label_res = []
 
 def test_close_app_journals_closed_when_window_gone(tmp_path):
     j = Journal(tmp_path / "j.jsonl", run_id="t")
