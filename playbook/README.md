@@ -20,7 +20,10 @@ Every step has the same three parts:
 3. **Never destructive** — no save/send/delete/purchase; work only on throwaway fixture copies;
    discard save-prompts (never Save).
 4. **Journal everything** — every action and outcome via the kernel journal; failures and
-   ambiguity are valid outcomes, silence is not.
+   ambiguity are valid outcomes, silence is not. **Decisions too:** whenever you make a
+   significant judgment call (grouping choice, exploration order, skipping something, resolving
+   an ambiguity), journal it as `action="decision"` with your reasoning in `data` — the journey
+   must show not only what you did but why you chose it.
 5. **Schema is law** — all knowledge written through `kernel/kb_writer.py`; rejected = fix it,
    don't work around it.
 6. **Prove or mark** — every claim traceable to evidence; when stuck, mark `unexplored` honestly
