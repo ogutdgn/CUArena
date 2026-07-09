@@ -33,6 +33,13 @@ stopping that branch only.
 - For each P0–P2 node: follow its trigger paths through every container; enumerate every child
   element with measured markers; capture per-surface screenshots; recurse per the endpoint rule;
   reset-verify after every press (Step 2's discipline still binds).
+- **Full knowledge, not just structure** — for every P0–P2 node AND everything discovered
+  beneath it (dialog fields, dropdown entries, options), write the complete rubric into its JSON
+  (schema: `design/knowledge-base-design.md`): **what it does**, **how it works/behaves**
+  (options, states, defaults, edge cases — measured where possible), **where and how it is
+  triggered** (every trigger path, including keyboard shortcuts), **what it affects**, and **what
+  it looks like** (screenshot/icon refs). The test: a builder who has never seen the app could
+  re-implement this feature from its JSON alone. P0–P2 = documented exactly, to the bottom.
 - **Shortcuts**: harvest keyboard shortcuts from element properties, tooltips, menu labels, and
   any in-app shortcut reference — into the shortcut registry (`shortcuts/<keys>.json`,
   context-scoped bindings; schema in the design doc). Depth of shortcut coverage follows node
