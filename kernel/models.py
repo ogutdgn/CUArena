@@ -164,3 +164,61 @@ class JournalEvent(BaseModel):
     target: str = ""                     # element/container/app the action addressed
     outcome: str = ""                    # e.g. "ok", "dialog-opened", "skipped", "failed: <why>"
     data: dict = {}
+
+
+# --- consolidated FAT files (design: "On-disk layout — fat source + generated graph spine") ---
+
+class FeatureFile(BaseModel):
+    """One features/<feature>.json — the feature AND all its sub-features inline.
+    This is the fat SOURCE OF TRUTH for a feature; the graph is generated from it."""
+    feature: FeatureNode
+    subfeatures: list[SubFeatureNode] = []
+
+    @model_validator(mode="after")
+    def _children_consistent(self):
+        ids = {s.id for s in self.subfeatures}
+        for s in self.subfeatures:
+            if s.parent not in (None, self.feature.id):
+                raise ValueError(f"{s.id}.parent={s.parent} but lives in {self.feature.id}'s file")
+        listed = set(self.feature.subfeatures)
+        missing = listed - ids
+        if missing:
+            raise ValueError(f"{self.feature.id} lists subfeatures not inlined: {sorted(missing)}")
+        return self
+
+
+class UIFile(BaseModel):
+    """The single ui.json — ALL containers keyed by id. Shared containers live once here
+    and are referenced by `opens`, never inlined into a feature file."""
+    containers: dict[str, UIContainer] = {}
+
+    @model_validator(mode="after")
+    def _keys_match_ids(self):
+        for key, c in self.containers.items():
+            if c.id != key:
+                raise ValueError(f"ui.json key '{key}' != container id '{c.id}'")
+        return self
+
+
+class PriorityFile(BaseModel):
+    """The single priority.json — sub-feature scores + derived feature layers + closure.
+    Kept permissive on inner shape (the agent's ranking script owns the details) but the
+    top-level contract is fixed so downstream can rely on it."""
+    layers: dict[str, list[str]] = {}        # "P0".."P4" -> node ids (sub-features + derived features)
+    ranking: list[dict] = []                 # per sub-feature: {id, score, signals, evidence}
+    derived_features: dict[str, dict] = {}   # feature id -> {layer, best_child, ratio, scope}
+    closure: list[dict] = []                 # [{id, pulled_in_by, reason}]
+    weights: dict = {}
+    boundaries: dict = {}
+
+
+class ShortcutsFile(BaseModel):
+    """The single shortcuts.json — all shortcut entries keyed by key-combo string."""
+    entries: dict[str, ShortcutEntry] = {}
+
+    @model_validator(mode="after")
+    def _keys_match(self):
+        for key, e in self.entries.items():
+            if e.keys != key:
+                raise ValueError(f"shortcuts.json key '{key}' != entry keys '{e.keys}'")
+        return self
