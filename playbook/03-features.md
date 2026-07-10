@@ -31,6 +31,11 @@ depth's business).
   ONE sub-feature.
 - Contrast: Illustrations' children (pictures / shapes / chart / 3D) are NOT variations — they
   do different things with different follow-up capabilities → separate sub-features.
+- The same test in other app paradigms: a media player's speed menu (0.5× / 1× / 1.5× / 2×) →
+  variations → ONE sub-feature (`playback-speed`); but its Audio menu's children (track
+  selection / equalizer / mute) → different capabilities → separate. A drawing app's brush-size
+  slider values → variations (`brush-size`); its tool palette (pencil / fill / text / eraser) →
+  separate capabilities.
 - Tie-breaker when unsure: *"could these children carry DIFFERENT importance — could one be
   heavily used and another dead?"* Yes (picture vs 3D-model) → split. No (border color vs
   border weight — they live and die together) → don't split.

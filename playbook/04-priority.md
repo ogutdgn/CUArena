@@ -85,6 +85,28 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
 - No feature scored independently; no connection-density in value; closure computed, not
   hand-waved.
 
+## Worked mini-example (generic document editor — the same flow applies to ANY app)
+
+```
+INVENTORY (from step 3):          SCORING (sub-features only):
+  feature: text-styling             bold:        core job impossible without ✚ prominent ✚ web top-10  → P0
+    bold, italic, text-color        italic:      core-adjacent ✚ prominent                             → P1
+  feature: object-insertion         insert-image: core job needs it ✚ prominent                        → P1
+    insert-image, insert-diagram    insert-diagram: peripheral ✚ buried ✚ web: rare                    → P4
+  feature: mail-tools               address-merge: core job fine without ✚ buried                      → P4
+    address-merge, envelope         envelope:    same                                                  → P4
+
+DERIVATION (features placed, never scored):        CLOSURE:
+  TEXT-STYLING     layer P0 | ratio 3/3 → WHOLE     image-border (P2, elsewhere) requires
+  OBJECT-INSERTION layer P1 | ratio 1/2 → GEMS       insert-image → already in set ✓
+  MAIL-TOOLS       layer P4 | ratio 0/2 → NONE       (had it not been, it would be pulled in
+                                                      "enough to work", labeled pulled-in-by)
+```
+
+Note what each mechanism did: scoring asked only "would our user use this?"; features inherited
+their place from children; the ratio decided whole-vs-gems; closure guaranteed nothing replicated
+arrives broken. No dependency-counting anywhere in the value column.
+
 ## Proof
 
 1. `kb/<app>/priority/` complete: per-signal files, sub-feature ranking with weights,

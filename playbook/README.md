@@ -5,6 +5,11 @@ the agent works through to turn an application into a knowledge base. The agent 
 judgment and writes its own per-app tools (guided by `toolbox/`); the playbook tells it **what
 to achieve, what to be sure of, and what proof to produce** before moving on.
 
+**Before you start, read [`LESSONS.md`](LESSONS.md)** — the pipeline's memory of what prior runs
+got wrong and the rule that now prevents each mistake. It is short; every entry was paid for once.
+When your run finishes, append your own post-mortem (like toolbox give-back) — that is part of the
+job.
+
 Every step has the same three parts:
 
 - **Goal** — what the agent must achieve.
