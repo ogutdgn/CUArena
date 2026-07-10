@@ -120,9 +120,41 @@ two reads (min 1.5s, max 5s) — some windows appear late (`crawler/prober.py::_
   (doc/format/app) → flyout → pane → other**. Live-preview never *commits* formatting, so a real
   flyout-opener (color picker, Change Case) shows no state delta and still falls through to
   `flyout` correctly. (learned from kb/word/scripts/tools/prober.py::classify, run-042323)
+- 2026-07-09 — **The tooltip area filter can swallow REAL small menus.** Word's Object split-button
+  dropdown opens a genuine 2-item menu of only 8,700 px² — under the 10k `MIN_POPUP_AREA` floor —
+  so the press measured a false 'no-effect'. When a dropdown-zone press reads no-effect, re-probe
+  with a ~2.5k floor and look at what actually appeared before believing it.
+  (learned from kb/word-home-insert step2 fixup: OleObjectInsertMenu_Dropdown)
+- 2026-07-09 — **Modern Word comments are invisible to every window/COM fingerprint until
+  posted.** Insert > Comment creates a PENDING draft card: not a top-level window, and
+  `doc.Comments.Count` stays 0 until Post — the generic prober honestly reads no-effect. Detect
+  the draft by UIA inside the frame (a 'Post comment (Ctrl + Enter)' Button appears); Escape
+  discards it. (learned from kb/word-home-insert step2 fixup: InsertNewComment)
+- 2026-07-09 — **Contextual ribbon tabs are SELECTION-dependent — and a probe that resets the
+  selection will never see them.** They exist only while the object is selected / cursor inside
+  (Equation tab with cursor in a math zone; Table Design+Layout inside a table). Two traps: (a)
+  COM object insertion (`doc.OMaths.Add`, `Tables.Add`) does NOT itself move the selection inside,
+  so no contextual tab appears; select inside the object explicitly, then read the tab strip.
+  (b) calling `select_paragraph()` to re-baseline BEFORE reading the tab strip dismisses the tabs
+  you were trying to observe. (learned from kb/word-home-insert step2 fixup: contextual pre-check)
 - 2026-07-09 — **Floating task panes read as a dialog by window class.** Word's **Styles** pane
   opens *floating* (a top-level window), so document-inset pane detection misses it and the class
   check calls it a dialog — then dialog-dismissal (Cancel/ESC) can't close it and it stays stuck.
   Distinguish it by probing for a **'Close pane' button** on the window (task panes have one;
   dialogs have OK/Cancel); close it through that button, not ESC.
   (learned from kb/word/scripts/tools/windows.py::is_task_pane_window + prober `_close_pane_window`)
+- 2026-07-09 — **A selected floating object shows a ~28×28 'Layout Options' chip of DIALOG
+  window class.** When probing controls on an object-format contextual tab (Picture/Shape
+  Format), that chip appears next to the object and its churning hwnd makes the reset check
+  (`snapshot_hwnds` equality) fail on EVERY control — a cascade of false MISMATCH. Filter
+  top-level windows by a real-surface area floor (~2500 px²) before both the "what opened?"
+  classification and the reset comparison; compare the floored set, not the raw set.
+  (learned from kb/word-home-insert-v2 step3 shape/picture-format crawl: MIN_REAL_WINDOW_AREA)
+- 2026-07-09 — **Some ribbon controls open a modal that BLOCKS COM entirely, poisoning the
+  whole instance.** WordArt legacy 'Edit Text…' and Equation 'Ink Equation' open modal editors
+  that make every subsequent COM call raise `RPC_E_SERVERCALL_RETRYLATER` (-2147417846, "the
+  application is busy") — one press hangs the run and every later probe errors identically.
+  Keep a small fragile-opener blocklist (match on label substring) and document those controls
+  as honest boundaries (measured face + journaled "not pressed"), never press them. The
+  PID-targeted taskkill in teardown still recovers the stuck instance.
+  (learned from kb/word-home-insert-v2 step3: FRAGILE_OPENER_SUBSTR = edit text / ink equation)

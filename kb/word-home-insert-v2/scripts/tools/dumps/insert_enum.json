@@ -1,0 +1,731 @@
+{
+  "tab": "Insert",
+  "groups": [
+    {
+      "group": "Pages",
+      "group_keytip": "Alt, N, Z P",
+      "controls": [
+        {
+          "name": "Cover Page",
+          "automation_id": "CoverPageInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            20,
+            82,
+            62,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Your document will make a great first impression with a stylish cover page.\n\nMake it your own by tweaking the font and color options on the Design tab.",
+          "access_key": "Alt, N, V",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Blank Page",
+          "automation_id": "BlankPageInsert",
+          "control_type": "Button",
+          "rect": [
+            64,
+            82,
+            106,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add a blank page anywhere in your document.",
+          "access_key": "Alt, N, N P",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Page Break",
+          "automation_id": "PageBreakInsertWord",
+          "control_type": "Button",
+          "rect": [
+            108,
+            82,
+            150,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "End the current page here and move to the next page.",
+          "access_key": "Alt, N, B",
+          "accelerator_key": "Ctrl+Return",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Tables",
+      "group_keytip": "Alt, N, Z B",
+      "controls": [
+        {
+          "name": "Table",
+          "automation_id": "TableInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            166,
+            82,
+            208,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "A table is a great way to organize information within your document.",
+          "access_key": "Alt, N, T",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Illustrations",
+      "group_keytip": "Alt, N, Z I",
+      "controls": [
+        {
+          "name": "Pictures",
+          "automation_id": "FlyoutAnchorInsertPictures",
+          "control_type": "MenuItem",
+          "rect": [
+            224,
+            82,
+            271,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert pictures from your computer, stock image library or online sources.",
+          "access_key": "Alt, N, P",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Shapes",
+          "automation_id": "ShapesInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            273,
+            82,
+            315,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert ready-made shapes, such as circles, squares, and arrows.",
+          "access_key": "Alt, N, S H",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Icons",
+          "automation_id": "IconInsertFromFile",
+          "control_type": "Button",
+          "rect": [
+            317,
+            82,
+            359,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert an icon to visually communicate using symbols.",
+          "access_key": "Alt, N, N S",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "3D Models",
+          "automation_id": "Insert3DModelDefault",
+          "control_type": "SplitButton",
+          "rect": [
+            361,
+            82,
+            416,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert a 3D model so you can rotate it and see all angles.",
+          "access_key": "Alt, N, S 3",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "SmartArt...",
+          "automation_id": "SmartArtInsert",
+          "control_type": "Button",
+          "rect": [
+            418,
+            82,
+            470,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert a SmartArt graphic to visually communicate information.\n\nSmartArt graphics range from graphical lists and process diagrams to more complex graphics, such as Venn diagrams and organization charts.",
+          "access_key": "Alt, N, M",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Chart...",
+          "automation_id": "ChartInsert",
+          "control_type": "Button",
+          "rect": [
+            472,
+            82,
+            514,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Make it easy to spot patterns and trends in your data by inserting a bar, area, or line chart.",
+          "access_key": "Alt, N, C",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Screenshot",
+          "automation_id": "ScreenshotInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            516,
+            82,
+            579,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Quickly add a snapshot of any window that's open on your desktop to your document.",
+          "access_key": "Alt, N, S C",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Media",
+      "group_keytip": "Alt, N, Z Q",
+      "controls": [
+        {
+          "name": "Online Videos...",
+          "automation_id": "MovieFromClipOrganizerInsert",
+          "control_type": "Button",
+          "rect": [
+            595,
+            82,
+            637,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Find and insert videos from a variety of online sources.",
+          "access_key": "Alt, N, N V",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Links",
+      "group_keytip": "Alt, N, Z L",
+      "controls": [
+        {
+          "name": "Link",
+          "automation_id": "InsertLinkGallery",
+          "control_type": "SplitButton",
+          "rect": [
+            653,
+            82,
+            695,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Create a link in your document for quick access to webpages and files.\n\nHyperlinks can also take you to places in your document.",
+          "access_key": "Alt, N, I",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Bookmark...",
+          "automation_id": "BookmarkInsert",
+          "control_type": "Button",
+          "rect": [
+            697,
+            82,
+            756,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Bookmarks work with hyperlinks to let you jump to a specific place in your document.\n\nHere's how it works:\n1) Select the content you want to jump to\n2) Insert a bookmark\n3) Add a hyperlink that points to your bookmark",
+          "access_key": "Alt, N, K",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Cross-reference...",
+          "automation_id": "CrossReferenceInsert",
+          "control_type": "Button",
+          "rect": [
+            758,
+            82,
+            812,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Refer to specific places in your document, such as headings, figures, and tables.\n\nA cross-reference is a hyperlink where the label is automatically generated. It's great if you want to include the name of the thing you're referencing.",
+          "access_key": "Alt, N, R F",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Comments",
+      "group_keytip": "Alt, N, Z 1",
+      "controls": [
+        {
+          "name": "Comment",
+          "automation_id": "InsertNewComment",
+          "control_type": "Button",
+          "rect": [
+            828,
+            82,
+            887,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add a note about this part of the document.",
+          "access_key": "Alt, N, L",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Header & Footer",
+      "group_keytip": "Alt, N, Z H",
+      "controls": [
+        {
+          "name": "Header",
+          "automation_id": "HeaderInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            903,
+            82,
+            946,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Headers help you to repeat content at the top of every page.\n\nThey're useful for showcasing information, like title, author, and page number.",
+          "access_key": "Alt, N, H",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Footer",
+          "automation_id": "FooterInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            948,
+            82,
+            990,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Footers help you repeat content at the bottom of every page.\n\nThey're useful for showcasing information, like title, author, and page number.",
+          "access_key": "Alt, N, O",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Page Number",
+          "automation_id": "HeaderFooterPageNumberInsert",
+          "control_type": "MenuItem",
+          "rect": [
+            992,
+            82,
+            1052,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Number the pages in your document.\n\nYou can choose from a variety of pre-defined looks or select your own format.",
+          "access_key": "Alt, N, N U",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Text",
+      "group_keytip": "Alt, N, Z T",
+      "controls": [
+        {
+          "name": "Text Box",
+          "automation_id": "TextBoxInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1068,
+            82,
+            1110,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Got must-see content? Put it in a text box.\n\nA text box brings focus to the content it contains and is great for showcasing important text, such as headings or quotes.",
+          "access_key": "Alt, N, X",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Quick Parts",
+          "automation_id": "QuickPartsInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1112,
+            82,
+            1154,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert preformatted text, auto-text, document properties, and fields anywhere in the document.\n\nTo reuse content in your document, select it and save it to the Quick Part Gallery.",
+          "access_key": "Alt, N, Q",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "WordArt",
+          "automation_id": "WordArtInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1156,
+            82,
+            1206,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add some artistic flair to your document using a WordArt text box.",
+          "access_key": "Alt, N, W",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Drop Cap",
+          "automation_id": "DropCapInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1208,
+            82,
+            1250,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Create a large capital letter at the beginning of a paragraph.",
+          "access_key": "Alt, N, R C",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Signature Line",
+          "automation_id": "SignatureLineInsert",
+          "control_type": "SplitButton",
+          "rect": [
+            1252,
+            82,
+            1384,
+            106
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert a signature line that specifies the individual who must sign.\n\nInserting a digital signature requires that you obtain a digital ID, such as one from a certified Microsoft partner.",
+          "access_key": "Alt, N, G",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Date & Time...",
+          "automation_id": "DateAndTimeInsert",
+          "control_type": "Button",
+          "rect": [
+            1252,
+            108,
+            1352,
+            132
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Quickly add the current date or time.",
+          "access_key": "Alt, N, D",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Object...",
+          "automation_id": "OleObjectctInsert",
+          "control_type": "SplitButton",
+          "rect": [
+            1252,
+            134,
+            1344,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Insert an embedded object or text from another file into your document.",
+          "access_key": "Alt, N, J",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Symbols",
+      "group_keytip": "Alt, N, Z S",
+      "controls": [
+        {
+          "name": "Equation",
+          "automation_id": "EquationInsertGallery",
+          "control_type": "SplitButton",
+          "rect": [
+            1400,
+            82,
+            1452,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add common mathematical equations to your document, such as the area of a circle or the quadratic formula.\n\nYou can also build your own equations using the library of math symbols and structures.",
+          "access_key": "Alt, N, E",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Symbol",
+          "automation_id": "SymbolInsertGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1454,
+            82,
+            1499,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add symbols that are not on your keyboard.\n\nChoose from a variety of options including mathematical, currency, and copyright symbols.",
+          "access_key": "Alt, N, U",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "eSignature",
+      "group_keytip": "Alt, N, Z 2",
+      "controls": [
+        {
+          "name": "eSignature fields",
+          "automation_id": "SyntexEsign",
+          "control_type": "Button",
+          "rect": [
+            1515,
+            82,
+            1576,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Request electronic signatures on this document.",
+          "access_key": "Alt, N, S E",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    }
+  ],
+  "control_count": 29
+}

@@ -1,0 +1,3131 @@
+{
+  "weights": {
+    "product_purpose": 0.45,
+    "usage": 0.3,
+    "prominence": 0.25
+  },
+  "verdict_score": {
+    "indispensable": 1.0,
+    "important": 0.7,
+    "useful": 0.45,
+    "peripheral": 0.18
+  },
+  "usage_tier_score": {
+    "very-high": 1.0,
+    "high": 0.8,
+    "medium": 0.55,
+    "low": 0.3,
+    "rare": 0.12
+  },
+  "usage_default": 0.25,
+  "boundaries": {
+    "P0": 0.8,
+    "P1": 0.68,
+    "P2": 0.55,
+    "P3": 0.38
+  },
+  "note": "combined = 0.45*product_purpose + 0.30*usage + 0.25*prominence; value = usage only, connections are logistics (closure), never scored",
+  "ranking": [
+    {
+      "id": "subfeature:paste",
+      "name": "Paste",
+      "parent": "feature:clipboard",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 1.0,
+        "product_verdict": "indispensable",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts clipboard content at the cursor — the primary way content enters a document besides typing -> therefore indispensable",
+        "usage": 1.0,
+        "usage_tier": "very-high",
+        "usage_claim": "Microsoft's Word 2003 CEIP telemetry ranks Paste as the #1 most-used command, accounting for more than 11% of all command invocations — more than twice the usage of #2 (Save) — and the Paste toolbar button was clicked more than any other button.",
+        "usage_source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)', Microsoft Learn blog archive — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.9247
+      },
+      "combined": 0.9812,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:copy",
+      "name": "Copy",
+      "parent": "feature:clipboard",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 1.0,
+        "product_verdict": "indispensable",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this duplicates the selection to the clipboard — content reuse is core to document work -> therefore indispensable",
+        "usage": 1.0,
+        "usage_tier": "very-high",
+        "usage_claim": "Copy is the #3 most-used command in Word 2003 per Microsoft's CEIP telemetry (top 5: Paste, Save, Copy, Undo, Bold, together ~32% of all command use), and Ctrl+C is the single most widely known keyboard shortcut in awareness surveys.",
+        "usage_source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)' — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.7636
+      },
+      "combined": 0.9409,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:font-size",
+      "name": "Font Size",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 1.0,
+        "product_verdict": "indispensable",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets the character size — inseparable from formatted text -> therefore indispensable",
+        "usage": 1.0,
+        "usage_tier": "very-high",
+        "usage_claim": "'Change Font Size' was explicitly named as the #11 most-used command in all of Word 2003 in Microsoft's CEIP telemetry — right at the knee where the usage curve flattens — making it an everyday operation second only to bold among Font-group commands.",
+        "usage_source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)' — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.6828
+      },
+      "combined": 0.9207,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:font",
+      "name": "Font",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 1.0,
+        "product_verdict": "indispensable",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this chooses the typeface — formatting text is the core job and typeface is its first lever -> therefore indispensable",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Changing the font is a most-users-regularly operation: the Font picker earned a slot on the telemetry-driven Mini Toolbar of 'most-used formatting commands' and leads every beginner formatting curriculum, though a large share of users stick with the default typeface (hence the outsized attention to Microsoft's Calibri/Aptos default changes).",
+        "usage_source": "Jensen Harris, 'Designing Microsoft Office' (Mini Toolbar rationale) — https://jensenharris.com/home/office ; GCFGlobal Word 'Formatting Text' lesson — https://edu.gcfglobal.org/en/word2010/formatting-text/4/",
+        "prominence": 0.8851
+      },
+      "combined": 0.9113,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:bold",
+      "name": "Bold",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 1.0,
+        "product_verdict": "indispensable",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles bold emphasis — the most-used character format in the product's own telemetry -> therefore indispensable",
+        "usage": 1.0,
+        "usage_tier": "very-high",
+        "usage_claim": "Bold was the #5 most-used command in all of Word 2003 per Microsoft CEIP telemetry (the only formatting command in a top 5 that together accounted for ~32% of all command use), making it the single most-used character-formatting operation.",
+        "usage_source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)', Microsoft Office UX blog — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.6299
+      },
+      "combined": 0.9075,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:insert-pictures",
+      "name": "Pictures",
+      "parent": "feature:illustrations",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 1.0,
+        "product_verdict": "indispensable",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this places images into the document — graphics in text is a core capability of the product -> therefore indispensable",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Picture insertion is the only Insert-tab feature to get TWO dedicated lessons ('Pictures and Text Wrapping' and 'Formatting Pictures') in GCFGlobal's core Word curriculum, and Word usability surveys cite adding photos as a standard user activity.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum — https://edu.gcfglobal.org/en/word/ (lesson list mirror: https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html)",
+        "prominence": 0.8354
+      },
+      "combined": 0.8988,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:table-insert",
+      "name": "Table",
+      "parent": "feature:tables",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 1.0,
+        "product_verdict": "indispensable",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this creates row/column structure — tables are one of the product's core artifacts (identity: formatting documents) -> therefore indispensable",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Tables get a dedicated lesson in GCFGlobal's core 35-lesson Word curriculum and usability surveys of Word list tables alongside pictures/charts as the standard non-text content users add to documents, making table insertion a routine task for most document producers.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum, 'Tables' lesson — https://edu.gcfglobal.org/en/word/ (corroborated by 'Survey based usability evaluation of MS Word', https://www.researchgate.net/publication/251991199_Survey_based_usability_evaluation_of_MS_Word)",
+        "prominence": 0.8168
+      },
+      "combined": 0.8942,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:page-break-insert",
+      "name": "Page Break",
+      "parent": "feature:pages",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this ends the page at the cursor — the basic page-flow control every multi-page document uses -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Page break has its own dedicated shortcut (Ctrl+Enter) that appears in essentially every 'best Word shortcuts' list and a dedicated 'Breaks' lesson in GCFGlobal's core curriculum, marking it a routine pagination action for most document producers.",
+        "usage_source": "Help Desk Geek, 'The 30+ Best Microsoft Word Keyboard Shortcuts' — https://helpdeskgeek.com/the-30-best-microsoft-word-keyboard-shortcuts/ (plus GCFGlobal 'Breaks' lesson, https://edu.gcfglobal.org/en/word/)",
+        "prominence": 0.8229
+      },
+      "combined": 0.7607,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:insert-new-comment",
+      "name": "Comment",
+      "parent": "feature:comments",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this anchors a review comment — collaboration is core to modern document work -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Comments (with Track Changes) get a dedicated GCFGlobal lesson and are described in legal/business editing guidance as 'so universally used' that they are the default collaboration mechanism for document review.",
+        "usage_source": "WordRake, 'Using Track Changes and Comments for Collaborative Editing in Microsoft Word' — https://www.wordrake.com/resources/using-track-changes-and-comments-for-collaborative-editing-in-microsoft-word (plus GCFGlobal 'Track Changes and Comments' lesson, https://edu.gcfglobal.org/en/word/)",
+        "prominence": 0.8096
+      },
+      "combined": 0.7574,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:page-number-insert",
+      "name": "Page Number",
+      "parent": "feature:header-footer",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this numbers the pages — near-universal in multi-page documents -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Both APA and MLA require page numbers on every page of every student paper (Purdue OWL) and page numbering gets its own dedicated GCFGlobal lesson separate from headers/footers — one of the most universally required document elements.",
+        "usage_source": "Purdue OWL, 'APA General Format' — https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/general_format.html (plus GCFGlobal 'Page Numbers' lesson, https://edu.gcfglobal.org/en/word/)",
+        "prominence": 0.7922
+      },
+      "combined": 0.753,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:header-insert",
+      "name": "Header",
+      "parent": "feature:header-footer",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this puts repeating content at every page top — standard in formal documents -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Headers get a dedicated GCFGlobal core lesson and MLA format requires a last-name+page-number header on every page of every student paper, while business documents use headers for letterhead/branding — a near-mandatory element of formal documents.",
+        "usage_source": "Purdue OWL, 'MLA General Format' — https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_general_format.html (plus GCFGlobal 'Headers and Footers' lesson, https://edu.gcfglobal.org/en/word/)",
+        "prominence": 0.7441
+      },
+      "combined": 0.741,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:cut",
+      "name": "Cut",
+      "parent": "feature:clipboard",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this removes the selection to the clipboard — half of the move-content operation -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Cut is a routine clipboard action Microsoft groups with Copy/Paste ('people mostly used CTRL+X/C/V to do most clipboard actions — which was true'), but it did NOT make the Word 2003 top-5 command list, and Ctrl+X awareness (~30% in a Japanese student survey) trails Ctrl+C/V — regular but clearly below copy/paste.",
+        "usage_source": "Jensen Harris telemetry post (https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7) corroborated by Tom's Hardware, 'Survey finds 40% of university students in Japan don't know the copy-and-paste shortcut keys' (https://www.tomshardware.com/news/survey-finds-40-percent-of-university-students-in-japan-dont-know-shortcut-keys)",
+        "prominence": 0.7393
+      },
+      "combined": 0.7398,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:footer-insert",
+      "name": "Footer",
+      "parent": "feature:header-footer",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this puts repeating content at every page bottom — standard in formal documents -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Footers share the dedicated GCFGlobal 'Headers and Footers' core lesson and are the standard location for page numbers, dates, and confidentiality notices in formal business/academic documents.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum, 'Headers and Footers' lesson — https://edu.gcfglobal.org/en/word/",
+        "prominence": 0.7343
+      },
+      "combined": 0.7386,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:table-insert-rows",
+      "name": "Insert Rows",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds rows — core table editing -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Microsoft added always-available one-click hover '+' insert controls to tables in Word 2013 — a UI investment reserved for the most frequent operations — confirming row insertion is among the most-performed table edits.",
+        "usage_source": "https://wordribbon.tips.net/T013154_Turning_Off_the_Insert_Column_and_Insert_Row_Tools.html (WordTips: the Insert Column and Insert Row hover tools introduced in Word 2013)",
+        "prominence": 0.7168
+      },
+      "combined": 0.7342,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:table-insert-columns",
+      "name": "Insert Columns",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds columns — core table editing -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Column insertion shares the same Word 2013 one-click hover '+' control and entry-level-curriculum status as row insertion, though it is exercised somewhat less often since tables typically grow downward rather than sideways.",
+        "usage_source": "https://wordribbon.tips.net/T013154_Turning_Off_the_Insert_Column_and_Insert_Row_Tools.html (hover '+' covers both rows and columns); https://edu.gcfglobal.org/en/word2016/tables/1/",
+        "prominence": 0.7054
+      },
+      "combined": 0.7313,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:underline-gallery",
+      "name": "Underline",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles underline (+styles/colors) — the third everyday emphasis -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Underline is the third of the universally-taught B/I/U trio (dedicated Ctrl+U shortcut, its own toolbar button, covered in every intro curriculum), though no individual telemetry rank was published and modern style advice slightly depresses its use versus bold/italic.",
+        "usage_source": "Lumen Learning, 'Bold, Italics, Underline' (Computer Applications for Managers course module) — https://courses.lumenlearning.com/wm-compapp/chapter/bold-italics-underline/ ; GCFGlobal Word 'Formatting Text' lesson — https://edu.gcfglobal.org/en/word2010/formatting-text/4/",
+        "prominence": 0.6789
+      },
+      "combined": 0.7247,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:table-delete",
+      "name": "Delete",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this removes rows/columns/cells — core table editing -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Deleting rows/columns has been taught in GCFGlobal's entry-level table-editing lessons in every version since Word 2000 and sits on the right-click context menu, marking it as core table editing that nearly everyone who uses tables performs.",
+        "usage_source": "https://edu.gcfglobal.org/en/word2016/tables/1/ (and predecessor lessons https://edu.gcfglobal.org/en/word2000/editing-tables/1/) — insert/delete rows and columns covered as basic skills",
+        "prominence": 0.6695
+      },
+      "combined": 0.7224,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:text-highlight-color-picker",
+      "name": "Text Highlight Color",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this paints a highlighter color behind text — everyday review/emphasis tool -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Highlighting is a staple of review, collaboration and study workflows (color-coding contributors, marking passages for revision) and is taught in GCFGlobal's beginner formatting lesson alongside B/I/U, indicating regular use by most document-reviewing users though not by casual letter-writers.",
+        "usage_source": "GCFGlobal, 'Word 2010: Formatting Text' (highlighting covered in basics) — https://edu.gcfglobal.org/en/word2010/formatting-text/4/ ; ClickUp, 'How to Highlight in Word for Better Document Clarity' (review/study/collab use cases) — https://clickup.com/blog/how-to-highlight-in-word/",
+        "prominence": 0.6597
+      },
+      "combined": 0.7199,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:font-color-picker",
+      "name": "Font Color",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets text color — routine formatting, just below the emphasis trio -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Font color is in the core most-used formatting cluster: color earned a slot on the telemetry-driven Office 2007 Mini Toolbar and font color is covered in every version of GCFGlobal's beginner 'Formatting Text' lesson alongside font and size.",
+        "usage_source": "Jensen Harris, 'Designing Microsoft Office' / InformIT Mini Toolbar description (font, size, bold, italics, color chosen from usage data) — https://jensenharris.com/home/office and https://www.informit.com/articles/article.aspx?p=683065 ; GCFGlobal — https://edu.gcfglobal.org/en/word2016/formatting-text/3/",
+        "prominence": 0.6549
+      },
+      "combined": 0.7187,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:bullets-gallery",
+      "name": "Bullets",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this starts/toggles bulleted lists — lists are core document structure -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Bullets is one of the few formatting commands Microsoft placed on the non-customizable Mini Toolbar (built from Office CEIP usage data to surface the most-used formatting commands) and auto-triggers via AutoFormat, indicating regular use by most users, though no paragraph command made the published Word 2003 top-5 (Paste/Save/Copy/Undo/Bold).",
+        "usage_source": "https://bettersolutions.com/word/ribbon/mini-toolbar.htm (Mini Toolbar contents incl. Bullets/Numbering); corroborated by https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.6484
+      },
+      "combined": 0.7171,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:find",
+      "name": "Find",
+      "parent": "feature:editing",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this searches document text — navigation in any non-trivial document -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Find is treated as a core basic-editing skill in every introductory Word curriculum and sits in Word's always-visible Editing group, but Google researcher Dan Russell's field studies found ~90% of the US internet population doesn't know Ctrl+F exists — so it is regularly used by document workers yet far from universal daily use.",
+        "usage_source": "The Village Voice, '90 Percent of People Don't Know What CTRL+F Does on Their Keyboards' (Dan Russell/Google research, 2011) — https://www.villagevoice.com/2011/08/20/90-percent-of-people-dont-know-what-ctrlf-does-on-their-keyboards/; GoSkills Microsoft Word Basic course syllabus (https://www.goskills.com/course/microsoft-word-basic)",
+        "prominence": 0.6474
+      },
+      "combined": 0.7168,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:numbering-gallery",
+      "name": "Numbering",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this starts/toggles numbered lists — core document structure -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Numbering sits alongside Bullets on Word's Mini Toolbar and in the AutoFormat-as-you-type defaults, signaling Microsoft's usage data puts numbered lists in the regularly-used formatting set for most users, slightly behind bullets in everyday use.",
+        "usage_source": "https://bettersolutions.com/word/ribbon/mini-toolbar.htm (Mini Toolbar includes Numbering button with drop-down)",
+        "prominence": 0.6436
+      },
+      "combined": 0.7159,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:line-spacing",
+      "name": "Line and Paragraph Spacing",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets line/paragraph spacing — readable layout is core -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Line spacing is a mandated, recurring task for the large academic/professional segment — 'most academic style guides, including MLA, APA, Chicago, and Harvard, require double spacing' — and Word reserves three dedicated shortcuts (Ctrl+1/2/5) for it, though many office users leave the default and touch it less often.",
+        "usage_source": "https://proofed.com/writing-tips/what-is-standard-line-spacing-for-a-formal-document/ and https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2",
+        "prominence": 0.6391
+      },
+      "combined": 0.7148,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:table-merge-cells",
+      "name": "Merge Cells",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this merges cells — a defining table-layout op -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Merging cells for spanning headers and form layouts is a MOS certification core objective ('merge and split cells') and is covered even by general-audience career sites like Indeed, indicating broad mainstream demand for this specific common task. (adjusted_from: medium — raised for internal consistency: merge cells belongs with core table editing exercised by most table users, in the same band as insert/delete rows and clearly far above formula-in-table, which stays rare.)",
+        "usage_source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS Study Guide for Microsoft Word: Create tables and lists — merge/split cells objective); https://www.indeed.com/career-advice/career-development/how-to-merge-two-cells-in-word",
+        "prominence": 0.639
+      },
+      "combined": 0.7147,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:italic",
+      "name": "Italic",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles italic emphasis — everyday emphasis, second to bold -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Italic sits just below Bold in the same everyday-emphasis cluster: it earned a data-driven slot on the Office 2007 Mini Toolbar (built from telemetry of 'the most-used formatting commands'), has a universal Ctrl+I shortcut, and is taught in every beginner formatting lesson.",
+        "usage_source": "Jensen Harris, 'Designing Microsoft Office' (Mini Toolbar = most-used formatting commands) — https://jensenharris.com/home/office ; corroborated by GCFGlobal Word 'Formatting Text' beginner lesson — https://edu.gcfglobal.org/en/word2010/formatting-text/4/",
+        "prominence": 0.6268
+      },
+      "combined": 0.7117,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:object-text-wrap",
+      "name": "Wrap Text",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets text wrapping around an object — the single most-needed object-layout choice -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "The single most common picture-layout operation: Microsoft's own support page identifies the default 'In Line with Text' wrapping as the top cause of can't-move-picture complaints, and forum volume on wrapping is enormous — virtually every picture-inserting user confronts it.",
+        "usage_source": "https://support.microsoft.com/en-us/office/wrap-text-around-a-picture-in-word-bdbbe1fe-c089-4b5c-b85c-43997da64a12",
+        "prominence": 0.6221
+      },
+      "combined": 0.7105,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:picture-crop",
+      "name": "Crop",
+      "parent": "feature:object-size",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this crops an image — one of the most-used image edits -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Cropping is one of the most heavily documented picture operations (Microsoft support page, HowToGeek, university IT knowledge bases all maintain dedicated guides) and is a core skill in every basic picture-formatting curriculum.",
+        "usage_source": "https://www.howtogeek.com/707505/how-to-crop-a-picture-in-microsoft-word/",
+        "prominence": 0.5937
+      },
+      "combined": 0.7034,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:align-left",
+      "name": "Align Left",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns paragraphs to the left margin — one of the four core alignments -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Microsoft's official Word shortcut documentation lists Center (Ctrl+E), Align Left (Ctrl+L), and Align Right (Ctrl+R) in its curated 'Frequently used shortcuts' table alongside copy/paste/bold, and alignment is on the usage-data-driven Mini Toolbar — most users apply alignment regularly (centering titles), though Justify is the least-used of the four (relegated to the general paragraph-formatting section).",
+        "usage_source": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 ('Frequently used shortcuts' table)",
+        "prominence": 0.5933
+      },
+      "combined": 0.7033,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:indent-increase",
+      "name": "Increase Indent",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this moves the indent away from the margin — everyday paragraph layout -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Indent controls appear on Word's Mini Toolbar per Microsoft's own description ('options for changing fonts, alignment, text color, indenting, and bullets') and have dedicated Ctrl+M/Ctrl+Shift+M shortcuts, consistent with regular use tied to the very common list and paragraph-formatting workflows.",
+        "usage_source": "https://support.microsoft.com/en-US/Word/use-the-mini-toolbar-to-format-text",
+        "prominence": 0.5754
+      },
+      "combined": 0.6988,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:quick-styles",
+      "name": "Quick Styles gallery",
+      "parent": "feature:styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies named styles from the gallery — the product's own mechanism for consistent formatting -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Styles are persistently documented as underused despite the gallery's prime Home-tab placement — a Word program manager conceded 'some people just assume styles are meant for people who want big blue text' and formatting-services analyses find most business users format manually — yet heading styles get real task-driven use for TOCs, navigation, and long documents.",
+        "usage_source": "https://www.addbalance.com/usersguide/stylesImportance.htm (quoting Word 2013 PM Caitlin Ashley-Rollman) and https://www.documentformattingservices.com/microsoft-word-statistics/",
+        "prominence": 0.8719
+      },
+      "combined": 0.698,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:insert-link",
+      "name": "Link",
+      "parent": "feature:links",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this wraps the selection in a hyperlink — digital documents live on links -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Hyperlinks have a dedicated GCFGlobal 'Links' lesson and Ctrl+K appears in every top-shortcuts list, but manual link insertion in Word is partly displaced by auto-linking of typed URLs, placing it in the regular-but-task-specific band.",
+        "usage_source": "Help Desk Geek, 'The 30+ Best Microsoft Word Keyboard Shortcuts' (Ctrl+K) — https://helpdeskgeek.com/the-30-best-microsoft-word-keyboard-shortcuts/ (plus GCFGlobal 'Links' lesson, https://edu.gcfglobal.org/en/word/)",
+        "prominence": 0.7654
+      },
+      "combined": 0.6714,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:shape-style-gallery",
+      "name": "Shape Styles gallery",
+      "parent": "feature:shape-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a shape style — the quick way to style a shape -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Shape/text-box insertion is an explicit MOS objective (5.1) and a workplace-skills textbook staple for flyers/newsletters; the one-click styles gallery is the fastest formatting path for those users — a specific common task, not everyday use.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.7138
+      },
+      "combined": 0.6584,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:hf-options",
+      "name": "Header/Footer Options",
+      "parent": "feature:header-footer-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this different-first-page / odd-even options — standard in formal/book layouts -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Removing the page number/running head from a title page is one of the most-asked Word formatting questions — Microsoft's page-numbering support page and multiple university FAQs (e.g. Walsh) instruct the Different First Page checkbox for this exact common task.",
+        "usage_source": "https://support.microsoft.com/en-us/office/start-page-numbering-later-in-your-document-c73e3d55-d722-4bd0-886e-0b0bd0eb3f02",
+        "prominence": 0.6834
+      },
+      "combined": 0.6508,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:table-styles",
+      "name": "Table Styles gallery",
+      "parent": "feature:table-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a whole-table visual style — the primary way tables are made presentable -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Applying a style from the gallery is taught in GCFGlobal's entry-level Word Tables lesson and is a MOS exam objective ('apply table styles'), making it the standard first step whenever users format a table — but table formatting itself is an intermittent task, not a daily one.",
+        "usage_source": "https://edu.gcfglobal.org/en/word2016/tables/1/ (GCFGlobal Word 2016: Tables lesson); corroborated by https://www.avantixlearning.ca/microsoft-word/how-to-format-microsoft-word-tables-using-table-styles/",
+        "prominence": 0.6818
+      },
+      "combined": 0.6504,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:picture-style-gallery",
+      "name": "Picture Styles gallery",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a framed picture style — the quickest way to make an image look finished -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "One-click framing/shadow presets are the most prominent element of the tab and picture formatting is an explicit MOS Word Associate objective (5.2 'format graphic elements') taught in beginner courses — used in the common insert-and-dress-up-a-picture task.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.6809
+      },
+      "combined": 0.6502,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:hf-close",
+      "name": "Close Header and Footer",
+      "parent": "feature:header-footer-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this exits header/footer editing — the standard way out of the mode -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Structurally used at the end of every header/footer session — Microsoft's own steps for the very common page-numbering task end with 'Select Close Header and Footer' — though many users exit by double-clicking the body instead. (adjusted_from: high — lowered for internal consistency: 'go to header/go to footer' is tiered low precisely because users double-click instead of using the ribbon buttons, and the same double-click behavior dominates exiting; a structural exit affordance should not outrank the deliberate medium-tier tasks 'link to previous' and 'different first page'.)",
+        "usage_source": "https://support.microsoft.com/en-us/office/start-page-numbering-later-in-your-document-c73e3d55-d722-4bd0-886e-0b0bd0eb3f02",
+        "prominence": 0.6514
+      },
+      "combined": 0.6428,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:table-autofit",
+      "name": "AutoFit",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this auto-fits column widths — everyday table sizing -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Runaway column widths are one of the most commonly reported table frustrations, and the AutoFit menu (AutoFit Contents / AutoFit Window / Fixed Column Width) is the documented recurring fix, so this command is exercised in a common recurring task.",
+        "usage_source": "https://office-watch.com/2023/word-autofit-table-columns-fix/ (Office Watch: Fixing AutoFit Table Columns in Word); corroborated by https://www.cedarville.edu/insights/computer-help/post/adjust-table-columns-in-word-auto-fit",
+        "prominence": 0.6346
+      },
+      "combined": 0.6386,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:replace",
+      "name": "Replace",
+      "parent": "feature:editing",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this substitutes text document-wide — bulk editing depends on it -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Find-and-Replace is included as an essential lesson in virtually all beginner Word courses (GoSkills, Webucator, LibreTexts, Microsoft's own training page) but is a task-specific revision tool for longer documents, used by a subset of the users who use Find and absent from any top-command telemetry list.",
+        "usage_source": "Microsoft Support training, 'Find and replace text in Word' (https://support.microsoft.com/en-us/word/training/find-and-replace-text-in-word); Business LibreTexts, 'Find and Replace — Microsoft Word Basic Skills' (https://biz.libretexts.org/Courses/Lumen_Learning/Book:_Computer_Applications_for_Managers_(Lumen)/03:_Microsoft_Word_Basic_Skills/3.14:_Find_and_Replace)",
+        "prominence": 0.6335
+      },
+      "combined": 0.6384,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:object-size",
+      "name": "Object Size",
+      "parent": "feature:object-size",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets an object's exact size — near-universal after inserting an object -> therefore important",
+        "usage": 0.8,
+        "usage_tier": "high",
+        "usage_claim": "Resizing is near-universal when placing pictures — workplace-skills textbooks (OpenStax 4.2) teach sizing graphics as a core skill — though most users drag handles rather than type exact dimensions in the ribbon boxes.",
+        "usage_source": "https://openstax.org/books/workplace-software-skills/pages/4-2-working-with-graphics-and-text-tools-in-microsoft-word",
+        "prominence": 0.3218
+      },
+      "combined": 0.6354,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:shape-outline",
+      "name": "Shape Outline",
+      "parent": "feature:shape-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets a shape's outline — everyday shape format -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Outline color/weight is exercised alongside fill in every shape and text-box formatting task taught in standard curricula (e.g. removing a text box border is a classic step).",
+        "usage_source": "https://openstax.org/books/workplace-software-skills/pages/4-2-working-with-graphics-and-text-tools-in-microsoft-word",
+        "prominence": 0.6105
+      },
+      "combined": 0.6326,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:table-borders",
+      "name": "Table Borders",
+      "parent": "feature:table-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets table borders — near-universal in presented tables -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Adding, changing, and especially removing borders is covered in entry-level curricula (GCFGlobal) and mainstream how-tos (How-To Geek), reflecting that border adjustment is one of the most common specific table-formatting tasks, including making borderless layout tables.",
+        "usage_source": "https://www.howtogeek.com/227442/how-to-add-borders-to-or-change-borders-on-a-table-in-word/ and https://edu.gcfglobal.org/en/word2016/tables/1/",
+        "prominence": 0.5922
+      },
+      "combined": 0.628,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:shape-fill",
+      "name": "Shape Fill",
+      "parent": "feature:shape-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets a shape's fill — the most-used shape format -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Fill color is the most fundamental shape formatting action, exercised in essentially every flyer/diagram/text-box task that workplace-skills curricula (OpenStax) teach for Word's drawing tools.",
+        "usage_source": "https://openstax.org/books/workplace-software-skills/pages/4-2-working-with-graphics-and-text-tools-in-microsoft-word",
+        "prominence": 0.5744
+      },
+      "combined": 0.6236,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:paragraph-dialog",
+      "name": "Paragraph dialog launcher",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the consolidated paragraph-layout surface (indents, spacing, pagination) — the deep end of a core capability -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "The Paragraph dialog is the documented path for common, mandated tasks — hanging indents for MLA/APA works-cited pages and exact double-spacing are taught via 'go to Paragraph settings' in academic formatting guides — so it gets steady task-driven use even though casual users stick to the ribbon buttons.",
+        "usage_source": "https://www.edmonds.edu/student-services/learning-support-center/handouts/documents/edmondsccmlaformatword.pdf and https://proofed.com/writing-tips/is-mla-format-double-spaced/",
+        "prominence": 0.4993
+      },
+      "combined": 0.6048,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:format-painter",
+      "name": "Format Painter",
+      "parent": "feature:clipboard",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this copies formatting for reapplication — a convenience over re-applying formats manually -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Format Painter is heavily promoted in training content but repeatedly documented as unknown-to-many ('underused' per MakeUseOf; trainers report 15-year Word veterans discovering it for the first time, and a 2006 comment on the Harris post notes seniors confuse its icon with Paste), indicating task-specific use by a formatting-aware subset rather than everyday use by all.",
+        "usage_source": "MakeUseOf, '7 Underused Microsoft Word Features and How to Use Them' (https://www.makeuseof.com/tag/7-underused-microsoft-word-features-use/); Tech-Talk.com, 'The Magic of the Format Painter' (https://www.tech-talk.com/format-painter.html)",
+        "prominence": 0.874
+      },
+      "combined": 0.586,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:table-cell-alignment",
+      "name": "Cell Alignment",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns cell contents — routine in presented tables -> therefore important",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Centering text in table cells (especially vertically) is one of the most-published Word table how-tos — How-To Geek, Avantix, Microsoft Q&A, and university KBs all maintain dedicated articles — indicating a very common recurring subtask of table formatting.",
+        "usage_source": "https://www.howtogeek.com/790640/how-to-center-text-in-a-microsoft-word-table/ ; https://www.avantixlearning.ca/microsoft-word/how-to-center-text-vertically-in-a-word-table-and-fix-common-issues/",
+        "prominence": 0.3887
+      },
+      "combined": 0.5772,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:shapes-insert",
+      "name": "Shapes",
+      "parent": "feature:illustrations",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this draws vector shapes — diagramming inside documents, task-specific -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Shapes have a dedicated GCFGlobal lesson (plus an 'Aligning, Ordering, and Grouping Objects' follow-up), indicating regular use for annotation, flyers, and simple diagrams, but no frequency data puts them at the level of tables or pictures.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum, 'Shapes' lesson — https://edu.gcfglobal.org/en/word/",
+        "prominence": 0.8055
+      },
+      "combined": 0.5689,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:table-split-cells",
+      "name": "Split Cells",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this splits cells — a defining table-layout op -> therefore important",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Split Cells is taught only as the paired inverse of Merge Cells in MOS objectives and tutorials, and in practice is used far less often — typically to undo merges or build occasional form layouts.",
+        "usage_source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS objective pairs merge and split); https://support.microsoft.com/en-us/office/merge-or-split-cells-in-a-table-8b458deb-0fc5-4c8d-8d94-2d4da98193f8",
+        "prominence": 0.6351
+      },
+      "combined": 0.5638,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:chart-edit-data",
+      "name": "Edit / Select Data",
+      "parent": "feature:chart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this edits the chart's underlying data — a chart is meaningless without correct data -> therefore important",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Edit Data (opening the mini-spreadsheet) is the primary way every native-Word-chart author enters numbers, so within that niche it is unavoidable — but the niche itself is small since most charts are pasted from Excel.",
+        "usage_source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+        "prominence": 0.6058
+      },
+      "combined": 0.5565,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:table-properties",
+      "name": "Table Properties",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets precise table layout properties — power-table work -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "The Table Properties dialog is the documented route for several common fixes — stopping AutoFit's automatic resizing (Properties > Options), exact row/column sizing, and vertical cell alignment — so typical users hit it during specific common troubleshooting tasks even if they never browse it otherwise.",
+        "usage_source": "https://office-watch.com/2023/word-autofit-table-columns-fix/ (Fixing AutoFit Table Columns in Word — fix path goes through Table Properties); also https://www.avantixlearning.ca/microsoft-word/how-to-center-text-vertically-in-a-word-table-and-fix-common-issues/",
+        "prominence": 0.7372
+      },
+      "combined": 0.5518,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:text-box-insert",
+      "name": "Text Box",
+      "parent": "feature:text",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds a floating text container — layout flexibility for callouts/covers -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Text boxes have a dedicated lesson in GCFGlobal's core Word curriculum, reflecting regular use in layout-oriented tasks (flyers, callouts, certificates), though no frequency data elevates them to the tables/pictures tier.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum, 'Text Boxes' lesson — https://edu.gcfglobal.org/en/word/",
+        "prominence": 0.7217
+      },
+      "combined": 0.5479,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-select",
+      "name": "Select (table parts)",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this selects table parts — a precondition convenience -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Ctrl+A/Select All appears on every 'basic shortcuts' list and is called the most popular way to select an entire document, yet shortcut-awareness surveys put Ctrl+A knowledge at only ~30% (users mostly select with mouse drag instead), and the ribbon Select menu's other entries (Select Objects, Selection Pane) are niche drawing-object tools — so the combined capability lands at task-specific regular use.",
+        "usage_source": "Avantix Learning, 'How to Select All in Word (6 Ways with Shortcuts)' (https://www.avantixlearning.ca/microsoft-word/4-great-shortcuts-to-select-all-in-microsoft-word/); Tom's Hardware Japan shortcut-awareness survey (https://www.tomshardware.com/news/survey-finds-40-percent-of-university-students-in-japan-dont-know-shortcut-keys)",
+        "prominence": 0.6935
+      },
+      "combined": 0.5409,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:align-center",
+      "name": "Center",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this centers paragraphs — titles and headings depend on it -> therefore important",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5903
+      },
+      "combined": 0.5376,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:font-dialog",
+      "name": "Font dialog launcher",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the consolidated character-formatting surface incl. defaults and advanced spacing — the deep end of a core capability -> therefore important",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The Font dialog (Ctrl+D / dialog launcher) is framed by training material as the gateway to 'advanced formatting' — small caps, character spacing, OpenType features, setting the default font — i.e. occasional power-user tasks, while everyday font operations are done from the ribbon/Mini Toolbar controls.",
+        "usage_source": "CourseHorse, 'Utilizing the Font Dialog Box for Advanced Formatting in Microsoft Word' — https://coursehorse.com/blog/learn/microsoft-word/utilizing-the-font-dialog-box-for-advanced-formatting-in-microsoft-word",
+        "prominence": 0.5287
+      },
+      "combined": 0.5372,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:object-reorder",
+      "name": "Bring Forward / Send Backward",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes object z-order — common with overlapping objects -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Object ordering is taught as a standard lesson in free beginner Word courses (GCFGlobal 'Arranging Objects') and is needed whenever objects overlap — common in flyers/newsletters but absent from plain text documents.",
+        "usage_source": "https://edu.gcfglobal.org/en/word2013/arranging-objects/1/",
+        "prominence": 0.6703
+      },
+      "combined": 0.5351,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:indent-decrease",
+      "name": "Decrease Indent",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.7,
+        "product_verdict": "important",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this moves the indent toward the margin — everyday paragraph layout -> therefore important",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5784
+      },
+      "combined": 0.5346,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-style-options",
+      "name": "Table Style Options",
+      "parent": "feature:table-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles which table regions the style emphasizes — routine table styling -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "GCFGlobal's basic tables lesson explicitly teaches the six Table Style Options checkboxes (Header Row, Banded Rows, etc.) as part of routine table styling, so they ride along with gallery use, though many users leave the defaults untouched.",
+        "usage_source": "https://edu.gcfglobal.org/en/word2016/tables/1/ (GCFGlobal Word 2016: Tables — lists Header Row, Total Row, Banded Rows, First/Last Column, Banded Columns options)",
+        "prominence": 0.6618
+      },
+      "combined": 0.533,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:change-case",
+      "name": "Change Case",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rewrites capitalization — a convenience over retyping -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Change Case serves a recurring real need (Caps Lock accidents, cleaning pasted text) — it is included in GCFGlobal's beginner formatting lessons and Shift+F3 is a perennial 'best hidden productivity tip' across blogs and TikTok — but the very framing as a tip most users don't know indicates regular-task rather than daily-universal usage.",
+        "usage_source": "GCFGlobal, 'Word 2010: Formatting Text' (teaches the Change Case command) — https://edu.gcfglobal.org/en/word2010/formatting-text/4/ ; Eric Silva, 'SHIFT+F3: Change Case in MS Word' — https://ericsilva.me/microsoft/word/shift-f3-change-case-in-ms-word/",
+        "prominence": 0.6616
+      },
+      "combined": 0.5329,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-compress",
+      "name": "Compress Pictures",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this reduces image size — file-size management -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Directly tied to the very common 'document too big to email' problem — Microsoft maintains a dedicated support page and training vendors (Avantix, KCL) publish standalone courses/guides on compressing images in Word.",
+        "usage_source": "https://support.microsoft.com/en-us/office/reduce-the-file-size-of-your-word-documents-6c5a1186-6353-453d-bb22-e9322c2cfbab",
+        "prominence": 0.6584
+      },
+      "combined": 0.5321,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:object-position",
+      "name": "Position",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this presets an object's page position — common layout -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Position presets and 'Fix position on page' are the standard companion fix in Microsoft's picture-placement guidance and Q&A threads, used in the same common fit-the-picture task as wrap text but less frequently than wrapping itself.",
+        "usage_source": "https://support.microsoft.com/en-us/word/wrap-text-and-move-pictures-in-word",
+        "prominence": 0.651
+      },
+      "combined": 0.5303,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:multilevel-list",
+      "name": "Multilevel List",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies nested list schemes — structured documents only -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Multilevel numbering is heavily used in specific common document types (contracts, theses, technical manuals) — legal-tech and trainer sources call it 'the #1 headache for many people working with large Word documents' — but typical users reach it indirectly via Tab-demotion in simple lists rather than the button itself.",
+        "usage_source": "https://officemastery.com/_word-multilevel-numbering-word/ and https://www.attorneyatwork.com/how-to-master-microsoft-word-for-mac-multilevel-paragraph-numbering/",
+        "prominence": 0.6421
+      },
+      "combined": 0.528,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-repeat-header",
+      "name": "Repeat Header Rows",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this repeats header rows across pages — long tables -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Multi-page tables in reports make repeating headers a standard specific need — it is a MOS exam objective ('configure a repeating row header') and the subject of an unusually dense cluster of dedicated how-to articles and forum threads, though users typically discover it on demand rather than use it daily.",
+        "usage_source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS Study Guide: configure a repeating row header); how-to demand: https://www.supportyourtech.com/articles/how-to-repeat-header-row-in-word-table-easy-steps-to-follow/ and https://www.msofficeforums.com/word/37060-repeating-two-rows-including-merge-table-heading.html",
+        "prominence": 0.625
+      },
+      "combined": 0.5238,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:hf-link-to-previous",
+      "name": "Link to Previous",
+      "parent": "feature:header-footer-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this links/unlinks section headers — multi-section documents -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Unlinking sections is the pivotal step in the widely documented 'start page numbering later / no number on title page' task — Microsoft maintains a dedicated support page and dozens of university library guides walk students through exactly this button.",
+        "usage_source": "https://support.microsoft.com/en-us/office/start-page-numbering-later-in-your-document-c73e3d55-d722-4bd0-886e-0b0bd0eb3f02",
+        "prominence": 0.6224
+      },
+      "combined": 0.5231,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:strikethrough",
+      "name": "Strikethrough",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this strikes text through — edit-markup styling for specific tasks -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Strikethrough is used in specific common tasks (legal/edit markup, to-do lists) — common enough that its lack of a default keyboard shortcut is a well-documented frustration with many workaround guides — but Microsoft's own shortcut allocation (B/I/U got shortcuts, strikethrough did not) signals clearly lower frequency than the big three.",
+        "usage_source": "Word.Tips.Net, 'Strikethrough Shortcut Key' — https://word.tips.net/T000418_Strikethrough_Shortcut_Key.html ; Avantix Learning, '4 Strikethrough Shortcuts in Microsoft Word' — https://www.avantixlearning.ca/microsoft-word/how-to-use-keyboard-shortcuts-to-apply-strikethrough-in-microsoft-word-3-ways/",
+        "prominence": 0.619
+      },
+      "combined": 0.5223,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-cell-size",
+      "name": "Cell Size",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets exact cell dimensions — precise sizing -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Resizing rows/columns is a MOS core objective ('resize tables, rows, and columns') and near-universal when working with tables, but most users drag borders with the mouse, leaving the ribbon height/width boxes and Distribute commands for precise or uniform sizing.",
+        "usage_source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS objective); https://support.microsoft.com/en-us/word/resize-a-table-column-or-row (Microsoft Support: Resize a table, column, or row)",
+        "prominence": 0.6066
+      },
+      "combined": 0.5192,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-shading",
+      "name": "Table Shading",
+      "parent": "feature:table-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this shades cell backgrounds — common table emphasis -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Shading header rows and alternating rows is described as standard business-table formatting in mainstream tutorials, but it is a formatting-session task rather than a regular-use command.",
+        "usage_source": "https://www.geeksforgeeks.org/ms-word/formatting-tables-in-ms-word/ (Formatting Tables in MS Word — borders and shading listed among core formatting techniques, including shaded header rows and banded shading)",
+        "prominence": 0.6058
+      },
+      "combined": 0.519,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:clear-formatting",
+      "name": "Clear All Formatting",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this strips all formatting — a reset lever, not a creative one -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Clear Formatting rides on the single most common Word workflow — pasting (Paste = #1 command, 11% of all use): a large how-to ecosystem treats stripping formatting from web/PDF-pasted text as a routine essential task, but it is corrective/situational rather than a daily-universal button.",
+        "usage_source": "Computer Hope, 'Remove Formatting in Word from Any Pasted Text' — https://www.computerhope.com/tips/tip210.htm ; paste ubiquity per Jensen Harris — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.598
+      },
+      "combined": 0.517,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smart-art-insert",
+      "name": "SmartArt",
+      "parent": "feature:illustrations",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts diagram graphics (lists, processes, hierarchies) — common in business docs, not core -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "SmartArt gets a GCFGlobal lesson but it sits in the late 'extras' section (lesson 28, after Track Changes), and community discussion associates SmartArt diagrams far more with PowerPoint than Word, indicating occasional use for org charts/process graphics in Word documents.",
+        "usage_source": "GCFGlobal Word: 'SmartArt Graphics' lesson — https://edu.gcfglobal.org/en/word2013/smartart-graphics/1/",
+        "prominence": 0.8383
+      },
+      "combined": 0.5021,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:cover-page-insert",
+      "name": "Cover Page",
+      "parent": "feature:pages",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts a preformatted first page — template convenience -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Cover pages appear in report/proposal workflows but get no lesson in GCFGlobal's 35-lesson core curriculum and are at most a once-per-document action, putting them in the occasional/specific-task band.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum (no Cover Page lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+        "prominence": 0.8322
+      },
+      "combined": 0.5006,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:object-rotate",
+      "name": "Rotate",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rotates/flips an object — common adjustment -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Rotation (mostly via the on-object rotate handle rather than the ribbon flip commands) is part of the standard object-arranging skill set covered by Microsoft's align/arrange guidance and beginner tutorials.",
+        "usage_source": "https://support.microsoft.com/en-us/office/graphics-visuals/align-or-arrange-objects",
+        "prominence": 0.5161
+      },
+      "combined": 0.4965,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:object-group",
+      "name": "Group",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this groups objects to move together — multi-object work -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Grouping is taught in beginner courses and covered by a dedicated Office Watch how-to; it is used whenever multi-shape layouts (logos, simple diagrams) are built or moved — a specific common task.",
+        "usage_source": "https://office-watch.com/2025/group-and-ungroup-objects-in-word-powerpoint-and-office/",
+        "prominence": 0.5144
+      },
+      "combined": 0.4961,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:cross-reference-insert",
+      "name": "Cross-reference",
+      "parent": "feature:links",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts live references to headings/figures — long structured documents only -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Cross-referencing is recommended in university long-document guidance for numbered figures/equations (e.g. engineering report workflows) but gets no lesson in mainstream consumer training — an academic/long-document specialist feature.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum (no Cross-reference lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html; academic usage context per MSU Denver equation/reference guidance — https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+        "prominence": 0.8115
+      },
+      "combined": 0.4954,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:object-align",
+      "name": "Align",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns/distributes objects — layout tidiness -> therefore useful",
+        "usage": 0.55,
+        "usage_tier": "medium",
+        "usage_claim": "Aligning objects is a standard lesson in free beginner Word courses (GCFGlobal 'Arranging Objects') and Microsoft maintains a dedicated support page for it — routine within layout-heavy documents like flyers and forms.",
+        "usage_source": "https://edu.gcfglobal.org/en/word2013/arranging-objects/1/",
+        "prominence": 0.5056
+      },
+      "combined": 0.4939,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-insert",
+      "name": "Chart",
+      "parent": "feature:illustrations",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds a data chart with a linked worksheet — reporting documents need it, most documents do not -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Word-native chart insertion is taught (GCFGlobal 'Charts' lesson) but is a secondary path — business chart workflows center on Excel with paste/embed into Word — so the Insert>Chart button itself sees occasional use.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum, 'Charts' lesson — https://edu.gcfglobal.org/en/word/",
+        "prominence": 0.7845
+      },
+      "combined": 0.4886,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-add-element",
+      "name": "Add Chart Element",
+      "parent": "feature:chart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds/removes chart elements (titles, labels, legend) — core chart authoring -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Adding titles/labels is standard for the minority who build native Word charts, but Microsoft's own guidance presents copy-pasting a finished chart from Excel as 'the simplest way' — most chart formatting happens in Excel, not Word.",
+        "usage_source": "https://support.microsoft.com/en-us/office/insert-a-chart-from-an-excel-spreadsheet-into-word-0b4d40a5-3544-4dcd-b28f-ba82a9b9f1e1",
+        "prominence": 0.7456
+      },
+      "combined": 0.4789,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-remove-background",
+      "name": "Remove Background",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this auto-removes an image background — a popular but occasional edit -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Heavy tutorial demand exists (many third-party guides), but Office Watch and others document that the tool's auto-detection often fails and needs manual Mark Areas correction, and dedicated background-remover tools are routinely recommended instead — an occasional one-off utility, not a routine operation.",
+        "usage_source": "https://office-watch.com/2024/background-removal-pictures-microsoft-office/",
+        "prominence": 0.7452
+      },
+      "combined": 0.4788,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-corrections",
+      "name": "Corrections",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adjusts brightness/contrast — common image tidy-up -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Picture-adjustment commands sit deep in Word's command long tail (Jensen Harris's Word 2003 telemetry put Reset Picture at ~#400), and most photo correction happens in dedicated apps before insertion — occasional touch-ups only.",
+        "usage_source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.7381
+      },
+      "combined": 0.477,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:equation-insert-gallery",
+      "name": "Equation",
+      "parent": "feature:symbols",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts a math zone with its own editing tab — capability-defining for technical writers, absent elsewhere -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The equation editor has a clear but specialist user base — students, teachers, and STEM researchers, with universities publishing dedicated usage guides and a third-party market (MathType) existing around it — while general-purpose Word training omits it entirely.",
+        "usage_source": "MSU Denver, 'Using the Microsoft Word Equation Editor' — https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+        "prominence": 0.7348
+      },
+      "combined": 0.4762,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:hf-document-info",
+      "name": "Document Info",
+      "parent": "feature:header-footer-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts document-info fields in the header/footer — common in formal documents -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "File-name/author fields in footers are a corporate/legal template convention typically set once per template rather than per document; the capability receives no MOS or beginner-course emphasis.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.7272
+      },
+      "combined": 0.4743,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-view-gridlines",
+      "name": "View Gridlines",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles gridline view — an editing aid -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "View Gridlines is documented as useful specifically when working with tables whose borders have been removed (invisible layout tables), a specialist workflow rather than a routine one.",
+        "usage_source": "https://wordribbon.tips.net/T006038_Displaying_Table_Gridlines.html (Displaying Table Gridlines — WordTips); corroborated by https://www.avantixlearning.ca/microsoft-word/how-to-show-table-gridlines-in-microsoft-word/",
+        "prominence": 0.7259
+      },
+      "combined": 0.474,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-change-colors",
+      "name": "Change Colors",
+      "parent": "feature:chart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors the chart series — routine chart styling -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Color-scheme swapping is one of the first tweaks chart-editing courses teach, but applies only to the minority of Word users who author charts natively rather than pasting from Excel.",
+        "usage_source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+        "prominence": 0.7146
+      },
+      "combined": 0.4711,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smartart-layout",
+      "name": "Layouts gallery",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes the diagram layout — core SmartArt choice -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Swapping layouts is a documented core step in Microsoft's own SmartArt guidance ('Choose a SmartArt graphic'), exercised by the occasional-SmartArt-user population when the first layout choice doesn't fit.",
+        "usage_source": "https://support.microsoft.com/en-us/office/choose-a-smartart-graphic-e9a7a134-f8a5-4251-aba2-93f96b88644d",
+        "prominence": 0.7019
+      },
+      "combined": 0.468,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-style",
+      "name": "Chart Styles gallery",
+      "parent": "feature:chart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a chart style — the quick way to finish a chart -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The styles gallery is the prominent quick-format path in Word chart editing guides, but native Word chart authorship is a minority report-building workflow.",
+        "usage_source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+        "prominence": 0.7
+      },
+      "combined": 0.4675,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:equation-symbols",
+      "name": "Equation Symbols",
+      "parent": "feature:equation-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts math symbols — core to writing equations -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The symbols gallery is core to equation writing, but equation authoring itself is confined to STEM/academic users (students, educators, engineers, researchers) per university instructional guides — specialist, not general-population, usage.",
+        "usage_source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+        "prominence": 0.6979
+      },
+      "combined": 0.467,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:symbol-insert",
+      "name": "Symbol",
+      "parent": "feature:symbols",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts characters not on the keyboard — everyone occasionally (©, ±, é) -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Inserting symbols/special characters (©, °, accented letters, em dashes) is a recurring but occasional need served heavily by autocorrect, and the Symbol dialog gets no lesson in GCFGlobal's 35-lesson core curriculum.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum (no Symbols lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+        "prominence": 0.696
+      },
+      "combined": 0.4665,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:editor",
+      "name": "Editor",
+      "parent": "feature:editor",
+      "boundary": true,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this cloud proofing suggestions — quality aid, the document can be written without it -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.7293
+      },
+      "combined": 0.4598,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:graphics-convert-to-shape",
+      "name": "Convert to Shape",
+      "parent": "feature:graphics-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this makes an icon editable — the key reason to use SVG icons -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.7246
+      },
+      "combined": 0.4587,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smartart-add-shape",
+      "name": "Add Shape",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds nodes to a diagram — core SmartArt editing -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Adding shapes is the most fundamental SmartArt edit and an explicit MOS objective (5.3 'modify SmartArt graphic content'), but SmartArt itself is occasional — experts note it is 'frequently used by amateur users' and rarely in professional contexts.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.6637
+      },
+      "combined": 0.4584,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:hf-navigate",
+      "name": "Header/Footer Navigation",
+      "parent": "feature:header-footer-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this moves between header and footer — routine while editing them -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Explicit navigation buttons are used within header-editing sessions, but university formatting guides show most users enter headers by double-clicking, making the ribbon buttons secondary.",
+        "usage_source": "https://libguides.sunyulster.edu/word/header",
+        "prominence": 0.6601
+      },
+      "combined": 0.4575,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:graphics-style-gallery",
+      "name": "Graphics Styles gallery",
+      "parent": "feature:graphics-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this styles an icon graphic — routine icon work -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.7186
+      },
+      "combined": 0.4572,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:object-selection-pane",
+      "name": "Selection Pane",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this lists objects for show/hide/reorder — multi-object management -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Microsoft dedicates a support page to the Selection Pane, but it exists specifically for managing many overlapping objects — a power-user workflow far from typical document editing.",
+        "usage_source": "https://support.microsoft.com/en-us/office/use-the-selection-pane-to-manage-objects-in-documents-a6b2fd3e-d769-46c1-9b9c-b94e04a72550",
+        "prominence": 0.6506
+      },
+      "combined": 0.4551,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:equation-structures",
+      "name": "Structures",
+      "parent": "feature:equation-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts math structure templates (fractions, integrals…) — core to writing equations -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Fractions are the most commonly used equation structure — university guides list fractions first among the constructs the editor handles — but only within the STEM/academic niche that writes equations at all.",
+        "usage_source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+        "prominence": 0.6497
+      },
+      "combined": 0.4549,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smartart-style",
+      "name": "SmartArt Styles gallery",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this styles the diagram — routine SmartArt styling -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The styles gallery is a one-click customization covered in Microsoft's SmartArt documentation and MOS objectives; usage is bounded by SmartArt's own occasional adoption.",
+        "usage_source": "https://support.microsoft.com/en-us/office/graphics-visuals/learn-more-about-smartart-graphics",
+        "prominence": 0.6457
+      },
+      "combined": 0.4539,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-select-element",
+      "name": "Chart Elements selector",
+      "parent": "feature:chart-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this selects a chart element to format — a precondition for element formatting -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.7049
+      },
+      "combined": 0.4537,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-change-type",
+      "name": "Change Chart Type",
+      "parent": "feature:chart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes the chart type — choosing the right chart -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Switching bar/line/pie is a common tweak among chart authors and appears in every chart-editing course, but native Word chart authoring is itself a minority workflow versus pasting from Excel.",
+        "usage_source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+        "prominence": 0.6442
+      },
+      "combined": 0.4536,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-format-selection",
+      "name": "Format Selection",
+      "parent": "feature:chart-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this formats the selected chart element — fine chart tuning -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6985
+      },
+      "combined": 0.4521,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:object-alt-text",
+      "name": "Alt Text",
+      "parent": "feature:object-arrange",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this authors accessibility alt text — increasingly expected -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Despite training/compliance emphasis (it is a MOS objective), real-world adoption is poor: WebAIM's 2026 Million report found over half of top websites still ship images with missing alt text, and office documents fare no better — most users skip it.",
+        "usage_source": "https://webaim.org/projects/million/",
+        "prominence": 0.632
+      },
+      "combined": 0.4505,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-split-table",
+      "name": "Split Table",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this splits a table in two — occasional -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Splitting one table into two appears in MOS exam objectives ('split tables') and advanced-features guides but not in entry-level curricula or everyday workflows, marking it an occasional restructuring task.",
+        "usage_source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS Study Guide table objectives include split tables); https://officelegends.academy/microsoft-word-table-advanced-features/",
+        "prominence": 0.6313
+      },
+      "combined": 0.4503,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:shading-color-picker",
+      "name": "Shading",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this fills paragraph background color — decoration/emphasis, situational -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Paragraph shading has no keyboard shortcut, is absent from Microsoft's frequently-used-shortcuts list and the Mini Toolbar, and appears in the ecosystem only as decorative how-to content, so it is best classed as occasional cosmetic use; most real-world shading happens through table styles instead.",
+        "usage_source": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 (absence from frequently-used set; closest-evidence inference)",
+        "prominence": 0.6306
+      },
+      "combined": 0.4501,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:borders-selection-gallery",
+      "name": "Borders",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies paragraph borders — decoration, situational -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The Home-tab paragraph Borders control sees only occasional direct use (horizontal rules, boxed text) — it lacks a shortcut and any presence in Microsoft's frequently-used-shortcuts or Mini Toolbar sets, and the bulk of real-world border work is done via table formatting in the contextual Table tabs instead.",
+        "usage_source": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 (absence from frequently-used set; closest-evidence inference)",
+        "prominence": 0.6258
+      },
+      "combined": 0.4489,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smartart-promote-demote",
+      "name": "Promote / Demote",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes a node's level/order — SmartArt structuring -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Hierarchy reordering is standard when building org charts — the most common SmartArt use case covered in MOS cert prep — but applies only to the occasional-SmartArt-user population.",
+        "usage_source": "https://www.linkedin.com/learning/cert-prep-word-2016-microsoft-office-specialist-77-725/modify-content-of-a-smartart-graphic",
+        "prominence": 0.6242
+      },
+      "combined": 0.4486,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smartart-text-pane",
+      "name": "Text Pane",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this edits diagram text as an outline — the primary SmartArt text entry -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The Text Pane is the primary editing surface taught in MOS cert-prep for populating SmartArt, so every SmartArt user touches it — but SmartArt insertion is itself an occasional task.",
+        "usage_source": "https://www.linkedin.com/learning/cert-prep-word-2016-microsoft-office-specialist-77-725/modify-content-of-a-smartart-graphic",
+        "prominence": 0.6162
+      },
+      "combined": 0.4466,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:subscript",
+      "name": "Subscript",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this lowers text below the baseline — required for formulas/chemistry but absent from most documents -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Subscript is specialist formatting confined to chemistry formulas and math notation (e.g. H2O, variable indices); writing guides list only scientific/mathematical uses, so typical office users rarely touch it.",
+        "usage_source": "Proofed, 'When to Use Superscript and Subscript in Your Writing' — https://proofed.com/writing-tips/when-to-use-superscript-and-subscript-in-your-writing/",
+        "prominence": 0.6159
+      },
+      "combined": 0.4465,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:wordart-text-style-gallery",
+      "name": "WordArt Styles gallery",
+      "parent": "feature:wordart-text-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a WordArt text style — decorative text -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6749
+      },
+      "combined": 0.4462,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:superscript",
+      "name": "Superscript",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this raises text above the baseline — ordinals and footnote marks; task-specific -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Superscript is occasional/specialist (exponents, manual footnote marks, trademark symbols, ordinals) and slightly more used than subscript, but Word's AutoFormat auto-superscripts ordinals and the footnote feature inserts references automatically, so manual button use is mostly academic/scientific.",
+        "usage_source": "Proofed, 'When to Use Superscript and Subscript in Your Writing' — https://proofed.com/writing-tips/when-to-use-superscript-and-subscript-in-your-writing/",
+        "prominence": 0.6129
+      },
+      "combined": 0.4457,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:blank-page-insert",
+      "name": "Blank Page",
+      "parent": "feature:pages",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts an empty page — a page-flow convenience over two breaks -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "The Insert>Blank Page button is redundant with the page break (Ctrl+Enter), which is what training ('Breaks' lesson) and shortcut lists actually teach; community attention around blank pages is overwhelmingly about deleting unwanted ones, not inserting them.",
+        "usage_source": "GCFGlobal Word 'Breaks' lesson teaches page breaks, not Blank Page — https://edu.gcfglobal.org/en/word/; Ctrl+Enter in Help Desk Geek's 30+ best shortcuts — https://helpdeskgeek.com/the-30-best-microsoft-word-keyboard-shortcuts/",
+        "prominence": 0.8276
+      },
+      "combined": 0.4454,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:shape-effects",
+      "name": "Shape Effects",
+      "parent": "feature:shape-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds effects to a shape — styling -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Shadow/glow/bevel effects on shapes are decorative extras mentioned in training under 'apply effects' but not required by common document tasks — occasional embellishment.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.6105
+      },
+      "combined": 0.4451,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:font-size-increase",
+      "name": "Grow Font",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this steps the size up — a variation of setting font size -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The dedicated Grow/Shrink Font buttons (and Ctrl+Shift+>/< shortcuts) are a secondary affordance for the very common font-size change (#11 command) — they appear in shortcut reference lists but most users accomplish sizing via the size dropdown or typing a value, so the distinct control itself sees low use.",
+        "usage_source": "Microsoft Support, 'Keyboard shortcuts in Word' (Ctrl+Shift+> / Ctrl+Shift+< listed among dozens of shortcuts) — https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 ; frequency inferred against Jensen Harris #11 'Change Font Size' telemetry",
+        "prominence": 0.6097
+      },
+      "combined": 0.4449,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-cell-margins",
+      "name": "Cell Margins",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets cell margins — fine-tuning -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Cell margin/spacing adjustment is a polish and troubleshooting setting covered by Office Watch and MOS objectives ('configure cell margins and spacing') but absent from entry-level lessons — an occasional/specialist tweak for readability or fitting content.",
+        "usage_source": "https://office-watch.com/2022/table-cell-margins-spacing-word/ (Office Watch: Table Cell Margins and Spacing Options in Word); MOS objective: https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3",
+        "prominence": 0.6076
+      },
+      "combined": 0.4444,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smartart-change-colors",
+      "name": "Change Colors",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors the diagram — routine SmartArt styling -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.661
+      },
+      "combined": 0.4428,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:table-convert-to-text",
+      "name": "Convert to Text",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this converts a table to text — occasional -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Table-to-text conversion is an occasional data-cleanup/accessibility task; Microsoft documents it, but forum threads show users struggle even to locate the command, consistent with infrequent use.",
+        "usage_source": "https://support.microsoft.com/en-us/word/convert-text-to-a-table-or-a-table-to-text (Microsoft Support); discoverability struggle: https://www.elevenforum.com/t/unable-to-find-convert-table-to-text.4438/",
+        "prominence": 0.5874
+      },
+      "combined": 0.4394,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-effects",
+      "name": "Picture Effects",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies shadow/glow/3D to an image — styling -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Shadow/glow/3D effects are decorative options covered in training under 'apply effects' but rarely needed in typical business/academic documents — occasional embellishment only.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.5772
+      },
+      "combined": 0.4368,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:select",
+      "name": "Select",
+      "parent": "feature:editing",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this select-all/objects/similar-formatting — conveniences over mouse selection -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6359
+      },
+      "combined": 0.4365,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:paragraph-marks",
+      "name": "Show/Hide ¶",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this shows hidden formatting marks — a diagnostic view toggle -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Show/Hide ¶ is a troubleshooting/power tool championed by editors and trainers ('The Power in the Pilcrow') while community Q&A shows typical users are unaware of it or actively confused when it is on ('Why does my Word document have paragraph symbols everywhere?'), placing it in occasional/specialist use.",
+        "usage_source": "https://eiw365.com/the-power-in-the-pilcrow/ and https://www.quora.com/Why-does-my-Word-document-have-paragraph-symbols-everywhere",
+        "prominence": 0.5686
+      },
+      "combined": 0.4346,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:wordart-text-effects",
+      "name": "Text Effects",
+      "parent": "feature:wordart-text-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds effects to object text — decorative text styling -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Text Effects (shadow/glow/reflection, WordArt-style) is a decorative niche: tutorials pitch it only for flyers, invitations, banners and greeting cards and explicitly warn that using it in normal documents looks cluttered and unprofessional, so business/professional users essentially never touch it.",
+        "usage_source": "Envato Tuts+, 'How to Make Microsoft Word Text Effects and Typography Art' — https://business.tutsplus.com/tutorials/microsoft-word-text-effects-101--cms-20703",
+        "prominence": 0.5654
+      },
+      "combined": 0.4338,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:font-size-decrease",
+      "name": "Shrink Font",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this steps the size down — a variation of setting font size -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6067
+      },
+      "combined": 0.4292,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:graphics-color",
+      "name": "Graphics Fill (recolor)",
+      "parent": "feature:graphics-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors an icon — routine icon work -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6007
+      },
+      "combined": 0.4277,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:align-right",
+      "name": "Align Right",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this right-aligns paragraphs — situational (dates, signatures) -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5872
+      },
+      "combined": 0.4243,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:align-justify",
+      "name": "Justify",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this justifies both margins — style-specific -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5842
+      },
+      "combined": 0.4236,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-quick-layout",
+      "name": "Quick Layout",
+      "parent": "feature:chart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a preset chart layout — quick chart setup -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Preset chart layouts are a convenience covered only in dedicated chart-editing courses (Noble Desktop) and add nothing users can't get via defaults; native-Word chart authoring is itself a minority workflow.",
+        "usage_source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+        "prominence": 0.7282
+      },
+      "combined": 0.4205,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-border",
+      "name": "Picture Border",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets an image border — common finishing -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5716
+      },
+      "combined": 0.4204,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-transparency",
+      "name": "Transparency",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets image transparency — layout aid -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Transparency is a newer Microsoft 365 control used for watermark-style effects; it appears in no common task documentation and picture-adjustment commands historically sit deep in the command long tail per Word 2003 telemetry.",
+        "usage_source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.7232
+      },
+      "combined": 0.4193,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:equation-conversions",
+      "name": "Conversions",
+      "parent": "feature:equation-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this converts equation notation — used by LaTeX-oriented authors -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Equations default to Professional format; toggling Linear/UnicodeMath is discussed mainly in accessibility and power-user guides (Penn State), a niche within the already specialist equation-authoring population of students, educators, engineers and researchers.",
+        "usage_source": "https://accessibility.psu.edu/math/msmath/",
+        "prominence": 0.697
+      },
+      "combined": 0.4128,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:shape-edit",
+      "name": "Edit Shape",
+      "parent": "feature:shape-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes/edits a shape's geometry — shape work -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Change Shape/Edit Points is specialist drawing functionality; MOS objectives cover only inserting and basic-modifying shapes, and freehand point editing appears in no mainstream Word training.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.6947
+      },
+      "combined": 0.4122,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:shape-text-align",
+      "name": "Align Text (in shape)",
+      "parent": "feature:shape-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns text in a shape/text box — routine for text boxes -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5339
+      },
+      "combined": 0.411,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:wordart-text-fill",
+      "name": "Text Fill",
+      "parent": "feature:wordart-text-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this fills object text — decorative text styling -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5272
+      },
+      "combined": 0.4093,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-color",
+      "name": "Color",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors an image — common image styling -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Decorative recoloring is even more obscure than Reset Picture (~#400 in Word 2003 telemetry) and is absent from core training objectives; almost never part of typical document workflows.",
+        "usage_source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.6803
+      },
+      "combined": 0.4086,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-switch-row-column",
+      "name": "Switch Row/Column",
+      "parent": "feature:chart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this swaps the chart's data orientation — common when the chart reads wrong -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Data-orientation switching is an Excel-fluent user's fix mentioned only in dedicated chart guides; within Word's already-small native chart population it is an occasional correction.",
+        "usage_source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+        "prominence": 0.6632
+      },
+      "combined": 0.4043,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-change",
+      "name": "Change Picture",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this swaps the image keeping formatting — a handy edit -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Swap-image-keeping-formatting is a template-reuse convenience absent from MOS Word Associate objectives and basic training curricula; most users simply delete and reinsert.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.6504
+      },
+      "combined": 0.4011,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:picture-reset",
+      "name": "Reset Picture",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this reverts image formatting — an undo convenience -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Directly measured: Reset Picture ranked approximately #400 in Word 2003 command-frequency telemetry per Jensen Harris (Microsoft Office UX team), placing it deep in the usage long tail.",
+        "usage_source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.6504
+      },
+      "combined": 0.4011,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:styles-pane",
+      "name": "Styles pane launcher",
+      "parent": "feature:styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the full style-management pane — power-user surface over the same capability -> therefore useful",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "The full Styles pane is a power-user/professional-editor tool — MVP and pro-editing guides treat 'Display, Use, and Manage Styles' as expert material, and Microsoft itself demoted the old Styles and Formatting task pane behind a dialog launcher in the 2007 ribbon redesign — so ordinary users who touch styles at all stay in the gallery.",
+        "usage_source": "http://wordfaqs.ssbarnhill.com/ManageStyles.htm and https://cybertext.wordpress.com/2008/09/11/word-2007-what-happened-to-the-styles-and-formatting-task-pane/",
+        "prominence": 0.4179
+      },
+      "combined": 0.397,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smartart-add-bullet",
+      "name": "Add Bullet",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds sub-items to a diagram node — SmartArt editing -> therefore useful",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Adding bullets is a subsidiary text-pane operation within SmartArt, which is itself an occasional amateur-leaning feature per presentation-expert commentary.",
+        "usage_source": "https://support.microsoft.com/en-us/office/graphics-visuals/learn-more-about-smartart-graphics",
+        "prominence": 0.6244
+      },
+      "combined": 0.3946,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:bookmark-insert",
+      "name": "Bookmark",
+      "parent": "feature:links",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this names a location for jumps — plumbing for links/references, rarely touched directly -> therefore peripheral",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Bookmarks are absent from GCFGlobal's 35-lesson curriculum and surface mainly in long-document/power-user guidance as targets for cross-references and internal links — a specialist navigation tool most users never open.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum (no Bookmark lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+        "prominence": 0.8234
+      },
+      "combined": 0.3769,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:table-insert-cells",
+      "name": "Insert Cells",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts cells with shift — less common than row/column insert -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.3845
+      },
+      "combined": 0.3736,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:icon-insert",
+      "name": "Icons",
+      "parent": "feature:illustrations",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts stock icon graphics — decoration from a cloud library -> therefore peripheral",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Icons only appear as a late add-on lesson ('Working with Icons', lesson 35 of 35) in GCFGlobal's curriculum and are a Microsoft-365-only decorative feature, indicating occasional use rather than a routine workflow.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum, 'Working with Icons' — https://edu.gcfglobal.org/en/word/",
+        "prominence": 0.8009
+      },
+      "combined": 0.3712,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:shape-format-pane",
+      "name": "Format Shape pane",
+      "parent": "feature:shape-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this the full shape-formatting pane — power editing -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.3744
+      },
+      "combined": 0.3711,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:picture-format-pane",
+      "name": "Format Picture pane",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this the full image-formatting pane — power editing -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.3335
+      },
+      "combined": 0.3609,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:hf-position",
+      "name": "Header/Footer Position",
+      "parent": "feature:header-footer-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.45,
+        "product_verdict": "useful",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets header/footer distance from the edge — layout fine-tuning -> therefore useful",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.3329
+      },
+      "combined": 0.3607,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:quick-parts-insert",
+      "name": "Quick Parts",
+      "parent": "feature:text",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts reusable building blocks and fields — power-user machinery -> therefore peripheral",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Quick Parts is pitched in legal-productivity writing (NC Bar Association) as a time-saver worth adopting — i.e. framed as underused even in its strongest niche — and is absent from mainstream consumer training, marking it a power-user/specialist tool.",
+        "usage_source": "North Carolina Bar Association, 'Quick Parts: The Good, the Bad, and the Alternative' — https://www.ncbar.org/2022/05/03/quick-parts-the-good-the-bad-and-the-alternative/",
+        "prominence": 0.717
+      },
+      "combined": 0.3502,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:office-addins",
+      "name": "Add-ins",
+      "parent": "feature:add-ins",
+      "boundary": true,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the add-in store — an extension gateway, not a document capability -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.75
+      },
+      "combined": 0.3435,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:graphics-change",
+      "name": "Change Graphic",
+      "parent": "feature:graphics-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this swaps the icon graphic — niche -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.7457
+      },
+      "combined": 0.3424,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:create-pdf",
+      "name": "Create a PDF",
+      "parent": "feature:acrobat",
+      "boundary": true,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this exports PDF via a third-party add-in — output conversion, not document creation -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.7444
+      },
+      "combined": 0.3421,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:date-and-time-insert",
+      "name": "Date & Time",
+      "parent": "feature:text",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts the date/time, optionally auto-updating — typing the date is the common path -> therefore peripheral",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Auto-updating dates in headers/footers are an occasional business-template convenience; unlike page numbers, date fields are not required by any major style guide and get little training emphasis (not called out in MOS header/footer objectives).",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.679
+      },
+      "combined": 0.3407,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:table-draw",
+      "name": "Draw Table",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this hand-draws cell boundaries — a niche input mode -> therefore peripheral",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Microsoft's own Insert-a-table documentation positions Draw Table as the method for irregular/custom tables while the grid and Insert Table dialog are the standard paths, and comparison guides note the insert methods are faster and more commonly used.",
+        "usage_source": "https://support.microsoft.com/en-us/office/insert-a-table-a138f745-73ef-4879-b99a-2f3d38be612a (Microsoft Support: Insert a table — Draw Table listed as the option for custom/irregular tables)",
+        "prominence": 0.6785
+      },
+      "combined": 0.3406,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:esignature-fields",
+      "name": "eSignature fields",
+      "parent": "feature:esignature",
+      "boundary": true,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this starts a cloud e-signature request — an external service workflow -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.737
+      },
+      "combined": 0.3402,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:dictate",
+      "name": "Dictate",
+      "parent": "feature:voice",
+      "boundary": true,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this cloud speech-to-text — an input alternative, not the core job -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.7361
+      },
+      "combined": 0.34,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:insert-3d-models",
+      "name": "3D Models",
+      "parent": "feature:illustrations",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds rotatable 3D models — showcase content far from the core job -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Even a CAD-vendor tutorial promoting the feature opens with 'few people are aware of the functionality of placing 3D models into Microsoft Word documents,' and it gets no lesson in mainstream Word training — a niche tool for CAD/marketing users.",
+        "usage_source": "Man and Machine, '3D Models in Microsoft Word' — https://www.manandmachine.co.uk/3d-models-in-microsoft-word/",
+        "prominence": 0.8578
+      },
+      "combined": 0.3315,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:smartart-shape-edit",
+      "name": "Edit SmartArt Shape",
+      "parent": "feature:smartart-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this edits an individual SmartArt shape — fine SmartArt work -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6935
+      },
+      "combined": 0.3294,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:table-text-direction",
+      "name": "Text Direction",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rotates cell text — niche -> therefore peripheral",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Rotating cell text is documented as a niche layout technique for narrow header columns and space-saving, with coverage limited to tips sites rather than core curricula — an occasional/specialist capability.",
+        "usage_source": "https://wordribbon.tips.net/T005978_Changing_Table_Cell_Text_Direction.html (WordTips: Changing Table Cell Text Direction — use cases are narrow-column vertical headings)",
+        "prominence": 0.6317
+      },
+      "combined": 0.3289,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:screenshot-insert",
+      "name": "Screenshot",
+      "parent": "feature:illustrations",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this snapshots an open window into the doc — an acquisition convenience -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Word's built-in Screenshot tool is absent from GCFGlobal's 35-lesson curriculum and from popular shortcut/productivity lists; OS-level snipping plus paste is the dominant screenshot path, leaving this button rarely touched.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum (feature absent from all 35 lessons) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+        "prominence": 0.8423
+      },
+      "combined": 0.3276,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:text-effects",
+      "name": "Text Effects and Typography",
+      "parent": "feature:font",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies decorative visual effects — the core job is fine without decoration -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6678
+      },
+      "combined": 0.3229,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:sort",
+      "name": "Sort",
+      "parent": "feature:paragraph",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sorts paragraphs/table rows — occasional data housekeeping, not document creation -> therefore peripheral",
+        "usage": 0.3,
+        "usage_tier": "low",
+        "usage_claim": "Sort is an occasional, task-specific feature that mainstream how-to sites must teach from scratch ('How to Alphabetize Lists and Tables in Microsoft Word') and that lived buried in the Table menu before 2007, indicating most users touch it rarely if ever, though the volume of alphabetize-a-list tutorials shows recurring occasional demand.",
+        "usage_source": "https://www.howtogeek.com/361217/how-to-alphabetize-lists-and-tables-in-microsoft-word/",
+        "prominence": 0.5774
+      },
+      "combined": 0.3154,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:graphics-border",
+      "name": "Graphics Outline",
+      "parent": "feature:graphics-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this outlines an icon — occasional -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6345
+      },
+      "combined": 0.3146,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:graphics-effects",
+      "name": "Graphics Effects",
+      "parent": "feature:graphics-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds effects to an icon — occasional -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6345
+      },
+      "combined": 0.3146,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:smartart-reverse",
+      "name": "Right to Left",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this reverses layout direction — occasional -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.6299
+      },
+      "combined": 0.3135,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:online-videos-insert",
+      "name": "Online Videos",
+      "parent": "feature:media",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds online video — the core job is print-shaped documents -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "The Insert Online Video button has been missing or grayed out for whole license classes of users with only scattered Microsoft Q&A threads noticing, and availability varies by SKU/platform — a print-oriented app feature that almost nobody exercises.",
+        "usage_source": "Microsoft Q&A, 'Insert Online Video button missing from Ribbon in Microsoft Word' — https://learn.microsoft.com/en-us/answers/questions/183bb73d-c5b0-45ee-9821-c892a341d7cd/insert-online-video-button-missing-from-ribbon-in",
+        "prominence": 0.7716
+      },
+      "combined": 0.3099,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:word-art-insert",
+      "name": "WordArt",
+      "parent": "feature:text",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts decorative display text — pure decoration -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "WordArt is covered in the tech press purely as a 90s nostalgia relic (Popular Science runs a how-to for retrieving 'retro' WordArt), was demoted from a default toolbar button to a buried Insert-tab item, and is kept largely for backward compatibility.",
+        "usage_source": "Popular Science, 'How to get the retro WordArt back in Microsoft Word' — https://www.popsci.com/diy/how-to-get-the-retro-wordart-back-in-microsoft-word/",
+        "prominence": 0.7513
+      },
+      "combined": 0.3048,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:smartart-org-layout",
+      "name": "Organization Layout",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this org-chart branch layout — niche -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5921
+      },
+      "combined": 0.304,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:wordart-text-outline",
+      "name": "Text Outline",
+      "parent": "feature:wordart-text-styles",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this outlines object text — decorative -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5654
+      },
+      "combined": 0.2974,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:shape-text-direction",
+      "name": "Text Direction (in shape)",
+      "parent": "feature:shape-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rotates text in a shape — niche -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5633
+      },
+      "combined": 0.2968,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:picture-artistic-effects",
+      "name": "Artistic Effects",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies painterly filters — decorative, occasional -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Artistic filters are mentioned in tutorials only as a novelty aside (e.g. in background-removal guides), are absent from MOS training objectives, and serve no common document task.",
+        "usage_source": "https://icons8.com/blog/articles/remove-background-from-picture-word/",
+        "prominence": 0.7127
+      },
+      "combined": 0.2952,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:drop-cap-insert",
+      "name": "Drop Cap",
+      "parent": "feature:text",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this drops the first letter large — a rare typographic flourish -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Drop Cap is a print-typography convention for newsletters/book design that gets zero coverage in GCFGlobal's 35-lesson curriculum and no presence in shortcut or productivity lists — a decorative feature typical users never touch.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum (no Drop Cap lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+        "prominence": 0.7069
+      },
+      "combined": 0.2937,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:signature-line-insert",
+      "name": "Signature Line",
+      "parent": "feature:text",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts a signature placeholder — specific business workflows -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Word's Signature Line requires a digital-certificate workflow while mainstream e-signing has moved to dedicated tools (DocuSign/Acrobat), and the feature gets no coverage in core Word training — a rarely exercised legacy path.",
+        "usage_source": "GCFGlobal Word: Foundations curriculum (no Signature Line lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+        "prominence": 0.6959
+      },
+      "combined": 0.291,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:shape-text-link",
+      "name": "Create Text Box Link",
+      "parent": "feature:shape-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this flows text between text boxes — desktop-publishing niche -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.5276
+      },
+      "combined": 0.2879,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:table-eraser",
+      "name": "Eraser",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this erases cell boundaries — niche -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "The Eraser only surfaces in Draw Table workflows (itself a low-usage method), and its main effect — removing a dividing line — is more commonly achieved via the better-known Merge Cells command, so it is rarely touched.",
+        "usage_source": "https://support.microsoft.com/en-us/office/insert-a-table-a138f745-73ef-4879-b99a-2f3d38be612a (Eraser documented only within the Draw Table workflow); merge-cells alternative: https://support.microsoft.com/en-us/office/merge-and-split-table-cells-in-word-3e42e8d8-89e8-4345-a79c-524a815f40ce",
+        "prominence": 0.6746
+      },
+      "combined": 0.2856,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:equation-ink",
+      "name": "Ink Equation",
+      "parent": "feature:equation-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this hand-writes an equation — a niche input mode -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Ink Equation requires pen/touch input and appears in how-to guides as a novelty alternative to structured entry; usable only by the touch-device subset of the already niche equation-authoring population.",
+        "usage_source": "https://geekchamp.com/how-to-use-equation-editor-in-microsoft-word/",
+        "prominence": 0.6416
+      },
+      "combined": 0.2774,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:hf-alignment-tab",
+      "name": "Insert Alignment Tab",
+      "parent": "feature:header-footer-tools",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts an alignment tab — advanced header/footer layout -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Alignment tabs are obscure even to power users — they appear in essentially no training curricula, style-guide instructions, or MOS objectives.",
+        "usage_source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+        "prominence": 0.6284
+      },
+      "combined": 0.2741,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:object-insert",
+      "name": "Object",
+      "parent": "feature:text",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds OLE objects/files — legacy compound documents -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "OLE object embedding is legacy technology whose modern equivalents (paste/link from Excel) dominate, and Microsoft's own telemetry shows the deep Insert-command long tail sees negligible use (e.g. 'Reset Picture' ranked ~#400 of all commands).",
+        "usage_source": "Office 2003 command-frequency data via GranneBlog, 'The most popular commands in Word' — https://blog.granneman.com/2008/02/21/the-most-popular-commands-in-word/",
+        "prominence": 0.627
+      },
+      "combined": 0.2737,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:table-formula",
+      "name": "Formula",
+      "parent": "feature:table-layout",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds a cell formula — Word tables are rarely used for calculation -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Word table formulas (=SUM(ABOVE)) are consistently framed as a little-known feature with well-documented pitfalls (stops at blank/text cells, results need manual field updates), and the long-standing Word MVP FAQ on its wrong answers shows even the few who try it get confused — typical users calculate in Excel instead.",
+        "usage_source": "https://wordmvp.com/FAQs/AppErrors/SumAboveIncorrect.htm (Word MVP FAQ: '=SUM(ABOVE) formula... answer was obviously incorrect'); feature doc: https://support.microsoft.com/en-us/office/sum-a-column-or-row-of-numbers-in-a-table-in-word-2e373a5f-2d8a-478a-9b85-275c8668bebb",
+        "prominence": 0.5911
+      },
+      "combined": 0.2648,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:picture-convert-to-smartart",
+      "name": "Picture Layout (convert to SmartArt)",
+      "parent": "feature:picture-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this captions images as SmartArt — niche -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Converting pictures into SmartArt layouts is an obscure feature tied to SmartArt, which presentation experts describe as amateur-occasional and 'rarely used in management' contexts.",
+        "usage_source": "https://www.thinkoutsidetheslide.com/issue-326-december-9-2014/",
+        "prominence": 0.5785
+      },
+      "combined": 0.2616,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:smartart-reset",
+      "name": "Reset Graphic",
+      "parent": "feature:smartart-design",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this resets diagram formatting — an undo aid -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "Reset is an undo-my-formatting escape hatch analogous to Reset Picture, which telemetry placed at ~#400 in Word 2003 command frequency — deep long-tail within an already occasional feature.",
+        "usage_source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "prominence": 0.5731
+      },
+      "combined": 0.2603,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:office-clipboard",
+      "name": "Office Clipboard",
+      "parent": "feature:clipboard",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this shows the last 24 clipboard items — the core job needs only the live clipboard -> therefore peripheral",
+        "usage": 0.12,
+        "usage_tier": "rare",
+        "usage_claim": "The multi-item Office Clipboard task pane is hidden behind a dialog-box launcher, has been hidden by default since Word 2007, and community coverage describes it either as a 'hidden treasure' most users have never heard of or as an annoyance users search for how to turn OFF — deliberate use is rare.",
+        "usage_source": "Office Watch, 'Exploring the Office clipboard' (https://office-watch.com/2018/office-clipboard/); WordTips, 'Turning Off Display of the Office Clipboard' (https://wordribbon.tips.net/T000288_Turning_Off_Display_of_the_Office_Clipboard.html); The Training Lady, 'The Office Clipboard - A hidden treasure' (https://www.thetraininglady.com/office-clipboard/)",
+        "prominence": 0.5653
+      },
+      "combined": 0.2583,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:graphics-format-pane",
+      "name": "Format Graphic pane",
+      "parent": "feature:graphics-format",
+      "boundary": false,
+      "signals": {
+        "product_purpose": 0.18,
+        "product_verdict": "peripheral",
+        "product_reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this the full graphic-formatting pane — power editing of a niche object -> therefore peripheral",
+        "usage": 0.25,
+        "usage_tier": "no-evidence",
+        "usage_claim": null,
+        "usage_source": null,
+        "prominence": 0.3779
+      },
+      "combined": 0.2505,
+      "layer": "P4"
+    }
+  ]
+}

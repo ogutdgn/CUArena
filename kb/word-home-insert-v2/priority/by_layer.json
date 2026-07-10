@@ -1,0 +1,1096 @@
+{
+  "P0": {
+    "features": [
+      {
+        "id": "feature:clipboard",
+        "name": "Clipboard",
+        "scope": "whole",
+        "ratio": "4/5"
+      },
+      {
+        "id": "feature:font",
+        "name": "Font",
+        "scope": "gems",
+        "ratio": "7/16"
+      },
+      {
+        "id": "feature:illustrations",
+        "name": "Illustrations",
+        "scope": "gems",
+        "ratio": "2/7"
+      },
+      {
+        "id": "feature:tables",
+        "name": "Tables",
+        "scope": "whole",
+        "ratio": "1/1"
+      }
+    ],
+    "subfeatures": [
+      {
+        "id": "subfeature:paste",
+        "name": "Paste",
+        "score": 0.9812
+      },
+      {
+        "id": "subfeature:copy",
+        "name": "Copy",
+        "score": 0.9409
+      },
+      {
+        "id": "subfeature:font-size",
+        "name": "Font Size",
+        "score": 0.9207
+      },
+      {
+        "id": "subfeature:font",
+        "name": "Font",
+        "score": 0.9113
+      },
+      {
+        "id": "subfeature:bold",
+        "name": "Bold",
+        "score": 0.9075
+      },
+      {
+        "id": "subfeature:insert-pictures",
+        "name": "Pictures",
+        "score": 0.8988
+      },
+      {
+        "id": "subfeature:table-insert",
+        "name": "Table",
+        "score": 0.8942
+      }
+    ]
+  },
+  "P1": {
+    "features": [
+      {
+        "id": "feature:comments",
+        "name": "Comments",
+        "scope": "whole",
+        "ratio": "1/1"
+      },
+      {
+        "id": "feature:editing",
+        "name": "Editing",
+        "scope": "whole",
+        "ratio": "2/3"
+      },
+      {
+        "id": "feature:header-footer",
+        "name": "Header & Footer",
+        "scope": "whole",
+        "ratio": "3/3"
+      },
+      {
+        "id": "feature:object-arrange",
+        "name": "Arrange objects",
+        "scope": "gems",
+        "ratio": "1/8"
+      },
+      {
+        "id": "feature:object-size",
+        "name": "Size objects",
+        "scope": "whole",
+        "ratio": "2/2"
+      },
+      {
+        "id": "feature:pages",
+        "name": "Pages",
+        "scope": "gems",
+        "ratio": "1/3"
+      },
+      {
+        "id": "feature:paragraph",
+        "name": "Paragraph",
+        "scope": "gems",
+        "ratio": "6/15"
+      },
+      {
+        "id": "feature:styles",
+        "name": "Styles",
+        "scope": "gems",
+        "ratio": "1/2"
+      },
+      {
+        "id": "feature:table-layout",
+        "name": "Table Layout",
+        "scope": "gems",
+        "ratio": "8/20"
+      }
+    ],
+    "subfeatures": [
+      {
+        "id": "subfeature:page-break-insert",
+        "name": "Page Break",
+        "score": 0.7607
+      },
+      {
+        "id": "subfeature:insert-new-comment",
+        "name": "Comment",
+        "score": 0.7574
+      },
+      {
+        "id": "subfeature:page-number-insert",
+        "name": "Page Number",
+        "score": 0.753
+      },
+      {
+        "id": "subfeature:header-insert",
+        "name": "Header",
+        "score": 0.741
+      },
+      {
+        "id": "subfeature:cut",
+        "name": "Cut",
+        "score": 0.7398
+      },
+      {
+        "id": "subfeature:footer-insert",
+        "name": "Footer",
+        "score": 0.7386
+      },
+      {
+        "id": "subfeature:table-insert-rows",
+        "name": "Insert Rows",
+        "score": 0.7342
+      },
+      {
+        "id": "subfeature:table-insert-columns",
+        "name": "Insert Columns",
+        "score": 0.7313
+      },
+      {
+        "id": "subfeature:underline-gallery",
+        "name": "Underline",
+        "score": 0.7247
+      },
+      {
+        "id": "subfeature:table-delete",
+        "name": "Delete",
+        "score": 0.7224
+      },
+      {
+        "id": "subfeature:text-highlight-color-picker",
+        "name": "Text Highlight Color",
+        "score": 0.7199
+      },
+      {
+        "id": "subfeature:font-color-picker",
+        "name": "Font Color",
+        "score": 0.7187
+      },
+      {
+        "id": "subfeature:bullets-gallery",
+        "name": "Bullets",
+        "score": 0.7171
+      },
+      {
+        "id": "subfeature:find",
+        "name": "Find",
+        "score": 0.7168
+      },
+      {
+        "id": "subfeature:numbering-gallery",
+        "name": "Numbering",
+        "score": 0.7159
+      },
+      {
+        "id": "subfeature:line-spacing",
+        "name": "Line and Paragraph Spacing",
+        "score": 0.7148
+      },
+      {
+        "id": "subfeature:table-merge-cells",
+        "name": "Merge Cells",
+        "score": 0.7147
+      },
+      {
+        "id": "subfeature:italic",
+        "name": "Italic",
+        "score": 0.7117
+      },
+      {
+        "id": "subfeature:object-text-wrap",
+        "name": "Wrap Text",
+        "score": 0.7105
+      },
+      {
+        "id": "subfeature:picture-crop",
+        "name": "Crop",
+        "score": 0.7034
+      },
+      {
+        "id": "subfeature:align-left",
+        "name": "Align Left",
+        "score": 0.7033
+      },
+      {
+        "id": "subfeature:indent-increase",
+        "name": "Increase Indent",
+        "score": 0.6988
+      },
+      {
+        "id": "subfeature:quick-styles",
+        "name": "Quick Styles gallery",
+        "score": 0.698
+      }
+    ]
+  },
+  "P2": {
+    "features": [
+      {
+        "id": "feature:chart-design",
+        "name": "Chart Design",
+        "scope": "gems",
+        "ratio": "1/7"
+      },
+      {
+        "id": "feature:header-footer-tools",
+        "name": "Header & Footer Tools",
+        "scope": "gems",
+        "ratio": "2/7"
+      },
+      {
+        "id": "feature:links",
+        "name": "Links",
+        "scope": "gems",
+        "ratio": "1/3"
+      },
+      {
+        "id": "feature:picture-format",
+        "name": "Picture Format",
+        "scope": "gems",
+        "ratio": "1/13"
+      },
+      {
+        "id": "feature:shape-styles",
+        "name": "Shape styles",
+        "scope": "whole",
+        "ratio": "3/5"
+      },
+      {
+        "id": "feature:table-design",
+        "name": "Table Design",
+        "scope": "gems",
+        "ratio": "2/4"
+      }
+    ],
+    "subfeatures": [
+      {
+        "id": "subfeature:insert-link",
+        "name": "Link",
+        "score": 0.6714
+      },
+      {
+        "id": "subfeature:shape-style-gallery",
+        "name": "Shape Styles gallery",
+        "score": 0.6584
+      },
+      {
+        "id": "subfeature:hf-options",
+        "name": "Header/Footer Options",
+        "score": 0.6508
+      },
+      {
+        "id": "subfeature:table-styles",
+        "name": "Table Styles gallery",
+        "score": 0.6504
+      },
+      {
+        "id": "subfeature:picture-style-gallery",
+        "name": "Picture Styles gallery",
+        "score": 0.6502
+      },
+      {
+        "id": "subfeature:hf-close",
+        "name": "Close Header and Footer",
+        "score": 0.6428
+      },
+      {
+        "id": "subfeature:table-autofit",
+        "name": "AutoFit",
+        "score": 0.6386
+      },
+      {
+        "id": "subfeature:replace",
+        "name": "Replace",
+        "score": 0.6384
+      },
+      {
+        "id": "subfeature:object-size",
+        "name": "Object Size",
+        "score": 0.6354
+      },
+      {
+        "id": "subfeature:shape-outline",
+        "name": "Shape Outline",
+        "score": 0.6326
+      },
+      {
+        "id": "subfeature:table-borders",
+        "name": "Table Borders",
+        "score": 0.628
+      },
+      {
+        "id": "subfeature:shape-fill",
+        "name": "Shape Fill",
+        "score": 0.6236
+      },
+      {
+        "id": "subfeature:paragraph-dialog",
+        "name": "Paragraph dialog launcher",
+        "score": 0.6048
+      },
+      {
+        "id": "subfeature:format-painter",
+        "name": "Format Painter",
+        "score": 0.586
+      },
+      {
+        "id": "subfeature:table-cell-alignment",
+        "name": "Cell Alignment",
+        "score": 0.5772
+      },
+      {
+        "id": "subfeature:shapes-insert",
+        "name": "Shapes",
+        "score": 0.5689
+      },
+      {
+        "id": "subfeature:table-split-cells",
+        "name": "Split Cells",
+        "score": 0.5638
+      },
+      {
+        "id": "subfeature:chart-edit-data",
+        "name": "Edit / Select Data",
+        "score": 0.5565
+      },
+      {
+        "id": "subfeature:table-properties",
+        "name": "Table Properties",
+        "score": 0.5518
+      }
+    ]
+  },
+  "P3": {
+    "features": [
+      {
+        "id": "feature:chart-format",
+        "name": "Chart Format (chart-specific)",
+        "scope": "none",
+        "ratio": "0/2"
+      },
+      {
+        "id": "feature:equation-tools",
+        "name": "Equation",
+        "scope": "none",
+        "ratio": "0/4"
+      },
+      {
+        "id": "feature:graphics-format",
+        "name": "Graphics Format",
+        "scope": "none",
+        "ratio": "0/7"
+      },
+      {
+        "id": "feature:shape-format",
+        "name": "Shape Format (shape-specific)",
+        "scope": "none",
+        "ratio": "0/4"
+      },
+      {
+        "id": "feature:smartart-design",
+        "name": "SmartArt Design",
+        "scope": "none",
+        "ratio": "0/10"
+      },
+      {
+        "id": "feature:symbols",
+        "name": "Symbols",
+        "scope": "none",
+        "ratio": "0/2"
+      },
+      {
+        "id": "feature:text",
+        "name": "Text",
+        "scope": "none",
+        "ratio": "0/7"
+      },
+      {
+        "id": "feature:wordart-text-styles",
+        "name": "Text (WordArt) styles",
+        "scope": "none",
+        "ratio": "0/4"
+      }
+    ],
+    "subfeatures": [
+      {
+        "id": "subfeature:text-box-insert",
+        "name": "Text Box",
+        "score": 0.5479
+      },
+      {
+        "id": "subfeature:table-select",
+        "name": "Select (table parts)",
+        "score": 0.5409
+      },
+      {
+        "id": "subfeature:align-center",
+        "name": "Center",
+        "score": 0.5376
+      },
+      {
+        "id": "subfeature:font-dialog",
+        "name": "Font dialog launcher",
+        "score": 0.5372
+      },
+      {
+        "id": "subfeature:object-reorder",
+        "name": "Bring Forward / Send Backward",
+        "score": 0.5351
+      },
+      {
+        "id": "subfeature:indent-decrease",
+        "name": "Decrease Indent",
+        "score": 0.5346
+      },
+      {
+        "id": "subfeature:table-style-options",
+        "name": "Table Style Options",
+        "score": 0.533
+      },
+      {
+        "id": "subfeature:change-case",
+        "name": "Change Case",
+        "score": 0.5329
+      },
+      {
+        "id": "subfeature:picture-compress",
+        "name": "Compress Pictures",
+        "score": 0.5321
+      },
+      {
+        "id": "subfeature:object-position",
+        "name": "Position",
+        "score": 0.5303
+      },
+      {
+        "id": "subfeature:multilevel-list",
+        "name": "Multilevel List",
+        "score": 0.528
+      },
+      {
+        "id": "subfeature:table-repeat-header",
+        "name": "Repeat Header Rows",
+        "score": 0.5238
+      },
+      {
+        "id": "subfeature:hf-link-to-previous",
+        "name": "Link to Previous",
+        "score": 0.5231
+      },
+      {
+        "id": "subfeature:strikethrough",
+        "name": "Strikethrough",
+        "score": 0.5223
+      },
+      {
+        "id": "subfeature:table-cell-size",
+        "name": "Cell Size",
+        "score": 0.5192
+      },
+      {
+        "id": "subfeature:table-shading",
+        "name": "Table Shading",
+        "score": 0.519
+      },
+      {
+        "id": "subfeature:clear-formatting",
+        "name": "Clear All Formatting",
+        "score": 0.517
+      },
+      {
+        "id": "subfeature:smart-art-insert",
+        "name": "SmartArt",
+        "score": 0.5021
+      },
+      {
+        "id": "subfeature:cover-page-insert",
+        "name": "Cover Page",
+        "score": 0.5006
+      },
+      {
+        "id": "subfeature:object-rotate",
+        "name": "Rotate",
+        "score": 0.4965
+      },
+      {
+        "id": "subfeature:object-group",
+        "name": "Group",
+        "score": 0.4961
+      },
+      {
+        "id": "subfeature:cross-reference-insert",
+        "name": "Cross-reference",
+        "score": 0.4954
+      },
+      {
+        "id": "subfeature:object-align",
+        "name": "Align",
+        "score": 0.4939
+      },
+      {
+        "id": "subfeature:chart-insert",
+        "name": "Chart",
+        "score": 0.4886
+      },
+      {
+        "id": "subfeature:chart-add-element",
+        "name": "Add Chart Element",
+        "score": 0.4789
+      },
+      {
+        "id": "subfeature:picture-remove-background",
+        "name": "Remove Background",
+        "score": 0.4788
+      },
+      {
+        "id": "subfeature:picture-corrections",
+        "name": "Corrections",
+        "score": 0.477
+      },
+      {
+        "id": "subfeature:equation-insert-gallery",
+        "name": "Equation",
+        "score": 0.4762
+      },
+      {
+        "id": "subfeature:hf-document-info",
+        "name": "Document Info",
+        "score": 0.4743
+      },
+      {
+        "id": "subfeature:table-view-gridlines",
+        "name": "View Gridlines",
+        "score": 0.474
+      },
+      {
+        "id": "subfeature:chart-change-colors",
+        "name": "Change Colors",
+        "score": 0.4711
+      },
+      {
+        "id": "subfeature:smartart-layout",
+        "name": "Layouts gallery",
+        "score": 0.468
+      },
+      {
+        "id": "subfeature:chart-style",
+        "name": "Chart Styles gallery",
+        "score": 0.4675
+      },
+      {
+        "id": "subfeature:equation-symbols",
+        "name": "Equation Symbols",
+        "score": 0.467
+      },
+      {
+        "id": "subfeature:symbol-insert",
+        "name": "Symbol",
+        "score": 0.4665
+      },
+      {
+        "id": "subfeature:graphics-convert-to-shape",
+        "name": "Convert to Shape",
+        "score": 0.4587
+      },
+      {
+        "id": "subfeature:smartart-add-shape",
+        "name": "Add Shape",
+        "score": 0.4584
+      },
+      {
+        "id": "subfeature:hf-navigate",
+        "name": "Header/Footer Navigation",
+        "score": 0.4575
+      },
+      {
+        "id": "subfeature:graphics-style-gallery",
+        "name": "Graphics Styles gallery",
+        "score": 0.4572
+      },
+      {
+        "id": "subfeature:object-selection-pane",
+        "name": "Selection Pane",
+        "score": 0.4551
+      },
+      {
+        "id": "subfeature:equation-structures",
+        "name": "Structures",
+        "score": 0.4549
+      },
+      {
+        "id": "subfeature:smartart-style",
+        "name": "SmartArt Styles gallery",
+        "score": 0.4539
+      },
+      {
+        "id": "subfeature:chart-select-element",
+        "name": "Chart Elements selector",
+        "score": 0.4537
+      },
+      {
+        "id": "subfeature:chart-change-type",
+        "name": "Change Chart Type",
+        "score": 0.4536
+      },
+      {
+        "id": "subfeature:chart-format-selection",
+        "name": "Format Selection",
+        "score": 0.4521
+      },
+      {
+        "id": "subfeature:object-alt-text",
+        "name": "Alt Text",
+        "score": 0.4505
+      },
+      {
+        "id": "subfeature:table-split-table",
+        "name": "Split Table",
+        "score": 0.4503
+      },
+      {
+        "id": "subfeature:shading-color-picker",
+        "name": "Shading",
+        "score": 0.4501
+      },
+      {
+        "id": "subfeature:borders-selection-gallery",
+        "name": "Borders",
+        "score": 0.4489
+      },
+      {
+        "id": "subfeature:smartart-promote-demote",
+        "name": "Promote / Demote",
+        "score": 0.4486
+      },
+      {
+        "id": "subfeature:smartart-text-pane",
+        "name": "Text Pane",
+        "score": 0.4466
+      },
+      {
+        "id": "subfeature:subscript",
+        "name": "Subscript",
+        "score": 0.4465
+      },
+      {
+        "id": "subfeature:wordart-text-style-gallery",
+        "name": "WordArt Styles gallery",
+        "score": 0.4462
+      },
+      {
+        "id": "subfeature:superscript",
+        "name": "Superscript",
+        "score": 0.4457
+      },
+      {
+        "id": "subfeature:blank-page-insert",
+        "name": "Blank Page",
+        "score": 0.4454
+      },
+      {
+        "id": "subfeature:shape-effects",
+        "name": "Shape Effects",
+        "score": 0.4451
+      },
+      {
+        "id": "subfeature:font-size-increase",
+        "name": "Grow Font",
+        "score": 0.4449
+      },
+      {
+        "id": "subfeature:table-cell-margins",
+        "name": "Cell Margins",
+        "score": 0.4444
+      },
+      {
+        "id": "subfeature:smartart-change-colors",
+        "name": "Change Colors",
+        "score": 0.4428
+      },
+      {
+        "id": "subfeature:table-convert-to-text",
+        "name": "Convert to Text",
+        "score": 0.4394
+      },
+      {
+        "id": "subfeature:picture-effects",
+        "name": "Picture Effects",
+        "score": 0.4368
+      },
+      {
+        "id": "subfeature:select",
+        "name": "Select",
+        "score": 0.4365
+      },
+      {
+        "id": "subfeature:paragraph-marks",
+        "name": "Show/Hide ¶",
+        "score": 0.4346
+      },
+      {
+        "id": "subfeature:wordart-text-effects",
+        "name": "Text Effects",
+        "score": 0.4338
+      },
+      {
+        "id": "subfeature:font-size-decrease",
+        "name": "Shrink Font",
+        "score": 0.4292
+      },
+      {
+        "id": "subfeature:graphics-color",
+        "name": "Graphics Fill (recolor)",
+        "score": 0.4277
+      },
+      {
+        "id": "subfeature:align-right",
+        "name": "Align Right",
+        "score": 0.4243
+      },
+      {
+        "id": "subfeature:align-justify",
+        "name": "Justify",
+        "score": 0.4236
+      },
+      {
+        "id": "subfeature:chart-quick-layout",
+        "name": "Quick Layout",
+        "score": 0.4205
+      },
+      {
+        "id": "subfeature:picture-border",
+        "name": "Picture Border",
+        "score": 0.4204
+      },
+      {
+        "id": "subfeature:picture-transparency",
+        "name": "Transparency",
+        "score": 0.4193
+      },
+      {
+        "id": "subfeature:equation-conversions",
+        "name": "Conversions",
+        "score": 0.4128
+      },
+      {
+        "id": "subfeature:shape-edit",
+        "name": "Edit Shape",
+        "score": 0.4122
+      },
+      {
+        "id": "subfeature:shape-text-align",
+        "name": "Align Text (in shape)",
+        "score": 0.411
+      },
+      {
+        "id": "subfeature:wordart-text-fill",
+        "name": "Text Fill",
+        "score": 0.4093
+      },
+      {
+        "id": "subfeature:picture-color",
+        "name": "Color",
+        "score": 0.4086
+      },
+      {
+        "id": "subfeature:chart-switch-row-column",
+        "name": "Switch Row/Column",
+        "score": 0.4043
+      },
+      {
+        "id": "subfeature:picture-change",
+        "name": "Change Picture",
+        "score": 0.4011
+      },
+      {
+        "id": "subfeature:picture-reset",
+        "name": "Reset Picture",
+        "score": 0.4011
+      },
+      {
+        "id": "subfeature:styles-pane",
+        "name": "Styles pane launcher",
+        "score": 0.397
+      },
+      {
+        "id": "subfeature:smartart-add-bullet",
+        "name": "Add Bullet",
+        "score": 0.3946
+      }
+    ]
+  },
+  "P4": {
+    "features": [
+      {
+        "id": "feature:acrobat",
+        "name": "Adobe Acrobat",
+        "scope": "none",
+        "ratio": "0/1"
+      },
+      {
+        "id": "feature:add-ins",
+        "name": "Add-ins",
+        "scope": "none",
+        "ratio": "0/1"
+      },
+      {
+        "id": "feature:editor",
+        "name": "Editor",
+        "scope": "none",
+        "ratio": "0/1"
+      },
+      {
+        "id": "feature:esignature",
+        "name": "eSignature",
+        "scope": "none",
+        "ratio": "0/1"
+      },
+      {
+        "id": "feature:media",
+        "name": "Media",
+        "scope": "none",
+        "ratio": "0/1"
+      },
+      {
+        "id": "feature:smartart-format",
+        "name": "SmartArt Format (shape-specific)",
+        "scope": "none",
+        "ratio": "0/1"
+      },
+      {
+        "id": "feature:voice",
+        "name": "Voice",
+        "scope": "none",
+        "ratio": "0/1"
+      }
+    ],
+    "subfeatures": [
+      {
+        "id": "subfeature:editor",
+        "name": "Editor",
+        "score": 0.4598
+      },
+      {
+        "id": "subfeature:bookmark-insert",
+        "name": "Bookmark",
+        "score": 0.3769
+      },
+      {
+        "id": "subfeature:table-insert-cells",
+        "name": "Insert Cells",
+        "score": 0.3736
+      },
+      {
+        "id": "subfeature:icon-insert",
+        "name": "Icons",
+        "score": 0.3712
+      },
+      {
+        "id": "subfeature:shape-format-pane",
+        "name": "Format Shape pane",
+        "score": 0.3711
+      },
+      {
+        "id": "subfeature:picture-format-pane",
+        "name": "Format Picture pane",
+        "score": 0.3609
+      },
+      {
+        "id": "subfeature:hf-position",
+        "name": "Header/Footer Position",
+        "score": 0.3607
+      },
+      {
+        "id": "subfeature:quick-parts-insert",
+        "name": "Quick Parts",
+        "score": 0.3502
+      },
+      {
+        "id": "subfeature:office-addins",
+        "name": "Add-ins",
+        "score": 0.3435
+      },
+      {
+        "id": "subfeature:graphics-change",
+        "name": "Change Graphic",
+        "score": 0.3424
+      },
+      {
+        "id": "subfeature:create-pdf",
+        "name": "Create a PDF",
+        "score": 0.3421
+      },
+      {
+        "id": "subfeature:date-and-time-insert",
+        "name": "Date & Time",
+        "score": 0.3407
+      },
+      {
+        "id": "subfeature:table-draw",
+        "name": "Draw Table",
+        "score": 0.3406
+      },
+      {
+        "id": "subfeature:esignature-fields",
+        "name": "eSignature fields",
+        "score": 0.3402
+      },
+      {
+        "id": "subfeature:dictate",
+        "name": "Dictate",
+        "score": 0.34
+      },
+      {
+        "id": "subfeature:insert-3d-models",
+        "name": "3D Models",
+        "score": 0.3315
+      },
+      {
+        "id": "subfeature:smartart-shape-edit",
+        "name": "Edit SmartArt Shape",
+        "score": 0.3294
+      },
+      {
+        "id": "subfeature:table-text-direction",
+        "name": "Text Direction",
+        "score": 0.3289
+      },
+      {
+        "id": "subfeature:screenshot-insert",
+        "name": "Screenshot",
+        "score": 0.3276
+      },
+      {
+        "id": "subfeature:text-effects",
+        "name": "Text Effects and Typography",
+        "score": 0.3229
+      },
+      {
+        "id": "subfeature:sort",
+        "name": "Sort",
+        "score": 0.3154
+      },
+      {
+        "id": "subfeature:graphics-border",
+        "name": "Graphics Outline",
+        "score": 0.3146
+      },
+      {
+        "id": "subfeature:graphics-effects",
+        "name": "Graphics Effects",
+        "score": 0.3146
+      },
+      {
+        "id": "subfeature:smartart-reverse",
+        "name": "Right to Left",
+        "score": 0.3135
+      },
+      {
+        "id": "subfeature:online-videos-insert",
+        "name": "Online Videos",
+        "score": 0.3099
+      },
+      {
+        "id": "subfeature:word-art-insert",
+        "name": "WordArt",
+        "score": 0.3048
+      },
+      {
+        "id": "subfeature:smartart-org-layout",
+        "name": "Organization Layout",
+        "score": 0.304
+      },
+      {
+        "id": "subfeature:wordart-text-outline",
+        "name": "Text Outline",
+        "score": 0.2974
+      },
+      {
+        "id": "subfeature:shape-text-direction",
+        "name": "Text Direction (in shape)",
+        "score": 0.2968
+      },
+      {
+        "id": "subfeature:picture-artistic-effects",
+        "name": "Artistic Effects",
+        "score": 0.2952
+      },
+      {
+        "id": "subfeature:drop-cap-insert",
+        "name": "Drop Cap",
+        "score": 0.2937
+      },
+      {
+        "id": "subfeature:signature-line-insert",
+        "name": "Signature Line",
+        "score": 0.291
+      },
+      {
+        "id": "subfeature:shape-text-link",
+        "name": "Create Text Box Link",
+        "score": 0.2879
+      },
+      {
+        "id": "subfeature:table-eraser",
+        "name": "Eraser",
+        "score": 0.2856
+      },
+      {
+        "id": "subfeature:equation-ink",
+        "name": "Ink Equation",
+        "score": 0.2774
+      },
+      {
+        "id": "subfeature:hf-alignment-tab",
+        "name": "Insert Alignment Tab",
+        "score": 0.2741
+      },
+      {
+        "id": "subfeature:object-insert",
+        "name": "Object",
+        "score": 0.2737
+      },
+      {
+        "id": "subfeature:table-formula",
+        "name": "Formula",
+        "score": 0.2648
+      },
+      {
+        "id": "subfeature:picture-convert-to-smartart",
+        "name": "Picture Layout (convert to SmartArt)",
+        "score": 0.2616
+      },
+      {
+        "id": "subfeature:smartart-reset",
+        "name": "Reset Graphic",
+        "score": 0.2603
+      },
+      {
+        "id": "subfeature:office-clipboard",
+        "name": "Office Clipboard",
+        "score": 0.2583
+      },
+      {
+        "id": "subfeature:graphics-format-pane",
+        "name": "Format Graphic pane",
+        "score": 0.2505
+      }
+    ]
+  }
+}

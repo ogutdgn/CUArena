@@ -1,0 +1,575 @@
+{
+  "feature": {
+    "id": "feature:picture-format",
+    "node_type": "feature",
+    "name": "Picture Format",
+    "what_it_does": "Adjust and style a selected picture — corrections, color, artistic effects, compression, picture styles, border, effects and layout.",
+    "affects": "the appearance of the selected picture",
+    "audience_breadth": "most",
+    "behavior": "Adjust and style a selected picture — corrections, color, artistic effects, compression, picture styles, border, effects and layout. Group controls: subfeature:picture-artistic-effects, subfeature:picture-border, subfeature:picture-change, subfeature:picture-color, subfeature:picture-compress, subfeature:picture-convert-to-smartart, subfeature:picture-corrections, subfeature:picture-effects, subfeature:picture-format-pane, subfeature:picture-remove-background, subfeature:picture-reset, subfeature:picture-style-gallery, subfeature:picture-transparency",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-picture-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-picture-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:picture-artistic-effects",
+      "subfeature:picture-border",
+      "subfeature:picture-change",
+      "subfeature:picture-color",
+      "subfeature:picture-compress",
+      "subfeature:picture-convert-to-smartart",
+      "subfeature:picture-corrections",
+      "subfeature:picture-effects",
+      "subfeature:picture-format-pane",
+      "subfeature:picture-remove-background",
+      "subfeature:picture-reset",
+      "subfeature:picture-style-gallery",
+      "subfeature:picture-transparency"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:insert-pictures",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:picture-artistic-effects",
+      "node_type": "subfeature",
+      "name": "Artistic Effects",
+      "parent": "feature:picture-format",
+      "what_it_does": "Applies a painterly/artistic filter to the picture from a gallery.",
+      "affects": "the picture's artistic rendering",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-artistic-effects-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-artistic-effects-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-artistic-effects-gallery.png",
+        "screenshots/ui-ribbon-picture-format-picture-artistic-effects-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-corrections",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-color",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-transparency",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-border",
+      "node_type": "subfeature",
+      "name": "Picture Border",
+      "parent": "feature:picture-format",
+      "what_it_does": "Sets the picture's border color, weight and dash style (options in the picker).",
+      "affects": "the picture's border",
+      "audience_breadth": "most",
+      "behavior": "Opens Picture Border (dropdown). Contents (0 controls): . [Pick the color, width, and line style for the outline of your shape.]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-outline-color-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-outline-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-outline-color-picker.png",
+        "screenshots/ui-ribbon-picture-format-outline-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-change",
+      "node_type": "subfeature",
+      "name": "Change Picture",
+      "parent": "feature:picture-format",
+      "what_it_does": "Replaces the picture with another (from file/stock/online) keeping formatting.",
+      "affects": "the picture's source image",
+      "audience_breadth": "niche",
+      "behavior": "Opens Change Picture (dropdown). Contents (5 controls): From Clipboard..., This Device..., From Stock Images..., From Online Sources..., From Icons.... [flyout of subfeature:picture-change — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-change-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-change-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-change-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-change-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-change-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-color",
+      "node_type": "subfeature",
+      "name": "Color",
+      "parent": "feature:picture-format",
+      "what_it_does": "Recolors the picture — saturation, tone, and recolor presets (gallery + options).",
+      "affects": "the picture's color",
+      "audience_breadth": "most",
+      "behavior": "Opens Color (dropdown). Contents (38 controls): Saturation: 0%, Saturation: 33%, Saturation: 66%, Saturation: 100%, Saturation: 200%, Saturation: 300%, Saturation: 400%, Temperature: 4700 K, Temperature: 5300 K, Temperature: 5900 K, Temperature: 6500 K, Temperature: 7200 K, Temperature: 8800 K, Temperature: 11200 K, No Recolor, Grayscale. [flyout of subfeature:picture-color — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Color Saturation, Color Tone, Recolor]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-color-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-color-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-color-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-color-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-corrections",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-artistic-effects",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-transparency",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-compress",
+      "node_type": "subfeature",
+      "name": "Compress Pictures",
+      "parent": "feature:picture-format",
+      "what_it_does": "Opens the Compress Pictures dialog to reduce image resolution/file size.",
+      "affects": "the picture's stored resolution/size",
+      "audience_breadth": "niche",
+      "behavior": "Opens Compress Pictures (dialog). Contents (12 controls): Apply only to this picture, Delete cropped areas of pictures, High fidelity: preserves quality of the original picture, HD (330 ppi): good quality for high-definition (HD) displays, Print (220 ppi): excellent quality on most printers and screens, Web (150 ppi): good for web pages and projectors, E-mail (96 ppi): minimize document size for sharing, Use default resolution, OK, Cancel, Context help, Close. [the Compress Pictures dialog; enumerated across 1 tab(s)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-pictures-compress"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-pictures-compress-dialog",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-pictures-compress.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-pictures-compress.png",
+        "screenshots/ui-ribbon-picture-format-pictures-compress-dialog/tab-single.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-convert-to-smartart",
+      "node_type": "subfeature",
+      "name": "Picture Layout (convert to SmartArt)",
+      "parent": "feature:picture-format",
+      "what_it_does": "Converts the picture(s) into a captioned SmartArt layout.",
+      "affects": "the picture (converted to a SmartArt layout)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-pictures-convert-to-smart-art"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-pictures-convert-to-smart-art-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-pictures-convert-to-smart-art.png",
+        "screenshots/ui-ribbon-picture-format-pictures-convert-to-smart-art-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-corrections",
+      "node_type": "subfeature",
+      "name": "Corrections",
+      "parent": "feature:picture-format",
+      "what_it_does": "Adjusts the picture's sharpness, brightness and contrast (gallery + options).",
+      "affects": "the picture's brightness/contrast/sharpness",
+      "audience_breadth": "most",
+      "behavior": "Opens Corrections (dropdown). Contents (31 controls): Soften: 50%, Soften: 25%, Sharpen: 0%, Sharpen: 25%, Sharpen: 50%, Brightness: -40% Contrast: -40%, Brightness: -20% Contrast: -40%, Brightness: 0% (Normal) Contrast: -40%, Brightness: +20% Contrast: -40%, Brightness: +40% Contrast: -40%, Brightness: -40% Contrast: -20%, Brightness: -20% Contrast: -20%, Brightness: 0% (Normal) Contrast: -20%, Brightness: +20% Contrast: -20%, Brightness: +40% Contrast: -20%, Brightness: -40% Contrast: 0% (Normal). [flyout of subfeature:picture-corrections — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Brightness/Contrast, Sharpen/Soften]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-corrections-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-corrections-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-corrections-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-corrections-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-corrections-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-color",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-artistic-effects",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-transparency",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-effects",
+      "node_type": "subfeature",
+      "name": "Picture Effects",
+      "parent": "feature:picture-format",
+      "what_it_does": "Applies shadow/reflection/glow/bevel/3D effects to the picture (menu of effect families).",
+      "affects": "the picture's visual effects",
+      "audience_breadth": "niche",
+      "behavior": "Opens Picture Effects (dropdown). Contents (8 controls): Color swatches, Preset, Shadow, Reflection, Glow, Soft Edges, Bevel, 3-D Rotation. [flyout of subfeature:picture-effects — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-effects-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-effects-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-effects-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-effects-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-format-pane",
+      "node_type": "subfeature",
+      "name": "Format Picture pane",
+      "parent": "feature:picture-format",
+      "what_it_does": "Opens the Format Picture pane — the full fill/line/effects/picture-adjust surface.",
+      "affects": "the picture's full formatting (pane)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-format-pane",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-format-dialog.png",
+        "screenshots/ui-ribbon-picture-format-picture-format-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-remove-background",
+      "node_type": "subfeature",
+      "name": "Remove Background",
+      "parent": "feature:picture-format",
+      "what_it_does": "Enters Background Removal mode to auto-detect and delete the picture's background.",
+      "affects": "the picture's visible area (background removal)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Remove Background (dropdown). Contents (1 controls): Remove Background. [flyout of subfeature:picture-remove-background — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Mark Areas to Keep]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-background-removal"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-background-removal-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-background-removal.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-background-removal.png",
+        "screenshots/ui-ribbon-picture-format-picture-background-removal-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-reset",
+      "node_type": "subfeature",
+      "name": "Reset Picture",
+      "parent": "feature:picture-format",
+      "what_it_does": "Discards formatting changes (and optionally size) applied to the picture.",
+      "affects": "the picture's formatting (reset)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Reset Picture (dropdown) (dropdown). Contents (2 controls): Reset Picture, Reset Picture & Size. [flyout of subfeature:picture-reset — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-reset"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-reset-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-reset-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-reset.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-reset.png",
+        "screenshots/ui-ribbon-picture-format-picture-reset-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-style-gallery",
+      "node_type": "subfeature",
+      "name": "Picture Styles gallery",
+      "parent": "feature:picture-format",
+      "what_it_does": "Applies a framed/shadowed/3D picture style from the gallery.",
+      "affects": "the picture's frame/style",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Applies a framed/shadowed/3D picture style from the gallery. Applied immediately to the picture's frame/style; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-transparency",
+      "node_type": "subfeature",
+      "name": "Transparency",
+      "parent": "feature:picture-format",
+      "what_it_does": "Sets the picture's overall transparency from presets.",
+      "affects": "the picture's transparency",
+      "audience_breadth": "niche",
+      "behavior": "Opens Transparency (dropdown). Contents (10 controls): Color swatches, Transparency, Transparency: 0%, Transparency: 15%, Transparency: 30%, Transparency: 50%, Transparency: 65%, Transparency: 80%, Transparency: 95%, Picture Transparency Options.... [flyout of subfeature:picture-transparency — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-transparency-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-transparency-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-transparency-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-transparency-gallery.png",
+        "screenshots/ui-ribbon-picture-format-picture-transparency-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-corrections",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-color",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-artistic-effects",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

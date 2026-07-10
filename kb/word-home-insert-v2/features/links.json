@@ -1,0 +1,200 @@
+{
+  "feature": {
+    "id": "feature:links",
+    "node_type": "feature",
+    "name": "Links",
+    "what_it_does": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references.",
+    "affects": "navigation structure (links, bookmarks, references)",
+    "audience_breadth": "most",
+    "behavior": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references. Group controls: subfeature:insert-link, subfeature:bookmark-insert, subfeature:cross-reference-insert",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:insert-link",
+      "subfeature:bookmark-insert",
+      "subfeature:cross-reference-insert"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:insert-link",
+      "node_type": "subfeature",
+      "name": "Link",
+      "parent": "feature:links",
+      "what_it_does": "Opens the Insert Hyperlink dialog to link the selection to webpages, files, headings or email addresses; the dropdown lists recent items.",
+      "affects": "the selection (wraps it in a hyperlink)",
+      "audience_breadth": "most",
+      "behavior": "Opens Insert Hyperlink (dialog). Contents (26 controls): Current Folder, Browsed Pages, Recent Files, Existing File or Web Page, Place in This Document, Create New Document, E-mail Address, RichEdit Control, Line up, Page down, Line down, RichEdit Control, Context help, Close, Text to display:, ScreenTip.... Sub-surfaces: ui:insert-link-dialog-screentip, ui:insert-link-dialog-bookmark, ui:insert-link-dialog-target-frame. [the Insert Hyperlink dialog; enumerated across 1 tab(s)] Appears as two chain links, labelled 'Link', with a dropdown.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert-link-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert-link-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+K"
+        }
+      ],
+      "shortcut": "Ctrl+K",
+      "opens": "ui:insert-link-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-insert-link-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-insert-link-gallery.png",
+        "screenshots/ui-insert-link-dialog/tab-single.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:cross-reference-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "requires",
+          "why": "in-document hyperlinks jump to bookmarks ('Bookmarks work with hyperlinks' — the control's own ScreenTip); external links work without",
+          "source": "dependency"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:bookmark-insert",
+      "node_type": "subfeature",
+      "name": "Bookmark",
+      "parent": "feature:links",
+      "what_it_does": "Opens the Bookmark dialog to name the current place/selection so links and references can jump to it.",
+      "affects": "the document's bookmark registry",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:bookmark-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:bookmark-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-bookmark-insert.png",
+        "screenshots/ui-bookmark-insert-dialog/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-link",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:cross-reference-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:cross-reference-insert",
+      "node_type": "subfeature",
+      "name": "Cross-reference",
+      "parent": "feature:links",
+      "what_it_does": "Opens the Cross-reference dialog to insert a live reference to a heading, bookmark, figure or table (updates as the target moves).",
+      "affects": "document content (adds a reference field)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Cross-reference (dialog). Contents (14 controls): RichEdit Control, Line up, Line down, Minimize, Maximize, Close, Reference type:, Insert reference to:, Insert as hyperlink, Include above/below, Separate numbers with, Separator character, Insert, Cancel. [the Cross-reference dialog; enumerated across 1 tab(s)] Appears as a page with an arrow pointing into it.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:cross-reference-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:cross-reference-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-cross-reference-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-cross-reference-insert.png",
+        "screenshots/ui-cross-reference-insert-dialog/tab-single.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-link",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "requires",
+          "why": "cross-references can target bookmarks (B consumes A's artifact; headings are an alternative target)",
+          "source": "dependency"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

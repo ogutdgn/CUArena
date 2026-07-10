@@ -145,3 +145,14 @@ menu; ESC it and skip) (`crawler/capture.py::_expand_groups`).
   `ImageGrab.grab(bbox=rect, all_screens=True)` still captures correctly, but any control `bounds`
   you crop must be taken RELATIVE to that grabbed rect's origin, not screen (0,0), or the crop is
   off by 8px. (learned from kb/word/scripts/drive/stage.py + tools/capture.py rel_bounds)
+- 2026-07-09 — **Ribbon-face gallery openers can be `MenuItem` leaves, not Buttons.** Word's
+  Insert tab exposes its big gallery dropdowns (Table `TableInsertGallery`, Pictures
+  `FlyoutAnchorInsertPictures`, Header, Text Box, Symbol…) as top-level `MenuItem` controls with
+  no children — unlike Home, where almost everything is Button/SplitButton/ComboBox. A leaf
+  enumerator whose INTERACTIVE set omits MenuItem at ribbon level silently drops most of the
+  Insert tab. (learned from kb/word-home-insert dump: uia_tree_insert.txt)
+- 2026-07-09 — **Enumerate with a representative document state, or state-gated controls read
+  DISABLED and their probes get wrongly skipped.** Insert > Drop Cap is disabled on an empty
+  document and enables once the doc has a paragraph of text; Cut/Copy need a selection. Give the
+  scratch fixture text + a selection BEFORE enumerating/probing, and journal any control that
+  still reads disabled. (learned from kb/word-home-insert dump: DropCapInsertGallery DISABLED)

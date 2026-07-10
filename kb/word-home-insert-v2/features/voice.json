@@ -1,0 +1,66 @@
+{
+  "feature": {
+    "id": "feature:voice",
+    "node_type": "feature",
+    "name": "Voice",
+    "what_it_does": "Dictate text by voice using cloud speech recognition.",
+    "affects": "document content (inserted by speech)",
+    "audience_breadth": "niche",
+    "behavior": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:dictate"
+    ],
+    "connections": [],
+    "boundary": true,
+    "explored": false,
+    "source": "inference"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:dictate",
+      "node_type": "subfeature",
+      "name": "Dictate",
+      "parent": "feature:voice",
+      "what_it_does": "Converts speech to text via the cloud dictation service.",
+      "affects": "document content",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:dictate"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-dictate.png"
+      ],
+      "connections": [],
+      "boundary": true,
+      "explored": false,
+      "source": "inference"
+    }
+  ]
+}

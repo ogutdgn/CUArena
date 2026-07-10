@@ -1,0 +1,310 @@
+{
+  "feature": {
+    "id": "feature:wordart-text-styles",
+    "node_type": "feature",
+    "name": "Text (WordArt) styles",
+    "what_it_does": "Apply WordArt-style fill, outline and effects to the text inside a selected drawing object.",
+    "affects": "the decorative styling of text inside the selected object",
+    "audience_breadth": "niche",
+    "behavior": "Apply WordArt-style fill, outline and effects to the text inside a selected drawing object.",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:wordart-text-effects",
+      "subfeature:wordart-text-fill",
+      "subfeature:wordart-text-outline",
+      "subfeature:wordart-text-style-gallery"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:shapes-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:wordart-text-effects",
+      "node_type": "subfeature",
+      "name": "Text Effects",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Applies shadow/reflection/glow/3D/transform effects to the object's text, incl. the Format Text Effects dialog.",
+      "affects": "the effects on text inside the object",
+      "audience_breadth": "niche",
+      "behavior": "Opens Text Effects (dropdown). Contents (6 controls): Shadow, Reflection, Glow, Bevel, 3-D Rotation, Transform. [flyout of subfeature:wordart-text-effects — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-word-art-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-word-art-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-word-art-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-effects-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-effects-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-effects-menu.png",
+        "screenshots/ui-ribbon-chart-format-text-effects-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:wordart-text-fill",
+      "node_type": "subfeature",
+      "name": "Text Fill",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Sets the fill color/gradient of the object's text (options in the picker).",
+      "affects": "the fill of text inside the object",
+      "audience_breadth": "niche",
+      "behavior": "Opens Text Fill (dropdown) (dropdown). Contents (9 controls): Color swatches, Text Fill, High-contrast only, Automatic, No Fill, Gradient, Texture, More Fill Colors..., Picture.... [flyout of subfeature:wordart-text-fill — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-fill-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-fill-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-fill-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-text-fill-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:wordart-text-outline",
+      "node_type": "subfeature",
+      "name": "Text Outline",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Sets the outline of the object's text (options in the picker).",
+      "affects": "the outline of text inside the object",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-outline-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-outline-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-text-outline-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:wordart-text-style-gallery",
+      "node_type": "subfeature",
+      "name": "WordArt Styles gallery",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Applies a preset WordArt style to the text inside the object from the gallery.",
+      "affects": "the decorative style of text inside the object",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Applies a preset WordArt style to the text inside the object from the gallery. Applied immediately to the decorative style of text inside the object; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "feature": {
+    "id": "feature:shape-format",
+    "node_type": "feature",
+    "name": "Shape Format (shape-specific)",
+    "what_it_does": "Shape-specific tools for a selected shape/text box — edit the shape geometry and set text direction/alignment inside it.",
+    "affects": "the geometry and in-shape text of the selected shape",
+    "audience_breadth": "niche",
+    "behavior": "Shape-specific tools for a selected shape/text box — edit the shape geometry and set text direction/alignment inside it.",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      },
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-shape-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:shape-edit",
+      "subfeature:shape-text-align",
+      "subfeature:shape-text-direction",
+      "subfeature:shape-text-link"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:shapes-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:shape-edit",
+      "node_type": "subfeature",
+      "name": "Edit Shape",
+      "parent": "feature:shape-format",
+      "what_it_does": "Changes the shape to another or edits its edit-points/geometry (menu).",
+      "affects": "the selected shape's geometry",
+      "audience_breadth": "niche",
+      "behavior": "Opens Edit Shape (dropdown). Contents (3 controls): Change Shape, Edit Points, Reroute Connectors. [flyout of subfeature:shape-edit — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-change-shape-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-edit-shape-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-change-shape-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-shape-format-object-edit-shape-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-object-edit-shape-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-object-edit-shape-menu.png",
+        "screenshots/ui-ribbon-shape-format-object-edit-shape-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-text-align",
+      "node_type": "subfeature",
+      "name": "Align Text (in shape)",
+      "parent": "feature:shape-format",
+      "what_it_does": "Aligns text vertically within the shape/text box (top/middle/bottom).",
+      "affects": "the vertical alignment of text inside the shape",
+      "audience_breadth": "niche",
+      "behavior": "Opens Align Text (dropdown). Contents (3 controls): Top, Middle, Bottom. [flyout of subfeature:shape-text-align — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-align-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-shape-format-text-align-dropdown",
+      "location": "ui:ribbon-shape-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-align-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-align-gallery.png",
+        "screenshots/ui-ribbon-shape-format-text-align-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-text-direction",
+      "node_type": "subfeature",
+      "name": "Text Direction (in shape)",
+      "parent": "feature:shape-format",
+      "what_it_does": "Rotates the direction of text inside the shape/text box.",
+      "affects": "the text orientation inside the shape",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-direction-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-shape-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-direction-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-text-link",
+      "node_type": "subfeature",
+      "name": "Create Text Box Link",
+      "parent": "feature:shape-format",
+      "what_it_does": "Links text boxes so overflowing text flows from one into the next.",
+      "affects": "the text-flow link between text boxes",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-box-link-create"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-shape-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-box-link-create.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

@@ -1,0 +1,408 @@
+{
+  "feature": {
+    "id": "feature:smartart-design",
+    "node_type": "feature",
+    "name": "SmartArt Design",
+    "what_it_does": "Build and restyle a selected SmartArt graphic — add/promote/reorder shapes, change the layout, colors and style.",
+    "affects": "the content and style of the selected SmartArt diagram",
+    "audience_breadth": "niche",
+    "behavior": "Build and restyle a selected SmartArt graphic — add/promote/reorder shapes, change the layout, colors and style.",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-smart-art-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-smart-art-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:smartart-add-bullet",
+      "subfeature:smartart-add-shape",
+      "subfeature:smartart-change-colors",
+      "subfeature:smartart-layout",
+      "subfeature:smartart-org-layout",
+      "subfeature:smartart-promote-demote",
+      "subfeature:smartart-reset",
+      "subfeature:smartart-reverse",
+      "subfeature:smartart-style",
+      "subfeature:smartart-text-pane"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:smart-art-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:smartart-add-bullet",
+      "node_type": "subfeature",
+      "name": "Add Bullet",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Adds a sub-bullet text item to the selected SmartArt node.",
+      "affects": "the SmartArt node's sub-items",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Adds a sub-bullet text item to the selected SmartArt node. Applied immediately to the SmartArt node's sub-items; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-add-bullet"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-bullet.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-bullet.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-add-shape",
+      "node_type": "subfeature",
+      "name": "Add Shape",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Adds a shape/node to the SmartArt graphic (before/after/above/below via the menu).",
+      "affects": "the SmartArt graphic's nodes (addition)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Add Shape (dropdown) (dropdown). Contents (5 controls): Add Shape After, Add Shape Before, Add Shape Above, Add Shape Below, Add Assistant. [flyout of subfeature:smartart-add-shape — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-add-shape"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-add-shape-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-smart-art-design-smart-art-add-shape-dropdown",
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-shape.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-shape.png",
+        "screenshots/ui-ribbon-smart-art-design-smart-art-add-shape-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-change-colors",
+      "node_type": "subfeature",
+      "name": "Change Colors",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Applies a color scheme to the SmartArt from the gallery.",
+      "affects": "the SmartArt graphic's color scheme",
+      "audience_breadth": "niche",
+      "behavior": "Opens Change Colors (dropdown). Contents (30 controls): Color swatches, Change Colors, Line up, Position, Dark 1 Outline, Dark 2 Outline, Dark 2 Fill, Colorful - Accent Colors, Colorful Range - Accent Colors 2 to 3, Colorful Range - Accent Colors 3 to 4, Colorful Range - Accent Colors 4 to 5, Colorful Range - Accent Colors 5 to 6, Colored Outline - Accent 1, Colored Fill - Accent 1, Gradient Range - Accent 1, Gradient Loop - Accent 1. [flyout of subfeature:smartart-change-colors — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Accent 1, Accent 2, Accent 3, Colorful, Primary Theme Colors]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-change-colors-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-smart-art-design-smart-art-change-colors-dropdown",
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-change-colors-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-change-colors-gallery.png",
+        "screenshots/ui-ribbon-smart-art-design-smart-art-change-colors-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-layout",
+      "node_type": "subfeature",
+      "name": "Layouts gallery",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Changes the SmartArt's overall layout (list, process, cycle, hierarchy…) from the gallery.",
+      "affects": "the SmartArt graphic's layout",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Changes the SmartArt's overall layout (list, process, cycle, hierarchy…) from the gallery. Applied immediately to the SmartArt graphic's layout; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-layout-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-layout-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-layout-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-org-layout",
+      "node_type": "subfeature",
+      "name": "Organization Layout",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Changes the hanging/branch layout of an organization-chart SmartArt (menu).",
+      "affects": "the org-chart branch layout",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-organization-chart-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-organization-chart-menu.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-promote-demote",
+      "node_type": "subfeature",
+      "name": "Promote / Demote",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Changes the outline level of the selected SmartArt node (promote/demote), and moves it up/down in order.",
+      "affects": "the selected SmartArt node's level/order",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Changes the outline level of the selected SmartArt node (promote/demote), and moves it up/down in order. Applied immediately to the selected SmartArt node's level/order; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-promote"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-demote"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-reorder-up"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-reorder-down"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-promote.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-promote.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-reset",
+      "node_type": "subfeature",
+      "name": "Reset Graphic",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Discards all formatting changes back to the default SmartArt appearance.",
+      "affects": "the SmartArt graphic's formatting (reset)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-reset-graphic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-reset-graphic.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-reverse",
+      "node_type": "subfeature",
+      "name": "Right to Left",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Reverses the left-to-right order of the SmartArt layout.",
+      "affects": "the SmartArt layout direction",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-right-to-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-right-to-left.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-style",
+      "node_type": "subfeature",
+      "name": "SmartArt Styles gallery",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Applies a visual style (3D, shadow, gradient…) to the SmartArt from the gallery.",
+      "affects": "the SmartArt graphic's visual style",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Applies a visual style (3D, shadow, gradient…) to the SmartArt from the gallery. Applied immediately to the SmartArt graphic's visual style; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-text-pane",
+      "node_type": "subfeature",
+      "name": "Text Pane",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Toggles the text outline pane for editing the SmartArt's text as a bulleted list.",
+      "affects": "opens the SmartArt text pane",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Toggles the text outline pane for editing the SmartArt's text as a bulleted list. Applied immediately to opens the SmartArt text pane; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-text-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-text-pane.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-text-pane.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

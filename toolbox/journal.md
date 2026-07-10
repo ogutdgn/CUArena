@@ -94,3 +94,9 @@ journal every time:
   (who opened me) generated from discovery records — reviewers used the inverse mapping to find
   orphaned surfaces and phantom links no human noticed.
   (learned from `crawler/emit.py` entry_points build + `docs/DEPTH_REVIEW.md` findings)
+- 2026-07-09 — **Route every per-app script's paths through ONE `common.py` and the whole
+  toolchain re-binds to a new KB workspace untouched.** The word-home-insert-v2 run reused the
+  v1 session/enumerator/prober/capture modules with zero code edits — only `common.py` (APP
+  constant) and the step runners (output writers) changed. Structure per-app tools that way from
+  the start: measurement code and output-schema code age at different speeds.
+  (learned from kb/word-home-insert-v2 setup: same-build reuse, step 0-1 re-proved live)

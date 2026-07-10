@@ -1,0 +1,979 @@
+{
+  "feature": {
+    "id": "feature:table-layout",
+    "node_type": "feature",
+    "name": "Table Layout",
+    "what_it_does": "Change a selected table's structure — insert/delete rows and columns, merge and split cells, size and align cells, and sort or convert the contents.",
+    "affects": "the structure and cell layout of the selected table",
+    "audience_breadth": "most",
+    "behavior": "Change a selected table's structure — insert/delete rows and columns, merge and split cells, size and align cells, and sort or convert the contents. Group controls: subfeature:table-autofit, subfeature:table-cell-alignment, subfeature:table-cell-margins, subfeature:table-cell-size, subfeature:table-convert-to-text, subfeature:table-delete, subfeature:table-draw, subfeature:table-eraser, subfeature:table-formula, subfeature:table-insert-cells, subfeature:table-insert-columns, subfeature:table-insert-rows, subfeature:table-merge-cells, subfeature:table-properties, subfeature:table-repeat-header, subfeature:table-select, subfeature:table-split-cells, subfeature:table-split-table, subfeature:table-text-direction, subfeature:table-view-gridlines",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-table-layout"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-table-layout",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:table-autofit",
+      "subfeature:table-cell-alignment",
+      "subfeature:table-cell-margins",
+      "subfeature:table-cell-size",
+      "subfeature:table-convert-to-text",
+      "subfeature:table-delete",
+      "subfeature:table-draw",
+      "subfeature:table-eraser",
+      "subfeature:table-formula",
+      "subfeature:table-insert-cells",
+      "subfeature:table-insert-columns",
+      "subfeature:table-insert-rows",
+      "subfeature:table-merge-cells",
+      "subfeature:table-properties",
+      "subfeature:table-repeat-header",
+      "subfeature:table-select",
+      "subfeature:table-split-cells",
+      "subfeature:table-split-table",
+      "subfeature:table-text-direction",
+      "subfeature:table-view-gridlines"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:table-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:table-autofit",
+      "node_type": "subfeature",
+      "name": "AutoFit",
+      "parent": "feature:table-layout",
+      "what_it_does": "Auto-fits column widths to contents, to the window, or to a fixed width (menu).",
+      "affects": "the table's column widths",
+      "audience_breadth": "most",
+      "behavior": "Opens AutoFit (dropdown). Contents (3 controls): AutoFit Contents, AutoFit Window, Fixed Column Width. [flyout of subfeature:table-autofit — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-auto-fit-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-auto-fit-dropdown",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-auto-fit-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-auto-fit-menu.png",
+        "screenshots/ui-ribbon-table-layout-table-auto-fit-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-cell-alignment",
+      "node_type": "subfeature",
+      "name": "Cell Alignment",
+      "parent": "feature:table-layout",
+      "what_it_does": "Aligns cell contents to one of the nine positions (top/middle/bottom × left/center/right).",
+      "affects": "the alignment of content within the selected cells",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Aligns cell contents to one of the nine positions (top/middle/bottom × left/center/right). Applied immediately to the alignment of content within the selected cells; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-top-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-top-center"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-top-right"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-middle-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-middle-center"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-middle-right"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-bottom-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-bottom-center"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-cell-align-bottom-right"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-cell-align-top-left.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-cell-align-top-left.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-cell-margins",
+      "node_type": "subfeature",
+      "name": "Cell Margins",
+      "parent": "feature:table-layout",
+      "what_it_does": "Opens the Cell Options/Table Options dialog to set cell margins and spacing.",
+      "affects": "the selected cells' internal margins",
+      "audience_breadth": "niche",
+      "behavior": "Opens Table Options (dialog). Contents (16 controls): RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, Context help, Close, Top:, Bottom:, Left:, Right:, Allow spacing between cells, Right:, Automatically resize to fit contents, OK, Cancel. [the Table Options dialog; enumerated across 1 tab(s)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-options-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-options-dialog",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-options-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-options-dialog.png",
+        "screenshots/ui-ribbon-table-layout-table-options-dialog/tab-single.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-cell-size",
+      "node_type": "subfeature",
+      "name": "Cell Size",
+      "parent": "feature:table-layout",
+      "what_it_does": "Sets exact row height and column width (nudges + fields) and distributes rows/columns evenly.",
+      "affects": "the selected cells' height and width",
+      "audience_breadth": "most",
+      "behavior": "Opens Microsoft Word (dialog). Contents (2 controls): OK, Close. [the Microsoft Word dialog; enumerated across 1 tab(s)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-rows-distribute"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-columns-distribute"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-rows-distribute-dialog",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-more.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-more.png",
+        "screenshots/ui-ribbon-table-layout-table-rows-distribute-dialog/tab-single.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-convert-to-text",
+      "node_type": "subfeature",
+      "name": "Convert to Text",
+      "parent": "feature:table-layout",
+      "what_it_does": "Opens a dialog to convert the table back to delimited text.",
+      "affects": "the table (converted to paragraphs)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Convert Table To Text (dialog). Contents (11 controls): RichEdit Control, Context help, Close, Paragraph marks, Tabs, Commas, Other:, Other, Convert nested tables, OK, Cancel. [the Convert Table To Text dialog; enumerated across 1 tab(s)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-convert-table-to-text"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-convert-table-to-text-dialog",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-convert-table-to-text.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-convert-table-to-text.png",
+        "screenshots/ui-ribbon-table-layout-convert-table-to-text-dialog/tab-single.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-delete",
+      "node_type": "subfeature",
+      "name": "Delete",
+      "parent": "feature:table-layout",
+      "what_it_does": "Deletes cells, rows, columns or the whole table (menu).",
+      "affects": "the table's rows/columns/cells (removal)",
+      "audience_breadth": "most",
+      "behavior": "Opens Delete (dropdown). Contents (4 controls): Delete Columns, Delete Rows, Delete Table, Delete Cells.... Sub-surfaces: ui:ribbon-table-layout-table-delete-rows-and-columns-dropdown-delete-cells. [flyout of subfeature:table-delete — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-delete-rows-and-columns-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-delete-rows-and-columns-dropdown",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-delete-rows-and-columns-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-delete-rows-and-columns-menu.png",
+        "screenshots/ui-ribbon-table-layout-table-delete-rows-and-columns-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:table-insert-rows",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-insert-columns",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-merge-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-split-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-draw",
+      "node_type": "subfeature",
+      "name": "Draw Table",
+      "parent": "feature:table-layout",
+      "what_it_does": "Arms a pen to draw table cell boundaries by hand.",
+      "affects": "the table's cell boundaries (draw mode)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-draw-table"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-draw-table.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-eraser",
+      "node_type": "subfeature",
+      "name": "Eraser",
+      "parent": "feature:table-layout",
+      "what_it_does": "Arms an eraser to remove table cell boundaries (merging cells).",
+      "affects": "the table's cell boundaries (erase mode)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-eraser"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-eraser.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-formula",
+      "node_type": "subfeature",
+      "name": "Formula",
+      "parent": "feature:table-layout",
+      "what_it_does": "Opens the Formula dialog to compute a value (SUM, AVERAGE…) in a table cell.",
+      "affects": "the selected cell (adds a formula field)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-formula-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-formula-dialog",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-formula-dialog.png",
+        "screenshots/ui-ribbon-table-layout-table-formula-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-insert-cells",
+      "node_type": "subfeature",
+      "name": "Insert Cells",
+      "parent": "feature:table-layout",
+      "what_it_does": "Opens the Insert Cells dialog to insert cells and shift the rest.",
+      "affects": "the table's cells (addition)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-insert-cells-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-insert-cells-dialog",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-insert-cells-dialog.png",
+        "screenshots/ui-ribbon-table-layout-table-insert-cells-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-insert-columns",
+      "node_type": "subfeature",
+      "name": "Insert Columns",
+      "parent": "feature:table-layout",
+      "what_it_does": "Inserts a column to the left or right of the current column.",
+      "affects": "the table's columns (addition)",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Inserts a column to the left or right of the current column. Applied immediately to the table's columns (addition); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-columns-insert-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-columns-insert-right"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-columns-insert-left.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-columns-insert-left.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:table-insert-rows",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-delete",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-merge-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-split-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-insert-rows",
+      "node_type": "subfeature",
+      "name": "Insert Rows",
+      "parent": "feature:table-layout",
+      "what_it_does": "Inserts a row above or below the current row.",
+      "affects": "the table's rows (addition)",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Inserts a row above or below the current row. Applied immediately to the table's rows (addition); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-rows-insert-above"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-rows-insert-below"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-rows-insert-above.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-rows-insert-above.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:table-insert-columns",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-delete",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-merge-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-split-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-merge-cells",
+      "node_type": "subfeature",
+      "name": "Merge Cells",
+      "parent": "feature:table-layout",
+      "what_it_does": "Merges the selected cells into one.",
+      "affects": "the selected cells (merge)",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Merges the selected cells into one. Applied immediately to the selected cells (merge); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-merge-cells"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-merge-cells.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-merge-cells.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:table-insert-rows",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-insert-columns",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-delete",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-split-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-properties",
+      "node_type": "subfeature",
+      "name": "Table Properties",
+      "parent": "feature:table-layout",
+      "what_it_does": "Opens the Table Properties dialog (size, alignment, text wrapping, row/column/cell options).",
+      "affects": "the table's layout properties",
+      "audience_breadth": "niche",
+      "behavior": "Opens Table Properties (dialog). Contents (38 controls): RichEdit Control, RichEdit Control, Context help, Close, Preferred width:, Preferred width:, Measure in:, Left, Center, Right, Indent from left:, None, Around, Positioning..., Borders and Shading..., Options.... [the Table Properties dialog; enumerated across 5 tab(s)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-properties-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-properties-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-properties-dialog",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-properties-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-properties-dialog.png",
+        "screenshots/ui-ribbon-table-layout-table-properties-dialog/tab-table.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-repeat-header",
+      "node_type": "subfeature",
+      "name": "Repeat Header Rows",
+      "parent": "feature:table-layout",
+      "what_it_does": "Repeats the header row(s) at the top of each page the table spans.",
+      "affects": "the table's page-break header behavior",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Repeats the header row(s) at the top of each page the table spans. Applied immediately to the table's page-break header behavior; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-repeat-header-rows"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-repeat-header-rows.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-repeat-header-rows.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-select",
+      "node_type": "subfeature",
+      "name": "Select (table parts)",
+      "parent": "feature:table-layout",
+      "what_it_does": "Selects the cell, row, column or whole table at the cursor.",
+      "affects": "the current table selection",
+      "audience_breadth": "niche",
+      "behavior": "Opens Select (dropdown). Contents (4 controls): Select Cell, Select Column, Select Row, Select Table. [flyout of subfeature:table-select — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-select-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-table-select-dropdown",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-select-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-select-menu.png",
+        "screenshots/ui-ribbon-table-layout-table-select-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-split-cells",
+      "node_type": "subfeature",
+      "name": "Split Cells",
+      "parent": "feature:table-layout",
+      "what_it_does": "Opens the Split Cells dialog to divide the selected cell(s) into rows/columns.",
+      "affects": "the selected cells (split)",
+      "audience_breadth": "most",
+      "behavior": "Opens Split Cells (dialog). Contents (9 controls): RichEdit Control, RichEdit Control, Context help, Close, Number of columns:, Number of rows:, Merge cells before split, OK, Cancel. [the Split Cells dialog; enumerated across 1 tab(s)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-split-cells"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-layout-split-cells-dialog",
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-split-cells.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-split-cells.png",
+        "screenshots/ui-ribbon-table-layout-split-cells-dialog/tab-single.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:table-insert-rows",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-insert-columns",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-delete",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:table-merge-cells",
+          "kind": "affects-same",
+          "why": "all restructure the same table's cells",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-split-table",
+      "node_type": "subfeature",
+      "name": "Split Table",
+      "parent": "feature:table-layout",
+      "what_it_does": "Splits the table into two at the current row.",
+      "affects": "the table (split into two)",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Splits the table into two at the current row. Applied immediately to the table (split into two); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-split-table"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-split-table.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-split-table.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-text-direction",
+      "node_type": "subfeature",
+      "name": "Text Direction",
+      "parent": "feature:table-layout",
+      "what_it_does": "Rotates the text direction within the selected cells.",
+      "affects": "the text orientation within the selected cells",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-text-direction"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-text-direction.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-view-gridlines",
+      "node_type": "subfeature",
+      "name": "View Gridlines",
+      "parent": "feature:table-layout",
+      "what_it_does": "Toggles the on-screen display of table cell gridlines (non-printing).",
+      "affects": "the view (gridline visibility)",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Toggles the on-screen display of table cell gridlines (non-printing). Applied immediately to the view (gridline visibility); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-table-show-gridlines"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-layout",
+      "screenshot": "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-show-gridlines.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-layout/icon-ribbon-table-layout-table-show-gridlines.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

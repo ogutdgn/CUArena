@@ -1,0 +1,294 @@
+{
+  "feature": {
+    "id": "feature:graphics-format",
+    "node_type": "feature",
+    "name": "Graphics Format",
+    "what_it_does": "Style a selected SVG/icon graphic — recolor, graphics styles, outline, effects, and convert it to an editable shape.",
+    "affects": "the appearance of the selected graphic",
+    "audience_breadth": "niche",
+    "behavior": "Style a selected SVG/icon graphic — recolor, graphics styles, outline, effects, and convert it to an editable shape.",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-graphics-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-graphics-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:graphics-border",
+      "subfeature:graphics-change",
+      "subfeature:graphics-color",
+      "subfeature:graphics-convert-to-shape",
+      "subfeature:graphics-effects",
+      "subfeature:graphics-format-pane",
+      "subfeature:graphics-style-gallery"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:icon-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:graphics-border",
+      "node_type": "subfeature",
+      "name": "Graphics Outline",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Sets the graphic's outline color/weight/dashes (options in the picker).",
+      "affects": "the graphic's outline",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-outline-color-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-outline-color-picker.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-outline-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-change",
+      "node_type": "subfeature",
+      "name": "Change Graphic",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Replaces the SVG/icon graphic with another from the library.",
+      "affects": "the graphic's source",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphic-change-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphic-change-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphic-change-menu.png",
+        "screenshots/ui-ribbon-graphics-format-graphic-change-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-color",
+      "node_type": "subfeature",
+      "name": "Graphics Fill (recolor)",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Recolors the graphic's fill from the color picker.",
+      "affects": "the graphic's fill color",
+      "audience_breadth": "niche",
+      "behavior": "Opens Graphics Fill (dropdown). Contents (0 controls): . [Fill the selected graphic with color.]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-color-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-color-picker.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-convert-to-shape",
+      "node_type": "subfeature",
+      "name": "Convert to Shape",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Converts the SVG graphic into an editable Word shape (or group of shapes).",
+      "affects": "the graphic (converted to editable shapes)",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Converts the SVG graphic into an editable Word shape (or group of shapes). Applied immediately to the graphic (converted to editable shapes); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-svgedit"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-svgedit.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-svgedit.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-effects",
+      "node_type": "subfeature",
+      "name": "Graphics Effects",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Applies shadow/reflection/glow/3D effects to the graphic (menu).",
+      "affects": "the graphic's visual effects",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-effects-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-effects-menu.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-effects-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-format-pane",
+      "node_type": "subfeature",
+      "name": "Format Graphic pane",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Opens the Format Graphic pane — the full fill/line/effects surface.",
+      "affects": "the graphic's full formatting (pane)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-format-pane",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-format-dialog.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-format-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-style-gallery",
+      "node_type": "subfeature",
+      "name": "Graphics Styles gallery",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Applies a preset fill/outline style to the graphic from the gallery.",
+      "affects": "the graphic's style",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Applies a preset fill/outline style to the graphic from the gallery. Applied immediately to the graphic's style; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

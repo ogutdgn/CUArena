@@ -1,0 +1,816 @@
+{
+  "feature": {
+    "id": "feature:paragraph",
+    "node_type": "feature",
+    "name": "Paragraph",
+    "what_it_does": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders.",
+    "affects": "the selected paragraphs' formatting and layout",
+    "audience_breadth": "everyone",
+    "behavior": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders. Group controls: subfeature:bullets-gallery, subfeature:numbering-gallery, subfeature:multilevel-list, subfeature:indent-decrease, subfeature:indent-increase, subfeature:sort, subfeature:paragraph-marks, subfeature:align-left, subfeature:align-center, subfeature:align-right, subfeature:align-justify, subfeature:line-spacing, subfeature:shading-color-picker, subfeature:borders-selection-gallery, subfeature:paragraph-dialog",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:bullets-gallery",
+      "subfeature:numbering-gallery",
+      "subfeature:multilevel-list",
+      "subfeature:indent-decrease",
+      "subfeature:indent-increase",
+      "subfeature:sort",
+      "subfeature:paragraph-marks",
+      "subfeature:align-left",
+      "subfeature:align-center",
+      "subfeature:align-right",
+      "subfeature:align-justify",
+      "subfeature:line-spacing",
+      "subfeature:shading-color-picker",
+      "subfeature:borders-selection-gallery",
+      "subfeature:paragraph-dialog"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:bullets-gallery",
+      "node_type": "subfeature",
+      "name": "Bullets",
+      "parent": "feature:paragraph",
+      "what_it_does": "Starts or toggles a bulleted list on the selected paragraphs; the dropdown is the bullet library.",
+      "affects": "the selected paragraphs' list format",
+      "audience_breadth": "most",
+      "behavior": "Opens Bullets (dropdown) (dropdown). Contents (12 controls): Color swatches, Bullets, None, Bulleted, Solid Circle, Bulleted, Hollow Circle, Bulleted, Solid Square, Picture bulleted, Bulleted, Four Small Diamonds, Bulleted, Hollow Arrow, Bulleted, Checkmark, Change List Level, Define New Bullet.... Sub-surfaces: ui:bullets-dropdown-define-new-bullet. [flyout of subfeature:bullets-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Bullet Library] Appears as a bulleted list (dots beside lines) with a chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:bullets-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:bullets-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:bullets-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-bullets-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-bullets-gallery.png",
+        "screenshots/ui-bullets-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:numbering-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:multilevel-list",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:numbering-gallery",
+      "node_type": "subfeature",
+      "name": "Numbering",
+      "parent": "feature:paragraph",
+      "what_it_does": "Starts or toggles a numbered list on the selected paragraphs; the dropdown is the numbering library.",
+      "affects": "the selected paragraphs' list format",
+      "audience_breadth": "most",
+      "behavior": "Opens Numbering (dropdown) (dropdown). Contents (13 controls): Color swatches, Numbering, None, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., 1, 2, 3, …, ALIGNMENT Left, Number Format: 1), I, II, III, …, ALIGNMENT Right, Number Format: I., A, B, C, …, ALIGNMENT Left, Number Format: A., a, b, c, …, ALIGNMENT Left, Number Format: a), a, b, c, …, ALIGNMENT Left, Number Format: a., i, ii, iii, …, ALIGNMENT Right, Number Format: i., Change List Level, Set Numbering Value..., Define New Number Format.... Sub-surfaces: ui:numbering-dropdown-define-new-number-format. [flyout of subfeature:numbering-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Numbering Library] Appears as a numbered list (1,2,3 beside lines) with a chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:numbering-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:numbering-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:numbering-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-numbering-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-numbering-gallery.png",
+        "screenshots/ui-numbering-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bullets-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:multilevel-list",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:multilevel-list",
+      "node_type": "subfeature",
+      "name": "Multilevel List",
+      "parent": "feature:paragraph",
+      "what_it_does": "Applies a multi-level (nested) list scheme to the selected paragraphs.",
+      "affects": "the selected paragraphs' multi-level list format",
+      "audience_breadth": "niche",
+      "behavior": "Opens Multilevel List (menu). Contents (15 controls): Color swatches, Multilevel List, Gallery Filter, Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., Aligned at:  0.25\", Indent at:  0.5\" L2: Numbered, a, b, c, …, ALIGNMENT Left, Number Format: \u0001.a., Aligned at:  0.75\", Indent at:  1\" L3: Numbered, i, ii, iii, …, ALIGNMENT Ri, None, Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1), Aligned at:  0\", Indent at:  0.25\" L2: Numbered, a, b, c, …, ALIGNMENT Left, Number Format: \u0001)a), Aligned at:  0.25\", Indent at:  0.5\" L3: Numbered, i, ii, iii, …, ALIGNMENT Le, Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., Aligned at:  0\", Indent at:  0.25\" L2: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1.\u0001., Aligned at:  0.25\", Indent at:  0.55\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left, Outline numbered: L1: Bulleted, Four Small Diamonds, Aligned at:  0\", Indent at:  0.25\" L2: Bulleted, Hollow Arrow, Aligned at:  0.25\", Indent at:  0.5\" L3: Bulleted, Solid Square, Aligned at:  0.5\", Indent at:  0.75\" L4: Bulleted, Solid Circle, Aligned a, Outline numbered: L1: Numbered, I, II, III, …, ALIGNMENT Left, Number Format: Article I., Aligned at:  0\", Indent at:  0\" L2: Numbered, 01, 02, 03, …, ALIGNMENT Left, Number Format: Section 01.\u0001, Aligned at:  0\", Indent at:  0\" L3: Numbered, a, b, c, …, A, Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1, Aligned at:  0\", Indent at:  0.3\" L2: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1.\u0001, Aligned at:  0\", Indent at:  0.4\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left, Numbe, Outline numbered: L1: Numbered, I, II, III, …, ALIGNMENT Left, Number Format: I., Aligned at:  0\", Indent at:  0\" L2: Numbered, A, B, C, …, ALIGNMENT Left, Number Format: \u0001.A., Aligned at:  0.5\", Indent at:  0.5\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left,, Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: Chapter 1, Aligned at:  0\", Indent at:  0\" L2: Bulleted, Aligned at:  0\", Indent at:  0\" L3: Bulleted, Aligned at:  0\", Indent at:  0\" L4: Bulleted, Aligned at:  0\", Indent at:  0\", Change List Level, Define New Multilevel List..., Define New List Style.... [flyout of subfeature:multilevel-list — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Current List, Gallery Filters, List Library]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:multilevel-list-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:multilevel-list-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-multilevel-list-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-multilevel-list-gallery.png",
+        "screenshots/ui-multilevel-list-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bullets-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:numbering-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:indent-decrease",
+      "node_type": "subfeature",
+      "name": "Decrease Indent",
+      "parent": "feature:paragraph",
+      "what_it_does": "Moves the paragraph's left indent one level toward the margin.",
+      "affects": "the paragraph's left indent",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Moves the paragraph's left indent one level toward the margin. Applied immediately to the paragraph's left indent; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:indent-decrease"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-indent-decrease.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-indent-decrease.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-increase",
+          "kind": "affects-same",
+          "why": "both change the paragraph's left indent",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:indent-increase",
+      "node_type": "subfeature",
+      "name": "Increase Indent",
+      "parent": "feature:paragraph",
+      "what_it_does": "Moves the paragraph's left indent one level away from the margin.",
+      "affects": "the paragraph's left indent",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Moves the paragraph's left indent one level away from the margin. Applied immediately to the paragraph's left indent; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:indent-increase"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-indent-increase.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-indent-increase.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-decrease",
+          "kind": "affects-same",
+          "why": "both change the paragraph's left indent",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:sort",
+      "node_type": "subfeature",
+      "name": "Sort",
+      "parent": "feature:paragraph",
+      "what_it_does": "Opens the Sort dialog to alphabetically/numerically sort the selected paragraphs, list or table.",
+      "affects": "the order of the selected paragraphs",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:sort-dialog-classic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-sort-dialog-classic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:sort-dialog",
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-sort-dialog-classic.png",
+        "screenshots/ui-sort-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:paragraph-marks",
+      "node_type": "subfeature",
+      "name": "Show/Hide ¶",
+      "parent": "feature:paragraph",
+      "what_it_does": "Toggles the on-screen display of paragraph marks and other hidden formatting symbols.",
+      "affects": "the view (formatting marks visibility) — not the document",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Toggles the on-screen display of paragraph marks and other hidden formatting symbols. Applied immediately to the view (formatting marks visibility) — not the document; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:paragraph-marks"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+*"
+        }
+      ],
+      "shortcut": "Ctrl+*",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-paragraph-marks.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-paragraph-marks.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-left",
+      "node_type": "subfeature",
+      "name": "Align Left",
+      "parent": "feature:paragraph",
+      "what_it_does": "Aligns the paragraph text to the left margin.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "everyone",
+      "behavior": "Direct action: Aligns the paragraph text to the left margin. Applied immediately to the paragraph's alignment; toggle state (where applicable) is reflected by the button's highlighted look. Appears as four horizontal lines aligned to the left.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+L"
+        }
+      ],
+      "shortcut": "Ctrl+L",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-left.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-left.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-center",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-right",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-justify",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-center",
+      "node_type": "subfeature",
+      "name": "Center",
+      "parent": "feature:paragraph",
+      "what_it_does": "Centers the paragraph text between the margins.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "everyone",
+      "behavior": "Direct action: Centers the paragraph text between the margins. Applied immediately to the paragraph's alignment; toggle state (where applicable) is reflected by the button's highlighted look. Appears as four horizontal lines centered.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-center"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+E"
+        }
+      ],
+      "shortcut": "Ctrl+E",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-center.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-center.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-left",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-right",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-justify",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-right",
+      "node_type": "subfeature",
+      "name": "Align Right",
+      "parent": "feature:paragraph",
+      "what_it_does": "Aligns the paragraph text to the right margin.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "everyone",
+      "behavior": "Direct action: Aligns the paragraph text to the right margin. Applied immediately to the paragraph's alignment; toggle state (where applicable) is reflected by the button's highlighted look. Appears as four horizontal lines aligned to the right.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-right"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+R"
+        }
+      ],
+      "shortcut": "Ctrl+R",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-right.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-right.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-left",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-center",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-justify",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-justify",
+      "node_type": "subfeature",
+      "name": "Justify",
+      "parent": "feature:paragraph",
+      "what_it_does": "Spaces the paragraph text to align to both left and right margins.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Spaces the paragraph text to align to both left and right margins. Applied immediately to the paragraph's alignment; toggle state (where applicable) is reflected by the button's highlighted look. Appears as four horizontal lines flush to both margins.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-justify"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+J"
+        }
+      ],
+      "shortcut": "Ctrl+J",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-justify.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-justify.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-left",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-center",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-right",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:line-spacing",
+      "node_type": "subfeature",
+      "name": "Line and Paragraph Spacing",
+      "parent": "feature:paragraph",
+      "what_it_does": "Sets the spacing between lines and before/after paragraphs.",
+      "affects": "the paragraph's line and spacing",
+      "audience_breadth": "most",
+      "behavior": "Opens Line and Paragraph Spacing (menu). Contents (9 controls): 1.0, 1.15, 1.5, 2.0, 2.5, 3.0, Add Space Before Paragraph, Remove Space After Paragraph, Line Spacing Options…. Sub-surfaces: ui:paragraph-dialog. [flyout of subfeature:line-spacing — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as stacked lines with up/down arrows and a chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:line-spacing-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:line-spacing-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-line-spacing-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-line-spacing-gallery.png",
+        "screenshots/ui-line-spacing-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shading-color-picker",
+      "node_type": "subfeature",
+      "name": "Shading",
+      "parent": "feature:paragraph",
+      "what_it_does": "Fills the background of the selection/paragraph with a color; the dropdown picks the color.",
+      "affects": "the paragraph/selection background shading",
+      "audience_breadth": "most",
+      "behavior": "Opens Shading (dropdown) (dropdown). Contents (5 controls): Color swatches, Shading, High-contrast only, No Color, More Colors.... [flyout of subfeature:shading-color-picker — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors] Appears as a paint bucket tilted over a square with a chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:shading-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:shading-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:shading-color-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-shading-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-shading-color-picker.png",
+        "screenshots/ui-shading-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:text-highlight-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:borders-selection-gallery",
+          "kind": "co-location",
+          "why": "paragraph decoration; both live in the Borders and Shading dialog",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "idmso"
+    },
+    {
+      "id": "subfeature:borders-selection-gallery",
+      "node_type": "subfeature",
+      "name": "Borders",
+      "parent": "feature:paragraph",
+      "what_it_does": "Applies borders to the selection/paragraph; the dropdown lists border options and the Borders and Shading dialog.",
+      "affects": "the paragraph/selection borders",
+      "audience_breadth": "most",
+      "behavior": "Opens Borders (dropdown) (menu). Contents (18 controls): Color swatches, Borders, Bottom Border, Top Border, Left Border, Right Border, No Border, All Borders, Outside Borders, Inside Borders, Inside Horizontal Border, Inside Vertical Border, Diagonal Down Border, Diagonal Up Border, Horizontal Line, Draw Table. [flyout of subfeature:borders-selection-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:borders-selection-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:borders-selection-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:borders-selection-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-borders-selection-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-borders-selection-gallery.png",
+        "screenshots/ui-borders-selection-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shading-color-picker",
+          "kind": "co-location",
+          "why": "paragraph decoration; both live in the Borders and Shading dialog",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:paragraph-dialog",
+      "node_type": "subfeature",
+      "name": "Paragraph dialog launcher",
+      "parent": "feature:paragraph",
+      "what_it_does": "Opens the Paragraph dialog — indentation, spacing, alignment and line/page-break options.",
+      "affects": "opens the Paragraph dialog",
+      "audience_breadth": "most",
+      "behavior": "Opens Paragraph (dialog). Contents (32 controls): RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, Context help, Close, Alignment:, Outline level:, Collapsed by default, Left:, Right:, Special:, By:, Mirror indents. Sub-surfaces: ui:paragraph-dialog-tabs. [the Paragraph dialog; enumerated across 2 tab(s)] Appears as the small dialog-launcher arrow in the Paragraph group.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:paragraph-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:paragraph-dialog",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-paragraph-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-paragraph-dialog.png",
+        "screenshots/ui-paragraph-dialog/tab-indents-and-spacing.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

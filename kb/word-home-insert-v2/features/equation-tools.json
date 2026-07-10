@@ -1,0 +1,309 @@
+{
+  "feature": {
+    "id": "feature:equation-tools",
+    "node_type": "feature",
+    "name": "Equation",
+    "what_it_does": "Author a mathematical equation in the selected math zone — conversions, symbols and structures (fractions, scripts, radicals, integrals, matrices…).",
+    "affects": "the content of the selected equation",
+    "audience_breadth": "niche",
+    "behavior": "Author a mathematical equation in the selected math zone — conversions, symbols and structures (fractions, scripts, radicals, integrals, matrices…).",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-equation"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-equation",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:equation-conversions",
+      "subfeature:equation-ink",
+      "subfeature:equation-structures",
+      "subfeature:equation-symbols"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:equation-insert-gallery",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:equation-conversions",
+      "node_type": "subfeature",
+      "name": "Conversions",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Converts the equation's notation between professional/linear, Unicode, LaTeX and text (Convert menu + Equation Options).",
+      "affects": "the equation's notation format",
+      "audience_breadth": "niche",
+      "behavior": "Opens Convert (dropdown) (dropdown). Contents (4 controls): Current - Professional, Current - Linear, All - Professional, All - Linear. [flyout of subfeature:equation-conversions — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-unicode-format"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-la-tex-format"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-normal-text"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-convert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-convert-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-options"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-equation-equation-convert-dropdown",
+      "location": "ui:ribbon-equation",
+      "screenshot": "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-unicode-format.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-unicode-format.png",
+        "screenshots/ui-ribbon-equation-equation-convert-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:equation-ink",
+      "node_type": "subfeature",
+      "name": "Ink Equation",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Opens a canvas to hand-write a math equation that is recognized into typeset math.",
+      "affects": "the equation content (ink input)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-ink-equation"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-equation",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-ink-equation.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:equation-structures",
+      "node_type": "subfeature",
+      "name": "Structures",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Inserts a math structure template into the equation — fraction, script, radical, integral, large operator, bracket, function, accent, limit/log, operator, or matrix (a palette of templates).",
+      "affects": "the equation content (adds a structure)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Fraction (dropdown). Contents (11 controls): Color swatches, Fraction, Equation Structure Stacked Fraction, Equation Structure Skewed Fraction, Equation Structure Linear Fraction, Equation Structure Small Fraction, Equation Structure dy over dx, Equation Structure cap delta y over cap delta x, Equation Structure partial y over partial x, Equation Structure delta y over delta x, Equation Structure pi Over 2. [flyout of subfeature:equation-structures — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Common Fraction, Fraction]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-fraction-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-script-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-radical-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-integral-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-large-operator-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-delimiter-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-function-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-accent-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-limit-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-operator-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-matrix-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-equation-equation-fraction-dropdown",
+      "location": "ui:ribbon-equation",
+      "screenshot": "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-fraction-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-fraction-gallery.png",
+        "screenshots/ui-ribbon-equation-equation-fraction-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:equation-symbols",
+      "node_type": "subfeature",
+      "name": "Equation Symbols",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Inserts a mathematical symbol (operators, Greek letters, arrows…) from the gallery.",
+      "affects": "the equation content (adds a symbol)",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Inserts a mathematical symbol (operators, Greek letters, arrows…) from the gallery. Applied immediately to the equation content (adds a symbol); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-symbols-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-equation",
+      "screenshot": "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-symbols-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-symbols-insert-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

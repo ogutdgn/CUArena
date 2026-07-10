@@ -1,0 +1,303 @@
+{
+  "feature": {
+    "id": "feature:chart-design",
+    "node_type": "feature",
+    "name": "Chart Design",
+    "what_it_does": "Design a selected chart — add chart elements, quick layouts, colors, chart styles, switch row/column, edit the source data and change the chart type.",
+    "affects": "the design and data of the selected chart",
+    "audience_breadth": "niche",
+    "behavior": "Design a selected chart — add chart elements, quick layouts, colors, chart styles, switch row/column, edit the source data and change the chart type. Group controls: subfeature:chart-add-element, subfeature:chart-change-colors, subfeature:chart-change-type, subfeature:chart-edit-data, subfeature:chart-quick-layout, subfeature:chart-style, subfeature:chart-switch-row-column",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:chart-add-element",
+      "subfeature:chart-change-colors",
+      "subfeature:chart-change-type",
+      "subfeature:chart-edit-data",
+      "subfeature:chart-quick-layout",
+      "subfeature:chart-style",
+      "subfeature:chart-switch-row-column"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:chart-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:chart-add-element",
+      "node_type": "subfeature",
+      "name": "Add Chart Element",
+      "parent": "feature:chart-design",
+      "what_it_does": "Adds/removes chart elements — axes, titles, data labels, gridlines, legend, trendlines (menu).",
+      "affects": "which elements the chart displays",
+      "audience_breadth": "niche",
+      "behavior": "Opens Add Chart Element (dropdown). Contents (11 controls): Axes, Axis Titles, Chart Title, Data Labels, Data Table, Error Bars, Gridlines, Legend, Lines, Trendline, Up/Down Bars. [flyout of subfeature:chart-add-element — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-add-chart-element-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-add-chart-element-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-add-chart-element-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-add-chart-element-menu.png",
+        "screenshots/ui-ribbon-chart-design-add-chart-element-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-change-colors",
+      "node_type": "subfeature",
+      "name": "Change Colors",
+      "parent": "feature:chart-design",
+      "what_it_does": "Applies a color scheme to the chart's data series from a gallery.",
+      "affects": "the chart's color scheme",
+      "audience_breadth": "niche",
+      "behavior": "Opens Change Colors (dropdown). Contents (14 controls): Color swatches, Change Colors, Line up, Colorful Palette 1, Colorful Palette 2, Colorful Palette 3, Colorful Palette 4, Monochromatic Palette 1, Page down, Monochromatic Palette 2, Monochromatic Palette 3, Monochromatic Palette 4, Monochromatic Palette 5, Line down. [flyout of subfeature:chart-change-colors — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Colorful, Monochromatic]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-colors-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-colors-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-colors-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-colors-gallery.png",
+        "screenshots/ui-ribbon-chart-design-chart-colors-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-change-type",
+      "node_type": "subfeature",
+      "name": "Change Chart Type",
+      "parent": "feature:chart-design",
+      "what_it_does": "Opens the Change Chart Type dialog to switch the chart to a different type.",
+      "affects": "the chart's type",
+      "audience_breadth": "niche",
+      "behavior": "Opens Change Chart Type (dialog). Contents (31 controls): Recent, Templates, Column, Line, Pie, Bar, Area, X Y (Scatter), Map, Stock, Surface, Radar, Treemap, Sunburst, Histogram, Box & Whisker. [the Change Chart Type dialog; enumerated across 1 tab(s)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-change-type"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-change-type-dialog",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-change-type.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-change-type.png",
+        "screenshots/ui-ribbon-chart-design-chart-change-type-dialog/tab-all-charts.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-edit-data",
+      "node_type": "subfeature",
+      "name": "Edit / Select Data",
+      "parent": "feature:chart-design",
+      "what_it_does": "Accesses the chart's underlying worksheet data — edit data (opens the linked Excel workbook), select data range, show the data grid, and refresh.",
+      "affects": "the chart's source data",
+      "audience_breadth": "niche",
+      "behavior": "Opens Edit Data (dropdown) (dropdown). Contents (2 controls): Edit Data, Edit Data in Excel. [flyout of subfeature:chart-edit-data — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-edit-data-source"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-show-data-grid"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-show-data-grid-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-refresh"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-show-data-grid-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-edit-data-source.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-edit-data-source.png",
+        "screenshots/ui-ribbon-chart-design-chart-show-data-grid-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-quick-layout",
+      "node_type": "subfeature",
+      "name": "Quick Layout",
+      "parent": "feature:chart-design",
+      "what_it_does": "Applies a preset arrangement of the chart's elements from a gallery.",
+      "affects": "the chart's element layout",
+      "audience_breadth": "niche",
+      "behavior": "Opens Quick Layout (dropdown). Contents (13 controls): Color swatches, Quick Layout, Layout 1, Layout 2, Layout 3, Layout 4, Layout 5, Layout 6, Layout 7, Layout 8, Layout 9, Layout 10, Layout 11. [flyout of subfeature:chart-quick-layout — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-layout-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-layout-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-layout-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-layout-gallery.png",
+        "screenshots/ui-ribbon-chart-design-chart-layout-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-style",
+      "node_type": "subfeature",
+      "name": "Chart Styles gallery",
+      "parent": "feature:chart-design",
+      "what_it_does": "Applies an overall visual style to the chart from the gallery.",
+      "affects": "the chart's visual style",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Applies an overall visual style to the chart from the gallery. Applied immediately to the chart's visual style; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-switch-row-column",
+      "node_type": "subfeature",
+      "name": "Switch Row/Column",
+      "parent": "feature:chart-design",
+      "what_it_does": "Swaps which of the source data's rows and columns map to the chart's axis vs series.",
+      "affects": "the chart's data orientation",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Swaps which of the source data's rows and columns map to the chart's axis vs series. Applied immediately to the chart's data orientation; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-switch-row-column"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-switch-row-column.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-switch-row-column.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

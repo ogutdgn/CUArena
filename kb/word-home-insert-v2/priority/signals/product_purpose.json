@@ -1,0 +1,694 @@
+{
+  "method": "authored verdict per sub-feature in the mandated form; verdict scores mapped in combine_priority.py; identity X measured in step 0, function Y measured in steps 2-3",
+  "identity": "a desktop word processor whose core job is creating, formatting and editing text documents",
+  "nodes": {
+    "subfeature:paste": {
+      "verdict": "indispensable",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts clipboard content at the cursor — the primary way content enters a document besides typing -> therefore indispensable"
+    },
+    "subfeature:cut": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this removes the selection to the clipboard — half of the move-content operation -> therefore important"
+    },
+    "subfeature:copy": {
+      "verdict": "indispensable",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this duplicates the selection to the clipboard — content reuse is core to document work -> therefore indispensable"
+    },
+    "subfeature:format-painter": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this copies formatting for reapplication — a convenience over re-applying formats manually -> therefore useful"
+    },
+    "subfeature:office-clipboard": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this shows the last 24 clipboard items — the core job needs only the live clipboard -> therefore peripheral"
+    },
+    "subfeature:font": {
+      "verdict": "indispensable",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this chooses the typeface — formatting text is the core job and typeface is its first lever -> therefore indispensable"
+    },
+    "subfeature:font-size": {
+      "verdict": "indispensable",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets the character size — inseparable from formatted text -> therefore indispensable"
+    },
+    "subfeature:font-size-increase": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this steps the size up — a variation of setting font size -> therefore useful"
+    },
+    "subfeature:font-size-decrease": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this steps the size down — a variation of setting font size -> therefore useful"
+    },
+    "subfeature:change-case": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rewrites capitalization — a convenience over retyping -> therefore useful"
+    },
+    "subfeature:clear-formatting": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this strips all formatting — a reset lever, not a creative one -> therefore useful"
+    },
+    "subfeature:bold": {
+      "verdict": "indispensable",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles bold emphasis — the most-used character format in the product's own telemetry -> therefore indispensable"
+    },
+    "subfeature:italic": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles italic emphasis — everyday emphasis, second to bold -> therefore important"
+    },
+    "subfeature:underline-gallery": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles underline (+styles/colors) — the third everyday emphasis -> therefore important"
+    },
+    "subfeature:strikethrough": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this strikes text through — edit-markup styling for specific tasks -> therefore useful"
+    },
+    "subfeature:subscript": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this lowers text below the baseline — required for formulas/chemistry but absent from most documents -> therefore useful"
+    },
+    "subfeature:superscript": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this raises text above the baseline — ordinals and footnote marks; task-specific -> therefore useful"
+    },
+    "subfeature:text-effects": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies decorative visual effects — the core job is fine without decoration -> therefore peripheral"
+    },
+    "subfeature:text-highlight-color-picker": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this paints a highlighter color behind text — everyday review/emphasis tool -> therefore important"
+    },
+    "subfeature:font-color-picker": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets text color — routine formatting, just below the emphasis trio -> therefore important"
+    },
+    "subfeature:font-dialog": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the consolidated character-formatting surface incl. defaults and advanced spacing — the deep end of a core capability -> therefore important"
+    },
+    "subfeature:bullets-gallery": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this starts/toggles bulleted lists — lists are core document structure -> therefore important"
+    },
+    "subfeature:numbering-gallery": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this starts/toggles numbered lists — core document structure -> therefore important"
+    },
+    "subfeature:multilevel-list": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies nested list schemes — structured documents only -> therefore useful"
+    },
+    "subfeature:indent-decrease": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this moves the indent toward the margin — everyday paragraph layout -> therefore important"
+    },
+    "subfeature:indent-increase": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this moves the indent away from the margin — everyday paragraph layout -> therefore important"
+    },
+    "subfeature:sort": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sorts paragraphs/table rows — occasional data housekeeping, not document creation -> therefore peripheral"
+    },
+    "subfeature:paragraph-marks": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this shows hidden formatting marks — a diagnostic view toggle -> therefore useful"
+    },
+    "subfeature:align-left": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns paragraphs to the left margin — one of the four core alignments -> therefore important"
+    },
+    "subfeature:align-center": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this centers paragraphs — titles and headings depend on it -> therefore important"
+    },
+    "subfeature:align-right": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this right-aligns paragraphs — situational (dates, signatures) -> therefore useful"
+    },
+    "subfeature:align-justify": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this justifies both margins — style-specific -> therefore useful"
+    },
+    "subfeature:line-spacing": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets line/paragraph spacing — readable layout is core -> therefore important"
+    },
+    "subfeature:shading-color-picker": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this fills paragraph background color — decoration/emphasis, situational -> therefore useful"
+    },
+    "subfeature:borders-selection-gallery": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies paragraph borders — decoration, situational -> therefore useful"
+    },
+    "subfeature:paragraph-dialog": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the consolidated paragraph-layout surface (indents, spacing, pagination) — the deep end of a core capability -> therefore important"
+    },
+    "subfeature:quick-styles": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies named styles from the gallery — the product's own mechanism for consistent formatting -> therefore important"
+    },
+    "subfeature:styles-pane": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the full style-management pane — power-user surface over the same capability -> therefore useful"
+    },
+    "subfeature:find": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this searches document text — navigation in any non-trivial document -> therefore important"
+    },
+    "subfeature:replace": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this substitutes text document-wide — bulk editing depends on it -> therefore important"
+    },
+    "subfeature:select": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this select-all/objects/similar-formatting — conveniences over mouse selection -> therefore useful"
+    },
+    "subfeature:dictate": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this cloud speech-to-text — an input alternative, not the core job -> therefore peripheral"
+    },
+    "subfeature:editor": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this cloud proofing suggestions — quality aid, the document can be written without it -> therefore useful"
+    },
+    "subfeature:create-pdf": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this exports PDF via a third-party add-in — output conversion, not document creation -> therefore peripheral"
+    },
+    "subfeature:office-addins": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this opens the add-in store — an extension gateway, not a document capability -> therefore peripheral"
+    },
+    "subfeature:cover-page-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts a preformatted first page — template convenience -> therefore useful"
+    },
+    "subfeature:blank-page-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts an empty page — a page-flow convenience over two breaks -> therefore useful"
+    },
+    "subfeature:page-break-insert": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this ends the page at the cursor — the basic page-flow control every multi-page document uses -> therefore important"
+    },
+    "subfeature:table-insert": {
+      "verdict": "indispensable",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this creates row/column structure — tables are one of the product's core artifacts (identity: formatting documents) -> therefore indispensable"
+    },
+    "subfeature:insert-pictures": {
+      "verdict": "indispensable",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this places images into the document — graphics in text is a core capability of the product -> therefore indispensable"
+    },
+    "subfeature:shapes-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this draws vector shapes — diagramming inside documents, task-specific -> therefore useful"
+    },
+    "subfeature:icon-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts stock icon graphics — decoration from a cloud library -> therefore peripheral"
+    },
+    "subfeature:insert-3d-models": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds rotatable 3D models — showcase content far from the core job -> therefore peripheral"
+    },
+    "subfeature:smart-art-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts diagram graphics (lists, processes, hierarchies) — common in business docs, not core -> therefore useful"
+    },
+    "subfeature:chart-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds a data chart with a linked worksheet — reporting documents need it, most documents do not -> therefore useful"
+    },
+    "subfeature:screenshot-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this snapshots an open window into the doc — an acquisition convenience -> therefore peripheral"
+    },
+    "subfeature:online-videos-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds online video — the core job is print-shaped documents -> therefore peripheral"
+    },
+    "subfeature:insert-link": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this wraps the selection in a hyperlink — digital documents live on links -> therefore important"
+    },
+    "subfeature:bookmark-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this names a location for jumps — plumbing for links/references, rarely touched directly -> therefore peripheral"
+    },
+    "subfeature:cross-reference-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts live references to headings/figures — long structured documents only -> therefore useful"
+    },
+    "subfeature:insert-new-comment": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this anchors a review comment — collaboration is core to modern document work -> therefore important"
+    },
+    "subfeature:header-insert": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this puts repeating content at every page top — standard in formal documents -> therefore important"
+    },
+    "subfeature:footer-insert": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this puts repeating content at every page bottom — standard in formal documents -> therefore important"
+    },
+    "subfeature:page-number-insert": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this numbers the pages — near-universal in multi-page documents -> therefore important"
+    },
+    "subfeature:text-box-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds a floating text container — layout flexibility for callouts/covers -> therefore useful"
+    },
+    "subfeature:quick-parts-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts reusable building blocks and fields — power-user machinery -> therefore peripheral"
+    },
+    "subfeature:word-art-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts decorative display text — pure decoration -> therefore peripheral"
+    },
+    "subfeature:drop-cap-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this drops the first letter large — a rare typographic flourish -> therefore peripheral"
+    },
+    "subfeature:signature-line-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts a signature placeholder — specific business workflows -> therefore peripheral"
+    },
+    "subfeature:date-and-time-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts the date/time, optionally auto-updating — typing the date is the common path -> therefore peripheral"
+    },
+    "subfeature:object-insert": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this embeds OLE objects/files — legacy compound documents -> therefore peripheral"
+    },
+    "subfeature:equation-insert-gallery": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts a math zone with its own editing tab — capability-defining for technical writers, absent elsewhere -> therefore useful"
+    },
+    "subfeature:symbol-insert": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts characters not on the keyboard — everyone occasionally (©, ±, é) -> therefore useful"
+    },
+    "subfeature:esignature-fields": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this starts a cloud e-signature request — an external service workflow -> therefore peripheral"
+    },
+    "subfeature:table-style-options": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles which table regions the style emphasizes — routine table styling -> therefore useful"
+    },
+    "subfeature:table-styles": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a whole-table visual style — the primary way tables are made presentable -> therefore important"
+    },
+    "subfeature:table-shading": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this shades cell backgrounds — common table emphasis -> therefore useful"
+    },
+    "subfeature:table-borders": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets table borders — near-universal in presented tables -> therefore important"
+    },
+    "subfeature:table-select": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this selects table parts — a precondition convenience -> therefore useful"
+    },
+    "subfeature:table-view-gridlines": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this toggles gridline view — an editing aid -> therefore useful"
+    },
+    "subfeature:table-properties": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets precise table layout properties — power-table work -> therefore useful"
+    },
+    "subfeature:table-draw": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this hand-draws cell boundaries — a niche input mode -> therefore peripheral"
+    },
+    "subfeature:table-eraser": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this erases cell boundaries — niche -> therefore peripheral"
+    },
+    "subfeature:table-delete": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this removes rows/columns/cells — core table editing -> therefore important"
+    },
+    "subfeature:table-insert-rows": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds rows — core table editing -> therefore important"
+    },
+    "subfeature:table-insert-columns": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds columns — core table editing -> therefore important"
+    },
+    "subfeature:table-insert-cells": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts cells with shift — less common than row/column insert -> therefore useful"
+    },
+    "subfeature:table-merge-cells": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this merges cells — a defining table-layout op -> therefore important"
+    },
+    "subfeature:table-split-cells": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this splits cells — a defining table-layout op -> therefore important"
+    },
+    "subfeature:table-split-table": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this splits a table in two — occasional -> therefore useful"
+    },
+    "subfeature:table-autofit": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this auto-fits column widths — everyday table sizing -> therefore important"
+    },
+    "subfeature:table-cell-size": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets exact cell dimensions — precise sizing -> therefore useful"
+    },
+    "subfeature:table-cell-alignment": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns cell contents — routine in presented tables -> therefore important"
+    },
+    "subfeature:table-text-direction": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rotates cell text — niche -> therefore peripheral"
+    },
+    "subfeature:table-cell-margins": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets cell margins — fine-tuning -> therefore useful"
+    },
+    "subfeature:table-repeat-header": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this repeats header rows across pages — long tables -> therefore useful"
+    },
+    "subfeature:table-convert-to-text": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this converts a table to text — occasional -> therefore useful"
+    },
+    "subfeature:table-formula": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds a cell formula — Word tables are rarely used for calculation -> therefore peripheral"
+    },
+    "subfeature:picture-remove-background": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this auto-removes an image background — a popular but occasional edit -> therefore useful"
+    },
+    "subfeature:picture-corrections": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adjusts brightness/contrast — common image tidy-up -> therefore useful"
+    },
+    "subfeature:picture-color": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors an image — common image styling -> therefore useful"
+    },
+    "subfeature:picture-artistic-effects": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies painterly filters — decorative, occasional -> therefore peripheral"
+    },
+    "subfeature:picture-transparency": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets image transparency — layout aid -> therefore useful"
+    },
+    "subfeature:picture-compress": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this reduces image size — file-size management -> therefore useful"
+    },
+    "subfeature:picture-change": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this swaps the image keeping formatting — a handy edit -> therefore useful"
+    },
+    "subfeature:picture-reset": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this reverts image formatting — an undo convenience -> therefore useful"
+    },
+    "subfeature:picture-style-gallery": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a framed picture style — the quickest way to make an image look finished -> therefore important"
+    },
+    "subfeature:picture-border": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets an image border — common finishing -> therefore useful"
+    },
+    "subfeature:picture-effects": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies shadow/glow/3D to an image — styling -> therefore useful"
+    },
+    "subfeature:picture-convert-to-smartart": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this captions images as SmartArt — niche -> therefore peripheral"
+    },
+    "subfeature:picture-format-pane": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this the full image-formatting pane — power editing -> therefore useful"
+    },
+    "subfeature:graphics-change": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this swaps the icon graphic — niche -> therefore peripheral"
+    },
+    "subfeature:graphics-convert-to-shape": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this makes an icon editable — the key reason to use SVG icons -> therefore useful"
+    },
+    "subfeature:graphics-style-gallery": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this styles an icon graphic — routine icon work -> therefore useful"
+    },
+    "subfeature:graphics-color": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors an icon — routine icon work -> therefore useful"
+    },
+    "subfeature:graphics-border": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this outlines an icon — occasional -> therefore peripheral"
+    },
+    "subfeature:graphics-effects": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds effects to an icon — occasional -> therefore peripheral"
+    },
+    "subfeature:graphics-format-pane": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this the full graphic-formatting pane — power editing of a niche object -> therefore peripheral"
+    },
+    "subfeature:shape-edit": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes/edits a shape's geometry — shape work -> therefore useful"
+    },
+    "subfeature:shape-text-direction": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rotates text in a shape — niche -> therefore peripheral"
+    },
+    "subfeature:shape-text-align": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns text in a shape/text box — routine for text boxes -> therefore useful"
+    },
+    "subfeature:shape-text-link": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this flows text between text boxes — desktop-publishing niche -> therefore peripheral"
+    },
+    "subfeature:smartart-add-shape": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds nodes to a diagram — core SmartArt editing -> therefore useful"
+    },
+    "subfeature:smartart-add-bullet": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds sub-items to a diagram node — SmartArt editing -> therefore useful"
+    },
+    "subfeature:smartart-text-pane": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this edits diagram text as an outline — the primary SmartArt text entry -> therefore useful"
+    },
+    "subfeature:smartart-promote-demote": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes a node's level/order — SmartArt structuring -> therefore useful"
+    },
+    "subfeature:smartart-reverse": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this reverses layout direction — occasional -> therefore peripheral"
+    },
+    "subfeature:smartart-org-layout": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this org-chart branch layout — niche -> therefore peripheral"
+    },
+    "subfeature:smartart-layout": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes the diagram layout — core SmartArt choice -> therefore useful"
+    },
+    "subfeature:smartart-change-colors": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors the diagram — routine SmartArt styling -> therefore useful"
+    },
+    "subfeature:smartart-style": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this styles the diagram — routine SmartArt styling -> therefore useful"
+    },
+    "subfeature:smartart-reset": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this resets diagram formatting — an undo aid -> therefore peripheral"
+    },
+    "subfeature:smartart-shape-edit": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this edits an individual SmartArt shape — fine SmartArt work -> therefore peripheral"
+    },
+    "subfeature:chart-add-element": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds/removes chart elements (titles, labels, legend) — core chart authoring -> therefore useful"
+    },
+    "subfeature:chart-quick-layout": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a preset chart layout — quick chart setup -> therefore useful"
+    },
+    "subfeature:chart-change-colors": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this recolors the chart series — routine chart styling -> therefore useful"
+    },
+    "subfeature:chart-style": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a chart style — the quick way to finish a chart -> therefore useful"
+    },
+    "subfeature:chart-switch-row-column": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this swaps the chart's data orientation — common when the chart reads wrong -> therefore useful"
+    },
+    "subfeature:chart-edit-data": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this edits the chart's underlying data — a chart is meaningless without correct data -> therefore important"
+    },
+    "subfeature:chart-change-type": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes the chart type — choosing the right chart -> therefore useful"
+    },
+    "subfeature:chart-select-element": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this selects a chart element to format — a precondition for element formatting -> therefore useful"
+    },
+    "subfeature:chart-format-selection": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this formats the selected chart element — fine chart tuning -> therefore useful"
+    },
+    "subfeature:equation-ink": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this hand-writes an equation — a niche input mode -> therefore peripheral"
+    },
+    "subfeature:equation-conversions": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this converts equation notation — used by LaTeX-oriented authors -> therefore useful"
+    },
+    "subfeature:equation-symbols": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts math symbols — core to writing equations -> therefore useful"
+    },
+    "subfeature:equation-structures": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts math structure templates (fractions, integrals…) — core to writing equations -> therefore useful"
+    },
+    "subfeature:hf-document-info": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts document-info fields in the header/footer — common in formal documents -> therefore useful"
+    },
+    "subfeature:hf-navigate": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this moves between header and footer — routine while editing them -> therefore useful"
+    },
+    "subfeature:hf-link-to-previous": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this links/unlinks section headers — multi-section documents -> therefore useful"
+    },
+    "subfeature:hf-options": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this different-first-page / odd-even options — standard in formal/book layouts -> therefore important"
+    },
+    "subfeature:hf-position": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets header/footer distance from the edge — layout fine-tuning -> therefore useful"
+    },
+    "subfeature:hf-alignment-tab": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this inserts an alignment tab — advanced header/footer layout -> therefore peripheral"
+    },
+    "subfeature:hf-close": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this exits header/footer editing — the standard way out of the mode -> therefore important"
+    },
+    "subfeature:object-position": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this presets an object's page position — common layout -> therefore useful"
+    },
+    "subfeature:object-text-wrap": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets text wrapping around an object — the single most-needed object-layout choice -> therefore important"
+    },
+    "subfeature:object-reorder": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this changes object z-order — common with overlapping objects -> therefore useful"
+    },
+    "subfeature:object-align": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this aligns/distributes objects — layout tidiness -> therefore useful"
+    },
+    "subfeature:object-group": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this groups objects to move together — multi-object work -> therefore useful"
+    },
+    "subfeature:object-rotate": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this rotates/flips an object — common adjustment -> therefore useful"
+    },
+    "subfeature:object-selection-pane": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this lists objects for show/hide/reorder — multi-object management -> therefore useful"
+    },
+    "subfeature:object-alt-text": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this authors accessibility alt text — increasingly expected -> therefore useful"
+    },
+    "subfeature:object-size": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets an object's exact size — near-universal after inserting an object -> therefore important"
+    },
+    "subfeature:picture-crop": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this crops an image — one of the most-used image edits -> therefore important"
+    },
+    "subfeature:shape-style-gallery": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a shape style — the quick way to style a shape -> therefore important"
+    },
+    "subfeature:shape-fill": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets a shape's fill — the most-used shape format -> therefore important"
+    },
+    "subfeature:shape-outline": {
+      "verdict": "important",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this sets a shape's outline — everyday shape format -> therefore important"
+    },
+    "subfeature:shape-effects": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds effects to a shape — styling -> therefore useful"
+    },
+    "subfeature:shape-format-pane": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this the full shape-formatting pane — power editing -> therefore useful"
+    },
+    "subfeature:wordart-text-style-gallery": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this applies a WordArt text style — decorative text -> therefore useful"
+    },
+    "subfeature:wordart-text-fill": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this fills object text — decorative text styling -> therefore useful"
+    },
+    "subfeature:wordart-text-outline": {
+      "verdict": "peripheral",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this outlines object text — decorative -> therefore peripheral"
+    },
+    "subfeature:wordart-text-effects": {
+      "verdict": "useful",
+      "reasoning": "product is a desktop word processor whose core job is creating, formatting and editing text documents + this adds effects to object text — decorative text styling -> therefore useful"
+    }
+  }
+}

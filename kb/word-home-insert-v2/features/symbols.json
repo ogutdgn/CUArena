@@ -1,0 +1,138 @@
+{
+  "feature": {
+    "id": "feature:symbols",
+    "node_type": "feature",
+    "name": "Symbols",
+    "what_it_does": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+    "affects": "document content (adds equations/symbols)",
+    "audience_breadth": "most",
+    "behavior": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:equation-insert-gallery",
+      "subfeature:symbol-insert"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:equation-insert-gallery",
+      "node_type": "subfeature",
+      "name": "Equation",
+      "parent": "feature:symbols",
+      "what_it_does": "Inserts an empty math zone at the cursor (measured: OMaths 0→1) and activates the Equation contextual tab; the dropdown offers built-in equations (quadratic formula, area of circle…).",
+      "affects": "document content (adds an equation/math zone)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Equation (dropdown) (dropdown). Contents (15 controls): Color swatches, Equation, Line up, Position, Area of Circle, Binomial Theorem, Expansion of a Sum, Page down, Fourier Series, Pythagorean Theorem, Line down, More Equations from Office.com, Insert New Equation, Ink Equation, Save Selection to Equation Gallery.... [flyout of subfeature:equation-insert-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-In] Appears as a pi symbol, labelled 'Equation', with a chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:equation-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:equation-insert-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Alt+="
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": "Alt+=",
+      "opens": "ui:equation-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-equation-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-equation-insert-gallery.png",
+        "screenshots/ui-equation-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:symbol-insert",
+          "kind": "co-location",
+          "why": "the Symbols group family",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:symbol-insert",
+      "node_type": "subfeature",
+      "name": "Symbol",
+      "parent": "feature:symbols",
+      "what_it_does": "Opens a gallery of recently used symbols plus More Symbols… (the full character map) to insert characters not on the keyboard.",
+      "affects": "document content (adds a symbol character)",
+      "audience_breadth": "most",
+      "behavior": "Opens Symbol (dropdown). Contents (23 controls): Color swatches, Symbol, Euro Sign, Pound Sign, Yen Sign, Copyright Sign, Registered Sign, Trade Mark Sign, Plus-Minus Sign, Not Equal To, Less-Than Or Equal To, Greater-Than Or Equal To, Division Sign, Multiplication Sign, Infinity, Micro Sign. [flyout of subfeature:symbol-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as an omega symbol, labelled 'Symbol', with a chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:symbol-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:symbol-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-symbol-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-symbol-insert-gallery.png",
+        "screenshots/ui-symbol-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:equation-insert-gallery",
+          "kind": "co-location",
+          "why": "the Symbols group family",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

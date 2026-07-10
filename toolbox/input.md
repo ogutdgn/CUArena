@@ -98,3 +98,32 @@ committing button (`crawler/run_p0.py::_dismiss`).
 - 2026-07-09 — **Serial by construction.** One physical input stream + foreground semantics
   means two drivers on one desktop collide. Parallelize read-only analysis, never the driving.
   (learned from `docs/DEPTH.md` §5 of the source project)
+- 2026-07-09 — **Transitive descent has two regimes: modal stacks descend in place, flyouts
+  need route replay.** Pressing a '…' opener inside a DIALOG leaves the parent open under the
+  child — recurse, close the child, continue with the next opener, no reopening. Pressing an
+  item inside a FLYOUT kills the flyout — each opener item costs: click → explore what opened
+  → close → replay the ribbon-zone click to reopen the flyout for the next sibling. Budget
+  accordingly: a gallery menu with 4 cascades + 2 dialog openers ≈ 7 open/close cycles.
+  (learned from kb/word-home-insert step5 DepthWalker: 60 surfaces entered transitively)
+- 2026-07-09 — **Cascade submenus are discoverable by hover-probe with the position rule.**
+  Menu items WITHOUT '…' may still own cascades (Word's Gradient, Underline Color, Top of
+  Page…). Park-settle on the parent's top border, hover the item ~0.65s, and accept a new
+  window only if its left edge sits at/after the parent's right edge (tooltips render OVER the
+  item). Items named '… from Office.com' open network galleries — journal a boundary, don't
+  descend. (learned from kb/word-home-insert step5: 10 cascades measured this way)
+- 2026-07-09 — **Deduplicate shared dialogs by normalized TITLE at discovery time.** 'More
+  Underlines…' opens the Font dialog; 'Line Spacing Options…' opens the Paragraph dialog; Find
+  dropdown's 'Advanced Find…' and Replace open the same Find and Replace dialog. Keeping a
+  normalized-title → container-id map and resolving each newly opened dialog against it before
+  assigning a fresh id turns re-crawls into references (the seen-set the design demands).
+  (learned from kb/word-home-insert step5 DepthWalker.resolve_known)
+- 2026-07-10 — **A split button's dropdown open-point must be recomputed at press time, never
+  cached.** A depth pass that computed each dropdown-zone point once when the tab was first
+  activated failed to open the shared color-picker / crop split buttons ('no-surface-appeared'):
+  the ribbon shifts as the object selection changes between targets, so the stale point lands on
+  the PRIMARY zone (which just arms crop mode / applies the last color) and opens nothing.
+  Re-enumerate the LIVE split element right before the click and use its exact `*_Dropdown`
+  child rect (`split_zone_rects`), exactly as step-2/3 do. Same failure class: the pywinauto UIA
+  `win` wrapper goes stale after heavy interaction (esp. after an OS file dialog) and
+  `select_tab` starts raising — re-attach `Desktop(...).window(handle=frame)` and retry before
+  giving up. (learned from kb/word-home-insert-v2 step5: run_step5_stragglers + tab-activate retry)

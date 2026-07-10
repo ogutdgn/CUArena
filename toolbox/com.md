@@ -107,3 +107,13 @@ before crawling clipboard-dependent controls (`crawler/launcher.py::select_parag
   baseline. Undo any doc/format change with Ctrl+Z (loop until doc_hash AND format_sig match
   baseline); reserve re-press for view toggles like Show All that Ctrl+Z can't undo.
   (learned from kb/word/scripts/tools/prober.py::restore)
+- 2026-07-10 — **One control that opens a COM-blocking modal must not kill the whole crawl —
+  catch, recover win32-only, continue.** A contextual press that opens an OS file dialog (the
+  Header&Footer tab's 'Pictures…') or an ink/modal editor makes EVERY later COM call raise
+  `RPC_E_SERVERCALL_RETRYLATER` (-2147417846, "application is busy"); an uncaught exception then
+  aborts the entire tab. Wrap each control's probe in try/except: on failure close every
+  non-frame top-level window with win32 `PostMessage(WM_CLOSE)` + keyboard ESC (NO COM — COM is
+  the thing that's blocked), then **poll `doc_hash()` until it stops returning the `<com-busy>`
+  sentinel** before continuing, and record the control as an honest unexplored boundary. This
+  turned a fatal crawl-killer into a single journaled skip. (learned from kb/word-home-insert-v2
+  step3: `_force_close_nonframe` + per-control except in crawl_contextual_tab)
