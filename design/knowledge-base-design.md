@@ -89,12 +89,12 @@ Every interactive element carries **exactly one** of three markers, which turns 
 - `"unexplored": true` — a stub below the priority budget
 
 ```json
-// ui/font-color-dropdown.json
-{
-  "id": "ui:font-color-dropdown",
+// one entry inside ui.json, keyed by container id
+"ui:font-color-dropdown": {
   "kind": "dropdown",
   "label": "Font Color",
   "screenshot": "screenshots/ui/font-color-dropdown.png",
+  "explored": true,
   "children": [
     { "control_type": "swatch-grid", "label": "Theme Colors",
       "triggers": "subfeature:font-color" },
@@ -104,7 +104,7 @@ Every interactive element carries **exactly one** of three markers, which turns 
 }
 ```
 
-Each container is one file (`ui/<container-id>.json`) referenced by id — never duplicated inline — because the same container is often reachable from several places (Word's Font dialog opens from the ribbon launcher *and* the right-click menu). Trigger paths are id-chains through this tree, so the chain dialog→dialog→dropdown→… that deep exploration walks is fully reconstructible from the data.
+All containers live together in one **`ui.json`**, keyed by id — never duplicated inline — because the same container is often reachable from several places (Word's Font dialog opens from the ribbon launcher *and* the right-click menu): one entry, many `opens` references pointing at it. Trigger paths are id-chains through this tree, so the chain dialog→dialog→dropdown→… that deep exploration walks is fully reconstructible from the data. (Keeping every container in one file is safe because a single sequential agent writes it; there is no parallel-write conflict to avoid.)
 
 ### Dialogs and dropdowns
 
@@ -148,32 +148,47 @@ What shortcuts have that buttons don't is **context**: the same key acts differe
 - **User flows / task sequences.** Not knowledge — derivable from a complete graph. Anything a task walk would reveal (state dependencies, orderings) belongs on the nodes as behavior knowledge.
 - **KB testing machinery.** Verifying the knowledge is part of the larger pipeline but will be designed separately as its own component. P1's only built-in check is the structural completeness check below, which is a property of the graph itself.
 
-### On-disk layout
+### On-disk layout — consolidated: fat source files + a generated graph spine
+
+The KB is NOT one small file per node. That fragmentation existed only because Plan-A ran
+parallel inspectors that each needed a private file; the current single, sequential agent has no
+such constraint, so the output is consolidated for readability and integrity. The model is a
+**spine + fat chapters**:
+
+- **Source of truth = fat, self-contained files.** One file per FEATURE holding the feature AND
+  all its sub-features inline with full rubrics (`features/font.json` contains bold, italic,
+  font-size, …). One `ui.json` holding ALL containers (dialogs/dropdowns/panes/menus), each keyed
+  by id — containers are shared (a dialog reachable from two places) so they live in one place
+  and are referenced by id, never inlined into a feature.
+- **`graph.json` = the spine, GENERATED (like `overview.md`), never hand-authored.** A kernel
+  builder reads the fat files and emits a lightweight map: every node's id, type, parent, layer,
+  trigger paths, connection edges, and a pointer to where its content lives. Navigation, priority
+  computation, closure, and the completeness check all run on this spine. Because it is derived,
+  structural facts have exactly one home (the fat files) and cannot drift.
 
 ```
 kb/<app>/
-  app.json
-  features/<feature>.json
-  subfeatures/<feature>/<sub>.json
-  ui/<container-id>.json        # UI tree: containers with children[] and opens references
-  shortcuts/<keys>.json         # shortcut registry: context-scoped bindings (source of truth)
+  app.json                      # identity + skeleton summary (version pinned)
+  graph.json                    # GENERATED spine: nodes (id/type/parent/layer/trigger-paths/
+                                #   edges) + content pointers. Drives priority/closure/checks.
+  features/<feature>.json       # FAT source: the feature + ALL its sub-features inline, full rubric
+  ui.json                       # ALL UI containers (dialog/dropdown/pane/menu/tab) keyed by id
+  shortcuts.json                # shortcut registry: context-scoped bindings (one file)
+  priority.json                 # ranking (sub-features) + derived feature layers + signals +
+                                #   evidence + closure list (pulled-in-by) — one file
   docs/<page>.md                # harvested official docs (only when the quality gate passes)
   docs-tree.json                # cross-page reference tree from the docs
-  screenshots/<node-id>/*.png
+  screenshots/<node-id>/*.png   # binary assets stay as files
   scripts/                      # working scripts the pipeline wrote for THIS app
-    drive/                      #   app driving: launch, fixtures, navigation
-    extract/                    #   harvesting: docs crawl, palette sampling, ...
-    verify/                     #   state-verification snippets
-  priority/                     # ranking workspace — evidence, not vibes
-    signals/connectivity.json   #   per-node centrality (computed, deterministic)
-    signals/usage.json          #   per-node usage evidence: claim + source + mapping
-    signals/audience.json       #   audience_breadth mapped to scores
-    ranking.json                #   combined weighted scores, sorted; weights recorded
-    layers.json                 #   final P0–P4 per node + boundaries used
-  journal.jsonl                 # append-only log of every inspection action and outcome
-  graph.json          # assembled graph + priority layers
-  overview.md         # generated, human-readable
+    drive/  extract/  verify/   #   launch/fixtures · harvesting · state-verification
+  journal.jsonl                 # append-only log of every action, outcome, and decision
+  overview.md                   # generated, human-readable
 ```
+
+Rule of thumb for where a fact lives: **content** (what a capability does, its behavior, options,
+screenshot refs) → the fat feature file; **structure** (ids, hierarchy, layers, edges, trigger
+paths) → authored in the fat files and mirrored into the generated `graph.json`. If a fact would
+otherwise live in two places, it belongs in the fat file and the graph reads it.
 
 ### Repository layout (root)
 

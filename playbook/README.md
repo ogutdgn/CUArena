@@ -34,6 +34,16 @@ Every step has the same three parts:
 6. **Prove or mark** — every claim traceable to evidence; when stuck, mark `unexplored` honestly
    and move on.
 7. **Give back** — new tool lessons get appended (dated) to `toolbox/*.md`.
+8. **Consolidated output, not fragments** — write knowledge as FAT, self-contained files, not one
+   tiny file per node (`design/knowledge-base-design.md` → "On-disk layout"):
+   - one `features/<feature>.json` per feature, holding the feature AND all its sub-features
+     inline with full rubrics;
+   - one `ui.json` for ALL containers (dialogs/dropdowns/panes/menus), keyed by id and referenced
+     by `opens` — shared containers live once, never inlined;
+   - one `shortcuts.json`, one `priority.json`.
+   `graph.json` is GENERATED from these by the kernel (like `overview.md`) — never hand-write it;
+   it is the spine used for navigation, priority, closure, and completeness checks. A fact has
+   exactly one home: content in the fat file, structure mirrored into the generated graph.
 
 ## Execution contract — this is an autonomous loop
 
