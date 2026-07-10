@@ -52,7 +52,7 @@ The rubric differs by level. Top level answers *what the app is*; lower levels a
 
 1. **`contains`** — hierarchy: app → feature → sub-feature. Fixed three levels in the breadth pass.
 2. **`triggers`** — skeleton element → feature/sub-feature. Stored as the **full UI path**, since triggering is often multi-step: `Home tab → Font group → B button → Bold`. Dropdowns and dialogs appear as steps in these paths. Paths are id-chains through the UI tree (see below), not prose strings. Keyboard shortcuts produce `triggers`/`opens` relationships too — they are the keyboard half of the trigger surface (see Shortcuts).
-3. **`affects/uses`** — feature connections (from the original sketch). Allowed **between any two nodes at any level**: feature↔feature, sub↔sub, and cross-level (Gmail's search-by-label sub-feature ↔ Labels feature). These edges drive priority scoring, so restricting where they can exist would corrupt the ranking.
+3. **Connections** — between any two nodes at any level (feature↔feature, sub↔sub, cross-level). Three kinds, strongest first: **`requires`** (directional — B does not work without A; measured via contextual discovery, disabled-state preconditions, and artifact relationships), **`affects-same`** (both shape the same artifact; measured from press-observe state-diff targets), **`co-location`** (the app placed them together; weakest, hint only). Connections serve **logistics, not value**: `requires` edges power replication closure and let importance flow up dependency chains; edge counts are NOT a popularity/value score.
 
 The skeleton and the features are connected *by construction*: every feature is triggered from somewhere in the skeleton. This connection is the backbone of both the completeness check and the skeleton depth rule below.
 
@@ -218,10 +218,11 @@ Docs **guide, never create**: no feature/sub-feature node is ever created from d
 
 **Stage 2 — Breadth fan-out.** One inspector per feature, in parallel. Each fills the shallow rubric: what the feature does (briefly), its sub-features (level 3: names + one-liners), audience breadth, **connections (mandatory — priority depends on them)**, trigger paths, one screenshot. Wide, shallow, cheap.
 
-**Stage 3 — Assembly + priority.** Merge node files into `graph.json`. Run the completeness check (below); unresolved gaps go back to Stage 2. If docs were harvested, also run the **docs coverage cross-check**: a feature named in the docs but absent from the inventory is a candidate gap — investigated live before anything is added. Then rank every feature/sub-feature into the five layers P0–P4 from three signals:
-1. **Connection density** — nodes with many `affects/uses` edges are structurally central (Font touches everything that renders text → P0).
-2. **Real-world usage** — web search: what do users of this app actually use most.
-3. **Audience breadth** — `everyone` outranks `niche` (Font vs. Mailings).
+**Stage 3 — Assembly + priority.** Merge node files into `graph.json`. Run the completeness check (below); unresolved gaps go back to Stage 2. If docs were harvested, also run the **docs coverage cross-check**: a feature named in the docs but absent from the inventory is a candidate gap — investigated live before anything is added. Then rank every SUB-FEATURE into the five layers P0–P4 from three value signals (all asking "would our user use this?"):
+1. **Product-purpose reasoning** — the app's identity + the capability's measured function → "could the core job be done without this?" (rich-text editor → font/paragraph/tables/pictures indispensable; mail-merge peripheral). Every verdict written in the form: product is X + this does Y → therefore Z.
+2. **UI prominence** — the designer's own usage bet, measured from the skeleton (default surface, size, order, nesting depth). Works for apps the web has never heard of.
+3. **Real-world usage (corroborator)** — web research confirming/adjusting; claim + source per entry; when absent, signals 1+2 carry the ranking.
+Features are never scored independently: a feature's layer = its best child's layer, plus a ratio (children in P0–P2) that sets replication scope — majority high → replicate the feature WHOLE; isolated gems → only the gems + their closure. Then compute **closure**: the replication set = P0–P2 plus everything reachable via `requires` edges (pulled-in nodes get "enough to work" depth, labeled `pulled-in-by`). Connection density is NOT a value signal.
 
 **Stage 4 — Depth fan-out.** Priority-gated. P0–P2 nodes each get an inspector that captures everything — every behavior, option, dialog, state, edge case, screenshots — descending until the depth endpoint rule (below) says stop. P3 nodes get the mid-level treatment defined in the depth budgets. P4 nodes are already done: breadth was their budget. Depth can be unbounded for P0–P2 *because* that set is small.
 
@@ -243,9 +244,9 @@ Where the score boundaries between layers fall is tunable and will be calibrated
 
 Each signal is computed separately, as its own auditable artifact in `kb/<app>/priority/signals/`:
 
-1. **Connectivity** — pure computation, no LLM: a `tools/` script walks the assembled graph and scores centrality per node from the `affects/uses` edges. Deterministic: same graph in, same scores out.
-2. **Audience breadth** — pure lookup, no LLM: the structured `audience_breadth` field maps to a score via fixed config (`everyone` → 1.0 … `niche` → 0.2; values tunable).
-3. **Real-world usage** — the only researched signal: a research agent web-searches actual usage, then maps each claim onto node ids. **Every usage score carries its evidence** — claim, source URL, node mapping. No evidence, no score.
+1. **Product-purpose reasoning** — judgment grounded in two measured facts (the app's identity from Step 0, the node's function from Step 3), written per-verdict in the mandated form. Auditable because both inputs are in the KB.
+2. **UI prominence** — pure computation from the skeleton: which surface, what size, what order, how deep. The app's own usage data, leaked into its layout.
+3. **Real-world usage** — researched corroborator: claims mapped onto node ids, claim + source per entry; no evidence, no score. Signal disagreements are resolved in journaled `decision` entries, never silently.
 
 Then arithmetic, not judgment: normalize each signal to 0–1, weighted-sum into one score per node (weights from config, **recorded in `ranking.json`** so rankings are reproducible and re-weightable without redoing research), sort, and cut at the configured boundaries into P0–P4 (`layers.json`, boundaries recorded).
 

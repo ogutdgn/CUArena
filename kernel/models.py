@@ -37,6 +37,11 @@ class UIContainer(BaseModel):
     child_containers: list[str] = []     # ids of nested containers (each its own file)
     explored: bool = True                # False = STUB: exists + measured-open, interior deferred
                                          # (design/knowledge-base-design.md, playbook step 2)
+    trigger_condition: Optional[str] = None   # CONTEXTUAL surfaces only: the measured app state
+                                              # that makes this surface exist (e.g. "selection is
+                                              # inside a table"). Additive field, word-home-insert
+                                              # run (playbook step 3: contextual surfaces carry
+                                              # their triggering condition). None = always present.
 
 class FeatureStub(BaseModel):
     id: str = Field(pattern=r"^feature:[a-z0-9][a-z0-9-]*$")
@@ -50,7 +55,8 @@ class FeatureStub(BaseModel):
 class Connection(BaseModel):
     """An affects/uses edge in the SOURCE node's connections[]. Drives priority (Step 4)."""
     target: str                          # node id (feature:/subfeature:) or container id
-    kind: Literal["affects", "uses"]
+    kind: Literal["requires", "affects-same", "co-location",
+                  "affects", "uses"]  # first three = current vocabulary; affects/uses = legacy KBs
     why: str                             # the evidence for the edge
     source: Literal["measured", "observed", "co-location", "shared-target",
                     "dependency", "contextual", "inference"]

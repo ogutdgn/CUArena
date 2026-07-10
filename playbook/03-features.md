@@ -10,9 +10,41 @@ where structure becomes knowledge.
 
 ### 1. Build the tree — shallow, but complete for every node
 
-- Group the skeleton's measured controls into user-recognizable **features** (what a user would
-  name if asked "what can this app do?"). Under each, the concrete **sub-features** (the
-  individual actions/controls: bold, insert-table, page-margins…).
+**What is a feature? — copy the app's own grouping, don't invent yours.** Every UI framework
+groups its controls for humans (ribbon groups, menu categories, toolbar clusters, sidebar
+sections, panels). Those groups ARE the features: Font, Paragraph, Illustrations in a document
+editor; Playback, Subtitle in a media player; Labels, Layers in a web app. Only if the app has
+no usable grouping (a flat toolbar) do you group by measured shared-effect-target. Never group
+from your own domain memory when the app has already grouped.
+
+**What is a sub-feature? — the nameable capability.** The test: does *"this app can X"* make
+sense? "This app can bold text" ✅, "can merge table cells" ✅, "can insert pictures" ✅ — but
+"this app can match-case checkbox" ❌ (that's an OPTION inside Find, not a capability —
+depth's business).
+
+**Where does the sub-feature level STOP? — the variation test.** When a control's children are
+*variations of the same effect*, do not descend further:
+- Picture Border's dropdown holds color / weight / dashes / sketched → all variations of "the
+  picture's border" → ONE sub-feature (`picture-border`); the variations are its options, depth
+  documents them later if it ranks.
+- Picture Effects: shadow / reflection / glow → variations of "the picture's visual effect" →
+  ONE sub-feature.
+- Contrast: Illustrations' children (pictures / shapes / chart / 3D) are NOT variations — they
+  do different things with different follow-up capabilities → separate sub-features.
+- Tie-breaker when unsure: *"could these children carry DIFFERENT importance — could one be
+  heavily used and another dead?"* Yes (picture vs 3D-model) → split. No (border color vs
+  border weight — they live and die together) → don't split.
+- This matters because breadth's job is to build the RANKING's candidate list: a node exists so
+  it can carry its own importance signal. Things that can't differ in importance don't need to
+  be nodes.
+
+**Level bookkeeping:** the tree is always app → feature → sub-feature (3 levels; a group with
+one control is still a feature with one sub-feature — uniformity beats cleverness). UI nesting
+depth (tab > group > dropdown) lives in trigger paths, not in extra tree levels. "Big worlds"
+like Picture (whose insertion spawns a whole contextual family) are represented in the GRAPH
+(requires/contextual edges tie the family to `insert-picture`), never as deeper tree levels.
+
+- Under each feature, record its sub-features per the tests above.
 - **Shallow means we don't open every dialog and enumerate every option here** — we work at the
   level of the general surfaces/tables. It does NOT mean thin: **every feature AND every
   sub-feature — even in this shallow pass — must carry its core identity rubric**
@@ -32,25 +64,28 @@ where structure becomes knowledge.
 
 ### 2. Discover connections — grounded in evidence, not vibes
 
-Record `affects/uses` edges between any two nodes at any level, each with a `why` and a `source`.
-Find them, in order of how measured they are:
+Connections serve **logistics, not value**: they tell Step 4 what a replicated capability needs
+in order to WORK (closure) and let importance flow up dependency chains. They are NOT a
+popularity score — edge counts do not make a node valuable. Three kinds, strongest first:
 
-- **A. Co-location (measured, free):** controls the app itself groups together are connected —
-  same ribbon group / dialog section / menu. Evidence: `co-located in ui:<container>`. Falls out
-  of the skeleton you already mapped.
-- **B. Shared effect target (measured, from Step 2):** two controls whose press-observe state-
-  diffs touch the **same** target are connected (Bold and Font Size both mutate the selection's
-  character format). Evidence: the observed shared state target.
-- **C. Dependency (observable):** feature B only works when feature A's artifact exists
-  (search-by-label needs Labels). Testable — does B function without A's output?
-- **D. Contextual co-appearance (measured):** surfaces that appear together in the same context
-  (select a table → Table Design + Layout tabs) are connected to their trigger and each other.
-- **E. Domain inference (judgment — labeled):** your knowledge that two things relate. Allowed to
-  PROPOSE edges, but any edge resting only on this carries `"source": "inference"`; confirm it
-  with a cheap observation where you can.
-- Every edge records `{target, kind: affects|uses, why, source: measured|observed|inference}`,
-  stored in the SOURCE node's `connections[]` (one direction is enough; assembly counts both
-  ways for centrality). These edges drive priority in Step 4 — skimping corrupts the ranking.
+- **`requires` (directional, the load-bearing kind):** B does not work without A. Three cheap
+  MEASURED ways to find it:
+  1. *Contextual discovery gives it free:* Table Layout appeared only after inserting a table →
+     everything on it `requires` the table. One observation, dozens of edges.
+  2. *Disabled-state gives it free:* many controls are disabled until a precondition exists
+     (Paste disabled with empty clipboard; picture tools disabled without a selected picture).
+     The prober already reads enabled/disabled — "X disabled without Y" is a measured edge.
+  3. *Artifact relationship:* B operates on what A creates (border on picture). Observable.
+  These edges power **closure** (Step 4) and importance inheritance — get them right.
+- **`affects-same` (medium):** two capabilities shape the same artifact (bold/italic → the
+  selected text). Measured free from Step 2's state-diff targets. Co-usage hint only.
+- **`co-location` (weakest):** the app placed them together. Free from the skeleton. Hint only —
+  NEVER let co-location bulk (a 15-member group all cross-linked) drown real signals; that
+  mistake once buried Paste under the Font group's internal wiring.
+- **Inference (labeled):** you may PROPOSE any edge from domain knowledge, tagged
+  `"source": "inference"`; confirm with a cheap observation where possible.
+- Every edge records `{target, kind: requires|affects-same|co-location, why, source}` in the
+  SOURCE node's `connections[]` (one direction; `requires` points at the prerequisite).
 
 ### 3. Contextual surfaces — discovered, then FED BACK IN (not dead ends)
 
