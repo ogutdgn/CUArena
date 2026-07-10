@@ -1,0 +1,398 @@
+{
+  "id": "ui:font-color-dropdown-gradient",
+  "kind": "dropdown",
+  "label": "subfeature:font-color-picker",
+  "purpose": "flyout of subfeature:font-color-picker — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: No Gradient, Variations",
+  "screenshot": "screenshots/ui-font-color-dropdown-gradient/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-font-color-dropdown-gradient/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Gradient",
+      "icon": {
+        "description": "Gradient (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        523,
+        971,
+        816
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "No Gradient",
+      "icon": {
+        "description": "No Gradient (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        732,
+        553,
+        776,
+        597
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Diagonal - Top Left to Bottom Right",
+      "icon": {
+        "description": "Linear Diagonal - Top Left to Bottom Right (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        732,
+        636,
+        776,
+        680
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Down",
+      "icon": {
+        "description": "Linear Down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        776,
+        636,
+        820,
+        680
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Diagonal - Top Right to Bottom Left",
+      "icon": {
+        "description": "Linear Diagonal - Top Right to Bottom Left (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        820,
+        636,
+        864,
+        680
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "From Bottom Right Corner",
+      "icon": {
+        "description": "From Bottom Right Corner (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        864,
+        636,
+        908,
+        680
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "From Bottom Left Corner",
+      "icon": {
+        "description": "From Bottom Left Corner (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        908,
+        636,
+        952,
+        680
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Right",
+      "icon": {
+        "description": "Linear Right (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        732,
+        680,
+        776,
+        724
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "From Center",
+      "icon": {
+        "description": "From Center (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        776,
+        680,
+        820,
+        724
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Left",
+      "icon": {
+        "description": "Linear Left (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        820,
+        680,
+        864,
+        724
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "From Top Right Corner",
+      "icon": {
+        "description": "From Top Right Corner (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        864,
+        680,
+        908,
+        724
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "From Top Left Corner",
+      "icon": {
+        "description": "From Top Left Corner (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        908,
+        680,
+        952,
+        724
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Diagonal - Bottom Left to Top Right",
+      "icon": {
+        "description": "Linear Diagonal - Bottom Left to Top Right (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        732,
+        724,
+        776,
+        768
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Up",
+      "icon": {
+        "description": "Linear Up (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        776,
+        724,
+        820,
+        768
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Diagonal - Bottom Right to Top Left",
+      "icon": {
+        "description": "Linear Diagonal - Bottom Right to Top Left (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        820,
+        724,
+        864,
+        768
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Gradients...",
+      "icon": {
+        "description": "More Gradients... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        732,
+        779,
+        969,
+        807
+      ],
+      "state_notes": "menu command (endpoint — no surface appeared on press)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

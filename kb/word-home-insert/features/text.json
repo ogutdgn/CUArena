@@ -1,0 +1,43 @@
+{
+  "id": "feature:text",
+  "node_type": "feature",
+  "name": "Text",
+  "what_it_does": "Insert text objects and building blocks: text boxes, Quick Parts/fields, WordArt, drop caps, signature lines, date/time and embedded objects.",
+  "affects": "document content (adds text objects/fields)",
+  "audience_breadth": "most",
+  "behavior": "Insert text objects and building blocks: text boxes, Quick Parts/fields, WordArt, drop caps, signature lines, date/time and embedded objects.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:text-box-insert",
+    "subfeature:quick-parts-insert",
+    "subfeature:word-art-insert",
+    "subfeature:drop-cap-insert",
+    "subfeature:signature-line-insert",
+    "subfeature:date-and-time-insert",
+    "subfeature:object-insert"
+  ],
+  "connections": [
+    {
+      "target": "feature:font",
+      "kind": "uses",
+      "why": "text objects carry character formatting",
+      "source": "inference"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "subfeature:styles-pane",
+  "node_type": "subfeature",
+  "name": "Styles pane launcher",
+  "parent": "feature:styles",
+  "what_it_does": "Opens the Styles pane — the full style list with apply/new/inspect/manage controls.",
+  "affects": "opens the Styles task pane",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:styles-pane"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Alt+Ctrl+Shift+S"
+    }
+  ],
+  "shortcut": "Alt+Ctrl+Shift+S",
+  "opens": "ui:styles-pane",
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-styles-pane.png",
+    "screenshots/ui-styles-pane/surface.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

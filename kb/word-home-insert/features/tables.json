@@ -1,0 +1,37 @@
+{
+  "id": "feature:tables",
+  "node_type": "feature",
+  "name": "Tables",
+  "what_it_does": "Insert tables to organize content in rows and columns; a selected table brings up its own Table Design and Table Layout contextual tabs.",
+  "affects": "document content (adds a table object)",
+  "audience_breadth": "everyone",
+  "behavior": "Insert tables to organize content in rows and columns; a selected table brings up its own Table Design and Table Layout contextual tabs. Group controls: subfeature:table-insert",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:table-insert"
+  ],
+  "connections": [
+    {
+      "target": "feature:paragraph",
+      "kind": "uses",
+      "why": "table cells contain paragraphs formatted by the Paragraph tools",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

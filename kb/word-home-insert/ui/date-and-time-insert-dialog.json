@@ -1,0 +1,10 @@
+{
+  "id": "ui:date-and-time-insert-dialog",
+  "kind": "dialog",
+  "label": "Date and Time",
+  "purpose": null,
+  "screenshot": "screenshots/ui-date-and-time-insert-dialog/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

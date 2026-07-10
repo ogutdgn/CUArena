@@ -1,0 +1,52 @@
+{
+  "id": "subfeature:text-box-insert",
+  "node_type": "subfeature",
+  "name": "Text Box",
+  "parent": "feature:text",
+  "what_it_does": "Inserts a floating text container from a gallery of built-in designs or by drawing one; a selected text box activates the Shape Format contextual tab (measured).",
+  "affects": "document content (adds a floating text container)",
+  "audience_breadth": "most",
+  "behavior": "Opens Text Box (dropdown). Contents (20 controls): Color swatches, Line up, Position, Simple Text Box, Austin Quote, Austin Sidebar, Page down, Banded Quote, Banded Sidebar, Facet Quote, Facet Sidebar (Left), Facet Sidebar (Right), Filigree Quote, Line down, Filigree Sidebar, Grid Quote. [flyout of subfeature:text-box-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in] Appears as an 'A' inside a rectangle, labelled 'Text Box'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:text-box-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:text-box-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-text-box-insert-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-text-box-insert-gallery.png",
+    "screenshots/ui-text-box-insert-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:word-art-insert",
+      "kind": "affects",
+      "why": "both create floating text Shapes (both measured to Shape Format context)",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font",
+      "kind": "uses",
+      "why": "text inside a text box is formatted with the Font tools",
+      "source": "inference"
+    },
+    {
+      "target": "ui:ribbon-shape-format",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,311 @@
+{
+  "id": "ui:ribbon-smart-art-design",
+  "kind": "tab",
+  "label": "SmartArt Design (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'SmartArt Tools' family; exists only while: a SmartArt graphic is selected. Groups: Create Graphic, Layouts, SmartArt Styles, Reset. Appeared on the 'smartart' probe.",
+  "screenshot": "screenshots/ui-ribbon-smart-art-design/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-add-shape",
+      "control_type": "splitbutton",
+      "label": "Add Shape",
+      "icon": {
+        "description": "Add Shape control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-add-shape.png"
+      },
+      "tooltip": "Add a shape to the SmartArt graphic.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        20,
+        82,
+        134,
+        106
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-add-bullet",
+      "control_type": "button",
+      "label": "Add Bullet",
+      "icon": {
+        "description": "Add Bullet control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-add-bullet.png"
+      },
+      "tooltip": "Add a text bullet to your SmartArt graphic.\n\nThis option is available only if the selected layout supports bulleted text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        20,
+        108,
+        108,
+        132
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, B; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-text-pane",
+      "control_type": "button",
+      "label": "Text Pane",
+      "icon": {
+        "description": "Text Pane control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-text-pane.png"
+      },
+      "tooltip": "Show or hide the Text Pane.\n\nThe Text Pane helps you to quickly input and organize the text in the SmartArt graphic.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        20,
+        134,
+        103,
+        158
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-promote",
+      "control_type": "button",
+      "label": "Promote",
+      "icon": {
+        "description": "Promote control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-promote.png"
+      },
+      "tooltip": "Increase the level of the selected bullet or shape.\n\nThis option is most useful when working with the Text Pane.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        136,
+        82,
+        215,
+        106
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-demote",
+      "control_type": "button",
+      "label": "Demote",
+      "icon": {
+        "description": "Demote control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-demote.png"
+      },
+      "tooltip": "Decrease the level of the selected bullet or shape.\n\nThis option is most useful when working with the Text Pane.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        136,
+        108,
+        211,
+        132
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, D; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-right-to-left",
+      "control_type": "button",
+      "label": "Right to Left",
+      "icon": {
+        "description": "Right to Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-right-to-left.png"
+      },
+      "tooltip": "Switch the layout of the SmartArt graphic between Left to Right and Right to Left.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        136,
+        134,
+        234,
+        158
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-reorder-up",
+      "control_type": "button",
+      "label": "Move Before",
+      "icon": {
+        "description": "Move Before control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-reorder-up.png"
+      },
+      "tooltip": "Move the current selection to be earlier in the sequence.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        236,
+        82,
+        336,
+        106
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, M; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-reorder-down",
+      "control_type": "button",
+      "label": "Move After",
+      "icon": {
+        "description": "Move After control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-reorder-down.png"
+      },
+      "tooltip": "Move the current selection to be later in the sequence.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        236,
+        108,
+        328,
+        132
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-organization-chart-menu",
+      "control_type": "menuitem",
+      "label": "Layout",
+      "icon": {
+        "description": "Layout control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-organization-chart-menu.png"
+      },
+      "tooltip": "Change the branch layout for the selected shape.\n\nThis option is available only if you are using an organizational chart layout, found in the Hierarchy category.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        236,
+        134,
+        316,
+        158
+      ],
+      "state_notes": "group 'Create Graphic'; keytip Alt, J S, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-layout-gallery",
+      "control_type": "menuitem",
+      "label": "SmartArtLayoutGallery",
+      "icon": {
+        "description": "SmartArtLayoutGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-layout-gallery.png"
+      },
+      "tooltip": "Change the layout applied to the SmartArt graphic.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        352,
+        90,
+        743,
+        150
+      ],
+      "state_notes": "group 'Layouts'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-change-colors-gallery",
+      "control_type": "menuitem",
+      "label": "Change Colors",
+      "icon": {
+        "description": "Change Colors control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-change-colors-gallery.png"
+      },
+      "tooltip": "Change the color variation applied to the SmartArt graphic.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        759,
+        82,
+        809,
+        158
+      ],
+      "state_notes": "group 'SmartArt Styles'; keytip Alt, J S, C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-styles-gallery",
+      "control_type": "menuitem",
+      "label": "SmartArtStylesGallery",
+      "icon": {
+        "description": "SmartArtStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-styles-gallery.png"
+      },
+      "tooltip": "Choose an overall visual style for the SmartArt graphic.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        811,
+        90,
+        1562,
+        150
+      ],
+      "state_notes": "group 'SmartArt Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-design-smart-art-reset-graphic",
+      "control_type": "button",
+      "label": "Reset Graphic",
+      "icon": {
+        "description": "Reset Graphic control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-design/icon-smart-art-reset-graphic.png"
+      },
+      "tooltip": "Discard all of the formatting changes made to the SmartArt graphic.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-design",
+      "bounds": [
+        1578,
+        82,
+        1624,
+        158
+      ],
+      "state_notes": "group 'Reset'; keytip Alt, J S, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "a SmartArt graphic is selected"
+}

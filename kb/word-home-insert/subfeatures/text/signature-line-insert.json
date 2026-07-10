@@ -1,0 +1,42 @@
+{
+  "id": "subfeature:signature-line-insert",
+  "node_type": "subfeature",
+  "name": "Signature Line",
+  "parent": "feature:text",
+  "what_it_does": "Opens the Signature Setup dialog to insert a signature line naming the required signer (digital signature requires a certificate).",
+  "affects": "document content (adds a signature line object)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:signature-line-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:signature-line-insert-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:signature-line-insert-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-signature-line-insert.png",
+    "screenshots/ui-signature-line-insert-dialog/surface.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

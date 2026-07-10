@@ -1,0 +1,10 @@
+{
+  "id": "ui:bookmark-insert-dialog",
+  "kind": "dialog",
+  "label": "Bookmark",
+  "purpose": null,
+  "screenshot": "screenshots/ui-bookmark-insert-dialog/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

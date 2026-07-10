@@ -1,0 +1,45 @@
+{
+  "id": "subfeature:indent-increase",
+  "node_type": "subfeature",
+  "name": "Increase Indent",
+  "parent": "feature:paragraph",
+  "what_it_does": "Moves the paragraph's left indent one level away from the margin.",
+  "affects": "the paragraph's left indent",
+  "audience_breadth": "most",
+  "behavior": "Direct action: Moves the paragraph's left indent one level away from the margin. Applied immediately to the paragraph's left indent; toggle state (where applicable) is reflected by the button's highlighted look.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:indent-increase"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-indent-increase.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-indent-increase.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:indent-decrease",
+      "kind": "affects",
+      "why": "both change the paragraph's left indent",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Paragraph dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

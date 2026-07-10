@@ -1,0 +1,725 @@
+{
+  "id": "ui:chart-insert-dialog",
+  "kind": "dialog",
+  "label": "Insert Chart",
+  "purpose": "the Insert Chart dialog; enumerated across 1 tab(s)",
+  "screenshot": "screenshots/ui-chart-insert-dialog/tab-all-charts.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Recent",
+      "icon": {
+        "description": "Recent (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        293,
+        777,
+        317
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Templates",
+      "icon": {
+        "description": "Templates (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        317,
+        777,
+        341
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Column",
+      "icon": {
+        "description": "Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        341,
+        777,
+        365
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Line",
+      "icon": {
+        "description": "Line (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        365,
+        777,
+        389
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Pie",
+      "icon": {
+        "description": "Pie (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        389,
+        777,
+        413
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bar",
+      "icon": {
+        "description": "Bar (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        413,
+        777,
+        437
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Area",
+      "icon": {
+        "description": "Area (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        437,
+        777,
+        461
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "X Y (Scatter)",
+      "icon": {
+        "description": "X Y (Scatter) (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        461,
+        777,
+        485
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Map",
+      "icon": {
+        "description": "Map (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        485,
+        777,
+        509
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Stock",
+      "icon": {
+        "description": "Stock (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        509,
+        777,
+        533
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Surface",
+      "icon": {
+        "description": "Surface (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        533,
+        777,
+        557
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radar",
+      "icon": {
+        "description": "Radar (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        557,
+        777,
+        581
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Treemap",
+      "icon": {
+        "description": "Treemap (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        581,
+        777,
+        605
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Sunburst",
+      "icon": {
+        "description": "Sunburst (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        605,
+        777,
+        629
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Histogram",
+      "icon": {
+        "description": "Histogram (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        629,
+        777,
+        653
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Box & Whisker",
+      "icon": {
+        "description": "Box & Whisker (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        653,
+        777,
+        677
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Waterfall",
+      "icon": {
+        "description": "Waterfall (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        677,
+        777,
+        701
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Funnel",
+      "icon": {
+        "description": "Funnel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        701,
+        777,
+        725
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Combo",
+      "icon": {
+        "description": "Combo (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        663,
+        725,
+        777,
+        749
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Clustered Column",
+      "icon": {
+        "description": "Clustered Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        800,
+        293,
+        856,
+        349
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Stacked Column",
+      "icon": {
+        "description": "Stacked Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        856,
+        293,
+        912,
+        349
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "100% Stacked Column",
+      "icon": {
+        "description": "100% Stacked Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        912,
+        293,
+        968,
+        349
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "3-D Clustered Column",
+      "icon": {
+        "description": "3-D Clustered Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        968,
+        293,
+        1024,
+        349
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "3-D Stacked Column",
+      "icon": {
+        "description": "3-D Stacked Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1024,
+        293,
+        1080,
+        349
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "3-D 100% Stacked Column",
+      "icon": {
+        "description": "3-D 100% Stacked Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1080,
+        293,
+        1136,
+        349
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "3-D Column",
+      "icon": {
+        "description": "3-D Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1136,
+        293,
+        1192,
+        349
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Clustered Column",
+      "icon": {
+        "description": "Clustered Column (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        800,
+        386,
+        1025,
+        524
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1111,
+        782,
+        1186,
+        805
+      ],
+      "state_notes": "commits the dialog",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1195,
+        782,
+        1270,
+        805
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1183,
+        214,
+        1230,
+        244
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1230,
+        214,
+        1277,
+        244
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:chart-insert",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

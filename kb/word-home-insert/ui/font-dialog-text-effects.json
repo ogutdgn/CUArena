@@ -1,0 +1,173 @@
+{
+  "id": "ui:font-dialog-text-effects",
+  "kind": "dialog",
+  "label": "subfeature:underline-gallery",
+  "purpose": "the subfeature:underline-gallery dialog; enumerated across 1 tab(s)",
+  "screenshot": "screenshots/ui-font-dialog-text-effects/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Text Fill & Outline",
+      "icon": {
+        "description": "Text Fill & Outline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        806,
+        328,
+        838,
+        360
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Text Effects",
+      "icon": {
+        "description": "Text Effects (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        848,
+        328,
+        880,
+        360
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Text Fill",
+      "icon": {
+        "description": "Text Fill (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        807,
+        381,
+        1094,
+        399
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Text Outline",
+      "icon": {
+        "description": "Text Outline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        807,
+        409,
+        1094,
+        427
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1080,
+        715,
+        1114,
+        739
+      ],
+      "state_notes": "commits the dialog",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1027,
+        255,
+        1074,
+        285
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1074,
+        255,
+        1121,
+        285
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

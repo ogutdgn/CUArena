@@ -1,0 +1,33 @@
+{
+  "id": "subfeature:paragraph-dialog",
+  "node_type": "subfeature",
+  "name": "Paragraph dialog launcher",
+  "parent": "feature:paragraph",
+  "what_it_does": "Opens the Paragraph dialog — indentation, spacing, alignment and line/page-break options.",
+  "affects": "opens the Paragraph dialog",
+  "audience_breadth": "most",
+  "behavior": "Opens Paragraph (dialog). Contents (32 controls): RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, RichEdit Control, Context help, Close, Alignment:, Outline level:, Collapsed by default, Left:, Right:, Special:, By:, Mirror indents. Sub-surfaces: ui:paragraph-dialog-tabs. [the Paragraph dialog; enumerated across 2 tab(s)] Appears as the small dialog-launcher arrow in the Paragraph group.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:paragraph-dialog"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:paragraph-dialog",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-paragraph-dialog.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-paragraph-dialog.png",
+    "screenshots/ui-paragraph-dialog/tab-indents-and-spacing.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,221 @@
+{
+  "id": "ui:line-spacing-menu",
+  "kind": "menu",
+  "label": "Line and Paragraph Spacing",
+  "purpose": "flyout of subfeature:line-spacing — commands/tiles are endpoints; openers descended per the depth-endpoint rule",
+  "screenshot": "screenshots/ui-line-spacing-menu/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1.0",
+      "icon": {
+        "description": "1.0 (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        148,
+        822,
+        176
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1.15",
+      "icon": {
+        "description": "1.15 (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        176,
+        822,
+        204
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1.5",
+      "icon": {
+        "description": "1.5 (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        204,
+        822,
+        232
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "2.0",
+      "icon": {
+        "description": "2.0 (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        232,
+        822,
+        260
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "2.5",
+      "icon": {
+        "description": "2.5 (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        260,
+        822,
+        288
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "3.0",
+      "icon": {
+        "description": "3.0 (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        288,
+        822,
+        316
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Add Space Before Paragraph",
+      "icon": {
+        "description": "Add Space Before Paragraph (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        347,
+        822,
+        375
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Remove Space After Paragraph",
+      "icon": {
+        "description": "Remove Space After Paragraph (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        375,
+        822,
+        403
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:line-spacing",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Line Spacing Options…",
+      "icon": {
+        "description": "Line Spacing Options… (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        612,
+        316,
+        822,
+        344
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:paragraph-dialog",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:paragraph-dialog"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

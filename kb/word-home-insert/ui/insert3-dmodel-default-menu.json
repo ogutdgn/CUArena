@@ -1,0 +1,10 @@
+{
+  "id": "ui:insert3-dmodel-default-menu",
+  "kind": "menu",
+  "label": "3D Models (dropdown)",
+  "purpose": null,
+  "screenshot": "screenshots/ui-insert3-dmodel-default-menu/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

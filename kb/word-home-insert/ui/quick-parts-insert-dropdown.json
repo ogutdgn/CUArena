@@ -1,0 +1,10 @@
+{
+  "id": "ui:quick-parts-insert-dropdown",
+  "kind": "dropdown",
+  "label": "Quick Parts",
+  "purpose": null,
+  "screenshot": "screenshots/ui-quick-parts-insert-dropdown/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

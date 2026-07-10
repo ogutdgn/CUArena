@@ -1,0 +1,614 @@
+{
+  "id": "ui:insert-link-dialog",
+  "kind": "dialog",
+  "label": "Insert Hyperlink",
+  "purpose": "the Insert Hyperlink dialog; enumerated across 1 tab(s)",
+  "screenshot": "screenshots/ui-insert-link-dialog/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Current Folder",
+      "icon": {
+        "description": "Current Folder (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        723,
+        435,
+        786,
+        488
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Browsed Pages",
+      "icon": {
+        "description": "Browsed Pages (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        723,
+        488,
+        786,
+        541
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Recent Files",
+      "icon": {
+        "description": "Recent Files (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        723,
+        541,
+        786,
+        594
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Existing File or Web Page",
+      "icon": {
+        "description": "Existing File or Web Page (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        634,
+        394,
+        712,
+        459
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Place in This Document",
+      "icon": {
+        "description": "Place in This Document (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        634,
+        459,
+        712,
+        524
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Create New Document",
+      "icon": {
+        "description": "Create New Document (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        634,
+        524,
+        712,
+        589
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "E-mail Address",
+      "icon": {
+        "description": "E-mail Address (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        634,
+        589,
+        712,
+        654
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        803,
+        374,
+        1183,
+        388
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1167,
+        435,
+        1184,
+        452
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1167,
+        508,
+        1184,
+        577
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1167,
+        577,
+        1184,
+        594
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        789,
+        604,
+        1167,
+        618
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1200,
+        334,
+        1247,
+        364
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1247,
+        334,
+        1294,
+        364
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Text to display:",
+      "icon": {
+        "description": "Text to display: (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        801,
+        371,
+        1185,
+        391
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "ScreenTip...",
+      "icon": {
+        "description": "ScreenTip... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1193,
+        370,
+        1287,
+        394
+      ],
+      "state_notes": "opens a sub-dialog (measured)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:insert-link-dialog-screentip",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Look in:",
+      "icon": {
+        "description": "Look in: (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        787,
+        405,
+        1056,
+        427
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Up One Folder",
+      "icon": {
+        "description": "Up One Folder (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1064,
+        404,
+        1088,
+        427
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Browse the Web",
+      "icon": {
+        "description": "Browse the Web (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1105,
+        404,
+        1129,
+        427
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Browse for File",
+      "icon": {
+        "description": "Browse for File (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1133,
+        404,
+        1157,
+        427
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Bookmark...",
+      "icon": {
+        "description": "Bookmark... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1193,
+        433,
+        1287,
+        457
+      ],
+      "state_notes": "opens a sub-dialog (measured)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:insert-link-dialog-bookmark",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Target Frame...",
+      "icon": {
+        "description": "Target Frame... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1193,
+        463,
+        1287,
+        487
+      ],
+      "state_notes": "opens a sub-dialog (measured)",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:insert-link-dialog-target-frame",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Address:",
+      "icon": {
+        "description": "Address: (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        787,
+        601,
+        1185,
+        621
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1127,
+        636,
+        1203,
+        660
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1211,
+        636,
+        1287,
+        660
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Browse for Folder",
+      "icon": {
+        "description": "Browse for Folder (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1161,
+        404,
+        1185,
+        427
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:insert-link-dialog-screentip",
+    "ui:insert-link-dialog-bookmark",
+    "ui:insert-link-dialog-target-frame"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

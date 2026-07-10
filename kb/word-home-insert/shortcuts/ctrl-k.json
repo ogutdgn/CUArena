@@ -1,0 +1,14 @@
+{
+  "keys": "Ctrl+K",
+  "bindings": [
+    {
+      "context": "text or object selected (the link wraps the selection)",
+      "effect": "Opens the Insert Hyperlink dialog to link the selection to webpages, files, headings or email addresses; the dropdown lists recent items.",
+      "triggers": null,
+      "opens": "ui:insert-link-dialog",
+      "source": [
+        "docs"
+      ]
+    }
+  ]
+}

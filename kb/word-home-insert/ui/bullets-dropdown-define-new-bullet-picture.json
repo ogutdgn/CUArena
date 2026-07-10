@@ -1,0 +1,196 @@
+{
+  "id": "ui:bullets-dropdown-define-new-bullet-picture",
+  "kind": "dialog",
+  "label": "Picture Bullet",
+  "purpose": "the Picture Bullet dialog; enumerated across 1 tab(s)",
+  "screenshot": "screenshots/ui-bullets-dropdown-define-new-bullet-picture/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Send a Smile",
+      "icon": {
+        "description": "Send a Smile (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Send a Smile",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1228,
+        335,
+        1259,
+        358
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Send a Frown",
+      "icon": {
+        "description": "Send a Frown (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Send a Frown",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1261,
+        335,
+        1291,
+        358
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "hyperlink",
+      "label": "Browse From a file",
+      "icon": {
+        "description": "Browse From a file (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Browse From a file",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1023,
+        406,
+        1079,
+        422
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Enter your search term",
+      "icon": {
+        "description": "Enter your search term (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Enter your search term",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1024,
+        464,
+        1216,
+        490
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Search Bing",
+      "icon": {
+        "description": "Search Bing (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Search Bing",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1213,
+        469,
+        1230,
+        485
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "hyperlink",
+      "label": "Browse OneDrive - Personal",
+      "icon": {
+        "description": "Browse OneDrive - Personal (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Browse OneDrive - Personal",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1023,
+        532,
+        1079,
+        548
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "System",
+      "icon": {
+        "description": "System (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        619,
+        304,
+        641,
+        326
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1268,
+        297,
+        1302,
+        327
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

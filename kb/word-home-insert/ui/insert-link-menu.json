@@ -1,0 +1,446 @@
+{
+  "id": "ui:insert-link-menu",
+  "kind": "menu",
+  "label": "Link (dropdown)",
+  "purpose": "flyout of subfeature:insert-link — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Recent Items",
+  "screenshot": "screenshots/ui-insert-link-menu/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-insert-link-menu/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#707070']",
+      "source": "pixel",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Link",
+      "icon": {
+        "description": "Link (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        653,
+        158,
+        1161,
+        852
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1142,
+        160,
+        1159,
+        177
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "anam-sakin-bunu-kaybetmeyelim.xlsx",
+      "icon": {
+        "description": "anam-sakin-bunu-kaybetmeyelim.xlsx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        188,
+        1142,
+        236
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Document.docx",
+      "icon": {
+        "description": "Document.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        236,
+        1142,
+        284
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Blinder.docx",
+      "icon": {
+        "description": "Blinder.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        284,
+        1142,
+        332
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Group Spring 2026.xlsx",
+      "icon": {
+        "description": "Group Spring 2026.xlsx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        332,
+        1142,
+        380
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "03 CSE 3310 Test Plan .docx",
+      "icon": {
+        "description": "03 CSE 3310 Test Plan .docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        380,
+        1142,
+        428
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "02 CSE 3310 SRA Document Increment 2.docx",
+      "icon": {
+        "description": "02 CSE 3310 SRA Document Increment 2.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        428,
+        1142,
+        476
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Sorting Algorithms Performance Comparison.docx",
+      "icon": {
+        "description": "Sorting Algorithms Performance Comparison.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        476,
+        1142,
+        524
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1142,
+        505,
+        1159,
+        795
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "culture-shock-dogan-ogut.docx",
+      "icon": {
+        "description": "culture-shock-dogan-ogut.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        524,
+        1142,
+        572
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "CSE 3310 UML -  Increment 1 Delivery - Spring 2026.docx",
+      "icon": {
+        "description": "CSE 3310 UML -  Increment 1 Delivery - Spring 2026.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        572,
+        1142,
+        620
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Ticket Marketplace(2).docx",
+      "icon": {
+        "description": "Ticket Marketplace(2).docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        620,
+        1142,
+        668
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "dogan-ogut-1002216470.docx",
+      "icon": {
+        "description": "dogan-ogut-1002216470.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        668,
+        1142,
+        716
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Book 1.xlsx",
+      "icon": {
+        "description": "Book 1.xlsx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        716,
+        1142,
+        764
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "dogan-essay.docx",
+      "icon": {
+        "description": "dogan-essay.docx (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        764,
+        1142,
+        812
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1142,
+        795,
+        1159,
+        812
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-link",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Insert Link...",
+      "icon": {
+        "description": "Insert Link... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        655,
+        815,
+        1159,
+        843
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:insert-link-dialog",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:insert-link-dialog"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

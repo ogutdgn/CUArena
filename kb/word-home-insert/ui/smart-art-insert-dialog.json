@@ -1,0 +1,5900 @@
+{
+  "id": "ui:smart-art-insert-dialog",
+  "kind": "dialog",
+  "label": "Choose a SmartArt Graphic",
+  "purpose": "the Choose a SmartArt Graphic dialog; enumerated across 1 tab(s)",
+  "screenshot": "screenshots/ui-smart-art-insert-dialog/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "All",
+      "icon": {
+        "description": "All (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        368,
+        744,
+        392
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "List",
+      "icon": {
+        "description": "List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        392,
+        744,
+        416
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Process",
+      "icon": {
+        "description": "Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        416,
+        744,
+        440
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Cycle",
+      "icon": {
+        "description": "Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        440,
+        744,
+        464
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hierarchy",
+      "icon": {
+        "description": "Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        464,
+        744,
+        488
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Relationship",
+      "icon": {
+        "description": "Relationship (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        488,
+        744,
+        512
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Matrix",
+      "icon": {
+        "description": "Matrix (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        512,
+        744,
+        536
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Pyramid",
+      "icon": {
+        "description": "Pyramid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        536,
+        744,
+        560
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture",
+      "icon": {
+        "description": "Picture (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        560,
+        744,
+        584
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Timeline",
+      "icon": {
+        "description": "Timeline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        584,
+        744,
+        608
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Meet The Team",
+      "icon": {
+        "description": "Meet The Team (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        608,
+        744,
+        632
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Office.com",
+      "icon": {
+        "description": "Office.com (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        615,
+        632,
+        744,
+        656
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Block List",
+      "icon": {
+        "description": "Basic Block List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. Maximizes both horizontal and vertical display space for shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        390,
+        837,
+        446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alternating Hexagons",
+      "icon": {
+        "description": "Alternating Hexagons (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a series of interconnected ideas. Level 1 text appears inside the hexagons. Level 2 text appears outside the shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        390,
+        909,
+        446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Caption List",
+      "icon": {
+        "description": "Picture Caption List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The top shapes are designed to contain pictures and pictures are emphasized over text. Works well for pictures with short text captions.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        390,
+        981,
+        446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Lined List",
+      "icon": {
+        "description": "Lined List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show large amounts of text divided into categories and subcategories. Works well with multiple levels of text. Text at the same level is separated by lines.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        390,
+        1053,
+        446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Bullet List",
+      "icon": {
+        "description": "Vertical Bullet List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. Works well for lists with long headings or top level information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        446,
+        837,
+        502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Box List",
+      "icon": {
+        "description": "Vertical Box List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show several groups of information, especially groups with large amounts of Level 2 text. A good choice for bulleted lists of information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        446,
+        909,
+        502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Bracket List",
+      "icon": {
+        "description": "Vertical Bracket List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show grouped blocks of information.  Works well with large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        446,
+        981,
+        502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Varying Width List",
+      "icon": {
+        "description": "Varying Width List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use for emphasizing items of different weights.  Good for large amounts of Level 1 text.  The width of each shape is independently determined based on its text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        446,
+        1053,
+        502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Tab List",
+      "icon": {
+        "description": "Tab List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. Works well for lists with a small amount of Level 1 text. The first Level 2 displays next to the Level 1 text  and the remaining Level 2 text appears beneath the Level 1 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        502,
+        837,
+        558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Horizontal Bullet List",
+      "icon": {
+        "description": "Horizontal Bullet List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped lists of information. Works well with large amounts of text. All text has the same level of emphasis, and direction is not implied.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        502,
+        909,
+        558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Square Accent List",
+      "icon": {
+        "description": "Square Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show lists of information divided into categories. Level 2 text appears beside a small square shape. Works well with large amounts of Level 2 text. ",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        502,
+        981,
+        558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Accent List",
+      "icon": {
+        "description": "Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show grouped or related information. The small shapes on the upper corners are designed to contain pictures. Emphasizes Level 2 text over Level 1 text, and is a good choice for large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        502,
+        1053,
+        558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bending Picture Accent List",
+      "icon": {
+        "description": "Bending Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The small circular shapes are designed to contain pictures. Works well for illustrating both Level 1 and Level 2 text. Maximizes both horizontal and vertical display space for shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        558,
+        837,
+        614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Stacked List",
+      "icon": {
+        "description": "Stacked List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of information or steps in a task, process, or workflow. Circular shapes contain Level 1 text, and the corresponding rectangles contain Level 2 text. Works well for numerous details and minimal Level 1 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        558,
+        909,
+        614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Action List",
+      "icon": {
+        "description": "Vertical Action List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped lists of information. Works well with large amounts of text. All text has the same level of emphasis, and direction is not implied.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        558,
+        981,
+        614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Increasing Circle Process",
+      "icon": {
+        "description": "Increasing Circle Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of steps, with the interior of the circle increasing with each step. Limited to seven Level 1 steps but unlimited Level 2 items. Works well with large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        558,
+        1053,
+        614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Pie Process",
+      "icon": {
+        "description": "Pie Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show steps in a process with each pie slice increasing in size up to seven shapes.  Level 1 text displays vertically.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        614,
+        837,
+        670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Detailed Process",
+      "icon": {
+        "description": "Detailed Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use with large amounts of Level 2 text to show a progression through stages.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        614,
+        909,
+        670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Grouped List",
+      "icon": {
+        "description": "Grouped List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups and sub-groups of information, or steps and sub-steps in a task, process, or workflow. Level 1 text corresponds to the top level horizontal shapes, and Level 2 text corresponds to vertical sub-steps under each related top level shape. Works well for emphasizing sub-groups or sub-steps, hierarchical information, or multiple lists of information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        614,
+        981,
+        670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Horizontal Picture List",
+      "icon": {
+        "description": "Horizontal Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped information with an emphasis on related pictures. The top shapes are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        614,
+        1053,
+        670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Continuous Picture List",
+      "icon": {
+        "description": "Continuous Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of interconnected information. The circular shapes are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        670,
+        837,
+        726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Strips",
+      "icon": {
+        "description": "Picture Strips (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures from top to bottom with Level 1 text beside each.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        670,
+        909,
+        726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Picture List",
+      "icon": {
+        "description": "Vertical Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The small shapes on the left are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        670,
+        981,
+        726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alternating Picture Blocks",
+      "icon": {
+        "description": "Alternating Picture Blocks (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures from top to bottom. Text appears alternately on the right or left of the picture.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        670,
+        1053,
+        726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Picture Accent List",
+      "icon": {
+        "description": "Vertical Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The small circles are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        726,
+        837,
+        782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Titled Picture Accent List",
+      "icon": {
+        "description": "Titled Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show lists of information with an accent picture for each Level 2 text. Level 1 text displays in a separate box at the top of the list.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        726,
+        909,
+        782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Block List",
+      "icon": {
+        "description": "Vertical Block List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of information or steps in a task, process, or workflow. Works well with large amounts of Level 2 text. A good choice for text with a main point and multiple sub-points.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        726,
+        981,
+        782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Chevron List",
+      "icon": {
+        "description": "Vertical Chevron List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow, or to emphasize movement or direction. Emphasizes Level 2 text over Level 1 text, and is a good choice for large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        726,
+        1053,
+        782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Accent List",
+      "icon": {
+        "description": "Vertical Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show lists of information. Level 2 text appears in rectangular shapes over vertical chevrons. Emphasizes Level 2 text over Level 1 text, and is a good choice for medium amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        782,
+        837,
+        838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Arrow List",
+      "icon": {
+        "description": "Vertical Arrow List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow that move toward a common goal. Works well for bulleted lists of information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        782,
+        909,
+        838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Trapezoid List",
+      "icon": {
+        "description": "Trapezoid List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show grouped or related information of equal value. Works well with large amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        782,
+        981,
+        838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Descending Block List",
+      "icon": {
+        "description": "Descending Block List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of related ideas or lists of information. The text shapes decrease in height sequentially, and the Level 1 text displays vertically.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        782,
+        1053,
+        838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Icon Circle Label List",
+      "icon": {
+        "description": "Icon Circle Label List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped chunks of information accompanied by a related visuals. Works best with icons or small pictures with short text captions.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        838,
+        837,
+        894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Table List",
+      "icon": {
+        "description": "Table List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show grouped or related information of equal value. The first Level 1 line of text corresponds to the top shape and its Level 2 text is used for the subsequent lists.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        838,
+        909,
+        894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Segmented Process",
+      "icon": {
+        "description": "Segmented Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow. Emphasizes Level 2 text, since each line appears in a separate shape.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        838,
+        981,
+        894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Curved List",
+      "icon": {
+        "description": "Vertical Curved List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a curved list of information. To add pictures to the accent circle shapes, apply a picture fill.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        838,
+        1053,
+        894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Pyramid List",
+      "icon": {
+        "description": "Pyramid List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show proportional, interconnected, or hierarchical relationships. Text appears in the rectangular shapes on top of the pyramid background.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        894,
+        837,
+        950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Target List",
+      "icon": {
+        "description": "Target List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show interrelated or overlapping information. Each of the first seven lines of Level 1 text appears in the rectangular shape. Unused text does not appear, but remains available if you switch layouts. Works well with both Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        894,
+        909,
+        950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hierarchy List",
+      "icon": {
+        "description": "Hierarchy List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships progressing across groups. Can also be used to group or list information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        894,
+        981,
+        950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Circle List",
+      "icon": {
+        "description": "Vertical Circle List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential or grouped data. Works best for Level 1 text, which displays next to a large circular shape. Lower levels of text are separated with smaller circular shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        894,
+        1053,
+        950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Table Hierarchy",
+      "icon": {
+        "description": "Table Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of information built from top to bottom, and the hierarchies within each group. This layout does not contain connecting lines.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        950,
+        837,
+        1006
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Architecture Layout",
+      "icon": {
+        "description": "Architecture Layout (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships that build from the bottom up. This layout works well for showing architectural components or objects that build on other objects.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        950,
+        909,
+        1006
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Process",
+      "icon": {
+        "description": "Basic Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1044,
+        837,
+        1100
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Step Up Process",
+      "icon": {
+        "description": "Step Up Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show an ascending series of steps or lists of information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1044,
+        909,
+        1100
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Step Down Process",
+      "icon": {
+        "description": "Step Down Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a descending process with multiple steps and sub-steps. Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1044,
+        981,
+        1100
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Numbered Linear Arrow Process",
+      "icon": {
+        "description": "Numbered Linear Arrow Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of numbered steps or tasks that move toward a common goal. Works well for both sequential and parallel processes with numbered items.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1044,
+        1053,
+        1100
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Accent Process",
+      "icon": {
+        "description": "Accent Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression, a timeline, or sequential steps in a task, process, or workflow. Works well for illustrating both Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1100,
+        837,
+        1156
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Accent Process",
+      "icon": {
+        "description": "Picture Accent Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a task, process, or workflow. The rectangular shapes in the background are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1100,
+        909,
+        1156
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alternating Flow",
+      "icon": {
+        "description": "Alternating Flow (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of information or sequential steps in a task, process, or workflow. Emphasizes the interaction or relationships among the groups of information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1100,
+        981,
+        1156
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Increasing Circle Process",
+      "icon": {
+        "description": "Increasing Circle Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of steps, with the interior of the circle increasing with each step. Limited to seven Level 1 steps but unlimited Level 2 items. Works well with large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1100,
+        1053,
+        1156
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Pie Process",
+      "icon": {
+        "description": "Pie Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show steps in a process with each pie slice increasing in size up to seven shapes.  Level 1 text displays vertically.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1156,
+        837,
+        1212
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Continuous Block Process",
+      "icon": {
+        "description": "Continuous Block Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow. Works best with minimal Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1156,
+        909,
+        1212
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Increasing Arrows Process",
+      "icon": {
+        "description": "Increasing Arrows Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential and overlapping steps in a process. Limited to five Level 1 items. Level 2 can contain large amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1156,
+        981,
+        1212
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Interconnected Block Process",
+      "icon": {
+        "description": "Interconnected Block Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a process. Works best with small amounts of Level 1 text and medium amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1156,
+        1053,
+        1212
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Continuous Arrow Process",
+      "icon": {
+        "description": "Continuous Arrow Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a timeline or sequential steps in a task, process, or workflow. Works best with Level 1 text because each line of Level 1 text appears inside the arrow shape. Level 2 text appears outside the arrow shape.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1212,
+        837,
+        1268
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Converging Text",
+      "icon": {
+        "description": "Converging Text (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show multiple steps or parts that merge into a whole. Limited to one Level 1 shape that contains text and a maximum of five Level 2 shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1212,
+        909,
+        1268
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Process Arrows",
+      "icon": {
+        "description": "Process Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show information illustrating a process or workflow. Level 1 text appears in the circular shapes and Level 2 text appears in the arrow shapes. Works best for minimal text and to emphasize movement or direction.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1212,
+        981,
+        1268
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bullet Timeline",
+      "icon": {
+        "description": "Bullet Timeline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Displays events in chronological order. Each event should have a date or name up to medium length and the option to add a description that can be medium or a bit longer in length.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1212,
+        1053,
+        1268
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bullet Timeline Inverted",
+      "icon": {
+        "description": "Bullet Timeline Inverted (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Displays events in chronological order with an inverted layout. Each event should have a date or name up to medium length and the option to add a description that can be medium or a bit longer in length.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1268,
+        837,
+        1324
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Accent Timeline",
+      "icon": {
+        "description": "Circle Accent Timeline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of events or timeline information. Level 1 text appears next to larger circular shapes. Level 2 text appears next to smaller circular shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1268,
+        909,
+        1324
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Timeline",
+      "icon": {
+        "description": "Basic Timeline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a task, process, or workflow, or to show timeline information. Works well with both Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1268,
+        981,
+        1324
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Process",
+      "icon": {
+        "description": "Circle Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a process. Limited to eleven Level 1 shapes with an unlimited number of Level 2 shapes. Works best with small amounts of text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1268,
+        1053,
+        1324
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Chevron Process",
+      "icon": {
+        "description": "Basic Chevron Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression; a timeline; sequential steps in a task, process, or workflow; or to emphasize movement or direction. Level 1 text appears inside an arrow shape while Level 2 text appears below the arrow shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1324,
+        837,
+        1380
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Chevron Accent Process",
+      "icon": {
+        "description": "Chevron Accent Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a task, process, or workflow, or to emphasize movement or direction. Works best with minimal Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1324,
+        909,
+        1380
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Closed Chevron Process",
+      "icon": {
+        "description": "Closed Chevron Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression, a timeline, or sequential steps in a task, process, or workflow, or to emphasize movement or direction. Can be used to emphasize information in the starting shape. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1324,
+        981,
+        1380
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Chevron List",
+      "icon": {
+        "description": "Chevron List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression through several processes that make up an overall workflow. Also works for illustrating contrasting processes. The Level 1 text corresponds to the first arrow shape on the left, while the Level 2 text corresponds to horizontal sub-steps for each shape that contains Level 1 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1324,
+        1053,
+        1380
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Chevron List",
+      "icon": {
+        "description": "Vertical Chevron List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow, or to emphasize movement or direction. Emphasizes Level 2 text over Level 1 text, and is a good choice for large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1380,
+        837,
+        1436
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Sub-Step Process",
+      "icon": {
+        "description": "Sub-Step Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a multi-step process with sub-steps between each instance of Level 1 text. Works best with small amounts of text and is limited to seven Level 1 steps. Each Level 1 step can have unlimited sub-steps.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1380,
+        909,
+        1436
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Phased Process",
+      "icon": {
+        "description": "Phased Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show three phases of a process. Limited to three Level 1 items. The first two Level 1 items can each contain four Level 2 items, and the third Level 1 item can contain an unlimited number of Level 2 items.  Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1380,
+        981,
+        1436
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Random to Result Process",
+      "icon": {
+        "description": "Random to Result Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show, through a series of steps, how several chaotic  ideas can result in a unified goal or idea. Supports multiple items of Level 1 text, but the first and last Level 1 corresponding shapes are fixed. Works best with small amounts of Level 1 text and medium amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1380,
+        1053,
+        1436
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Process",
+      "icon": {
+        "description": "Vertical Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow from top to bottom. Works best with Level 1 text, since the vertical space is limited.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1436,
+        837,
+        1492
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Staggered Process",
+      "icon": {
+        "description": "Staggered Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a downward progression through stages. Each of the first five lines of Level 1 text corresponds with a rectangle. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1436,
+        909,
+        1492
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Process List",
+      "icon": {
+        "description": "Process List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show multiple groups of information or steps and sub-steps in a task, process, or workflow. Level 1 text corresponds to the top horizontal shapes, and Level 2 text corresponds to vertical sub-steps under each related top level shape.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1436,
+        981,
+        1492
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Segmented Process",
+      "icon": {
+        "description": "Segmented Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow. Emphasizes Level 2 text, since each line appears in a separate shape.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1436,
+        1053,
+        1492
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Arrow Process",
+      "icon": {
+        "description": "Circle Arrow Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential items with supporting text for each item. This diagram works best with small amounts of Level 1 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1492,
+        837,
+        1548
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Bending Process",
+      "icon": {
+        "description": "Basic Bending Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow. Maximizes both horizontal and vertical display space for shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1492,
+        909,
+        1548
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Repeating Bending Process",
+      "icon": {
+        "description": "Repeating Bending Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow. Maximizes both horizontal and vertical display space for shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1492,
+        981,
+        1548
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Bending Process",
+      "icon": {
+        "description": "Vertical Bending Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow. Maximizes both horizontal and vertical display space for shapes. Places more emphasis on the interrelationships among the shapes than on direction or movement.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1492,
+        1053,
+        1548
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Continuous Picture List",
+      "icon": {
+        "description": "Continuous Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of interconnected information. The circular shapes are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1548,
+        837,
+        1604
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Detailed Process",
+      "icon": {
+        "description": "Detailed Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use with large amounts of Level 2 text to show a progression through stages.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1548,
+        909,
+        1604
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Arrow List",
+      "icon": {
+        "description": "Vertical Arrow List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or sequential steps in a task, process, or workflow that move toward a common goal. Works well for bulleted lists of information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1548,
+        981,
+        1604
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Ascending Picture Accent Process",
+      "icon": {
+        "description": "Ascending Picture Accent Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show an ascending series of pictures with descriptive text. Works best with a small amount of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1548,
+        1053,
+        1604
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Upward Arrow",
+      "icon": {
+        "description": "Upward Arrow (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or steps that trend upward in a task, process, or workflow. Each of the first five lines of Level 1 text corresponds to a point on the arrow. Works best with minimal text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1604,
+        837,
+        1660
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Descending Process",
+      "icon": {
+        "description": "Descending Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a descending series of events. The first Level 1 text is at the top of arrow, and the last Level 1 text displays at the bottom of the arrow. Only the first seven Level 1 items appear. Works best with small to medium amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1604,
+        909,
+        1660
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circular Bending Process",
+      "icon": {
+        "description": "Circular Bending Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a long or non-linear sequence or steps in a task, process, or workflow. Works best with Level 1 text only. Maximizes both horizontal and vertical display space for shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1604,
+        981,
+        1660
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Equation",
+      "icon": {
+        "description": "Equation (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps or tasks that depict a plan or result. The last Level 1 line of text appears after the equals sign (=).Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1604,
+        1053,
+        1660
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Equation",
+      "icon": {
+        "description": "Vertical Equation (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps or tasks that depict a plan or result. The last Level 1 line of text appears after the arrow. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1660,
+        837,
+        1716
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Funnel",
+      "icon": {
+        "description": "Funnel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the filtering of information or how parts merge into a whole. Emphasizes the final outcome. Can contain up to four lines of Level 1 text; the last of these four Level 1 text lines appears below the funnel and the other lines  correspond to a circular shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1660,
+        909,
+        1716
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Gear",
+      "icon": {
+        "description": "Gear (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show interlocking ideas. Each of the first three lines of Level 1 text corresponds to a gear shape, and their corresponding Level 2 text appears in rectangles next to the gear shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1660,
+        981,
+        1716
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Arrow Ribbon",
+      "icon": {
+        "description": "Arrow Ribbon (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show either related or contrasting concepts with some connection, such as opposing forces. The first two lines of Level 1 text are used for text in the arrows. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1660,
+        1053,
+        1716
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Opposing Arrows",
+      "icon": {
+        "description": "Opposing Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show two opposing ideas, or ideas that diverge from a central point. Each of the first two lines of Level 1 text corresponds to an arrow. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1716,
+        837,
+        1772
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Converging Arrows",
+      "icon": {
+        "description": "Converging Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show ideas or concepts that converge to a central point. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1716,
+        909,
+        1772
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Diverging Arrows",
+      "icon": {
+        "description": "Diverging Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show ideas or concepts that progress outward from a central source. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1716,
+        981,
+        1772
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Cycle",
+      "icon": {
+        "description": "Basic Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a continuing sequence of stages, tasks, or events in a circular flow. Emphasizes the stages or steps rather than the connecting arrows or flow. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1810,
+        837,
+        1866
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Text Cycle",
+      "icon": {
+        "description": "Text Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a continuing sequence of stages, tasks, or events in a circular flow. Emphasizes the arrows or flow rather than the stages or steps. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1810,
+        909,
+        1866
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Block Cycle",
+      "icon": {
+        "description": "Block Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a continuing sequence of stages, tasks, or events in a circular flow. Emphasizes the stages or steps rather than the connecting arrows or flow.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1810,
+        981,
+        1866
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Nondirectional Cycle",
+      "icon": {
+        "description": "Nondirectional Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a continuing sequence of stages, tasks, or events in a circular flow. Each shape has the same level of importance. Works well when direction does not need to be indicated.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1810,
+        1053,
+        1866
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Continuous Cycle",
+      "icon": {
+        "description": "Continuous Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a continuing sequence of stages, tasks, or events in a circular flow. Emphasizes the connection between all components. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1866,
+        837,
+        1922
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Multidirectional Cycle",
+      "icon": {
+        "description": "Multidirectional Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a continuing sequence of stages, tasks, or events that can occur in any direction.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1866,
+        909,
+        1922
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Segmented Cycle",
+      "icon": {
+        "description": "Segmented Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a progression or a sequence of stages, tasks, or events in a circular flow. Emphasizes the interconnected pieces. Each of the first seven lines of Level 1 text corresponds to a wedge or pie shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1866,
+        981,
+        1922
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Pie",
+      "icon": {
+        "description": "Basic Pie (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show how individual parts form a whole. The first seven lines of Level 1 text correspond to the evenly distributed wedge or pie shapes. The top Level 1 text shape appears outside of the rest of the pie for emphasis. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1866,
+        1053,
+        1922
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hexagon Radial",
+      "icon": {
+        "description": "Hexagon Radial (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a sequential process that relates to a central idea or theme. Limited to six Level 2 shapes. Works best with small amounts of text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1922,
+        837,
+        1978
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Cycle",
+      "icon": {
+        "description": "Radial Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to a central idea. Emphasizes both information in the center circle and how information in the outer ring of circles contributes to the central idea. The first Level 1 line of text corresponds to the central circle, and its Level 2 text corresponds to the outer ring of circles. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1922,
+        909,
+        1978
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Radial",
+      "icon": {
+        "description": "Basic Radial (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to a central idea in a cycle. The first line of Level 1 text corresponds to the central shape, and its Level 2 text corresponds to the surrounding circular shapes. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1922,
+        981,
+        1978
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Diverging Radial",
+      "icon": {
+        "description": "Diverging Radial (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show relationships to a central idea in a cycle. The first Level 1 line of text corresponds to the central circular shape. Emphasizes the surrounding circles rather than the central idea. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1922,
+        1053,
+        1978
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Venn",
+      "icon": {
+        "description": "Radial Venn (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show both overlapping relationships and the relationship to a central idea in a cycle. The first line of Level 1 text corresponds to the central shape and the lines of Level 2 text correspond to the surrounding circular shapes. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        1978,
+        837,
+        2034
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Cycle Matrix",
+      "icon": {
+        "description": "Cycle Matrix (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to a central idea in a cyclical progression. Each of the first four lines of Level 1 text corresponds to a wedge or pie shape, and Level 2 text appears in a rectangular shape to the side of the wedge or pie shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        1978,
+        909,
+        2034
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Gear",
+      "icon": {
+        "description": "Gear (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show interlocking ideas. Each of the first three lines of Level 1 text corresponds to a gear shape, and their corresponding Level 2 text appears in rectangles next to the gear shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        1978,
+        981,
+        2034
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Cluster",
+      "icon": {
+        "description": "Radial Cluster (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show data that relates to a central idea or theme. The top Level 1 text appears in the center. Level 2 text appears in surrounding shapes. Can contain up to seven Level 2 shapes. Unused text does not appear, but remains available if you switch layouts. Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        1978,
+        1053,
+        2034
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Arrow Process",
+      "icon": {
+        "description": "Circle Arrow Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential items with supporting text for each item. This diagram works best with small amounts of Level 1 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2034,
+        837,
+        2090
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Organization Chart",
+      "icon": {
+        "description": "Organization Chart (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information or reporting relationships in an organization. The assistant shape and the Org Chart hanging layouts are available with this layout.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2128,
+        837,
+        2184
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Organization Chart",
+      "icon": {
+        "description": "Picture Organization Chart (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information or reporting relationships in an organization, with corresponding pictures. The assistant shape and the Org Chart hanging layouts are available with this layout.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2128,
+        909,
+        2184
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Name and Title Organization Chart",
+      "icon": {
+        "description": "Name and Title Organization Chart (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information or reporting relationships in an organization. To enter text in the title box, type directly in the smaller rectangular shape. The assistant shape and Org Chart hanging layouts are available with this layout.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2128,
+        981,
+        2184
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Half Circle Organization Chart",
+      "icon": {
+        "description": "Half Circle Organization Chart (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information or reporting relationships in an organization. The assistant shapes and Org Chart hanging layouts are available with this layout. ",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2128,
+        1053,
+        2184
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Picture Hierarchy",
+      "icon": {
+        "description": "Circle Picture Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information or reporting relationships in an organization. Pictures appear in circles and corresponding text appears next to the pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2184,
+        837,
+        2240
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hierarchy",
+      "icon": {
+        "description": "Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships progressing from top to bottom.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2184,
+        909,
+        2240
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Labeled Hierarchy",
+      "icon": {
+        "description": "Labeled Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships progressing from top to bottom and grouped hierarchically. Emphasizes heading or level 1 text. The first line of Level 1 text appears in the shape at the beginning of the hierarchy, and all subsequent lines of Level 1 text appear to the left of the long rectangles.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2184,
+        981,
+        2240
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Table Hierarchy",
+      "icon": {
+        "description": "Table Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of information built from top to bottom, and the hierarchies within each group. This layout does not contain connecting lines.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2184,
+        1053,
+        2240
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Horizontal Organization Chart",
+      "icon": {
+        "description": "Horizontal Organization Chart (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information horizontally or reporting relationships in an organization. The assistant shape and the Org Chart hanging layouts are available with this layout.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2240,
+        837,
+        2296
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Architecture Layout",
+      "icon": {
+        "description": "Architecture Layout (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships that build from the bottom up. This layout works well for showing architectural components or objects that build on other objects.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2240,
+        909,
+        2296
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Horizontal Multi-Level Hierarchy",
+      "icon": {
+        "description": "Horizontal Multi-Level Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show large amounts of hierarchical information progressing horizontally. The top of the hierarchy is displayed vertically. This layout supports many levels in the hierarchy.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2240,
+        981,
+        2296
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Horizontal Hierarchy",
+      "icon": {
+        "description": "Horizontal Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships progressing horizontally. Works well for decision trees.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2240,
+        1053,
+        2296
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Horizontal Labeled Hierarchy",
+      "icon": {
+        "description": "Horizontal Labeled Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships progressing horizontally and grouped hierarchically. Emphasizes heading or level 1 text. The first line of Level 1 text appears in the shape at the beginning of the hierarchy, and the second and all subsequent lines of Level 1 text appear at the top of the tall rectangles.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2296,
+        837,
+        2352
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hierarchy List",
+      "icon": {
+        "description": "Hierarchy List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships progressing across groups. Can also be used to group or list information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2296,
+        909,
+        2352
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Lined List",
+      "icon": {
+        "description": "Lined List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show large amounts of text divided into categories and subcategories. Works well with multiple levels of text. Text at the same level is separated by lines.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2296,
+        981,
+        2352
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Balance",
+      "icon": {
+        "description": "Balance (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to compare or show the relationship between two ideas. Each of the first two lines of Level 1 text corresponds to text at the top of one side of the center point. Emphasizes Level 2 text, which is limited to four shapes on each side of the center point. The balance tips towards the side with the most shapes containing Level 2 text. Unused text does not appear, but remains available if you switch layouts. ",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2390,
+        837,
+        2446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Relationship",
+      "icon": {
+        "description": "Circle Relationship (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to or from a central idea. Level 2 text is added non-sequentially and is limited to five items. There can only be one Level 1 item.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2390,
+        909,
+        2446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Funnel",
+      "icon": {
+        "description": "Funnel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the filtering of information or how parts merge into a whole. Emphasizes the final outcome. Can contain up to four lines of Level 1 text; the last of these four Level 1 text lines appears below the funnel and the other lines  correspond to a circular shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2390,
+        981,
+        2446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Gear",
+      "icon": {
+        "description": "Gear (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show interlocking ideas. Each of the first three lines of Level 1 text corresponds to a gear shape, and their corresponding Level 2 text appears in rectangles next to the gear shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2390,
+        1053,
+        2446
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hexagon Cluster",
+      "icon": {
+        "description": "Hexagon Cluster (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures with associated descriptive text. Small hexagons indicate the picture and text pair. Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2446,
+        837,
+        2502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Opposing Ideas",
+      "icon": {
+        "description": "Opposing Ideas (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show two opposing or contrasting ideas. Can have one or two Level 1 items. Each Level 1 text can contain multiple sub-levels. Works well with large amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2446,
+        909,
+        2502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Plus and Minus",
+      "icon": {
+        "description": "Plus and Minus (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the pros and cons of  two ideas. Each Level 1 text can contain multiple sub-levels. Works well with large amounts of text. Limited to two Level 1 items.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2446,
+        981,
+        2502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Reverse List",
+      "icon": {
+        "description": "Reverse List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to change between two items. Only the first two items of text display, and each item can contain a large amount of text. Works well to show a change between two items or shift in order.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2446,
+        1053,
+        2502
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Arrow Ribbon",
+      "icon": {
+        "description": "Arrow Ribbon (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show either related or contrasting concepts with some connection, such as opposing forces. The first two lines of Level 1 text are used for text in the arrows. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2502,
+        837,
+        2558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Counterbalance Arrows",
+      "icon": {
+        "description": "Counterbalance Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show two opposing ideas or concepts. Each of the first two lines of Level 1 text corresponds to an arrow and works well with Level 2 text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2502,
+        909,
+        2558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Converging Arrows",
+      "icon": {
+        "description": "Converging Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show ideas or concepts that converge to a central point. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2502,
+        981,
+        2558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Diverging Arrows",
+      "icon": {
+        "description": "Diverging Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show ideas or concepts that progress outward from a central source. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2502,
+        1053,
+        2558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Opposing Arrows",
+      "icon": {
+        "description": "Opposing Arrows (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show two opposing ideas, or ideas that diverge from a central point. Each of the first two lines of Level 1 text corresponds to an arrow. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2558,
+        837,
+        2614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Segmented Pyramid",
+      "icon": {
+        "description": "Segmented Pyramid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show containment, proportional, or interconnected relationships. The first nine lines of Level 1 text appear in the triangular shapes. Unused text does not appear, but remains available if you switch layouts. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2558,
+        909,
+        2614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Table Hierarchy",
+      "icon": {
+        "description": "Table Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of information built from top to bottom, and the hierarchies within each group. This layout does not contain connecting lines.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2558,
+        981,
+        2614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Architecture Layout",
+      "icon": {
+        "description": "Architecture Layout (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships that build from the bottom up. This layout works well for showing architectural components or objects that build on other objects.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2558,
+        1053,
+        2614
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Target List",
+      "icon": {
+        "description": "Target List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show interrelated or overlapping information. Each of the first seven lines of Level 1 text appears in the rectangular shape. Unused text does not appear, but remains available if you switch layouts. Works well with both Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2614,
+        837,
+        2670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Nested Target",
+      "icon": {
+        "description": "Nested Target (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show containment relationships. Each of the first three lines of Level 1 text correspond to the upper left text in the shapes, and Level 2 text corresponds to the smaller shapes. Works best with minimal Level 2 lines of text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2614,
+        909,
+        2670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Grouped List",
+      "icon": {
+        "description": "Grouped List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups and sub-groups of information, or steps and sub-steps in a task, process, or workflow. Level 1 text corresponds to the top level horizontal shapes, and Level 2 text corresponds to vertical sub-steps under each related top level shape. Works well for emphasizing sub-groups or sub-steps, hierarchical information, or multiple lists of information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2614,
+        981,
+        2670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Continuous Picture List",
+      "icon": {
+        "description": "Continuous Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of interconnected information. The circular shapes are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2614,
+        1053,
+        2670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hierarchy List",
+      "icon": {
+        "description": "Hierarchy List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships progressing across groups. Can also be used to group or list information.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2670,
+        837,
+        2726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Accent List",
+      "icon": {
+        "description": "Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show grouped or related information. The small shapes on the upper corners are designed to contain pictures. Emphasizes Level 2 text over Level 1 text, and is a good choice for large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2670,
+        909,
+        2726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Equation",
+      "icon": {
+        "description": "Equation (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps or tasks that depict a plan or result. The last Level 1 line of text appears after the equals sign (=).Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2670,
+        981,
+        2726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Equation",
+      "icon": {
+        "description": "Vertical Equation (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps or tasks that depict a plan or result. The last Level 1 line of text appears after the arrow. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2670,
+        1053,
+        2726
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Converging Radial",
+      "icon": {
+        "description": "Converging Radial (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show relationships of concepts or components to a central idea in a cycle. The first line of Level 1 text corresponds to the central circular shape and the lines of Level 2 text correspond to the surrounding rectangular shapes. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2726,
+        837,
+        2782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Cluster",
+      "icon": {
+        "description": "Radial Cluster (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show data that relates to a central idea or theme. The top Level 1 text appears in the center. Level 2 text appears in surrounding shapes. Can contain up to seven Level 2 shapes. Unused text does not appear, but remains available if you switch layouts. Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2726,
+        909,
+        2782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial List",
+      "icon": {
+        "description": "Radial List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show relationships to a central idea in a cycle. The center shape can contain a picture. Level 1 text appears in the smaller circles and any related Level 2 text appears to the side of the smaller circles.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2726,
+        981,
+        2782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Tabbed Arc",
+      "icon": {
+        "description": "Tabbed Arc (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a set of related items arcing over a common area.  Best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2726,
+        1053,
+        2782
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Cycle",
+      "icon": {
+        "description": "Radial Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to a central idea. Emphasizes both information in the center circle and how information in the outer ring of circles contributes to the central idea. The first Level 1 line of text corresponds to the central circle, and its Level 2 text corresponds to the outer ring of circles. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2782,
+        837,
+        2838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Radial",
+      "icon": {
+        "description": "Basic Radial (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to a central idea in a cycle. The first line of Level 1 text corresponds to the central shape, and its Level 2 text corresponds to the surrounding circular shapes. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2782,
+        909,
+        2838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Diverging Radial",
+      "icon": {
+        "description": "Diverging Radial (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show relationships to a central idea in a cycle. The first Level 1 line of text corresponds to the central circular shape. Emphasizes the surrounding circles rather than the central idea. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2782,
+        981,
+        2838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Nondirectional Cycle",
+      "icon": {
+        "description": "Nondirectional Cycle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to represent a continuing sequence of stages, tasks, or events in a circular flow. Each shape has the same level of importance. Works well when direction does not need to be indicated.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2782,
+        1053,
+        2838
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Target",
+      "icon": {
+        "description": "Basic Target (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show containment, gradations, or hierarchical relationships. The first five lines of Level 1 text are associated with a circle. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2838,
+        837,
+        2894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Cycle Matrix",
+      "icon": {
+        "description": "Cycle Matrix (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to a central idea in a cyclical progression. Each of the first four lines of Level 1 text corresponds to a wedge or pie shape, and Level 2 text appears in a rectangular shape to the side of the wedge or pie shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2838,
+        909,
+        2894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Pie",
+      "icon": {
+        "description": "Basic Pie (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show how individual parts form a whole. The first seven lines of Level 1 text correspond to the evenly distributed wedge or pie shapes. The top Level 1 text shape appears outside of the rest of the pie for emphasis. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2838,
+        981,
+        2894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Venn",
+      "icon": {
+        "description": "Basic Venn (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show overlapping or interconnected relationships. The first seven lines of Level 1 text correspond with a circle. If there are four or fewer lines of Level 1 text, the text is inside the circles. If there are more than four lines of Level 1 text, the text is outside of the circles. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2838,
+        1053,
+        2894
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Linear Venn",
+      "icon": {
+        "description": "Linear Venn (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show overlapping relationships in a sequence. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2894,
+        837,
+        2950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Stacked Venn",
+      "icon": {
+        "description": "Stacked Venn (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show overlapping relationships. A good choice for emphasizing growth or gradation. Works best with Level 1 text only. The first seven lines of Level 1 text correspond to a circular shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2894,
+        909,
+        2950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Venn",
+      "icon": {
+        "description": "Radial Venn (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show both overlapping relationships and the relationship to a central idea in a cycle. The first line of Level 1 text corresponds to the central shape and the lines of Level 2 text correspond to the surrounding circular shapes. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2894,
+        981,
+        2950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Interconnected Rings",
+      "icon": {
+        "description": "Interconnected Rings (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show overlapping or interconnected ideas or concepts. The first seven lines of Level 1 text correspond with a circle. Unused text does not appear, but remains available if you switch layouts.  ",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2894,
+        1053,
+        2950
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Matrix",
+      "icon": {
+        "description": "Basic Matrix (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship of components to a whole in quadrants. The first four lines of Level 1 text appear in the quadrants. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        2988,
+        837,
+        3044
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Titled Matrix",
+      "icon": {
+        "description": "Titled Matrix (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationships of four quadrants to a whole. The first line of Level 1 text corresponds to the central shape, and the first four lines of Level 2 text appear in the quadrants. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        2988,
+        909,
+        3044
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Grid Matrix",
+      "icon": {
+        "description": "Grid Matrix (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the placement of concepts along two axes. Emphasizes the individual components rather than the whole. The first four lines of Level 1 text appear in the quadrants. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        2988,
+        981,
+        3044
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Cycle Matrix",
+      "icon": {
+        "description": "Cycle Matrix (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show the relationship to a central idea in a cyclical progression. Each of the first four lines of Level 1 text corresponds to a wedge or pie shape, and Level 2 text appears in a rectangular shape to the side of the wedge or pie shape. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        2988,
+        1053,
+        3044
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Pyramid",
+      "icon": {
+        "description": "Basic Pyramid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show proportional, interconnected, or hierarchical relationships with the largest component on the bottom and narrowing up. Level 1 text appears in the pyramid segments and Level 2 text appears in shapes alongside each segment.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3082,
+        837,
+        3138
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Inverted Pyramid",
+      "icon": {
+        "description": "Inverted Pyramid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show proportional, interconnected, or hierarchical relationships with the largest component on the top and narrowing down. Level 1 text appears in the pyramid segments and Level 2 text appears in shapes alongside each segment.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3082,
+        909,
+        3138
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Pyramid List",
+      "icon": {
+        "description": "Pyramid List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show proportional, interconnected, or hierarchical relationships. Text appears in the rectangular shapes on top of the pyramid background.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3082,
+        981,
+        3138
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Segmented Pyramid",
+      "icon": {
+        "description": "Segmented Pyramid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show containment, proportional, or interconnected relationships. The first nine lines of Level 1 text appear in the triangular shapes. Unused text does not appear, but remains available if you switch layouts. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3082,
+        1053,
+        3138
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Accented Picture",
+      "icon": {
+        "description": "Accented Picture (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a central, photographic idea with related ideas on the side. The top Level 1 text appears over the central picture. Corresponding text for other Level 1 shapes appear next to the small circular pictures. This layout also works well with no text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3176,
+        837,
+        3232
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circular Picture Callout",
+      "icon": {
+        "description": "Circular Picture Callout (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a central idea and sub-ideas or related items. The text for the first picture covers the lower portion of the picture. The corresponding text for other Level 1 shapes appears next to the small circular pictures. This diagram also works well with no text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3176,
+        909,
+        3232
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Caption List",
+      "icon": {
+        "description": "Picture Caption List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The top shapes are designed to contain pictures and pictures are emphasized over text. Works well for pictures with short text captions.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3176,
+        981,
+        3232
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Picture List",
+      "icon": {
+        "description": "Radial Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show relationships to a central idea. The Level 1 shape contains text and all Level 2 shapes contain a picture with corresponding text. Limited to four Level 2 pictures.  Unused pictures do not appear, but remain available if you switch layouts. Works best with a small amount of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3176,
+        1053,
+        3232
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Snapshot Picture List",
+      "icon": {
+        "description": "Snapshot Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures with explanatory text. Level 2 text can display lists of information. Works well with a large amount of  text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3232,
+        837,
+        3288
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Spiral Picture",
+      "icon": {
+        "description": "Spiral Picture (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of up to five pictures with corresponding Level 1 captions that spiral in to the center. ",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3232,
+        909,
+        3288
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Captioned Pictures",
+      "icon": {
+        "description": "Captioned Pictures (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures with multiple levels of text.  Works best with a small amount of Level 1 text and a medium amount of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3232,
+        981,
+        3288
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bending Picture Caption",
+      "icon": {
+        "description": "Bending Picture Caption (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a sequential series of pictures. The box covering the bottom corner can contain small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3232,
+        1053,
+        3288
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Frame",
+      "icon": {
+        "description": "Picture Frame (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures and the corresponding Level 1 text, both displayed in an offset frame. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3288,
+        837,
+        3344
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bending Picture Semi-Transparent Text",
+      "icon": {
+        "description": "Bending Picture Semi-Transparent Text (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures. A semi-transparent box covers the lower portion of the picture and contains all levels of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3288,
+        909,
+        3344
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bending Picture Blocks",
+      "icon": {
+        "description": "Bending Picture Blocks (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures. The box covering the bottom corner can contain small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3288,
+        981,
+        3344
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Icon Circle Label List",
+      "icon": {
+        "description": "Icon Circle Label List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped chunks of information accompanied by a related visuals. Works best with icons or small pictures with short text captions.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3288,
+        1053,
+        3344
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bending Picture Caption List",
+      "icon": {
+        "description": "Bending Picture Caption List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures. The title and description appear in a callout shape under each picture.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3344,
+        837,
+        3400
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Titled Picture Blocks",
+      "icon": {
+        "description": "Titled Picture Blocks (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures. Level 1 text appears above each picture. Level 2 text appears to the side and slightly overlapping each picture.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3344,
+        909,
+        3400
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Grid",
+      "icon": {
+        "description": "Picture Grid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures laid out on a square grid. Best with a small amount of Level 1 text, which appears above the picture.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3344,
+        981,
+        3400
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Accent Blocks",
+      "icon": {
+        "description": "Picture Accent Blocks (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a group of pictures in blocks starting from the corner. The corresponding text displays vertically. Works well as an accent on title or sub-title slides or for section breaks of a document.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3344,
+        1053,
+        3400
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Strips",
+      "icon": {
+        "description": "Picture Strips (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures from top to bottom with Level 1 text beside each.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3400,
+        837,
+        3456
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Theme Picture Accent",
+      "icon": {
+        "description": "Theme Picture Accent (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a group of pictures with the first picture being centered and the largest. Can contain up to six Level 1 pictures. Unused pictures do not appear, but remain available if you switch layouts.  Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3400,
+        909,
+        3456
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Theme Picture Grid",
+      "icon": {
+        "description": "Theme Picture Grid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a group of pictures with the first picture being the largest. Can contain up to five Level 1 pictures.  Unused pictures do not appear, but remain available if you switch layouts. Works best with small amounts of corresponding text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3400,
+        981,
+        3456
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Theme Picture Alternating Accent",
+      "icon": {
+        "description": "Theme Picture Alternating Accent (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a group of pictures with the first picture being the largest and on top. Additional Level 1 pictures alternate between squares and rectangles with a limit of nine Level 1 pictures. Works best with small amounts of text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3400,
+        1053,
+        3456
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Titled Picture Accent List",
+      "icon": {
+        "description": "Titled Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show lists of information with an accent picture for each Level 2 text. Level 1 text displays in a separate box at the top of the list.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3456,
+        837,
+        3512
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alternating Picture Blocks",
+      "icon": {
+        "description": "Alternating Picture Blocks (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures from top to bottom. Text appears alternately on the right or left of the picture.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3456,
+        909,
+        3512
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Ascending Picture Accent Process",
+      "icon": {
+        "description": "Ascending Picture Accent Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show an ascending series of pictures with descriptive text. Works best with a small amount of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3456,
+        981,
+        3512
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alternating Picture Circles",
+      "icon": {
+        "description": "Alternating Picture Circles (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a set of pictures with text. The corresponding text appears in the central circles with the images alternating from left to right.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3456,
+        1053,
+        3512
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Title Picture Lineup",
+      "icon": {
+        "description": "Title Picture Lineup (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures that each have their own title and description. Level 1 text appears in the box above the picture. Level 2 text appears below the picture.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3512,
+        837,
+        3568
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Lineup",
+      "icon": {
+        "description": "Picture Lineup (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures side by side. Level 1 text covers the top of the picture. Level 2 text appears below the picture.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3512,
+        909,
+        3568
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Framed Text Picture",
+      "icon": {
+        "description": "Framed Text Picture (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures with corresponding Level 1 text displayed in a frame.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3512,
+        981,
+        3568
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hexagon Cluster",
+      "icon": {
+        "description": "Hexagon Cluster (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures with associated descriptive text. Small hexagons indicate the picture and text pair. Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3512,
+        1053,
+        3568
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bubble Picture List",
+      "icon": {
+        "description": "Bubble Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of pictures. Can contain up to eight Level 1 pictures. Unused text and pictures do not appear, but remain available if you switch layouts. Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3568,
+        837,
+        3624
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Picture Hierarchy",
+      "icon": {
+        "description": "Circle Picture Hierarchy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information or reporting relationships in an organization. Pictures appear in circles and corresponding text appears next to the pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3568,
+        909,
+        3624
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Horizontal Picture List",
+      "icon": {
+        "description": "Horizontal Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped information with an emphasis on related pictures. The top shapes are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3568,
+        981,
+        3624
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Continuous Picture List",
+      "icon": {
+        "description": "Continuous Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show groups of interconnected information. The circular shapes are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3568,
+        1053,
+        3624
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Picture List",
+      "icon": {
+        "description": "Vertical Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The small shapes on the left are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3624,
+        837,
+        3680
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Picture Accent List",
+      "icon": {
+        "description": "Vertical Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The small circles are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3624,
+        909,
+        3680
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bending Picture Accent List",
+      "icon": {
+        "description": "Bending Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. The small circular shapes are designed to contain pictures. Works well for illustrating both Level 1 and Level 2 text. Maximizes both horizontal and vertical display space for shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3624,
+        981,
+        3680
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Accent List",
+      "icon": {
+        "description": "Picture Accent List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show grouped or related information. The small shapes on the upper corners are designed to contain pictures. Emphasizes Level 2 text over Level 1 text, and is a good choice for large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3624,
+        1053,
+        3680
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Accent Process",
+      "icon": {
+        "description": "Picture Accent Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a task, process, or workflow. The rectangular shapes in the background are designed to contain pictures.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3680,
+        837,
+        3736
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bullet Timeline",
+      "icon": {
+        "description": "Bullet Timeline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Displays events in chronological order. Each event should have a date or name up to medium length and the option to add a description that can be medium or a bit longer in length.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3774,
+        837,
+        3830
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bullet Timeline Inverted",
+      "icon": {
+        "description": "Bullet Timeline Inverted (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Displays events in chronological order with an inverted layout. Each event should have a date or name up to medium length and the option to add a description that can be medium or a bit longer in length.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3774,
+        909,
+        3830
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Alternating Circle Process",
+      "icon": {
+        "description": "Alternating Circle Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Overlapping circles with alternating sizes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3774,
+        981,
+        3830
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Basic Timeline",
+      "icon": {
+        "description": "Basic Timeline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a task, process, or workflow, or to show timeline information. Works well with both Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3774,
+        1053,
+        3830
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Accent Timeline",
+      "icon": {
+        "description": "Circle Accent Timeline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a series of events or timeline information. Level 1 text appears next to larger circular shapes. Level 2 text appears next to smaller circular shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3830,
+        837,
+        3886
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Meet The Team",
+      "icon": {
+        "description": "Meet The Team (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Circular photo placeholders with name and role text below. Works best for team introductions with 3-6 members.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        3924,
+        837,
+        3980
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Meet The Team Card",
+      "icon": {
+        "description": "Meet The Team Card (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Horizontal pill-shaped cards with a circular photo on the left and name plus role on the right. Ideal for team introductions arranged in a grid.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        3924,
+        909,
+        3980
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Meet The Team Card Vertical",
+      "icon": {
+        "description": "Meet The Team Card Vertical (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Rounded card with name and role above a circular photo that overlaps the card bottom. Works best for team introductions with 3-6 members.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        3924,
+        981,
+        3980
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Meet The Team Oval",
+      "icon": {
+        "description": "Meet The Team Oval (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Rounded rectangle photo placeholders with name and role text below. Works best for team introductions with 3-6 members.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        3924,
+        1053,
+        3980
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Organization Chart",
+      "icon": {
+        "description": "Picture Organization Chart (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical information or reporting relationships in an organization, with corresponding pictures. The assistant shape and the Org Chart hanging layouts are available with this layout.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        4018,
+        837,
+        4074
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Chevron Accent Process",
+      "icon": {
+        "description": "Chevron Accent Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a task, process, or workflow, or to emphasize movement or direction. Works best with minimal Level 1 and Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        4018,
+        909,
+        4074
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Radial Picture List",
+      "icon": {
+        "description": "Radial Picture List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show relationships to a central idea. The Level 1 shape contains text and all Level 2 shapes contain a picture with corresponding text. Limited to four Level 2 pictures.  Unused pictures do not appear, but remain available if you switch layouts. Works best with a small amount of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        4018,
+        981,
+        4074
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Vertical Bracket List",
+      "icon": {
+        "description": "Vertical Bracket List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show grouped blocks of information.  Works well with large amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        4018,
+        1053,
+        4074
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Interconnected Block Process",
+      "icon": {
+        "description": "Interconnected Block Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a process. Works best with small amounts of Level 1 text and medium amounts of Level 2 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        4074,
+        837,
+        4130
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Tabbed Arc",
+      "icon": {
+        "description": "Tabbed Arc (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a set of related items arcing over a common area.  Best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        4074,
+        909,
+        4130
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Theme Picture Accent",
+      "icon": {
+        "description": "Theme Picture Accent (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a group of pictures with the first picture being centered and the largest. Can contain up to six Level 1 pictures. Unused pictures do not appear, but remain available if you switch layouts.  Works best with small amounts of text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        4074,
+        981,
+        4130
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Varying Width List",
+      "icon": {
+        "description": "Varying Width List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use for emphasizing items of different weights.  Good for large amounts of Level 1 text.  The width of each shape is independently determined based on its text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        4074,
+        1053,
+        4130
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Converging Text",
+      "icon": {
+        "description": "Converging Text (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show multiple steps or parts that merge into a whole. Limited to one Level 1 shape that contains text and a maximum of five Level 2 shapes.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        4130,
+        837,
+        4186
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Interconnected Rings",
+      "icon": {
+        "description": "Interconnected Rings (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show overlapping or interconnected ideas or concepts. The first seven lines of Level 1 text correspond with a circle. Unused text does not appear, but remains available if you switch layouts.  ",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        4130,
+        909,
+        4186
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Architecture Layout",
+      "icon": {
+        "description": "Architecture Layout (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show hierarchical relationships that build from the bottom up. This layout works well for showing architectural components or objects that build on other objects.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        4130,
+        981,
+        4186
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Theme Picture Alternating Accent",
+      "icon": {
+        "description": "Theme Picture Alternating Accent (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a group of pictures with the first picture being the largest and on top. Additional Level 1 pictures alternate between squares and rectangles with a limit of nine Level 1 pictures. Works best with small amounts of text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        4130,
+        1053,
+        4186
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Theme Picture Grid",
+      "icon": {
+        "description": "Theme Picture Grid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a group of pictures with the first picture being the largest. Can contain up to five Level 1 pictures.  Unused pictures do not appear, but remain available if you switch layouts. Works best with small amounts of corresponding text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        4186,
+        837,
+        4242
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Circle Process",
+      "icon": {
+        "description": "Circle Process (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show sequential steps in a process. Limited to eleven Level 1 shapes with an unlimited number of Level 2 shapes. Works best with small amounts of text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        837,
+        4186,
+        909,
+        4242
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Hexagon Radial",
+      "icon": {
+        "description": "Hexagon Radial (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show a sequential process that relates to a central idea or theme. Limited to six Level 2 shapes. Works best with small amounts of text. Unused text does not appear, but remains available if you switch layouts.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        909,
+        4186,
+        981,
+        4242
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture Frame",
+      "icon": {
+        "description": "Picture Frame (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show pictures and the corresponding Level 1 text, both displayed in an offset frame. Works best with Level 1 text only.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        4186,
+        1053,
+        4242
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Tab List",
+      "icon": {
+        "description": "Tab List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Use to show non-sequential or grouped blocks of information. Works well for lists with a small amount of Level 1 text. The first Level 2 displays next to the Level 1 text  and the remaining Level 2 text appears beneath the Level 1 text.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        765,
+        4242,
+        837,
+        4298
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Moves the vertical position up one line",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1061,
+        360,
+        1078,
+        377
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Moves the vertical position down a couple of lines",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1061,
+        398,
+        1078,
+        653
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Moves the vertical position down one line",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1061,
+        653,
+        1078,
+        670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Basic Block List",
+      "icon": {
+        "description": "Basic Block List (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1083,
+        569,
+        1313,
+        670
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1157,
+        676,
+        1232,
+        699
+      ],
+      "state_notes": "commits the dialog",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1241,
+        676,
+        1316,
+        699
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1229,
+        320,
+        1276,
+        350
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1276,
+        320,
+        1323,
+        350
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:smart-art-insert",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

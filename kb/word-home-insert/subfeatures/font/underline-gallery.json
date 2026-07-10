@@ -1,0 +1,84 @@
+{
+  "id": "subfeature:underline-gallery",
+  "node_type": "subfeature",
+  "name": "Underline",
+  "parent": "feature:font",
+  "what_it_does": "Toggles an underline on the selected text; the dropdown picks the underline style and color.",
+  "affects": "the selection's character format (underline)",
+  "audience_breadth": "everyone",
+  "behavior": "Opens Underline (dropdown) (menu). Contents (12 controls): Color swatches, Underline, Double underline, Thick underline, Dotted underline, Dashed underline, Dot-dash underline, Dot-dot-dash underline, Wave underline, No underline, Underline Color, More Underlines.... Sub-surfaces: ui:underline-menu-underline-color, ui:font-dialog. [flyout of subfeature:underline-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as a capital 'U' with an underline, plus a dropdown chevron.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:underline-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:underline-gallery-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+U"
+    }
+  ],
+  "shortcut": "Ctrl+U",
+  "opens": "ui:underline-menu",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-underline-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-underline-gallery.png",
+    "screenshots/ui-underline-menu/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:bold",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:italic",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:strikethrough",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:subscript",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:superscript",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

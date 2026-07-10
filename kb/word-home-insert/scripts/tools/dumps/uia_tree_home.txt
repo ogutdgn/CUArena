@@ -1,0 +1,185 @@
+Window       'scratch-20260709-072434-35128 - Word'
+  Pane         'DropShadowTop'  {DISABLED}
+  Pane         'MsoDockTop'
+    ToolBar      ''
+      Pane         'Ribbon'
+        Pane         ''
+          Pane         ''
+            Pane         'Ribbon'
+              ToolBar      'Quick Access Toolbar'
+                Button       'AutoSave' [AutoSaveSwitch]  {keytip=Alt, 1}
+                Button       'Save' [FileSave]  {acc=Ctrl+S, keytip=Alt, 2}
+                SplitButton  'Can't Undo' [Undo]  {keytip=Alt, 3, DISABLED}
+                  Button       'Can't Undo'  {DISABLED}
+                  MenuItem     'More Options' [Undo_Dropdown]  {keytip=Alt, 3, DISABLED}
+                Button       'Can't Repeat' [RedoOrRepeat]  {acc=Ctrl+Y, keytip=Alt, 4, DISABLED}
+                MenuItem     'Customize Quick Access Toolbar'
+              TitleBar     '‪scratch-20260709-072434-35128‬  -  Save…'
+                MenuItem     '‪scratch-20260709-072434-35128‬  -  Save…'  {keytip=Alt, B}
+              MenuItem     'Type to search and use the up and down a…' [TellMeControlAnchor]  {keytip=Alt, Q}
+                Edit         'Microsoft search' [TellMeTextBoxAutomationId]  {keytip=Alt, Q}
+              Button       'Upgrade your plan'  {keytip=Alt, U}
+              MenuItem     'Dogan Ogut' [MeControlWidget]  {keytip=Alt, Z P}
+              Button       'Minimize'
+              Button       'Restore Down'
+              Button       'Close'
+              Button       'File Tab' [FileTabButton]  {keytip=Alt, F}
+              Tab          'Ribbon Tabs'
+                TabItem      'Home' [TabHome]  {keytip=Alt, H}
+                TabItem      'Insert' [TabInsert]  {keytip=Alt, N}
+                TabItem      'Design' [TabWordDesign]  {keytip=Alt, G}
+                TabItem      'Layout' [TabPageLayoutWord]  {keytip=Alt, P}
+                TabItem      'References' [TabReferences]  {keytip=Alt, S}
+                TabItem      'Mailings' [TabMailings]  {keytip=Alt, M}
+                TabItem      'Review' [TabReviewWord]  {keytip=Alt, R}
+                TabItem      'View' [TabView]  {keytip=Alt, W}
+                TabItem      'Help' [HelpTab]  {keytip=Alt, Y 1}
+                TabItem      'Acrobat'  {keytip=Alt, Y 2}
+                Button       'Comments'  {keytip=Alt, Z C}
+                ComboBox     'Editing'  {keytip=Alt, Z M}
+                MenuItem     'Share'  {keytip=Alt, Z S}
+              Pane         'Lower Ribbon'
+                Group        'Home'  {keytip=Alt, H}
+                  Group        'Clipboard'  {keytip=Alt, H, Z L}
+                    SplitButton  'Paste'  {keytip=Alt, H, V}
+                      Button       'Paste' [Paste]  {acc=Ctrl+V}
+                      MenuItem     'More Options' [PasteMenu_Dropdown]  {keytip=Alt, H, V}
+                    Button       'Cut' [Cut]  {acc=Ctrl+X, keytip=Alt, H, X, DISABLED}
+                    Button       'Copy' [Copy]  {acc=Ctrl+C, keytip=Alt, H, C 1, DISABLED}
+                    Button       'Format Painter' [FormatPainter]  {acc=Alt+Ctrl+C, Alt+Ctrl+V, keytip=Alt, H, F P}
+                    Button       'Office Clipboard...' [ShowClipboard]  {keytip=Alt, H, F O}
+                  Group        'Font'  {keytip=Alt, H, Z F}
+                    ComboBox     'Font' [Font]  {keytip=Alt, H, F F}
+                      Edit         'Font'  {keytip=Alt, H, F F}
+                      Button       'Open'
+                    ComboBox     'Font Size' [FontSize]  {keytip=Alt, H, F S}
+                      Edit         'Font Size'  {keytip=Alt, H, F S}
+                      Button       'Open'
+                    Button       'Grow Font' [FontSizeIncreaseWord]  {acc=Ctrl+Shift+>, keytip=Alt, H, F G}
+                    Button       'Shrink Font' [FontSizeDecreaseWord]  {acc=Ctrl+Shift+<, keytip=Alt, H, F K}
+                    MenuItem     'Change Case' [ChangeCaseGallery]  {keytip=Alt, H, 7}
+                    Button       'Clear Formatting' [ClearFormatting]  {keytip=Alt, H, E}
+                    Button       'Bold' [Bold]  {acc=Ctrl+B, keytip=Alt, H, 1}
+                    Button       'Italic' [Italic]  {acc=Ctrl+I, keytip=Alt, H, 2}
+                    SplitButton  'Underline' [UnderlineGallery]  {keytip=Alt, H, 3}
+                      Button       'Underline'
+                      MenuItem     'More Options' [UnderlineGallery_Dropdown]  {keytip=Alt, H, 3}
+                    Button       'Strikethrough' [Strikethrough]  {keytip=Alt, H, 4}
+                    Button       'Subscript' [Subscript]  {acc=Ctrl+Shift+_, keytip=Alt, H, 5}
+                    Button       'Superscript' [Superscript]  {acc=Ctrl+Shift++, keytip=Alt, H, 6}
+                    MenuItem     'Text Effects and Typography' [TextEffectsGallery]  {keytip=Alt, H, F T}
+                    SplitButton  'Text Highlight Color' [TextHighlightColorPicker]  {keytip=Alt, H, I}
+                      Button       'Text Highlight Color Yellow'
+                      MenuItem     'More Options' [TextHighlightColorPicker_Dropdown]  {keytip=Alt, H, I}
+                    SplitButton  'Font Color' [FontColorPicker]  {keytip=Alt, H, F C}
+                      Button       'Font Color Red'
+                      MenuItem     'More Options' [FontColorPicker_Dropdown]  {keytip=Alt, H, F C}
+                    Button       'Font...' [FontDialog]  {keytip=Alt, H, F N}
+                  Group        'Paragraph'  {keytip=Alt, H, Z P}
+                    SplitButton  'Bullets' [BulletsGalleryWord]  {keytip=Alt, H, U}
+                      Button       'Bullets'
+                      MenuItem     'More Options' [BulletsGalleryWord_Dropdown]  {keytip=Alt, H, U}
+                    SplitButton  'Numbering' [NumberingGalleryWord]  {keytip=Alt, H, N}
+                      Button       'Numbering'
+                      MenuItem     'More Options' [NumberingGalleryWord_Dropdown]  {keytip=Alt, H, N}
+                    MenuItem     'Multilevel List' [MultilevelListGallery]  {keytip=Alt, H, M}
+                    Button       'Decrease Indent' [IndentDecreaseWord]  {keytip=Alt, H, A O}
+                    Button       'Increase Indent' [IndentIncreaseWord]  {keytip=Alt, H, A I}
+                    Button       'Sort...' [SortDialogClassic]  {keytip=Alt, H, S O}
+                    Button       'Show All' [ParagraphMarks]  {acc=Ctrl+*, keytip=Alt, H, 8}
+                    Button       'Align Left' [AlignLeft]  {acc=Ctrl+L, keytip=Alt, H, A L}
+                    Button       'Center' [AlignCenter]  {acc=Ctrl+E, keytip=Alt, H, A C}
+                    Button       'Align Right' [AlignRight]  {acc=Ctrl+R, keytip=Alt, H, A R}
+                    Button       'Justify' [AlignJustify]  {acc=Ctrl+J, keytip=Alt, H, A J}
+                    MenuItem     'Line and Paragraph Spacing' [LineSpacingGallery]  {keytip=Alt, H, K}
+                    SplitButton  'Shading' [ShadingColorPicker]  {keytip=Alt, H, H}
+                      Button       'Shading RGB(0, 0, 0)'
+                      MenuItem     'More Options' [ShadingColorPicker_Dropdown]  {keytip=Alt, H, H}
+                    SplitButton  'Borders' [BordersSelectionGallery]  {keytip=Alt, H, B}
+                      Button       'Borders'
+                      MenuItem     'More Options' [BordersSelectionGallery_Dropdown]  {keytip=Alt, H, B}
+                    Button       'Paragraph...' [ParagraphDialog]  {keytip=Alt, H, P G}
+                  Group        'Styles'  {keytip=Alt, H, Z S}
+                    Group        'Styles'  {keytip=Alt, H, L}
+                      MenuItem     '' [QuickStylesGallery]
+                        Pane         'Styles'
+                          DataGrid     'Styles'
+                            ListItem     '¶ Normal'
+                            ListItem     '¶ No Spacing'
+                            ListItem     'Heading 1'
+                            ListItem     'Heading 2'
+                            ListItem     'Title'
+                            ListItem     'Subtitle'
+                            ListItem     'Subtle Emphasis'
+                            ListItem     'Emphasis'
+                            ListItem     'Intense Emphasis'
+                            ListItem     'Strong'
+                            ListItem     'Quote'
+                            ListItem     'Intense Quote'
+                            ListItem     'Subtle Reference'
+                            ListItem     'Intense Reference'
+                            ListItem     'Book Title'
+                            ListItem     '¶ List Paragraph'
+                        Button       'Styles'  {keytip=Alt, H, L}
+                          Image        ''
+                    Button       'Styles...' [StylesPane]  {acc=Alt+Ctrl+Shift+S, keytip=Alt, H, F Y}
+                  Group        'Editing'  {keytip=Alt, H, Z N}
+                    SplitButton  'Find'  {keytip=Alt, H, F D}
+                      Button       'Find' [NavigationPaneFind]  {acc=Ctrl+F}
+                      MenuItem     'More Options' [SelectMenuExcel_Dropdown]  {keytip=Alt, H, F D}
+                    Button       'Replace...' [ReplaceDialog]  {acc=Ctrl+H, keytip=Alt, H, R}
+                    MenuItem     'Select' [SelectMenu]  {keytip=Alt, H, S L}
+                  Group        'Adobe Acrobat'  {keytip=Alt, H, Z 1}
+                    Button       'Create a PDF'  {keytip=Alt, H, Y}
+                  Group        'Voice'  {keytip=Alt, H, Z 2}
+                    SplitButton  'Dictate'  {keytip=Alt, H, D}
+                      Button       'Dictate' [Dictate]  {keytip=Alt+`}
+                      MenuItem     'More Options' [DictationMenu_Dropdown]  {keytip=Alt, H, D}
+                  Group        'Editor'  {keytip=Alt, H, Z 3}
+                    Button       'Editor' [WritingAssistanceCheckDocument]  {keytip=Alt, H, C 2}
+                  Group        'Add-ins'  {keytip=Alt, H, Z 4}
+                    Button       'Add‑ins' [OfficeExtensionsShowAddinFlyout]  {keytip=Alt, H, A S}
+              MenuItem     'Ribbon Display Options'  {keytip=Alt, Z R}
+  Pane         'MsoDockBottom'
+    ToolBar      ''
+      Pane         'Status Bar'
+        Pane         ''
+          Pane         ''
+            StatusBar    'Status Bar'
+              Button       'Page Number Page 1 of 1'
+              Text         'Word Count '
+              Button       'Coauthoring Mode '
+              Button       'Language English (United States)'
+              Button       'Text Predictions Text Predictions: On'
+              Button       'Accessibility Checker Accessibility: Goo…'
+              Button       'Focus '
+              Button       'Read Mode'
+              Button       'Print Layout'
+              Button       'Web Layout'
+              Button       'Zoom Out (Ctrl -)'
+              Slider       'Zoom'
+                Button       'Zoom Out'
+                Thumb        'Position'
+                Button       'Zoom In'
+              Button       'Zoom In (Ctrl +)'
+              Button       'Zoom 100%'
+  Pane         ''
+    Pane         'scratch-20260709-072434-35128'
+      Document     'scratch-20260709-072434-35128'
+        Pane         ''
+          Group        ''
+            Button       'Copilot Chat' [dynamicActionButton]
+      Pane         'Vertical'
+        Pane         ''
+          ScrollBar    ''
+            Button       'Line up'
+            Button       'Page up'
+            Thumb        ''
+            Button       'Page down'
+            Button       'Line down'
+  TitleBar     ''
+    MenuBar      'System' [MenuBar]
+      MenuItem     'System'  {keytip=Space}
+    Button       'Minimize'
+    Button       'Restore'
+    Button       'Close'

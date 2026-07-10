@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+I",
+  "bindings": [
+    {
+      "context": "editing text — applies to the selection or at the cursor",
+      "effect": "Toggles italic (slanted) style on the selected text.",
+      "triggers": "subfeature:italic",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+B",
+  "bindings": [
+    {
+      "context": "editing text — applies to the selection or at the cursor",
+      "effect": "Toggles bold (heavier) weight on the selected text.",
+      "triggers": "subfeature:bold",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

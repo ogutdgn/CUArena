@@ -1,0 +1,10 @@
+{
+  "id": "ui:signature-line-insert-menu",
+  "kind": "menu",
+  "label": "Signature Line (dropdown)",
+  "purpose": null,
+  "screenshot": "screenshots/ui-signature-line-insert-menu/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

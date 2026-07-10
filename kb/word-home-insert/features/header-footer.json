@@ -1,0 +1,39 @@
+{
+  "id": "feature:header-footer",
+  "node_type": "feature",
+  "name": "Header & Footer",
+  "what_it_does": "Repeat content at the top/bottom of every page and number the pages; editing them activates the Header & Footer contextual tab.",
+  "affects": "the header/footer stories of every page",
+  "audience_breadth": "most",
+  "behavior": "Repeat content at the top/bottom of every page and number the pages; editing them activates the Header & Footer contextual tab. Group controls: subfeature:header-insert, subfeature:footer-insert, subfeature:page-number-insert",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:header-insert",
+    "subfeature:footer-insert",
+    "subfeature:page-number-insert"
+  ],
+  "connections": [
+    {
+      "target": "feature:pages",
+      "kind": "affects",
+      "why": "headers/footers render on every page the page structure creates",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

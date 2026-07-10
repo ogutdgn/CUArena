@@ -1,0 +1,1278 @@
+{
+  "id": "ui:ribbon-home",
+  "kind": "tab",
+  "label": "Home tab",
+  "purpose": null,
+  "screenshot": "screenshots/ui-ribbon-home/surface.png",
+  "children": [
+    {
+      "id": "el:paste",
+      "control_type": "splitbutton",
+      "label": "Paste",
+      "icon": {
+        "description": "Paste control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-paste.png"
+      },
+      "tooltip": "Pick a paste option, such as keeping formatting or pasting only content.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        20,
+        82,
+        62,
+        158
+      ],
+      "state_notes": "state changed: ['doc']; keytip Alt, H, V",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:paste-dropdown",
+      "control_type": "splitbutton",
+      "label": "Paste (dropdown)",
+      "icon": {
+        "description": "Paste (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-paste-dropdown.png"
+      },
+      "tooltip": "Pick a paste option, such as keeping formatting or pasting only content.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        20,
+        82,
+        62,
+        158
+      ],
+      "state_notes": "keytip Alt, H, V",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:paste-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:cut",
+      "control_type": "button",
+      "label": "Cut",
+      "icon": {
+        "description": "Cut control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-cut.png"
+      },
+      "tooltip": "Remove the selection and put it on the Clipboard so you can paste it somewhere else.",
+      "shortcut": "Ctrl+X",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        64,
+        82,
+        116,
+        106
+      ],
+      "state_notes": "state changed: ['doc', 'format']; keytip Alt, H, X",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:cut",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:copy",
+      "control_type": "button",
+      "label": "Copy",
+      "icon": {
+        "description": "Copy control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-copy.png"
+      },
+      "tooltip": "Put a copy of the selection on the Clipboard so you can paste it somewhere else.",
+      "shortcut": "Ctrl+C",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        64,
+        108,
+        125,
+        132
+      ],
+      "state_notes": "feature by idMso 'Copy': copies the selection to the Office clipboard; effect not fingerprintable (clipboard/mode)",
+      "source": "idmso",
+      "triggers": "subfeature:copy",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:format-painter",
+      "control_type": "button",
+      "label": "Format Painter",
+      "icon": {
+        "description": "Format Painter control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-format-painter.png"
+      },
+      "tooltip": "Like the look of a particular selection? You can apply that look to other content in the document.\n\nTo get started: \n1. Select content with the formatting you like\n2. Click Format Painter\n3. Select something else to automatically apply the formatting\n\nFYI: To apply the formatting in multiple places, double-click Format Painter.",
+      "shortcut": "Alt+Ctrl+C, Alt+Ctrl+V",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        64,
+        134,
+        175,
+        158
+      ],
+      "state_notes": "feature by idMso 'FormatPainter': copies formatting to reapply with the next click (arms a mode); effect not fingerprintable (clipboard/mode)",
+      "source": "idmso",
+      "triggers": "subfeature:format-painter",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:show-clipboard",
+      "control_type": "button",
+      "label": "Office Clipboard...",
+      "icon": {
+        "description": "Office Clipboard... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-show-clipboard.png"
+      },
+      "tooltip": "See all the items you've copied to the Clipboard.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        167,
+        160,
+        183,
+        176
+      ],
+      "state_notes": "keytip Alt, H, F O",
+      "source": "measured:pane-inset",
+      "triggers": null,
+      "opens": "ui:show-clipboard-pane",
+      "unexplored": false
+    },
+    {
+      "id": "el:font",
+      "control_type": "combobox",
+      "label": "Font",
+      "icon": {
+        "description": "Font control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-font.png"
+      },
+      "tooltip": "Pick a new font for your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        191,
+        90,
+        316,
+        114
+      ],
+      "state_notes": "keytip Alt, H, F F",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:font-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:font-size",
+      "control_type": "combobox",
+      "label": "Font Size",
+      "icon": {
+        "description": "Font Size control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-font-size.png"
+      },
+      "tooltip": "Change the size of your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        318,
+        90,
+        361,
+        114
+      ],
+      "state_notes": "keytip Alt, H, F S",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:font-size-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:font-size-increase",
+      "control_type": "button",
+      "label": "Grow Font",
+      "icon": {
+        "description": "Grow Font control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-font-size-increase.png"
+      },
+      "tooltip": "Make your text a bit bigger.",
+      "shortcut": "Ctrl+Shift+>",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        363,
+        90,
+        387,
+        114
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, F G",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:font-size-increase",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:font-size-decrease",
+      "control_type": "button",
+      "label": "Shrink Font",
+      "icon": {
+        "description": "Shrink Font control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-font-size-decrease.png"
+      },
+      "tooltip": "Make your text a bit smaller.",
+      "shortcut": "Ctrl+Shift+<",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        389,
+        90,
+        413,
+        114
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, F K",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:font-size-decrease",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:change-case-gallery",
+      "control_type": "menuitem",
+      "label": "Change Case",
+      "icon": {
+        "description": "Change Case control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-change-case-gallery.png"
+      },
+      "tooltip": "Change the selected text to uppercase, lowercase or other common capitalizations.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        418,
+        90,
+        458,
+        114
+      ],
+      "state_notes": "keytip Alt, H, 7",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:change-case-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:clear-formatting",
+      "control_type": "button",
+      "label": "Clear Formatting",
+      "icon": {
+        "description": "Clear Formatting control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-clear-formatting.png"
+      },
+      "tooltip": "Remove all formatting from the selection, leaving only the normal, unformatted text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        463,
+        90,
+        487,
+        114
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, E",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:clear-formatting",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:bold",
+      "control_type": "button",
+      "label": "Bold",
+      "icon": {
+        "description": "Bold control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-bold.png"
+      },
+      "tooltip": "Make your text bold.",
+      "shortcut": "Ctrl+B",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        191,
+        122,
+        215,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, 1",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:bold",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:italic",
+      "control_type": "button",
+      "label": "Italic",
+      "icon": {
+        "description": "Italic control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-italic.png"
+      },
+      "tooltip": "Italicize your text.",
+      "shortcut": "Ctrl+I",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        217,
+        122,
+        241,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, 2",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:italic",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:underline-gallery",
+      "control_type": "splitbutton",
+      "label": "Underline",
+      "icon": {
+        "description": "Underline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-underline-gallery.png"
+      },
+      "tooltip": "Underline your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        243,
+        122,
+        282,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, 3",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:underline-gallery-dropdown",
+      "control_type": "splitbutton",
+      "label": "Underline (dropdown)",
+      "icon": {
+        "description": "Underline (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-underline-gallery-dropdown.png"
+      },
+      "tooltip": "Underline your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        243,
+        122,
+        282,
+        146
+      ],
+      "state_notes": "keytip Alt, H, 3",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:underline-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:strikethrough",
+      "control_type": "button",
+      "label": "Strikethrough",
+      "icon": {
+        "description": "Strikethrough control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-strikethrough.png"
+      },
+      "tooltip": "Cross something out by drawing a line through it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        284,
+        122,
+        308,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, 4",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:strikethrough",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:subscript",
+      "control_type": "button",
+      "label": "Subscript",
+      "icon": {
+        "description": "Subscript control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-subscript.png"
+      },
+      "tooltip": "Type very small letters just below the line of text.",
+      "shortcut": "Ctrl+Shift+_",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        310,
+        122,
+        334,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, 5",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:subscript",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:superscript",
+      "control_type": "button",
+      "label": "Superscript",
+      "icon": {
+        "description": "Superscript control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-superscript.png"
+      },
+      "tooltip": "Type very small letters just above the line of text.",
+      "shortcut": "Ctrl+Shift++",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        336,
+        122,
+        360,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, 6",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:superscript",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:text-effects-gallery",
+      "control_type": "menuitem",
+      "label": "Text Effects and Typography",
+      "icon": {
+        "description": "Text Effects and Typography control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-text-effects-gallery.png"
+      },
+      "tooltip": "Add some flair to your text by applying a text effect, such as a shadow or glow.\n\nYou can also change the typography settings to enable ligatures or choose a stylistic set.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        365,
+        122,
+        405,
+        146
+      ],
+      "state_notes": "keytip Alt, H, F T",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:text-effects-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:text-highlight-color-picker",
+      "control_type": "splitbutton",
+      "label": "Text Highlight Color",
+      "icon": {
+        "description": "Text Highlight Color control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-text-highlight-color-picker.png"
+      },
+      "tooltip": "Make your text pop by highlighting it in a bright color.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        407,
+        122,
+        446,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, I",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:text-highlight-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:text-highlight-color-picker-dropdown",
+      "control_type": "splitbutton",
+      "label": "Text Highlight Color (dropdown)",
+      "icon": {
+        "description": "Text Highlight Color (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-text-highlight-color-picker-dropdown.png"
+      },
+      "tooltip": "Make your text pop by highlighting it in a bright color.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        407,
+        122,
+        446,
+        146
+      ],
+      "state_notes": "keytip Alt, H, I",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:text-highlight-color-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:font-color-picker",
+      "control_type": "splitbutton",
+      "label": "Font Color",
+      "icon": {
+        "description": "Font Color control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-font-color-picker.png"
+      },
+      "tooltip": "Change the color of your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        448,
+        122,
+        487,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, F C",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:font-color-picker-dropdown",
+      "control_type": "splitbutton",
+      "label": "Font Color (dropdown)",
+      "icon": {
+        "description": "Font Color (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-font-color-picker-dropdown.png"
+      },
+      "tooltip": "Change the color of your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        448,
+        122,
+        487,
+        146
+      ],
+      "state_notes": "keytip Alt, H, F C",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:font-color-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:font-dialog",
+      "control_type": "button",
+      "label": "Font...",
+      "icon": {
+        "description": "Font... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-font-dialog.png"
+      },
+      "tooltip": "Customize your text using advanced font and character options to give it the exact look you want.\n\nYou can add a variety of styles and colors to your text, as well as visual effects, like strikethrough, superscript, and all caps.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        479,
+        160,
+        495,
+        176
+      ],
+      "state_notes": "keytip Alt, H, F N",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:font-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:bullets-gallery",
+      "control_type": "splitbutton",
+      "label": "Bullets",
+      "icon": {
+        "description": "Bullets control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-bullets-gallery.png"
+      },
+      "tooltip": "Create a bulleted list.\n\nClick the arrow to change the look of the bullet.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        503,
+        90,
+        542,
+        114
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, U",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:bullets-gallery-dropdown",
+      "control_type": "splitbutton",
+      "label": "Bullets (dropdown)",
+      "icon": {
+        "description": "Bullets (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-bullets-gallery-dropdown.png"
+      },
+      "tooltip": "Create a bulleted list.\n\nClick the arrow to change the look of the bullet.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        503,
+        90,
+        542,
+        114
+      ],
+      "state_notes": "keytip Alt, H, U",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:bullets-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:numbering-gallery",
+      "control_type": "splitbutton",
+      "label": "Numbering",
+      "icon": {
+        "description": "Numbering control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-numbering-gallery.png"
+      },
+      "tooltip": "Create a numbered list.\n\nClick the arrow for more numbering formats.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        544,
+        90,
+        583,
+        114
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, N",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:numbering-gallery-dropdown",
+      "control_type": "splitbutton",
+      "label": "Numbering (dropdown)",
+      "icon": {
+        "description": "Numbering (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-numbering-gallery-dropdown.png"
+      },
+      "tooltip": "Create a numbered list.\n\nClick the arrow for more numbering formats.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        544,
+        90,
+        583,
+        114
+      ],
+      "state_notes": "keytip Alt, H, N",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:numbering-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:multilevel-list-gallery",
+      "control_type": "menuitem",
+      "label": "Multilevel List",
+      "icon": {
+        "description": "Multilevel List control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-multilevel-list-gallery.png"
+      },
+      "tooltip": "Create a multilevel list to organize items or create an outline.\n\nYou can also change the look of individual levels in your list or add numbering to headings in your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        585,
+        90,
+        625,
+        114
+      ],
+      "state_notes": "keytip Alt, H, M",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:multilevel-list-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:indent-decrease",
+      "control_type": "button",
+      "label": "Decrease Indent",
+      "icon": {
+        "description": "Decrease Indent control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-indent-decrease.png"
+      },
+      "tooltip": "Move your paragraph closer to the margin.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        630,
+        90,
+        654,
+        114
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, A O",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:indent-decrease",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:indent-increase",
+      "control_type": "button",
+      "label": "Increase Indent",
+      "icon": {
+        "description": "Increase Indent control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-indent-increase.png"
+      },
+      "tooltip": "Move your paragraph farther away from the margin.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        656,
+        90,
+        680,
+        114
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, A I",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:indent-increase",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:sort-dialog-classic",
+      "control_type": "button",
+      "label": "Sort...",
+      "icon": {
+        "description": "Sort... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-sort-dialog-classic.png"
+      },
+      "tooltip": "Arrange the current selection in alphabetical or numerical order.\n\nThis is especially useful if you're trying to organize data in a table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        685,
+        90,
+        709,
+        114
+      ],
+      "state_notes": "keytip Alt, H, S O",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:sort-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:paragraph-marks",
+      "control_type": "button",
+      "label": "Show All",
+      "icon": {
+        "description": "Show All control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-paragraph-marks.png"
+      },
+      "tooltip": "Show paragraph marks and other hidden formatting symbols.\n\nThis is especially useful for advanced layout tasks.",
+      "shortcut": "Ctrl+*",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        714,
+        90,
+        738,
+        114
+      ],
+      "state_notes": "state changed: ['app:show_all']; keytip Alt, H, 8",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:paragraph-marks",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:align-left",
+      "control_type": "button",
+      "label": "Align Left",
+      "icon": {
+        "description": "Align Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-align-left.png"
+      },
+      "tooltip": "Align your content to the left.",
+      "shortcut": "Ctrl+L",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        503,
+        122,
+        527,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, A L",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:align-left",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:align-center",
+      "control_type": "button",
+      "label": "Center",
+      "icon": {
+        "description": "Center control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-align-center.png"
+      },
+      "tooltip": "Center your content.",
+      "shortcut": "Ctrl+E",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        529,
+        122,
+        553,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, A C",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:align-center",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:align-right",
+      "control_type": "button",
+      "label": "Align Right",
+      "icon": {
+        "description": "Align Right control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-align-right.png"
+      },
+      "tooltip": "Align your content to the right.",
+      "shortcut": "Ctrl+R",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        555,
+        122,
+        579,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, A R",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:align-right",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:align-justify",
+      "control_type": "button",
+      "label": "Justify",
+      "icon": {
+        "description": "Justify control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-align-justify.png"
+      },
+      "tooltip": "Distribute your text evenly between the margins.\n\nJustified text gives your document clean, crisp edges so it looks more polished.",
+      "shortcut": "Ctrl+J",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        581,
+        122,
+        605,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, A J",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:align-justify",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:line-spacing-gallery",
+      "control_type": "menuitem",
+      "label": "Line and Paragraph Spacing",
+      "icon": {
+        "description": "Line and Paragraph Spacing control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-line-spacing-gallery.png"
+      },
+      "tooltip": "Choose how much space appears between lines of text or between paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        610,
+        122,
+        650,
+        146
+      ],
+      "state_notes": "keytip Alt, H, K",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:line-spacing-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:shading-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shading",
+      "icon": {
+        "description": "Shading control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-shading-color-picker.png"
+      },
+      "tooltip": "Change the color behind the selected text, paragraph or table cell.\n\nThis is especially useful when you want information to jump off the page.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        655,
+        122,
+        694,
+        146
+      ],
+      "state_notes": "feature by idMso 'ShadingColorPicker': applies the last-used paragraph shading (fill) color to the selection; effect not fingerprintable (clipboard/mode)",
+      "source": "idmso",
+      "triggers": "subfeature:shading-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:shading-color-picker-dropdown",
+      "control_type": "splitbutton",
+      "label": "Shading (dropdown)",
+      "icon": {
+        "description": "Shading (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-shading-color-picker-dropdown.png"
+      },
+      "tooltip": "Change the color behind the selected text, paragraph or table cell.\n\nThis is especially useful when you want information to jump off the page.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        655,
+        122,
+        694,
+        146
+      ],
+      "state_notes": "keytip Alt, H, H",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:shading-color-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:borders-selection-gallery",
+      "control_type": "splitbutton",
+      "label": "Borders",
+      "icon": {
+        "description": "Borders control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-borders-selection-gallery.png"
+      },
+      "tooltip": "Add or remove borders from your selection.\n\nTo change the look of the borders, check out the options on the Table Tools Design tab or use the Borders and Shading dialog box.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        696,
+        122,
+        735,
+        146
+      ],
+      "state_notes": "state changed: ['format']; keytip Alt, H, B",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:borders-selection-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:borders-selection-gallery-dropdown",
+      "control_type": "splitbutton",
+      "label": "Borders (dropdown)",
+      "icon": {
+        "description": "Borders (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-borders-selection-gallery-dropdown.png"
+      },
+      "tooltip": "Add or remove borders from your selection.\n\nTo change the look of the borders, check out the options on the Table Tools Design tab or use the Borders and Shading dialog box.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        696,
+        122,
+        735,
+        146
+      ],
+      "state_notes": "keytip Alt, H, B",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:borders-selection-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:paragraph-dialog",
+      "control_type": "button",
+      "label": "Paragraph...",
+      "icon": {
+        "description": "Paragraph... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-paragraph-dialog.png"
+      },
+      "tooltip": "Fine-tune the layout of the current paragraph, including spacing, indentation, and more.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        730,
+        160,
+        746,
+        176
+      ],
+      "state_notes": "keytip Alt, H, P G",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:paragraph-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:quick-styles-gallery",
+      "control_type": "gallery",
+      "label": "Quick Styles gallery",
+      "icon": {
+        "description": "QuickStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-quick-styles.png"
+      },
+      "tooltip": "Styles give your document a consistent, polished look.\n\nThey also allow you to use the Navigation Pane and add a table of contents.\n\nIf you don't like the look of these styles, check out the Design tab for more options.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        754,
+        90,
+        1433,
+        150
+      ],
+      "state_notes": "inline QuickStyles strip; expansion surface measured via the group's More button",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:styles-gallery",
+      "unexplored": false
+    },
+    {
+      "id": "el:styles-pane",
+      "control_type": "button",
+      "label": "Styles...",
+      "icon": {
+        "description": "Styles... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-styles-pane.png"
+      },
+      "tooltip": "Preview, manage and customize the text styles in Word.\n\nUse the window to see and edit formatting details for each style, create new styles, and quickly preview styles in your document.\n\nYou can also update styles to match selected text.",
+      "shortcut": "Alt+Ctrl+Shift+S",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1425,
+        160,
+        1441,
+        176
+      ],
+      "state_notes": "keytip Alt, H, F Y",
+      "source": "measured:pane-inset",
+      "triggers": null,
+      "opens": "ui:styles-pane",
+      "unexplored": false
+    },
+    {
+      "id": "el:navigation-pane-find",
+      "control_type": "splitbutton",
+      "label": "Find",
+      "icon": {
+        "description": "Find control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-navigation-pane-find.png"
+      },
+      "tooltip": "Click to see options for finding text in your document.\n\nYou can use advanced search options to replace text, jump right to a specific spot, or pick other ways to narrow your search.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1449,
+        82,
+        1529,
+        106
+      ],
+      "state_notes": "keytip Alt, H, F D",
+      "source": "measured:pane-inset",
+      "triggers": null,
+      "opens": "ui:navigation-pane-find-pane",
+      "unexplored": false
+    },
+    {
+      "id": "el:navigation-pane-find-dropdown",
+      "control_type": "splitbutton",
+      "label": "Find (dropdown)",
+      "icon": {
+        "description": "Find (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-navigation-pane-find-dropdown.png"
+      },
+      "tooltip": "Click to see options for finding text in your document.\n\nYou can use advanced search options to replace text, jump right to a specific spot, or pick other ways to narrow your search.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1449,
+        82,
+        1529,
+        106
+      ],
+      "state_notes": "keytip Alt, H, F D",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:navigation-pane-find-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:replace-dialog",
+      "control_type": "button",
+      "label": "Replace...",
+      "icon": {
+        "description": "Replace... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-replace-dialog.png"
+      },
+      "tooltip": "Search for text you'd like to change, and replace it with something else.",
+      "shortcut": "Ctrl+H",
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1449,
+        108,
+        1523,
+        132
+      ],
+      "state_notes": "keytip Alt, H, R",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:replace-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:select-menu",
+      "control_type": "menuitem",
+      "label": "Select",
+      "icon": {
+        "description": "Select control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-select-menu.png"
+      },
+      "tooltip": "Select text or objects in your document.\n\nThis is particularly helpful for selecting text with certain formatting or objects that are behind text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1449,
+        134,
+        1524,
+        158
+      ],
+      "state_notes": "keytip Alt, H, S L",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:select-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:create-a-pdf",
+      "control_type": "button",
+      "label": "Create a PDF",
+      "icon": {
+        "description": "Create a PDF control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-create-a-pdf.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1558,
+        82,
+        1600,
+        158
+      ],
+      "state_notes": "boundary (not pressed): third-party COM add-in (config exclude_labels); not native Word",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:dictate",
+      "control_type": "splitbutton",
+      "label": "Dictate",
+      "icon": {
+        "description": "Dictate control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-dictate.png"
+      },
+      "tooltip": "Now use voice typing to author content and voice commanding for a more hands-off experience.\n\nPowered by Microsoft Speech Services",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1629,
+        82,
+        1671,
+        158
+      ],
+      "state_notes": "boundary (not pressed): AI/cloud Dictate — turns on microphone / network",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:writing-assistance-check-document",
+      "control_type": "button",
+      "label": "Editor",
+      "icon": {
+        "description": "Editor control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-writing-assistance-check-document.png"
+      },
+      "tooltip": "Check for Spelling, Grammar and Writing Suggestions",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1687,
+        82,
+        1729,
+        158
+      ],
+      "state_notes": "boundary (not pressed): cloud proofing pane — network/AI (config exclude_labels)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:office-extensions-show-addin-flyout",
+      "control_type": "button",
+      "label": "Add‑ins",
+      "icon": {
+        "description": "Add‑ins control (see icon crop)",
+        "image": "screenshots/ui-ribbon-home/icon-office-extensions-show-addin-flyout.png"
+      },
+      "tooltip": "Find add-ins that add new functionality to Office, simplify tasks, and connect you to services you use every day.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-home",
+      "bounds": [
+        1745,
+        82,
+        1792,
+        158
+      ],
+      "state_notes": "boundary (not pressed): Office add-in store flyout — external content",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [
+    "ui:borders-selection-menu",
+    "ui:bullets-dropdown",
+    "ui:change-case-menu",
+    "ui:font-color-dropdown",
+    "ui:font-dialog",
+    "ui:font-dropdown",
+    "ui:font-size-dropdown",
+    "ui:line-spacing-menu",
+    "ui:multilevel-list-menu",
+    "ui:navigation-pane-find-dropdown",
+    "ui:navigation-pane-find-pane",
+    "ui:numbering-dropdown",
+    "ui:paragraph-dialog",
+    "ui:paste-dropdown",
+    "ui:replace-dialog",
+    "ui:select-menu",
+    "ui:shading-color-dropdown",
+    "ui:show-clipboard-pane",
+    "ui:sort-dialog",
+    "ui:styles-gallery",
+    "ui:styles-pane",
+    "ui:text-effects-dropdown",
+    "ui:text-highlight-color-dropdown",
+    "ui:underline-menu"
+  ],
+  "explored": true
+}

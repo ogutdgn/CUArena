@@ -1,0 +1,51 @@
+{
+  "id": "subfeature:clear-formatting",
+  "node_type": "subfeature",
+  "name": "Clear All Formatting",
+  "parent": "feature:font",
+  "what_it_does": "Removes all character and paragraph formatting from the selection, leaving plain text.",
+  "affects": "the selection's formatting (reset to default)",
+  "audience_breadth": "most",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:clear-formatting"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-clear-formatting.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "affects",
+      "why": "removes the character formatting the Font dialog applies",
+      "source": "observed"
+    },
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "affects",
+      "why": "removes paragraph formatting",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

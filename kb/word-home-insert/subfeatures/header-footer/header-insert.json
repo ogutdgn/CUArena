@@ -1,0 +1,52 @@
+{
+  "id": "subfeature:header-insert",
+  "node_type": "subfeature",
+  "name": "Header",
+  "parent": "feature:header-footer",
+  "what_it_does": "Opens a gallery of built-in header designs (Blank, Austin, Banded…) plus Edit/Remove Header; applying one enters header editing and activates the Header & Footer contextual tab (measured).",
+  "affects": "the header story of every page",
+  "audience_breadth": "most",
+  "behavior": "Opens Header (dropdown). Contents (15 controls): Color swatches, Header, Line up, Position, Blank, Blank (Three Columns), Page down, Austin, Banded, Facet (Even Page), Line down, More Headers from Office.com, Edit Header, Remove Header, Save Selection to Header Gallery.... Sub-surfaces: ui:table-insert-dropdown-quick-tables-save-selection-to-quick-tabl. [flyout of subfeature:header-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in] Appears as a page with its top band highlighted, labelled 'Header'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:header-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:header-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-header-insert-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-header-insert-gallery.png",
+    "screenshots/ui-header-insert-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:footer-insert",
+      "kind": "affects",
+      "why": "all write into the per-page header/footer stories",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:page-number-insert",
+      "kind": "affects",
+      "why": "all write into the per-page header/footer stories",
+      "source": "shared-target"
+    },
+    {
+      "target": "ui:ribbon-header-footer",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

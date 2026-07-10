@@ -1,0 +1,82 @@
+{
+  "id": "subfeature:smart-art-insert",
+  "node_type": "subfeature",
+  "name": "SmartArt",
+  "parent": "feature:illustrations",
+  "what_it_does": "Opens the Choose a SmartArt Graphic dialog (lists, processes, cycles, hierarchies…); an inserted SmartArt activates the SmartArt Design + Format contextual tabs (measured).",
+  "affects": "document content (adds a SmartArt diagram)",
+  "audience_breadth": "most",
+  "behavior": "Opens Choose a SmartArt Graphic (dialog). Contents (256 controls): All, List, Process, Cycle, Hierarchy, Relationship, Matrix, Pyramid, Picture, Timeline, Meet The Team, Office.com, Basic Block List, Alternating Hexagons, Picture Caption List, Lined List. [the Choose a SmartArt Graphic dialog; enumerated across 1 tab(s)] Appears as a green diagram of connected boxes, labelled 'SmartArt'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:smart-art-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:smart-art-insert-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-smart-art-insert.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-smart-art-insert.png",
+    "screenshots/ui-smart-art-insert-dialog/tab-single.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:insert-pictures",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:shapes-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:icon-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:insert-3d-models",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:chart-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:screenshot-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "ui:ribbon-smart-art-design",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    },
+    {
+      "target": "ui:ribbon-smart-art-format",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

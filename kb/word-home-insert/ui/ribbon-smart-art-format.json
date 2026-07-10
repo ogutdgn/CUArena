@@ -1,0 +1,656 @@
+{
+  "id": "ui:ribbon-smart-art-format",
+  "kind": "tab",
+  "label": "Format (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'SmartArt Tools' family; exists only while: a SmartArt graphic is selected. Groups: Shapes, Shape Styles, WordArt Styles, Accessibility, Arrange, Size. Appeared on the 'smartart' probe.",
+  "screenshot": "screenshots/ui-ribbon-smart-art-format/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-smart-art-format-smart-art-edit-in2-d",
+      "control_type": "button",
+      "label": "Edit in 2-D",
+      "icon": {
+        "description": "Edit in 2-D control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-smart-art-edit-in2-d.png"
+      },
+      "tooltip": "Change to 2-D view to resize and drag shapes in the SmartArt graphic.\n\nThis option is available only if you have applied a 3-D style to the SmartArt graphic.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        20,
+        82,
+        62,
+        158
+      ],
+      "state_notes": "group 'Shapes'; keytip Alt, J O, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-shape-change-shape-gallery",
+      "control_type": "menuitem",
+      "label": "Change Shape",
+      "icon": {
+        "description": "Change Shape control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-shape-change-shape-gallery.png"
+      },
+      "tooltip": "Change the shape of the drawing, preserving all the formatting.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        64,
+        82,
+        184,
+        106
+      ],
+      "state_notes": "group 'Shapes'; keytip Alt, J O, I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-smart-art-larger-shape",
+      "control_type": "button",
+      "label": "Larger",
+      "icon": {
+        "description": "Larger control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-smart-art-larger-shape.png"
+      },
+      "tooltip": "Increase the size of the selected shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        64,
+        108,
+        130,
+        132
+      ],
+      "state_notes": "group 'Shapes'; keytip Alt, J O, N; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-smart-art-smaller-shape",
+      "control_type": "button",
+      "label": "Smaller",
+      "icon": {
+        "description": "Smaller control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-smart-art-smaller-shape.png"
+      },
+      "tooltip": "Decrease the size of the selected shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        64,
+        134,
+        136,
+        158
+      ],
+      "state_notes": "group 'Shapes'; keytip Alt, J O, D; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-shape-styles-gallery",
+      "control_type": "menuitem",
+      "label": "ShapeStylesGallery",
+      "icon": {
+        "description": "ShapeStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-shape-styles-gallery.png"
+      },
+      "tooltip": "Quickly add a visual style to the selected shape or line.\n\nEach style uses a unique combination of colors, lines, and other effects to change the shape's appearance. Hover over a Quick Style in the gallery to preview your new look.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        200,
+        90,
+        623,
+        150
+      ],
+      "state_notes": "group 'Shape Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-shape-fill-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Fill",
+      "icon": {
+        "description": "Shape Fill control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-shape-fill-color-picker.png"
+      },
+      "tooltip": "Fill the selected shape with a solid color, gradient, picture, or texture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        625,
+        82,
+        715,
+        106
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J O, S F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Outline",
+      "icon": {
+        "description": "Shape Outline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-outline-color-picker.png"
+      },
+      "tooltip": "Pick the color, width, and line style for the outline of your shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        625,
+        108,
+        739,
+        132
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J O, S O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-shape-effects-menu",
+      "control_type": "menuitem",
+      "label": "Shape Effects",
+      "icon": {
+        "description": "Shape Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-shape-effects-menu.png"
+      },
+      "tooltip": "Apply a visual effect to the selected shape, such as shadow, glow, reflection, or 3-D rotation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        625,
+        134,
+        739,
+        158
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J O, S E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-object-format-dialog",
+      "control_type": "button",
+      "label": "Format Object...",
+      "icon": {
+        "description": "Format Object... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-object-format-dialog.png"
+      },
+      "tooltip": "Make fine-tuned adjustments to the look of your shape using the Format Shape task pane.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        731,
+        160,
+        747,
+        176
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J O, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-text-styles-gallery",
+      "control_type": "menuitem",
+      "label": "TextStylesGallery",
+      "icon": {
+        "description": "TextStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-text-styles-gallery.png"
+      },
+      "tooltip": "Add some artistic flair by choosing between predefined text styles.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        755,
+        90,
+        954,
+        150
+      ],
+      "state_notes": "group 'WordArt Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-text-fill-color-picker",
+      "control_type": "splitbutton",
+      "label": "Text Fill",
+      "icon": {
+        "description": "Text Fill control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-text-fill-color-picker.png"
+      },
+      "tooltip": "Fill the text with a solid color, gradient, picture, or texture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        956,
+        82,
+        1035,
+        106
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J O, T I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-text-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Text Outline",
+      "icon": {
+        "description": "Text Outline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-text-outline-color-picker.png"
+      },
+      "tooltip": "Customize the outline of your text by choosing the color, width and line style.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        956,
+        108,
+        1059,
+        132
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J O, T O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-text-effects-menu",
+      "control_type": "menuitem",
+      "label": "Text Effects",
+      "icon": {
+        "description": "Text Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-text-effects-menu.png"
+      },
+      "tooltip": "Turn your work into a work of art. \n\nAdd a visual effect such as shadow, glow or reflection to your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        956,
+        134,
+        1059,
+        158
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J O, T X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-word-art-format-dialog",
+      "control_type": "button",
+      "label": "Format Text Effects...",
+      "icon": {
+        "description": "Format Text Effects... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-word-art-format-dialog.png"
+      },
+      "tooltip": "Show the Format Text Effects task pane to change text properties.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1051,
+        160,
+        1067,
+        176
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J O, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-alt-text-pane-ribbon",
+      "control_type": "button",
+      "label": "Alt Text",
+      "icon": {
+        "description": "Alt Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-alt-text-pane-ribbon.png"
+      },
+      "tooltip": "Create text descriptions of objects for screen readers.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1080,
+        82,
+        1122,
+        158
+      ],
+      "state_notes": "group 'Accessibility'; keytip Alt, J O, A T; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-picture-position-gallery",
+      "control_type": "menuitem",
+      "label": "Position",
+      "icon": {
+        "description": "Position control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-picture-position-gallery.png"
+      },
+      "tooltip": "Choose where the selected object will appear on the page.\n\nText will automatically wrap around the object so that it's still easy to read.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1143,
+        82,
+        1191,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, P O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-text-wrap-gallery",
+      "control_type": "menuitem",
+      "label": "Wrap Text",
+      "icon": {
+        "description": "Wrap Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-text-wrap-gallery.png"
+      },
+      "tooltip": "Choose how your text wraps around the selected object.\n\nFor example, you can choose to have the text continue around the object or cross right over it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1193,
+        82,
+        1235,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, T W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-object-bring-forward",
+      "control_type": "splitbutton",
+      "label": "Bring Forward",
+      "icon": {
+        "description": "Bring Forward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-object-bring-forward.png"
+      },
+      "tooltip": "Bring the selected object forward one level, or bring it in front of all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1237,
+        82,
+        1296,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, A F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-object-send-backward",
+      "control_type": "splitbutton",
+      "label": "Send Backward",
+      "icon": {
+        "description": "Send Backward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-object-send-backward.png"
+      },
+      "tooltip": "Send the selected object back one level, or send it behind all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1298,
+        82,
+        1365,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, A E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-selection-pane",
+      "control_type": "button",
+      "label": "Selection Pane...",
+      "icon": {
+        "description": "Selection Pane... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-selection-pane.png"
+      },
+      "tooltip": "See a list of all your objects.\n\nThis makes it easier to select objects, change their order, or change their visibility.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1367,
+        82,
+        1420,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, A P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-object-align-menu",
+      "control_type": "menuitem",
+      "label": "Align",
+      "icon": {
+        "description": "Align control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-object-align-menu.png"
+      },
+      "tooltip": "Change the placement of your selected objects on the page.\n\nThis is great for aligning objects to the margins or the edge of the page. You can also align them relative to one another.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1422,
+        82,
+        1494,
+        106
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, A A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-objects-group-menu",
+      "control_type": "menuitem",
+      "label": "Group",
+      "icon": {
+        "description": "Group control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-objects-group-menu.png"
+      },
+      "tooltip": "Join objects together to move and format them as if they were a single object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1422,
+        108,
+        1499,
+        132
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, A G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-object-rotate-gallery",
+      "control_type": "menuitem",
+      "label": "Rotate",
+      "icon": {
+        "description": "Rotate control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-object-rotate-gallery.png"
+      },
+      "tooltip": "Rotate or flip the selected object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1422,
+        134,
+        1500,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J O, A Y; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-more.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1635,
+        91,
+        1652,
+        102
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-less.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1635,
+        102,
+        1652,
+        113
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-more.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1635,
+        123,
+        1652,
+        134
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-less.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1635,
+        134,
+        1652,
+        145
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-smart-art-format-layout-options-dialog-size",
+      "control_type": "button",
+      "label": "Size and Position...",
+      "icon": {
+        "description": "Size and Position... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-smart-art-format/icon-layout-options-dialog-size.png"
+      },
+      "tooltip": "See more options for changing the size of your shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-smart-art-format",
+      "bounds": [
+        1645,
+        160,
+        1661,
+        176
+      ],
+      "state_notes": "group 'Size'; keytip Alt, J O, S Z; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "a SmartArt graphic is selected"
+}

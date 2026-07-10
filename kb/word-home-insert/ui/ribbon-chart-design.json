@@ -1,0 +1,219 @@
+{
+  "id": "ui:ribbon-chart-design",
+  "kind": "tab",
+  "label": "Chart Design (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Chart Tools' family; exists only while: an embedded chart is selected. Groups: Chart Layouts, Chart Styles, Data, Type. Appeared on the 'chart' probe.",
+  "screenshot": "screenshots/ui-ribbon-chart-design/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-chart-design-add-chart-element-menu",
+      "control_type": "menuitem",
+      "label": "Add Chart Element",
+      "icon": {
+        "description": "Add Chart Element control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-add-chart-element-menu.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        20,
+        82,
+        79,
+        158
+      ],
+      "state_notes": "group 'Chart Layouts'; keytip Alt, J C, A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-layout-gallery",
+      "control_type": "menuitem",
+      "label": "Quick Layout",
+      "icon": {
+        "description": "Quick Layout control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-layout-gallery.png"
+      },
+      "tooltip": "Change the overall layout of the chart.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        81,
+        82,
+        133,
+        158
+      ],
+      "state_notes": "group 'Chart Layouts'; keytip Alt, J C, L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-colors-gallery",
+      "control_type": "menuitem",
+      "label": "Change Colors",
+      "icon": {
+        "description": "Change Colors control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-colors-gallery.png"
+      },
+      "tooltip": "Customize Color and Style",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        149,
+        82,
+        199,
+        158
+      ],
+      "state_notes": "group 'Chart Styles'; keytip Alt, J C, H; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-styles-gallery",
+      "control_type": "menuitem",
+      "label": "ChartStylesGallery",
+      "icon": {
+        "description": "ChartStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-styles-gallery.png"
+      },
+      "tooltip": "Change the overall visual style of the chart.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        201,
+        90,
+        936,
+        150
+      ],
+      "state_notes": "group 'Chart Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-switch-row-column",
+      "control_type": "button",
+      "label": "Switch Row/Column",
+      "icon": {
+        "description": "Switch Row/Column control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-switch-row-column.png"
+      },
+      "tooltip": "Swap the data over the axis.\n\nData being charted on the X axis will move to the Y axis and vice versa.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        952,
+        82,
+        1023,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J C, W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-edit-data-source",
+      "control_type": "button",
+      "label": "Select Data...",
+      "icon": {
+        "description": "Select Data... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-edit-data-source.png"
+      },
+      "tooltip": "Change the data range included in the chart.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        1025,
+        82,
+        1067,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J C, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-show-data-grid",
+      "control_type": "splitbutton",
+      "label": "Edit Data",
+      "icon": {
+        "description": "Edit Data control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-show-data-grid.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        1069,
+        82,
+        1111,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J C, D; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-refresh",
+      "control_type": "button",
+      "label": "Refresh Data",
+      "icon": {
+        "description": "Refresh Data control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-refresh.png"
+      },
+      "tooltip": "Refresh this chart to show updated data.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        1113,
+        82,
+        1157,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J C, R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-design-chart-change-type",
+      "control_type": "button",
+      "label": "Change Chart Type...",
+      "icon": {
+        "description": "Change Chart Type... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-design/icon-chart-change-type.png"
+      },
+      "tooltip": "Change to a different type of chart.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-design",
+      "bounds": [
+        1173,
+        82,
+        1235,
+        158
+      ],
+      "state_notes": "group 'Type'; keytip Alt, J C, C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "an embedded chart is selected"
+}

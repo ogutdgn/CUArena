@@ -1,0 +1,32 @@
+{
+  "id": "subfeature:create-pdf",
+  "node_type": "subfeature",
+  "name": "Create a PDF",
+  "parent": "feature:acrobat",
+  "what_it_does": "Exports the document to a PDF using the Adobe Acrobat add-in.",
+  "affects": "produces a PDF file",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:create-a-pdf"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-create-a-pdf.png"
+  ],
+  "connections": [],
+  "boundary": true,
+  "explored": false,
+  "source": "inference"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "subfeature:font-size",
+  "node_type": "subfeature",
+  "name": "Font Size",
+  "parent": "feature:font",
+  "what_it_does": "Sets the point size of the selected text; the box opens a size list.",
+  "affects": "the selection's font size",
+  "audience_breadth": "everyone",
+  "behavior": "Opens Font Size (dropdown). Contents (18 controls): Color swatches, Font Size, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36. [flyout of subfeature:font-size — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as the point-size box showing the current size (e.g. 12).",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:font-size"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:font-size-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-font-size.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-font-size.png",
+    "screenshots/ui-font-size-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-size-increase",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-size-decrease",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+F",
+  "bindings": [
+    {
+      "context": "document has focus",
+      "effect": "Opens the Navigation pane to search the document for text; the dropdown offers Find, Advanced Find and Go To.",
+      "triggers": null,
+      "opens": "ui:navigation-pane-find-pane",
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

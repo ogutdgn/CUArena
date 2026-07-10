@@ -1,0 +1,148 @@
+{
+  "id": "ui:font-color-dropdown",
+  "kind": "dropdown",
+  "label": "Font Color (dropdown)",
+  "purpose": "flyout of subfeature:font-color-picker — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors",
+  "screenshot": "screenshots/ui-font-color-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-font-color-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Font Color",
+      "icon": {
+        "description": "Font Color (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        448,
+        146,
+        732,
+        554
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "High-contrast only",
+      "icon": {
+        "description": "High-contrast only (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        564,
+        154,
+        724,
+        182
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Automatic",
+      "icon": {
+        "description": "Automatic (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        450,
+        191,
+        730,
+        219
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:font-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Gradient",
+      "icon": {
+        "description": "Gradient (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        450,
+        523,
+        730,
+        552
+      ],
+      "state_notes": "opens a cascade submenu (measured by hover)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:font-color-dropdown-gradient",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Colors...",
+      "icon": {
+        "description": "More Colors... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        450,
+        494,
+        730,
+        523
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:font-color-dropdown-more-colors",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:font-color-dropdown-gradient",
+    "ui:font-color-dropdown-more-colors"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

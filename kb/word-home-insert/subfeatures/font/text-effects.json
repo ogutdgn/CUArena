@@ -1,0 +1,40 @@
+{
+  "id": "subfeature:text-effects",
+  "node_type": "subfeature",
+  "name": "Text Effects and Typography",
+  "parent": "feature:font",
+  "what_it_does": "Applies visual text effects (outline, shadow, reflection, glow) and OpenType typography.",
+  "affects": "the selection's character appearance",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:text-effects-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:text-effects-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-text-effects-gallery.png",
+    "screenshots/ui-text-effects-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

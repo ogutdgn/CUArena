@@ -1,0 +1,1345 @@
+{
+  "method": "web research (evidence-backed). Each node carries a usage tier + evidence + source URLs. Anchored on primary Microsoft CEIP telemetry (Jensen Harris, Office UI blog) corroborated by GranneBlog; long tail graded from education/'essential skills' sources + the telemetry's fast-flattening usage curve. INSERT-tab nodes graded by a 3-angle research workflow (telemetry/education/community), merged telemetry>education>community; every entry carries evidence + source URLs.",
+  "harvested_by": "background research workflow wf_d4fb3708-4b9 (3 finders + 1 synthesizer), 2026-07-09, + Home evidence carried from the word-home-tab run (identical node ids, same app+build)",
+  "sources": [
+    {
+      "url": "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "title": "No Distaste for Paste (Why the UI, Part 7) — Jensen Harris, Microsoft Office UI Blog",
+      "claim": "Microsoft CEIP telemetry: top-5 most-used Word 2003 commands are Paste, Save, Copy, Undo, Bold (~32% of all command use); Paste alone >11% and the most-clicked toolbar button; Change Font Size is #11; the usage curve flattens sharply after the top ~10."
+    },
+    {
+      "url": "https://blog.granneman.com/2008/02/21/the-most-popular-commands-in-word/",
+      "title": "The most popular commands in Word — GranneBlog",
+      "claim": "Corroborates the CEIP ranking (Paste, Save, Copy, Undo, Bold top five; Change Font Size #11) as real usage data."
+    },
+    {
+      "url": "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles",
+      "title": "How to Format Text in Word (Fonts, Sizes, Styles)",
+      "claim": "Treats font, size, bold/italic/underline, color/highlight, alignment, line spacing, and Styles as the foundational everyday formatting set; calls Styles 'one of the most powerful formatting tools in Word.'"
+    },
+    {
+      "url": "https://nutsandboltsspeedtraining.com/powerpoint-tutorials/format-painter/",
+      "title": "How to use the Format Painter — Nuts & Bolts Speed Training",
+      "claim": "Format Painter is a widely relied-upon time-saver, but a convenience feature below the core clipboard/emphasis commands."
+    },
+    {
+      "url": "https://www.kent.edu/kso/structuring-documents-microsoft-word-headings-and-lists-pcwindows",
+      "title": "Structuring Documents in Microsoft Word with Headings and Lists — Kent State University",
+      "claim": "Applying Heading styles and using bullets/numbered lists are standard, expected practice for structuring documents."
+    },
+    {
+      "url": "https://www.expertrain.co.uk/how-to/how-to-use-bullets-and-numbering-in-word",
+      "title": "How to Use Bullets and Numbering in Word",
+      "claim": "Bullets and numbering are core list tools used across reports, resumes, instructions, outlines."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2",
+      "title": "Keyboard shortcuts in Word — Microsoft Support",
+      "claim": "Ctrl+C/V/X, Ctrl+B/I/U, Ctrl+F are the standard everyday shortcuts Microsoft documents first."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "title": "Jensen Harris — No Distaste for Paste (Why the UI, Part 7), 2006",
+      "claim": "Word 2003 CEIP telemetry: top-5 commands are Paste/Save/Copy/Undo/Bold (~32% of all use); no Insert-menu command in the top 10; the usage curve is nearly flat from ~#11 to #400, and 'Accept Change' (reviewing) ranks ~#100."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/inside-deep-thought-why-the-ui-part-6",
+      "title": "Jensen Harris — Inside Deep Thought (Why the UI, Part 6), 2006",
+      "claim": "CEIP scale (~1.3B sessions; 352M Word command clicks/90 days); cites '\"Everyone uses AutoText a lot\"' as the canonical folklore that telemetry existed to correct — AutoText/Quick Parts usage was overestimated."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/grading-on-the-curve-why-the-ui-part-8",
+      "title": "Jensen Harris — Grading On the Curve (Why the UI, Part 8), 2006",
+      "claim": "Microsoft deliberately promoted desirable-but-low-usage features into prominent Ribbon galleries; gallery prominence on the Insert tab is NOT evidence of high usage."
+    },
+    {
+      "url": "http://www.patrickbaudisch.com/interactingwithrecommendersystems/WorkingNotes/FrankLintonOWLARecommenderSystemForITSkills.pdf",
+      "title": "Frank Linton (MITRE) — OWL: A Recommender System for IT Skills (Word command logging study)",
+      "claim": "Longitudinal Word command logging (1997): top-20 is file/clipboard/formatting; the only document-furniture entry is 'View Header' (header/footer editing) at #20 with 0.68%; no Insert-menu command appears."
+    },
+    {
+      "url": "https://www.cs.ubc.ca/~joanna/papers/GI2000_McGrenere_Bloat.pdf",
+      "title": "McGrenere & Moore — Are We All In the Same 'Bloat'? (GI 2000)",
+      "claim": "53 Word 97 users: average used 72 of 265 functions, only 40 regularly; only 12 functions (3.3%) used regularly by >75% of participants — most Insert-tab subfeatures fall outside the majority-use set."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2",
+      "title": "Microsoft Support — Keyboard shortcuts in Word",
+      "claim": "Microsoft's curated 'Frequently used shortcuts' table contains zero Insert-tab actions — neither Ctrl+K (hyperlink) nor Ctrl+Enter (page break) makes the list."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/word",
+      "title": "Microsoft Support — Word help & learning hub",
+      "claim": "'Pictures' is one of only seven Quick Access learning categories; WordArt and charts exist only as ordinary help articles."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+      "title": "Microsoft Support — Differences between using a document in the browser and in Word",
+      "claim": "Browser Word's basic editing set fully supports only three Insert-content categories — tables, pictures, hyperlinks; charts, SmartArt, text boxes, WordArt, equations, symbols and cover pages are placeholder-only, and bookmarks/cross-references are display-text-only."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/symbolism-office-12-coolness-part-5",
+      "title": "Jensen Harris — Symbolism (Office 12 Coolness, Part 5), 2006",
+      "claim": "The Symbol gallery was designed around recurring insertion of a small personal symbol set (20 most-recent symbols) — a recurring but modest-frequency task."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/cover-pages-cool-things-in-office-12-part-1",
+      "title": "Jensen Harris — Cover Pages: Cool Things In Office 12 (Part 1), 2005",
+      "claim": "Cover Page gallery was brand-new in Word 2007, added as a discoverability convenience (manual cover pages used text boxes, tables and borders), not because of measured high usage."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Remix_3D",
+      "title": "Wikipedia — Remix 3D",
+      "claim": "Remix 3D, the online library behind Office's Insert 3D Models experience, was retired 10 January 2020, ~2.5 years after launch — strong indirect evidence of negligible traction."
+    },
+    {
+      "url": "https://www.jurecuhalev.com/blog/jensen-harris-the-story-of-the-ribbon-office-2007-uxweek08-notes/",
+      "title": "Notes on Jensen Harris's 'The Story of the Ribbon' talk (UX Week 2008)",
+      "claim": "Additional CEIP scale figures (3B+ sessions, 150M Word clicks/month); 'They added new features, but hardly anyone found them.'"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/double-feature",
+      "title": "Jensen Harris — Double Feature (SmartArt), 2006",
+      "claim": "SmartArt was introduced brand-new in Office 2007 as a discoverability bet with no prior Word usage history."
+    },
+    {
+      "url": "https://techcommunity.microsoft.com/blog/microsoft_365blog/introducing-modern-comments-in-microsoft-word/2263182",
+      "title": "Microsoft 365 Blog — Introducing Modern Comments in Microsoft Word (2021)",
+      "claim": "Full cross-platform redesign of Word commenting signals sustained strategic investment in comments as a collaboration surface."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/mo-110/",
+      "title": "Exam MO-110: Microsoft Word (Microsoft 365 Apps) — Microsoft Learn",
+      "claim": "MOS Associate domain weights: tables/lists 20-25%, graphic elements 15-20%, references 5-10%, collaboration (comments) 5-10%."
+    },
+    {
+      "url": "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+      "title": "Word (Microsoft 365 Apps): Exam MO-110 Objective Domains",
+      "claim": "Associate objectives include headers/footers, symbols, page/section breaks, tables, in-document links, shapes/pictures/3D/SmartArt/screenshots/text boxes/icons, and comments; charts, WordArt, equations, cover pages, Quick Parts, cross-references are absent."
+    },
+    {
+      "url": "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+      "title": "Word Expert (Microsoft 365 Apps): Exam MO-111 Objective Domains",
+      "claim": "Quick Parts, building blocks, custom fields, and external-content linking are Expert-level (MO-111) objectives, not Associate skills."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/mos-word-expert-m365-apps/",
+      "title": "Microsoft Office Specialist: Word Expert — Microsoft Learn",
+      "claim": "MO-111 is classified 'Advanced', covering building blocks, fields, forms, macros, and mail merge."
+    },
+    {
+      "url": "https://www.onlc.com/outline.asp?ccode=WWD119",
+      "title": "Word Introduction Course Outline | ONLC",
+      "claim": "Level 1 covers inserting tables, symbols/special characters, images, and headers/footers — beginner topics."
+    },
+    {
+      "url": "https://www.onlc.com/outline.asp?ccode=WWD219",
+      "title": "Word Intermediate Course Outline | ONLC",
+      "claim": "Intermediate covers charts, Quick Parts/building blocks/fields, linked text boxes, and 'Insert Blank and Cover Pages'."
+    },
+    {
+      "url": "https://www.onlc.com/outline.asp?ccode=WWD319",
+      "title": "Word Advanced Course Outline | ONLC",
+      "claim": "Advanced covers text boxes/pull quotes, WordArt, shapes, SmartArt, bookmarks/cross-references/hyperlinks, digital signatures, and media elements."
+    },
+    {
+      "url": "https://www.goskills.com/course/microsoft-word",
+      "title": "Microsoft Word 365 — Basic & Advanced | GoSkills",
+      "claim": "Insert Ribbon module has lessons on tables, pictures, 3D models, shapes, screenshots, headers/footers, page numbers, WordArt, symbols, page breaks and cover pages; no lessons on hyperlinks, SmartArt, charts, text boxes, Quick Parts, equations, or online videos."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/office/word-for-windows-training-7bcd85e6-2c3d-4c3c-a2a5-5ed8847eae73",
+      "title": "Word help & learning — Microsoft Support (official Word training hub)",
+      "claim": "'Pictures' gets a top-level training module; page numbering under Formatting; WordArt and charts under secondary 'Customization'."
+    },
+    {
+      "url": "https://enhancv.com/resume-skills/microsoft-word/",
+      "title": "Microsoft Word Skills for Resume — Enhancv",
+      "claim": "BASIC = text formatting, image and table insertion; INTERMEDIATE = comments/track changes and chart insertion; ADVANCED = TOC, macros, mail merge."
+    },
+    {
+      "url": "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+      "title": "Features of Microsoft Word — The Knowledge Academy",
+      "claim": "Headers/footers with page numbers listed among common/basic features; charts and Building Blocks under advanced features."
+    },
+    {
+      "url": "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+      "title": "Word 2013 Advanced — West Chester University",
+      "claim": "University ADVANCED course goes in-depth on screenshots, hyperlinks, text boxes, quick parts, drop caps ('There will rarely be a time when a Drop Cap is necessary'), cross-references, and comments."
+    },
+    {
+      "url": "https://guides.lib.umich.edu/c.php?g=1114879&p=9684349",
+      "title": "List of Figures/Tables — Microsoft Word for Dissertations — University of Michigan Library",
+      "claim": "Cross-references and captions are taught in a graduate-dissertation guide, i.e., specialized long-document training."
+    },
+    {
+      "url": "https://uwaterloo.ca/information-systems-technology/creating-numbering-and-cross-referencing-equations-microsoft",
+      "title": "Creating, numbering and cross referencing equations with Microsoft Word — University of Waterloo IST",
+      "claim": "Equation numbering/cross-referencing is taught in a specialized thesis-writer guide using fields, styles and macros — advanced academic territory."
+    },
+    {
+      "url": "https://chrismenardtraining.com/post/insert-online-videos-in-microsoft-word-and-troubleshooting-tips/",
+      "title": "Insert Online Videos in Microsoft Word and Troubleshooting Tips — Chris Menard Training",
+      "claim": "The only dedicated online-video training found is a trainer blog post dominated by troubleshooting (videos won't play in the document by default), though the trainer reports getting the question 'all the time'."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=page%20number%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'page number word'",
+      "claim": "380 matching questions — the highest volume of all 27 same-pattern Insert-tab probes."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20table%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'insert table word'",
+      "claim": "197 matching questions vs 17 for charts, 11 for SmartArt, 3 for 3D models, 1 for drop cap — a 100x+ core-to-fringe spread."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=drop%20cap%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'drop cap word'",
+      "claim": "1 matching question — near-total forum silence."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=3D%20model%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for '3D model word'",
+      "claim": "3 matching questions (0 for the exact feature phrase) — near-silence for Word's 3D Models feature."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=equation%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'equation word'",
+      "claim": "299 matching questions, driven by academic equation-editor users."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=text%20box%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'text box word'",
+      "claim": "348 matching questions — among the highest Insert-tab volumes (partly inflated by 'dialog box' phrasing)."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=page%20break%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'page break word'",
+      "claim": "268 matching questions — top volume band, near-tied with hyperlinks (264)."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20picture%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'insert picture word'",
+      "claim": "64 matching questions, with demand fragmented across many phrasings (image, photo, picture)."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=hyperlink%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'hyperlink word'",
+      "claim": "264 matching questions — far above bookmarks (168) and cross-references (144)."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=header%20footer%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'header footer word'",
+      "claim": "142 matching questions for the header/footer cluster."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20symbol%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'insert symbol word'",
+      "claim": "40 matching questions, with real demand fragmented across hundreds of individual symbols."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20comment%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'insert comment word'",
+      "claim": "34 matching questions (comment questions are usually phrased via Review-tab vocabulary)."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=bookmark%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'bookmark word'",
+      "claim": "168 matching questions, with some browser-bookmark noise."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=cross-reference%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'cross-reference word'",
+      "claim": "144 matching questions — a genuine but specialist volume."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=cover%20page%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'cover page word'",
+      "claim": "50 matching questions — moderate, student/report-driven."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=blank%20page%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'blank page word'",
+      "claim": "133 matching questions, dominated by the inverse problem of deleting unwanted blank pages."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20shape%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'insert shape word'",
+      "claim": "27-28 matching questions — mid-band, similar to embedded objects and quick parts."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20icons%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'insert icons word'",
+      "claim": "16 matching questions — bottom band."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=SmartArt%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'SmartArt word'",
+      "claim": "11 matching questions — 15-20x below tables/text boxes."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20chart%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'insert chart word'",
+      "claim": "17 matching questions — 10x below 'insert table word'."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=screenshot%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'screenshot word'",
+      "claim": "434 matches but noisy — the query catches unrelated questions, so raw forum volume is unmeasurable for this feature."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=online%20video%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'online video word'",
+      "claim": "18 matching questions and 0 for the exact phrase 'insert online video'."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=quick%20parts%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'quick parts word'",
+      "claim": "37 matching questions — a power-user niche."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=WordArt%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'WordArt word'",
+      "claim": "10 matching questions."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=signature%20line%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'signature line word'",
+      "claim": "10 matching questions for the actual Signature Line feature."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=date%20and%20time%20field%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'date and time field word'",
+      "claim": "14 matching questions — bottom band, no tutorial ecosystem found."
+    },
+    {
+      "url": "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=embedded%20object%20word&filter=total",
+      "title": "StackExchange API — SuperUser total for 'embedded object word'",
+      "claim": "41 matching questions — kept alive by the embed-Excel-in-Word workflow."
+    },
+    {
+      "url": "https://legalofficeguru.com/using-sections-to-control-page-numbers-headers-and-footers/",
+      "title": "Legal Office Guru — Using sections to control page numbers, headers and footers",
+      "claim": "'Page numbers are by far the most common type of header or footer... so essential in a document that they have their own command button.'"
+    },
+    {
+      "url": "https://www.slashgear.com/1784986/old-school-microsoft-office-features-still-use-no-download-required-nostalgia/",
+      "title": "SlashGear — Old-School Microsoft Office Features You Can Still Use",
+      "claim": "WordArt described as 'a sad, diluted form of its former self'; 'SmartArt might not be widely used' — both framed as nostalgic relics."
+    },
+    {
+      "url": "https://windowsnews.ai/article/wordarts-quiet-comeback-why-microsoft-office-still-supports-the-retro-text-tool.428570",
+      "title": "Windows News — WordArt's Quiet Comeback",
+      "claim": "Reports Microsoft telemetry showed WordArt usage 'plummeted by the late 2000s'; in maintenance mode since Office 2010, kept for niche users and compatibility."
+    },
+    {
+      "url": "https://erinwrightwriting.com/three-ways-to-insert-tables-in-microsoft-word/",
+      "title": "Erin Wright Writing — Three Ways to Insert Tables in Microsoft Word",
+      "claim": "Professional-editor site maintains 8+ interlinked table tutorials — evidence of a deep table tutorial ecosystem."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/answers/questions/5224139/insert-online-video-button-missing-from-ribbon-in?forum=msoffice-all",
+      "title": "Microsoft Q&A — Insert Online Video button missing from Ribbon",
+      "claim": "Community threads about Online Video are predominantly about the button being missing or unavailable — a fringe, poorly-known feature."
+    },
+    {
+      "url": "https://answers.microsoft.com/en-us/msoffice/forum/all/insert-online-video-button-grayed-out/e5e5df3e-1718-4067-a4f9-27e9e4b6a8da",
+      "title": "Microsoft Answers — Insert Online Video Button Grayed Out",
+      "claim": "Another availability/troubleshooting thread — the feature's main community footprint is 'why can't I find it'."
+    },
+    {
+      "url": "https://www.avantixlearning.ca/microsoft-word/how-to-insert-the-degree-symbol-in-word-documents/",
+      "title": "Avantix Learning — How to Insert the Degree Symbol in Word (5 Ways)",
+      "claim": "A single special character supports 10+ dedicated tutorials across training sites — a massive per-character micro-tutorial ecosystem around Insert > Symbol."
+    },
+    {
+      "url": "https://www.indeed.com/career-advice/career-development/degree-symbol-on-keyboard",
+      "title": "Indeed — 13 Methods for Adding a Degree Symbol",
+      "claim": "Mainstream career site publishes symbol-insertion guidance — mass general-office demand for symbol entry."
+    },
+    {
+      "url": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "title": "MSU Denver — Using the Microsoft Word Equation Editor",
+      "claim": "Universities maintain their own equation-editor guides — a strong academic tutorial ecosystem around Insert > Equation."
+    },
+    {
+      "url": "https://accessibility.psu.edu/math/msmath/",
+      "title": "Penn State Accessibility — Microsoft Office Equation Editor",
+      "claim": "Institutional guidance confirms sustained student/faculty usage of Insert > Equation."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/word/training/insert-pictures",
+      "title": "Microsoft Support — Insert pictures (training)",
+      "claim": "First-party training plus third-party coverage (PCWorld, CustomGuide, GeeksforGeeks) — a very large picture-insertion tutorial ecosystem."
+    },
+    {
+      "url": "https://www.pcworld.com/article/1442454/how-to-insert-and-adjust-images-in-a-word-document.html",
+      "title": "PCWorld — How to insert and adjust images in Microsoft Word",
+      "claim": "Mainstream tech press publishes picture-insertion tutorials — a mass-usage proxy."
+    },
+    {
+      "url": "https://www.customguide.com/course/word/how-to-add-page-numbers-in-word",
+      "title": "CustomGuide — How to Add Page Numbers in Word",
+      "claim": "Page numbers get dedicated lessons in structured courses — one of the densest tutorial ecosystems of any Insert feature."
+    },
+    {
+      "url": "https://milnepublishing.geneseo.edu/technicalreportwritingguidelines/back-matter/appendix-b-page-numbering-and-table-of-contents-using-ms-word/",
+      "title": "SUNY Geneseo — Page Numbering and Table of Contents using MS Word",
+      "claim": "University writing guides dedicate sections to page numbers/headers/footers — core academic-document skills."
+    },
+    {
+      "url": "https://www.customguide.com/course/word/how-to-add-comments-in-word",
+      "title": "CustomGuide — How to Add Comments in Word",
+      "claim": "Comments have dedicated lessons across Microsoft Support, CustomGuide, and university guides — a large collaboration-driven tutorial ecosystem."
+    },
+    {
+      "url": "https://guides.lib.umich.edu/c.php?g=1114879&p=8129001",
+      "title": "University of Michigan Library — Commenting and Reviewing in Word for Dissertations",
+      "claim": "Institutional guides teach commenting as a standard review workflow — high real-world usage."
+    },
+    {
+      "url": "https://erinwrightwriting.com/cross-reference-bookmarks-in-microsoft-word/",
+      "title": "Erin Wright Writing — How to Cross-Reference Bookmarks in Microsoft Word",
+      "claim": "Bookmarks/cross-references have a real but specialist tutorial ecosystem aimed at long-document authors."
+    },
+    {
+      "url": "https://proofreadingpal.com/proofreading-pulse/editing-tools/easy-cross-references-in-ms-word/",
+      "title": "ProofreadingPal — Easy Cross-References in MS Word",
+      "claim": "Editing-industry sites teach cross-references — steady professional/academic use, not mass casual use."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/office/add-a-cover-page-in-word-79df80ec-266d-46d6-9382-6d70f1d13777",
+      "title": "Microsoft Support — Add a cover page in Word",
+      "claim": "Cover Page has first-party docs plus a moderate tutorial ring — student/report-driven moderate usage."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/office/insert-an-object-in-word-or-outlook-8fc1ea53-0e01-4603-a4cf-98c49b6ea3f5",
+      "title": "Microsoft Support — Insert an object in Word or Outlook",
+      "claim": "Insert > Object survives mainly as the embed/link-Excel-in-Word workflow."
+    },
+    {
+      "url": "https://www.excel-easy.com/examples/embed.html",
+      "title": "Excel Easy — Embed an Excel Worksheet in a Word Document",
+      "claim": "Embedding Excel objects into Word has dedicated tutorials on major Excel-training sites — a persistent office workflow."
+    },
+    {
+      "url": "https://helpdeskgeek.com/how-to-use-the-microsoft-word-screenshot-tool/",
+      "title": "HelpDeskGeek — How to Use the Microsoft Word Screenshot Tool",
+      "claim": "A modest but genuine tutorial set for Insert > Screenshot — known to documentation writers, far smaller than core features."
+    },
+    {
+      "url": "https://erinwrightwriting.com/screenshots-in-microsoft-word/",
+      "title": "Erin Wright Writing — Screenshots in Microsoft Word",
+      "claim": "Professional-editor tutorial documenting Insert > Screenshot/Screen Clipping."
+    },
+    {
+      "url": "https://www.techrepublic.com/article/microsoft-word-how-to-insert-icons/",
+      "title": "TechRepublic — How to insert icons in Microsoft Word to add a bit of flair",
+      "claim": "Icon tutorials are framed as decorative 'flair' and note the feature is Microsoft 365-only — a small awareness-raising ecosystem."
+    },
+    {
+      "url": "https://www.customguide.com/course/word/how-to-insert-icons-in-word",
+      "title": "CustomGuide — How to Insert Icons in Word",
+      "claim": "One of the few structured lessons on icons; also documents the 'Convert to Shape' pathway."
+    },
+    {
+      "url": "https://www.techrepublic.com/article/manipulate-3d-models-word/",
+      "title": "TechRepublic — How to insert and manipulate 3D models in Microsoft Word",
+      "claim": "3D Models coverage is thin and novelty-framed, noting the workflow is 'tedious'."
+    },
+    {
+      "url": "https://www.timeatlas.com/word-quick-parts/",
+      "title": "TimeAtlas — Microsoft Word Quick Parts Lets You Work Smarter, Not Harder",
+      "claim": "Quick Parts tutorials are consistently framed as revealing a hidden/underused feature — a direct signal most users don't use it."
+    },
+    {
+      "url": "https://www.extendoffice.com/documents/word/7539-quick-part-word.html",
+      "title": "ExtendOffice — Mastering Quick Parts in Word",
+      "claim": "About ten dedicated Quick Parts tutorials exist but only 37 SuperUser questions — a power-user niche."
+    },
+    {
+      "url": "https://www.pandadoc.com/ask/how-to-insert-a-signature-in-word/",
+      "title": "PandaDoc — How to Insert a Signature in Word",
+      "claim": "'Insert signature' content is overwhelmingly e-signature vendor marketing; the actual Insert > Signature Line feature is niche."
+    },
+    {
+      "url": "https://proofed.com/writing-tips/how-to-make-a-drop-cap-in-microsoft-word/",
+      "title": "Proofed — How to Make a Drop Cap in Microsoft Word",
+      "claim": "Drop Cap tutorials exist only as completionist coverage; community demand is essentially zero."
+    },
+    {
+      "url": "https://erinwrightwriting.com/page-breaks-in-microsoft-word/",
+      "title": "Erin Wright Writing — How to Insert Page Breaks in Microsoft Word",
+      "claim": "Page breaks are covered by Microsoft (two first-party pages) and every major training site, with Ctrl+Enter taught universally."
+    },
+    {
+      "url": "https://taxcrux.com/hyperlinks-bookmarks-and-cross-references-in-word/",
+      "title": "TaxCrux — Guide to Adding Hyperlinks, Bookmarks and Cross References in Word",
+      "claim": "Hyperlinks anchor a combined links/bookmarks/cross-references tutorial genre; hyperlink volume far exceeds the other two."
+    },
+    {
+      "url": "https://erinwrightwriting.com/text-boxes-in-microsoft-word/",
+      "title": "Erin Wright Writing — How to Insert Text Boxes in Microsoft Word",
+      "claim": "Text boxes have a large tutorial ecosystem matching their 348 SuperUser question volume."
+    },
+    {
+      "url": "https://support.microsoft.com/en-us/office/insert-a-table-a138f745-73ef-4879-b99a-2f3d38be612a",
+      "title": "Microsoft Support — Insert a table",
+      "claim": "Tables get first-party docs plus tutorials from ComputerHope, CustomGuide, GeeksforGeeks, university KBs and high-view YouTube walkthroughs."
+    }
+  ],
+  "node_usage": {
+    "subfeature:paste": {
+      "tier": "very-high",
+      "evidence": "CEIP telemetry ranks Paste #1 in Word 2003 (>11% of ALL command use); most-clicked toolbar button.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://blog.granneman.com/2008/02/21/the-most-popular-commands-in-word/"
+      ]
+    },
+    "subfeature:copy": {
+      "tier": "very-high",
+      "evidence": "CEIP telemetry ranks Copy #3 (top-5 ~32% of all command use).",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:cut": {
+      "tier": "high",
+      "evidence": "Core clipboard op (Ctrl+X) paired with #1/#3 commands; used less than Paste/Copy.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2"
+      ]
+    },
+    "subfeature:format-painter": {
+      "tier": "medium",
+      "evidence": "Valued time-saver but a convenience feature below core clipboard/emphasis commands; not in CEIP top ranks.",
+      "source_urls": [
+        "https://nutsandboltsspeedtraining.com/powerpoint-tutorials/format-painter/"
+      ]
+    },
+    "subfeature:office-clipboard": {
+      "tier": "rare",
+      "evidence": "24-item collector pane is a power-user feature most users never open.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "feature:clipboard": {
+      "tier": "very-high",
+      "evidence": "Paste (#1), Copy (#3), Cut dominate command usage.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:bold": {
+      "tier": "very-high",
+      "evidence": "CEIP telemetry ranks Bold #5 — the only text-formatting command in the top five.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://blog.granneman.com/2008/02/21/the-most-popular-commands-in-word/"
+      ]
+    },
+    "subfeature:italic": {
+      "tier": "high",
+      "evidence": "One of the three 'workhorse' basic styles (Ctrl+I), just below Bold.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:underline-gallery": {
+      "tier": "high",
+      "evidence": "Core basic text style (Ctrl+U) taught with Bold/Italic.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2"
+      ]
+    },
+    "subfeature:font": {
+      "tier": "very-high",
+      "evidence": "Choosing the typeface is a foundational everyday action every user touches.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:font-size": {
+      "tier": "very-high",
+      "evidence": "Change Font Size is CEIP #11; setting size is a core basic.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:font-color-picker": {
+      "tier": "high",
+      "evidence": "Standard basic to make text stand out; part of the foundational set.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:text-highlight-color-picker": {
+      "tier": "medium",
+      "evidence": "Common for review/emphasis, less universal than font color.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:change-case": {
+      "tier": "low",
+      "evidence": "Handy but occasional; absent from usage rankings and core basics.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:clear-formatting": {
+      "tier": "low",
+      "evidence": "Cleanup command used occasionally; not in top ranks.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:font-size-increase": {
+      "tier": "low",
+      "evidence": "Incremental convenience path; CEIP 'Change Font Size' most plausibly reflects the size box.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:font-size-decrease": {
+      "tier": "low",
+      "evidence": "Secondary incremental control, not a distinct top-usage command.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:strikethrough": {
+      "tier": "low",
+      "evidence": "Niche emphasis style far below bold/italic/underline.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:font-dialog": {
+      "tier": "low",
+      "evidence": "Advanced fallback; most emphasis is done via ribbon buttons/shortcuts.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:subscript": {
+      "tier": "rare",
+      "evidence": "Specialized scientific/notation formatting, rare for typical users.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:superscript": {
+      "tier": "rare",
+      "evidence": "Specialized notation (footnotes, exponents); rare.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:text-effects": {
+      "tier": "rare",
+      "evidence": "Decorative cosmetic extra absent from usage/skill lists.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "feature:font": {
+      "tier": "very-high",
+      "evidence": "Bold #5, Change Font Size #11; font/size/emphasis/color are the foundational set.",
+      "source_urls": [
+        "https://learn.microsoft.com/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7"
+      ]
+    },
+    "subfeature:align-left": {
+      "tier": "high",
+      "evidence": "Core alignment basic; left is the default/most common.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:align-center": {
+      "tier": "high",
+      "evidence": "Standard, frequently-used alignment (titles/headings).",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:align-justify": {
+      "tier": "medium",
+      "evidence": "Standard for body text in formal docs, less than left/center.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:align-right": {
+      "tier": "medium",
+      "evidence": "Standard option (dates/headers), less than left/center.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:bullets-gallery": {
+      "tier": "high",
+      "evidence": "Core list tool for reports/resumes/instructions/outlines.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-use-bullets-and-numbering-in-word",
+        "https://www.kent.edu/kso/structuring-documents-microsoft-word-headings-and-lists-pcwindows"
+      ]
+    },
+    "subfeature:numbering-gallery": {
+      "tier": "high",
+      "evidence": "Core list tool for sequenced content, standard for structuring documents.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-use-bullets-and-numbering-in-word"
+      ]
+    },
+    "subfeature:line-spacing": {
+      "tier": "high",
+      "evidence": "Important paragraph basic users adjust routinely (single vs double).",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:indent-increase": {
+      "tier": "medium",
+      "evidence": "Standard structuring control (lists, block quotes).",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-use-bullets-and-numbering-in-word"
+      ]
+    },
+    "subfeature:indent-decrease": {
+      "tier": "medium",
+      "evidence": "Paired outdent control; used with lists.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-use-bullets-and-numbering-in-word"
+      ]
+    },
+    "subfeature:multilevel-list": {
+      "tier": "low",
+      "evidence": "Advanced nested-outline feature; far less than simple bullets/numbering.",
+      "source_urls": [
+        "https://www.kent.edu/kso/structuring-documents-microsoft-word-headings-and-lists-pcwindows"
+      ]
+    },
+    "subfeature:shading-color-picker": {
+      "tier": "low",
+      "evidence": "Occasional emphasis/table-styling tool.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:borders-selection-gallery": {
+      "tier": "low",
+      "evidence": "Occasional decorative/structural tool.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:paragraph-marks": {
+      "tier": "low",
+      "evidence": "Troubleshooting aid, not routine document creation.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:paragraph-dialog": {
+      "tier": "low",
+      "evidence": "Fine-grained fallback; everyday adjustments use ribbon buttons.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:sort": {
+      "tier": "rare",
+      "evidence": "Niche command absent from usage rankings.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "feature:paragraph": {
+      "tier": "high",
+      "evidence": "Alignment, lists, line spacing, indents are core everyday formatting.",
+      "source_urls": [
+        "https://www.kent.edu/kso/structuring-documents-microsoft-word-headings-and-lists-pcwindows"
+      ]
+    },
+    "subfeature:quick-styles": {
+      "tier": "high",
+      "evidence": "Applying Heading styles is standard practice (nav pane, auto-TOC); 'one of the most powerful formatting tools.'",
+      "source_urls": [
+        "https://www.kent.edu/kso/structuring-documents-microsoft-word-headings-and-lists-pcwindows",
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "subfeature:styles-pane": {
+      "tier": "low",
+      "evidence": "Power-user surface; most users apply styles via the ribbon gallery.",
+      "source_urls": [
+        "https://www.expertrain.co.uk/how-to/how-to-format-text-in-word-fonts-sizes-styles"
+      ]
+    },
+    "feature:styles": {
+      "tier": "high",
+      "evidence": "Powerful time-saving tool; standard for headings/consistency/auto-TOC.",
+      "source_urls": [
+        "https://www.kent.edu/kso/structuring-documents-microsoft-word-headings-and-lists-pcwindows"
+      ]
+    },
+    "subfeature:find": {
+      "tier": "high",
+      "evidence": "Ctrl+F is a universal everyday shortcut for locating text.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2"
+      ]
+    },
+    "subfeature:replace": {
+      "tier": "medium",
+      "evidence": "Common editing tool, less universal than plain Find.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2"
+      ]
+    },
+    "subfeature:select": {
+      "tier": "medium",
+      "evidence": "Select All is routine; the ribbon menu used less than keyboard selection.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2"
+      ]
+    },
+    "feature:editing": {
+      "tier": "high",
+      "evidence": "Find (Ctrl+F, universal) + Replace + Select — routine editing.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2"
+      ]
+    },
+    "subfeature:table-insert": {
+      "tier": "very-high",
+      "evidence": "All three pillars converge at the top of the Insert-tab band: Microsoft's browser-Word triage keeps tables in the essential trio (tables/pictures/links), MOS gives tables a dedicated 20-25% Associate exam domain taught at Level 1 everywhere, and community volume is 197 SuperUser matches vs 17 for charts with one of the largest tutorial ecosystems. Telemetry ceiling noted: no Insert command cracks Word's overall top-10, so 'very-high' means top of the Insert tab, not top of Word.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://learn.microsoft.com/en-us/credentials/certifications/exams/mo-110/",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://enhancv.com/resume-skills/microsoft-word/",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://support.microsoft.com/en-us/office/insert-a-table-a138f745-73ef-4879-b99a-2f3d38be612a",
+        "https://erinwrightwriting.com/three-ways-to-insert-tables-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20table%20word&filter=total"
+      ]
+    },
+    "subfeature:insert-pictures": {
+      "tier": "very-high",
+      "evidence": "Dual Microsoft-curated telemetry-adjacent signals (essential trio in browser Word; 'Pictures' one of seven help-hub Quick Access categories) plus unanimous education (MO-110 objective, Level-1 topic in every curriculum) and a mass community tutorial ecosystem (Microsoft training, PCWorld, CustomGuide). Same overall-top-10 ceiling caveat as tables.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://support.microsoft.com/en-us/word",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://support.microsoft.com/en-us/office/word-for-windows-training-7bcd85e6-2c3d-4c3c-a2a5-5ed8847eae73",
+        "https://enhancv.com/resume-skills/microsoft-word/",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://support.microsoft.com/en-us/word/training/insert-pictures",
+        "https://www.pcworld.com/article/1442454/how-to-insert-and-adjust-images-in-a-word-document.html",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20picture%20word&filter=total"
+      ]
+    },
+    "subfeature:header-insert": {
+      "tier": "very-high",
+      "evidence": "Education and community grade very-high (MO-110 core objective, Level-1 topic everywhere, 142 SuperUser matches, dense university-guide coverage), and telemetry corroborates top-of-band placement: 'View Header' is the ONLY document-furniture command in the OWL top-20 (#20, 0.68%) — while capping it below Home-tab basics. Merged very-high within the Insert-tab universe.",
+      "source_urls": [
+        "http://www.patrickbaudisch.com/interactingwithrecommendersystems/WorkingNotes/FrankLintonOWLARecommenderSystemForITSkills.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+        "https://milnepublishing.geneseo.edu/technicalreportwritingguidelines/back-matter/appendix-b-page-numbering-and-table-of-contents-using-ms-word/",
+        "https://legalofficeguru.com/using-sections-to-control-page-numbers-headers-and-footers/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=header%20footer%20word&filter=total"
+      ]
+    },
+    "subfeature:footer-insert": {
+      "tier": "very-high",
+      "evidence": "Same evidence cluster as headers: the OWL #20 'View Header' entry point covered both header and footer editing in Word 6; 'Insert and modify headers and footers' is an MO-110 core objective and Level-1 topic; footers are taught jointly with page numbers in every university and legal-office guide found. Merged very-high.",
+      "source_urls": [
+        "http://www.patrickbaudisch.com/interactingwithrecommendersystems/WorkingNotes/FrankLintonOWLARecommenderSystemForITSkills.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+        "https://legalofficeguru.com/using-sections-to-control-page-numbers-headers-and-footers/",
+        "https://milnepublishing.geneseo.edu/technicalreportwritingguidelines/back-matter/appendix-b-page-numbering-and-table-of-contents-using-ms-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=header%20footer%20word&filter=total"
+      ]
+    },
+    "subfeature:page-number-insert": {
+      "tier": "very-high",
+      "evidence": "Highest community volume of any of the 27 same-pattern probes (380 SuperUser matches) plus practitioner testimony that page numbers are 'by far the most common type of header or footer'; education treats it as essential (GoSkills lesson, standard MO-110 header/footer content), and telemetry supports via the header/footer cluster's OWL top-20 entry. Merged very-high.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "http://www.patrickbaudisch.com/interactingwithrecommendersystems/WorkingNotes/FrankLintonOWLARecommenderSystemForITSkills.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+        "https://support.microsoft.com/en-us/office/word-for-windows-training-7bcd85e6-2c3d-4c3c-a2a5-5ed8847eae73",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://legalofficeguru.com/using-sections-to-control-page-numbers-headers-and-footers/",
+        "https://www.customguide.com/course/word/how-to-add-page-numbers-in-word",
+        "https://milnepublishing.geneseo.edu/technicalreportwritingguidelines/back-matter/appendix-b-page-numbering-and-table-of-contents-using-ms-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=page%20number%20word&filter=total"
+      ]
+    },
+    "subfeature:page-break-insert": {
+      "tier": "high",
+      "evidence": "Education grades very-high ('Insert page, section, and column breaks' is an MO-110 Associate core objective) and community high (268 SuperUser matches, tutorials on every major site, Ctrl+Enter taught universally); the telemetry agent gave only medium on admittedly thin, negative-only signals (Ctrl+Enter absent from Microsoft's frequently-used shortcuts). Merged high — positive education/community evidence outweighs the telemetry agent's absence-of-evidence.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://erinwrightwriting.com/page-breaks-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=page%20break%20word&filter=total"
+      ]
+    },
+    "subfeature:insert-link": {
+      "tier": "high",
+      "evidence": "Unanimous high: hyperlinks are in Microsoft's essential browser-Word trio (telemetry/triage), 'Link to locations within documents' is MO-110 material (education), and community volume is 264 SuperUser matches. Counter-signal noted: Ctrl+K is absent from Microsoft's frequently-used shortcuts and vendor curricula defer hands-on hyperlink work to advanced courses — a leading Insert command that still trails clipboard/formatting basics.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://taxcrux.com/hyperlinks-bookmarks-and-cross-references-in-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=hyperlink%20word&filter=total"
+      ]
+    },
+    "subfeature:insert-new-comment": {
+      "tier": "high",
+      "evidence": "Unanimous high: reviewing commands ranked ~#100 in Word 2003 telemetry before cloud collaboration, and Microsoft's 2021 modern-comments redesign signals a first-class collaboration surface; MO-110 dedicates a collaboration domain (add/reply/resolve/delete) and comments have a large tutorial ecosystem (CustomGuide, university guides). Caveat from community: most usage routes through the Review tab, with the Insert-tab Comment button as a secondary entry point.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://techcommunity.microsoft.com/blog/microsoft_365blog/introducing-modern-comments-in-microsoft-word/2263182",
+        "https://learn.microsoft.com/en-us/credentials/certifications/exams/mo-110/",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://enhancv.com/resume-skills/microsoft-word/",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://www.customguide.com/course/word/how-to-add-comments-in-word",
+        "https://guides.lib.umich.edu/c.php?g=1114879&p=8129001",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20comment%20word&filter=total"
+      ]
+    },
+    "subfeature:shapes-insert": {
+      "tier": "high",
+      "evidence": "Education grades high — 'Insert shapes' is an MO-110 Associate core objective with a dedicated beginner GoSkills lesson (though ONLC defers drawing to its Advanced course); community grades only medium (27-28 SuperUser matches, well below pictures/tables). Education-weighted merge lands high, with the community mid-band volume noted as the disagreement.",
+      "source_urls": [
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20shape%20word&filter=total",
+        "https://www.customguide.com/course/word/how-to-insert-icons-in-word"
+      ]
+    },
+    "subfeature:symbol-insert": {
+      "tier": "medium",
+      "evidence": "Telemetry-weighted medium: Harris's Symbolism post characterizes symbol insertion as a recurring but modest-frequency task concentrated on a small personal symbol set, and symbols were placeholder-only in browser Word. Disagreement noted: education (MO-110 core objective, Level-1 topic) and community (massive per-character micro-tutorial ecosystem — 10+ tutorials for the degree sign alone) both graded high, but the telemetry characterization prevails.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/symbolism-office-12-coolness-part-5",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.avantixlearning.ca/microsoft-word/how-to-insert-the-degree-symbol-in-word-documents/",
+        "https://www.indeed.com/career-advice/career-development/degree-symbol-on-keyboard",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20symbol%20word&filter=total"
+      ]
+    },
+    "subfeature:text-box-insert": {
+      "tier": "medium",
+      "evidence": "Telemetry and education agree on medium: text boxes are the manual layout workhorse Harris documented, yet placeholder-only in browser Word, and MO-110-listed but deferred to intermediate/advanced courses (ONLC, WCUPA; no GoSkills lesson). Community graded high on 348 SuperUser matches — noted, but that count is partly inflated by 'dialog box' phrasing; merged medium.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/cover-pages-cool-things-in-office-12-part-1",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://erinwrightwriting.com/text-boxes-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=text%20box%20word&filter=total"
+      ]
+    },
+    "subfeature:screenshot-insert": {
+      "tier": "medium",
+      "evidence": "Education and community agree on medium: 'Insert screenshots and screen clippings' is an MO-110 objective with a GoSkills lesson (though ONLC never covers it and WCUPA defers it to Advanced), and a modest but genuine tutorial set exists (HelpDeskGeek, Erin Wright, university knowledge bases) — known mainly to documentation writers; forum volume is unmeasurable due to query noise.",
+      "source_urls": [
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://helpdeskgeek.com/how-to-use-the-microsoft-word-screenshot-tool/",
+        "https://erinwrightwriting.com/screenshots-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=screenshot%20word&filter=total"
+      ]
+    },
+    "subfeature:cover-page-insert": {
+      "tier": "low",
+      "evidence": "Telemetry-weighted low: the gallery was brand-new in Word 2007, promoted for discoverability rather than measured usage (Harris Part 8 documents promoting desirable-but-low-usage features), cover pages are placeholder-only in browser Word, and they are absent from both MOS exams. Disagreement noted: education (ONLC intermediate lesson, GoSkills) and community (50 SuperUser matches, moderate tutorial ring) both graded medium.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/cover-pages-cool-things-in-office-12-part-1",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/grading-on-the-curve-why-the-ui-part-8",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://support.microsoft.com/en-us/office/add-a-cover-page-in-word-79df80ec-266d-46d6-9382-6d70f1d13777",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=cover%20page%20word&filter=total"
+      ]
+    },
+    "subfeature:blank-page-insert": {
+      "tier": "low",
+      "evidence": "Education and community agree on low: the only curriculum mention is bundled inside ONLC's intermediate 'Insert Blank and Cover Pages' lesson, it is absent from MOS objectives and GoSkills, and the 133 SuperUser matches are dominated by the inverse problem — deleting unwanted blank pages — while tutorials teach Ctrl+Enter page breaks instead.",
+      "source_urls": [
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=blank%20page%20word&filter=total",
+        "https://erinwrightwriting.com/page-breaks-in-microsoft-word/"
+      ]
+    },
+    "subfeature:icon-insert": {
+      "tier": "low",
+      "evidence": "Merged low: absent from GoSkills, all three ONLC levels, and every features article, with just 16 SuperUser matches and 'flair'-framed coverage noting the feature is Microsoft 365-only. Disagreement noted: the education agent graded medium purely on the MO-110 exam listing — the sole positive signal, self-described as 'near-invisible in actual curricula'.",
+      "source_urls": [
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.techrepublic.com/article/microsoft-word-how-to-insert-icons/",
+        "https://www.customguide.com/course/word/how-to-insert-icons-in-word",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20icons%20word&filter=total"
+      ]
+    },
+    "subfeature:insert-3d-models": {
+      "tier": "rare",
+      "evidence": "Telemetry-adjacent signal prevails: Microsoft retired the Remix 3D ecosystem behind the feature in January 2020, ~2.5 years after launch, and community shows near-silence (3 SuperUser matches; novelty-framed 'tedious' coverage). Disagreement noted: the education agent graded medium based solely on the MO-110 exam listing and one GoSkills lesson — overridden by the stronger telemetry and community evidence.",
+      "source_urls": [
+        "https://en.wikipedia.org/wiki/Remix_3D",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.techrepublic.com/article/manipulate-3d-models-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=3D%20model%20word&filter=total"
+      ]
+    },
+    "subfeature:smart-art-insert": {
+      "tier": "low",
+      "evidence": "Telemetry and community agree on low: SmartArt was a brand-new 2007 discoverability bet with no prior usage history, is placeholder-only in browser Word, draws just 11 SuperUser matches, and press coverage says it 'might not be widely used'. Disagreement noted: education graded medium because MO-110 lists SmartArt objectives, but all vendor training defers it to advanced courses — telemetry-weighted merge stays low.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/double-feature",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+        "https://www.slashgear.com/1784986/old-school-microsoft-office-features-still-use-no-download-required-nostalgia/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=SmartArt%20word&filter=total"
+      ]
+    },
+    "subfeature:chart-insert": {
+      "tier": "low",
+      "evidence": "Telemetry/triage and community agree on low: charts are non-editable placeholders in browser Word, only an ordinary help article on Microsoft's hub, draw 17 SuperUser matches (10x below tables), and the common community advice is to build charts in Excel and paste. Disagreement noted: education graded medium on intermediate course placement (ONLC, Enhancv) even though charts are absent from both MOS exams — merged low.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://support.microsoft.com/en-us/word",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://enhancv.com/resume-skills/microsoft-word/",
+        "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+        "https://support.microsoft.com/en-us/office/word-for-windows-training-7bcd85e6-2c3d-4c3c-a2a5-5ed8847eae73",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20chart%20word&filter=total",
+        "https://erinwrightwriting.com/three-ways-to-insert-tables-in-microsoft-word/"
+      ]
+    },
+    "subfeature:bookmark-insert": {
+      "tier": "low",
+      "evidence": "Telemetry/triage and education agree on low: browser Word cannot create bookmarks (display-text-only editing), bookmarks appear only in advanced courses (ONLC Advanced, WCUPA, specialized thesis guides), and are named in neither MOS exam. Disagreement noted: community graded medium on 168 SuperUser matches (with browser-bookmark noise) and a genuine specialist ecosystem — outweighed by the two higher-priority pillars.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://www.cs.ubc.ca/~joanna/papers/GI2000_McGrenere_Bloat.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://uwaterloo.ca/information-systems-technology/creating-numbering-and-cross-referencing-equations-microsoft",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://erinwrightwriting.com/cross-reference-bookmarks-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=bookmark%20word&filter=total"
+      ]
+    },
+    "subfeature:cross-reference-insert": {
+      "tier": "low",
+      "evidence": "Telemetry/triage and education agree on low: display-text-only in browser Word, taught exclusively in advanced/long-document contexts (ONLC Advanced, WCUPA, UMich dissertation guide, Waterloo thesis guide), and absent from both MOS exams. Disagreement noted: community graded medium (144 SuperUser matches, real editor/proofreader ecosystem) — a specialist rather than mass signal, so the merge stays low.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://www.cs.ubc.ca/~joanna/papers/GI2000_McGrenere_Bloat.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://guides.lib.umich.edu/c.php?g=1114879&p=9684349",
+        "https://uwaterloo.ca/information-systems-technology/creating-numbering-and-cross-referencing-equations-microsoft",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://proofreadingpal.com/proofreading-pulse/editing-tools/easy-cross-references-in-ms-word/",
+        "https://erinwrightwriting.com/cross-reference-bookmarks-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=cross-reference%20word&filter=total"
+      ]
+    },
+    "subfeature:quick-parts-insert": {
+      "tier": "low",
+      "evidence": "Unanimous low across all three pillars: Harris cites '\"Everyone uses AutoText a lot\"' as the canonical folklore CEIP telemetry existed to correct; Quick Parts/building blocks/fields are Expert-exam (MO-111) material absent from beginner curricula; and community tutorials uniformly frame it as a hidden/underused feature ('Work Smarter, Not Harder') with only 37 SuperUser matches.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/inside-deep-thought-why-the-ui-part-6",
+        "https://www.cs.ubc.ca/~joanna/papers/GI2000_McGrenere_Bloat.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://learn.microsoft.com/en-us/credentials/certifications/mos-word-expert-m365-apps/",
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+        "https://www.timeatlas.com/word-quick-parts/",
+        "https://www.extendoffice.com/documents/word/7539-quick-part-word.html",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=quick%20parts%20word&filter=total"
+      ]
+    },
+    "subfeature:word-art-insert": {
+      "tier": "low",
+      "evidence": "Unanimous low with rare telemetry corroboration: reported Microsoft telemetry showed WordArt usage 'plummeted by the late 2000s' (maintenance mode since Office 2010); it is placeholder-only in browser Word, absent from both MOS exams, taught only in advanced/decorative contexts, and draws 10 SuperUser matches.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://support.microsoft.com/en-us/word",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://support.microsoft.com/en-us/office/word-for-windows-training-7bcd85e6-2c3d-4c3c-a2a5-5ed8847eae73",
+        "https://windowsnews.ai/article/wordarts-quiet-comeback-why-microsoft-office-still-supports-the-retro-text-tool.428570",
+        "https://www.slashgear.com/1784986/old-school-microsoft-office-features-still-use-no-download-required-nostalgia/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=WordArt%20word&filter=total"
+      ]
+    },
+    "subfeature:equation-insert-gallery": {
+      "tier": "low",
+      "evidence": "Telemetry/triage and education both grade low: equations are placeholder-only in browser Word, absent from both MOS exams and mainstream curricula, and heavily segment-concentrated. Disagreement noted: community graded high (299 SuperUser matches plus institutional guides at MSU Denver, Penn State, and Waterloo) — a strong but academic-niche signal; the telemetry+education-weighted merge stays low for the general population.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://www.cs.ubc.ca/~joanna/papers/GI2000_McGrenere_Bloat.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://uwaterloo.ca/information-systems-technology/creating-numbering-and-cross-referencing-equations-microsoft",
+        "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+        "https://accessibility.psu.edu/math/msmath/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=equation%20word&filter=total"
+      ]
+    },
+    "subfeature:object-insert": {
+      "tier": "low",
+      "evidence": "Split verdict resolved to low: education grades rare (untaught by name anywhere; nearest objective is Expert-level MO-111 external-content linking), while community grades medium because Insert > Object persists as the embed-Excel-in-Word workflow with genuine tutorials on major spreadsheet sites and 41 SuperUser matches. Education-weighted compromise: low — a persistent but narrow legacy workflow.",
+      "source_urls": [
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://support.microsoft.com/en-us/office/insert-an-object-in-word-or-outlook-8fc1ea53-0e01-4603-a4cf-98c49b6ea3f5",
+        "https://www.excel-easy.com/examples/embed.html",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=embedded%20object%20word&filter=total"
+      ]
+    },
+    "subfeature:online-videos-insert": {
+      "tier": "rare",
+      "evidence": "Education grades rare (absent from MO-110/MO-111, GoSkills, and all ONLC levels; the only dedicated training is a troubleshooting-centric trainer post) and community graded low (18 SuperUser matches, footprint dominated by 'button missing/grayed out' threads). Education-weighted merge: rare — the community footprint is availability complaints, not usage.",
+      "source_urls": [
+        "https://chrismenardtraining.com/post/insert-online-videos-in-microsoft-word-and-troubleshooting-tips/",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://learn.microsoft.com/en-us/answers/questions/5224139/insert-online-video-button-missing-from-ribbon-in?forum=msoffice-all",
+        "https://answers.microsoft.com/en-us/msoffice/forum/all/insert-online-video-button-grayed-out/e5e5df3e-1718-4067-a4f9-27e9e4b6a8da",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=online%20video%20word&filter=total"
+      ]
+    },
+    "subfeature:drop-cap-insert": {
+      "tier": "rare",
+      "evidence": "Unanimous rare among the agents that graded it: 1 SuperUser match — the lowest of all 27 same-pattern probes — absent from both MOS exams and GoSkills, and the only course teaching it (WCUPA Advanced) itself says 'There will rarely be a time when a Drop Cap is necessary in a document.'",
+      "source_urls": [
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://proofed.com/writing-tips/how-to-make-a-drop-cap-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=drop%20cap%20word&filter=total"
+      ]
+    },
+    "subfeature:signature-line-insert": {
+      "tier": "rare",
+      "evidence": "Education grades rare (absent from MO-110/MO-111 and every curriculum examined; ONLC's digital-signature topic is the protect-document workflow, not the Insert-tab feature), and community's low is largely illusory — abundant 'insert signature' content is e-signature vendor marketing while the actual Signature Line feature draws only 10 SuperUser matches. Education-weighted merge: rare.",
+      "source_urls": [
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.pandadoc.com/ask/how-to-insert-a-signature-in-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=signature%20line%20word&filter=total"
+      ]
+    },
+    "subfeature:date-and-time-insert": {
+      "tier": "rare",
+      "evidence": "Education grades rare — the dedicated Insert > Date & Time command appears in no exam objective, course outline, or features article examined (date/time is mentioned only as content typed into headers/footers). Community graded low on 14 SuperUser matches with no tutorial ecosystem; education-weighted merge: rare — effectively untaught and undiscussed.",
+      "source_urls": [
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=date%20and%20time%20field%20word&filter=total"
+      ]
+    },
+    "feature:pages": {
+      "tier": "high",
+      "evidence": "Carried by page break (merged high: MO-110 core objective, 268 SuperUser matches, universal Ctrl+Enter instruction) over cover page (merged low) and blank page (low). Disagreement noted: the telemetry agent graded the group medium on thin negative-only page-break evidence, while education and community both graded high.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/cover-pages-cool-things-in-office-12-part-1",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=page%20break%20word&filter=total",
+        "https://support.microsoft.com/en-us/office/add-a-cover-page-in-word-79df80ec-266d-46d6-9382-6d70f1d13777",
+        "https://erinwrightwriting.com/page-breaks-in-microsoft-word/"
+      ]
+    },
+    "feature:tables": {
+      "tier": "very-high",
+      "evidence": "Education (dedicated 20-25% MOS Associate domain — joint-largest) and community (one of the largest tutorial ecosystems; 197 SuperUser matches, 10x the chart figure) grade very-high; telemetry graded high via the essential-trio browser triage with the ceiling note that no Insert command reaches Word's overall telemetry top-10. Merged very-high within the Insert-tab band.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/cover-pages-cool-things-in-office-12-part-1",
+        "http://www.patrickbaudisch.com/interactingwithrecommendersystems/WorkingNotes/FrankLintonOWLARecommenderSystemForITSkills.pdf",
+        "https://learn.microsoft.com/en-us/credentials/certifications/exams/mo-110/",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://enhancv.com/resume-skills/microsoft-word/",
+        "https://support.microsoft.com/en-us/office/insert-a-table-a138f745-73ef-4879-b99a-2f3d38be612a",
+        "https://erinwrightwriting.com/three-ways-to-insert-tables-in-microsoft-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20table%20word&filter=total"
+      ]
+    },
+    "feature:illustrations": {
+      "tier": "high",
+      "evidence": "Unanimous high with extreme internal skew flagged by all three agents: Pictures alone is very-high (essential trio, help-hub category, mass tutorials) and the group maps exactly onto MO-110's 15-20% graphics domain, while Shapes/Screenshot are mid-band and Charts (17 matches), Icons (16), SmartArt (11), and 3D Models (3; Remix 3D retired 2020) sit low-to-rare. Group ranking is carried almost entirely by Pictures.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/word",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://en.wikipedia.org/wiki/Remix_3D",
+        "https://learn.microsoft.com/en-us/credentials/certifications/exams/mo-110/",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://support.microsoft.com/en-us/word/training/insert-pictures",
+        "https://www.slashgear.com/1784986/old-school-microsoft-office-features-still-use-no-download-required-nostalgia/",
+        "https://www.techrepublic.com/article/manipulate-3d-models-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=insert%20chart%20word&filter=total"
+      ]
+    },
+    "feature:media": {
+      "tier": "rare",
+      "evidence": "Education grades rare — the group's sole command (Online Videos) is absent from every exam objective and curriculum examined — and community graded low (18 SuperUser matches, footprint dominated by 'button missing/grayed out' troubleshooting threads, trainer coverage centered on videos not playing). Education-weighted merge: rare.",
+      "source_urls": [
+        "https://chrismenardtraining.com/post/insert-online-videos-in-microsoft-word-and-troubleshooting-tips/",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://learn.microsoft.com/en-us/answers/questions/5224139/insert-online-video-button-missing-from-ribbon-in?forum=msoffice-all",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=online%20video%20word&filter=total"
+      ]
+    },
+    "feature:links": {
+      "tier": "high",
+      "evidence": "Unanimous high, anchored by hyperlink (essential browser-Word trio; MO-110 objective; 264 SuperUser matches with broad tutorial coverage); bookmarks and cross-references are low specialist members (advanced-course-only, display-text-only in browser Word), an internal skew all three agents flagged.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD319",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://guides.lib.umich.edu/c.php?g=1114879&p=9684349",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=hyperlink%20word&filter=total",
+        "https://taxcrux.com/hyperlinks-bookmarks-and-cross-references-in-word/",
+        "https://proofreadingpal.com/proofreading-pulse/editing-tools/easy-cross-references-in-ms-word/"
+      ]
+    },
+    "feature:comments": {
+      "tier": "high",
+      "evidence": "Unanimous high: the 2003 telemetry lower bound (reviewing commands ~#100, pre-collaboration era) plus Microsoft's 2021 cross-platform modern-comments redesign and 'Collaborate' as a help-hub Quick Access category; MO-110's collaboration domain covers add/reply/resolve/delete; and a large collaboration-driven tutorial ecosystem spans Microsoft, CustomGuide, and university guides.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+        "https://techcommunity.microsoft.com/blog/microsoft_365blog/introducing-modern-comments-in-microsoft-word/2263182",
+        "https://support.microsoft.com/en-us/word",
+        "https://learn.microsoft.com/en-us/credentials/certifications/exams/mo-110/",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://enhancv.com/resume-skills/microsoft-word/",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://www.customguide.com/course/word/how-to-add-comments-in-word",
+        "https://guides.lib.umich.edu/c.php?g=1114879&p=8129001"
+      ]
+    },
+    "feature:header-footer": {
+      "tier": "very-high",
+      "evidence": "Education and community grade very-high (MO-110 core objective; Level-1 topic in every curriculum; 380 SuperUser matches for page numbers and 142 for header/footer; every university formatting guide found covers it), and telemetry corroborates top-of-Insert-band placement with the only document-furniture entry in the OWL top-20 (#20, 0.68%) while capping it below Home-tab basics. Merged very-high.",
+      "source_urls": [
+        "http://www.patrickbaudisch.com/interactingwithrecommendersystems/WorkingNotes/FrankLintonOWLARecommenderSystemForITSkills.pdf",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://www.theknowledgeacademy.com/blog/features-of-microsoft-word/",
+        "https://legalofficeguru.com/using-sections-to-control-page-numbers-headers-and-footers/",
+        "https://milnepublishing.geneseo.edu/technicalreportwritingguidelines/back-matter/appendix-b-page-numbering-and-table-of-contents-using-ms-word/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=page%20number%20word&filter=total"
+      ]
+    },
+    "feature:text": {
+      "tier": "medium",
+      "evidence": "Education and community grade medium, carried entirely by Text Box (MO-110 objective; 348 SuperUser matches) over a long low/rare tail — Quick Parts ('hidden feature' framing, Expert-exam material), WordArt (telemetry 'plummeted'), Drop Cap (1 match), Signature Line, Date & Time, and Object. Disagreement noted: the telemetry agent graded the group low; merged medium under the carried-by-strongest-member convention applied to links and illustrations.",
+      "source_urls": [
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/inside-deep-thought-why-the-ui-part-6",
+        "https://www.cs.ubc.ca/~joanna/papers/GI2000_McGrenere_Bloat.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-Expert-OD-2022.pdf",
+        "https://www.wcupa.edu/infoservices/training/documents/courses/MicrosoftOffice/Word2013_Advanced.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD219",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=text%20box%20word&filter=total",
+        "https://www.timeatlas.com/word-quick-parts/",
+        "https://windowsnews.ai/article/wordarts-quiet-comeback-why-microsoft-office-still-supports-the-retro-text-tool.428570",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=drop%20cap%20word&filter=total"
+      ]
+    },
+    "feature:symbols": {
+      "tier": "medium",
+      "evidence": "Telemetry and education both grade the group medium: Symbol is a recurring but modest-frequency task (Harris's gallery-design rationale) and a Level-1/MOS-core topic, while Equation is exam-absent and academically concentrated (placeholder-only in browser Word). Disagreement noted: community graded high on 299 equation matches plus the degree-symbol micro-tutorial ecosystem — outweighed by telemetry+education.",
+      "source_urls": [
+        "https://learn.microsoft.com/en-us/archive/blogs/jensenh/symbolism-office-12-coolness-part-5",
+        "https://support.microsoft.com/en-us/office/differences-between-using-a-document-in-the-browser-and-in-word-90fac46c-2b8e-4fa1-b997-4e55ce4ed754",
+        "https://products.ccilearning.com/wp-content/uploads/2023/12/MOS-365-Word-OD-2022.pdf",
+        "https://www.onlc.com/outline.asp?ccode=WWD119",
+        "https://www.goskills.com/course/microsoft-word",
+        "https://uwaterloo.ca/information-systems-technology/creating-numbering-and-cross-referencing-equations-microsoft",
+        "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+        "https://www.avantixlearning.ca/microsoft-word/how-to-insert-the-degree-symbol-in-word-documents/",
+        "https://api.stackexchange.com/2.3/search/advanced?site=superuser&q=equation%20word&filter=total"
+      ]
+    }
+  },
+  "notes": "Strongest evidence is primary Microsoft CEIP telemetry (Jensen Harris) corroborated by GranneBlog: it fixes an objective ordering for Paste(#1), Copy(#3), Bold(#5), Change Font Size(#11); the curve flattens sharply after the top ~10. Nodes below the top ~11 have no public per-command frequency, graded from that flattening signal + 'essential skills' education sources. Boundary/AI nodes (dictate/editor/create-pdf/office-addins) intentionally have no usage entry -> default 0.25, and are floored to P4 regardless. Insert-tab strongest evidence: CEIP telemetry shows NO Insert command in the Word top-10 (curve flat after ~#11); MOS MO-110 domain weights put tables (20-25%) and graphic elements (15-20%) as core; SuperUser same-pattern query volumes give relative ordering (page number 380 > text box 348 > equation 299 > page break 268 > hyperlink 264 > table 197 > header/footer 142 >> chart 17, icons 16, SmartArt 11, WordArt 10, drop cap 1)."
+}

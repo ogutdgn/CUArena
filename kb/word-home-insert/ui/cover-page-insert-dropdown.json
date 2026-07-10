@@ -1,0 +1,467 @@
+{
+  "id": "ui:cover-page-insert-dropdown",
+  "kind": "dropdown",
+  "label": "Cover Page",
+  "purpose": "flyout of subfeature:cover-page-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in",
+  "screenshot": "screenshots/ui-cover-page-insert-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-cover-page-insert-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#707070']",
+      "source": "pixel",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        430,
+        160,
+        447,
+        177
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50027",
+      "label": "Position",
+      "icon": {
+        "description": "Position (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        430,
+        177,
+        447,
+        452
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Austin",
+      "icon": {
+        "description": "Austin (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        188,
+        158,
+        365
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Banded",
+      "icon": {
+        "description": "Banded (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        158,
+        188,
+        294,
+        365
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Facet",
+      "icon": {
+        "description": "Facet (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        294,
+        188,
+        430,
+        365
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Filigree",
+      "icon": {
+        "description": "Filigree (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        365,
+        158,
+        542
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Grid",
+      "icon": {
+        "description": "Grid (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        158,
+        365,
+        294,
+        542
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Integral",
+      "icon": {
+        "description": "Integral (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        294,
+        365,
+        430,
+        542
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        430,
+        452,
+        447,
+        710
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Ion (Dark)",
+      "icon": {
+        "description": "Ion (Dark) (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        542,
+        158,
+        719
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Ion (Light)",
+      "icon": {
+        "description": "Ion (Light) (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        158,
+        542,
+        294,
+        719
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Motion",
+      "icon": {
+        "description": "Motion (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        294,
+        542,
+        430,
+        719
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        430,
+        710,
+        447,
+        727
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Retrospect",
+      "icon": {
+        "description": "Retrospect (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        719,
+        158,
+        896
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Semaphore",
+      "icon": {
+        "description": "Semaphore (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        158,
+        719,
+        294,
+        896
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Sideline",
+      "icon": {
+        "description": "Sideline (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        294,
+        719,
+        430,
+        896
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Cover Pages from Office.com",
+      "icon": {
+        "description": "More Cover Pages from Office.com (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        730,
+        447,
+        758
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Remove Current Cover Page",
+      "icon": {
+        "description": "Remove Current Cover Page (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        758,
+        447,
+        786
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:cover-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Save Selection to Cover Page Gallery...",
+      "icon": {
+        "description": "Save Selection to Cover Page Gallery... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        786,
+        447,
+        814
+      ],
+      "state_notes": "opener not descended (P3 one-level rule)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

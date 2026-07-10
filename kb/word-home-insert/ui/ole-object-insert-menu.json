@@ -1,0 +1,10 @@
+{
+  "id": "ui:ole-object-insert-menu",
+  "kind": "menu",
+  "label": "Object menu",
+  "purpose": null,
+  "screenshot": "screenshots/ui-ole-object-insert-menu/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

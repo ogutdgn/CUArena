@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+X",
+  "bindings": [
+    {
+      "context": "document has focus",
+      "effect": "Removes the selection from the document and places it on the clipboard.",
+      "triggers": "subfeature:cut",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

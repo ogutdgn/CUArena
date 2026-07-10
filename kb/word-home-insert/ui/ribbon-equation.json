@@ -1,0 +1,449 @@
+{
+  "id": "ui:ribbon-equation",
+  "kind": "tab",
+  "label": "Equation (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Equation Tools' family; exists only while: the cursor is inside an equation (math zone). Groups: Tools, Conversions, Symbols, Structures. Appeared on the 'equation' probe.",
+  "screenshot": "screenshots/ui-ribbon-equation/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-equation-equation-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Equation",
+      "icon": {
+        "description": "Equation control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-insert-gallery.png"
+      },
+      "tooltip": "Add common mathematical equations to your document, such as the area of a circle or the quadratic formula.\n\nYou can also build your own equations using the library of math symbols and structures.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        20,
+        82,
+        111,
+        106
+      ],
+      "state_notes": "group 'Tools'; keytip Alt, J E, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-ink-equation",
+      "control_type": "button",
+      "label": "Ink Equation",
+      "icon": {
+        "description": "Ink Equation control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-ink-equation.png"
+      },
+      "tooltip": "Insert mathematical equations using your handwriting.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        20,
+        108,
+        119,
+        132
+      ],
+      "state_notes": "group 'Tools'; keytip Alt, J E, K; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-unicode-format",
+      "control_type": "button",
+      "label": "Unicode",
+      "icon": {
+        "description": "Unicode control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-unicode-format.png"
+      },
+      "tooltip": "Type equations in UnicodeMath format.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        135,
+        82,
+        212,
+        106
+      ],
+      "state_notes": "group 'Conversions'; keytip Alt, J E, U F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-la-tex-format",
+      "control_type": "button",
+      "label": "LaTeX",
+      "icon": {
+        "description": "LaTeX control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-la-tex-format.png"
+      },
+      "tooltip": "Type equations in LaTeX format.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        135,
+        108,
+        199,
+        132
+      ],
+      "state_notes": "group 'Conversions'; keytip Alt, J E, T X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-normal-text",
+      "control_type": "button",
+      "label": "Text",
+      "icon": {
+        "description": "Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-normal-text.png"
+      },
+      "tooltip": "Use non-math text in a math region.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        135,
+        134,
+        189,
+        158
+      ],
+      "state_notes": "group 'Conversions'; keytip Alt, J E, N; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-convert",
+      "control_type": "splitbutton",
+      "label": "Convert",
+      "icon": {
+        "description": "Convert control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-convert.png"
+      },
+      "tooltip": "Convert equations between professional and linear formats.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        214,
+        82,
+        261,
+        158
+      ],
+      "state_notes": "group 'Conversions'; keytip Alt, J E, C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-options",
+      "control_type": "button",
+      "label": "Equation Options...",
+      "icon": {
+        "description": "Equation Options... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-options.png"
+      },
+      "tooltip": "Show the Equation Options dialog box to configure advanced options.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        253,
+        160,
+        269,
+        176
+      ],
+      "state_notes": "group 'Conversions'; keytip Alt, J E, T 1; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-symbols-insert-gallery",
+      "control_type": "menuitem",
+      "label": "EquationSymbolsInsertGallery",
+      "icon": {
+        "description": "EquationSymbolsInsertGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-symbols-insert-gallery.png"
+      },
+      "tooltip": "Add a symbol to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        277,
+        90,
+        908,
+        152
+      ],
+      "state_notes": "group 'Symbols'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-fraction-gallery",
+      "control_type": "menuitem",
+      "label": "Fraction",
+      "icon": {
+        "description": "Fraction control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-fraction-gallery.png"
+      },
+      "tooltip": "Add a fraction to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        924,
+        82,
+        972,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-script-gallery",
+      "control_type": "menuitem",
+      "label": "Script",
+      "icon": {
+        "description": "Script control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-script-gallery.png"
+      },
+      "tooltip": "Add a subscript or superscript to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        974,
+        82,
+        1016,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, S; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-radical-gallery",
+      "control_type": "menuitem",
+      "label": "Radical",
+      "icon": {
+        "description": "Radical control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-radical-gallery.png"
+      },
+      "tooltip": "Add a radical to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1018,
+        82,
+        1061,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-integral-gallery",
+      "control_type": "menuitem",
+      "label": "Integral",
+      "icon": {
+        "description": "Integral control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-integral-gallery.png"
+      },
+      "tooltip": "Add an integral to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1063,
+        82,
+        1108,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-large-operator-gallery",
+      "control_type": "menuitem",
+      "label": "Large Operator",
+      "icon": {
+        "description": "Large Operator control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-large-operator-gallery.png"
+      },
+      "tooltip": "Add a large operator to the equation, such as a summation, product, union, or intersection.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1110,
+        82,
+        1173,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-delimiter-gallery",
+      "control_type": "menuitem",
+      "label": "Bracket",
+      "icon": {
+        "description": "Bracket control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-delimiter-gallery.png"
+      },
+      "tooltip": "Add a delimiter to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1175,
+        82,
+        1219,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, B; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-function-gallery",
+      "control_type": "menuitem",
+      "label": "Function",
+      "icon": {
+        "description": "Function control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-function-gallery.png"
+      },
+      "tooltip": "Add a trigonometric function to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1221,
+        82,
+        1273,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, U 1; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-accent-gallery",
+      "control_type": "menuitem",
+      "label": "Accent",
+      "icon": {
+        "description": "Accent control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-accent-gallery.png"
+      },
+      "tooltip": "Add an accent mark to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1275,
+        82,
+        1317,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-limit-gallery",
+      "control_type": "menuitem",
+      "label": "Limit and Log",
+      "icon": {
+        "description": "Limit and Log control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-limit-gallery.png"
+      },
+      "tooltip": "Add a limit or log function to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1319,
+        82,
+        1374,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, M; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-operator-gallery",
+      "control_type": "menuitem",
+      "label": "Operator",
+      "icon": {
+        "description": "Operator control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-operator-gallery.png"
+      },
+      "tooltip": "Add an operator to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1376,
+        82,
+        1428,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-equation-equation-matrix-gallery",
+      "control_type": "menuitem",
+      "label": "Matrix",
+      "icon": {
+        "description": "Matrix control (see icon crop)",
+        "image": "screenshots/ui-ribbon-equation/icon-equation-matrix-gallery.png"
+      },
+      "tooltip": "Add a matrix to the equation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-equation",
+      "bounds": [
+        1430,
+        82,
+        1472,
+        158
+      ],
+      "state_notes": "group 'Structures'; keytip Alt, J E, X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "the cursor is inside an equation (math zone)"
+}

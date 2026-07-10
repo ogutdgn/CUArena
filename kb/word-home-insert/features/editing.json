@@ -1,0 +1,39 @@
+{
+  "id": "feature:editing",
+  "node_type": "feature",
+  "name": "Editing",
+  "what_it_does": "Find, replace and select text within the document.",
+  "affects": "navigation and selection within the document",
+  "audience_breadth": "most",
+  "behavior": "Find, replace and select text within the document. Group controls: subfeature:find, subfeature:replace, subfeature:select",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:find",
+    "subfeature:replace",
+    "subfeature:select"
+  ],
+  "connections": [
+    {
+      "target": "feature:clipboard",
+      "kind": "uses",
+      "why": "replace edits document content",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

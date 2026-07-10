@@ -1,0 +1,32 @@
+{
+  "id": "feature:links",
+  "node_type": "feature",
+  "name": "Links",
+  "what_it_does": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references.",
+  "affects": "navigation structure (links, bookmarks, references)",
+  "audience_breadth": "most",
+  "behavior": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:insert-link",
+    "subfeature:bookmark-insert",
+    "subfeature:cross-reference-insert"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

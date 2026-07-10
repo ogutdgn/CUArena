@@ -1,0 +1,83 @@
+{
+  "id": "ui:navigation-pane-find-dropdown",
+  "kind": "dropdown",
+  "label": "Find (dropdown)",
+  "purpose": "flyout of subfeature:find — commands/tiles are endpoints; openers descended per the depth-endpoint rule",
+  "screenshot": "screenshots/ui-navigation-pane-find-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Find",
+      "icon": {
+        "description": "Find (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1451,
+        108,
+        1599,
+        136
+      ],
+      "state_notes": "menu command (endpoint; no cascade on hover)",
+      "source": "hit-test",
+      "triggers": "subfeature:find",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Advanced Find...",
+      "icon": {
+        "description": "Advanced Find... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1451,
+        136,
+        1599,
+        164
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:replace-dialog",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Go To...",
+      "icon": {
+        "description": "Go To... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1451,
+        164,
+        1599,
+        192
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:replace-dialog",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:replace-dialog"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

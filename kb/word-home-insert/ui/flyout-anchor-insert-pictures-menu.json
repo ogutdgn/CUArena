@@ -1,0 +1,107 @@
+{
+  "id": "ui:flyout-anchor-insert-pictures-menu",
+  "kind": "menu",
+  "label": "Pictures",
+  "purpose": "flyout of subfeature:insert-pictures — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Insert Picture From",
+  "screenshot": "screenshots/ui-flyout-anchor-insert-pictures-menu/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "This Device...",
+      "icon": {
+        "description": "This Device... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        226,
+        190,
+        394,
+        218
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:flyout-anchor-insert-pictures-menu-this-device",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Generate an Image...",
+      "icon": {
+        "description": "Generate an Image... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        226,
+        218,
+        394,
+        246
+      ],
+      "state_notes": "menu command (endpoint — no surface appeared on press)",
+      "source": "hit-test",
+      "triggers": "subfeature:insert-pictures",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Stock Images...",
+      "icon": {
+        "description": "Stock Images... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        226,
+        246,
+        394,
+        274
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:flyout-anchor-insert-pictures-menu-stock-images",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Online Pictures...",
+      "icon": {
+        "description": "Online Pictures... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        226,
+        274,
+        394,
+        302
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:flyout-anchor-insert-pictures-menu-this-device",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:flyout-anchor-insert-pictures-menu-this-device",
+    "ui:flyout-anchor-insert-pictures-menu-stock-images"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

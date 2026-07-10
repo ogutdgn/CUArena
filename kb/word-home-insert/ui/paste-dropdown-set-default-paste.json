@@ -1,0 +1,3715 @@
+{
+  "id": "ui:paste-dropdown-set-default-paste",
+  "kind": "dialog",
+  "label": "Word Options",
+  "purpose": "the Word Options dialog — content area streams from the network (boundary; offline UI only); enumerated across 1 tab(s)",
+  "screenshot": "screenshots/ui-paste-dropdown-set-default-paste/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "General",
+      "icon": {
+        "description": "General (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        213,
+        696,
+        240
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Display",
+      "icon": {
+        "description": "Display (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        240,
+        696,
+        267
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Proofing",
+      "icon": {
+        "description": "Proofing (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        267,
+        696,
+        294
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Copilot",
+      "icon": {
+        "description": "Copilot (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        294,
+        696,
+        321
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Save",
+      "icon": {
+        "description": "Save (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        321,
+        696,
+        348
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Language",
+      "icon": {
+        "description": "Language (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        348,
+        696,
+        375
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Accessibility",
+      "icon": {
+        "description": "Accessibility (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        375,
+        696,
+        402
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Advanced",
+      "icon": {
+        "description": "Advanced (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        402,
+        696,
+        439
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Customize Ribbon",
+      "icon": {
+        "description": "Customize Ribbon (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        439,
+        696,
+        466
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Quick Access Toolbar",
+      "icon": {
+        "description": "Quick Access Toolbar (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        466,
+        696,
+        503
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Add-ins",
+      "icon": {
+        "description": "Add-ins (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        503,
+        696,
+        530
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Trust Center",
+      "icon": {
+        "description": "Trust Center (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        555,
+        530,
+        696,
+        557
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Typing replaces selected text",
+      "icon": {
+        "description": "Typing replaces selected text (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        302,
+        902,
+        321
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "When selecting, automatically select entire word",
+      "icon": {
+        "description": "When selecting, automatically select entire word (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        324,
+        1007,
+        343
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Allow text to be dragged and dropped",
+      "icon": {
+        "description": "Allow text to be dragged and dropped (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        346,
+        952,
+        365
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use CTRL + Click to follow hyperlink",
+      "icon": {
+        "description": "Use CTRL + Click to follow hyperlink (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        368,
+        944,
+        387
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Automatically create drawing canvas when inserting AutoShapes",
+      "icon": {
+        "description": "Automatically create drawing canvas when inserting AutoShapes (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        390,
+        1093,
+        409
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use smart paragraph selection",
+      "icon": {
+        "description": "Use smart paragraph selection (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        412,
+        911,
+        431
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use smart cursoring",
+      "icon": {
+        "description": "Use smart cursoring (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        434,
+        857,
+        453
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use the Insert key to control overtype mode",
+      "icon": {
+        "description": "Use the Insert key to control overtype mode (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        456,
+        982,
+        475
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use overtype mode",
+      "icon": {
+        "description": "Use overtype mode (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        748,
+        478,
+        872,
+        497
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Prompt to update style",
+      "icon": {
+        "description": "Prompt to update style (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        500,
+        873,
+        519
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use Normal style for bulleted or numbered lists",
+      "icon": {
+        "description": "Use Normal style for bulleted or numbered lists (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        522,
+        1000,
+        541
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Keep track of formatting",
+      "icon": {
+        "description": "Keep track of formatting (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        544,
+        881,
+        563
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Mark formatting inconsistencies",
+      "icon": {
+        "description": "Mark formatting inconsistencies (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        748,
+        566,
+        940,
+        585
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Updating style to match selection",
+      "icon": {
+        "description": "Updating style to match selection (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        921,
+        588,
+        1252,
+        609
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1236,
+        589,
+        1251,
+        608
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Enable click and type",
+      "icon": {
+        "description": "Enable click and type (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        612,
+        863,
+        631
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Default paragraph style",
+      "icon": {
+        "description": "Default paragraph style (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        884,
+        634,
+        1067,
+        655
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1051,
+        635,
+        1066,
+        654
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show AutoComplete suggestions",
+      "icon": {
+        "description": "Show AutoComplete suggestions (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        658,
+        928,
+        677
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show text predictions while typing",
+      "icon": {
+        "description": "Show text predictions while typing (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "To help you write faster, Editor anticipates your next words and suggests words or phrases as you type.\n\nTurn off this option to stop text predictions.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        680,
+        933,
+        699
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Do not automatically hyperlink screenshot",
+      "icon": {
+        "description": "Do not automatically hyperlink screenshot (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        702,
+        975,
+        721
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Pasting within the same document",
+      "icon": {
+        "description": "Pasting within the same document (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1055,
+        774,
+        1260,
+        795
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1244,
+        775,
+        1259,
+        794
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Pasting between documents",
+      "icon": {
+        "description": "Pasting between documents (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1055,
+        798,
+        1260,
+        819
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1244,
+        799,
+        1259,
+        818
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Pasting between documents when style definitions conflict",
+      "icon": {
+        "description": "Pasting between documents when style definitions conflict (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1055,
+        822,
+        1248,
+        843
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1232,
+        823,
+        1247,
+        842
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Pasting from other programs",
+      "icon": {
+        "description": "Pasting from other programs (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1055,
+        846,
+        1229,
+        867
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1213,
+        847,
+        1228,
+        866
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Insert/paste pictures as",
+      "icon": {
+        "description": "Insert/paste pictures as (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1055,
+        870,
+        1170,
+        891
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1154,
+        871,
+        1169,
+        890
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Keep bullets and numbers when pasting text with Keep Text Only option",
+      "icon": {
+        "description": "Keep bullets and numbers when pasting text with Keep Text Only option (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        894,
+        1130,
+        913
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use the Insert key for paste",
+      "icon": {
+        "description": "Use the Insert key for paste (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        916,
+        893,
+        935
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show Paste Options button when content is pasted",
+      "icon": {
+        "description": "Show Paste Options button when content is pasted (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        938,
+        1021,
+        957
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use smart cut and paste",
+      "icon": {
+        "description": "Use smart cut and paste (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Allows the format of pasted content to be adjusted automatically to match that of the destination document.\n\nFor example, use this option to keep formatting and alignment when pasting into tables and lists.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        962,
+        878,
+        981
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Settings...",
+      "icon": {
+        "description": "Settings... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        899,
+        960,
+        968,
+        984
+      ],
+      "state_notes": "opener not descended: OS/network interior (boundary)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Open Word, Excel, and PowerPoint files using:",
+      "icon": {
+        "description": "Open Word, Excel, and PowerPoint files using: (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1036,
+        1039,
+        1108,
+        1060
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1092,
+        1040,
+        1107,
+        1059
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use pen to select and interact with content by default",
+      "icon": {
+        "description": "Use pen to select and interact with content by default (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1113,
+        1033,
+        1132
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Enable the draw and hold ink-to-shape gesture while inking",
+      "icon": {
+        "description": "Enable the draw and hold ink-to-shape gesture while inking (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "After you draw a shape, hold your pen in place to turn your ink into an enhanced shape.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1135,
+        1066,
+        1154
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "When printing this document:",
+      "icon": {
+        "description": "When printing this document: (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        864,
+        1170,
+        1080,
+        1192
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1064,
+        1171,
+        1079,
+        1191
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Discard editing data",
+      "icon": {
+        "description": "Discard editing data (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Deletes data which is used to restore edited pictures to their original state.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1202,
+        857,
+        1221
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Do not compress images in file",
+      "icon": {
+        "description": "Do not compress images in file (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Checking this option provides maximum picture quality but may result in very large file sizes. If this option is unchecked, pictures will be downsampled to the number of pixels per inch specified below when they are saved.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1224,
+        915,
+        1243
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Default resolution",
+      "icon": {
+        "description": "Default resolution (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        850,
+        1246,
+        944,
+        1267
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        928,
+        1247,
+        943,
+        1266
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Current document",
+      "icon": {
+        "description": "Current document (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        768,
+        1286,
+        984,
+        1308
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        968,
+        1287,
+        983,
+        1307
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Properties follow chart data point",
+      "icon": {
+        "description": "Properties follow chart data point (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Custom formatting and data labels follow data points as they move or change in the chart",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1318,
+        928,
+        1337
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show background colors and images in Print Layout view",
+      "icon": {
+        "description": "Show background colors and images in Print Layout view (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1384,
+        1054,
+        1403
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show text wrapped within the document window",
+      "icon": {
+        "description": "Show text wrapped within the document window (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1406,
+        1011,
+        1425
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show drawings and text boxes on screen",
+      "icon": {
+        "description": "Show drawings and text boxes on screen (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1428,
+        964,
+        1447
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show bookmarks",
+      "icon": {
+        "description": "Show bookmarks (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1450,
+        843,
+        1469
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show text boundaries",
+      "icon": {
+        "description": "Show text boundaries (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1472,
+        865,
+        1491
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show crop marks",
+      "icon": {
+        "description": "Show crop marks (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1494,
+        843,
+        1513
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show field codes instead of their values",
+      "icon": {
+        "description": "Show field codes instead of their values (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1516,
+        959,
+        1535
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Field shading",
+      "icon": {
+        "description": "Field shading (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        814,
+        1538,
+        920,
+        1559
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        904,
+        1539,
+        919,
+        1558
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use draft font in Draft and Outline views",
+      "icon": {
+        "description": "Use draft font in Draft and Outline views (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1562,
+        963,
+        1581
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Name",
+      "icon": {
+        "description": "Name (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        794,
+        1584,
+        889,
+        1607
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Name",
+      "icon": {
+        "description": "Name (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        795,
+        1585,
+        873,
+        1606
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        873,
+        1585,
+        888,
+        1606
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Size",
+      "icon": {
+        "description": "Size (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        794,
+        1610,
+        847,
+        1633
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Size",
+      "icon": {
+        "description": "Size (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        795,
+        1611,
+        831,
+        1632
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        831,
+        1611,
+        846,
+        1632
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Font Substitution...",
+      "icon": {
+        "description": "Font Substitution... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1636,
+        848,
+        1660
+      ],
+      "state_notes": "opener not descended: OS/network interior (boundary)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Expand all headings when opening a document",
+      "icon": {
+        "description": "Expand all headings when opening a document (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Check this box to automatically expand any headings that are collapsed by default when a document is opened. This won't affect other users or alter the original document.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1663,
+        1002,
+        1682
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "Show this number of Recent Documents",
+      "icon": {
+        "description": "Show this number of Recent Documents (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1010,
+        1729,
+        1077,
+        1752
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Show this number of Recent Documents",
+      "icon": {
+        "description": "Show this number of Recent Documents (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Enter a whole number from 0 to 50",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1011,
+        1730,
+        1059,
+        1751
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1059,
+        1730,
+        1076,
+        1740
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1059,
+        1740,
+        1076,
+        1751
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Quickly access this number of Recent Documents",
+      "icon": {
+        "description": "Quickly access this number of Recent Documents (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Enable the Quick Access Recent Documents list",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1757,
+        1016,
+        1776
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "Quickly access this number of Recent Documents",
+      "icon": {
+        "description": "Quickly access this number of Recent Documents (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1025,
+        1755,
+        1092,
+        1778
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Quickly access this number of Recent Documents",
+      "icon": {
+        "description": "Quickly access this number of Recent Documents (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Enter a whole number from 1 to 50",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1026,
+        1756,
+        1074,
+        1777
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1074,
+        1756,
+        1091,
+        1766
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1074,
+        1766,
+        1091,
+        1777
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "Show this number of non-favorited Recent Folders",
+      "icon": {
+        "description": "Show this number of non-favorited Recent Folders (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1010,
+        1781,
+        1077,
+        1804
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Show this number of non-favorited Recent Folders",
+      "icon": {
+        "description": "Show this number of non-favorited Recent Folders (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Enter a whole number from 0 to 50",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1011,
+        1782,
+        1059,
+        1803
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1059,
+        1782,
+        1076,
+        1792
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1059,
+        1792,
+        1076,
+        1803
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Show measurements in units of",
+      "icon": {
+        "description": "Show measurements in units of (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1010,
+        1807,
+        1103,
+        1828
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1087,
+        1808,
+        1102,
+        1827
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Style area pane width in Draft and Outline views",
+      "icon": {
+        "description": "Style area pane width in Draft and Outline views (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1011,
+        1832,
+        1122,
+        1853
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show pixels for HTML features",
+      "icon": {
+        "description": "Show pixels for HTML features (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1857,
+        912,
+        1876
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show shortcut keys in ScreenTips",
+      "icon": {
+        "description": "Show shortcut keys in ScreenTips (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1879,
+        927,
+        1898
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show horizontal scroll bar",
+      "icon": {
+        "description": "Show horizontal scroll bar (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1901,
+        888,
+        1920
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show vertical scroll bar",
+      "icon": {
+        "description": "Show vertical scroll bar (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1923,
+        873,
+        1942
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show vertical ruler in Print Layout view",
+      "icon": {
+        "description": "Show vertical ruler in Print Layout view (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1945,
+        956,
+        1964
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Optimize character positioning for layout rather than readability",
+      "icon": {
+        "description": "Optimize character positioning for layout rather than readability (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1967,
+        1088,
+        1986
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Update document content while dragging",
+      "icon": {
+        "description": "Update document content while dragging (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Show how the document content will look as objects are moved, resized or rotated.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        1989,
+        974,
+        2008
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use subpixel positioning to smooth fonts on screen",
+      "icon": {
+        "description": "Use subpixel positioning to smooth fonts on screen (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2011,
+        1022,
+        2030
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show pop-up buttons for adding rows and columns in tables",
+      "icon": {
+        "description": "Show pop-up buttons for adding rows and columns in tables (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2033,
+        1073,
+        2052
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use Advanced Typography",
+      "icon": {
+        "description": "Use Advanced Typography (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2099,
+        893,
+        2118
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use Smart Justification",
+      "icon": {
+        "description": "Use Smart Justification (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        748,
+        2121,
+        889,
+        2140
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use Hyphenation",
+      "icon": {
+        "description": "Use Hyphenation (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        748,
+        2143,
+        861,
+        2162
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use draft quality",
+      "icon": {
+        "description": "Use draft quality (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2212,
+        838,
+        2231
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print in background",
+      "icon": {
+        "description": "Print in background (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Printing in the background lets you continue to work while your document is printed.\n\nTurning this option on may slow down printing.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2234,
+        857,
+        2253
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print pages in reverse order",
+      "icon": {
+        "description": "Print pages in reverse order (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2256,
+        895,
+        2275
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print XML tags",
+      "icon": {
+        "description": "Print XML tags (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2278,
+        829,
+        2297
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print field codes instead of their values",
+      "icon": {
+        "description": "Print field codes instead of their values (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2300,
+        955,
+        2319
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Allow fields containing tracked changes to update before printing",
+      "icon": {
+        "description": "Allow fields containing tracked changes to update before printing (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2322,
+        1098,
+        2341
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print on front of the sheet for duplex printing",
+      "icon": {
+        "description": "Print on front of the sheet for duplex printing (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2344,
+        989,
+        2363
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print on back of the sheet for duplex printing",
+      "icon": {
+        "description": "Print on back of the sheet for duplex printing (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2366,
+        988,
+        2385
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Scale content for A4 or 8.5 x 11\" paper sizes",
+      "icon": {
+        "description": "Scale content for A4 or 8.5 x 11\" paper sizes (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2388,
+        978,
+        2407
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Default tray",
+      "icon": {
+        "description": "Default tray (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        805,
+        2410,
+        988,
+        2431
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        972,
+        2411,
+        987,
+        2430
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "When printing this document:",
+      "icon": {
+        "description": "When printing this document: (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        904,
+        2447,
+        1120,
+        2469
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1104,
+        2448,
+        1119,
+        2468
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print PostScript over text",
+      "icon": {
+        "description": "Print PostScript over text (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2479,
+        881,
+        2498
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Print only the data from a form",
+      "icon": {
+        "description": "Print only the data from a form (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2501,
+        916,
+        2520
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Prompt before saving Normal template",
+      "icon": {
+        "description": "Prompt before saving Normal template (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "If you have changed the default template, Word asks you if you would like to save the changes when you close the program.\n\nTurn off this option to just save the changes automatically.",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2567,
+        959,
+        2586
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Always create backup copy",
+      "icon": {
+        "description": "Always create backup copy (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2589,
+        895,
+        2608
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Copy remotely stored files onto your computer, and update the remote file when saving",
+      "icon": {
+        "description": "Copy remotely stored files onto your computer, and update the remote file when saving (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2611,
+        1215,
+        2630
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Allow background saves",
+      "icon": {
+        "description": "Allow background saves (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2633,
+        880,
+        2652
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Preserve fidelity when sharing this document:",
+      "icon": {
+        "description": "Preserve fidelity when sharing this document: (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        993,
+        2668,
+        1209,
+        2690
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1193,
+        2669,
+        1208,
+        2689
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Save form data as delimited text file",
+      "icon": {
+        "description": "Save form data as delimited text file (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2700,
+        939,
+        2719
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Embed linguistic data",
+      "icon": {
+        "description": "Embed linguistic data (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2722,
+        866,
+        2741
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Confirm file format conversion on open",
+      "icon": {
+        "description": "Confirm file format conversion on open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2788,
+        962,
+        2807
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Update automatic links at open",
+      "icon": {
+        "description": "Update automatic links at open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2810,
+        917,
+        2829
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Show add-in user interface errors",
+      "icon": {
+        "description": "Show add-in user interface errors (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2832,
+        926,
+        2851
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Always open encrypted files in this app",
+      "icon": {
+        "description": "Always open encrypted files in this app (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2854,
+        957,
+        2873
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Mailing address",
+      "icon": {
+        "description": "Mailing address (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        828,
+        2877,
+        1176,
+        2961
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "File Locations...",
+      "icon": {
+        "description": "File Locations... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        2965,
+        829,
+        2989
+      ],
+      "state_notes": "opener not descended: OS/network interior (boundary)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Web Options...",
+      "icon": {
+        "description": "Web Options... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        838,
+        2965,
+        934,
+        2989
+      ],
+      "state_notes": "opener not descended: OS/network interior (boundary)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Layout options for",
+      "icon": {
+        "description": "Layout options for (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        842,
+        3005,
+        1058,
+        3027
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1042,
+        3006,
+        1057,
+        3026
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Add space for underlines",
+      "icon": {
+        "description": "Add space for underlines (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3037,
+        883,
+        3056
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Adjust line height to grid height in the table",
+      "icon": {
+        "description": "Adjust line height to grid height in the table (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3059,
+        982,
+        3078
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Allow hyphenation between pages or columns.",
+      "icon": {
+        "description": "Allow hyphenation between pages or columns. (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3081,
+        1000,
+        3100
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Balance SBCS characters and DBCS characters",
+      "icon": {
+        "description": "Balance SBCS characters and DBCS characters (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3103,
+        992,
+        3122
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Convert backslash characters into yen signs",
+      "icon": {
+        "description": "Convert backslash characters into yen signs (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3125,
+        981,
+        3144
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Don't center \"exact line height\" lines",
+      "icon": {
+        "description": "Don't center \"exact line height\" lines (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3147,
+        943,
+        3166
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Don't expand character spaces on a line that ends with SHIFT+RETURN",
+      "icon": {
+        "description": "Don't expand character spaces on a line that ends with SHIFT+RETURN (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3169,
+        1124,
+        3188
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Don't use HTML paragraph auto spacing",
+      "icon": {
+        "description": "Don't use HTML paragraph auto spacing (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3191,
+        966,
+        3210
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Draw underline on trailing spaces",
+      "icon": {
+        "description": "Draw underline on trailing spaces (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3213,
+        927,
+        3232
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Suppress extra line spacing at bottom of page",
+      "icon": {
+        "description": "Suppress extra line spacing at bottom of page (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3235,
+        992,
+        3254
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Suppress extra line spacing at top of page",
+      "icon": {
+        "description": "Suppress extra line spacing at top of page (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3257,
+        970,
+        3276
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use line-breaking rules",
+      "icon": {
+        "description": "Use line-breaking rules (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3279,
+        872,
+        3298
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Use Word 2013 rules for hyphenation between pages and columns.",
+      "icon": {
+        "description": "Use Word 2013 rules for hyphenation between pages and columns. (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        730,
+        3301,
+        1103,
+        3320
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Compatibility options for",
+      "icon": {
+        "description": "Compatibility options for (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        878,
+        3339,
+        1094,
+        3361
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Open",
+      "icon": {
+        "description": "Open (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1078,
+        3340,
+        1093,
+        3360
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Moves the vertical position up one line",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1348,
+        213,
+        1365,
+        230
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Moves the vertical position down a couple of lines",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1348,
+        338,
+        1365,
+        799
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Moves the vertical position down one line",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1348,
+        799,
+        1365,
+        816
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1207,
+        820,
+        1282,
+        844
+      ],
+      "state_notes": "commits the dialog",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1291,
+        820,
+        1366,
+        844
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1279,
+        175,
+        1326,
+        205
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1326,
+        175,
+        1373,
+        205
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

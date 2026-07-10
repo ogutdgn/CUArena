@@ -1,0 +1,32 @@
+{
+  "id": "subfeature:office-addins",
+  "node_type": "subfeature",
+  "name": "Add-ins",
+  "parent": "feature:add-ins",
+  "what_it_does": "Opens the Office Add-ins store flyout to browse and insert add-ins.",
+  "affects": "opens the add-in store",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:office-extensions-show-addin-flyout"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-office-extensions-show-addin-flyout.png"
+  ],
+  "connections": [],
+  "boundary": true,
+  "explored": false,
+  "source": "inference"
+}

@@ -1,0 +1,70 @@
+{
+  "id": "subfeature:icon-insert",
+  "node_type": "subfeature",
+  "name": "Icons",
+  "parent": "feature:illustrations",
+  "what_it_does": "Opens the stock icon library dialog to insert symbol graphics (content streams from the Office CDN — network).",
+  "affects": "document content (adds an icon graphic)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:icon-insert-from-file"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:icon-insert-from-file-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-icon-insert-from-file.png",
+    "screenshots/ui-icon-insert-from-file-dialog/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:insert-pictures",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:shapes-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:insert-3d-models",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:smart-art-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:chart-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:screenshot-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,99 @@
+{
+  "id": "ui:screenshot-insert-dropdown",
+  "kind": "dropdown",
+  "label": "Screenshot",
+  "purpose": "flyout of subfeature:screenshot-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Available Windows",
+  "screenshot": "screenshots/ui-screenshot-insert-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-screenshot-insert-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:screenshot-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Screenshot",
+      "icon": {
+        "description": "Screenshot (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        516,
+        158,
+        663,
+        343
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:screenshot-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Claude",
+      "icon": {
+        "description": "Claude (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        518,
+        188,
+        622,
+        292
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:screenshot-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Screen Clipping",
+      "icon": {
+        "description": "Screen Clipping (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        518,
+        303,
+        661,
+        331
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:screenshot-insert",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

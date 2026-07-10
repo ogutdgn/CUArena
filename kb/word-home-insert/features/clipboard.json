@@ -1,0 +1,41 @@
+{
+  "id": "feature:clipboard",
+  "node_type": "feature",
+  "name": "Clipboard",
+  "what_it_does": "Move and duplicate content and formatting via the clipboard.",
+  "affects": "document content and the Office clipboard",
+  "audience_breadth": "everyone",
+  "behavior": "Move and duplicate content and formatting via the clipboard. Group controls: subfeature:paste, subfeature:cut, subfeature:copy, subfeature:format-painter, subfeature:office-clipboard",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:paste",
+    "subfeature:cut",
+    "subfeature:copy",
+    "subfeature:format-painter",
+    "subfeature:office-clipboard"
+  ],
+  "connections": [
+    {
+      "target": "feature:font",
+      "kind": "affects",
+      "why": "pasted content carries formatting",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "feature:symbols",
+  "node_type": "feature",
+  "name": "Symbols",
+  "what_it_does": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+  "affects": "document content (adds equations/symbols)",
+  "audience_breadth": "most",
+  "behavior": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:equation-insert-gallery",
+    "subfeature:symbol-insert"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

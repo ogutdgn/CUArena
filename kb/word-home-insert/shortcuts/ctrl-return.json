@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+Return",
+  "bindings": [
+    {
+      "context": "editing text — inserts at the cursor position",
+      "effect": "Ends the current page at the cursor and continues content on the next page (measured: doc + format delta).",
+      "triggers": "subfeature:page-break-insert",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

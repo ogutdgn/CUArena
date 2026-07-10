@@ -1,0 +1,10 @@
+{
+  "id": "ui:icon-insert-from-file-dialog",
+  "kind": "dialog",
+  "label": "Insert Icon",
+  "purpose": null,
+  "screenshot": "screenshots/ui-icon-insert-from-file-dialog/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

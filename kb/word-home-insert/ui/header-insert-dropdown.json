@@ -1,0 +1,354 @@
+{
+  "id": "ui:header-insert-dropdown",
+  "kind": "dropdown",
+  "label": "Header",
+  "purpose": "flyout of subfeature:header-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in",
+  "screenshot": "screenshots/ui-header-insert-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-header-insert-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#F5F5F5']",
+      "source": "pixel",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Header",
+      "icon": {
+        "description": "Header (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        903,
+        158,
+        1326,
+        865
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1307,
+        160,
+        1324,
+        177
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50027",
+      "label": "Position",
+      "icon": {
+        "description": "Position (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1307,
+        177,
+        1324,
+        320
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Blank",
+      "icon": {
+        "description": "Blank (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        188,
+        1307,
+        300
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Blank (Three Columns)",
+      "icon": {
+        "description": "Blank (Three Columns) (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        300,
+        1307,
+        412
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1307,
+        320,
+        1324,
+        731
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Austin",
+      "icon": {
+        "description": "Austin (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        412,
+        1307,
+        524
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Banded",
+      "icon": {
+        "description": "Banded (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        524,
+        1307,
+        636
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Facet (Even Page)",
+      "icon": {
+        "description": "Facet (Even Page) (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        636,
+        1307,
+        748
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1307,
+        731,
+        1324,
+        748
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Headers from Office.com",
+      "icon": {
+        "description": "More Headers from Office.com (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        751,
+        1324,
+        779
+      ],
+      "state_notes": "network gallery (boundary)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Edit Header",
+      "icon": {
+        "description": "Edit Header (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        779,
+        1324,
+        807
+      ],
+      "state_notes": "menu command (endpoint; no cascade on hover)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Remove Header",
+      "icon": {
+        "description": "Remove Header (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        807,
+        1324,
+        835
+      ],
+      "state_notes": "menu command (endpoint; no cascade on hover)",
+      "source": "hit-test",
+      "triggers": "subfeature:header-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Save Selection to Header Gallery...",
+      "icon": {
+        "description": "Save Selection to Header Gallery... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        905,
+        835,
+        1324,
+        863
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:table-insert-dropdown-quick-tables-save-selection-to-quick-tabl",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:table-insert-dropdown-quick-tables-save-selection-to-quick-tabl"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

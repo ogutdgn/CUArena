@@ -1,0 +1,30 @@
+{
+  "id": "feature:editor",
+  "node_type": "feature",
+  "name": "Editor",
+  "what_it_does": "Check spelling, grammar and writing refinements via the cloud Editor service.",
+  "affects": "the document text (proofing) and the Editor pane",
+  "audience_breadth": "most",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:editor"
+  ],
+  "connections": [],
+  "boundary": true,
+  "explored": false,
+  "source": "inference"
+}

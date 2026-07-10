@@ -1,0 +1,863 @@
+{
+  "id": "ui:ribbon-table-layout",
+  "kind": "tab",
+  "label": "Table Layout (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Table Tools' family; exists only while: selection is inside a table. Groups: Table, Draw, Rows & Columns, Merge, Cell Size, Alignment, Data. Appeared on the 'table' probe.",
+  "screenshot": "screenshots/ui-ribbon-table-layout/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-table-layout-table-select-menu",
+      "control_type": "menuitem",
+      "label": "Select",
+      "icon": {
+        "description": "Select control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-select-menu.png"
+      },
+      "tooltip": "Select the current cell, row, column, or entire table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        20,
+        82,
+        62,
+        158
+      ],
+      "state_notes": "group 'Table'; keytip Alt, J L, K; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-show-gridlines",
+      "control_type": "button",
+      "label": "View Gridlines",
+      "icon": {
+        "description": "View Gridlines control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-show-gridlines.png"
+      },
+      "tooltip": "Show or hide the gridlines in the table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        64,
+        82,
+        115,
+        158
+      ],
+      "state_notes": "group 'Table'; keytip Alt, J L, T G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-properties-dialog",
+      "control_type": "button",
+      "label": "Properties...",
+      "icon": {
+        "description": "Properties... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-properties-dialog.png"
+      },
+      "tooltip": "Show the Table Properties dialog box to change advanced table properties, such as indentation and text wrapping options.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        117,
+        82,
+        175,
+        158
+      ],
+      "state_notes": "group 'Table'; keytip Alt, J L, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-draw-table",
+      "control_type": "button",
+      "label": "Draw Table",
+      "icon": {
+        "description": "Draw Table control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-draw-table.png"
+      },
+      "tooltip": "Design your own table by drawing the cell, row and column borders yourself.\n\nYou can even draw diagonal lines and cells within cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        191,
+        82,
+        233,
+        158
+      ],
+      "state_notes": "group 'Draw'; keytip Alt, J L, T A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-eraser",
+      "control_type": "button",
+      "label": "Eraser",
+      "icon": {
+        "description": "Eraser control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-eraser.png"
+      },
+      "tooltip": "Remove specific borders in a table to create merged cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        235,
+        82,
+        277,
+        158
+      ],
+      "state_notes": "group 'Draw'; keytip Alt, J L, S E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-delete-rows-and-columns-menu",
+      "control_type": "menuitem",
+      "label": "Delete",
+      "icon": {
+        "description": "Delete control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-delete-rows-and-columns-menu.png"
+      },
+      "tooltip": "Delete rows, columns, cells, or the entire table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        293,
+        82,
+        335,
+        158
+      ],
+      "state_notes": "group 'Rows & Columns'; keytip Alt, J L, D; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-rows-insert-above",
+      "control_type": "button",
+      "label": "Insert Row Above",
+      "icon": {
+        "description": "Insert Row Above control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-rows-insert-above.png"
+      },
+      "tooltip": "Add a new row directly above the current row.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        348,
+        82,
+        408,
+        158
+      ],
+      "state_notes": "group 'Rows & Columns'; keytip Alt, J L, A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-rows-insert-below",
+      "control_type": "button",
+      "label": "Insert Row Below",
+      "icon": {
+        "description": "Insert Row Below control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-rows-insert-below.png"
+      },
+      "tooltip": "Add a new row directly below the current row.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        410,
+        82,
+        470,
+        158
+      ],
+      "state_notes": "group 'Rows & Columns'; keytip Alt, J L, B E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-columns-insert-left",
+      "control_type": "button",
+      "label": "Insert Column Left",
+      "icon": {
+        "description": "Insert Column Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-columns-insert-left.png"
+      },
+      "tooltip": "Add a new column directly to the left of the current column.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        472,
+        82,
+        543,
+        158
+      ],
+      "state_notes": "group 'Rows & Columns'; keytip Alt, J L, L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-columns-insert-right",
+      "control_type": "button",
+      "label": "Insert Column Right",
+      "icon": {
+        "description": "Insert Column Right control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-columns-insert-right.png"
+      },
+      "tooltip": "Add a new column directly to the right of the current column.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        545,
+        82,
+        624,
+        158
+      ],
+      "state_notes": "group 'Rows & Columns'; keytip Alt, J L, R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-insert-cells-dialog",
+      "control_type": "button",
+      "label": "Insert Cells...",
+      "icon": {
+        "description": "Insert Cells... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-insert-cells-dialog.png"
+      },
+      "tooltip": "Show the Insert Cells dialog box.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        616,
+        160,
+        632,
+        176
+      ],
+      "state_notes": "group 'Rows & Columns'; keytip Alt, J L, I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-merge-cells",
+      "control_type": "button",
+      "label": "Merge Cells",
+      "icon": {
+        "description": "Merge Cells control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-merge-cells.png"
+      },
+      "tooltip": "Merge the selected cells into one cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        640,
+        82,
+        682,
+        158
+      ],
+      "state_notes": "group 'Merge'; keytip Alt, J L, M; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-split-cells",
+      "control_type": "button",
+      "label": "Split Cells...",
+      "icon": {
+        "description": "Split Cells... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-split-cells.png"
+      },
+      "tooltip": "Split the current cell into multiple cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        684,
+        82,
+        726,
+        158
+      ],
+      "state_notes": "group 'Merge'; keytip Alt, J L, P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-split-table",
+      "control_type": "button",
+      "label": "Split Table",
+      "icon": {
+        "description": "Split Table control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-split-table.png"
+      },
+      "tooltip": "Split the table into two tables.\n\nThe current row will become the first row of the new table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        728,
+        82,
+        770,
+        158
+      ],
+      "state_notes": "group 'Merge'; keytip Alt, J L, Q; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-auto-fit-menu",
+      "control_type": "menuitem",
+      "label": "AutoFit",
+      "icon": {
+        "description": "AutoFit control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-auto-fit-menu.png"
+      },
+      "tooltip": "Automatically resize the columns in your table.\n\nSet your columns to be the same width as your content or choose for your table to stretch across the page.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        786,
+        82,
+        830,
+        158
+      ],
+      "state_notes": "group 'Cell Size'; keytip Alt, J L, F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-more.png"
+      },
+      "tooltip": "Set the height of the selected cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        962,
+        91,
+        979,
+        102
+      ],
+      "state_notes": "group 'Cell Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-less.png"
+      },
+      "tooltip": "Set the height of the selected cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        962,
+        102,
+        979,
+        113
+      ],
+      "state_notes": "group 'Cell Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-more.png"
+      },
+      "tooltip": "Set the width of the selected cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        962,
+        123,
+        979,
+        134
+      ],
+      "state_notes": "group 'Cell Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-less.png"
+      },
+      "tooltip": "Set the width of the selected cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        962,
+        134,
+        979,
+        145
+      ],
+      "state_notes": "group 'Cell Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-rows-distribute",
+      "control_type": "button",
+      "label": "Distribute Rows",
+      "icon": {
+        "description": "Distribute Rows control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-rows-distribute.png"
+      },
+      "tooltip": "Distribute the height of the selected rows equally between them.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        993,
+        90,
+        1108,
+        114
+      ],
+      "state_notes": "group 'Cell Size'; keytip Alt, J L, U R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-columns-distribute",
+      "control_type": "button",
+      "label": "Distribute Columns",
+      "icon": {
+        "description": "Distribute Columns control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-columns-distribute.png"
+      },
+      "tooltip": "Distribute the width of the selected columns equally between them.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        993,
+        122,
+        1128,
+        146
+      ],
+      "state_notes": "group 'Cell Size'; keytip Alt, J L, U C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-properties-dialog",
+      "control_type": "button",
+      "label": "Properties...",
+      "icon": {
+        "description": "Properties... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-properties-dialog.png"
+      },
+      "tooltip": "Show the Table Properties dialog box to change advanced table properties, such as indentation and text wrapping options.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1120,
+        160,
+        1136,
+        176
+      ],
+      "state_notes": "group 'Cell Size'; keytip Alt, J L, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-top-left",
+      "control_type": "button",
+      "label": "Align Top Left",
+      "icon": {
+        "description": "Align Top Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-top-left.png"
+      },
+      "tooltip": "Align text to the top left corner of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1144,
+        82,
+        1168,
+        106
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, T L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-top-center",
+      "control_type": "button",
+      "label": "Align Top Center",
+      "icon": {
+        "description": "Align Top Center control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-top-center.png"
+      },
+      "tooltip": "Center text and align it to the top of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1170,
+        82,
+        1194,
+        106
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, T C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-top-right",
+      "control_type": "button",
+      "label": "Align Top Right",
+      "icon": {
+        "description": "Align Top Right control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-top-right.png"
+      },
+      "tooltip": "Align text to the top right corner of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1196,
+        82,
+        1220,
+        106
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, T R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-middle-left",
+      "control_type": "button",
+      "label": "Align Center Left",
+      "icon": {
+        "description": "Align Center Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-middle-left.png"
+      },
+      "tooltip": "Center text vertically and align it to the left side of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1144,
+        108,
+        1168,
+        132
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, C L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-middle-center",
+      "control_type": "button",
+      "label": "Align Center",
+      "icon": {
+        "description": "Align Center control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-middle-center.png"
+      },
+      "tooltip": "Center text horizontally and vertically within the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1170,
+        108,
+        1194,
+        132
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, C C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-middle-right",
+      "control_type": "button",
+      "label": "Align Center Right",
+      "icon": {
+        "description": "Align Center Right control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-middle-right.png"
+      },
+      "tooltip": "Center text vertically and align it to the right side of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1196,
+        108,
+        1220,
+        132
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, C R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-bottom-left",
+      "control_type": "button",
+      "label": "Align Bottom Left",
+      "icon": {
+        "description": "Align Bottom Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-bottom-left.png"
+      },
+      "tooltip": "Align text to the bottom left corner of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1144,
+        134,
+        1168,
+        158
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, B L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-bottom-center",
+      "control_type": "button",
+      "label": "Align Bottom Center",
+      "icon": {
+        "description": "Align Bottom Center control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-bottom-center.png"
+      },
+      "tooltip": "Center text and align it to the bottom of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1170,
+        134,
+        1194,
+        158
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, B C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-cell-align-bottom-right",
+      "control_type": "button",
+      "label": "Align Bottom Right",
+      "icon": {
+        "description": "Align Bottom Right control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-cell-align-bottom-right.png"
+      },
+      "tooltip": "Align text to the bottom right corner of the cell.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1196,
+        134,
+        1220,
+        158
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, B R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-text-direction",
+      "control_type": "button",
+      "label": "Text Direction",
+      "icon": {
+        "description": "Text Direction control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-text-direction.png"
+      },
+      "tooltip": "Change the text direction within the selected cells.\n\nClick the button multiple times to cycle through the available directions.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1222,
+        82,
+        1275,
+        158
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-options-dialog",
+      "control_type": "button",
+      "label": "Cell Margins...",
+      "icon": {
+        "description": "Cell Margins... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-options-dialog.png"
+      },
+      "tooltip": "Customize cell margins and the spacing between cells.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1277,
+        82,
+        1325,
+        158
+      ],
+      "state_notes": "group 'Alignment'; keytip Alt, J L, N; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-sort-dialog-classic",
+      "control_type": "button",
+      "label": "Sort...",
+      "icon": {
+        "description": "Sort... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-sort-dialog-classic.png"
+      },
+      "tooltip": "Arrange the current selection in alphabetical or numerical order.\n\nThis is especially useful if you're trying to organize data in a table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1341,
+        82,
+        1383,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J L, S O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-repeat-header-rows",
+      "control_type": "button",
+      "label": "Repeat Header Rows",
+      "icon": {
+        "description": "Repeat Header Rows control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-repeat-header-rows.png"
+      },
+      "tooltip": "Mark multiple rows as header rows.\n\nIf your table spans multiple pages the header rows will appear on every page for easy reference.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1385,
+        82,
+        1459,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J L, J; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-convert-table-to-text",
+      "control_type": "button",
+      "label": "Convert to Text...",
+      "icon": {
+        "description": "Convert to Text... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-convert-table-to-text.png"
+      },
+      "tooltip": "Convert the table to regular text.\n\nYou can choose which text character to use to separate the columns.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1461,
+        82,
+        1508,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J L, V; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-layout-table-formula-dialog",
+      "control_type": "button",
+      "label": "Formula...",
+      "icon": {
+        "description": "Formula... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-layout/icon-table-formula-dialog.png"
+      },
+      "tooltip": "Add a formula to a cell to perform a simple calculation, such as AVERAGE, SUM, or COUNT.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-layout",
+      "bounds": [
+        1510,
+        82,
+        1559,
+        158
+      ],
+      "state_notes": "group 'Data'; keytip Alt, J L, U L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "selection is inside a table"
+}

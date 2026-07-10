@@ -1,0 +1,153 @@
+{
+  "id": "ui:paste-dropdown",
+  "kind": "dropdown",
+  "label": "Paste (dropdown)",
+  "purpose": "flyout of subfeature:paste — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Paste Options",
+  "screenshot": "screenshots/ui-paste-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Keep Source Formatting",
+      "icon": {
+        "description": "Keep Source Formatting (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        188,
+        52,
+        218
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Merge Formatting",
+      "icon": {
+        "description": "Merge Formatting (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        52,
+        188,
+        82,
+        218
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture",
+      "icon": {
+        "description": "Picture (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        82,
+        188,
+        112,
+        218
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Keep Text Only",
+      "icon": {
+        "description": "Keep Text Only (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        112,
+        188,
+        142,
+        218
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Paste Special...",
+      "icon": {
+        "description": "Paste Special... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        219,
+        179,
+        247
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:paste-dropdown-paste-special",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Set Default Paste...",
+      "icon": {
+        "description": "Set Default Paste... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        22,
+        247,
+        179,
+        275
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:paste-dropdown-set-default-paste",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:paste-dropdown-paste-special",
+    "ui:paste-dropdown-set-default-paste"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

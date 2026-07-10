@@ -1,0 +1,14 @@
+{
+  "keys": "Alt+=",
+  "bindings": [
+    {
+      "context": "editing text — inserts a math zone at the cursor",
+      "effect": "Inserts an empty math zone at the cursor (measured: OMaths 0→1) and activates the Equation contextual tab; the dropdown offers built-in equations (quadratic formula, area of circle…).",
+      "triggers": "subfeature:equation-insert-gallery",
+      "opens": null,
+      "source": [
+        "docs"
+      ]
+    }
+  ]
+}

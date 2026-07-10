@@ -1,0 +1,10 @@
+{
+  "id": "ui:styles-pane",
+  "kind": "pane",
+  "label": "Styles",
+  "purpose": null,
+  "screenshot": "screenshots/ui-styles-pane/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

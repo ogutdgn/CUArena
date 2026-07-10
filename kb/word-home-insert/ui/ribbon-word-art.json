@@ -1,0 +1,771 @@
+{
+  "id": "ui:ribbon-word-art",
+  "kind": "tab",
+  "label": "WordArt (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'WordArt Tools' family; exists only while: a WordArt object is selected. Groups: Text, WordArt Styles, Shadow Effects, 3-D Effects, Arrange, Size. Appeared on the 'wordart' probe.",
+  "screenshot": "screenshots/ui-ribbon-word-art/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-word-art-word-art-edit-text-classic",
+      "control_type": "button",
+      "label": "Edit Text...",
+      "icon": {
+        "description": "Edit Text... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-word-art-edit-text-classic.png"
+      },
+      "tooltip": "Edit the text for this WordArt.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        20,
+        82,
+        62,
+        158
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J W, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-word-art-spacing-menu",
+      "control_type": "menuitem",
+      "label": "Spacing",
+      "icon": {
+        "description": "Spacing control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-word-art-spacing-menu.png"
+      },
+      "tooltip": "Change the spacing between the letters of the text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        64,
+        82,
+        111,
+        158
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J W, A S; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-word-art-even-text-height-classic",
+      "control_type": "button",
+      "label": "Even Height",
+      "icon": {
+        "description": "Even Height control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-word-art-even-text-height-classic.png"
+      },
+      "tooltip": "Make all letters exactly the same height, both uppercase and lowercase.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        113,
+        82,
+        210,
+        106
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J W, A H; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-word-art-vertical-text",
+      "control_type": "button",
+      "label": "Vertical Text",
+      "icon": {
+        "description": "Vertical Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-word-art-vertical-text.png"
+      },
+      "tooltip": "Draw the text vertically, with the letters stacked on top of each other.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        113,
+        108,
+        208,
+        132
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J W, A V; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-text-align-menu",
+      "control_type": "menuitem",
+      "label": "Alignment",
+      "icon": {
+        "description": "Alignment control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-text-align-menu.png"
+      },
+      "tooltip": "Specify how individual lines of a multiline WordArt should be aligned.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        113,
+        134,
+        213,
+        158
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J W, A L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-shape-fill-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Fill",
+      "icon": {
+        "description": "Shape Fill control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-shape-fill-color-picker.png"
+      },
+      "tooltip": "Fill the selected shape with a solid color, gradient, picture, or texture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        229,
+        82,
+        319,
+        106
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J W, S F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Outline",
+      "icon": {
+        "description": "Shape Outline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-outline-color-picker.png"
+      },
+      "tooltip": "Pick the color, width, and line style for the outline of your shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        229,
+        108,
+        343,
+        132
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J W, S O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-word-art-change-shape-gallery",
+      "control_type": "menuitem",
+      "label": "Change Shape",
+      "icon": {
+        "description": "Change Shape control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-word-art-change-shape-gallery.png"
+      },
+      "tooltip": "Choose the overall shape of the WordArt.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        229,
+        134,
+        349,
+        158
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J W, I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-shadow-style-gallery-classic",
+      "control_type": "menuitem",
+      "label": "Shadow Effects",
+      "icon": {
+        "description": "Shadow Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-shadow-style-gallery-classic.png"
+      },
+      "tooltip": "Add a shadow to the shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        365,
+        82,
+        416,
+        158
+      ],
+      "state_notes": "group 'Shadow Effects'; keytip Alt, J W, V; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-shadow-nudge-up-classic",
+      "control_type": "button",
+      "label": "Nudge Shadow Up",
+      "icon": {
+        "description": "Nudge Shadow Up control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-shadow-nudge-up-classic.png"
+      },
+      "tooltip": "Move the shadow up.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        455,
+        82,
+        479,
+        106
+      ],
+      "state_notes": "group 'Shadow Effects'; keytip Alt, J W, 1; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-shadow-nudge-left-classic",
+      "control_type": "button",
+      "label": "Nudge Shadow Left",
+      "icon": {
+        "description": "Nudge Shadow Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-shadow-nudge-left-classic.png"
+      },
+      "tooltip": "Move the shadow left.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        429,
+        108,
+        453,
+        132
+      ],
+      "state_notes": "group 'Shadow Effects'; keytip Alt, J W, 2; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-shadow-on-or-off-classic",
+      "control_type": "button",
+      "label": "Shadow On/Off",
+      "icon": {
+        "description": "Shadow On/Off control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-shadow-on-or-off-classic.png"
+      },
+      "tooltip": "Turn the shadow on or off.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        455,
+        108,
+        479,
+        132
+      ],
+      "state_notes": "group 'Shadow Effects'; keytip Alt, J W, 0; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-shadow-nudge-right-classic",
+      "control_type": "button",
+      "label": "Nudge Shadow Right",
+      "icon": {
+        "description": "Nudge Shadow Right control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-shadow-nudge-right-classic.png"
+      },
+      "tooltip": "Move the shadow right.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        481,
+        108,
+        505,
+        132
+      ],
+      "state_notes": "group 'Shadow Effects'; keytip Alt, J W, 3; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-shadow-nudge-down-classic",
+      "control_type": "button",
+      "label": "Nudge Shadow Down",
+      "icon": {
+        "description": "Nudge Shadow Down control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-shadow-nudge-down-classic.png"
+      },
+      "tooltip": "Move the shadow down.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        455,
+        134,
+        479,
+        158
+      ],
+      "state_notes": "group 'Shadow Effects'; keytip Alt, J W, 4; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-3-deffects-gallery-classic",
+      "control_type": "menuitem",
+      "label": "3-D Effects",
+      "icon": {
+        "description": "3-D Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-3-deffects-gallery-classic.png"
+      },
+      "tooltip": "Add a 3-D effect to the shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        521,
+        82,
+        572,
+        158
+      ],
+      "state_notes": "group '3-D Effects'; keytip Alt, J W, U; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-3-dtilt-up-classic",
+      "control_type": "button",
+      "label": "Tilt Up",
+      "icon": {
+        "description": "Tilt Up control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-3-dtilt-up-classic.png"
+      },
+      "tooltip": "Tilt the shape backward.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        611,
+        82,
+        635,
+        106
+      ],
+      "state_notes": "group '3-D Effects'; keytip Alt, J W, 5; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-3-dtilt-left-classic",
+      "control_type": "button",
+      "label": "Tilt Left",
+      "icon": {
+        "description": "Tilt Left control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-3-dtilt-left-classic.png"
+      },
+      "tooltip": "Tilt the shape to the left.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        585,
+        108,
+        609,
+        132
+      ],
+      "state_notes": "group '3-D Effects'; keytip Alt, J W, 6; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-3-deffects-on-off-classic",
+      "control_type": "button",
+      "label": "3-D On/Off",
+      "icon": {
+        "description": "3-D On/Off control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-3-deffects-on-off-classic.png"
+      },
+      "tooltip": "Turn on or off the 3-D effect applied to the shape.\n\nYou might want to turn off the 3-D effects temporarily to allow you to edit the shape more easily.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        611,
+        108,
+        635,
+        132
+      ],
+      "state_notes": "group '3-D Effects'; keytip Alt, J W, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-3-dtilt-right-classic",
+      "control_type": "button",
+      "label": "Tilt Right",
+      "icon": {
+        "description": "Tilt Right control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-3-dtilt-right-classic.png"
+      },
+      "tooltip": "Tilt the shape to the right.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        637,
+        108,
+        661,
+        132
+      ],
+      "state_notes": "group '3-D Effects'; keytip Alt, J W, 7; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-3-dtilt-down-classic",
+      "control_type": "button",
+      "label": "Tilt Down",
+      "icon": {
+        "description": "Tilt Down control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-3-dtilt-down-classic.png"
+      },
+      "tooltip": "Tilt the shape forward.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        611,
+        134,
+        635,
+        158
+      ],
+      "state_notes": "group '3-D Effects'; keytip Alt, J W, 8; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-picture-position-gallery",
+      "control_type": "menuitem",
+      "label": "Position",
+      "icon": {
+        "description": "Position control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-picture-position-gallery.png"
+      },
+      "tooltip": "Choose where the selected object will appear on the page.\n\nText will automatically wrap around the object so that it's still easy to read.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        677,
+        82,
+        725,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, P O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-text-wrap-gallery",
+      "control_type": "menuitem",
+      "label": "Wrap Text",
+      "icon": {
+        "description": "Wrap Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-text-wrap-gallery.png"
+      },
+      "tooltip": "Choose how your text wraps around the selected object.\n\nFor example, you can choose to have the text continue around the object or cross right over it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        727,
+        82,
+        769,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, T W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-object-bring-forward",
+      "control_type": "splitbutton",
+      "label": "Bring Forward",
+      "icon": {
+        "description": "Bring Forward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-object-bring-forward.png"
+      },
+      "tooltip": "Bring the selected object forward one level, or bring it in front of all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        771,
+        82,
+        830,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, A F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-object-send-backward",
+      "control_type": "splitbutton",
+      "label": "Send Backward",
+      "icon": {
+        "description": "Send Backward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-object-send-backward.png"
+      },
+      "tooltip": "Send the selected object back one level, or send it behind all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        832,
+        82,
+        899,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, A E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-selection-pane",
+      "control_type": "button",
+      "label": "Selection Pane...",
+      "icon": {
+        "description": "Selection Pane... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-selection-pane.png"
+      },
+      "tooltip": "See a list of all your objects.\n\nThis makes it easier to select objects, change their order, or change their visibility.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        901,
+        82,
+        954,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, A P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-object-align-menu",
+      "control_type": "menuitem",
+      "label": "Align",
+      "icon": {
+        "description": "Align control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-object-align-menu.png"
+      },
+      "tooltip": "Change the placement of your selected objects on the page.\n\nThis is great for aligning objects to the margins or the edge of the page. You can also align them relative to one another.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        956,
+        82,
+        1028,
+        106
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, A A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-objects-group-menu",
+      "control_type": "menuitem",
+      "label": "Group",
+      "icon": {
+        "description": "Group control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-objects-group-menu.png"
+      },
+      "tooltip": "Join objects together to move and format them as if they were a single object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        956,
+        108,
+        1033,
+        132
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, A G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-object-rotate-gallery",
+      "control_type": "menuitem",
+      "label": "Rotate",
+      "icon": {
+        "description": "Rotate control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-object-rotate-gallery.png"
+      },
+      "tooltip": "Rotate or flip the selected object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        956,
+        134,
+        1034,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J W, A Y; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-more.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        1169,
+        91,
+        1186,
+        102
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-less.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        1169,
+        102,
+        1186,
+        113
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-more.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        1169,
+        123,
+        1186,
+        134
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-less.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        1169,
+        134,
+        1186,
+        145
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-word-art-object-size-dialog-classic",
+      "control_type": "button",
+      "label": "Size...",
+      "icon": {
+        "description": "Size... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-word-art/icon-object-size-dialog-classic.png"
+      },
+      "tooltip": "See more options for changing the size of your shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-word-art",
+      "bounds": [
+        1179,
+        160,
+        1195,
+        176
+      ],
+      "state_notes": "group 'Size'; keytip Alt, J W, S Z; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "a WordArt object is selected"
+}

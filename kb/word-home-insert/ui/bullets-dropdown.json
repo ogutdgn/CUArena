@@ -1,0 +1,285 @@
+{
+  "id": "ui:bullets-dropdown",
+  "kind": "dropdown",
+  "label": "Bullets (dropdown)",
+  "purpose": "flyout of subfeature:bullets-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Bullet Library",
+  "screenshot": "screenshots/ui-bullets-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-bullets-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Bullets",
+      "icon": {
+        "description": "Bullets (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        503,
+        114,
+        812,
+        319
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "None",
+      "icon": {
+        "description": "None (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        505,
+        144,
+        553,
+        192
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bulleted, Solid Circle",
+      "icon": {
+        "description": "Bulleted, Solid Circle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        553,
+        144,
+        601,
+        192
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bulleted, Hollow Circle",
+      "icon": {
+        "description": "Bulleted, Hollow Circle (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        601,
+        144,
+        649,
+        192
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bulleted, Solid Square",
+      "icon": {
+        "description": "Bulleted, Solid Square (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        649,
+        144,
+        697,
+        192
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Picture bulleted",
+      "icon": {
+        "description": "Picture bulleted (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        697,
+        144,
+        745,
+        192
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bulleted, Four Small Diamonds",
+      "icon": {
+        "description": "Bulleted, Four Small Diamonds (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        745,
+        144,
+        793,
+        192
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bulleted, Hollow Arrow",
+      "icon": {
+        "description": "Bulleted, Hollow Arrow (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        505,
+        192,
+        553,
+        240
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bulleted, Checkmark",
+      "icon": {
+        "description": "Bulleted, Checkmark (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        553,
+        192,
+        601,
+        240
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:bullets-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Change List Level",
+      "icon": {
+        "description": "Change List Level (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        505,
+        251,
+        810,
+        279
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Define New Bullet...",
+      "icon": {
+        "description": "Define New Bullet... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        505,
+        279,
+        810,
+        307
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:bullets-dropdown-define-new-bullet",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:bullets-dropdown-define-new-bullet"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

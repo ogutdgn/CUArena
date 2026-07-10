@@ -1,0 +1,50 @@
+{
+  "id": "subfeature:page-break-insert",
+  "node_type": "subfeature",
+  "name": "Page Break",
+  "parent": "feature:pages",
+  "what_it_does": "Ends the current page at the cursor and continues content on the next page (measured: doc + format delta).",
+  "affects": "document content (page flow)",
+  "audience_breadth": "everyone",
+  "behavior": "Direct action: Ends the current page at the cursor and continues content on the next page (measured: doc + format delta). Applied immediately to document content (page flow); toggle state (where applicable) is reflected by the button's highlighted look. Appears as a page split by a dashed line, labelled 'Page Break'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:page-break-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+Return"
+    }
+  ],
+  "shortcut": "Ctrl+Return",
+  "opens": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-page-break-insert.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-page-break-insert.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:cover-page-insert",
+      "kind": "affects",
+      "why": "all change the document's page structure/flow",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:blank-page-insert",
+      "kind": "affects",
+      "why": "all change the document's page structure/flow",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

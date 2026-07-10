@@ -1,0 +1,52 @@
+{
+  "id": "subfeature:word-art-insert",
+  "node_type": "subfeature",
+  "name": "WordArt",
+  "parent": "feature:text",
+  "what_it_does": "Inserts decorative styled text from a gallery; the result is a text object whose selection activates a Format contextual tab (measured: modern WordArt uses Shape Format; legacy WordArt objects surface a dedicated WordArt tab).",
+  "affects": "document content (adds decorative text)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:word-art-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:word-art-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-word-art-insert-gallery.png",
+    "screenshots/ui-word-art-insert-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:text-box-insert",
+      "kind": "affects",
+      "why": "both create floating text Shapes (both measured to Shape Format context)",
+      "source": "shared-target"
+    },
+    {
+      "target": "ui:ribbon-shape-format",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    },
+    {
+      "target": "ui:ribbon-word-art",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,55 @@
+{
+  "id": "subfeature:numbering-gallery",
+  "node_type": "subfeature",
+  "name": "Numbering",
+  "parent": "feature:paragraph",
+  "what_it_does": "Starts or toggles a numbered list on the selected paragraphs; the dropdown is the numbering library.",
+  "affects": "the selected paragraphs' list format",
+  "audience_breadth": "most",
+  "behavior": "Opens Numbering (dropdown) (dropdown). Contents (13 controls): Color swatches, Numbering, None, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., 1, 2, 3, …, ALIGNMENT Left, Number Format: 1), I, II, III, …, ALIGNMENT Right, Number Format: I., A, B, C, …, ALIGNMENT Left, Number Format: A., a, b, c, …, ALIGNMENT Left, Number Format: a), a, b, c, …, ALIGNMENT Left, Number Format: a., i, ii, iii, …, ALIGNMENT Right, Number Format: i., Change List Level, Set Numbering Value..., Define New Number Format.... Sub-surfaces: ui:numbering-dropdown-define-new-number-format. [flyout of subfeature:numbering-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Numbering Library] Appears as a numbered list (1,2,3 beside lines) with a chevron.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:numbering-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:numbering-gallery-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:numbering-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-numbering-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-numbering-gallery.png",
+    "screenshots/ui-numbering-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:bullets-gallery",
+      "kind": "affects",
+      "why": "all apply list formatting to paragraphs",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:multilevel-list",
+      "kind": "affects",
+      "why": "all apply list formatting to paragraphs",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

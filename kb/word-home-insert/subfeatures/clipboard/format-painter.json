@@ -1,0 +1,50 @@
+{
+  "id": "subfeature:format-painter",
+  "node_type": "subfeature",
+  "name": "Format Painter",
+  "parent": "feature:clipboard",
+  "what_it_does": "Copies formatting from the selection to reapply to the next thing you click.",
+  "affects": "the formatting of the next selection",
+  "audience_breadth": "most",
+  "behavior": "Direct action: Copies formatting from the selection to reapply to the next thing you click. Applied immediately to the formatting of the next selection; toggle state (where applicable) is reflected by the button's highlighted look. Appears as a paintbrush (Format Painter).",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:format-painter"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Alt+Ctrl+C, Alt+Ctrl+V"
+    }
+  ],
+  "shortcut": "Alt+Ctrl+C, Alt+Ctrl+V",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-format-painter.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-format-painter.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "copies character formatting to reapply",
+      "source": "observed"
+    },
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "uses",
+      "why": "copies paragraph formatting to reapply",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "idmso"
+}

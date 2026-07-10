@@ -1,0 +1,104 @@
+{
+  "id": "ui:flyout-anchor-insert-pictures-menu-stock-images",
+  "kind": "dialog",
+  "label": "Insert Stock Image",
+  "purpose": "the Insert Stock Image dialog — content area streams from the network (boundary; offline UI only); enumerated across 1 tab(s)",
+  "screenshot": "screenshots/ui-flyout-anchor-insert-pictures-menu-stock-images/tab-single.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Search Stock Images",
+      "icon": {
+        "description": "Search Stock Images (in-dialog control)",
+        "image": null
+      },
+      "tooltip": "Search Stock Images",
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        256,
+        263,
+        1658,
+        283
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-pictures",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1571,
+        877,
+        1679,
+        909
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:insert-pictures",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "System",
+      "icon": {
+        "description": "System (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        200,
+        111,
+        222,
+        133
+      ],
+      "state_notes": "sets an option (depth endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:insert-pictures",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1687,
+        104,
+        1721,
+        134
+      ],
+      "state_notes": "dismisses/help (dialog chrome)",
+      "source": "uia",
+      "triggers": "subfeature:insert-pictures",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

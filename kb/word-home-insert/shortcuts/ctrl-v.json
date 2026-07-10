@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+V",
+  "bindings": [
+    {
+      "context": "document has focus",
+      "effect": "Inserts the clipboard's content at the cursor; the dropdown offers paste-special options (keep formatting, merge, text only, picture).",
+      "triggers": "subfeature:paste",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

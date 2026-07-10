@@ -1,0 +1,656 @@
+{
+  "id": "ui:ribbon-picture-format",
+  "kind": "tab",
+  "label": "Picture Format (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Picture Tools' family; exists only while: an inline picture is selected. Groups: Adjust, Picture Styles, Accessibility, Arrange, Size. Appeared on the 'picture' probe.",
+  "screenshot": "screenshots/ui-ribbon-picture-format/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-picture-format-picture-background-removal",
+      "control_type": "button",
+      "label": "Remove Background",
+      "icon": {
+        "description": "Remove Background control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-background-removal.png"
+      },
+      "tooltip": "Automatically remove unwanted portions of the picture.\n\nIf needed, use marks to indicate areas to keep or remove from the picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        20,
+        82,
+        89,
+        158
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, E 1; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-corrections-menu",
+      "control_type": "menuitem",
+      "label": "Corrections",
+      "icon": {
+        "description": "Corrections control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-corrections-menu.png"
+      },
+      "tooltip": "Improve the brightness, contrast, or sharpness of the picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        102,
+        82,
+        168,
+        158
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-color-menu",
+      "control_type": "menuitem",
+      "label": "Color",
+      "icon": {
+        "description": "Color control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-color-menu.png"
+      },
+      "tooltip": "Change the color of the picture to improve quality or match document content.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        170,
+        82,
+        212,
+        158
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-artistic-effects-gallery",
+      "control_type": "menuitem",
+      "label": "Artistic Effects",
+      "icon": {
+        "description": "Artistic Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-artistic-effects-gallery.png"
+      },
+      "tooltip": "Add artistic effects to the picture to make it look more like a sketch or painting.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        214,
+        82,
+        265,
+        158
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-transparency-gallery",
+      "control_type": "menuitem",
+      "label": "Transparency",
+      "icon": {
+        "description": "Transparency control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-transparency-gallery.png"
+      },
+      "tooltip": "Adjust the transparency of the picture to allow what is behind it to be seen.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        267,
+        82,
+        342,
+        158
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, T 1; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-pictures-compress",
+      "control_type": "button",
+      "label": "Compress Pictures...",
+      "icon": {
+        "description": "Compress Pictures... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-pictures-compress.png"
+      },
+      "tooltip": "Compress pictures in the document to reduce its size.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        344,
+        82,
+        475,
+        106
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, M; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-change-menu",
+      "control_type": "menuitem",
+      "label": "Change Picture",
+      "icon": {
+        "description": "Change Picture control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-change-menu.png"
+      },
+      "tooltip": "Remove or replace the selected picture, while maintaining the size and position of the picture object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        344,
+        108,
+        469,
+        132
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, E 2; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-reset",
+      "control_type": "splitbutton",
+      "label": "Reset Picture",
+      "icon": {
+        "description": "Reset Picture control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-reset.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        344,
+        134,
+        469,
+        158
+      ],
+      "state_notes": "group 'Adjust'; keytip Alt, J P, Q; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-styles-gallery",
+      "control_type": "menuitem",
+      "label": "PictureStylesGallery",
+      "icon": {
+        "description": "PictureStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-styles-gallery.png"
+      },
+      "tooltip": "Change the overall look of your picture.\n\nThe predefined styles make it easy for you to explore different looks. Hover over a style in the gallery to preview it in your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        491,
+        90,
+        1082,
+        150
+      ],
+      "state_notes": "group 'Picture Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Picture Border",
+      "icon": {
+        "description": "Picture Border control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-outline-color-picker.png"
+      },
+      "tooltip": "Pick the color, width, and line style for the outline of your shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1084,
+        82,
+        1199,
+        106
+      ],
+      "state_notes": "group 'Picture Styles'; keytip Alt, J P, S O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-effects-menu",
+      "control_type": "menuitem",
+      "label": "Picture Effects",
+      "icon": {
+        "description": "Picture Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-effects-menu.png"
+      },
+      "tooltip": "Apply a visual effect to the picture, such as a shadow, glow, reflection, or 3-D rotation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1084,
+        108,
+        1203,
+        132
+      ],
+      "state_notes": "group 'Picture Styles'; keytip Alt, J P, F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-pictures-convert-to-smart-art",
+      "control_type": "menuitem",
+      "label": "Picture Layout",
+      "icon": {
+        "description": "Picture Layout control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-pictures-convert-to-smart-art.png"
+      },
+      "tooltip": "Convert the selected pictures to a SmartArt graphic to easily arrange, caption, and resize the pictures.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1084,
+        134,
+        1204,
+        158
+      ],
+      "state_notes": "group 'Picture Styles'; keytip Alt, J P, C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-format-dialog",
+      "control_type": "button",
+      "label": "Picture...",
+      "icon": {
+        "description": "Picture... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-format-dialog.png"
+      },
+      "tooltip": "Show the Format Picture dialog box to adjust picture settings such as brightness, contrast, and compression.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1196,
+        160,
+        1212,
+        176
+      ],
+      "state_notes": "group 'Picture Styles'; keytip Alt, J P, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-alt-text-pane-ribbon",
+      "control_type": "button",
+      "label": "Alt Text",
+      "icon": {
+        "description": "Alt Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-alt-text-pane-ribbon.png"
+      },
+      "tooltip": "Create text descriptions of objects for screen readers.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1225,
+        82,
+        1267,
+        158
+      ],
+      "state_notes": "group 'Accessibility'; keytip Alt, J P, A T; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-position-gallery",
+      "control_type": "menuitem",
+      "label": "Position",
+      "icon": {
+        "description": "Position control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-position-gallery.png"
+      },
+      "tooltip": "Choose where the selected object will appear on the page.\n\nText will automatically wrap around the object so that it's still easy to read.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1288,
+        82,
+        1336,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, P O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-text-wrap-gallery",
+      "control_type": "menuitem",
+      "label": "Wrap Text",
+      "icon": {
+        "description": "Wrap Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-text-wrap-gallery.png"
+      },
+      "tooltip": "Choose how your text wraps around the selected object.\n\nFor example, you can choose to have the text continue around the object or cross right over it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1338,
+        82,
+        1380,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, T W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-object-bring-forward",
+      "control_type": "splitbutton",
+      "label": "Bring Forward",
+      "icon": {
+        "description": "Bring Forward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-object-bring-forward.png"
+      },
+      "tooltip": "Bring the selected object forward one level, or bring it in front of all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1382,
+        82,
+        1441,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, A F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-object-send-backward",
+      "control_type": "splitbutton",
+      "label": "Send Backward",
+      "icon": {
+        "description": "Send Backward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-object-send-backward.png"
+      },
+      "tooltip": "Send the selected object back one level, or send it behind all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1443,
+        82,
+        1510,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, A E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-selection-pane",
+      "control_type": "button",
+      "label": "Selection Pane...",
+      "icon": {
+        "description": "Selection Pane... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-selection-pane.png"
+      },
+      "tooltip": "See a list of all your objects.\n\nThis makes it easier to select objects, change their order, or change their visibility.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1512,
+        82,
+        1565,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, A P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-object-align-menu",
+      "control_type": "menuitem",
+      "label": "Align",
+      "icon": {
+        "description": "Align control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-object-align-menu.png"
+      },
+      "tooltip": "Change the placement of your selected objects on the page.\n\nThis is great for aligning objects to the margins or the edge of the page. You can also align them relative to one another.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1567,
+        82,
+        1639,
+        106
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, A A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-objects-group-menu",
+      "control_type": "menuitem",
+      "label": "Group",
+      "icon": {
+        "description": "Group control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-objects-group-menu.png"
+      },
+      "tooltip": "Join objects together to move and format them as if they were a single object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1567,
+        108,
+        1644,
+        132
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, A G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-object-rotate-gallery",
+      "control_type": "menuitem",
+      "label": "Rotate",
+      "icon": {
+        "description": "Rotate control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-object-rotate-gallery.png"
+      },
+      "tooltip": "Rotate or flip the selected object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1567,
+        134,
+        1645,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J P, A Y; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-picture-crop",
+      "control_type": "splitbutton",
+      "label": "Crop",
+      "icon": {
+        "description": "Crop control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-picture-crop.png"
+      },
+      "tooltip": "Crop your picture to remove any unwanted areas.\n\nCheck out the dropdown for more options such as cropping to a specific shape or aspect ratio.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1661,
+        82,
+        1703,
+        158
+      ],
+      "state_notes": "group 'Size'; keytip Alt, J P, V; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-more.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1824,
+        91,
+        1841,
+        102
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-less.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1824,
+        102,
+        1841,
+        113
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-more.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1824,
+        123,
+        1841,
+        134
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-less.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1824,
+        134,
+        1841,
+        145
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-picture-format-layout-options-dialog-size",
+      "control_type": "button",
+      "label": "Size and Position...",
+      "icon": {
+        "description": "Size and Position... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-picture-format/icon-layout-options-dialog-size.png"
+      },
+      "tooltip": "See more options for changing the size of your shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-picture-format",
+      "bounds": [
+        1834,
+        160,
+        1850,
+        176
+      ],
+      "state_notes": "group 'Size'; keytip Alt, J P, S Z; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "an inline picture is selected"
+}

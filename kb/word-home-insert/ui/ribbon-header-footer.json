@@ -1,0 +1,518 @@
+{
+  "id": "ui:ribbon-header-footer",
+  "kind": "tab",
+  "label": "Header & Footer (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Header & Footer Tools' family; exists only while: header/footer editing mode is active (cursor in header or footer). Groups: Header & Footer, Insert, Navigation, Options, Position, Close. Appeared on the 'header' probe.",
+  "screenshot": "screenshots/ui-ribbon-header-footer/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-header-footer-header-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Header",
+      "icon": {
+        "description": "Header control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-insert-gallery.png"
+      },
+      "tooltip": "Headers help you to repeat content at the top of every page.\n\nThey're useful for showcasing information, like title, author, and page number.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        20,
+        82,
+        63,
+        158
+      ],
+      "state_notes": "group 'Header & Footer'; keytip Alt, J H, H; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-footer-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Footer",
+      "icon": {
+        "description": "Footer control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-footer-insert-gallery.png"
+      },
+      "tooltip": "Footers help you repeat content at the bottom of every page.\n\nThey're useful for showcasing information, like title, author, and page number.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        65,
+        82,
+        107,
+        158
+      ],
+      "state_notes": "group 'Header & Footer'; keytip Alt, J H, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-page-number-insert",
+      "control_type": "menuitem",
+      "label": "Page Number",
+      "icon": {
+        "description": "Page Number control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-page-number-insert.png"
+      },
+      "tooltip": "Number the pages in your document.\n\nYou can choose from a variety of pre-defined looks or select your own format.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        109,
+        82,
+        169,
+        158
+      ],
+      "state_notes": "group 'Header & Footer'; keytip Alt, J H, N U; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-date-and-time-insert",
+      "control_type": "button",
+      "label": "Date & Time...",
+      "icon": {
+        "description": "Date & Time... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-date-and-time-insert.png"
+      },
+      "tooltip": "Quickly add the current date or time.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        185,
+        82,
+        227,
+        158
+      ],
+      "state_notes": "group 'Insert'; keytip Alt, J H, D; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-document-info",
+      "control_type": "menuitem",
+      "label": "Document Info",
+      "icon": {
+        "description": "Document Info control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-document-info.png"
+      },
+      "tooltip": "Quickly insert information about your document, such as author or file name.\n\nFor more options, explore document properties and fields.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        229,
+        82,
+        290,
+        158
+      ],
+      "state_notes": "group 'Insert'; keytip Alt, J H, I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-quick-parts-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Quick Parts",
+      "icon": {
+        "description": "Quick Parts control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-quick-parts-insert-gallery.png"
+      },
+      "tooltip": "Insert preformatted text, auto-text, document properties, and fields anywhere in the document.\n\nTo reuse content in your document, select it and save it to the Quick Part Gallery.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        292,
+        82,
+        334,
+        158
+      ],
+      "state_notes": "group 'Insert'; keytip Alt, J H, Q; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-picture-insert-from-file",
+      "control_type": "button",
+      "label": "Pictures...",
+      "icon": {
+        "description": "Pictures... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-picture-insert-from-file.png"
+      },
+      "tooltip": "Insert pictures from your computer or from other computers that you're connected to.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        336,
+        82,
+        383,
+        158
+      ],
+      "state_notes": "group 'Insert'; keytip Alt, J H, P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-clip-art-insert-dialog",
+      "control_type": "button",
+      "label": "Online Pictures...",
+      "icon": {
+        "description": "Online Pictures... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-clip-art-insert-dialog.png"
+      },
+      "tooltip": "Find and insert pictures from a variety of online sources.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        385,
+        82,
+        432,
+        158
+      ],
+      "state_notes": "group 'Insert'; keytip Alt, J H, F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-go-to-header",
+      "control_type": "button",
+      "label": "Go to Header",
+      "icon": {
+        "description": "Go to Header control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-go-to-header.png"
+      },
+      "tooltip": "Edit the header on this page.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        448,
+        82,
+        491,
+        158
+      ],
+      "state_notes": "group 'Navigation'; keytip Alt, J H, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-go-to-footer",
+      "control_type": "button",
+      "label": "Go to Footer",
+      "icon": {
+        "description": "Go to Footer control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-go-to-footer.png"
+      },
+      "tooltip": "Edit the footer on this page.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        493,
+        82,
+        535,
+        158
+      ],
+      "state_notes": "group 'Navigation'; keytip Alt, J H, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-previous-section",
+      "control_type": "button",
+      "label": "Previous",
+      "icon": {
+        "description": "Previous control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-previous-section.png"
+      },
+      "tooltip": "Jump to the previous header or footer.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        537,
+        82,
+        615,
+        106
+      ],
+      "state_notes": "group 'Navigation'; keytip Alt, J H, R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-next-section",
+      "control_type": "button",
+      "label": "Next",
+      "icon": {
+        "description": "Next control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-next-section.png"
+      },
+      "tooltip": "Jump to the next header or footer.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        537,
+        108,
+        594,
+        132
+      ],
+      "state_notes": "group 'Navigation'; keytip Alt, J H, X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-link-to-previous",
+      "control_type": "button",
+      "label": "Link to Previous",
+      "icon": {
+        "description": "Link to Previous control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-link-to-previous.png"
+      },
+      "tooltip": "Link to the previous section to continue using the same header or footer.\n\nTurn this feature off to create a different header or footer for the current section.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        537,
+        134,
+        654,
+        158
+      ],
+      "state_notes": "group 'Navigation'; keytip Alt, J H, K; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-different-first-page",
+      "control_type": "checkbox",
+      "label": "Different First Page",
+      "icon": {
+        "description": "Different First Page control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-different-first-page.png"
+      },
+      "tooltip": "Give the first page a different header and footer from the rest of your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        670,
+        82,
+        798,
+        106
+      ],
+      "state_notes": "group 'Options'; keytip Alt, J H, A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-different-odd-even-page",
+      "control_type": "checkbox",
+      "label": "Different Odd & Even Pages",
+      "icon": {
+        "description": "Different Odd & Even Pages control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-different-odd-even-page.png"
+      },
+      "tooltip": "Specify that odd-numbered pages should have a different header and footer from even-numbered pages.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        670,
+        108,
+        845,
+        132
+      ],
+      "state_notes": "group 'Options'; keytip Alt, J H, V; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-show-document-text",
+      "control_type": "checkbox",
+      "label": "Show Document Text",
+      "icon": {
+        "description": "Show Document Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-show-document-text.png"
+      },
+      "tooltip": "Show the part of the document not in the header or footer.\n\nTurn off this option if you only want to see content in the header and footer.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        670,
+        134,
+        810,
+        158
+      ],
+      "state_notes": "group 'Options'; keytip Alt, J H, W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-more.png"
+      },
+      "tooltip": "Specify the distance from the top of the page to the top of the header.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        1034,
+        83,
+        1051,
+        94
+      ],
+      "state_notes": "group 'Position'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-less.png"
+      },
+      "tooltip": "Specify the distance from the top of the page to the top of the header.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        1034,
+        94,
+        1051,
+        105
+      ],
+      "state_notes": "group 'Position'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-more.png"
+      },
+      "tooltip": "Specify the distance from the bottom of the page to the bottom of the footer.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        1050,
+        109,
+        1067,
+        120
+      ],
+      "state_notes": "group 'Position'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-less.png"
+      },
+      "tooltip": "Specify the distance from the bottom of the page to the bottom of the footer.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        1050,
+        120,
+        1067,
+        131
+      ],
+      "state_notes": "group 'Position'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-insert-alignment-tab",
+      "control_type": "button",
+      "label": "Insert Alignment Tab",
+      "icon": {
+        "description": "Insert Alignment Tab control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-insert-alignment-tab.png"
+      },
+      "tooltip": "Insert a tab stop to help align content within the header or footer.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        861,
+        134,
+        1004,
+        158
+      ],
+      "state_notes": "group 'Position'; keytip Alt, J H, M; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-header-footer-header-footer-close",
+      "control_type": "button",
+      "label": "Close Header and Footer",
+      "icon": {
+        "description": "Close Header and Footer control (see icon crop)",
+        "image": "screenshots/ui-ribbon-header-footer/icon-header-footer-close.png"
+      },
+      "tooltip": "Close the Header and Footer Tools.\n\nYou can also double-click the document area to return to editing it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-header-footer",
+      "bounds": [
+        1084,
+        82,
+        1159,
+        158
+      ],
+      "state_notes": "group 'Close'; keytip Alt, J H, C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "header/footer editing mode is active (cursor in header or footer)"
+}

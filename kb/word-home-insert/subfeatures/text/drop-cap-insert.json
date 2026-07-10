@@ -1,0 +1,33 @@
+{
+  "id": "subfeature:drop-cap-insert",
+  "node_type": "subfeature",
+  "name": "Drop Cap",
+  "parent": "feature:text",
+  "what_it_does": "Turns the paragraph's first letter into a large dropped capital (Dropped / In margin / options dialog); disabled until the document has text (measured).",
+  "affects": "the first paragraph character's layout",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:drop-cap-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:drop-cap-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-drop-cap-insert-gallery.png",
+    "screenshots/ui-drop-cap-insert-dropdown/surface.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

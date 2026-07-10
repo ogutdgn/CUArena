@@ -1,0 +1,30 @@
+{
+  "id": "feature:comments",
+  "node_type": "feature",
+  "name": "Comments",
+  "what_it_does": "Attach review comments to document ranges for collaboration.",
+  "affects": "the document's comment thread (review layer)",
+  "audience_breadth": "most",
+  "behavior": "Attach review comments to document ranges for collaboration.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:insert-new-comment"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}
