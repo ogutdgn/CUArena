@@ -62,7 +62,8 @@ def build_graph(kb_root: Path, app: str) -> dict:
                   for cid, c in ui.containers.items()}
 
     return {"app": app, "nodes": nodes, "edges": edges, "containers": containers,
-            "layers": pri.layers, "closure": pri.closure}
+            "layers": pri.layers, "closure": pri.closure,
+            "derived": pri.derived_features}
 
 
 # Window/scrollbar chrome + dialog-dismiss labels exempt from the unexplored-element depth check
@@ -128,9 +129,15 @@ def check_completeness(graph: dict) -> list[str]:
             if _ellipsis_labeled(label):
                 problems.append(f"container {cid} closes ellipsis-labeled \"{label}\" as an endpoint (R2.4: must be opens/unexplored)")
 
-    # depth invariant (playbook R5.4): no P0-P3 node reaches an explored:false container OR an
-    # unexplored element (chrome exempt) by any chain of opens
-    hi = {nid for nid, n in graph["nodes"].items() if n.get("layer") in ("P0", "P1", "P2", "P3")}
+    # depth invariant (playbook R5.4 + R5.5): no DEPTH-SET node reaches an explored:false
+    # container or an unexplored element (chrome exempt) by any chain of opens.
+    # depth set = P0-P3 nodes + ALL children of scope:whole features (04's majority rule);
+    # closure pulls get "enough to work" depth, which is judgment, not mechanically checkable.
+    whole = {fid for fid, d in (graph.get("derived") or {}).items()
+             if isinstance(d, dict) and d.get("scope") == "whole"}
+    hi = {nid for nid, n in graph["nodes"].items()
+          if n.get("layer") in ("P0", "P1", "P2", "P3")
+          or (n["type"] == "subfeature" and n.get("parent") in whole)}
     stubs = {cid for cid, c in graph["containers"].items() if not c["explored"]}
     gapped = {}   # cid -> non-chrome unexplored labels (deduped: reported once per container)
     for cid, c in graph["containers"].items():
@@ -149,11 +156,11 @@ def check_completeness(graph: dict) -> list[str]:
                 seen.add(cid)
                 if cid in stubs and cid not in reported_stub:
                     reported_stub.add(cid)
-                    problems.append(f"P0-P3 node {nid} reaches unexplored stub {cid} (depth incomplete)")
+                    problems.append(f"depth-set node {nid} reaches unexplored stub {cid} (depth incomplete)")
                 if cid in gapped and cid not in reported_gap:
                     reported_gap.add(cid)
                     ex = ", ".join(f'"{l}"' for l in gapped[cid][:3])
-                    problems.append(f"P0-P3 node {nid} reaches container {cid} holding {len(gapped[cid])} unexplored element(s), e.g. {ex} (R5.4)")
+                    problems.append(f"depth-set node {nid} reaches container {cid} holding {len(gapped[cid])} unexplored element(s), e.g. {ex} (R5.4)")
                 frontier += graph["containers"][cid]["opens"]
     return problems
 

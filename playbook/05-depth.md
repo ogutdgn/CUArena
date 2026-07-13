@@ -2,10 +2,16 @@
 
 ## Goal
 
-Full-depth knowledge for **P0–P3** nodes: every dialog, every option, every state, every
-shortcut — documented exactly. P4 stays at outline (identity rubric + trigger path + face
-screenshot; interiors honest stubs), honestly labeled. Depth is bought with priority, never
-spent evenly.
+Full-depth knowledge for every node in the **depth set**: every dialog, every option, every
+state, every shortcut — documented exactly. The depth set is defined by Step 4's output:
+
+> **depth set = all P0–P3 nodes + ALL children of `scope: whole` features** (the majority
+> rule: a group replicated whole must not ship dead buttons) **+ closure pulls** (which get
+> "enough to work" depth, not automatic full depth).
+
+Everything outside it (P4 nodes in non-whole groups) stays at outline (identity rubric +
+trigger path + face screenshot; interiors honest stubs), honestly labeled. Depth is bought
+with priority, never spent evenly.
 
 ## The depth-endpoint rule (when to stop descending)
 
@@ -31,7 +37,7 @@ stopping that branch only.
 
 ## How
 
-- For each P0–P3 node: follow its trigger paths through every container; enumerate every child
+- For each node in the depth set: follow its trigger paths through every container; enumerate every child
   element with measured markers; capture per-surface screenshots; recurse per the endpoint rule;
   reset-verify after every press (Step 2's discipline still binds).
 - **Enter the stubs — TRANSITIVELY.** The surfaces left as stubs (`explored: false`) in Steps
@@ -73,19 +79,25 @@ stopping that branch only.
 - **R5.2** Every marker measured; every claim traceable to a journal entry.
 - **R5.3** The seen-set: shared dialogs (reachable from several paths) are referenced, not
   duplicated.
-- **R5.4 Depth walks ELEMENTS, not just containers.** A P0–P3 node is done only when its
+- **R5.4 Depth walks ELEMENTS, not just containers.** A depth-set node is done only when its
   `opens`-chains reach NO `explored:false` container AND NO `unexplored` element (window/scroll
   chrome exempt). "The dialog is explored but half its buttons are `unexplored`" is NOT done —
   an unexplored element never created a container, so a containers-only walk is blind to it.
   [kernel-checked] (LESSONS 2026-07-12: 24 unexplored elements were reachable from P0 nodes in
   a run whose DoD had passed)
+- **R5.5 The depth set honors Step 4's scope decisions.** A `scope: whole` feature's children
+  ALL enter the depth set — their own P4 layer does not exempt them (04's majority rule: a
+  whole-replicated group with one dead button feels broken). Closure pulls enter with "enough
+  to work" depth, journaled per node. [kernel-checked for whole-children] (LESSONS 2026-07-12:
+  04 promised whole-group depth, 05's work list and the kernel walk never heard of it — promise
+  without worker or inspector)
 
 ## Proof — the KB's definition of done (from the design doc)
 
-1. Every P0–P3 node has full-depth detail; P4 outline-only **by design, labeled, not silently
-   missing**.
+1. Every depth-set node (P0–P3 + whole-scope children + closure pulls) has its owed depth;
+   P4-outside-whole outline-only **by design, labeled, not silently missing**.
 2. **Transitive-depth check (the one a prior run failed — do it explicitly):** walk `opens`
-   from every P0–P3 node through the whole chain; **not one `explored: false` container and not
+   from every depth-set node through the whole chain; **not one `explored: false` container and not
    one `unexplored` element (chrome exempt) may be reachable** (R5.4). A first-level surface
    opened but its nested "More…/Options…/Special…" dialogs left as stubs = depth NOT done. Your
    DoD checker must compute this reachability at BOTH levels — a containers-only check is blind

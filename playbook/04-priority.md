@@ -48,7 +48,8 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
   - `ratio` = how many of its children landed in P0–P3.
 - **Replication scope per feature** comes from the ratio:
   - **Majority rule:** most children in P0–P3 → the feature is replicated WHOLE (full depth on
-    the entire group — a group with one dead button feels broken in a replica).
+    the entire group — a group with one dead button feels broken in a replica). This is wired
+    into Step 5's depth set (R5.5): whole-scope children enter it whatever their own layer.
   - **Gem rule:** only isolated children rank high → only those gems (+ their closure) get full
     depth; the rest of the group stays honestly shallow.
   - Ratio ~0 → not replicated (breadth knowledge only, honestly labeled).
