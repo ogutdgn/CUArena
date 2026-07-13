@@ -171,6 +171,47 @@ failure families the structural checks could not see: **lies told at classificat
   - **RULE NOW:** R5.4 [kernel-checked] — the depth walk inspects BOTH levels: reachable
     `explored:false` containers and reachable non-chrome `unexplored` elements both fail DoD.
 
+## 2026-07-13 — v2 / behavior fields (why Step 6 + BehaviorRecord exist)
+
+- **SYMPTOM:** v2's `behavior` fields on P0–P2 nodes were filled yet meaningless — e.g.
+  table-autofit's read "Opens AutoFit (dropdown). Contents (3 controls): AutoFit Contents,
+  AutoFit Window, Fixed Column Width" — a re-listing of the menu (structural echo), zero
+  semantics. A builder could draw the menu but not implement the difference between the
+  three commands. The DoD passed: "behavior non-null" was the whole bar.
+  - **ROOT CAUSE:** behavior was ONE free-text field with no slot structure (gaps
+    invisible), no evidence requirement (claims unfalsifiable), no functional-language rule
+    (label-echo counted as content), and no measurement step that owned it.
+  - **RULE NOW:** Step 6 (playbook/06-behavior.md) owns semantics measurement over the
+    depth set; findings go into `BehaviorRecord` — structured SLOTS (effect / options /
+    defaults / state_rules / dynamics / extra / pending), FREE functional prose inside
+    (R6.2: what a user observes, never instrument readouts), every claim evidenced (R6.3
+    [kernel-checked]), gesture + build pinned (R6.4), unmeasured = pending, never guessed
+    (R6.5). Method knowledge: toolbox/behavior.md (verified distillation of the
+    ms-word-clone measurement corpus, 2026-07-13).
+
+## 2026-07-13 — v2 audit round 3 (scenario-driven review: created artifacts, scrollable surfaces)
+
+- **SYMPTOM:** `cover-page-insert` carried ZERO connection toward the shape machinery —
+  though Word cover pages are literally BUILT of shapes/text-boxes (selecting a part summons
+  Shape Format). Had cover-page entered the replication set, closure could not have pulled
+  what it never saw; the replica would insert a cover page made of machinery it doesn't have.
+  - **ROOT CAUSE:** no rule required poking the artifact an insert-endpoint CREATES; the
+    walker recorded "document changed → triggers ✓" and moved on, so composition edges only
+    ever appeared where an agent happened to click around (tables), not deterministically.
+  - **RULE NOW:** R5.6 — after an insert/create endpoint fires, select the created artifact;
+    record the contextual worlds it summons + composition `requires` edges (measured).
+
+- **SYMPTOM:** `ui:font-dropdown` holds 23 items — on a machine with 317 installed font
+  families, and the captured names are the alphabet's head (Abadi, ADLaM, Agency…): the
+  first screenful, never scrolled. 47 containers carry scrollbar traces; none records
+  whether it was scrolled to the end.
+  - **ROOT CAUSE:** the scroll recipe existed as toolbox knowledge (input.md: wheel +
+    re-enumerate until nothing new) but no playbook rule made it binding, no field recorded
+    it, and no check asked. Knowledge without rule = applied by luck.
+  - **RULE NOW:** R2.8 [kernel-checked, gated] — scrollability is detected and addressed:
+    `scrolled_to_end: true` (exhausted) or `false` + journaled honest partial ("23 of ~317").
+    Screenshots follow the scroll as an ordered SERIES covering the whole content.
+
 ## 2026-07 — Environment lessons (every Windows GUI run)
 
 - **RULE:** cloud-synced (OneDrive) folders silently enable AutoSave → the canonical fixture gets

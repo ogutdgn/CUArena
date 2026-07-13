@@ -49,6 +49,11 @@ stopping that branch only.
   per the endpoint rule. Opening only the node's first surface and stopping is the most common
   depth failure — it looks done but leaves nested stubs behind. **Done for a P0–P3 node = no
   `explored: false` container is reachable from it by ANY chain of `opens`.**
+- **Structure here, semantics in Step 6.** Depth's job is the complete structural map: every
+  surface entered, every element classified, every option ENUMERATED, screenshots verified.
+  What each option/action actually DOES (the functional semantics — toggle rules, option
+  differences, defaults) is Step 6's measured work; leave those as behavior `pending` slots
+  rather than writing structural echo or label-inference into behavior fields.
 - **Full knowledge, not just structure** — for every P0–P3 node AND everything discovered
   beneath it (dialog fields, dropdown entries, options), write the complete rubric into its JSON
   (schema: `design/knowledge-base-design.md`): **what it does**, **how it works/behaves**
@@ -73,9 +78,9 @@ stopping that branch only.
 ## Rules
 
 - **R5.1** All common rules (CR1–CR8) + Step 2's press/reset discipline bind. The
-  classification rules **R2.3–R2.5** (no effect → no endpoint; ellipsis contract; gallery =
-  three zones) bind during every descent exactly as on the skeleton — depth is where their
-  violations hide best.
+  classification rules **R2.3–R2.5 and R2.8** (no effect → no endpoint; ellipsis contract;
+  gallery = three zones; scroll to the end + screenshot series) bind during every descent
+  exactly as on the skeleton — depth is where their violations hide best.
 - **R5.2** Every marker measured; every claim traceable to a journal entry.
 - **R5.3** The seen-set: shared dialogs (reachable from several paths) are referenced, not
   duplicated.
@@ -91,6 +96,13 @@ stopping that branch only.
   to work" depth, journaled per node. [kernel-checked for whole-children] (LESSONS 2026-07-12:
   04 promised whole-group depth, 05's work list and the kernel walk never heard of it — promise
   without worker or inspector)
+- **R5.6 Poke what you create.** When an insert/create endpoint fires, the branch does NOT
+  end at "document changed": SELECT/click the created artifact and record (1) the contextual
+  worlds it summons (with their `trigger_condition`), and (2) what the artifact is MADE OF —
+  composition `requires` edges to the capabilities that own its parts (source: measured).
+  A cover page is built of shapes/text-boxes → cover-page requires the shape machinery;
+  without this gesture that edge is invisible, and closure cannot protect what it cannot
+  see. (LESSONS 2026-07-13: v2's cover-page carried zero edges toward shapes)
 
 ## Proof — the KB's definition of done (from the design doc)
 

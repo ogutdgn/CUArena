@@ -42,6 +42,11 @@ class UIContainer(BaseModel):
                                               # inside a table"). Additive field, word-home-insert
                                               # run (playbook step 3: contextual surfaces carry
                                               # their triggering condition). None = always present.
+    scrolled_to_end: Optional[bool] = None    # R2.8: True = enumerated to the end; False =
+                                              # deliberately partial (journaled decision + honest
+                                              # count); None = legacy KB / not scrollable
+    screenshots: list[str] = []               # R2.8 series for surfaces taller than one viewport,
+                                              # in scroll order; `screenshot` stays the cover
 
 class FeatureStub(BaseModel):
     id: str = Field(pattern=r"^feature:[a-z0-9][a-z0-9-]*$")
@@ -69,6 +74,35 @@ class TriggerPath(BaseModel):
     shortcut: Optional[str] = None       # e.g. "Ctrl+B" or keytip "Alt, H, 1"
 
 
+class BehaviorOption(BaseModel):
+    """One option of a multi-option control, with its measured FUNCTIONAL difference."""
+    name: str
+    found: Optional[str] = None          # functional finding, free prose ("stretches table to
+                                         # page width; reflows on window resize"); None = pending
+    evidence: list[str] = []             # journal experiment ids / before-after artifact paths
+
+
+class BehaviorRecord(BaseModel):
+    """Measured semantics of a node (Step 6, playbook/06-behavior.md). Slots are structured
+    so gaps are visible; content inside each slot is FREE functional prose — what a
+    user/builder observes, never instrument readouts (those are the evidence artifacts).
+    """
+    effect: Optional[str] = None         # what running it does ("toggles bold on selection;
+                                         # no selection -> word under caret")
+    options: list[BehaviorOption] = []   # per-option functional differences
+    defaults: Optional[str] = None       # what happens/is written when nothing is specified
+    state_rules: Optional[str] = None    # toggle? needs selection? persists? when enabled?
+    dynamics: Optional[str] = None       # caret landing, live preview, undo granularity (P0-P1)
+    extra: Optional[str] = None          # unasked discoveries — never dropped for not fitting
+    pending: list[str] = []              # honestly unmeasured; may NOT be guessed closed (R6.5)
+    evidence: list[str] = []             # experiment refs backing the scalar slots
+    gesture: Optional[str] = None        # how it was driven: ribbon-click | menu | dialog | keyboard
+    build: Optional[str] = None          # app build the facts are pinned to
+
+    def evidenced(self) -> bool:
+        return bool(self.evidence) or any(o.evidence for o in self.options)
+
+
 def _valid_audience(v: str) -> str:
     ok = v in ("everyone", "most", "niche") or v.startswith("role-specific:")
     if not ok:
@@ -88,7 +122,8 @@ class FeatureNode(BaseModel):
                                          # capability vs drawer of independent capabilities.
                                          # Drives scope: catalog never whole (04 R4.7).
                                          # None = legacy KB written before the rule.
-    behavior: Optional[str] = None       # depth: how it works (options, states, defaults, edges)
+    behavior: Optional[str] = None       # LEGACY free-text summary; new runs use behavior_record
+    behavior_record: Optional[BehaviorRecord] = None   # Step 6 measured semantics
     trigger_paths: list[TriggerPath] = []
     shortcut: Optional[str] = None       # display string; registry is source of truth
     location: Optional[str] = None       # ui container id where it lives
@@ -114,7 +149,9 @@ class SubFeatureNode(BaseModel):
     what_it_does: str
     affects: str
     audience_breadth: str
-    behavior: Optional[str] = None       # depth: how it works (options, states, defaults, edges)
+    behavior: Optional[str] = None       # LEGACY free-text summary (pre-Step-6 KBs); new runs
+                                         # write behavior_record instead
+    behavior_record: Optional[BehaviorRecord] = None   # Step 6 measured semantics
     trigger_paths: list[TriggerPath] = []
     shortcut: Optional[str] = None
     opens: Optional[str] = None          # container id if the control opens a surface (Step 2)

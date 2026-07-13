@@ -242,6 +242,8 @@ Features are never scored independently: a feature's layer = its best child's la
 
 **Stage 4 — Depth fan-out.** Priority-gated. P0–P3 nodes each get an inspector that captures everything — every behavior, option, dialog, state, edge case, screenshots — descending until the depth endpoint rule (below) says stop. P4 nodes are already done: the outline (breadth pass) was their budget. Depth per node can be unbounded because the endpoint rule bounds every branch; the P4 tail is what keeps the total bounded.
 
+**Stage 4b — Behavior measurement.** Priority-gated like depth. For every depth-set node: measure the functional semantics — effect, per-option differences, defaults, state rules (dynamics recordings for the top layers only) — through the app's strongest available channels (saved-file diff, object model, UI metadata, screen; channel map probed in the tools stage). Findings written at the FUNCTIONAL level ("toggle; applies to word under caret"), instrument readouts archived as evidence; every claim carries experiment evidence + gesture + build; the unmeasurable stays PENDING, never guessed. (playbook/06-behavior.md, toolbox/behavior.md)
+
 **Stage 5 — Finalize.** Recompute priority once (depth discoveries may promote features), regenerate `overview.md`, re-run the completeness check.
 
 ## Priority layers and depth budgets
@@ -352,7 +354,8 @@ Driving an app through structured UI layers means writing code, and that code is
 1. Completeness check passes: no gaps (unexplored stubs are allowed and labeled).
 2. The skeleton surface layer is exhaustively documented (every top-level control with control type, icon, label, screenshots).
 3. Every P0–P3 node has full-depth detail. (P4 stays at outline — by design, not omission.)
-4. `graph.json` and `overview.md` generated and consistent with the node files.
+4. Every depth-set sub-feature carries an evidenced behavior record in functional language (effect, option differences, defaults, state rules; dynamics for the top layers), with honest PENDING for the unmeasured.
+5. `graph.json` and `overview.md` generated and consistent with the node files.
 
 ## Out of scope for P1
 

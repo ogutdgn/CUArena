@@ -24,7 +24,11 @@ saw the tree first, so your tools won't lie.
    single button/icon, a dialog, a dropdown/flyout — by looking at each result and checking it
    shows the intended thing (not the wrong window, an empty region, or a stale frame). If a
    capture type comes back wrong, fix the tool now — the whole KB's visual evidence depends on it.
-6. **Give back**: append dated lessons you learned to the relevant `toolbox/*.md` files — the
+6. **Map the behavior channels** (for Step 6): probe which measurement channels THIS app
+   offers — a savable artifact format (zip-XML? PNG? plain text?), an object model
+   (COM/AppleScript/API?), UI command metadata (enablement queries?), and note how each was
+   confirmed. Record the channel map in the KB (`toolbox/behavior.md` for what to look for).
+7. **Give back**: append dated lessons you learned to the relevant `toolbox/*.md` files — the
    next app starts smarter because of you.
 
 ## Rules

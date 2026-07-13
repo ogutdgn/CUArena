@@ -7,9 +7,9 @@ feature.
 
 | File | Guarantee it provides |
 |---|---|
-| `models.py` | The KB schema. Every knowledge record is validated against it — the format is the product's contract that every downstream phase (features, priority, later replica generation) depends on. Includes the consolidated fat-file models (`FeatureFile`, `UIFile`, `PriorityFile`, `ShortcutsFile`). |
+| `models.py` | The KB schema. Every knowledge record is validated against it — the format is the product's contract that every downstream phase (features, priority, later replica generation) depends on. Includes the consolidated fat-file models (`FeatureFile`, `UIFile`, `PriorityFile`, `ShortcutsFile`) and the Step-6 `BehaviorRecord` (structured slots, free functional content, evidence + gesture + build). |
 | `kb_writer.py` | Schema-enforcing writers for the **consolidated** layout: one fat `features/<feature>.json` (feature + inlined sub-features), one `ui.json` (all containers keyed by id), one `priority.json`, one `shortcuts.json`. They **refuse** invalid records before touching disk. |
-| `graph_builder.py` | Generates `graph.json` (the spine) from the fat files, and runs the mechanical completeness checks: dangling edges, unresolved `opens`, unreachable nodes, unranked nodes (R4.3), ellipsis-labeled endpoints (R2.4), and the transitive depth invariant (R5.4): no P0–P3 node reaches an `explored:false` stub or a non-chrome `unexplored` element. graph.json is DERIVED, never hand-authored — so structural facts have one home and cannot drift. |
+| `graph_builder.py` | Generates `graph.json` (the spine) from the fat files, and runs the mechanical completeness checks: dangling edges, unresolved `opens`, unreachable nodes, unranked nodes (R4.3), ellipsis-labeled endpoints (R2.4), the transitive depth invariant (R5.4): no P0–P3 node reaches an `explored:false` stub or a non-chrome `unexplored` element, and the behavior contract (R6.3): once a run writes any behavior record, every depth-set sub-feature owes an evidenced one. graph.json is DERIVED, never hand-authored — so structural facts have one home and cannot drift. |
 | `journal.py` | The append-only audit log. One canonical recorder → cross-run and cross-app comparability, reproducibility, and honest failure records. |
 
 ## What is NOT in the kernel (deliberately)

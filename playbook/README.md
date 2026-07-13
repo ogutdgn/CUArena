@@ -65,8 +65,8 @@ Once started, the run needs **no human hand**. The agent drives itself to comple
    written knowledge) — a fresh session reads the journal and the last proofs, determines the
    current step, and continues from exactly there. Long apps may take many sessions; the loop
    doesn't care.
-4. **Done means Step 5's definition-of-done passes** — not "I ran out of things I felt like
-   doing." Until then, the loop continues.
+4. **Done means Step 6's definition-of-done passes** (which includes Step 5's) — not "I ran
+   out of things I felt like doing." Until then, the loop continues.
 
 ## The steps
 
@@ -77,6 +77,7 @@ Once started, the run needs **no human hand**. The agent drives itself to comple
 | 2 | [APP SKEL](02-app-skel.md) — press-observe-classify every top-level surface | containers with measured markers + screenshots |
 | 3 | [Features](03-features.md) — the 3-level tree + connections + contextual surfaces | the shallow knowledge tree |
 | 4 | [Priority](04-priority.md) — rank P0–P4 from connections + usage + audience | evidence-backed `priority/` artifacts |
-| 5 | [Depth](05-depth.md) — exhaust P0–P3 per the depth-endpoint rule; shortcuts; icons | the complete KB, definition-of-done checked |
+| 5 | [Depth](05-depth.md) — exhaust the depth set per the depth-endpoint rule; shortcuts; icons | the complete structural KB |
+| 6 | [Behavior](06-behavior.md) — measure what every depth-set node actually DOES (functional semantics, evidenced) | behavior records; definition-of-done checked |
 
 The KB these steps produce is defined in `design/knowledge-base-design.md`.

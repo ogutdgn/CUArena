@@ -56,6 +56,20 @@ never assumed from names.
   a **lie** — forbidden. Empty + `explored:false` = fine; empty + claiming done = banned.
 - **R2.7** Verify you are LOOKING at the surface you're documenting (your action's result, on
   screen) before writing it.
+- **R2.8 A scrollable surface is not enumerated until scrolled to the END.** Detect
+  scrollability (ScrollPattern availability, scrollbar children, content larger than
+  viewport); wheel-scroll and re-enumerate until nothing new appears (`toolbox/input.md`);
+  record the outcome on the container: `scrolled_to_end: true`. A huge catalog (a 300-font
+  list) MAY be deliberately partial — then `scrolled_to_end: false` + a journaled `decision`
+  with the honest count ("captured 23 of ~317; total read from the scrollbar range") — an
+  honest sample, never a silent "complete". **Screenshots follow the scroll:** a surface
+  taller than one viewport gets a screenshot SERIES, captured segment by segment while
+  scrolling (`surface-1.png`, `surface-2.png`, … in the container's `screenshots` list —
+  same group, in scroll order; `screenshot` stays the cover/first), so the visual evidence
+  covers the WHOLE content; post-scroll element bounds follow the scrolled-bounds discipline
+  (`toolbox/screenshot.md`). [kernel-checked: in a rule-aware run, a scroll-traced explored
+  container with the field unset fails] (LESSONS 2026-07-13: a font dropdown captured 23
+  items on a machine with 317 font families — the first screenful only)
 
 ## Proof
 

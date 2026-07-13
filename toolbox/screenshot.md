@@ -86,3 +86,11 @@ Hash the tab screenshots (sha256) and merge only on identical hashes
   surface screenshot (scrolled-in, occluded), omit the rect and say why (`scrolled`/`occluded`
   flags) — downstream consumers doing click-replay or visual judging depend on it.
   (learned from `crawler/capture.py::capture_pane`, `::_drop_occluded_bounds`)
+
+- 2026-07-13 — **Scrollable surfaces get a screenshot SERIES, not one frame.** A dropdown/
+  gallery/dialog taller than its viewport is captured segment by segment while scrolling
+  (R2.8): `surface-1.png`, `surface-2.png`, … in the container's `screenshots` list, in
+  scroll order, first frame = the cover in `screenshot`. Together the series must show the
+  WHOLE content — one frame of a 300-item list is not visual evidence of the list. Remember
+  the existing rule above: post-scroll element bounds no longer map to the pre-scroll frame —
+  segment items pair with THEIR segment's frame (`scrolled: true` discipline).

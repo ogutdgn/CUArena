@@ -48,9 +48,12 @@ def build_graph(kb_root: Path, app: str) -> dict:
         for c in f.connections:
             edges.append({"from": f.id, "to": c.target, "kind": c.kind, "why": c.why})
         for s in ff.subfeatures:
+            b = s.behavior_record
             nodes[s.id] = {"type": "subfeature", "parent": f.id, "layer": layer_of.get(s.id),
                            "trigger_paths": [tp.model_dump() for tp in s.trigger_paths],
-                           "opens": s.opens, "content": rel}
+                           "opens": s.opens, "content": rel,
+                           "behavior": ({"evidenced": b.evidenced(), "pending": len(b.pending)}
+                                        if b else None)}
             for c in s.connections:
                 edges.append({"from": s.id, "to": c.target, "kind": c.kind, "why": c.why})
 
@@ -59,7 +62,12 @@ def build_graph(kb_root: Path, app: str) -> dict:
                         "triggers": [ch.triggers for ch in c.children if ch.triggers],
                         # label summaries by marker class — the element-level checks run on these
                         "unexplored_labels": [ch.label for ch in c.children if ch.unexplored],
-                        "endpoint_labels": [ch.label for ch in c.children if ch.triggers]}
+                        "endpoint_labels": [ch.label for ch in c.children if ch.triggers],
+                        # R2.8 scroll bookkeeping: does the container show scrollbar traces,
+                        # and did the run address them?
+                        "scroll_trace": any((ch.label or "").strip().lower() in _SCROLLBAR_LABELS
+                                            for ch in c.children),
+                        "scrolled_to_end": c.scrolled_to_end}
                   for cid, c in ui.containers.items()}
 
     return {"app": app, "nodes": nodes, "edges": edges, "containers": containers,
@@ -80,6 +88,13 @@ def _differs(actual: dict, default: dict) -> bool:
         return True
     return any(abs(float(actual[k]) - float(default[k])) > 1e-9 for k in default)
 
+
+# Scrollbar-part labels — used to detect scroll traces on a container (R2.8).
+_SCROLLBAR_LABELS = {
+    "line up", "line down", "page up", "page down", "line left", "line right",
+    "page left", "page right", "position", "vertical", "horizontal",
+    "vertical scrollbar", "horizontal scrollbar",
+}
 
 # Window/scrollbar chrome + dialog-dismiss labels exempt from the unexplored-element depth check
 # (playbook R5.4). Lowercase exact match; calibrate as real runs surface new chrome.
@@ -137,6 +152,14 @@ def check_completeness(graph: dict) -> list[str]:
             if nid not in ranked:
                 problems.append(f"node {nid} is in no priority layer (unranked — silent gap)")
 
+    # scroll completeness (playbook R2.8): gated on the run being rule-aware (any container
+    # carries scrolled_to_end). A scroll-traced explored container must have addressed the
+    # scroll: True (enumerated to end) or False (honest journaled partial) — unset fails.
+    if any(c.get("scrolled_to_end") is not None for c in graph["containers"].values()):
+        for cid, c in graph["containers"].items():
+            if c["explored"] and c.get("scroll_trace") and c.get("scrolled_to_end") is None:
+                problems.append(f"container {cid} shows scrollbar traces but scrolled_to_end is unset (R2.8: scroll not addressed)")
+
     # catalog-scope contradiction (playbook R4.7 / R3.5): a catalog-cohesion feature must never
     # carry scope:whole — its children are independent capabilities, judged one by one
     for fid, d in (graph.get("derived") or {}).items():
@@ -186,6 +209,20 @@ def check_completeness(graph: dict) -> list[str]:
         labels = [l for l in c.get("unexplored_labels", []) if not _is_chrome(l)]
         if labels:
             gapped[cid] = labels
+    # behavior contract (playbook 06, R6.3): gated on the run having produced ANY behavior
+    # record — legacy KBs (pre-Step-6) stay clean. Once one exists, every depth-set
+    # sub-feature owes an EVIDENCED record.
+    if any(n.get("behavior") for n in graph["nodes"].values()):
+        for nid in sorted(hi):
+            n = graph["nodes"][nid]
+            if n["type"] != "subfeature":
+                continue
+            b = n.get("behavior")
+            if b is None:
+                problems.append(f"depth-set node {nid} has no behavior record (R6: semantics unmeasured)")
+            elif not b.get("evidenced"):
+                problems.append(f"depth-set node {nid} behavior record carries no evidence refs (R6.3)")
+
     reported_stub, reported_gap = set(), set()
     if stubs or gapped:
         for nid in sorted(hi):
