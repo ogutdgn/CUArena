@@ -55,11 +55,36 @@ def build_graph(kb_root: Path, app: str) -> dict:
 
     containers = {cid: {"kind": c.kind, "explored": c.explored,
                         "opens": [ch.opens for ch in c.children if ch.opens],
-                        "triggers": [ch.triggers for ch in c.children if ch.triggers]}
+                        "triggers": [ch.triggers for ch in c.children if ch.triggers],
+                        # label summaries by marker class — the element-level checks run on these
+                        "unexplored_labels": [ch.label for ch in c.children if ch.unexplored],
+                        "endpoint_labels": [ch.label for ch in c.children if ch.triggers]}
                   for cid, c in ui.containers.items()}
 
     return {"app": app, "nodes": nodes, "edges": edges, "containers": containers,
             "layers": pri.layers, "closure": pri.closure}
+
+
+# Window/scrollbar chrome + dialog-dismiss labels exempt from the unexplored-element depth check
+# (playbook R5.4). Lowercase exact match; calibrate as real runs surface new chrome.
+_CHROME_LABELS = {
+    "minimize", "maximize", "restore", "restore down", "close", "cancel", "ok", "help",
+    "line up", "line down", "page up", "page down", "line left", "line right",
+    "page left", "page right", "column left", "column right", "position",
+    "vertical", "horizontal", "vertical scrollbar", "horizontal scrollbar",
+    "ribbon display options",
+}
+
+
+def _is_chrome(label: str) -> bool:
+    return (label or "").strip().lower() in _CHROME_LABELS
+
+
+def _ellipsis_labeled(label: str) -> bool:
+    """True for labels that promise a dialog by platform convention (playbook R2.4).
+    Requires at least one letter so leader-dot options like '2 .......' don't false-positive."""
+    s = (label or "").rstrip()
+    return s.endswith(("…", "...")) and any(ch.isalpha() for ch in s)
 
 
 def check_completeness(graph: dict) -> list[str]:
@@ -88,11 +113,33 @@ def check_completeness(graph: dict) -> list[str]:
         if n["type"] == "subfeature" and not n["trigger_paths"]:
             problems.append(f"node {nid} has no trigger path (unreachable)")
 
-    # depth invariant: no P0-P2 node reaches an explored:false container by any chain of opens
-    hi = {nid for nid, n in graph["nodes"].items() if n.get("layer") in ("P0", "P1", "P2")}
+    # every node is ranked into a layer (playbook R4.3) — an unranked node is a silent gap
+    layers = graph.get("layers") or {}
+    if layers:
+        ranked = {i for ids in layers.values() for i in ids}
+        for nid in graph["nodes"]:
+            if nid not in ranked:
+                problems.append(f"node {nid} is in no priority layer (unranked — silent gap)")
+
+    # ellipsis contract (playbook R2.4): a "…"-labeled element promises a dialog; recording it
+    # as an endpoint (triggers) is a classification contradiction, whatever its layer
+    for cid, c in graph["containers"].items():
+        for label in c.get("endpoint_labels", []):
+            if _ellipsis_labeled(label):
+                problems.append(f"container {cid} closes ellipsis-labeled \"{label}\" as an endpoint (R2.4: must be opens/unexplored)")
+
+    # depth invariant (playbook R5.4): no P0-P3 node reaches an explored:false container OR an
+    # unexplored element (chrome exempt) by any chain of opens
+    hi = {nid for nid, n in graph["nodes"].items() if n.get("layer") in ("P0", "P1", "P2", "P3")}
     stubs = {cid for cid, c in graph["containers"].items() if not c["explored"]}
-    if stubs:
-        for nid in hi:
+    gapped = {}   # cid -> non-chrome unexplored labels (deduped: reported once per container)
+    for cid, c in graph["containers"].items():
+        labels = [l for l in c.get("unexplored_labels", []) if not _is_chrome(l)]
+        if labels:
+            gapped[cid] = labels
+    reported_stub, reported_gap = set(), set()
+    if stubs or gapped:
+        for nid in sorted(hi):
             start = graph["nodes"][nid].get("opens")
             seen, frontier = set(), ([start] if start else [])
             while frontier:
@@ -100,8 +147,13 @@ def check_completeness(graph: dict) -> list[str]:
                 if cid in seen or cid not in graph["containers"]:
                     continue
                 seen.add(cid)
-                if cid in stubs:
-                    problems.append(f"P0-P2 node {nid} reaches unexplored stub {cid} (depth incomplete)")
+                if cid in stubs and cid not in reported_stub:
+                    reported_stub.add(cid)
+                    problems.append(f"P0-P3 node {nid} reaches unexplored stub {cid} (depth incomplete)")
+                if cid in gapped and cid not in reported_gap:
+                    reported_gap.add(cid)
+                    ex = ", ".join(f'"{l}"' for l in gapped[cid][:3])
+                    problems.append(f"P0-P3 node {nid} reaches container {cid} holding {len(gapped[cid])} unexplored element(s), e.g. {ex} (R5.4)")
                 frontier += graph["containers"][cid]["opens"]
     return problems
 

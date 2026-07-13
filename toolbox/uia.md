@@ -151,8 +151,51 @@ menu; ESC it and skip) (`crawler/capture.py::_expand_groups`).
   no children — unlike Home, where almost everything is Button/SplitButton/ComboBox. A leaf
   enumerator whose INTERACTIVE set omits MenuItem at ribbon level silently drops most of the
   Insert tab. (learned from kb/word-home-insert dump: uia_tree_insert.txt)
+- 2026-07-10 — **WinUI apps (Windows 11 Paint) expose a FULLY WALKABLE UIA tree — the opposite
+  of Office owner-drawn flyouts.** Menu items (File > New/Open/Save…), colour swatches (named
+  `ListItem`s: 'Black','Gray','Red'…), and shape pickers (`ListItem` 'Line'/'Oval'/'Heart'…) are
+  all real tree elements — no `ElementFromPoint` hit-testing needed for menus/pickers (reserve it
+  for the Edit-colours colour WHEEL and raw canvas pixels only). Stable `AutomationId`s exist on
+  many controls (`PencilTool`,`EraserTool`,`CropButton`,`RotateDropdown`,`Flip`,
+  `BrushesSplitButton`,`CopilotDropDownButton`,`ZoomSliderControl`,`SettingsButton`,
+  `OptionsButton`,`CanvasSizeTextBlock`) — the strongest locators; record them always. The whole
+  app is ~170 nodes. (learned from kb/paint step1: dumps/uia_tree.txt)
+- 2026-07-10 — **Diff the tree with the RAW `IUIAutomation` ControlViewWalker, NEVER pywinauto
+  `.descendants()`/`.children()` — 150s vs 1s.** A press-observe detector that snapshotted the
+  main window's subtree via pywinauto wrappers took 150+ seconds PER PRESS once a rich dialog
+  (Paint's Edit-colours: colour wheel + ~110 swatches) was open, because each wrapper creation
+  re-queries UIA. Walking the RAW element (`win.element_info.element` → `iuia.ControlViewWalker`
+  with `GetFirstChildElement`/`GetNextSiblingElement`, reading `CurrentControlType/CurrentName/
+  CurrentBoundingRectangle`) is ~1s. Key nodes by `(control_type, name, rect)` — do NOT call
+  `GetRuntimeId()` per node (a COM round-trip each). Cache the raw frame element ONCE and reuse it.
+  (learned from kb/paint step2: surface.descendant_index / find_rect)
+- 2026-07-10 — **`ElementFromHandle` (what `Desktop(backend="uia").window(handle=)` resolves to) is
+  a FLAKY, slow COM call — minimise it.** It intermittently raises
+  `COMError(-2146233083)` = `UIA_E_ELEMENTNOTAVAILABLE`, especially right after a modal closes or
+  the window is animating. Resolve the frame's raw element ONCE (retry ~12×0.5s, re-deriving the
+  hwnd from the pid each try) and cache it; re-attach a pywinauto wrapper only for control
+  resolution, only on an actual miss — re-attaching every probe multiplies the flakiness.
+  (learned from kb/paint step2: session.raw_frame + uia_read.attach)
+- 2026-07-10 — **WinUI keytips (`CurrentAccessKey`) ARE the keyboard trigger path AND cover every
+  control, even ones with no Ctrl-accelerator.** Paint exposes `Alt, T, P` (Pencil), `Alt, I, C`
+  (Crop), `Alt, 1` (Color 1), `Alt, L` (Layers), `Alt, B` (Brushes) as AccessKey on each leaf,
+  while only a few carry `CurrentAcceleratorKey` (Save Ctrl+S, Undo Ctrl+Z, Redo Ctrl+Y). Harvest
+  BOTH in the same read; the Alt-chain doubles as a mechanical trigger path and a cross-check of
+  your group nesting. (learned from kb/paint step1 dump: AccessKey on every toolbar leaf)
 - 2026-07-09 — **Enumerate with a representative document state, or state-gated controls read
   DISABLED and their probes get wrongly skipped.** Insert > Drop Cap is disabled on an empty
   document and enables once the doc has a paragraph of text; Cut/Copy need a selection. Give the
   scratch fixture text + a selection BEFORE enumerating/probing, and journal any control that
   still reads disabled. (learned from kb/word-home-insert dump: DropCapInsertGallery DISABLED)
+
+- 2026-07-12 — **In-ribbon galleries are THREE-zone controls; pressing a tile does not classify
+  the gallery.** UIA exposes the visible gallery tiles as `menuitem`-ish children, so a naive
+  walker presses one tile, sees a state change (a style got applied) — or nothing — and closes
+  the WHOLE gallery as a single endpoint. That silently drops the full gallery flyout AND the
+  commands under it ("New/Modify/Clear …" — which open dialogs). Found in the word-home-insert-v2
+  audit: 11 galleries (Table/Picture/Shape/Chart/SmartArt Styles, Equation Symbols…) closed this
+  way, 2 of them with `no observable effect` yet still marked as triggering. At press time,
+  re-enumerate the LIVE gallery element and look for its expand zone: the gallery control
+  usually advertises `ExpandCollapsePattern` (check via raw `Is<Pattern>AvailablePropertyId`,
+  same trap as split buttons) and/or owns a distinct "More"/drop-arrow child at its edge — drive
+  THAT to open the full flyout, and record the tile press separately. Playbook rule: R2.5.

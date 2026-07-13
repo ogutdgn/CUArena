@@ -32,16 +32,30 @@ never assumed from names.
   only in Step 5 (depth), and only if priority warrants. The element is NOT `unexplored` (you
   measured what it opens); only the surface's *contents* are deferred.
 
-## Be sure of
+## Rules
 
-- All common rules (`playbook/README.md`).
-- `opens`/`triggers` markers ONLY from a measured outcome. Unpressed = `unexplored`.
-- **Stub vs. dishonest-empty — know the difference.** A container with `children: []` is only
-  allowed as an explicit **stub** (`explored: false` — an honest "not entered yet"). A container
-  written as if complete but empty because your clicks failed / you didn't read it is a **lie** —
-  forbidden. Empty + `explored:false` = fine; empty + claiming done = the failure this rule bans.
-- Verify you are LOOKING at the surface you're documenting (your action's result, on screen)
-  before writing it.
+- **R2.1** All common rules (CR1–CR8, `playbook/README.md`) bind.
+- **R2.2** `opens`/`triggers` markers ONLY from a measured outcome. Unpressed = `unexplored`.
+- **R2.3 No effect, no endpoint.** A press with no observable effect must NOT be classified
+  `triggers` — journal the failed/ambiguous press and leave the element `unexplored` (or retry
+  in a valid context). "Pressed: no observable effect" next to a `triggers` marker is a
+  contradiction: the claim has no evidence. (LESSONS 2026-07-12)
+- **R2.4 Ellipsis contract.** A label ending in "…"/"..." promises a dialog (platform
+  convention). Such an element may carry `opens` or stay `unexplored` — NEVER `triggers`. If no
+  surface appeared on press, the press failed (wrong context, missed window) — record the
+  failure; do not reclassify the control as an action. [kernel-checked] (LESSONS 2026-07-12)
+- **R2.5 A gallery is a THREE-zone control** (tiles + scroll arrows + expand arrow), the
+  split-button rule's bigger sibling. Pressing a tile measures the TILE only. The expand arrow
+  is a separate element that `opens` the full gallery flyout — which almost always carries extra
+  commands at the bottom ("New/Modify/Clear …") that open dialogs of their own. Closing a whole
+  gallery as one endpoint is the failure this rule bans. (→ `toolbox/uia.md` for how to find the
+  expand zone; LESSONS 2026-07-12)
+- **R2.6 Stub vs. dishonest-empty — know the difference.** A container with `children: []` is
+  only allowed as an explicit **stub** (`explored: false` — an honest "not entered yet"). A
+  container written as if complete but empty because your clicks failed / you didn't read it is
+  a **lie** — forbidden. Empty + `explored:false` = fine; empty + claiming done = banned.
+- **R2.7** Verify you are LOOKING at the surface you're documenting (your action's result, on
+  screen) before writing it.
 
 ## Proof
 

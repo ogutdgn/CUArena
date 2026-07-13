@@ -13,12 +13,17 @@ job.
 Every step has the same three parts:
 
 - **Goal** — what the agent must achieve.
-- **Be sure of** — the invariants that hold at every step (drive-and-see, never save/delete,
-  journal everything, obey the schema, prove every claim, mark `unexplored` honestly when stuck).
+- **Rules** — the numbered, checkable invariants that bind during the step. Ids are
+  `R<step>.<n>` (e.g. `R2.4`); the common rules below are `CR1`–`CR8`. **Cite rule ids in
+  journal decisions** ("left `unexplored` per R2.4") — that is how an audit later checks the run
+  rule by rule. A rule with mechanical enforcement in `kernel/graph_builder.py` carries a
+  **[kernel-checked]** tag; a rule without the tag is enforced by discipline alone, and that
+  weakness is deliberate and visible. Most rules were paid for by a real failure — each such rule
+  links its `LESSONS.md` entry.
 - **Proof** — the checkable artifact that means "this step is done." No proof, no done. This is
   the guard against confident-but-empty output.
 
-## Common rules (bind at EVERY step)
+## Common rules CR1–CR8 (bind at EVERY step)
 
 1. **Drive and see** — verify the visible result of every action before relying on it.
 2. **Measured, not assumed** — `opens`/`triggers` markers only from observed outcomes.
@@ -72,6 +77,6 @@ Once started, the run needs **no human hand**. The agent drives itself to comple
 | 2 | [APP SKEL](02-app-skel.md) — press-observe-classify every top-level surface | containers with measured markers + screenshots |
 | 3 | [Features](03-features.md) — the 3-level tree + connections + contextual surfaces | the shallow knowledge tree |
 | 4 | [Priority](04-priority.md) — rank P0–P4 from connections + usage + audience | evidence-backed `priority/` artifacts |
-| 5 | [Depth](05-depth.md) — exhaust P0–P2 per the depth-endpoint rule; shortcuts; icons | the complete KB, definition-of-done checked |
+| 5 | [Depth](05-depth.md) — exhaust P0–P3 per the depth-endpoint rule; shortcuts; icons | the complete KB, definition-of-done checked |
 
 The KB these steps produce is defined in `design/knowledge-base-design.md`.

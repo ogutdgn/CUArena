@@ -27,11 +27,14 @@ saw the tree first, so your tools won't lie.
 6. **Give back**: append dated lessons you learned to the relevant `toolbox/*.md` files — the
    next app starts smarter because of you.
 
-## Be sure of
+## Rules
 
-- All common rules (`playbook/README.md`).
-- Tools must *measure*, not trust: verify reads against a screenshot at least once.
-- Keep tools honest about failure — raise/log loudly, never swallow.
+- **R1.1** All common rules (CR1–CR8, `playbook/README.md`) bind.
+- **R1.2** Tools must *measure*, not trust: verify reads against a screenshot at least once.
+- **R1.3** Tools stay honest about failure — raise/log loudly, never swallow.
+- **R1.4** The capture tool is validated per target type (whole surface / single button / dialog
+  / dropdown) by LOOKING at each result — before Step 2 starts. Wrong captures poison every
+  visual proof after them.
 
 ## Proof
 

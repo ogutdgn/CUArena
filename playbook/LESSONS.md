@@ -127,6 +127,50 @@ containers, 25 shortcut keys; P0–P2 = 49 sub-features at full transitive depth
   - **RULE NOW:** look INSIDE before proposing deletion; "redundant" is a claim about contents,
     proven by diffing them, never by the filename.
 
+## 2026-07-12 — v2 audit round 2 (example-driven review; classification lies + unasked questions)
+
+Walking single examples (table-autofit, table-style-options, multilevel-list) exposed two
+failure families the structural checks could not see: **lies told at classification time**
+(a false `triggers` legally terminates a chain, so every later check inherits it as truth) and
+**questions no check was asking**. Five rules came out of it (now numbered in the playbook).
+
+- **SYMPTOM:** 11 in-ribbon galleries (Table Styles, Picture Styles, Chart Styles…) recorded as
+  one `menuitem` endpoint each — the full gallery flyout and its bottom commands ("New/Modify/
+  Clear …", which open dialogs) absent from the KB entirely.
+  - **ROOT CAUSE:** a tile press was taken as the whole control's classification; the expand
+    arrow was never driven. No rule named galleries (the split-button rule stopped at 2 zones).
+  - **RULE NOW:** R2.5 — a gallery is a THREE-zone control; the expand arrow is its own `opens`
+    element (`toolbox/uia.md` 2026-07-12 for the how).
+
+- **SYMPTOM:** ~14 "…"-labeled controls ("Convert Text to Table…" on a P0 node, "Options…",
+  "More Gradients…") closed as endpoints with the note "no surface appeared on press".
+  - **ROOT CAUSE:** when a press produced no detected surface, the walker's fallback was
+    "endpoint" — the platform convention (… = opens a dialog) was never encoded as an
+    expectation, so no contradiction fired.
+  - **RULE NOW:** R2.4 [kernel-checked] — ellipsis-labeled elements may carry `opens` or stay
+    `unexplored`, never `triggers`; a surfaceless press is a FAILED press, journaled as such.
+
+- **SYMPTOM:** 2 of those galleries said `pressed: no observable effect` AND `triggers` in the
+  same record — a claim with its own counter-evidence attached.
+  - **ROOT CAUSE:** classification fell through to "endpoint" as a default instead of honesty.
+  - **RULE NOW:** R2.3 — no effect, no endpoint: journal the failure, mark `unexplored`.
+
+- **SYMPTOM:** `subfeature:smartart-layout` sat in NO priority layer; all checks passed. (Plot
+  twist found at commit time: the RUN had ranked it correctly — an accidental local edit had
+  corrupted the id string inside priority.json to garbage, post-commit. The finding stands and
+  gets stronger: hand-touchable JSON silently rotted and nothing screamed.)
+  - **ROOT CAUSE:** "every node is ranked" existed as playbook prose with no mechanical check —
+    so neither a run's omission NOR later data corruption had anything watching for it.
+  - **RULE NOW:** R4.3 [kernel-checked] — graph_builder flags any node absent from every layer.
+    The check earned its keep immediately: it is what exposed the corruption.
+
+- **SYMPTOM:** the transitive depth walk reported v2 CLEAN while 24/92/80 unexplored elements
+  were reachable from P0/P1/P2 nodes (e.g. the Replace dialog's own "Find Next" button).
+  - **ROOT CAUSE:** an element that was never pressed creates no container, and the walk only
+    inspected containers — element-level gaps were structurally invisible.
+  - **RULE NOW:** R5.4 [kernel-checked] — the depth walk inspects BOTH levels: reachable
+    `explored:false` containers and reachable non-chrome `unexplored` elements both fail DoD.
+
 ## 2026-07 — Environment lessons (every Windows GUI run)
 
 - **RULE:** cloud-synced (OneDrive) folders silently enable AutoSave → the canonical fixture gets
@@ -137,3 +181,53 @@ containers, 25 shortcut keys; P0–P2 = 49 sub-features at full transitive depth
   automation ids / locale-tolerant patterns, never English strings.
 - **RULE:** store-app launchers are stubs — pin the version from the ATTACHED window's process,
   not the launcher exe.
+
+## 2026-07-10 — Windows 11 Paint (modern WinUI app — first non-Office target, full run)
+
+Scope: the WHOLE modern Paint app. Output: `kb/paint/`. Result: DoD PASS,
+`graph_builder.generate()` CLEAN (0 problems). 12 features, 47 sub-features, 28 UI containers,
+16 shortcut keys; P0–P2 = 37 sub-features at full depth. Version pinned 11.2603.251.0.
+
+- **WIN (a whole app end-to-end, and much smaller than Word):** Paint's entire surface is ~170
+  UIA nodes and launches straight to the workspace (no fixture/welcome). The Word lessons
+  transferred (press-observe-classify, window-class = dialog/flyout, window-true PrintWindow
+  capture, state-gated controls need a representative state) even though NONE of the Word driving
+  code applied — the toolbox (knowledge) carried across, the code did not, exactly as designed.
+
+- **SYMPTOM:** the run HUNG for minutes on the Edit-colours control and had to be killed.
+  - **ROOT CAUSE (two compounding bugs):** (1) modern WinUI opens surfaces TWO ways — a windowed
+    `PopupWindowSiteBridge`/PopupHost (File/Edit/View menus, Rotate/Flip/Copilot) AND an IN-TREE
+    XAML surface with NO new window (Brushes/Size flyouts, Resize&Skew & Edit-colours dialogs, the
+    Settings page). Edit-colours is in-tree, but a coincident tiny "White" ScreenTip rendered as
+    its own PopupHost window, so a window-delta-only detector classified it as a windowed popup,
+    enumerated the tooltip, and the reset (which only looked for top-level windows) never closed
+    the real in-tree modal — which then blocked all input. (2) the "what opened?" detector walked
+    the full UIA tree with pywinauto wrappers, which took 150s+ with the rich dialog open.
+  - **RULE NOW:** detect an opened surface as window-set-delta UNION main-window UIA-subtree-delta;
+    area-floor windowed popups (~8000px²) so tooltips don't mask in-tree surfaces; close in-tree
+    ContentDialogs via their Cancel button, verified by BOTH no popup window AND no Cancel-in-tree.
+    Walk the tree with the RAW IUIAutomation ControlViewWalker, never pywinauto wrappers (150s → 1s);
+    key nodes by (control_type, name, rect), not per-node GetRuntimeId (a COM round-trip each).
+    (`kb/paint/scripts/tools/surface.py`, `driver.reset_surfaces`; toolbox win32.md/uia.md/input.md.)
+
+- **SYMPTOM:** the whole toolbar re-drive resolve-failed after the Settings control; and later,
+  `write_ui` rejected containers keyed `subfeature:pencil`.
+  - **ROOT CAUSE:** (a) Settings opens a FULL-PAGE in-window view that Escape cannot close (it needs
+    the Back arrow), so it hid the toolbar and every later control vanished; (b) selecting a TOOL
+    changes the tree as a side effect (the Size/Opacity sliders appear, Text spawns a contextual
+    band), so `observe` reported "in_tree" and the code built a container out of a tool's trigger id.
+  - **RULE NOW:** exit full-page views via their Back control (put such controls LAST as a backstop);
+    decide a control's marker by its KNOWN handling FIRST — tools/colours/commands are always
+    `triggers` (any tree side-effect IS the state change, not a surface) and never create containers;
+    only opener handlings enumerate surfaces. (`run_step2.py` is_opener gate.)
+
+- **RULE NOW (ElementFromHandle is a flaky, slow COM call):** `Desktop().window(handle=)` +
+  `ElementFromHandle` intermittently raises `UIA_E_ELEMENTNOTAVAILABLE` and is slow. Resolve the
+  frame's RAW element ONCE, cache it on the session, and drive all raw walks/finds from that;
+  re-attach a pywinauto wrapper only for control resolution, and only on an actual miss — not every
+  iteration. (`session.raw_frame`, `uia_read.attach` retry.)
+
+- **RULE NOW (no COM object model → build the oracle from what you can measure):** Paint exposes no
+  automation object model (unlike Word). The press-observe oracle was assembled from: window-set
+  delta, UIA subtree delta, the Brushes/Color-1 selected-state flip (a measured `triggers` signal),
+  and a canvas pixel-hash. Absent a doc/format fingerprint, these ARE the measurement.

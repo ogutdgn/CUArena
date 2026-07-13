@@ -150,6 +150,19 @@ two reads (min 1.5s, max 5s) — some windows appear late (`crawler/prober.py::_
   top-level windows by a real-surface area floor (~2500 px²) before both the "what opened?"
   classification and the reset comparison; compare the floored set, not the raw set.
   (learned from kb/word-home-insert-v2 step3 shape/picture-format crawl: MIN_REAL_WINDOW_AREA)
+- 2026-07-10 — **Modern WinUI apps open surfaces TWO ways; a window-delta-only detector misses
+  half of them.** Windows 11 Paint (11.2603, frame class `MSPaintApp`, single `mspaint.exe`
+  process — NOT an ApplicationFrameWindow/UWP-host split): its File/Edit/View menus and
+  Rotate/Flip/Copilot dropdowns open a NEW top-level window of class
+  `Microsoft.UI.Content.PopupWindowSiteBridge` (title `PopupHost`, same pid) — window-delta
+  catches these and their items are enumerable by attaching UIA to the popup hwnd. BUT its
+  Brushes list, Size/Shape-outline/Shape-fill flyouts, the Resize&Skew dialog, and the Settings
+  page open NO new window at all — they are in-tree XAML surfaces that appear only as new elements
+  in the MAIN window's UIA subtree. Detection must therefore be window-set-delta UNION
+  main-window UIA-subtree-delta (see kb/paint/scripts/tools/surface.py). A tiny (57x41)
+  PopupWindowSiteBridge also flickers for shadows/tooltips — floor popup area (~1500px²).
+  (learned from kb/paint step1 recon: probe_open.py — File/Rotate spawn PopupHost, Resize/Size/
+  Settings spawn nothing)
 - 2026-07-09 — **Some ribbon controls open a modal that BLOCKS COM entirely, poisoning the
   whole instance.** WordArt legacy 'Edit Text…' and Equation 'Ink Equation' open modal editors
   that make every subsequent COM call raise `RPC_E_SERVERCALL_RETRYLATER` (-2147417846, "the

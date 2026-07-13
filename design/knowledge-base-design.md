@@ -21,7 +21,7 @@ Examples throughout this spec use **Microsoft Word** as the benchmark target. Th
 | Architecture | Staged pipeline with fan-out, structured as **two passes gated by priority**: breadth first, then depth only where priority justifies it. |
 | KB format | Hybrid: structured JSON nodes (source of truth) + screenshots (visual evidence) + generated markdown overview (human review). |
 | Storage | One JSON file per node, so parallel inspectors never conflict and git diffs show per-run changes. |
-| Priority layers | Five fixed layers P0–P4. P0–P2 (high) documented at full depth, P3 (medium) at mid-level, P4 (low) stays at breadth. See "Priority layers and depth budgets". |
+| Priority layers | Five fixed layers P0–P4. P0–P3 documented at full depth; P4 (low) stays at outline. See "Priority layers and depth budgets". |
 | Web docs | Opportunistic and quality-gated. Docs guide inspectors and cross-check coverage but **never create nodes**; video-heavy or unstructured docs are deliberately skipped. |
 
 ## The knowledge base
@@ -140,7 +140,7 @@ What shortcuts have that buttons don't is **context**: the same key acts differe
 - The `shortcuts/` registry owns the facts: context (*when*), effect (*how it acts*), and exactly one action marker (*what it affects*) per binding. Context-dependent keys like `Escape` hold several bindings in one file.
 - Feature/sub-feature nodes and `ui_element` records keep only the display string (`"shortcut": "Ctrl+B"`, harvested from tooltips) as evidence — a label, not a definition.
 - Harvesting is defined at capability level, not tool level: shortcuts surface through element properties exposed by the platform's structured UI layer, tooltips, menu item labels, in-app shortcut reference panels, and web documentation. They are collected during the **breadth pass** (cheap — they appear on surfaces already being scanned); deep verification of subtle context behavior is priority-gated like everything else. Brute-force key-pressing is a last resort, not a method.
-- **No separate depth policy.** Shortcut coverage is inherited from exploration depth: shortcuts sit on surfaces the pipeline is already scanning, so priority-gated digging (surface layer for everyone, full trigger machinery for P0–P2) automatically determines which shortcuts are found. The exception is bulk sources — an in-app shortcut reference panel or a documentation shortcut page — which are harvested once, opportunistically, across all priorities; a binding known only from docs (never observed live) keeps that provenance in `source`.
+- **No separate depth policy.** Shortcut coverage is inherited from exploration depth: shortcuts sit on surfaces the pipeline is already scanning, so priority-gated digging (surface layer for everyone, full trigger machinery for P0–P3) automatically determines which shortcuts are found. The exception is bulk sources — an in-app shortcut reference panel or a documentation shortcut page — which are harvested once, opportunistically, across all priorities; a binding known only from docs (never observed live) keeps that provenance in `source`.
 - **Checks that come free:** every binding must point at an existing node/container; a node whose display string has no matching registry entry is a gap; two bindings claiming the same key+context is a conflict flag.
 
 ### What is deliberately NOT in the KB
@@ -237,9 +237,9 @@ Docs **guide, never create**: no feature/sub-feature node is ever created from d
 1. **Product-purpose reasoning** — the app's identity + the capability's measured function → "could the core job be done without this?" (rich-text editor → font/paragraph/tables/pictures indispensable; mail-merge peripheral). Every verdict written in the form: product is X + this does Y → therefore Z.
 2. **UI prominence** — the designer's own usage bet, measured from the skeleton (default surface, size, order, nesting depth). Works for apps the web has never heard of.
 3. **Real-world usage (corroborator)** — web research confirming/adjusting; claim + source per entry; when absent, signals 1+2 carry the ranking.
-Features are never scored independently: a feature's layer = its best child's layer, plus a ratio (children in P0–P2) that sets replication scope — majority high → replicate the feature WHOLE; isolated gems → only the gems + their closure. Then compute **closure**: the replication set = P0–P2 plus everything reachable via `requires` edges (pulled-in nodes get "enough to work" depth, labeled `pulled-in-by`). Connection density is NOT a value signal.
+Features are never scored independently: a feature's layer = its best child's layer, plus a ratio (children in P0–P3) that sets replication scope — majority high → replicate the feature WHOLE; isolated gems → only the gems + their closure. Then compute **closure**: the replication set = P0–P3 plus everything reachable via `requires` edges (pulled-in nodes get "enough to work" depth, labeled `pulled-in-by`). Connection density is NOT a value signal.
 
-**Stage 4 — Depth fan-out.** Priority-gated. P0–P2 nodes each get an inspector that captures everything — every behavior, option, dialog, state, edge case, screenshots — descending until the depth endpoint rule (below) says stop. P3 nodes get the mid-level treatment defined in the depth budgets. P4 nodes are already done: breadth was their budget. Depth can be unbounded for P0–P2 *because* that set is small.
+**Stage 4 — Depth fan-out.** Priority-gated. P0–P3 nodes each get an inspector that captures everything — every behavior, option, dialog, state, edge case, screenshots — descending until the depth endpoint rule (below) says stop. P4 nodes are already done: the outline (breadth pass) was their budget. Depth per node can be unbounded because the endpoint rule bounds every branch; the P4 tail is what keeps the total bounded.
 
 **Stage 5 — Finalize.** Recompute priority once (depth discoveries may promote features), regenerate `overview.md`, re-run the completeness check.
 
@@ -249,9 +249,8 @@ Rankings map into **five fixed layers**. Each layer buys a defined amount of dep
 
 | Layer | Meaning | Knowledge depth | UI depth |
 |---|---|---|---|
-| **P0–P2** | High priority — the app's identity | Full: every behavior, option, state, edge case, documented exactly | Full: every dialog/dropdown along its trigger paths expanded, recursing until the depth endpoint rule fires |
-| **P3** | Medium priority | Mid-level: all rubric questions answered thoroughly | Its direct UI containers (immediate dialogs/dropdowns) opened and enumerated **one level**, with screenshots — no recursion beyond that |
-| **P4** | Low priority | Breadth-pass knowledge only (shallow rubric: name, one-liner, connections, trigger path) | Surface layer only: its top-level control exists with control type / icon / label; interiors stay `unexplored` stubs |
+| **P0–P3** | High/medium priority — the app's identity and its working body | Full: every behavior, option, state, edge case, documented exactly | Full: every dialog/dropdown along its trigger paths expanded, recursing until the depth endpoint rule fires |
+| **P4** | Low priority — the tail | **Outline only**: identity rubric (name, one-liner function, affects, audience), connections, trigger path, face screenshot | Surface layer only: its top-level control exists with control type / icon / label; interiors stay honest `unexplored` / `explored:false` stubs |
 
 Where the score boundaries between layers fall is tunable and will be calibrated once real graphs exist.
 
@@ -271,7 +270,7 @@ The Stage 5 recompute runs the same mechanics on the post-depth-pass graph; any 
 
 ### Depth endpoint rule — when does "as deep as it can" stop?
 
-During deep exploration (P0–P2), an interaction chain is still **descending** while clicks keep opening more UI: another dialog, a new section inside the same dialog, another dropdown, a pane, a special tab. The chain reaches its **endpoint** when an element actually *triggers* a feature/sub-feature — i.e., performs an action on the app or document state instead of revealing more UI.
+During deep exploration (P0–P3), an interaction chain is still **descending** while clicks keep opening more UI: another dialog, a new section inside the same dialog, another dropdown, a pane, a special tab. The chain reaches its **endpoint** when an element actually *triggers* a feature/sub-feature — i.e., performs an action on the app or document state instead of revealing more UI.
 
 > Rule of thumb: **opens more UI → keep collecting. Fires an action → endpoint reached; record the trigger edge and stop.**
 
@@ -351,7 +350,7 @@ Driving an app through structured UI layers means writing code, and that code is
 
 1. Completeness check passes: no gaps (unexplored stubs are allowed and labeled).
 2. The skeleton surface layer is exhaustively documented (every top-level control with control type, icon, label, screenshots).
-3. Every P0–P2 node has full-depth detail; every P3 node has mid-level detail. (P4 stays at breadth — by design, not omission.)
+3. Every P0–P3 node has full-depth detail. (P4 stays at outline — by design, not omission.)
 4. `graph.json` and `overview.md` generated and consistent with the node files.
 
 ## Out of scope for P1

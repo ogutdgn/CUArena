@@ -117,6 +117,16 @@ committing button (`crawler/run_p0.py::_dismiss`).
   normalized-title → container-id map and resolving each newly opened dialog against it before
   assigning a fresh id turns re-crawls into references (the seen-set the design demands).
   (learned from kb/word-home-insert step5 DepthWalker.resolve_known)
+- 2026-07-10 — **In-tree WinUI ContentDialogs and full-page views do NOT close on the top-level
+  reset you use for windowed popups — reset them explicitly.** Modern Paint's Edit-colours and
+  Resize&Skew are IN-TREE modal dialogs (no separate HWND): a reset that only Escapes and checks
+  for popup WINDOWS reports "clean" while the modal is still up and blocking all input (this hung a
+  run). Close them by clicking their **Cancel** button (find its rect via the raw walker — a
+  pywinauto `child_window(title="Cancel")` search takes 130s on a big dialog tree — then click the
+  point), and verify BOTH no popup window AND no Cancel-in-tree remains. The **Settings** page is a
+  full-page in-window view that Escape can't close either — exit via its **Back** arrow; put such
+  controls LAST in a worklist so if the exit fails they don't hide the rest of the toolbar.
+  (learned from kb/paint step2: driver.reset_surfaces + return_from_settings)
 - 2026-07-10 — **A split button's dropdown open-point must be recomputed at press time, never
   cached.** A depth pass that computed each dropdown-zone point once when the tab was first
   activated failed to open the shared color-picker / crop split buttons ('no-surface-appeared'):

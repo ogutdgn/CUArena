@@ -118,7 +118,7 @@ So for every contextual surface you discover, run the SAME loop as any other sur
 3. **They enter Step 4's priority ranking like every other node.** The ranking decides whether
    Merge Cells matters more than Drop Cap — it cannot decide that if Merge Cells was never
    ranked. A contextual control absent from the ranking is a silent gap, not a low priority.
-4. **Step 5 then deepens the ones that rank P0–P2**, exactly as it would any other node —
+4. **Step 5 then deepens the ones that rank P0–P3**, exactly as it would any other node —
    pressing each control, following its `opens` chains to the bottom, writing the full rubric.
    The whole point of steps 1–3 above is to get contextual controls INTO the node set so this
    depth step can reach them; skip those steps and they are permanently invisible to depth.
@@ -132,14 +132,15 @@ face is step 1, but steps 2–4 are what turn a screenshot into knowledge.
 **Docs**: where official docs exist and are text-based/current, they may *guide* your grouping and
 hint at connections — but never create a node from docs alone; the live app confirms everything.
 
-## Be sure of
+## Rules
 
-- All common rules (`playbook/README.md`).
-- **No name-only nodes:** every feature/sub-feature has what-it-does + how-triggered + what-it-
-  affects filled, even at this shallow depth.
-- Every feature/sub-feature must be reachable: at least one trigger path into the skeleton.
-- Every connection carries evidence (`why`) and a `source` tag; inference-only edges are labeled
-  as such.
+- **R3.1** All common rules (CR1–CR8, `playbook/README.md`) bind.
+- **R3.2 No name-only nodes:** every feature/sub-feature has what-it-does + how-triggered +
+  what-it-affects filled, even at this shallow depth.
+- **R3.3** Every feature/sub-feature must be reachable: at least one trigger path into the
+  skeleton. [kernel-checked]
+- **R3.4** Every connection carries evidence (`why`) and a `source` tag; inference-only edges
+  are labeled as such.
 
 ## Proof
 

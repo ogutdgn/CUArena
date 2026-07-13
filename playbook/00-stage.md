@@ -23,11 +23,14 @@ surfaces (ribbon / toolbars / menus) are visible and interactive.
 - Write the entry route (launch args and/or click steps) to
   `kb/<app>/scripts/drive/ready_route.json` so it can be replayed mechanically.
 
-## Be sure of
+## Rules
 
-- All common rules (see `playbook/README.md`): journal every action, never save/send/delete,
-  prove claims, honest `unexplored`.
-- The app instance must not touch real user data or accounts.
+- **R0.1** All common rules (CR1–CR8, `playbook/README.md`) bind: journal every action, never
+  save/send/delete, prove claims, honest `unexplored`.
+- **R0.2** The app instance must NEVER touch real user data or accounts.
+- **R0.3** Never open the canonical fixture itself — always launch a throwaway copy from the OS
+  temp dir. (LESSONS: cloud-synced folders silently enable AutoSave; the original mutates and
+  save dialogs vanish.)
 
 ## Proof (step is done only with all of these)
 

@@ -45,9 +45,9 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
 - **Features are placed, not scored** — derived from their children and shown in the same list:
   - `layer` = the layer of their best child (a parent can never rank below its own child —
     structural, not aspirational);
-  - `ratio` = how many of its children landed in P0–P2.
+  - `ratio` = how many of its children landed in P0–P3.
 - **Replication scope per feature** comes from the ratio:
-  - **Majority rule:** most children in P0–P2 → the feature is replicated WHOLE (full depth on
+  - **Majority rule:** most children in P0–P3 → the feature is replicated WHOLE (full depth on
     the entire group — a group with one dead button feels broken in a replica).
   - **Gem rule:** only isolated children rank high → only those gems (+ their closure) get full
     depth; the rest of the group stays honestly shallow.
@@ -55,7 +55,7 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
 
 ## Logistics: closure and upward flow (connections' real job)
 
-- **Closure:** the replication set = P0–P2 **+ everything reachable from it via `requires`
+- **Closure:** the replication set = P0–P3 **+ everything reachable from it via `requires`
   edges** — a replicated capability must WORK. (picture-border P2 → insert-picture comes along,
   whatever its own score, marked `pulled-in-by`.) Pulled-in nodes get "enough to work" depth,
   not automatic full depth.
@@ -74,16 +74,17 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
   or a known-dead area rises, the inputs are wrong — investigate before accepting (journal the
   investigation).
 
-## Be sure of
+## Rules
 
-- All common rules (`playbook/README.md`).
-- Weights, boundaries, verdict reasonings, and all evidence are **in the artifacts** — "why is
-  X P0?" must be answerable by opening files.
-- Every node is in the ranking — **including contextual ones** (Table Layout, Picture Format
-  controls…). A contextual control missing from the ranking is a silent gap depth can never
-  reach, not a low priority.
-- No feature scored independently; no connection-density in value; closure computed, not
-  hand-waved.
+- **R4.1** All common rules (CR1–CR8, `playbook/README.md`) bind.
+- **R4.2** Weights, boundaries, verdict reasonings, and all evidence are **in the artifacts** —
+  "why is X P0?" must be answerable by opening files.
+- **R4.3** Every node ends up in a P layer — **including contextual ones** (Table Layout,
+  Picture Format controls…) and every feature row. A node in no layer is a silent gap depth can
+  never reach, not a low priority. [kernel-checked] (LESSONS 2026-07-12: an accidental edit
+  corrupted one id inside priority.json and NOTHING noticed until this check existed)
+- **R4.4** No feature scored independently; no connection-density in value; closure computed,
+  not hand-waved.
 
 ## Worked mini-example (generic document editor — the same flow applies to ANY app)
 

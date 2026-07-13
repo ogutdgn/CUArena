@@ -92,7 +92,7 @@ class FeatureNode(BaseModel):
     subfeatures: list[str] = []          # child subfeature ids
     connections: list[Connection] = []
     boundary: bool = False               # a Home-tab group we deliberately did not press
-    explored: bool = False               # depth flag (Step 5 flips for P0-P2)
+    explored: bool = False               # depth flag (Step 5 flips for P0-P3)
     source: str = "measured"
 
     @model_validator(mode="after")
@@ -118,7 +118,7 @@ class SubFeatureNode(BaseModel):
     screenshots: list[str] = []          # depth: icon crop + surface shots (visual evidence)
     connections: list[Connection] = []
     boundary: bool = False
-    explored: bool = False               # Step 5 flips for P0-P2 after full depth
+    explored: bool = False               # Step 5 flips for P0-P3 after full depth
     source: str = "measured"
 
     @model_validator(mode="after")
