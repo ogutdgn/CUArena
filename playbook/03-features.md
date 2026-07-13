@@ -17,6 +17,37 @@ editor; Playback, Subtitle in a media player; Labels, Layers in a web app. Only 
 no usable grouping (a flat toolbar) do you group by measured shared-effect-target. Never group
 from your own domain memory when the app has already grouped.
 
+**Every feature has one of two NATURES — measure it and record `cohesion`.** The app's boxes
+are honest about placement but say nothing about what KIND of box they are, and Step 4's scope
+rules depend on the kind:
+
+- **`capability`** — the children are FACETS of one capability: Font (bold/italic/size/color
+  all shape character formatting), Table Layout (all operate the table). The group lives and
+  dies as a unit — majority rule may replicate it WHOLE.
+- **`catalog`** — the children are INDEPENDENT capabilities that merely share a drawer:
+  Illustrations (Pictures / Charts / SmartArt / 3D are different worlds with different
+  follow-up machinery). A catalog is a menu, not a capability — it NEVER replicates whole
+  (04 R4.7); each child carries its own fate.
+
+Three measured tests (in order; the first two usually agree):
+1. **One-sentence test (the variation test, one level up):** can the group's purpose be stated
+   as ONE capability sentence in which every child is a facet/variation? "Formats character
+   appearance" ✅ capability. "Inserts… various visual things" — only works by going vague ❌
+   catalog.
+2. **Shared-affects test (mechanical):** do the children's measured `affects` targets point at
+   the same state? Font children → all "selected text's character format" → capability.
+   Illustrations children → picture object / chart object / diagram object → catalog.
+3. **Dead-button tie-breaker:** if one child were missing, would the group feel BROKEN? A dead
+   strikethrough in Font → broken → capability. No 3D-Models entry in Illustrations → just a
+   shorter menu → catalog. (A paint app's tool palette: a dead eraser breaks it → capability.)
+
+**Cohesion is judged per feature and never inherited.** A catalog's child may summon a world
+that is itself a capability feature with its own cohesion and its own scope: Illustrations
+(catalog) → `insert-pictures` → Picture Format (capability, its 13 children all shape the
+selected picture) — Picture behaves exactly like Table there. The `requires` edge between the
+world and its inserting capability is what keeps the pair replication-consistent (closure
+inspector).
+
 **What is a sub-feature? — the nameable capability.** The test: does *"this app can X"* make
 sense? "This app can bold text" ✅, "can merge table cells" ✅, "can insert pictures" ✅ — but
 "this app can match-case checkbox" ❌ (that's an OPTION inside Find, not a capability —
@@ -142,6 +173,10 @@ hint at connections — but never create a node from docs alone; the live app co
   skeleton. [kernel-checked]
 - **R3.4** Every connection carries evidence (`why`) and a `source` tag; inference-only edges
   are labeled as such.
+- **R3.5** Every feature carries a measured `cohesion` classification (`capability` /
+  `catalog`, tests above) — Step 4's scope rules are meaningless without it, and a catalog
+  mistaken for a capability drags dead weight into full depth. [kernel-checked: catalog +
+  scope:whole is a flagged contradiction]
 
 ## Proof
 

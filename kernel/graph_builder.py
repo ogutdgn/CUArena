@@ -42,6 +42,7 @@ def build_graph(kb_root: Path, app: str) -> dict:
         rel = f"features/{path.name}"
         f = ff.feature
         nodes[f.id] = {"type": "feature", "parent": None, "layer": layer_of.get(f.id),
+                       "cohesion": f.cohesion,
                        "trigger_paths": [tp.model_dump() for tp in f.trigger_paths],
                        "content": rel}
         for c in f.connections:
@@ -135,6 +136,13 @@ def check_completeness(graph: dict) -> list[str]:
         for nid in graph["nodes"]:
             if nid not in ranked:
                 problems.append(f"node {nid} is in no priority layer (unranked — silent gap)")
+
+    # catalog-scope contradiction (playbook R4.7 / R3.5): a catalog-cohesion feature must never
+    # carry scope:whole — its children are independent capabilities, judged one by one
+    for fid, d in (graph.get("derived") or {}).items():
+        if isinstance(d, dict) and d.get("scope") == "whole":
+            if graph["nodes"].get(fid, {}).get("cohesion") == "catalog":
+                problems.append(f"catalog feature {fid} has scope:whole (R4.7: a catalog never replicates whole)")
 
     # silent-deviation check (playbook R4.5): weights/boundaries must equal the pipeline
     # defaults OR carry a deviations note pointing at the journaled decision

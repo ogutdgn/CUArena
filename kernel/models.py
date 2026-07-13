@@ -83,6 +83,11 @@ class FeatureNode(BaseModel):
     what_it_does: str                    # the function — a real description, not a name
     affects: str                         # the state/target it changes
     audience_breadth: str
+    cohesion: Optional[Literal["capability", "catalog"]] = None
+                                         # group NATURE (playbook 03 tests): facets of ONE
+                                         # capability vs drawer of independent capabilities.
+                                         # Drives scope: catalog never whole (04 R4.7).
+                                         # None = legacy KB written before the rule.
     behavior: Optional[str] = None       # depth: how it works (options, states, defaults, edges)
     trigger_paths: list[TriggerPath] = []
     shortcut: Optional[str] = None       # display string; registry is source of truth

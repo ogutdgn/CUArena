@@ -52,12 +52,17 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
   - `layer` = the layer of their best child (a parent can never rank below its own child —
     structural, not aspirational);
   - `ratio` = how many of its children landed in P0–P3.
-- **Replication scope per feature** comes from the ratio:
-  - **Majority rule:** most children in P0–P3 → the feature is replicated WHOLE (full depth on
-    the entire group — a group with one dead button feels broken in a replica). This is wired
-    into Step 5's depth set (R5.5): whole-scope children enter it whatever their own layer.
+- **Replication scope per feature** comes from the ratio AND the feature's `cohesion` (Step 3):
+  - **Majority rule (capability features only):** most children in P0–P3 → the feature is
+    replicated WHOLE (full depth on the entire group — a group with one dead button feels
+    broken in a replica). This is wired into Step 5's depth set (R5.5): whole-scope children
+    enter it whatever their own layer.
   - **Gem rule:** only isolated children rank high → only those gems (+ their closure) get full
     depth; the rest of the group stays honestly shallow.
+  - **Catalog rule:** a `catalog` feature NEVER goes whole, whatever its ratio — its children
+    are independent capabilities judged one by one (a hot majority in Illustrations must not
+    drag 3D-Models into full depth). A catalog child's own WORLD (contextual family) is a
+    separate feature with its own cohesion and scope.
   - Ratio ~0 → not replicated (breadth knowledge only, honestly labeled).
 
 ## Logistics: closure and upward flow (connections' real job)
@@ -123,6 +128,10 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
   average — and the conflict is recorded as a journaled `decision`. This matters most when web
   data is absent and prominence carries extra weight (R4.5 deviation): a promoted-but-unused
   button must not walk into P0 unchallenged.
+- **R4.7 A catalog never replicates WHOLE.** The majority rule applies only to
+  `cohesion: capability` features (Step 3, R3.5); for catalogs the ratio does not decide
+  scope — children are judged independently, and the worlds they summon are separate features
+  with their own cohesion and scope. [kernel-checked: catalog + scope:whole = contradiction]
 
 ## Worked mini-example (generic document editor — the same flow applies to ANY app)
 
