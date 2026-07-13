@@ -210,6 +210,9 @@ class PriorityFile(BaseModel):
     closure: list[dict] = []                 # [{id, pulled_in_by, reason}]
     weights: dict = {}
     boundaries: dict = {}
+    deviations: dict = {}                    # R4.5: {"weights"|"boundaries": "why + journal ref"}
+                                             # required whenever weights/boundaries differ from
+                                             # the pipeline defaults (playbook 04-priority.md)
 
 
 class ShortcutsFile(BaseModel):

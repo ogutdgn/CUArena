@@ -81,7 +81,8 @@ popularity score — edge counts do not make a node valuable. Three kinds, stron
      (Paste disabled with empty clipboard; picture tools disabled without a selected picture).
      The prober already reads enabled/disabled — "X disabled without Y" is a measured edge.
   3. *Artifact relationship:* B operates on what A creates (border on picture). Observable.
-  These edges power **closure** (Step 4) and importance inheritance — get them right.
+  These edges power **closure** (Step 4) — replication-set membership for what high nodes
+  require, never a layer change — get them right.
 - **`affects-same` (medium):** two capabilities shape the same artifact (bold/italic → the
   selected text). Measured free from Step 2's state-diff targets. Co-usage hint only.
 - **`co-location` (weakest):** the app placed them together. Free from the skeleton. Hint only —

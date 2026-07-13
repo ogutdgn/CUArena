@@ -24,11 +24,17 @@ Connections play a different role (logistics — see below).
    - Media player → play/seek/volume indispensable; subtitle-sync peripheral.
    - MANDATORY format for every verdict: `product is X (identity) + this does Y (measured) →
      therefore indispensable/important/peripheral` — written, auditable, never bare intuition.
-2. **UI prominence (measured, internal).** Designers ship their own usage data in the layout:
-   what is on the default/primary surface, large, first-in-order = the app's own bet on frequent
-   use; what hides three menus deep = the app's own bet on rarity. Measured from the skeleton
-   (surface, position, size, nesting depth). Works for EVERY app, even ones the web has never
-   heard of.
+2. **UI prominence (measured, internal — a BIASED witness, see R4.6).** Designers ship their
+   own usage data in the layout: what is on the default/primary surface, large, first-in-order
+   = the app's own bet on frequent use; what hides three menus deep = the app's own bet on
+   rarity. Measured from the skeleton (surface, position, size, nesting depth — plus
+   **dedicated-shortcut existence** from the shortcut registry: a capability the vendor gave a
+   Ctrl-key to is a usage bet that survives every layout fashion; nobody gives the promo button
+   a Ctrl-key). Works for EVERY app, even ones the web has never heard of. Known lies:
+   - **promotion bias** — the vendor showcases what it wants to SELL, not what users use (a
+     giant AI/upsell button in the prime spot);
+   - **legacy bias** — old apps keep prime real estate for what mattered 20 years ago;
+   - **minimalism bias** — hamburger-style UIs bury everything equally, flattening the signal.
 3. **Web usage (external corroborator — not an oracle).** Research what real users use most.
    Every entry carries claim + source + node mapping. Its job is to confirm and to catch
    surprises the reasoning missed. When web data is thin or absent (niche/internal apps),
@@ -56,17 +62,35 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
 
 ## Logistics: closure and upward flow (connections' real job)
 
-- **Closure:** the replication set = P0–P3 **+ everything reachable from it via `requires`
-  edges** — a replicated capability must WORK. (picture-border P2 → insert-picture comes along,
-  whatever its own score, marked `pulled-in-by`.) Pulled-in nodes get "enough to work" depth,
-  not automatic full depth.
-- **Upward flow:** what high-usage capabilities REQUIRE inherits importance (undo matters
-  because used things need it — not because it has many edges).
+- **Closure:** the replication set = the depth set (P0–P3 + whole-scope children) **+
+  everything reachable from it via `requires` edges** — a replicated capability must WORK.
+  (picture-border P2 → insert-picture comes along, whatever its own score, marked
+  `pulled-in-by`.) Pulled-in nodes get "enough to work" depth, not automatic full depth.
+  [kernel-checked: every `requires` target of a depth-set node must be in the depth set or in
+  the closure list — a missing one is a broken dependency]
+- **Upward flow = membership, NOT layer.** What a high-usage capability REQUIRES inherits a
+  **place in the replication set** (via closure, at "enough to work" depth) — its LAYER never
+  moves. Layers stay pure usage measurements: the user really does use bookmark rarely, and P4
+  is that truth; promoting it would waste depth on what nobody uses and let connections leak
+  back into value (the v1 disease). Genuinely core dependencies need no promotion anyway —
+  product-purpose reasoning scores them on their own ("an editor whose mistakes can't be undone
+  fails the core job" → undo lands P0 by signal 1, no edges involved).
 - Connection **counts/centrality are NOT a value signal.** Do not add density to scores.
 
 ## How (mechanics)
 
-- Normalize, combine with recorded weights, sort SUB-FEATURES, cut into P0–P4 at recorded
+- **Pipeline defaults** (owner: the pipeline, not the run; calibration source: word
+  home+insert v2, 2026-07-10 — defaults change only by a reviewed pipeline commit with a
+  LESSONS-backed reason, never inside a run):
+
+  | | |
+  |---|---|
+  | weights | product-purpose **0.45** · web-usage **0.30** · UI-prominence **0.25** |
+  | boundaries | P0 ≥ **0.80** · P1 ≥ **0.68** · P2 ≥ **0.55** · P3 ≥ **0.38** · below → P4 |
+
+  The P3/P4 boundary is the most consequential number in the pipeline: it is the
+  full-depth/outline cliff. Treat deviations to it with matching seriousness.
+- Normalize, combine with the weights, sort SUB-FEATURES, cut into P0–P4 at the
   boundaries; then derive feature rows; then compute closure. Artifacts under
   `kb/<app>/priority/`: `signals/…`, `ranking.json` (sub-feature scores + weights),
   `layers.json` (BOTH node kinds; features annotated `derived_from: {best_child, ratio,
@@ -86,6 +110,19 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
   corrupted one id inside priority.json and NOTHING noticed until this check existed)
 - **R4.4** No feature scored independently; no connection-density in value; closure computed,
   not hand-waved.
+- **R4.5 Start from the pipeline defaults** (weights + boundaries, "How" table). Deviating is
+  allowed — an app with no web-usage data may redistribute that weight — but ONLY with BOTH:
+  (1) a journaled `decision` carrying the reasoning, and (2) a `deviations` note in
+  priority.json naming what changed and pointing at the journal entry. A silent deviation
+  fails the DoD. [kernel-checked] (defaults are mirrored in `kernel/graph_builder.py`)
+- **R4.6 Prominence is a biased witness — reasoning outranks it on hard conflict.** Before
+  trusting a prominence score, check it against the three named biases (promotion / legacy /
+  minimalism, signal 2 above); dedicated-shortcut existence is the bias-resistant
+  counter-evidence. When prominence and product-purpose reasoning HARD-conflict (one says
+  indispensable, the other peripheral), the verdict follows the REASONING — not the weighted
+  average — and the conflict is recorded as a journaled `decision`. This matters most when web
+  data is absent and prominence carries extra weight (R4.5 deviation): a promoted-but-unused
+  button must not walk into P0 unchallenged.
 
 ## Worked mini-example (generic document editor — the same flow applies to ANY app)
 

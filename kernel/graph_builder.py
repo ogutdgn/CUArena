@@ -63,7 +63,21 @@ def build_graph(kb_root: Path, app: str) -> dict:
 
     return {"app": app, "nodes": nodes, "edges": edges, "containers": containers,
             "layers": pri.layers, "closure": pri.closure,
-            "derived": pri.derived_features}
+            "derived": pri.derived_features,
+            "weights": pri.weights, "boundaries": pri.boundaries,
+            "deviations": pri.deviations}
+
+
+# Pipeline defaults for priority scoring (playbook 04-priority.md "Pipeline defaults", R4.5).
+# Mirror of the playbook table — change only together with it, via a reviewed pipeline commit.
+DEFAULT_WEIGHTS = {"product_purpose": 0.45, "usage": 0.30, "prominence": 0.25}
+DEFAULT_BOUNDARIES = {"P0": 0.80, "P1": 0.68, "P2": 0.55, "P3": 0.38}
+
+
+def _differs(actual: dict, default: dict) -> bool:
+    if set(actual) != set(default):
+        return True
+    return any(abs(float(actual[k]) - float(default[k])) > 1e-9 for k in default)
 
 
 # Window/scrollbar chrome + dialog-dismiss labels exempt from the unexplored-element depth check
@@ -122,6 +136,15 @@ def check_completeness(graph: dict) -> list[str]:
             if nid not in ranked:
                 problems.append(f"node {nid} is in no priority layer (unranked — silent gap)")
 
+    # silent-deviation check (playbook R4.5): weights/boundaries must equal the pipeline
+    # defaults OR carry a deviations note pointing at the journaled decision
+    if layers:
+        devs = graph.get("deviations") or {}
+        for name, actual, default in (("weights", graph.get("weights") or {}, DEFAULT_WEIGHTS),
+                                      ("boundaries", graph.get("boundaries") or {}, DEFAULT_BOUNDARIES)):
+            if actual and _differs(actual, default) and not devs.get(name):
+                problems.append(f"{name} deviate from pipeline defaults with no deviations note (R4.5: silent deviation)")
+
     # ellipsis contract (playbook R2.4): a "…"-labeled element promises a dialog; recording it
     # as an endpoint (triggers) is a classification contradiction, whatever its layer
     for cid, c in graph["containers"].items():
@@ -138,6 +161,17 @@ def check_completeness(graph: dict) -> list[str]:
     hi = {nid for nid, n in graph["nodes"].items()
           if n.get("layer") in ("P0", "P1", "P2", "P3")
           or (n["type"] == "subfeature" and n.get("parent") in whole)}
+    # closure invariant (playbook 04 "Closure"): every `requires` target of a depth-set node
+    # must itself be in the depth set or pulled in by closure — else the replica ships a
+    # capability that cannot work (broken dependency). Targets that are containers are skipped
+    # (requires is a node-to-node contract).
+    if layers:
+        pulled = {c.get("id") for c in (graph.get("closure") or []) if isinstance(c, dict)}
+        for e in graph["edges"]:
+            if e["kind"] == "requires" and e["from"] in hi and e["to"] in node_ids:
+                if e["to"] not in hi and e["to"] not in pulled:
+                    problems.append(f"depth-set node {e['from']} requires {e['to']} which is neither in the depth set nor in closure (broken dependency)")
+
     stubs = {cid for cid, c in graph["containers"].items() if not c["explored"]}
     gapped = {}   # cid -> non-chrome unexplored labels (deduped: reported once per container)
     for cid, c in graph["containers"].items():

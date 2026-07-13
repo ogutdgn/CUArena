@@ -235,7 +235,7 @@ Docs **guide, never create**: no feature/sub-feature node is ever created from d
 
 **Stage 3 — Assembly + priority.** Merge node files into `graph.json`. Run the completeness check (below); unresolved gaps go back to Stage 2. If docs were harvested, also run the **docs coverage cross-check**: a feature named in the docs but absent from the inventory is a candidate gap — investigated live before anything is added. Then rank every SUB-FEATURE into the five layers P0–P4 from three value signals (all asking "would our user use this?"):
 1. **Product-purpose reasoning** — the app's identity + the capability's measured function → "could the core job be done without this?" (rich-text editor → font/paragraph/tables/pictures indispensable; mail-merge peripheral). Every verdict written in the form: product is X + this does Y → therefore Z.
-2. **UI prominence** — the designer's own usage bet, measured from the skeleton (default surface, size, order, nesting depth). Works for apps the web has never heard of.
+2. **UI prominence** — the designer's own usage bet, measured from the skeleton (default surface, size, order, nesting depth, dedicated-shortcut existence). Works for apps the web has never heard of — but it is a biased witness (promotion/legacy/minimalism biases); on hard conflict, product-purpose reasoning outranks it (playbook 04 R4.6).
 3. **Real-world usage (corroborator)** — web research confirming/adjusting; claim + source per entry; when absent, signals 1+2 carry the ranking.
 Features are never scored independently: a feature's layer = its best child's layer, plus a ratio (children in P0–P3) that sets replication scope — majority high → replicate the feature WHOLE; isolated gems → only the gems + their closure. Then compute **closure**: the replication set = P0–P3 plus everything reachable via `requires` edges (pulled-in nodes get "enough to work" depth, labeled `pulled-in-by`). Connection density is NOT a value signal.
 
@@ -252,14 +252,14 @@ Rankings map into **five fixed layers**. Each layer buys a defined amount of dep
 | **P0–P3** | High/medium priority — the app's identity and its working body | Full: every behavior, option, state, edge case, documented exactly | Full: every dialog/dropdown along its trigger paths expanded, recursing until the depth endpoint rule fires |
 | **P4** | Low priority — the tail | **Outline only**: identity rubric (name, one-liner function, affects, audience), connections, trigger path, face screenshot | Surface layer only: its top-level control exists with control type / icon / label; interiors stay honest `unexplored` / `explored:false` stubs |
 
-Where the score boundaries between layers fall is tunable and will be calibrated once real graphs exist.
+Signal weights and layer boundaries are **pipeline defaults** owned by the pipeline, not the run (values + deviation protocol: `playbook/04-priority.md` R4.5; mirrored in the kernel check). A run starts from them and may deviate only with a journaled decision plus a `deviations` note in priority.json; defaults themselves evolve only by reviewed pipeline commits as calibration evidence accumulates across apps.
 
 ### Priority mechanics — how ranking actually happens
 
 Each signal is computed separately, as its own auditable artifact in `kb/<app>/priority/signals/`:
 
 1. **Product-purpose reasoning** — judgment grounded in two measured facts (the app's identity from Step 0, the node's function from Step 3), written per-verdict in the mandated form. Auditable because both inputs are in the KB.
-2. **UI prominence** — pure computation from the skeleton: which surface, what size, what order, how deep. The app's own usage data, leaked into its layout.
+2. **UI prominence** — pure computation from the skeleton: which surface, what size, what order, how deep, plus dedicated-shortcut existence from the registry. The app's own usage data, leaked into its layout — read through the bias lens of playbook 04 R4.6.
 3. **Real-world usage** — researched corroborator: claims mapped onto node ids, claim + source per entry; no evidence, no score. Signal disagreements are resolved in journaled `decision` entries, never silently.
 
 Then arithmetic, not judgment: normalize each signal to 0–1, weighted-sum into one score per node (weights from config, **recorded in `ranking.json`** so rankings are reproducible and re-weightable without redoing research), sort, and cut at the configured boundaries into P0–P4 (`layers.json`, boundaries recorded).
