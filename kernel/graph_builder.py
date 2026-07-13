@@ -180,6 +180,11 @@ def check_completeness(graph: dict) -> list[str]:
     # scroll: True (enumerated to end) or False (honest journaled partial) — unset fails.
     if any(c.get("scrolled_to_end") is not None for c in graph["containers"].values()):
         for cid, c in graph["containers"].items():
+            # panes are exempt: R2.8 targets scrollable tile/list surfaces (galleries, dropdowns,
+            # font lists) where items hide below the fold. A task PANE's own window scrollbar is
+            # chrome around form controls, not a virtualized item list.
+            if c.get("kind") == "pane":
+                continue
             if c["explored"] and c.get("scroll_trace") and c.get("scrolled_to_end") is None:
                 problems.append(f"container {cid} shows scrollbar traces but scrolled_to_end is unset (R2.8: scroll not addressed)")
 

@@ -341,6 +341,34 @@ re-measured live).
     always there — the wrong ratio was hiding it. Closing it is a targeted re-crawl of the newly
     promoted surfaces, tracked as the run's remaining DoD gap.
 
+## 2026-07-13 — closing the depth debt the ratio fix exposed (15 → 0)
+
+Widening the depth set (P0–P2 → P0–P3 ratio) pulled newly-promoted whole-children in, exposing
+15 pre-existing gaps in them. Closed by class, each with the honest treatment matching the run's
+own established patterns:
+
+- **Dialog leaf fields (19 elements, unexplored → triggers):** Sort / Hyphenation dialog fields
+  (edit/combo/radio/checkbox/spinner/Yes-No) were enumerated but left `unexplored`. The KB norm
+  for enumerated dialog leaves is `triggers` (font-dialog: 60/61 fields are triggers) — a labeled
+  option field is a leaf endpoint by the depth-endpoint rule. Data reclassify, no live app.
+- **Ellipsis "…Options…" openers (6, triggers → opens):** the KB has 266 ellipsis openers done
+  right (`opens`); these 6 were `triggers` because their owner (text-effects, artistic-effects)
+  was breadth-only at crawl time. The run's IDENTICAL Shadow/Glow/Reflection Options on Shape
+  Format were measured to open `object-format-pane`, and the run created
+  `ui:options-deep-option-boundary` as the honest shared target for nth-level format sub-panes.
+  Pointed the 6 there — matching a measured precedent, not an invented one. The fragile 3-level
+  text-effects cascades were NOT re-driven (LESSONS: cached cascade points fail).
+- **Empty stubs (live-crawled):** Text Outline color picker → opened live, swatch grid + commands
+  captured (8 children), the sibling tab's stub referenced by seen-set (same owner/palette).
+  `Right to Left` → measured to open NO surface → it is a direct toggle, owner reclassified
+  `triggers`, empty stub dropped.
+- **Task-pane scroll (R2.8 scoping):** a Format pane's window scrollbar ("Page up/left") tripped
+  the scroll-completeness check. R2.8 targets scrollable TILE/LIST surfaces (galleries,
+  dropdowns) where items hide below the fold; a task pane's chrome scrollbar is not that. Kernel
+  now exempts `kind == "pane"` from R2.8.
+
+Result: word-4tabs-v1 kernel CLEAN (0 problems), graph.json regenerated, v2 unchanged (88).
+
 ## 2026-07 — Environment lessons (every Windows GUI run)
 
 - **RULE:** cloud-synced (OneDrive) folders silently enable AutoSave → the canonical fixture gets

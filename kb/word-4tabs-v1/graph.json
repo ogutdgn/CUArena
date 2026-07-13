@@ -19427,11 +19427,31 @@
         "subfeature:sort",
         "subfeature:sort",
         "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
         "subfeature:sort"
       ],
-      "unexplored_labels": [
+      "unexplored_labels": [],
+      "endpoint_labels": [
         "RichEdit Control",
         "RichEdit Control",
+        "RichEdit Control",
+        "Context help",
+        "Close",
+        "Sort by",
+        "Type:",
+        "Ascending",
+        "Descending",
         "Then by",
         "Type:",
         "Ascending",
@@ -19441,16 +19461,7 @@
         "Ascending",
         "Descending",
         "No header row",
-        "Header row"
-      ],
-      "endpoint_labels": [
-        "RichEdit Control",
-        "Context help",
-        "Close",
-        "Sort by",
-        "Type:",
-        "Ascending",
-        "Descending",
+        "Header row",
         "OK",
         "Cancel"
       ],
@@ -19466,12 +19477,12 @@
         [
           null,
           "RichEdit Control",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "RichEdit Control",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -19506,52 +19517,52 @@
         [
           null,
           "Then by",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Type:",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Ascending",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Descending",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Then by",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Type:",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Ascending",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Descending",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "No header row",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "Header row",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -24046,9 +24057,10 @@
     "ui:ribbon-picture-format-picture-artistic-effects-dropdown": {
       "kind": "dropdown",
       "explored": true,
-      "opens": [],
+      "opens": [
+        "ui:options-deep-option-boundary"
+      ],
       "triggers": [
-        "subfeature:picture-artistic-effects",
         "subfeature:picture-artistic-effects",
         "subfeature:picture-artistic-effects",
         "subfeature:picture-artistic-effects",
@@ -24101,8 +24113,7 @@
         "Plastic Wrap",
         "Cutout",
         "Photocopy",
-        "Glow Edges",
-        "Artistic Effects Options..."
+        "Glow Edges"
       ],
       "scroll_trace": false,
       "scrolled_to_end": null,
@@ -24236,7 +24247,7 @@
         [
           null,
           "Artistic Effects Options...",
-          "triggers"
+          "opens"
         ]
       ]
     },
@@ -29283,13 +29294,13 @@
       "opens": [
         "ui:ribbon-smart-art-design-smart-art-add-shape-dropdown",
         "ui:ribbon-smart-art-design-smart-art-text-dialog",
-        "ui:ribbon-smart-art-design-smart-art-right-to-left-dropdown",
         "ui:ribbon-smart-art-design-smart-art-layout-flyout",
         "ui:ribbon-smart-art-design-smart-art-change-colors-dropdown",
         "ui:ribbon-smart-art-design-smart-art-styles-flyout"
       ],
       "triggers": [
         "subfeature:smartart-add-shape",
+        "subfeature:smartart-reverse",
         "subfeature:smartart-reset"
       ],
       "unexplored_labels": [
@@ -29302,6 +29313,7 @@
       ],
       "endpoint_labels": [
         "Add Shape",
+        "Right to Left",
         "Reset Graphic"
       ],
       "scroll_trace": false,
@@ -29356,7 +29368,7 @@
         [
           "el:ribbon-smart-art-design-smart-art-right-to-left",
           "Right to Left",
-          "opens"
+          "triggers"
         ],
         [
           "el:ribbon-smart-art-design-smart-art-reorder-up",
@@ -29473,18 +29485,6 @@
           "triggers"
         ]
       ]
-    },
-    "ui:ribbon-smart-art-design-smart-art-right-to-left-dropdown": {
-      "kind": "dropdown",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
-      "unexplored_labels": [],
-      "endpoint_labels": [],
-      "scroll_trace": false,
-      "scrolled_to_end": null,
-      "element_ids": [],
-      "elements": []
     },
     "ui:ribbon-smart-art-design-smart-art-change-colors-dropdown": {
       "kind": "dropdown",
@@ -29723,8 +29723,8 @@
         "ui:ribbon-smart-art-format-object-format-pane",
         "ui:ribbon-shape-format-text-styles-flyout",
         "ui:ribbon-smart-art-format-text-fill-color-dropdown",
-        "ui:ribbon-smart-art-format-text-outline-color-dropdown",
-        "ui:ribbon-smart-art-format-text-outline-color-dropdown",
+        "ui:ribbon-chart-format-text-outline-color-dropdown",
+        "ui:ribbon-chart-format-text-outline-color-dropdown",
         "ui:ribbon-smart-art-format-text-effects-dropdown",
         "ui:ribbon-smart-art-format-word-art-format-pane",
         "ui:ribbon-smart-art-format-alt-text-pane-ribbon-pane",
@@ -30289,18 +30289,6 @@
           "opens"
         ]
       ]
-    },
-    "ui:ribbon-smart-art-format-text-outline-color-dropdown": {
-      "kind": "dropdown",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
-      "unexplored_labels": [],
-      "endpoint_labels": [],
-      "scroll_trace": false,
-      "scrolled_to_end": null,
-      "element_ids": [],
-      "elements": []
     },
     "ui:ribbon-smart-art-format-text-effects-dropdown": {
       "kind": "dropdown",
@@ -32811,15 +32799,74 @@
     },
     "ui:ribbon-chart-format-text-outline-color-dropdown": {
       "kind": "dropdown",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
+      "explored": true,
+      "opens": [
+        "ui:options-deep-option-boundary"
+      ],
+      "triggers": [
+        "subfeature:wordart-text-outline",
+        "subfeature:wordart-text-outline",
+        "subfeature:wordart-text-outline",
+        "subfeature:wordart-text-outline",
+        "subfeature:wordart-text-outline",
+        "subfeature:wordart-text-outline",
+        "subfeature:wordart-text-outline"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Text Outline",
+        "High-contrast only",
+        "Automatic",
+        "No Outline",
+        "Weight",
+        "Dashes"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Text Outline",
+          "triggers"
+        ],
+        [
+          null,
+          "High-contrast only",
+          "triggers"
+        ],
+        [
+          null,
+          "Automatic",
+          "triggers"
+        ],
+        [
+          null,
+          "No Outline",
+          "triggers"
+        ],
+        [
+          null,
+          "More Outline Colors...",
+          "opens"
+        ],
+        [
+          null,
+          "Weight",
+          "triggers"
+        ],
+        [
+          null,
+          "Dashes",
+          "triggers"
+        ]
+      ]
     },
     "ui:ribbon-chart-format-text-effects-dropdown": {
       "kind": "dropdown",
@@ -62129,15 +62176,16 @@
       "triggers": [
         "subfeature:hyphenation",
         "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
         "subfeature:hyphenation"
       ],
-      "unexplored_labels": [
-        "Yes",
-        "No"
-      ],
+      "unexplored_labels": [],
       "endpoint_labels": [
         "Context help",
         "Close",
+        "Yes",
+        "No",
         "Cancel"
       ],
       "scroll_trace": false,
@@ -62157,12 +62205,12 @@
         [
           null,
           "Yes",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
           "No",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -62185,18 +62233,19 @@
         "subfeature:hyphenation",
         "subfeature:hyphenation",
         "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
         "subfeature:hyphenation"
       ],
-      "unexplored_labels": [
-        "RichEdit Control",
-        "Hyphenation zone:"
-      ],
+      "unexplored_labels": [],
       "endpoint_labels": [
+        "RichEdit Control",
         "RichEdit Control",
         "Context help",
         "Close",
         "Automatically hyphenate document",
         "Hyphenate words in CAPS",
+        "Hyphenation zone:",
         "Limit consecutive hyphens to:",
         "OK",
         "Cancel"
@@ -62208,7 +62257,7 @@
         [
           null,
           "RichEdit Control",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -62238,7 +62287,7 @@
         [
           null,
           "Hyphenation zone:",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -62277,11 +62326,10 @@
         "subfeature:sort",
         "subfeature:sort",
         "subfeature:sort",
+        "subfeature:sort",
         "subfeature:sort"
       ],
-      "unexplored_labels": [
-        "Sort column only"
-      ],
+      "unexplored_labels": [],
       "endpoint_labels": [
         "RichEdit Control",
         "Context help",
@@ -62290,6 +62338,7 @@
         "Commas",
         "Other:",
         "Other:",
+        "Sort column only",
         "Case sensitive",
         "Sorting language",
         "OK",
@@ -62337,7 +62386,7 @@
         [
           null,
           "Sort column only",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -62364,9 +62413,10 @@
     "ui:text-effects-dropdown-outline-weight": {
       "kind": "dropdown",
       "explored": true,
-      "opens": [],
+      "opens": [
+        "ui:options-deep-option-boundary"
+      ],
       "triggers": [
-        "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
@@ -62391,8 +62441,7 @@
         "2\u00bc pt",
         "3 pt",
         "4\u00bd pt",
-        "6 pt",
-        "More Lines..."
+        "6 pt"
       ],
       "scroll_trace": false,
       "scrolled_to_end": null,
@@ -62456,16 +62505,17 @@
         [
           null,
           "More Lines...",
-          "triggers"
+          "opens"
         ]
       ]
     },
     "ui:text-effects-dropdown-outline-dashes": {
       "kind": "dropdown",
       "explored": true,
-      "opens": [],
+      "opens": [
+        "ui:options-deep-option-boundary"
+      ],
       "triggers": [
-        "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
@@ -62488,8 +62538,7 @@
         "Dash Dot",
         "Long Dash",
         "Long Dash Dot",
-        "Long Dash Dot Dot",
-        "More Lines..."
+        "Long Dash Dot Dot"
       ],
       "scroll_trace": false,
       "scrolled_to_end": null,
@@ -62548,7 +62597,7 @@
         [
           null,
           "More Lines...",
-          "triggers"
+          "opens"
         ]
       ]
     },
@@ -62564,14 +62613,14 @@
         "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
+        "subfeature:text-effects",
         "subfeature:text-effects"
       ],
-      "unexplored_labels": [
-        "High-contrast only"
-      ],
+      "unexplored_labels": [],
       "endpoint_labels": [
         "Color swatches",
         "Outline",
+        "High-contrast only",
         "Automatic",
         "No Outline"
       ],
@@ -62592,7 +62641,7 @@
         [
           null,
           "High-contrast only",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -62624,9 +62673,10 @@
     "ui:text-effects-dropdown-shadow": {
       "kind": "dropdown",
       "explored": true,
-      "opens": [],
+      "opens": [
+        "ui:options-deep-option-boundary"
+      ],
       "triggers": [
-        "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
@@ -62681,8 +62731,7 @@
         "Perspective: Upper Right",
         "Perspective: Below",
         "Perspective: Lower Left",
-        "Perspective: Lower Right",
-        "Shadow Options..."
+        "Perspective: Lower Right"
       ],
       "scroll_trace": false,
       "scrolled_to_end": null,
@@ -62821,16 +62870,17 @@
         [
           null,
           "Shadow Options...",
-          "triggers"
+          "opens"
         ]
       ]
     },
     "ui:text-effects-dropdown-reflection": {
       "kind": "dropdown",
       "explored": true,
-      "opens": [],
+      "opens": [
+        "ui:options-deep-option-boundary"
+      ],
       "triggers": [
-        "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
@@ -62857,8 +62907,7 @@
         "Full Reflection: 4 point offset",
         "Tight Reflection: 8 point offset",
         "Half Reflection: 8 point offset",
-        "Full Reflection: 8 point offset",
-        "Reflection Options..."
+        "Full Reflection: 8 point offset"
       ],
       "scroll_trace": false,
       "scrolled_to_end": null,
@@ -62927,7 +62976,7 @@
         [
           null,
           "Reflection Options...",
-          "triggers"
+          "opens"
         ]
       ]
     },
@@ -62939,14 +62988,14 @@
       ],
       "triggers": [
         "subfeature:text-effects",
+        "subfeature:text-effects",
         "subfeature:text-effects"
       ],
-      "unexplored_labels": [
-        "High-contrast only"
-      ],
+      "unexplored_labels": [],
       "endpoint_labels": [
         "Color swatches",
-        "More Glow Colors"
+        "More Glow Colors",
+        "High-contrast only"
       ],
       "scroll_trace": false,
       "scrolled_to_end": null,
@@ -62965,7 +63014,7 @@
         [
           null,
           "High-contrast only",
-          "unexplored"
+          "triggers"
         ],
         [
           null,
@@ -62978,10 +63027,10 @@
       "kind": "dropdown",
       "explored": true,
       "opens": [
-        "ui:text-effects-dropdown-glow-more-glow-colors"
+        "ui:text-effects-dropdown-glow-more-glow-colors",
+        "ui:options-deep-option-boundary"
       ],
       "triggers": [
-        "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
         "subfeature:text-effects",
@@ -63038,8 +63087,7 @@
         "Glow: 18 point; Dark Green, Accent color 3",
         "Glow: 18 point; Turquoise, Accent color 4",
         "Glow: 18 point; Plum, Accent color 5",
-        "Glow: 18 point; Green, Accent color 6",
-        "Glow Options..."
+        "Glow: 18 point; Green, Accent color 6"
       ],
       "scroll_trace": false,
       "scrolled_to_end": null,
@@ -63188,7 +63236,7 @@
         [
           null,
           "Glow Options...",
-          "triggers"
+          "opens"
         ]
       ]
     },

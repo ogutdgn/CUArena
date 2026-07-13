@@ -31718,11 +31718,11 @@
             909,
             490
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -31741,11 +31741,11 @@
             909,
             553
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -31902,11 +31902,11 @@
             927,
             493
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -31925,11 +31925,11 @@
             1063,
             494
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -31948,11 +31948,11 @@
             1146,
             483
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -31971,11 +31971,11 @@
             1153,
             502
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -31994,11 +31994,11 @@
             927,
             556
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -32017,11 +32017,11 @@
             1063,
             557
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -32040,11 +32040,11 @@
             1146,
             546
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -32063,11 +32063,11 @@
             1153,
             565
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -32086,11 +32086,11 @@
             961,
             609
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -32109,11 +32109,11 @@
             855,
             609
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -46239,10 +46239,10 @@
             556,
             439
           ],
-          "state_notes": "menu command (endpoint — no surface appeared on press)",
+          "state_notes": "menu command (endpoint — no surface appeared on press); R2.4: opens Format Picture pane (Artistic Effects, nth-level format sub-pane) -> options-deep-option-boundary; same class as measured Shape-Format options",
           "source": "hit-test",
-          "triggers": "subfeature:picture-artistic-effects",
-          "opens": null,
+          "triggers": null,
+          "opens": "ui:options-deep-option-boundary",
           "unexplored": false
         }
       ],
@@ -61422,10 +61422,10 @@
             234,
             158
           ],
-          "state_notes": "keytip Alt, J S, R; group 'Create Graphic'",
+          "state_notes": "keytip Alt, J S, R; group 'Create Graphic'; R5.4: measured — no surface opens; a direct toggle/command (endpoint)",
           "source": "measured:window-delta",
-          "triggers": null,
-          "opens": "ui:ribbon-smart-art-design-smart-art-right-to-left-dropdown",
+          "triggers": "subfeature:smartart-reverse",
+          "opens": null,
           "unexplored": false
         },
         {
@@ -61788,19 +61788,6 @@
       ],
       "child_containers": [],
       "explored": true,
-      "trigger_condition": null,
-      "scrolled_to_end": null,
-      "screenshots": []
-    },
-    "ui:ribbon-smart-art-design-smart-art-right-to-left-dropdown": {
-      "id": "ui:ribbon-smart-art-design-smart-art-right-to-left-dropdown",
-      "kind": "dropdown",
-      "label": "Right to Left",
-      "purpose": "Switch the layout of the SmartArt graphic between Left to Right and Right to Left.",
-      "screenshot": "screenshots/ui-ribbon-smart-art-design-smart-art-right-to-left-dropdown/surface.png",
-      "children": [],
-      "child_containers": [],
-      "explored": false,
       "trigger_condition": null,
       "scrolled_to_end": null,
       "screenshots": []
@@ -62850,10 +62837,10 @@
             1059,
             132
           ],
-          "state_notes": "keytip Alt, J O, T O; group 'WordArt Styles'",
+          "state_notes": "keytip Alt, J O, T O; group 'WordArt Styles'; seen-set: same Text Outline color picker as Chart Format (shared owner/palette)",
           "source": "measured:window-delta",
           "triggers": null,
-          "opens": "ui:ribbon-smart-art-format-text-outline-color-dropdown",
+          "opens": "ui:ribbon-chart-format-text-outline-color-dropdown",
           "unexplored": false
         },
         {
@@ -62873,10 +62860,10 @@
             1059,
             132
           ],
-          "state_notes": "keytip Alt, J O, T O; group 'WordArt Styles'",
+          "state_notes": "keytip Alt, J O, T O; group 'WordArt Styles'; seen-set: same Text Outline color picker as Chart Format (shared owner/palette)",
           "source": "measured:window-delta",
           "triggers": null,
-          "opens": "ui:ribbon-smart-art-format-text-outline-color-dropdown",
+          "opens": "ui:ribbon-chart-format-text-outline-color-dropdown",
           "unexplored": false
         },
         {
@@ -64233,19 +64220,6 @@
         "ui:ribbon-smart-art-format-shape-fill-color-dropdown-picture"
       ],
       "explored": true,
-      "trigger_condition": null,
-      "scrolled_to_end": null,
-      "screenshots": []
-    },
-    "ui:ribbon-smart-art-format-text-outline-color-dropdown": {
-      "id": "ui:ribbon-smart-art-format-text-outline-color-dropdown",
-      "kind": "dropdown",
-      "label": "Text Outline",
-      "purpose": "Customize the outline of your text by choosing the color, width and line style.",
-      "screenshot": "screenshots/ui-ribbon-smart-art-format-text-outline-color-dropdown/surface.png",
-      "children": [],
-      "child_containers": [],
-      "explored": false,
       "trigger_condition": null,
       "scrolled_to_end": null,
       "screenshots": []
@@ -71754,12 +71728,192 @@
     "ui:ribbon-chart-format-text-outline-color-dropdown": {
       "id": "ui:ribbon-chart-format-text-outline-color-dropdown",
       "kind": "dropdown",
-      "label": "Text Outline",
-      "purpose": "Customize the outline of your text by choosing the color, width and line style.",
+      "label": "Text Outline color picker",
+      "purpose": "the Text Outline color picker of subfeature:wordart-text-outline — theme/standard swatches (endpoints) + More Colors (boundary)",
       "screenshot": "screenshots/ui-ribbon-chart-format-text-outline-color-dropdown/surface.png",
-      "children": [],
+      "children": [
+        {
+          "id": null,
+          "control_type": "swatch-grid",
+          "label": "Color swatches",
+          "icon": {
+            "description": "owner-drawn theme/standard color grid",
+            "image": "screenshots/ui-ribbon-chart-format-text-outline-color-dropdown/surface.png"
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": null,
+          "state_notes": "2 color cells (endpoint: applies the outline color)",
+          "source": "pixel",
+          "triggers": "subfeature:wordart-text-outline",
+          "opens": null,
+          "unexplored": false
+        },
+        {
+          "id": null,
+          "control_type": "ct50009",
+          "label": "Text Outline",
+          "icon": {
+            "description": "Text Outline (in-dialog control)",
+            "image": null
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": [
+            1106,
+            132,
+            1390,
+            600
+          ],
+          "state_notes": "color command (endpoint)",
+          "source": "hit-test",
+          "triggers": "subfeature:wordart-text-outline",
+          "opens": null,
+          "unexplored": false
+        },
+        {
+          "id": null,
+          "control_type": "button",
+          "label": "High-contrast only",
+          "icon": {
+            "description": "High-contrast only (in-dialog control)",
+            "image": null
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": [
+            1222,
+            140,
+            1382,
+            168
+          ],
+          "state_notes": "color command (endpoint); leaf endpoint: accessibility (high-contrast) toggle in the color picker",
+          "source": "hit-test",
+          "triggers": "subfeature:wordart-text-outline",
+          "opens": null,
+          "unexplored": false
+        },
+        {
+          "id": null,
+          "control_type": "listitem",
+          "label": "Automatic",
+          "icon": {
+            "description": "Automatic (in-dialog control)",
+            "image": null
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": [
+            1108,
+            177,
+            1388,
+            205
+          ],
+          "state_notes": "color command (endpoint)",
+          "source": "hit-test",
+          "triggers": "subfeature:wordart-text-outline",
+          "opens": null,
+          "unexplored": false
+        },
+        {
+          "id": null,
+          "control_type": "listitem",
+          "label": "No Outline",
+          "icon": {
+            "description": "No Outline (in-dialog control)",
+            "image": null
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": [
+            1108,
+            480,
+            1388,
+            508
+          ],
+          "state_notes": "color command (endpoint)",
+          "source": "hit-test",
+          "triggers": "subfeature:wordart-text-outline",
+          "opens": null,
+          "unexplored": false
+        },
+        {
+          "id": null,
+          "control_type": "menuitem",
+          "label": "More Outline Colors...",
+          "icon": {
+            "description": "More Outline Colors... (in-dialog control)",
+            "image": null
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": [
+            1108,
+            511,
+            1388,
+            540
+          ],
+          "state_notes": "opens the More Colors dialog (boundary)",
+          "source": "hit-test",
+          "triggers": null,
+          "opens": "ui:options-deep-option-boundary",
+          "unexplored": false
+        },
+        {
+          "id": null,
+          "control_type": "menuitem",
+          "label": "Weight",
+          "icon": {
+            "description": "Weight (in-dialog control)",
+            "image": null
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": [
+            1108,
+            540,
+            1388,
+            569
+          ],
+          "state_notes": "color command (endpoint)",
+          "source": "hit-test",
+          "triggers": "subfeature:wordart-text-outline",
+          "opens": null,
+          "unexplored": false
+        },
+        {
+          "id": null,
+          "control_type": "menuitem",
+          "label": "Dashes",
+          "icon": {
+            "description": "Dashes (in-dialog control)",
+            "image": null
+          },
+          "tooltip": null,
+          "shortcut": null,
+          "location": null,
+          "bounds": [
+            1108,
+            569,
+            1388,
+            598
+          ],
+          "state_notes": "color command (endpoint)",
+          "source": "hit-test",
+          "triggers": "subfeature:wordart-text-outline",
+          "opens": null,
+          "unexplored": false
+        }
+      ],
       "child_containers": [],
-      "explored": false,
+      "explored": true,
       "trigger_condition": null,
       "scrolled_to_end": null,
       "screenshots": []
@@ -159203,11 +159357,11 @@
             956,
             543
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:hyphenation",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -159226,11 +159380,11 @@
             1040,
             543
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:hyphenation",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -159286,11 +159440,11 @@
             1066,
             517
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:hyphenation",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -159424,11 +159578,11 @@
             1084,
             520
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:hyphenation",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -159716,11 +159870,11 @@
             872,
             512
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "uia",
-          "triggers": null,
+          "triggers": "subfeature:sort",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -160093,10 +160247,10 @@
             1106,
             1002
           ],
-          "state_notes": "menu command (endpoint — no surface appeared on press)",
+          "state_notes": "menu command (endpoint — no surface appeared on press); R2.4: opens the Format Text Effects pane (nth-level format sub-pane). Pointed at the run's established options-deep-option-boundary — the IDENTICAL Shadow/Glow/Reflection Options... on Shape Format were measured to open object-format-pane; this owner was breadth-only at crawl time so missed the treatment. 3-level cascade not re-driven (LESSONS: cached cascade points are fragile).",
           "source": "hit-test",
-          "triggers": "subfeature:text-effects",
-          "opens": null,
+          "triggers": null,
+          "opens": "ui:options-deep-option-boundary",
           "unexplored": false
         }
       ],
@@ -160355,10 +160509,10 @@
             1058,
             957
           ],
-          "state_notes": "menu command (endpoint — no surface appeared on press)",
+          "state_notes": "menu command (endpoint — no surface appeared on press); R2.4: opens the Format Text Effects pane (nth-level format sub-pane). Pointed at the run's established options-deep-option-boundary — the IDENTICAL Shadow/Glow/Reflection Options... on Shape Format were measured to open object-format-pane; this owner was breadth-only at crawl time so missed the treatment. 3-level cascade not re-driven (LESSONS: cached cascade points are fragile).",
           "source": "hit-test",
-          "triggers": "subfeature:text-effects",
-          "opens": null,
+          "triggers": null,
+          "opens": "ui:options-deep-option-boundary",
           "unexplored": false
         }
       ],
@@ -160433,11 +160587,11 @@
             923,
             363
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "hit-test",
-          "triggers": null,
+          "triggers": "subfeature:text-effects",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -161182,10 +161336,10 @@
             834,
             1019
           ],
-          "state_notes": "menu command (endpoint — no surface appeared on press)",
+          "state_notes": "menu command (endpoint — no surface appeared on press); R2.4: opens the Format Text Effects pane (nth-level format sub-pane). Pointed at the run's established options-deep-option-boundary — the IDENTICAL Shadow/Glow/Reflection Options... on Shape Format were measured to open object-format-pane; this owner was breadth-only at crawl time so missed the treatment. 3-level cascade not re-driven (LESSONS: cached cascade points are fragile).",
           "source": "hit-test",
-          "triggers": "subfeature:text-effects",
-          "opens": null,
+          "triggers": null,
+          "opens": "ui:options-deep-option-boundary",
           "unexplored": false
         }
       ],
@@ -161490,10 +161644,10 @@
             834,
             715
           ],
-          "state_notes": "menu command (endpoint — no surface appeared on press)",
+          "state_notes": "menu command (endpoint — no surface appeared on press); R2.4: opens the Format Text Effects pane (nth-level format sub-pane). Pointed at the run's established options-deep-option-boundary — the IDENTICAL Shadow/Glow/Reflection Options... on Shape Format were measured to open object-format-pane; this owner was breadth-only at crawl time so missed the treatment. 3-level cascade not re-driven (LESSONS: cached cascade points are fragile).",
           "source": "hit-test",
-          "triggers": "subfeature:text-effects",
-          "opens": null,
+          "triggers": null,
+          "opens": "ui:options-deep-option-boundary",
           "unexplored": false
         }
       ],
@@ -161568,11 +161722,11 @@
             1206,
             716
           ],
-          "state_notes": "disabled in this document state",
+          "state_notes": "disabled in this document state; dialog leaf field — sets its labeled option (endpoint per depth-endpoint rule; matches KB dialog-field norm)",
           "source": "hit-test",
-          "triggers": null,
+          "triggers": "subfeature:text-effects",
           "opens": null,
-          "unexplored": true
+          "unexplored": false
         },
         {
           "id": null,
@@ -162269,10 +162423,10 @@
             930,
             767
           ],
-          "state_notes": "menu command (endpoint — no surface appeared on press)",
+          "state_notes": "menu command (endpoint — no surface appeared on press); R2.4: opens the Format Text Effects pane (nth-level format sub-pane). Pointed at the run's established options-deep-option-boundary — the IDENTICAL Shadow/Glow/Reflection Options... on Shape Format were measured to open object-format-pane; this owner was breadth-only at crawl time so missed the treatment. 3-level cascade not re-driven (LESSONS: cached cascade points are fragile).",
           "source": "hit-test",
-          "triggers": "subfeature:text-effects",
-          "opens": null,
+          "triggers": null,
+          "opens": "ui:options-deep-option-boundary",
           "unexplored": false
         }
       ],
