@@ -738,8 +738,27 @@
       "what_it_does": "Arms a pen to draw table cell boundaries by hand.",
       "affects": "the table's cell boundaries (draw mode)",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-draw"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -771,8 +790,27 @@
       "what_it_does": "Arms an eraser to remove table cell boundaries (merging cells).",
       "affects": "the table's cell boundaries (erase mode)",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-eraser"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -804,8 +842,77 @@
       "what_it_does": "Opens the Formula dialog to compute a value (SUM, AVERAGE…) in a table cell.",
       "affects": "the selected cell (adds a formula field)",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Formula dialog — the surface that presents this capability's options (10 controls enumerated in the structural pass). Applying a choice there changes: the selected cell (adds a formula field).",
+      "behavior_record": {
+        "effect": "Opens the Formula dialog — the surface that presents this capability's options (10 controls enumerated in the structural pass). Applying a choice there changes: the selected cell (adds a formula field).",
+        "options": [
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-formula"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-formula"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-formula"
+            ]
+          },
+          {
+            "name": "Formula:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-formula"
+            ]
+          },
+          {
+            "name": "Number format:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-formula"
+            ]
+          },
+          {
+            "name": "Paste function:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-formula"
+            ]
+          },
+          {
+            "name": "Paste bookmark:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-formula"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-formula"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -838,8 +945,63 @@
       "what_it_does": "Opens the Insert Cells dialog to insert cells and shift the rest.",
       "affects": "the table's cells (addition)",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Insert Cells dialog — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the table's cells (addition).",
+      "behavior_record": {
+        "effect": "Opens the Insert Cells dialog — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the table's cells (addition).",
+        "options": [
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-insert-cells"
+            ]
+          },
+          {
+            "name": "Shift cells right",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-insert-cells"
+            ]
+          },
+          {
+            "name": "Shift cells down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-insert-cells"
+            ]
+          },
+          {
+            "name": "Insert entire row",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-insert-cells"
+            ]
+          },
+          {
+            "name": "Insert entire column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:table-insert-cells"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-insert-cells"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -1624,8 +1786,27 @@
       "what_it_does": "Rotates the text direction within the selected cells.",
       "affects": "the text orientation within the selected cells",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-text-direction"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

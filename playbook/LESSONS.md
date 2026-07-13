@@ -315,6 +315,32 @@ re-measured live).
   Two bugs fixed mid-repair: a rect/point click mismatch (expand-rect vs zone-point), and an
   options backfill that read a crawl-time variable instead of the recorded ui.json tiles.
 
+## 2026-07-13 — the ratio's high-set was still P0–P2 (a boundary move that half-happened)
+
+- **SYMPTOM:** word-4tabs-v1's derived feature scopes were computed with the OLD boundary —
+  `hi = children in {P0,P1,P2}`. Verified by recomputing all 38 features both ways: 26 of the
+  discriminating ones matched the P0–P2 formula, ZERO matched P0–P3. Consequence: 21 features
+  that should be `whole` under the P0–P3 depth boundary were under-scoped (chart-design 1/7→7/7,
+  object-arrange 1/8→8/8, picture-format 1/13→10/13, table-layout 8/20→15/20…) — their P3
+  children silently excluded from replication.
+  - **ROOT CAUSE:** when the depth boundary moved P0–P2 → P0–P3 (2026-07-12), the run's
+    `combine_priority.py` had that constant in FIVE places; the fix updated four (boundaries,
+    layer loops, depth-set membership, closure) and missed the one `hi = [... P0,P1,P2]` line
+    that feeds the ratio. A boundary that lives in several places moves in several edits, and
+    one gets left behind — exactly the "rule wired into one path, not its sibling" failure, one
+    layer down.
+  - **RULE NOW:** the ratio formula is written explicitly in `04-priority.md` (hi = children in
+    P0–P3; ratio = hi/n; majority×2>n → whole unless catalog; hi==0 → none; else gems), and the
+    kernel RECOMPUTES stored ratio AND scope from layers + cohesion and flags any mismatch
+    [kernel-checked] — a run carrying a stale boundary in its own scripts can no longer ship its
+    derivation. (Precedent this session: the same "output-level check beats path-level
+    discipline" that caught the R2.5 galleries.)
+  - **CONSEQUENCE (honest):** widening the depth set to the corrected `whole` scopes pulled
+    previously-out-of-set children INTO it, exposing genuine pre-existing depth debt in those
+    nodes (ellipsis endpoints, un-entered dialog interiors, an unset scroll flag). That debt was
+    always there — the wrong ratio was hiding it. Closing it is a targeted re-crawl of the newly
+    promoted surfaces, tracked as the run's remaining DoD gap.
+
 ## 2026-07 — Environment lessons (every Windows GUI run)
 
 - **RULE:** cloud-synced (OneDrive) folders silently enable AutoSave → the canonical fixture gets

@@ -1170,8 +1170,147 @@
       "what_it_does": "Changes the document theme's graphic effects (shadow/reflection/line styling for shapes and charts) from a gallery.",
       "affects": "the document theme's graphic effects",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Effects dropdown — the surface that presents this capability's options (17 controls enumerated in the structural pass). Applying a choice there changes: the document theme's graphic effects.",
+      "behavior_record": {
+        "effect": "Opens the Effects dropdown — the surface that presents this capability's options (17 controls enumerated in the structural pass). Applying a choice there changes: the document theme's graphic effects.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Effects",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Office",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Office 2007 - 2010",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Subtle Solids",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Banded Edge",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Smokey Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Glow Edge",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Grunge Texture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Frosted Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Top Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Inset",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Milk Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Riblet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Reflection",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Extreme Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Glossy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:theme-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -1235,8 +1374,42 @@
       "what_it_does": "Sets the current theme/style-set/spacing formatting as the default for new documents based on this template.",
       "affects": "the template's default formatting",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Microsoft Word dialog — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: the template's default formatting.",
+      "behavior_record": {
+        "effect": "Opens the Microsoft Word dialog — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: the template's default formatting.",
+        "options": [
+          {
+            "name": "Yes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:set-as-default"
+            ]
+          },
+          {
+            "name": "No",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:set-as-default"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:set-as-default"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

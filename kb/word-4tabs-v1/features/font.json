@@ -1367,8 +1367,196 @@
       "what_it_does": "Applies visual text effects (outline, shadow, reflection, glow) and OpenType typography.",
       "affects": "the selection's character appearance",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Text Effects and Typography dropdown — the surface that presents this capability's options (24 controls enumerated in the structural pass). Applying a choice there changes: the selection's character appearance.",
+      "behavior_record": {
+        "effect": "Opens the Text Effects and Typography dropdown — the surface that presents this capability's options (24 controls enumerated in the structural pass). Applying a choice there changes: the selection's character appearance.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Text Effects and Typography",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Black, Text color 1; Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Dark Teal, Accent color 1; Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Orange, Accent color 2; Outline: Orange, Accent color 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: White; Outline: Plum, Accent color 5; Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Turquoise, Accent color 4; Soft Bevel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Gradient Fill, Gray",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Gradient Fill: Plum, Accent color 5; Reflection",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Gradient Fill: Turquoise, Accent color 4; Outline: Turquoise, Accent color 4",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: White; Outline: Dark Teal, Accent color 1; Glow: Dark Teal, Accent color 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Dark Green, Accent color 3; Sharp Bevel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: White, Background color 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Plum, Accent color 5; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: White; Outline: Orange, Accent color 2; Hard Shadow: Orange, Accent color 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Fill: Light Gray, Background color 2; Inner Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Outline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Reflection",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Glow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Number Styles",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Ligatures",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          },
+          {
+            "name": "Stylistic Sets",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:text-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:text-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

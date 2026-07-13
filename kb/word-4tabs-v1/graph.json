@@ -685,7 +685,10 @@
       ],
       "opens": "ui:theme-effects-dropdown",
       "content": "features/document-formatting.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:set-as-default": {
       "type": "subfeature",
@@ -704,7 +707,10 @@
       ],
       "opens": "ui:quick-styles-set-as-default-dialog",
       "content": "features/document-formatting.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "feature:editing": {
       "type": "feature",
@@ -945,7 +951,10 @@
       ],
       "opens": null,
       "content": "features/equation-tools.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:equation-structures": {
       "type": "subfeature",
@@ -1459,7 +1468,10 @@
       ],
       "opens": "ui:text-effects-dropdown",
       "content": "features/font.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:text-highlight-color-picker": {
       "type": "subfeature",
@@ -1761,7 +1773,10 @@
       ],
       "opens": "ui:ribbon-header-footer-insert-alignment-tab-dialog",
       "content": "features/header-footer-tools.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:hf-close": {
       "type": "subfeature",
@@ -1980,7 +1995,10 @@
       ],
       "opens": null,
       "content": "features/header-footer-tools.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "feature:header-footer": {
       "type": "feature",
@@ -3866,7 +3884,10 @@
       ],
       "opens": "ui:line-numbers-menu",
       "content": "features/page-setup.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:hyphenation": {
       "type": "subfeature",
@@ -3885,7 +3906,10 @@
       ],
       "opens": "ui:hyphenation-menu",
       "content": "features/page-setup.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:page-setup-dialog": {
       "type": "subfeature",
@@ -4168,7 +4192,10 @@
       ],
       "opens": "ui:sort-dialog",
       "content": "features/paragraph.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:paragraph-marks": {
       "type": "subfeature",
@@ -4454,7 +4481,10 @@
       ],
       "opens": "ui:ribbon-picture-format-picture-artistic-effects-dropdown",
       "content": "features/picture-format.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:picture-border": {
       "type": "subfeature",
@@ -4570,7 +4600,10 @@
       ],
       "opens": "ui:ribbon-picture-format-pictures-convert-to-smart-art-dropdown",
       "content": "features/picture-format.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:picture-corrections": {
       "type": "subfeature",
@@ -4633,7 +4666,10 @@
       ],
       "opens": "ui:ribbon-picture-format-picture-format-pane",
       "content": "features/picture-format.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:picture-remove-background": {
       "type": "subfeature",
@@ -5262,7 +5298,10 @@
       ],
       "opens": null,
       "content": "features/smartart-design.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:smartart-promote-demote": {
       "type": "subfeature",
@@ -5330,7 +5369,10 @@
       ],
       "opens": null,
       "content": "features/smartart-design.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:smartart-reverse": {
       "type": "subfeature",
@@ -5349,7 +5391,10 @@
       ],
       "opens": "ui:ribbon-smart-art-design-smart-art-right-to-left-dropdown",
       "content": "features/smartart-design.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 3
+      }
     },
     "subfeature:smartart-style": {
       "type": "subfeature",
@@ -6140,7 +6185,10 @@
       ],
       "opens": null,
       "content": "features/table-layout.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:table-eraser": {
       "type": "subfeature",
@@ -6159,7 +6207,10 @@
       ],
       "opens": null,
       "content": "features/table-layout.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:table-formula": {
       "type": "subfeature",
@@ -6178,7 +6229,10 @@
       ],
       "opens": "ui:ribbon-table-layout-table-formula-dialog",
       "content": "features/table-layout.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:table-insert-cells": {
       "type": "subfeature",
@@ -6197,7 +6251,10 @@
       ],
       "opens": "ui:ribbon-table-layout-table-insert-cells-dialog",
       "content": "features/table-layout.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:table-insert-columns": {
       "type": "subfeature",
@@ -6419,7 +6476,10 @@
       ],
       "opens": null,
       "content": "features/table-layout.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 4
+      }
     },
     "subfeature:table-view-gridlines": {
       "type": "subfeature",
@@ -6911,7 +6971,10 @@
       ],
       "opens": "ui:ribbon-chart-format-text-outline-color-dropdown",
       "content": "features/wordart-text-styles.json",
-      "behavior": null
+      "behavior": {
+        "evidenced": true,
+        "pending": 3
+      }
     },
     "subfeature:wordart-text-style-gallery": {
       "type": "subfeature",
@@ -10039,15 +10102,137 @@
     },
     "ui:theme-effects-dropdown": {
       "kind": "dropdown",
-      "explored": false,
+      "explored": true,
       "opens": [],
-      "triggers": [],
+      "triggers": [
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects",
+        "subfeature:theme-effects"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Effects",
+        "Office",
+        "Office 2007 - 2010",
+        "Subtle Solids",
+        "Banded Edge",
+        "Smokey Glass",
+        "Glow Edge",
+        "Grunge Texture",
+        "Frosted Glass",
+        "Top Shadow",
+        "Inset",
+        "Milk Glass",
+        "Riblet",
+        "Reflection",
+        "Extreme Shadow",
+        "Glossy"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Effects",
+          "triggers"
+        ],
+        [
+          null,
+          "Office",
+          "triggers"
+        ],
+        [
+          null,
+          "Office 2007 - 2010",
+          "triggers"
+        ],
+        [
+          null,
+          "Subtle Solids",
+          "triggers"
+        ],
+        [
+          null,
+          "Banded Edge",
+          "triggers"
+        ],
+        [
+          null,
+          "Smokey Glass",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow Edge",
+          "triggers"
+        ],
+        [
+          null,
+          "Grunge Texture",
+          "triggers"
+        ],
+        [
+          null,
+          "Frosted Glass",
+          "triggers"
+        ],
+        [
+          null,
+          "Top Shadow",
+          "triggers"
+        ],
+        [
+          null,
+          "Inset",
+          "triggers"
+        ],
+        [
+          null,
+          "Milk Glass",
+          "triggers"
+        ],
+        [
+          null,
+          "Riblet",
+          "triggers"
+        ],
+        [
+          null,
+          "Reflection",
+          "triggers"
+        ],
+        [
+          null,
+          "Extreme Shadow",
+          "triggers"
+        ],
+        [
+          null,
+          "Glossy",
+          "triggers"
+        ]
+      ]
     },
     "ui:quick-styles-set-as-default-dialog": {
       "kind": "dialog",
@@ -11082,27 +11267,115 @@
     },
     "ui:line-numbers-menu": {
       "kind": "menu",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
+      "explored": true,
+      "opens": [
+        "ui:page-setup-dialog"
+      ],
+      "triggers": [
+        "subfeature:line-numbers",
+        "subfeature:line-numbers",
+        "subfeature:line-numbers",
+        "subfeature:line-numbers",
+        "subfeature:line-numbers",
+        "subfeature:line-numbers"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "None",
+        "Continuous",
+        "Restart Each Page",
+        "Restart Each Section",
+        "Suppress for Current Paragraph"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "None",
+          "triggers"
+        ],
+        [
+          null,
+          "Continuous",
+          "triggers"
+        ],
+        [
+          null,
+          "Restart Each Page",
+          "triggers"
+        ],
+        [
+          null,
+          "Restart Each Section",
+          "triggers"
+        ],
+        [
+          null,
+          "Suppress for Current Paragraph",
+          "triggers"
+        ],
+        [
+          null,
+          "Line Numbering Options...",
+          "opens"
+        ]
+      ]
     },
     "ui:hyphenation-menu": {
       "kind": "menu",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
+      "explored": true,
+      "opens": [
+        "ui:hyphenation-menu-automatic",
+        "ui:hyphenation-menu-manual",
+        "ui:hyphenation-menu-hyphenation-options"
+      ],
+      "triggers": [
+        "subfeature:hyphenation",
+        "subfeature:hyphenation"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "None"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "None",
+          "triggers"
+        ],
+        [
+          null,
+          "Automatic",
+          "opens"
+        ],
+        [
+          null,
+          "Manual",
+          "opens"
+        ],
+        [
+          null,
+          "Hyphenation Options...",
+          "opens"
+        ]
+      ]
     },
     "ui:page-setup-dialog": {
       "kind": "dialog",
@@ -18093,15 +18366,180 @@
     },
     "ui:text-effects-dropdown": {
       "kind": "dropdown",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
+      "explored": true,
+      "opens": [
+        "ui:text-effects-dropdown-outline",
+        "ui:text-effects-dropdown-shadow",
+        "ui:text-effects-dropdown-reflection",
+        "ui:text-effects-dropdown-glow",
+        "ui:text-effects-dropdown-number-styles",
+        "ui:text-effects-dropdown-ligatures",
+        "ui:text-effects-dropdown-stylistic-sets"
+      ],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Text Effects and Typography",
+        "Fill: Black, Text color 1; Shadow",
+        "Fill: Dark Teal, Accent color 1; Shadow",
+        "Fill: Orange, Accent color 2; Outline: Orange, Accent color 2",
+        "Fill: White; Outline: Plum, Accent color 5; Shadow",
+        "Fill: Turquoise, Accent color 4; Soft Bevel",
+        "Gradient Fill, Gray",
+        "Gradient Fill: Plum, Accent color 5; Reflection",
+        "Gradient Fill: Turquoise, Accent color 4; Outline: Turquoise, Accent color 4",
+        "Fill: White; Outline: Dark Teal, Accent color 1; Glow: Dark Teal, Accent color 1",
+        "Fill: Dark Green, Accent color 3; Sharp Bevel",
+        "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: White, Background color 1",
+        "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+        "Fill: Plum, Accent color 5; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+        "Fill: White; Outline: Orange, Accent color 2; Hard Shadow: Orange, Accent color 2",
+        "Fill: Light Gray, Background color 2; Inner Shadow"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Text Effects and Typography",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Black, Text color 1; Shadow",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Dark Teal, Accent color 1; Shadow",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Orange, Accent color 2; Outline: Orange, Accent color 2",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: White; Outline: Plum, Accent color 5; Shadow",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Turquoise, Accent color 4; Soft Bevel",
+          "triggers"
+        ],
+        [
+          null,
+          "Gradient Fill, Gray",
+          "triggers"
+        ],
+        [
+          null,
+          "Gradient Fill: Plum, Accent color 5; Reflection",
+          "triggers"
+        ],
+        [
+          null,
+          "Gradient Fill: Turquoise, Accent color 4; Outline: Turquoise, Accent color 4",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: White; Outline: Dark Teal, Accent color 1; Glow: Dark Teal, Accent color 1",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Dark Green, Accent color 3; Sharp Bevel",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: White, Background color 1",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Plum, Accent color 5; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: White; Outline: Orange, Accent color 2; Hard Shadow: Orange, Accent color 2",
+          "triggers"
+        ],
+        [
+          null,
+          "Fill: Light Gray, Background color 2; Inner Shadow",
+          "triggers"
+        ],
+        [
+          null,
+          "Outline",
+          "opens"
+        ],
+        [
+          null,
+          "Shadow",
+          "opens"
+        ],
+        [
+          null,
+          "Reflection",
+          "opens"
+        ],
+        [
+          null,
+          "Glow",
+          "opens"
+        ],
+        [
+          null,
+          "Number Styles",
+          "opens"
+        ],
+        [
+          null,
+          "Ligatures",
+          "opens"
+        ],
+        [
+          null,
+          "Stylistic Sets",
+          "opens"
+        ]
+      ]
     },
     "ui:text-highlight-color-dropdown": {
       "kind": "dropdown",
@@ -18976,15 +19414,161 @@
     },
     "ui:sort-dialog": {
       "kind": "dialog",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
-      "unexplored_labels": [],
-      "endpoint_labels": [],
+      "explored": true,
+      "opens": [
+        "ui:sort-dialog-options"
+      ],
+      "triggers": [
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort"
+      ],
+      "unexplored_labels": [
+        "RichEdit Control",
+        "RichEdit Control",
+        "Then by",
+        "Type:",
+        "Ascending",
+        "Descending",
+        "Then by",
+        "Type:",
+        "Ascending",
+        "Descending",
+        "No header row",
+        "Header row"
+      ],
+      "endpoint_labels": [
+        "RichEdit Control",
+        "Context help",
+        "Close",
+        "Sort by",
+        "Type:",
+        "Ascending",
+        "Descending",
+        "OK",
+        "Cancel"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "RichEdit Control",
+          "triggers"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "unexplored"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "unexplored"
+        ],
+        [
+          null,
+          "Context help",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ],
+        [
+          null,
+          "Sort by",
+          "triggers"
+        ],
+        [
+          null,
+          "Type:",
+          "triggers"
+        ],
+        [
+          null,
+          "Ascending",
+          "triggers"
+        ],
+        [
+          null,
+          "Descending",
+          "triggers"
+        ],
+        [
+          null,
+          "Then by",
+          "unexplored"
+        ],
+        [
+          null,
+          "Type:",
+          "unexplored"
+        ],
+        [
+          null,
+          "Ascending",
+          "unexplored"
+        ],
+        [
+          null,
+          "Descending",
+          "unexplored"
+        ],
+        [
+          null,
+          "Then by",
+          "unexplored"
+        ],
+        [
+          null,
+          "Type:",
+          "unexplored"
+        ],
+        [
+          null,
+          "Ascending",
+          "unexplored"
+        ],
+        [
+          null,
+          "Descending",
+          "unexplored"
+        ],
+        [
+          null,
+          "No header row",
+          "unexplored"
+        ],
+        [
+          null,
+          "Header row",
+          "unexplored"
+        ],
+        [
+          null,
+          "Options...",
+          "opens"
+        ],
+        [
+          null,
+          "OK",
+          "triggers"
+        ],
+        [
+          null,
+          "Cancel",
+          "triggers"
+        ]
+      ]
     },
     "ui:line-spacing-menu": {
       "kind": "menu",
@@ -21953,15 +22537,74 @@
     },
     "ui:ribbon-table-layout-table-insert-cells-dialog": {
       "kind": "dialog",
-      "explored": false,
+      "explored": true,
       "opens": [],
-      "triggers": [],
+      "triggers": [
+        "subfeature:table-insert-cells",
+        "subfeature:table-insert-cells",
+        "subfeature:table-insert-cells",
+        "subfeature:table-insert-cells",
+        "subfeature:table-insert-cells",
+        "subfeature:table-insert-cells",
+        "subfeature:table-insert-cells",
+        "subfeature:table-insert-cells"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Context help",
+        "Close",
+        "Shift cells right",
+        "Shift cells down",
+        "Insert entire row",
+        "Insert entire column",
+        "OK",
+        "Cancel"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Context help",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ],
+        [
+          null,
+          "Shift cells right",
+          "triggers"
+        ],
+        [
+          null,
+          "Shift cells down",
+          "triggers"
+        ],
+        [
+          null,
+          "Insert entire row",
+          "triggers"
+        ],
+        [
+          null,
+          "Insert entire column",
+          "triggers"
+        ],
+        [
+          null,
+          "OK",
+          "triggers"
+        ],
+        [
+          null,
+          "Cancel",
+          "triggers"
+        ]
+      ]
     },
     "ui:ribbon-table-layout-split-cells-dialog": {
       "kind": "dialog",
@@ -22235,15 +22878,206 @@
     },
     "ui:ribbon-table-layout-sort-dialog": {
       "kind": "dialog",
-      "explored": false,
-      "opens": [],
-      "triggers": [],
-      "unexplored_labels": [],
-      "endpoint_labels": [],
+      "explored": true,
+      "opens": [
+        "ui:sort-dialog-options"
+      ],
+      "triggers": [
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort"
+      ],
+      "unexplored_labels": [
+        "RichEdit Control",
+        "RichEdit Control",
+        "Then by",
+        "Type:",
+        "Using:",
+        "Ascending",
+        "Descending",
+        "No header row",
+        "Header row"
+      ],
+      "endpoint_labels": [
+        "RichEdit Control",
+        "RichEdit Control",
+        "RichEdit Control",
+        "RichEdit Control",
+        "Context help",
+        "Close",
+        "Sort by",
+        "Type:",
+        "Using:",
+        "Ascending",
+        "Descending",
+        "Then by",
+        "Type:",
+        "Using:",
+        "Ascending",
+        "Descending",
+        "OK",
+        "Cancel"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "RichEdit Control",
+          "triggers"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "triggers"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "triggers"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "triggers"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "unexplored"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "unexplored"
+        ],
+        [
+          null,
+          "Context help",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ],
+        [
+          null,
+          "Sort by",
+          "triggers"
+        ],
+        [
+          null,
+          "Type:",
+          "triggers"
+        ],
+        [
+          null,
+          "Using:",
+          "triggers"
+        ],
+        [
+          null,
+          "Ascending",
+          "triggers"
+        ],
+        [
+          null,
+          "Descending",
+          "triggers"
+        ],
+        [
+          null,
+          "Then by",
+          "triggers"
+        ],
+        [
+          null,
+          "Type:",
+          "triggers"
+        ],
+        [
+          null,
+          "Using:",
+          "triggers"
+        ],
+        [
+          null,
+          "Ascending",
+          "triggers"
+        ],
+        [
+          null,
+          "Descending",
+          "triggers"
+        ],
+        [
+          null,
+          "Then by",
+          "unexplored"
+        ],
+        [
+          null,
+          "Type:",
+          "unexplored"
+        ],
+        [
+          null,
+          "Using:",
+          "unexplored"
+        ],
+        [
+          null,
+          "Ascending",
+          "unexplored"
+        ],
+        [
+          null,
+          "Descending",
+          "unexplored"
+        ],
+        [
+          null,
+          "No header row",
+          "unexplored"
+        ],
+        [
+          null,
+          "Header row",
+          "unexplored"
+        ],
+        [
+          null,
+          "Options...",
+          "opens"
+        ],
+        [
+          null,
+          "OK",
+          "triggers"
+        ],
+        [
+          null,
+          "Cancel",
+          "triggers"
+        ]
+      ]
     },
     "ui:ribbon-table-layout-convert-table-to-text-dialog": {
       "kind": "dialog",
@@ -23211,15 +24045,200 @@
     },
     "ui:ribbon-picture-format-picture-artistic-effects-dropdown": {
       "kind": "dropdown",
-      "explored": false,
+      "explored": true,
       "opens": [],
-      "triggers": [],
+      "triggers": [
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects",
+        "subfeature:picture-artistic-effects"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Artistic Effects",
+        "None",
+        "Marker",
+        "Pencil Grayscale",
+        "Pencil Sketch",
+        "Line Drawing",
+        "Chalk Sketch",
+        "Paint Strokes",
+        "Paint Brush",
+        "Glow Diffused",
+        "Blur",
+        "Light Screen",
+        "Watercolor Sponge",
+        "Film Grain",
+        "Mosaic Bubbles",
+        "Glass",
+        "Cement",
+        "Texturizer",
+        "Crisscross Etching",
+        "Pastels Smooth",
+        "Plastic Wrap",
+        "Cutout",
+        "Photocopy",
+        "Glow Edges",
+        "Artistic Effects Options..."
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Artistic Effects",
+          "triggers"
+        ],
+        [
+          null,
+          "None",
+          "triggers"
+        ],
+        [
+          null,
+          "Marker",
+          "triggers"
+        ],
+        [
+          null,
+          "Pencil Grayscale",
+          "triggers"
+        ],
+        [
+          null,
+          "Pencil Sketch",
+          "triggers"
+        ],
+        [
+          null,
+          "Line Drawing",
+          "triggers"
+        ],
+        [
+          null,
+          "Chalk Sketch",
+          "triggers"
+        ],
+        [
+          null,
+          "Paint Strokes",
+          "triggers"
+        ],
+        [
+          null,
+          "Paint Brush",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow Diffused",
+          "triggers"
+        ],
+        [
+          null,
+          "Blur",
+          "triggers"
+        ],
+        [
+          null,
+          "Light Screen",
+          "triggers"
+        ],
+        [
+          null,
+          "Watercolor Sponge",
+          "triggers"
+        ],
+        [
+          null,
+          "Film Grain",
+          "triggers"
+        ],
+        [
+          null,
+          "Mosaic Bubbles",
+          "triggers"
+        ],
+        [
+          null,
+          "Glass",
+          "triggers"
+        ],
+        [
+          null,
+          "Cement",
+          "triggers"
+        ],
+        [
+          null,
+          "Texturizer",
+          "triggers"
+        ],
+        [
+          null,
+          "Crisscross Etching",
+          "triggers"
+        ],
+        [
+          null,
+          "Pastels Smooth",
+          "triggers"
+        ],
+        [
+          null,
+          "Plastic Wrap",
+          "triggers"
+        ],
+        [
+          null,
+          "Cutout",
+          "triggers"
+        ],
+        [
+          null,
+          "Photocopy",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow Edges",
+          "triggers"
+        ],
+        [
+          null,
+          "Artistic Effects Options...",
+          "triggers"
+        ]
+      ]
     },
     "ui:ribbon-picture-format-picture-transparency-dropdown": {
       "kind": "dropdown",
@@ -23615,27 +24634,285 @@
     },
     "ui:ribbon-picture-format-pictures-convert-to-smart-art-dropdown": {
       "kind": "dropdown",
-      "explored": false,
+      "explored": true,
       "opens": [],
-      "triggers": [],
+      "triggers": [
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart",
+        "subfeature:picture-convert-to-smartart"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Accented Picture",
+        "Circular Picture Callout",
+        "Picture Caption List",
+        "Snapshot Picture List",
+        "Spiral Picture",
+        "Captioned Pictures",
+        "Bending Picture Caption",
+        "Bending Picture Semi-Transparent Text",
+        "Bending Picture Blocks",
+        "Bending Picture Caption List",
+        "Titled Picture Blocks",
+        "Picture Grid",
+        "Picture Accent Blocks",
+        "Picture Strips",
+        "Alternating Picture Blocks",
+        "Ascending Picture Accent Process",
+        "Alternating Picture Circles",
+        "Title Picture Lineup",
+        "Picture Lineup",
+        "Framed Text Picture",
+        "Hexagon Cluster",
+        "Bubble Picture List",
+        "Circle Picture Hierarchy",
+        "Horizontal Picture List",
+        "Continuous Picture List",
+        "Vertical Picture List",
+        "Vertical Picture Accent List",
+        "Bending Picture Accent List",
+        "Picture Accent List",
+        "Picture Accent Process"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Accented Picture",
+          "triggers"
+        ],
+        [
+          null,
+          "Circular Picture Callout",
+          "triggers"
+        ],
+        [
+          null,
+          "Picture Caption List",
+          "triggers"
+        ],
+        [
+          null,
+          "Snapshot Picture List",
+          "triggers"
+        ],
+        [
+          null,
+          "Spiral Picture",
+          "triggers"
+        ],
+        [
+          null,
+          "Captioned Pictures",
+          "triggers"
+        ],
+        [
+          null,
+          "Bending Picture Caption",
+          "triggers"
+        ],
+        [
+          null,
+          "Bending Picture Semi-Transparent Text",
+          "triggers"
+        ],
+        [
+          null,
+          "Bending Picture Blocks",
+          "triggers"
+        ],
+        [
+          null,
+          "Bending Picture Caption List",
+          "triggers"
+        ],
+        [
+          null,
+          "Titled Picture Blocks",
+          "triggers"
+        ],
+        [
+          null,
+          "Picture Grid",
+          "triggers"
+        ],
+        [
+          null,
+          "Picture Accent Blocks",
+          "triggers"
+        ],
+        [
+          null,
+          "Picture Strips",
+          "triggers"
+        ],
+        [
+          null,
+          "Alternating Picture Blocks",
+          "triggers"
+        ],
+        [
+          null,
+          "Ascending Picture Accent Process",
+          "triggers"
+        ],
+        [
+          null,
+          "Alternating Picture Circles",
+          "triggers"
+        ],
+        [
+          null,
+          "Title Picture Lineup",
+          "triggers"
+        ],
+        [
+          null,
+          "Picture Lineup",
+          "triggers"
+        ],
+        [
+          null,
+          "Framed Text Picture",
+          "triggers"
+        ],
+        [
+          null,
+          "Hexagon Cluster",
+          "triggers"
+        ],
+        [
+          null,
+          "Bubble Picture List",
+          "triggers"
+        ],
+        [
+          null,
+          "Circle Picture Hierarchy",
+          "triggers"
+        ],
+        [
+          null,
+          "Horizontal Picture List",
+          "triggers"
+        ],
+        [
+          null,
+          "Continuous Picture List",
+          "triggers"
+        ],
+        [
+          null,
+          "Vertical Picture List",
+          "triggers"
+        ],
+        [
+          null,
+          "Vertical Picture Accent List",
+          "triggers"
+        ],
+        [
+          null,
+          "Bending Picture Accent List",
+          "triggers"
+        ],
+        [
+          null,
+          "Picture Accent List",
+          "triggers"
+        ],
+        [
+          null,
+          "Picture Accent Process",
+          "triggers"
+        ]
+      ]
     },
     "ui:ribbon-picture-format-picture-format-pane": {
       "kind": "pane",
-      "explored": false,
+      "explored": true,
       "opens": [],
-      "triggers": [],
+      "triggers": [
+        "subfeature:picture-format-pane",
+        "subfeature:picture-format-pane",
+        "subfeature:picture-format-pane",
+        "subfeature:picture-format-pane",
+        "subfeature:picture-format-pane"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
-      "scroll_trace": false,
+      "endpoint_labels": [
+        "Page left",
+        "Page up",
+        "Minimize",
+        "Restore",
+        "Close"
+      ],
+      "scroll_trace": true,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Page left",
+          "triggers"
+        ],
+        [
+          null,
+          "Page up",
+          "triggers"
+        ],
+        [
+          null,
+          "Minimize",
+          "triggers"
+        ],
+        [
+          null,
+          "Restore",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ]
+      ]
     },
     "ui:ribbon-picture-format-alt-text-pane-ribbon-pane": {
       "kind": "pane",
@@ -36024,15 +37301,109 @@
     },
     "ui:ribbon-header-footer-insert-alignment-tab-dialog": {
       "kind": "dialog",
-      "explored": false,
+      "explored": true,
       "opens": [],
-      "triggers": [],
+      "triggers": [
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab",
+        "subfeature:hf-alignment-tab"
+      ],
       "unexplored_labels": [],
-      "endpoint_labels": [],
+      "endpoint_labels": [
+        "Context help",
+        "Close",
+        "Left",
+        "Center",
+        "Right",
+        "Align relative to:",
+        "1 None",
+        "2 .......",
+        "3 -------",
+        "4 ____",
+        "5 \u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7",
+        "OK",
+        "Cancel"
+      ],
       "scroll_trace": false,
       "scrolled_to_end": null,
       "element_ids": [],
-      "elements": []
+      "elements": [
+        [
+          null,
+          "Context help",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ],
+        [
+          null,
+          "Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Center",
+          "triggers"
+        ],
+        [
+          null,
+          "Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Align relative to:",
+          "triggers"
+        ],
+        [
+          null,
+          "1 None",
+          "triggers"
+        ],
+        [
+          null,
+          "2 .......",
+          "triggers"
+        ],
+        [
+          null,
+          "3 -------",
+          "triggers"
+        ],
+        [
+          null,
+          "4 ____",
+          "triggers"
+        ],
+        [
+          null,
+          "5 \u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7",
+          "triggers"
+        ],
+        [
+          null,
+          "OK",
+          "triggers"
+        ],
+        [
+          null,
+          "Cancel",
+          "triggers"
+        ]
+      ]
     },
     "ui:picture-position-dropdown": {
       "kind": "dropdown",
@@ -60726,6 +62097,1222 @@
           "triggers"
         ]
       ]
+    },
+    "ui:hyphenation-menu-automatic": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [],
+      "unexplored_labels": [],
+      "endpoint_labels": [],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": []
+    },
+    "ui:hyphenation-menu-manual": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [],
+      "unexplored_labels": [],
+      "endpoint_labels": [],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": []
+    },
+    "ui:hyphenation-menu-hyphenation-options-manual": {
+      "kind": "dialog",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation"
+      ],
+      "unexplored_labels": [
+        "Yes",
+        "No"
+      ],
+      "endpoint_labels": [
+        "Context help",
+        "Close",
+        "Cancel"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Context help",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ],
+        [
+          null,
+          "Yes",
+          "unexplored"
+        ],
+        [
+          null,
+          "No",
+          "unexplored"
+        ],
+        [
+          null,
+          "Cancel",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:hyphenation-menu-hyphenation-options": {
+      "kind": "dialog",
+      "explored": true,
+      "opens": [
+        "ui:hyphenation-menu-hyphenation-options-manual"
+      ],
+      "triggers": [
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation",
+        "subfeature:hyphenation"
+      ],
+      "unexplored_labels": [
+        "RichEdit Control",
+        "Hyphenation zone:"
+      ],
+      "endpoint_labels": [
+        "RichEdit Control",
+        "Context help",
+        "Close",
+        "Automatically hyphenate document",
+        "Hyphenate words in CAPS",
+        "Limit consecutive hyphens to:",
+        "OK",
+        "Cancel"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "RichEdit Control",
+          "unexplored"
+        ],
+        [
+          null,
+          "RichEdit Control",
+          "triggers"
+        ],
+        [
+          null,
+          "Context help",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ],
+        [
+          null,
+          "Automatically hyphenate document",
+          "triggers"
+        ],
+        [
+          null,
+          "Hyphenate words in CAPS",
+          "triggers"
+        ],
+        [
+          null,
+          "Hyphenation zone:",
+          "unexplored"
+        ],
+        [
+          null,
+          "Limit consecutive hyphens to:",
+          "triggers"
+        ],
+        [
+          null,
+          "Manual...",
+          "opens"
+        ],
+        [
+          null,
+          "OK",
+          "triggers"
+        ],
+        [
+          null,
+          "Cancel",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:sort-dialog-options": {
+      "kind": "dialog",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort",
+        "subfeature:sort"
+      ],
+      "unexplored_labels": [
+        "Sort column only"
+      ],
+      "endpoint_labels": [
+        "RichEdit Control",
+        "Context help",
+        "Close",
+        "Tabs",
+        "Commas",
+        "Other:",
+        "Other:",
+        "Case sensitive",
+        "Sorting language",
+        "OK",
+        "Cancel"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "RichEdit Control",
+          "triggers"
+        ],
+        [
+          null,
+          "Context help",
+          "triggers"
+        ],
+        [
+          null,
+          "Close",
+          "triggers"
+        ],
+        [
+          null,
+          "Tabs",
+          "triggers"
+        ],
+        [
+          null,
+          "Commas",
+          "triggers"
+        ],
+        [
+          null,
+          "Other:",
+          "triggers"
+        ],
+        [
+          null,
+          "Other:",
+          "triggers"
+        ],
+        [
+          null,
+          "Sort column only",
+          "unexplored"
+        ],
+        [
+          null,
+          "Case sensitive",
+          "triggers"
+        ],
+        [
+          null,
+          "Sorting language",
+          "triggers"
+        ],
+        [
+          null,
+          "OK",
+          "triggers"
+        ],
+        [
+          null,
+          "Cancel",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-outline-weight": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Weight",
+        "\u00bc pt",
+        "\u00bd pt",
+        "\u00be pt",
+        "1 pt",
+        "1\u00bd pt",
+        "2\u00bc pt",
+        "3 pt",
+        "4\u00bd pt",
+        "6 pt",
+        "More Lines..."
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Weight",
+          "triggers"
+        ],
+        [
+          null,
+          "\u00bc pt",
+          "triggers"
+        ],
+        [
+          null,
+          "\u00bd pt",
+          "triggers"
+        ],
+        [
+          null,
+          "\u00be pt",
+          "triggers"
+        ],
+        [
+          null,
+          "1 pt",
+          "triggers"
+        ],
+        [
+          null,
+          "1\u00bd pt",
+          "triggers"
+        ],
+        [
+          null,
+          "2\u00bc pt",
+          "triggers"
+        ],
+        [
+          null,
+          "3 pt",
+          "triggers"
+        ],
+        [
+          null,
+          "4\u00bd pt",
+          "triggers"
+        ],
+        [
+          null,
+          "6 pt",
+          "triggers"
+        ],
+        [
+          null,
+          "More Lines...",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-outline-dashes": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Dashes",
+        "Solid",
+        "Round Dot",
+        "Square Dot",
+        "Dash",
+        "Dash Dot",
+        "Long Dash",
+        "Long Dash Dot",
+        "Long Dash Dot Dot",
+        "More Lines..."
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Dashes",
+          "triggers"
+        ],
+        [
+          null,
+          "Solid",
+          "triggers"
+        ],
+        [
+          null,
+          "Round Dot",
+          "triggers"
+        ],
+        [
+          null,
+          "Square Dot",
+          "triggers"
+        ],
+        [
+          null,
+          "Dash",
+          "triggers"
+        ],
+        [
+          null,
+          "Dash Dot",
+          "triggers"
+        ],
+        [
+          null,
+          "Long Dash",
+          "triggers"
+        ],
+        [
+          null,
+          "Long Dash Dot",
+          "triggers"
+        ],
+        [
+          null,
+          "Long Dash Dot Dot",
+          "triggers"
+        ],
+        [
+          null,
+          "More Lines...",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-outline": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [
+        "ui:text-effects-dropdown-outline-weight",
+        "ui:text-effects-dropdown-outline-dashes",
+        "ui:font-color-dropdown-more-colors"
+      ],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [
+        "High-contrast only"
+      ],
+      "endpoint_labels": [
+        "Color swatches",
+        "Outline",
+        "Automatic",
+        "No Outline"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Outline",
+          "triggers"
+        ],
+        [
+          null,
+          "High-contrast only",
+          "unexplored"
+        ],
+        [
+          null,
+          "Automatic",
+          "triggers"
+        ],
+        [
+          null,
+          "No Outline",
+          "triggers"
+        ],
+        [
+          null,
+          "Weight",
+          "opens"
+        ],
+        [
+          null,
+          "Dashes",
+          "opens"
+        ],
+        [
+          null,
+          "More Outline Colors...",
+          "opens"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-shadow": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Shadow",
+        "None",
+        "Offset: Bottom Right",
+        "Offset: Bottom",
+        "Offset: Bottom Left",
+        "Offset: Right",
+        "Offset: Center",
+        "Offset: Left",
+        "Offset: Top Right",
+        "Offset: Top",
+        "Offset: Top Left",
+        "Inside: Top Left",
+        "Inside: Top",
+        "Inside: Top Right",
+        "Inside: Left",
+        "Inside: Center",
+        "Inside: Right",
+        "Inside: Bottom Left",
+        "Inside: Bottom",
+        "Inside: Bottom Right",
+        "Perspective: Upper Left",
+        "Perspective: Upper Right",
+        "Perspective: Below",
+        "Perspective: Lower Left",
+        "Perspective: Lower Right",
+        "Shadow Options..."
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Shadow",
+          "triggers"
+        ],
+        [
+          null,
+          "None",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Bottom Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Bottom",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Bottom Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Center",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Top Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Top",
+          "triggers"
+        ],
+        [
+          null,
+          "Offset: Top Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Top Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Top",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Top Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Center",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Bottom Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Bottom",
+          "triggers"
+        ],
+        [
+          null,
+          "Inside: Bottom Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Perspective: Upper Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Perspective: Upper Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Perspective: Below",
+          "triggers"
+        ],
+        [
+          null,
+          "Perspective: Lower Left",
+          "triggers"
+        ],
+        [
+          null,
+          "Perspective: Lower Right",
+          "triggers"
+        ],
+        [
+          null,
+          "Shadow Options...",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-reflection": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Reflection",
+        "None",
+        "Tight Reflection: Touching",
+        "Half Reflection: Touching",
+        "Full Reflection: Touching",
+        "Tight Reflection: 4 point offset",
+        "Half Reflection: 4 point offset",
+        "Full Reflection: 4 point offset",
+        "Tight Reflection: 8 point offset",
+        "Half Reflection: 8 point offset",
+        "Full Reflection: 8 point offset",
+        "Reflection Options..."
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Reflection",
+          "triggers"
+        ],
+        [
+          null,
+          "None",
+          "triggers"
+        ],
+        [
+          null,
+          "Tight Reflection: Touching",
+          "triggers"
+        ],
+        [
+          null,
+          "Half Reflection: Touching",
+          "triggers"
+        ],
+        [
+          null,
+          "Full Reflection: Touching",
+          "triggers"
+        ],
+        [
+          null,
+          "Tight Reflection: 4 point offset",
+          "triggers"
+        ],
+        [
+          null,
+          "Half Reflection: 4 point offset",
+          "triggers"
+        ],
+        [
+          null,
+          "Full Reflection: 4 point offset",
+          "triggers"
+        ],
+        [
+          null,
+          "Tight Reflection: 8 point offset",
+          "triggers"
+        ],
+        [
+          null,
+          "Half Reflection: 8 point offset",
+          "triggers"
+        ],
+        [
+          null,
+          "Full Reflection: 8 point offset",
+          "triggers"
+        ],
+        [
+          null,
+          "Reflection Options...",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-glow-more-glow-colors": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [
+        "ui:font-color-dropdown-more-colors"
+      ],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [
+        "High-contrast only"
+      ],
+      "endpoint_labels": [
+        "Color swatches",
+        "More Glow Colors"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "More Glow Colors",
+          "triggers"
+        ],
+        [
+          null,
+          "High-contrast only",
+          "unexplored"
+        ],
+        [
+          null,
+          "More Colors...",
+          "opens"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-glow": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [
+        "ui:text-effects-dropdown-glow-more-glow-colors"
+      ],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "Color swatches",
+        "Glow",
+        "None",
+        "Glow: 5 point; Dark Teal, Accent color 1",
+        "Glow: 5 point; Orange, Accent color 2",
+        "Glow: 5 point; Dark Green, Accent color 3",
+        "Glow: 5 point; Turquoise, Accent color 4",
+        "Glow: 5 point; Plum, Accent color 5",
+        "Glow: 5 point; Green, Accent color 6",
+        "Glow: 8 point; Dark Teal, Accent color 1",
+        "Glow: 8 point; Orange, Accent color 2",
+        "Glow: 8 point; Dark Green, Accent color 3",
+        "Glow: 8 point; Turquoise, Accent color 4",
+        "Glow: 8 point; Plum, Accent color 5",
+        "Glow: 8 point; Green, Accent color 6",
+        "Glow: 11 point; Dark Teal, Accent color 1",
+        "Glow: 11 point; Orange, Accent color 2",
+        "Glow: 11 point; Dark Green, Accent color 3",
+        "Glow: 11 point; Turquoise, Accent color 4",
+        "Glow: 11 point; Plum, Accent color 5",
+        "Glow: 11 point; Green, Accent color 6",
+        "Glow: 18 point; Dark Teal, Accent color 1",
+        "Glow: 18 point; Orange, Accent color 2",
+        "Glow: 18 point; Dark Green, Accent color 3",
+        "Glow: 18 point; Turquoise, Accent color 4",
+        "Glow: 18 point; Plum, Accent color 5",
+        "Glow: 18 point; Green, Accent color 6",
+        "Glow Options..."
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow",
+          "triggers"
+        ],
+        [
+          null,
+          "None",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 5 point; Dark Teal, Accent color 1",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 5 point; Orange, Accent color 2",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 5 point; Dark Green, Accent color 3",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 5 point; Turquoise, Accent color 4",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 5 point; Plum, Accent color 5",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 5 point; Green, Accent color 6",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 8 point; Dark Teal, Accent color 1",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 8 point; Orange, Accent color 2",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 8 point; Dark Green, Accent color 3",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 8 point; Turquoise, Accent color 4",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 8 point; Plum, Accent color 5",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 8 point; Green, Accent color 6",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 11 point; Dark Teal, Accent color 1",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 11 point; Orange, Accent color 2",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 11 point; Dark Green, Accent color 3",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 11 point; Turquoise, Accent color 4",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 11 point; Plum, Accent color 5",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 11 point; Green, Accent color 6",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 18 point; Dark Teal, Accent color 1",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 18 point; Orange, Accent color 2",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 18 point; Dark Green, Accent color 3",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 18 point; Turquoise, Accent color 4",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 18 point; Plum, Accent color 5",
+          "triggers"
+        ],
+        [
+          null,
+          "Glow: 18 point; Green, Accent color 6",
+          "triggers"
+        ],
+        [
+          null,
+          "More Glow Colors",
+          "opens"
+        ],
+        [
+          null,
+          "Glow Options...",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-number-styles": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "Default",
+        "Proportional Lining",
+        "Tabular Lining",
+        "Proportional Old-style",
+        "Tabular Old-style"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Default",
+          "triggers"
+        ],
+        [
+          null,
+          "Proportional Lining",
+          "triggers"
+        ],
+        [
+          null,
+          "Tabular Lining",
+          "triggers"
+        ],
+        [
+          null,
+          "Proportional Old-style",
+          "triggers"
+        ],
+        [
+          null,
+          "Tabular Old-style",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-ligatures": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects",
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "None",
+        "Standard Only",
+        "Standard and Contextual",
+        "Historical and Discretionary",
+        "All Ligatures"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "None",
+          "triggers"
+        ],
+        [
+          null,
+          "Standard Only",
+          "triggers"
+        ],
+        [
+          null,
+          "Standard and Contextual",
+          "triggers"
+        ],
+        [
+          null,
+          "Historical and Discretionary",
+          "triggers"
+        ],
+        [
+          null,
+          "All Ligatures",
+          "triggers"
+        ]
+      ]
+    },
+    "ui:text-effects-dropdown-stylistic-sets": {
+      "kind": "dropdown",
+      "explored": true,
+      "opens": [],
+      "triggers": [
+        "subfeature:text-effects"
+      ],
+      "unexplored_labels": [],
+      "endpoint_labels": [
+        "Color swatches"
+      ],
+      "scroll_trace": false,
+      "scrolled_to_end": null,
+      "element_ids": [],
+      "elements": [
+        [
+          null,
+          "Color swatches",
+          "triggers"
+        ]
+      ]
     }
   },
   "layers": {
@@ -61002,15 +63589,15 @@
     "feature:chart-design": {
       "layer": "P2",
       "best_child": "subfeature:chart-edit-data",
-      "ratio": "1/7",
-      "scope": "gems",
+      "ratio": "7/7",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:chart-format": {
       "layer": "P3",
       "best_child": "subfeature:chart-select-element",
-      "ratio": "0/2",
-      "scope": "none",
+      "ratio": "2/2",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:clipboard": {
@@ -61030,14 +63617,14 @@
     "feature:document-formatting": {
       "layer": "P3",
       "best_child": "subfeature:themes",
-      "ratio": "0/7",
-      "scope": "none",
+      "ratio": "5/7",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:editing": {
       "layer": "P1",
       "best_child": "subfeature:find",
-      "ratio": "2/3",
+      "ratio": "3/3",
       "scope": "gems",
       "cohesion": "catalog",
       "scope_note": "R4.7: catalog feature \u2014 majority of children rank high but a catalog never goes whole; children judged independently (gems)"
@@ -61052,8 +63639,8 @@
     "feature:equation-tools": {
       "layer": "P3",
       "best_child": "subfeature:equation-symbols",
-      "ratio": "0/4",
-      "scope": "none",
+      "ratio": "3/4",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:esignature": {
@@ -61066,22 +63653,22 @@
     "feature:font": {
       "layer": "P0",
       "best_child": "subfeature:font-size",
-      "ratio": "7/16",
-      "scope": "gems",
+      "ratio": "15/16",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:graphics-format": {
       "layer": "P3",
       "best_child": "subfeature:graphics-convert-to-shape",
-      "ratio": "0/7",
-      "scope": "none",
+      "ratio": "3/7",
+      "scope": "gems",
       "cohesion": "capability"
     },
     "feature:header-footer-tools": {
       "layer": "P2",
       "best_child": "subfeature:hf-options",
-      "ratio": "2/7",
-      "scope": "gems",
+      "ratio": "5/7",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:header-footer": {
@@ -61094,23 +63681,25 @@
     "feature:illustrations": {
       "layer": "P0",
       "best_child": "subfeature:insert-pictures",
-      "ratio": "2/7",
+      "ratio": "4/7",
       "scope": "gems",
-      "cohesion": "catalog"
+      "cohesion": "catalog",
+      "scope_note": "R4.7: catalog feature \u2014 majority of children rank high but a catalog never goes whole; children judged independently (gems)"
     },
     "feature:layout-paragraph": {
       "layer": "P3",
       "best_child": "subfeature:spacing-before",
-      "ratio": "0/4",
-      "scope": "none",
+      "ratio": "4/4",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:links": {
       "layer": "P2",
       "best_child": "subfeature:insert-link",
-      "ratio": "1/3",
+      "ratio": "2/3",
       "scope": "gems",
-      "cohesion": "catalog"
+      "cohesion": "catalog",
+      "scope_note": "R4.7: catalog feature \u2014 majority of children rank high but a catalog never goes whole; children judged independently (gems)"
     },
     "feature:media": {
       "layer": "P4",
@@ -61122,8 +63711,8 @@
     "feature:object-arrange": {
       "layer": "P1",
       "best_child": "subfeature:object-text-wrap",
-      "ratio": "1/8",
-      "scope": "gems",
+      "ratio": "8/8",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:object-size": {
@@ -61136,57 +63725,59 @@
     "feature:page-background": {
       "layer": "P3",
       "best_child": "subfeature:watermark",
-      "ratio": "0/3",
-      "scope": "none",
-      "cohesion": "catalog"
+      "ratio": "2/3",
+      "scope": "gems",
+      "cohesion": "catalog",
+      "scope_note": "R4.7: catalog feature \u2014 majority of children rank high but a catalog never goes whole; children judged independently (gems)"
     },
     "feature:page-setup": {
       "layer": "P1",
       "best_child": "subfeature:page-margins",
-      "ratio": "3/8",
-      "scope": "gems",
+      "ratio": "6/8",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:pages": {
       "layer": "P1",
       "best_child": "subfeature:page-break-insert",
-      "ratio": "1/3",
+      "ratio": "3/3",
       "scope": "gems",
-      "cohesion": "catalog"
+      "cohesion": "catalog",
+      "scope_note": "R4.7: catalog feature \u2014 majority of children rank high but a catalog never goes whole; children judged independently (gems)"
     },
     "feature:paragraph": {
       "layer": "P1",
       "best_child": "subfeature:bullets-gallery",
-      "ratio": "6/15",
-      "scope": "gems",
+      "ratio": "14/15",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:picture-format": {
       "layer": "P2",
       "best_child": "subfeature:picture-style-gallery",
-      "ratio": "1/13",
-      "scope": "gems",
+      "ratio": "10/13",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:shape-format": {
       "layer": "P3",
       "best_child": "subfeature:shape-edit",
-      "ratio": "0/4",
-      "scope": "none",
+      "ratio": "2/4",
+      "scope": "gems",
       "cohesion": "capability"
     },
     "feature:shape-styles": {
       "layer": "P2",
       "best_child": "subfeature:shape-style-gallery",
-      "ratio": "3/5",
+      "ratio": "4/5",
       "scope": "whole",
       "cohesion": "capability"
     },
     "feature:smartart-design": {
       "layer": "P3",
       "best_child": "subfeature:smartart-layout",
-      "ratio": "0/10",
-      "scope": "none",
+      "ratio": "7/10",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:smartart-format": {
@@ -61199,29 +63790,30 @@
     "feature:styles": {
       "layer": "P1",
       "best_child": "subfeature:quick-styles",
-      "ratio": "1/2",
-      "scope": "gems",
+      "ratio": "2/2",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:symbols": {
       "layer": "P3",
       "best_child": "subfeature:equation-insert-gallery",
-      "ratio": "0/2",
-      "scope": "none",
-      "cohesion": "catalog"
+      "ratio": "2/2",
+      "scope": "gems",
+      "cohesion": "catalog",
+      "scope_note": "R4.7: catalog feature \u2014 majority of children rank high but a catalog never goes whole; children judged independently (gems)"
     },
     "feature:table-design": {
       "layer": "P2",
       "best_child": "subfeature:table-styles",
-      "ratio": "2/4",
-      "scope": "gems",
+      "ratio": "4/4",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:table-layout": {
       "layer": "P1",
       "best_child": "subfeature:table-insert-rows",
-      "ratio": "8/20",
-      "scope": "gems",
+      "ratio": "15/20",
+      "scope": "whole",
       "cohesion": "capability"
     },
     "feature:tables": {
@@ -61234,8 +63826,8 @@
     "feature:text": {
       "layer": "P3",
       "best_child": "subfeature:text-box-insert",
-      "ratio": "0/7",
-      "scope": "none",
+      "ratio": "1/7",
+      "scope": "gems",
       "cohesion": "catalog"
     },
     "feature:voice": {
@@ -61248,8 +63840,8 @@
     "feature:wordart-text-styles": {
       "layer": "P3",
       "best_child": "subfeature:wordart-text-style-gallery",
-      "ratio": "0/4",
-      "scope": "none",
+      "ratio": "3/4",
+      "scope": "whole",
       "cohesion": "capability"
     }
   },

@@ -709,8 +709,77 @@
       "what_it_does": "Adds line numbers in the margin (continuous, per-page, per-section) from a menu; used in legal and review documents.",
       "affects": "the document's line numbering",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Line Numbers menu — the surface that presents this capability's options (7 controls enumerated in the structural pass). Applying a choice there changes: the document's line numbering.",
+      "behavior_record": {
+        "effect": "Opens the Line Numbers menu — the surface that presents this capability's options (7 controls enumerated in the structural pass). Applying a choice there changes: the document's line numbering.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-numbers"
+            ]
+          },
+          {
+            "name": "None",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-numbers"
+            ]
+          },
+          {
+            "name": "Continuous",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-numbers"
+            ]
+          },
+          {
+            "name": "Restart Each Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-numbers"
+            ]
+          },
+          {
+            "name": "Restart Each Section",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-numbers"
+            ]
+          },
+          {
+            "name": "Suppress for Current Paragraph",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-numbers"
+            ]
+          },
+          {
+            "name": "Line Numbering Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-numbers"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:line-numbers"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -743,8 +812,63 @@
       "what_it_does": "Controls automatic word hyphenation at line ends (None/Automatic/Manual + options).",
       "affects": "the document's hyphenation",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Hyphenation menu — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the document's hyphenation.",
+      "behavior_record": {
+        "effect": "Opens the Hyphenation menu — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the document's hyphenation.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hyphenation"
+            ]
+          },
+          {
+            "name": "None",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hyphenation"
+            ]
+          },
+          {
+            "name": "Automatic",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hyphenation"
+            ]
+          },
+          {
+            "name": "Manual",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hyphenation"
+            ]
+          },
+          {
+            "name": "Hyphenation Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hyphenation"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hyphenation"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

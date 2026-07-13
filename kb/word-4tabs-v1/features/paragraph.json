@@ -495,8 +495,161 @@
       "what_it_does": "Opens the Sort dialog to alphabetically/numerically sort the selected paragraphs, list or table.",
       "affects": "the order of the selected paragraphs",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Sort Text dialog — the surface that presents this capability's options (22 controls enumerated in the structural pass). Applying a choice there changes: the order of the selected paragraphs.",
+      "behavior_record": {
+        "effect": "Opens the Sort Text dialog — the surface that presents this capability's options (22 controls enumerated in the structural pass). Applying a choice there changes: the order of the selected paragraphs.",
+        "options": [
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Sort by",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Type:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Ascending",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Descending",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Then by",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Type:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Ascending",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Descending",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Then by",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Type:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Ascending",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Descending",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "No header row",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Header row",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          },
+          {
+            "name": "Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:sort"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:sort"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

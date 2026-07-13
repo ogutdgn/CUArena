@@ -59,8 +59,196 @@
       "what_it_does": "Applies a painterly/artistic filter to the picture from a gallery.",
       "affects": "the picture's artistic rendering",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Artistic Effects dropdown — the surface that presents this capability's options (26 controls enumerated in the structural pass). Applying a choice there changes: the picture's artistic rendering.",
+      "behavior_record": {
+        "effect": "Opens the Artistic Effects dropdown — the surface that presents this capability's options (26 controls enumerated in the structural pass). Applying a choice there changes: the picture's artistic rendering.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Artistic Effects",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "None",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Marker",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Pencil Grayscale",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Pencil Sketch",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Line Drawing",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Chalk Sketch",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Paint Strokes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Paint Brush",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Glow Diffused",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Blur",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Light Screen",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Watercolor Sponge",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Film Grain",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Mosaic Bubbles",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Cement",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Texturizer",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Crisscross Etching",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Pastels Smooth",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Plastic Wrap",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Cutout",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Photocopy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-artistic-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -675,8 +863,196 @@
       "what_it_does": "Converts the picture(s) into a captioned SmartArt layout.",
       "affects": "the picture (converted to a SmartArt layout)",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Picture Layout dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the picture (converted to a SmartArt layout).",
+      "behavior_record": {
+        "effect": "Opens the Picture Layout dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the picture (converted to a SmartArt layout).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Accented Picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Circular Picture Callout",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Caption List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Snapshot Picture List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Spiral Picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Captioned Pictures",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Caption",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Semi-Transparent Text",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Caption List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Titled Picture Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Grid",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Accent Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Strips",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Alternating Picture Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Ascending Picture Accent Process",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Alternating Picture Circles",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Title Picture Lineup",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Lineup",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Framed Text Picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Hexagon Cluster",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bubble Picture List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Circle Picture Hierarchy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -1058,8 +1434,56 @@
       "what_it_does": "Opens the Format Picture pane — the full fill/line/effects/picture-adjust surface.",
       "affects": "the picture's full formatting (pane)",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Picture... pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the picture's full formatting (pane).",
+      "behavior_record": {
+        "effect": "Opens the Picture... pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the picture's full formatting (pane).",
+        "options": [
+          {
+            "name": "Page left",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          },
+          {
+            "name": "Page up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          },
+          {
+            "name": "Minimize",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          },
+          {
+            "name": "Restore",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-format-pane"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

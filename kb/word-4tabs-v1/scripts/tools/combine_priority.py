@@ -89,7 +89,10 @@ def main():
                                 "scope": "none", "cohesion": f.get("cohesion")}
             continue
         best = min(kids, key=lambda r: ("P0P1P2P3P4".index(r["layer"]) // 2, -r["combined"]))
-        hi = [k for k in kids if k["layer"] in ("P0", "P1", "P2")]
+        # R4/R5.5: the ratio counts children in the DEPTH-SET layers P0-P3 (the full-depth
+        # boundary), NOT P0-P2 — that was v1/v2's boundary and this line was inherited unfixed
+        # (measured: all 26 discriminating features matched the P0-P2 formula, none P0-P3).
+        hi = [k for k in kids if k["layer"] in ("P0", "P1", "P2", "P3")]
         ratio = f"{len(hi)}/{len(kids)}"
         majority = len(hi) * 2 > len(kids)
         is_catalog = f.get("cohesion") == "catalog"

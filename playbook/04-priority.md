@@ -51,7 +51,21 @@ uses it" — or the reverse), stop and investigate; record the resolution as a j
 - **Features are placed, not scored** — derived from their children and shown in the same list:
   - `layer` = the layer of their best child (a parent can never rank below its own child —
     structural, not aspirational);
-  - `ratio` = how many of its children landed in P0–P3.
+  - `ratio` = how many of its children landed in P0–P3. **The exact formula — the high set is
+    the DEPTH-SET boundary, and it moves with it:**
+
+    ```
+    hi        = |children whose layer ∈ {P0, P1, P2, P3}|     # NOT P0–P2 (v1/v2's old boundary)
+    ratio     = hi / |children|
+    majority  = hi × 2 > |children|                            # strict
+    scope     = whole  if majority AND cohesion == capability
+              = none   if hi == 0
+              = gems   otherwise                               # incl. catalog-majority (R4.7)
+    ```
+    [kernel-checked: stored ratio AND scope are recomputed from layers + cohesion and must
+    match — a run script carrying a stale boundary cannot ship its derivation.] (LESSONS
+    2026-07-13: word-4tabs-v1 inherited v2's P0–P2 ratio line while the rest of the same
+    script already used P0–P3 — 26 features derived wrong, 21 whole-scopes missed.)
 - **Replication scope per feature** comes from the ratio AND the feature's `cohesion` (Step 3):
   - **Majority rule (capability features only):** most children in P0–P3 → the feature is
     replicated WHOLE (full depth on the entire group — a group with one dead button feels

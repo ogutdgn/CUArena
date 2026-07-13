@@ -278,8 +278,26 @@
       "what_it_does": "Sets the outline of the object's text (options in the picker).",
       "affects": "the outline of text inside the object",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Text Outline dropdown — the surface that presents this capability's options (0 controls enumerated in the structural pass). Applying a choice there changes: the outline of text inside the object.",
+      "behavior_record": {
+        "effect": "Opens the Text Outline dropdown — the surface that presents this capability's options (0 controls enumerated in the structural pass). Applying a choice there changes: the outline of text inside the object.",
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:wordart-text-outline"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

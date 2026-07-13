@@ -53,8 +53,98 @@
       "what_it_does": "Inserts an alignment tab so header/footer content can be left/center/right aligned on one line.",
       "affects": "the header/footer content (alignment tab)",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "Opens the Alignment Tab dialog — the surface that presents this capability's options (13 controls enumerated in the structural pass). Applying a choice there changes: the header/footer content (alignment tab).",
+      "behavior_record": {
+        "effect": "Opens the Alignment Tab dialog — the surface that presents this capability's options (13 controls enumerated in the structural pass). Applying a choice there changes: the header/footer content (alignment tab).",
+        "options": [
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "Left",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "Center",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "Right",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "Align relative to:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "1 None",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "2 .......",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "3 -------",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "4 ____",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          },
+          {
+            "name": "5 ········",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-alignment-tab"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hf-alignment-tab"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [
@@ -429,8 +519,27 @@
       "what_it_does": "Sets the distance of the header/footer from the top/bottom page edge.",
       "affects": "the header/footer position on the page",
       "audience_breadth": "niche",
-      "behavior": null,
-      "behavior_record": null,
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hf-position"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
       "trigger_paths": [
         {
           "path": [

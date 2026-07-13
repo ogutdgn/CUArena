@@ -149,6 +149,11 @@ def main():
             in_set = (L in ("P0", "P1", "P2", "P3")) or (s.get("parent") in whole)
             if not in_set:
                 continue
+            # backfill mode: NEVER overwrite an existing record — the R2.5 gallery repair
+            # filled options into existing records; authoring is only for record-less subs
+            # that joined the depth set after the ratio-formula fix (2026-07-13).
+            if s.get("behavior_record"):
+                continue
             m = mnodes.get(sid, {})
             mso = m.get("idmso")
             marker = m.get("marker") or ("opens" if s.get("opens") else "triggers")

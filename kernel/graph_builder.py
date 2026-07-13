@@ -183,6 +183,32 @@ def check_completeness(graph: dict) -> list[str]:
             if c["explored"] and c.get("scroll_trace") and c.get("scrolled_to_end") is None:
                 problems.append(f"container {cid} shows scrollbar traces but scrolled_to_end is unset (R2.8: scroll not addressed)")
 
+    # derived-features consistency (playbook 04, R4-formula): ratio = |children in P0-P3| /
+    # |children|; strict majority + capability -> whole; catalog never whole; zero high -> none;
+    # else gems. Recomputed here from layers + parents + cohesion so a stale formula in a run's
+    # own scripts cannot ship (measured: word-4tabs-v1 inherited v2's P0-P2 ratio line — all 26
+    # discriminating features wrong). Gated on cohesion presence (rule-aware runs only).
+    if layers and any(n.get("cohesion") for n in graph["nodes"].values()):
+        kids_of = {}
+        for nid, n in graph["nodes"].items():
+            if n["type"] == "subfeature" and n.get("parent"):
+                kids_of.setdefault(n["parent"], []).append(n.get("layer"))
+        for fid, d in (graph.get("derived") or {}).items():
+            kl = kids_of.get(fid, [])
+            if not isinstance(d, dict) or not kl:
+                continue
+            hi = sum(1 for l in kl if l in ("P0", "P1", "P2", "P3"))
+            want_ratio = f"{hi}/{len(kl)}"
+            if d.get("ratio") and d["ratio"] != want_ratio:
+                problems.append(f"feature {fid} derived ratio {d['ratio']} != recomputed {want_ratio} (04: children in P0-P3 / children)")
+            coh = graph["nodes"].get(fid, {}).get("cohesion")
+            if coh is not None and d.get("scope"):
+                majority = hi * 2 > len(kl)
+                want_scope = ("whole" if (majority and coh != "catalog")
+                              else ("none" if hi == 0 else "gems"))
+                if d["scope"] != want_scope:
+                    problems.append(f"feature {fid} derived scope '{d['scope']}' != recomputed '{want_scope}' (04 majority/catalog rules)")
+
     # catalog-scope contradiction (playbook R4.7 / R3.5): a catalog-cohesion feature must never
     # carry scope:whole — its children are independent capabilities, judged one by one
     for fid, d in (graph.get("derived") or {}).items():
