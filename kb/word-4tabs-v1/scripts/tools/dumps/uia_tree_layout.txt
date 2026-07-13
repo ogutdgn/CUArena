@@ -1,0 +1,122 @@
+Window       'scratch-20260713-014330-14024 - Word'
+  Pane         'DropShadowTop'  {DISABLED}
+  Pane         'MsoDockTop'
+    ToolBar      ''
+      Pane         'Ribbon'
+        Pane         ''
+          Pane         ''
+            Pane         'Ribbon'
+              ToolBar      'Quick Access Toolbar'
+                Button       'AutoSave' [AutoSaveSwitch]  {keytip=Alt, 1}
+                Button       'Save' [FileSave]  {acc=Ctrl+S, keytip=Alt, 2}
+                SplitButton  'Can't Undo' [Undo]  {keytip=Alt, 3, DISABLED}
+                  Button       'Can't Undo'  {DISABLED}
+                  MenuItem     'More Options' [Undo_Dropdown]  {keytip=Alt, 3, DISABLED}
+                Button       'Can't Repeat' [RedoOrRepeat]  {acc=Ctrl+Y, keytip=Alt, 4, DISABLED}
+                MenuItem     'Customize Quick Access Toolbar'
+              TitleBar     '‪scratch-20260713-014330-14024‬  -  Save…'
+                MenuItem     '‪scratch-20260713-014330-14024‬  -  Save…'  {keytip=Alt, B}
+              MenuItem     'Type to search and use the up and down a…' [TellMeControlAnchor]  {keytip=Alt, Q}
+                Edit         'Microsoft search' [TellMeTextBoxAutomationId]  {keytip=Alt, Q}
+              Button       'Upgrade your plan'  {keytip=Alt, U}
+              MenuItem     'Dogan Ogut' [MeControlWidget]  {keytip=Alt, Z P}
+              Button       'Minimize'
+              Button       'Restore Down'
+              Button       'Close'
+              Button       'File Tab' [FileTabButton]  {keytip=Alt, F}
+              Tab          'Ribbon Tabs'
+                TabItem      'Home' [TabHome]  {keytip=Alt, H}
+                TabItem      'Insert' [TabInsert]  {keytip=Alt, N}
+                TabItem      'Design' [TabWordDesign]  {keytip=Alt, G}
+                TabItem      'Layout' [TabPageLayoutWord]  {keytip=Alt, P}
+                TabItem      'References' [TabReferences]  {keytip=Alt, S}
+                TabItem      'Mailings' [TabMailings]  {keytip=Alt, M}
+                TabItem      'Review' [TabReviewWord]  {keytip=Alt, R}
+                TabItem      'View' [TabView]  {keytip=Alt, W}
+                TabItem      'Help' [HelpTab]  {keytip=Alt, Y 1}
+                TabItem      'Acrobat'  {keytip=Alt, Y 2}
+                Button       'Comments'  {keytip=Alt, Z C}
+                ComboBox     'Editing'  {keytip=Alt, Z M}
+                MenuItem     'Share'  {keytip=Alt, Z S}
+              Pane         'Lower Ribbon'
+                Group        'Layout'  {keytip=Alt, P}
+                  Group        'Page Setup'  {keytip=Alt, P, Z S}
+                    MenuItem     'Margins' [PageMarginsGallery]  {keytip=Alt, P, M}
+                    MenuItem     'Orientation' [PageOrientationGallery]  {keytip=Alt, P, O}
+                    MenuItem     'Size' [PageSizeGallery]  {keytip=Alt, P, S Z}
+                    MenuItem     'Columns' [TableColumnsGallery]  {keytip=Alt, P, J}
+                    MenuItem     'Breaks' [BreaksGallery]  {keytip=Alt, P, B}
+                    MenuItem     'Line Numbers' [LineNumbersMenu]  {keytip=Alt, P, L N}
+                    MenuItem     'Hyphenation' [HyphenationMenu]  {keytip=Alt, P, H}
+                    Button       'Page Setup...' [PageSetupDialog]  {keytip=Alt, P, S P}
+                  Group        'Paragraph'  {keytip=Alt, P, Z G}
+                    Spinner      'Indent Left' [ParagraphIndentLeft]
+                    Button       'More'
+                    Button       'Less'
+                    Spinner      'Indent Right' [ParagraphIndentRight]
+                    Button       'More'
+                    Button       'Less'
+                    Spinner      'Spacing Before' [ParagraphSpacingBefore]
+                    Button       'More'
+                    Button       'Less'
+                    Spinner      'Spacing After' [ParagraphSpacingAfter]
+                    Button       'More'
+                    Button       'Less'
+                    Button       'Paragraph...' [ParagraphDialog]  {keytip=Alt, P, P G}
+                  Group        'Arrange'  {keytip=Alt, P, Z A}
+                    MenuItem     'Position' [PicturePositionGallery]  {keytip=Alt, P, P O, DISABLED}
+                    MenuItem     'Wrap Text' [TextWrapGallery]  {keytip=Alt, P, T W, DISABLED}
+                    SplitButton  'Bring Forward'  {keytip=Alt, P, A F, DISABLED}
+                      Button       'Bring Forward' [ObjectBringForward]  {DISABLED}
+                      MenuItem     'More Options' [ObjectBringForwardMenu_Dropdown]  {keytip=Alt, P, A F, DISABLED}
+                    SplitButton  'Send Backward'  {keytip=Alt, P, A E, DISABLED}
+                      Button       'Send Backward' [ObjectSendBackward]  {DISABLED}
+                      MenuItem     'More Options' [ObjectSendBackwardMenu_Dropdown]  {keytip=Alt, P, A E, DISABLED}
+                    Button       'Selection Pane...' [SelectionPane]  {keytip=Alt, P, A P}
+                    MenuItem     'Align' [ObjectAlignMenu]  {keytip=Alt, P, A A}
+                    MenuItem     'Group' [ObjectsGroupMenu]  {keytip=Alt, P, A G, DISABLED}
+                    MenuItem     'Rotate' [ObjectRotateGallery]  {keytip=Alt, P, A Y, DISABLED}
+              MenuItem     'Ribbon Display Options'  {keytip=Alt, Z R}
+  Pane         'MsoDockBottom'
+    ToolBar      ''
+      Pane         'Status Bar'
+        Pane         ''
+          Pane         ''
+            StatusBar    'Status Bar'
+              Button       'Page Number Page 1 of 1'
+              Text         'Word Count 0 words'
+              Button       'Coauthoring Mode '
+              Button       'Language English (United States)'
+              Button       'Text Predictions Text Predictions: On'
+              Button       'Accessibility Checker Accessibility: Goo…'
+              Button       'Focus '
+              Button       'Read Mode'
+              Button       'Print Layout'
+              Button       'Web Layout'
+              Button       'Zoom Out (Ctrl -)'
+              Slider       'Zoom'
+                Button       'Zoom Out'
+                Thumb        'Position'
+                Button       'Zoom In'
+              Button       'Zoom In (Ctrl +)'
+              Button       'Zoom 100%'
+  Pane         ''
+    Pane         'scratch-20260713-014330-14024'
+      Document     'scratch-20260713-014330-14024'
+        Pane         ''
+          Group        ''
+            Button       'Copilot Chat' [dynamicActionButton]
+      Pane         'Vertical'
+        Pane         ''
+          ScrollBar    ''
+            Button       'Line up'
+            Button       'Page up'
+            Thumb        ''
+            Button       'Page down'
+            Button       'Line down'
+  TitleBar     ''
+    MenuBar      'System' [MenuBar]
+      MenuItem     'System'  {keytip=Space}
+    Button       'Minimize'
+    Button       'Restore'
+    Button       'Close'

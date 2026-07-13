@@ -1,0 +1,1773 @@
+{
+  "feature": {
+    "id": "feature:font",
+    "node_type": "feature",
+    "name": "Font",
+    "what_it_does": "Format the characters of the selected text — typeface, size, weight, color, effects.",
+    "affects": "the selection's character formatting",
+    "audience_breadth": "everyone",
+    "cohesion": "capability",
+    "behavior": "Format the characters of the selected text — typeface, size, weight, color, effects. Group controls: subfeature:font, subfeature:font-size, subfeature:font-size-increase, subfeature:font-size-decrease, subfeature:change-case, subfeature:clear-formatting, subfeature:bold, subfeature:italic, subfeature:underline-gallery, subfeature:strikethrough, subfeature:subscript, subfeature:superscript, subfeature:text-effects, subfeature:text-highlight-color-picker, subfeature:font-color-picker, subfeature:font-dialog",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:font",
+      "subfeature:font-size",
+      "subfeature:font-size-increase",
+      "subfeature:font-size-decrease",
+      "subfeature:change-case",
+      "subfeature:clear-formatting",
+      "subfeature:bold",
+      "subfeature:italic",
+      "subfeature:underline-gallery",
+      "subfeature:strikethrough",
+      "subfeature:subscript",
+      "subfeature:superscript",
+      "subfeature:text-effects",
+      "subfeature:text-highlight-color-picker",
+      "subfeature:font-color-picker",
+      "subfeature:font-dialog"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:font",
+      "node_type": "subfeature",
+      "name": "Font",
+      "parent": "feature:font",
+      "what_it_does": "Chooses the typeface for the selected text; the box opens a searchable font list.",
+      "affects": "the selection's font (typeface)",
+      "audience_breadth": "everyone",
+      "behavior": "Opens the Font dropdown — the surface that presents this capability's options (29 controls enumerated in the structural pass). Applying a choice there changes: the selection's font (typeface).",
+      "behavior_record": {
+        "effect": "Opens the Font dropdown — the surface that presents this capability's options (29 controls enumerated in the structural pass). Applying a choice there changes: the selection's font (typeface).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Position",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Aptos Display (Headings)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Aptos (Body)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Times New Roman",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Abadi, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Abadi ExtraLight, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "ADLaM Display, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Agency FB",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Aharoni, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Alasassy Caps, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Aldhabi, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Alef",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Algerian",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Amasis MT Pro, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Amasis MT Pro Black, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Amasis MT Pro Light, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Amasis MT Pro Medium, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Amiri",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Amiri Quran",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          },
+          {
+            "name": "Angsana New, select to download",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: Font",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:font"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:font-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font.png",
+        "screenshots/ui-font-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-size",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-increase",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-decrease",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-size",
+      "node_type": "subfeature",
+      "name": "Font Size",
+      "parent": "feature:font",
+      "what_it_does": "Sets the point size of the selected text; the box opens a size list.",
+      "affects": "the selection's font size",
+      "audience_breadth": "everyone",
+      "behavior": "Opens the Font Size dropdown — the surface that presents this capability's options (18 controls enumerated in the structural pass). Applying a choice there changes: the selection's font size.",
+      "behavior_record": {
+        "effect": "Opens the Font Size dropdown — the surface that presents this capability's options (18 controls enumerated in the structural pass). Applying a choice there changes: the selection's font size.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "Font Size",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "8",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "9",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "10",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "11",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "12",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "14",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "16",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "18",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "20",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "22",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "24",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "26",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "28",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "36",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "48",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          },
+          {
+            "name": "72",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-size"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: FontSize",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:font-size"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-size"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:font-size-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-size.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-size.png",
+        "screenshots/ui-font-size-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-increase",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-decrease",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-size-increase",
+      "node_type": "subfeature",
+      "name": "Grow Font",
+      "parent": "feature:font",
+      "what_it_does": "Increases the font size of the selection to the next step.",
+      "affects": "the selection's font size",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the selection's font size). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's font size). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: FontSizeIncreaseWord",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:font-size-increase"
+        ],
+        "gesture": "executeMso(FontSizeIncreaseWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-size-increase"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift+>"
+        }
+      ],
+      "shortcut": "Ctrl+Shift+>",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-size-increase.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-size-increase.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-decrease",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-size-decrease",
+      "node_type": "subfeature",
+      "name": "Shrink Font",
+      "parent": "feature:font",
+      "what_it_does": "Decreases the font size of the selection to the previous step.",
+      "affects": "the selection's font size",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the selection's font size). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's font size). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: FontSizeDecreaseWord",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:font-size-decrease"
+        ],
+        "gesture": "executeMso(FontSizeDecreaseWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-size-decrease"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift+<"
+        }
+      ],
+      "shortcut": "Ctrl+Shift+<",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-size-decrease.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-size-decrease.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-increase",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:change-case",
+      "node_type": "subfeature",
+      "name": "Change Case",
+      "parent": "feature:font",
+      "what_it_does": "Changes the capitalization of the selected text (Sentence case, lowercase, UPPERCASE, Capitalize Each Word, tOGGLE cASE).",
+      "affects": "the case of the selected text",
+      "audience_breadth": "most",
+      "behavior": "Opens the Change Case menu — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the case of the selected text.",
+      "behavior_record": {
+        "effect": "Opens the Change Case menu — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the case of the selected text.",
+        "options": [
+          {
+            "name": "Sentence case.",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:change-case"
+            ]
+          },
+          {
+            "name": "lowercase",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:change-case"
+            ]
+          },
+          {
+            "name": "UPPERCASE",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:change-case"
+            ]
+          },
+          {
+            "name": "Capitalize Each Word",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:change-case"
+            ]
+          },
+          {
+            "name": "tOGGLE cASE",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:change-case"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChangeCaseGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:change-case"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:change-case-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:change-case-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-change-case-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-change-case-gallery.png",
+        "screenshots/ui-change-case-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:clear-formatting",
+      "node_type": "subfeature",
+      "name": "Clear All Formatting",
+      "parent": "feature:font",
+      "what_it_does": "Removes all character and paragraph formatting from the selection, leaving plain text.",
+      "affects": "the selection's formatting (reset to default)",
+      "audience_breadth": "most",
+      "behavior": "enabled in every staged context (no object/selection precondition measured)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ClearFormatting",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:clear-formatting"
+        ],
+        "gesture": "executeMso(ClearFormatting)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:clear-formatting"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-clear-formatting.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-clear-formatting.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "affects-same",
+          "why": "removes the character formatting the Font dialog applies",
+          "source": "observed"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "affects-same",
+          "why": "removes paragraph formatting",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:bold",
+      "node_type": "subfeature",
+      "name": "Bold",
+      "parent": "feature:font",
+      "what_it_does": "Toggles bold (heavier) weight on the selected text.",
+      "affects": "the selection's character format (bold)",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (the selection's character format (bold)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's character format (bold)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; exposes a pressed/selected state (a toggle or current-selection reflector)",
+        "dynamics": null,
+        "extra": "idMso: Bold",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:bold"
+        ],
+        "gesture": "executeMso(Bold)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:bold"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+B"
+        }
+      ],
+      "shortcut": "Ctrl+B",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-bold.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-bold.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:italic",
+      "node_type": "subfeature",
+      "name": "Italic",
+      "parent": "feature:font",
+      "what_it_does": "Toggles italic (slanted) style on the selected text.",
+      "affects": "the selection's character format (italic)",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (the selection's character format (italic)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's character format (italic)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; exposes a pressed/selected state (a toggle or current-selection reflector)",
+        "dynamics": null,
+        "extra": "idMso: Italic",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:italic"
+        ],
+        "gesture": "executeMso(Italic)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:italic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+I"
+        }
+      ],
+      "shortcut": "Ctrl+I",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-italic.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-italic.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:underline-gallery",
+      "node_type": "subfeature",
+      "name": "Underline",
+      "parent": "feature:font",
+      "what_it_does": "Toggles an underline on the selected text; the dropdown picks the underline style and color.",
+      "affects": "the selection's character format (underline)",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (the selection's character format (underline)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's character format (underline)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: UnderlineGallery",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:underline-gallery"
+        ],
+        "gesture": "executeMso(UnderlineGallery)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:underline-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:underline-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+U"
+        }
+      ],
+      "shortcut": "Ctrl+U",
+      "opens": "ui:underline-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-underline-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-underline-gallery.png",
+        "screenshots/ui-underline-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:strikethrough",
+      "node_type": "subfeature",
+      "name": "Strikethrough",
+      "parent": "feature:font",
+      "what_it_does": "Draws a line through the middle of the selected text.",
+      "affects": "the selection's character format (strikethrough)",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the selection's character format (strikethrough)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's character format (strikethrough)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: Strikethrough",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:strikethrough"
+        ],
+        "gesture": "executeMso(Strikethrough)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:strikethrough"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-strikethrough.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-strikethrough.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:subscript",
+      "node_type": "subfeature",
+      "name": "Subscript",
+      "parent": "feature:font",
+      "what_it_does": "Places the selected text slightly below the baseline in a smaller size.",
+      "affects": "the selection's character format (subscript)",
+      "audience_breadth": "niche",
+      "behavior": "Running it changes the selection's formatting (the selection's character format (subscript)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's character format (subscript)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: equation, shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: Subscript",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:subscript"
+        ],
+        "gesture": "executeMso(Subscript)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:subscript"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift+_"
+        }
+      ],
+      "shortcut": "Ctrl+Shift+_",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-subscript.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-subscript.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:superscript",
+      "node_type": "subfeature",
+      "name": "Superscript",
+      "parent": "feature:font",
+      "what_it_does": "Places the selected text slightly above the baseline in a smaller size.",
+      "affects": "the selection's character format (superscript)",
+      "audience_breadth": "niche",
+      "behavior": "Running it changes the selection's formatting (the selection's character format (superscript)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's character format (superscript)). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: equation, shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: Superscript",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:superscript"
+        ],
+        "gesture": "executeMso(Superscript)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:superscript"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift++"
+        }
+      ],
+      "shortcut": "Ctrl+Shift++",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-superscript.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-superscript.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:text-effects",
+      "node_type": "subfeature",
+      "name": "Text Effects and Typography",
+      "parent": "feature:font",
+      "what_it_does": "Applies visual text effects (outline, shadow, reflection, glow) and OpenType typography.",
+      "affects": "the selection's character appearance",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:text-effects-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:text-effects-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-text-effects-gallery.png",
+        "screenshots/ui-text-effects-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:text-highlight-color-picker",
+      "node_type": "subfeature",
+      "name": "Text Highlight Color",
+      "parent": "feature:font",
+      "what_it_does": "Applies a highlighter color behind the text; the dropdown picks the color.",
+      "affects": "the selection's highlight color",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the selection's highlight color). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's highlight color). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: TextHighlightColorPicker",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:text-highlight-color-picker"
+        ],
+        "gesture": "executeMso (re-measure, structure-aware)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:text-highlight-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:text-highlight-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:text-highlight-color-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-text-highlight-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-text-highlight-color-picker.png",
+        "screenshots/ui-text-highlight-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shading-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-color-picker",
+      "node_type": "subfeature",
+      "name": "Font Color",
+      "parent": "feature:font",
+      "what_it_does": "Sets the color of the selected text; the dropdown opens a color picker (theme/standard/more).",
+      "affects": "the selection's font color",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (the selection's font color). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selection's font color). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: FontColorPicker",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:font-color-picker"
+        ],
+        "gesture": "executeMso(FontColorPicker)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:font-color-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-color-picker.png",
+        "screenshots/ui-font-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:text-highlight-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shading-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-dialog",
+      "node_type": "subfeature",
+      "name": "Font dialog launcher",
+      "parent": "feature:font",
+      "what_it_does": "Opens the Font dialog — the consolidated surface for all character formatting plus advanced options (spacing, ligatures, defaults).",
+      "affects": "opens the Font dialog",
+      "audience_breadth": "most",
+      "behavior": "Opens the Font dialog — the surface that presents this capability's options (61 controls enumerated in the structural pass). Applying a choice there changes: opens the Font dialog.",
+      "behavior_record": {
+        "effect": "Opens the Font dialog — the surface that presents this capability's options (61 controls enumerated in the structural pass). Applying a choice there changes: opens the Font dialog.",
+        "options": [
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Page up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Font:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "STXinwei",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "STZhongsong",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Suez One",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Sylfaen",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Symbol",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Font style:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Regular",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Italic",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          },
+          {
+            "name": "Bold",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:font-dialog"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: FontDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:font-dialog"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+D"
+        }
+      ],
+      "shortcut": "Ctrl+D",
+      "opens": "ui:font-dialog",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-dialog.png",
+        "screenshots/ui-font-dialog/tab-font.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

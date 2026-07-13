@@ -1,0 +1,340 @@
+{
+  "feature": {
+    "id": "feature:symbols",
+    "node_type": "feature",
+    "name": "Symbols",
+    "what_it_does": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+    "affects": "document content (adds equations/symbols)",
+    "audience_breadth": "most",
+    "cohesion": "catalog",
+    "behavior": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:equation-insert-gallery",
+      "subfeature:symbol-insert"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:equation-insert-gallery",
+      "node_type": "subfeature",
+      "name": "Equation",
+      "parent": "feature:symbols",
+      "what_it_does": "Inserts an empty math zone at the cursor (measured: OMaths 0→1) and activates the Equation contextual tab; the dropdown offers built-in equations (quadratic formula, area of circle…).",
+      "affects": "document content (adds an equation/math zone)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Equation (dropdown) dropdown — the surface that presents this capability's options (15 controls enumerated in the structural pass). Applying a choice there changes: document content (adds an equation/math zone).",
+      "behavior_record": {
+        "effect": "Opens the Equation (dropdown) dropdown — the surface that presents this capability's options (15 controls enumerated in the structural pass). Applying a choice there changes: document content (adds an equation/math zone).",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, equation, header-edit, text-selected; disabled in: chart-selected, in-table, picture-selected, shape-selected, smartart-selected, svg-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: EquationInsertGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:equation-insert-gallery"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:equation-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:equation-insert-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Alt+="
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": "Alt+=",
+      "opens": "ui:equation-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-equation-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-equation-insert-gallery.png",
+        "screenshots/ui-equation-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:symbol-insert",
+          "kind": "co-location",
+          "why": "the Symbols group family",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:symbol-insert",
+      "node_type": "subfeature",
+      "name": "Symbol",
+      "parent": "feature:symbols",
+      "what_it_does": "Opens a gallery of recently used symbols plus More Symbols… (the full character map) to insert characters not on the keyboard.",
+      "affects": "document content (adds a symbol character)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Symbol dropdown — the surface that presents this capability's options (23 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a symbol character).",
+      "behavior_record": {
+        "effect": "Opens the Symbol dropdown — the surface that presents this capability's options (23 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a symbol character).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Symbol",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Euro Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Pound Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Yen Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Copyright Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Registered Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Trade Mark Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Plus-Minus Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Not Equal To",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Less-Than Or Equal To",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Greater-Than Or Equal To",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Division Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Multiplication Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Infinity",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Micro Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Greek Small Letter Alpha",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Greek Small Letter Beta",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Greek Small Letter Pi",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Ohm Sign",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "N-Ary Summation",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "Wingdings: 74",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          },
+          {
+            "name": "More Symbols...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:symbol-insert"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, text-selected; disabled in: in-table, picture-selected, shape-selected, smartart-selected, svg-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: SymbolInsertGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:symbol-insert"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:symbol-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:symbol-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-symbol-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-symbol-insert-gallery.png",
+        "screenshots/ui-symbol-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:equation-insert-gallery",
+          "kind": "co-location",
+          "why": "the Symbols group family",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

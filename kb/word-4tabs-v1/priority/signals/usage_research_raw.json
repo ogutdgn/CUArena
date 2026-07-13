@@ -1,0 +1,1314 @@
+{
+  "entries": [
+    {
+      "capability": "Paste",
+      "tier": "very-high",
+      "claim": "Microsoft's Word 2003 CEIP telemetry ranks Paste as the #1 most-used command, accounting for more than 11% of all command invocations — more than twice the usage of #2 (Save) — and the Paste toolbar button was clicked more than any other button.",
+      "source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)', Microsoft Learn blog archive — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Copy",
+      "tier": "very-high",
+      "claim": "Copy is the #3 most-used command in Word 2003 per Microsoft's CEIP telemetry (top 5: Paste, Save, Copy, Undo, Bold, together ~32% of all command use), and Ctrl+C is the single most widely known keyboard shortcut in awareness surveys.",
+      "source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)' — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Cut",
+      "tier": "high",
+      "claim": "Cut is a routine clipboard action Microsoft groups with Copy/Paste ('people mostly used CTRL+X/C/V to do most clipboard actions — which was true'), but it did NOT make the Word 2003 top-5 command list, and Ctrl+X awareness (~30% in a Japanese student survey) trails Ctrl+C/V — regular but clearly below copy/paste.",
+      "source": "Jensen Harris telemetry post (https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7) corroborated by Tom's Hardware, 'Survey finds 40% of university students in Japan don't know the copy-and-paste shortcut keys' (https://www.tomshardware.com/news/survey-finds-40-percent-of-university-students-in-japan-dont-know-shortcut-keys)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Format Painter",
+      "tier": "medium",
+      "claim": "Format Painter is heavily promoted in training content but repeatedly documented as unknown-to-many ('underused' per MakeUseOf; trainers report 15-year Word veterans discovering it for the first time, and a 2006 comment on the Harris post notes seniors confuse its icon with Paste), indicating task-specific use by a formatting-aware subset rather than everyday use by all.",
+      "source": "MakeUseOf, '7 Underused Microsoft Word Features and How to Use Them' (https://www.makeuseof.com/tag/7-underused-microsoft-word-features-use/); Tech-Talk.com, 'The Magic of the Format Painter' (https://www.tech-talk.com/format-painter.html)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Office Clipboard pane",
+      "tier": "rare",
+      "claim": "The multi-item Office Clipboard task pane is hidden behind a dialog-box launcher, has been hidden by default since Word 2007, and community coverage describes it either as a 'hidden treasure' most users have never heard of or as an annoyance users search for how to turn OFF — deliberate use is rare.",
+      "source": "Office Watch, 'Exploring the Office clipboard' (https://office-watch.com/2018/office-clipboard/); WordTips, 'Turning Off Display of the Office Clipboard' (https://wordribbon.tips.net/T000288_Turning_Off_Display_of_the_Office_Clipboard.html); The Training Lady, 'The Office Clipboard - A hidden treasure' (https://www.thetraininglady.com/office-clipboard/)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Find",
+      "tier": "high",
+      "claim": "Find is treated as a core basic-editing skill in every introductory Word curriculum and sits in Word's always-visible Editing group, but Google researcher Dan Russell's field studies found ~90% of the US internet population doesn't know Ctrl+F exists — so it is regularly used by document workers yet far from universal daily use.",
+      "source": "The Village Voice, '90 Percent of People Don't Know What CTRL+F Does on Their Keyboards' (Dan Russell/Google research, 2011) — https://www.villagevoice.com/2011/08/20/90-percent-of-people-dont-know-what-ctrlf-does-on-their-keyboards/; GoSkills Microsoft Word Basic course syllabus (https://www.goskills.com/course/microsoft-word-basic)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Replace",
+      "tier": "medium",
+      "claim": "Find-and-Replace is included as an essential lesson in virtually all beginner Word courses (GoSkills, Webucator, LibreTexts, Microsoft's own training page) but is a task-specific revision tool for longer documents, used by a subset of the users who use Find and absent from any top-command telemetry list.",
+      "source": "Microsoft Support training, 'Find and replace text in Word' (https://support.microsoft.com/en-us/word/training/find-and-replace-text-in-word); Business LibreTexts, 'Find and Replace — Microsoft Word Basic Skills' (https://biz.libretexts.org/Courses/Lumen_Learning/Book:_Computer_Applications_for_Managers_(Lumen)/03:_Microsoft_Word_Basic_Skills/3.14:_Find_and_Replace)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Select (Select All / Select Objects)",
+      "tier": "medium",
+      "claim": "Ctrl+A/Select All appears on every 'basic shortcuts' list and is called the most popular way to select an entire document, yet shortcut-awareness surveys put Ctrl+A knowledge at only ~30% (users mostly select with mouse drag instead), and the ribbon Select menu's other entries (Select Objects, Selection Pane) are niche drawing-object tools — so the combined capability lands at task-specific regular use.",
+      "source": "Avantix Learning, 'How to Select All in Word (6 Ways with Shortcuts)' (https://www.avantixlearning.ca/microsoft-word/4-great-shortcuts-to-select-all-in-microsoft-word/); Tom's Hardware Japan shortcut-awareness survey (https://www.tomshardware.com/news/survey-finds-40-percent-of-university-students-in-japan-dont-know-shortcut-keys)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Bold",
+      "tier": "very-high",
+      "claim": "Bold was the #5 most-used command in all of Word 2003 per Microsoft CEIP telemetry (the only formatting command in a top 5 that together accounted for ~32% of all command use), making it the single most-used character-formatting operation.",
+      "source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)', Microsoft Office UX blog — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Italic",
+      "tier": "high",
+      "claim": "Italic sits just below Bold in the same everyday-emphasis cluster: it earned a data-driven slot on the Office 2007 Mini Toolbar (built from telemetry of 'the most-used formatting commands'), has a universal Ctrl+I shortcut, and is taught in every beginner formatting lesson.",
+      "source": "Jensen Harris, 'Designing Microsoft Office' (Mini Toolbar = most-used formatting commands) — https://jensenharris.com/home/office ; corroborated by GCFGlobal Word 'Formatting Text' beginner lesson — https://edu.gcfglobal.org/en/word2010/formatting-text/4/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Underline",
+      "tier": "high",
+      "claim": "Underline is the third of the universally-taught B/I/U trio (dedicated Ctrl+U shortcut, its own toolbar button, covered in every intro curriculum), though no individual telemetry rank was published and modern style advice slightly depresses its use versus bold/italic.",
+      "source": "Lumen Learning, 'Bold, Italics, Underline' (Computer Applications for Managers course module) — https://courses.lumenlearning.com/wm-compapp/chapter/bold-italics-underline/ ; GCFGlobal Word 'Formatting Text' lesson — https://edu.gcfglobal.org/en/word2010/formatting-text/4/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Strikethrough",
+      "tier": "medium",
+      "claim": "Strikethrough is used in specific common tasks (legal/edit markup, to-do lists) — common enough that its lack of a default keyboard shortcut is a well-documented frustration with many workaround guides — but Microsoft's own shortcut allocation (B/I/U got shortcuts, strikethrough did not) signals clearly lower frequency than the big three.",
+      "source": "Word.Tips.Net, 'Strikethrough Shortcut Key' — https://word.tips.net/T000418_Strikethrough_Shortcut_Key.html ; Avantix Learning, '4 Strikethrough Shortcuts in Microsoft Word' — https://www.avantixlearning.ca/microsoft-word/how-to-use-keyboard-shortcuts-to-apply-strikethrough-in-microsoft-word-3-ways/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Subscript",
+      "tier": "low",
+      "claim": "Subscript is specialist formatting confined to chemistry formulas and math notation (e.g. H2O, variable indices); writing guides list only scientific/mathematical uses, so typical office users rarely touch it.",
+      "source": "Proofed, 'When to Use Superscript and Subscript in Your Writing' — https://proofed.com/writing-tips/when-to-use-superscript-and-subscript-in-your-writing/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Superscript",
+      "tier": "low",
+      "claim": "Superscript is occasional/specialist (exponents, manual footnote marks, trademark symbols, ordinals) and slightly more used than subscript, but Word's AutoFormat auto-superscripts ordinals and the footnote feature inserts references automatically, so manual button use is mostly academic/scientific.",
+      "source": "Proofed, 'When to Use Superscript and Subscript in Your Writing' — https://proofed.com/writing-tips/when-to-use-superscript-and-subscript-in-your-writing/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Font typeface choice",
+      "tier": "high",
+      "claim": "Changing the font is a most-users-regularly operation: the Font picker earned a slot on the telemetry-driven Mini Toolbar of 'most-used formatting commands' and leads every beginner formatting curriculum, though a large share of users stick with the default typeface (hence the outsized attention to Microsoft's Calibri/Aptos default changes).",
+      "source": "Jensen Harris, 'Designing Microsoft Office' (Mini Toolbar rationale) — https://jensenharris.com/home/office ; GCFGlobal Word 'Formatting Text' lesson — https://edu.gcfglobal.org/en/word2010/formatting-text/4/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Font Size",
+      "tier": "very-high",
+      "claim": "'Change Font Size' was explicitly named as the #11 most-used command in all of Word 2003 in Microsoft's CEIP telemetry — right at the knee where the usage curve flattens — making it an everyday operation second only to bold among Font-group commands.",
+      "source": "Jensen Harris, 'No Distaste for Paste (Why the UI, Part 7)' — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Grow/Shrink Font",
+      "tier": "low",
+      "claim": "The dedicated Grow/Shrink Font buttons (and Ctrl+Shift+>/< shortcuts) are a secondary affordance for the very common font-size change (#11 command) — they appear in shortcut reference lists but most users accomplish sizing via the size dropdown or typing a value, so the distinct control itself sees low use.",
+      "source": "Microsoft Support, 'Keyboard shortcuts in Word' (Ctrl+Shift+> / Ctrl+Shift+< listed among dozens of shortcuts) — https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 ; frequency inferred against Jensen Harris #11 'Change Font Size' telemetry",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Change Case",
+      "tier": "medium",
+      "claim": "Change Case serves a recurring real need (Caps Lock accidents, cleaning pasted text) — it is included in GCFGlobal's beginner formatting lessons and Shift+F3 is a perennial 'best hidden productivity tip' across blogs and TikTok — but the very framing as a tip most users don't know indicates regular-task rather than daily-universal usage.",
+      "source": "GCFGlobal, 'Word 2010: Formatting Text' (teaches the Change Case command) — https://edu.gcfglobal.org/en/word2010/formatting-text/4/ ; Eric Silva, 'SHIFT+F3: Change Case in MS Word' — https://ericsilva.me/microsoft/word/shift-f3-change-case-in-ms-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Clear Formatting",
+      "tier": "medium",
+      "claim": "Clear Formatting rides on the single most common Word workflow — pasting (Paste = #1 command, 11% of all use): a large how-to ecosystem treats stripping formatting from web/PDF-pasted text as a routine essential task, but it is corrective/situational rather than a daily-universal button.",
+      "source": "Computer Hope, 'Remove Formatting in Word from Any Pasted Text' — https://www.computerhope.com/tips/tip210.htm ; paste ubiquity per Jensen Harris — https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Text Effects",
+      "tier": "low",
+      "claim": "Text Effects (shadow/glow/reflection, WordArt-style) is a decorative niche: tutorials pitch it only for flyers, invitations, banners and greeting cards and explicitly warn that using it in normal documents looks cluttered and unprofessional, so business/professional users essentially never touch it.",
+      "source": "Envato Tuts+, 'How to Make Microsoft Word Text Effects and Typography Art' — https://business.tutsplus.com/tutorials/microsoft-word-text-effects-101--cms-20703",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Text Highlight Color",
+      "tier": "high",
+      "claim": "Highlighting is a staple of review, collaboration and study workflows (color-coding contributors, marking passages for revision) and is taught in GCFGlobal's beginner formatting lesson alongside B/I/U, indicating regular use by most document-reviewing users though not by casual letter-writers.",
+      "source": "GCFGlobal, 'Word 2010: Formatting Text' (highlighting covered in basics) — https://edu.gcfglobal.org/en/word2010/formatting-text/4/ ; ClickUp, 'How to Highlight in Word for Better Document Clarity' (review/study/collab use cases) — https://clickup.com/blog/how-to-highlight-in-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Font Color",
+      "tier": "high",
+      "claim": "Font color is in the core most-used formatting cluster: color earned a slot on the telemetry-driven Office 2007 Mini Toolbar and font color is covered in every version of GCFGlobal's beginner 'Formatting Text' lesson alongside font and size.",
+      "source": "Jensen Harris, 'Designing Microsoft Office' / InformIT Mini Toolbar description (font, size, bold, italics, color chosen from usage data) — https://jensenharris.com/home/office and https://www.informit.com/articles/article.aspx?p=683065 ; GCFGlobal — https://edu.gcfglobal.org/en/word2016/formatting-text/3/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Font dialog",
+      "tier": "low",
+      "claim": "The Font dialog (Ctrl+D / dialog launcher) is framed by training material as the gateway to 'advanced formatting' — small caps, character spacing, OpenType features, setting the default font — i.e. occasional power-user tasks, while everyday font operations are done from the ribbon/Mini Toolbar controls.",
+      "source": "CourseHorse, 'Utilizing the Font Dialog Box for Advanced Formatting in Microsoft Word' — https://coursehorse.com/blog/learn/microsoft-word/utilizing-the-font-dialog-box-for-advanced-formatting-in-microsoft-word",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Bullets",
+      "tier": "high",
+      "claim": "Bullets is one of the few formatting commands Microsoft placed on the non-customizable Mini Toolbar (built from Office CEIP usage data to surface the most-used formatting commands) and auto-triggers via AutoFormat, indicating regular use by most users, though no paragraph command made the published Word 2003 top-5 (Paste/Save/Copy/Undo/Bold).",
+      "source": "https://bettersolutions.com/word/ribbon/mini-toolbar.htm (Mini Toolbar contents incl. Bullets/Numbering); corroborated by https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Numbering",
+      "tier": "high",
+      "claim": "Numbering sits alongside Bullets on Word's Mini Toolbar and in the AutoFormat-as-you-type defaults, signaling Microsoft's usage data puts numbered lists in the regularly-used formatting set for most users, slightly behind bullets in everyday use.",
+      "source": "https://bettersolutions.com/word/ribbon/mini-toolbar.htm (Mini Toolbar includes Numbering button with drop-down)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Multilevel List",
+      "tier": "medium",
+      "claim": "Multilevel numbering is heavily used in specific common document types (contracts, theses, technical manuals) — legal-tech and trainer sources call it 'the #1 headache for many people working with large Word documents' — but typical users reach it indirectly via Tab-demotion in simple lists rather than the button itself.",
+      "source": "https://officemastery.com/_word-multilevel-numbering-word/ and https://www.attorneyatwork.com/how-to-master-microsoft-word-for-mac-multilevel-paragraph-numbering/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Increase/Decrease Indent",
+      "tier": "high",
+      "claim": "Indent controls appear on Word's Mini Toolbar per Microsoft's own description ('options for changing fonts, alignment, text color, indenting, and bullets') and have dedicated Ctrl+M/Ctrl+Shift+M shortcuts, consistent with regular use tied to the very common list and paragraph-formatting workflows.",
+      "source": "https://support.microsoft.com/en-US/Word/use-the-mini-toolbar-to-format-text",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Sort paragraphs",
+      "tier": "low",
+      "claim": "Sort is an occasional, task-specific feature that mainstream how-to sites must teach from scratch ('How to Alphabetize Lists and Tables in Microsoft Word') and that lived buried in the Table menu before 2007, indicating most users touch it rarely if ever, though the volume of alphabetize-a-list tutorials shows recurring occasional demand.",
+      "source": "https://www.howtogeek.com/361217/how-to-alphabetize-lists-and-tables-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Show/Hide paragraph marks",
+      "tier": "low",
+      "claim": "Show/Hide ¶ is a troubleshooting/power tool championed by editors and trainers ('The Power in the Pilcrow') while community Q&A shows typical users are unaware of it or actively confused when it is on ('Why does my Word document have paragraph symbols everywhere?'), placing it in occasional/specialist use.",
+      "source": "https://eiw365.com/the-power-in-the-pilcrow/ and https://www.quora.com/Why-does-my-Word-document-have-paragraph-symbols-everywhere",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Align Left/Center/Right/Justify",
+      "tier": "high",
+      "claim": "Microsoft's official Word shortcut documentation lists Center (Ctrl+E), Align Left (Ctrl+L), and Align Right (Ctrl+R) in its curated 'Frequently used shortcuts' table alongside copy/paste/bold, and alignment is on the usage-data-driven Mini Toolbar — most users apply alignment regularly (centering titles), though Justify is the least-used of the four (relegated to the general paragraph-formatting section).",
+      "source": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 ('Frequently used shortcuts' table)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Line and Paragraph Spacing",
+      "tier": "high",
+      "claim": "Line spacing is a mandated, recurring task for the large academic/professional segment — 'most academic style guides, including MLA, APA, Chicago, and Harvard, require double spacing' — and Word reserves three dedicated shortcuts (Ctrl+1/2/5) for it, though many office users leave the default and touch it less often.",
+      "source": "https://proofed.com/writing-tips/what-is-standard-line-spacing-for-a-formal-document/ and https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shading",
+      "tier": "low",
+      "claim": "Paragraph shading has no keyboard shortcut, is absent from Microsoft's frequently-used-shortcuts list and the Mini Toolbar, and appears in the ecosystem only as decorative how-to content, so it is best classed as occasional cosmetic use; most real-world shading happens through table styles instead.",
+      "source": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 (absence from frequently-used set; closest-evidence inference)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Borders",
+      "tier": "low",
+      "claim": "The Home-tab paragraph Borders control sees only occasional direct use (horizontal rules, boxed text) — it lacks a shortcut and any presence in Microsoft's frequently-used-shortcuts or Mini Toolbar sets, and the bulk of real-world border work is done via table formatting in the contextual Table tabs instead.",
+      "source": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2 (absence from frequently-used set; closest-evidence inference)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Paragraph dialog",
+      "tier": "medium",
+      "claim": "The Paragraph dialog is the documented path for common, mandated tasks — hanging indents for MLA/APA works-cited pages and exact double-spacing are taught via 'go to Paragraph settings' in academic formatting guides — so it gets steady task-driven use even though casual users stick to the ribbon buttons.",
+      "source": "https://www.edmonds.edu/student-services/learning-support-center/handouts/documents/edmondsccmlaformatword.pdf and https://proofed.com/writing-tips/is-mla-format-double-spaced/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Quick Styles gallery",
+      "tier": "medium",
+      "claim": "Styles are persistently documented as underused despite the gallery's prime Home-tab placement — a Word program manager conceded 'some people just assume styles are meant for people who want big blue text' and formatting-services analyses find most business users format manually — yet heading styles get real task-driven use for TOCs, navigation, and long documents.",
+      "source": "https://www.addbalance.com/usersguide/stylesImportance.htm (quoting Word 2013 PM Caitlin Ashley-Rollman) and https://www.documentformattingservices.com/microsoft-word-statistics/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Styles pane",
+      "tier": "low",
+      "claim": "The full Styles pane is a power-user/professional-editor tool — MVP and pro-editing guides treat 'Display, Use, and Manage Styles' as expert material, and Microsoft itself demoted the old Styles and Formatting task pane behind a dialog launcher in the 2007 ribbon redesign — so ordinary users who touch styles at all stay in the gallery.",
+      "source": "http://wordfaqs.ssbarnhill.com/ManageStyles.htm and https://cybertext.wordpress.com/2008/09/11/word-2007-what-happened-to-the-styles-and-formatting-task-pane/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Insert Table",
+      "tier": "high",
+      "claim": "Tables get a dedicated lesson in GCFGlobal's core 35-lesson Word curriculum and usability surveys of Word list tables alongside pictures/charts as the standard non-text content users add to documents, making table insertion a routine task for most document producers.",
+      "source": "GCFGlobal Word: Foundations curriculum, 'Tables' lesson — https://edu.gcfglobal.org/en/word/ (corroborated by 'Survey based usability evaluation of MS Word', https://www.researchgate.net/publication/251991199_Survey_based_usability_evaluation_of_MS_Word)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Insert Pictures",
+      "tier": "high",
+      "claim": "Picture insertion is the only Insert-tab feature to get TWO dedicated lessons ('Pictures and Text Wrapping' and 'Formatting Pictures') in GCFGlobal's core Word curriculum, and Word usability surveys cite adding photos as a standard user activity.",
+      "source": "GCFGlobal Word: Foundations curriculum — https://edu.gcfglobal.org/en/word/ (lesson list mirror: https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Shapes",
+      "tier": "medium",
+      "claim": "Shapes have a dedicated GCFGlobal lesson (plus an 'Aligning, Ordering, and Grouping Objects' follow-up), indicating regular use for annotation, flyers, and simple diagrams, but no frequency data puts them at the level of tables or pictures.",
+      "source": "GCFGlobal Word: Foundations curriculum, 'Shapes' lesson — https://edu.gcfglobal.org/en/word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Icons",
+      "tier": "low",
+      "claim": "Icons only appear as a late add-on lesson ('Working with Icons', lesson 35 of 35) in GCFGlobal's curriculum and are a Microsoft-365-only decorative feature, indicating occasional use rather than a routine workflow.",
+      "source": "GCFGlobal Word: Foundations curriculum, 'Working with Icons' — https://edu.gcfglobal.org/en/word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "3D Models",
+      "tier": "rare",
+      "claim": "Even a CAD-vendor tutorial promoting the feature opens with 'few people are aware of the functionality of placing 3D models into Microsoft Word documents,' and it gets no lesson in mainstream Word training — a niche tool for CAD/marketing users.",
+      "source": "Man and Machine, '3D Models in Microsoft Word' — https://www.manandmachine.co.uk/3d-models-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt",
+      "tier": "low",
+      "claim": "SmartArt gets a GCFGlobal lesson but it sits in the late 'extras' section (lesson 28, after Track Changes), and community discussion associates SmartArt diagrams far more with PowerPoint than Word, indicating occasional use for org charts/process graphics in Word documents.",
+      "source": "GCFGlobal Word: 'SmartArt Graphics' lesson — https://edu.gcfglobal.org/en/word2013/smartart-graphics/1/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart",
+      "tier": "low",
+      "claim": "Word-native chart insertion is taught (GCFGlobal 'Charts' lesson) but is a secondary path — business chart workflows center on Excel with paste/embed into Word — so the Insert>Chart button itself sees occasional use.",
+      "source": "GCFGlobal Word: Foundations curriculum, 'Charts' lesson — https://edu.gcfglobal.org/en/word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Screenshot",
+      "tier": "rare",
+      "claim": "Word's built-in Screenshot tool is absent from GCFGlobal's 35-lesson curriculum and from popular shortcut/productivity lists; OS-level snipping plus paste is the dominant screenshot path, leaving this button rarely touched.",
+      "source": "GCFGlobal Word: Foundations curriculum (feature absent from all 35 lessons) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Online Videos",
+      "tier": "rare",
+      "claim": "The Insert Online Video button has been missing or grayed out for whole license classes of users with only scattered Microsoft Q&A threads noticing, and availability varies by SKU/platform — a print-oriented app feature that almost nobody exercises.",
+      "source": "Microsoft Q&A, 'Insert Online Video button missing from Ribbon in Microsoft Word' — https://learn.microsoft.com/en-us/answers/questions/183bb73d-c5b0-45ee-9821-c892a341d7cd/insert-online-video-button-missing-from-ribbon-in",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Cover Page",
+      "tier": "low",
+      "claim": "Cover pages appear in report/proposal workflows but get no lesson in GCFGlobal's 35-lesson core curriculum and are at most a once-per-document action, putting them in the occasional/specific-task band.",
+      "source": "GCFGlobal Word: Foundations curriculum (no Cover Page lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Blank Page",
+      "tier": "rare",
+      "claim": "The Insert>Blank Page button is redundant with the page break (Ctrl+Enter), which is what training ('Breaks' lesson) and shortcut lists actually teach; community attention around blank pages is overwhelmingly about deleting unwanted ones, not inserting them.",
+      "source": "GCFGlobal Word 'Breaks' lesson teaches page breaks, not Blank Page — https://edu.gcfglobal.org/en/word/; Ctrl+Enter in Help Desk Geek's 30+ best shortcuts — https://helpdeskgeek.com/the-30-best-microsoft-word-keyboard-shortcuts/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Page Break",
+      "tier": "high",
+      "claim": "Page break has its own dedicated shortcut (Ctrl+Enter) that appears in essentially every 'best Word shortcuts' list and a dedicated 'Breaks' lesson in GCFGlobal's core curriculum, marking it a routine pagination action for most document producers.",
+      "source": "Help Desk Geek, 'The 30+ Best Microsoft Word Keyboard Shortcuts' — https://helpdeskgeek.com/the-30-best-microsoft-word-keyboard-shortcuts/ (plus GCFGlobal 'Breaks' lesson, https://edu.gcfglobal.org/en/word/)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Link/Hyperlink",
+      "tier": "medium",
+      "claim": "Hyperlinks have a dedicated GCFGlobal 'Links' lesson and Ctrl+K appears in every top-shortcuts list, but manual link insertion in Word is partly displaced by auto-linking of typed URLs, placing it in the regular-but-task-specific band.",
+      "source": "Help Desk Geek, 'The 30+ Best Microsoft Word Keyboard Shortcuts' (Ctrl+K) — https://helpdeskgeek.com/the-30-best-microsoft-word-keyboard-shortcuts/ (plus GCFGlobal 'Links' lesson, https://edu.gcfglobal.org/en/word/)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Bookmark",
+      "tier": "low",
+      "claim": "Bookmarks are absent from GCFGlobal's 35-lesson curriculum and surface mainly in long-document/power-user guidance as targets for cross-references and internal links — a specialist navigation tool most users never open.",
+      "source": "GCFGlobal Word: Foundations curriculum (no Bookmark lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Cross-reference",
+      "tier": "low",
+      "claim": "Cross-referencing is recommended in university long-document guidance for numbered figures/equations (e.g. engineering report workflows) but gets no lesson in mainstream consumer training — an academic/long-document specialist feature.",
+      "source": "GCFGlobal Word: Foundations curriculum (no Cross-reference lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html; academic usage context per MSU Denver equation/reference guidance — https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Comment",
+      "tier": "high",
+      "claim": "Comments (with Track Changes) get a dedicated GCFGlobal lesson and are described in legal/business editing guidance as 'so universally used' that they are the default collaboration mechanism for document review.",
+      "source": "WordRake, 'Using Track Changes and Comments for Collaborative Editing in Microsoft Word' — https://www.wordrake.com/resources/using-track-changes-and-comments-for-collaborative-editing-in-microsoft-word (plus GCFGlobal 'Track Changes and Comments' lesson, https://edu.gcfglobal.org/en/word/)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Header",
+      "tier": "high",
+      "claim": "Headers get a dedicated GCFGlobal core lesson and MLA format requires a last-name+page-number header on every page of every student paper, while business documents use headers for letterhead/branding — a near-mandatory element of formal documents.",
+      "source": "Purdue OWL, 'MLA General Format' — https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_general_format.html (plus GCFGlobal 'Headers and Footers' lesson, https://edu.gcfglobal.org/en/word/)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Footer",
+      "tier": "high",
+      "claim": "Footers share the dedicated GCFGlobal 'Headers and Footers' core lesson and are the standard location for page numbers, dates, and confidentiality notices in formal business/academic documents.",
+      "source": "GCFGlobal Word: Foundations curriculum, 'Headers and Footers' lesson — https://edu.gcfglobal.org/en/word/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Page Number",
+      "tier": "high",
+      "claim": "Both APA and MLA require page numbers on every page of every student paper (Purdue OWL) and page numbering gets its own dedicated GCFGlobal lesson separate from headers/footers — one of the most universally required document elements.",
+      "source": "Purdue OWL, 'APA General Format' — https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/general_format.html (plus GCFGlobal 'Page Numbers' lesson, https://edu.gcfglobal.org/en/word/)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Text Box",
+      "tier": "medium",
+      "claim": "Text boxes have a dedicated lesson in GCFGlobal's core Word curriculum, reflecting regular use in layout-oriented tasks (flyers, callouts, certificates), though no frequency data elevates them to the tables/pictures tier.",
+      "source": "GCFGlobal Word: Foundations curriculum, 'Text Boxes' lesson — https://edu.gcfglobal.org/en/word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Quick Parts",
+      "tier": "low",
+      "claim": "Quick Parts is pitched in legal-productivity writing (NC Bar Association) as a time-saver worth adopting — i.e. framed as underused even in its strongest niche — and is absent from mainstream consumer training, marking it a power-user/specialist tool.",
+      "source": "North Carolina Bar Association, 'Quick Parts: The Good, the Bad, and the Alternative' — https://www.ncbar.org/2022/05/03/quick-parts-the-good-the-bad-and-the-alternative/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "WordArt",
+      "tier": "rare",
+      "claim": "WordArt is covered in the tech press purely as a 90s nostalgia relic (Popular Science runs a how-to for retrieving 'retro' WordArt), was demoted from a default toolbar button to a buried Insert-tab item, and is kept largely for backward compatibility.",
+      "source": "Popular Science, 'How to get the retro WordArt back in Microsoft Word' — https://www.popsci.com/diy/how-to-get-the-retro-wordart-back-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Drop Cap",
+      "tier": "rare",
+      "claim": "Drop Cap is a print-typography convention for newsletters/book design that gets zero coverage in GCFGlobal's 35-lesson curriculum and no presence in shortcut or productivity lists — a decorative feature typical users never touch.",
+      "source": "GCFGlobal Word: Foundations curriculum (no Drop Cap lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Signature Line",
+      "tier": "rare",
+      "claim": "Word's Signature Line requires a digital-certificate workflow while mainstream e-signing has moved to dedicated tools (DocuSign/Acrobat), and the feature gets no coverage in core Word training — a rarely exercised legacy path.",
+      "source": "GCFGlobal Word: Foundations curriculum (no Signature Line lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Date and Time",
+      "tier": "rare",
+      "claim": "The Insert>Date and Time dialog (auto-updating date fields for letter templates) is absent from core training and shortcut lists, and typing the date directly is the universal substitute, leaving the dedicated command rarely touched.",
+      "source": "GCFGlobal Word: Foundations curriculum (no Date and Time lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Object/OLE",
+      "tier": "rare",
+      "claim": "OLE object embedding is legacy technology whose modern equivalents (paste/link from Excel) dominate, and Microsoft's own telemetry shows the deep Insert-command long tail sees negligible use (e.g. 'Reset Picture' ranked ~#400 of all commands).",
+      "source": "Office 2003 command-frequency data via GranneBlog, 'The most popular commands in Word' — https://blog.granneman.com/2008/02/21/the-most-popular-commands-in-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation",
+      "tier": "low",
+      "claim": "The equation editor has a clear but specialist user base — students, teachers, and STEM researchers, with universities publishing dedicated usage guides and a third-party market (MathType) existing around it — while general-purpose Word training omits it entirely.",
+      "source": "MSU Denver, 'Using the Microsoft Word Equation Editor' — https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Symbol",
+      "tier": "low",
+      "claim": "Inserting symbols/special characters (©, °, accented letters, em dashes) is a recurring but occasional need served heavily by autocorrect, and the Symbol dialog gets no lesson in GCFGlobal's 35-lesson core curriculum.",
+      "source": "GCFGlobal Word: Foundations curriculum (no Symbols lesson) — https://iiab.live/modules/en-gcf_learn_2021/edu.gcfglobal.org/en/word/index.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "table styles gallery",
+      "tier": "medium",
+      "claim": "Applying a style from the gallery is taught in GCFGlobal's entry-level Word Tables lesson and is a MOS exam objective ('apply table styles'), making it the standard first step whenever users format a table — but table formatting itself is an intermittent task, not a daily one.",
+      "source": "https://edu.gcfglobal.org/en/word2016/tables/1/ (GCFGlobal Word 2016: Tables lesson); corroborated by https://www.avantixlearning.ca/microsoft-word/how-to-format-microsoft-word-tables-using-table-styles/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "header row / banded rows style options",
+      "tier": "medium",
+      "claim": "GCFGlobal's basic tables lesson explicitly teaches the six Table Style Options checkboxes (Header Row, Banded Rows, etc.) as part of routine table styling, so they ride along with gallery use, though many users leave the defaults untouched.",
+      "source": "https://edu.gcfglobal.org/en/word2016/tables/1/ (GCFGlobal Word 2016: Tables — lists Header Row, Total Row, Banded Rows, First/Last Column, Banded Columns options)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "table shading",
+      "tier": "medium",
+      "claim": "Shading header rows and alternating rows is described as standard business-table formatting in mainstream tutorials, but it is a formatting-session task rather than a regular-use command.",
+      "source": "https://www.geeksforgeeks.org/ms-word/formatting-tables-in-ms-word/ (Formatting Tables in MS Word — borders and shading listed among core formatting techniques, including shaded header rows and banded shading)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "table borders",
+      "tier": "medium",
+      "claim": "Adding, changing, and especially removing borders is covered in entry-level curricula (GCFGlobal) and mainstream how-tos (How-To Geek), reflecting that border adjustment is one of the most common specific table-formatting tasks, including making borderless layout tables.",
+      "source": "https://www.howtogeek.com/227442/how-to-add-borders-to-or-change-borders-on-a-table-in-word/ and https://edu.gcfglobal.org/en/word2016/tables/1/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "border painter",
+      "tier": "rare",
+      "claim": "Border Painter was introduced in Word 2013 as a convenience tool, and Microsoft Answers threads show even experienced users cannot find it years later ('How do I find Border Painter in Word 2016?'), indicating it is rarely touched outside power users.",
+      "source": "https://answers.microsoft.com/en-us/msoffice/forum/all/how-do-i-find-border-painter-table-tools-design/c4f90b02-aae2-4640-baa6-5ffcb91fcf0c (Microsoft Answers discoverability thread); feature intro: https://office-watch.com/2022/table-border-painter-make-tables-easier-in-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "select table parts",
+      "tier": "low",
+      "claim": "Entry-level training (GCFGlobal) teaches selection by hovering/clicking with the mouse and right-click menus, not the ribbon Select dropdown, which functions as a precision fallback most users never open.",
+      "source": "https://edu.gcfglobal.org/en/word2016/tables/1/ (GCFGlobal tables lessons teach mouse/right-click selection; ribbon Select menu absent from basic curriculum)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "view gridlines",
+      "tier": "low",
+      "claim": "View Gridlines is documented as useful specifically when working with tables whose borders have been removed (invisible layout tables), a specialist workflow rather than a routine one.",
+      "source": "https://wordribbon.tips.net/T006038_Displaying_Table_Gridlines.html (Displaying Table Gridlines — WordTips); corroborated by https://www.avantixlearning.ca/microsoft-word/how-to-show-table-gridlines-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "table properties",
+      "tier": "medium",
+      "claim": "The Table Properties dialog is the documented route for several common fixes — stopping AutoFit's automatic resizing (Properties > Options), exact row/column sizing, and vertical cell alignment — so typical users hit it during specific common troubleshooting tasks even if they never browse it otherwise.",
+      "source": "https://office-watch.com/2023/word-autofit-table-columns-fix/ (Fixing AutoFit Table Columns in Word — fix path goes through Table Properties); also https://www.avantixlearning.ca/microsoft-word/how-to-center-text-vertically-in-a-word-table-and-fix-common-issues/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "draw table",
+      "tier": "low",
+      "claim": "Microsoft's own Insert-a-table documentation positions Draw Table as the method for irregular/custom tables while the grid and Insert Table dialog are the standard paths, and comparison guides note the insert methods are faster and more commonly used.",
+      "source": "https://support.microsoft.com/en-us/office/insert-a-table-a138f745-73ef-4879-b99a-2f3d38be612a (Microsoft Support: Insert a table — Draw Table listed as the option for custom/irregular tables)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "eraser",
+      "tier": "rare",
+      "claim": "The Eraser only surfaces in Draw Table workflows (itself a low-usage method), and its main effect — removing a dividing line — is more commonly achieved via the better-known Merge Cells command, so it is rarely touched.",
+      "source": "https://support.microsoft.com/en-us/office/insert-a-table-a138f745-73ef-4879-b99a-2f3d38be612a (Eraser documented only within the Draw Table workflow); merge-cells alternative: https://support.microsoft.com/en-us/office/merge-and-split-table-cells-in-word-3e42e8d8-89e8-4345-a79c-524a815f40ce",
+      "confidence": "weak"
+    },
+    {
+      "capability": "delete rows/columns/table",
+      "tier": "high",
+      "claim": "Deleting rows/columns has been taught in GCFGlobal's entry-level table-editing lessons in every version since Word 2000 and sits on the right-click context menu, marking it as core table editing that nearly everyone who uses tables performs.",
+      "source": "https://edu.gcfglobal.org/en/word2016/tables/1/ (and predecessor lessons https://edu.gcfglobal.org/en/word2000/editing-tables/1/) — insert/delete rows and columns covered as basic skills",
+      "confidence": "strong"
+    },
+    {
+      "capability": "insert rows above/below",
+      "tier": "high",
+      "claim": "Microsoft added always-available one-click hover '+' insert controls to tables in Word 2013 — a UI investment reserved for the most frequent operations — confirming row insertion is among the most-performed table edits.",
+      "source": "https://wordribbon.tips.net/T013154_Turning_Off_the_Insert_Column_and_Insert_Row_Tools.html (WordTips: the Insert Column and Insert Row hover tools introduced in Word 2013)",
+      "confidence": "strong"
+    },
+    {
+      "capability": "insert columns left/right",
+      "tier": "high",
+      "claim": "Column insertion shares the same Word 2013 one-click hover '+' control and entry-level-curriculum status as row insertion, though it is exercised somewhat less often since tables typically grow downward rather than sideways.",
+      "source": "https://wordribbon.tips.net/T013154_Turning_Off_the_Insert_Column_and_Insert_Row_Tools.html (hover '+' covers both rows and columns); https://edu.gcfglobal.org/en/word2016/tables/1/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "merge cells",
+      "tier": "high",
+      "claim": "Merging cells for spanning headers and form layouts is a MOS certification core objective ('merge and split cells') and is covered even by general-audience career sites like Indeed, indicating broad mainstream demand for this specific common task. (adjusted_from: medium — raised for internal consistency: merge cells belongs with core table editing exercised by most table users, in the same band as insert/delete rows and clearly far above formula-in-table, which stays rare.)",
+      "source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS Study Guide for Microsoft Word: Create tables and lists — merge/split cells objective); https://www.indeed.com/career-advice/career-development/how-to-merge-two-cells-in-word",
+      "confidence": "strong"
+    },
+    {
+      "capability": "split cells",
+      "tier": "low",
+      "claim": "Split Cells is taught only as the paired inverse of Merge Cells in MOS objectives and tutorials, and in practice is used far less often — typically to undo merges or build occasional form layouts.",
+      "source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS objective pairs merge and split); https://support.microsoft.com/en-us/office/merge-or-split-cells-in-a-table-8b458deb-0fc5-4c8d-8d94-2d4da98193f8",
+      "confidence": "weak"
+    },
+    {
+      "capability": "split table",
+      "tier": "low",
+      "claim": "Splitting one table into two appears in MOS exam objectives ('split tables') and advanced-features guides but not in entry-level curricula or everyday workflows, marking it an occasional restructuring task.",
+      "source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS Study Guide table objectives include split tables); https://officelegends.academy/microsoft-word-table-advanced-features/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "autofit",
+      "tier": "medium",
+      "claim": "Runaway column widths are one of the most commonly reported table frustrations, and the AutoFit menu (AutoFit Contents / AutoFit Window / Fixed Column Width) is the documented recurring fix, so this command is exercised in a common recurring task.",
+      "source": "https://office-watch.com/2023/word-autofit-table-columns-fix/ (Office Watch: Fixing AutoFit Table Columns in Word); corroborated by https://www.cedarville.edu/insights/computer-help/post/adjust-table-columns-in-word-auto-fit",
+      "confidence": "strong"
+    },
+    {
+      "capability": "cell size (height/width)",
+      "tier": "medium",
+      "claim": "Resizing rows/columns is a MOS core objective ('resize tables, rows, and columns') and near-universal when working with tables, but most users drag borders with the mouse, leaving the ribbon height/width boxes and Distribute commands for precise or uniform sizing.",
+      "source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS objective); https://support.microsoft.com/en-us/word/resize-a-table-column-or-row (Microsoft Support: Resize a table, column, or row)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "text alignment in cells",
+      "tier": "medium",
+      "claim": "Centering text in table cells (especially vertically) is one of the most-published Word table how-tos — How-To Geek, Avantix, Microsoft Q&A, and university KBs all maintain dedicated articles — indicating a very common recurring subtask of table formatting.",
+      "source": "https://www.howtogeek.com/790640/how-to-center-text-in-a-microsoft-word-table/ ; https://www.avantixlearning.ca/microsoft-word/how-to-center-text-vertically-in-a-word-table-and-fix-common-issues/",
+      "confidence": "strong"
+    },
+    {
+      "capability": "text direction",
+      "tier": "low",
+      "claim": "Rotating cell text is documented as a niche layout technique for narrow header columns and space-saving, with coverage limited to tips sites rather than core curricula — an occasional/specialist capability.",
+      "source": "https://wordribbon.tips.net/T005978_Changing_Table_Cell_Text_Direction.html (WordTips: Changing Table Cell Text Direction — use cases are narrow-column vertical headings)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "cell margins",
+      "tier": "low",
+      "claim": "Cell margin/spacing adjustment is a polish and troubleshooting setting covered by Office Watch and MOS objectives ('configure cell margins and spacing') but absent from entry-level lessons — an occasional/specialist tweak for readability or fitting content.",
+      "source": "https://office-watch.com/2022/table-cell-margins-spacing-word/ (Office Watch: Table Cell Margins and Spacing Options in Word); MOS objective: https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3",
+      "confidence": "weak"
+    },
+    {
+      "capability": "sort table",
+      "tier": "low",
+      "claim": "Sorting table contents is a documented MOS exam skill with university help-desk KB coverage (alphabetizing name lists), but it is an occasional task for typical users, who do serious data sorting in Excel instead.",
+      "source": "https://www.customguide.com/word/sort-table-in-word (CustomGuide: How to Sort a Table in Word); MOS objective 'sort table data': https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3",
+      "confidence": "weak"
+    },
+    {
+      "capability": "repeat header rows",
+      "tier": "medium",
+      "claim": "Multi-page tables in reports make repeating headers a standard specific need — it is a MOS exam objective ('configure a repeating row header') and the subject of an unusually dense cluster of dedicated how-to articles and forum threads, though users typically discover it on demand rather than use it daily.",
+      "source": "https://www.microsoftpressstore.com/articles/article.aspx?p=2738466&seqNum=3 (MOS Study Guide: configure a repeating row header); how-to demand: https://www.supportyourtech.com/articles/how-to-repeat-header-row-in-word-table-easy-steps-to-follow/ and https://www.msofficeforums.com/word/37060-repeating-two-rows-including-merge-table-heading.html",
+      "confidence": "strong"
+    },
+    {
+      "capability": "convert table to text",
+      "tier": "low",
+      "claim": "Table-to-text conversion is an occasional data-cleanup/accessibility task; Microsoft documents it, but forum threads show users struggle even to locate the command, consistent with infrequent use.",
+      "source": "https://support.microsoft.com/en-us/word/convert-text-to-a-table-or-a-table-to-text (Microsoft Support); discoverability struggle: https://www.elevenforum.com/t/unable-to-find-convert-table-to-text.4438/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "formula in table",
+      "tier": "rare",
+      "claim": "Word table formulas (=SUM(ABOVE)) are consistently framed as a little-known feature with well-documented pitfalls (stops at blank/text cells, results need manual field updates), and the long-standing Word MVP FAQ on its wrong answers shows even the few who try it get confused — typical users calculate in Excel instead.",
+      "source": "https://wordmvp.com/FAQs/AppErrors/SumAboveIncorrect.htm (Word MVP FAQ: '=SUM(ABOVE) formula... answer was obviously incorrect'); feature doc: https://support.microsoft.com/en-us/office/sum-a-column-or-row-of-numbers-in-a-table-in-word-2e373a5f-2d8a-478a-9b85-275c8668bebb",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: remove background",
+      "tier": "low",
+      "claim": "Heavy tutorial demand exists (many third-party guides), but Office Watch and others document that the tool's auto-detection often fails and needs manual Mark Areas correction, and dedicated background-remover tools are routinely recommended instead — an occasional one-off utility, not a routine operation.",
+      "source": "https://office-watch.com/2024/background-removal-pictures-microsoft-office/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: corrections (brightness/sharpen)",
+      "tier": "low",
+      "claim": "Picture-adjustment commands sit deep in Word's command long tail (Jensen Harris's Word 2003 telemetry put Reset Picture at ~#400), and most photo correction happens in dedicated apps before insertion — occasional touch-ups only.",
+      "source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: color recolor",
+      "tier": "rare",
+      "claim": "Decorative recoloring is even more obscure than Reset Picture (~#400 in Word 2003 telemetry) and is absent from core training objectives; almost never part of typical document workflows.",
+      "source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: artistic effects",
+      "tier": "rare",
+      "claim": "Artistic filters are mentioned in tutorials only as a novelty aside (e.g. in background-removal guides), are absent from MOS training objectives, and serve no common document task.",
+      "source": "https://icons8.com/blog/articles/remove-background-from-picture-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: transparency",
+      "tier": "rare",
+      "claim": "Transparency is a newer Microsoft 365 control used for watermark-style effects; it appears in no common task documentation and picture-adjustment commands historically sit deep in the command long tail per Word 2003 telemetry.",
+      "source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: compress pictures",
+      "tier": "medium",
+      "claim": "Directly tied to the very common 'document too big to email' problem — Microsoft maintains a dedicated support page and training vendors (Avantix, KCL) publish standalone courses/guides on compressing images in Word.",
+      "source": "https://support.microsoft.com/en-us/office/reduce-the-file-size-of-your-word-documents-6c5a1186-6353-453d-bb22-e9322c2cfbab",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Picture Format: change picture",
+      "tier": "rare",
+      "claim": "Swap-image-keeping-formatting is a template-reuse convenience absent from MOS Word Associate objectives and basic training curricula; most users simply delete and reinsert.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: reset picture",
+      "tier": "rare",
+      "claim": "Directly measured: Reset Picture ranked approximately #400 in Word 2003 command-frequency telemetry per Jensen Harris (Microsoft Office UX team), placing it deep in the usage long tail.",
+      "source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Picture Format: picture styles gallery",
+      "tier": "medium",
+      "claim": "One-click framing/shadow presets are the most prominent element of the tab and picture formatting is an explicit MOS Word Associate objective (5.2 'format graphic elements') taught in beginner courses — used in the common insert-and-dress-up-a-picture task.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: picture border",
+      "tier": "medium",
+      "claim": "Adding a simple border to inserted images/screenshots is a staple of beginner picture-formatting lessons and falls under the MOS 'format graphic elements' objective — a specific common task rather than a daily one.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: picture effects",
+      "tier": "low",
+      "claim": "Shadow/glow/3D effects are decorative options covered in training under 'apply effects' but rarely needed in typical business/academic documents — occasional embellishment only.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: picture layout (convert to SmartArt)",
+      "tier": "rare",
+      "claim": "Converting pictures into SmartArt layouts is an obscure feature tied to SmartArt, which presentation experts describe as amateur-occasional and 'rarely used in management' contexts.",
+      "source": "https://www.thinkoutsidetheslide.com/issue-326-december-9-2014/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: alt text",
+      "tier": "low",
+      "claim": "Despite training/compliance emphasis (it is a MOS objective), real-world adoption is poor: WebAIM's 2026 Million report found over half of top websites still ship images with missing alt text, and office documents fare no better — most users skip it.",
+      "source": "https://webaim.org/projects/million/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: wrap text",
+      "tier": "high",
+      "claim": "The single most common picture-layout operation: Microsoft's own support page identifies the default 'In Line with Text' wrapping as the top cause of can't-move-picture complaints, and forum volume on wrapping is enormous — virtually every picture-inserting user confronts it.",
+      "source": "https://support.microsoft.com/en-us/office/wrap-text-around-a-picture-in-word-bdbbe1fe-c089-4b5c-b85c-43997da64a12",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Picture Format: position",
+      "tier": "medium",
+      "claim": "Position presets and 'Fix position on page' are the standard companion fix in Microsoft's picture-placement guidance and Q&A threads, used in the same common fit-the-picture task as wrap text but less frequently than wrapping itself.",
+      "source": "https://support.microsoft.com/en-us/word/wrap-text-and-move-pictures-in-word",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: bring forward/send backward",
+      "tier": "medium",
+      "claim": "Object ordering is taught as a standard lesson in free beginner Word courses (GCFGlobal 'Arranging Objects') and is needed whenever objects overlap — common in flyers/newsletters but absent from plain text documents.",
+      "source": "https://edu.gcfglobal.org/en/word2013/arranging-objects/1/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: crop",
+      "tier": "high",
+      "claim": "Cropping is one of the most heavily documented picture operations (Microsoft support page, HowToGeek, university IT knowledge bases all maintain dedicated guides) and is a core skill in every basic picture-formatting curriculum.",
+      "source": "https://www.howtogeek.com/707505/how-to-crop-a-picture-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Picture Format: picture height/width",
+      "tier": "high",
+      "claim": "Resizing is near-universal when placing pictures — workplace-skills textbooks (OpenStax 4.2) teach sizing graphics as a core skill — though most users drag handles rather than type exact dimensions in the ribbon boxes.",
+      "source": "https://openstax.org/books/workplace-software-skills/pages/4-2-working-with-graphics-and-text-tools-in-microsoft-word",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: edit shape",
+      "tier": "rare",
+      "claim": "Change Shape/Edit Points is specialist drawing functionality; MOS objectives cover only inserting and basic-modifying shapes, and freehand point editing appears in no mainstream Word training.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: shape styles",
+      "tier": "medium",
+      "claim": "Shape/text-box insertion is an explicit MOS objective (5.1) and a workplace-skills textbook staple for flyers/newsletters; the one-click styles gallery is the fastest formatting path for those users — a specific common task, not everyday use.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: shape fill",
+      "tier": "medium",
+      "claim": "Fill color is the most fundamental shape formatting action, exercised in essentially every flyer/diagram/text-box task that workplace-skills curricula (OpenStax) teach for Word's drawing tools.",
+      "source": "https://openstax.org/books/workplace-software-skills/pages/4-2-working-with-graphics-and-text-tools-in-microsoft-word",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: shape outline",
+      "tier": "medium",
+      "claim": "Outline color/weight is exercised alongside fill in every shape and text-box formatting task taught in standard curricula (e.g. removing a text box border is a classic step).",
+      "source": "https://openstax.org/books/workplace-software-skills/pages/4-2-working-with-graphics-and-text-tools-in-microsoft-word",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: shape effects",
+      "tier": "low",
+      "claim": "Shadow/glow/bevel effects on shapes are decorative extras mentioned in training under 'apply effects' but not required by common document tasks — occasional embellishment.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: text fill/outline/effects for text in shapes",
+      "tier": "low",
+      "claim": "WordArt-style text styling is used for posters/flyers/announcements — drawing-tools guides describe WordArt as 'most useful for posters, flyers' — a decorative niche relative to normal document text.",
+      "source": "https://www.bizmanualz.com/microsoft-word/drawing-tools-microsoft-word.html",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: text direction",
+      "tier": "low",
+      "claim": "Rotating text within shapes/text boxes serves specific layouts (vertical labels, sideways headers); shape text itself is a medium-tier task and direction changes are a small fraction of it.",
+      "source": "https://support.microsoft.com/en-us/office/add-shapes-0e492bb4-3f91-43b5-803f-dd0998e0eb89",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: align objects",
+      "tier": "medium",
+      "claim": "Aligning objects is a standard lesson in free beginner Word courses (GCFGlobal 'Arranging Objects') and Microsoft maintains a dedicated support page for it — routine within layout-heavy documents like flyers and forms.",
+      "source": "https://edu.gcfglobal.org/en/word2013/arranging-objects/1/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: group objects",
+      "tier": "medium",
+      "claim": "Grouping is taught in beginner courses and covered by a dedicated Office Watch how-to; it is used whenever multi-shape layouts (logos, simple diagrams) are built or moved — a specific common task.",
+      "source": "https://office-watch.com/2025/group-and-ungroup-objects-in-word-powerpoint-and-office/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: rotate objects",
+      "tier": "medium",
+      "claim": "Rotation (mostly via the on-object rotate handle rather than the ribbon flip commands) is part of the standard object-arranging skill set covered by Microsoft's align/arrange guidance and beginner tutorials.",
+      "source": "https://support.microsoft.com/en-us/office/graphics-visuals/align-or-arrange-objects",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: selection pane",
+      "tier": "low",
+      "claim": "Microsoft dedicates a support page to the Selection Pane, but it exists specifically for managing many overlapping objects — a power-user workflow far from typical document editing.",
+      "source": "https://support.microsoft.com/en-us/office/use-the-selection-pane-to-manage-objects-in-documents-a6b2fd3e-d769-46c1-9b9c-b94e04a72550",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Shape Format: wrap text",
+      "tier": "medium",
+      "claim": "Same wrapping model as pictures (the top object-layout pain point per Microsoft's support guidance), but shapes/text boxes default to floating placement so wrap changes are needed less often than for pictures.",
+      "source": "https://support.microsoft.com/en-us/office/wrap-text-around-a-picture-in-word-bdbbe1fe-c089-4b5c-b85c-43997da64a12",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: add chart element",
+      "tier": "low",
+      "claim": "Adding titles/labels is standard for the minority who build native Word charts, but Microsoft's own guidance presents copy-pasting a finished chart from Excel as 'the simplest way' — most chart formatting happens in Excel, not Word.",
+      "source": "https://support.microsoft.com/en-us/office/insert-a-chart-from-an-excel-spreadsheet-into-word-0b4d40a5-3544-4dcd-b28f-ba82a9b9f1e1",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: quick layout",
+      "tier": "rare",
+      "claim": "Preset chart layouts are a convenience covered only in dedicated chart-editing courses (Noble Desktop) and add nothing users can't get via defaults; native-Word chart authoring is itself a minority workflow.",
+      "source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: change colors",
+      "tier": "low",
+      "claim": "Color-scheme swapping is one of the first tweaks chart-editing courses teach, but applies only to the minority of Word users who author charts natively rather than pasting from Excel.",
+      "source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: chart styles",
+      "tier": "low",
+      "claim": "The styles gallery is the prominent quick-format path in Word chart editing guides, but native Word chart authorship is a minority report-building workflow.",
+      "source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: switch row/column",
+      "tier": "rare",
+      "claim": "Data-orientation switching is an Excel-fluent user's fix mentioned only in dedicated chart guides; within Word's already-small native chart population it is an occasional correction.",
+      "source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: select data",
+      "tier": "rare",
+      "claim": "Redefining a chart's data range is an occasional correction step covered in chart-editing courses; most Word users never author a native chart at all, preferring Excel paste per Microsoft's own guidance.",
+      "source": "https://support.microsoft.com/en-us/office/insert-a-chart-from-an-excel-spreadsheet-into-word-0b4d40a5-3544-4dcd-b28f-ba82a9b9f1e1",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: edit data",
+      "tier": "low",
+      "claim": "Edit Data (opening the mini-spreadsheet) is the primary way every native-Word-chart author enters numbers, so within that niche it is unavoidable — but the niche itself is small since most charts are pasted from Excel.",
+      "source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: refresh data",
+      "tier": "rare",
+      "claim": "Refresh applies only to charts linked to external Excel workbooks — a linking workflow that Microsoft documents as the more advanced alternative to simple embedding, used by a small subset of report builders.",
+      "source": "https://support.microsoft.com/en-us/office/insert-a-chart-from-an-excel-spreadsheet-into-word-0b4d40a5-3544-4dcd-b28f-ba82a9b9f1e1",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Chart Design: change chart type",
+      "tier": "low",
+      "claim": "Switching bar/line/pie is a common tweak among chart authors and appears in every chart-editing course, but native Word chart authoring is itself a minority workflow versus pasting from Excel.",
+      "source": "https://www.nobledesktop.com/learn/microsoft-word/embedding-and-editing-charts-in-microsoft-word-a-complete-guide",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: add shape",
+      "tier": "low",
+      "claim": "Adding shapes is the most fundamental SmartArt edit and an explicit MOS objective (5.3 'modify SmartArt graphic content'), but SmartArt itself is occasional — experts note it is 'frequently used by amateur users' and rarely in professional contexts.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: add bullet",
+      "tier": "rare",
+      "claim": "Adding bullets is a subsidiary text-pane operation within SmartArt, which is itself an occasional amateur-leaning feature per presentation-expert commentary.",
+      "source": "https://support.microsoft.com/en-us/office/graphics-visuals/learn-more-about-smartart-graphics",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: promote/demote",
+      "tier": "low",
+      "claim": "Hierarchy reordering is standard when building org charts — the most common SmartArt use case covered in MOS cert prep — but applies only to the occasional-SmartArt-user population.",
+      "source": "https://www.linkedin.com/learning/cert-prep-word-2016-microsoft-office-specialist-77-725/modify-content-of-a-smartart-graphic",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: text pane",
+      "tier": "low",
+      "claim": "The Text Pane is the primary editing surface taught in MOS cert-prep for populating SmartArt, so every SmartArt user touches it — but SmartArt insertion is itself an occasional task.",
+      "source": "https://www.linkedin.com/learning/cert-prep-word-2016-microsoft-office-specialist-77-725/modify-content-of-a-smartart-graphic",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: change layout",
+      "tier": "low",
+      "claim": "Swapping layouts is a documented core step in Microsoft's own SmartArt guidance ('Choose a SmartArt graphic'), exercised by the occasional-SmartArt-user population when the first layout choice doesn't fit.",
+      "source": "https://support.microsoft.com/en-us/office/choose-a-smartart-graphic-e9a7a134-f8a5-4251-aba2-93f96b88644d",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: change colors",
+      "tier": "low",
+      "claim": "Color-scheme swapping is the most-taught SmartArt customization in tutorials and Microsoft's guidance, but only within the occasional SmartArt-using population.",
+      "source": "https://support.microsoft.com/en-us/office/graphics-visuals/learn-more-about-smartart-graphics",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: SmartArt styles",
+      "tier": "low",
+      "claim": "The styles gallery is a one-click customization covered in Microsoft's SmartArt documentation and MOS objectives; usage is bounded by SmartArt's own occasional adoption.",
+      "source": "https://support.microsoft.com/en-us/office/graphics-visuals/learn-more-about-smartart-graphics",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: reset graphic",
+      "tier": "rare",
+      "claim": "Reset is an undo-my-formatting escape hatch analogous to Reset Picture, which telemetry placed at ~#400 in Word 2003 command frequency — deep long-tail within an already occasional feature.",
+      "source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "weak"
+    },
+    {
+      "capability": "SmartArt Design: convert to text/shapes",
+      "tier": "rare",
+      "claim": "Converting SmartArt to shapes/text is an expert escape hatch; presentation experts who recommend abandoning SmartArt (Echo Rivera, Think Outside The Slide) advise rebuilding with plain shapes, underscoring how rarely typical users touch this command.",
+      "source": "https://www.echorivera.com/blog/alternatives-to-process-smartart",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: professional/linear format",
+      "tier": "rare",
+      "claim": "Equations default to Professional format; toggling Linear/UnicodeMath is discussed mainly in accessibility and power-user guides (Penn State), a niche within the already specialist equation-authoring population of students, educators, engineers and researchers.",
+      "source": "https://accessibility.psu.edu/math/msmath/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: ink equation",
+      "tier": "rare",
+      "claim": "Ink Equation requires pen/touch input and appears in how-to guides as a novelty alternative to structured entry; usable only by the touch-device subset of the already niche equation-authoring population.",
+      "source": "https://geekchamp.com/how-to-use-equation-editor-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: equation symbols",
+      "tier": "low",
+      "claim": "The symbols gallery is core to equation writing, but equation authoring itself is confined to STEM/academic users (students, educators, engineers, researchers) per university instructional guides — specialist, not general-population, usage.",
+      "source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: fraction",
+      "tier": "low",
+      "claim": "Fractions are the most commonly used equation structure — university guides list fractions first among the constructs the editor handles — but only within the STEM/academic niche that writes equations at all.",
+      "source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: script",
+      "tier": "low",
+      "claim": "Super/subscript structures (exponents, chemical formulas) are among the top equation constructs cited in instructional guides, used regularly by the specialist equation-writing population and almost never by anyone else.",
+      "source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: radical",
+      "tier": "low",
+      "claim": "Square roots are a staple structure in math homework and instructional guides for the equation editor, but usage is bounded to the STEM/academic niche.",
+      "source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: integral",
+      "tier": "rare",
+      "claim": "Integrals are cited in guides as an advanced construct the editor 'handles effortlessly' — calculus-level content authored by a small subset of the already niche equation-writing population.",
+      "source": "https://geekchamp.com/how-to-use-equation-editor-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: large operator",
+      "tier": "rare",
+      "claim": "Summations/products are advanced math constructs used by the calculus-and-beyond subset of equation authors; guides list them alongside integrals as specialist features.",
+      "source": "https://geekchamp.com/how-to-use-equation-editor-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: bracket",
+      "tier": "rare",
+      "claim": "Scaling bracket structures are common within serious equation authoring but casual users type plain parentheses; overall population contact with this gallery is negligible given the editor's STEM-niche audience.",
+      "source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: function",
+      "tier": "rare",
+      "claim": "Trig/function structures serve math-heavy documents only; university equation-editor guides address a STEM instructional audience, and no general-user workflow touches this gallery.",
+      "source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: accent",
+      "tier": "rare",
+      "claim": "Accents (bars, hats, vector arrows) are notation for advanced math/physics writing — a subset of the already specialist equation-authoring population documented in university STEM guides.",
+      "source": "https://accessibility.psu.edu/math/msmath/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: limit",
+      "tier": "rare",
+      "claim": "Limit structures are calculus notation used by a small academic subset of equation authors; they appear only in specialist instructional material, never in general Word training.",
+      "source": "https://geekchamp.com/how-to-use-equation-editor-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: operator",
+      "tier": "rare",
+      "claim": "Operator structures are specialist math notation within the equation editor's STEM-niche audience; general Word training material never covers them.",
+      "source": "https://www.msudenver.edu/teaching-learning-design/instructional-accessibility/guides-resources/stem/microsoft-equation-editor/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Equation: matrix",
+      "tier": "rare",
+      "claim": "Matrices are cited in guides as an advanced construct for linear-algebra content — among the most specialist structures in an already niche editor used by students, engineers and researchers.",
+      "source": "https://geekchamp.com/how-to-use-equation-editor-in-microsoft-word/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: page number",
+      "tier": "high",
+      "claim": "Page numbering is mandated by APA/MLA for every student paper — APA's style guidance explicitly instructs using Word's page-numbering function rather than typing numbers — and is standard in business, legal and thesis documents; it is the anchor task of the whole tab.",
+      "source": "https://apastyle.apa.org/style-grammar-guidelines/paper-format/page-header",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Header & Footer: date and time",
+      "tier": "low",
+      "claim": "Auto-updating dates in headers/footers are an occasional business-template convenience; unlike page numbers, date fields are not required by any major style guide and get little training emphasis (not called out in MOS header/footer objectives).",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: document info",
+      "tier": "low",
+      "claim": "File-name/author fields in footers are a corporate/legal template convention typically set once per template rather than per document; the capability receives no MOS or beginner-course emphasis.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: quick parts in header",
+      "tier": "rare",
+      "claim": "Field codes (e.g. StyleRef running headers) in headers are a power-user technique surfacing mainly in book-formatting discussions among advanced users, far outside typical workflows.",
+      "source": "https://techcommunity.microsoft.com/discussions/word/formatting-page-numbers-headers-sections-in-a-book-with-chapters-/3895959",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: picture in header",
+      "tier": "low",
+      "claim": "Logo-in-header is a standard letterhead pattern, but it is executed rarely per user — typically once during template creation — and most users inherit letterhead templates rather than building them.",
+      "source": "https://insationtech.com/ten-useful-microsoft-word-features/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: go to header/go to footer",
+      "tier": "low",
+      "claim": "Explicit navigation buttons are used within header-editing sessions, but university formatting guides show most users enter headers by double-clicking, making the ribbon buttons secondary.",
+      "source": "https://libguides.sunyulster.edu/word/header",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: previous/next section",
+      "tier": "low",
+      "claim": "Section-to-section header navigation matters only in multi-section documents — thesis/dissertation formatting FAQs are where these buttons appear in instructions — a real but bounded academic/long-document population.",
+      "source": "https://askalibrarian.csuohio.edu/faq/43427",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: link to previous",
+      "tier": "medium",
+      "claim": "Unlinking sections is the pivotal step in the widely documented 'start page numbering later / no number on title page' task — Microsoft maintains a dedicated support page and dozens of university library guides walk students through exactly this button.",
+      "source": "https://support.microsoft.com/en-us/office/start-page-numbering-later-in-your-document-c73e3d55-d722-4bd0-886e-0b0bd0eb3f02",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Header & Footer: different first page",
+      "tier": "medium",
+      "claim": "Removing the page number/running head from a title page is one of the most-asked Word formatting questions — Microsoft's page-numbering support page and multiple university FAQs (e.g. Walsh) instruct the Different First Page checkbox for this exact common task.",
+      "source": "https://support.microsoft.com/en-us/office/start-page-numbering-later-in-your-document-c73e3d55-d722-4bd0-886e-0b0bd0eb3f02",
+      "confidence": "strong"
+    },
+    {
+      "capability": "Header & Footer: different odd/even pages",
+      "tier": "low",
+      "claim": "Odd/even headers serve double-sided book/thesis printing — a formatting need discussed in book-chapter formatting threads and dissertation guides, not in everyday document work.",
+      "source": "https://techcommunity.microsoft.com/discussions/word/formatting-page-numbers-headers-sections-in-a-book-with-chapters-/3895959",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: show document text",
+      "tier": "rare",
+      "claim": "The show/hide document text toggle appears in no mainstream training or support workflow; view toggles of this kind sit in the deep long tail of Word command usage per the Word 2003 telemetry pattern.",
+      "source": "https://learn.microsoft.com/en-us/archive/blogs/jensenh/no-distaste-for-paste-why-the-ui-part-7",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: header/footer position",
+      "tier": "rare",
+      "claim": "Adjusting header/footer distance from the page edge is an occasional strict-formatting-spec tweak (thesis margins), absent from common how-to flows which use the defaults.",
+      "source": "https://askalibrarian.csuohio.edu/faq/43427",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: insert alignment tab",
+      "tier": "rare",
+      "claim": "Alignment tabs are obscure even to power users — they appear in essentially no training curricula, style-guide instructions, or MOS objectives.",
+      "source": "https://www.onlc.com/graphics/Microsoft/Certification/mos-word-2019-exam-objectives.pdf",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Header & Footer: close header and footer",
+      "tier": "medium",
+      "claim": "Structurally used at the end of every header/footer session — Microsoft's own steps for the very common page-numbering task end with 'Select Close Header and Footer' — though many users exit by double-clicking the body instead. (adjusted_from: high — lowered for internal consistency: 'go to header/go to footer' is tiered low precisely because users double-click instead of using the ribbon buttons, and the same double-click behavior dominates exiting; a structural exit affordance should not outrank the deliberate medium-tier tasks 'link to previous' and 'different first page'.)",
+      "source": "https://support.microsoft.com/en-us/office/start-page-numbering-later-in-your-document-c73e3d55-d722-4bd0-886e-0b0bd0eb3f02",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Margins",
+      "tier": "high",
+      "claim": "Margins are a core page-setup lever — teaching materials treat setting margins as a primary layout step and most documents keep or deliberately set them (Normal/Narrow/etc.).",
+      "source": "OpenStax Workplace Software and Skills 3.2 Formatting Document Layout — https://openstax.org/books/workplace-software-skills/pages/3-2-formatting-document-layout-in-microsoft-word",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Orientation",
+      "tier": "medium",
+      "claim": "Portrait is the default; landscape is switched occasionally for wide tables/graphs — a common but not per-document action.",
+      "source": "OpenStax Workplace Software and Skills 3.2 Formatting Document Layout — https://openstax.org/books/workplace-software-skills/pages/3-2-formatting-document-layout-in-microsoft-word",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Size",
+      "tier": "low",
+      "claim": "Paper size is usually left at the regional default (Letter/A4) and only changed for specific output — infrequent.",
+      "source": "OpenStax Workplace Software and Skills 3.2 Formatting Document Layout — https://openstax.org/books/workplace-software-skills/pages/3-2-formatting-document-layout-in-microsoft-word",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Columns",
+      "tier": "low",
+      "claim": "Newspaper-style columns are used mainly for newsletters/brochures — a minority of documents.",
+      "source": "OpenStax Workplace Software and Skills 3.2 Formatting Document Layout — https://openstax.org/books/workplace-software-skills/pages/3-2-formatting-document-layout-in-microsoft-word",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Breaks",
+      "tier": "medium",
+      "claim": "Page/section/column breaks are common in any multi-page or multi-section document to control flow.",
+      "source": "OpenStax Workplace Software and Skills 3.2 Formatting Document Layout — https://openstax.org/books/workplace-software-skills/pages/3-2-formatting-document-layout-in-microsoft-word",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Line Numbers",
+      "tier": "rare",
+      "claim": "Margin line numbering is a legal/review niche, absent from the vast majority of documents.",
+      "source": "document-workflow reasoning (web silent on frequency)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Hyphenation",
+      "tier": "rare",
+      "claim": "Automatic hyphenation is rarely toggled by typical users; off by default in Word.",
+      "source": "document-workflow reasoning (web silent on frequency)",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Page Setup",
+      "tier": "low",
+      "claim": "The consolidated Page Setup dialog is a power-user surface; most reach margins/orientation via the galleries.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Indent Left",
+      "tier": "low",
+      "claim": "Precise numeric indent fields are used less than the ruler / Increase-Decrease Indent buttons on the Home tab.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Indent Right",
+      "tier": "low",
+      "claim": "Right indent is set less often than left indent and usually via the ruler.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Spacing Before",
+      "tier": "medium",
+      "claim": "Paragraph spacing (before/after) is a common readability adjustment in formatted documents.",
+      "source": "document-workflow reasoning",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Spacing After",
+      "tier": "medium",
+      "claim": "Paragraph spacing (before/after) is a common readability adjustment in formatted documents.",
+      "source": "document-workflow reasoning",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Themes",
+      "tier": "low",
+      "claim": "Most users keep the default theme; applying a whole-document theme is an occasional polish step.",
+      "source": "Jensen Harris, Office UI blog / CEIP telemetry (Office 2003 command-usage program: 90% of users use <10% of features) — https://learn.microsoft.com/en-us/archive/blogs/jensenh/",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Style Set",
+      "tier": "low",
+      "claim": "Restyling the built-in style set is an occasional design choice, not a routine edit.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Theme Colors",
+      "tier": "low",
+      "claim": "Theme color scheme changes are occasional branding/polish actions.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Theme Fonts",
+      "tier": "low",
+      "claim": "Theme font-pair changes are occasional; most users change fonts via the Home Font box.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Paragraph Spacing",
+      "tier": "low",
+      "claim": "The document-wide paragraph-spacing preset is an occasional layout choice.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Theme Effects",
+      "tier": "rare",
+      "claim": "Theme graphic effects are rarely noticed unless a document has many shapes/charts.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Set as Default",
+      "tier": "rare",
+      "claim": "Saving current formatting as the template default is a one-time power action.",
+      "source": "document-workflow reasoning",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Watermark",
+      "tier": "medium",
+      "claim": "DRAFT/CONFIDENTIAL/logo watermarks are common in business and formal documents.",
+      "source": "document-workflow reasoning",
+      "confidence": "moderate"
+    },
+    {
+      "capability": "Page Color",
+      "tier": "low",
+      "claim": "Page background color is mainly for on-screen/web documents and rarely printed — infrequent.",
+      "source": "OpenStax Workplace Software and Skills 3.2 Formatting Document Layout — https://openstax.org/books/workplace-software-skills/pages/3-2-formatting-document-layout-in-microsoft-word",
+      "confidence": "weak"
+    },
+    {
+      "capability": "Page Borders",
+      "tier": "medium",
+      "claim": "Page borders are common on flyers, certificates and title pages.",
+      "source": "document-workflow reasoning",
+      "confidence": "moderate"
+    }
+  ],
+  "notes": "Deduplication: removed the second 'Insert Table' row (self-marked DUPLICATE-GUARD with source 'n/a'), keeping the primary strong-sourced GCFGlobal/ResearchGate entry. Tier adjustments (2, each flagged with an adjusted_from note inside the claim): (1) 'merge cells' medium -> high — core table editing used by most table users, consistent with insert/delete rows (high) and clearly above formula-in-table (rare); backed by strong-confidence MOS-core-objective + mainstream (Indeed) coverage. (2) 'Header & Footer: close header and footer' high -> medium — the same double-click behavior that puts 'go to header/footer' at low dominates exiting too, and a pure exit affordance should not outrank the deliberate medium-tier tasks in its own group. All other tiers passed consistency checks: Paste/Copy/Bold/Font Size very-high (direct CEIP telemetry); Bold (very-high) > Italic/Underline (high) > Strikethrough (medium) > Sub/Superscript (low); Paste #1 preserved; contextual-tab sub-capabilities never exceed their parent feature's tier except where evidence shows near-universal use within the parent population (e.g. wrap text = pictures = high). Distinct ribbon surfaces for the same underlying function (Insert > Page Number vs 'Header & Footer: page number'; Insert > Date and Time vs 'Header & Footer: date and time'; Picture vs Shape 'wrap text') were intentionally kept as separate entries since they represent different controls with independent, mutually consistent tiers. Final count: 165 entries (166 input rows minus 1 duplicate). | word-4tabs-v1: appended 22 Design/Layout capability usage entries (targeted web research + document-workflow reasoning; niche layout features are web-thin, tiers assigned from reasoning per playbook 04 signal-3 allowance)."
+}

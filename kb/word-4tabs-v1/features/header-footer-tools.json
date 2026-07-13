@@ -1,0 +1,503 @@
+{
+  "feature": {
+    "id": "feature:header-footer-tools",
+    "node_type": "feature",
+    "name": "Header & Footer Tools",
+    "what_it_does": "Navigate and configure header/footer editing mode — move between header and footer, set first-page / odd-even options, position, and close the editor.",
+    "affects": "the header/footer editing session and its layout options",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Navigate and configure header/footer editing mode — move between header and footer, set first-page / odd-even options, position, and close the editor. Group controls: subfeature:hf-alignment-tab, subfeature:hf-close, subfeature:hf-document-info, subfeature:hf-link-to-previous, subfeature:hf-navigate, subfeature:hf-options, subfeature:hf-position",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-header-footer"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-header-footer",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:hf-alignment-tab",
+      "subfeature:hf-close",
+      "subfeature:hf-document-info",
+      "subfeature:hf-link-to-previous",
+      "subfeature:hf-navigate",
+      "subfeature:hf-options",
+      "subfeature:hf-position"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:header-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:hf-alignment-tab",
+      "node_type": "subfeature",
+      "name": "Insert Alignment Tab",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Inserts an alignment tab so header/footer content can be left/center/right aligned on one line.",
+      "affects": "the header/footer content (alignment tab)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-insert-alignment-tab"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-header-footer-insert-alignment-tab-dialog",
+      "location": "ui:ribbon-header-footer",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-insert-alignment-tab.png",
+        "screenshots/ui-ribbon-header-footer-insert-alignment-tab-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-close",
+      "node_type": "subfeature",
+      "name": "Close Header and Footer",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Exits header/footer editing mode and returns to the document body.",
+      "affects": "the header/footer editing session (exit)",
+      "audience_breadth": "most",
+      "behavior": "enabled in every staged context (no object/selection precondition measured)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: HeaderFooterClose",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hf-close"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-close"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-close.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-close.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-document-info",
+      "node_type": "subfeature",
+      "name": "Document Info",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Inserts document-property fields (author, file name, path…) into the header/footer.",
+      "affects": "the header/footer content (document-info fields)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Document Info dropdown — the surface that presents this capability's options (6 controls enumerated in the structural pass). Applying a choice there changes: the header/footer content (document-info fields).",
+      "behavior_record": {
+        "effect": "Opens the Document Info dropdown — the surface that presents this capability's options (6 controls enumerated in the structural pass). Applying a choice there changes: the header/footer content (document-info fields).",
+        "options": [
+          {
+            "name": "Author",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-document-info"
+            ]
+          },
+          {
+            "name": "File Name",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-document-info"
+            ]
+          },
+          {
+            "name": "File Path",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-document-info"
+            ]
+          },
+          {
+            "name": "Document Title",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-document-info"
+            ]
+          },
+          {
+            "name": "Document Property",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-document-info"
+            ]
+          },
+          {
+            "name": "Field...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:hf-document-info"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: DocumentInfo",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hf-document-info"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-document-info"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-header-footer-document-info-dropdown",
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-document-info.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-document-info.png",
+        "screenshots/ui-ribbon-header-footer-document-info-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-link-to-previous",
+      "node_type": "subfeature",
+      "name": "Link to Previous",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Links this section's header/footer to the previous section's (or breaks the link).",
+      "affects": "whether this section reuses the previous header/footer",
+      "audience_breadth": "niche",
+      "behavior": "disabled in every staged context (header-edit) — needs a precondition beyond the ones staged; no pressed state observed (a command, not a toggle)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "disabled in every staged context (header-edit) — needs a precondition beyond the ones staged; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: HeaderFooterLinkToPrevious",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hf-link-to-previous"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-link-to-previous"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-link-to-previous.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-link-to-previous.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-navigate",
+      "node_type": "subfeature",
+      "name": "Header/Footer Navigation",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Moves the cursor between the header and footer and between sections' headers/footers (go to header/footer, previous, next).",
+      "affects": "the header/footer editing position",
+      "audience_breadth": "most",
+      "behavior": "enabled in every staged context (no object/selection precondition measured)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: HeaderFooterNextSection",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hf-navigate"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-go-to-header"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-go-to-footer"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-previous-section"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-next-section"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-go-to-header.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-go-to-header.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-options",
+      "node_type": "subfeature",
+      "name": "Header/Footer Options",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Toggles header/footer display options — different first page, different odd & even pages, and showing the document text.",
+      "affects": "the header/footer display options",
+      "audience_breadth": "most",
+      "behavior": "enabled in every staged context (no object/selection precondition measured); no pressed state observed (a command, not a toggle)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured); no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: HeaderFooterDifferentFirstPageWord",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:hf-options"
+        ],
+        "gesture": "executeMso(HeaderFooterDifferentFirstPageWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-different-first-page"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-different-odd-even-page"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-show-document-text"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-different-first-page.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-different-first-page.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-position",
+      "node_type": "subfeature",
+      "name": "Header/Footer Position",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Sets the distance of the header/footer from the top/bottom page edge.",
+      "affects": "the header/footer position on the page",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-position-header-from-top"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-position-footer-from-bottom"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-position-header-from-top.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

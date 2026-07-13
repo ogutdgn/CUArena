@@ -1,0 +1,49 @@
+{
+  "file": {
+    "available": true,
+    "how": "doc.SaveAs2(<OS-temp scratch path>, 16) -> zip-XML (.docx); diff word/*.xml between experiments (option-dimension, baseline-subtraction, noise self-diff recipes)",
+    "confirmed_by": "saved channel-probe-015109.docx; word/document.xml contains the probe text; 11 zip members",
+    "safety": "SaveAs2 targets only the OS-temp scratch dir; fixture itself never saved"
+  },
+  "object_model": {
+    "available": true,
+    "how": "Word COM (win32com DispatchEx): doc_hash/format_sig/object_fingerprint/layout_fingerprint (session.py) + targeted property reads at the granularity the feature operates on",
+    "confirmed_by": "TopMargin=72.0, Bold=0, doc_hash readable",
+    "caveats": "busy while a modal is up (<com-busy> sentinel); paragraph-level reads collapse mixed runs to sentinels (behavior.md)"
+  },
+  "ui_metadata": {
+    "available": true,
+    "how": "CommandBars.GetEnabledMso(idMso) / GetPressedMso(idMso) — enablement matrix per staged context (bare caret / selection / in-table / object selected); the same sweep yields Step 3 `requires` precondition evidence",
+    "confirmed_by": {
+      "Bold": {
+        "enabled": true,
+        "pressed": false
+      },
+      "Paste": {
+        "enabled": true
+      },
+      "TableColumnsGallery": {
+        "enabled": true
+      },
+      "ObjectBringForward": {
+        "enabled": false
+      },
+      "PageMarginsGallery": {
+        "enabled": true
+      }
+    },
+    "caveats": "idMso inventory comes from the step-1 enum dumps (automation_id)"
+  },
+  "screen": {
+    "available": true,
+    "how": "window-true PrintWindow-style grabs (capture.py) + real input injection (driver.py); reserve for live previews / caret / undo granularity (P0-P1 dynamics only, R6.6)",
+    "confirmed_by": "step-1 tool-check captures verified by eye (4 target types)"
+  },
+  "strongest_order": [
+    "file",
+    "object_model",
+    "ui_metadata",
+    "screen"
+  ],
+  "build": "16.0.20131"
+}

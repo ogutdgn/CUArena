@@ -1,0 +1,593 @@
+{
+  "feature": {
+    "id": "feature:graphics-format",
+    "node_type": "feature",
+    "name": "Graphics Format",
+    "what_it_does": "Style a selected SVG/icon graphic — recolor, graphics styles, outline, effects, and convert it to an editable shape.",
+    "affects": "the appearance of the selected graphic",
+    "audience_breadth": "niche",
+    "cohesion": "capability",
+    "behavior": "Style a selected SVG/icon graphic — recolor, graphics styles, outline, effects, and convert it to an editable shape.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-graphics-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-graphics-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:graphics-border",
+      "subfeature:graphics-change",
+      "subfeature:graphics-color",
+      "subfeature:graphics-convert-to-shape",
+      "subfeature:graphics-effects",
+      "subfeature:graphics-format-pane",
+      "subfeature:graphics-style-gallery"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:icon-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:graphics-border",
+      "node_type": "subfeature",
+      "name": "Graphics Outline",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Sets the graphic's outline color/weight/dashes (options in the picker).",
+      "affects": "the graphic's outline",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-outline-color-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-outline-color-picker.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-outline-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-change",
+      "node_type": "subfeature",
+      "name": "Change Graphic",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Replaces the SVG/icon graphic with another from the library.",
+      "affects": "the graphic's source",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphic-change-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphic-change-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphic-change-menu.png",
+        "screenshots/ui-ribbon-graphics-format-graphic-change-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-color",
+      "node_type": "subfeature",
+      "name": "Graphics Fill (recolor)",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Recolors the graphic's fill from the color picker.",
+      "affects": "the graphic's fill color",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Graphics Fill dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the graphic's fill color.",
+      "behavior_record": {
+        "effect": "Opens the Graphics Fill dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the graphic's fill color.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:graphics-color"
+            ]
+          },
+          {
+            "name": "Graphics Fill",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:graphics-color"
+            ]
+          },
+          {
+            "name": "High-contrast only",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:graphics-color"
+            ]
+          },
+          {
+            "name": "No Fill",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:graphics-color"
+            ]
+          },
+          {
+            "name": "More Fill Colors...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:graphics-color"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:graphics-color"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-color-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-color-picker.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-convert-to-shape",
+      "node_type": "subfeature",
+      "name": "Convert to Shape",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Converts the SVG graphic into an editable Word shape (or group of shapes).",
+      "affects": "the graphic (converted to editable shapes)",
+      "audience_breadth": "niche",
+      "behavior": "enabled in context(s): svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: SVGEdit",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:graphics-convert-to-shape"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-svgedit"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-svgedit.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-svgedit.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-effects",
+      "node_type": "subfeature",
+      "name": "Graphics Effects",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Applies shadow/reflection/glow/3D effects to the graphic (menu).",
+      "affects": "the graphic's visual effects",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-effects-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-effects-menu.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-effects-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-format-pane",
+      "node_type": "subfeature",
+      "name": "Format Graphic pane",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Opens the Format Graphic pane — the full fill/line/effects surface.",
+      "affects": "the graphic's full formatting (pane)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-graphics-format-pane",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-format-dialog.png",
+        "screenshots/ui-ribbon-graphics-format-graphics-format-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:graphics-style-gallery",
+      "node_type": "subfeature",
+      "name": "Graphics Styles gallery",
+      "parent": "feature:graphics-format",
+      "what_it_does": "Applies a preset fill/outline style to the graphic from the gallery.",
+      "affects": "the graphic's style",
+      "audience_breadth": "niche",
+      "behavior": "enabled in context(s): svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Light 1 Fill, Colored Outline - Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Fill, Colored Outline - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Fill, Colored Outline - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Fill, Colored Outline - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Fill, Colored Outline - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Fill, Colored Outline - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Fill, Colored Outline - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Dark 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 2, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 3, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 4, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 5, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 6, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Dark 1, Dark 1 Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 1, Dark 1 Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 2, Dark 1 Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 3, Dark 1 Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 4, Dark 1 Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 5, Dark 1 Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 6, Dark 1 Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: GraphicsStylesGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:graphics-style-gallery",
+          "journal:run-20260713-121821-repair-galleries",
+          "journal:repair-galleries-backfill"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-graphics-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-graphics-format/icon-ribbon-graphics-format-graphics-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

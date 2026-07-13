@@ -1,0 +1,619 @@
+{
+  "feature": {
+    "id": "feature:editing",
+    "node_type": "feature",
+    "name": "Editing",
+    "what_it_does": "Find, replace and select text within the document.",
+    "affects": "navigation and selection within the document",
+    "audience_breadth": "most",
+    "cohesion": "catalog",
+    "behavior": "Find, replace and select text within the document. Group controls: subfeature:find, subfeature:replace, subfeature:select",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:find",
+      "subfeature:replace",
+      "subfeature:select"
+    ],
+    "connections": [
+      {
+        "target": "feature:clipboard",
+        "kind": "co-location",
+        "why": "replace edits document content",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:find",
+      "node_type": "subfeature",
+      "name": "Find",
+      "parent": "feature:editing",
+      "what_it_does": "Opens the Navigation pane to search the document for text; the dropdown offers Find, Advanced Find and Go To.",
+      "affects": "opens the Navigation pane / search",
+      "audience_breadth": "everyone",
+      "behavior": "Opens the Find pane — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: opens the Navigation pane / search.",
+      "behavior_record": {
+        "effect": "Opens the Find pane — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: opens the Navigation pane / search.",
+        "options": [
+          {
+            "name": "Search document",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Font Size",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Close pane",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Search",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "AutoSave",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Save",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Can't Undo",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Repeat Picture...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "File Tab",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Paste",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Cut",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Copy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Format Painter",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Office Clipboard...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Open",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Grow Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Shrink Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Bold",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Italic",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Underline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Strikethrough",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Subscript",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          },
+          {
+            "name": "Superscript",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:find"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:find"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:navigation-pane-find"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:navigation-pane-find-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+F"
+        }
+      ],
+      "shortcut": "Ctrl+F",
+      "opens": "ui:navigation-pane-find-pane",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-navigation-pane-find.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-navigation-pane-find.png",
+        "screenshots/ui-navigation-pane-find-pane/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:replace",
+          "kind": "co-location",
+          "why": "the editing/navigation family",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:select",
+          "kind": "co-location",
+          "why": "the editing/navigation family",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:replace",
+      "node_type": "subfeature",
+      "name": "Replace",
+      "parent": "feature:editing",
+      "what_it_does": "Opens the Find and Replace dialog to substitute text throughout the document.",
+      "affects": "document content (via replace)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Find and Replace dialog — the surface that presents this capability's options (27 controls enumerated in the structural pass). Applying a choice there changes: document content (via replace).",
+      "behavior_record": {
+        "effect": "Opens the Find and Replace dialog — the surface that presents this capability's options (27 controls enumerated in the structural pass). Applying a choice there changes: document content (via replace).",
+        "options": [
+          {
+            "name": "Find In",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Reading Highlight",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Find what:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "More >>",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Find Next",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Replace with:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Replace",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Replace All",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Section",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Line",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Bookmark",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Comment",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Footnote",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          },
+          {
+            "name": "Enter page number:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:replace"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ReplaceDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:replace"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:replace-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+H"
+        }
+      ],
+      "shortcut": "Ctrl+H",
+      "opens": "ui:replace-dialog",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-replace-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-replace-dialog.png",
+        "screenshots/ui-replace-dialog/tab-find.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:find",
+          "kind": "co-location",
+          "why": "the editing/navigation family",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:select",
+          "kind": "co-location",
+          "why": "the editing/navigation family",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:find",
+          "kind": "requires",
+          "why": "Replace is Find plus substitution — the find machinery is its precondition",
+          "source": "dependency"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:select",
+      "node_type": "subfeature",
+      "name": "Select",
+      "parent": "feature:editing",
+      "what_it_does": "A menu to Select All, select objects, or select text with similar formatting.",
+      "affects": "the current selection",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Select menu — the surface that presents this capability's options (4 controls enumerated in the structural pass). Applying a choice there changes: the current selection.",
+      "behavior_record": {
+        "effect": "Opens the Select menu — the surface that presents this capability's options (4 controls enumerated in the structural pass). Applying a choice there changes: the current selection.",
+        "options": [
+          {
+            "name": "Select All",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:select"
+            ]
+          },
+          {
+            "name": "Select Objects",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:select"
+            ]
+          },
+          {
+            "name": "Select All Text With Similar Formatting (No Data)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:select"
+            ]
+          },
+          {
+            "name": "Selection Pane...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:select"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: SelectMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:select"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:select-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:select-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-select-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-select-menu.png",
+        "screenshots/ui-select-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:find",
+          "kind": "co-location",
+          "why": "the editing/navigation family",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:replace",
+          "kind": "co-location",
+          "why": "the editing/navigation family",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

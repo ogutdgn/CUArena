@@ -1,0 +1,1125 @@
+{
+  "feature": {
+    "id": "feature:table-design",
+    "node_type": "feature",
+    "name": "Table Design",
+    "what_it_does": "Style a selected table — apply a table style, toggle which parts the style emphasizes, and set shading and borders.",
+    "affects": "the visual style of the selected table",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Style a selected table — apply a table style, toggle which parts the style emphasizes, and set shading and borders. Group controls: subfeature:table-borders, subfeature:table-shading, subfeature:table-style-options, subfeature:table-styles",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-table-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-table-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:table-borders",
+      "subfeature:table-shading",
+      "subfeature:table-style-options",
+      "subfeature:table-styles"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:table-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:table-borders",
+      "node_type": "subfeature",
+      "name": "Table Borders",
+      "parent": "feature:table-design",
+      "what_it_does": "Sets the table's borders — border style/pen weight/pen color (options), which edges get a border, the border painter, and the Borders and Shading dialog.",
+      "affects": "the selected cells' borders",
+      "audience_breadth": "most",
+      "behavior": "Opens the Border Styles (dropdown) dropdown — the surface that presents this capability's options (23 controls enumerated in the structural pass). Applying a choice there changes: the selected cells' borders.",
+      "behavior_record": {
+        "effect": "Opens the Border Styles (dropdown) dropdown — the surface that presents this capability's options (23 controls enumerated in the structural pass). Applying a choice there changes: the selected cells' borders.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: BorderStylesGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-borders"
+        ],
+        "gesture": "executeMso(BorderStylesGallery)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-styles-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-pen-style"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-pen-weight"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-borders-selection-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-borders-selection-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-paint-border"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-borders-shading-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-design-border-styles-dropdown",
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-border-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-border-styles-gallery.png",
+        "screenshots/ui-ribbon-table-design-border-styles-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-shading",
+      "node_type": "subfeature",
+      "name": "Table Shading",
+      "parent": "feature:table-design",
+      "what_it_does": "Fills the selected cells' background with a color from the shading picker.",
+      "affects": "the selected cells' background fill",
+      "audience_breadth": "most",
+      "behavior": "Opens the Shading (dropdown) dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the selected cells' background fill.",
+      "behavior_record": {
+        "effect": "Opens the Shading (dropdown) dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the selected cells' background fill.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ShadingColorPicker",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-shading"
+        ],
+        "gesture": "executeMso(ShadingColorPicker)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-shading-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-shading-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-design-shading-color-dropdown",
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-shading-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-shading-color-picker.png",
+        "screenshots/ui-ribbon-table-design-shading-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-style-options",
+      "node_type": "subfeature",
+      "name": "Table Style Options",
+      "parent": "feature:table-design",
+      "what_it_does": "Toggles which parts of the table the current table style emphasizes (header row, total row, banded rows, first/last column, banded columns).",
+      "affects": "which table regions the style formats",
+      "audience_breadth": "most",
+      "behavior": "enabled in context(s): in-table; disabled in: chart-selected, equation, header-edit, picture-selected, shape-selected, smartart-selected, svg-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): in-table; disabled in: chart-selected, equation, header-edit, picture-selected, shape-selected, smartart-selected, svg-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: TableStyleHeaderRowWord",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-style-options"
+        ],
+        "gesture": "executeMso(TableStyleHeaderRowWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-header-row"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-total-row"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-banded-rows"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-styles-first-column"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-last-column"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-banded-columns"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-style-header-row.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-style-header-row.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-styles",
+      "node_type": "subfeature",
+      "name": "Table Styles gallery",
+      "parent": "feature:table-design",
+      "what_it_does": "Applies a built-in table style (borders, shading, banding) from the gallery.",
+      "affects": "the whole table's style",
+      "audience_breadth": "most",
+      "behavior": "enabled in context(s): chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Table Grid",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Table Grid Light",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Plain Table 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Plain Table 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Plain Table 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Plain Table 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Plain Table 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 1 Light",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 1 Light - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 1 Light - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 1 Light - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 1 Light - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 1 Light - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 1 Light - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 2 - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 2 - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 2 - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 2 - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 2 - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 2 - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 3 - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 3 - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 3 - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 3 - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 3 - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 3 - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 4 - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 4 - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 4 - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 4 - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 4 - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 4 - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 5 Dark",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 5 Dark - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 5 Dark - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 5 Dark - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 5 Dark - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 5 Dark - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 5 Dark - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 6 Colorful",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 6 Colorful - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 6 Colorful - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 6 Colorful - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 6 Colorful - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 6 Colorful - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 6 Colorful - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 7 Colorful",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 7 Colorful - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 7 Colorful - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 7 Colorful - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 7 Colorful - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 7 Colorful - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Grid Table 7 Colorful - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 1 Light",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 1 Light - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 1 Light - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 1 Light - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 1 Light - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 1 Light - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 1 Light - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 2 - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 2 - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 2 - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 2 - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 2 - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 2 - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 3 - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 3 - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 3 - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 3 - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 3 - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 3 - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 4 - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 4 - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 4 - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 4 - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 4 - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 4 - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 5 Dark",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 5 Dark - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 5 Dark - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 5 Dark - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 5 Dark - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 5 Dark - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 5 Dark - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 6 Colorful",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 6 Colorful - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 6 Colorful - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 6 Colorful - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 6 Colorful - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 6 Colorful - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 6 Colorful - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 7 Colorful",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 7 Colorful - Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 7 Colorful - Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 7 Colorful - Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 7 Colorful - Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 7 Colorful - Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "List Table 7 Colorful - Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: TableStylesGalleryWord",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:table-styles",
+          "journal:run-20260713-121821-repair-galleries",
+          "journal:repair-galleries-backfill"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

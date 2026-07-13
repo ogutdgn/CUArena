@@ -1,0 +1,489 @@
+{
+  "feature": {
+    "id": "feature:styles",
+    "node_type": "feature",
+    "name": "Styles",
+    "what_it_does": "Apply named, reusable style sets that bundle character and paragraph formatting.",
+    "affects": "the paragraph/character style applied to the selection",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Apply named, reusable style sets that bundle character and paragraph formatting. Group controls: subfeature:quick-styles, subfeature:styles-pane",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:quick-styles",
+      "subfeature:styles-pane"
+    ],
+    "connections": [
+      {
+        "target": "feature:font",
+        "kind": "affects-same",
+        "why": "styles bundle character formatting",
+        "source": "observed"
+      },
+      {
+        "target": "feature:paragraph",
+        "kind": "affects-same",
+        "why": "styles bundle paragraph formatting",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:quick-styles",
+      "node_type": "subfeature",
+      "name": "Quick Styles gallery",
+      "parent": "feature:styles",
+      "what_it_does": "Applies a named style (Normal, No Spacing, Heading 1/2, Title, Subtitle, Quote…) to the selection from the in-ribbon gallery; the expand arrow opens the full styles flyout.",
+      "affects": "the paragraph/character style applied",
+      "audience_breadth": "most",
+      "behavior": "Opens the QuickStylesGallery dropdown — the surface that presents this capability's options (21 controls enumerated in the structural pass). Applying a choice there changes: the paragraph/character style applied.",
+      "behavior_record": {
+        "effect": "Opens the QuickStylesGallery dropdown — the surface that presents this capability's options (21 controls enumerated in the structural pass). Applying a choice there changes: the paragraph/character style applied.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Styles",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "¶ Normal",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "¶ No Spacing",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Heading 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Heading 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Title",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Subtitle",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Subtle Emphasis",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Emphasis",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Intense Emphasis",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Strong",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Quote",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Intense Quote",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Subtle Reference",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Intense Reference",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Book Title",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "¶ List Paragraph",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Create a Style",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Clear Formatting",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          },
+          {
+            "name": "Apply Styles...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:quick-styles"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: QuickStylesGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:quick-styles"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:quick-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:quick-styles-gallery",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-quick-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-quick-styles-gallery.png",
+        "screenshots/ui-quick-styles-gallery/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "affects-same",
+          "why": "a style bundles the character formatting the Font dialog sets",
+          "source": "observed"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "affects-same",
+          "why": "a style bundles paragraph formatting",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "uia"
+    },
+    {
+      "id": "subfeature:styles-pane",
+      "node_type": "subfeature",
+      "name": "Styles pane launcher",
+      "parent": "feature:styles",
+      "what_it_does": "Opens the Styles pane — the full style list with apply/new/inspect/manage controls.",
+      "affects": "opens the Styles task pane",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Styles pane — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: opens the Styles task pane.",
+      "behavior_record": {
+        "effect": "Opens the Styles pane — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: opens the Styles task pane.",
+        "options": [
+          {
+            "name": "Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Font Size",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "AutoSave",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Save",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Can't Undo",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "VBA-Range.InsertAfter",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "File Tab",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Paste",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Cut",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Copy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Format Painter",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Office Clipboard...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Open",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Grow Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Shrink Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Bold",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Italic",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Underline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Strikethrough",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Subscript",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Superscript",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Text Highlight Color Yellow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Font Color Red",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          },
+          {
+            "name": "Page Number Page 1 of 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:styles-pane"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: StylesPane",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:styles-pane"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:styles-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Alt+Ctrl+Shift+S"
+        }
+      ],
+      "shortcut": "Alt+Ctrl+Shift+S",
+      "opens": "ui:styles-pane",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-styles-pane.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-styles-pane.png",
+        "screenshots/ui-styles-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

@@ -1,0 +1,1945 @@
+{
+  "method": "prominence = surface_weight * (0.55*sqrt(min(1,area/4200)) + 0.45*(1 - 0.5*x_center/1920)); surface weights: Home face 1.0, Insert face 0.9, contextual tab face 0.75. Max over the node's trigger elements. Pure computation from measured bounds — no judgment.",
+  "nodes": {
+    "subfeature:create-pdf": {
+      "score": 0.7444,
+      "evidence": {
+        "element": "el:create-a-pdf",
+        "surface": "ui:ribbon-home",
+        "area_px2": 3192,
+        "x_center": 1579.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:office-addins": {
+      "score": 0.75,
+      "evidence": {
+        "element": "el:office-extensions-show-addin-flyout",
+        "surface": "ui:ribbon-home",
+        "area_px2": 3572,
+        "x_center": 1768.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:chart-add-element": {
+      "score": 0.7456,
+      "evidence": {
+        "element": "el:ribbon-chart-design-add-chart-element-menu",
+        "surface": "ui:ribbon-chart-design",
+        "area_px2": 4484,
+        "x_center": 49.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-change-colors": {
+      "score": 0.7146,
+      "evidence": {
+        "element": "el:ribbon-chart-design-chart-colors-gallery",
+        "surface": "ui:ribbon-chart-design",
+        "area_px2": 3800,
+        "x_center": 174.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-change-type": {
+      "score": 0.6442,
+      "evidence": {
+        "element": "el:ribbon-chart-design-chart-change-type",
+        "surface": "ui:ribbon-chart-design",
+        "area_px2": 4712,
+        "x_center": 1204.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-edit-data": {
+      "score": 0.6058,
+      "evidence": {
+        "element": "el:ribbon-chart-design-chart-refresh",
+        "surface": "ui:ribbon-chart-design",
+        "area_px2": 3344,
+        "x_center": 1135.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-quick-layout": {
+      "score": 0.7282,
+      "evidence": {
+        "element": "el:ribbon-chart-design-chart-layout-gallery",
+        "surface": "ui:ribbon-chart-design",
+        "area_px2": 3952,
+        "x_center": 107.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-style": {
+      "score": 0.7,
+      "evidence": {
+        "element": "el:ribbon-chart-design-chart-styles-gallery",
+        "surface": "ui:ribbon-chart-design",
+        "area_px2": 44100,
+        "x_center": 568.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-switch-row-column": {
+      "score": 0.6632,
+      "evidence": {
+        "element": "el:ribbon-chart-design-chart-switch-row-column",
+        "surface": "ui:ribbon-chart-design",
+        "area_px2": 5396,
+        "x_center": 987.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-format-selection": {
+      "score": 0.6985,
+      "evidence": {
+        "element": "el:ribbon-chart-format-chart-reset-to-match-style",
+        "surface": "ui:ribbon-chart-format",
+        "area_px2": 3360,
+        "x_center": 90.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:chart-select-element": {
+      "score": 0.7049,
+      "evidence": {
+        "element": "el:ribbon-chart-format-chart-element-selector",
+        "surface": "ui:ribbon-chart-format",
+        "area_px2": 3480,
+        "x_center": 92.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:paste": {
+      "score": 0.9247,
+      "evidence": {
+        "element": "el:paste",
+        "surface": "ui:ribbon-home",
+        "area_px2": 3192,
+        "x_center": 41.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:cut": {
+      "score": 0.7393,
+      "evidence": {
+        "element": "el:cut",
+        "surface": "ui:ribbon-home",
+        "area_px2": 1248,
+        "x_center": 90.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:copy": {
+      "score": 0.7636,
+      "evidence": {
+        "element": "el:copy",
+        "surface": "ui:ribbon-home",
+        "area_px2": 1464,
+        "x_center": 94.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:format-painter": {
+      "score": 0.874,
+      "evidence": {
+        "element": "el:format-painter",
+        "surface": "ui:ribbon-home",
+        "area_px2": 2664,
+        "x_center": 119.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:office-clipboard": {
+      "score": 0.5653,
+      "evidence": {
+        "element": "el:show-clipboard",
+        "surface": "ui:ribbon-home",
+        "area_px2": 256,
+        "x_center": 175.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:insert-new-comment": {
+      "score": 0.8096,
+      "evidence": {
+        "element": "el:insert-new-comment",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 4484,
+        "x_center": 857.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:themes": {
+      "score": 0.7807,
+      "evidence": {
+        "element": "el:themes-gallery",
+        "surface": "ui:ribbon-design",
+        "area_px2": 3572,
+        "x_center": 43.5,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:style-set": {
+      "score": 0.7462,
+      "evidence": {
+        "element": "el:style-set-gallery",
+        "surface": "ui:ribbon-design",
+        "area_px2": 83940,
+        "x_center": 768.5,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:theme-colors": {
+      "score": 0.6189,
+      "evidence": {
+        "element": "el:theme-colors-gallery",
+        "surface": "ui:ribbon-design",
+        "area_px2": 3192,
+        "x_center": 1491.0,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:theme-fonts": {
+      "score": 0.6147,
+      "evidence": {
+        "element": "el:theme-fonts-gallery",
+        "surface": "ui:ribbon-design",
+        "area_px2": 3192,
+        "x_center": 1535.0,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:paragraph-spacing-set": {
+      "score": 0.6201,
+      "evidence": {
+        "element": "el:paragraph-spacing",
+        "surface": "ui:ribbon-design",
+        "area_px2": 3432,
+        "x_center": 1629.5,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:theme-effects": {
+      "score": 0.5185,
+      "evidence": {
+        "element": "el:theme-effects-gallery",
+        "surface": "ui:ribbon-design",
+        "area_px2": 1896,
+        "x_center": 1597.5,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:set-as-default": {
+      "score": 0.562,
+      "evidence": {
+        "element": "el:quick-styles-set-as-default",
+        "surface": "ui:ribbon-design",
+        "area_px2": 2496,
+        "x_center": 1610.0,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:find": {
+      "score": 0.6474,
+      "evidence": {
+        "element": "el:navigation-pane-find",
+        "surface": "ui:ribbon-home",
+        "area_px2": 1920,
+        "x_center": 1489.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:replace": {
+      "score": 0.6335,
+      "evidence": {
+        "element": "el:replace-dialog",
+        "surface": "ui:ribbon-home",
+        "area_px2": 1776,
+        "x_center": 1486.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:select": {
+      "score": 0.6359,
+      "evidence": {
+        "element": "el:select-menu",
+        "surface": "ui:ribbon-home",
+        "area_px2": 1800,
+        "x_center": 1486.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:editor": {
+      "score": 0.7293,
+      "evidence": {
+        "element": "el:writing-assistance-check-document",
+        "surface": "ui:ribbon-home",
+        "area_px2": 3192,
+        "x_center": 1708.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:equation-conversions": {
+      "score": 0.697,
+      "evidence": {
+        "element": "el:ribbon-equation-equation-convert",
+        "surface": "ui:ribbon-equation",
+        "area_px2": 3572,
+        "x_center": 237.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:equation-ink": {
+      "score": 0.6416,
+      "evidence": {
+        "element": "el:ribbon-equation-ink-equation",
+        "surface": "ui:ribbon-equation",
+        "area_px2": 2376,
+        "x_center": 69.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:equation-structures": {
+      "score": 0.6497,
+      "evidence": {
+        "element": "el:ribbon-equation-equation-large-operator-gallery",
+        "surface": "ui:ribbon-equation",
+        "area_px2": 4788,
+        "x_center": 1141.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:equation-symbols": {
+      "score": 0.6979,
+      "evidence": {
+        "element": "el:ribbon-equation-equation-symbols-insert-gallery",
+        "surface": "ui:ribbon-equation",
+        "area_px2": 39122,
+        "x_center": 592.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:esignature-fields": {
+      "score": 0.737,
+      "evidence": {
+        "element": "el:syntex-esign",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 4636,
+        "x_center": 1545.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:font": {
+      "score": 0.8851,
+      "evidence": {
+        "element": "el:font",
+        "surface": "ui:ribbon-home",
+        "area_px2": 3000,
+        "x_center": 253.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:font-size": {
+      "score": 0.6828,
+      "evidence": {
+        "element": "el:font-size",
+        "surface": "ui:ribbon-home",
+        "area_px2": 1032,
+        "x_center": 339.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:font-size-increase": {
+      "score": 0.6097,
+      "evidence": {
+        "element": "el:font-size-increase",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 375.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:font-size-decrease": {
+      "score": 0.6067,
+      "evidence": {
+        "element": "el:font-size-decrease",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 401.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:change-case": {
+      "score": 0.6616,
+      "evidence": {
+        "element": "el:change-case-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 960,
+        "x_center": 438.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:clear-formatting": {
+      "score": 0.598,
+      "evidence": {
+        "element": "el:clear-formatting",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 475.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:bold": {
+      "score": 0.6299,
+      "evidence": {
+        "element": "el:bold",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 203.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:italic": {
+      "score": 0.6268,
+      "evidence": {
+        "element": "el:italic",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 229.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:underline-gallery": {
+      "score": 0.6789,
+      "evidence": {
+        "element": "el:underline-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 936,
+        "x_center": 262.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:strikethrough": {
+      "score": 0.619,
+      "evidence": {
+        "element": "el:strikethrough",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 296.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:subscript": {
+      "score": 0.6159,
+      "evidence": {
+        "element": "el:subscript",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 322.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:superscript": {
+      "score": 0.6129,
+      "evidence": {
+        "element": "el:superscript",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 348.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:text-effects": {
+      "score": 0.6678,
+      "evidence": {
+        "element": "el:text-effects-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 960,
+        "x_center": 385.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:text-highlight-color-picker": {
+      "score": 0.6597,
+      "evidence": {
+        "element": "el:text-highlight-color-picker",
+        "surface": "ui:ribbon-home",
+        "area_px2": 936,
+        "x_center": 426.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:font-color-picker": {
+      "score": 0.6549,
+      "evidence": {
+        "element": "el:font-color-picker",
+        "surface": "ui:ribbon-home",
+        "area_px2": 936,
+        "x_center": 467.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:font-dialog": {
+      "score": 0.5287,
+      "evidence": {
+        "element": "el:font-dialog",
+        "surface": "ui:ribbon-home",
+        "area_px2": 256,
+        "x_center": 487.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:graphics-border": {
+      "score": 0.6345,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-graphics-outline-color-picker",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 3072,
+        "x_center": 635.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:graphics-change": {
+      "score": 0.7457,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-graphic-change-menu",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 4332,
+        "x_center": 48.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:graphics-color": {
+      "score": 0.6007,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-graphics-color-picker",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 2496,
+        "x_center": 623.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:graphics-convert-to-shape": {
+      "score": 0.7246,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-svgedit",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 3876,
+        "x_center": 104.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:graphics-effects": {
+      "score": 0.6345,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-graphics-effects-menu",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 3072,
+        "x_center": 635.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:graphics-format-pane": {
+      "score": 0.3779,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-graphics-format-dialog",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 256,
+        "x_center": 699.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:graphics-style-gallery": {
+      "score": 0.7186,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-graphics-styles-gallery",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 25380,
+        "x_center": 357.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:hf-alignment-tab": {
+      "score": 0.6284,
+      "evidence": {
+        "element": "el:ribbon-header-footer-insert-alignment-tab",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 3432,
+        "x_center": 932.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:hf-close": {
+      "score": 0.6514,
+      "evidence": {
+        "element": "el:ribbon-header-footer-header-footer-close",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 5700,
+        "x_center": 1121.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:hf-document-info": {
+      "score": 0.7272,
+      "evidence": {
+        "element": "el:ribbon-header-footer-document-info",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 4636,
+        "x_center": 259.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:hf-link-to-previous": {
+      "score": 0.6224,
+      "evidence": {
+        "element": "el:ribbon-header-footer-header-footer-link-to-previous",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 2808,
+        "x_center": 595.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:hf-navigate": {
+      "score": 0.6601,
+      "evidence": {
+        "element": "el:ribbon-header-footer-go-to-header",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 3268,
+        "x_center": 469.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:hf-options": {
+      "score": 0.6834,
+      "evidence": {
+        "element": "el:ribbon-header-footer-header-footer-different-odd-even-page",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 4200,
+        "x_center": 757.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:hf-position": {
+      "score": 0.449,
+      "evidence": {
+        "element": "el:ribbon-header-footer-header-footer-position-header-from-top",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 988,
+        "x_center": 1008.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:header-insert": {
+      "score": 0.7441,
+      "evidence": {
+        "element": "el:header-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3268,
+        "x_center": 924.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:footer-insert": {
+      "score": 0.7343,
+      "evidence": {
+        "element": "el:footer-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 969.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:page-number-insert": {
+      "score": 0.7922,
+      "evidence": {
+        "element": "el:header-footer-page-number-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 4560,
+        "x_center": 1022.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:insert-pictures": {
+      "score": 0.8354,
+      "evidence": {
+        "element": "el:flyout-anchor-insert-pictures",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3572,
+        "x_center": 247.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:shapes-insert": {
+      "score": 0.8055,
+      "evidence": {
+        "element": "el:shapes-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 294.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:icon-insert": {
+      "score": 0.8009,
+      "evidence": {
+        "element": "el:icon-insert-from-file",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 338.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:insert-3d-models": {
+      "score": 0.8578,
+      "evidence": {
+        "element": "el:insert3-dmodel-default",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 4180,
+        "x_center": 388.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:smart-art-insert": {
+      "score": 0.8383,
+      "evidence": {
+        "element": "el:smart-art-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3952,
+        "x_center": 444.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:chart-insert": {
+      "score": 0.7845,
+      "evidence": {
+        "element": "el:chart-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 493.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:screenshot-insert": {
+      "score": 0.8423,
+      "evidence": {
+        "element": "el:screenshot-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 4788,
+        "x_center": 547.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:indent-left": {
+      "score": 0.5307,
+      "evidence": {
+        "element": "el:indent-left",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 988,
+        "x_center": 455.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:indent-right": {
+      "score": 0.5307,
+      "evidence": {
+        "element": "el:indent-right",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 988,
+        "x_center": 455.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:spacing-before": {
+      "score": 0.5179,
+      "evidence": {
+        "element": "el:spacing-before",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 988,
+        "x_center": 592.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:spacing-after": {
+      "score": 0.5179,
+      "evidence": {
+        "element": "el:spacing-after",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 988,
+        "x_center": 592.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:insert-link": {
+      "score": 0.7654,
+      "evidence": {
+        "element": "el:insert-link-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 674.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:bookmark-insert": {
+      "score": 0.8234,
+      "evidence": {
+        "element": "el:bookmark-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 4484,
+        "x_center": 726.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:cross-reference-insert": {
+      "score": 0.8115,
+      "evidence": {
+        "element": "el:cross-reference-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 4104,
+        "x_center": 785.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:online-videos-insert": {
+      "score": 0.7716,
+      "evidence": {
+        "element": "el:movie-from-clip-organizer-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 616.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:object-align": {
+      "score": 0.5516,
+      "evidence": {
+        "element": "el:object-align-menu",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 1728,
+        "x_center": 967.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:object-alt-text": {
+      "score": 0.632,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-alt-text-pane-ribbon",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 3192,
+        "x_center": 741.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:object-group": {
+      "score": 0.561,
+      "evidence": {
+        "element": "el:objects-group-menu",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 1848,
+        "x_center": 969.5,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:object-position": {
+      "score": 0.7067,
+      "evidence": {
+        "element": "el:picture-position-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 3648,
+        "x_center": 676.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:object-reorder": {
+      "score": 0.7273,
+      "evidence": {
+        "element": "el:object-bring-forward",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 4484,
+        "x_center": 775.5,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:object-rotate": {
+      "score": 0.5628,
+      "evidence": {
+        "element": "el:object-rotate-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 1872,
+        "x_center": 970.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:object-selection-pane": {
+      "score": 0.7063,
+      "evidence": {
+        "element": "el:selection-pane",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 4028,
+        "x_center": 902.5,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:object-text-wrap": {
+      "score": 0.6758,
+      "evidence": {
+        "element": "el:text-wrap-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 3192,
+        "x_center": 723.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:object-size": {
+      "score": 0.4239,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-shape-height",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 988,
+        "x_center": 1293.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-crop": {
+      "score": 0.5937,
+      "evidence": {
+        "element": "el:ribbon-graphics-format-picture-crop",
+        "surface": "ui:ribbon-graphics-format",
+        "area_px2": 3192,
+        "x_center": 1177.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:watermark": {
+      "score": 0.652,
+      "evidence": {
+        "element": "el:watermark-gallery",
+        "surface": "ui:ribbon-design",
+        "area_px2": 4788,
+        "x_center": 1748.5,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:page-color": {
+      "score": 0.6026,
+      "evidence": {
+        "element": "el:page-color-picker",
+        "surface": "ui:ribbon-design",
+        "area_px2": 3420,
+        "x_center": 1804.5,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:page-borders": {
+      "score": 0.5981,
+      "evidence": {
+        "element": "el:page-border-and-shading-dialog",
+        "surface": "ui:ribbon-design",
+        "area_px2": 3420,
+        "x_center": 1851.5,
+        "surface_weight": 0.82
+      }
+    },
+    "subfeature:page-margins": {
+      "score": 0.7659,
+      "evidence": {
+        "element": "el:page-margins-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 3648,
+        "x_center": 44.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:page-orientation": {
+      "score": 0.7904,
+      "evidence": {
+        "element": "el:page-orientation-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 4940,
+        "x_center": 102.5,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:page-size": {
+      "score": 0.7288,
+      "evidence": {
+        "element": "el:page-size-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 3192,
+        "x_center": 158.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:page-columns": {
+      "score": 0.7714,
+      "evidence": {
+        "element": "el:table-columns-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 4028,
+        "x_center": 207.5,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:breaks": {
+      "score": 0.628,
+      "evidence": {
+        "element": "el:breaks-gallery",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 1872,
+        "x_center": 275.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:line-numbers": {
+      "score": 0.6936,
+      "evidence": {
+        "element": "el:line-numbers-menu",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 2832,
+        "x_center": 295.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:hyphenation": {
+      "score": 0.6861,
+      "evidence": {
+        "element": "el:hyphenation-menu",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 2712,
+        "x_center": 292.5,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:page-setup-dialog": {
+      "score": 0.4354,
+      "evidence": {
+        "element": "el:page-setup-dialog",
+        "surface": "ui:ribbon-layout",
+        "area_px2": 256,
+        "x_center": 354.0,
+        "surface_weight": 0.8
+      }
+    },
+    "subfeature:cover-page-insert": {
+      "score": 0.8322,
+      "evidence": {
+        "element": "el:cover-page-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 41.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:blank-page-insert": {
+      "score": 0.8276,
+      "evidence": {
+        "element": "el:blank-page-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 85.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:page-break-insert": {
+      "score": 0.8229,
+      "evidence": {
+        "element": "el:page-break-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 129.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:bullets-gallery": {
+      "score": 0.6484,
+      "evidence": {
+        "element": "el:bullets-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 936,
+        "x_center": 522.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:numbering-gallery": {
+      "score": 0.6436,
+      "evidence": {
+        "element": "el:numbering-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 936,
+        "x_center": 563.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:multilevel-list": {
+      "score": 0.6421,
+      "evidence": {
+        "element": "el:multilevel-list-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 960,
+        "x_center": 605.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:indent-decrease": {
+      "score": 0.5784,
+      "evidence": {
+        "element": "el:indent-decrease",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 642.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:indent-increase": {
+      "score": 0.5754,
+      "evidence": {
+        "element": "el:indent-increase",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 668.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:sort": {
+      "score": 0.5774,
+      "evidence": {
+        "element": "el:ribbon-table-layout-sort-dialog-classic",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 1362.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:paragraph-marks": {
+      "score": 0.5686,
+      "evidence": {
+        "element": "el:paragraph-marks",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 726.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:align-left": {
+      "score": 0.5933,
+      "evidence": {
+        "element": "el:align-left",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 515.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:align-center": {
+      "score": 0.5903,
+      "evidence": {
+        "element": "el:align-center",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 541.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:align-right": {
+      "score": 0.5872,
+      "evidence": {
+        "element": "el:align-right",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 567.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:align-justify": {
+      "score": 0.5842,
+      "evidence": {
+        "element": "el:align-justify",
+        "surface": "ui:ribbon-home",
+        "area_px2": 576,
+        "x_center": 593.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:line-spacing": {
+      "score": 0.6391,
+      "evidence": {
+        "element": "el:line-spacing-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 960,
+        "x_center": 630.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:shading-color-picker": {
+      "score": 0.6306,
+      "evidence": {
+        "element": "el:shading-color-picker",
+        "surface": "ui:ribbon-home",
+        "area_px2": 936,
+        "x_center": 674.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:borders-selection-gallery": {
+      "score": 0.6258,
+      "evidence": {
+        "element": "el:borders-selection-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 936,
+        "x_center": 715.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:paragraph-dialog": {
+      "score": 0.4993,
+      "evidence": {
+        "element": "el:paragraph-dialog",
+        "surface": "ui:ribbon-home",
+        "area_px2": 256,
+        "x_center": 738.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:picture-artistic-effects": {
+      "score": 0.7127,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-artistic-effects-gallery",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 3876,
+        "x_center": 239.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-border": {
+      "score": 0.5716,
+      "evidence": {
+        "element": "el:ribbon-picture-format-outline-color-picker",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 2760,
+        "x_center": 1141.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-change": {
+      "score": 0.6504,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-change-menu",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 3000,
+        "x_center": 406.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-color": {
+      "score": 0.6803,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-color-menu",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 3192,
+        "x_center": 191.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-compress": {
+      "score": 0.6584,
+      "evidence": {
+        "element": "el:ribbon-picture-format-pictures-compress",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 3144,
+        "x_center": 409.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-convert-to-smartart": {
+      "score": 0.5785,
+      "evidence": {
+        "element": "el:ribbon-picture-format-pictures-convert-to-smart-art",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 2880,
+        "x_center": 1144.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-corrections": {
+      "score": 0.7381,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-corrections-menu",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 5016,
+        "x_center": 135.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-effects": {
+      "score": 0.5772,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-effects-menu",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 2856,
+        "x_center": 1143.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-format-pane": {
+      "score": 0.3335,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-format-dialog",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 256,
+        "x_center": 1204.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-remove-background": {
+      "score": 0.7452,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-background-removal",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 5244,
+        "x_center": 54.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-reset": {
+      "score": 0.6504,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-reset",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 3000,
+        "x_center": 406.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-style-gallery": {
+      "score": 0.6809,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-styles-gallery",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 35460,
+        "x_center": 786.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:picture-transparency": {
+      "score": 0.7232,
+      "evidence": {
+        "element": "el:ribbon-picture-format-picture-transparency-gallery",
+        "surface": "ui:ribbon-picture-format",
+        "area_px2": 5700,
+        "x_center": 304.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-edit": {
+      "score": 0.6947,
+      "evidence": {
+        "element": "el:ribbon-chart-format-shape-change-shape-gallery",
+        "surface": "ui:ribbon-chart-format",
+        "area_px2": 3648,
+        "x_center": 310.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-text-align": {
+      "score": 0.5339,
+      "evidence": {
+        "element": "el:ribbon-shape-format-text-align-gallery",
+        "surface": "ui:ribbon-shape-format",
+        "area_px2": 2304,
+        "x_center": 1242.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-text-direction": {
+      "score": 0.5633,
+      "evidence": {
+        "element": "el:ribbon-shape-format-text-direction-gallery",
+        "surface": "ui:ribbon-shape-format",
+        "area_px2": 2784,
+        "x_center": 1252.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-text-link": {
+      "score": 0.5276,
+      "evidence": {
+        "element": "el:ribbon-shape-format-text-box-link-create",
+        "surface": "ui:ribbon-shape-format",
+        "area_px2": 2208,
+        "x_center": 1240.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-effects": {
+      "score": 0.6105,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-shape-effects-menu",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 2736,
+        "x_center": 682.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-fill": {
+      "score": 0.5744,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-shape-fill-color-picker",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 2160,
+        "x_center": 670.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-format-pane": {
+      "score": 0.3744,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-object-format-dialog",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 256,
+        "x_center": 739.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-outline": {
+      "score": 0.6105,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-outline-color-picker",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 2736,
+        "x_center": 682.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:shape-style-gallery": {
+      "score": 0.7138,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-shape-styles-gallery",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 25380,
+        "x_center": 411.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-add-bullet": {
+      "score": 0.6244,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-add-bullet",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 2112,
+        "x_center": 64.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-add-shape": {
+      "score": 0.6637,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-add-shape",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 2736,
+        "x_center": 77.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-change-colors": {
+      "score": 0.661,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-change-colors-gallery",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 3800,
+        "x_center": 784.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-layout": {
+      "score": 0.7019,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-layout-gallery",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 23460,
+        "x_center": 547.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-org-layout": {
+      "score": 0.5921,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-organization-chart-menu",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 1920,
+        "x_center": 276.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-promote-demote": {
+      "score": 0.6242,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-reorder-up",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 2400,
+        "x_center": 286.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-reset": {
+      "score": 0.5731,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-reset-graphic",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 3496,
+        "x_center": 1601.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-reverse": {
+      "score": 0.6299,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-right-to-left",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 2352,
+        "x_center": 185.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-style": {
+      "score": 0.6457,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-styles-gallery",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 45060,
+        "x_center": 1186.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-text-pane": {
+      "score": 0.6162,
+      "evidence": {
+        "element": "el:ribbon-smart-art-design-smart-art-text-pane",
+        "surface": "ui:ribbon-smart-art-design",
+        "area_px2": 1992,
+        "x_center": 61.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:smartart-shape-edit": {
+      "score": 0.6935,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-smart-art-edit-in2-d",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 3192,
+        "x_center": 41.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:quick-styles": {
+      "score": 0.8719,
+      "evidence": {
+        "element": "el:quick-styles-gallery",
+        "surface": "ui:ribbon-home",
+        "area_px2": 40740,
+        "x_center": 1093.5,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:styles-pane": {
+      "score": 0.4179,
+      "evidence": {
+        "element": "el:styles-pane",
+        "surface": "ui:ribbon-home",
+        "area_px2": 256,
+        "x_center": 1433.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:equation-insert-gallery": {
+      "score": 0.7348,
+      "evidence": {
+        "element": "el:equation-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3952,
+        "x_center": 1426.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:symbol-insert": {
+      "score": 0.696,
+      "evidence": {
+        "element": "el:symbol-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3420,
+        "x_center": 1476.5,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:table-borders": {
+      "score": 0.5922,
+      "evidence": {
+        "element": "el:ribbon-table-design-border-styles-gallery",
+        "surface": "ui:ribbon-table-design",
+        "area_px2": 3496,
+        "x_center": 1384.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-shading": {
+      "score": 0.6058,
+      "evidence": {
+        "element": "el:ribbon-table-design-shading-color-picker",
+        "surface": "ui:ribbon-table-design",
+        "area_px2": 3648,
+        "x_center": 1321.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-style-options": {
+      "score": 0.6618,
+      "evidence": {
+        "element": "el:ribbon-table-design-table-style-banded-columns",
+        "surface": "ui:ribbon-table-design",
+        "area_px2": 2856,
+        "x_center": 180.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-styles": {
+      "score": 0.6818,
+      "evidence": {
+        "element": "el:ribbon-table-design-table-styles-gallery",
+        "surface": "ui:ribbon-table-design",
+        "area_px2": 62340,
+        "x_center": 775.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-autofit": {
+      "score": 0.6346,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-auto-fit-menu",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3344,
+        "x_center": 808.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-cell-alignment": {
+      "score": 0.3887,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-cell-align-top-left",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 576,
+        "x_center": 1156.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-cell-margins": {
+      "score": 0.6076,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-options-dialog",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3648,
+        "x_center": 1301.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-cell-size": {
+      "score": 0.6066,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-columns-distribute",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3240,
+        "x_center": 1060.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-convert-to-text": {
+      "score": 0.5874,
+      "evidence": {
+        "element": "el:ribbon-table-layout-convert-table-to-text",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3572,
+        "x_center": 1484.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-delete": {
+      "score": 0.6695,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-delete-rows-and-columns-menu",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 314.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-draw": {
+      "score": 0.6785,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-draw-table",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 212.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-eraser": {
+      "score": 0.6746,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-eraser",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 256.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-formula": {
+      "score": 0.5911,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-formula-dialog",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3724,
+        "x_center": 1534.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-insert-cells": {
+      "score": 0.3845,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-insert-cells-dialog",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 256,
+        "x_center": 624.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-insert-columns": {
+      "score": 0.7054,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-columns-insert-left",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 5396,
+        "x_center": 507.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-insert-rows": {
+      "score": 0.7168,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-rows-insert-above",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 4560,
+        "x_center": 378.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-merge-cells": {
+      "score": 0.639,
+      "evidence": {
+        "element": "el:ribbon-table-layout-merge-cells",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 661.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-properties": {
+      "score": 0.7372,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-properties-dialog",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 4408,
+        "x_center": 146.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-repeat-header": {
+      "score": 0.625,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-repeat-header-rows",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 5624,
+        "x_center": 1422.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-select": {
+      "score": 0.6935,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-select-menu",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 41.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-split-cells": {
+      "score": 0.6351,
+      "evidence": {
+        "element": "el:ribbon-table-layout-split-cells",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 705.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-split-table": {
+      "score": 0.6313,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-split-table",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3192,
+        "x_center": 749.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-text-direction": {
+      "score": 0.6317,
+      "evidence": {
+        "element": "el:ribbon-table-layout-text-direction",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 4028,
+        "x_center": 1248.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-view-gridlines": {
+      "score": 0.7259,
+      "evidence": {
+        "element": "el:ribbon-table-layout-table-show-gridlines",
+        "surface": "ui:ribbon-table-layout",
+        "area_px2": 3876,
+        "x_center": 89.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:table-insert": {
+      "score": 0.8168,
+      "evidence": {
+        "element": "el:table-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 187.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:text-box-insert": {
+      "score": 0.7217,
+      "evidence": {
+        "element": "el:text-box-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 1089.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:quick-parts-insert": {
+      "score": 0.717,
+      "evidence": {
+        "element": "el:quick-parts-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 1133.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:word-art-insert": {
+      "score": 0.7513,
+      "evidence": {
+        "element": "el:word-art-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3800,
+        "x_center": 1181.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:drop-cap-insert": {
+      "score": 0.7069,
+      "evidence": {
+        "element": "el:drop-cap-insert-gallery",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3192,
+        "x_center": 1229.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:signature-line-insert": {
+      "score": 0.6959,
+      "evidence": {
+        "element": "el:signature-line-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 3168,
+        "x_center": 1318.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:date-and-time-insert": {
+      "score": 0.679,
+      "evidence": {
+        "element": "el:ribbon-header-footer-date-and-time-insert",
+        "surface": "ui:ribbon-header-footer",
+        "area_px2": 3192,
+        "x_center": 206.0,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:object-insert": {
+      "score": 0.627,
+      "evidence": {
+        "element": "el:ole-objectct-insert",
+        "surface": "ui:ribbon-insert",
+        "area_px2": 2208,
+        "x_center": 1298.0,
+        "surface_weight": 0.9
+      }
+    },
+    "subfeature:dictate": {
+      "score": 0.7361,
+      "evidence": {
+        "element": "el:dictate",
+        "surface": "ui:ribbon-home",
+        "area_px2": 3192,
+        "x_center": 1650.0,
+        "surface_weight": 1.0
+      }
+    },
+    "subfeature:wordart-text-effects": {
+      "score": 0.5654,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-text-effects-menu",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 2472,
+        "x_center": 1007.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:wordart-text-fill": {
+      "score": 0.5272,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-text-fill-color-picker",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 1896,
+        "x_center": 995.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:wordart-text-outline": {
+      "score": 0.5654,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-text-outline-color-picker",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 2472,
+        "x_center": 1007.5,
+        "surface_weight": 0.75
+      }
+    },
+    "subfeature:wordart-text-style-gallery": {
+      "score": 0.6749,
+      "evidence": {
+        "element": "el:ribbon-smart-art-format-text-styles-gallery",
+        "surface": "ui:ribbon-smart-art-format",
+        "area_px2": 11940,
+        "x_center": 854.5,
+        "surface_weight": 0.75
+      }
+    }
+  }
+}

@@ -1,0 +1,1029 @@
+{
+  "feature": {
+    "id": "feature:illustrations",
+    "node_type": "feature",
+    "name": "Illustrations",
+    "what_it_does": "Insert graphic objects — pictures, shapes, icons, 3D models, SmartArt diagrams, charts and screenshots; each selected object surfaces its own Format contextual tab(s).",
+    "affects": "document content (adds graphic objects)",
+    "audience_breadth": "everyone",
+    "cohesion": "catalog",
+    "behavior": "Insert graphic objects — pictures, shapes, icons, 3D models, SmartArt diagrams, charts and screenshots; each selected object surfaces its own Format contextual tab(s). Group controls: subfeature:insert-pictures, subfeature:shapes-insert, subfeature:icon-insert, subfeature:insert-3d-models, subfeature:smart-art-insert, subfeature:chart-insert, subfeature:screenshot-insert",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:insert-pictures",
+      "subfeature:shapes-insert",
+      "subfeature:icon-insert",
+      "subfeature:insert-3d-models",
+      "subfeature:smart-art-insert",
+      "subfeature:chart-insert",
+      "subfeature:screenshot-insert"
+    ],
+    "connections": [
+      {
+        "target": "feature:clipboard",
+        "kind": "affects-same",
+        "why": "graphic objects are moved/duplicated through the clipboard",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:insert-pictures",
+      "node_type": "subfeature",
+      "name": "Pictures",
+      "parent": "feature:illustrations",
+      "what_it_does": "Inserts a picture from This Device, the Stock Images library, or Online Pictures; a selected picture activates the Picture Format contextual tab (measured). Also reachable inside header/footer editing (Header & Footer tab > Insert group).",
+      "affects": "document content (adds an image)",
+      "audience_breadth": "everyone",
+      "behavior": "Opens the Pictures menu — the surface that presents this capability's options (4 controls enumerated in the structural pass). Applying a choice there changes: document content (adds an image).",
+      "behavior_record": {
+        "effect": "Opens the Pictures menu — the surface that presents this capability's options (4 controls enumerated in the structural pass). Applying a choice there changes: document content (adds an image).",
+        "options": [
+          {
+            "name": "This Device...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-pictures"
+            ]
+          },
+          {
+            "name": "Generate an Image...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-pictures"
+            ]
+          },
+          {
+            "name": "Stock Images...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-pictures"
+            ]
+          },
+          {
+            "name": "Online Pictures...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-pictures"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ClipArtInsertDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:insert-pictures"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:flyout-anchor-insert-pictures"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-picture-insert-from-file"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-clip-art-insert-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:flyout-anchor-insert-pictures-menu",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-flyout-anchor-insert-pictures.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-flyout-anchor-insert-pictures.png",
+        "screenshots/ui-flyout-anchor-insert-pictures-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shapes-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:icon-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:insert-3d-models",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:smart-art-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:chart-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:screenshot-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shapes-insert",
+      "node_type": "subfeature",
+      "name": "Shapes",
+      "parent": "feature:illustrations",
+      "what_it_does": "Opens a gallery of ready-made shapes (lines, rectangles, arrows, callouts…) to draw into the document; a selected shape activates the Shape Format contextual tab (measured).",
+      "affects": "document content (adds a drawn shape)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Shapes dropdown — the surface that presents this capability's options (162 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a drawn shape).",
+      "behavior_record": {
+        "effect": "Opens the Shapes dropdown — the surface that presents this capability's options (162 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a drawn shape).",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, header-edit, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: equation (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ShapesInsertGallery",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:shapes-insert"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:shapes-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shapes-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shapes-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:shapes-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-shapes-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-shapes-insert-gallery.png",
+        "screenshots/ui-shapes-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-pictures",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:icon-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:insert-3d-models",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:smart-art-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:chart-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:screenshot-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:icon-insert",
+      "node_type": "subfeature",
+      "name": "Icons",
+      "parent": "feature:illustrations",
+      "what_it_does": "Opens the stock icon library dialog to insert symbol graphics (content streams from the Office CDN — network); an inserted icon/SVG graphic activates the Graphics Format contextual tab (measured via a local SVG probe).",
+      "affects": "document content (adds an icon graphic)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:icon-insert-from-file"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:icon-insert-from-file-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-icon-insert-from-file.png",
+        "screenshots/ui-icon-insert-from-file-dialog/tab-single.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-pictures",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shapes-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:insert-3d-models",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:smart-art-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:chart-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:screenshot-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:insert-3d-models",
+      "node_type": "subfeature",
+      "name": "3D Models",
+      "parent": "feature:illustrations",
+      "what_it_does": "Inserts a rotatable 3D model from the stock library (primary) or from a local file (the dropdown menu offers This Device / Stock 3D Models).",
+      "affects": "document content (adds a 3D model object)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert3-dmodel-default"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert3-dmodel-default-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:insert3-dmodel-default-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-insert3-dmodel-default.png",
+        "screenshots/ui-insert3-dmodel-default-dialog/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-pictures",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shapes-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:icon-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:smart-art-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:chart-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:screenshot-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smart-art-insert",
+      "node_type": "subfeature",
+      "name": "SmartArt",
+      "parent": "feature:illustrations",
+      "what_it_does": "Opens the Choose a SmartArt Graphic dialog (lists, processes, cycles, hierarchies…); an inserted SmartArt activates the SmartArt Design + Format contextual tabs (measured).",
+      "affects": "document content (adds a SmartArt diagram)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Choose a SmartArt Graphic dialog — the surface that presents this capability's options (256 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a SmartArt diagram).",
+      "behavior_record": {
+        "effect": "Opens the Choose a SmartArt Graphic dialog — the surface that presents this capability's options (256 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a SmartArt diagram).",
+        "options": [
+          {
+            "name": "All",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Process",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Cycle",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Hierarchy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Relationship",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Matrix",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Pyramid",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Timeline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Meet The Team",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Office.com",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Basic Block List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Alternating Hexagons",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Picture Caption List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Lined List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Vertical Bullet List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Vertical Box List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Vertical Bracket List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Varying Width List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Tab List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Horizontal Bullet List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Square Accent List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          },
+          {
+            "name": "Picture Accent List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smart-art-insert"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, header-edit, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: equation (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: SmartArtInsert",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smart-art-insert"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:smart-art-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:smart-art-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-smart-art-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-smart-art-insert.png",
+        "screenshots/ui-smart-art-insert-dialog/tab-single.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-pictures",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shapes-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:icon-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:insert-3d-models",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:chart-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:screenshot-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-insert",
+      "node_type": "subfeature",
+      "name": "Chart",
+      "parent": "feature:illustrations",
+      "what_it_does": "Opens the Insert Chart dialog (column, line, pie, bar, area, scatter, map…); an inserted chart activates the Chart Design + Format contextual tabs and links to an embedded Excel datasheet for its data (measured).",
+      "affects": "document content (adds a chart backed by worksheet data)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Insert Chart dialog — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a chart backed by worksheet data).",
+      "behavior_record": {
+        "effect": "Opens the Insert Chart dialog — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a chart backed by worksheet data).",
+        "options": [
+          {
+            "name": "Recent",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Templates",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Line",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Pie",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Bar",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Area",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "X Y (Scatter)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Map",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Stock",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Surface",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Radar",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Treemap",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Sunburst",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Histogram",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Box & Whisker",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Waterfall",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Funnel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Combo",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Clustered Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "Stacked Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "100% Stacked Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "3-D Clustered Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          },
+          {
+            "name": "3-D Stacked Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-insert"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, header-edit, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: equation (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartInsert",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-insert"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:chart-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:chart-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-chart-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-chart-insert.png",
+        "screenshots/ui-chart-insert-dialog/tab-all-charts.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-pictures",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shapes-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:icon-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:insert-3d-models",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:smart-art-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:screenshot-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:screenshot-insert",
+      "node_type": "subfeature",
+      "name": "Screenshot",
+      "parent": "feature:illustrations",
+      "what_it_does": "Inserts a snapshot of any open window (gallery of live thumbnails) or a Screen Clipping region; the result is a picture (Picture Format applies).",
+      "affects": "document content (adds a screenshot image)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:screenshot-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:screenshot-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-screenshot-insert-gallery.png",
+        "screenshots/ui-screenshot-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-pictures",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shapes-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:icon-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:insert-3d-models",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:smart-art-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:chart-insert",
+          "kind": "affects-same",
+          "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

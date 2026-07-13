@@ -1,0 +1,1212 @@
+{
+  "feature": {
+    "id": "feature:shape-styles",
+    "node_type": "feature",
+    "name": "Shape styles",
+    "what_it_does": "Style the fill, outline and effects of a selected shape/chart/SmartArt shape from a gallery or individually.",
+    "affects": "the fill/outline/effect styling of the selected drawing object",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Style the fill, outline and effects of a selected shape/chart/SmartArt shape from a gallery or individually. Group controls: subfeature:shape-effects, subfeature:shape-fill, subfeature:shape-format-pane, subfeature:shape-outline, subfeature:shape-style-gallery",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:shape-effects",
+      "subfeature:shape-fill",
+      "subfeature:shape-format-pane",
+      "subfeature:shape-outline",
+      "subfeature:shape-style-gallery"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:shapes-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:shape-effects",
+      "node_type": "subfeature",
+      "name": "Shape Effects",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Applies shadow/reflection/glow/bevel/3D effects to the shape (menu of families).",
+      "affects": "the shape's visual effects",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Shape Effects dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the shape's visual effects.",
+      "behavior_record": {
+        "effect": "Opens the Shape Effects dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the shape's visual effects.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          },
+          {
+            "name": "Reflection",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          },
+          {
+            "name": "Preset",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          },
+          {
+            "name": "Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          },
+          {
+            "name": "Glow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          },
+          {
+            "name": "Soft Edges",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          },
+          {
+            "name": "Bevel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          },
+          {
+            "name": "3-D Rotation",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, shape-selected, smartart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ShapeEffectsMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:shape-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-shape-effects-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-effects-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-effects-menu.png",
+        "screenshots/ui-ribbon-chart-format-shape-effects-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-fill",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-outline",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-style-gallery",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-fill",
+      "node_type": "subfeature",
+      "name": "Shape Fill",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Sets the shape's fill — color, gradient, picture, texture (options in the picker).",
+      "affects": "the shape's fill",
+      "audience_breadth": "most",
+      "behavior": "Opens the Shape Fill dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the shape's fill.",
+      "behavior_record": {
+        "effect": "Opens the Shape Fill dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the shape's fill.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, shape-selected, smartart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ShapeFillColorPicker",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:shape-fill"
+        ],
+        "gesture": "executeMso(ShapeFillColorPicker)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-shape-fill-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-fill-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-fill-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-shape-fill-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-outline",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-effects",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-style-gallery",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-format-pane",
+      "node_type": "subfeature",
+      "name": "Format Shape pane",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Opens the Format Shape pane — the full fill/line/effects/text surface.",
+      "affects": "the shape's full formatting (pane)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Format Object... pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the shape's full formatting (pane).",
+      "behavior_record": {
+        "effect": "Opens the Format Object... pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the shape's full formatting (pane).",
+        "options": [
+          {
+            "name": "Page left",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-format-pane"
+            ]
+          },
+          {
+            "name": "Page up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-format-pane"
+            ]
+          },
+          {
+            "name": "Minimize",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-format-pane"
+            ]
+          },
+          {
+            "name": "Restore",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-format-pane"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, shape-selected, smartart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ObjectFormatDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:shape-format-pane"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-object-format-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-object-format-dialog.png",
+        "screenshots/ui-ribbon-chart-format-object-format-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-outline",
+      "node_type": "subfeature",
+      "name": "Shape Outline",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Sets the shape's outline color, weight and dashes (options in the picker).",
+      "affects": "the shape's outline",
+      "audience_breadth": "most",
+      "behavior": "Opens the Shape Outline dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the shape's outline.",
+      "behavior_record": {
+        "effect": "Opens the Shape Outline dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the shape's outline.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          },
+          {
+            "name": "Shape Outline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          },
+          {
+            "name": "High-contrast only",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          },
+          {
+            "name": "No Outline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          },
+          {
+            "name": "Arrows",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          },
+          {
+            "name": "Weight",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          },
+          {
+            "name": "Dashes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          },
+          {
+            "name": "More Outline Colors...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:shape-outline"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:shape-outline"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-outline-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-outline-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-outline-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-outline-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-fill",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-effects",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-style-gallery",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-style-gallery",
+      "node_type": "subfeature",
+      "name": "Shape Styles gallery",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Applies a preset fill+outline+effect style to the shape from the gallery.",
+      "affects": "the shape's overall style",
+      "audience_breadth": "most",
+      "behavior": "enabled in context(s): chart-selected, shape-selected; disabled in: equation, header-edit, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Colored Outline - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Outline - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Outline - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Outline - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Outline - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Outline - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Outline - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Outline, Colored Fill - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Outline, Colored Fill - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Outline, Colored Fill - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Outline, Colored Fill - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Outline, Colored Fill - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Outline, Colored Fill - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Light 1 Outline, Colored Fill - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Subtle Effect - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Subtle Effect - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Subtle Effect - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Subtle Effect - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Subtle Effect - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Subtle Effect - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Subtle Effect - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Effect - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Effect - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Effect - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Effect - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Effect - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Effect - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Effect - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Intense Effect - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Intense Effect - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Intense Effect - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Intense Effect - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Intense Effect - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Intense Effect - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Intense Effect - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Black, Dark 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Dark Teal, Accent 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Orange, Accent 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Dark Green, Accent 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Turquoise, Accent 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Plum, Accent 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Transparent, Colored Outline - Green, Accent 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Semitransparent - Black, Dark 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Semitransparent - Dark Teal, Accent 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Semitransparent - Orange, Accent 2, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Semitransparent - Dark Green, Accent 3, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Semitransparent - Turquoise, Accent 4, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Semitransparent - Plum, Accent 5, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Semitransparent - Green, Accent 6, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Black, Dark 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Dark Teal, Accent 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Orange, Accent 2, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Dark Green, Accent 3, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Turquoise, Accent 4, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Plum, Accent 5, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Colored Fill - Green, Accent 6, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Gradient Fill - Black, Dark 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Gradient Fill - Dark Teal, Accent 1, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Gradient Fill - Orange, Accent 2, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Gradient Fill - Dark Green, Accent 3, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Gradient Fill - Turquoise, Accent 4, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Gradient Fill - Plum, Accent 5, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Gradient Fill - Green, Accent 6, No Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, shape-selected; disabled in: equation, header-edit, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ShapeStylesGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:shape-style-gallery",
+          "journal:run-20260713-121821-repair-galleries",
+          "journal:repair-galleries-backfill"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-styles-gallery.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-fill",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-outline",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-effects",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

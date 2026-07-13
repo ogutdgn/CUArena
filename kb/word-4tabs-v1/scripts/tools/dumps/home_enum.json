@@ -1,0 +1,1090 @@
+{
+  "tab": "Home",
+  "groups": [
+    {
+      "group": "Clipboard",
+      "group_keytip": "Alt, H, Z L",
+      "controls": [
+        {
+          "name": "Paste",
+          "automation_id": "Paste",
+          "control_type": "SplitButton",
+          "rect": [
+            20,
+            82,
+            62,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Pick a paste option, such as keeping formatting or pasting only content.",
+          "access_key": "Alt, H, V",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Cut",
+          "automation_id": "Cut",
+          "control_type": "Button",
+          "rect": [
+            64,
+            82,
+            116,
+            106
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Remove the selection and put it on the Clipboard so you can paste it somewhere else.",
+          "access_key": "Alt, H, X",
+          "accelerator_key": "Ctrl+X",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Copy",
+          "automation_id": "Copy",
+          "control_type": "Button",
+          "rect": [
+            64,
+            108,
+            125,
+            132
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Put a copy of the selection on the Clipboard so you can paste it somewhere else.",
+          "access_key": "Alt, H, C 1",
+          "accelerator_key": "Ctrl+C",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Format Painter",
+          "automation_id": "FormatPainter",
+          "control_type": "Button",
+          "rect": [
+            64,
+            134,
+            175,
+            158
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Like the look of a particular selection? You can apply that look to other content in the document.\n\nTo get started: \n1. Select content with the formatting you like\n2. Click Format Painter\n3. Select something else to automatically apply the formatting\n\nFYI: To apply the formatting in multiple places, double-click Format Painter.",
+          "access_key": "Alt, H, F P",
+          "accelerator_key": "Alt+Ctrl+C, Alt+Ctrl+V",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Office Clipboard...",
+          "automation_id": "ShowClipboard",
+          "control_type": "Button",
+          "rect": [
+            167,
+            160,
+            183,
+            176
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "See all the items you've copied to the Clipboard.",
+          "access_key": "Alt, H, F O",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Font",
+      "group_keytip": "Alt, H, Z F",
+      "controls": [
+        {
+          "name": "Font",
+          "automation_id": "Font",
+          "control_type": "ComboBox",
+          "rect": [
+            191,
+            90,
+            316,
+            114
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Pick a new font for your text.",
+          "access_key": "Alt, H, F F",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Font Size",
+          "automation_id": "FontSize",
+          "control_type": "ComboBox",
+          "rect": [
+            318,
+            90,
+            361,
+            114
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change the size of your text.",
+          "access_key": "Alt, H, F S",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Grow Font",
+          "automation_id": "FontSizeIncreaseWord",
+          "control_type": "Button",
+          "rect": [
+            363,
+            90,
+            387,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Make your text a bit bigger.",
+          "access_key": "Alt, H, F G",
+          "accelerator_key": "Ctrl+Shift+>",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Shrink Font",
+          "automation_id": "FontSizeDecreaseWord",
+          "control_type": "Button",
+          "rect": [
+            389,
+            90,
+            413,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Make your text a bit smaller.",
+          "access_key": "Alt, H, F K",
+          "accelerator_key": "Ctrl+Shift+<",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Change Case",
+          "automation_id": "ChangeCaseGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            418,
+            90,
+            458,
+            114
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change the selected text to uppercase, lowercase or other common capitalizations.",
+          "access_key": "Alt, H, 7",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Clear Formatting",
+          "automation_id": "ClearFormatting",
+          "control_type": "Button",
+          "rect": [
+            463,
+            90,
+            487,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Remove all formatting from the selection, leaving only the normal, unformatted text.",
+          "access_key": "Alt, H, E",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Bold",
+          "automation_id": "Bold",
+          "control_type": "Button",
+          "rect": [
+            191,
+            122,
+            215,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Make your text bold.",
+          "access_key": "Alt, H, 1",
+          "accelerator_key": "Ctrl+B",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Italic",
+          "automation_id": "Italic",
+          "control_type": "Button",
+          "rect": [
+            217,
+            122,
+            241,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Italicize your text.",
+          "access_key": "Alt, H, 2",
+          "accelerator_key": "Ctrl+I",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Underline",
+          "automation_id": "UnderlineGallery",
+          "control_type": "SplitButton",
+          "rect": [
+            243,
+            122,
+            282,
+            146
+          ],
+          "patterns": [
+            "invoke",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Underline your text.",
+          "access_key": "Alt, H, 3",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Strikethrough",
+          "automation_id": "Strikethrough",
+          "control_type": "Button",
+          "rect": [
+            284,
+            122,
+            308,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Cross something out by drawing a line through it.",
+          "access_key": "Alt, H, 4",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Subscript",
+          "automation_id": "Subscript",
+          "control_type": "Button",
+          "rect": [
+            310,
+            122,
+            334,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Type very small letters just below the line of text.",
+          "access_key": "Alt, H, 5",
+          "accelerator_key": "Ctrl+Shift+_",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Superscript",
+          "automation_id": "Superscript",
+          "control_type": "Button",
+          "rect": [
+            336,
+            122,
+            360,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Type very small letters just above the line of text.",
+          "access_key": "Alt, H, 6",
+          "accelerator_key": "Ctrl+Shift++",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Text Effects and Typography",
+          "automation_id": "TextEffectsGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            365,
+            122,
+            405,
+            146
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add some flair to your text by applying a text effect, such as a shadow or glow.\n\nYou can also change the typography settings to enable ligatures or choose a stylistic set.",
+          "access_key": "Alt, H, F T",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Text Highlight Color",
+          "automation_id": "TextHighlightColorPicker",
+          "control_type": "SplitButton",
+          "rect": [
+            407,
+            122,
+            446,
+            146
+          ],
+          "patterns": [
+            "invoke",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Make your text pop by highlighting it in a bright color.",
+          "access_key": "Alt, H, I",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Font Color",
+          "automation_id": "FontColorPicker",
+          "control_type": "SplitButton",
+          "rect": [
+            448,
+            122,
+            487,
+            146
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change the color of your text.",
+          "access_key": "Alt, H, F C",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Font...",
+          "automation_id": "FontDialog",
+          "control_type": "Button",
+          "rect": [
+            479,
+            160,
+            495,
+            176
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Customize your text using advanced font and character options to give it the exact look you want.\n\nYou can add a variety of styles and colors to your text, as well as visual effects, like strikethrough, superscript, and all caps.",
+          "access_key": "Alt, H, F N",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Paragraph",
+      "group_keytip": "Alt, H, Z P",
+      "controls": [
+        {
+          "name": "Bullets",
+          "automation_id": "BulletsGalleryWord",
+          "control_type": "SplitButton",
+          "rect": [
+            503,
+            90,
+            542,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Create a bulleted list.\n\nClick the arrow to change the look of the bullet.",
+          "access_key": "Alt, H, U",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Numbering",
+          "automation_id": "NumberingGalleryWord",
+          "control_type": "SplitButton",
+          "rect": [
+            544,
+            90,
+            583,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Create a numbered list.\n\nClick the arrow for more numbering formats.",
+          "access_key": "Alt, H, N",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Multilevel List",
+          "automation_id": "MultilevelListGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            585,
+            90,
+            625,
+            114
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Create a multilevel list to organize items or create an outline.\n\nYou can also change the look of individual levels in your list or add numbering to headings in your document.",
+          "access_key": "Alt, H, M",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Decrease Indent",
+          "automation_id": "IndentDecreaseWord",
+          "control_type": "Button",
+          "rect": [
+            630,
+            90,
+            654,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Move your paragraph closer to the margin.",
+          "access_key": "Alt, H, A O",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Increase Indent",
+          "automation_id": "IndentIncreaseWord",
+          "control_type": "Button",
+          "rect": [
+            656,
+            90,
+            680,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Move your paragraph farther away from the margin.",
+          "access_key": "Alt, H, A I",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Sort...",
+          "automation_id": "SortDialogClassic",
+          "control_type": "Button",
+          "rect": [
+            685,
+            90,
+            709,
+            114
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Arrange the current selection in alphabetical or numerical order.\n\nThis is especially useful if you're trying to organize data in a table.",
+          "access_key": "Alt, H, S O",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Show All",
+          "automation_id": "ParagraphMarks",
+          "control_type": "Button",
+          "rect": [
+            714,
+            90,
+            738,
+            114
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Show paragraph marks and other hidden formatting symbols.\n\nThis is especially useful for advanced layout tasks.",
+          "access_key": "Alt, H, 8",
+          "accelerator_key": "Ctrl+*",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Align Left",
+          "automation_id": "AlignLeft",
+          "control_type": "Button",
+          "rect": [
+            503,
+            122,
+            527,
+            146
+          ],
+          "patterns": [
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Align your content to the left.",
+          "access_key": "Alt, H, A L",
+          "accelerator_key": "Ctrl+L",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Center",
+          "automation_id": "AlignCenter",
+          "control_type": "Button",
+          "rect": [
+            529,
+            122,
+            553,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Center your content.",
+          "access_key": "Alt, H, A C",
+          "accelerator_key": "Ctrl+E",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Align Right",
+          "automation_id": "AlignRight",
+          "control_type": "Button",
+          "rect": [
+            555,
+            122,
+            579,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Align your content to the right.",
+          "access_key": "Alt, H, A R",
+          "accelerator_key": "Ctrl+R",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Justify",
+          "automation_id": "AlignJustify",
+          "control_type": "Button",
+          "rect": [
+            581,
+            122,
+            605,
+            146
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Distribute your text evenly between the margins.\n\nJustified text gives your document clean, crisp edges so it looks more polished.",
+          "access_key": "Alt, H, A J",
+          "accelerator_key": "Ctrl+J",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Line and Paragraph Spacing",
+          "automation_id": "LineSpacingGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            610,
+            122,
+            650,
+            146
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how much space appears between lines of text or between paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+          "access_key": "Alt, H, K",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Shading",
+          "automation_id": "ShadingColorPicker",
+          "control_type": "SplitButton",
+          "rect": [
+            655,
+            122,
+            694,
+            146
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change the color behind the selected text, paragraph or table cell.\n\nThis is especially useful when you want information to jump off the page.",
+          "access_key": "Alt, H, H",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Borders",
+          "automation_id": "BordersSelectionGallery",
+          "control_type": "SplitButton",
+          "rect": [
+            696,
+            122,
+            735,
+            146
+          ],
+          "patterns": [
+            "invoke",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add or remove borders from your selection.\n\nTo change the look of the borders, check out the options on the Table Tools Design tab or use the Borders and Shading dialog box.",
+          "access_key": "Alt, H, B",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Paragraph...",
+          "automation_id": "ParagraphDialog",
+          "control_type": "Button",
+          "rect": [
+            730,
+            160,
+            746,
+            176
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Fine-tune the layout of the current paragraph, including spacing, indentation, and more.",
+          "access_key": "Alt, H, P G",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Styles",
+      "group_keytip": "Alt, H, Z S",
+      "controls": [
+        {
+          "name": "",
+          "automation_id": "QuickStylesGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            754,
+            90,
+            1433,
+            150
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Styles give your document a consistent, polished look.\n\nThey also allow you to use the Navigation Pane and add a table of contents.\n\nIf you don't like the look of these styles, check out the Design tab for more options.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": true
+        },
+        {
+          "name": "Styles...",
+          "automation_id": "StylesPane",
+          "control_type": "Button",
+          "rect": [
+            1425,
+            160,
+            1441,
+            176
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Preview, manage and customize the text styles in Word.\n\nUse the window to see and edit formatting details for each style, create new styles, and quickly preview styles in your document.\n\nYou can also update styles to match selected text.",
+          "access_key": "Alt, H, F Y",
+          "accelerator_key": "Alt+Ctrl+Shift+S",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Editing",
+      "group_keytip": "Alt, H, Z N",
+      "controls": [
+        {
+          "name": "Find",
+          "automation_id": "NavigationPaneFind",
+          "control_type": "SplitButton",
+          "rect": [
+            1449,
+            82,
+            1529,
+            106
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Click to see options for finding text in your document.\n\nYou can use advanced search options to replace text, jump right to a specific spot, or pick other ways to narrow your search.",
+          "access_key": "Alt, H, F D",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Replace...",
+          "automation_id": "ReplaceDialog",
+          "control_type": "Button",
+          "rect": [
+            1449,
+            108,
+            1523,
+            132
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Search for text you'd like to change, and replace it with something else.",
+          "access_key": "Alt, H, R",
+          "accelerator_key": "Ctrl+H",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Select",
+          "automation_id": "SelectMenu",
+          "control_type": "MenuItem",
+          "rect": [
+            1449,
+            134,
+            1524,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Select text or objects in your document.\n\nThis is particularly helpful for selecting text with certain formatting or objects that are behind text.",
+          "access_key": "Alt, H, S L",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Adobe Acrobat",
+      "group_keytip": "Alt, H, Z 1",
+      "controls": [
+        {
+          "name": "Create a PDF",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            1558,
+            82,
+            1600,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "",
+          "access_key": "Alt, H, Y",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Voice",
+      "group_keytip": "Alt, H, Z 2",
+      "controls": [
+        {
+          "name": "Dictate",
+          "automation_id": "Dictate",
+          "control_type": "SplitButton",
+          "rect": [
+            1629,
+            82,
+            1671,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Now use voice typing to author content and voice commanding for a more hands-off experience.\n\nPowered by Microsoft Speech Services",
+          "access_key": "Alt, H, D",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Editor",
+      "group_keytip": "Alt, H, Z 3",
+      "controls": [
+        {
+          "name": "Editor",
+          "automation_id": "WritingAssistanceCheckDocument",
+          "control_type": "Button",
+          "rect": [
+            1687,
+            82,
+            1729,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Check for Spelling, Grammar and Writing Suggestions",
+          "access_key": "Alt, H, C 2",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Add-ins",
+      "group_keytip": "Alt, H, Z 4",
+      "controls": [
+        {
+          "name": "Add‑ins",
+          "automation_id": "OfficeExtensionsShowAddinFlyout",
+          "control_type": "Button",
+          "rect": [
+            1745,
+            82,
+            1792,
+            158
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Find add-ins that add new functionality to Office, simplify tasks, and connect you to services you use every day.",
+          "access_key": "Alt, H, A S",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    }
+  ],
+  "control_count": 45
+}

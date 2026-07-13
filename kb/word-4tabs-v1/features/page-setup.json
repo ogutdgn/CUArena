@@ -1,0 +1,973 @@
+{
+  "feature": {
+    "id": "feature:page-setup",
+    "node_type": "feature",
+    "name": "Page Setup",
+    "what_it_does": "Set up the printed page — margins, orientation, paper size, text columns, page/section breaks, line numbering and hyphenation.",
+    "affects": "the page and section layout of the document",
+    "audience_breadth": "everyone",
+    "cohesion": "capability",
+    "behavior": "Set up the printed page — margins, orientation, paper size, text columns, page/section breaks, line numbering and hyphenation. Group controls: subfeature:page-margins, subfeature:page-orientation, subfeature:page-size, subfeature:page-columns, subfeature:breaks, subfeature:line-numbers, subfeature:hyphenation, subfeature:page-setup-dialog",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-layout"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-layout",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:page-margins",
+      "subfeature:page-orientation",
+      "subfeature:page-size",
+      "subfeature:page-columns",
+      "subfeature:breaks",
+      "subfeature:line-numbers",
+      "subfeature:hyphenation",
+      "subfeature:page-setup-dialog"
+    ],
+    "connections": [
+      {
+        "target": "feature:header-footer",
+        "kind": "affects-same",
+        "why": "page setup (margins, section breaks) governs where headers/footers and page flow sit",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:page-margins",
+      "node_type": "subfeature",
+      "name": "Margins",
+      "parent": "feature:page-setup",
+      "what_it_does": "Sets the page margins from presets (Normal/Narrow/Wide/Mirrored…) or a custom dialog; the top pick applies immediately.",
+      "affects": "the page's margins",
+      "audience_breadth": "everyone",
+      "behavior": "Opens the Margins dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the page's margins.",
+      "behavior_record": {
+        "effect": "Opens the Margins dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the page's margins.",
+        "options": [
+          {
+            "name": "Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          },
+          {
+            "name": "Normal Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          },
+          {
+            "name": "Narrow Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          },
+          {
+            "name": "Moderate Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          },
+          {
+            "name": "Wide Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          },
+          {
+            "name": "Mirrored Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          },
+          {
+            "name": "Office 2003 Default Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          },
+          {
+            "name": "Custom Margins...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-margins"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: PageMarginsGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:page-margins"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:page-margins-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:page-margins-dropdown",
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-page-margins-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-page-margins-gallery.png",
+        "screenshots/ui-page-margins-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:page-orientation",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-size",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-columns",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-orientation",
+      "node_type": "subfeature",
+      "name": "Orientation",
+      "parent": "feature:page-setup",
+      "what_it_does": "Switches the page between Portrait and Landscape.",
+      "affects": "the page orientation",
+      "audience_breadth": "everyone",
+      "behavior": "Opens the Orientation dropdown — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the page orientation.",
+      "behavior_record": {
+        "effect": "Opens the Orientation dropdown — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the page orientation.",
+        "options": [
+          {
+            "name": "Portrait",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-orientation"
+            ]
+          },
+          {
+            "name": "Landscape",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-orientation"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: PageOrientationGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:page-orientation"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:page-orientation-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:page-orientation-dropdown",
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-page-orientation-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-page-orientation-gallery.png",
+        "screenshots/ui-page-orientation-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:page-margins",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-size",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-columns",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-size",
+      "node_type": "subfeature",
+      "name": "Size",
+      "parent": "feature:page-setup",
+      "what_it_does": "Chooses the paper size (Letter, A4, Legal…) from a gallery or a custom dialog.",
+      "affects": "the page's paper size",
+      "audience_breadth": "most",
+      "behavior": "Opens the Size dropdown — the surface that presents this capability's options (19 controls enumerated in the structural pass). Applying a choice there changes: the page's paper size.",
+      "behavior_record": {
+        "effect": "Opens the Size dropdown — the surface that presents this capability's options (19 controls enumerated in the structural pass). Applying a choice there changes: the page's paper size.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Size",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Letter",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Tabloid",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Legal",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Statement",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Executive",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "A3",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "A4",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "A5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "B4 (JIS)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "B5 (JIS)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Envelope #9",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Envelope #10",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "C size sheet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          },
+          {
+            "name": "More Paper Sizes...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-size"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: PageSizeGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:page-size"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:page-size-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:page-size-dropdown",
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-page-size-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-page-size-gallery.png",
+        "screenshots/ui-page-size-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:page-margins",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-orientation",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-columns",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-columns",
+      "node_type": "subfeature",
+      "name": "Columns",
+      "parent": "feature:page-setup",
+      "what_it_does": "Flows the document text into one or more newspaper-style columns (One/Two/Three/Left/Right or a custom dialog).",
+      "affects": "the text's column layout",
+      "audience_breadth": "most",
+      "behavior": "Opens the Columns dropdown — the surface that presents this capability's options (7 controls enumerated in the structural pass). Applying a choice there changes: the text's column layout.",
+      "behavior_record": {
+        "effect": "Opens the Columns dropdown — the surface that presents this capability's options (7 controls enumerated in the structural pass). Applying a choice there changes: the text's column layout.",
+        "options": [
+          {
+            "name": "Columns",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-columns"
+            ]
+          },
+          {
+            "name": "One",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-columns"
+            ]
+          },
+          {
+            "name": "Two",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-columns"
+            ]
+          },
+          {
+            "name": "Three",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-columns"
+            ]
+          },
+          {
+            "name": "Left",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-columns"
+            ]
+          },
+          {
+            "name": "Right",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-columns"
+            ]
+          },
+          {
+            "name": "More Columns...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-columns"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: header-edit, shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: TableColumnsGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:page-columns"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:table-columns-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:table-columns-dropdown",
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-table-columns-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-table-columns-gallery.png",
+        "screenshots/ui-table-columns-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:page-margins",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-orientation",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-size",
+          "kind": "affects-same",
+          "why": "all set the page's printable geometry (PageSetup)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:breaks",
+          "kind": "affects-same",
+          "why": "multi-column layout is bounded by section breaks",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:breaks",
+      "node_type": "subfeature",
+      "name": "Breaks",
+      "parent": "feature:page-setup",
+      "what_it_does": "Inserts a page, column, text-wrapping or section break at the cursor from a menu — the control that starts a new page/column/section.",
+      "affects": "the document's page/section flow",
+      "audience_breadth": "most",
+      "behavior": "Opens the Breaks menu — the surface that presents this capability's options (7 controls enumerated in the structural pass). Applying a choice there changes: the document's page/section flow.",
+      "behavior_record": {
+        "effect": "Opens the Breaks menu — the surface that presents this capability's options (7 controls enumerated in the structural pass). Applying a choice there changes: the document's page/section flow.",
+        "options": [
+          {
+            "name": "Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:breaks"
+            ]
+          },
+          {
+            "name": "Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:breaks"
+            ]
+          },
+          {
+            "name": "Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:breaks"
+            ]
+          },
+          {
+            "name": "Next Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:breaks"
+            ]
+          },
+          {
+            "name": "Continuous",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:breaks"
+            ]
+          },
+          {
+            "name": "Even Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:breaks"
+            ]
+          },
+          {
+            "name": "Odd Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:breaks"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: header-edit, shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: BreaksGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:breaks"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:breaks-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:breaks-menu",
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-breaks-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-breaks-gallery.png",
+        "screenshots/ui-breaks-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:page-break-insert",
+          "kind": "affects-same",
+          "why": "the Breaks menu includes the page break the Insert tab also offers, plus section/column breaks",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:line-numbers",
+      "node_type": "subfeature",
+      "name": "Line Numbers",
+      "parent": "feature:page-setup",
+      "what_it_does": "Adds line numbers in the margin (continuous, per-page, per-section) from a menu; used in legal and review documents.",
+      "affects": "the document's line numbering",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:line-numbers-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:line-numbers-menu",
+      "location": "ui:ribbon-layout",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-line-numbers-menu.png",
+        "screenshots/ui-line-numbers-menu/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hyphenation",
+      "node_type": "subfeature",
+      "name": "Hyphenation",
+      "parent": "feature:page-setup",
+      "what_it_does": "Controls automatic word hyphenation at line ends (None/Automatic/Manual + options).",
+      "affects": "the document's hyphenation",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:hyphenation-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:hyphenation-menu",
+      "location": "ui:ribbon-layout",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-hyphenation-menu.png",
+        "screenshots/ui-hyphenation-menu/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-setup-dialog",
+      "node_type": "subfeature",
+      "name": "Page Setup dialog launcher",
+      "parent": "feature:page-setup",
+      "what_it_does": "Opens the Page Setup dialog — the consolidated surface for margins, paper, layout (section start, headers/footers distance, vertical alignment) and line numbers.",
+      "affects": "opens the Page Setup dialog",
+      "audience_breadth": "most",
+      "behavior": "Opens the Page Setup dialog — the surface that presents this capability's options (43 controls enumerated in the structural pass). Applying a choice there changes: opens the Page Setup dialog.",
+      "behavior_record": {
+        "effect": "Opens the Page Setup dialog — the surface that presents this capability's options (43 controls enumerated in the structural pass). Applying a choice there changes: opens the Page Setup dialog.",
+        "options": [
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Top:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Bottom:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Left:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Right:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Gutter:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Gutter position:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Portrait",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Landscape",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Multiple pages:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Apply to:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Set As Default",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-setup-dialog"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: PageSetupDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:page-setup-dialog"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:page-setup-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:page-setup-dialog",
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-page-setup-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-page-setup-dialog.png",
+        "screenshots/ui-page-setup-dialog/tab-margins.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

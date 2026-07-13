@@ -1,0 +1,1379 @@
+{
+  "feature": {
+    "id": "feature:object-arrange",
+    "node_type": "feature",
+    "name": "Arrange objects",
+    "what_it_does": "Position and order any selected drawing object — text wrapping, position, z-order, alignment, grouping, rotation, the selection pane, and alt text.",
+    "affects": "the placement, ordering and metadata of the selected object",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Position and order any selected drawing object — text wrapping, position, z-order, alignment, grouping, rotation, the selection pane, and alt text. Group controls: subfeature:object-align, subfeature:object-alt-text, subfeature:object-group, subfeature:object-position, subfeature:object-reorder, subfeature:object-rotate, subfeature:object-selection-pane, subfeature:object-text-wrap",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:object-align",
+      "subfeature:object-alt-text",
+      "subfeature:object-group",
+      "subfeature:object-position",
+      "subfeature:object-reorder",
+      "subfeature:object-rotate",
+      "subfeature:object-selection-pane",
+      "subfeature:object-text-wrap"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:insert-pictures",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:object-align",
+      "node_type": "subfeature",
+      "name": "Align",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Aligns/distributes the selected object(s) to the page/margin/each other (menu).",
+      "affects": "the object's alignment",
+      "audience_breadth": "most",
+      "behavior": "Opens the Align menu — the surface that presents this capability's options (15 controls enumerated in the structural pass). Applying a choice there changes: the object's alignment.",
+      "behavior_record": {
+        "effect": "Opens the Align menu — the surface that presents this capability's options (15 controls enumerated in the structural pass). Applying a choice there changes: the object's alignment.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align Left",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align Center",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align Right",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align Top",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align Middle",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align Bottom",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Distribute Horizontally",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Distribute Vertically",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align Selected Objects",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align to Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Align to Margin",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Use Alignment Guides",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "View Gridlines",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          },
+          {
+            "name": "Grid Settings...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-align"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ObjectAlignMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-align"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-object-align-menu",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-object-align-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-object-align-menu.png",
+        "screenshots/ui-ribbon-chart-format-object-align-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-alt-text",
+      "node_type": "subfeature",
+      "name": "Alt Text",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Opens the Alt Text pane to author accessibility descriptions for the object.",
+      "affects": "the object's accessibility alt text",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Alt Text pane — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the object's accessibility alt text.",
+      "behavior_record": {
+        "effect": "Opens the Alt Text pane — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the object's accessibility alt text.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-alt-text"
+            ]
+          },
+          {
+            "name": "Tell me more",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-alt-text"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, header-edit, picture-selected, shape-selected, smartart-selected, svg-selected; disabled in: equation (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: AltTextPaneRibbon",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-alt-text"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-alt-text-pane-ribbon-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-alt-text-pane-ribbon.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-alt-text-pane-ribbon.png",
+        "screenshots/ui-ribbon-chart-format-alt-text-pane-ribbon-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-group",
+      "node_type": "subfeature",
+      "name": "Group",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Groups multiple objects into one (or ungroups) so they move together.",
+      "affects": "the grouping of the selected objects",
+      "audience_breadth": "niche",
+      "behavior": "enabled in context(s): svg-selected; disabled in: bare, chart-selected, equation, header-edit, in-table, picture-selected, shape-selected, smartart-selected, text-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): svg-selected; disabled in: bare, chart-selected, equation, header-edit, in-table, picture-selected, shape-selected, smartart-selected, text-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ObjectsGroupMenu",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-group"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-objects-group-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-objects-group-menu.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-position",
+      "node_type": "subfeature",
+      "name": "Position",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Places the object at a preset position on the page with text wrapping (gallery).",
+      "affects": "the object's page position",
+      "audience_breadth": "most",
+      "behavior": "Opens the Position dropdown — the surface that presents this capability's options (13 controls enumerated in the structural pass). Applying a choice there changes: the object's page position.",
+      "behavior_record": {
+        "effect": "Opens the Position dropdown — the surface that presents this capability's options (13 controls enumerated in the structural pass). Applying a choice there changes: the object's page position.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "In Line with Text",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Top Left with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Top Center with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Top Right with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Middle Left with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Middle Center with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Middle Right with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Bottom Left with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Bottom Center with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "Position in Bottom Right with Square Text Wrapping",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          },
+          {
+            "name": "More Layout Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-position"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, picture-selected, shape-selected, smartart-selected, svg-selected; disabled in: bare, equation, header-edit, in-table, text-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PicturePositionGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-position"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-picture-position-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-picture-position-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-picture-position-gallery.png",
+        "screenshots/ui-ribbon-chart-format-picture-position-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-reorder",
+      "node_type": "subfeature",
+      "name": "Bring Forward / Send Backward",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Changes the object's z-order relative to other objects and the text (bring forward/to front, send backward/to back — variations of z-order).",
+      "affects": "the object's stacking order",
+      "audience_breadth": "most",
+      "behavior": "Opens the Bring Forward (dropdown) dropdown — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: the object's stacking order.",
+      "behavior_record": {
+        "effect": "Opens the Bring Forward (dropdown) dropdown — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: the object's stacking order.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): shape-selected; disabled in: bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ObjectBringForward",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-reorder"
+        ],
+        "gesture": "executeMso(ObjectBringForward)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-bring-forward-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-send-backward-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:object-bring-forward-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:object-send-backward-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-shape-format-object-bring-forward-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-object-bring-forward.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-object-bring-forward.png",
+        "screenshots/ui-ribbon-shape-format-object-bring-forward-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-rotate",
+      "node_type": "subfeature",
+      "name": "Rotate",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Rotates or flips the object (right 90°, flip horizontal/vertical, more options).",
+      "affects": "the object's rotation",
+      "audience_breadth": "most",
+      "behavior": "Opens the Rotate dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the object's rotation.",
+      "behavior_record": {
+        "effect": "Opens the Rotate dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the object's rotation.",
+        "options": [
+          {
+            "name": "Rotate Right 90°",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-rotate"
+            ]
+          },
+          {
+            "name": "Rotate Left 90°",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-rotate"
+            ]
+          },
+          {
+            "name": "Flip Vertical",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-rotate"
+            ]
+          },
+          {
+            "name": "Flip Horizontal",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-rotate"
+            ]
+          },
+          {
+            "name": "More Rotation Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-rotate"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected, shape-selected, smartart-selected, svg-selected; disabled in: bare, chart-selected, equation, header-edit, in-table, text-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ObjectRotateGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-rotate"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-object-rotate-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-object-rotate-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-object-rotate-gallery.png",
+        "screenshots/ui-ribbon-graphics-format-object-rotate-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-selection-pane",
+      "node_type": "subfeature",
+      "name": "Selection Pane",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Opens the Selection pane listing every object for show/hide/reorder/rename.",
+      "affects": "opens the Selection pane",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Selection Pane... pane — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: opens the Selection pane.",
+      "behavior_record": {
+        "effect": "Opens the Selection Pane... pane — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: opens the Selection pane.",
+        "options": [
+          {
+            "name": "Minimize",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-selection-pane"
+            ]
+          },
+          {
+            "name": "Restore",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-selection-pane"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured); no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: SelectionPane",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-selection-pane"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-selection-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-selection-pane.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-selection-pane.png",
+        "screenshots/ui-ribbon-chart-format-selection-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-text-wrap",
+      "node_type": "subfeature",
+      "name": "Wrap Text",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Sets how document text wraps around the object (in line, square, tight, behind…).",
+      "affects": "how text flows around the object",
+      "audience_breadth": "most",
+      "behavior": "Opens the Wrap Text dropdown — the surface that presents this capability's options (12 controls enumerated in the structural pass). Applying a choice there changes: how text flows around the object.",
+      "behavior_record": {
+        "effect": "Opens the Wrap Text dropdown — the surface that presents this capability's options (12 controls enumerated in the structural pass). Applying a choice there changes: how text flows around the object.",
+        "options": [
+          {
+            "name": "In Line with Text",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Square",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Tight",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Through",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Top and Bottom",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Behind Text",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "In Front of Text",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Edit Wrap Points",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Move with Text",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Fix Position on Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "Set as Default Layout",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          },
+          {
+            "name": "More Layout Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:object-text-wrap"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, picture-selected, shape-selected, smartart-selected, svg-selected; disabled in: bare, equation, header-edit, in-table, text-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: TextWrapGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-text-wrap"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-wrap-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-text-wrap-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-text-wrap-gallery.png",
+        "screenshots/ui-ribbon-chart-format-text-wrap-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

@@ -1,0 +1,534 @@
+{
+  "feature": {
+    "id": "feature:object-size",
+    "node_type": "feature",
+    "name": "Size objects",
+    "what_it_does": "Set the size of any selected drawing object — its height and width, the size/layout dialog, and (for images) cropping.",
+    "affects": "the size of the selected object",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Set the size of any selected drawing object — its height and width, the size/layout dialog, and (for images) cropping. Group controls: subfeature:object-size, subfeature:picture-crop",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      },
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-graphics-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:object-size",
+      "subfeature:picture-crop"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:insert-pictures",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:object-size",
+      "node_type": "subfeature",
+      "name": "Object Size",
+      "parent": "feature:object-size",
+      "what_it_does": "Sets the object's exact height and width (nudge fields) and opens the Layout/Size dialog.",
+      "affects": "the object's height and width",
+      "audience_breadth": "most",
+      "behavior": "Opens the Layout dialog — the surface that presents this capability's options (75 controls enumerated in the structural pass). Applying a choice there changes: the object's height and width.",
+      "behavior_record": {
+        "effect": "Opens the Layout dialog — the surface that presents this capability's options (75 controls enumerated in the structural pass). Applying a choice there changes: the object's height and width.",
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:object-size"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-height"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-width"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-layout-options-dialog-size"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-shape-height"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-shape-width"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-layout-options-dialog-size"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-shape-height"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-shape-width"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-layout-options-dialog-size"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-height"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-width"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-layout-options-dialog-size"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-height"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-width"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-layout-options-dialog-size"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-layout-options-dialog-size-dialog",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-shape-height.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-shape-height.png",
+        "screenshots/ui-ribbon-chart-format-layout-options-dialog-size-dialog/tab-position.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-crop",
+      "node_type": "subfeature",
+      "name": "Crop",
+      "parent": "feature:object-size",
+      "what_it_does": "Crops the image to hide its edges, to a shape, aspect ratio, or fill/fit (menu).",
+      "affects": "the image's visible crop area",
+      "audience_breadth": "most",
+      "behavior": "Opens the Crop dropdown — the surface that presents this capability's options (6 controls enumerated in the structural pass). Applying a choice there changes: the image's visible crop area.",
+      "behavior_record": {
+        "effect": "Opens the Crop dropdown — the surface that presents this capability's options (6 controls enumerated in the structural pass). Applying a choice there changes: the image's visible crop area.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-crop"
+            ]
+          },
+          {
+            "name": "Crop",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-crop"
+            ]
+          },
+          {
+            "name": "Crop to Shape",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-crop"
+            ]
+          },
+          {
+            "name": "Aspect Ratio",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-crop"
+            ]
+          },
+          {
+            "name": "Fill",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-crop"
+            ]
+          },
+          {
+            "name": "Fit",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-crop"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-crop"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-picture-crop"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-picture-crop-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-crop"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-crop-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-picture-crop-dropdown",
+      "location": "ui:ribbon-graphics-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-crop.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-crop.png",
+        "screenshots/ui-ribbon-graphics-format-picture-crop-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

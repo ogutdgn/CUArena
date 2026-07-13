@@ -1,0 +1,1403 @@
+{
+  "feature": {
+    "id": "feature:paragraph",
+    "node_type": "feature",
+    "name": "Paragraph",
+    "what_it_does": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders.",
+    "affects": "the selected paragraphs' formatting and layout",
+    "audience_breadth": "everyone",
+    "cohesion": "capability",
+    "behavior": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders. Group controls: subfeature:bullets-gallery, subfeature:numbering-gallery, subfeature:multilevel-list, subfeature:indent-decrease, subfeature:indent-increase, subfeature:sort, subfeature:paragraph-marks, subfeature:align-left, subfeature:align-center, subfeature:align-right, subfeature:align-justify, subfeature:line-spacing, subfeature:shading-color-picker, subfeature:borders-selection-gallery, subfeature:paragraph-dialog",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:bullets-gallery",
+      "subfeature:numbering-gallery",
+      "subfeature:multilevel-list",
+      "subfeature:indent-decrease",
+      "subfeature:indent-increase",
+      "subfeature:sort",
+      "subfeature:paragraph-marks",
+      "subfeature:align-left",
+      "subfeature:align-center",
+      "subfeature:align-right",
+      "subfeature:align-justify",
+      "subfeature:line-spacing",
+      "subfeature:shading-color-picker",
+      "subfeature:borders-selection-gallery",
+      "subfeature:paragraph-dialog"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:bullets-gallery",
+      "node_type": "subfeature",
+      "name": "Bullets",
+      "parent": "feature:paragraph",
+      "what_it_does": "Starts or toggles a bulleted list on the selected paragraphs; the dropdown is the bullet library.",
+      "affects": "the selected paragraphs' list format",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the selected paragraphs' list format). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selected paragraphs' list format). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: BulletsGalleryWord",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:bullets-gallery"
+        ],
+        "gesture": "executeMso(BulletsGalleryWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:bullets-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:bullets-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:bullets-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-bullets-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-bullets-gallery.png",
+        "screenshots/ui-bullets-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:numbering-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:multilevel-list",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:numbering-gallery",
+      "node_type": "subfeature",
+      "name": "Numbering",
+      "parent": "feature:paragraph",
+      "what_it_does": "Starts or toggles a numbered list on the selected paragraphs; the dropdown is the numbering library.",
+      "affects": "the selected paragraphs' list format",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the selected paragraphs' list format). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the selected paragraphs' list format). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: NumberingGalleryWord",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:numbering-gallery"
+        ],
+        "gesture": "executeMso(NumberingGalleryWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:numbering-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:numbering-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:numbering-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-numbering-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-numbering-gallery.png",
+        "screenshots/ui-numbering-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bullets-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:multilevel-list",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:multilevel-list",
+      "node_type": "subfeature",
+      "name": "Multilevel List",
+      "parent": "feature:paragraph",
+      "what_it_does": "Applies a multi-level (nested) list scheme to the selected paragraphs.",
+      "affects": "the selected paragraphs' multi-level list format",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Multilevel List menu — the surface that presents this capability's options (15 controls enumerated in the structural pass). Applying a choice there changes: the selected paragraphs' multi-level list format.",
+      "behavior_record": {
+        "effect": "Opens the Multilevel List menu — the surface that presents this capability's options (15 controls enumerated in the structural pass). Applying a choice there changes: the selected paragraphs' multi-level list format.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Multilevel List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., Aligned at:  0.25\", Indent at:  0.5\" L2: Numbered, a, b, c, …, ALIGNMENT Left, Number Format: \u0001.a., Aligned at:  0.75\", Indent at:  1\" L3: Numbered, i, ii, iii, …, ALIGNMENT Ri",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "None",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1), Aligned at:  0\", Indent at:  0.25\" L2: Numbered, a, b, c, …, ALIGNMENT Left, Number Format: \u0001)a), Aligned at:  0.25\", Indent at:  0.5\" L3: Numbered, i, ii, iii, …, ALIGNMENT Le",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1., Aligned at:  0\", Indent at:  0.25\" L2: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1.\u0001., Aligned at:  0.25\", Indent at:  0.55\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Bulleted, Four Small Diamonds, Aligned at:  0\", Indent at:  0.25\" L2: Bulleted, Hollow Arrow, Aligned at:  0.25\", Indent at:  0.5\" L3: Bulleted, Solid Square, Aligned at:  0.5\", Indent at:  0.75\" L4: Bulleted, Solid Circle, Aligned a",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Numbered, I, II, III, …, ALIGNMENT Left, Number Format: Article I., Aligned at:  0\", Indent at:  0\" L2: Numbered, 01, 02, 03, …, ALIGNMENT Left, Number Format: Section 01.\u0001, Aligned at:  0\", Indent at:  0\" L3: Numbered, a, b, c, …, A",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1, Aligned at:  0\", Indent at:  0.3\" L2: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: 1.\u0001, Aligned at:  0\", Indent at:  0.4\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left, Numbe",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Numbered, I, II, III, …, ALIGNMENT Left, Number Format: I., Aligned at:  0\", Indent at:  0\" L2: Numbered, A, B, C, …, ALIGNMENT Left, Number Format: \u0001.A., Aligned at:  0.5\", Indent at:  0.5\" L3: Numbered, 1, 2, 3, …, ALIGNMENT Left,",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Outline numbered: L1: Numbered, 1, 2, 3, …, ALIGNMENT Left, Number Format: Chapter 1, Aligned at:  0\", Indent at:  0\" L2: Bulleted, Aligned at:  0\", Indent at:  0\" L3: Bulleted, Aligned at:  0\", Indent at:  0\" L4: Bulleted, Aligned at:  0\", Indent at:  0\"",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Change List Level",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Gallery Filter",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Define New Multilevel List...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          },
+          {
+            "name": "Define New List Style...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:multilevel-list"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: MultilevelListGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:multilevel-list"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:multilevel-list-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:multilevel-list-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-multilevel-list-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-multilevel-list-gallery.png",
+        "screenshots/ui-multilevel-list-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bullets-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:numbering-gallery",
+          "kind": "affects-same",
+          "why": "all apply list formatting to paragraphs",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:indent-decrease",
+      "node_type": "subfeature",
+      "name": "Decrease Indent",
+      "parent": "feature:paragraph",
+      "what_it_does": "Moves the paragraph's left indent one level toward the margin.",
+      "affects": "the paragraph's left indent",
+      "audience_breadth": "most",
+      "behavior": "enabled in every staged context (no object/selection precondition measured)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: IndentDecreaseWord",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:indent-decrease"
+        ],
+        "gesture": "executeMso(IndentDecreaseWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:indent-decrease"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-indent-decrease.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-indent-decrease.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-increase",
+          "kind": "affects-same",
+          "why": "both change the paragraph's left indent",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:indent-increase",
+      "node_type": "subfeature",
+      "name": "Increase Indent",
+      "parent": "feature:paragraph",
+      "what_it_does": "Moves the paragraph's left indent one level away from the margin.",
+      "affects": "the paragraph's left indent",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the paragraph's left indent). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the paragraph's left indent). Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: IndentIncreaseWord",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:indent-increase"
+        ],
+        "gesture": "executeMso(IndentIncreaseWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:indent-increase"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-indent-increase.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-indent-increase.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-decrease",
+          "kind": "affects-same",
+          "why": "both change the paragraph's left indent",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:sort",
+      "node_type": "subfeature",
+      "name": "Sort",
+      "parent": "feature:paragraph",
+      "what_it_does": "Opens the Sort dialog to alphabetically/numerically sort the selected paragraphs, list or table.",
+      "affects": "the order of the selected paragraphs",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:sort-dialog-classic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-layout",
+            "el:ribbon-table-layout-sort-dialog-classic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:sort-dialog",
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-sort-dialog-classic.png",
+        "screenshots/ui-sort-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:paragraph-marks",
+      "node_type": "subfeature",
+      "name": "Show/Hide ¶",
+      "parent": "feature:paragraph",
+      "what_it_does": "Toggles the on-screen display of paragraph marks and other hidden formatting symbols.",
+      "affects": "the view (formatting marks visibility) — not the document",
+      "audience_breadth": "most",
+      "behavior": "enabled in every staged context (no object/selection precondition measured); no pressed state observed (a command, not a toggle)",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured); no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: ParagraphMarks",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:paragraph-marks"
+        ],
+        "gesture": "executeMso(ParagraphMarks)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:paragraph-marks"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+*"
+        }
+      ],
+      "shortcut": "Ctrl+*",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-paragraph-marks.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-paragraph-marks.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-left",
+      "node_type": "subfeature",
+      "name": "Align Left",
+      "parent": "feature:paragraph",
+      "what_it_does": "Aligns the paragraph text to the left margin.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; exposes a pressed/selected state (a toggle or current-selection reflector)",
+        "dynamics": null,
+        "extra": "idMso: AlignLeft",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:align-left"
+        ],
+        "gesture": "executeMso(AlignLeft)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+L"
+        }
+      ],
+      "shortcut": "Ctrl+L",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-left.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-left.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-center",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-right",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-justify",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-center",
+      "node_type": "subfeature",
+      "name": "Center",
+      "parent": "feature:paragraph",
+      "what_it_does": "Centers the paragraph text between the margins.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: AlignCenter",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:align-center"
+        ],
+        "gesture": "executeMso(AlignCenter)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-center"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+E"
+        }
+      ],
+      "shortcut": "Ctrl+E",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-center.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-center.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-left",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-right",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-justify",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-right",
+      "node_type": "subfeature",
+      "name": "Align Right",
+      "parent": "feature:paragraph",
+      "what_it_does": "Aligns the paragraph text to the right margin.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: AlignRight",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:align-right"
+        ],
+        "gesture": "executeMso(AlignRight)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-right"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+R"
+        }
+      ],
+      "shortcut": "Ctrl+R",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-right.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-right.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-left",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-center",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-justify",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:align-justify",
+      "node_type": "subfeature",
+      "name": "Justify",
+      "parent": "feature:paragraph",
+      "what_it_does": "Spaces the paragraph text to align to both left and right margins.",
+      "affects": "the paragraph's alignment",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the paragraph's alignment). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; exposes a pressed/selected state (a toggle or current-selection reflector)",
+        "dynamics": null,
+        "extra": "idMso: AlignJustify",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:align-justify"
+        ],
+        "gesture": "executeMso(AlignJustify)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:align-justify"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+J"
+        }
+      ],
+      "shortcut": "Ctrl+J",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-align-justify.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-align-justify.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:align-left",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-center",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:align-right",
+          "kind": "affects-same",
+          "why": "all set paragraph alignment (mutually exclusive)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:line-spacing",
+      "node_type": "subfeature",
+      "name": "Line and Paragraph Spacing",
+      "parent": "feature:paragraph",
+      "what_it_does": "Sets the spacing between lines and before/after paragraphs.",
+      "affects": "the paragraph's line and spacing",
+      "audience_breadth": "most",
+      "behavior": "Opens the Line and Paragraph Spacing menu — the surface that presents this capability's options (9 controls enumerated in the structural pass). Applying a choice there changes: the paragraph's line and spacing.",
+      "behavior_record": {
+        "effect": "Opens the Line and Paragraph Spacing menu — the surface that presents this capability's options (9 controls enumerated in the structural pass). Applying a choice there changes: the paragraph's line and spacing.",
+        "options": [
+          {
+            "name": "1.0",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "1.15",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "1.5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "2.0",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "2.5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "3.0",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "Add Space Before Paragraph",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "Remove Space After Paragraph",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          },
+          {
+            "name": "Line Spacing Options…",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:line-spacing"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: LineSpacingGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:line-spacing"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:line-spacing-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:line-spacing-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-line-spacing-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-line-spacing-gallery.png",
+        "screenshots/ui-line-spacing-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shading-color-picker",
+      "node_type": "subfeature",
+      "name": "Shading",
+      "parent": "feature:paragraph",
+      "what_it_does": "Fills the background of the selection/paragraph with a color; the dropdown picks the color.",
+      "affects": "the paragraph/selection background shading",
+      "audience_breadth": "most",
+      "behavior": "Opens the Shading (dropdown) dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the paragraph/selection background shading.",
+      "behavior_record": {
+        "effect": "Opens the Shading (dropdown) dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the paragraph/selection background shading.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ShadingColorPicker",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:shading-color-picker"
+        ],
+        "gesture": "executeMso(ShadingColorPicker)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:shading-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:shading-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:shading-color-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-shading-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-shading-color-picker.png",
+        "screenshots/ui-shading-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:text-highlight-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:borders-selection-gallery",
+          "kind": "co-location",
+          "why": "paragraph decoration; both live in the Borders and Shading dialog",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "idmso"
+    },
+    {
+      "id": "subfeature:borders-selection-gallery",
+      "node_type": "subfeature",
+      "name": "Borders",
+      "parent": "feature:paragraph",
+      "what_it_does": "Applies borders to the selection/paragraph; the dropdown lists border options and the Borders and Shading dialog.",
+      "affects": "the paragraph/selection borders",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the selection's formatting (the paragraph/selection borders). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the paragraph/selection borders). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, equation, header-edit, in-table, text-selected; disabled in: chart-selected, picture-selected, shape-selected, smartart-selected, svg-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: BordersSelectionGallery",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:borders-selection-gallery"
+        ],
+        "gesture": "executeMso(BordersSelectionGallery)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:borders-selection-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:borders-selection-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:borders-selection-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-borders-selection-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-borders-selection-gallery.png",
+        "screenshots/ui-borders-selection-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shading-color-picker",
+          "kind": "co-location",
+          "why": "paragraph decoration; both live in the Borders and Shading dialog",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Paragraph dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:paragraph-dialog",
+      "node_type": "subfeature",
+      "name": "Paragraph dialog launcher",
+      "parent": "feature:paragraph",
+      "what_it_does": "Opens the Paragraph dialog — indentation, spacing, alignment and line/page-break options.",
+      "affects": "opens the Paragraph dialog",
+      "audience_breadth": "most",
+      "behavior": "Opens the Paragraph dialog — the surface that presents this capability's options (32 controls enumerated in the structural pass). Applying a choice there changes: opens the Paragraph dialog.",
+      "behavior_record": {
+        "effect": "Opens the Paragraph dialog — the surface that presents this capability's options (32 controls enumerated in the structural pass). Applying a choice there changes: opens the Paragraph dialog.",
+        "options": [
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Alignment:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Outline level:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Collapsed by default",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Left:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Right:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Special:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "By:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Mirror indents",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Before:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "After:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Line spacing:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "At:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Don't add space between paragraphs of the same style",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Tabs...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          },
+          {
+            "name": "Set As Default",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-dialog"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ParagraphDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:paragraph-dialog"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:paragraph-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:paragraph-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:paragraph-dialog",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-paragraph-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-paragraph-dialog.png",
+        "screenshots/ui-paragraph-dialog/tab-indents-and-spacing.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

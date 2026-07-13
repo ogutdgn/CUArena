@@ -1,0 +1,376 @@
+{
+  "entries": {
+    "Alt+=": {
+      "keys": "Alt+=",
+      "bindings": [
+        {
+          "context": "editing text — inserts a math zone at the cursor",
+          "effect": "Inserts an empty math zone at the cursor (measured: OMaths 0→1) and activates the Equation contextual tab; the dropdown offers built-in equations (quadratic formula, area of circle…).",
+          "triggers": "subfeature:equation-insert-gallery",
+          "opens": null,
+          "source": [
+            "docs"
+          ]
+        }
+      ]
+    },
+    "Alt+Ctrl+C": {
+      "keys": "Alt+Ctrl+C",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "copy formatting from the selection",
+          "triggers": "subfeature:format-painter",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Alt+Ctrl+Shift+S": {
+      "keys": "Alt+Ctrl+Shift+S",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "Opens the Styles pane — the full style list with apply/new/inspect/manage controls.",
+          "triggers": null,
+          "opens": "ui:styles-pane",
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Alt+Ctrl+V": {
+      "keys": "Alt+Ctrl+V",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "apply the copied formatting to the selection",
+          "triggers": "subfeature:format-painter",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+*": {
+      "keys": "Ctrl+*",
+      "bindings": [
+        {
+          "context": "document has focus (toggles a view setting)",
+          "effect": "Toggles the on-screen display of paragraph marks and other hidden formatting symbols.",
+          "triggers": "subfeature:paragraph-marks",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+Alt+M": {
+      "keys": "Ctrl+Alt+M",
+      "bindings": [
+        {
+          "context": "text selected or cursor placed (anchors the comment)",
+          "effect": "Creates a pending draft comment anchored at the selection and opens its card (measured: in-frame 'Post comment' button); the comment joins the review thread when posted.",
+          "triggers": "subfeature:insert-new-comment",
+          "opens": null,
+          "source": [
+            "docs"
+          ]
+        }
+      ]
+    },
+    "Ctrl+B": {
+      "keys": "Ctrl+B",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Toggles bold (heavier) weight on the selected text.",
+          "triggers": "subfeature:bold",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+C": {
+      "keys": "Ctrl+C",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "Copies the selection to the clipboard without changing the document.",
+          "triggers": "subfeature:copy",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+D": {
+      "keys": "Ctrl+D",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Opens the Font dialog — the consolidated surface for all character formatting plus advanced options (spacing, ligatures, defaults).",
+          "triggers": null,
+          "opens": "ui:font-dialog",
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+E": {
+      "keys": "Ctrl+E",
+      "bindings": [
+        {
+          "context": "editing text — applies to the current paragraph(s)",
+          "effect": "Centers the paragraph text between the margins.",
+          "triggers": "subfeature:align-center",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+F": {
+      "keys": "Ctrl+F",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "Opens the Navigation pane to search the document for text; the dropdown offers Find, Advanced Find and Go To.",
+          "triggers": null,
+          "opens": "ui:navigation-pane-find-pane",
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+H": {
+      "keys": "Ctrl+H",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "Opens the Find and Replace dialog to substitute text throughout the document.",
+          "triggers": null,
+          "opens": "ui:replace-dialog",
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+I": {
+      "keys": "Ctrl+I",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Toggles italic (slanted) style on the selected text.",
+          "triggers": "subfeature:italic",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+J": {
+      "keys": "Ctrl+J",
+      "bindings": [
+        {
+          "context": "editing text — applies to the current paragraph(s)",
+          "effect": "Spaces the paragraph text to align to both left and right margins.",
+          "triggers": "subfeature:align-justify",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+K": {
+      "keys": "Ctrl+K",
+      "bindings": [
+        {
+          "context": "text or object selected (the link wraps the selection)",
+          "effect": "Opens the Insert Hyperlink dialog to link the selection to webpages, files, headings or email addresses; the dropdown lists recent items.",
+          "triggers": null,
+          "opens": "ui:insert-link-dialog",
+          "source": [
+            "docs"
+          ]
+        }
+      ]
+    },
+    "Ctrl+L": {
+      "keys": "Ctrl+L",
+      "bindings": [
+        {
+          "context": "editing text — applies to the current paragraph(s)",
+          "effect": "Aligns the paragraph text to the left margin.",
+          "triggers": "subfeature:align-left",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+R": {
+      "keys": "Ctrl+R",
+      "bindings": [
+        {
+          "context": "editing text — applies to the current paragraph(s)",
+          "effect": "Aligns the paragraph text to the right margin.",
+          "triggers": "subfeature:align-right",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+Return": {
+      "keys": "Ctrl+Return",
+      "bindings": [
+        {
+          "context": "editing text — inserts at the cursor position",
+          "effect": "Ends the current page at the cursor and continues content on the next page (measured: doc + format delta).",
+          "triggers": "subfeature:page-break-insert",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+Shift++": {
+      "keys": "Ctrl+Shift++",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Places the selected text slightly above the baseline in a smaller size.",
+          "triggers": "subfeature:superscript",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+Shift+<": {
+      "keys": "Ctrl+Shift+<",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Decreases the font size of the selection to the previous step.",
+          "triggers": "subfeature:font-size-decrease",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+Shift+>": {
+      "keys": "Ctrl+Shift+>",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Increases the font size of the selection to the next step.",
+          "triggers": "subfeature:font-size-increase",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+Shift+_": {
+      "keys": "Ctrl+Shift+_",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Places the selected text slightly below the baseline in a smaller size.",
+          "triggers": "subfeature:subscript",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+U": {
+      "keys": "Ctrl+U",
+      "bindings": [
+        {
+          "context": "editing text — applies to the selection or at the cursor",
+          "effect": "Toggles an underline on the selected text; the dropdown picks the underline style and color.",
+          "triggers": "subfeature:underline-gallery",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+V": {
+      "keys": "Ctrl+V",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "Inserts the clipboard's content at the cursor; the dropdown offers paste-special options (keep formatting, merge, text only, picture).",
+          "triggers": "subfeature:paste",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    },
+    "Ctrl+X": {
+      "keys": "Ctrl+X",
+      "bindings": [
+        {
+          "context": "document has focus",
+          "effect": "Removes the selection from the document and places it on the clipboard.",
+          "triggers": "subfeature:cut",
+          "opens": null,
+          "source": [
+            "uia-accelerator",
+            "tooltip"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,379 @@
+{
+  "feature": {
+    "id": "feature:pages",
+    "node_type": "feature",
+    "name": "Pages",
+    "what_it_does": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks.",
+    "affects": "the document's page structure and flow",
+    "audience_breadth": "most",
+    "cohesion": "catalog",
+    "behavior": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks. Group controls: subfeature:cover-page-insert, subfeature:blank-page-insert, subfeature:page-break-insert",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:cover-page-insert",
+      "subfeature:blank-page-insert",
+      "subfeature:page-break-insert"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:cover-page-insert",
+      "node_type": "subfeature",
+      "name": "Cover Page",
+      "parent": "feature:pages",
+      "what_it_does": "Inserts a preformatted, styled cover page (title/subtitle/date placeholders) at the start of the document, chosen from a gallery of designs.",
+      "affects": "document content (adds a formatted first page)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Cover Page dropdown — the surface that presents this capability's options (20 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a formatted first page).",
+      "behavior_record": {
+        "effect": "Opens the Cover Page dropdown — the surface that presents this capability's options (20 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a formatted first page).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Position",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Austin",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Banded",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Facet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Filigree",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Grid",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Integral",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Ion (Dark)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Ion (Light)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Motion",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Retrospect",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Semaphore",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Sideline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "More Cover Pages from Office.com",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Remove Current Cover Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          },
+          {
+            "name": "Save Selection to Cover Page Gallery...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cover-page-insert"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: CoverPageInsertGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:cover-page-insert"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:cover-page-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:cover-page-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-cover-page-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-cover-page-insert-gallery.png",
+        "screenshots/ui-cover-page-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:blank-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-break-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:quick-parts-insert",
+          "kind": "co-location",
+          "why": "cover pages are building blocks from the same gallery system",
+          "source": "inference"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:blank-page-insert",
+      "node_type": "subfeature",
+      "name": "Blank Page",
+      "parent": "feature:pages",
+      "what_it_does": "Inserts an empty page at the cursor position (measured: two page breaks around a new empty page).",
+      "affects": "document content (page flow)",
+      "audience_breadth": "most",
+      "behavior": "Running it changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: header-edit, shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: BlankPageInsert",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:blank-page-insert"
+        ],
+        "gesture": "executeMso(BlankPageInsert)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:blank-page-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-blank-page-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-blank-page-insert.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:cover-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-break-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-break-insert",
+      "node_type": "subfeature",
+      "name": "Page Break",
+      "parent": "feature:pages",
+      "what_it_does": "Ends the current page at the cursor and continues content on the next page (measured: doc + format delta).",
+      "affects": "document content (page flow)",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (document content (page flow)); changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (document content (page flow)); changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: header-edit, shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PageBreakInsertWord",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:page-break-insert"
+        ],
+        "gesture": "executeMso(PageBreakInsertWord)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:page-break-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Return"
+        }
+      ],
+      "shortcut": "Ctrl+Return",
+      "opens": null,
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-page-break-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-page-break-insert.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:cover-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:blank-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

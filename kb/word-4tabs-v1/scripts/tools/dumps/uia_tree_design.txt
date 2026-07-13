@@ -1,0 +1,117 @@
+Window       'scratch-20260713-014322-23772 - Word'
+  Pane         'DropShadowTop'  {DISABLED}
+  Pane         'MsoDockTop'
+    ToolBar      ''
+      Pane         'Ribbon'
+        Pane         ''
+          Pane         ''
+            Pane         'Ribbon'
+              ToolBar      'Quick Access Toolbar'
+                Button       'AutoSave' [AutoSaveSwitch]  {keytip=Alt, 1}
+                Button       'Save' [FileSave]  {acc=Ctrl+S, keytip=Alt, 2}
+                SplitButton  'Can't Undo' [Undo]  {keytip=Alt, 3, DISABLED}
+                  Button       'Can't Undo'  {DISABLED}
+                  MenuItem     'More Options' [Undo_Dropdown]  {keytip=Alt, 3, DISABLED}
+                Button       'Can't Repeat' [RedoOrRepeat]  {acc=Ctrl+Y, keytip=Alt, 4, DISABLED}
+                MenuItem     'Customize Quick Access Toolbar'
+              TitleBar     '‪scratch-20260713-014322-23772‬  -  Save…'
+                MenuItem     '‪scratch-20260713-014322-23772‬  -  Save…'  {keytip=Alt, B}
+              MenuItem     'Type to search and use the up and down a…' [TellMeControlAnchor]  {keytip=Alt, Q}
+                Edit         'Microsoft search' [TellMeTextBoxAutomationId]  {keytip=Alt, Q}
+              Button       'Upgrade your plan'  {keytip=Alt, U}
+              MenuItem     'Dogan Ogut' [MeControlWidget]  {keytip=Alt, Z P}
+              Button       'Minimize'
+              Button       'Restore Down'
+              Button       'Close'
+              Button       'File Tab' [FileTabButton]  {keytip=Alt, F}
+              Tab          'Ribbon Tabs'
+                TabItem      'Home' [TabHome]  {keytip=Alt, H}
+                TabItem      'Insert' [TabInsert]  {keytip=Alt, N}
+                TabItem      'Design' [TabWordDesign]  {keytip=Alt, G}
+                TabItem      'Layout' [TabPageLayoutWord]  {keytip=Alt, P}
+                TabItem      'References' [TabReferences]  {keytip=Alt, S}
+                TabItem      'Mailings' [TabMailings]  {keytip=Alt, M}
+                TabItem      'Review' [TabReviewWord]  {keytip=Alt, R}
+                TabItem      'View' [TabView]  {keytip=Alt, W}
+                TabItem      'Help' [HelpTab]  {keytip=Alt, Y 1}
+                TabItem      'Acrobat'  {keytip=Alt, Y 2}
+                Button       'Comments'  {keytip=Alt, Z C}
+                ComboBox     'Editing'  {keytip=Alt, Z M}
+                MenuItem     'Share'  {keytip=Alt, Z S}
+              Pane         'Lower Ribbon'
+                Group        'Design'  {keytip=Alt, G}
+                  Group        'Document Formatting'  {keytip=Alt, G, Z 1}
+                    MenuItem     'Themes' [ThemesGallery]  {keytip=Alt, G, T H}
+                    Group        'Style Set'  {keytip=Alt, G, S}
+                      MenuItem     '' [QuickStylesSets]
+                        Pane         'Style Set'
+                          DataGrid     'Style Set'
+                            ListItem     'Document'
+                            ListItem     'Basic (Elegant)'
+                            ListItem     'Basic (Simple)'
+                            ListItem     'Basic (Stylish)'
+                            ListItem     'Black & White (Capitalized)'
+                            ListItem     'Black & White (Classic)'
+                            ListItem     'Black & White (Numbered)'
+                            ListItem     'Black & White (Word 2013)'
+                            ListItem     'Casual'
+                            ListItem     'Centered'
+                            ListItem     'Lines (Distinctive)'
+                            ListItem     'Lines (Simple)'
+                            ListItem     'Lines (Stylish)'
+                            ListItem     'Minimalist'
+                            ListItem     'Shaded'
+                            ListItem     'Word'
+                            ListItem     'Word 2003'
+                            ListItem     'Word 2010'
+                            ListItem     'Word 2013'
+                        Button       'Style Set'  {keytip=Alt, G, S}
+                          Image        ''
+                    MenuItem     'Colors' [ThemeColorsGallery]  {keytip=Alt, G, T C}
+                    MenuItem     'Fonts' [ThemeFontsGallery]  {keytip=Alt, G, T F}
+                    MenuItem     'Paragraph Spacing' [ParagraphSpacing]  {keytip=Alt, G, P S}
+                    MenuItem     'Effects' [ThemeEffectsGallery]  {keytip=Alt, G, T E}
+                    Button       'Set as Default' [QuickStylesSetAsDefault]  {keytip=Alt, G, D}
+                  Group        'Page Background'  {keytip=Alt, G, Z B}
+                    MenuItem     'Watermark' [WatermarkGallery]  {keytip=Alt, G, P W}
+                    MenuItem     'Page Color' [PageColorPicker]  {keytip=Alt, G, P C}
+                    Button       'Page Borders...' [PageBorderAndShadingDialog]  {keytip=Alt, G, P B}
+              MenuItem     'Ribbon Display Options'  {keytip=Alt, Z R}
+  Pane         'MsoDockBottom'
+    ToolBar      ''
+      Pane         'Status Bar'
+        Pane         ''
+          Pane         ''
+            StatusBar    'Status Bar'
+              Button       'Page Number Page 1 of 1'
+              Text         'Word Count 0 words'
+              Button       'Coauthoring Mode '
+              Button       'Language English (United States)'
+              Button       'Text Predictions Text Predictions: On'
+              Button       'Accessibility Checker Accessibility: Goo…'
+              Button       'Focus '
+              Button       'Read Mode'
+              Button       'Print Layout'
+              Button       'Web Layout'
+              Button       'Zoom Out (Ctrl -)'
+              Slider       'Zoom'
+                Button       'Zoom Out'
+                Thumb        'Position'
+                Button       'Zoom In'
+              Button       'Zoom In (Ctrl +)'
+              Button       'Zoom 100%'
+  Pane         ''
+    Pane         'scratch-20260713-014322-23772'
+      Document     'scratch-20260713-014322-23772'
+        Pane         ''
+          Group        ''
+            Button       'Copilot Chat' [dynamicActionButton]
+      Pane         'Vertical'
+        Pane         ''
+          ScrollBar    ''
+  TitleBar     ''
+    MenuBar      'System' [MenuBar]
+      MenuItem     'System'  {keytip=Space}
+    Button       'Minimize'
+    Button       'Restore'
+    Button       'Close'

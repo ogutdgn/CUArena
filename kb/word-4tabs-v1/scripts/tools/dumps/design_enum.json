@@ -1,0 +1,242 @@
+{
+  "tab": "Design",
+  "groups": [
+    {
+      "group": "Document Formatting",
+      "group_keytip": "Alt, G, Z 1",
+      "controls": [
+        {
+          "name": "Themes",
+          "automation_id": "ThemesGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            20,
+            82,
+            67,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Pick a new theme to give your document instant style and just the right personality.\n\nEach theme uses a unique set of colors, fonts and effects to create a consistent look and feel.",
+          "access_key": "Alt, G, T H",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "",
+          "automation_id": "QuickStylesSets",
+          "control_type": "MenuItem",
+          "rect": [
+            69,
+            90,
+            1468,
+            150
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Quickly change the look of your document by picking a new Style Set.\n\nStyle Sets change the font and paragraph properties of your entire document. To see the full effect of changing the Style Set, use the Styles available on the Home tab.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": true
+        },
+        {
+          "name": "Colors",
+          "automation_id": "ThemeColorsGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1470,
+            82,
+            1512,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Quickly change all the colors used in your document by picking a different color palette.\n\nThis will update the colors available to you in the color picker along with any theme colors in your document. No matter what palette you choose, your document will look perfectly coordinated.",
+          "access_key": "Alt, G, T C",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Fonts",
+          "automation_id": "ThemeFontsGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1514,
+            82,
+            1556,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Quickly change the text in your document by picking a new font set.\n\nThis is an easy way to change all of your text at once. For this to work, your text must be formatted using the 'body' and 'heading' fonts.",
+          "access_key": "Alt, G, T F",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Paragraph Spacing",
+          "automation_id": "ParagraphSpacing",
+          "control_type": "MenuItem",
+          "rect": [
+            1558,
+            82,
+            1701,
+            106
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Quickly change the line and paragraph spacing of your document.\n\nThis option will change the spacing of your entire document including new paragraphs. You can choose between predefined values or specify your own.",
+          "access_key": "Alt, G, P S",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Effects",
+          "automation_id": "ThemeEffectsGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1558,
+            108,
+            1637,
+            132
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Quickly change the general look of objects in your document.\n\nEach option uses various borders and visual effects, such as shading and shadow, to give your objects a different look.",
+          "access_key": "Alt, G, T E",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Set as Default",
+          "automation_id": "QuickStylesSetAsDefault",
+          "control_type": "Button",
+          "rect": [
+            1558,
+            134,
+            1662,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Use this look for all new documents.\n\nSave your current settings so that every time you create a blank document it will be formatted just the way you like. This is perfect if you have a favorite font or always want specific paragraph spacing.",
+          "access_key": "Alt, G, D",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Page Background",
+      "group_keytip": "Alt, G, Z B",
+      "controls": [
+        {
+          "name": "Watermark",
+          "automation_id": "WatermarkGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            1717,
+            82,
+            1780,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add ghost text, such as \"confidential\" or \"urgent\" behind the content on the page.\n\nThe faint watermark is a great way to show that the document requires special treatment without distracting from the content.",
+          "access_key": "Alt, G, P W",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Page Color",
+          "automation_id": "PageColorPicker",
+          "control_type": "MenuItem",
+          "rect": [
+            1782,
+            82,
+            1827,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add a splash of color to your document by changing the color of the page.",
+          "access_key": "Alt, G, P C",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Page Borders...",
+          "automation_id": "PageBorderAndShadingDialog",
+          "control_type": "Button",
+          "rect": [
+            1829,
+            82,
+            1874,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add or change the border around the page.\n\nA border draws focus and adds a stylish touch to your document. You can create a border using a variety of line styles, widths and colors, or choose an art border with a fun theme.",
+          "access_key": "Alt, G, P B",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    }
+  ],
+  "control_count": 10
+}

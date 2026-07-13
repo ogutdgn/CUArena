@@ -67,7 +67,12 @@ def build_graph(kb_root: Path, app: str) -> dict:
                         # and did the run address them?
                         "scroll_trace": any((ch.label or "").strip().lower() in _SCROLLBAR_LABELS
                                             for ch in c.children),
-                        "scrolled_to_end": c.scrolled_to_end}
+                        "scrolled_to_end": c.scrolled_to_end,
+                        # R2.5 gallery check inputs: per-element (id, label, marker) + id set
+                        "element_ids": [ch.id for ch in c.children if ch.id],
+                        "elements": [(ch.id, ch.label,
+                                      "triggers" if ch.triggers else ("opens" if ch.opens else "unexplored"))
+                                     for ch in c.children]}
                   for cid, c in ui.containers.items()}
 
     return {"app": app, "nodes": nodes, "edges": edges, "containers": containers,
@@ -89,10 +94,13 @@ def _differs(actual: dict, default: dict) -> bool:
     return any(abs(float(actual[k]) - float(default[k])) > 1e-9 for k in default)
 
 
-# Scrollbar-part labels — used to detect scroll traces on a container (R2.8).
+# Scrollbar-part labels — used to detect scroll traces on a container (R2.8). Deliberately
+# specific: bare "horizontal"/"vertical" are excluded because they are common CONTENT labels
+# (a Text Direction dialog's "Horizontal" radio is not a scrollbar) — a scrollbar always shows
+# the line/page steppers plus "position", so those are the reliable signal.
 _SCROLLBAR_LABELS = {
     "line up", "line down", "page up", "page down", "line left", "line right",
-    "page left", "page right", "position", "vertical", "horizontal",
+    "page left", "page right", "position",
     "vertical scrollbar", "horizontal scrollbar",
 }
 
@@ -151,6 +159,21 @@ def check_completeness(graph: dict) -> list[str]:
         for nid in graph["nodes"]:
             if nid not in ranked:
                 problems.append(f"node {nid} is in no priority layer (unranked — silent gap)")
+
+    # in-ribbon gallery contract (playbook R2.5): on a TAB surface, a gallery-named element
+    # closed as an endpoint with no expand twin is the classification lie that survived two
+    # runs. Tab-scope keeps noise out (menu commands named "...Gallery" live inside menus).
+    for cid, c in graph["containers"].items():
+        if c.get("kind") != "tab":
+            continue
+        ids = set(c.get("element_ids") or [])
+        for eid, label, marker in (c.get("elements") or []):
+            name = (eid or label or "").lower()
+            if "gallery" not in name or marker != "triggers":
+                continue
+            if f"{eid}-dropdown" in ids or f"{eid}-expand" in ids:
+                continue
+            problems.append(f"tab {cid} closes in-ribbon gallery '{eid or label}' as an endpoint with no expand element (R2.5)")
 
     # scroll completeness (playbook R2.8): gated on the run being rule-aware (any container
     # carries scrolled_to_end). A scroll-traced explored container must have addressed the

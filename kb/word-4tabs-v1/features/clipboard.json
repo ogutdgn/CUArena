@@ -1,0 +1,562 @@
+{
+  "feature": {
+    "id": "feature:clipboard",
+    "node_type": "feature",
+    "name": "Clipboard",
+    "what_it_does": "Move and duplicate content and formatting via the clipboard.",
+    "affects": "document content and the Office clipboard",
+    "audience_breadth": "everyone",
+    "cohesion": "capability",
+    "behavior": "Move and duplicate content and formatting via the clipboard. Group controls: subfeature:paste, subfeature:cut, subfeature:copy, subfeature:format-painter, subfeature:office-clipboard",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:paste",
+      "subfeature:cut",
+      "subfeature:copy",
+      "subfeature:format-painter",
+      "subfeature:office-clipboard"
+    ],
+    "connections": [
+      {
+        "target": "feature:font",
+        "kind": "affects-same",
+        "why": "pasted content carries formatting",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:paste",
+      "node_type": "subfeature",
+      "name": "Paste",
+      "parent": "feature:clipboard",
+      "what_it_does": "Inserts the clipboard's content at the cursor; the dropdown offers paste-special options (keep formatting, merge, text only, picture).",
+      "affects": "document content",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the selection's formatting (document content); changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (document content); changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: Paste",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:paste"
+        ],
+        "gesture": "executeMso(Paste)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:paste"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:paste-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+V"
+        }
+      ],
+      "shortcut": "Ctrl+V",
+      "opens": "ui:paste-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-paste.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-paste.png",
+        "screenshots/ui-paste-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:cut",
+          "kind": "affects-same",
+          "why": "operate together through the clipboard",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:copy",
+          "kind": "affects-same",
+          "why": "operate together through the clipboard",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:copy",
+          "kind": "requires",
+          "why": "Paste is empty-handed without something cut/copied to the clipboard (measured: clipboard had to be armed for the paste probe)",
+          "source": "dependency"
+        },
+        {
+          "target": "subfeature:insert-pictures",
+          "kind": "affects-same",
+          "why": "pasted images land as the same picture objects",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:cut",
+      "node_type": "subfeature",
+      "name": "Cut",
+      "parent": "feature:clipboard",
+      "what_it_does": "Removes the selection from the document and places it on the clipboard.",
+      "affects": "document content + clipboard",
+      "audience_breadth": "everyone",
+      "behavior": "Running it changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+      "behavior_record": {
+        "effect": "Running it changes the document text/content. Measured as a command: a second press repeats/keeps the change rather than reverting it.",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): chart-selected, equation, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: bare, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: Cut",
+        "pending": [
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:cut"
+        ],
+        "gesture": "executeMso (re-measure, structure-aware)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:cut"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+X"
+        }
+      ],
+      "shortcut": "Ctrl+X",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-cut.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-cut.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:copy",
+          "kind": "affects-same",
+          "why": "operate together through the clipboard",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paste",
+          "kind": "affects-same",
+          "why": "operate together through the clipboard",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:copy",
+      "node_type": "subfeature",
+      "name": "Copy",
+      "parent": "feature:clipboard",
+      "what_it_does": "Copies the selection to the clipboard without changing the document.",
+      "affects": "the Office clipboard",
+      "audience_breadth": "everyone",
+      "behavior": "enabled in context(s): chart-selected, equation, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: bare, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, equation, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: bare, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: Copy",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:copy"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:copy"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+C"
+        }
+      ],
+      "shortcut": "Ctrl+C",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-copy.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-copy.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:cut",
+          "kind": "affects-same",
+          "why": "operate together through the clipboard",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paste",
+          "kind": "affects-same",
+          "why": "operate together through the clipboard",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "idmso"
+    },
+    {
+      "id": "subfeature:format-painter",
+      "node_type": "subfeature",
+      "name": "Format Painter",
+      "parent": "feature:clipboard",
+      "what_it_does": "Copies formatting from the selection to reapply to the next thing you click.",
+      "affects": "the formatting of the next selection",
+      "audience_breadth": "most",
+      "behavior": "enabled in context(s): bare, equation, header-edit, in-table, picture-selected, shape-selected, svg-selected, text-selected; disabled in: chart-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, equation, header-edit, in-table, picture-selected, shape-selected, svg-selected, text-selected; disabled in: chart-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: FormatPainter",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:format-painter"
+        ],
+        "gesture": "executeMso(FormatPainter)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:format-painter"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Alt+Ctrl+C, Alt+Ctrl+V"
+        }
+      ],
+      "shortcut": "Alt+Ctrl+C, Alt+Ctrl+V",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-format-painter.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-format-painter.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "affects-same",
+          "why": "copies character formatting to reapply",
+          "source": "observed"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "affects-same",
+          "why": "copies paragraph formatting to reapply",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "idmso"
+    },
+    {
+      "id": "subfeature:office-clipboard",
+      "node_type": "subfeature",
+      "name": "Office Clipboard",
+      "parent": "feature:clipboard",
+      "what_it_does": "Opens the Office Clipboard pane showing the last 24 copied items for reuse.",
+      "affects": "opens the Clipboard task pane",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Office Clipboard... pane — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: opens the Clipboard task pane.",
+      "behavior_record": {
+        "effect": "Opens the Office Clipboard... pane — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: opens the Clipboard task pane.",
+        "options": [
+          {
+            "name": "Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Font Size",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Close pane",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Paste All",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Clear All",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "AutoSave",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Save",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Undo Setup Margins",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Repeat Custom Paragraph Spacing",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "File Tab",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Paste",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Cut",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Copy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Format Painter",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Office Clipboard...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Open",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Grow Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Shrink Font",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Bold",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Italic",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Underline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Strikethrough",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Subscript",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          },
+          {
+            "name": "Superscript",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:office-clipboard"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ShowClipboard",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:office-clipboard"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:show-clipboard"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:show-clipboard-pane",
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-show-clipboard.png",
+        "screenshots/ui-show-clipboard-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

@@ -1,0 +1,520 @@
+{
+  "feature": {
+    "id": "feature:wordart-text-styles",
+    "node_type": "feature",
+    "name": "Text (WordArt) styles",
+    "what_it_does": "Apply WordArt-style fill, outline and effects to the text inside a selected drawing object.",
+    "affects": "the decorative styling of text inside the selected object",
+    "audience_breadth": "niche",
+    "cohesion": "capability",
+    "behavior": "Apply WordArt-style fill, outline and effects to the text inside a selected drawing object.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:wordart-text-effects",
+      "subfeature:wordart-text-fill",
+      "subfeature:wordart-text-outline",
+      "subfeature:wordart-text-style-gallery"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:shapes-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:wordart-text-effects",
+      "node_type": "subfeature",
+      "name": "Text Effects",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Applies shadow/reflection/glow/3D/transform effects to the object's text, incl. the Format Text Effects dialog.",
+      "affects": "the effects on text inside the object",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Text Effects dropdown — the surface that presents this capability's options (6 controls enumerated in the structural pass). Applying a choice there changes: the effects on text inside the object.",
+      "behavior_record": {
+        "effect": "Opens the Text Effects dropdown — the surface that presents this capability's options (6 controls enumerated in the structural pass). Applying a choice there changes: the effects on text inside the object.",
+        "options": [
+          {
+            "name": "Bevel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:wordart-text-effects"
+            ]
+          },
+          {
+            "name": "3-D Rotation",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:wordart-text-effects"
+            ]
+          },
+          {
+            "name": "Transform",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:wordart-text-effects"
+            ]
+          },
+          {
+            "name": "Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:wordart-text-effects"
+            ]
+          },
+          {
+            "name": "Reflection",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:wordart-text-effects"
+            ]
+          },
+          {
+            "name": "Glow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:wordart-text-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, header-edit, smartart-selected; disabled in: equation, shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: WordArtFormatDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:wordart-text-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-word-art-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-word-art-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-word-art-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-effects-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-effects-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-effects-menu.png",
+        "screenshots/ui-ribbon-chart-format-text-effects-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:wordart-text-fill",
+      "node_type": "subfeature",
+      "name": "Text Fill",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Sets the fill color/gradient of the object's text (options in the picker).",
+      "affects": "the fill of text inside the object",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Text Fill (dropdown) dropdown — the surface that presents this capability's options (9 controls enumerated in the structural pass). Applying a choice there changes: the fill of text inside the object.",
+      "behavior_record": {
+        "effect": "Opens the Text Fill (dropdown) dropdown — the surface that presents this capability's options (9 controls enumerated in the structural pass). Applying a choice there changes: the fill of text inside the object.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, equation, header-edit, smartart-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: TextFillColorPicker",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:wordart-text-fill"
+        ],
+        "gesture": "executeMso(TextFillColorPicker)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-fill-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-fill-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-fill-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-text-fill-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:wordart-text-outline",
+      "node_type": "subfeature",
+      "name": "Text Outline",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Sets the outline of the object's text (options in the picker).",
+      "affects": "the outline of text inside the object",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-outline-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-outline-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-text-outline-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:wordart-text-style-gallery",
+      "node_type": "subfeature",
+      "name": "WordArt Styles gallery",
+      "parent": "feature:wordart-text-styles",
+      "what_it_does": "Applies a preset WordArt style to the text inside the object from the gallery.",
+      "affects": "the decorative style of text inside the object",
+      "audience_breadth": "niche",
+      "behavior": "enabled in context(s): chart-selected, equation, header-edit, smartart-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Fill: Black, Text color 1; Shadow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Dark Teal, Accent color 1; Shadow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Orange, Accent color 2; Outline: Orange, Accent color 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: White; Outline: Plum, Accent color 5; Shadow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Turquoise, Accent color 4; Soft Bevel",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Gradient Fill, Gray",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Gradient Fill: Plum, Accent color 5; Reflection",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Gradient Fill: Turquoise, Accent color 4; Outline: Turquoise, Accent color 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: White; Outline: Dark Teal, Accent color 1; Glow: Dark Teal, Accent color 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Dark Green, Accent color 3; Sharp Bevel",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: White, Background color 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Black, Text color 1; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Plum, Accent color 5; Outline: White, Background color 1; Hard Shadow: Plum, Accent color 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: White; Outline: Orange, Accent color 2; Hard Shadow: Orange, Accent color 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          },
+          {
+            "name": "Fill: Light Gray, Background color 2; Inner Shadow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-123049-repair-galleries"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, equation, header-edit, smartart-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: TextStylesGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:wordart-text-style-gallery",
+          "journal:run-20260713-123049-repair-galleries"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-text-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

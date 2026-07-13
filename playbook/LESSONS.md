@@ -212,6 +212,109 @@ failure families the structural checks could not see: **lies told at classificat
     `scrolled_to_end: true` (exhausted) or `false` + journaled honest partial ("23 of ~317").
     Screenshots follow the scroll as an ordered SERIES covering the whole content.
 
+## 2026-07-13 — MS Word / HOME + INSERT + DESIGN + LAYOUT (word-4tabs-v1, full run)
+
+Scope: HOME + INSERT + DESIGN + LAYOUT ribbon tabs + all contextual tabs/surfaces they summon.
+Output: `kb/word-4tabs-v1/`. Result: DoD PASS, `graph_builder.generate()` CLEAN (0 problems).
+38 features, 194 sub-features, 408 UI containers (374 explored / 34 P4-outline), 25 shortcut
+keys; P0–P3 depth set = 149 sub-features at full transitive depth; 149 evidenced BehaviorRecords.
+Build 16.0.20131 (same as v2 — tool code reused via `common.py` re-bind, every marker
+re-measured live).
+
+- **WIN (the new ground — DESIGN + LAYOUT):** the two always-present tabs integrated cleanly.
+  Document Formatting (capability) + Page Background (catalog) on Design; Page Setup + Paragraph
+  (capability) on Layout. The Layout **Arrange** group is object-gated (disabled on bare text) —
+  it is the SHARED `feature:object-arrange` machinery, folded in by measuring it with a shape
+  selected (`run_step3_layout_arrange`) and mapping the controls as extra trigger paths into the
+  same object-arrange subs the contextual object-format tabs feed. `page-margins` ranked P1,
+  `orientation`/`breaks` P2 — the everyday page-setup levers surface correctly.
+
+- **SYMPTOM:** the current kernel (post-`R5.4`-element-check, P0–**P3** depth set) is STRICTER
+  than the one v2 shipped CLEAN against — `graph_builder.generate('word-home-insert-v2')` now
+  reports 57 R5.4 gaps. So "v2 was CLEAN" is not a free pass; a new run is held to the current
+  kernel.
+  - **ROOT CAUSE:** R5.4 flags every non-chrome `unexplored` element and every `explored:false`
+    stub reachable from any P0–P3 node (not just P0–P2). Deep nested option-dialog openers
+    ("More Fill Colors…", "3-D Options…", "Convert Text to Table…") the transitive walk left
+    deferred all became gaps.
+  - **RULE NOW (applied, honest):** resolve them three ways — (1) seen-set: an opener whose
+    dialog was captured elsewhere resolves to `opens` that shared container (Colors dialog,
+    Format-Object pane, Borders&Shading); (2) genuine BOUNDARIES (global Word Options,
+    Stock/Online pictures, Copilot, nth-level format sub-panes of P2–P3 features) get the
+    LESSONS 2026-07-10 mode/action pattern — `opens` a per-opener stub that is `explored:true`
+    with ONE honest child that `triggers` the owner and NOTES the boundary (never an
+    `unexplored` child, which R5.4 re-flags); (3) commit buttons ("Apply") → `triggers` owner.
+    This is a **priority-bounded depth boundary**, defensible per the design (depth is bought
+    with priority), but it IS a deliberate scoping choice — a fuller run would drive each deep
+    option pane. Reconcilers: `reconcile_depth` / `reconcile_options` / `reconcile_final`.
+
+- **SYMPTOM:** the depth walk hung on tab activation after entering the Insert-Pictures flyout
+  ("This Device…" = OS file dialog, "Generate an Image…" = Copilot) — 40 later targets failed
+  `tab-activate` because a stuck surface blocked the ribbon and the retry only re-attached the
+  UIA wrapper.
+  - **RULE NOW:** the tab-activate retry does a HARD win32-only reset first —
+    `_force_close_nonframe` closes every non-frame top-level window (no COM, the point is to
+    unblock a COM the modal is holding), waits for COM to answer, re-resolves the frame hwnd,
+    then re-attaches. Add "generate an image"/"copilot" to the network-boundary hints so the
+    walk never enters those. (`run_step5_enter` retry block.)
+
+- **SYMPTOM:** the header/footer contextual tab would not appear — `sel_header()` did
+  `Headers(1).Range.Select()`, which moves the selection into the header story but does NOT
+  switch the window into header-edit MODE, so no tab, and the UIA tab-strip read empty.
+  - **RULE NOW:** enter header/footer editing via `View.SeekView = 9` (wdSeekCurrentPageHeader),
+    exit with `= 0`; a Range.Select() alone is not the trigger. (toolbox/com.md 2026-07-13.)
+
+- **SYMPTOM (Step 6):** the first behavior sweep measured only 21/66 command effects — the
+  generic fingerprints (tables.Count, format_sig) miss TABLE STRUCTURE changes (a merged/added
+  cell/row/column leaves tables.Count = 1) and clipboard/draft effects.
+  - **RULE NOW:** the enablement matrix (`GetEnabledMso` across 10 staged contexts) is the
+    reliable BULK channel — it gave state_rules + `requires` for all 136 idMso-resolved nodes in
+    one hang-free sweep (e.g. merge-cells "enabled in-table only"). For EFFECT, `ExecuteMso` +
+    a delta on the strongest channel works, but the channel must match the feature: a
+    STRUCTURE-aware fingerprint (`Tables(1).Rows/Columns/Range.Cells.Count`) for table ops, the
+    doc-text hash for Cut, format_sig for Highlight — re-measured in `run_step6_remeasure`.
+    Clipboard-only (Copy) and pending-draft (InsertNewComment) effects are genuinely
+    unobservable on any offline channel → honest `pending`, never guessed (R6.5). Openers are
+    NOT ExecuteMso'd (modal-deadlock, toolbox/behavior.md) — their effect is the functional
+    outcome (what applying an option changes) + the enumerated options, per-option semantics
+    `pending`.
+
+- **RULE NOW (Spinner controls):** ribbon value fields are `Spinner` leaves with SIBLING
+  More/Less steppers, not a composite — add `Spinner` to the interactive set or a whole group
+  (Layout > Paragraph) vanishes; widen the format signature with RightIndent/SpaceBefore/After
+  or the steppers read false no-effect; type-drive the field for a MEASURED trigger rather than
+  fabricating one (R2.3). (toolbox/uia.md 2026-07-13.)
+
+## 2026-07-13 — word-4tabs-v1: R2.5 recurred (a rule wired into one worker path, not its sibling)
+
+- **SYMPTOM:** the 4-tabs run repeated v2's exact defect — 11 in-ribbon STYLE galleries (Table/
+  Picture/Graphics/Shape/Chart/SmartArt/WordArt Styles, SmartArt Layout, Equation Symbols)
+  closed as `triggers` endpoints; the expand arrow never pressed, so the full flyouts (105
+  Table Styles + "New/Modify/Clear" dialog openers) were absent. 8 more galleries sat
+  `unexplored`.
+  - **ROOT CAUSE:** `run_step2` HAD the R2.5 in-ribbon-gallery branch (Home Quick Styles,
+    Design Style Set were correct); the CONTEXTUAL crawl path (`run_step3_contextual`) did not.
+    A rule applied to one worker path and not its sibling fails silently on everything only the
+    sibling touches. The mechanical check that would have caught it did not exist yet.
+  - **RULE NOW:** kernel R2.5 check [kernel-checked] — on a TAB surface, a gallery-named element
+    closed as `triggers` with no expand twin is flagged. Output-level checks beat path-level
+    discipline: the check does not care WHICH worker wrote the node. (It found the 11 instantly
+    on both v2 and 4tabs.) Also fixed: the R2.8 scroll-trace detector keyed on bare
+    "horizontal"/"vertical" labels and false-flagged a Text Direction dialog's "Horizontal"
+    radio — scrollbar detection now requires the line/page steppers + "position".
+
+- **REPAIR (this session, in-KB):** `scripts/tools/repair_galleries.py` staged each object
+  family via COM, activated its contextual tab, pressed the LIVE gallery's expand zone,
+  enumerated the full flyout (tiles + bottom commands, openers descended into their dialogs),
+  rewrote each element to `opens`, filled `behavior_record.options` from the tiles, and wired
+  pure-duplicate galleries by seen-set reference. `reshoot_gallery_series.py` added the R2.8
+  screenshot SERIES (scroll + capture until the frame repeats; a flyout whose content fits one
+  screen keeps one frame — correct, not a miss). Two `Change Shape` galleries stayed honest
+  `unexplored` (need a SmartArt SUB-shape selected; niche P4) — an honest defer, not a false
+  endpoint. Result: kernel CLEAN, graph.json regenerated, 84 sub-features carry option data.
+  Two bugs fixed mid-repair: a rect/point click mismatch (expand-rect vs zone-point), and an
+  options backfill that read a crawl-time variable instead of the recorded ui.json tiles.
+
 ## 2026-07 — Environment lessons (every Windows GUI run)
 
 - **RULE:** cloud-synced (OneDrive) folders silently enable AutoSave → the canonical fixture gets

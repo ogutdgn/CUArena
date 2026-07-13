@@ -1,0 +1,482 @@
+{
+  "feature": {
+    "id": "feature:links",
+    "node_type": "feature",
+    "name": "Links",
+    "what_it_does": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references.",
+    "affects": "navigation structure (links, bookmarks, references)",
+    "audience_breadth": "most",
+    "cohesion": "catalog",
+    "behavior": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references. Group controls: subfeature:insert-link, subfeature:bookmark-insert, subfeature:cross-reference-insert",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:insert-link",
+      "subfeature:bookmark-insert",
+      "subfeature:cross-reference-insert"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:insert-link",
+      "node_type": "subfeature",
+      "name": "Link",
+      "parent": "feature:links",
+      "what_it_does": "Opens the Insert Hyperlink dialog to link the selection to webpages, files, headings or email addresses; the dropdown lists recent items.",
+      "affects": "the selection (wraps it in a hyperlink)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Insert Hyperlink dialog — the surface that presents this capability's options (26 controls enumerated in the structural pass). Applying a choice there changes: the selection (wraps it in a hyperlink).",
+      "behavior_record": {
+        "effect": "Opens the Insert Hyperlink dialog — the surface that presents this capability's options (26 controls enumerated in the structural pass). Applying a choice there changes: the selection (wraps it in a hyperlink).",
+        "options": [
+          {
+            "name": "Current Folder",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Browsed Pages",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Recent Files",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Existing File or Web Page",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Place in This Document",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Create New Document",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "E-mail Address",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Text to display:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "ScreenTip...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Look in:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Up One Folder",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Browse the Web",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Browse for File",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Bookmark...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Target Frame...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          },
+          {
+            "name": "Address:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:insert-link"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:insert-link"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert-link-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert-link-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+K"
+        }
+      ],
+      "shortcut": "Ctrl+K",
+      "opens": "ui:insert-link-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-insert-link-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-insert-link-gallery.png",
+        "screenshots/ui-insert-link-dialog/tab-single.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:cross-reference-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "requires",
+          "why": "in-document hyperlinks jump to bookmarks ('Bookmarks work with hyperlinks' — the control's own ScreenTip); external links work without",
+          "source": "dependency"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:bookmark-insert",
+      "node_type": "subfeature",
+      "name": "Bookmark",
+      "parent": "feature:links",
+      "what_it_does": "Opens the Bookmark dialog to name the current place/selection so links and references can jump to it.",
+      "affects": "the document's bookmark registry",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:bookmark-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:bookmark-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-bookmark-insert.png",
+        "screenshots/ui-bookmark-insert-dialog/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-link",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:cross-reference-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:cross-reference-insert",
+      "node_type": "subfeature",
+      "name": "Cross-reference",
+      "parent": "feature:links",
+      "what_it_does": "Opens the Cross-reference dialog to insert a live reference to a heading, bookmark, figure or table (updates as the target moves).",
+      "affects": "document content (adds a reference field)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Cross-reference dialog — the surface that presents this capability's options (14 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a reference field).",
+      "behavior_record": {
+        "effect": "Opens the Cross-reference dialog — the surface that presents this capability's options (14 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a reference field).",
+        "options": [
+          {
+            "name": "RichEdit Control",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Minimize",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Maximize",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Reference type:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Insert reference to:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Insert as hyperlink",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Include above/below",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Separate numbers with",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Separator character",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          },
+          {
+            "name": "Insert",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:cross-reference-insert"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: CrossReferenceInsert",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:cross-reference-insert"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:cross-reference-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:cross-reference-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-cross-reference-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-cross-reference-insert.png",
+        "screenshots/ui-cross-reference-insert-dialog/tab-single.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:insert-link",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "co-location",
+          "why": "the navigation-target family (Links group)",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:bookmark-insert",
+          "kind": "requires",
+          "why": "cross-references can target bookmarks (B consumes A's artifact; headings are an alternative target)",
+          "source": "dependency"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

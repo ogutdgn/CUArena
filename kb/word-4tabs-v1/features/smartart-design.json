@@ -1,0 +1,1119 @@
+{
+  "feature": {
+    "id": "feature:smartart-design",
+    "node_type": "feature",
+    "name": "SmartArt Design",
+    "what_it_does": "Build and restyle a selected SmartArt graphic — add/promote/reorder shapes, change the layout, colors and style.",
+    "affects": "the content and style of the selected SmartArt diagram",
+    "audience_breadth": "niche",
+    "cohesion": "capability",
+    "behavior": "Build and restyle a selected SmartArt graphic — add/promote/reorder shapes, change the layout, colors and style.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-smart-art-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-smart-art-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:smartart-add-bullet",
+      "subfeature:smartart-add-shape",
+      "subfeature:smartart-change-colors",
+      "subfeature:smartart-layout",
+      "subfeature:smartart-org-layout",
+      "subfeature:smartart-promote-demote",
+      "subfeature:smartart-reset",
+      "subfeature:smartart-reverse",
+      "subfeature:smartart-style",
+      "subfeature:smartart-text-pane"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:smart-art-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:smartart-add-bullet",
+      "node_type": "subfeature",
+      "name": "Add Bullet",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Adds a sub-bullet text item to the selected SmartArt node.",
+      "affects": "the SmartArt node's sub-items",
+      "audience_breadth": "niche",
+      "behavior": "disabled in every staged context (chart-selected, equation, header-edit, smartart-selected) — needs a precondition beyond the ones staged",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "disabled in every staged context (chart-selected, equation, header-edit, smartart-selected) — needs a precondition beyond the ones staged",
+        "dynamics": null,
+        "extra": "idMso: SmartArtAddBullet",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smartart-add-bullet"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-add-bullet"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-bullet.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-bullet.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-add-shape",
+      "node_type": "subfeature",
+      "name": "Add Shape",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Adds a shape/node to the SmartArt graphic (before/after/above/below via the menu).",
+      "affects": "the SmartArt graphic's nodes (addition)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Add Shape (dropdown) dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the SmartArt graphic's nodes (addition).",
+      "behavior_record": {
+        "effect": "Opens the Add Shape (dropdown) dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the SmartArt graphic's nodes (addition).",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): smartart-selected; disabled in: chart-selected, equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: SmartArtAddShape",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smartart-add-shape"
+        ],
+        "gesture": "executeMso(SmartArtAddShape)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-add-shape"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-add-shape-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-smart-art-design-smart-art-add-shape-dropdown",
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-shape.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-add-shape.png",
+        "screenshots/ui-ribbon-smart-art-design-smart-art-add-shape-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-change-colors",
+      "node_type": "subfeature",
+      "name": "Change Colors",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Applies a color scheme to the SmartArt from the gallery.",
+      "affects": "the SmartArt graphic's color scheme",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Change Colors dropdown — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: the SmartArt graphic's color scheme.",
+      "behavior_record": {
+        "effect": "Opens the Change Colors dropdown — the surface that presents this capability's options (30 controls enumerated in the structural pass). Applying a choice there changes: the SmartArt graphic's color scheme.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Change Colors",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Position",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Dark 1 Outline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Dark 2 Outline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Dark 2 Fill",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful - Accent Colors",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Range - Accent Colors 2 to 3",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Range - Accent Colors 3 to 4",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Range - Accent Colors 4 to 5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Range - Accent Colors 5 to 6",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colored Outline - Accent 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Gradient Range - Accent 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Gradient Loop - Accent 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Transparent Gradient Range - Accent 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colored Outline - Accent 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colored Fill - Accent 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Gradient Range - Accent 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Gradient Loop - Accent 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Transparent Gradient Range - Accent 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          },
+          {
+            "name": "Colored Outline - Accent 3",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-change-colors"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): smartart-selected; disabled in: chart-selected, equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: SmartArtChangeColorsGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smartart-change-colors"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-change-colors-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-smart-art-design-smart-art-change-colors-dropdown",
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-change-colors-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-change-colors-gallery.png",
+        "screenshots/ui-ribbon-smart-art-design-smart-art-change-colors-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-layout",
+      "node_type": "subfeature",
+      "name": "Layouts gallery",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Changes the SmartArt's overall layout (list, process, cycle, hierarchy…) from the gallery.",
+      "affects": "the SmartArt graphic's layout",
+      "audience_breadth": "niche",
+      "behavior": "enabled in context(s): smartart-selected; disabled in: chart-selected, equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Basic Block List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Alternating Hexagons",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Picture Caption List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Lined List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Bullet List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Box List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Bracket List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Varying Width List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Tab List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Horizontal Bullet List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Square Accent List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Picture Accent List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Bending Picture Accent List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Stacked List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Action List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Increasing Circle Process",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Pie Process",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Detailed Process",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Grouped List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Horizontal Picture List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Continuous Picture List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Picture Strips",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Picture List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Alternating Picture Blocks",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Picture Accent List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Titled Picture Accent List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Block List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Chevron List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Accent List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Arrow List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Trapezoid List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Descending Block List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Icon Circle Label List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Table List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Segmented Process",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Curved List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Pyramid List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Target List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Hierarchy List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Vertical Circle List",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Table Hierarchy",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Architecture Layout",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): smartart-selected; disabled in: chart-selected, equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: SmartArtLayoutGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smartart-layout",
+          "journal:run-20260713-122521-repair-galleries"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-layout-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-layout-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-layout-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-org-layout",
+      "node_type": "subfeature",
+      "name": "Organization Layout",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Changes the hanging/branch layout of an organization-chart SmartArt (menu).",
+      "affects": "the org-chart branch layout",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-organization-chart-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-organization-chart-menu.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-promote-demote",
+      "node_type": "subfeature",
+      "name": "Promote / Demote",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Changes the outline level of the selected SmartArt node (promote/demote), and moves it up/down in order.",
+      "affects": "the selected SmartArt node's level/order",
+      "audience_breadth": "niche",
+      "behavior": "disabled in every staged context (chart-selected, equation, header-edit, smartart-selected) — needs a precondition beyond the ones staged",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "disabled in every staged context (chart-selected, equation, header-edit, smartart-selected) — needs a precondition beyond the ones staged",
+        "dynamics": null,
+        "extra": "idMso: SmartArtReorderDown",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smartart-promote-demote"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-promote"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-demote"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-reorder-up"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-reorder-down"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-promote.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-promote.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-reset",
+      "node_type": "subfeature",
+      "name": "Reset Graphic",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Discards all formatting changes back to the default SmartArt appearance.",
+      "affects": "the SmartArt graphic's formatting (reset)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-reset-graphic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-reset-graphic.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-reverse",
+      "node_type": "subfeature",
+      "name": "Right to Left",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Reverses the left-to-right order of the SmartArt layout.",
+      "affects": "the SmartArt layout direction",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-right-to-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-smart-art-design-smart-art-right-to-left-dropdown",
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-right-to-left.png",
+        "screenshots/ui-ribbon-smart-art-design-smart-art-right-to-left-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-style",
+      "node_type": "subfeature",
+      "name": "SmartArt Styles gallery",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Applies a visual style (3D, shadow, gradient…) to the SmartArt from the gallery.",
+      "affects": "the SmartArt graphic's visual style",
+      "audience_breadth": "niche",
+      "behavior": "enabled in context(s): smartart-selected; disabled in: chart-selected, equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Simple Fill",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "White Outline",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Subtle Effect",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Moderate Effect",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Intense Effect",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Polished",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Inset",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Cartoon",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Powder",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Brick Scene",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Flat Scene",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Metallic Scene",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Sunset Scene",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Bird's Eye Scene",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): smartart-selected; disabled in: chart-selected, equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: SmartArtStylesGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smartart-style",
+          "journal:run-20260713-122521-repair-galleries"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:smartart-text-pane",
+      "node_type": "subfeature",
+      "name": "Text Pane",
+      "parent": "feature:smartart-design",
+      "what_it_does": "Toggles the text outline pane for editing the SmartArt's text as a bulleted list.",
+      "affects": "opens the SmartArt text pane",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Type your text here dialog — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: opens the SmartArt text pane.",
+      "behavior_record": {
+        "effect": "Opens the Type your text here dialog — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: opens the SmartArt text pane.",
+        "options": [
+          {
+            "name": "Learn more about SmartArt graphics",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:smartart-text-pane"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): smartart-selected; disabled in: chart-selected, equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: SmartArtTextPane",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:smartart-text-pane"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-design",
+            "el:ribbon-smart-art-design-smart-art-text-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-smart-art-design-smart-art-text-dialog",
+      "location": "ui:ribbon-smart-art-design",
+      "screenshot": "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-text-pane.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-smart-art-design/icon-ribbon-smart-art-design-smart-art-text-pane.png",
+        "screenshots/ui-ribbon-smart-art-design-smart-art-text-dialog/tab-single.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

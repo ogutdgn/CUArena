@@ -1,0 +1,975 @@
+{
+  "feature": {
+    "id": "feature:chart-design",
+    "node_type": "feature",
+    "name": "Chart Design",
+    "what_it_does": "Design a selected chart — add chart elements, quick layouts, colors, chart styles, switch row/column, edit the source data and change the chart type.",
+    "affects": "the design and data of the selected chart",
+    "audience_breadth": "niche",
+    "cohesion": "capability",
+    "behavior": "Design a selected chart — add chart elements, quick layouts, colors, chart styles, switch row/column, edit the source data and change the chart type. Group controls: subfeature:chart-add-element, subfeature:chart-change-colors, subfeature:chart-change-type, subfeature:chart-edit-data, subfeature:chart-quick-layout, subfeature:chart-style, subfeature:chart-switch-row-column",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:chart-add-element",
+      "subfeature:chart-change-colors",
+      "subfeature:chart-change-type",
+      "subfeature:chart-edit-data",
+      "subfeature:chart-quick-layout",
+      "subfeature:chart-style",
+      "subfeature:chart-switch-row-column"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:chart-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:chart-add-element",
+      "node_type": "subfeature",
+      "name": "Add Chart Element",
+      "parent": "feature:chart-design",
+      "what_it_does": "Adds/removes chart elements — axes, titles, data labels, gridlines, legend, trendlines (menu).",
+      "affects": "which elements the chart displays",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Add Chart Element dropdown — the surface that presents this capability's options (11 controls enumerated in the structural pass). Applying a choice there changes: which elements the chart displays.",
+      "behavior_record": {
+        "effect": "Opens the Add Chart Element dropdown — the surface that presents this capability's options (11 controls enumerated in the structural pass). Applying a choice there changes: which elements the chart displays.",
+        "options": [
+          {
+            "name": "Lines",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Up/Down Bars",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Axes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Axis Titles",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Chart Title",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Data Labels",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Data Table",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Error Bars",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Gridlines",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Legend",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          },
+          {
+            "name": "Trendline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-add-element"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: AddChartElementMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-add-element"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-add-chart-element-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-add-chart-element-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-add-chart-element-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-add-chart-element-menu.png",
+        "screenshots/ui-ribbon-chart-design-add-chart-element-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-change-colors",
+      "node_type": "subfeature",
+      "name": "Change Colors",
+      "parent": "feature:chart-design",
+      "what_it_does": "Applies a color scheme to the chart's data series from a gallery.",
+      "affects": "the chart's color scheme",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Change Colors dropdown — the surface that presents this capability's options (14 controls enumerated in the structural pass). Applying a choice there changes: the chart's color scheme.",
+      "behavior_record": {
+        "effect": "Opens the Change Colors dropdown — the surface that presents this capability's options (14 controls enumerated in the structural pass). Applying a choice there changes: the chart's color scheme.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Change Colors",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Palette 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Palette 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Palette 3",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Colorful Palette 4",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Monochromatic Palette 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Monochromatic Palette 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Monochromatic Palette 3",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Monochromatic Palette 4",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Monochromatic Palette 5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-colors"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartColorsGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-change-colors"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-colors-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-colors-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-colors-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-colors-gallery.png",
+        "screenshots/ui-ribbon-chart-design-chart-colors-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-change-type",
+      "node_type": "subfeature",
+      "name": "Change Chart Type",
+      "parent": "feature:chart-design",
+      "what_it_does": "Opens the Change Chart Type dialog to switch the chart to a different type.",
+      "affects": "the chart's type",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Change Chart Type dialog — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the chart's type.",
+      "behavior_record": {
+        "effect": "Opens the Change Chart Type dialog — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the chart's type.",
+        "options": [
+          {
+            "name": "Recent",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Templates",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Line",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Pie",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Bar",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Area",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "X Y (Scatter)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Map",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Stock",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Surface",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Radar",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Treemap",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Sunburst",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Histogram",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Box & Whisker",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Waterfall",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Funnel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Combo",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Clustered Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "Stacked Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "100% Stacked Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "3-D Clustered Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          },
+          {
+            "name": "3-D Stacked Column",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-change-type"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartChangeType",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-change-type"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-change-type"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-change-type-dialog",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-change-type.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-change-type.png",
+        "screenshots/ui-ribbon-chart-design-chart-change-type-dialog/tab-all-charts.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-edit-data",
+      "node_type": "subfeature",
+      "name": "Edit / Select Data",
+      "parent": "feature:chart-design",
+      "what_it_does": "Accesses the chart's underlying worksheet data — edit data (opens the linked Excel workbook), select data range, show the data grid, and refresh.",
+      "affects": "the chart's source data",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Edit Data (dropdown) dropdown — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the chart's source data.",
+      "behavior_record": {
+        "effect": "Opens the Edit Data (dropdown) dropdown — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the chart's source data.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartShowDataGrid",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-edit-data"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-edit-data-source"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-show-data-grid"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-show-data-grid-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-refresh"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-show-data-grid-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-edit-data-source.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-edit-data-source.png",
+        "screenshots/ui-ribbon-chart-design-chart-show-data-grid-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-quick-layout",
+      "node_type": "subfeature",
+      "name": "Quick Layout",
+      "parent": "feature:chart-design",
+      "what_it_does": "Applies a preset arrangement of the chart's elements from a gallery.",
+      "affects": "the chart's element layout",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Quick Layout dropdown — the surface that presents this capability's options (13 controls enumerated in the structural pass). Applying a choice there changes: the chart's element layout.",
+      "behavior_record": {
+        "effect": "Opens the Quick Layout dropdown — the surface that presents this capability's options (13 controls enumerated in the structural pass). Applying a choice there changes: the chart's element layout.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Quick Layout",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 3",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 4",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 5",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 6",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 7",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 8",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 9",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 10",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          },
+          {
+            "name": "Layout 11",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-quick-layout"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartLayoutGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-quick-layout"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-layout-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-design-chart-layout-dropdown",
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-layout-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-layout-gallery.png",
+        "screenshots/ui-ribbon-chart-design-chart-layout-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-style",
+      "node_type": "subfeature",
+      "name": "Chart Styles gallery",
+      "parent": "feature:chart-design",
+      "what_it_does": "Applies an overall visual style to the chart from the gallery.",
+      "affects": "the chart's visual style",
+      "audience_breadth": "niche",
+      "behavior": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Style 1",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 2",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 3",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 4",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 5",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 6",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 7",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 8",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 9",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 10",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 11",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 12",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 13",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Style 14",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartStylesGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-style",
+          "journal:run-20260713-122521-repair-galleries"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-switch-row-column",
+      "node_type": "subfeature",
+      "name": "Switch Row/Column",
+      "parent": "feature:chart-design",
+      "what_it_does": "Swaps which of the source data's rows and columns map to the chart's axis vs series.",
+      "affects": "the chart's data orientation",
+      "audience_breadth": "niche",
+      "behavior": "disabled in every staged context (chart-selected, equation, header-edit) — needs a precondition beyond the ones staged",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "disabled in every staged context (chart-selected, equation, header-edit) — needs a precondition beyond the ones staged",
+        "dynamics": null,
+        "extra": "idMso: ChartSwitchRowColumn",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-switch-row-column"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-design",
+            "el:ribbon-chart-design-chart-switch-row-column"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-design",
+      "screenshot": "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-switch-row-column.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-design/icon-ribbon-chart-design-chart-switch-row-column.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}
