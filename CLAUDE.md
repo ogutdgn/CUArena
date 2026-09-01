@@ -1,6 +1,6 @@
-# rl-for-cua — Repo-Root Agent Guide
+# CUArena — Repo-Root Agent Guide
 
-You are working in `rl-for-cua`: **three CUA environments and one knowledge-base
+You are working in `CUArena`: **three CUA environments and one knowledge-base
 pipeline**. An environment reproduces a real application as something we own, so an agent
 can be reset, observed and graded against it. The pipeline automates the step that
 dominated building the first two by hand — understanding the app.
@@ -14,7 +14,7 @@ and treat this file as wider context.
 ## Repo layout
 
 ```
-rl-for-cua/
+CUArena/
 ├── README.md                     the arc + status
 ├── CLAUDE.md (this file)         repo-root agent guide
 ├── AGENTS.md                     mirror of CLAUDE.md (for Codex / other tooling)

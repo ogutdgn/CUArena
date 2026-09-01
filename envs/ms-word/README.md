@@ -1,6 +1,6 @@
 # MS Word — CUA RL environment
 
-> **Environment 2 of [`rl-for-cua`](../../README.md).** A faithful desktop reproduction of
+> **Environment 2 of [`CUArena`](../../README.md).** A faithful desktop reproduction of
 > **Microsoft Word** (Microsoft 365, light theme), built as a controllable environment for
 > computer-use agents: the value is not the clone, it is that we own the document model and
 > can therefore reset, observe and grade every episode. See

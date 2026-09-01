@@ -1,6 +1,6 @@
 # Figma Mock — CUA Evaluation System
 
-> **Environment 1 of [`rl-for-cua`](../../README.md).** The first CUA environment in this
+> **Environment 1 of [`CUArena`](../../README.md).** The first CUA environment in this
 > repo, built by hand — and the one that established the pattern everything else follows:
 > an environment is a UI *plus* a [three-stream log contract](../../docs/log-contract.md)
 > *plus* a rubric. Why that matters, and what it cost: [`docs/arc.md`](../../docs/arc.md).
