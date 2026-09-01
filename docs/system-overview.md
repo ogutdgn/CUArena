@@ -1,8 +1,7 @@
 # System Overview
 
-`cua-bench` is a benchmark for Computer Use Agents. It contains four CUA environments — three TypeScript browser mocks (Figma, Google Sheets, Google Docs) and one real Linux binary (a stripped LibreOffice fork covering Writer / Calc / Impress) — each paired with a logger. Mocks have verifiers shipping alongside; the libreoffice runtime is logger-only for now (verifier planned for a later phase). Agents interact with the environments; logs are scored.
-
-The point of the system is to evaluate **how** an agent achieves a goal, not just whether the final state is right. Two agents can both produce "a square inside a frame", but one did it via direct creation in a frame context (3 actions) and another did it via copy-paste-reparent (8 actions). The semantic event stream and the efficiency multiplier in the verifier surface that difference.
+How an environment in this repo actually works. For *why* the repo is shaped this way, read
+[arc.md](arc.md); for the map, [../README.md](../README.md).
 
 ---
 
@@ -10,78 +9,70 @@ The point of the system is to evaluate **how** an agent achieves a goal, not jus
 
 ```
 ┌──────────────────┐     ┌──────────────────┐
-│ Mock app (UI)    │ ──► │ Three log streams│
+│ Environment (UI) │ ──► │ Three log streams│
 │                  │     │  raw / semantic  │
-│ figma | sheets   │     │  / outcome       │
-│       | docs     │     │                  │
+│ figma | ms-word  │     │  / outcome       │
 └──────────────────┘     └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │ Per-app verifier │
+                         │ Per-env verifier │
                          │ Task → Rubrics   │
                          │ → Checks         │
                          └────────┬─────────┘
                                   ▼
-                         final_score = base × multiplier
+                         final_score = base × efficiency multiplier
 ```
 
-Per app, the contract is:
-- The mock produces `figma-mock-log-<sessionId>.json` (or `sheets-mock-log-…`, `docs-mock-log-…`).
-- The verifier reads it, runs the task's rubrics, applies the efficiency multiplier, returns a final score in `[0, 1]`.
+Per environment the contract is: the app writes `<env>-log-<sessionId>.json`; the verifier
+reads it, runs the task's rubrics, applies the efficiency multiplier, and returns a score
+in `[0, 1]`.
 
----
+## The point: score the method, not just the end state
 
-## The three log streams (cross-app)
+Two agents both produce "a square inside a frame". One created it directly in the frame
+context (3 operations); the other copy-pasted and reparented (8 operations). Both end
+states are identical, so an outcome-only grader calls them equal. The semantic stream and
+the efficiency multiplier do not.
 
-| Stream | Source | Used by verifier? |
+This is why the environment has to be something we own. A closed application gives you
+pixels and a final file; it does not give you the operation stream.
+
+## The three streams
+
+| Stream | Source | Read by verifier? |
 |---|---|---|
-| `raw` | every DOM input event (pointer, key, wheel, clipboard) | no — forensics only |
-| `semantic` | every meaningful operation dispatched by the engine | yes — efficiency rubric reads turn count |
-| `outcome` | live snapshot of full document + summary counts | yes — fundamentals/alignment/color/etc. read here |
+| `raw` | every input event (pointer, key, wheel, clipboard) | no — forensics only |
+| `semantic` | every meaningful operation the engine dispatched | yes — efficiency rubric reads turn count |
+| `outcome` | live snapshot of the full document + summary counts | yes — fundamentals / alignment / colour / etc. |
 
-The full schema for figma is at [apps/figma/app-docs/logging-documentation.md](../apps/figma/app-docs/logging-documentation.md). Sheets and Docs will have analogous docs once those apps exist. The cross-app contract (what every mock must emit) lives at [log-contract.md](log-contract.md) — currently a placeholder.
+Full schema: [log-contract.md](log-contract.md).
 
----
+## Why more than one environment
 
-## Why four apps
+A single environment tests agents against one UI archetype:
 
-A single mock would test agents only against one UI archetype. The four chosen here are deliberately different:
-
-| App | Shape | Primary primitives | What it stresses |
+| Environment | Shape | Primitives | What it stresses |
 |---|---|---|---|
-| **Figma** | TS mock | shapes on a canvas, properties panel, frames | spatial reasoning, drag/drop, geometry, fills/strokes |
-| **Sheets** | TS mock | grid, cells, formulas, ranges | tabular reasoning, formula composition, range selection |
-| **Docs** | TS mock | text runs, paragraphs, lists, comments | text editing, caret/range, formatting persistence |
-| **LibreOffice** | real Linux binary | Writer / Calc / Impress UI (MS-Office-parity ribbon) | transferring agent skills trained on real Office to an open-source equivalent — real OS-level windows, menus, keyboard focus, GTK widgets |
+| **figma** | TS mock | shapes on a canvas, properties panel, frames | spatial reasoning, drag, geometry, fills/strokes |
+| **ms-word** | Electron + ProseMirror | text runs, paragraphs, styles, lists, tables, `.docx` | text editing, caret/range, formatting persistence, file round-trip |
+| **ms-word-native** *(superseded)* | native Qt6 + rented LO engine | the same, over a real OS window | native window/focus/clipboard behaviour a browser mock abstracts away |
 
-Together they cover the bulk of office-style CUA evaluation surface area, plus the real-binary case that catches behaviours specific to native UIs (window manager interaction, OS clipboard, focus-stealing dialogs) that browser mocks abstract away.
+The native line was the attempt to cover real-OS behaviour; it was superseded for the
+reason in [decisions/engine-rent-vs-own.md](decisions/engine-rent-vs-own.md). Covering that
+surface again is future work, not a solved problem.
 
-**Real binary vs TS mock — what's different about the libreoffice app:**
-- Built from a vendored LibreOffice fork at [apps/ms-word/libreoffice-codebase/](../apps/ms-word/libreoffice-codebase/), not from TypeScript. Requires a WSL/Linux build (~30 min with cached tarballs, ~3 h cold).
-- Logger is a C++ module ([rllogger/](../apps/ms-word/libreoffice-codebase/rllogger/)) linked into the binary, default-on, writes to `~/.lo-rl-logs/<sessionId>/`. Same three-stream contract as the TS mocks.
-- No verifier yet — Phase 5/6 will add Calc and Impress equivalents of Phase 4's Writer UI parity; verifier framework comes after that.
-
----
-
-## Per-app structure
-
-Every app in `apps/` follows the same shape:
+## Per-environment structure
 
 ```
-apps/<app>/
-├── CLAUDE.md              app-level agent guide
-├── app-docs/              ALL docs: feature-checklist + execution-map + mock-doc/ + verifier-doc/ + scripts-doc/ + helper/
-├── mock/                  the mock UI codebase
-├── verifier/              the verifier framework (Python library, namespace package)
+envs/<env>/
+├── CLAUDE.md              env-level agent guide
+├── app-docs/ or docs/     all docs: feature-checklist, execution-map, decisions, research
+├── mock/ or src/          the environment UI codebase
+├── verifier/              rubric framework (Python)
 ├── delivery-1/            per-task package (prompt.md + verifier.py per task)
-└── scripts/               CLI entry-points (run_task / score_log / qa_verifiers) + logs/scores output
+└── scripts/               CLI entry-points (run_task / score_log / qa_verifiers) + outputs
 ```
 
-The `app-docs/helper/`, `mock/`, `verifier/` folders are **per-app** — not shared. Once two apps are shipped end-to-end, the shared parts of the verifier framework will be extracted to `shared/`.
-
----
-
-## Roadmap pointer
-
-For the order of work and milestones see [roadmap.md](roadmap.md).
+These are **per-environment, not shared**. Once a second environment ships a verifier
+end-to-end, the common parts get extracted.

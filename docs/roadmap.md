@@ -1,63 +1,32 @@
 # Roadmap
 
-> **Status: HIGH-LEVEL PLAN.** Sequence is decided; per-app scope and milestones will be refined as each app's research-flow runs.
+Current state and the order of work. Status is deliberately blunt; see
+[arc.md](arc.md) for how the repo got here.
 
----
+## Where things stand
 
-## Sequence
+| Piece | State |
+|---|---|
+| **figma** | Shipping. Mock, verifier (10 rubrics / 11 check modules), 50 tasks, Docker delivery, model runner, published scores (pass@3 = 10%). |
+| **ms-word** | Word-faithful clone shipping. Home tab complete; Insert tab in progress against a completeness ledger. Logger / verifier / MCP are designed (ADR-0001) and **not built** — this is the biggest single gap in the repo. |
+| **ms-word-native** | Superseded at Phases 0–1. Kept as a decision record + the `rllogger` artifact. Not continued. |
+| **pipeline** | Produces a complete KB for a four-tab Word scope (`kb/word-4tabs-v1`). The KB → environment-scaffold step is **not built**. |
 
-1. **Figma** — active. Mock + verifier shipping. Pending work tracked in `apps/figma/app-docs/execution-map.md`.
-2. **LibreOffice** — active in parallel, decoupled. Real Linux binary (stripped LibreOffice fork). Phases 1-4 done (module strip, rllogger V1.1, Writer UI parity vs MS Word). Phases 5 (Calc + Excel UI parity), 6 (Impress + PowerPoint UI parity), and 7 (Docker multi-stage image) pending. Tracked in [apps/ms-word/docs/architecture/ROADMAP.md](../apps/ms-word/docs/architecture/ROADMAP.md).
-3. **Sheets** — next TS mock. Will start with a research cycle (Google Sheets help docs → filtered helper → architecture decision), then mock skeleton, then verifier.
-4. **Docs** — last. Text editing has the hardest semantic-event design (caret/range/run model); doing it after Figma's `text-range` work and Sheets' verifier-framework lessons gives the best foundation.
+## Next, in order
 
-The TS-mock sequence (figma → sheets → docs) is **chained**: we may do small overlapping work on the next app while finishing the current one, but full implementation of two TS mocks in parallel is out of scope. LibreOffice runs **independently** — its phases are LO-internal and don't compete with the TS-mock work for verifier-framework attention.
+1. **Word env: logger.** Tap `dispatchTransaction`, emit the three streams, match the
+   contract in [log-contract.md](log-contract.md). This is what makes the second
+   environment an actual environment rather than a clone.
+2. **Word env: verifier + first task set.** Reuse the figma rubric framework; this is the
+   forcing function for extracting the shared parts into `shared/`.
+3. **Close the pipeline loop.** KB → generated environment scaffold (ribbon data, control
+   inventory, priority-ordered feature list). The KB schema was designed against what the
+   figma and Word builds consumed, so this is a codegen problem, not a redesign.
+4. **Second pipeline app.** Run the playbook against a non-Word app — the design bet is
+   that per-app scripts are disposable and `toolbox/` lessons compound. That claim is
+   untested until app #2.
 
----
+## Not planned
 
-## Why Sheets before Docs
-
-- Sheets has a bounded op set (set cell, set range, formula, sort/filter, format) that maps cleanly to the existing logger pattern.
-- Verifier checks for Sheets are deterministic (cell-value equals, range-sum equals, formula-result equals).
-- Docs requires a more sophisticated edit-state model (caret/range, run merging, undo coalescing per keystroke vs per word). The figma `text-range` item (`#36`) tackles a piece of this; finishing that first reduces unknowns when Docs starts.
-
----
-
-## Milestones
-
-### Figma — current
-
-Tracked in [apps/figma/app-docs/execution-map.md](../apps/figma/app-docs/execution-map.md).
-Open priorities: outcome-stream correlation IDs, unsupported-button toast / rename UX hardening, fill/color expansion (gradient + image), vector finishing, prototype panel, right-sidebar parity, text-range edit-state.
-
-### LibreOffice — current (Phases 5-7 pending)
-
-Tracked in [apps/ms-word/docs/architecture/ROADMAP.md](../apps/ms-word/docs/architecture/ROADMAP.md).
-Done: Phase 1 (module strip), Phase 3 (rllogger V1.1 — default-on, three-stream), Phase 4 (Writer UI parity vs MS Word — tabbed notebookbar, dark theme, sifr_dark icons, sidebar suppressed, Home group restructure). Phase 2 cancelled (Docker ships binary, source restructure cost > benefit).
-Open: **Phase 5** — Calc logger additions + UI parity vs Excel. **Phase 6** — same for Impress vs PowerPoint. **Phase 7** — Docker multi-stage image with pre-built `instdir/` baked in; this is the ship vehicle for downstream RL agents.
-
-### Sheets — pending
-
-- M0: research cycle → committed `apps/sheets/app-docs/helper/`
-- M1: architecture decision (stack, state shape, op set) → `apps/sheets/app-docs/mock-doc/architecture.md`
-- M2: minimum mock (grid, cell input, basic formulas) + logger
-- M3: verifier framework (initially a copy of figma's, refactored as needed)
-- M4: first 5 tasks + verifier scripts
-- M5: shared verifier framework carve-out into `shared/` (after M4 ships)
-
-### Docs — pending
-
-- M0: research cycle → committed `apps/docs/app-docs/helper/`
-- M1: architecture decision (text model, run merging, edit-state)
-- M2: minimum mock (single-paragraph editing, runs, basic formatting) + logger
-- M3: verifier (uses shared framework from `shared/`)
-- M4: first 5 tasks + verifier scripts
-
----
-
-## Out of scope (for cua-bench)
-
-- Real cloud sync, real auth, real collaboration cursors.
-- Pixel-perfect rendering of every Figma/Sheets/Docs screen — only the surfaces an agent interacts with for evaluation tasks.
-- Fully complete feature coverage of any of the three products.
-- Cross-app tasks (a task that uses two apps).
+- Continuing the native Qt6 line.
+- `sheets` / `docs` environments — placeholders in earlier docs; not started, and not next.

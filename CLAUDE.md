@@ -1,84 +1,110 @@
-# cua-bench — Repo-Root Agent Guide
+# rl-for-cua — Repo-Root Agent Guide
 
-You are working in `cua-bench`, a monorepo for CUA evaluation. There are **four apps** here (figma, sheets, docs, ms-word); each is a CUA environment with its own logger + (where applicable) verifier + helper corpus. Cross-app conventions live at the repo root.
+You are working in `rl-for-cua`: **three CUA environments and one knowledge-base
+pipeline**. An environment reproduces a real application as something we own, so an agent
+can be reset, observed and graded against it. The pipeline automates the step that
+dominated building the first two by hand — understanding the app.
 
-If you were dispatched to work on a single app, read that app's CLAUDE.md instead and treat this file as the wider context.
+Read [README.md](README.md) for the shape, [docs/arc.md](docs/arc.md) for why each piece
+exists. If you were dispatched to a single environment, read that environment's CLAUDE.md
+and treat this file as wider context.
 
 ---
 
 ## Repo layout
 
 ```
-cua-bench/
-├── README.md                     repo intro
+rl-for-cua/
+├── README.md                     the arc + status
 ├── CLAUDE.md (this file)         repo-root agent guide
 ├── AGENTS.md                     mirror of CLAUDE.md (for Codex / other tooling)
-├── overview/                     cross-app docs — read these for the big picture
-│   ├── system-overview.md        the 3-app + log + verifier mental model
-│   ├── log-contract.md           cross-app log schema (raw / semantic / outcome)
+├── docs/
+│   ├── arc.md                    the three stages and what each taught
+│   ├── log-contract.md           cross-env log schema (raw / semantic / outcome)
+│   ├── system-overview.md        the env + log + verifier mental model
 │   ├── conventions.md            commit / branch / session-end protocols
-│   └── roadmap.md                sequencing + milestones
+│   ├── roadmap.md                sequencing + milestones
+│   └── decisions/                cross-environment ADRs
 ├── .claude/
 │   ├── settings.json             permissions, hooks
-│   └── skills/                   repo-internal skills (research, dev, commit, ...)
-├── apps/
-│   ├── figma/                    active — Figma Design mock + verifier
-│   │   ├── CLAUDE.md             ← READ THIS when working on the figma app
+│   └── skills/<name>/SKILL.md    repo-internal skills (research, dev, commit, ...)
+├── envs/
+│   ├── figma/                    shipping — Figma mock + verifier + 50 tasks + runner
+│   │   ├── CLAUDE.md             ← READ THIS when working on the figma env
 │   │   ├── app-docs/             all docs (mock-doc/ + verifier-doc/ + scripts-doc/ + helper/)
-│   │   ├── mock/
+│   │   ├── mock/                 the TS/React mock
 │   │   ├── verifier/             flat Python library (no __init__.py — namespace package)
 │   │   ├── delivery-1/           50-task source of truth (prompt.md + verifier.py per task)
-│   │   └── scripts/              CLI entry-points + logs/scores output
-│   ├── sheets/                   planned — skeleton only
-│   ├── docs/                     planned — skeleton only
-│   └── ms-word/                  active — MS Word clone (native Qt6 + LOK; decisions locked, build pending)
-│       ├── CLAUDE.md             ← READ THIS when working on the ms-word app
-│       ├── AGENTS.md             full guide (decisions, doc map, conventions)
-│       ├── README.md             app entry point
-│       ├── docs/architecture/ARCHITECTURE.md   Boundary A · in-process LOK · Qt6+QML · MCP sidecar
-│       ├── docs/research/        all research — ribbon (Word↔LO, 692 controls) + tech-stack
-│       ├── docs/ui/              UI approach (QML + Fluent icons + design tokens)
-│       ├── docs/{last-point,execution-map}.md   current state + phased roadmap
-│       └── libreoffice-codebase/ vendored LibreOffice engine (rented via LOK; not edited day-to-day)
-└── shared/                       future: extracted shared verifier framework
-                                  (intentionally empty until a 2nd app is shipped)
+│   │   └── cua-eval/, scripts/   benchmark runs + CLI entry-points
+│   ├── ms-word/                  shipping — Electron + ProseMirror Word clone
+│   │   ├── CLAUDE.md             ← READ THIS when working on the word env
+│   │   ├── docs/decisions/       ADR-0001…0006 (pivot, PM model, SuperDoc fork, docx)
+│   │   ├── src/                  main/ + renderer/ (ribbon chrome, PM bridge, fork)
+│   │   ├── specs/ + .specify/    spec-kit workspace — see "Working in ms-word" below
+│   │   └── .claude/skills/       env-level skills (speckit-*, plan-tracking, commit-style)
+│   ├── ms-word-native/           SUPERSEDED — Qt6 + LibreOfficeKit attempt, kept as record
+│   │   ├── docs/research/ribbon/ 692-control Word↔LibreOffice comparison (still useful)
+│   │   ├── app/                  Phases 0–1 C++ (mwcore + mwengine, CMake/CTest)
+│   │   └── rllogger/             the C++ three-stream logger — the artifact behind the ADR
+│   └── (sheets, docs)            planned — not created
+└── pipeline/
+    ├── design/                   what a knowledge base IS (schema, 3-level model, priority)
+    ├── playbook/                 the steps the agent follows (goal · be-sure-of · proof)
+    ├── toolbox/                  tool knowledge that compounds across apps
+    ├── kernel/                   the only fixed code — schema writers + journal
+    └── kb/                       produced knowledge bases (word-4tabs-v1 is the current one)
 ```
 
-Note: **ms-word is shaped differently** from figma/sheets/docs — it's a native Qt6 app that rents LibreOffice's real engine via LOK (not a TypeScript mock), built as an MS Word clone. The engine decision + the 692-control Word↔LO ribbon research are locked; the build hasn't started. No verifier yet (planned for a later phase). The three-stream log contract still applies (see [apps/ms-word/docs/architecture/ARCHITECTURE.md](apps/ms-word/docs/architecture/ARCHITECTURE.md)).
+The vendored LibreOffice engine that `ms-word-native` used to contain has been **removed
+from the tree and from git history** (~400 MB). Its decision record, research and logger
+remain. See [docs/decisions/engine-rent-vs-own.md](docs/decisions/engine-rent-vs-own.md).
 
 ---
 
-## Working on a specific app
+## Working on a specific piece
 
-For app-specific work, **start at the app's CLAUDE.md** — it is the source of truth for that app's architecture, document map, session workflow, and conventions:
-
-| App | Status | Entry point |
+| Piece | Status | Entry point |
 |---|---|---|
-| **figma** | active | [apps/figma/CLAUDE.md](apps/figma/CLAUDE.md) |
-| **ms-word** | active — MS Word clone (decisions locked; build pending) | [apps/ms-word/CLAUDE.md](apps/ms-word/CLAUDE.md) |
-| **sheets** | planned | (skeleton not yet created) |
-| **docs** | planned | (skeleton not yet created) |
+| **figma** | shipping | [envs/figma/CLAUDE.md](envs/figma/CLAUDE.md) |
+| **ms-word** | shipping — Home done, Insert in progress | [envs/ms-word/CLAUDE.md](envs/ms-word/CLAUDE.md) |
+| **ms-word-native** | superseded — read-only record | [envs/ms-word-native/CLAUDE.md](envs/ms-word-native/CLAUDE.md) |
+| **pipeline** | produces a full KB; KB→env scaffold not built | [pipeline/README.md](pipeline/README.md) |
 
-When the user's request is ambiguous about which app, **ask** — don't assume.
+When the request is ambiguous about which piece, **ask** — don't assume.
 
----
+### Working in ms-word (spec-kit)
 
-## Cross-app conventions
-
-These apply to every app in this repo:
-
-- **Three-stream log contract**: every mock produces `raw[]` + `semantic[]` + `outcome{}`. The verifier reads `outcome.document` for end-state checks and `semantic[]` for the efficiency multiplier. See [overview/log-contract.md](overview/log-contract.md).
-- **Per-app session workflow**: feature-checklist + execution-map per app, refreshed every session. See each app's CLAUDE.md.
-- **Branch strategy**: trunk-based, short-lived feature branches, PR per change. Branch name format: `<scope>/<short-slug>` (e.g. `feat/figma-fillgrad`, `restructure/monorepo-skeleton`).
-- **Commit style**: see [.claude/skills/commit-style.md](.claude/skills/commit-style.md).
-- **Helper-corpus reading**: NEVER read `apps/<X>/app-docs/helper/` blind — always go through that app's `app-docs/helper/00-overview.md` first.
-- **Documentation-first**: every new app starts with research → filtered helper → architecture decision → implementation. See [.claude/skills/research-flow.md](.claude/skills/research-flow.md).
+`envs/ms-word/` carries its own `.specify/` workspace and `.claude/skills/` (the
+`speckit-*` family). Spec-kit resolves paths from the project root, so when working on the
+Word environment **start Claude Code from `envs/ms-word/`**, not from the repo root.
+Everything else in this repo works from the root.
 
 ---
 
+## Cross-environment conventions
+
+- **Three-stream log contract**: every environment produces `raw[]` + `semantic[]` +
+  `outcome{}`. The verifier reads `outcome.document` for end-state checks and `semantic[]`
+  for the efficiency multiplier. See [docs/log-contract.md](docs/log-contract.md). This is
+  the repo's central design constraint — see [docs/arc.md](docs/arc.md).
+- **Own the model.** Any environment whose app has a real document format implements the
+  document itself rather than renting an engine, because the semantic stream has to be
+  tappable in code we own. [docs/decisions/engine-rent-vs-own.md](docs/decisions/engine-rent-vs-own.md).
+- **Per-env session workflow**: feature-checklist + execution-map per environment,
+  refreshed every session. See each environment's CLAUDE.md.
+- **Branch strategy**: trunk-based, short-lived feature branches, PR per change. Branch
+  name format: `<scope>/<short-slug>` (e.g. `feat/figma-fillgrad`).
+- **Commit style**: see [.claude/skills/commit-style/SKILL.md](.claude/skills/commit-style/SKILL.md).
+- **Helper-corpus reading**: NEVER read `envs/<X>/app-docs/helper/` blind — always go
+  through that environment's `app-docs/helper/00-overview.md` first.
+- **Documentation-first**: every new environment starts with research → filtered helper →
+  architecture decision → implementation. See
+  [.claude/skills/research-flow/SKILL.md](.claude/skills/research-flow/SKILL.md).
+
+---
 ## Skills (repo-internal)
 
-The skills under `.claude/skills/` encode **how to work in this repo**. Most are placeholders right now; the ones marked ACTIVE are ratified and should be invoked.
+The skills under `.claude/skills/<name>/SKILL.md` encode **how to work in this repo**. Most are placeholders right now; the ones marked ACTIVE are ratified and should be invoked.
 
 | Skill | Status | Trigger |
 |---|---|---|
@@ -106,6 +132,6 @@ Behavioral guidelines for every agent working in this repo, derived from [Andrej
 ## When in doubt
 
 1. The user's instructions in the conversation override anything in this file.
-2. If asked about something that is per-app, look at the app's CLAUDE.md.
-3. If asked about something cross-app, look in `overview/` then `.claude/skills/`.
+2. If asked about something that is per-environment, look at the environment's CLAUDE.md.
+3. If asked about something cross-environment, look in `overview/` then `.claude/skills/<name>/SKILL.md`.
 4. If you can't find an answer, ask. Don't fabricate paths or filenames.

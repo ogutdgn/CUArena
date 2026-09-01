@@ -23,7 +23,7 @@ The detailed protocol lives in [`.claude/skills/commit-style.md`](../.claude/ski
 
 Detailed in [`.claude/skills/session-end.md`](../.claude/skills/session-end.md).
 
-At session start, for figma work: `apps/figma/app-docs/feature-checklist.md` + `execution-map.md` are the inputs. Plan the wave, write a session entry.
+At session start, for figma work: `envs/figma/app-docs/feature-checklist.md` + `execution-map.md` are the inputs. Plan the wave, write a session entry.
 
 At session end:
 - Tick newly-shipped items in the relevant app's `feature-checklist.md`.
@@ -34,7 +34,7 @@ At session end:
 ## Documentation rules
 
 - Every app must keep its `CLAUDE.md` synchronized with `AGENTS.md` (Codex/other tooling reads the latter). If you edit one, mirror to the other.
-- New cross-app rules go in `overview/`, not in any single app's docs.
+- New cross-environment rules go in `docs/`, not in any single app's docs.
 - Skills go in `.claude/skills/` and are placeholders until their first run, then filled.
 - Helper corpora are read through their `00-overview.md` only — see [`.claude/skills/helper-blind-read-prevent.md`](../.claude/skills/helper-blind-read-prevent.md).
 
