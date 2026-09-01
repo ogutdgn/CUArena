@@ -1,5 +1,14 @@
 # Figma Mock — CUA Evaluation System
 
+> **Environment 1 of [`rl-for-cua`](../../README.md).** The first CUA environment in this
+> repo, built by hand — and the one that established the pattern everything else follows:
+> an environment is a UI *plus* a [three-stream log contract](../../docs/log-contract.md)
+> *plus* a rubric. Why that matters, and what it cost: [`docs/arc.md`](../../docs/arc.md).
+>
+> **Status: shipping.** Mock, verifier (10 rubrics / 11 check modules), 50 tasks, Docker
+> delivery, model runner. Benchmarked end-to-end at 50 tasks × 3 attempts:
+> **pass@1 6.7% · pass@3 10.0% · mean score 0.269 · 94% of attempts score non-zero.**
+
 A pixel-accurate mock of **Figma Design** paired with a **CUA verifier framework**. Together they form the evaluation environment for Computer Use Agent testing: the agent interacts with the mock app, and the verifier scores the outcome.
 
 ## Two sub-projects
@@ -121,7 +130,7 @@ apps/figma/app-docs/
 └── helper/                   ← Figma feature spec corpus (read 00-overview.md first)
 ```
 
-Agent instructions (session workflow, reference map, feature↔check relationship): [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md). Repo-root context: [`../../CLAUDE.md`](../../CLAUDE.md), [`../../overview/`](../../overview/).
+Agent instructions (session workflow, reference map, feature↔check relationship): [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md). Repo-root context: [`../../CLAUDE.md`](../../CLAUDE.md), [`../../docs/`](../../docs/).
 
 ---
 

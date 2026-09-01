@@ -1,10 +1,27 @@
-# Word Clone
+# MS Word — CUA RL environment
 
-A faithful desktop reproduction of **Microsoft Word** (Microsoft 365, light theme) — UI, features, and core functionality — built from scratch as an **Electron** application.
+> **Environment 2 of [`rl-for-cua`](../../README.md).** A faithful desktop reproduction of
+> **Microsoft Word** (Microsoft 365, light theme), built as a controllable environment for
+> computer-use agents: the value is not the clone, it is that we own the document model and
+> can therefore reset, observe and grade every episode. See
+> [ADR-0001](docs/decisions/0001-pivot-to-rl-cua-environment.md) and
+> [`docs/arc.md`](../../docs/arc.md).
+>
+> **Status.** The clone ships: full Word chrome (custom title bar + QAT, all 10 ribbon tabs,
+> File backstage), a paginated editing surface on a real ProseMirror document model, and
+> `.docx` round-trip. Home tab complete; Insert tab in progress against a completeness
+> ledger. The logger / verifier / MCP subsystems are **designed and not yet built** — that
+> is the largest open gap in this repo ([roadmap](../../docs/roadmap.md)).
+>
+> There is a second, superseded attempt at this same environment — native Qt6 renting
+> LibreOffice's engine — in [`envs/ms-word-native`](../ms-word-native/). Why this one won:
+> [engine-rent-vs-own](../../docs/decisions/engine-rent-vs-own.md).
 
 It reproduces the Word chrome (custom title bar + Quick Access Toolbar, the full ribbon with all 10 tabs and the File backstage), a paginated document editing surface, and a large set of real editing features (rich text formatting, styles, lists, tables, find & replace, page layout, print/PDF, and `.docx` import/export).
 
-> This project was generated as a one-shot engineering exercise. It is **not affiliated with Microsoft**. "Word", "Microsoft Word", and the ribbon design are trademarks/visual property of Microsoft; this is an independent look-alike for educational purposes.
+> Not affiliated with Microsoft. "Word", "Microsoft Word", and the ribbon design are
+> trademarks/visual property of Microsoft; this is an independent look-alike built as a
+> research environment.
 
 ---
 

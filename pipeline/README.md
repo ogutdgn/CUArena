@@ -1,4 +1,11 @@
-# App Pipeline
+# App Pipeline — automating the understanding step
+
+> **Stage 3 of [`rl-for-cua`](../README.md).** After building two CUA environments by hand
+> ([`envs/figma`](../envs/figma/), [`envs/ms-word`](../envs/ms-word/)), the same line item
+> dominated both: not writing the app, but *specifying* it — knowing exactly what is in
+> Word's Insert tab, what each control does, what it opens, what it affects. This pipeline
+> makes that specification a machine-produced artifact. Full reasoning:
+> [`docs/arc.md`](../docs/arc.md).
 
 Replicate whole applications from a single prompt (`build microsoft word`, `build gmail`, …).
 
@@ -29,8 +36,39 @@ toolbox richer and the next app easier. The only thing we hand-maintain is the t
 ## Status
 
 - **Design:** stable (`design/knowledge-base-design.md`).
-- **Architecture:** pivoted (2026-07-09) to agent-writes-its-own-tools. Earlier hand-built code
-  (Plan A + B1: launch, prober, discard handling, safety, window-true capture) is preserved in
-  `references/legacy/` as proven, lesson-rich seed material — not the live system.
-- **Next:** author the `playbook/` steps and seed the `toolbox/` files from the legacy lessons,
-  then run the agent through step 0–1 on MS Word.
+- **Architecture:** pivoted (2026-07-09) to agent-writes-its-own-tools. Earlier hand-built
+  code (Plan A + B1: launch, prober, discard handling, safety, window-true capture) is
+  preserved in `references/legacy/` as proven, lesson-rich seed material — not the live
+  system.
+- **Playbook + toolbox:** authored (steps 0–6), seeded from the legacy lessons.
+- **Runs completed:** three, each one feeding lessons back into `playbook/LESSONS.md` and
+  `toolbox/` — `word-home-tab` → `word-home-insert(-v2)` → `word-4tabs-v1`.
+
+### Latest output — [`kb/word-4tabs-v1/`](kb/word-4tabs-v1/)
+
+Microsoft Word, scoped to the `Home` / `Insert` / `Design` / `Layout` ribbon tabs plus every
+contextual tab they summon:
+
+| | |
+|---|---|
+| features · sub-features | **38 · 194** |
+| UI containers | **433** (34 recorded as honest stubs, `explored:false`) |
+| UI graph | **232 nodes · 343 edges** — what opens what, what each control affects |
+| priority layers | P0=11 · P1=34 · P2=27 · P3=106 · P4=54 |
+| shortcuts · screenshots | 25 · **389** verified |
+| audit trail | `journal.jsonl` — every action *and* decision, with reasoning |
+
+This is the same class of artifact that [`envs/ms-word`](../envs/ms-word/) needed a month of
+human research to produce.
+
+## What is not built yet
+
+The loop is open at the far end: this pipeline produces the specification, and the
+environments consume one, but **a human is still the thing in between**. KB → generated
+environment scaffold is the next stage. The KB schema was designed against what the Figma
+and Word builds actually consumed — feature trees, trigger paths, priority layers — so it
+is a codegen problem, not a redesign.
+
+The second claim still untested: that per-app scripts are disposable and only `toolbox/`
+lessons compound. All three runs so far were Word. Running the playbook against a
+structurally different app is what would prove it.

@@ -1,35 +1,56 @@
-# ms-word — Microsoft Word clone (CUA RL environment)
+# ms-word-native — the rented-engine attempt (superseded)
 
-A native **Qt6** Microsoft-Word-like editor, built as a CUA (computer-using-agent) RL
-environment. It **owns** the UI, command dispatch, document state, an always-on
-raw/semantic/outcome logger, and an MCP server; it **rents** LibreOffice's real engine via
-**LibreOfficeKit (LOK)** for layout, text shaping, and `.docx`/`.odt` I/O. We call this line
-**Boundary A**.
+> **Superseded. Kept as a decision record, not continued.**
+> This was the first attempt at the Word environment: a native **Qt6** app that owns the UI,
+> command dispatch, document state and logger, and **rents LibreOffice's real engine** via
+> **LibreOfficeKit (LOK)** for layout, text shaping and `.docx`/`.odt` I/O — the line called
+> **Boundary A**. It was replaced by [`envs/ms-word`](../ms-word/) (Electron + ProseMirror)
+> on 2026-06-03.
+>
+> **Read the decision first:**
+> [`docs/decisions/engine-rent-vs-own.md`](../../docs/decisions/engine-rent-vs-own.md).
 
-> **Status: decisions locked; Phases 0–1 built & verified.** The engine choice, the 692-control
-> Word↔LibreOffice ribbon research, the tech stack, and the parity scope are all decided and
-> recorded; the clone app (`app/`) is scaffolded with the LOK render/scheduler foundations green
-> under CMake/CTest, and the engine has been re-vendored to pristine LibreOffice (built, verified
-> running). The earlier "reskin LibreOffice's notebookbar" approach is **superseded** (git
-> history retains it).
+## Why this folder still exists
 
-## Start here
+Because the decision that killed it is the most useful thing this repo learned, and the
+argument is only credible with the artifact that produced it.
 
-1. [CLAUDE.md](CLAUDE.md) — agent guide, read-order, and locked decisions (read first).
-2. [docs/last-point.md](docs/last-point.md) — current state.
-3. [docs/execution-map.md](docs/execution-map.md) — phased build roadmap.
-4. [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) — Boundary A, process model, components.
-5. [docs/research/README.md](docs/research/README.md) — the research catalog (ribbon + tech-stack done; per-feature / UI-tokens / MCP / verifier happen at build time).
+Renting a real engine buys correct layout, text shaping and `.docx` for free. What it sells
+is the seam the whole repo depends on: to emit the `semantic` stream
+([log contract](../../docs/log-contract.md)) you have to tap the point where an operation is
+dispatched — and in a rented engine that point is inside somebody else's code. Every tap is
+a patch to a vendored tree you have promised not to modify, and every upstream re-vendor
+threatens it.
 
-## What's where
+Writing [`rllogger/`](rllogger/) — the C++ three-stream logger, in this folder, working — is
+what made that cost concrete. The replacement environment gets the same stream from one
+function it owns (`dispatchTransaction`), by construction.
+
+## What's here
 
 | Path | What |
 |---|---|
-| [CLAUDE.md](CLAUDE.md) / [AGENTS.md](AGENTS.md) | agent guides — decisions, doc map, conventions |
-| [docs/](docs/) | decisions + research: `architecture/`, `research/` (ribbon, tech-stack), `ui/`, `last-point.md`, `execution-map.md`, `engine-revendor-impact.md` |
-| [app/](app/) | the clone app — Phases 0–1 (C++/Qt6; `mwcore` logic + `mwengine` LOK binding; CMake/CTest) |
-| [libreoffice-codebase/](libreoffice-codebase/) | vendored LibreOffice engine — pristine LO @ `1f1121d1`, rented via LOK, unmodified |
+| [rllogger/](rllogger/) | **the artifact** — C++ raw/semantic/outcome logger built into the LO binary (`RawCapture` · `SemanticEmitter` · `OutcomeSnapshot` · `CommandMap`) |
+| [docs/research/ribbon/](docs/research/ribbon/) | the **692-control Word ↔ LibreOffice ribbon comparison**, 10 tabs — still the best control inventory in the repo, and reused downstream |
+| [docs/research/tech-stack.md](docs/research/tech-stack.md) | the stack evaluation that picked C++/Qt6 + QML + in-process LOK |
+| [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) | Boundary A — process model, components, the no-core-edits guardrail |
+| [docs/architecture/WRITER_CALC_EXTRACTION.md](docs/architecture/WRITER_CALC_EXTRACTION.md) | which LibreOffice modules can be stripped, and what breaks |
+| [app/](app/) | Phases 0–1 as built — `mwcore` logic + `mwengine` LOK binding, CMake/CTest, tile render path with a golden-frame test |
+| [docs/execution-map.md](docs/execution-map.md) · [docs/last-point.md](docs/last-point.md) | the plan and the state it stopped at |
 
-The clone app (`app/`) is built on `ms-word/build` (cut from `main`) following the phases in
-[docs/execution-map.md](docs/execution-map.md); Phases 0–1 are done, Phase 2 (live QML window +
-UI kit) is next.
+## What is *not* here
+
+The vendored LibreOffice source tree (`libreoffice-codebase/`, ~1.4 GB checked out, ~400 MB
+in git objects) has been **removed from the tree and from git history**. Nothing here builds
+as-is; that is intentional. The engine was pristine upstream LibreOffice at `1f1121d1`,
+rented unmodified — it can be re-vendored from upstream if this line is ever revisited.
+
+## How far it got
+
+Phases 0–1, verified: a CMake/CTest harness, a real LOK binding (headless load / dispatch /
+save round-trip), a tile render path with a golden-frame test, and the logger above. Phase 2
+(live QML window + UI kit) never started.
+
+The research did not die with the code — the ribbon inventory and the parity scoping fed the
+environment that replaced it, and the whole experience is what
+[`pipeline/`](../../pipeline/) exists to make cheaper.
