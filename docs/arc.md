@@ -84,6 +84,37 @@ Two environments in, the same line item dominated both. That is a pattern, not a
 
 ---
 
+## The bridge — how Stage 2 turned into Stage 3 (early Jul 2026)
+
+The jump from "building environments by hand" to "an agent produces the specification"
+was not a leap. It happened inside the Word environment, over the first week of July, and
+the work is preserved on four branches that were never merged to `main`:
+
+| Branch (`archive/ms-word-…`) | Commits | What it built |
+|---|---|---|
+| `parity-pipeline` | 103 | The first parity-measurement pipeline: scorecard axes, a STRUCTURE triage pass, and a run that **clicks every ribbon control in the live clone** |
+| `parity-v2` | 69 | A six-axis acceptance rubric (`parity/RUBRIC.md`, `RUNBOOK.md`), behavior cards, a feature-parity audit, and the `.docx` import losses it exposed |
+| `ensure-parity` | 3 | The measurement machinery extracted on its own, for step-by-step use |
+| `ui-structure` | 91 | **`parity/tools/ui_crawl/`** — a crawler with a resumable orchestrator, plus 95 captured **oracle JSON** files, 46 behavior cards, and per-boundary coverage records |
+
+The question that started it was ordinary: *the clone claims parity with Word — how would I
+know?* Answering it required measuring the clone against the real application, which
+required driving both, which required capturing what each one *is* in a structured form.
+By the time `ui-structure` landed a resumable crawler emitting oracle JSON with explicit
+coverage boundaries, the tool had stopped being a parity checker and had become an
+app-understanding tool that happened to live inside one app's repo.
+
+**`ui-structure`'s last commit is 2026-07-06. `pipeline/`'s first commit is 2026-07-07.**
+The next day the same idea was rebuilt standalone and app-agnostic — an agent driving the
+real application and writing its own inspection tools, with the per-app code treated as
+disposable and the lessons as the thing that compounds.
+
+These branches are kept unmerged and read-only. They are prototype-grade and were
+superseded within a day; their value is that they are the actual seam between the two
+stages, not a story told afterwards.
+
+---
+
 ## Stage 3 — Automate the expensive part (`pipeline/` · Jul 2026)
 
 **Thesis:** the specification should be a machine-produced artifact, not a human's month.
