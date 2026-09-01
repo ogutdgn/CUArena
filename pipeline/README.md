@@ -1,6 +1,6 @@
 # App Pipeline — automating the understanding step
 
-> **Stage 3 of [`rl-for-cua`](../README.md).** After building two CUA environments by hand
+> **Stage 3 of [`CUArena`](../README.md).** After building two CUA environments by hand
 > ([`envs/figma`](../envs/figma/), [`envs/ms-word`](../envs/ms-word/)), the same line item
 > dominated both: not writing the app, but *specifying* it — knowing exactly what is in
 > Word's Insert tab, what each control does, what it opens, what it affects. This pipeline

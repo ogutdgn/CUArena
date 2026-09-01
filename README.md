@@ -1,4 +1,4 @@
-# rl-for-cua
+# CUArena
 
 **Turning real applications into instrumented RL/eval environments for computer-use agents.**
 
@@ -98,7 +98,7 @@ following day. See [the bridge section in docs/arc.md](docs/arc.md).
 ## Repo map
 
 ```
-rl-for-cua/
+CUArena/
 ├── envs/
 │   ├── figma/             mock/ · verifier/ · delivery-1/ · cua-eval/ · scripts/
 │   ├── ms-word/           src/ · specs/ · docs/decisions/ (ADR-0001…0006)
