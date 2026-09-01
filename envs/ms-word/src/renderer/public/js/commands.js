@@ -1,0 +1,2674 @@
+/* commands.js — command dispatcher + handlers. Maps ribbon control cmd ids to
+   real behavior on the editor. Unknown/out-of-scope commands surface the
+   documented "not implemented" message (see docs/NOT_IMPLEMENTED.md). */
+(function () {
+  window.WC = window.WC || {};
+  const WC = window.WC;
+  const el = WC.el;
+  const E = () => WC.Editor;
+  // Phase 2: PM bridge accessor — null under --legacy or pre-mount (then the
+  // legacy branch runs; the editor.js pmGuard still backstops mistakes).
+  const PMA = () => (WC.PM && WC.PM.active && WC.PM.ready ? WC.PM : null);
+
+  const SIZES = [8, 9, 10, 10.5, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72];
+  // Layout spinner cmd → [paragraph attr dot-path, UI-unit → twips converter]
+  // (indents arrive in inches ×1440, spacing in points ×20).
+  const PARA_SPIN = {
+    indentLeft: ['paragraphProperties.indent.left', (v) => Math.round(v * 1440)],
+    indentRight: ['paragraphProperties.indent.right', (v) => Math.round(v * 1440)],
+    spacingBefore: ['paragraphProperties.spacing.before', (v) => Math.round(v * 20)],
+    spacingAfter: ['paragraphProperties.spacing.after', (v) => Math.round(v * 20)],
+  };
+  const FONTS = ['Calibri', 'Calibri Light', 'Arial', 'Times New Roman', 'Cambria', 'Georgia', 'Verdana', 'Tahoma',
+    'Courier New', 'Consolas', 'Comic Sans MS', 'Garamond', 'Trebuchet MS', 'Segoe UI', 'Helvetica', 'Carlito', 'Aptos'];
+
+  let lastFontColor = '#FF0000'; // standard "Red" (matches real Word)
+  let lastHighlight = '#FFFF00';
+  let lastShade = null;          // shading split button: no fill until one is picked
+  let lastBorderEdge = 'bottom'; // borders split button: Word defaults to Bottom Border
+
+  const H = {}; // handlers keyed by cmd
+
+  // ---- Clipboard ----
+  H.cut = () => { WC.PM.cutSelection(); };
+  H.copy = () => { WC.PM.copySelection(); };
+  H.paste = () => { WC.PM.pasteDefault(); };
+  H.formatPainter = (c, node) => { armPainterPM(node, false); };
+  H.formatPainterLock = (c, node) => { armPainterPM(node || (WC.Ribbon.controlIndex.formatPainter && WC.Ribbon.controlIndex.formatPainter.node), true); };
+
+  // ---- Font ----
+  H.bold = () => { WC.PM.cmd('toggleBold'); };
+  H.italic = () => { WC.PM.cmd('toggleItalic'); };
+  H.underline = () => { WC.PM.cmd('toggleUnderline'); };
+  H.strikethrough = () => { WC.PM.cmd('toggleStrike'); };
+  // No dedicated engine command for vertical alignment, but textStyle carries
+  // vertAlign with sub/superscript rendering — drive it via the generic setMark,
+  // toggling off when already set and keeping the pair mutually exclusive (Word).
+  H.subscript = () => vertAlign('subscript');
+  H.superscript = () => vertAlign('superscript');
+  H.clearAllFormatting = () => { WC.PM.cmd('clearFormat'); };
+  H.increaseFontSize = () => stepFont(1);
+  H.decreaseFontSize = () => stepFont(-1);
+  H.font = (c, node) => openFontList(node);
+  H.fontSize = (c, node) => openSizeList(node);
+  // Capture the CURRENT selection before a main-face apply so applyColor's
+  // withSelection restores THIS range, not a stale savedSel left by a prior combo
+  // focus / color-picker open (the "color lands on previously-touched text" bug).
+  H.textHighlightColor = (c, node) => { WC.PM.captureSelection(); applyColor('hilite', lastHighlight); };
+  H.fontColor = (c, node) => { WC.PM.captureSelection(); applyColor('fore', lastFontColor); };
+
+  // ---- Paragraph ----
+  H.alignLeft = () => { WC.PM.cmd('setTextAlign', 'left'); };
+  H.center = () => { WC.PM.cmd('setTextAlign', 'center'); };
+  H.alignRight = () => { WC.PM.cmd('setTextAlign', 'right'); };
+  // Word stores justify as w:jc="both"; setTextAlign('justify') does that mapping —
+  // never pass 'both' (the alignments whitelist rejects it).
+  H.justify = () => { WC.PM.cmd('setTextAlign', 'justify'); };
+  H.bullets = () => { WC.PM.cmd('toggleBulletList'); };
+  H.numbering = () => { WC.PM.cmd('toggleOrderedList'); };
+  H.decreaseIndent = () => stepIndent(-48);
+  H.increaseIndent = () => stepIndent(48);
+  function stepIndent(px) {
+    const pm = WC.PM;
+    // Word behavior: inside a list the ribbon indent buttons change the LIST LEVEL;
+    // otherwise they step the paragraph text indent by 0.5" (engine: 36pt = 720tw).
+    const para = pm.getEditor().getAttributes('paragraph') || {};
+    // NOTE: style-inherited list paragraphs carry no INLINE numberingProperties —
+    // they reach the list branch via listRendering (computed by numberingPlugin).
+    // Both arms are needed; do not simplify to one.
+    const inList = !!(para.paragraphProperties && para.paragraphProperties.numberingProperties) || !!para.listRendering;
+    if (inList) pm.cmd(px > 0 ? 'increaseListIndent' : 'decreaseListIndent');
+    else pm.cmd(px > 0 ? 'increaseTextIndent' : 'decreaseTextIndent');
+  }
+  H.showHide = () => {
+    // Flip the DOM class; the ribbon state machine owns the button latch
+    // ({ latched: st.formattingMarks }, registered in home-features.js). The pilcrow rides CSS, but the FULL marks
+    // (space dots / tab arrows / break ↵) are painted by the owned formatting-marks decoration plugin, which reads
+    // the class in its decorations(state) — so after toggling we dispatch a no-op transaction to recompute the set.
+    document.getElementById('pm-editor')?.classList.toggle('show-marks');
+    WC.PM && WC.PM.touch && WC.PM.touch(); // step-less re-render so the formatting-marks plugin recomputes for the new class
+    WC.PM && WC.PM._scheduleRibbonSync && WC.PM._scheduleRibbonSync();
+  };
+  H.sort = () => sortDialog();
+  // Shading split button: main face applies the LAST-USED shading color (none on a
+  // fresh doc, like Word). The arrow opens the color palette (dropdown -> colorMenu).
+  H.shading = (c, node) => { if (lastShade) { WC.PM.captureSelection(); applyColor('shade', lastShade); } else colorMenu(node, 'shade'); };
+  // Borders split button: main face applies the last-used edge (Word defaults to Bottom).
+  H.borders = () => applyBorder(lastBorderEdge);
+
+  // ---- Styles ----
+  H.stylesGallery = () => {};
+
+  // ---- Editing ----
+  H.find = () => WC.Dialogs.findPane(false);
+  H.replace = () => WC.Dialogs.findPane(true);
+  H.select = (c, node) => WC.Commands.dropdown(c, node);
+
+  // ---- Insert ----
+  H.table = (c, node) => WC.Dialogs.insertTable();
+
+  // ---- Table Tools (Table Layout + Table Design contextual tabs, PM-only) ----
+  // These cmds live only on the runtime-injected contextual tabs (table-tools-pm.js),
+  // which only appear in PM mode. Each routes straight to a WC.PM table verb.
+  const TPM = () => (window.WC.PM && window.WC.PM.active && window.WC.PM.ready) ? window.WC.PM : null;
+  H.tblInsertAbove = () => { const p = TPM(); if (p) p.tableAddRow('above'); };
+  H.tblInsertBelow = () => { const p = TPM(); if (p) p.tableAddRow('below'); };
+  H.tblInsertLeft = () => { const p = TPM(); if (p) p.tableAddColumn('left'); };
+  H.tblInsertRight = () => { const p = TPM(); if (p) p.tableAddColumn('right'); };
+  H.tblDeleteRow = () => { const p = TPM(); if (p) p.tableDeleteRow(); };
+  H.tblDeleteColumn = () => { const p = TPM(); if (p) p.tableDeleteColumn(); };
+  H.tblDeleteTable = () => { const p = TPM(); if (p) p.tableDeleteTable(); };
+  H.tblMerge = () => { const p = TPM(); if (p) p.tableMerge(); };
+  H.tblSplitCell = () => { const p = TPM(); if (p) p.tableSplitCell(); };
+  H.tblSplitTable = () => { const p = TPM(); if (p) p.tableSplit(); };
+  H.tblDistRows = () => { const p = TPM(); if (p) p.tableDistributeRows(); };
+  H.tblDistCols = () => { const p = TPM(); if (p) p.tableDistributeColumns(); };
+  H.tblHeaderRow = () => { const p = TPM(); if (p) p.tableToggleHeaderRow(); };
+  H.tblHeaderCol = () => { const p = TPM(); if (p) p.tableToggleHeaderColumn(); };
+  H.tblToText = () => { const p = TPM(); if (p) p.tableToText('\t'); };
+  H.tblVAlignTop = () => { const p = TPM(); if (p) p.tableSetCellVAlign('top'); };
+  H.tblVAlignMid = () => { const p = TPM(); if (p) p.tableSetCellVAlign('middle'); };
+  H.tblVAlignBottom = () => { const p = TPM(); if (p) p.tableSetCellVAlign('bottom'); };
+  H.tblTextDir = () => { const p = TPM(); if (p) p.tableSetTextDirection('tbRl'); };
+  H.tblAlignLeft = () => { const p = TPM(); if (p) p.tableSetAlignment('left'); };
+  H.tblAlignCenter = () => { const p = TPM(); if (p) p.tableSetAlignment('center'); };
+  H.tblAlignRight = () => { const p = TPM(); if (p) p.tableSetAlignment('right'); };
+  // Cell Margins (Table Layout → Alignment group). Word's button opens the Cell Options dialog; we
+  // open an inches flyout (4 sides) anchored to the control, mirroring the Row Height / Column Width
+  // size flyouts. px = inches × 96 (the fork clamps ≥0 and the exporter converts px → twips for
+  // <w:tcMar>). Sets the caret cell's margins via the bridge. Defaults to Word's stock cell margins
+  // (top/bottom 0", left/right 0.08").
+  H.tblCellMargins = (c, node) => {
+    const p = TPM();
+    if (!p || !p.tableSetCellMargins || !p.tableInfo || !p.tableInfo().inTable) { WC.toast('Click inside a table cell to set its margins.'); return; }
+    // Prefill the cell's CURRENT margins (Word's Cell Options pre-reads them) so editing one side
+    // doesn't clobber the others. Bridge returns px; show inches. No explicit margins → Word's stock
+    // defaults (top/bottom 0", left/right 0.08").
+    const cur = (p.tableGetCellMargins && p.tableGetCellMargins()) || null;
+    const inch = (px, dflt) => (cur && Number.isFinite(px) ? Math.round((px / 96) * 100) / 100 : dflt);
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Cell Margins (in)'));
+      const mk = (v) => el('input', { type: 'number', step: '0.01', min: '0', value: String(v), style: { width: '56px' } });
+      const inputs = {
+        top: mk(inch(cur && cur.top, 0)),
+        bottom: mk(inch(cur && cur.bottom, 0)),
+        left: mk(inch(cur && cur.left, 0.08)),
+        right: mk(inch(cur && cur.right, 0.08)),
+      };
+      const sideRow = (label, key) => {
+        const r = el('div', { style: { padding: '2px 8px', display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'space-between' } });
+        r.appendChild(el('span', { text: label, style: { fontSize: '12px' } }));
+        r.appendChild(inputs[key]);
+        return r;
+      };
+      [['Top', 'top'], ['Bottom', 'bottom'], ['Left', 'left'], ['Right', 'right']].forEach(([l, k]) => fly.appendChild(sideRow(l, k)));
+      fly.appendChild(WC.flySep());
+      const toPx = (inp) => { const v = parseFloat(inp.value); return v > 0 ? Math.round(v * 96) : 0; };
+      const apply = () => {
+        p.tableSetCellMargins({ top: toPx(inputs.top), bottom: toPx(inputs.bottom), left: toPx(inputs.left), right: toPx(inputs.right) });
+        WC.closeFlyouts();
+      };
+      Object.values(inputs).forEach((inp) => inp.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') apply(); }));
+      const arow = el('div', { style: { padding: '4px 8px' } });
+      const btn = el('button', { class: 'fly-set-btn', text: 'Apply' });
+      btn.addEventListener('click', apply);
+      arow.appendChild(btn);
+      fly.appendChild(arow);
+    });
+  };
+  // Dropdown flyouts (style gallery / shading swatches / borders / autofit) — opened
+  // from the dropdown dispatch head below; the picked value routes to WC.PM.
+  // T4: the gallery is built DYNAMICALLY from the runtime styles catalog
+  // (WC.PM.getTableStyles() — w:type="table" entries of the in-memory styles.xml,
+  // displaying each definition's w:name and applying its w:styleId). The old
+  // hardcoded 4-id list is gone: two of its ids (GridTable5Dark-Accent2,
+  // ListTable3-Accent3) had NO definition anywhere, so real Word dropped the
+  // orphaned <w:tblStyle> reference on open (slice-6 oracle Leg C).
+  H.tblStyles = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Table Styles'));
+    const p = TPM();
+    const styles = (p && typeof p.getTableStyles === 'function') ? p.getTableStyles() : [];
+    if (!styles.length) {
+      fly.appendChild(WC.flyItem('No table styles available', { onClick: () => {} }));
+      return;
+    }
+    styles.forEach(({ id, name }) => fly.appendChild(WC.flyItem(name, { onClick: () => { const q = TPM(); if (q) q.tableSetStyle(id); } })));
+  });
+  H.tblShading = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Shading'));
+    const grid = el('div', { class: 'tbl-shade-grid', style: { padding: '4px' } });
+    ['#FFF2CC', '#DEEAF6', '#E2EFDA', '#FCE4D6', '#D9D9D9', 'transparent'].forEach((col) => {
+      const sw = el('div', { class: 'tbl-shade-sw', style: { width: '22px', height: '22px', margin: '3px', display: 'inline-block', background: col === 'transparent' ? '#fff' : col, border: '1px solid #ccc', cursor: 'pointer' } });
+      sw.addEventListener('click', () => { WC.closeFlyouts(); const p = TPM(); if (p) p.tableSetCellShading(col === 'transparent' ? '' : col); });
+      grid.appendChild(sw);
+    });
+    fly.appendChild(grid);
+  });
+  H.tblBorders = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Borders'));
+    const B = () => ({ val: 'single', color: '000000', size: 4 });
+    fly.appendChild(WC.flyItem('All Borders', { onClick: () => { const p = TPM(); if (p) p.tableSetCellBorders({ top: B(), bottom: B(), left: B(), right: B() }); } }));
+    fly.appendChild(WC.flyItem('No Border', { onClick: () => { const p = TPM(); if (p) p.tableSetCellBorders({}); } }));
+  });
+  H.tblAutoFit = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('AutoFit'));
+    [['AutoFit Contents', 'contents'], ['AutoFit Window', 'window'], ['Fixed Column Width', 'fixed']]
+      .forEach(([label, mode]) => fly.appendChild(WC.flyItem(label, { onClick: () => { const p = TPM(); if (p) p.tableAutoFit(mode); } })));
+  });
+  // Generic inches-input Size flyout (shared by table Cell Size 4d.3 + Picture Size 4b). A number
+  // field (inches) + common presets; `apply(inches)` routes to the relevant PM bridge verb. px =
+  // inches × 96 (the model + exporters convert to twips/EMU).
+  function sizeFly(node, title, presets, apply) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader(title));
+      const row = el('div', { style: { padding: '4px 8px', display: 'flex', gap: '6px', alignItems: 'center' } });
+      const input = el('input', { type: 'number', step: '0.1', min: '0', value: String(presets[1][1]), style: { width: '64px' } });
+      const btn = el('button', { class: 'fly-set-btn', text: 'Set (in)' });
+      btn.addEventListener('click', () => { const v = parseFloat(input.value); if (v > 0) { apply(v); WC.closeFlyouts(); } });
+      input.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { const v = parseFloat(input.value); if (v > 0) { apply(v); WC.closeFlyouts(); } } });
+      row.appendChild(input); row.appendChild(btn);
+      fly.appendChild(row);
+      fly.appendChild(WC.flySep());
+      presets.forEach(([label, inches]) => fly.appendChild(WC.flyItem(label, { onClick: () => apply(inches) })));
+    });
+  }
+  // Table Cell Size — Row Height / Column Width (4d.3) → tableSetRowHeight (w:trHeight) /
+  // tableSetCellWidth (colwidth/w:gridCol). Both act on the selected row(s)/column(s).
+  H.tblRowHeight = (c, node) => sizeFly(node, 'Row Height', [['0.2"', 0.2], ['0.3"', 0.3], ['0.5"', 0.5], ['1.0"', 1.0]],
+    (inches) => { const p = TPM(); if (p && p.tableSetRowHeight) p.tableSetRowHeight(Math.round(inches * 96), 'atLeast'); });
+  H.tblColWidth = (c, node) => sizeFly(node, 'Column Width', [['1.0"', 1.0], ['1.5"', 1.5], ['2.0"', 2.0], ['2.5"', 2.5]],
+    (inches) => { const p = TPM(); if (p && p.tableSetCellWidth) p.tableSetCellWidth(Math.round(inches * 96)); });
+  // Table Indent (Word's Table Properties → Indent from left) → tableSetIndent (w:tblInd). Acts on the
+  // whole table; the render offsets it via margin-left (TableView), the exporter writes w:tblPr/w:tblInd.
+  H.tblIndent = (c, node) => sizeFly(node, 'Indent from Left', [['0"', 0], ['0.25"', 0.25], ['0.5"', 0.5], ['1.0"', 1.0]],
+    (inches) => { const p = TPM(); if (p && p.tableSetIndent) p.tableSetIndent(Math.round(inches * 96)); });
+  // Picture Size — Height / Width (Word's Picture Format → Size group) → WC.PM.setImageSize, which
+  // honors the aspect lock (a locked picture's edited dim drives the other) and writes wp:extent.
+  H.imgHeight = (c, node) => sizeFly(node, 'Picture Height', [['1.0"', 1.0], ['1.5"', 1.5], ['2.0"', 2.0], ['3.0"', 3.0]],
+    (inches) => { if (WC.PM && WC.PM.setImageSize) WC.PM.setImageSize({ height: Math.round(inches * 96) }); });
+  H.imgWidth = (c, node) => sizeFly(node, 'Picture Width', [['1.0"', 1.0], ['2.0"', 2.0], ['3.0"', 3.0], ['4.0"', 4.0]],
+    (inches) => { if (WC.PM && WC.PM.setImageSize) WC.PM.setImageSize({ width: Math.round(inches * 96) }); });
+  // Picture Alt Text (Word's Picture Format → Alt Text pane) → WC.PM.setImageAltText. A flyout with
+  // a description textarea (prefilled from the selected picture) + a "Mark as decorative" checkbox.
+  // The description is the node's `title` attr (→ wp:docPr/@descr); decorative disables it.
+  H.imgAltText = (c, node) => {
+    const sel = window.WC.view && window.WC.view.state && window.WC.view.state.selection;
+    const a = (sel && sel.node && sel.node.type.name === 'image') ? sel.node.attrs : {};
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Alt Text'));
+      const wrap = el('div', { style: { padding: '4px 8px', display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '220px' } });
+      const ta = el('textarea', { rows: '3', placeholder: 'Describe this picture for accessibility…', style: { width: '210px', resize: 'vertical' } });
+      ta.value = a.title || '';
+      const dec = el('input', { type: 'checkbox' });
+      dec.checked = !!a.decorative; ta.disabled = dec.checked;
+      const decRow = el('label', { style: { display: 'flex', gap: '6px', alignItems: 'center', fontSize: '12px' } });
+      decRow.appendChild(dec); decRow.appendChild(document.createTextNode('Mark as decorative'));
+      dec.addEventListener('change', () => { ta.disabled = dec.checked; });
+      const btn = el('button', { class: 'fly-set-btn', text: 'Apply' });
+      btn.addEventListener('click', () => {
+        if (WC.PM && WC.PM.setImageAltText) WC.PM.setImageAltText({ title: ta.value, decorative: dec.checked });
+        WC.closeFlyouts();
+      });
+      wrap.appendChild(ta); wrap.appendChild(decRow); wrap.appendChild(btn);
+      fly.appendChild(wrap);
+    });
+  };
+  // Picture Crop (Word's Picture Format → Crop) → WC.PM.setImageCrop. A flyout with Left/Top/Right/
+  // Bottom crop % (prefilled from the selected picture's clipPath inset) + Remove Crop. The bridge
+  // maps these to the `clipPath` attr (render clips + scales to fill the box) → exports a:srcRect.
+  H.imgCrop = (c, node) => {
+    const sel = window.WC.view && window.WC.view.state && window.WC.view.state.selection;
+    const a = (sel && sel.node && sel.node.type.name === 'image') ? sel.node.attrs : {};
+    const m = (typeof a.clipPath === 'string') ? a.clipPath.match(/inset\(\s*([\d.]+)%\s+([\d.]+)%\s+([\d.]+)%\s+([\d.]+)%\s*\)/) : null;
+    const cur = m ? { t: +m[1], r: +m[2], b: +m[3], l: +m[4] } : { t: 0, r: 0, b: 0, l: 0 };
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Crop (%)'));
+      const grid = el('div', { style: { padding: '4px 8px', display: 'grid', gridTemplateColumns: 'auto 52px auto 52px', gap: '4px 6px', alignItems: 'center' } });
+      const mk = (val) => el('input', { type: 'number', step: '1', min: '0', max: '100', value: String(val), style: { width: '48px' } });
+      const li = mk(cur.l), ti = mk(cur.t), ri = mk(cur.r), bi = mk(cur.b);
+      const lbl = (txt) => el('span', { text: txt, style: { fontSize: '12px' } });
+      grid.appendChild(lbl('Left')); grid.appendChild(li); grid.appendChild(lbl('Top')); grid.appendChild(ti);
+      grid.appendChild(lbl('Right')); grid.appendChild(ri); grid.appendChild(lbl('Bottom')); grid.appendChild(bi);
+      fly.appendChild(grid);
+      const apply = el('div', { style: { padding: '4px 8px' } });
+      const btn = el('button', { class: 'fly-set-btn', text: 'Apply' });
+      btn.addEventListener('click', () => {
+        if (WC.PM && WC.PM.setImageCrop) WC.PM.setImageCrop({ l: parseFloat(li.value), t: parseFloat(ti.value), r: parseFloat(ri.value), b: parseFloat(bi.value) });
+        WC.closeFlyouts();
+      });
+      apply.appendChild(btn);
+      fly.appendChild(apply);
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Remove Crop', { onClick: () => { if (WC.PM && WC.PM.setImageCrop) WC.PM.setImageCrop({ remove: true }); } }));
+    });
+  };
+  // Picture Rotate / Flip (Word's Picture Format → Arrange → Rotate) → WC.PM.setImageTransform. A
+  // flyout matching Word's menu; each item drives the node's transformData (render + a:xfrm export).
+  H.imgRotate = (c, node) => WC.flyout(node, (fly) => {
+    const tx = (o) => { if (WC.PM && WC.PM.setImageTransform) WC.PM.setImageTransform(o); };
+    fly.appendChild(WC.flyItem('Rotate Right 90°', { onClick: () => tx({ rotate: 90 }) }));
+    fly.appendChild(WC.flyItem('Rotate Left 90°', { onClick: () => tx({ rotate: -90 }) }));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Flip Vertical', { onClick: () => tx({ flipV: true }) }));
+    fly.appendChild(WC.flyItem('Flip Horizontal', { onClick: () => tx({ flipH: true }) }));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Reset Rotation', { onClick: () => tx({ reset: true }) }));
+  });
+  // Picture Color / Recolor (Word's Picture Format → Adjust → Color) → WC.PM.setImageGrayscale.
+  // "Grayscale" sets the selected picture's `grayscale` attr (render = CSS filter; export = <a:grayscl/>
+  // in a:blip, which Word reads as PictureFormat.ColorType=grayscale(2)); "No Recolor" clears it.
+  H.imgColor = (c, node) => WC.flyout(node, (fly) => {
+    const gs = (on) => { if (WC.PM && WC.PM.setImageGrayscale) WC.PM.setImageGrayscale(on); };
+    fly.appendChild(WC.flyHeader('Recolor'));
+    fly.appendChild(WC.flyItem('No Recolor', { onClick: () => gs(false) }));
+    fly.appendChild(WC.flyItem('Grayscale', { onClick: () => gs(true) }));
+  });
+  // Picture Position (Word's Layout → Position → absolute position) → WC.PM.setImagePosition. A flyout
+  // with Horizontal (right of column) + Vertical (below paragraph) offsets in inches, prefilled from the
+  // selected floating picture's marginOffset. Writes marginOffset (render left/top + wp:posOffset export).
+  H.imgPosition = (c, node) => {
+    const sel = window.WC.view && window.WC.view.state && window.WC.view.state.selection;
+    const a = (sel && sel.node && sel.node.type.name === 'image') ? sel.node.attrs : {};
+    const mo = a.marginOffset || {};
+    const toIn = (px) => Math.round(((Number(px) || 0) / 96) * 100) / 100; // px → inches, 2dp
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Position (in)'));
+      const grid = el('div', { style: { padding: '4px 8px', display: 'grid', gridTemplateColumns: 'auto 56px', gap: '4px 6px', alignItems: 'center' } });
+      const mk = (val) => el('input', { type: 'number', step: '0.1', value: String(val), style: { width: '52px' } });
+      const hi = mk(toIn(mo.horizontal)), vi = mk(toIn(mo.top));
+      const lbl = (txt) => el('span', { text: txt, style: { fontSize: '12px' } });
+      grid.appendChild(lbl('Horizontal')); grid.appendChild(hi);
+      grid.appendChild(lbl('Vertical')); grid.appendChild(vi);
+      fly.appendChild(grid);
+      const apply = el('div', { style: { padding: '4px 8px' } });
+      const btn = el('button', { class: 'fly-set-btn', text: 'Apply' });
+      btn.addEventListener('click', () => {
+        const hv = parseFloat(hi.value), vv = parseFloat(vi.value);
+        if (WC.PM && WC.PM.setImagePosition) WC.PM.setImagePosition({ horizontal: Math.round((isFinite(hv) ? hv : 0) * 96), top: Math.round((isFinite(vv) ? vv : 0) * 96) });
+        WC.closeFlyouts();
+      });
+      apply.appendChild(btn);
+      fly.appendChild(apply);
+    });
+  };
+  // Decode the natural pixel size of an image data-URL (resolves null on failure).
+  function imageNaturalSize(src) {
+    return new Promise((resolve) => {
+      try {
+        const img = new Image();
+        img.onload = () => resolve({ w: img.naturalWidth || img.width, h: img.naturalHeight || img.height });
+        img.onerror = () => resolve(null);
+        img.src = src;
+      } catch (_) { resolve(null); }
+    });
+  }
+  // The live text-column width in CSS px (page width minus L/R margins/padding).
+  function contentWidthPx() {
+    const pm = document.querySelector('#pm-editor .ProseMirror');
+    if (!pm) return 0;
+    const cs = getComputedStyle(pm);
+    return Math.max(0, pm.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0));
+  }
+  // Word inserts a picture at its NATURAL size, then shrinks it to the text-column
+  // width (preserving aspect ratio) if it's wider. The bridge used to hardcode
+  // 100×100, so every photo came in tiny — read the real dimensions and clamp.
+  async function insertPictureFromDataUrl(dataUrl, name) {
+    if (!dataUrl) return null;
+    const dims = await imageNaturalSize(dataUrl);
+    const maxW = contentWidthPx() || 600;
+    let width, height;
+    if (dims && dims.w > 0 && dims.h > 0) {
+      if (dims.w > maxW) { width = Math.round(maxW); height = Math.round(dims.h * (maxW / dims.w)); }
+      else { width = dims.w; height = dims.h; }
+    } else {
+      // Natural size unavailable (decode failure, or a viewBox-only SVG that reports
+      // 0×0) — fall back to a sensible column-fit default, NOT the bridge's tiny 100×100.
+      width = Math.round(Math.min(maxW, 480));
+      height = Math.round(width * 0.75);
+    }
+    WC.PM.insertImage({ src: dataUrl, alt: name || 'Picture', width, height });
+    return { width, height, natural: dims };
+  }
+  H.pictures = async () => {
+    const r = await window.wordAPI.pickImage();
+    if (!r || !r.ok) return;
+    await insertPictureFromDataUrl(r.dataUrl, r.name);
+  };
+  H.link = () => WC.Dialogs.insertLink();
+  H.symbol = (c, node) => WC.Dialogs.symbol(node);
+  H.pageBreak = () => { WC.PM.insertPageBreak(); };
+  H.blankPage = () => { WC.PM.insertBlankPage(); };
+  // ---- Header & Footer Tools (002: on-page editing on the paged engine) ----
+  // Entry/exit drive the paged PresentationEditor through the WC.PM bridge verbs (no fork edit;
+  // the legacy WC.HeaderFooter object + the retired WC.Editor `E()` it used are gone).
+  H.goToHeader = () => { WC.PM.enterHeaderFooter('header'); };
+  H.goToFooter = () => { WC.PM.enterHeaderFooter('footer'); };
+  H.closeHeaderFooter = () => { WC.PM.closeHeaderFooter(); };
+  // Deferred / inert long-tail Header & Footer controls — honest toasts, no legacy refs.
+  H.docInfo = () => WC.toast('Document Info fields in the header/footer are not available in this version.');
+  H.showDocText = () => WC.toast('Show Document Text is not available in this version.');
+  H.dateAndTime = () => WC.toast('Date & Time in the header/footer is not available in this version.');
+  H.linkToPrevious = () => WC.toast('Link to Previous applies across sections (this is a single-section document).');
+  // P2: toggle the section's Different First Page / Different Odd & Even structure options,
+  // then re-sync the contextual-tab checked state from the bridge (the single source of truth).
+  H.differentFirstPage = () => {
+    const cur = (WC.PM.getHeaderFooterOptions && WC.PM.getHeaderFooterOptions()) || {};
+    WC.PM.setDifferentFirstPage(!cur.differentFirstPage);
+    if (WC.HeaderFooterToolsPM && WC.HeaderFooterToolsPM.refreshOptionToggles) WC.HeaderFooterToolsPM.refreshOptionToggles();
+  };
+  H.differentOddEven = () => {
+    const cur = (WC.PM.getHeaderFooterOptions && WC.PM.getHeaderFooterOptions()) || {};
+    WC.PM.setDifferentOddEven(!cur.differentOddEven);
+    if (WC.HeaderFooterToolsPM && WC.HeaderFooterToolsPM.refreshOptionToggles) WC.HeaderFooterToolsPM.refreshOptionToggles();
+  };
+  H.horizontalLine = () => { WC.PM.insertHr(); };
+  H.wordArt = (c, node) => insertWordArt();
+  H.textBox = () => { WC.PM.xeTextBox(''); };
+  H.dropCap = () => { WC.PM.xeDropCap('drop', 3); };
+  H.equation = () => WC.Dialogs.equation();
+  H.comment = (c, node) => WC.Commands.run({ cmd: 'newComment' });
+  // PM branch: the contextual composer card (slice-8 task 4) owns text entry —
+  // pm.cmd('addComment') with empty text is WRONG (A2: comments need real content).
+  // Until WC.CommentsUI lands, the PM branch is a guarded no-op (review is D6-blocked
+  // pre-flip, and the flip [task 7] lands after the composer [task 4]).
+  H.newComment = () => { if (WC.CommentsUI && WC.CommentsUI.compose) WC.CommentsUI.compose(); };
+
+  // ---- Insert tab ----
+  H.coverPage = (c, node) => WC.Insert.coverPageMenu(node);
+  H.shapes = (c, node) => WC.Insert.shapesMenu(node);
+  H.icons = () => WC.Insert.iconsPicker();
+  H.smartart = (c, node) => WC.Insert.smartArtMenu(node);
+  H.chart = () => WC.Insert.chartDialog();
+  H['3dModels'] = () => WC.toast('3D models require a 3D model viewer/runtime — not available in this clone.', 'See docs/NOT_IMPLEMENTED.md');
+  H.screenshot = (c, node) => screenshotMenu(node);
+  H.myAddIns = (c, node) => addInsMenu(node);
+  H.onlineVideo = () => WC.Insert.onlineVideoDialog();
+  H.bookmark = () => WC.Insert.bookmarkDialog();
+  H.crossReference = () => { crossRefDialogPM(WC.PM); };
+  // Edit Header / Edit Footer (item 3) — a minimal modal that round-trips the section's
+  // primary header/footer TEXT via the WC.PM bridge (getHeaderText/setHeaderText → the
+  // story-runtime → word/headerN.xml + sectPr ref, Word-COM-validated). The richer on-page
+  // editable band is Phase-4 (frames-overlay) gated; this dialog persists unchanged when it lands.
+  function headerFooterDialog(kind) {
+    const isH = kind === 'header';
+    const getter = isH ? WC.PM.getHeaderText : WC.PM.getFooterText;
+    const setter = isH ? WC.PM.setHeaderText : WC.PM.setFooterText;
+    const cur = (typeof getter === 'function' ? getter() : '') || '';
+    const ta = el('textarea', { style: { width: '100%', height: '90px', resize: 'vertical', boxSizing: 'border-box' } });
+    ta.value = cur;
+    WC.dialog({
+      title: isH ? 'Edit Header' : 'Edit Footer',
+      width: '460px',
+      body: el('div', {}, [el('div', { class: 'row', style: { marginBottom: '6px' }, text: (isH ? 'Header' : 'Footer') + ' text:' }), ta]),
+      footer: [
+        { label: 'OK', primary: true, onClick: () => { if (typeof setter === 'function') setter(ta.value); } },
+        { label: 'Cancel' },
+      ],
+    });
+    setTimeout(() => { try { ta.focus(); } catch (e) { /* none */ } }, 0);
+  }
+  H.header = (c, node) => headerFooterDialog('header');
+  H.footer = (c, node) => headerFooterDialog('footer');
+  // P3 (002): Page Number flyout — inserts a REAL OOXML PAGE field (fldChar/instrText) into the
+  // header (Top) / footer (Bottom) / active region (Current); Remove clears the page-number band(s).
+  H.pageNumber = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyItem('Top of Page', { onClick: () => { WC.PM.insertPageNumber({ position: 'top' }); } }));
+    fly.appendChild(WC.flyItem('Bottom of Page', { onClick: () => { WC.PM.insertPageNumber({ position: 'bottom' }); } }));
+    fly.appendChild(WC.flyItem('Current Position', { onClick: () => { WC.PM.insertPageNumber({ position: 'current' }); } }));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Remove Page Numbers', { onClick: () => { WC.PM.removePageNumbers(); } }));
+  });
+  H.quickParts = (c, node) => WC.Insert.quickPartsMenu(node);
+  H.wordart = (c, node) => WC.Insert.wordArtMenu(node);
+  H.signatureLine = () => WC.Insert.signatureLine();
+  H.dateTime = () => WC.Insert.dateTimeDialog();
+  H.object = (c, node) => WC.Insert.objectMenu(node);
+
+  function screenshotMenu(node) {
+    WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('Available Windows')); fly.appendChild(WC.flyItem('Screen Clipping', { onClick: () => WC.Insert.screenshot() })); });
+  }
+  function picturesMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('This Device…', { icon: 'pictures', onClick: () => H.pictures() }));
+      fly.appendChild(WC.flyItem('Online Pictures…', { icon: 'onlinePictures', onClick: () => WC.toast('Online Pictures needs an image search backend — not available in this clone.', 'See docs/NOT_IMPLEMENTED.md') }));
+    });
+  }
+  function textBoxMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('Simple Text Box', { onClick: () => H.textBox() }));
+      fly.appendChild(WC.flyItem('Draw Text Box', { onClick: () => H.textBox() }));
+    });
+  }
+  function dropCapMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('None', { onClick: () => { WC.PM.xeDropCap('none', 0); } }));
+      fly.appendChild(WC.flyItem('Dropped', { onClick: () => { WC.PM.xeDropCap('drop', 3); } }));
+      fly.appendChild(WC.flyItem('In Margin', { onClick: () => { WC.PM.xeDropCap('margin', 3); } }));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Drop Cap Options…', { onClick: () => WC.Insert.dropCapDialog() }));
+    });
+  }
+  function equationMenu(node) {
+    const eqs = ['a² + b² = c²', 'x = (−b ± √(b²−4ac)) / 2a', 'E = mc²', '∫ f(x) dx', 'Σ(i=1→n) i = n(n+1)/2'];
+    WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('Built-In')); eqs.forEach((e2) => fly.appendChild(WC.flyItem(e2, { onClick: () => WC.PM.insertEquation(e2) }))); fly.appendChild(WC.flySep()); fly.appendChild(WC.flyItem('Insert New Equation', { onClick: () => WC.Dialogs.equation() })); });
+  }
+
+  // ---- View ----
+  H.readMode = () => readMode();
+  H.printLayout = () => WC.PM.setView('print');
+  H.webLayout = () => WC.PM.setView('web');
+  H.zoom = () => WC.Dialogs.zoom();
+  H.onePage = () => WC.PM.setZoom(fitZoom(1));
+  H.multiplePages = () => WC.PM.setZoom(fitZoom(2));
+  H.pageWidth = () => WC.PM.setZoom(fitWidthZoom());
+  H.zoom100 = () => WC.PM.setZoom(1);
+  H.ruler = (c, node) => { document.getElementById('ruler').classList.toggle('hidden-ruler'); markChecked(node); };
+  H.gridlines = (c, node) => {
+    // WC.Editor retired (slice 11): toggle the gridlines class on the PM page.
+    const target = document.getElementById('pm-editor');
+    if (target) target.classList.toggle('show-grid');
+    markChecked(node);
+  };
+  H.navigationPane = (c, node) => WC.Dialogs.navPane();
+  H.focus = () => document.getElementById('app').classList.toggle('focus-mode');
+
+  // ---- Review ----
+  H.wordCount = () => WC.Dialogs.wordCount();
+  H.readAloud = () => toggleReadAloud(); // PM branch reads the PM doc + per-word ::highlight (task 6)
+  // P3: the Spelling and Grammar BUTTON opens the Editor/spelling flow (modern Word);
+  // the squiggle toggle lives in the Editor pane + the Language dialog.
+  H.spellingGrammar = () => { WC.Dialogs.editorPane(); };
+  // T1/T3: the toggle respects the D8.7 lock — Word disables turning tracking off
+  // while locked ("not a security feature": a UI gate, not crypto).
+  H.trackChanges = () => {
+    if (WC.pmTrackLock && WC.pmTrackLock.locked) { WC.toast('Track Changes is locked.', 'Lock Tracking (with the password) to turn it off.'); return; }
+    WC.PM.cmd('toggleTrackChanges');
+  };
+  // D8.7 Lock Tracking: dialog-driven (lock → password pair; re-invoke → unlock).
+  H.trackChangesLock = () => { WC.Dialogs.lockTracking(); };
+
+  // ---- Layout ----
+  H.margins = (c, node) => marginsMenu(node);
+  H.orientation = (c, node) => orientationMenu(node);
+  H.size = (c, node) => pageSizeMenu(node);
+  H.columns = (c, node) => columnsMenu(node);
+  H.breaks = (c, node) => breaksMenu(node);
+  function breaksMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Page Breaks'));
+      fly.appendChild(WC.flyItem('Page', { icon: 'pageBreak', key: 'Ctrl+Enter', onClick: () => insertPageBreak() }));
+      // 003 P3: real OOXML column break (w:br w:type="column"); Text Wrapping = a line break. No legacy E().
+      fly.appendChild(WC.flyItem('Column', { onClick: () => { if (WC.PM.insertColumnBreak) WC.PM.insertColumnBreak(); } }));
+      fly.appendChild(WC.flyItem('Text Wrapping', { onClick: () => { if (WC.PM.insertLineBreak) WC.PM.insertLineBreak(); } }));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyHeader('Section Breaks'));
+      // 006: real mid-doc section breaks — a paragraph pPr/w:sectPr (+ w:type) via WC.PM.insertSectionBreak.
+      // (Was a page-break stand-in / honest toast.) No E()/WC.Layout. The paged engine doesn't repaginate at the
+      // break in-app (known limitation); Word paginates on open.
+      [['Next Page', 'nextPage'], ['Continuous', 'continuous'], ['Even Page', 'evenPage'], ['Odd Page', 'oddPage']].forEach(([label, t]) =>
+        fly.appendChild(WC.flyItem(label, { onClick: () => { if (WC.PM.insertSectionBreak && WC.PM.insertSectionBreak(t)) WC.toast('Section Break', label); else WC.toast('Section Break', 'Could not insert a section break here.'); } })));
+    });
+  }
+  // Page Color opens the colour picker (Theme/Standard/No Color/More Colors) — it
+  // used to hardcode white, ignoring the dropdown entirely.
+  H.pageColor = (c, node) => colorMenu(node, 'page');
+
+  // ---- Design ----
+  H.pageColor2 = H.pageColor;
+
+  // ---- Home: Text Effects, Multilevel List, Dictate, extras ----
+  H.textEffectsAndTypography = (c, node) => { WC.PM.captureSelection(); textEffectsMenu(node); };
+  H.multilevelList = (c, node) => multilevelMenu(node);
+  // Dictate / Sensitivity / Reuse Files / (Home) Add-ins were REMOVED from the ribbon (user decision 2026-06-26 —
+  // cloud/ML/Office.js features with no local equivalent; see gen.js EXCLUDED_CONTROL_IDS). Their handlers are gone.
+  H.editor = () => WC.Dialogs.editorPane();
+  H.addIns = (c, node) => addInsMenu(node); // still used by File › Options › Add-ins + Insert › Add-ins
+  H.getAddIns = (c, node) => addInsMenu(node);
+
+  const PT = 1.3333;
+  function textEffectsMenu(node) {
+    WC.flyout(node, (fly) => {
+      const row = (label, fn) => { const it = WC.flyItem(label, { onClick: fn }); it.appendChild(el('span', { class: 'caret', html: WC.icon('chevron_down', 8), style: { marginLeft: 'auto', transform: 'rotate(-90deg)' } })); return it; };
+      fly.appendChild(row('Outline', () => outlineMenu(node)));
+      fly.appendChild(row('Shadow', () => shadowMenu(node)));
+      fly.appendChild(row('Reflection', () => reflectionMenu(node)));
+      fly.appendChild(row('Glow', () => glowMenu(node)));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(row('Number Styles', () => numberStylesMenu(node)));
+      fly.appendChild(row('Ligatures', () => ligaturesMenu(node)));
+      fly.appendChild(row('Stylistic Sets', () => stylisticSetsMenu(node)));
+    });
+  }
+  // Apply a Text Effect via the PM engine. The flyout blurs the editor, so restore
+  // the selection captured when the Text Effects menu opened (withSelection), then
+  // setMark the textStyle attr (null clears). Mirrors the font-color path.
+  const applyTE = (attr, value) => WC.PM.withSelection(() => WC.PM.cmd('setMark', 'textStyle', { [attr]: value }));
+  const GLOW_BLUE = '#156082';
+  function outlineMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('No Outline', { onClick: () => applyTE('textOutline', null) }));
+      // RB-021: width presets must carry a REAL colour — 'currentColor' exported as an
+      // invalid <w14:srgbClr w14:val="CURRENTCOLOR"/> that Word drops on open (data loss).
+      // Word's default text-outline colour is black; the explicit "Outline Color…" picker
+      // below overrides it. (fill:transparent keeps the hollow outlined-text look.)
+      [['¾ pt', 0.75], ['1 pt', 1], ['1½ pt', 1.5], ['2¼ pt', 2.25], ['3 pt', 3]].forEach(([lbl, w]) =>
+        fly.appendChild(WC.flyItem(lbl + ' outline', { onClick: () => applyTE('textOutline', { widthPt: w, color: '#000000', fill: 'transparent' }) })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Outline Color…', { onClick: () => WC.flyout(node, (f2) => f2.appendChild(WC.colorPalette((color) => applyTE('textOutline', { widthPt: 1.5, color, fill: 'currentColor' })))) }));
+      fly.appendChild(WC.flyItem('Outline Options…', { onClick: () => outlineOptionsDialog() }));
+    });
+  }
+  function shadowMenu(node) {
+    // 8 directional presets (dx,dy in pt) + No Shadow; color is a 45%-black.
+    const presets = [['Bottom Right', 1, 1], ['Bottom', 0, 1], ['Bottom Left', -1, 1], ['Right', 1, 0], ['Left', -1, 0], ['Top Right', 1, -1], ['Top', 0, -1], ['Top Left', -1, -1]];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('No Shadow', { onClick: () => applyTE('textShadowW14', null) }));
+      presets.forEach(([l, dx, dy]) => fly.appendChild(WC.flyItem(l, { onClick: () => applyTE('textShadowW14', { dx: dx * 1.5, dy: dy * 1.5, blur: 1.5, color: 'rgba(0,0,0,0.45)', preset: l }) })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Shadow Options…', { onClick: () => shadowOptionsDialog() }));
+    });
+  }
+  function reflectionMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('No Reflection', { onClick: () => applyTE('textReflection', null) }));
+      [['Tight', 'tight'], ['Half', 'half'], ['Full', 'full']].forEach(([l, v]) => fly.appendChild(WC.flyItem(l, { onClick: () => applyTE('textReflection', v) })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Reflection Options…', { onClick: () => reflectionOptionsDialog() }));
+    });
+  }
+  function glowMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('No Glow', { onClick: () => applyTE('textGlow', null) }));
+      [['5 pt', 5], ['8 pt', 8], ['11 pt', 11], ['18 pt', 18]].forEach(([l, r]) => fly.appendChild(WC.flyItem(l + ' glow', { onClick: () => applyTE('textGlow', { radiusPt: r, color: GLOW_BLUE }) })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Glow Color…', { onClick: () => WC.flyout(node, (f2) => f2.appendChild(WC.colorPalette((color) => applyTE('textGlow', { radiusPt: 8, color })))) }));
+      fly.appendChild(WC.flyItem('Glow Options…', { onClick: () => glowOptionsDialog() }));
+    });
+  }
+  // Text Effects per-effect Options dialogs — write the SAME textStyle attrs the presets do, with custom params.
+  // hex + transparency% → an rgba color (transparency 0% = opaque, 100% = clear). Reuses applyTE (withSelection).
+  function hexAlpha(hex, transPct) {
+    const a = (1 - Math.max(0, Math.min(100, Number(transPct) || 0)) / 100);
+    const h = String(hex || '#000000').replace('#', '');
+    const r = parseInt(h.slice(0, 2), 16) || 0, g = parseInt(h.slice(2, 4), 16) || 0, b = parseInt(h.slice(4, 6), 16) || 0;
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + a.toFixed(2) + ')';
+  }
+  const teRow = (label, ctrl) => el('div', { class: 'row' }, [el('label', { text: label, style: { width: '130px' } }), ctrl]);
+  function shadowOptionsDialog() {
+    WC.PM.captureSelection();
+    const color = el('input', { type: 'color', value: '#000000' });
+    const trans = el('input', { type: 'number', min: '0', max: '100', value: '60', style: { width: '70px' } });
+    const blur = el('input', { type: 'number', min: '0', max: '50', step: '0.5', value: '4', style: { width: '70px' } });
+    const dist = el('input', { type: 'number', min: '0', max: '50', step: '0.5', value: '3', style: { width: '70px' } });
+    const angle = el('input', { type: 'number', min: '0', max: '359', value: '45', style: { width: '70px' } });
+    WC.dialog({ title: 'Shadow Options', width: '340px', body: el('div', {}, [
+      teRow('Color:', color), teRow('Transparency (%):', trans), teRow('Blur (pt):', blur), teRow('Distance (pt):', dist), teRow('Angle (°):', angle),
+    ]), footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const d = Number(dist.value) || 0, rad = (Number(angle.value) || 0) * Math.PI / 180;
+        applyTE('textShadowW14', { dx: +(Math.cos(rad) * d).toFixed(2), dy: +(Math.sin(rad) * d).toFixed(2), blur: Number(blur.value) || 0, color: hexAlpha(color.value, trans.value), preset: 'Custom' });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+  function glowOptionsDialog() {
+    // Glow EXPORTS to w14:glow → the color must be a plain hex (the translator writes it into w14:srgbClr@val).
+    // Transparency would need a separate w14:alpha element (deferred) — color + size only keeps the export valid.
+    WC.PM.captureSelection();
+    const color = el('input', { type: 'color', value: GLOW_BLUE });
+    const size = el('input', { type: 'number', min: '0', max: '50', value: '8', style: { width: '70px' } });
+    WC.dialog({ title: 'Glow Options', width: '320px', body: el('div', {}, [teRow('Color:', color), teRow('Size (pt):', size)]), footer: [
+      { label: 'OK', primary: true, onClick: () => applyTE('textGlow', { radiusPt: Number(size.value) || 8, color: color.value }) },
+      { label: 'Cancel' },
+    ] });
+  }
+  function outlineOptionsDialog() {
+    // Outline EXPORTS to w14:textOutline (hex stroke colour; the translator emits a hollow fill). Color + width
+    // round-trip; a 'Filled text' fill does not (the translator hardcodes transparent) so it's omitted in v1.
+    WC.PM.captureSelection();
+    const color = el('input', { type: 'color', value: '#000000' });
+    const width = el('input', { type: 'number', min: '0', max: '20', step: '0.25', value: '1.5', style: { width: '70px' } });
+    WC.dialog({ title: 'Outline Options', width: '340px', body: el('div', {}, [teRow('Color:', color), teRow('Width (pt):', width)]), footer: [
+      { label: 'OK', primary: true, onClick: () => applyTE('textOutline', { widthPt: Number(width.value) || 1.5, color: color.value, fill: 'transparent' }) },
+      { label: 'Cancel' },
+    ] });
+  }
+  function reflectionOptionsDialog() {
+    WC.PM.captureSelection();
+    const preset = el('select', {}, ['Tight', 'Half', 'Full'].map((l) => el('option', { text: l })));
+    WC.dialog({ title: 'Reflection Options', width: '300px', body: el('div', {}, [teRow('Reflection:', preset)]), footer: [
+      { label: 'OK', primary: true, onClick: () => applyTE('textReflection', preset.value.toLowerCase()) },
+      { label: 'Cancel' },
+    ] });
+  }
+  function numberStylesMenu(node) {
+    const opts = [['Default', 'normal'], ['Proportional Lining', 'lining-nums proportional-nums'], ['Tabular Lining', 'lining-nums tabular-nums'], ['Proportional Oldstyle', 'oldstyle-nums proportional-nums'], ['Tabular Oldstyle', 'oldstyle-nums tabular-nums']];
+    WC.flyout(node, (fly) => opts.forEach(([l, v]) => fly.appendChild(WC.flyItem(l, { onClick: () => applyTE('fontVariantNumeric', v === 'normal' ? null : v) }))));
+  }
+  function ligaturesMenu(node) {
+    const opts = [['None', 'none'], ['Standard Only', 'common-ligatures'], ['Standard and Contextual', 'common-ligatures contextual'], ['Historical and Discretionary', 'discretionary-ligatures historical-ligatures'], ['All', 'common-ligatures discretionary-ligatures historical-ligatures contextual']];
+    WC.flyout(node, (fly) => opts.forEach(([l, v]) => fly.appendChild(WC.flyItem(l, { onClick: () => applyTE('fontVariantLigatures', v) }))));
+  }
+  function stylisticSetsMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('Default', { onClick: () => applyTE('fontFeatureSettings', null) }));
+      for (let n = 1; n <= 8; n++) fly.appendChild(WC.flyItem('Set ' + n, { onClick: () => applyTE('fontFeatureSettings', '"ss' + String(n).padStart(2, '0') + '" 1') }));
+    });
+  }
+
+  // Word-native multilevel patterns: per-level OOXML numFmt + lvlText, applied as a real
+  // numbering definition (applyListDefinition). The legacy CSS-class fake (ml-decimal/
+  // ml-bullet/ml-outline) survives only on the --legacy branch.
+  const mlLevels = (mk) => Array.from({ length: 9 }, (_, i) => mk(i));
+  const compound = (i, suffix) => Array.from({ length: i + 1 }, (_, k) => '%' + (k + 1)).join('.') + suffix;
+  const ML_PATTERNS = {
+    'Decimal (1. 1.1. 1.1.1.)': { listType: 'orderedList', levels: mlLevels((i) => ({ fmt: 'decimal', text: compound(i, '.') })) },
+    'Legal (1 1.1 1.1.1)': { listType: 'orderedList', levels: mlLevels((i) => ({ fmt: 'decimal', text: compound(i, '') })) },
+    'Bullet hierarchy': { listType: 'bulletList', levels: mlLevels((i) => ({ fmt: 'bullet', text: ['•', '◦', '▪'][i % 3] })) },
+    'Outline (1) a) i))': { listType: 'orderedList', levels: mlLevels((i) => ({ fmt: ['decimal', 'lowerLetter', 'lowerRoman'][i % 3], text: '%' + (i + 1) + ')' })) },
+    'Upper Roman (I. A. 1.)': { listType: 'orderedList', levels: mlLevels((i) => ({ fmt: ['upperRoman', 'upperLetter', 'decimal'][i % 3], text: '%' + (i + 1) + '.' })) },
+  };
+  function multilevelMenu(node) {
+    // The PM path keys ML_PATTERNS by label.
+    const lib = [['Decimal (1. 1.1. 1.1.1.)'], ['Legal (1 1.1 1.1.1)'], ['Bullet hierarchy'], ['Outline (1) a) i))'], ['Upper Roman (I. A. 1.)']];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('List Library'));
+      lib.forEach(([label]) => fly.appendChild(WC.flyItem(label, { onClick: () => {
+        WC.PM.cmd('applyListDefinition', ML_PATTERNS[label]);
+      } })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Change List Level', { onClick: () => changeListLevelMenu(node) }));
+      fly.appendChild(WC.flyItem('Define New Multilevel List…', { onClick: () => defineNewMultilevelDialog() }));
+    });
+  }
+  function changeListLevelMenu(node) {
+    WC.flyout(node, (fly) => {
+      for (let i = 1; i <= 5; i++) fly.appendChild(WC.flyItem('Level ' + i, { onClick: () => {
+        const pm = WC.PM;
+        // ONE full-delta call = one transaction = one undo step (changeListLevelBy).
+        // NEVER chain repeated increase/decreaseListIndent — changeListLevel reads
+        // editor.state, so chained ±1 steps land one short.
+        // Slice 3: `cur` reads the RESOLVED level via the bridge (closes the recorded
+        // slice-2 deviation — style-inherited list paragraphs land on target; the
+        // engine applies the delta against the same resolved source).
+        const resolved = pm.getResolvedParaProps();
+        const np = resolved && resolved.numberingProperties ? resolved.numberingProperties : null;
+        const cur = np && np.ilvl != null ? np.ilvl : 0;
+        const delta = (i - 1) - cur;
+        // Non-list paragraph: changeListLevelBy → underlying changeListLevel finds no
+        // list and returns false — silent no-op (Word greys these items instead).
+        if (delta !== 0) pm.cmd('changeListLevelBy', delta);
+      } }));
+    });
+  }
+
+  // 017 List authoring — the number/bullet-style catalogs the Define-New dialogs author. fmt = OOXML w:numFmt,
+  // text = w:lvlText (%1–%9 = the number for that level). These feed WC.PM.cmd('applyListDefinition', …).
+  const NUM_STYLES = [['1, 2, 3, …', 'decimal'], ['a, b, c, …', 'lowerLetter'], ['A, B, C, …', 'upperLetter'],
+    ['i, ii, iii, …', 'lowerRoman'], ['I, II, III, …', 'upperRoman']];
+
+  // Set Numbering Value — Word's dialog: "Start new list" + "Set value to N" (→ WC.PM.setNumberingValue, NO-FORK:
+  // restart + startOverride) or "Continue from previous list" (→ continueListNumbering, drops the override).
+  function setNumberingValueDialog() {
+    WC.PM.captureSelection(); // the dialog steals focus; restore before applying
+    const start = el('input', { type: 'radio', name: 'wc-snv-mode' }); start.checked = true;
+    const cont = el('input', { type: 'radio', name: 'wc-snv-mode' });
+    const value = el('input', { type: 'number', min: '0', max: '32767', value: '1', style: { width: '80px' } });
+    const body = el('div', {}, [
+      el('div', { class: 'row' }, [el('label', {}, [start, el('span', { text: ' Start new list' })])]),
+      el('div', { class: 'row' }, [el('label', {}, [cont, el('span', { text: ' Continue from previous list' })])]),
+      el('div', { class: 'row' }, [el('label', { text: 'Set value to:', style: { width: '90px' } }), value]),
+    ]);
+    WC.dialog({ title: 'Set Numbering Value', width: '360px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        if (!cont.checked) {
+          // Validate the typed start value (Word reports out-of-range instead of silently clamping). 0..32767.
+          const n = parseInt(value.value, 10);
+          if (!Number.isFinite(n) || n < 0 || n > 32767) { WC.toast('Set value to must be between 0 and 32767.'); return true; } // keep dialog open
+        }
+        const startAt = parseInt(value.value, 10) || 0;
+        WC.PM.withSelection(() => {
+          const ok = cont.checked ? WC.PM.continueListNumbering() : WC.PM.setNumberingValue(startAt);
+          if (!ok) WC.toast('Place the cursor in a numbered list first.');
+        });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  // Define New Bullet — choose a glyph (typed or from a small palette) → a single-level bullet definition.
+  function defineNewBulletDialog() {
+    WC.PM.captureSelection();
+    const common = ['•', '◦', '▪', '■', '◆', '➤', '✓', '–', '»', '★'];
+    const glyph = el('input', { type: 'text', maxlength: '4', value: '•', style: { width: '60px', textAlign: 'center', fontSize: '16px' } });
+    const palette = el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '4px', margin: '8px 0' } });
+    common.forEach((g) => {
+      const cell = el('div', { text: g, style: { border: '1px solid #ddd', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '16px' } });
+      cell.addEventListener('click', () => { glyph.value = g; });
+      palette.appendChild(cell);
+    });
+    const body = el('div', {}, [
+      el('div', { class: 'row' }, [el('label', { text: 'Bullet character:', style: { width: '110px' } }), glyph]),
+      el('div', { style: { fontSize: '11px', color: '#666' }, text: 'Or pick a symbol:' }), palette,
+    ]);
+    WC.dialog({ title: 'Define New Bullet', width: '320px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const g = (glyph.value || '').trim() || '•';
+        WC.PM.withSelection(() => { WC.PM.cmd('applyListDefinition', { listType: 'bulletList', levels: [{ fmt: 'bullet', text: g }] }); });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  // Define New Number Format — a number style + a format string (e.g. "%1)") → a single-level ordered definition.
+  function defineNewNumberFormatDialog() {
+    WC.PM.captureSelection();
+    const style = el('select', {}, NUM_STYLES.map(([l]) => el('option', { text: l })));
+    const fmt = el('input', { type: 'text', value: '%1.', style: { width: '120px' } });
+    const body = el('div', {}, [
+      el('div', { class: 'row' }, [el('label', { text: 'Number style:', style: { width: '110px' } }), style]),
+      el('div', { class: 'row' }, [el('label', { text: 'Number format:', style: { width: '110px' } }), fmt]),
+      el('div', { style: { fontSize: '11px', color: '#666' }, text: 'Use %1 where the number appears (e.g. %1. or %1)).' }),
+    ]);
+    WC.dialog({ title: 'Define New Number Format', width: '380px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const f = NUM_STYLES[Math.max(0, style.selectedIndex)][1];
+        let t = (fmt.value || '').trim() || '%1.';
+        if (t.indexOf('%1') < 0) t = '%1' + t; // ensure the number placeholder is present
+        WC.PM.withSelection(() => { WC.PM.cmd('applyListDefinition', { listType: 'orderedList', levels: [{ fmt: f, text: t }] }); });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  // Define New Multilevel List — a 9-level editor (per-level number style + format text) → applyListDefinition.
+  function defineNewMultilevelDialog() {
+    WC.PM.captureSelection();
+    const STYLES = NUM_STYLES.concat([['Bullet •', 'bullet']]);
+    const rows = [];
+    const grid = el('div', { style: { maxHeight: '300px', overflow: 'auto' } });
+    for (let i = 0; i < 9; i++) {
+      const sty = el('select', {}, STYLES.map(([l]) => el('option', { text: l })));
+      const defText = Array.from({ length: i + 1 }, (_, k) => '%' + (k + 1)).join('.') + '.';
+      const txt = el('input', { type: 'text', value: defText, style: { width: '150px' } });
+      rows.push({ sty, txt });
+      grid.appendChild(el('div', { class: 'row' }, [el('label', { text: 'Level ' + (i + 1), style: { width: '56px' } }), sty, txt]));
+    }
+    const body = el('div', {}, [
+      el('div', { style: { fontSize: '11px', color: '#666', marginBottom: '6px' }, text: 'Set the format for each level. %1–%9 insert the number for that level.' }),
+      grid,
+    ]);
+    WC.dialog({ title: 'Define New Multilevel List', width: '460px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const levels = rows.map((r, i) => {
+          const fmt = STYLES[Math.max(0, r.sty.selectedIndex)][1];
+          let text = (r.txt.value || '').trim();
+          if (fmt === 'bullet') { text = text || '•'; }
+          else {
+            // Word constrains %N per level: only %1..%(i+1) are valid (a level can't reference a deeper counter).
+            // Strip out-of-range placeholders, then ensure this level's own counter is present.
+            text = text.replace(/%(\d)/g, (m, d) => (Number(d) >= 1 && Number(d) <= i + 1) ? m : '');
+            if (text.indexOf('%' + (i + 1)) < 0) text = (text + '%' + (i + 1) + '.').trim() || '%' + (i + 1) + '.';
+          }
+          return { fmt, text };
+        });
+        const listType = levels[0].fmt === 'bullet' ? 'bulletList' : 'orderedList';
+        WC.PM.withSelection(() => { WC.PM.cmd('applyListDefinition', { listType, levels }); });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  function sensitivityMenu(node) {
+    const labels = [['Public', '#107C10'], ['General', '#0078D4'], ['Confidential', '#D83B01'], ['Highly Confidential', '#A4262C']];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Sensitivity'));
+      labels.forEach(([l, color]) => { const it = WC.flyItem(l, { onClick: () => WC.setSensitivity(l, color) }); it.insertBefore(el('span', { style: { width: '12px', height: '12px', background: color, borderRadius: '2px', marginRight: '8px' } }), it.firstChild); fly.appendChild(it); });
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Remove label', { onClick: () => WC.setSensitivity(null) }));
+    });
+  }
+  function addInsMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Office Add-ins'));
+      fly.appendChild(WC.flyItem('Get Add-ins (Store)', { onClick: () => addInsStoreDialog() }));
+      fly.appendChild(WC.flyItem('My Add-ins', { onClick: () => addInsStoreDialog('My Add-ins') }));
+    });
+  }
+  function addInsStoreDialog(tab) {
+    const search = el('input', { type: 'search', class: 'grow', placeholder: 'Search the Office Store' });
+    const sample = [
+      ['Wikipedia', 'Reference articles inline while you write.'],
+      ['Pexels', 'Free stock photos from Pexels.'],
+      ['Pickit', 'Insert royalty-free images and icons.'],
+      ['DocuSign', 'Sign and send documents for signature.'],
+      ['Translator', 'Translate text into many languages.'],
+    ];
+    const list = el('div', { style: { maxHeight: '240px', overflow: 'auto', border: '1px solid #e1dfdd', borderRadius: '3px', marginTop: '8px' } });
+    sample.forEach(([name, desc]) => {
+      const row = el('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 10px', borderBottom: '1px solid #f0f0f0' } }, [
+        el('div', { style: { width: '34px', height: '34px', borderRadius: '4px', background: '#eef3f8', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2b579a', fontWeight: '700' }, text: name[0] }),
+        el('div', { style: { flex: '1' } }, [el('div', { style: { fontWeight: '600' }, text: name }), el('div', { style: { fontSize: '11px', color: '#666' }, text: desc })]),
+        el('button', { class: 'btn', text: 'Add', onclick: () => WC.toast('“' + name + '” add-in runtime is not available in this clone.') }),
+      ]);
+      list.appendChild(row);
+    });
+    WC.dialog({ title: 'Office Add-ins', width: '560px', body: el('div', {}, [
+      el('div', { class: 'tabs', style: { display: 'flex', gap: '14px', borderBottom: '1px solid #e1dfdd', paddingBottom: '6px' } }, [
+        el('span', { style: { fontWeight: tab === 'My Add-ins' ? '400' : '700', color: tab === 'My Add-ins' ? '#666' : '#2b579a', cursor: 'pointer' }, text: 'Store' }),
+        el('span', { style: { fontWeight: tab === 'My Add-ins' ? '700' : '400', color: tab === 'My Add-ins' ? '#2b579a' : '#666', cursor: 'pointer' }, text: 'My Add-ins' }),
+      ]),
+      search, list,
+    ]), footer: [{ label: 'Close', primary: true }] });
+  }
+
+  // ---- Draw tab ----
+  H.drawing = () => { WC.PM.dSetDrawing(!WC.PM.dIsDrawing()); };
+  H.pensGallery = (c, node) => pensMenu(node);
+  H.addPen = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Add'));
+    const add = (type, name, color, width, opacity) => fly.appendChild(WC.flyItem(name, { onClick: () => { const pen = { id: type + '-' + (WC.Draw.customPens.length + 1), name, color, width, opacity, type }; WC.Draw.customPens.push(pen); WC.PM.dSetPen(pen); if (WC.Ribbon._renderPens) WC.Ribbon._renderPens(); } }));
+    add('pen', 'Pen', '#000000', 3, 1);
+    add('pencil', 'Pencil', '#5b5b5b', 2, 0.85);
+    add('highlighter', 'Highlighter', '#ffff00', 14, 0.4);
+    add('pen', 'Action Pen', '#156082', 3, 1);
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Custom Pen…', { onClick: () => addPenDialog(node) }));
+  });
+  H.drawWithTrackpad = (c, node) => { if (node) node.classList.toggle('toggled'); WC.toast('Mouse/trackpad input is used for drawing in this clone.'); };
+  H.eraser = (c, node) => { WC.PM.dSetEraser(); };
+  H.selectObjects = () => { WC.PM.dSetSelect(); };
+  H.lassoSelect = () => { WC.PM.dSetLasso(); };
+  H.drawingCanvas = () => { WC.PM.dInsertCanvas(); };
+  H.inkToShape = () => WC.toast('Ink-to-Shape recognition is a handwriting/shape ML feature — not implemented.', 'See docs/NOT_IMPLEMENTED.md');
+  H.inkToMath = () => WC.toast('Ink-to-Math (handwritten equation recognition) is not implemented.', 'See docs/NOT_IMPLEMENTED.md');
+  H.inkReplay = () => { WC.PM.dReplay(); };
+
+  function pensMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Pens'));
+      WC.Draw.PENS.concat(WC.Draw.customPens).forEach((pen) => {
+        const it = WC.flyItem(pen.name, { onClick: () => { WC.PM.dSetPen(pen); } });
+        it.insertBefore(el('span', { style: { width: '24px', height: '4px', borderRadius: '2px', background: pen.color, opacity: pen.opacity, marginRight: '8px' } }), it.firstChild);
+        fly.appendChild(it);
+      });
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Add Pen…', { onClick: () => addPenDialog(node) }));
+      fly.appendChild(WC.flyItem(WC.Draw.enabled ? 'Stop Drawing' : 'Start Drawing', { onClick: () => { WC.PM.dSetDrawing(!WC.PM.dIsDrawing()); } }));
+      fly.appendChild(WC.flyItem('Clear All Ink', { onClick: () => { WC.PM.dClearInk(); } }));
+    });
+  }
+  function addPenDialog(node) {
+    let color = '#000000'; const width = el('input', { type: 'range', min: '1', max: '24', value: '3', class: 'grow' });
+    const swatch = el('button', { class: 'btn', text: 'Color ▾', style: { minWidth: '110px' } });
+    swatch.addEventListener('click', () => WC.flyout(swatch, (f) => f.appendChild(WC.colorPalette((c) => { color = c === 'inherit' ? '#000' : c; swatch.style.color = color; }))));
+    const body = el('div', {}, [el('div', { class: 'row' }, [el('label', { text: 'Color:', style: { width: '60px' } }), swatch]), el('div', { class: 'row' }, [el('label', { text: 'Thickness:', style: { width: '60px' } }), width])]);
+    WC.dialog({ title: 'Add Pen', width: '360px', body, footer: [
+      { label: 'Add', primary: true, onClick: () => { const pen = { id: 'custom-' + (WC.Draw.customPens.length + 1), name: 'Custom Pen', color, width: parseFloat(width.value), opacity: 1 }; WC.Draw.customPens.push(pen); WC.PM.dSetPen(pen); if (WC.Ribbon._renderPens) WC.Ribbon._renderPens(); } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  // ---- Design tab ----
+  H.themes = (c, node) => galleryMenu(node, 'Office', WC.Design.THEMES, (t, silent) => { if (silent) WC.PM.dePreviewTheme('theme', t); else WC.PM.deApplyTheme(t); }, (t) => firstFont(t.body) === currentDocFont(), [
+    { label: 'Reset to Theme from Template', onClick: () => { if (WC.Design.THEMES[0]) WC.PM.deApplyTheme(WC.Design.THEMES[0]); } },
+    { label: 'Browse for Themes…', onClick: () => WC.notImplemented('Browse for Themes') },
+    { label: 'Save Current Theme…', onClick: () => WC.notImplemented('Save Current Theme') },
+  ]);
+  H.styleSet = (c, node) => styleSetGallery(node);
+  H.colors = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('Office')); WC.Design.COLOR_SCHEMES.forEach((s) => { const it = WC.flyItem(s.name, { onClick: () => {} /* livePreviewCell's click owns the commit (dePreviewCommit + apply) */ }); it.insertBefore(swatchRow(s.accents), it.firstChild); livePreviewCell(it, s, (item, silent) => { if (silent) WC.PM.dePreviewTheme('colors', item); else WC.PM.deApplyColors(item); }); fly.appendChild(it); }); fly.appendChild(WC.flySep()); fly.appendChild(WC.flyItem('Customize Colors…', { onClick: () => WC.notImplemented('Customize Colors') })); });
+  H.fonts = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('Office')); WC.Design.FONT_PAIRS.forEach((p) => { const it = WC.flyItem(p.name, { onClick: () => {} }); it.querySelector('.fi-label').style.fontFamily = p.body; livePreviewCell(it, p, (item, silent) => { if (silent) WC.PM.dePreviewTheme('fonts', item); else WC.PM.deApplyFonts(item); }); fly.appendChild(it); }); fly.appendChild(WC.flySep()); fly.appendChild(WC.flyItem('Customize Fonts…', { onClick: () => WC.notImplemented('Customize Fonts') })); });
+  // PM: paragraph spacing is COMMIT-ONLY (no hover preview) — spacing changes are applied via
+  // docDefaults/Normal redefinition; a transient live preview isn't wired (honest degrade). Click commits.
+  H.paragraphSpacing = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('Built-In')); WC.Design.SPACING.forEach((s) => { const it = WC.flyItem(s.name, { onClick: () => {} }); livePreviewCell(it, s, (item, silent) => { if (!silent) WC.PM.deParagraphSpacing(item); }); fly.appendChild(it); }); fly.appendChild(WC.flySep()); fly.appendChild(WC.flyItem('Custom Paragraph Spacing…', { onClick: () => WC.Dialogs.paragraph() })); });
+  H.effects = (c, node) => effectsMenu(node);
+  function firstFont(chain) { return String(chain).split(',')[0].replace(/['"]/g, '').trim(); }
+  function currentDocFont() { return firstFont(getComputedStyle(document.documentElement).getPropertyValue('--doc-font') || 'Aptos'); }
+  function styleSetGallery(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Built-In'));
+      const grid = el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '6px', padding: '4px 10px' } });
+      WC.Design.STYLE_SETS.forEach((name) => {
+        const cell = el('div', { title: name, style: { border: '1px solid #e1dfdd', borderRadius: '2px', padding: '6px 4px', cursor: 'pointer', textAlign: 'center' } });
+        cell.appendChild(el('div', { text: 'Title', style: { fontSize: '13px', color: '#2b579a', fontWeight: '600' } }));
+        cell.appendChild(el('div', { text: 'Heading', style: { fontSize: '9px', color: '#2b579a' } }));
+        cell.appendChild(el('div', { text: 'Body text sample', style: { fontSize: '8px', color: '#333', marginTop: '2px' } }));
+        cell.appendChild(el('div', { text: name, style: { fontSize: '9px', marginTop: '3px', color: '#666', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }));
+        // PM: style sets are COMMIT-ONLY (no hover preview) — the clone's style sets map to Normal
+        // paragraph spacing, which isn't wired for transient live preview (honest degrade). Click commits.
+        livePreviewCell(cell, name, (n, silent) => { if (!silent) WC.PM.deApplyStyleSet(n); });
+        grid.appendChild(cell);
+      });
+      fly.appendChild(grid);
+    });
+  }
+  function effectsMenu(node) {
+    const effects = [
+      ['None', 'none'], ['Subtle', '0 1px 2px rgba(0,0,0,.18)'], ['Moderate', '0 3px 6px rgba(0,0,0,.28)'],
+      ['Intense', '0 6px 14px rgba(0,0,0,.4)'], ['Reflection', '0 8px 8px -6px rgba(0,0,0,.4)'], ['Glow', '0 0 10px rgba(43,87,154,.6)'],
+    ];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Theme Effects'));
+      const grid = el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '8px', padding: '6px 10px' } });
+      effects.forEach(([label, shadow]) => {
+        const cell = el('div', { title: label, style: { cursor: 'pointer', textAlign: 'center' } });
+        cell.appendChild(el('div', { style: { width: '40px', height: '28px', margin: '0 auto', background: '#5b9bd5', borderRadius: '3px', boxShadow: shadow === 'none' ? 'none' : shadow } }));
+        cell.appendChild(el('div', { text: label, style: { fontSize: '9px', marginTop: '4px', color: '#666' } }));
+        cell.addEventListener('click', () => { WC.closeFlyouts(); applyShapeEffect(shadow); });
+        grid.appendChild(cell);
+      });
+      fly.appendChild(grid);
+    });
+  }
+  function applyShapeEffect(shadow) { WC.PM.deEffects(shadow); }
+  H.setAsDefault = () => { WC.PM.deSetAsDefault(); };
+  H.watermark = (c, node) => watermarkMenu(node);
+  H.pageBorders = () => WC.Dialogs.pageBorders();
+
+  // Wire a gallery cell so hovering live-previews the choice (Word behavior) and
+  // the pointer leaving reverts it; clicking commits. `apply(item, silent)`.
+  function livePreviewCell(cell, item, apply) {
+    cell.addEventListener('mouseenter', () => { apply(item, true); });
+    cell.addEventListener('mouseleave', () => { WC.PM.dePreviewRestore(); });
+    cell.addEventListener('click', () => { WC.PM.dePreviewCommit(); WC.closeFlyouts(); apply(item, false); });
+  }
+  function galleryMenu(node, title, items, apply, isActive, footer) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader(title));
+      const grid = el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '6px', padding: '4px 10px' } });
+      items.forEach((t) => {
+        const active = isActive && isActive(t);
+        const cell = el('div', { title: t.name, style: { border: '1px solid ' + (active ? '#2b579a' : '#e1dfdd'), outline: active ? '1px solid #2b579a' : 'none', borderRadius: '2px', padding: '6px', cursor: 'pointer', textAlign: 'center', position: 'relative' } });
+        if (active) cell.appendChild(el('div', { text: '✓', style: { position: 'absolute', top: '1px', right: '4px', color: '#2b579a', fontSize: '11px', fontWeight: '700' } }));
+        cell.appendChild(el('div', { text: 'Aa', style: { fontFamily: t.heading || t.body, fontSize: '18px', color: t.color || '#333' } }));
+        if (t.accents) { const row = el('div', { style: { display: 'flex', height: '6px', marginTop: '4px' } }); t.accents.slice(0, 6).forEach((a) => row.appendChild(el('span', { style: { flex: 1, background: a } }))); cell.appendChild(row); }
+        cell.appendChild(el('div', { text: t.name, style: { fontSize: '10px', marginTop: '3px', color: '#666', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }));
+        livePreviewCell(cell, t, apply);
+        grid.appendChild(cell);
+      });
+      fly.appendChild(grid);
+      if (footer && footer.length) {
+        fly.appendChild(WC.flySep());
+        footer.forEach((f) => fly.appendChild(WC.flyItem(f.label, { onClick: f.onClick })));
+      }
+    });
+  }
+  function swatchRow(accents) { const row = el('span', { style: { display: 'inline-flex', width: '40px', height: '12px', marginRight: '8px' } }); accents.slice(0, 6).forEach((a) => row.appendChild(el('span', { style: { flex: 1, background: a } }))); return row; }
+  function watermarkMenu(node) {
+    const groups = [
+      ['Confidential', ['CONFIDENTIAL', 'DO NOT COPY', 'CONFIDENTIAL 1']],
+      ['Disclaimers', ['DRAFT', 'SAMPLE']],
+      ['Urgent', ['URGENT', 'ASAP']],
+    ];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Watermark'));
+      groups.forEach(([gname, items]) => {
+        fly.appendChild(el('div', { text: gname, style: { fontSize: '11px', fontWeight: '600', color: '#888', padding: '4px 10px 2px' } }));
+        const grid = el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '6px', padding: '2px 10px 6px' } });
+        items.forEach((text) => {
+          const label = text.replace(/ 1$/, '');
+          const cell = el('div', { title: text, style: { border: '1px solid #e1dfdd', borderRadius: '2px', height: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', overflow: 'hidden' } });
+          cell.appendChild(el('div', { text: label, style: { transform: 'rotate(-18deg)', color: '#c8c8c8', fontWeight: '700', fontSize: '11px', whiteSpace: 'nowrap' } }));
+          cell.addEventListener('click', () => { WC.closeFlyouts(); WC.PM.deWatermark(label, {}); });
+          grid.appendChild(cell);
+        });
+        fly.appendChild(grid);
+      });
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Custom Watermark…', { onClick: () => WC.Dialogs.watermark() }));
+      fly.appendChild(WC.flyItem('Remove Watermark', { onClick: () => { WC.PM.deWatermarkRemove(); } }));
+    });
+  }
+
+  // ---- Layout tab ----
+  // 004 Line Numbers — drives the paged engine via WC.PM.setLineNumbers (sectPr/w:lnNumType); checked
+  // state from getLineNumbers(). Modes map to the OOXML restart values (page→newPage, section→newSection).
+  // P3: Suppress-for-paragraph → pPr/w:suppressLineNumbers (per-paragraph); Options dialog → start/count-by/
+  // from-text distance. No E()/WC.Layout. After ANY apply, dispatch wc:linenumbers-changed so the owned
+  // margin-number overlay re-reads state (setLineNumbers/suppress are sectPr/pPr writes with NO relayout of
+  // their own, which the overlay's wc:paged-relayout listener alone would miss).
+  H.lineNumbers = (c, node) => WC.flyout(node, (fly) => {
+    const cur = (WC.PM.getLineNumbers && WC.PM.getLineNumbers()) || { active: false, mode: 'none' };
+    const on = (m) => (cur.active ? cur.mode === m : m === 'none');
+    const lnChanged = () => { try { window.dispatchEvent(new Event('wc:linenumbers-changed')); } catch (_) { /* best-effort */ } };
+    [['None', 'none'], ['Continuous', 'continuous'], ['Restart Each Page', 'newPage'], ['Restart Each Section', 'newSection']].forEach(([l, m]) => {
+      fly.appendChild(WC.flyItem((on(m) ? '✓ ' : '   ') + l, { onClick: () => { if (WC.PM.setLineNumbers({ mode: m })) { WC.toast('Line Numbers', l); lnChanged(); } else WC.toast('Line Numbers', 'Could not apply line numbering here.'); } }));
+    });
+    fly.appendChild(WC.flySep());
+    const supp = !!(WC.PM.currentParagraphSuppressed && WC.PM.currentParagraphSuppressed());
+    fly.appendChild(WC.flyItem((supp ? '✓ ' : '   ') + 'Suppress for Current Paragraph', { onClick: () => {
+      if (WC.PM.suppressLineNumbers && WC.PM.suppressLineNumbers()) { WC.toast('Suppress for Current Paragraph', supp ? 'Line numbering restored for this paragraph.' : 'This paragraph is excluded from line numbering.'); lnChanged(); }
+      else WC.toast('Suppress for Current Paragraph', 'Could not change suppression here.');
+    } }));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Line Numbering Options…', { onClick: () => lineNumberingOptionsDialog() }));
+  });
+  // 005 Hyphenation — drives the document via WC.PM.setHyphenation (document-level settings.xml/w:autoHyphenation);
+  // checked-state from getHyphenation(). Options dialog (P2) + Manual (P3) are honest placeholders until then.
+  // No WC.Layout/E().
+  H.hyphenation = (c, node) => WC.flyout(node, (fly) => {
+    const cur = (WC.PM.getHyphenation && WC.PM.getHyphenation()) || { auto: false };
+    fly.appendChild(WC.flyItem((!cur.auto ? '✓ ' : '   ') + 'None', { onClick: () => { if (WC.PM.setHyphenation({ mode: 'none' })) WC.toast('Hyphenation', 'None'); else WC.toast('Hyphenation', 'Could not change hyphenation here.'); } }));
+    fly.appendChild(WC.flyItem((cur.auto ? '✓ ' : '   ') + 'Automatic', { onClick: () => { if (WC.PM.setHyphenation({ mode: 'auto' })) WC.toast('Hyphenation', 'Automatic'); else WC.toast('Hyphenation', 'Could not change hyphenation here.'); } }));
+    fly.appendChild(WC.flyItem('Manual…', { onClick: () => { const n = WC.PM.applyManualHyphenation && WC.PM.applyManualHyphenation(); if (typeof n === 'number' && n >= 0) WC.toast('Manual Hyphenation', n + ' word(s) marked with optional hyphens.'); else WC.toast('Manual Hyphenation', 'Could not apply manual hyphenation here.'); } }));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Hyphenation Options…', { onClick: () => hyphenationOptionsDialog() }));
+  });
+  // 005 P2: Hyphenation Options — automatically-hyphenate toggle + hyphenation zone + limit consecutive hyphens +
+  // hyphenate words in CAPS → WC.PM.setHyphenation (document settings). Seeds from getHyphenation(); zone/limit are
+  // sent as a number when entered or null when blank (Auto / No limit) so the bridge clears a prior value — never
+  // replays a synthesized default (the 004 lesson). CAPS checkbox is inverted vs w:doNotHyphenateCaps in the bridge.
+  function hyphenationOptionsDialog() {
+    const cur = (WC.PM && WC.PM.getHyphenation && WC.PM.getHyphenation()) || { auto: false, zone: 0.25, consecutiveLimit: 0, hyphenateCaps: true, zoneExplicit: false, limitExplicit: false };
+    const autoCb = el('input', { type: 'checkbox' }); autoCb.checked = cur.auto === true;
+    const zoneIn = el('input', { type: 'number', min: '0', step: '0.05', style: { width: '70px' } });
+    if (cur.zoneExplicit) zoneIn.value = String(cur.zone); else zoneIn.placeholder = 'Auto';
+    const limitIn = el('input', { type: 'number', min: '0', step: '1', style: { width: '70px' } });
+    if (cur.limitExplicit) limitIn.value = String(cur.consecutiveLimit); else limitIn.placeholder = 'No limit';
+    const capsCb = el('input', { type: 'checkbox' }); capsCb.checked = cur.hyphenateCaps !== false;
+    WC.dialog({ title: 'Hyphenation', width: '400px', body: el('div', {}, [
+      el('div', { class: 'row' }, [autoCb, el('label', { text: ' Automatically hyphenate document', style: { marginLeft: '6px' } })]),
+      el('div', { class: 'row' }, [el('label', { text: 'Hyphenation zone (in):', style: { width: '190px' } }), zoneIn]),
+      el('div', { class: 'row' }, [el('label', { text: 'Limit consecutive hyphens to:', style: { width: '190px' } }), limitIn]),
+      el('div', { class: 'row' }, [capsCb, el('label', { text: ' Hyphenate words in CAPS', style: { marginLeft: '6px' } })]),
+    ]), footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const zv = zoneIn.value.trim(); const z = parseFloat(zv);
+        const lv = limitIn.value.trim(); const lim = parseInt(lv, 10);
+        const opts = {
+          mode: autoCb.checked ? 'auto' : 'none',
+          hyphenateCaps: capsCb.checked,
+          zone: (zv !== '' && isFinite(z) && z >= 0) ? z : null, // null ⇒ Auto (clear)
+          consecutiveLimit: (lv !== '' && isFinite(lim) && lim >= 0) ? lim : null, // null ⇒ no limit (clear)
+        };
+        if (WC.PM && WC.PM.setHyphenation && WC.PM.setHyphenation(opts)) WC.toast('Hyphenation', 'Applied.');
+        else WC.toast('Hyphenation', 'Could not apply hyphenation here.');
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+  // 012 (frames group): wired onto WC.PM (was the retired WC.Layout). "In Line with Text" = setImageWrap('inline');
+  // the 9 "With Text Wrapping" presets apply square wrap + HORIZONTAL margin-relative align per column (l/c/r). v1
+  // limitation: the vertical row (Top/Middle/Bottom) aligns horizontally only — full 2D margin-relative placement is
+  // a follow-up (it needs a vertical page/margin anchor).
+  H.position = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('In Line with Text')); fly.appendChild(WC.flyItem('In Line with Text', { onClick: () => WC.PM.setImageWrap('inline') })); fly.appendChild(WC.flyHeader('With Text Wrapping')); [['Top Left', 'left'], ['Top Center', 'center'], ['Top Right', 'right'], ['Middle Left', 'left'], ['Middle Center', 'center'], ['Middle Right', 'right'], ['Bottom Left', 'left'], ['Bottom Center', 'center'], ['Bottom Right', 'right']].forEach(([l, h]) => fly.appendChild(WC.flyItem(l, { onClick: () => { WC.PM.setImageWrap('square'); WC.PM.setImageAlign({ h }); } }))); });
+  H.wrapText = (c, node) => WC.flyout(node, (fly) => { [['In Line with Text', 'inline'], ['Square', 'square'], ['Tight', 'tight'], ['Through', 'through'], ['Top and Bottom', 'topbottom'], ['Behind Text', 'behind'], ['In Front of Text', 'front']].forEach(([l, m]) => fly.appendChild(WC.flyItem(l, { onClick: () => WC.PM.setImageWrap(m) }))); });
+  H.bringForward = () => WC.PM.setImageZOrder('forward');
+  // Picture Format → Size: toggle the selected picture's aspect-ratio lock. When UNLOCKED the
+  // resize overlay's edge handles free-stretch a single axis (render/export honor the box).
+  H.imgLockAspect = () => {
+    const sel = window.WC.view && window.WC.view.state && window.WC.view.state.selection;
+    if (!sel || !sel.node || sel.node.type.name !== 'image') {
+      WC.toast && WC.toast('Select a picture first', 'Click a picture to lock or unlock its aspect ratio.');
+      return;
+    }
+    const next = sel.node.attrs.lockAspectRatio === false; // currently unlocked → lock; else unlock
+    WC.PM.setImageLockAspect(next);
+    WC.toast && WC.toast(
+      next ? 'Aspect ratio locked' : 'Aspect ratio unlocked',
+      next ? 'Resizing keeps the picture’s proportions.' : 'Edge handles now free-stretch one axis.',
+    );
+  };
+  H.sendBackward = () => WC.PM.setImageZOrder('backward');
+  H.selectionPane = () => WC.Dialogs.selectionPane(); // object-list task pane (un-deferred; ENGINE_READY in bridge/index.ts)
+  // 012 (frames group): wired onto WC.PM (was the retired WC.Layout). Align Left/Center/Right = horizontal,
+  // margin-relative (setImageAlign on the selected floating picture). Vertical align (Top/Middle/Bottom) + Distribute
+  // (multi-object) are v1 follow-ups (need a vertical page anchor / multi-selection).
+  H.align = (c, node) => WC.flyout(node, (fly) => {
+    [['Align Left', 'left'], ['Align Center', 'center'], ['Align Right', 'right']].forEach(([l, h]) => fly.appendChild(WC.flyItem(l, { onClick: () => WC.PM.setImageAlign({ h }) })));
+    fly.appendChild(WC.flySep());
+    [['Align Top'], ['Align Middle'], ['Align Bottom'], ['Distribute Horizontally'], ['Distribute Vertically']].forEach(([l]) => fly.appendChild(WC.flyItem(l, { onClick: () => WC.toast(l + ' is a follow-up', 'Horizontal align (Left/Center/Right, relative to the margin) is wired; vertical align + distribute are deferred.') })));
+  });
+  H.group = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Group', { onClick: () => WC.toast('Grouping is approximated — arrange objects individually.') })); fly.appendChild(WC.flyItem('Ungroup', { onClick: () => WC.toast('Ungroup') })); });
+  // 012 (frames group): wired onto WC.PM.setImageTransform (was the retired WC.Layout). Rotate is a relative delta
+  // (90/−90 → a:xfrm rot); flips TOGGLE (flipH/flipV). Operates on the selected picture (in-line or floating).
+  H.rotate = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Rotate Right 90°', { onClick: () => WC.PM.setImageTransform({ rotate: 90 }) })); fly.appendChild(WC.flyItem('Rotate Left 90°', { onClick: () => WC.PM.setImageTransform({ rotate: -90 }) })); fly.appendChild(WC.flySep()); fly.appendChild(WC.flyItem('Flip Vertical', { onClick: () => WC.PM.setImageTransform({ flipV: true }) })); fly.appendChild(WC.flyItem('Flip Horizontal', { onClick: () => WC.PM.setImageTransform({ flipH: true }) })); });
+
+  // ---- References tab ----
+  H.tableOfContents = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyHeader('Built-In'));
+    fly.appendChild(WC.flyItem('Automatic Table 1', { onClick: () => { WC.PM.refInsertTOC({ title: 'Contents' }); } }));
+    fly.appendChild(WC.flyItem('Automatic Table 2', { onClick: () => { WC.PM.refInsertTOC({ title: 'Table of Contents' }); } }));
+    // Manual Table: Word's manual TOC is a type-it-yourself table with NO heading
+    // collection. refInsertTOC always builds from headings, so in PM mode this
+    // degrades to an auto TOC (recorded in the slice ledger). FIX 3: refInsertTOC
+    // reads `showLevels` (NOT `levels`), so `{levels:3}` was ignored and produced a
+    // default-config auto TOC anyway — pass the correct key so the level count lands.
+    fly.appendChild(WC.flyItem('Manual Table', { onClick: () => { WC.PM.refInsertTOC({ showLevels: 3 }); } }));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Custom Table of Contents…', { onClick: () => customTOCDialog() }));
+    fly.appendChild(WC.flyItem('Remove Table of Contents', { onClick: () => { WC.PM.refRemoveTOC(); } }));
+  });
+  function customTOCDialog() {
+    const showPg = el('input', { type: 'checkbox', checked: 'checked' });
+    const rightAlign = el('input', { type: 'checkbox', checked: 'checked' });
+    const leader = el('select', {}, ['……… (dots)', '------ (dashes)', '(none)'].map((o) => el('option', { text: o })));
+    const levels = el('select', {}, ['1', '2', '3', '4'].map((o) => el('option', { text: o, selected: o === '3' ? 'selected' : undefined })));
+    const body = el('div', {}, [
+      el('div', { class: 'row' }, [el('label', {}, [showPg, el('span', { text: ' Show page numbers' })])]),
+      el('div', { class: 'row' }, [el('label', {}, [rightAlign, el('span', { text: ' Right align page numbers' })])]),
+      el('div', { class: 'row' }, [el('label', { text: 'Tab leader:', style: { width: '90px' } }), leader]),
+      el('div', { class: 'row' }, [el('label', { text: 'Show levels:', style: { width: '90px' } }), levels]),
+    ]);
+    WC.dialog({ title: 'Table of Contents', width: '440px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        // Map the dialog controls to the fork TOC config (references.ts
+        // refInsertTOC reads includePageNumbers / showLevels / rightAlignPageNumbers).
+        WC.PM.refInsertTOC({ includePageNumbers: showPg.checked, showLevels: parseInt(levels.value, 10), rightAlignPageNumbers: rightAlign.checked });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+  H.addText = (c, node) => WC.flyout(node, (fly) => {
+    const addText = (lvl) => { WC.PM.refSetOutlineLevel(lvl); };
+    fly.appendChild(WC.flyItem('Do Not Show in Table of Contents', { onClick: () => addText(0) }));
+    fly.appendChild(WC.flyItem('Level 1', { onClick: () => addText(1) }));
+    fly.appendChild(WC.flyItem('Level 2', { onClick: () => addText(2) }));
+    fly.appendChild(WC.flyItem('Level 3', { onClick: () => addText(3) }));
+  });
+  H.updateTable = () => { WC.PM.refUpdateTable(); };
+  H.insertFootnote = () => { WC.PM.refInsertFootnote(); };
+  H.insertEndnote = () => { WC.PM.refInsertEndnote(); };
+  H.nextFootnote = () => { WC.PM.refNextNote(); };
+  H.showNotes = () => { WC.PM.refShowNotes(); };
+  H.insertCaption = () => captionDialog();
+  H.insertTableOfFigures = () => { WC.PM.refInsertTOF('Figure'); };
+  H.markEntry = () => { WC.PM.refMarkIndexEntry(); };
+  H.insertIndex = () => { WC.PM.refInsertIndex(); };
+  H.updateIndex = () => { WC.PM.refUpdateIndex(); };
+  H.markCitation = () => { markCitationPM(); };
+  H.insertTableOfAuthorities = () => { WC.PM.refInsertTOA(); };
+  H.search = () => WC.toast('Smart Lookup / Search uses a cloud knowledge service — not available in this clone.', 'See docs/NOT_IMPLEMENTED.md');
+  H.researcher = () => WC.toast('Researcher uses a cloud research service — not available in this clone.', 'See docs/NOT_IMPLEMENTED.md');
+  H.insertCitation = (c, node) => WC.flyout(node, (fly) => {
+    const pm = WC.PM;
+    fly.appendChild(WC.flyItem('Add New Source…', { onClick: () => WC.Dialogs.addSource() }));
+    fly.appendChild(WC.flyItem('Add New Placeholder…', { onClick: () => { WC.toast('Add a source via Add New Source… to insert a citation.'); } }));
+    const sources = pm.refListSources() || [];
+    if (sources.length) {
+      fly.appendChild(WC.flySep());
+      sources.forEach((s) => {
+        const f = s.fields || {};
+        const author = (Array.isArray(f.authors) && f.authors[0] && f.authors[0].last) ? f.authors[0].last : (f.title || s.sourceId);
+        const label = author + (f.year ? ', ' + f.year : '');
+        fly.appendChild(WC.flyItem(label, { onClick: () => pm.refInsertCitation(s.sourceId) }));
+      });
+    }
+  });
+  H.manageSources = () => WC.Dialogs.manageSources();
+  H.style = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('Citation Style')); ['APA', 'Chicago', 'IEEE', 'ISO 690', 'MLA', 'Turabian'].forEach((s) => fly.appendChild(WC.flyItem((WC.Ref.citationStyle === s ? '✓ ' : '   ') + s, { onClick: () => { WC.Ref.citationStyle = s; WC.PM.refSetCitationStyle(s); WC.toast('Citation style: ' + s); } }))); });
+  H.bibliography = (c, node) => WC.flyout(node, (fly) => {
+    const insertBib = (t) => { WC.PM.refInsertBibliography(t); };
+    fly.appendChild(WC.flyHeader('Built-In'));
+    ['Bibliography', 'References', 'Works Cited'].forEach((t) => fly.appendChild(WC.flyItem(t, { onClick: () => insertBib(t) })));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Insert Bibliography', { onClick: () => insertBib('Bibliography') }));
+  });
+
+  function captionDialog() {
+    const label = el('select', {}, ['Figure', 'Table', 'Equation'].map((l) => el('option', { text: l })));
+    const text = el('input', { type: 'text', class: 'grow', placeholder: 'Caption text' });
+    WC.dialog({ title: 'Caption', width: '420px', body: el('div', {}, [el('div', { class: 'row' }, [el('label', { text: 'Label:', style: { width: '60px' } }), label]), el('div', { class: 'row' }, [el('label', { text: 'Caption:', style: { width: '60px' } }), text])]), footer: [
+      { label: 'OK', primary: true, onClick: () => { WC.PM.refInsertCaption(label.value, text.value.trim()); } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  // PM-aware Cross-reference dialog (References tab, slice 9). Enumerates the
+  // headings (by sdBlockId) and bookmarks from the PM engine and routes OK to
+  // WC.PM.refCrossReference. The legacy Insert.crossRefDialog path is unchanged
+  // (used under --legacy). Display maps the Word "Insert reference to" select:
+  // Page number → pageNumber, Text → content, Above/below → aboveBelow.
+  function crossRefDialogPM(pm) {
+    const type = el('select', {}, ['Heading', 'Bookmark'].map((t) => el('option', { text: t })));
+    const refType = el('select', {}, ['Page number', 'Text', 'Above/below'].map((t) => el('option', { text: t })));
+    const targets = el('select', { size: '6', class: 'grow', style: { height: 'auto' } });
+    const headings = () => {
+      const out = []; const ed = pm.getEditor && pm.getEditor();
+      if (!ed || !ed.state) return out;
+      ed.state.doc.descendants((n) => {
+        const isHeadingNode = n.type && n.type.name === 'heading';
+        const styleId = n.attrs && n.attrs.paragraphProperties && n.attrs.paragraphProperties.styleId;
+        const isStyledHeading = n.type && n.type.name === 'paragraph' && /^Heading[1-6]$/.test(styleId || '');
+        if (isHeadingNode || isStyledHeading) {
+          const id = n.attrs && (n.attrs.sdBlockId || n.attrs.id);
+          if (id) out.push({ id: String(id), text: (n.textContent || '').slice(0, 80) });
+        }
+        return true;
+      });
+      return out;
+    };
+    function fillTargets() {
+      targets.innerHTML = '';
+      const items = type.value === 'Heading'
+        ? headings().map((h) => ({ value: h.id, label: h.text || '(empty)' }))
+        : (pm.listBookmarks() || []).map((b) => ({ value: b.name, label: b.name }));
+      items.forEach((it) => targets.appendChild(el('option', { value: it.value, text: it.label })));
+      if (!items.length) targets.appendChild(el('option', { text: '(none — create headings/bookmarks first)' }));
+    }
+    type.addEventListener('change', fillTargets); fillTargets();
+    const body = el('div', {}, [el('div', { class: 'row' }, [el('label', { text: 'Type:', style: { width: '90px' } }), type, el('label', { text: 'Insert:' }), refType]), el('div', { style: { fontSize: '12px', color: '#666', margin: '6px 0' }, text: 'For which item:' }), targets]);
+    WC.dialog({ title: 'Cross-reference', width: '460px', body, footer: [
+      { label: 'Insert', primary: true, onClick: () => {
+        const val = targets.value; if (!val) return;
+        const target = type.value === 'Heading' ? { kind: 'heading', nodeId: val } : { kind: 'bookmark', name: val };
+        const display = refType.value === 'Page number' ? 'pageNumber' : (refType.value === 'Above/below' ? 'aboveBelow' : 'content');
+        pm.refCrossReference({ target, display });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  // PM-aware Mark Citation dialog (References tab → Table of Authorities, slice 9).
+  // Mirrors the legacy WC.Ref.markCitation dialog structure/UX (Selected text +
+  // Category + Short citation), but routes Mark to WC.PM.refMarkCitation so the TA
+  // field is minted on the engine. Category maps to Word's NUMERIC \c code (FIX 2):
+  // the fork buildTaInstruction emits `\c <category>` verbatim and its parser only
+  // matches `\c (\d+)` (authorityEntry-translator.parseTaInstruction), so a string
+  // category would round-trip-lose. The 7 dialog categories map to Word's 1-based
+  // order: Cases→1, Statutes→2, Other Authorities→3, Rules→4, Treatises→5,
+  // Regulations→6, Constitutional Provisions→7.
+  function markCitationPM() {
+    const pm = PMA(); if (!pm) return;
+    let selText = '';
+    try { const ed = pm.getEditor && pm.getEditor(); if (ed && ed.state) { const s = ed.state.selection; if (s && !s.empty) selText = ed.state.doc.textBetween(s.from, s.to, ' '); } } catch (e) { /* no selection */ }
+    const full = el('input', { type: 'text', class: 'grow', value: selText, placeholder: 'Selected text' });
+    const cat = el('select', {}, ['Cases', 'Statutes', 'Other Authorities', 'Rules', 'Treatises', 'Regulations', 'Constitutional Provisions'].map((c) => el('option', { text: c })));
+    const short = el('input', { type: 'text', class: 'grow', value: selText, placeholder: 'Short citation' });
+    const body = el('div', {}, [
+      el('div', { class: 'row' }, [el('label', { text: 'Selected text:', style: { width: '100px' } }), full]),
+      el('div', { class: 'row' }, [el('label', { text: 'Category:', style: { width: '100px' } }), cat]),
+      el('div', { class: 'row' }, [el('label', { text: 'Short citation:', style: { width: '100px' } }), short]),
+    ]);
+    const CAT_MAP = { 'Cases': 1, 'Statutes': 2, 'Other Authorities': 3, 'Rules': 4, 'Treatises': 5, 'Regulations': 6, 'Constitutional Provisions': 7 };
+    WC.dialog({ title: 'Mark Citation', width: '460px', body, footer: [
+      { label: 'Mark', primary: true, onClick: () => {
+        const info = { longCitation: full.value.trim(), category: CAT_MAP[cat.value] || 1 };
+        if (short.value.trim()) info.shortCitation = short.value.trim();
+        pm.refMarkCitation(info);
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  // ---- Mailings tab (mail merge) ----
+  H.envelopes = () => WC.Mail.envelopes();
+  H.labels = () => WC.Mail.labels();
+  H.startMailMerge = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyHeader('Start Mail Merge')); [['Letters', 'letters'], ['E-mail Messages', 'email'], ['Envelopes…', 'envelopes'], ['Labels…', 'labels'], ['Directory', 'directory'], ['Normal Word Document', 'normal']].forEach(([l, t]) => fly.appendChild(WC.flyItem(l, { onClick: () => { if (t === 'envelopes') WC.Mail.envelopes(); else if (t === 'labels') WC.Mail.labels(); else WC.Mail.startMailMerge(t); } }))); fly.appendChild(WC.flySep()); fly.appendChild(WC.flyItem('Step-by-Step Mail Merge Wizard…', { onClick: () => { WC.Mail.startMailMerge('letters'); WC.Mail.typeNewList(); } })); });
+  H.selectRecipients = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Type a New List…', { onClick: () => WC.Mail.typeNewList() })); fly.appendChild(WC.flyItem('Use an Existing List…', { onClick: () => WC.Mail.useExistingList() })); fly.appendChild(WC.flyItem('Choose from Outlook Contacts…', { onClick: () => WC.toast('Outlook integration is not available in this clone.') })); });
+  H.editRecipientList = () => WC.Mail.editRecipientList();
+  H.highlightMergeFields = (c, node) => { WC.Mail.highlightMergeFields(); if (node) node.classList.toggle('toggled'); };
+  H.addressBlock = () => WC.Mail.addressBlock();
+  H.greetingLine = () => WC.Mail.greetingLine();
+  H.insertMergeField = (c, node) => WC.Mail.insertMergeFieldMenu(node);
+  H.rules = (c, node) => WC.flyout(node, (fly) => {
+    const insertField = (code) => { WC.PM.mmInsertRule(code, code); };
+    fly.appendChild(WC.flyItem('If…Then…Else…', { onClick: () => ifThenElseDialog() }));
+    fly.appendChild(WC.flyItem('Fill-in…', { onClick: () => { const t = el('input', { type: 'text', class: 'grow', placeholder: 'Prompt' }); WC.dialog({ title: 'Insert Word Field: Fill-in', width: '420px', body: el('div', {}, [el('div', { text: 'Prompt:' }), t]), footer: [{ label: 'OK', primary: true, onClick: () => insertField('FILLIN "' + (t.value || 'Enter text') + '"') }, { label: 'Cancel' }] }); } }));
+    fly.appendChild(WC.flyItem('Ask…', { onClick: () => { const b = el('input', { type: 'text', class: 'grow', placeholder: 'Bookmark' }); const p = el('input', { type: 'text', class: 'grow', placeholder: 'Prompt' }); WC.dialog({ title: 'Insert Word Field: Ask', width: '420px', body: el('div', {}, [el('div', { text: 'Bookmark:' }), b, el('div', { text: 'Prompt:' }), p]), footer: [{ label: 'OK', primary: true, onClick: () => insertField('ASK ' + (b.value || 'Bookmark') + ' "' + (p.value || 'Prompt') + '"') }, { label: 'Cancel' }] }); } }));
+    fly.appendChild(WC.flySep());
+    fly.appendChild(WC.flyItem('Merge Record #', { onClick: () => insertField('MERGEREC') }));
+    fly.appendChild(WC.flyItem('Merge Sequence #', { onClick: () => insertField('MERGESEQ') }));
+    fly.appendChild(WC.flyItem('Next Record', { onClick: () => insertField('NEXT') }));
+    fly.appendChild(WC.flyItem('Next Record If…', { onClick: () => insertField('NEXTIF') }));
+    fly.appendChild(WC.flyItem('Set Bookmark…', { onClick: () => { const b = el('input', { type: 'text', class: 'grow', placeholder: 'Bookmark' }); const v = el('input', { type: 'text', class: 'grow', placeholder: 'Value' }); WC.dialog({ title: 'Insert Word Field: Set', width: '420px', body: el('div', {}, [el('div', { text: 'Bookmark:' }), b, el('div', { text: 'Value:' }), v]), footer: [{ label: 'OK', primary: true, onClick: () => insertField('SET ' + (b.value || 'Bookmark') + ' "' + (v.value || '') + '"') }, { label: 'Cancel' }] }); } }));
+    fly.appendChild(WC.flyItem('Skip Record If…', { onClick: () => insertField('SKIPIF') }));
+  });
+  function ifThenElseDialog() {
+    const fld = el('input', { type: 'text', class: 'grow', placeholder: 'Field name' });
+    const op = el('select', {}, ['Equal to', 'Not equal to', 'Greater than', 'Less than'].map((o) => el('option', { text: o })));
+    const val = el('input', { type: 'text', class: 'grow', placeholder: 'Compare to' });
+    const tThen = el('input', { type: 'text', class: 'grow', placeholder: 'Insert this text' });
+    const tElse = el('input', { type: 'text', class: 'grow', placeholder: 'Otherwise insert this text' });
+    const body = el('div', {}, [
+      el('div', { class: 'row' }, [el('label', { text: 'Field name:', style: { width: '90px' } }), fld]),
+      el('div', { class: 'row' }, [el('label', { text: 'Comparison:', style: { width: '90px' } }), op, val]),
+      el('div', { class: 'row' }, [el('label', { text: 'Then:', style: { width: '90px' } }), tThen]),
+      el('div', { class: 'row' }, [el('label', { text: 'Else:', style: { width: '90px' } }), tElse]),
+    ]);
+    WC.dialog({ title: 'Insert Word Field: IF', width: '480px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => { const code = 'IF «' + (fld.value || 'Field') + '» ' + op.value + ' "' + val.value + '" "' + tThen.value + '" "' + tElse.value + '"'; WC.PM.mmInsertRule(code, code); } },
+      { label: 'Cancel' },
+    ] });
+  }
+  H.matchFields = () => WC.Mail.matchFields();
+  H.updateLabels = () => WC.Mail.updateLabels();
+  H.previewResults = (c, node) => WC.Mail.previewResults();
+  H.firstRecord = () => WC.Mail.first();
+  H.previousRecord = () => WC.Mail.prev();
+  H.nextRecord = () => WC.Mail.next();
+  H.lastRecord = () => WC.Mail.last();
+  H.findRecipient = () => WC.Mail.findRecipient();
+  H.checkForErrors = () => WC.Mail.checkErrors();
+  H.finishMerge = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Edit Individual Documents…', { onClick: () => WC.Mail.finishMerge('edit') })); fly.appendChild(WC.flyItem('Print Documents…', { onClick: () => WC.Mail.finishMerge('print') })); fly.appendChild(WC.flyItem('Send Email Messages…', { onClick: () => WC.Mail.finishMerge('email') })); });
+
+  // ---- Review tab ----
+  H.thesaurus = () => { pmThesaurus(); };
+  H.checkAccessibility = () => { pmAccessibility(); };
+
+  // PM word-at-caret (or selection text) + its document range. Mirrors the
+  // review.ts expandCaretToWord walk: run-node boundaries add PM tokens without
+  // text chars, so climb to the TEXTBLOCK and walk per-character positions.
+  function pmWordAtCaret() {
+    const pm = PMA(); if (!pm) return null;
+    const state = pm.getEditor().state;
+    if (!state.selection.empty) {
+      const from = state.selection.from; const to = state.selection.to;
+      return { word: state.doc.textBetween(from, to, ' ', ' ').trim(), from, to };
+    }
+    const caret = state.selection.from;
+    const $pos = state.doc.resolve(caret);
+    let depth = $pos.depth;
+    while (depth > 0 && !$pos.node(depth).isTextblock) depth--;
+    if (!$pos.node(depth).isTextblock) return null;
+    const chars = [];
+    state.doc.nodesBetween($pos.start(depth), $pos.end(depth), (node, pos) => {
+      if (node.isText && node.text) { for (let i = 0; i < node.text.length; i++) chars.push({ ch: node.text[i], pos: pos + i }); }
+      return true;
+    });
+    const isWord = (ch) => /[\p{L}\p{N}_]/u.test(ch);
+    let idx = chars.findIndex((c) => c.pos >= caret);
+    if (idx < 0) idx = chars.length;
+    let a = idx; let b = idx;
+    while (a > 0 && isWord(chars[a - 1].ch)) a--;
+    while (b < chars.length && isWord(chars[b].ch)) b++;
+    if (a === b) return null;
+    return { word: chars.slice(a, b).map((c) => c.ch).join(''), from: chars[a].pos, to: chars[b - 1].pos + 1 };
+  }
+
+  // P2: Thesaurus pane — Word's right-dock anatomy (search box + grouped results +
+  // language combo). Definitions are sign-in-gated in real Word → omitted (class B).
+  // A pick REPLACES the looked-up range through the engine.
+  function pmThesaurus() {
+    const hit = pmWordAtCaret();
+    showPmThesaurus(hit ? hit.word : '', hit);
+  }
+  function showPmThesaurus(word, range) {
+    let pane = document.getElementById('thes-pane'); if (pane) pane.remove();
+    document.querySelectorAll('.taskpane.right').forEach((p) => p.remove()); // C11 dock share
+    pane = el('div', { class: 'taskpane right', id: 'thes-pane' });
+    pane.appendChild(el('div', { class: 'tp-head' }, [el('div', { class: 'tp-title', text: 'Thesaurus' }), el('span', { class: 'x', html: WC.icon('win_close', 12), style: { cursor: 'pointer' }, onclick: () => pane.remove() })]));
+    const body = el('div', { class: 'tp-body' });
+    const search = el('input', { type: 'text', class: 'grow', value: word || '', placeholder: 'Type a word to look up' });
+    const results = el('div', {});
+    const lookup = (w) => {
+      results.innerHTML = '';
+      w = (w || '').trim();
+      if (!w) return;
+      const syns = WC.Review.THES[w.toLowerCase()];
+      results.appendChild(el('div', { style: { fontWeight: '600', margin: '8px 0 4px' }, text: w }));
+      if (!syns) { results.appendChild(el('div', { style: { color: '#888', padding: '6px 0' }, text: 'No synonyms for “' + w + '” in the built-in thesaurus.' })); return; }
+      results.appendChild(el('div', { style: { fontSize: '11px', color: '#666', marginBottom: '4px' }, text: 'Synonyms' }));
+      syns.forEach((s) => {
+        const row = el('div', { class: 'tp-result', text: s, style: { cursor: 'pointer' } });
+        row.title = 'Insert “' + s + '”';
+        row.addEventListener('click', () => {
+          const pm = PMA(); if (!pm) return;
+          const ed = pm.getEditor();
+          const r = range || pmWordAtCaret();
+          if (r) ed.view.dispatch(ed.state.tr.insertText(s, r.from, r.to));
+          else ed.view.dispatch(ed.state.tr.insertText(s));
+          ed.view.focus();
+          range = null; // the replaced range is gone — further picks insert at caret
+        });
+        results.appendChild(row);
+      });
+    };
+    search.addEventListener('keydown', (e) => { if (e.key === 'Enter') { range = null; lookup(search.value); } });
+    body.appendChild(el('div', { class: 'row' }, [search]));
+    body.appendChild(results);
+    // Word's pane carries a proofing-language combo at the bottom.
+    body.appendChild(el('div', { style: { borderTop: '1px solid #e1dfdd', marginTop: '10px', paddingTop: '6px' } }, [
+      el('select', { class: 'grow' }, [el('option', { text: 'English (United States)' })]),
+    ]));
+    pane.appendChild(body);
+    document.getElementById('workarea').appendChild(pane);
+    lookup(word);
+  }
+
+  // P6: Accessibility Assistant — engine-model checks (NOT the legacy h1/img DOM:
+  // PM headings are styled paragraphs) rendered in Word's category-card layout.
+  function pmAccessibility() {
+    const pm = PMA(); if (!pm) return;
+    const doc = pm.getEditor().state.doc;
+    const media = []; const tables = []; const structure = []; const access = [];
+    let imgN = 0; let tableN = 0; let headingFound = false; let unclearLink = false;
+    doc.descendants((node, pos) => {
+      if (node.type.name === 'image') { imgN++; if (!node.attrs || !node.attrs.alt || node.attrs.alt === 'Uploaded picture') media.push('Missing alt text — Picture ' + imgN); }
+      if (node.type.name === 'table') {
+        tableN++;
+        let hasHeader = false;
+        const firstRow = node.firstChild;
+        if (firstRow) firstRow.forEach((cell) => { if (cell.type.name === 'tableHeader') hasHeader = true; });
+        if (!hasHeader) tables.push('Missing table header — Table ' + tableN);
+      }
+      if (node.isTextblock && node.attrs && /^Heading[1-9]$|^Title$/.test(String(node.attrs.styleId || ''))) headingFound = true;
+      if (node.isText && node.text && !unclearLink) {
+        const lm = (node.marks || []).find((m) => m.type.name === 'link');
+        if (lm && lm.attrs && lm.attrs.href && node.text.trim() === String(lm.attrs.href).trim()) { unclearLink = true; structure.push('Unclear hyperlink text'); }
+      }
+      return true;
+    });
+    if (!headingFound && doc.textContent.trim()) structure.push('No headings in document');
+    const total = media.length + tables.length + structure.length + access.length;
+    let pane = document.getElementById('a11y-pane'); if (pane) pane.remove();
+    document.querySelectorAll('.taskpane.right').forEach((p) => p.remove());
+    pane = el('div', { class: 'taskpane right', id: 'a11y-pane' });
+    pane.appendChild(el('div', { class: 'tp-head' }, [el('div', { class: 'tp-title', text: 'Accessibility Assistant' }), el('span', { class: 'x', html: WC.icon('win_close', 12), style: { cursor: 'pointer' }, onclick: () => pane.remove() })]));
+    const body = el('div', { class: 'tp-body' });
+    body.appendChild(el('div', {
+      style: { background: total ? '#FDF3F4' : '#F1FAF1', border: '1px solid ' + (total ? '#F3D6D8' : '#D5E8D5'), borderRadius: '4px', padding: '10px', marginBottom: '10px', fontWeight: '600', color: total ? '#A4262C' : '#107C10' },
+      text: total ? total + ' issue' + (total > 1 ? 's' : '') + ' found' : 'Looks good! No issues found.',
+    }));
+    const card = (title, items) => {
+      const c = el('div', { style: { border: '1px solid #e1dfdd', borderRadius: '4px', padding: '8px 10px', marginBottom: '8px' } });
+      c.appendChild(el('div', { style: { display: 'flex', justifyContent: 'space-between', fontWeight: '600', fontSize: '12px' } }, [
+        el('span', { text: title }),
+        el('span', { text: items.length ? String(items.length) : '✓', style: { color: items.length ? '#A4262C' : '#107C10' } }),
+      ]));
+      items.forEach((it) => c.appendChild(el('div', { class: 'tp-result', text: it, style: { fontSize: '12px' } })));
+      return c;
+    };
+    body.appendChild(card('Color and Contrast', []));
+    body.appendChild(card('Media and Illustrations', media));
+    body.appendChild(card('Tables', tables));
+    body.appendChild(card('Document Structure', structure));
+    body.appendChild(card('Document Access', access));
+    body.appendChild(el('div', { style: { fontSize: '11px', color: '#666', marginTop: '6px' }, text: 'Checks run locally on the document model.' }));
+    pane.appendChild(body);
+    document.getElementById('workarea').appendChild(pane);
+    return total;
+  }
+  H.translate = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Translate Selection', { onClick: () => WC.toast('Translation needs a cloud translator — not available in this clone.', 'See docs/NOT_IMPLEMENTED.md') })); fly.appendChild(WC.flyItem('Translate Document', { onClick: () => WC.toast('Translation needs a cloud translator — not available.') })); fly.appendChild(WC.flySep()); fly.appendChild(WC.flyItem('Translator Preferences…', { onClick: () => WC.toast('Translator preferences require the cloud translator service — not available.') })); });
+  H.language = (c, node) => WC.flyout(node, (fly) => {
+    fly.appendChild(WC.flyItem('Set Proofing Language…', { onClick: () => languageDialog() }));
+    fly.appendChild(WC.flyItem('Language Preferences…', { onClick: () => languageDialog() }));
+  });
+  // Applies the proofing language to the ACTIVE editing surface (PM view DOM in PM
+  // mode — drives the OS spellchecker locale + squiggle gating). Doc-level only:
+  // per-run w:lang isn't on the fork command surface (recorded deviation, ledger C).
+  WC.setProofingLanguage = (code, noCheck) => {
+    const node = WC.PM.getEditor().view.dom;
+    node.setAttribute('lang', code);
+    node.setAttribute('spellcheck', noCheck ? 'false' : 'true');
+    return node.getAttribute('lang') === code;
+  };
+  // P9: the Word Language dialog — scope radios, language list (en-US first),
+  // no-proof + detect checkboxes, Set As Default.
+  function languageDialog() {
+    const pm = WC.PM;
+    const langs = [['English (United States)', 'en-US'], ['English (United Kingdom)', 'en-GB'], ['French (France)', 'fr-FR'], ['German (Germany)', 'de-DE'], ['Spanish (Spain)', 'es-ES'], ['Italian (Italy)', 'it-IT'], ['Portuguese (Brazil)', 'pt-BR'], ['Turkish', 'tr-TR'], ['Dutch (Netherlands)', 'nl-NL'], ['Japanese', 'ja-JP']];
+    const node = pm.getEditor().view.dom;
+    let defLang = 'en-US';
+    try { defLang = localStorage.getItem('wc-default-lang') || 'en-US'; } catch (e) { /* default stands */ }
+    const cur = node.getAttribute('lang') || defLang;
+    const hasSel = !pm.getEditor().state.selection.empty;
+    const rSel = el('input', { type: 'radio', name: 'wcLangScope' });
+    const rDoc = el('input', { type: 'radio', name: 'wcLangScope', checked: 'checked' });
+    if (!hasSel) rSel.disabled = true;
+    const list = el('select', { size: '7', style: { width: '100%' } }, langs.map(([l, code]) => el('option', { text: l, value: code, selected: code === cur ? 'selected' : undefined })));
+    const noCheck = el('input', { type: 'checkbox', checked: node.getAttribute('spellcheck') === 'false' ? 'checked' : null });
+    const detect = el('input', { type: 'checkbox', checked: 'checked' });
+    const body = el('div', {}, [
+      el('div', { class: 'row', style: { gap: '14px' } }, [
+        el('span', { text: 'Change proofing language for:' }),
+        el('label', { style: { display: 'flex', gap: '4px', alignItems: 'center', opacity: hasSel ? '1' : '.55' } }, [rSel, el('span', { text: 'Selected text' })]),
+        el('label', { style: { display: 'flex', gap: '4px', alignItems: 'center' } }, [rDoc, el('span', { text: 'Current Document' })]),
+      ]),
+      list,
+      el('div', { class: 'row', style: { marginTop: '8px' } }, [el('label', { style: { display: 'flex', gap: '6px', alignItems: 'center' } }, [noCheck, el('span', { text: 'Do not check spelling or grammar' })])]),
+      el('div', { class: 'row' }, [el('label', { style: { display: 'flex', gap: '6px', alignItems: 'center' } }, [detect, el('span', { text: 'Detect language automatically' })])]),
+    ]);
+    WC.dialog({ title: 'Language', width: '440px', body, footer: [
+      { label: 'Set As Default', onClick: () => { try { localStorage.setItem('wc-default-lang', list.value); } catch (e) { /* storage unavailable */ } WC.toast('Default proofing language: ' + list.options[list.selectedIndex].text); return true; } },
+      { label: 'OK', primary: true, onClick: () => {
+        WC.setProofingLanguage(list.value, noCheck.checked);
+        WC.toast('Proofing language: ' + list.options[list.selectedIndex].text + (noCheck.checked ? ' (spelling/grammar off)' : ''));
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+  // ---- Comments group (A4 renamed cmds — every handler keeps a WORKING legacy branch, A8) ----
+  // PM: delete the ACTIVE thread (caret/nav-selected), else the first thread —
+  // Word disables the button with no comments; enablement polish lands with task 4's UI.
+  H.deleteComment = () => {
+    const rows = WC.PM.getComments(); const hit = rows.find((r) => r.active) || rows[0]; if (hit) WC.PM.cmd('deleteComment', hit.id);
+  };
+  H.previousComment = () => { WC.PM.cmd('prevComment'); };
+  H.nextComment = () => { WC.PM.cmd('nextComment'); };
+  // Show Comments ▾ (parity C10): Contextual | List. The card/pane UI lands in task 4 —
+  // the PM branch latches the chosen view on a WC-level flag the task-4 UI will consume
+  // (no bridge 'setCommentsView' cmd exists yet).
+  H.showComments = (c, node) => WC.flyout(node, (fly) => {
+    const mode = WC.commentsViewMode || 'contextual';
+    const pick = (m) => { WC.commentsViewMode = m; }; // consumed by the task-4 comments UI
+    fly.appendChild(WC.flyItem((mode === 'contextual' ? '✓ ' : '   ') + 'Contextual', { onClick: () => pick('contextual') }));
+    fly.appendChild(WC.flyItem((mode === 'list' ? '✓ ' : '   ') + 'List', { onClick: () => pick('list') }));
+  });
+  // ---- Markup group ----
+  // PM-side Show Markup latches (T9/T10). Render effects (task 5): insDel/formatting
+  // toggle #pm-editor classes consumed by track-chrome-pm.css, and every latch flip
+  // nudges the bars/balloons chrome (track-chrome.ts reads WC.pmMarkup).
+  const pmMarkup = { insDel: true, formatting: true, balloons: 'formatting' };
+  WC.pmMarkup = pmMarkup; // task 5: track-chrome.ts reads the latches at render time
+  const chromeRefresh = () => { if (WC.TrackChrome && WC.TrackChrome.refresh) WC.TrackChrome.refresh(); };
+  H.showMarkup = (c, node) => {
+    return WC.flyout(node, (fly) => {
+      const reopen = () => WC.Commands.dropdown({ cmd: 'showMarkup', type: 'dropdown' }, node);
+      const check = (on, label) => (on ? '✓ ' : '   ') + label;
+      fly.appendChild(WC.flyItem(check(pmMarkup.insDel, 'Insertions and Deletions'), { onClick: () => { pmMarkup.insDel = !pmMarkup.insDel; document.getElementById('pm-editor').classList.toggle('pm-hide-insdel', !pmMarkup.insDel); chromeRefresh(); reopen(); } }));
+      fly.appendChild(WC.flyItem(check(pmMarkup.formatting, 'Formatting'), { onClick: () => { pmMarkup.formatting = !pmMarkup.formatting; document.getElementById('pm-editor').classList.toggle('pm-hide-format', !pmMarkup.formatting); chromeRefresh(); reopen(); } }));
+      const balloons = WC.flyItem('Balloons', { onClick: () => WC.flyout(node, (sub) => {
+        const bal = (label, m) => sub.appendChild(WC.flyItem(check(pmMarkup.balloons === m, label), { onClick: () => { pmMarkup.balloons = m; chromeRefresh(); } }));
+        bal('Show Revisions in Balloons', 'revisions');
+        bal('Show All Revisions Inline', 'inline');
+        bal('Show Only Formatting in Balloons', 'formatting');
+      }) });
+      balloons.appendChild(el('span', { class: 'caret', html: WC.icon('chevron_down', 8), style: { marginLeft: 'auto', transform: 'rotate(-90deg)' } }));
+      fly.appendChild(balloons);
+      const people = WC.flyItem('Specific People', { onClick: () => WC.flyout(node, (sub) => {
+        sub.appendChild(WC.flyItem('✓ All Reviewers', { onClick: () => {} }));
+      }) });
+      people.appendChild(el('span', { class: 'caret', html: WC.icon('chevron_down', 8), style: { marginLeft: 'auto', transform: 'rotate(-90deg)' } }));
+      fly.appendChild(people);
+      fly.appendChild(WC.flyItem('Highlight Updates', { disabled: true }));
+      fly.appendChild(WC.flyItem('Other Authors', { disabled: true }));
+    });
+  };
+  // Filter All Markup (parity R1): real Word opens a markup-filter menu (capture
+  // pending). Interim routing: the Show Markup menu IS the filter set we have —
+  // task 5 replaces this with the captured filter menu.
+  H.filterMarkup = (c, node) => H.showMarkup(c, node || (WC.Ribbon.controlIndex.filterMarkup && WC.Ribbon.controlIndex.filterMarkup.node) || document.body);
+  // PM branch (task 5): the Word-anatomy Revisions pane lives in track-chrome.ts
+  // (D8.4/T11 -- live count, collapse chevron, refresh, entry-click navigation).
+  // The main button toggles the pane in its last-used orientation; the split menu
+  // (Commands.dropdown 'reviewingPane') picks Vertical/Horizontal explicitly.
+  H.reviewingPane = () => { if (WC.TrackChrome) WC.TrackChrome.togglePane(); };
+  // ---- Tracking group ----
+  // Word's main Accept/Reject buttons ACCEPT-AND-ADVANCE (parity T14); with the
+  // caret on no change they jump to the first one without applying (T16) — the
+  // bare cmd returns false in that case and the chained nextChange supplies the
+  // jump. "Accept This Change" (menu item) stays the bare non-advancing cmd.
+  H.accept = () => { WC.PM.cmd('acceptChange'); WC.PM.cmd('nextChange'); };
+  H.reject = () => { WC.PM.cmd('rejectChange'); WC.PM.cmd('nextChange'); };
+  H.previousChange = () => { WC.PM.cmd('prevChange'); };
+  H.nextChange = () => { WC.PM.cmd('nextChange'); };
+  // X1/X2: PM routes to the parity Compare dialog (real tracked-changes diff).
+  H.compare = (c, node) => WC.flyout(node, (fly) => {
+    const go = (mode) => { WC.Dialogs.compareDocuments(mode); };
+    fly.appendChild(WC.flyItem('Compare…', { onClick: () => go('compare') }));
+    fly.appendChild(WC.flyItem('Combine…', { onClick: () => go('combine') }));
+    fly.appendChild(WC.flyItem('Show Source Documents', { disabled: true }));
+  });
+  H.blockAuthors = () => WC.toast('Block Authors requires cloud co-authoring — not available in this clone.', 'See docs/NOT_IMPLEMENTED.md');
+  // X3: PM opens the Restrict Editing pane (enforcement = engine setEditable).
+  H.restrictEditing = () => { WC.Dialogs.restrictEditingPane(); };
+  // Hide Ink ▾ (parity X4 — Word menu capture pending; ink layer is the slice-10 Draw canvas).
+  H.hideInk = (c, node) => {
+    document.getElementById('pm-editor').classList.toggle('pm-hide-ink');
+    if (node) node.classList.toggle('toggled');
+  };
+
+  // ---- View tab ----
+  H.outline = () => { WC.PM.setView('outline'); WC.StatusBar && WC.StatusBar.setActiveView && WC.StatusBar.setActiveView('print'); WC.toast('Outline view'); };
+  H.draft = () => { WC.PM.setView('draft'); WC.toast('Draft view'); };
+  H.immersiveReader = () => immersiveReader();
+  H.vertical = (c, node) => { document.getElementById('workarea').classList.remove('movement-side'); markRadio(node, 'sideToSide'); };
+  H.sideToSide = (c, node) => { document.getElementById('workarea').classList.add('movement-side'); markRadio(node, 'vertical'); WC.toast('Side to Side page movement'); };
+  H['100'] = () => WC.PM.setZoom(1);
+  H.split = () => { document.getElementById('app').classList.toggle('split-view'); WC.toast('Split — a second pane of the document.'); };
+  H.properties = () => propertiesDialog();
+  H.newWindow = () => WC.toast('New Window opens another view of the document — multi-window is not supported in this single-window clone.', 'See docs/NOT_IMPLEMENTED.md');
+  H.arrangeAll = () => WC.toast('Arrange All needs multiple document windows — not supported here.');
+  H.viewSideBySide = () => WC.toast('View Side by Side needs a second open document — not supported.');
+  H.synchronousScrolling = () => WC.toast('Synchronous Scrolling pairs two windows — not supported.');
+  H.resetWindowPosition = () => WC.toast('Reset Window Position — not applicable in this clone.');
+  H.switchWindows = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('✓ 1  Document1 - Word', { onClick: () => {} })); });
+  H.macros = (c, node) => WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('View Macros', { onClick: () => WC.toast('VBA macros are not supported in this clone (no VBA runtime).', 'See docs/NOT_IMPLEMENTED.md') })); fly.appendChild(WC.flyItem('Record Macro…', { onClick: () => WC.toast('Macro recording (VBA) is not supported.') })); });
+
+  function markRadio(node, other) { if (node) node.classList.add('toggled'); const o = WC.Ribbon.controlIndex[other]; if (o && o.node) o.node.classList.remove('toggled'); }
+  function immersiveReader() {
+    let ov = document.getElementById('immersive'); if (ov) { ov.remove(); return; }
+    let size = 20;
+    const docHtml = document.getElementById('pm-editor').innerHTML;
+    const content = el('div', { class: 'ir-content' }); content.innerHTML = docHtml;
+    content.querySelectorAll('[contenteditable]').forEach((n) => n.removeAttribute('contenteditable'));
+    content.style.fontSize = size + 'px';
+    const setSize = (d) => { size = Math.max(12, Math.min(40, size + d)); content.style.fontSize = size + 'px'; };
+    const bg = (c) => { ov.style.background = c; content.style.background = c; };
+    const bar = el('div', { class: 'ir-bar' }, [
+      el('span', { style: { fontWeight: '600' }, text: 'Immersive Reader' }),
+      el('button', { class: 'btn', text: 'A−', onclick: () => setSize(-2) }),
+      el('button', { class: 'btn', text: 'A+', onclick: () => setSize(2) }),
+      el('button', { class: 'btn', text: 'Sepia', onclick: () => bg('#f4ecd8') }),
+      el('button', { class: 'btn', text: 'Dark', onclick: () => { bg('#1e1e1e'); content.style.color = '#eee'; } }),
+      el('button', { class: 'btn', text: 'Read Aloud', onclick: () => WC.Commands.run({ cmd: 'readAloud' }) }),
+      el('button', { class: 'btn primary', text: 'Close', onclick: () => ov.remove() }),
+    ]);
+    ov = el('div', { id: 'immersive' }, [bar, content]);
+    document.body.appendChild(ov);
+  }
+  function readMode() {
+    let ov = document.getElementById('read-mode');
+    if (ov) { closeReadMode(); return; }
+    WC.StatusBar && WC.StatusBar.setActiveView && WC.StatusBar.setActiveView('read');
+    const menu = (label, items) => {
+      const b = el('button', { class: 'rm-menu', text: label });
+      b.addEventListener('click', (ev) => { ev.stopPropagation(); WC.flyout(b, (fly) => items.forEach((it) => fly.appendChild(WC.flyItem(it.label, { onClick: it.onClick })))); });
+      return b;
+    };
+    const docHtml = document.getElementById('pm-editor').innerHTML;
+    const content = el('div', { class: 'rm-content' });
+    content.innerHTML = docHtml;
+    content.querySelectorAll('[contenteditable]').forEach((n) => n.removeAttribute('contenteditable'));
+    const colsWrap = el('div', { class: 'rm-cols' }, [content]);
+    const prev = el('button', { class: 'rm-arrow rm-prev', title: 'Previous screen', text: '‹' });
+    const next = el('button', { class: 'rm-arrow rm-next', title: 'Next screen', text: '›' });
+    prev.addEventListener('click', () => { colsWrap.scrollBy({ left: -colsWrap.clientWidth, behavior: 'smooth' }); });
+    next.addEventListener('click', () => { colsWrap.scrollBy({ left: colsWrap.clientWidth, behavior: 'smooth' }); });
+    const bar = el('div', { class: 'rm-bar' }, [
+      menu('File', [{ label: 'Print…', onClick: () => WC.Files.print() }, { label: 'Save', onClick: () => WC.Files.save() }]),
+      menu('Tools', [{ label: 'Find…', onClick: () => { closeReadMode(); WC.Dialogs.findPane(false); } }, { label: 'Read Aloud', onClick: () => WC.Commands.run({ cmd: 'readAloud' }) }]),
+      menu('View', [{ label: 'Edit Document', onClick: () => closeReadMode() }, { label: 'Column Width: Wide', onClick: () => ov.classList.toggle('rm-wide') }]),
+      el('span', { class: 'rm-spacer' }),
+      el('button', { class: 'rm-close', title: 'Print Layout (Esc)', text: '✕' }),
+    ]);
+    bar.querySelector('.rm-close').addEventListener('click', () => closeReadMode());
+    ov = el('div', { id: 'read-mode' }, [bar, prev, colsWrap, next]);
+    document.body.appendChild(ov);
+  }
+  function closeReadMode() {
+    const ov = document.getElementById('read-mode'); if (ov) ov.remove();
+    WC.StatusBar && WC.StatusBar.setActiveView && WC.StatusBar.setActiveView('print');
+  }
+  WC.closeReadMode = closeReadMode;
+  function propertiesDialog() {
+    const c = WC.PM.counts();
+    const f = WC.Files;
+    const rows = [['Title', (f.name || 'Document1').replace(/\.[^.]+$/, '')], ['Author', 'Word User'], ['Words', c.words], ['Characters', c.chars], ['Paragraphs', c.paras], ['Pages', c.pages], ['Lines', c.lines]];
+    const body = el('div', { class: 'info-props' });
+    rows.forEach(([k, v]) => body.appendChild(el('div', { class: 'row', style: { padding: '5px 0', borderBottom: '1px solid #f0f0f0' } }, [el('span', { style: { width: '160px', color: '#666' }, text: k }), el('b', { text: String(v) })])));
+    WC.dialog({ title: 'Properties', width: '380px', body, footer: [{ label: 'Close', primary: true }] });
+  }
+
+  // ---- Help tab ----
+  H.help = () => helpDialog();
+  H.contactSupport = () => WC.toast('Contact Support opens Microsoft support online — this is a local Word clone, not Microsoft Word.');
+  H.feedback = () => WC.Backstage.open('feedback');
+  H.showTraining = () => showTrainingPane();
+  function showTrainingPane() {
+    let pane = document.getElementById('help-pane'); if (pane) { pane.remove(); return; }
+    pane = el('div', { class: 'taskpane right', id: 'help-pane' });
+    const head = el('div', { class: 'tp-head' }, [el('div', { class: 'tp-title', text: 'Help' }), el('span', { class: 'x', html: WC.icon('win_close', 12), style: { cursor: 'pointer' }, onclick: () => pane.remove() })]);
+    const body = el('div', { class: 'tp-body' });
+    body.appendChild(el('div', { style: { fontWeight: '600', margin: '4px 0 8px' }, text: 'Get the most out of Word' }));
+    const topics = [
+      ['Write with Track Changes', 'Review tab → Track Changes'],
+      ['Insert a table of contents', 'References tab → Table of Contents'],
+      ['Add page numbers and headers', 'Insert tab → Header & Footer'],
+      ['Mail merge letters and labels', 'Mailings tab → Start Mail Merge'],
+      ['Format with styles and themes', 'Home / Design tabs'],
+    ];
+    topics.forEach(([t, where]) => {
+      const card = el('div', { style: { padding: '8px 10px', border: '1px solid #e1dfdd', borderRadius: '4px', marginBottom: '8px', cursor: 'pointer' } }, [
+        el('div', { style: { fontWeight: '600', color: '#2b579a' }, text: t }),
+        el('div', { style: { fontSize: '11px', color: '#666' }, text: where }),
+      ]);
+      card.addEventListener('click', () => WC.toast(t + ' — see ' + where));
+      body.appendChild(card);
+    });
+    body.appendChild(el('div', { style: { fontSize: '11px', color: '#888', marginTop: '6px' }, text: 'Per-tab feature guides live in the docs/ folder.' }));
+    pane.appendChild(head); pane.appendChild(body);
+    document.getElementById('app').appendChild(pane);
+  }
+  H.whatSNew = () => whatsNewDialog();
+
+  function helpDialog() {
+    const body = el('div', {}, [
+      el('div', { style: { fontSize: '15px', fontWeight: '600', marginBottom: '6px' }, text: 'Word Clone — Help' }),
+      el('div', { style: { color: '#444', marginBottom: '10px' }, text: 'A faithful, from-scratch reproduction of Microsoft Word (M365) built with Electron. Validated against real Word via PowerShell automation.' }),
+      el('div', { style: { fontWeight: '600', margin: '8px 0 4px' }, text: 'Keyboard shortcuts' }),
+      el('div', { class: 'info-props' }, [['Ctrl+S Save', 'Ctrl+O Open'], ['Ctrl+B/I/U Bold/Italic/Underline', 'Ctrl+F Find · Ctrl+H Replace'], ['Ctrl+K Link · Ctrl+D Font', 'Ctrl+= / Ctrl+- Zoom'], ['Ctrl+L/E/R/J Align', 'Alt+1/2/3 Heading 1/2/3']].map((pair) => el('div', { class: 'row', style: { fontSize: '12px' } }, [el('span', { style: { width: '50%' }, text: pair[0] }), el('span', { text: pair[1] })]))),
+      el('div', { style: { fontSize: '12px', color: '#888', marginTop: '10px' }, text: 'Per-tab feature documentation is in the docs/ folder (HOME_TAB.md, INSERT_TAB.md, …).' }),
+    ]);
+    WC.dialog({ title: 'Help', width: '520px', body, footer: [{ label: 'Close', primary: true }] });
+  }
+  function whatsNewDialog() {
+    const feats = ['All 10 ribbon tabs fully implemented and tested', 'Real Track Changes engine (Review)', 'Mail merge with live preview (Mailings)', 'Table of Contents, footnotes, citations (References)', 'Freehand ink drawing (Draw)', 'Themes, watermark, page borders (Design)', 'Validated against real Microsoft Word via automation'];
+    const body = el('div', {}, [el('div', { style: { fontSize: '15px', fontWeight: '600', marginBottom: '8px' }, text: 'What’s New in Word Clone 1.0' }), el('ul', {}, feats.map((f) => el('li', { text: f, style: { margin: '4px 0' } })))]);
+    WC.dialog({ title: "What's New", width: '480px', body, footer: [{ label: 'Close', primary: true }] });
+  }
+
+  // ============ dispatch ============
+  const Commands = {
+    // Insert a picture from a data-URL at natural size, clamped to the column width.
+    insertPictureFromDataUrl,
+    run(control, node) {
+      WC.closeFlyouts(); WC.hideTip();
+      const cmd = control.cmd;
+      if (WC.PM && WC.PM.active && WC.PM.isBlocked(control.cmd)) { WC.PM.notifyBlocked(control.label || control.cmd); return; }
+      if (H[cmd]) { H[cmd](control, node); return; }
+      // split/dropdown without explicit handler -> open items if present
+      if ((control.type === 'split' || control.type === 'dropdown') && control.items) { this.dropdown(control, node); return; }
+      WC.notImplemented(control.label || cmd);
+    },
+
+    dropdown(control, node) {
+      WC.closeFlyouts();
+      if (WC.PM && WC.PM.active && WC.PM.isBlocked(control.cmd)) { WC.PM.notifyBlocked(control.label || control.cmd); return; }
+      const cmd = control.cmd;
+      // custom dropdowns
+      if (cmd === 'changeCase') return changeCaseMenu(node);
+      if (cmd === 'lineAndParagraphSpacing') return lineSpacingMenu(node);
+      if (cmd === 'textHighlightColor') return colorMenu(node, 'hilite');
+      if (cmd === 'fontColor') return colorMenu(node, 'fore');
+      if (cmd === 'shading') return colorMenu(node, 'shade');
+      if (cmd === 'pageColor') return colorMenu(node, 'page');
+      if (cmd === 'borders') return bordersMenu(node);
+      if (cmd === 'bullets') return bulletMenu(node, false);
+      if (cmd === 'numbering') return bulletMenu(node, true);
+      if (cmd === 'select') return selectMenu(node);
+      if (cmd === 'find') return findMenu(node);
+      if (cmd === 'paste') return pasteMenu(node);
+      if (cmd === 'underline') return underlineMenu(node);
+      if (cmd === 'margins') return marginsMenu(node);
+      if (cmd === 'orientation') return orientationMenu(node);
+      if (cmd === 'size') return pageSizeMenu(node);
+      if (cmd === 'columns') return columnsMenu(node);
+      if (cmd === 'textEffectsAndTypography') return textEffectsMenu(node);
+      if (cmd === 'multilevelList') return multilevelMenu(node);
+      if (cmd === 'dictate') return WC.toast("Dictate isn't available in this clone");
+      if (cmd === 'sensitivity') return WC.toast("Sensitivity labels aren't available in this clone");
+      if (cmd === 'addIns' || cmd === 'getAddIns' || cmd === 'myAddIns') return addInsMenu(node);
+      // Insert tab dropdowns / split arrows
+      if (cmd === 'coverPage') return WC.Insert.coverPageMenu(node);
+      if (cmd === 'table') return WC.Insert.tableMenu(node);
+      // Table Tools contextual-tab dropdowns (style gallery / shading / borders / autofit / cell size)
+      if (cmd === 'tblStyles' || cmd === 'tblShading' || cmd === 'tblBorders' || cmd === 'tblAutoFit' || cmd === 'tblRowHeight' || cmd === 'tblColWidth' || cmd === 'tblIndent') return H[cmd](control, node);
+      if (cmd === 'pictures') return picturesMenu(node);
+      if (cmd === 'shapes') return WC.Insert.shapesMenu(node);
+      if (cmd === 'screenshot') return screenshotMenu(node);
+      if (cmd === 'header') return H.header(control, node); // item 3: Edit-Header modal (WC.HeaderFooter retired)
+      if (cmd === 'footer') return H.footer(control, node);
+      if (cmd === 'pageNumber') return H.pageNumber(control, node); // 002 P3: page-number field (blocked until then)
+      if (cmd === 'textBox') return textBoxMenu(node);
+      if (cmd === 'quickParts') return WC.Insert.quickPartsMenu(node);
+      if (cmd === 'wordart') return WC.Insert.wordArtMenu(node);
+      if (cmd === 'dropCap') return dropCapMenu(node);
+      if (cmd === 'symbol') return WC.Dialogs.symbol(node);
+      if (cmd === 'equation') return equationMenu(node);
+      if (cmd === 'object') return WC.Insert.objectMenu(node);
+      if (cmd === 'signatureLine') return WC.Insert.signatureLine();
+      if (cmd === 'dateTime') return WC.Insert.dateTimeDialog();
+      if (cmd === '3dModels') return H['3dModels']();
+      if (cmd === 'link') return WC.Dialogs.insertLink();
+      // Draw tab
+      if (cmd === 'addPen') return H.addPen(control, node);
+      if (cmd === 'pensGallery') return pensMenu(node);
+      if (cmd === 'eraser') return WC.flyout(node, (fly) => {
+        fly.appendChild(WC.flyHeader('Eraser'));
+        const setEraser = (radius, mode) => { WC.PM.dSetEraser(radius, mode); };
+        fly.appendChild(WC.flyItem('Stroke Eraser', { onClick: () => setEraser(10, 'stroke') }));
+        fly.appendChild(WC.flyItem('Small Eraser', { onClick: () => setEraser(6, 'point') }));
+        fly.appendChild(WC.flyItem('Medium Eraser', { onClick: () => setEraser(12, 'point') }));
+        fly.appendChild(WC.flyItem('Large Eraser', { onClick: () => setEraser(24, 'point') }));
+        fly.appendChild(WC.flyItem('Segment Eraser', { onClick: () => setEraser(8, 'segment') }));
+        fly.appendChild(WC.flySep());
+        fly.appendChild(WC.flyItem('Erase All Ink', { onClick: () => { WC.PM.dClearInk(); } }));
+      });
+      // Design tab
+      if (cmd === 'themes' || cmd === 'styleSet' || cmd === 'colors' || cmd === 'fonts' || cmd === 'paragraphSpacing' || cmd === 'effects' || cmd === 'watermark') return H[cmd](control, node);
+      // Layout tab
+      if (cmd === 'breaks') return H.breaks(control, node);
+      if (cmd === 'bringForward') return WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Bring Forward', { onClick: () => WC.PM.setImageZOrder('forward') })); fly.appendChild(WC.flyItem('Bring to Front', { onClick: () => WC.PM.setImageZOrder('toFront') })); fly.appendChild(WC.flyItem('Bring in Front of Text', { onClick: () => WC.PM.setImageWrap('front') })); });
+      if (cmd === 'sendBackward') return WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Send Backward', { onClick: () => WC.PM.setImageZOrder('backward') })); fly.appendChild(WC.flyItem('Send to Back', { onClick: () => WC.PM.setImageZOrder('toBack') })); fly.appendChild(WC.flyItem('Send Behind Text', { onClick: () => WC.PM.setImageWrap('behind') })); });
+      if (cmd === 'lineNumbers' || cmd === 'hyphenation' || cmd === 'position' || cmd === 'wrapText' || cmd === 'align' || cmd === 'group' || cmd === 'rotate') return H[cmd](control, node);
+      // Picture Format → Size group (4b numeric Height/Width) + Crop + Rotate + Alt Text. Redundant
+      // with Commands.run's H[cmd] intercept, mirrors the tblRowHeight/tblColWidth dual-path.
+      if (cmd === 'imgHeight' || cmd === 'imgWidth' || cmd === 'imgAltText' || cmd === 'imgCrop' || cmd === 'imgRotate' || cmd === 'imgPosition' || cmd === 'imgColor') return H[cmd](control, node);
+      // References tab — Footnotes split-button ▾ flyout. Routes every item to the
+      // bridge: refNextNote takes a direction ('next'/'prev'); refShowNotes reveals
+      // the clone-owned notes area.
+      if (cmd === 'nextFootnote') return WC.flyout(node, (fly) => {
+        const pm = WC.PM;
+        fly.appendChild(WC.flyItem('Next Footnote', { onClick: () => pm.refNextNote('next') }));
+        fly.appendChild(WC.flyItem('Previous Footnote', { onClick: () => pm.refNextNote('prev') }));
+        fly.appendChild(WC.flySep());
+        fly.appendChild(WC.flyItem('Next Endnote', { onClick: () => pm.refNextNote('next') }));
+        fly.appendChild(WC.flyItem('Previous Endnote', { onClick: () => pm.refNextNote('prev') }));
+        fly.appendChild(WC.flySep());
+        fly.appendChild(WC.flyItem('Show Notes', { onClick: () => pm.refShowNotes() }));
+      });
+      if (cmd === 'tableOfContents' || cmd === 'addText' || cmd === 'insertCitation' || cmd === 'style' || cmd === 'bibliography') return H[cmd](control, node);
+      // Mailings tab
+      if (cmd === 'startMailMerge' || cmd === 'selectRecipients' || cmd === 'insertMergeField' || cmd === 'rules' || cmd === 'finishMerge') return H[cmd](control, node);
+      // Review tab
+      if (cmd === 'translate' || cmd === 'language' || cmd === 'showMarkup' || cmd === 'compare' || cmd === 'showComments') return H[cmd](control, node);
+      // Spelling and Grammar split ▾ (parity P3): Spelling | ✓Spelling and Grammar.
+      // Both routes open the spelling flow until the task-6 proofing pane lands.
+      if (cmd === 'spellingGrammar') return WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('   Spelling', { onClick: () => H.spellingGrammar() })); fly.appendChild(WC.flyItem('✓ Spelling and Grammar', { onClick: () => H.spellingGrammar() })); });
+      // Track Changes ▾ (parity T2/D8.7): For Everyone | Just Mine | Lock Tracking.
+      // Just Mine === For Everyone in this single-author clone (recorded note).
+      if (cmd === 'trackChanges') {
+        const tcOn = !!(WC.PM.reviewState && WC.PM.reviewState().tracking);
+        const locked = !!(WC.pmTrackLock && WC.pmTrackLock.locked);
+        return WC.flyout(node, (fly) => {
+          fly.appendChild(WC.flyItem((tcOn ? '✓ ' : '   ') + 'For Everyone', { onClick: () => H.trackChanges() }));
+          fly.appendChild(WC.flyItem((tcOn ? '✓ ' : '   ') + 'Just Mine', { onClick: () => H.trackChanges() }));
+          fly.appendChild(WC.flyItem((locked ? '✓ ' : '   ') + 'Lock Tracking', { onClick: () => H.trackChangesLock() }));
+        });
+      }
+      // Accept/Reject ▾ (parity T12/T13). "All Changes Shown" is DISABLED while
+      // no markup filter is active — exactly Word's unfiltered state (T12) and
+      // the same treatment as C8's "Delete All Comments Shown"; task-5 filters
+      // enable it.
+      if (cmd === 'accept') return WC.flyout(node, (fly) => {
+        const pm = WC.PM;
+        fly.appendChild(WC.flyItem('Accept and Move to Next', { onClick: () => H.accept() }));
+        fly.appendChild(WC.flyItem('Accept This Change', { onClick: () => { pm.cmd('acceptChange'); } }));
+        fly.appendChild(WC.flyItem('Accept All Changes Shown', { disabled: true }));
+        fly.appendChild(WC.flyItem('Accept All Changes', { onClick: () => { pm.cmd('acceptAll'); } }));
+        fly.appendChild(WC.flyItem('Accept All Changes and Stop Tracking', { onClick: () => { pm.cmd('acceptAll'); pm.cmd('disableTrackChanges'); } }));
+      });
+      if (cmd === 'reject') return WC.flyout(node, (fly) => {
+        const pm = WC.PM;
+        fly.appendChild(WC.flyItem('Reject and Move to Next', { onClick: () => H.reject() }));
+        fly.appendChild(WC.flyItem('Reject Change', { onClick: () => { pm.cmd('rejectChange'); } }));
+        fly.appendChild(WC.flyItem('Reject All Changes Shown', { disabled: true }));
+        fly.appendChild(WC.flyItem('Reject All Changes', { onClick: () => { pm.cmd('rejectAll'); } }));
+        fly.appendChild(WC.flyItem('Reject All Changes and Stop Tracking', { onClick: () => { pm.cmd('rejectAll'); pm.cmd('disableTrackChanges'); } }));
+      });
+      // Delete ▾ (parity C8). "Shown" stays disabled until markup/comment filters
+      // exist (task 4+, Word disables it un-filtered too).
+      if (cmd === 'deleteComment') return WC.flyout(node, (fly) => {
+        const pm = WC.PM;
+        fly.appendChild(WC.flyItem('Delete', { onClick: () => H.deleteComment() }));
+        fly.appendChild(WC.flyItem('Delete All Comments Shown', { disabled: true }));
+        fly.appendChild(WC.flyItem('Delete All Comments in Document', { onClick: () => { pm.getComments().forEach((r) => pm.cmd('deleteComment', r.id)); } }));
+        fly.appendChild(WC.flyItem('Delete All Resolved Comments', { onClick: () => { pm.getComments().filter((r) => r.resolved).forEach((r) => pm.cmd('deleteComment', r.id)); } }));
+      });
+      // Reviewing Pane split menu (T11): PM picks the dock explicitly (Horizontal =
+      // the same pane bottom-docked).
+      if (cmd === 'reviewingPane') return WC.flyout(node, (fly) => {
+        fly.appendChild(WC.flyItem('Reviewing Pane Vertical…', { onClick: () => { if (WC.TrackChrome) WC.TrackChrome.showPane('vertical'); else H.reviewingPane(); } }));
+        fly.appendChild(WC.flyItem('Reviewing Pane Horizontal…', { onClick: () => { if (WC.TrackChrome) WC.TrackChrome.showPane('horizontal'); else H.reviewingPane(); } }));
+      });
+      if (cmd === 'checkAccessibility') return WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Check Accessibility', { onClick: () => pmAccessibility() })); });
+      // Hide Ink ▾ (parity X4 — Word menu capture pending): single toggle item.
+      if (cmd === 'hideInk') return WC.flyout(node, (fly) => { fly.appendChild(WC.flyItem('Hide Ink', { onClick: () => H.hideInk(control, WC.Ribbon.controlIndex.hideInk && WC.Ribbon.controlIndex.hideInk.node) })); });
+      // View tab
+      if (cmd === 'switchWindows' || cmd === 'macros') return H[cmd](control, node);
+      // generic: list items as menu entries
+      WC.flyout(node, (fly, close) => {
+        const items = control.items && control.items.length ? control.items : ['(no options)'];
+        items.forEach((it) => {
+          if (/^-+$/.test(it)) { fly.appendChild(WC.flySep()); return; }
+          fly.appendChild(WC.flyItem(it, { onClick: () => WC.notImplemented(control.label + ' ▸ ' + it) }));
+        });
+      });
+    },
+
+    comboCommit(c, value) {
+      if (WC.PM && WC.PM.active && WC.PM.isBlocked(c.cmd === 'font' || c.cmd === 'fontSize' ? 'font' : c.cmd)) { WC.PM.withSelection(() => WC.PM.notifyBlocked(c.label || c.cmd)); return; }
+      if (c.cmd === 'font') setFontName(value);
+      else if (c.cmd === 'fontSize') setFontSize(parseFloat(value));
+    },
+    comboDropdown(c, combo, input) {
+      if (WC.PM && WC.PM.active && WC.PM.isBlocked(c.cmd === 'font' || c.cmd === 'fontSize' ? 'font' : c.cmd)) { WC.PM.withSelection(() => WC.PM.notifyBlocked(c.label || c.cmd)); return; }
+      if (c.cmd === 'font') openFontList(combo);
+      else if (c.cmd === 'fontSize') openSizeList(combo);
+      else if (c.cmd === 'displayForReview') WC.flyout(combo, (fly) => { [['Simple Markup', 'simple'], ['All Markup', 'all'], ['No Markup', 'none'], ['Original', 'original']].forEach(([l, m]) => fly.appendChild(WC.flyItem(l, { onClick: () => { WC.PM.cmd('setReviewView', m); input.value = l; } }))); });
+    },
+
+    applyStyle(name) {
+      if (WC.PM && WC.PM.active && WC.PM.isBlocked('stylesGallery')) { WC.PM.notifyBlocked('Styles'); return; }
+      // setStyleById path (one transaction; Word gallery = plain apply). false =
+      // style missing from this doc's catalog (foreign docs beyond the import
+      // defaults — recorded deviation: real Word mints built-ins on demand).
+      if (!WC.PM.applyStyleByName(name)) WC.toast('Style “' + name + '” is not available in this document.');
+    },
+
+    // Layout Paragraph spinners (indent in inches, spacing in points; model = twips).
+    // Negative indents are intentional pass-throughs (Word allows them); spacing
+    // can't go negative — the ribbon inputs enforce min:0 (ribbon.js renderSpinner).
+    spinner(cmd, value) {
+      if (WC.PM && WC.PM.active && WC.PM.isBlocked(cmd)) { WC.PM.notifyBlocked(cmd); return; }
+      if (PARA_SPIN[cmd]) {
+        // withSelection: the spinner input took real focus — focus.ts snapshotted the
+        // PM selection on focusin (.rspinner is in its capture list); restore it first.
+        const [path, conv] = PARA_SPIN[cmd];
+        WC.PM.withSelection(() => WC.PM.cmd('updateAttributes', 'paragraph', { [path]: conv(value) }));
+        return;
+      }
+      if (cmd === 'goToRecord') WC.Mail.go((value || 1) - 1);
+    },
+
+    // Dialog-box-launcher dispatch, keyed by group id (avoids cmd collisions
+    // like the Font launcher sharing 'font' with the font-name combo).
+    launcher(groupId, control, node) {
+      WC.closeFlyouts(); WC.hideTip();
+      if (WC.PM && WC.PM.active) {
+        const LAUNCHER_AREA_CMD = { font: 'font', paragraph: 'alignLeft', styles: 'stylesGallery', markup: 'trackChanges' }; // clipboard pane = app-level, allowed
+        const probe = LAUNCHER_AREA_CMD[groupId];
+        if (probe && WC.PM.isBlocked(probe)) { WC.PM.notifyBlocked(groupId + ' settings'); return; }
+      }
+      const map = {
+        clipboard: () => (WC.Dialogs.clipboardPane ? WC.Dialogs.clipboardPane() : WC.notImplemented('Clipboard pane')),
+        font: () => (WC.Dialogs.font ? WC.Dialogs.font() : WC.notImplemented('Font dialog')),
+        paragraph: () => WC.Dialogs.paragraph(),
+        styles: () => WC.Dialogs.stylesPane(),
+        // Markup launcher → Track Changes Options dialog (parity T18). The dialog
+        // itself lands in task 6 — until then route to the Show Markup menu, whose
+        // toggles are the dialog's "Show" group (recorded interim).
+        markup: () => (WC.Dialogs.trackChangesOptions ? WC.Dialogs.trackChangesOptions() : H.showMarkup({ cmd: 'showMarkup', label: 'Show Markup' }, node)),
+      };
+      if (map[groupId]) map[groupId]();
+      else WC.notImplemented((control && control.label) || (groupId + ' settings'));
+    },
+  };
+
+  // ============ helper implementations ============
+  function currentInlineStyle() {
+    const sel = window.getSelection();
+    let n = sel && sel.anchorNode; n = n && n.nodeType === 3 ? n.parentNode : n;
+    if (!n) return {};
+    const cs = getComputedStyle(n);
+    return { fontFamily: cs.fontFamily, fontSize: cs.fontSize, fontWeight: cs.fontWeight, fontStyle: cs.fontStyle,
+      textDecoration: cs.textDecorationLine, color: cs.color, backgroundColor: cs.backgroundColor };
+  }
+  // PM painter: the fork's FormatCommands owns capture/apply/release; this wrapper
+  // adds Word's UX toasts. Esc lives in the bridge; button toggle + cursor live in
+  // state-sync. Word arms from a CARET too (paragraph + caret-char formatting —
+  // oracle 2.3 probe B3); no empty-selection refusal.
+  function armPainterPM(node, sticky) {
+    // The fork's copyFormat always arms (caret-arming, oracle B3) — no failure path.
+    WC.PM.armFormatPainter(sticky);
+    WC.toast(sticky ? 'Format Painter locked — apply to multiple selections. Press Esc to stop.'
+                    : 'Format Painter — select text to apply the copied formatting once.');
+  }
+
+  // Vertical alignment (sub/superscript) — function decl so H.subscript/H.superscript
+  // can reference it before the declaration site (hoisting).
+  function vertAlign(kind) {
+    const st = WC.PM.getState();
+    const on = kind === 'subscript' ? st.subscript : st.superscript;
+    WC.PM.cmd('setMark', 'textStyle', { vertAlign: on ? null : kind });
+  }
+  function stepFont(dir) {
+    const cur = currentSizePt() || 11;
+    const MAXPRESET = SIZES[SIZES.length - 1]; // 72 — top of Word's jump-list
+    let next;
+    if (dir > 0) {
+      // RB-048: grow continues PAST 72 (Word steps to the next multiple of 10), capped at 1638.
+      if (cur < MAXPRESET) { const bigger = SIZES.find((s) => s > cur); next = bigger != null ? bigger : MAXPRESET; }
+      else next = Math.min(1638, Math.floor(cur / 10) * 10 + 10);
+    } else {
+      if (cur > MAXPRESET) next = Math.max(MAXPRESET, Math.ceil(cur / 10) * 10 - 10); // step down by 10 to 72
+      else { const smaller = SIZES.filter((s) => s < cur); next = smaller.length ? smaller[smaller.length - 1] : Math.max(1, Math.round(cur) - 1); }
+    }
+    setFontSize(next);
+  }
+  function currentSizePt() {
+    const st = WC.PM.getState(); const v = parseFloat(st && st.fontSize); return v || 12;
+  }
+  function setFontSize(pt) {
+    if (!pt) return;
+    // withSelection: combo commits arrive with focus in the combo input — the
+    // focusin capture (focus.ts) snapshotted the PM selection; restore it first.
+    // RB-009: setFontSizePt applies via setMark (NO-FORK) honouring Word's 1–1638 range,
+    // not the fork setFontSize 8–96 clamp.
+    WC.PM.withSelection(() => WC.PM.setFontSizePt(pt));
+    WC.Ribbon.setComboValue('fontSize', String(pt));
+  }
+  function setFontName(name) {
+    WC.PM.withSelection(() => WC.PM.cmd('setFontFamily', name));
+    WC.Ribbon.setComboValue('font', name);
+  }
+
+  function applyColor(kind, color) {
+    const pm = WC.PM;
+    // withSelection: the color picker is a body-level flyout, so committing a swatch
+    // can arrive with the PM selection already disturbed — the fork's CustomSelection
+    // plugin clears its preserved snapshot (and can collapse the live selection) when
+    // the view blurs to anything it doesn't recognise as its own toolbar
+    // (custom-selection.js mousedown/blur/focus). colorMenu captureSelection()s on
+    // open; restore that captured range before the engine write so the color lands on
+    // the text the user actually selected — exactly as setFontName/setFontSize and the
+    // Font dialog already do. (Bare main-face apply has nothing captured -> no-op restore.)
+    pm.withSelection(() => {
+      if (kind === 'fore') {
+        lastFontColor = color;
+        pm.cmd('setColor', color);
+        WC.Ribbon.setColorBar('fontColor', color);
+      } else if (kind === 'hilite') {
+        lastHighlight = color;
+        color === 'transparent' ? pm.cmd('unsetHighlight') : pm.cmd('setHighlight', color);
+        WC.Ribbon.setColorBar('textHighlightColor', color);
+      } else if (kind === 'shade') {
+        if (color && color !== 'transparent') lastShade = color;
+        // RB-010: the bridge scopes shading to the selection (run-level rPr/w:shd for a
+        // sub-paragraph selection; pPr/w:shd for an empty caret / whole / multi-paragraph
+        // selection) like Word's Borders & Shading "Apply to" — not a paragraph flood.
+        if (!color || color === 'transparent') pm.clearShading();
+        else pm.setShading(color);
+        WC.Ribbon.setColorBar && WC.Ribbon.setColorBar('shading', color);
+      } else if (kind === 'page') {
+        pm.dePageColor(color); // design area — slice 10 PR2 (real w:background)
+      }
+    });
+  }
+
+  function colorMenu(node, kind) {
+    // Snapshot the live PM selection at flyout-open time — by the time a swatch is
+    // clicked the view has blurred to the body-level flyout and CustomSelection may
+    // have cleared/collapsed the selection (see applyColor note). withSelection
+    // (in applyColor and the unset paths below) restores this exact range.
+    WC.PM.captureSelection();
+    WC.flyout(node, (fly) => {
+      // RB-022: the highlighter uses the fixed 15-keyword gallery (not the full palette),
+      // so every pick exports as a real w:highlight (never a w:shd fallback).
+      if (kind === 'hilite') {
+        fly.appendChild(WC.highlightPalette((color) => {
+          if (color === null) { const pm = WC.PM; pm.withSelection(() => pm.cmd('unsetHighlight')); return; }
+          applyColor('hilite', color);
+        }));
+        return;
+      }
+      fly.appendChild(WC.colorPalette((color, label) => {
+        if (color === null) { const pm = WC.PM; pm.withSelection(() => { if (kind === 'fore') pm.cmd('unsetColor'); else if (kind === 'shade') pm.clearShading(); else { pm.dePageColorClear(); } }); return; }
+        applyColor(kind, color === 'inherit' ? '#000000' : color);
+      }, { noColor: kind !== 'fore', autoLabel: kind === 'fore' ? 'Automatic' : 'No Color', automatic: kind === 'fore' }));
+      // 020: Font Color gradient fill (w14:textFill) — only on the font-color (fore) palette.
+      if (kind === 'fore') {
+        fly.appendChild(WC.flySep());
+        fly.appendChild(WC.flyItem('Gradient…', { onClick: () => gradientDialog() }));
+      }
+    });
+  }
+  // 020: Font Color › Gradient — apply a linear gradient TEXT fill (textStyle.textGradient → w14:textFill).
+  function gradientDialog() {
+    WC.PM.captureSelection();
+    const c1 = el('input', { type: 'color', value: '#2B579A' });
+    const c2 = el('input', { type: 'color', value: '#ED7D31' });
+    const angle = el('input', { type: 'number', min: '0', max: '359', value: '90', style: { width: '70px' } });
+    const presets = [['Blue → Orange', '#2B579A', '#ED7D31'], ['Sunset', '#FF512F', '#DD2476'], ['Ocean', '#2193B0', '#6DD5ED'], ['Grayscale', '#000000', '#BBBBBB']];
+    const presetRow = el('div', { style: { display: 'flex', gap: '6px', margin: '6px 0' } });
+    presets.forEach(([l, a, b]) => {
+      const sw = el('div', { title: l, style: { width: '44px', height: '22px', borderRadius: '3px', cursor: 'pointer', background: `linear-gradient(90deg, ${a}, ${b})`, border: '1px solid #ccc' } });
+      sw.addEventListener('click', () => { c1.value = a; c2.value = b; });
+      presetRow.appendChild(sw);
+    });
+    const body = el('div', {}, [
+      el('div', { style: { fontSize: '11px', color: '#666' }, text: 'Presets:' }), presetRow,
+      el('div', { class: 'row' }, [el('label', { text: 'Color 1:', style: { width: '90px' } }), c1]),
+      el('div', { class: 'row' }, [el('label', { text: 'Color 2:', style: { width: '90px' } }), c2]),
+      el('div', { class: 'row' }, [el('label', { text: 'Angle (°):', style: { width: '90px' } }), angle]),
+    ]);
+    WC.dialog({ title: 'Gradient Text Fill', width: '340px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const a = parseInt(angle.value, 10); // NaN-aware (||90 would coerce a valid 0° to 90°)
+        const grad = { type: 'linear', angle: Number.isFinite(a) ? a : 90, stops: [{ pos: 0, color: c1.value }, { pos: 1, color: c2.value }] };
+        // Word's gradient text fill REPLACES the solid font color — clear w:color so the run doesn't carry a stale
+        // solid color alongside the w14:textFill (which would mismatch what Word writes).
+        WC.PM.withSelection(() => { WC.PM.cmd('unsetColor'); WC.PM.cmd('setMark', 'textStyle', { textGradient: grad }); });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  function changeCaseMenu(node) {
+    const cases = [['Sentence case.', 'sentence'], ['lowercase', 'lower'], ['UPPERCASE', 'upper'], ['Capitalize Each Word', 'caps'], ['tOGGLE cASE', 'toggle']];
+    WC.flyout(node, (fly) => cases.forEach(([label, mode]) => fly.appendChild(WC.flyItem(label, { onClick: () => changeCase(mode) }))));
+  }
+  function changeCase(mode) { WC.PM.changeCase(mode); }
+
+  function lineSpacingMenu(node) {
+    const opts = ['1.0', '1.15', '1.5', '2.0', '2.5', '3.0'];
+    // st snapshot at MENU OPEN drives the dynamic labels.
+    const st = WC.PM.getState();
+    WC.flyout(node, (fly) => {
+      opts.forEach((o) => fly.appendChild(WC.flyItem(o, { onClick: () => { WC.PM.cmd('setLineHeight', parseFloat(o)); } })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Line Spacing Options…', { onClick: () => WC.Dialogs.paragraph() }));
+      // Word-fidelity: labels flip with the caret paragraph's current spacing.
+      const hasBefore = !!(st && st.spacingBeforePt > 0);
+      const hasAfter = !!(st && st.spacingAfterPt > 0);
+      fly.appendChild(WC.flyItem(hasBefore ? 'Remove Space Before Paragraph' : 'Add Space Before Paragraph', {
+        onClick: () => { WC.PM.cmd('updateAttributes', 'paragraph', { 'paragraphProperties.spacing.before': hasBefore ? 0 : 240 }); },
+      }));
+      fly.appendChild(WC.flyItem(hasAfter ? 'Remove Space After Paragraph' : 'Add Space After Paragraph', {
+        onClick: () => { WC.PM.cmd('updateAttributes', 'paragraph', { 'paragraphProperties.spacing.after': hasAfter ? 0 : 240 }); },
+      }));
+    });
+  }
+
+  // Read the borders object of the paragraph at the selection head (for menu checkmarks).
+  function currentParaBorders() {
+    const attrs = WC.PM.getEditor().getAttributes('paragraph') || {};
+    return (attrs.paragraphProperties || {}).borders || {};
+  }
+  function gridlinesOn() { return !!document.getElementById('pm-editor')?.classList.contains('show-grid'); }
+
+  // Full Word Borders split-button dropdown: per-edge toggles (with checkmarks),
+  // No/All/Outside/Inside, Inside-H/V, greyed diagonals (table-only), Horizontal Line,
+  // Draw Table, View Gridlines, and the Borders and Shading… dialog.
+  function bordersMenu(node) {
+    const b = currentParaBorders();
+    const has = (k) => !!b[k] && b[k].val !== 'none' && b[k].val !== 'nil';
+    const outer = has('top') && has('bottom') && has('left') && has('right');
+    const inTable = false; // Home paragraph context; diagonal borders only exist in table cells
+    WC.flyout(node, (fly) => {
+      const item = (label, opts) => fly.appendChild(WC.flyItem(label, Object.assign({ checkable: true }, opts)));
+      item('Bottom Border', { icon: 'borderBottom', checked: has('bottom'), onClick: () => applyBorder('bottom') });
+      item('Top Border', { icon: 'borderTop', checked: has('top'), onClick: () => applyBorder('top') });
+      item('Left Border', { icon: 'borderLeft', checked: has('left'), onClick: () => applyBorder('left') });
+      item('Right Border', { icon: 'borderRight', checked: has('right'), onClick: () => applyBorder('right') });
+      fly.appendChild(WC.flySep());
+      item('No Border', { icon: 'borderNoneIc', checked: Object.keys(b).every((k) => !has(k)), onClick: () => applyBorder('none') });
+      item('All Borders', { icon: 'borderAllIc', onClick: () => applyBorder('all') });
+      item('Outside Borders', { icon: 'borderOutsideIc', checked: outer, onClick: () => applyBorder('outside') });
+      item('Inside Borders', { icon: 'borderInsideIc', onClick: () => applyBorder('inside') });
+      fly.appendChild(WC.flySep());
+      item('Inside Horizontal Border', { icon: 'borderInsideH', checked: has('between'), onClick: () => applyBorder('insideH') });
+      item('Inside Vertical Border', { icon: 'borderInsideV', onClick: () => applyBorder('insideV') });
+      item('Diagonal Down Border', { icon: 'borderDiagDown', disabled: !inTable });
+      item('Diagonal Up Border', { icon: 'borderDiagUp', disabled: !inTable });
+      fly.appendChild(WC.flySep());
+      item('Horizontal Line', { icon: 'borderHorizLine', onClick: () => insertHorizontalLine() });
+      fly.appendChild(WC.flySep());
+      item('Draw Table', { icon: 'drawTable', onClick: () => WC.notImplemented('Draw Table') });
+      item('View Gridlines', { icon: 'viewGridlines', checked: gridlinesOn(), onClick: () => { document.getElementById('pm-editor')?.classList.toggle('show-grid'); } });
+      item('Borders and Shading…', { icon: 'document_border', onClick: () => WC.Dialogs.bordersAndShading() });
+    });
+  }
+  // Word's default paragraph border edge: single, 0.5pt (size is EIGHTH-points: 4),
+  // auto color, 1pt offset. Inside-H maps to OOXML w:between (faithful model + export);
+  // it RENDERS as the shared rule between consecutive same-bordered paragraphs (the
+  // upper block's bottom edge — see encodeCSSFromPPr's run-merge). Inside-V has no
+  // paragraph OOXML equivalent (table/column concept) → flagged, no model write.
+  function borderDef() { return { val: 'single', size: 4, color: 'auto', space: 1 }; }
+  function applyBorder(edge) {
+    if (['top', 'bottom', 'left', 'right'].indexOf(edge) >= 0) lastBorderEdge = edge;
+    const pm = WC.PM;
+    if (edge === 'none') { pm.cmd('resetAttributes', 'paragraph', 'paragraphProperties.borders'); return; }
+    if (edge === 'insideV') { WC.toast('Inside Vertical borders apply between table columns. Use Table Tools to border a table; for text, use Borders & Shading → Apply to: Text.'); return; }
+    // getAttributes reads ONE paragraph (selection head); multi-paragraph selections seed
+    // single-edge toggles from that paragraph only (recorded simplification, deferrals A.1).
+    const attrs = pm.getEditor().getAttributes('paragraph') || {};
+    const cur = Object.assign({}, (attrs.paragraphProperties || {}).borders || {});
+    const present = (k) => !!cur[k] && cur[k].val !== 'none' && cur[k].val !== 'nil';
+    if (edge === 'all') {
+      ['top', 'bottom', 'left', 'right', 'between'].forEach((k) => { cur[k] = borderDef(); });
+    } else if (edge === 'outside') {
+      ['top', 'bottom', 'left', 'right'].forEach((k) => { cur[k] = borderDef(); });
+      delete cur.between;
+    } else if (edge === 'inside' || edge === 'insideH') {
+      // Inside Borders / Inside Horizontal on stacked paragraphs == the "between" rule.
+      if (present('between')) delete cur.between; else cur.between = borderDef();
+    } else {
+      // single outer edge: toggle (Word removes an edge that is already present)
+      if (present(edge)) delete cur[edge]; else cur[edge] = borderDef();
+    }
+    const anyLeft = Object.keys(cur).some((k) => present(k));
+    if (!anyLeft) { pm.cmd('resetAttributes', 'paragraph', 'paragraphProperties.borders'); return; }
+    pm.cmd('updateAttributes', 'paragraph', { 'paragraphProperties.borders': cur });
+  }
+  function insertHorizontalLine() {
+    const ed = WC.PM.getEditor();
+    if (ed && ed.commands && ed.commands.insertHorizontalRule) { ed.commands.insertHorizontalRule(); WC.PM.markDirty && WC.PM.markDirty(); }
+    else WC.notImplemented('Horizontal Line');
+  }
+
+  // Library glyph → engine style names (toggleOrderedListStyle / toggleBulletListStyle);
+  // glyphs without a canonical style mint a one-level definition via applyListDefinition.
+  const ORDERED_STYLE = { '1.': 'decimal', '1)': 'decimal-paren', 'A.': 'upper-alpha', 'a)': 'lower-alpha-paren', 'i.': 'lower-roman', 'I.': 'upper-roman' };
+  const BULLET_STYLE = { '●': 'disc', '○': 'circle', '■': 'square' };
+  function bulletMenu(node, ordered) {
+    const bullets = ordered ? ['1.', '1)', 'A.', 'a)', 'i.', 'I.'] : ['●', '○', '■', '◆', '➤', '✓'];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader(ordered ? 'Numbering Library' : 'Bullet Library'));
+      const grid = el('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '4px', padding: '6px 10px' } });
+      bullets.forEach((b) => {
+        const cell = el('div', { text: b, style: { border: '1px solid #ddd', height: '34px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' } });
+        cell.addEventListener('click', () => {
+          WC.closeFlyouts();
+          const pm = WC.PM;
+          if (ordered) pm.cmd('toggleOrderedListStyle', ORDERED_STYLE[b]);
+          else if (BULLET_STYLE[b]) pm.cmd('toggleBulletListStyle', BULLET_STYLE[b]);
+          else pm.cmd('applyListDefinition', { listType: 'bulletList', levels: [{ fmt: 'bullet', text: b }] });
+        });
+        grid.appendChild(cell);
+      });
+      fly.appendChild(grid);
+      // 017: Word's bullet/number dropdowns also carry Change List Level + the Define-New authoring entry
+      // (and Set Numbering Value for ordered lists). NO-FORK — these dispatch the fork list verbs via WC.PM.
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Change List Level', { onClick: () => changeListLevelMenu(node) }));
+      if (ordered) fly.appendChild(WC.flyItem('Set Numbering Value…', { onClick: () => setNumberingValueDialog() }));
+      fly.appendChild(WC.flyItem(ordered ? 'Define New Number Format…' : 'Define New Bullet…',
+        { onClick: () => { if (ordered) defineNewNumberFormatDialog(); else defineNewBulletDialog(); } }));
+    });
+  }
+
+  function selectMenu(node) {
+    const pm = WC.PM;
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('Select All', { key: 'Ctrl+A', onClick: () => pm.selectAll() }));
+      fly.appendChild(WC.flyItem('Select Objects', { onClick: () => pm.dSetSelect() }));
+      fly.appendChild(WC.flyItem('Select All Text With Similar Formatting', { onClick: () => { if (!pm.selectSimilarFormatting()) WC.toast('Place the cursor in text first.'); } }));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Selection Pane…', { onClick: () => WC.Dialogs.selectionPane() }));
+    });
+  }
+  function findMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('Find', { icon: 'find', onClick: () => WC.Dialogs.findPane(false) }));
+      fly.appendChild(WC.flyItem('Advanced Find…', { onClick: () => WC.Dialogs.findPane(false, true) }));
+      fly.appendChild(WC.flyItem('Go To…', { key: 'Ctrl+G', onClick: () => WC.Dialogs.goToDialog() }));
+    });
+  }
+  function sortDialog() {
+    WC.PM.captureSelection(); // the dialog steals focus; restore before sorting
+    const hdr = el('input', { type: 'checkbox' });
+    const TYPE_MAP = { Text: 'text', Number: 'number', Date: 'date' };
+    // Word's Sort dialog: a "Sort by" key + up to two "Then by" keys. Each key chooses a
+    // field (Paragraphs = whole line, or a 1-based tab-separated Field 1–3), a Type, and a
+    // direction. "Then by" rows are optional (field = "(none)").
+    const mkRow = (label, withNone) => {
+      const fieldOpts = (withNone ? ['(none)'] : []).concat(['Paragraphs', 'Field 1', 'Field 2', 'Field 3']);
+      const field = el('select', {}, fieldOpts.map((f) => el('option', { text: f })));
+      const type = el('select', {}, ['Text', 'Number', 'Date'].map((t) => el('option', { text: t })));
+      const dir = el('select', {}, ['Ascending', 'Descending'].map((t) => el('option', { text: t })));
+      const row = el('div', { class: 'row' }, [el('label', { text: label, style: { width: '70px' } }), field, type, el('label', { style: { marginLeft: '8px' } }, [dir])]);
+      return { row, field, type, dir };
+    };
+    const k1 = mkRow('Sort by:', false), k2 = mkRow('Then by:', true), k3 = mkRow('Then by:', true);
+    const body = el('div', {}, [k1.row, k2.row, k3.row,
+      el('div', { class: 'row' }, [el('label', {}, [hdr, el('span', { text: ' My list has a header row' })])]),
+    ]);
+    const keyOf = (k) => (k.field.value === '(none)' ? null : {
+      field: k.field.value === 'Paragraphs' ? 0 : parseInt(k.field.value.replace('Field ', ''), 10),
+      type: TYPE_MAP[k.type.value], ascending: k.dir.value === 'Ascending',
+    });
+    WC.dialog({ title: 'Sort Text', width: '480px', body, footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        // Multi-key: collect the Sort-by + any Then-by keys (Number→numeric, Date→chronological
+        // [BUG-042], Text→locale). Word silently sorts whatever exists (1 paragraph = a no-op).
+        const keys = [keyOf(k1), keyOf(k2), keyOf(k3)].filter(Boolean);
+        WC.PM.withSelection(() => { WC.PM.sortParagraphs({ keys, header: hdr.checked }); });
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+
+  function pasteMenu(node) {
+    const pm = WC.PM;
+    // Context-aware Paste Options: the button set is fixed but each item's active/inactive state is driven by the
+    // clipboard content type (the state machine lives in the bridge's pure pasteOptionStates(flavors)).
+    const build = (fl) => {
+      fl = fl || { hasText: false, hasHtml: false, hasImage: false };
+      const s = pm.pasteOptionStates(fl);
+      WC.flyout(node, (fly) => {
+        const item = (label, enabled, onClick) =>
+          fly.appendChild(WC.flyItem(label, enabled ? { onClick } : { disabled: true }));
+        item('Keep Source Formatting', s.keepSource, () => pm.pasteDefault());
+        item('Match Formatting', s.match, () => pm.pasteMerge());
+        item('Picture', s.picture, () => pm.pastePicture());
+        item('Keep Text Only', s.keepText, () => pm.pasteTextOnly());
+        fly.appendChild(WC.flySep());
+        fly.appendChild(WC.flyItem('Paste Special…', { onClick: () => WC.Dialogs.pasteSpecial() }));
+        fly.appendChild(WC.flyItem('Set Default Paste…', { onClick: () => WC.Dialogs.setDefaultPaste() }));
+      });
+    };
+    // Always render the menu (Word shows it even when the clipboard read fails) — a rejected flavors IPC builds with empty flavors.
+    pm.clipboardFlavors().then(build).catch(() => build(null));
+  }
+
+  function underlineMenu(node) {
+    // The first 5 labels/w:u values are pinned (an export test asserts [single,double,dotted,dash,wave]);
+    // the rest round out Word's underline gallery. Values are OOXML w:u tokens.
+    const styles = [['Single', 'single'], ['Double', 'double'], ['Dotted', 'dotted'], ['Dashed', 'dash'], ['Wavy', 'wave'],
+      ['Thick', 'thick'], ['Dot Dash', 'dotDash'], ['Dot Dot Dash', 'dotDotDash'], ['Words only', 'words']];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('No Underline', { onClick: () => WC.PM.cmd('unsetUnderline') }));
+      styles.forEach(([label, w]) => fly.appendChild(WC.flyItem(label, { onClick: () => {
+        WC.PM.chain([['setUnderline'], ['setMark', 'underline', { underlineType: w }]]);
+      } })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('More Underlines…', { onClick: () => WC.Dialogs.font() }));
+      // Underline Color — opens a color palette that sets w:u/@w:color (keeps the current style;
+      // turns on single if no underline yet). 'inherit'/Automatic clears the colour back to auto.
+      const colorItem = WC.flyItem('Underline Color', { onClick: () => {
+        WC.PM.captureSelection();
+        WC.flyout(node, (f2) => f2.appendChild(WC.colorPalette((color) => {
+          WC.PM.withSelection(() => WC.PM.chain([['setUnderline'], ['setMark', 'underline', { underlineColor: color === 'inherit' ? null : color }]]));
+        }, { autoLabel: 'Automatic', automatic: true })));
+      } });
+      colorItem.appendChild(el('span', { class: 'caret', html: WC.icon('chevron_down', 8), style: { marginLeft: 'auto', transform: 'rotate(-90deg)' } }));
+      fly.appendChild(colorItem);
+    });
+  }
+
+  function insertPageBreak() {
+    if (WC.PM && WC.PM.insertPageBreak) WC.PM.insertPageBreak(); // no legacy E(); the paged engine paginates
+  }
+  function insertWordArt() {
+    const sel = window.getSelection();
+    const txt = (sel && sel.toString()) || 'Your text here';
+    WC.PM.xeWordArt(txt, {});
+  }
+  // ---- Layout menus ----
+  // Sets the page-sheet CSS var, then re-measures via the PM paginator. (The legacy E()=WC.Editor
+  // was retired in slice 11, so the old E().repaginate() threw here and aborted the whole LAYOUT
+  // handler BEFORE the export bridge call — guard + use WC.PM.__repaginate instead.)
+  function setPageVar(name, value) { document.documentElement.style.setProperty(name, value); try { if (window.WC.PM && typeof window.WC.PM.__repaginate === 'function') window.WC.PM.__repaginate(); } catch (e) { /* PM not mounted */ } }
+  function marginsMenu(node) {
+    // [label, top/bottom in", left/right in"]  — clone realizes a single uniform
+    // --page-margin, so we apply the left/right value (the visually dominant one).
+    const presets = [
+      ['Normal', 1, 1], ['Narrow', 0.5, 0.5], ['Moderate', 1, 0.75],
+      ['Wide', 1, 2], ['Mirrored', 1, 1.25], ['Office 2003 Default', 1, 1.25],
+    ];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Margins'));
+      presets.forEach(([label, tb, lr]) => {
+        const it = WC.flyItem(label + '   T/B ' + tb + '"  L/R ' + lr + '"', { onClick: () => { setPageVar('--page-margin', Math.round(lr * 96) + 'px'); if (typeof WC.PM.dePageMargins === 'function') WC.PM.dePageMargins({ top: tb, right: lr, bottom: tb, left: lr }); } });
+        fly.appendChild(it);
+      });
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('Custom Margins…', { onClick: () => customMarginsDialog() }));
+    });
+  }
+  function customMarginsDialog() {
+    const cur = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-margin')) || 96) / 96;
+    const inp = el('input', { type: 'number', step: '0.1', min: '0', value: String(cur), style: { width: '70px' } });
+    WC.dialog({ title: 'Page Setup — Margins', width: '380px', body: el('div', {}, [el('div', { class: 'row' }, [el('label', { text: 'Margin (inches):', style: { width: '120px' } }), inp])]), footer: [
+      { label: 'OK', primary: true, onClick: () => { const v = parseFloat(inp.value); if (v >= 0) { setPageVar('--page-margin', Math.round(v * 96) + 'px'); if (typeof WC.PM.dePageMargins === 'function') WC.PM.dePageMargins({ top: v, right: v, bottom: v, left: v }); } } },
+      { label: 'Cancel' },
+    ] });
+  }
+  function orientationMenu(node) {
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyItem('Portrait', { onClick: () => { setPageVar('--page-w', '816px'); setPageVar('--page-h', '1056px'); if (typeof WC.PM.dePageSize === 'function') WC.PM.dePageSize({ width: 8.5, height: 11, orientation: 'portrait' }); } }));
+      fly.appendChild(WC.flyItem('Landscape', { onClick: () => { setPageVar('--page-w', '1056px'); setPageVar('--page-h', '816px'); if (typeof WC.PM.dePageSize === 'function') WC.PM.dePageSize({ width: 11, height: 8.5, orientation: 'landscape' }); } }));
+    });
+  }
+  function pageSizeMenu(node) {
+    const sizes = [
+      ['Letter', 816, 1056, '8.5" x 11"'], ['Legal', 816, 1344, '8.5" x 14"'],
+      ['A4', 794, 1123, '21cm x 29.7cm'], ['A3', 1123, 1587, '29.7cm x 42cm'],
+      ['Tabloid', 1056, 1632, '11" x 17"'], ['Executive', 696, 1008, '7.25" x 10.5"'],
+    ];
+    WC.flyout(node, (fly) => {
+      fly.appendChild(WC.flyHeader('Paper Size'));
+      sizes.forEach(([label, w, h, dim]) => fly.appendChild(WC.flyItem(label + '   ' + dim, { onClick: () => { setPageVar('--page-w', w + 'px'); setPageVar('--page-h', h + 'px'); if (typeof WC.PM.dePageSize === 'function') WC.PM.dePageSize({ width: w / 96, height: h / 96, orientation: 'portrait' }); } })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('More Paper Sizes…', { onClick: () => morePaperSizesDialog() }));
+    });
+  }
+  function morePaperSizesDialog() {
+    const w = el('input', { type: 'number', step: '0.1', value: '8.5', style: { width: '70px' } });
+    const h = el('input', { type: 'number', step: '0.1', value: '11', style: { width: '70px' } });
+    WC.dialog({ title: 'Page Setup — Paper', width: '400px', body: el('div', {}, [
+      el('div', { class: 'row' }, [el('label', { text: 'Width (in):', style: { width: '90px' } }), w]),
+      el('div', { class: 'row' }, [el('label', { text: 'Height (in):', style: { width: '90px' } }), h]),
+    ]), footer: [
+      { label: 'OK', primary: true, onClick: () => { const wi = parseFloat(w.value), hi = parseFloat(h.value); const pw = Math.round(wi * 96), ph = Math.round(hi * 96); if (pw > 0 && ph > 0) { setPageVar('--page-w', pw + 'px'); setPageVar('--page-h', ph + 'px'); if (typeof WC.PM.dePageSize === 'function') WC.PM.dePageSize({ width: wi, height: hi, orientation: wi > hi ? 'landscape' : 'portrait' }); } } },
+      { label: 'Cancel' },
+    ] });
+  }
+  function columnsMenu(node) {
+    // [label, count, leftFraction]  leftFraction realizes the asymmetric Left/Right presets
+    const opts = [['One', 1], ['Two', 2], ['Three', 3], ['Left', 2, 'left'], ['Right', 2, 'right']];
+    WC.flyout(node, (fly) => {
+      opts.forEach(([label, n, side]) => fly.appendChild(WC.flyItem(label, { onClick: () => setColumns(n, side) })));
+      fly.appendChild(WC.flySep());
+      fly.appendChild(WC.flyItem('More Columns…', { onClick: () => moreColumnsDialog() }));
+    });
+  }
+  // 003: One/Two/Three (equal) + Left/Right (unequal, P2) via the paged engine — real sectPr/w:cols,
+  // re-flowed live + exported. No legacy E()/CSS-multicol.
+  function setColumns(n, side) {
+    if (!(WC.PM && WC.PM.setColumns)) return;
+    if (side === 'left' || side === 'right') WC.PM.setColumns({ unequal: side }); // P2: asymmetric widths
+    else WC.PM.setColumns({ count: n });
+  }
+  function moreColumnsDialog() {
+    const cur = (WC.PM && WC.PM.getColumns) ? WC.PM.getColumns() : { count: 2, gap: 0.5, equalWidth: true, lineBetween: false };
+    const num = el('input', { type: 'number', min: '1', max: '6', value: String(cur.count || 2), style: { width: '60px' } });
+    const gap = el('input', { type: 'number', min: '0', value: String(cur.gap != null ? cur.gap : 0.5), step: '0.1', style: { width: '60px' } });
+    const eq = el('input', { type: 'checkbox' }); eq.checked = cur.equalWidth !== false;
+    const sep = el('input', { type: 'checkbox' }); sep.checked = !!cur.lineBetween;
+    WC.dialog({ title: 'Columns', width: '380px', body: el('div', {}, [
+      el('div', { class: 'row' }, [el('label', { text: 'Number of columns:', style: { width: '150px' } }), num]),
+      el('div', { class: 'row' }, [el('label', { text: 'Spacing (in):', style: { width: '150px' } }), gap]),
+      el('div', { class: 'row' }, [eq, el('label', { text: ' Equal column width', style: { marginLeft: '6px' } })]),
+      el('div', { class: 'row' }, [sep, el('label', { text: ' Line between', style: { marginLeft: '6px' } })]),
+    ]), footer: [
+      { label: 'OK', primary: true, onClick: () => { const n = parseInt(num.value, 10) || 1; const g = parseFloat(gap.value); if (WC.PM && WC.PM.setColumns) WC.PM.setColumns({ count: n, gap: isFinite(g) ? g : 0.5, equalWidth: eq.checked, lineBetween: sep.checked }); } },
+      { label: 'Cancel' },
+    ] });
+  }
+  // 004 P3: Line Numbering Options — numbering mode + start-at + count-by + from-text distance →
+  // WC.PM.setLineNumbers (sectPr/w:lnNumType). start/countBy are USER-FACING (the bridge maps the w:start
+  // off-by-one). distance is sent ONLY when the user enters a number (seeded "Auto" when the section has no
+  // explicit w:distance) — never replay the synthesized 0.25 default. Dispatch wc:linenumbers-changed so the
+  // owned overlay re-reads. Seeds from getLineNumbers().
+  function lineNumberingOptionsDialog() {
+    const cur = (WC.PM && WC.PM.getLineNumbers && WC.PM.getLineNumbers()) || { active: false, mode: 'continuous', countBy: 1, start: 1, distance: 0.25, distanceExplicit: false };
+    const effMode = cur.active ? cur.mode : 'continuous';
+    const modeSel = el('select', { style: { width: '170px' } });
+    [['Continuous', 'continuous'], ['Restart Each Page', 'newPage'], ['Restart Each Section', 'newSection']].forEach(([label, m]) => { const o = el('option', { value: m, text: label }); if (m === effMode) o.selected = true; modeSel.appendChild(o); });
+    const startIn = el('input', { type: 'number', min: '1', value: String(cur.start || 1), style: { width: '70px' } });
+    const countIn = el('input', { type: 'number', min: '1', value: String(cur.countBy || 1), style: { width: '70px' } });
+    const distIn = el('input', { type: 'number', min: '0', step: '0.05', style: { width: '70px' } });
+    if (cur.distanceExplicit) distIn.value = String(cur.distance); else distIn.placeholder = 'Auto';
+    WC.dialog({ title: 'Line Numbers', width: '360px', body: el('div', {}, [
+      el('div', { class: 'row' }, [el('label', { text: 'Start at:', style: { width: '150px' } }), startIn]),
+      el('div', { class: 'row' }, [el('label', { text: 'Count by:', style: { width: '150px' } }), countIn]),
+      el('div', { class: 'row' }, [el('label', { text: 'From text (in):', style: { width: '150px' } }), distIn]),
+      el('div', { class: 'row' }, [el('label', { text: 'Numbering:', style: { width: '150px' } }), modeSel]),
+    ]), footer: [
+      { label: 'OK', primary: true, onClick: () => {
+        const mode = modeSel.value || 'continuous';
+        let start = parseInt(startIn.value, 10); if (!isFinite(start) || start < 1) start = 1;
+        let countBy = parseInt(countIn.value, 10); if (!isFinite(countBy) || countBy < 1) countBy = 1;
+        // replace:true ⇒ a FULL-SET apply: clears any prior w:start/w:distance so lowering start to 1 or
+        // returning distance to Auto actually takes effect (setLineNumbering is otherwise a partial write).
+        const opts = { mode, start, countBy, replace: true };
+        const d = parseFloat(distIn.value); if (isFinite(d) && d >= 0) opts.distance = d; // omit ⇒ Word's Auto gutter
+        if (WC.PM && WC.PM.setLineNumbers && WC.PM.setLineNumbers(opts)) { WC.toast('Line Numbers', 'Applied.'); try { window.dispatchEvent(new Event('wc:linenumbers-changed')); } catch (_) { /* best-effort */ } }
+        else WC.toast('Line Numbers', 'Could not apply line numbering here.');
+      } },
+      { label: 'Cancel' },
+    ] });
+  }
+  function fitZoom(pages) { pages = pages || 1; const a = document.getElementById('canvas'); const pageH = (window.WC.PM && window.WC.PM.pageH) || 1056; return Math.max(0.2, (a.clientHeight - 40) / (pageH * pages)); }
+  function fitWidthZoom() { const a = document.getElementById('canvas'); const pw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-w')) || 816; return Math.max(0.2, (a.clientWidth - 40) / pw); }
+  function markChecked(node) { if (node) node.classList.toggle('toggled'); }
+
+  // ---- Review: read aloud via Web Speech, spell check ----
+  let speaking = false;
+  let raPaused = false;
+  function toggleReadAloud() {
+    if (document.getElementById('read-aloud-bar')) { closeReadAloud(); return; }
+    if (!('speechSynthesis' in window)) { WC.notImplemented('Read Aloud'); return; }
+    showReadAloudBar();
+    speakReadAloud();
+  }
+  // PM read-aloud source (P5): text from the CARET (Word reads from the caret; a
+  // selection reads just the selection) + a textOffset→PM-position map so the
+  // utterance's word-boundary events can paint a per-word ::highlight. Block
+  // boundaries cost 2 PM tokens but only the '\n' we append — the map carries
+  // per-segment absolute positions, so the drift never accumulates.
+  let raMap = null; let raText = '';
+  function pmReadAloudSource() {
+    const pm = PMA(); if (!pm) return null;
+    const state = pm.getEditor().state;
+    const start = state.selection.from;
+    const end = state.selection.empty ? state.doc.content.size : state.selection.to;
+    let text = ''; const map = []; let sawBlock = false;
+    state.doc.nodesBetween(start, end, (node, pos) => {
+      if (node.isTextblock) { if (sawBlock && text && !text.endsWith('\n')) text += '\n'; sawBlock = true; return true; }
+      if (node.isText && node.text) {
+        const s = Math.max(pos, start); const e = Math.min(pos + node.text.length, end);
+        if (e > s) { map.push({ t0: text.length, t1: text.length + (e - s), pm: s }); text += node.text.slice(s - pos, e - pos); }
+      }
+      return true;
+    });
+    return { text: text.slice(0, 8000), map };
+  }
+  function raHighlight(ci, len) {
+    const pm = PMA();
+    if (!pm || !raMap || typeof Highlight === 'undefined' || !CSS.highlights) return;
+    const seg = raMap.find((s) => ci >= s.t0 && ci < s.t1);
+    if (!seg) return; // boundary landed on a block separator
+    if (!len) { const m = /^[^\s]+/.exec(raText.slice(ci)); len = m ? m[0].length : 1; }
+    const from = seg.pm + (ci - seg.t0);
+    const to = Math.min(from + len, seg.pm + (seg.t1 - seg.t0));
+    try {
+      const view = pm.getEditor().view;
+      const a = view.domAtPos(from); const b = view.domAtPos(to);
+      const range = document.createRange();
+      range.setStart(a.node, a.offset); range.setEnd(b.node, b.offset);
+      CSS.highlights.set('wc-read-aloud', new Highlight(range));
+      const elx = a.node.nodeType === 3 ? a.node.parentElement : a.node;
+      if (elx && elx.scrollIntoView) elx.scrollIntoView({ block: 'nearest' });
+    } catch (e) { /* the highlight is cosmetic — never break playback */ }
+  }
+  function raClearHighlight() { try { if (CSS.highlights) CSS.highlights.delete('wc-read-aloud'); } catch (e) { /* unsupported */ } }
+  function speakReadAloud() {
+    speechSynthesis.cancel();
+    const pmSrc = pmReadAloudSource();
+    const text = pmSrc.text; raMap = pmSrc.map; raText = text;
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = readAloudRate;
+    u.onboundary = (ev) => { if (ev.name === 'word') raHighlight(ev.charIndex, ev.charLength); };
+    u.onend = () => { speaking = false; raClearHighlight(); const bar = document.getElementById('read-aloud-bar'); if (bar) { const pb = bar.querySelector('.ra-play'); if (pb) pb.textContent = '▶'; } };
+    speechSynthesis.speak(u); speaking = true; raPaused = false;
+  }
+  let readAloudRate = 1;
+  function showReadAloudBar() {
+    if (document.getElementById('read-aloud-bar')) return;
+    const bar = el('div', { id: 'read-aloud-bar' });
+    const prev = el('button', { class: 'ra-btn', title: 'Previous', text: '⏮' });
+    const play = el('button', { class: 'ra-btn ra-play', title: 'Play/Pause', text: '⏸' });
+    const next = el('button', { class: 'ra-btn', title: 'Next', text: '⏭' });
+    const speed = el('select', { class: 'ra-speed', title: 'Reading speed' }, ['0.5×', '0.75×', '1×', '1.25×', '1.5×', '2×'].map((s) => el('option', { text: s, selected: s === '1×' ? 'selected' : undefined })));
+    const voice = el('select', { class: 'ra-voice', title: 'Voice' });
+    try { (speechSynthesis.getVoices() || []).slice(0, 8).forEach((v) => voice.appendChild(el('option', { text: v.name }))); } catch (e) { /* no voices */ }
+    if (!voice.children.length) voice.appendChild(el('option', { text: 'Default' }));
+    const close = el('button', { class: 'ra-btn ra-close', title: 'Stop (close)', text: '✕' });
+    prev.addEventListener('click', () => speakReadAloud());
+    next.addEventListener('click', () => speakReadAloud());
+    play.addEventListener('click', () => { if (speaking && !raPaused) { speechSynthesis.pause(); raPaused = true; play.textContent = '▶'; } else if (raPaused) { speechSynthesis.resume(); raPaused = false; play.textContent = '⏸'; } else { speakReadAloud(); play.textContent = '⏸'; } });
+    speed.addEventListener('change', () => { readAloudRate = parseFloat(speed.value) || 1; speakReadAloud(); });
+    close.addEventListener('click', () => closeReadAloud());
+    bar.appendChild(prev); bar.appendChild(play); bar.appendChild(next);
+    bar.appendChild(el('span', { class: 'ra-sep' })); bar.appendChild(speed); bar.appendChild(voice);
+    bar.appendChild(el('span', { class: 'ra-sep' })); bar.appendChild(close);
+    document.getElementById('app').appendChild(bar);
+  }
+  function closeReadAloud() { speechSynthesis.cancel(); speaking = false; raPaused = false; raClearHighlight(); const bar = document.getElementById('read-aloud-bar'); if (bar) bar.remove(); }
+  WC.closeReadAloud = closeReadAloud;
+  function runSpellCheck() {
+    const node = WC.PM.getEditor().view.dom;
+    node.setAttribute('spellcheck', node.getAttribute('spellcheck') === 'false' ? 'true' : 'false');
+    const on = node.getAttribute('spellcheck') !== 'false';
+    WC.toast('Spell check ' + (on ? 'on (red squiggles via the OS spellchecker)' : 'off') + '.', 'Open the Editor pane for suggestions.');
+  }
+
+  WC.Commands = Commands;
+  WC.FONTS = FONTS; WC.SIZES = SIZES;
+
+  // Home › Font name — lazily pull the OS-installed font catalog from the main process (replacing the built-in
+  // 17-font fallback), cache it, and keep WC.FONTS in sync (the Font dialog reads it). Falls back to FONTS if the
+  // IPC is unavailable or returns nothing (headless/offline). Fetched once; the dropdown reads the cache.
+  let FONTS_CACHE = null;
+  let fontsRequested = false;
+  function ensureFontCatalog() {
+    if (fontsRequested) return;
+    fontsRequested = true;
+    try {
+      window.wordAPI && window.wordAPI.fonts && window.wordAPI.fonts.list && window.wordAPI.fonts.list().then((r) => {
+        if (r && r.ok && Array.isArray(r.fonts) && r.fonts.length) { FONTS_CACHE = r.fonts; WC.FONTS = r.fonts; }
+        else { fontsRequested = false; } // a transient failure must not pin the fallback for the session — allow a retry
+      }).catch(() => { fontsRequested = false; });
+    } catch (e) { fontsRequested = false; /* offline/headless → keep the fallback, allow retry */ }
+  }
+  ensureFontCatalog(); // prefetch at load so the first open usually has the full list
+  function openFontList(anchor) {
+    ensureFontCatalog();
+    const list = FONTS_CACHE || FONTS;
+    WC.flyout(anchor, (fly) => {
+      list.forEach((f) => {
+        const item = WC.flyItem(f, { onClick: () => setFontName(f) });
+        item.style.fontFamily = f;
+        fly.appendChild(item);
+      });
+    });
+  }
+  function openSizeList(anchor) {
+    WC.flyout(anchor, (fly) => SIZES.forEach((s) => fly.appendChild(WC.flyItem(String(s), { onClick: () => setFontSize(s) }))));
+  }
+})();

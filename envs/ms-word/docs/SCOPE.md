@@ -1,0 +1,141 @@
+# Feature scope registry
+
+> The single source of truth for **what the clone implements, defers, or deliberately
+> excludes**, ribbon tab by ribbon tab. Built during **Phase 3 (editing-core hardening)** —
+> each section's scope is **locked with the user at section kickoff**, then filled in here.
+> Companion: [plan/deferrals.md](plan/deferrals.md) (the detailed deferral/deviation ledger;
+> layout-coupled items link to its §A.1). Roadmap: [plan/plan.md](plan/plan.md) · playbook:
+> [plan/execution-map.md](plan/execution-map.md) CURRENT PHASE.
+
+## The three buckets (keep them distinct — never blur)
+
+| Status | Meaning |
+|---|---|
+| ✅ **In scope** | should work; a Phase-3 fix target. |
+| ⛔ **Out of scope** | deliberately NOT built — permanent (e.g. Adobe Acrobat, Voice/Dictate, Add-ins, cloud-only services). |
+| 🕗 **Layout-reconciling (engine shipped)** | needed the pagination/layout engine; **flagged, not hacked** (→ [deferrals.md](plan/deferrals.md) §A.1). The engine — the paged SuperDoc PresentationEditor — has SHIPPED as the sole render engine (default since FR-013, 2026-06-21; the legacy continuous-flow overlay engine was retired in 008); these are now being reconciled **per-feature** against it. |
+
+> **Flag-don't-hack rule:** a layout-coupled feature is recorded 🕗 with its *specific
+> requirement* in `deferrals.md` §A.1 (the layout-engine spec) — it is **never** faked with a
+> continuous-flow DOM hack; it is realized for real by the paged layout engine — the sole render engine (the legacy continuous-flow overlay engine was retired in 008). (The legacy spacer-hack pagination was deleted in slice 11; do
+> not grow a new one.) **Classifier:** multi-page · floating-object position · text-wrap ·
+> headers/footers-on-page · columns · vertical page geometry.
+
+## Methodology (Phase 3)
+
+Tab-by-tab, section-by-section. **Section kickoff** is a human gate (general research →
+propose in/out scope → user locks it). Then per in-scope feature: **research Word + its
+enablement/checked-state rules → compare three-sided against the live clone → fix-now or
+layout-flag → regression test → three gates.** One branch/PR per tab, commit per section.
+Each control's **state-machine rules** (enablement + latch) are captured alongside its row and
+wired into the central ribbon state-sync. Full playbook:
+[plan/execution-map.md](plan/execution-map.md) CURRENT PHASE.
+
+---
+
+> Tables below are **skeletons** — populated as each tab is worked. `_TBD — locked at section
+> kickoff._` means not yet researched/decided.
+
+## Home
+
+**Clipboard** — scope locked 2026-06-14 (section kickoff). Not layout-coupled → zero 🕗 Phase-4
+items. This section also builds the shared **ribbon state-machine spine** (enablement + latch
+evaluator + per-control rule registry), generalized from `bridge/state-sync.ts`.
+
+| Section | Feature | Status | Note |
+|---|---|---|---|
+| Clipboard | Paste (default) | ✅ In scope | works (`pasteDefault`); + enablement (grey when clipboard empty) |
+| Clipboard | Paste options: Keep Source / Picture / Keep Text Only | ✅ In scope | **context-aware** dropdown — each button's active/inactive driven by content type (`pasteOptionStates`); Keep Text Only no longer auto-linkifies a URL |
+| Clipboard | Paste option: **Match Formatting** | ✅ In scope | destination-style reconciliation (`mergeFormattingHtml`). Label is **Match Formatting** (user's Mac Word); exact paste-option labels vary by OS/build, so the *enablement state machine* is the locked behavior, not the label set |
+| Clipboard | Paste Special dialog | ✅ In scope | flavor-driven |
+| Clipboard | Paste Special → **Paste Link** (OLE) | ⛔ Out of scope | no OLE backend in the clone; permanent |
+| Clipboard | **Set Default Paste…** | ✅ In scope (minimal) | settings panel (Keep Source / Merge / Text Only) honored by `pasteDefault` |
+| Clipboard | Cut / Copy | ✅ In scope | + enablement per Word's real selection rule (validate live) |
+| Clipboard | Format Painter (1-click / dbl-click sticky / Esc) | ✅ In scope | latch already synced; parity-verify |
+| Clipboard | Office Clipboard pane | ✅ In scope | + **wire auto-capture** on Cut/Copy (history was dead in PM) |
+| Clipboard | Ribbon state machine (spine) | ✅ In scope | built here once; later sections register rules |
+
+**Font** — scope locked 2026-06-14 (section kickoff; informed by the `font-section-understand` workflow). Not layout-coupled.
+
+| Section | Feature | Status | Note |
+|---|---|---|---|
+| Font | Font name + size combos show current/effective value (never blank on empty doc) | ✅ In scope | THE reported bug. Bridge fallback in `toQueryState`: marks → effective computed font (Heading-aware) → `converter.getDocumentDefaultStyles()` |
+| Font | Combos blank only on a genuinely mixed selection | ✅ In scope | Word parity; completes the combo state machine |
+| Font | `activeElement` guard on combo refresh | ✅ In scope | don't clobber a value mid-edit |
+| Font | Two-row group arrangement (Word order) | ✅ In scope | explicit grid: row1 name/size/grow/shrink/case/clear, row2 B/I/U/strike/sub/super/effects/highlight/color |
+| Font | B/I/U/strike/sub/super latch | ✅ In scope (works) | already latched via the sync tick; keep |
+| **Ribbon** | **Responsive ribbon — Stage A** (condense large→small + hide labels + de-clip) | ✅ In scope | **cross-cutting** — built once at `WC.Ribbon` for all 10 tabs (ResizeObserver on `.ribbon-scroll`) |
+| **Ribbon** | Responsive ribbon — Stage B (full group→flyout collapse, per-tab reduction order) | 🕗 Deferred (next slice) | heaviest; needs breakpoint calibration across 212 controls |
+| Font | Font-dialog launcher cmd collision cleanup | 🕗 Deferred | works today via group-id keying; bundle into a ribbon-data cleanup |
+| Font | Dark theme | ⛔ Out of scope | clone is light-theme; the dark screenshot was the user's real Word as a reference |
+| Editing | _tbd_ | | |
+| Adobe Acrobat | (whole section) | ⛔ Out of scope | third-party plugin (proposed — confirm at kickoff) |
+| Voice / Dictate | (whole section) | ⛔ Out of scope | cloud speech (deferrals.md §B) (proposed) |
+| Editor | Spelling — real offline dictionary | ✅ In scope | nspell + a vendored SCOWL en_US Hunspell dictionary; suggestions + Ignore All + Add to Dictionary |
+| Editor | Grammar — mechanical rules | ✅ In scope | repeated words, a/an, spacing, "could of"→have, sentence capitalization (offline) |
+| Editor | Refinements — Clarity + Conciseness | ✅ In scope (partial) | heuristic weasel-word / wordy-phrase / passive-voice signals (offline) |
+| Editor | Editor Score, Similarity, Insights, Formality/Punctuation/Resume/Vocabulary refinements | ⛔ Out of scope | Microsoft 365 cloud ML Editor (deferrals.md §B); honestly flagged in the pane |
+| Add-ins | (whole section) | ⛔ Out of scope | Office.js marketplace (proposed) |
+
+**Styles** — scope locked 2026-06-15 (section kickoff; verified vs real Word via computer use + a
+catalog probe). Not layout-coupled. The gallery already applies styles, highlights the active style
+(caret-driven), and the Styles Pane + Apply Styles dialogs exist; the kickoff hardens contents/order +
+the "More" behavior to match real Word.
+
+| Section | Feature | Status | Note |
+|---|---|---|---|
+| Styles | Quick Styles gallery: contents + Word order | ✅ In scope | gallery list **decoupled from ribbon-data** → canonical Word order filtered by the live catalog (`WC.PM.allStyleNames()`) so a cell never renders a non-applicable style |
+| Styles | Add **Intense Reference** to the catalog + gallery | ✅ In scope | the base fixture's `styles.xml` defines `IntenseReference` (probe-verified); wired in `STYLE_NAME_TO_ID` |
+| Styles | Gallery cell click applies (selection → linked char style; caret → paragraph) | ✅ In scope (works) | slice-3 behavior; click-only (no hover preview, locked 2026-06-11) |
+| Styles | Active-style highlight tracks the caret | ✅ In scope (works) | `state-sync.ts` toggles `.style-cell.active` from `st.block` |
+| Styles | **"More" expander → expanded gallery grid** (not the pane) | ✅ In scope | THE behavioral gap: real Word's More opens the full quick-style grid + Clear Formatting / Create a Style / Apply Styles…; the clone jumped to the pane |
+| Styles | Expanded gallery commands: Clear Formatting, Apply Styles…, Create a Style | ✅ In scope | Clear Formatting + Apply Styles… functional; **Create a Style** = honest stub (custom-style authoring deferred) |
+| Styles | Preview fidelity (cells render in their style) | ✅ In scope | extend the preview-CSS map to emphasis/quote/reference styles |
+| Styles | Styles Pane (dialog launcher) + Apply Styles (Ctrl+Shift+S) | ✅ In scope (works) | task pane lists `allStyleNames()`; verify |
+| Styles | **Subtle Reference / Book Title** quick styles | 🕗 Deferred | not in the base fixture's `styles.xml` (probe-verified); needs a fixture regen to apply/render — low-usage, deferred |
+| Styles | New Style / Manage Styles / Style Inspector (custom-style authoring) | ⛔ Out of scope | class-B; custom paragraph/char style creation is a large subsystem (honest stub toasts) |
+| Styles | Save Selection as a New Quick Style | ⛔ Out of scope | depends on custom-style authoring |
+| Styles | "AaBbCcDdEe" Mac-style cell sample | ⛔ Out of scope | clone uses Windows-parity name-in-style cells (CLAUDE.md parity reference = Word for Windows 16.0) |
+
+## Insert
+
+**Insert** — UI arrangement locked 2026-06-15 (verified vs real Word via computer use). The slice-10
+feature wiring stands; this pass fixes the ribbon arrangement + label visibility.
+
+| Section | Feature | Status | Note |
+|---|---|---|---|
+| Ribbon | Small stacked buttons keep their **labels** (Word arrangement) | ✅ In scope | THE reported bug (only icons on a narrow screen). `LARGE` set trimmed to the genuinely-large Insert buttons; the rest render as small labeled buttons stacked 3-per-column (`renderControl` `labeled` opt). Condense only ever hides LARGE-button labels, so the many small labels stay visible |
+| Pages / Tables / Illustrations / Links / Text / Symbols | feature behaviour | ✅ In scope (slice 10) | Cover Page, Blank Page, Page Break, Table, Pictures, Shapes, Icons, 3D Models, SmartArt, Chart, Screenshot, Link, Bookmark, Cross-reference, Text Box, WordArt, Drop Cap, Date & Time, Quick Parts, Object, Equation, Symbol — real inserts / honest toasts |
+| Header & Footer | Header / Footer / Page Number | ✅ Done (002 P1+P2+P3, Word-COM-validated) | on-page enter/edit/close + the "Header & Footer Tools" contextual tab (P1); Different First Page / Odd & Even variants (P2); real OOXML `PAGE`-field page numbers (P3). All round-trip to real Word (flags + variant text + `wdFieldPage` read back == authored). KNOWN: the paged engine doesn't resolve a *freshly-inserted* page-number field's number in-app (shows "0"); Word + a reopen render it correctly — deferrals.md §A.1 |
+| Illustrations / Text | Floating-object position + text-wrap | 🕗 Reconciling (engine shipped) | insertion + export are real (slice-10 anchors); off-flow positioning is now engine-backed (paged engine, sole since 008), wiring being reconciled |
+
+## Draw
+_TBD._
+
+## Design
+_TBD._
+
+## Layout
+
+| Section | Feature | Status | Note |
+|---|---|---|---|
+| Page Setup | Margins / Orientation / Size | ✅ Done | rendered by the paged engine + exported to `sectPr` (Word-COM-validated) |
+| Page Setup | **Columns** (One/Two/Three / More Columns / Left/Right / line between / column break) | ✅ Done (003 P1+P2+P3, Word-COM-validated) | the paged engine flows the text into columns; real OOXML `w:cols` (+ `<w:col>` unequal, `w:sep` line-between) + a `w:br w:type="column"` column break; real Word reads `TextColumns` count/spacing/even/line-between + per-column widths (= Word's Left preset 1.83"/4.17"). KNOWN (v1): the owned `bodySectPr` write for line-between/unequal is outside PM undo + the in-app paint of those is best-effort (export + Word correct). Section breaks (Continuous/Next-Page) remain a future feature. |
+| Page Setup | **Line Numbers** (None / Continuous / Restart Each Page / Restart Each Section / Suppress for Current Paragraph / Line Numbering Options) | ✅ Done (004 P1+P2+P3, Word-COM-validated) | real OOXML `sectPr/w:lnNumType` (countBy/start/distance/restart) + per-paragraph `pPr/w:suppressLineNumbers`, all via the `WC.PM` bridge (NO fork edit); an owned margin-number overlay paints the numbers in-app (the paged engine doesn't). Real Word reads back `PageSetup.LineNumbering` Active/RestartMode/CountBy/StartingNumber + the suppressed-paragraph flag. KNOWN: `w:start` is written off-by-one (raw `userStart−1`) because Word reads `StartingNumber = w:start + 1`; v1 single primary section; table-cell lines not numbered. |
+| Page Setup | **Hyphenation** (None / Automatic / Manual / Hyphenation Options) | ✅ Done (005, Word-COM-validated) | document-level `settings.xml` (`w:autoHyphenation` / `w:hyphenationZone` / `w:consecutiveHyphenLimit` / `w:doNotHyphenateCaps`) via an OWNED converter write through the `WC.PM` bridge (NO fork edit — the fork has no hyphenation translator). Real Word reads back `AutoHyphenation` / `ConsecutiveHyphensLimit` / `HyphenateCaps` (CAPS correctly inverted vs `w:doNotHyphenateCaps`). KNOWN: Word's COM `HyphenationZone` is a broken/undefined property (returns 9999999 for any value, even Word's own) so the zone is XML-validated, not COM-asserted; in-app mid-word hyphenation render is out of scope (export-faithful); Manual = best-effort optional-hyphen (U+00AD) insertion. |
+| Page Setup | **Section Breaks** (Next Page / Continuous / Even Page / Odd Page) | ✅ Done (006, Word-COM-validated) | Layout → Breaks → Section Breaks inserts a real mid-doc section break — a paragraph-level `pPr/w:sectPr` via the public `insertSectionBreakAtSelection` command (Next Page); Continuous/Even/Odd add `<w:type>` on the BODY sectPr (the section after the break) via an owned `state.doc.attrs.bodySectPr` write. Real Word reads `Sections.Count` + each `PageSetup.SectionStart` (NewPage / Continuous validated). KNOWN (v1): the paged engine does NOT repaginate at the break in-app (export-faithful — Word paginates on open); the owned write is outside PM undo; a **single** typed break per doc (a 2nd+ typed break is refused with a toast — per-section typing across multiple breaks is a future feature; multiple Next Page breaks are fine). |
+
+## References
+_TBD._
+
+## Mailings
+_TBD — envelopes/labels page geometry is now supported by the paged layout engine (the sole render engine since 008) (deferrals.md §A)._
+
+## Review
+_TBD._
+
+## View
+_TBD — multi-page layout is live in the paged engine (the sole render engine since 008); multi-page View modes / Side-to-Side wiring pending reconciliation._
+
+## File (Backstage)
+_TBD._

@@ -1,0 +1,258 @@
+/* Paged-mode .docx export ↔ Word-for-Windows COM-oracle parity gate (Milestone 5). The product `test:roundtrip`
+   re-imports via JS and NEVER opens the file in real Word; this gate does, through the Node→COM bridge
+   (scripts/oracle/com-validate.js → validate-*-win.ps1, PID-safe, sandbox-DISABLED).
+
+   DEV-BOX ONLY — needs real foreground Word (Word COM hangs at `New-Object` in a sandbox), so this can NOT run in
+   headless CI. Invoke via the dangerously-disable-sandbox path:  npm run test:roundtrip:paged
+
+   What it proves (008: paged is the sole engine — the former TIER-1 paged-vs-overlay byte-equality was retired):
+     • real-Word READ-BACKS (C1–C8): every paged-saved .docx opens with NO repair, and each construct (comments,
+       footnotes/endnotes, header/footer + the 002 P2/P3 variants & page-field, 003 columns, 004 line-numbers,
+       005 hyphenation, 006 section-breaks) reads back == the authored markers via Word COM.
+     • TIER 2 (INK, M4c) — Word-valid (opens with no repair) + lands on the correct page at a page-local offset.
+   {RESULT: N pass / M fail}; exit 1 on any fail. */
+const { spawnSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const { comValidate, winwordPids } = require('./oracle/com-validate');
+
+const repoRoot = path.resolve(__dirname, '..');
+const electron = require('electron'); // binary path in plain Node
+// Everything (probe JSONs + the probe's wordAPI.saveBytes .docx) lands in C:/tmp via EXPLICIT absolute paths.
+// (A bare `/tmp` is MSYS-translated to AppData under Git-Bash but resolves drive-relative to C:\tmp under a plain
+// Node spawnSync — using the absolute C:/tmp here removes that ambiguity so the driver reads what the harness wrote.)
+const DOCX_DIR = 'C:/tmp';
+
+let pass = 0, fail = 0;
+const check = (name, ok, detail) => { console.log('   ' + (ok ? 'PASS' : 'FAIL') + ' ' + name + (!ok && detail ? ' — ' + detail : '')); ok ? pass++ : fail++; };
+const die = (msg) => { console.error('FATAL: ' + msg); console.log('RESULT: ' + pass + ' pass / ' + (fail + 1) + ' fail'); process.exit(1); };
+
+// ── build + probe helpers ── (008: paged is the only engine, so a plain build.)
+const build = () => {
+  console.log('  build (paged) ...');
+  const r = spawnSync('npm', ['run', 'build'], { cwd: repoRoot, stdio: 'inherit', shell: true, timeout: 600000 });
+  if (r.status !== 0) die('build exited ' + r.status);
+};
+const probe = (evalfile, outName) => {
+  const jpath = DOCX_DIR + '/' + outName;
+  try { fs.unlinkSync(jpath); } catch (e) { /* glob-clean already removed it; belt-and-braces so a crash can't leave yesterday's JSON */ }
+  // --user-data-dir isolates a throwaway Electron profile so probe runs never touch (or corrupt) the user's real
+  // app cache (%APPDATA%/Word); --disable-http-cache keeps that throwaway from accumulating a corruptible disk cache.
+  const r = spawnSync(electron, ['--user-data-dir=C:/tmp/wc-probe-profile', '--disable-http-cache', '.', '--probe-out=' + jpath, '--shot-evalfile=' + evalfile], { cwd: repoRoot, stdio: 'inherit', timeout: 300000 });
+  let json = null;
+  try { json = JSON.parse(fs.readFileSync(jpath, 'utf8')); } catch (e) { die('probe JSON missing/unparseable (' + jpath + '): ' + e.message + ' — electron exit=' + r.status + ' signal=' + r.signal); }
+  return json;
+};
+
+async function main() {
+  // ── 1) glob-CLEAN stale artifacts (BOTH the .docx AND the probe JSONs) so a previous run can't green-light this one ──
+  try { if (!fs.existsSync(DOCX_DIR)) fs.mkdirSync(DOCX_DIR, { recursive: true }); } catch (e) {}
+  for (const f of fs.readdirSync(DOCX_DIR).filter((n) => /^wc-.*-m5-.*\.docx$/.test(n) || /^wc-m5-.*\.json$/.test(n) || /^wc-.*-hf-p[23]\.docx$/.test(n) || /^wc-hf-p[23]-.*\.json$/.test(n) || /^wc-.*-columns(-p2)?\.docx$/.test(n) || /^wc-columns-.*\.json$/.test(n) || /^wc-.*-linenumbers\.docx$/.test(n) || /^wc-linenumbers-.*\.json$/.test(n) || /^wc-.*-hyphenation\.docx$/.test(n) || /^wc-hyphenation-.*\.json$/.test(n) || /^wc-.*-sectionbreaks(-cont)?\.docx$/.test(n) || /^wc-sectionbreaks-.*\.json$/.test(n))) { try { fs.unlinkSync(path.join(DOCX_DIR, f)); } catch (e) {} }
+
+  // ── 2) build → paged kitchen-sink + paged multi-page ink + the per-feature export probes ──
+  build();
+  const pagedKS = probe('scripts/paged-export-m5-probe.js', 'wc-m5-ks-paged.json');
+  const pagedInk = probe('scripts/paged-export-m5-ink-probe.js', 'wc-m5-ink-paged.json');
+  const pagedHfP2 = probe('scripts/paged-export-hf-p2-probe.js', 'wc-hf-p2-paged.json'); // 002 P2 variants/flags doc
+  const pagedHfP3 = probe('scripts/paged-export-hf-p3-probe.js', 'wc-hf-p3-paged.json'); // 002 P3 footer PAGE-field doc
+  const pagedCols = probe('scripts/paged-export-columns-probe.js', 'wc-columns-paged.json'); // 003 P1 2-column doc
+  const pagedColsP2 = probe('scripts/paged-export-columns-p2-probe.js', 'wc-columns-p2-paged.json'); // 003 P2 Left+line-between
+  const pagedLn = probe('scripts/paged-export-linenumbers-probe.js', 'wc-linenumbers-paged.json'); // 004 P1 line numbers
+  const pagedHyph = probe('scripts/paged-export-hyphenation-probe.js', 'wc-hyphenation-paged.json'); // 005 hyphenation
+  const pagedSb = probe('scripts/paged-export-sectionbreaks-probe.js', 'wc-sectionbreaks-paged.json'); // 006 section breaks
+
+  console.log('\nA) probe self-checks (right mode + the renderer edits + saves succeeded):');
+  check('paged kitchen-sink ran in PAGED mode', pagedKS.summary && pagedKS.summary.mode === 'paged', 'mode=' + (pagedKS.summary && pagedKS.summary.mode) + ' (mislabeled build?)');
+  check('paged ink ran in PAGED mode', pagedInk.summary && pagedInk.summary.mode === 'paged', 'mode=' + (pagedInk.summary && pagedInk.summary.mode));
+  check('paged kitchen-sink probe: fail===0', pagedKS.summary && pagedKS.summary.fail === 0, pagedKS.summary ? pagedKS.summary.fail + ' of ' + pagedKS.summary.total : 'no summary');
+  check('paged ink probe: fail===0', pagedInk.summary && pagedInk.summary.fail === 0, pagedInk.summary ? pagedInk.summary.fail + ' of ' + pagedInk.summary.total : 'no summary');
+  check('paged HF-P2 probe ran in PAGED mode', pagedHfP2.summary && pagedHfP2.summary.mode === 'paged', 'mode=' + (pagedHfP2.summary && pagedHfP2.summary.mode));
+  check('paged HF-P2 probe: fail===0', pagedHfP2.summary && pagedHfP2.summary.fail === 0, pagedHfP2.summary ? pagedHfP2.summary.fail + ' of ' + pagedHfP2.summary.total : 'no summary');
+  check('paged HF-P3 probe ran in PAGED mode', pagedHfP3.summary && pagedHfP3.summary.mode === 'paged', 'mode=' + (pagedHfP3.summary && pagedHfP3.summary.mode));
+  check('paged HF-P3 probe: fail===0', pagedHfP3.summary && pagedHfP3.summary.fail === 0, pagedHfP3.summary ? pagedHfP3.summary.fail + ' of ' + pagedHfP3.summary.total : 'no summary');
+  check('paged columns probe ran in PAGED mode', pagedCols.summary && pagedCols.summary.mode === 'paged', 'mode=' + (pagedCols.summary && pagedCols.summary.mode));
+  check('paged columns probe: fail===0', pagedCols.summary && pagedCols.summary.fail === 0, pagedCols.summary ? pagedCols.summary.fail + ' of ' + pagedCols.summary.total : 'no summary');
+  check('paged columns-P2 probe: fail===0', pagedColsP2.summary && pagedColsP2.summary.fail === 0, pagedColsP2.summary ? pagedColsP2.summary.fail + ' of ' + pagedColsP2.summary.total : 'no summary');
+  check('paged line-numbers probe ran in PAGED mode', pagedLn.summary && pagedLn.summary.mode === 'paged', 'mode=' + (pagedLn.summary && pagedLn.summary.mode));
+  check('paged line-numbers probe: fail===0', pagedLn.summary && pagedLn.summary.fail === 0, pagedLn.summary ? pagedLn.summary.fail + ' of ' + pagedLn.summary.total : 'no summary');
+  check('paged hyphenation probe ran in PAGED mode', pagedHyph.summary && pagedHyph.summary.mode === 'paged', 'mode=' + (pagedHyph.summary && pagedHyph.summary.mode));
+  check('paged hyphenation probe: fail===0', pagedHyph.summary && pagedHyph.summary.fail === 0, pagedHyph.summary ? pagedHyph.summary.fail + ' of ' + pagedHyph.summary.total : 'no summary');
+  check('paged section-breaks probe ran in PAGED mode', pagedSb.summary && pagedSb.summary.mode === 'paged', 'mode=' + (pagedSb.summary && pagedSb.summary.mode));
+  check('paged section-breaks probe: fail===0', pagedSb.summary && pagedSb.summary.fail === 0, pagedSb.summary ? pagedSb.summary.fail + ' of ' + pagedSb.summary.total : 'no summary');
+
+  const DOCS = {
+    'paged kitchen-sink': DOCX_DIR + '/wc-paged-m5-kitchensink.docx',
+    'paged ink': DOCX_DIR + '/wc-paged-m5-ink.docx',
+    'paged HF-P2': DOCX_DIR + '/wc-paged-hf-p2.docx',
+    'paged HF-P3': DOCX_DIR + '/wc-paged-hf-p3.docx',
+    'paged columns': DOCX_DIR + '/wc-paged-columns.docx',
+    'paged columns P2': DOCX_DIR + '/wc-paged-columns-p2.docx',
+    'paged line-numbers': DOCX_DIR + '/wc-paged-linenumbers.docx',
+    'paged hyphenation': DOCX_DIR + '/wc-paged-hyphenation.docx',
+    'paged section-breaks': DOCX_DIR + '/wc-paged-sectionbreaks.docx',
+    'paged section-breaks cont': DOCX_DIR + '/wc-paged-sectionbreaks-cont.docx',
+  };
+
+  // ── 4) real-Word validate-open on every saved .docx (CORE: opens with no repair; OpenAndRepair:=false) ──
+  console.log('\nB) real-Word validate-open (sandbox-disabled, PID-safe):');
+  const wwBefore = winwordPids();
+  for (const [label, d] of Object.entries(DOCS)) {
+    if (!fs.existsSync(d)) { check('validate-open: ' + label, false, 'missing file ' + d); continue; }
+    const r = comValidate('validate-open-win.ps1', d);
+    check('validate-open: ' + label + ' (ok, no repair)', r.ok, (r.json && r.json.error) || r.error || r.raw.slice(0, 160));
+  }
+
+  // ── 5) per-construct read-back on the PAGED kitchen-sink (validate-open ok is necessary-not-sufficient) ──
+  console.log('\nC) paged read-backs == seeded markers:');
+  const pks = DOCS['paged kitchen-sink'];
+  {
+    const cm = comValidate('validate-comments-win.ps1', pks);
+    const scopeErr = cm.json && typeof cm.json.comment1Scope === 'string' && cm.json.comment1Scope.indexOf('<scope-error') >= 0;
+    check('comment read-back: comment1Text ~ M5CMT (no scope-error)', cm.ok && cm.json && /M5CMT/.test(String(cm.json.comment1Text || '')) && !scopeErr, cm.ok ? ('comment1Text=' + JSON.stringify(cm.json && cm.json.comment1Text) + ' scope=' + JSON.stringify(cm.json && cm.json.comment1Scope)) : ((cm.json && cm.json.error) || cm.raw.slice(0, 140)));
+
+    const nt = comValidate('validate-notes-win.ps1', pks);
+    check('notes read-back: footnote1Text ~ M5FTNOTE + endnoteCount>=1', nt.ok && nt.json && /M5FTNOTE/.test(String(nt.json.footnote1Text || '')) && Number(nt.json.endnoteCount) >= 1, nt.ok ? ('footnote1Text=' + JSON.stringify(nt.json && nt.json.footnote1Text) + ' endnoteCount=' + (nt.json && nt.json.endnoteCount)) : ((nt.json && nt.json.error) || nt.raw.slice(0, 140)));
+
+    const hf = comValidate('validate-headerfooter-win.ps1', pks);
+    check('header/footer read-back: headerText ~ M5HDR + footerText ~ M5FTR', hf.ok && hf.json && /M5HDR/.test(String(hf.json.headerText || '')) && /M5FTR/.test(String(hf.json.footerText || '')), hf.ok ? ('headerText=' + JSON.stringify(hf.json && hf.json.headerText) + ' footerText=' + JSON.stringify(hf.json && hf.json.footerText)) : ((hf.json && hf.json.error) || hf.raw.slice(0, 140)));
+  }
+
+  // ── 5b) P2 (002) header/footer variant + structure-flag read-back on the dedicated P2 .docx ──
+  console.log('\nC2) paged HF-P2 read-backs == authored (DFP/odd-even flags + first/even variant text):');
+  {
+    const p2 = DOCS['paged HF-P2'];
+    const hf2 = comValidate('validate-headerfooter-win.ps1', p2);
+    const j = hf2.json || {};
+    const errDetail = (extra) => hf2.ok ? extra : ((j.error) || hf2.raw.slice(0, 140));
+    check('HF-P2: opened without repair + enum self-check', hf2.ok && j.openedWithoutRepair === true && j.enumCheck === true, errDetail(JSON.stringify({ open: j.openedWithoutRepair, enum: j.enumCheck })));
+    check('HF-P2: DifferentFirstPage flag === true', hf2.ok && j.differentFirstPage === true, errDetail('got ' + JSON.stringify(j.differentFirstPage)));
+    check('HF-P2: DifferentOddEven flag === true', hf2.ok && j.differentOddEven === true, errDetail('got ' + JSON.stringify(j.differentOddEven)));
+    check('HF-P2: primary header ~ P2PRIMH', hf2.ok && /P2PRIMH/.test(String(j.primaryHeader || '')), errDetail('got ' + JSON.stringify(j.primaryHeader)));
+    check('HF-P2: first header ~ P2FIRSTH', hf2.ok && /P2FIRSTH/.test(String(j.firstHeader || '')), errDetail('got ' + JSON.stringify(j.firstHeader)));
+    check('HF-P2: first footer ~ P2FIRSTF', hf2.ok && /P2FIRSTF/.test(String(j.firstFooter || '')), errDetail('got ' + JSON.stringify(j.firstFooter)));
+    check('HF-P2: even header ~ P2EVENH', hf2.ok && /P2EVENH/.test(String(j.evenHeader || '')), errDetail('got ' + JSON.stringify(j.evenHeader)));
+    check('HF-P2: even footer ~ P2EVENF', hf2.ok && /P2EVENF/.test(String(j.evenFooter || '')), errDetail('got ' + JSON.stringify(j.evenFooter)));
+  }
+
+  // ── 5c) P3 (002) page-number read-back: real Word resolves the footer's PAGE field to a number ──
+  console.log('\nC3) paged HF-P3 read-back == a live wdFieldPage field whose result is the page number:');
+  {
+    const p3 = DOCS['paged HF-P3'];
+    const hf3 = comValidate('validate-headerfooter-win.ps1', p3);
+    const j = hf3.json || {};
+    const pf = j.footerPageField || {};
+    const errDetail = (extra) => hf3.ok ? extra : ((j.error) || hf3.raw.slice(0, 140));
+    check('HF-P3: opened without repair', hf3.ok && j.openedWithoutRepair === true, errDetail('open=' + JSON.stringify(j.openedWithoutRepair)));
+    check('HF-P3: footer carries a wdFieldPage field (type 33, code ~ PAGE)', hf3.ok && pf.present === true && Number(pf.type) === 33 && /PAGE/i.test(String(pf.code || '')), errDetail('footerPageField=' + JSON.stringify(pf)));
+    check('HF-P3: the PAGE field result is a number (Word resolved it per page)', hf3.ok && pf.present === true && /^\d+$/.test(String(pf.result || '')) && Number(pf.result) >= 1, errDetail('result=' + JSON.stringify(pf.result)));
+  }
+
+  // ── 5d) 003 Columns read-back: real Word reads the section's column layout ──
+  console.log('\nC4) paged columns read-back == authored (Sections(1).PageSetup.TextColumns):');
+  {
+    const cl = comValidate('validate-columns-win.ps1', DOCS['paged columns']);
+    const j = cl.json || {};
+    const errDetail = (extra) => cl.ok ? extra : ((j.error) || cl.raw.slice(0, 140));
+    check('columns: opened without repair', cl.ok && j.openedWithoutRepair === true, errDetail('open=' + JSON.stringify(j.openedWithoutRepair)));
+    check('columns: TextColumns.Count === 2', cl.ok && Number(j.columnCount) === 2, errDetail('columnCount=' + JSON.stringify(j.columnCount)));
+    check('columns: EvenlySpaced === true', cl.ok && j.evenlySpaced === true, errDetail('evenlySpaced=' + JSON.stringify(j.evenlySpaced)));
+  }
+
+  // ── 5e) 003 P2 columns: Left (unequal) + line-between read-back ──
+  console.log('\nC5) paged columns-P2 read-back == authored (Left unequal + line-between):');
+  {
+    const cl = comValidate('validate-columns-win.ps1', DOCS['paged columns P2']);
+    const j = cl.json || {};
+    const ws = Array.isArray(j.columnWidths) ? j.columnWidths : [];
+    const errDetail = (extra) => cl.ok ? extra : ((j.error) || cl.raw.slice(0, 140));
+    check('columns-P2: opened without repair', cl.ok && j.openedWithoutRepair === true, errDetail('open=' + JSON.stringify(j.openedWithoutRepair)));
+    check('columns-P2: Count === 2 + EvenlySpaced === false (unequal)', cl.ok && Number(j.columnCount) === 2 && j.evenlySpaced === false, errDetail('count=' + JSON.stringify(j.columnCount) + ' even=' + JSON.stringify(j.evenlySpaced)));
+    check('columns-P2: LineBetween === true', cl.ok && j.lineBetween === true, errDetail('lineBetween=' + JSON.stringify(j.lineBetween)));
+    check('columns-P2: narrow-left (Width[0] < Width[1])', cl.ok && ws.length >= 2 && Number(ws[0]) < Number(ws[1]), errDetail('widths=' + JSON.stringify(ws)));
+    check('columns-P2/P3: a column break (char 14) is present in the body', cl.ok && j.columnBreakPresent === true, errDetail('columnBreakPresent=' + JSON.stringify(j.columnBreakPresent)));
+  }
+
+  // ── 5f) 004 P1 line numbers: Active + RestartMode read-back (+ P3 CountBy/StartingNumber on the same doc) ──
+  console.log('\nC6) paged line-numbers read-back == authored (Sections(1).PageSetup.LineNumbering):');
+  {
+    const cl = comValidate('validate-linenumbers-win.ps1', DOCS['paged line-numbers']);
+    const j = cl.json || {};
+    const errDetail = (extra) => cl.ok ? extra : ((j.error) || cl.raw.slice(0, 140));
+    check('line-numbers: opened without repair', cl.ok && j.openedWithoutRepair === true, errDetail('open=' + JSON.stringify(j.openedWithoutRepair)));
+    check('line-numbers: RestartMode enum in range {0,1,2}', cl.ok && j.enumCheck === true, errDetail('enumCheck=' + JSON.stringify(j.enumCheck) + ' restartMode=' + JSON.stringify(j.restartMode)));
+    check('line-numbers: LineNumbering.Active === true', cl.ok && j.lineNumbersActive === true, errDetail('active=' + JSON.stringify(j.lineNumbersActive)));
+    check('line-numbers: RestartMode === continuous (0)', cl.ok && Number(j.restartMode) === 0, errDetail('restartMode=' + JSON.stringify(j.restartMode) + ' label=' + JSON.stringify(j.restartLabel)));
+    check('line-numbers: CountBy === 2 (authored)', cl.ok && Number(j.countBy) === 2, errDetail('countBy=' + JSON.stringify(j.countBy)));
+    // P3: StartingNumber == authored user-facing 5 (the bridge wrote raw w:start=4; Word's off-by-one read = 5).
+    check('line-numbers: StartingNumber === 5 (authored user-facing; off-by-one raw w:start=4)', cl.ok && Number(j.startingNumber) === 5, errDetail('startingNumber=' + JSON.stringify(j.startingNumber)));
+    // P3: the SUPPRESSME paragraph was found (no import-drop) AND carries an ON pPr/w:suppressLineNumbers.
+    check('line-numbers: suppress marker paragraph present after Word open', cl.ok && j.suppressMarkerFound === true, errDetail('suppressMarkerFound=' + JSON.stringify(j.suppressMarkerFound)));
+    check('line-numbers: suppressed paragraph carries w:suppressLineNumbers', cl.ok && j.paragraphSuppressed === true, errDetail('paragraphSuppressed=' + JSON.stringify(j.paragraphSuppressed)));
+  }
+
+  // ── 5g) 005 hyphenation: AutoHyphenation + options read-back (ActiveDocument-level settings) ──
+  console.log('\nC7) paged hyphenation read-back == authored (ActiveDocument hyphenation settings):');
+  {
+    const ch = comValidate('validate-hyphenation-win.ps1', DOCS['paged hyphenation']);
+    const j = ch.json || {};
+    const errDetail = (extra) => ch.ok ? extra : ((j.error) || ch.raw.slice(0, 140));
+    check('hyphenation: opened without repair', ch.ok && j.openedWithoutRepair === true, errDetail('open=' + JSON.stringify(j.openedWithoutRepair)));
+    check('hyphenation: AutoHyphenation === true (authored Automatic)', ch.ok && j.autoHyphenation === true, errDetail('autoHyphenation=' + JSON.stringify(j.autoHyphenation)));
+    check('hyphenation: ConsecutiveHyphensLimit === 2 (authored)', ch.ok && Number(j.consecutiveHyphensLimit) === 2, errDetail('consecutiveHyphensLimit=' + JSON.stringify(j.consecutiveHyphensLimit)));
+    // CAPS OFF authored ⇒ w:doNotHyphenateCaps ⇒ Word HyphenateCaps false (the inverted mapping).
+    check('hyphenation: HyphenateCaps === false (authored CAPS-off ⇒ w:doNotHyphenateCaps)', ch.ok && j.hyphenateCaps === false, errDetail('hyphenateCaps=' + JSON.stringify(j.hyphenateCaps)));
+    // NB: HyphenationZone is NOT asserted via COM — Word's ActiveDocument.HyphenationZone is a broken/undefined
+    // property (it returns 9999999=wdUndefined for ANY value, even one Word itself authored, and Word does not
+    // persist <w:hyphenationZone>). Our export DOES write a correct <w:hyphenationZone w:val="360"/> (more
+    // faithful than Word's own COM round-trip) — that fidelity is validated at the XML layer by the paged probe
+    // (export carries w:hyphenationZone="360" + the CT_Settings order). Recorded: specs/005-hyphenation/research.md.
+    if (ch.ok) check('hyphenation: zone read = wdUndefined (Word COM HyphenationZone limitation, info)', Number(j.hyphenationZone) === 9999999 || Number.isFinite(Number(j.hyphenationZone)), 'hyphenationZone=' + JSON.stringify(j.hyphenationZone));
+  }
+
+  // ── 5h) 006 section breaks: Sections.Count + per-type SectionStart read-back (Next Page + Continuous) ──
+  console.log('\nC8) paged section-breaks read-back == authored (ActiveDocument.Sections):');
+  {
+    // Next-Page break: 2 sections, the second section starts NewPage (2).
+    const cn = comValidate('validate-sectionbreaks-win.ps1', DOCS['paged section-breaks']);
+    const jn = cn.json || {};
+    const ssN = Array.isArray(jn.sectionStarts) ? jn.sectionStarts : [];
+    const errN = (extra) => cn.ok ? extra : ((jn.error) || cn.raw.slice(0, 140));
+    check('section-breaks(nextPage): opened without repair + enum in range', cn.ok && jn.openedWithoutRepair === true && jn.enumCheck === true, errN('open=' + JSON.stringify(jn.openedWithoutRepair) + ' enum=' + JSON.stringify(jn.enumCheck)));
+    check('section-breaks(nextPage): Sections.Count === 2', cn.ok && Number(jn.sectionCount) === 2, errN('sectionCount=' + JSON.stringify(jn.sectionCount)));
+    check('section-breaks(nextPage): the 2nd section starts NewPage (2)', cn.ok && Number(ssN[1]) === 2, errN('sectionStarts=' + JSON.stringify(ssN)));
+    // Continuous break: 2 sections, the second section starts Continuous (0) — proves the owned w:type write.
+    const cc = comValidate('validate-sectionbreaks-win.ps1', DOCS['paged section-breaks cont']);
+    const jc = cc.json || {};
+    const ssC = Array.isArray(jc.sectionStarts) ? jc.sectionStarts : [];
+    const errC = (extra) => cc.ok ? extra : ((jc.error) || cc.raw.slice(0, 140));
+    check('section-breaks(continuous): opened without repair', cc.ok && jc.openedWithoutRepair === true, errC('open=' + JSON.stringify(jc.openedWithoutRepair)));
+    check('section-breaks(continuous): Sections.Count === 2', cc.ok && Number(jc.sectionCount) === 2, errC('sectionCount=' + JSON.stringify(jc.sectionCount)));
+    check('section-breaks(continuous): the 2nd section starts Continuous (0) — owned w:type write', cc.ok && Number(ssC[1]) === 0, errC('sectionStarts=' + JSON.stringify(ssC)));
+  }
+
+  // (008: the TIER-1 paged-vs-overlay SAVED-.docx byte-equality was retired with the overlay engine — there is no
+  // overlay comparand. The paged export fidelity is now carried directly by the real-Word read-backs above (C1–C8).)
+
+  // ── 6) TIER 2 — INK: Word-valid (validate-open above) + page-correct page-local posOffset (from the probe) ──
+  console.log('\nE) ink page-correctness (Word-valid + page-local posOffset on the right page):');
+  {
+    const r = pagedInk.results || [];
+    const pageA = r.find((x) => /page-1 stroke exports PAGE-LOCAL/.test(x.name));
+    const pageB = r.find((x) => /page-2 top stroke exports PAGE-LOCAL/.test(x.name));
+    check('ink: page-1 stroke exports page-local posOffset(V)', !!(pageA && pageA.pass), pageA ? pageA.detail : 'assert row missing');
+    check('ink: page-2 top stroke exports page-local posOffset(V)', !!(pageB && pageB.pass), pageB ? pageB.detail : 'assert row missing');
+  }
+
+  // ── 8) PID-safety: no WINWORD leaked (the user's Word window untouched) ──
+  console.log('\nF) PID-safety:');
+  {
+    const wwAfter = winwordPids();
+    const leaked = wwAfter.filter((p) => !wwBefore.includes(p));
+    check('no leaked WINWORD process (user Word untouched)', leaked.length === 0, 'leaked PIDs=' + JSON.stringify(leaked) + ' (before=' + JSON.stringify(wwBefore) + ' after=' + JSON.stringify(wwAfter) + ')');
+  }
+
+  console.log('\nRESULT: ' + pass + ' pass / ' + fail + ' fail');
+  process.exit(fail === 0 ? 0 : 1);
+}
+
+main().catch((e) => die('uncaught: ' + (e && e.stack || e)));

@@ -1,0 +1,1012 @@
+// @ts-check
+import {
+  halfPointToPoints,
+  ptToTwips,
+  twipsToPt,
+  twipsToPixels,
+  twipsToLines,
+  eighthPointsToPixels,
+  linesToTwips,
+  isValidHexColor,
+  getHexColorFromDocxSystem,
+  normalizeHexColor,
+} from '@converter/helpers.js';
+import { SuperConverter } from '@converter/SuperConverter.js';
+import { getUnderlineCssString } from '@extensions/linked-styles/underline-css.js';
+import { normalizeBaselineShift, SUBSCRIPT_SUPERSCRIPT_SCALE } from '@superdoc/contracts';
+import {
+  resolveDocxFontFamily,
+  resolveRunProperties,
+  resolveParagraphProperties,
+  combineRunProperties,
+} from '@superdoc/style-engine/ooxml';
+
+export { resolveRunProperties, resolveParagraphProperties, combineRunProperties };
+
+/**
+ * Font family converter from SuperConverter (lazy getter to avoid circular import)
+ * @returns {(fontName: string, docx?: Record<string, unknown>) => string}
+ */
+const getToCssFontFamily = () => {
+  // @ts-expect-error - SuperConverter.toCssFontFamily exists but isn't typed
+  return SuperConverter.toCssFontFamily;
+};
+
+/**
+ * Encodes run property objects into mark definitions for the editor schema.
+ * @param {Object} runProperties - Run properties extracted from DOCX.
+ * @param {Object} docx - Parsed DOCX structure used for theme lookups.
+ * @returns {Array<Object>} Mark definitions representing the run styling.
+ */
+// MS-WORD-CLONE FORK EDIT (Phase 3, Text Effects & Typography, NOTICE'd):
+// compose/split between the w14 typography run properties and the textStyle CSS
+// attrs (fontVariantNumeric / fontVariantLigatures / fontFeatureSettings). The
+// v3 translators for w14:numForm/numSpacing/ligatures/cntxtAlts/stylisticSets
+// already round-trip the run properties; these helpers bridge them to CSS.
+const NUM_FORM_TO_CSS = { lining: 'lining-nums', oldStyle: 'oldstyle-nums' };
+const NUM_SPACING_TO_CSS = { proportional: 'proportional-nums', tabular: 'tabular-nums' };
+const LIGATURES_TO_CSS = {
+  none: 'none',
+  standard: 'common-ligatures',
+  standardContextual: 'common-ligatures contextual',
+  historicalDiscretional: 'discretionary-ligatures historical-ligatures',
+  all: 'common-ligatures discretionary-ligatures historical-ligatures contextual',
+};
+function composeFontVariantNumeric(numForm, numSpacing) {
+  const parts = [NUM_FORM_TO_CSS[numForm], NUM_SPACING_TO_CSS[numSpacing]].filter(Boolean);
+  return parts.length ? parts.join(' ') : null;
+}
+function splitFontVariantNumeric(css) {
+  const v = String(css || '');
+  const numForm = /lining-nums/.test(v) ? 'lining' : /oldstyle-nums/.test(v) ? 'oldStyle' : null;
+  const numSpacing = /proportional-nums/.test(v) ? 'proportional' : /tabular-nums/.test(v) ? 'tabular' : null;
+  return { numForm, numSpacing };
+}
+function composeFontVariantLigatures(ligatures, contextualAlternates) {
+  let css = LIGATURES_TO_CSS[ligatures] || null;
+  if (contextualAlternates && css && css !== 'none' && !/contextual/.test(css)) css += ' contextual';
+  if (!css && contextualAlternates) css = 'common-ligatures contextual';
+  return css;
+}
+function splitFontVariantLigatures(css) {
+  const v = String(css || '');
+  const contextualAlternates = /contextual/.test(v);
+  let ligatures = null;
+  if (v === 'none') ligatures = 'none';
+  else if (/discretionary-ligatures/.test(v) && /historical-ligatures/.test(v) && /common-ligatures/.test(v)) ligatures = 'all';
+  else if (/discretionary-ligatures/.test(v) || /historical-ligatures/.test(v)) ligatures = 'historicalDiscretional';
+  // "Standard and Contextual" = standard ligatures + the separate contextual-
+  // alternates switch (both, like Word) — avoids the combined 'standardContextual'
+  // enum value (which the w14:ligatures export drops); round-trips via cntxtAlts.
+  else if (/common-ligatures/.test(v)) ligatures = 'standard';
+  return { ligatures, contextualAlternates };
+}
+function composeFontFeatureSettings(stylisticSets) {
+  if (!Array.isArray(stylisticSets)) return null;
+  const parts = stylisticSets
+    .filter((s) => Number.isFinite(s?.id))
+    .map((s) => `"ss${String(s.id).padStart(2, '0')}" 1`);
+  return parts.length ? parts.join(', ') : null;
+}
+function splitFontFeatureSettings(css) {
+  const sets = [];
+  String(css || '').replace(/["']ss(\d{2})["']\s*1/gi, (_, n) => { sets.push({ id: parseInt(n, 10), val: true }); return ''; });
+  return sets;
+}
+
+export function encodeMarksFromRPr(runProperties, docx) {
+  if (!runProperties || typeof runProperties !== 'object') {
+    return [];
+  }
+
+  const marks = [];
+  const textStyleAttrs = {};
+  /** @type {{ color: string, ooxmlHighlightClear?: boolean } | null} */
+  let highlightAttrs = null;
+  let hasHighlightTag = false;
+  Object.keys(runProperties).forEach((key) => {
+    const value = runProperties[key];
+    switch (key) {
+      case 'strike':
+      case 'italic':
+      case 'bold':
+        // case 'boldCs':
+        marks.push({ type: key, attrs: { value } });
+        break;
+      case 'textTransform':
+        textStyleAttrs[key] = value;
+        break;
+      case 'color':
+        if (!value.val) {
+          textStyleAttrs[key] = null;
+        } else if (value.val.toLowerCase() === 'auto') {
+          textStyleAttrs[key] = value.val;
+        } else {
+          textStyleAttrs[key] = `#${value['val'].replace('#', '').toUpperCase()}`;
+        }
+        break;
+      case 'underline':
+        let underlineType = value['w:val'];
+        let underlineColor = value['w:color'];
+        if (underlineColor && underlineColor.toLowerCase() !== 'auto' && !underlineColor.startsWith('#')) {
+          underlineColor = `#${underlineColor}`;
+        }
+        const underlineThemeColor = value['w:themeColor'];
+        const underlineThemeTint = value['w:themeTint'];
+        const underlineThemeShade = value['w:themeShade'];
+        if (!underlineType && !underlineColor && !underlineThemeColor && !underlineThemeTint && !underlineThemeShade) {
+          break;
+        }
+        marks.push({
+          type: key,
+          attrs: {
+            underlineType,
+            underlineColor,
+            underlineThemeColor,
+            underlineThemeTint,
+            underlineThemeShade,
+          },
+        });
+        break;
+      case 'styleId':
+        if (value != null) {
+          textStyleAttrs[key] = value;
+        }
+        break;
+      case 'fontSize':
+        // case 'fontSizeCs':
+        const points = halfPointToPoints(value);
+        textStyleAttrs[key] = `${points}pt`;
+        break;
+      case 'letterSpacing':
+        const spacing = twipsToPt(value);
+        textStyleAttrs[key] = `${spacing}pt`;
+        break;
+      // MS-WORD-CLONE FORK EDIT (015, user-authorized — Constitution P1): IMPORT side for Small Caps
+      // + Character Scale, so an imported docx's <w:smallCaps/>/<w:w> renders in-app + prefills the
+      // Font dialog like the 3 fork-native effects (the v3 translators decode the rPr → these
+      // runProperties; this maps them onto the owned textStyle attrs). PURELY ADDITIVE.
+      case 'smallCaps':
+        if (value) textStyleAttrs[key] = true;
+        break;
+      case 'w': {
+        const wPct = parseInt(value, 10);
+        if (!isNaN(wPct)) textStyleAttrs[key] = wPct;
+        break;
+      }
+      // MS-WORD-CLONE FORK EDIT (019, user-authorized): IMPORT side for the run-level border — map an imported
+      // run's <w:bdr> (decoded to runProperty 'borders') onto the owned textStyle.borders attr so it renders +
+      // round-trips. PURELY ADDITIVE (mirrors the 015 import cases above).
+      case 'borders':
+        if (value && typeof value === 'object') textStyleAttrs[key] = value;
+        break;
+      case 'fontFamily':
+        const fontFamily = resolveDocxFontFamily(value, docx, getToCssFontFamily());
+        textStyleAttrs[key] = fontFamily;
+        // value can be a string (from resolveRunPropertiesFromParagraphStyle) or an object
+        // Preserve per-script fonts when they differ from ascii (ECMA-376 §17.3.2.26:
+        // ascii, hAnsi, eastAsia, cs are independent font slots). Without this, the mark
+        // round-trip flattens all scripts to the ascii font, causing false-positive inline
+        // detection and w:rFonts injection on export. (SD-2517)
+        if (typeof value === 'object' && value !== null) {
+          const eastAsiaFamily = value['eastAsia'];
+          if (eastAsiaFamily) {
+            const eastAsiaCss = getFontFamilyValue({ 'w:ascii': eastAsiaFamily }, docx);
+            if (!fontFamily || eastAsiaCss !== textStyleAttrs.fontFamily) {
+              textStyleAttrs.eastAsiaFontFamily = eastAsiaCss;
+            }
+          }
+          const csFamily = value['cs'];
+          if (csFamily) {
+            const csCss = getFontFamilyValue({ 'w:ascii': csFamily }, docx);
+            if (!fontFamily || csCss !== textStyleAttrs.fontFamily) {
+              textStyleAttrs.csFontFamily = csCss;
+            }
+          }
+        }
+        break;
+      case 'highlight':
+        const color = getHighLightValue(value);
+        if (color) {
+          hasHighlightTag = true;
+          highlightAttrs = { color };
+          if (color.toLowerCase() === 'transparent' && String(value?.['w:val']).toLowerCase() === 'none') {
+            highlightAttrs.ooxmlHighlightClear = true;
+          }
+        }
+        break;
+      case 'shading': {
+        if (hasHighlightTag) {
+          break;
+        }
+        const fill = value['fill'];
+        const shdVal = value['val'];
+        if (fill && String(fill).toLowerCase() !== 'auto') {
+          highlightAttrs = { color: `#${String(fill).replace('#', '')}` };
+        } else if (typeof shdVal === 'string') {
+          const normalized = shdVal.toLowerCase();
+          if (normalized === 'clear' || normalized === 'nil' || normalized === 'none') {
+            highlightAttrs = { color: 'transparent' };
+          }
+        }
+        break;
+      }
+      case 'vertAlign': {
+        if (value) {
+          textStyleAttrs.vertAlign = value;
+        }
+        break;
+      }
+      case 'position': {
+        if (value != null && Number.isFinite(value)) {
+          const points = halfPointToPoints(value);
+          if (Number.isFinite(points)) {
+            textStyleAttrs.position = `${points}pt`;
+          }
+        }
+        break;
+      }
+    }
+  });
+
+  // Text Effects typography trio: compose the CSS attrs from the w14 run props
+  // (two keys → one CSS value for numeric; ligatures + cntxtAlts → one value).
+  const fvn = composeFontVariantNumeric(runProperties.numForm, runProperties.numSpacing);
+  if (fvn) textStyleAttrs.fontVariantNumeric = fvn;
+  const fvl = composeFontVariantLigatures(runProperties.ligatures, runProperties.contextualAlternates);
+  if (fvl) textStyleAttrs.fontVariantLigatures = fvl;
+  const ffs = composeFontFeatureSettings(runProperties.stylisticSets);
+  if (ffs) textStyleAttrs.fontFeatureSettings = ffs;
+  // Text Effects quartet (stage 2): the w14 translators decoded the OOXML back into the
+  // visual-effect objects; pass them through to the textStyle mark so they round-trip.
+  if (runProperties.textOutline) textStyleAttrs.textOutline = runProperties.textOutline;
+  if (runProperties.textGlow) textStyleAttrs.textGlow = runProperties.textGlow;
+  if (runProperties.textGradient) textStyleAttrs.textGradient = runProperties.textGradient; // MS-WORD-CLONE FORK EDIT (020): import the gradient text fill
+
+  if (Object.keys(textStyleAttrs).length) {
+    marks.push({ type: 'textStyle', attrs: textStyleAttrs });
+  }
+
+  if (highlightAttrs) {
+    marks.push({ type: 'highlight', attrs: highlightAttrs });
+  }
+
+  return marks;
+}
+
+/**
+ * Converts paragraph properties into a CSS declaration map.
+ * @param {Object} paragraphProperties - Paragraph properties after resolution.
+ * @param {boolean} hasPreviousParagraph - Whether there is a preceding paragraph.
+ * @param {Object | null} nextParagraphProps - Resolved properties of the next paragraph.
+ * @param {Object | null} previousParagraphProps - Resolved properties of the previous paragraph.
+ * @returns {Object} CSS properties keyed by CSS property name.
+ */
+export function encodeCSSFromPPr(paragraphProperties, hasPreviousParagraph, nextParagraphProps, previousParagraphProps) {
+  if (!paragraphProperties || typeof paragraphProperties !== 'object') {
+    return {};
+  }
+
+  let css = {};
+  const { spacing, indent, borders, justification, shading } = paragraphProperties;
+  const nextStyleId = nextParagraphProps?.styleId;
+
+  if (spacing) {
+    const getEffectiveBefore = (nextSpacing, isListItem) => {
+      if (!nextSpacing) return 0;
+      if (nextSpacing.beforeAutospacing && isListItem) {
+        return 0;
+      }
+      return nextSpacing.before || 0;
+    };
+
+    const isDropCap = Boolean(paragraphProperties.framePr?.dropCap);
+    const spacingCopy = { ...spacing };
+    if (hasPreviousParagraph) {
+      delete spacingCopy.before; // Has already been handled by the previous paragraph
+    }
+    if (isDropCap) {
+      spacingCopy.line = linesToTwips(1.0);
+      spacingCopy.lineRule = 'auto';
+      delete spacingCopy.after;
+    } else {
+      const nextBefore = getEffectiveBefore(
+        nextParagraphProps?.spacing,
+        Boolean(nextParagraphProps?.numberingProperties),
+      );
+      spacingCopy.after = Math.max(spacingCopy.after || 0, nextBefore);
+      if (paragraphProperties.contextualSpacing && nextStyleId != null && nextStyleId === paragraphProperties.styleId) {
+        spacingCopy.after -= paragraphProperties.spacing?.after || 0;
+      }
+
+      if (nextParagraphProps?.contextualSpacing && nextStyleId != null && nextStyleId === paragraphProperties.styleId) {
+        spacingCopy.after -= nextBefore;
+      }
+
+      spacingCopy.after = Math.max(spacingCopy.after, 0);
+    }
+    const spacingStyle = getSpacingStyle(spacingCopy, Boolean(paragraphProperties.numberingProperties));
+    css = { ...css, ...spacingStyle };
+  }
+
+  if (indent && typeof indent === 'object') {
+    const hasIndentValue = Object.values(indent).some((value) => value != null && Number(value) !== 0);
+    if (hasIndentValue) {
+      const { left, right, firstLine, hanging } = indent;
+      if (left != null) {
+        css['margin-left'] = `${twipsToPixels(left)}px`;
+      }
+      if (right != null) {
+        css['margin-right'] = `${twipsToPixels(right)}px`;
+      }
+      if (firstLine != null && !hanging) {
+        css['text-indent'] = `${twipsToPixels(firstLine)}px`;
+      }
+      if (firstLine != null && hanging != null) {
+        css['text-indent'] = `${twipsToPixels(firstLine - hanging)}px`;
+      }
+      if (firstLine == null && hanging != null) {
+        css['text-indent'] = `${twipsToPixels(-hanging)}px`;
+      }
+    }
+  }
+
+  if (borders && typeof borders === 'object') {
+    const valToCss = {
+      single: 'solid',
+      dashed: 'dashed',
+      dotted: 'dotted',
+      double: 'double',
+    };
+    const lineCss = (b) => {
+      if (!b || ['nil', 'none', undefined, null].includes(b.val)) return null;
+      const width = b.size != null ? `${eighthPointsToPixels(b.size)}px` : '1px';
+      const cssStyle = valToCss[b.val] || 'solid';
+      const color = !b.color || b.color === 'auto' ? '#000000' : `#${b.color}`;
+      return `${width} ${cssStyle} ${color}`;
+    };
+
+    // Word merges CONSECUTIVE paragraphs that share an identical border spec into a
+    // single block: the left/right edges run continuously down the run, the TOP edge
+    // draws only above the first member, the BOTTOM only below the last, and the
+    // "between" rule (Inside Horizontal) draws between members. In continuous flow
+    // each paragraph is a stacked block, so a "between" line is just the upper block's
+    // bottom border. We approximate "same run" as a structurally-identical border spec.
+    const sameRun = (a, b) => !!a && !!b && JSON.stringify(a) === JSON.stringify(b);
+    const mergePrev = sameRun(borders, previousParagraphProps?.borders);
+    const mergeNext = sameRun(borders, nextParagraphProps?.borders);
+
+    css['border-left'] = lineCss(borders.left) || 'none';
+    css['border-right'] = lineCss(borders.right) || 'none';
+
+    // TOP: only the first member of a run paints it.
+    css['border-top'] = (!mergePrev && lineCss(borders.top)) || 'none';
+
+    // BOTTOM: interior members paint the BETWEEN (Inside Horizontal) rule; the last
+    // member of a run paints the real bottom border.
+    const bottomLine = mergeNext ? lineCss(borders.between) : lineCss(borders.bottom);
+    css['border-bottom'] = bottomLine || 'none';
+
+    // The bottom-edge "space" offset only applies where the bottom border is drawn.
+    if (!mergeNext && borders.bottom && borders.bottom.space != null && lineCss(borders.bottom)) {
+      css['padding-bottom'] = `${eighthPointsToPixels(borders.bottom.space)}px`;
+    }
+  }
+
+  // Paragraph shading (w:shd → shd-translator key 'shading': { val, color, fill, ... }).
+  // Word's ribbon shading writes val="clear" + fill=<hex>; fill="auto" means none.
+  // themeFill-only shading (no literal fill) silently falls through — theme colour
+  // resolution is not implemented here (matches encodeCSSFromRPr's run-level shading).
+  if (shading && shading.fill && String(shading.fill).toLowerCase() !== 'auto') {
+    css['background-color'] = `#${String(shading.fill).replace(/^#/, '')}`;
+  }
+
+  if (justification) {
+    if (justification === 'both') {
+      css['text-align'] = 'justify';
+    } else {
+      css['text-align'] = justification;
+    }
+  }
+
+  return css;
+}
+
+/**
+ * Converts run properties into a CSS declaration map.
+ * @param {Object} runProperties - Run properties after resolution.
+ * @param {Object} docx - Parsed DOCX content used for theme lookups.
+ * @returns {Object} CSS properties keyed by CSS property name.
+ */
+export function encodeCSSFromRPr(runProperties, docx) {
+  if (!runProperties || typeof runProperties !== 'object') {
+    return {};
+  }
+
+  const css = {};
+  const textDecorationLines = new Set();
+  let hasTextDecorationNone = false;
+  let highlightColor = null;
+  let hasHighlightTag = false;
+  let verticalAlignValue;
+  let fontSizeOverride;
+  const normalizedPositionPoints =
+    runProperties.position != null && Number.isFinite(runProperties.position)
+      ? normalizeBaselineShift(halfPointToPoints(runProperties.position))
+      : undefined;
+
+  Object.keys(runProperties).forEach((key) => {
+    const value = runProperties[key];
+    switch (key) {
+      case 'bold': {
+        const normalized = normalizeToggleValue(value);
+        if (normalized === true) {
+          css['font-weight'] = 'bold';
+        } else if (normalized === false) {
+          css['font-weight'] = 'normal';
+        }
+        break;
+      }
+      case 'italic': {
+        const normalized = normalizeToggleValue(value);
+        if (normalized === true) {
+          css['font-style'] = 'italic';
+        } else if (normalized === false) {
+          css['font-style'] = 'normal';
+        }
+        break;
+      }
+      case 'strike': {
+        const normalized = normalizeToggleValue(value);
+        if (normalized === true) {
+          addTextDecorationEntries(textDecorationLines, 'line-through');
+        } else if (normalized === false) {
+          css['text-decoration'] = 'none';
+          hasTextDecorationNone = true;
+        }
+        break;
+      }
+      case 'textTransform': {
+        if (value != null) {
+          css['text-transform'] = value;
+        }
+        break;
+      }
+      case 'color': {
+        const colorVal = value?.val;
+        if (colorVal == null || colorVal === '') {
+          break;
+        }
+        if (String(colorVal).toLowerCase() === 'auto') {
+          css['color'] = 'auto';
+        } else {
+          css['color'] = `#${String(colorVal).replace('#', '').toUpperCase()}`;
+        }
+        break;
+      }
+      case 'underline': {
+        const underlineType = value?.['w:val'];
+        if (!underlineType) break;
+        let underlineColor = value?.['w:color'];
+        if (
+          underlineColor &&
+          typeof underlineColor === 'string' &&
+          underlineColor.toLowerCase() !== 'auto' &&
+          !underlineColor.startsWith('#')
+        ) {
+          underlineColor = `#${underlineColor}`;
+        }
+
+        const underlineCssString = getUnderlineCssString({ type: underlineType, color: underlineColor });
+        const underlineCss = parseCssDeclarations(underlineCssString);
+
+        Object.entries(underlineCss).forEach(([prop, propValue]) => {
+          if (!propValue) return;
+          if (prop === 'text-decoration') {
+            css[prop] = propValue;
+            if (propValue === 'none') {
+              hasTextDecorationNone = true;
+            }
+            return;
+          }
+          if (prop === 'text-decoration-line') {
+            addTextDecorationEntries(textDecorationLines, propValue);
+            return;
+          }
+          css[prop] = propValue;
+        });
+        break;
+      }
+      case 'fontSize': {
+        if (value == null) break;
+        const points = halfPointToPoints(value);
+        if (Number.isFinite(points)) {
+          css['font-size'] = `${points}pt`;
+        }
+        break;
+      }
+      case 'letterSpacing': {
+        if (value == null) break;
+        const spacing = twipsToPt(value);
+        if (Number.isFinite(spacing)) {
+          css['letter-spacing'] = `${spacing}pt`;
+        }
+        break;
+      }
+      case 'fontFamily': {
+        if (!value) break;
+        const fontFamily = resolveDocxFontFamily(value, docx, getToCssFontFamily());
+        if (fontFamily) {
+          css['font-family'] = fontFamily;
+        }
+        // value can be a string (from resolveRunPropertiesFromParagraphStyle) or an object
+        const eastAsiaFamily = typeof value === 'object' && value !== null ? value['eastAsia'] : undefined;
+        if (eastAsiaFamily) {
+          const eastAsiaCss = getFontFamilyValue({ 'w:ascii': eastAsiaFamily }, docx);
+          if (eastAsiaCss && (!fontFamily || eastAsiaCss !== fontFamily)) {
+            css['font-family'] = css['font-family'] || eastAsiaCss;
+          }
+        }
+        break;
+      }
+      case 'highlight': {
+        const color = getHighLightValue(value);
+        if (color) {
+          hasHighlightTag = true;
+          highlightColor = color;
+        }
+        break;
+      }
+      case 'shading': {
+        if (hasHighlightTag) {
+          break;
+        }
+        const fill = value?.['fill'];
+        const shdVal = value?.['val'];
+        if (fill && String(fill).toLowerCase() !== 'auto') {
+          highlightColor = `#${String(fill).replace('#', '')}`;
+        } else if (typeof shdVal === 'string') {
+          const normalized = shdVal.toLowerCase();
+          if (normalized === 'clear' || normalized === 'nil' || normalized === 'none') {
+            highlightColor = 'transparent';
+          }
+        }
+        break;
+      }
+      case 'vertAlign': {
+        // Only non-zero positions override the default superscript/subscript offset.
+        if (normalizedPositionPoints != null) {
+          break;
+        }
+        if (value === 'superscript' || value === 'subscript') {
+          verticalAlignValue = value === 'superscript' ? 'super' : 'sub';
+          if (runProperties.fontSize != null && Number.isFinite(runProperties.fontSize)) {
+            const scaledPoints = halfPointToPoints(runProperties.fontSize * SUBSCRIPT_SUPERSCRIPT_SCALE);
+            if (Number.isFinite(scaledPoints)) {
+              fontSizeOverride = `${scaledPoints}pt`;
+            }
+          } else {
+            fontSizeOverride = `${SUBSCRIPT_SUPERSCRIPT_SCALE * 100}%`;
+          }
+        } else if (value === 'baseline') {
+          verticalAlignValue = 'baseline';
+        }
+        break;
+      }
+      case 'position': {
+        if (normalizedPositionPoints != null) {
+          verticalAlignValue = `${normalizedPositionPoints}pt`;
+          fontSizeOverride = undefined;
+        }
+        break;
+      }
+      default:
+        break;
+    }
+  });
+
+  if (!hasTextDecorationNone && textDecorationLines.size) {
+    const combined = new Set();
+    addTextDecorationEntries(combined, css['text-decoration-line']);
+    textDecorationLines.forEach((entry) => combined.add(entry));
+    css['text-decoration-line'] = Array.from(combined).join(' ');
+  }
+
+  if (highlightColor) {
+    css['background-color'] = highlightColor;
+    if (!('color' in css)) {
+      // @ts-expect-error - CSS object allows string indexing
+      css['color'] = 'inherit';
+    }
+  }
+
+  if (fontSizeOverride) {
+    css['font-size'] = fontSizeOverride;
+  }
+
+  if (verticalAlignValue) {
+    css['vertical-align'] = verticalAlignValue;
+  }
+
+  return css;
+}
+
+/**
+ * Decodes mark definitions back into run property objects.
+ * @param {Array<Object>} marks - Mark array from the editor schema.
+ * @returns {Object} Run property object.
+ */
+export function decodeRPrFromMarks(marks) {
+  const runProperties = {};
+  if (!marks) {
+    return runProperties;
+  }
+
+  marks.forEach((mark) => {
+    const type = mark.type.name ?? mark.type;
+    switch (type) {
+      case 'strike':
+      case 'italic':
+      case 'bold':
+        runProperties[type] = mark.attrs.value !== '0' && mark.attrs.value !== false;
+        // SD-2912: do NOT auto-propagate `boldCs` / `italicCs` from the latin
+        // bold/italic mark. The complex-script companion is an independent OOXML
+        // property (ECMA-376 §17.3.2). Auto-propagating it injects elements that
+        // weren't in the source rPr — every run gets a `<w:bCs/>` regardless of
+        // whether the original `<w:rPr>` contained one. When the source genuinely
+        // had `<w:bCs/>`, it round-trips via the run's stored runProperties
+        // (preserved by the plugin's existing-keys branch — see the matching
+        // SD-2912 change in `calculateInlineRunPropertiesPlugin.js`).
+        break;
+      case 'underline': {
+        const { underlineType, underlineColor, underlineThemeColor, underlineThemeTint, underlineThemeShade } =
+          mark.attrs;
+        const underlineAttrs = {};
+        if (underlineType) {
+          underlineAttrs['w:val'] = underlineType;
+        }
+        if (underlineColor) {
+          underlineAttrs['w:color'] = underlineColor.replace('#', '');
+        }
+        if (underlineThemeColor) {
+          underlineAttrs['w:themeColor'] = underlineThemeColor;
+        }
+        if (underlineThemeTint) {
+          underlineAttrs['w:themeTint'] = underlineThemeTint;
+        }
+        if (underlineThemeShade) {
+          underlineAttrs['w:themeShade'] = underlineThemeShade;
+        }
+        if (Object.keys(underlineAttrs).length > 0) {
+          runProperties.underline = underlineAttrs;
+        }
+        break;
+      }
+      case 'highlight':
+        if (!mark.attrs.color) break;
+        if (mark.attrs.color.toLowerCase() === 'transparent') {
+          if (mark.attrs.ooxmlHighlightClear) {
+            runProperties.highlight = { 'w:val': 'none' };
+          }
+        } else {
+          runProperties.highlight = { 'w:val': mark.attrs.color };
+        }
+        break;
+      case 'link':
+        runProperties.styleId = 'Hyperlink';
+        break;
+      case 'textStyle':
+        Object.keys(mark.attrs).forEach((attr) => {
+          const value = mark.attrs[attr];
+          switch (attr) {
+            case 'textTransform':
+              if (value != null) {
+                runProperties[attr] = value;
+              }
+              break;
+            case 'color':
+              if (value != null) {
+                runProperties.color = { val: value.replace('#', '') };
+              }
+              break;
+            case 'fontSize': {
+              const points = parseFloat(value);
+              if (!isNaN(points)) {
+                const halfPoints = points * 2;
+                runProperties.fontSize = halfPoints;
+                runProperties.fontSizeCs = halfPoints;
+              }
+              break;
+            }
+            case 'letterSpacing': {
+              const ptValue = parseFloat(value);
+              if (!isNaN(ptValue)) {
+                // convert to twips
+                runProperties.letterSpacing = ptToTwips(ptValue);
+              }
+              break;
+            }
+            case 'fontFamily':
+              if (value != null) {
+                const cleanValue = value.split(',')[0].trim();
+                const result = {};
+                ['ascii', 'eastAsia', 'hAnsi', 'cs'].forEach((attr) => {
+                  result[attr] = cleanValue;
+                });
+                runProperties.fontFamily = result;
+              }
+              break;
+            case 'eastAsiaFontFamily':
+              // Restore per-script East Asian font from the mark attribute preserved
+              // during encode. Without this, decodeRPrFromMarks flattens all scripts
+              // to the ascii font, causing false-positive inline detection. (SD-2517)
+              if (value != null && runProperties.fontFamily) {
+                runProperties.fontFamily.eastAsia = value.split(',')[0].trim();
+              }
+              break;
+            case 'csFontFamily':
+              // Restore per-script Complex Script font (same pattern as eastAsia).
+              if (value != null && runProperties.fontFamily) {
+                runProperties.fontFamily.cs = value.split(',')[0].trim();
+              }
+              break;
+            case 'vertAlign':
+              if (value != null) {
+                runProperties.vertAlign = value;
+              }
+              break;
+            case 'position': {
+              if (value != null) {
+                const numeric = parseFloat(value);
+                if (!isNaN(numeric)) {
+                  runProperties.position = numeric * 2;
+                }
+              }
+              break;
+            }
+            // MS-WORD-CLONE FORK EDIT (015, user-authorized — Constitution P1): Small Caps + Character
+            // Scale. The OWNED advanced-font-effects extension declares these textStyle attrs and the
+            // v3 rPr translators (w/smallCaps + w/w) already emit them; this run-export whitelist just
+            // needs to forward the two attrs. PURELY ADDITIVE — both attrs no-op'd here before, so this
+            // cannot regress any existing run property.
+            case 'smallCaps':
+              if (value) runProperties.smallCaps = true;
+              break;
+            case 'w': {
+              const pct = parseInt(value, 10);
+              if (!isNaN(pct)) runProperties.w = pct;
+              break;
+            }
+            // MS-WORD-CLONE FORK EDIT (019, user-authorized): run-level border ("Apply to: Text"). The owned
+            // run-border extension stores a single OOXML border object on textStyle.borders; forward it to the run
+            // property the v3 rPr bdr translator reads (createBorderPropertyHandler('w:bdr','borders')). ADDITIVE.
+            case 'borders':
+              if (value && typeof value === 'object') runProperties.borders = value;
+              break;
+            case 'styleId':
+              if (value != null) {
+                runProperties.styleId = value;
+              }
+              break;
+            // Text Effects typography trio: split the CSS attr back into the w14
+            // run properties so the existing v3 translators re-emit them.
+            case 'fontVariantNumeric': {
+              const { numForm, numSpacing } = splitFontVariantNumeric(value);
+              if (numForm) runProperties.numForm = numForm;
+              if (numSpacing) runProperties.numSpacing = numSpacing;
+              break;
+            }
+            case 'fontVariantLigatures': {
+              const { ligatures, contextualAlternates } = splitFontVariantLigatures(value);
+              if (ligatures) runProperties.ligatures = ligatures;
+              if (contextualAlternates) runProperties.contextualAlternates = true;
+              break;
+            }
+            case 'fontFeatureSettings': {
+              const sets = splitFontFeatureSettings(value);
+              if (sets.length) runProperties.stylisticSets = sets;
+              break;
+            }
+            // Text Effects QUARTET (stage 2): pass the visual-effect objects straight
+            // through to run properties; the w14 translators (textOutline/glow) emit the
+            // OOXML with EMU/alpha unit conversions. Shadow + reflection are stage-2b
+            // (their polar/preset units need oracle-derived values — deferrals A.1).
+            case 'textOutline': {
+              if (value && typeof value === 'object') runProperties.textOutline = value;
+              break;
+            }
+            case 'textGlow': {
+              if (value && typeof value === 'object') runProperties.textGlow = value;
+              break;
+            }
+            // MS-WORD-CLONE FORK EDIT (020, user-authorized): Font Color Gradient — forward the textGradient mark
+            // attr to the run property the net-new w14:textFill translator reads. PURELY ADDITIVE.
+            case 'textGradient': {
+              if (value && typeof value === 'object') runProperties.textGradient = value;
+              break;
+            }
+          }
+        });
+        break;
+    }
+  });
+
+  return runProperties;
+}
+
+/**
+ * Resolves a DOCX font family entry (including theme links) to a CSS font-family string.
+ * @param {Object} attributes - Font family attributes from run properties.
+ * @param {Object} docx - Parsed DOCX package for theme lookups.
+ * @returns {string|null} CSS-ready font-family string or null if unresolved.
+ */
+function getFontFamilyValue(attributes, docx) {
+  const ascii = attributes['w:ascii'] ?? attributes['ascii'];
+  const themeAscii = attributes['w:asciiTheme'] ?? attributes['asciiTheme'];
+
+  let resolved = ascii;
+
+  if (docx && themeAscii) {
+    const theme = docx['word/theme/theme1.xml'];
+    if (theme?.elements?.length) {
+      const { elements: topElements } = theme;
+      const { elements } = topElements[0] || {};
+      const themeElements = elements?.find((el) => el.name === 'a:themeElements');
+      const fontScheme = themeElements?.elements?.find((el) => el.name === 'a:fontScheme');
+      const prefix = themeAscii.startsWith('minor') ? 'minor' : 'major';
+      const font = fontScheme?.elements?.find((el) => el.name === `a:${prefix}Font`);
+      const latin = font?.elements?.find((el) => el.name === 'a:latin');
+      resolved = latin?.attributes?.typeface || resolved;
+    }
+  }
+
+  if (!resolved) return null;
+
+  // @ts-expect-error - toCssFontFamily is a static method on SuperConverter
+  return SuperConverter.toCssFontFamily(resolved, docx);
+}
+
+/**
+ * Normalizes highlight/shading attributes to a CSS color value.
+ * @param {Object} attributes - Highlight attributes from run properties.
+ * @returns {string|null} Hex color string, 'transparent', or null when unsupported.
+ */
+function getHighLightValue(attributes) {
+  const fill = normalizeHighlightHex(attributes?.['w:fill']);
+  if (fill) return `#${fill}`;
+
+  const value = attributes?.['w:val'];
+  if (value === 'none') return 'transparent';
+
+  const normalizedValue = normalizeHighlightHex(value);
+  if (normalizedValue) return `#${normalizedValue}`;
+
+  return getHexColorFromDocxSystem(value) || null;
+}
+
+/**
+ * Normalize a highlight token to a 6-digit hex string without a leading hash.
+ * Returns null for non-hex values such as DOCX system color keywords.
+ *
+ * @param {unknown} rawValue
+ * @returns {string|null}
+ */
+function normalizeHighlightHex(rawValue) {
+  if (typeof rawValue !== 'string') return null;
+
+  const trimmedValue = rawValue.trim();
+  if (!trimmedValue || trimmedValue.toLowerCase() === 'auto') return null;
+
+  const normalizedValue = normalizeHexColor(trimmedValue);
+  if (!normalizedValue || !isValidHexColor(normalizedValue)) return null;
+
+  return normalizedValue;
+}
+
+/**
+ * Normalizes various toggle representations into booleans.
+ * @param {unknown} value - Toggle value from DOCX (bool/number/string).
+ * @returns {boolean|null} Normalized boolean or null when indeterminate.
+ */
+function normalizeToggleValue(value) {
+  if (value == null) return null;
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'number') return value !== 0;
+  if (typeof value === 'string') {
+    const normalized = value.toLowerCase();
+    if (normalized === '0' || normalized === 'false' || normalized === 'off') return false;
+    if (normalized === '1' || normalized === 'true' || normalized === 'on') return true;
+  }
+  return Boolean(value);
+}
+
+/**
+ * Parses a CSS declaration string into an object map.
+ * @param {string} cssString - CSS string such as "color: red; font-size: 12pt".
+ * @returns {Object} Key/value pairs for CSS declarations.
+ */
+function parseCssDeclarations(cssString) {
+  if (!cssString || typeof cssString !== 'string') {
+    return {};
+  }
+  return cssString
+    .split(';')
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
+    .reduce((acc, declaration) => {
+      const separatorIndex = declaration.indexOf(':');
+      if (separatorIndex === -1) return acc;
+      const property = declaration.slice(0, separatorIndex).trim();
+      const value = declaration.slice(separatorIndex + 1).trim();
+      if (!property || !value) return acc;
+      acc[property] = value;
+      return acc;
+    }, {});
+}
+
+/**
+ * Adds one or more text-decoration entries to a target Set.
+ * @param {Set<string>} targetSet - Set collecting decoration keywords.
+ * @param {string|Set<string>} value - Decoration string or Set to merge.
+ */
+function addTextDecorationEntries(targetSet, value) {
+  if (!value) return;
+  if (value instanceof Set) {
+    value.forEach((entry) => addTextDecorationEntries(targetSet, entry));
+    return;
+  }
+  String(value)
+    .split(/\s+/)
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .forEach((entry) => targetSet.add(entry));
+}
+
+/**
+ * Converts paragraph spacing values into a CSS style object.
+ * @param {Object} spacing - Spacing values expressed in twips.
+ * @param {boolean} [isListItem] - Whether the spacing belongs to a list item (affects autospacing).
+ * @returns {Object} CSS properties keyed by CSS property name.
+ */
+export const getSpacingStyle = (spacing, isListItem) => {
+  let { before, after, line, lineRule, beforeAutospacing, afterAutospacing } = spacing;
+  line = twipsToLines(line);
+  // Prevent values less than 1 to avoid squashed text
+  if (line != null && line < 1) {
+    line = 1;
+  }
+  if (lineRule === 'exact' && line) {
+    line = String(line);
+  }
+
+  before = twipsToPixels(before);
+  if (beforeAutospacing) {
+    if (isListItem) {
+      before = 0; // Lists do not apply before autospacing
+    }
+  }
+
+  after = twipsToPixels(after);
+  if (afterAutospacing) {
+    if (isListItem) {
+      after = 0; // Lists do not apply after autospacing
+    }
+  }
+
+  const css = {};
+  if (before) {
+    css['margin-top'] = `${before}px`;
+  }
+  if (after) {
+    css['margin-bottom'] = `${after}px`;
+  }
+  if (line) {
+    if (lineRule !== 'atLeast' || line >= 1) {
+      // Prevent values less than 1 to avoid squashed text (unless using explicit units like pt)
+      line = Math.max(line, 1);
+      css['line-height'] = String(line);
+    }
+  }
+
+  return css;
+};

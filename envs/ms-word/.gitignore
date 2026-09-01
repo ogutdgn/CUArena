@@ -1,0 +1,25 @@
+node_modules/
+dist/
+out/
+*.log
+.DS_Store
+npm-debug.log*
+
+# Cloned upstream repos used only as local research reference (not part of the app)
+opensource-solutions/
+
+# Throwaway de-risking spike (prototype only; findings captured in docs/)
+spike/
+
+# Local scheduler lock
+.claude/scheduled_tasks.lock
+
+# Oracle scratch fixtures (clone exports / Word-authored probes; never checked in)
+tests/fixtures/.oracle-*
+tests/fixtures/oracle-*
+
+# Slice-4 Codex computer-use probe evidence (screenshots; never checked in)
+.oracle-probes/
+
+# Codex/agent scratch (not part of the project)
+.agents/
